@@ -19,3 +19,7 @@
 #import "VLCSearchableServerBrowsingTVViewController.h"
 
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
+#import "VLCFavoriteService.h"
+#import "VLCAppCoordinator.h"
+#import "VLCRemoteBrowsingTVCell.h"
+#import "CAAnimation+VLCWiggle.h"

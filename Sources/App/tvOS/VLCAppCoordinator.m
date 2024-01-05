@@ -13,12 +13,14 @@
 #import "VLCAppCoordinator.h"
 #import "VLCRemoteControlService.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCFavoriteService.h"
 #import "VLC-Swift.h"
 
 @interface VLCAppCoordinator()
 {
     VLCHTTPUploaderController *_httpUploaderController;
     VLCRemoteControlService *_remoteControlService;
+    VLCFavoriteService *_favoriteService;
 }
 
 @end
@@ -54,6 +56,15 @@
 - (VLCHTTPUploaderController *)httpUploaderController
 {
     return _httpUploaderController;
+}
+
+- (VLCFavoriteService *)favoriteService
+{
+    if (!_favoriteService) {
+        _favoriteService = [[VLCFavoriteService alloc] init];
+    }
+
+    return _favoriteService;
 }
 
 @end

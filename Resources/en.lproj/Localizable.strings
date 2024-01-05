@@ -637,3 +637,6 @@
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
+
+/* New strings */
+"FAVORITE" = "FAVORITE";

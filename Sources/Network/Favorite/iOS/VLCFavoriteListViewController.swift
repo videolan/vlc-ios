@@ -70,6 +70,8 @@ class VLCFavoriteListViewController: UIViewController {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = PresentationTheme.current.colors.background
@@ -134,9 +136,9 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoriteSectionHeader.identifier) as! FavoriteSectionHeader
-        header.hostnameLabel.text = favoriteService.nameOfFavoritedServer(at: section)
-        header.delegate = self
-        header.section = section
+        header.headerView.hostnameLabel.text = favoriteService.nameOfFavoritedServer(at: section)
+        header.headerView.delegate = self
+        header.headerView.section = section
         return header
     }
 
@@ -176,32 +178,9 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 }
 
 extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
-    func renameSection(sectionIndex: NSInteger) {
-        let previousName = favoriteService.nameOfFavoritedServer(at: sectionIndex)
-
-        let alertController = UIAlertController(title: NSLocalizedString("BUTTON_RENAME", comment: ""),
-                                                message: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), previousName),
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = previousName
-        }
-        let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
-                                         style: .cancel)
-        let confirmAction = UIAlertAction(title:  NSLocalizedString("BUTTON_RENAME", comment: ""),
-                                          style: .default) { [weak alertController] _ in
-            guard let alertController = alertController, let alertTextField = alertController.textFields?.first else {
-                return
-            }
-            guard let textfieldValue = alertTextField.text else {
-                return
-            }
-            self.favoriteService.setName(textfieldValue, ofFavoritedServerAt: sectionIndex)
+    func reloadData(sectionIndex: NSInteger) {
+        DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-
-        alertController.addAction(cancelButton)
-        alertController.addAction(confirmAction)
-
-        present(alertController, animated: true)
     }
 }

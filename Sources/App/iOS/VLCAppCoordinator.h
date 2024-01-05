@@ -18,8 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class MediaLibraryService;
 @class VLCRendererDiscovererManager;
 @class VLCMLMedia;
-@class VLCFavoriteService;
 #endif
+@class VLCFavoriteService;
+
 
 @class VLCHTTPUploaderController;
 
@@ -28,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (nonnull instancetype)sharedInstance;
 
 @property (readonly) VLCHTTPUploaderController *httpUploaderController;
+@property (readonly) VLCFavoriteService *favoriteService;
 
 #if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
-@property (readonly) VLCFavoriteService *favoriteService;
 
 @property (nullable) UIWindow *externalWindow;
 

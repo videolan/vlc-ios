@@ -16,13 +16,21 @@
 #import "VLCServerBrowsingController.h"
 #import "VLCMaskView.h"
 #import "GRKArrayDiff+UICollectionView.h"
+#import "VLCFavoriteService.h"
+#import "VLCAppCoordinator.h"
 
 @interface VLCServerBrowsingTVViewController ()
 {
     UIActivityIndicatorView *_activityIndicator;
+    VLCFavoriteService *_favoriteService;
 }
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id <VLCNetworkServerBrowserItem>> *items;
+@property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
+@property (nonatomic) UITapGestureRecognizer *cancelRecognizer;
+@property (nonatomic) NSTimer *hintTimer;
+@property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
+@property (nonatomic, assign) BOOL isAnyCellFocused;
 @end
 
 @implementation VLCServerBrowsingTVViewController
@@ -36,7 +44,8 @@
         serverBrowser.delegate = self;
 
         _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:serverBrowser];
-
+        _favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
+        
         self.title = serverBrowser.title;
 
         self.downloadArtwork = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDownloadArtwork];
@@ -51,6 +60,7 @@
     self.nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
     [self.nothingFoundLabel sizeToFit];
     self.nothingFoundLabel.hidden = YES;
+    self.isAnyCellFocused = NO;
     UIView *nothingFoundView = self.nothingFoundView;
     [nothingFoundView sizeToFit];
     [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -85,7 +95,17 @@
     _activityIndicator.hidesWhenStopped = YES;
     [_activityIndicator startAnimating];
     [self.view addSubview:_activityIndicator];
+    
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startFavMode)];
+    recognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
+    recognizer.minimumPressDuration = 1.0;
+    [self.view addGestureRecognizer:recognizer];
 
+    UITapGestureRecognizer *cancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endFavMode)];
+    cancelRecognizer.allowedPressTypes = @[@(UIPressTypeSelect),@(UIPressTypeMenu)];
+    cancelRecognizer.enabled = self.editing;
+    self.cancelRecognizer = cancelRecognizer;
+    [self.view addGestureRecognizer:cancelRecognizer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -105,6 +125,46 @@
     return _subdirectoryBrowserClass ?: [self class];
 }
 
+#pragma mark - Trigger Favorite Mode
+- (void)startFavMode
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set as Fav/UnFav"message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self setMediaFav];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil] ;
+    [alertController addAction:alertAction];
+    [alertController addAction:cancelAction];
+    if (self.isAnyCellFocused) {
+        [self presentViewController:alertController animated:YES completion:nil];
+   }
+}
+
+- (void)endFavMode
+{
+    self.editing = NO;
+}
+
+-(void)setMediaFav {
+   id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[_currentlyFocusedIndexPath.row];
+
+   if (!item) {
+       return; // Ensure the item exists
+   }
+
+   VLCFavorite *favorite = [[VLCFavorite alloc] init];
+   favorite.url = item.URL;
+
+   if (![_favoriteService isFavoriteURL:favorite.url]) {
+        favorite.userVisibleName = item.name;
+        [_favoriteService addFavorite:favorite];
+    }
+    else {
+        [_favoriteService removeFavorite:favorite];
+    }
+        
+   [self.collectionView reloadData];
+}
 #pragma mark -
 
 - (void)reloadData
@@ -189,11 +249,18 @@
         if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
             [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
         }
+        
+        BOOL isFavorited = [_favoriteService isFavoriteURL:item.URL];
+
+        if ([cell isKindOfClass:[VLCRemoteBrowsingTVCell class]]) {
+              ((VLCRemoteBrowsingTVCell *)cell).isFavorable = isFavorited;
+        }
     }
 
     if (row == collectionView.indexPathsForVisibleItems.lastObject.row) {
         [_activityIndicator stopAnimating];
 	}
+   
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -205,6 +272,20 @@
     // currently the case on the TV
     const BOOL singlePlayback = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem];
     [self didSelectItem:item index:row singlePlayback:singlePlayback];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator {
+    if (context.nextFocusedIndexPath) {
+        id<VLCNetworkServerBrowserItem> item = self.items[context.nextFocusedIndexPath.item];
+        self.currentlyFocusedIndexPath = context.nextFocusedIndexPath;
+        if(item.isContainer){
+            self.isAnyCellFocused = YES;
+        } else {
+            self.isAnyCellFocused = NO;
+        }
+    } else {
+        self.isAnyCellFocused = NO;
+    }
 }
 
 @end

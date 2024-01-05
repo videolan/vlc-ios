@@ -33,7 +33,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
     _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
-
+    _favorite.hidden = YES;
     [self prepareForReuse];
 }
 
@@ -54,6 +54,11 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
         [_artworkProvider reset];
     }
     _couldBeAudioOnlyMedia = couldBeAudioOnlyMedia;
+}
+
+- (void)setIsFavorable:(BOOL)isFavorable
+{
+    _favorite.hidden = !isFavorable;
 }
 
 - (void)setThumbnailURL:(NSURL *)thumbnailURL
@@ -108,7 +113,10 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
         CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.05, 1.05);
         self.titleLabel.transform = transform;
         self.subtitleLabel.transform = transform;
+        self.favorite.transform = transform;
     } completion:nil];
 }
+
+@synthesize isFavorable;
 
 @end

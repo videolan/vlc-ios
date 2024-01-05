@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21507" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="22155" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="appleTV" appearance="light"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,30 +36,48 @@
                             <constraint firstAttribute="width" secondItem="tHQ-sR-zn4" secondAttribute="height" multiplier="1:1" id="f9I-1N-eD2"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Atk-SQ-yFf">
+                        <rect key="frame" x="254" y="200" width="40" height="40"/>
+                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="2ll-RJ-Lla"/>
+                            <constraint firstAttribute="width" secondItem="Atk-SQ-yFf" secondAttribute="height" multiplier="1:1" id="6GK-Ut-TnU"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="tHQ-sR-zn4" firstAttribute="top" secondItem="Q7n-Zw-Frg" secondAttribute="top" constant="30" id="8wr-H9-liN"/>
+                <constraint firstAttribute="trailing" secondItem="Atk-SQ-yFf" secondAttribute="trailing" constant="14" id="Dgq-Gp-k9j"/>
                 <constraint firstAttribute="trailing" secondItem="h3U-B3-AOa" secondAttribute="trailing" constant="8" id="Ge1-kn-QhB"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="H8p-nC-etm"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Ju6-jJ-msL"/>
-                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="50" id="LuX-cK-Eln"/>
-                <constraint firstItem="h3U-B3-AOa" firstAttribute="centerY" secondItem="Q7n-Zw-Frg" secondAttribute="centerY" priority="250" constant="67" id="MFX-5P-qst"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="100" id="LuX-cK-Eln"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="centerY" secondItem="Q7n-Zw-Frg" secondAttribute="centerY" priority="250" constant="70" id="MFX-5P-qst"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Oor-FV-rN3"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="top" secondItem="h3U-B3-AOa" secondAttribute="bottom" priority="750" id="UJB-cg-tjo"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="I51-60-pwl" secondAttribute="bottom" id="UxF-cz-tVA"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="b1v-nG-XoP"/>
                 <constraint firstItem="tHQ-sR-zn4" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="chF-tu-ma8"/>
                 <constraint firstAttribute="trailing" secondItem="I51-60-pwl" secondAttribute="trailing" constant="8" id="ftZ-YD-4bt"/>
+                <constraint firstItem="Atk-SQ-yFf" firstAttribute="top" secondItem="Q7n-Zw-Frg" secondAttribute="top" constant="200" id="jGk-vx-Ybd"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="p8s-T6-E5f"/>
             </constraints>
             <size key="customSize" width="314" height="270"/>
             <connections>
+                <outlet property="favorite" destination="Atk-SQ-yFf" id="lh2-gx-Cmf"/>
                 <outlet property="subtitleLabel" destination="I51-60-pwl" id="QAu-qM-AqE"/>
                 <outlet property="thumbnailImageView" destination="tHQ-sR-zn4" id="Lfb-zG-339"/>
                 <outlet property="titleLabel" destination="h3U-B3-AOa" id="skp-ZA-fQ8"/>
             </connections>
-            <point key="canvasLocation" x="-262" y="-339.5"/>
+            <point key="canvasLocation" x="-262" y="-340"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="heart.fill" width="24" height="24"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
+

@@ -20,6 +20,7 @@ extern NSString *const VLCRemoteBrowsingTVCellIdentifier;
 @property (nonatomic, weak) IBOutlet VLCNetworkImageView *thumbnailImageView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *favorite;
 
 @property (nonatomic) BOOL downloadArtwork;
 
