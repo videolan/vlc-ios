@@ -1,6 +1,6 @@
 //
 //  FavoriteHeaderContentView.swift
-//  VLC
+//  VLC-iOS
 //
 //  Authors: Rizky Maulana
 //           Eshan Singh
@@ -11,7 +11,7 @@ import UIKit
 
 protocol FavoriteSectionHeaderDelegate {
     func renameSection(sectionIndex: NSInteger)
-    func reloadData(sectionIndex: NSInteger)
+    func reloadData()
 }
 
 class FavoriteHeaderContentView: UIView {
@@ -100,7 +100,7 @@ extension FavoriteSectionHeaderDelegate where Self: UIViewController {
                 return
             }
             favoriteService.setName(textfieldValue, ofFavoritedServerAt: sectionIndex)
-            self.reloadData(sectionIndex: sectionIndex)
+            self.reloadData()
         }
 
         alertController.addAction(cancelButton)

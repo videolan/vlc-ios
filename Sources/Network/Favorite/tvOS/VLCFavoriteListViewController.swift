@@ -20,7 +20,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
     
     init() {
         super.init(nibName: "VLCRemoteBrowsingCollectionViewController", bundle: nil)
-        title = NSLocalizedString("FAVORITE", comment: "")
+        title = NSLocalizedString("FAVORITE_TVOS", comment: "")
         super.collectionView.register(FavoriteSectionHeader.self, forSupplementaryViewOfKind:
                                         UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteSectionHeader.identifier)
         
@@ -108,7 +108,7 @@ extension VLCFavoriteListViewController {
 }
 // MARK: - Rename Delegate
 extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
-    func reloadData(sectionIndex: NSInteger) {
+    func reloadData() {
         self.collectionView.reloadData()
     }
 }

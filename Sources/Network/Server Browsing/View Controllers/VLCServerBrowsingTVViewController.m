@@ -28,7 +28,6 @@
 @property (nonatomic) NSArray<id <VLCNetworkServerBrowserItem>> *items;
 @property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
 @property (nonatomic) UITapGestureRecognizer *cancelRecognizer;
-@property (nonatomic) NSTimer *hintTimer;
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @property (nonatomic, assign) BOOL isAnyCellFocused;
 @end
@@ -128,16 +127,43 @@
 #pragma mark - Trigger Favorite Mode
 - (void)startFavMode
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set as Fav/UnFav"message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self setMediaFav];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil] ;
+    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[_currentlyFocusedIndexPath.row];
+
+    if (!item) {
+        return; // Ensure the item exists
+    }
+
+    VLCFavorite *favorite = [[VLCFavorite alloc] init];
+    favorite.url = item.URL;
+    
+    UIAlertController *alertController;
+    UIAlertAction *alertAction;
+    
+    if (![_favoriteService isFavoriteURL:favorite.url]) {
+         favorite.userVisibleName = item.name;
+         NSString *titleString = NSLocalizedString(@"FAVORITE_ALERT_TITLE", nil);
+         NSString *buttonString = NSLocalizedString(@"FAVORITE_ALERT_BUTTON_TITLE", nil);
+         alertController = [UIAlertController alertControllerWithTitle: titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
+         alertAction = [UIAlertAction actionWithTitle: buttonString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+             [self setMediaFav:favorite isFavorite:YES];
+        }];
+     }
+     else {
+          NSString *titleString = NSLocalizedString(@"UNFAVORITE_ALERT_TITLE", nil);
+          NSString *buttonString = NSLocalizedString(@"UNFAVORITE_ALERT_BUTTON_TITLE", nil);
+          alertController = [UIAlertController alertControllerWithTitle: titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
+          alertAction = [UIAlertAction actionWithTitle: buttonString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+              [self setMediaFav:favorite isFavorite:NO];
+         }];
+     }
+    
+    NSString *cancelTitle = NSLocalizedString(@"BUTTON_CANCEL", nil);
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: cancelTitle style:UIAlertActionStyleDestructive handler:nil] ;
     [alertController addAction:alertAction];
     [alertController addAction:cancelAction];
     if (self.isAnyCellFocused) {
         [self presentViewController:alertController animated:YES completion:nil];
-   }
+    }
 }
 
 - (void)endFavMode
@@ -145,25 +171,13 @@
     self.editing = NO;
 }
 
--(void)setMediaFav {
-   id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[_currentlyFocusedIndexPath.row];
-
-   if (!item) {
-       return; // Ensure the item exists
-   }
-
-   VLCFavorite *favorite = [[VLCFavorite alloc] init];
-   favorite.url = item.URL;
-
-   if (![_favoriteService isFavoriteURL:favorite.url]) {
-        favorite.userVisibleName = item.name;
+- (void)setMediaFav:(VLCFavorite *)favorite isFavorite:(BOOL)isFavorite {
+    if (isFavorite) {
         [_favoriteService addFavorite:favorite];
-    }
-    else {
+    } else {
         [_favoriteService removeFavorite:favorite];
     }
-        
-   [self.collectionView reloadData];
+    [self.collectionView reloadData];
 }
 #pragma mark -
 

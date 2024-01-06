@@ -1017,7 +1017,6 @@
 		7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFullscreenMovieTVViewController.m; sourceTree = "<group>"; };
 		7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFullscreenMovieTVViewController.xib; sourceTree = "<group>"; };
 		7DEC8BE81BD68BC9006E1093 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		7DEE16CF242B56520004E88F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web/web-download.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
@@ -1927,7 +1926,6 @@
 			children = (
 				7DB116302B6FA6940046059D /* PassKit.framework */,
 				7D43A29D28FB40B3002C41B1 /* CarPlay.framework */,
-				7DEE16CF242B56520004E88F /* StoreKit.framework */,
 				7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */,
 				7D2DF7C21B67777D00FB78AB /* libc++.tbd */,
 				7D4DF2171B55209200739326 /* CoreSpotlight.framework */,
@@ -4688,7 +4686,7 @@
 				CURRENT_PROJECT_VERSION = 597;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = Y2RZ37C4A7;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4711,6 +4709,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-ios";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.eshan.vlc.ios1;
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
@@ -4739,7 +4738,7 @@
 				CURRENT_PROJECT_VERSION = 597;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = Y2RZ37C4A7;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4762,6 +4761,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-ios";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.eshan.vlc.ios1;
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -4839,7 +4839,7 @@
 				CURRENT_PROJECT_VERSION = 597;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = Y2RZ37C4A7;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
@@ -4862,6 +4862,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-ios";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.eshan.vlc.ios1;
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -178,7 +178,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 }
 
 extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
-    func reloadData(sectionIndex: NSInteger) {
+    func reloadData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

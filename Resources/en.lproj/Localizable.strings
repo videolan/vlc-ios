@@ -639,4 +639,9 @@
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
 
 /* New strings */
-"FAVORITE" = "FAVORITE";
+"FAVORITE" = "FAVORITES";
+"FAVORITE_TVOS" = "Favorites";
+"FAVORITE_ALERT_TITLE" = "Would you like to add this folder to your Favorites?";
+"FAVORITE_ALERT_BUTTON_TITLE" = "Mark as Favorite";
+"UNFAVORITE_ALERT_TITLE" = "Would you like to remove this folder from your Favorites?";
+"UNFAVORITE_ALERT_BUTTON_TITLE" = "Remove from Favorites";
