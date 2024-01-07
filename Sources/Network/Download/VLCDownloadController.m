@@ -16,6 +16,7 @@
 #import "VLCMediaFileDownloader.h"
 #import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface VLCDownloadController () <VLCMediaFileDownloader>
 {
@@ -23,7 +24,6 @@
     NSMutableArray *_downloadedMedia;
     NSMutableArray *_downloadedMediaDates;
     NSDateFormatter *_dateFormatter;
-
     BOOL _downloadActive;
     NSString *_humanReadableFilename;
     NSMutableDictionary *_userDefinedFileNameForDownloadItem;
@@ -201,7 +201,7 @@
     if (_mediaDownloader.downloadInProgress || _httpDownloader.downloadInProgress) {
         return;
     }
-
+    
     NSURL *mediaURL = media.url;
     _humanReadableFilename = [_userDefinedFileNameForDownloadItem objectForKey:mediaURL];
     if (!_humanReadableFilename) {
@@ -209,18 +209,52 @@
     } else {
         _humanReadableFilename = [_humanReadableFilename stringByRemovingPercentEncoding];
     }
+    
+    [self fetchExpectedDownloadSizeForMedia:media completionHandler:^(CGFloat expectedDownloadSize) {
+        self->_downloadActive = YES; // Allow download regardless of the expected size
+        
+        if ([media.url.scheme isEqualToString:@"http"]) {
+            [self->_httpDownloader downloadFileFromVLCMedia:media withName:self->_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+        } else {
+            [self->_mediaDownloader downloadFileFromVLCMedia:media withName:self->_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+        }
+        
+        [self->_userDefinedFileNameForDownloadItem removeObjectForKey:media.url];
+        [self->_expectedDownloadSizesForItem removeObjectForKey:media.url];
+    }];
+    
+}
 
-    long long unsigned expectedDownloadSize = [[_expectedDownloadSizesForItem objectForKey:mediaURL] unsignedLongLongValue];
+- (void)fetchExpectedDownloadSizeForMedia:(VLCMedia *)media completionHandler:(void (^)(CGFloat expectedDownloadSize))completionHandler
+{
+    NSURL *mediaURL = media.url;
 
-    _downloadActive = YES;
-    if ([mediaURL.scheme isEqualToString:@"http"]) {
-        [_httpDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
-    } else {
-        [_mediaDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+    // Check if the URL scheme is either "http" or "https" before making the HEAD request
+    if (![mediaURL.scheme isEqualToString:@"http"] && ![mediaURL.scheme isEqualToString:@"https"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(0.0);
+        });
+        return;
     }
 
-    [_userDefinedFileNameForDownloadItem removeObjectForKey:mediaURL];
-    [_expectedDownloadSizesForItem removeObjectForKey:mediaURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:mediaURL];
+    request.HTTPMethod = @"HEAD";
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        CGFloat expectedDownloadSize = 0.0;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            if (httpResponse.statusCode == 200) {
+                NSString *contentLength = [httpResponse.allHeaderFields valueForKey:@"Content-Length"];
+                expectedDownloadSize = [contentLength doubleValue];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(expectedDownloadSize);
+        });
+    }];
+
+    [dataTask resume];
 }
 
 - (void)_triggerNextDownload
@@ -250,6 +284,26 @@
         [self _triggerNextDownload];
 }
 
+#pragma mark - Download completion announcement
+- (void)announceDownloadCompletion {
+    if (!UIAccessibilityIsVoiceOverRunning()) {
+        return;
+    }
+    static AVSpeechSynthesizer *speechSynthesizer = nil;
+    if (!speechSynthesizer) {
+        speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    }
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSString *languageCode = [currentLocale objectForKey:NSLocaleLanguageCode];
+    NSString *announcement = NSLocalizedString(@"DOWNLOAD_COMPLETED_ANNOUNCEMENT", comment: "");
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:announcement];
+    AVSpeechSynthesisVoice *customVoice = [AVSpeechSynthesisVoice voiceWithLanguage:languageCode];
+    utterance.voice = customVoice;
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
+    utterance.pitchMultiplier = 1.2;
+    utterance.volume = 0.8;
+    [speechSynthesizer speakUtterance:utterance];
+}
 #pragma mark - VLC media downloader delegate
 - (void)mediaFileDownloadStarted:(VLCMediaFileDownloader *)theDownloader
 {
@@ -277,6 +331,7 @@
         if ([_downloadedMedia indexOfObject:storageLocationPath] == NSNotFound) {
             [_downloadedMedia addObject:storageLocationPath];
             [_downloadedMediaDates addObject:[NSDate date]];
+            [self announceDownloadCompletion];
         }
     }
 
@@ -293,20 +348,20 @@
     [self mediaFileDownloadEnded:theDownloader];
 }
 
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
-{
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize {
     _totalReceived += receivedDataSize;
     _lastReceived += receivedDataSize;
 
-    if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
-        CGFloat speed = [self getAverageSpeed:_lastReceived / ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate)];
-
+    NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+    if (currentTime - _lastStatsUpdate > 0.5 || _lastStatsUpdate <= 0) {
+        CGFloat speed = [self getAverageSpeed:_lastReceived / (currentTime - _lastStatsUpdate)];
+        percentage = fmin(fmax(percentage, 0.0), 100.0);
         [_delegate downloadProgressUpdatedWithPercentage:percentage
                                                     time:[self getRemainingTimeString:speed expectedDownloadSize:expectedDownloadSize]
                                                    speed:[self getSpeedString:speed]
                                           totalSizeKnown:expectedDownloadSize > 0];
 
-        _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+        _lastStatsUpdate = currentTime;
         _lastReceived = 0;
     }
 }

@@ -696,3 +696,6 @@
 "VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL" = "Vertical slider";
 "VERTICAL_SLIDER_CONTROL_INCREMENT_ACTION" = "Increment";
 "VERTICAL_SLIDER_CONTROL_DECREMENT_ACTION" = "Decrement";
+
+// MARK: - Download Completion Announcement
+"DOWNLOAD_COMPLETED_ANNOUNCEMENT" = "Download has been completed, enjoy your content!";
