@@ -605,7 +605,7 @@
 "DONATION_MONTHLY" = "Monthly";
 "DONATION_ONE_TIME" = "One-Time";
 "DONATION_TITLE" = "Privacy over profit";
-"DONATION_DESCRIPTION" = "Private, open-source multimedia, funded by you. No ads, no tracking, no comprise. Free for everyone to use. Donate now to support VideoLAN.";
+"DONATION_DESCRIPTION" = "Private, open-source multimedia, funded by you. No ads, no tracking, no compromise. Free for everyone to use. Donate now to support VideoLAN.";
 "DONATION_WINDOW_TITLE" = "Make a Donation to VideoLAN";
 "DONATE_CC_DC" = "Credit or Debit card";
 "DONATION_CHOOSE_PP" = "Please select your payment provider";
