@@ -498,6 +498,8 @@
 "DISPLAY_PLAYBACK_SPEED_SHORTCUT_HINT" = "Enable to display the playback speed shortcut";
 "VIDEO_FILTERS_HINT" = "Select to open the video filters view";
 "PLAYBACK_SPEED_HINT" = "Select to open the playback speed view";
+"SUBTITLES_DELAY_HINT" = "Select to open the subtitles delay view";
+"AUDIO_DELAY_HINT" = "Select to open the audio delay view";
 "SLEEP_TIMER_HINT" = "Select to open the sleep timer view";
 "EQUALIZER_HINT" = "Select to open the equalizer view";
 "CHAPTERS_HINT" = "Select to open the chapters view";
