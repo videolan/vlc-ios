@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -114,6 +115,7 @@
         title = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"TITLE", nil), row];
     NSString *titleName = [NSString stringWithFormat:@"%@ (%@)", title, [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
     trackCell.titleLabel.text = titleName;
+    trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -146,6 +148,7 @@
         chapter = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"CHAPTER", nil), row];
     NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
     trackCell.titleLabel.text = chapterTitle;
+    trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
