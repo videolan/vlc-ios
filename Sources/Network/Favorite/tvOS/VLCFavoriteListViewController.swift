@@ -10,8 +10,6 @@ import Foundation
 
 class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
     
-    let cellImage = UIImage(named: "heart")
-    let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
     let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService
     
     // For delete operations
@@ -20,7 +18,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
     
     init() {
         super.init(nibName: "VLCRemoteBrowsingCollectionViewController", bundle: nil)
-        title = NSLocalizedString("FAVORITE_TVOS", comment: "")
+        title = NSLocalizedString("FAVORITES", comment: "")
         super.collectionView.register(FavoriteSectionHeader.self, forSupplementaryViewOfKind:
                                         UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteSectionHeader.identifier)
         
@@ -33,10 +31,40 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
         cancelRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.select.rawValue), NSNumber(value: UIPress.PressType.menu.rawValue)]
         cancelRecognizer.isEnabled = self.isEditing
         self.view.addGestureRecognizer(cancelRecognizer)
+        showEmptyViewIfNeeded()
     }
     
     required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func showEmptyViewIfNeeded() {
+        if favoriteService.numberOfFavoritedServers  == 0 {
+            self.nothingFoundLabel.text = NSLocalizedString("FAVORITES_DES_TVOS", comment: "")
+            self.nothingFoundLabel.sizeToFit()
+            let nothingFoundView = self.nothingFoundView
+            nothingFoundView!.sizeToFit()
+            nothingFoundView!.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(nothingFoundView!)
+            
+            let yConstraint = NSLayoutConstraint(item: nothingFoundView as Any,
+                                                 attribute: .centerY,
+                                                 relatedBy: .equal,
+                                                 toItem: self.view,
+                                                 attribute: .centerY,
+                                                 multiplier: 1.0,
+                                                 constant: 0.0)
+            self.view.addConstraint(yConstraint)
+            
+            let xConstraint = NSLayoutConstraint(item: nothingFoundView as Any,
+                                                 attribute: .centerX,
+                                                 relatedBy: .equal,
+                                                 toItem: self.view,
+                                                 attribute: .centerX,
+                                                 multiplier: 1.0,
+                                                 constant: 0.0)
+            self.view.addConstraint(xConstraint)
+        }
     }
 }
 // MARK: - UICollectionView
@@ -68,7 +96,6 @@ extension VLCFavoriteListViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
          if kind == UICollectionView.elementKindSectionHeader {
              let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoriteSectionHeader.identifier, for: indexPath) as!  FavoriteSectionHeader
              header.headerView.hostnameLabel.text = favoriteService.nameOfFavoritedServer(at: indexPath
@@ -85,13 +112,13 @@ extension VLCFavoriteListViewController {
 extension VLCFavoriteListViewController {
     @objc private func startEditMode() {
         self.isEditing = true
-        let alertController = UIAlertController(title: "Remove this Folder from Favorites ?", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("UNFAVORITE_ALERT_TITLE", comment: ""), message: nil, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (action) in
+        let confirmAction = UIAlertAction(title: NSLocalizedString("UNFAVORITE_ALERT_BUTTON_TITLE", comment: ""), style: .default) { (action) in
             self.favoriteService.removeFavoriteOfServer(with: self.currentlyFocusedIndexPath!.section, at: self.currentlyFocusedIndexPath!.row)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        let cancelAction = UIAlertAction(title:"BUTTON_CANCEL", style: .destructive, handler: nil)
 
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
@@ -115,13 +142,18 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
 // MARK: - UICollectionViewFlowLayout
 extension VLCFavoriteListViewController {
     override func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-          if let nextFocusedIndexPath = context.nextFocusedIndexPath {
-              self.currentlyFocusedIndexPath = nextFocusedIndexPath
-              self.isAnyCellFocused = true
-              } else {
-              self.isAnyCellFocused = false
-          }
-      }
+        guard let nextFocusedIndexPath = context.nextFocusedIndexPath else {
+            // Handle the case where nextFocusedIndexPath is nil, if needed.
+            return
+        }
+        self.currentlyFocusedIndexPath = nextFocusedIndexPath
+        self.isAnyCellFocused = true
+        let sectionNumber = nextFocusedIndexPath.section
+        let sectionHeaderIndexPath = IndexPath(item: 0, section: sectionNumber)
+        if let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: sectionHeaderIndexPath) as? FavoriteSectionHeader {
+            setupFocusGuide(for: header, at: nextFocusedIndexPath, in: collectionView)
+        }
+    }
 }
 
 extension VLCFavoriteListViewController: UICollectionViewDelegateFlowLayout {
@@ -132,8 +164,41 @@ extension VLCFavoriteListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 50, left: 100, bottom: 50, right: 100)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 100.00
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 48
+    }
+    
 }
 
+public extension IndexPath {
+  func isLastRow(at collectionView: UICollectionView) -> Bool {
+    return row == (collectionView.numberOfItems(inSection: section) - 1)
+  }
+}
+
+// MARK: - Focus Engine Guide for Header's Rename Button
+extension VLCFavoriteListViewController {
+    private func setupFocusGuide(for header: FavoriteSectionHeader, at indexPath: IndexPath, in collectionView: UICollectionView) {
+        let focusGuide = UIFocusGuide()
+        self.view.addLayoutGuide(focusGuide)
+        focusGuide.isEnabled = true
+        focusGuide.preferredFocusEnvironments = [header.headerView.renameButton]
+
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        focusGuide.widthAnchor.constraint(equalTo: cell?.widthAnchor ?? focusGuide.widthAnchor).isActive = true
+        focusGuide.heightAnchor.constraint(equalTo: cell?.heightAnchor ?? focusGuide.heightAnchor).isActive = true
+
+        if indexPath.isLastRow(at: collectionView) {
+            focusGuide.bottomAnchor.constraint(equalTo: cell?.bottomAnchor ?? focusGuide.bottomAnchor).isActive = true
+            focusGuide.leftAnchor.constraint(equalTo: cell?.rightAnchor ?? focusGuide.leftAnchor).isActive = true
+        } else {
+            focusGuide.bottomAnchor.constraint(equalTo: cell?.topAnchor ?? focusGuide.bottomAnchor).isActive = true
+            focusGuide.leftAnchor.constraint(equalTo: cell?.leftAnchor ?? focusGuide.leftAnchor).isActive = true
+        }
+    }
+}

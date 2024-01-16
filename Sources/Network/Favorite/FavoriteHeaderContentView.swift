@@ -34,13 +34,14 @@ class FavoriteHeaderContentView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NSLocalizedString("BUTTON_RENAME", comment: ""), for: .normal)
-        button.setTitleColor(UIColor.orange, for: .normal)
         #if os(iOS)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(renameButtonAction(_:)), for: .touchUpInside)
+        button.setTitleColor(UIColor.orange, for: .normal)
         #else
         button.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         button.addTarget(self, action: #selector(renameButtonAction(_:)), for: .primaryActionTriggered)
+        button.setTitleColor(UIColor.orange, for: .focused)
         #endif
         return button
     }()
@@ -65,7 +66,7 @@ class FavoriteHeaderContentView: UIView {
          hostnameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
          hostnameLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: buttonPadding),
          renameButton.firstBaselineAnchor.constraint(equalTo: hostnameLabel.firstBaselineAnchor),
-         renameButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -buttonPadding)
+         renameButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -buttonPadding),
         ])
     }
 

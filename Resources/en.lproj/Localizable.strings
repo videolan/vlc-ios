@@ -84,6 +84,11 @@
 "NO_FAVORITES_DESCRIPTION" = "Mark your favorite folders while browsing servers to have them listed here.";
 "ADD_FAVORITE" = "Add to favorites";
 "REMOVE_FAVORITE" = "Remove from favorites";
+"FAVORITES_DES_TVOS" = "Long press the select button of the remote to display the options and mark the selected folder as favourite";
+"FAVORITE_ALERT_TITLE" = "Would you like to add this folder to your Favorites?";
+"FAVORITE_ALERT_BUTTON_TITLE" = "Mark as Favorite";
+"UNFAVORITE_ALERT_TITLE" = "Would you like to remove this folder from your Favorites?";
+"UNFAVORITE_ALERT_BUTTON_TITLE" = "Remove from Favorites";
 
 "OPEN_NETWORK" = "Open Network Stream";
 "NETWORK_TITLE" = "Network Stream";
@@ -639,9 +644,3 @@
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
 
 /* New strings */
-"FAVORITE" = "FAVORITES";
-"FAVORITE_TVOS" = "Favorites";
-"FAVORITE_ALERT_TITLE" = "Would you like to add this folder to your Favorites?";
-"FAVORITE_ALERT_BUTTON_TITLE" = "Mark as Favorite";
-"UNFAVORITE_ALERT_TITLE" = "Would you like to remove this folder from your Favorites?";
-"UNFAVORITE_ALERT_BUTTON_TITLE" = "Remove from Favorites";
