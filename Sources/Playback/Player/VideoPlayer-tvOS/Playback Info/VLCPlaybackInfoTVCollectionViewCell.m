@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -36,16 +37,20 @@
     return !self.selectionMarkerView.hidden;
 }
 
+- (UIFont *)getTitleFont
+{
+    if (!_selectionMarkerView.isHidden) {
+        return [UIFont boldSystemFontOfSize:29.0];
+    }
+
+    return [UIFont systemFontOfSize:29.0];
+}
+
 - (void)setSelectionMarkerVisible:(BOOL)selectionMarkerVisible
 {
     self.selectionMarkerView.hidden = !selectionMarkerVisible;
 
-    UIFont *titleFont;
-    if (selectionMarkerVisible) {
-        titleFont = [UIFont boldSystemFontOfSize:29.];
-    } else {
-        titleFont = [UIFont systemFontOfSize:29.];
-    }
+    UIFont *titleFont = [self getTitleFont];
 
     self.titleLabel.font = titleFont;
 }
@@ -68,7 +73,7 @@
 {
     [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
     [coordinator addCoordinatedAnimations:^{
-        self.titleLabel.textColor = self.focused ? [UIColor whiteColor] : self.textColor;
+        self.titleLabel.font = self.focused ? [UIFont boldSystemFontOfSize:32.0] : [self getTitleFont];
     } completion:nil];
 }
 
