@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -50,8 +51,6 @@
 {
     [super viewDidLoad];
 
-    [self setupTabBarItemAppearance];
-
     _allTabViewControllers = @[[[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoPlaybackTVViewController alloc] initWithNibName:nil bundle:nil],
@@ -68,6 +67,8 @@
     [self.containerView addSubview:controller.view];
     [controller didMoveToParentViewController:self];
 
+    [self setupTabBarAppearance];
+
     UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpRecognized:)];
     swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
     swipeUpRecognizer.delegate = self;
@@ -81,9 +82,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    }
+    self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 
     UITabBarController *tabBarController = self.tabBarController;
     UIViewController *oldSelectedVC = tabBarController.selectedViewController;
@@ -111,18 +110,20 @@
     self.containerHeightConstraint.constant = controllerHeight;
 }
 
-- (void)setupTabBarItemAppearance
+- (void)setupTabBarAppearance
 {
-    UITabBarItem *tabBarItemApprearance = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackInfoTVTabBarController class]]];
-    NSDictionary *attributesSelected = @{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1.0]};
-    [tabBarItemApprearance setTitleTextAttributes:attributesSelected forState:UIControlStateSelected];
-    NSDictionary *attributesFocused;
-    if (@available(tvOS 13.0, *)) {
-        attributesFocused = @{NSForegroundColorAttributeName : [UIColor blackColor]};
-    } else {
-        attributesFocused = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    }
-    [tabBarItemApprearance setTitleTextAttributes:attributesFocused forState:UIControlStateFocused];
+    _contentView.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
+    _tabBarController.tabBar.barTintColor = UIColor.VLCDarkBackgroundColor;
+
+    UITabBarItem *tabBarItemApperance = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackInfoTVTabBarController class]]];
+    NSDictionary *attributedSelected = @{NSForegroundColorAttributeName : UIColor.VLCLightTextColor};
+    [tabBarItemApperance setTitleTextAttributes:attributedSelected forState:UIControlStateSelected];
+
+    NSDictionary *attributesFocused = @{NSForegroundColorAttributeName : UIColor.VLCDarkTextColor};
+    [tabBarItemApperance setTitleTextAttributes:attributesFocused forState:UIControlStateFocused];
+
+    NSDictionary *attributesNormal = @{NSForegroundColorAttributeName : UIColor.VLCLightTextColor};
+    [tabBarItemApperance setTitleTextAttributes:attributesNormal forState:UIControlStateNormal];
 }
 
 - (void)swipeUpRecognized:(UISwipeGestureRecognizer *)recognizer

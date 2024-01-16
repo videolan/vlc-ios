@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="12121" systemVersion="17B48" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="appleTV" orientation="landscape">
-        <adaptation id="light"/>
-    </device>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="22505" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,6 +11,7 @@
             <connections>
                 <outlet property="containerHeightConstraint" destination="QR2-Gh-Hdy" id="u84-XK-o7J"/>
                 <outlet property="containerView" destination="b8s-Xi-SUg" id="qEg-s0-4Si"/>
+                <outlet property="contentView" destination="aZZ-Hu-gGZ" id="qWd-hd-18R"/>
                 <outlet property="dimmingView" destination="fkF-mr-3nG" id="NO9-Ww-dkm"/>
                 <outlet property="tabBarRegiomHeightConstraint" destination="qQN-Xf-pTW" id="rPf-Al-chE"/>
                 <outlet property="view" destination="iN0-l3-epB" id="aoh-6Y-hrX"/>
@@ -59,11 +59,7 @@
                 <constraint firstItem="b8s-Xi-SUg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rWa-6e-vRp"/>
                 <constraint firstItem="fkF-mr-3nG" firstAttribute="top" secondItem="b8s-Xi-SUg" secondAttribute="bottom" id="tow-1m-6YL"/>
             </constraints>
+            <point key="canvasLocation" x="143" y="41"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <nil key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
-        <simulatedScreenMetrics key="destination"/>
-    </simulatedMetricsContainer>
 </document>
