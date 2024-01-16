@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -19,11 +20,7 @@
     if (self) {
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
         label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-            label.textColor = [UIColor VLCLightTextColor];
-        } else {
-            label.textColor = [UIColor VLCDarkTextColor];
-        }
+        label.textColor = UIColor.VLCLightTextColor;
         label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:label];
         _titleLabel = label;
@@ -40,6 +37,5 @@
 {
     return @"VLCPlaybackInfoTVCollectionSectionTitleView";
 }
-
 
 @end
