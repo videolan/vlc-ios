@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -118,7 +119,9 @@
                 trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
         }
     }
+
     trackCell.titleLabel.text = trackName;
+    trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +166,9 @@
                 trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
         }
     }
+
     trackCell.titleLabel.text = trackName;
+    trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
