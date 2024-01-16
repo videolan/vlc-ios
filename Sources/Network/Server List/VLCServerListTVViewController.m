@@ -34,7 +34,7 @@
 
 @interface VLCServerListTVViewController ()
 @property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
-
+@property (nonatomic, strong) UIButton *favoritesButton;
 @end
 
 @implementation VLCServerListTVViewController
@@ -65,6 +65,17 @@
     [nothingFoundView sizeToFit];
     [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:nothingFoundView];
+
+    // Create and configure the "View Favorites" button
+    self.favoritesButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.favoritesButton setImage:[UIImage imageNamed:@"heart.fill"] forState: UIControlStateNormal];
+    [self.favoritesButton addTarget:self action:@selector(viewFavoritesButtonTapped:) forControlEvents:UIControlEventPrimaryActionTriggered];
+    [self.favoritesButton sizeToFit];
+
+        // Add the button to the navigation bar
+    UIBarButtonItem *favoritesBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.favoritesButton];
+    self.navigationItem.rightBarButtonItem = favoritesBarButtonItem;
+    self.navigationController.navigationBarHidden = NO;
 
     NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
                                                                    attribute:NSLayoutAttributeCenterY
@@ -402,6 +413,14 @@
 
     self.networkServices = newNetworkServices;
     [self.collectionView reloadData];
+}
+#pragma mark - Trigger VC for Favorite Folders
+- (void)viewFavoritesButtonTapped:(UIButton *)sender
+{
+    VLCFavoriteListViewController *favoriteListViewController = [[VLCFavoriteListViewController alloc] init];
+     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
+    navController.view.window.translatesAutoresizingMaskIntoConstraints = NO;
+     [self presentViewController: navController animated:YES completion:nil];
 }
 
 @end

@@ -32,7 +32,6 @@
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
     VLCOpenManagedServersViewController *_openManagedServersVC;
     VLCSettingsViewController *_settingsVC;
-    VLCFavoriteListViewController *_favoriteVC;
 }
 
 @end
@@ -80,8 +79,6 @@
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
     _openManagedServersVC = [[VLCOpenManagedServersViewController alloc] initWithNibName:nil bundle:nil];
     _settingsVC = [[VLCSettingsViewController alloc] initWithNibName:nil bundle:nil];
-    _favoriteVC = [[VLCFavoriteListViewController alloc] init];
-    
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
     
@@ -89,7 +86,6 @@
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_localNetworkVC]];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC]];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openNetworkVC]];
-    [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_favoriteVC]];
     
     if(_openManagedServersVC.hasManagedServers) {
         [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openManagedServersVC]];
