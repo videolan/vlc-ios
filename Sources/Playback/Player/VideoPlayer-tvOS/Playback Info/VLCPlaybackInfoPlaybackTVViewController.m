@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -47,7 +47,20 @@
 {
     [super viewDidLoad];
 
-    self.rateLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", nil);
+    _rateLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", nil);
+    _rateLabel.textColor = UIColor.VLCLightTextColor;
+    _playbackSpeedButton.accessibilityHint = NSLocalizedString(@"PLAYBACK_SPEED_HINT", "");
+    [_playbackSpeedButton setTintColor:UIColor.VLCLightTextColor];
+
+    _subtitlesLabel.text = NSLocalizedString(@"SPU_DELAY", "");
+    _subtitlesLabel.textColor = UIColor.VLCLightTextColor;
+    _subtitlesDelayButton.accessibilityHint = NSLocalizedString(@"SUBTITLES_DELAY_HINT", "");
+    [_subtitlesDelayButton setTintColor:UIColor.VLCLightTextColor];
+
+    _audioLabel.text = NSLocalizedString(@"AUDIO_DELAY", "");
+    _audioLabel.textColor = UIColor.VLCLightTextColor;
+    _audioDelayButton.accessibilityHint = NSLocalizedString(@"AUDIO_DELAY_HINT", "");
+    [_audioDelayButton setTintColor:UIColor.VLCLightTextColor];
 
     UISegmentedControl *repeatControl = self.repeatControl;
     [repeatControl removeAllSegments];
@@ -57,7 +70,9 @@
                                   atIndex:1 animated:NO];
     [repeatControl insertSegmentWithTitle:NSLocalizedString(@"REPEAT_FOLDER", nil)
                                   atIndex:2 animated:NO];
-    self.repeatLabel.text = NSLocalizedString(@"REPEAT_MODE", nil);
+    [self setupSegmentedControlAppearanceFor:repeatControl];
+    _repeatLabel.text = NSLocalizedString(@"REPEAT_MODE", nil);
+    _repeatLabel.textColor = UIColor.VLCLightTextColor;
 
     UISegmentedControl *shuffleControl = self.shuffleControl;
     [shuffleControl removeAllSegments];
@@ -65,7 +80,9 @@
                                   atIndex:0 animated:NO];
     [shuffleControl insertSegmentWithTitle:NSLocalizedString(@"ON", nil)
                                   atIndex:1 animated:NO];
-    self.shuffleLabel.text = NSLocalizedString(@"SHUFFLE", nil);
+    [self setupSegmentedControlAppearanceFor:shuffleControl];
+    _shuffleLabel.text = NSLocalizedString(@"SHUFFLE", nil);
+    _shuffleLabel.textColor = UIColor.VLCLightTextColor;
 
     _playbackService = [VLCPlaybackService sharedInstance];
     _currentOption = VLCPlaybackOptionsTypeNone;
@@ -78,13 +95,14 @@
     _defaultDelay = 0.0;
     _defaultSpeed = [[[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackSpeedDefaultValue] doubleValue];
 
+    _titleLabel.textColor = UIColor.VLCLightTextColor;
+    _valueLabel.textColor = UIColor.VLCLightTextColor;
     [_increaseButton setTitle:@"" forState:UIControlStateNormal];
+    [_increaseButton setTintColor:UIColor.VLCLightTextColor];
     [_decreaseButton setTitle:@"" forState:UIControlStateNormal];
+    [_decreaseButton setTintColor:UIColor.VLCLightTextColor];
     [_resetButton setTitle:NSLocalizedString(@"BUTTON_RESET", "") forState:UIControlStateNormal];
-
-    _playbackSpeedButton.accessibilityHint = NSLocalizedString(@"PLAYBACK_SPEED_HINT", "");
-    _subtitlesDelayButton.accessibilityHint = NSLocalizedString(@"SUBTITLES_DELAY_HINT", "");
-    _audioDelayButton.accessibilityHint = NSLocalizedString(@"AUDIO_DELAY_HINT", "");
+    [_resetButton setTintColor:UIColor.VLCLightTextColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -210,6 +228,20 @@
         default:
             break;
     }
+}
+
+- (void)setupSegmentedControlAppearanceFor:(UISegmentedControl *)control
+{
+    control.backgroundColor = UIColor.VLCDarkBackgroundColor;
+
+    NSDictionary *attributeSelected = @{NSForegroundColorAttributeName : UIColor.whiteColor};
+    [control setTitleTextAttributes:attributeSelected forState:UIControlStateSelected];
+
+    NSDictionary *attributeNormal = @{NSForegroundColorAttributeName : UIColor.VLCLightTextColor};
+    [control setTitleTextAttributes:attributeNormal forState:UIControlStateNormal];
+
+    NSDictionary *attributedFocused = @{NSForegroundColorAttributeName : UIColor.VLCDarkTextColor};
+    [control setTitleTextAttributes:attributedFocused forState:UIControlStateFocused];
 }
 
 // MARK: - Sender methods
