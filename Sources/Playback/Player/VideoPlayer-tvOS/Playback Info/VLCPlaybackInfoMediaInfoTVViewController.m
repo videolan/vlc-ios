@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -41,15 +42,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        UIColor *lightColor = [UIColor VLCLightTextColor];
-        self.titleLabel.textColor = lightColor;
-        self.metaDataLabel.textColor = lightColor;
-    } else {
-        UIColor *darkColor = [UIColor VLCDarkTextColor];
-        self.titleLabel.textColor = darkColor;
-        self.metaDataLabel.textColor = darkColor;
-    }
+    UIColor *lightColor = [UIColor VLCLightTextColor];
+    self.titleLabel.textColor = lightColor;
+    self.metaDataLabel.textColor = lightColor;
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     self.titleLabel.text = vpc.metadata.title;
