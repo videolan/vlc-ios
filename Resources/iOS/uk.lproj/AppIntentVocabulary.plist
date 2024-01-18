@@ -6,7 +6,7 @@
     <array>
       <dict>
         <key>IntentName</key>
-        <string></string>
+        <string>INSearchForMediaIntent</string>
         <key>IntentExamples</key>
         <array>
           <string>Знайти Жака Бреля у VLC</string>
@@ -14,7 +14,7 @@
       </dict>
       <dict>
         <key>IntentName</key>
-        <string></string>
+        <string>INAddMediaIntent</string>
         <key>IntentExamples</key>
         <array>
           <string>Додати медіа до VLC</string>
