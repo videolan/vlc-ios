@@ -20,10 +20,16 @@
 · Add option to remember the last playback speed
 · Improve CarPlay support for artists and playlists
 · Improve playback continuation for very long media
+· Fix opening certain LAN servers discovered by Bonjour
+· Improve accessibility of the playmode buttons
+· Add new Donation screen
+· Add link to newly created Documentation to the Settings screen
 
 ## tvOS [3.5.0]
 · Fix the display of media's artworks for audio playback
 · Add option to hide playback UI on loop
+· Add support for custom subtitles and audio delay during playback
+· Fix opening certain LAN servers discovered by Bonjour
 
 ## iOS [3.4.9]
 · Noticable stability improvements
