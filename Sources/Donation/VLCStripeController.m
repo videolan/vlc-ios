@@ -32,45 +32,9 @@ const NSString *secretStripeAPIKey = @"";
 {
     _currencyCode = currencyCode;
     _amount = [[NSNumber numberWithInteger:(NSInteger)amount * 100] stringValue];
-    [self createStripeTokenWithPayment:payment];
-}
 
-- (void)createStripeTokenWithPayment:(PKPayment *)payment {
-    // Construct the request URL and headers
-    NSString *urlString = @"https://api.stripe.com/v1/tokens";
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", publishableStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-    // Construct the request body
     NSDictionary *parameters = [self constructParametersForPayment:payment];
-    NSString *bodyString = AFQueryStringFromParameters(parameters);
-    // = [NSString stringWithFormat:@"card[number]=%@&card[exp_month]=%@&card[exp_year]=%@&card[cvc]=%@", payment.token.paymentMethod.card.number, payment.token.paymentMethod.card.expMonth, payment.token.paymentMethod.card.expYear, @"123"];
-    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:bodyData];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error creating Stripe token: %@", error.localizedDescription);
-            [self.delegate stripeProcessingCompleted:NO];
-        } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSString *stripeToken = jsonResponse[@"id"];
-            if (stripeToken) {
-                APLog(@"Stripe token created successfully");
-                [self processPaymentWithStripe:stripeToken];
-            } else {
-                APLog(@"Error creating Stripe token: %@", jsonResponse);
-                [self.delegate stripeProcessingCompleted:NO];
-            }
-        }
-    }] resume];
+    [self createStripeTokenWithParameters:parameters];
 }
 
 - (NSDictionary *)constructParametersForPayment:(PKPayment *)payment
@@ -125,10 +89,60 @@ const NSString *secretStripeAPIKey = @"";
 
 - (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(CGFloat)amount currency:(NSString *)currencyCode
 {
-    [self.delegate stripeProcessingCompleted:YES];
+    _currencyCode = currencyCode;
+    _amount = [[NSNumber numberWithInteger:(NSInteger)amount * 100] stringValue];
+
+    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+    mutDict[@"card[number]"] = cardNumber;
+    mutDict[@"card[exp_month]"] = month;
+    mutDict[@"card[exp_year]"] = year;
+    mutDict[@"card[cvc]"] = cvv;
+
+    [self createStripeTokenWithParameters:[mutDict copy]];
 }
 
 #pragma mark - generic API
+
+- (void)createStripeTokenWithParameters:(NSDictionary *)parameters
+{
+    // Construct the request URL and headers
+    NSString *urlString = @"https://api.stripe.com/v1/tokens";
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", publishableStripeAPIKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+
+    // Construct the request body
+    NSString *bodyString = AFQueryStringFromParameters(parameters);
+    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:bodyData];
+
+    // Perform the request
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:request
+                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            // Handle error
+            APLog(@"Error creating Stripe token: %@", error.localizedDescription);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingCompleted:NO];
+            });
+        } else {
+            // Handle success
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSString *stripeToken = jsonResponse[@"id"];
+            if (stripeToken) {
+                APLog(@"Stripe token created successfully");
+                [self processPaymentWithStripe:stripeToken];
+            } else {
+                APLog(@"Error creating Stripe token: %@", jsonResponse);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate stripeProcessingCompleted:NO];
+                });
+            }
+        }
+    }] resume];
+}
 
 - (void)processPaymentWithStripe:(NSString *)stripeToken {
     // Construct the request URL and headers
@@ -150,7 +164,9 @@ const NSString *secretStripeAPIKey = @"";
         if (error) {
             // Handle error
             APLog(@"Error processing payment: %@", error.localizedDescription);
-            [self.delegate stripeProcessingCompleted:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingCompleted:NO];
+            });
         } else {
             // Handle success
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -160,7 +176,9 @@ const NSString *secretStripeAPIKey = @"";
             } else {
                 APLog(@"Receive negative response from Stripe: %@", jsonResponse);
             }
-            [self.delegate stripeProcessingCompleted:success];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingCompleted:success];
+            });
         }
     }] resume];
 }
