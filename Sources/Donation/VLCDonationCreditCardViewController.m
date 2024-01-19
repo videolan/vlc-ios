@@ -14,18 +14,23 @@
 #import "VLCStripeController.h"
 #import "VLC-Swift.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+#import <AuthenticationServices/AuthenticationServices.h>
+
 #ifndef UITextContentTypeCreditCardExpiration
 UITextContentType const UITextContentTypeCreditCardExpiration = @"UITextContentTypeCreditCardExpiration";
 UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextContentTypeCreditCardSecurityCode";
 #endif
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
-@interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate>
+@interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding>
 {
     float _donationAmount;
     NSString *_currencyCode;
     VLCStripeController *_stripeController;
+    ASWebAuthenticationSession *_webAuthenticationSession;
 }
 
 @end
@@ -89,6 +94,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (void)cancelDonation:(id)sender
 {
+    [_webAuthenticationSession cancel];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -130,6 +136,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                      currency:_currencyCode];
 }
 
+#pragma mark - stripe controller delegation
+
 - (void)stripeProcessingSucceeded {
     [self.activityIndicator stopAnimating];
 
@@ -166,4 +174,42 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)show3DS:(NSURL *)redirectURL withCallbackURL:(NSURL *)callbackURL
+{
+    _webAuthenticationSession = [[ASWebAuthenticationSession alloc] initWithURL:redirectURL
+                                                     callbackURLScheme:callbackURL.scheme
+                                                     completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+        if (error != nil) {
+            [self stripeProcessingFailedWithError:error.localizedDescription];
+            return;
+        }
+
+        if (callbackURL) {
+            NSURLComponents *components = [NSURLComponents componentsWithString:callbackURL.absoluteString];
+            NSArray *queryItems = components.queryItems;
+            for (NSURLQueryItem *queryItem in queryItems) {
+                if ([queryItem.name isEqualToString:@"payment_intent"]) {
+                    [self->_stripeController continueWithPaymentIntent:queryItem.value];
+                    break;
+                }
+            }
+        }
+    }];
+
+    // Set the presentation context delegate
+    _webAuthenticationSession.presentationContextProvider = self;
+
+    // Start the authentication session
+    [_webAuthenticationSession start];
+}
+
+#pragma mark - ASWebAuthenticationPresentationContextProviding
+
+- (ASPresentationAnchor)presentationAnchorForWebAuthenticationSession:(ASWebAuthenticationSession *)session {
+    // Return the view controller's view as the anchor for presenting the authentication session
+    return self.view.window;
+}
+
 @end
+
+#pragma clang diagnostic pop

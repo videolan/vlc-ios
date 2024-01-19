@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stripeProcessingSucceeded;
 - (void)stripeProcessingFailedWithError:(NSString *)errorMessage;
 
+@optional
+- (void)show3DS:(NSURL *)redirectURL withCallbackURL:(NSURL *)callbackURL;
+
 @end
 
 @interface VLCStripeController : NSObject
@@ -30,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)processPayment:(PKPayment *)payment forAmount:(CGFloat)amount currency:(NSString *)currencyCode;
 - (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(CGFloat)amount currency:(NSString *)currencyCode;
+
+- (void)continueWithPaymentIntent:(NSString *)paymentIntent;
 
 @end
 
