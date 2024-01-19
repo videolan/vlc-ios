@@ -26,6 +26,8 @@ const NSString *secretStripeAPIKey = @"";
 
 @implementation VLCStripeController
 
+#pragma mark - apple pay internals
+
 - (void)processPayment:(PKPayment *)payment forAmount:(CGFloat)amount currency:(NSString *)currencyCode
 {
     _currencyCode = currencyCode;
@@ -118,6 +120,15 @@ const NSString *secretStripeAPIKey = @"";
 
     return [mutDict copy];
 }
+
+#pragma mark - CB internals
+
+- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(CGFloat)amount currency:(NSString *)currencyCode
+{
+    [self.delegate stripeProcessingCompleted:YES];
+}
+
+#pragma mark - generic API
 
 - (void)processPaymentWithStripe:(NSString *)stripeToken {
     // Construct the request URL and headers

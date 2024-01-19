@@ -2,7 +2,7 @@
  * VLCDonationCreditCardViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,6 +14,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VLCConfettiView;
+
 @interface VLCDonationCreditCardViewController : UIViewController
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
@@ -21,17 +23,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *creditCardNumberLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *expiryDateLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *expiryDateSeparatorLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cvvLabel;
 
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *creditCardNumberField;
-@property (readwrite, nonatomic, weak) IBOutlet UITextField *expiryDateField;
+@property (readwrite, nonatomic, weak) IBOutlet UITextField *expiryDateMonthField;
+@property (readwrite, nonatomic, weak) IBOutlet UITextField *expiryDateYearField;
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *cvvField;
 
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *continueButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
 
 - (IBAction)fieldAction:(id)sender;
+- (IBAction)continueButtonAction:(id)sender;
 
-- (void)setDonationAmount:(float)donationAmount;
+- (void)setDonationAmount:(float)donationAmount withCurrency:(NSString *)currency;
 
 @end
 

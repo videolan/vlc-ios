@@ -615,10 +615,12 @@
 "DONATION_CC_INFO_NOT_STORED" = "VideoLAN will neither receive nor store your credit card data.";
 "DONATION_CC_NUM" = "Credit Card Number";
 "DONATION_CC_EXPIRY_DATE" = "Expiry Date";
-"DONATION_CC_EXPIRY_DATE_FORMAT" = "MM/YY";
+"DONATION_CC_EXPIRY_DATE_MONTH" = "MM";
+"DONATION_CC_EXPIRY_DATE_YEAR" = "YY";
 "DONATION_CC_CVV" = "CVV";
 "DONATION_APPLE_PAY_NOT_POSSIBLE" = "Failure configuring Apple Pay";
 "DONATION_APPLE_PAY_NOT_POSSIBLE_LONG" = "VLC failed to configure Apple Pay to perform your donation. Please choose a different payment provider to continue.";
+"DONATION_DONATE_BUTTON" = "Donate";
 
 // MARK: - Playback keyboard shortcuts
 
