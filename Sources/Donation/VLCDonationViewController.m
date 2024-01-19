@@ -65,11 +65,16 @@
     _hundredButton.layer.cornerRadius = 5.;
 
     // Check if Apple Pay is available
+    NSMutableArray *mutableProviders = [NSMutableArray arrayWithObject:@"PayPal"];
     if ([PKPaymentAuthorizationViewController canMakePayments]) {
-        _paymentProviders = @[NSLocalizedString(@"DONATE_CC_DC", nil), @"PayPal", @"Apple Pay"];
-    } else {
-        _paymentProviders = @[NSLocalizedString(@"DONATE_CC_DC", nil), @"PayPal"];
+        [mutableProviders addObject:@"Apple Pay"];
     }
+    /* we need to support credit card authentication via 3D Secure for which we depend on
+     * ASWebAuthenticationSession that was introduced in iOS 12 */
+    if (@available(iOS 12.0, *)) {
+        [mutableProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
+    }
+    _paymentProviders = [mutableProviders copy];
 
     _actionSheet = [[VLCActionSheet alloc] init];
     _actionSheet.dataSource = self;
