@@ -617,6 +617,8 @@
 "DONATION_CC_EXPIRY_DATE" = "Expiry Date";
 "DONATION_CC_EXPIRY_DATE_FORMAT" = "MM/YY";
 "DONATION_CC_CVV" = "CVV";
+"DONATION_APPLE_PAY_NOT_POSSIBLE" = "Failure configuring Apple Pay";
+"DONATION_APPLE_PAY_NOT_POSSIBLE_LONG" = "VLC failed to configure Apple Pay to perform your donation. Please choose a different payment provider to continue.";
 
 // MARK: - Playback keyboard shortcuts
 

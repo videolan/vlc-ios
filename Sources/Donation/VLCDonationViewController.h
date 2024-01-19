@@ -14,6 +14,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VLCConfettiView;
+
 @interface VLCDonationViewController : UIViewController
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
@@ -28,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *customAmountField;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *continueButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIScrollView *contentScrollView;
+@property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
 
 - (IBAction)numberButtonAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;

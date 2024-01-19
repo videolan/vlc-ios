@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4128" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDonationViewController">
             <connections>
+                <outlet property="confettiView" destination="TPh-dt-Iw0" id="W9u-gC-9Fw"/>
                 <outlet property="contentScrollView" destination="oz4-oI-ttj" id="ALL-E1-GrP"/>
                 <outlet property="continueButton" destination="i5H-0V-aTr" id="hTZ-Vn-3VL"/>
                 <outlet property="customAmountField" destination="E0J-0x-x8V" id="ipq-fw-8oi"/>
@@ -34,6 +35,10 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
                     <rect key="frame" x="-3" y="39" width="399" height="779"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="399" height="573"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="iXP-bK-0Va">
                             <rect key="frame" x="149.66666666666666" y="20" width="100" height="100"/>
                             <constraints>
@@ -167,11 +172,15 @@
                         <constraint firstItem="hFn-Fh-4RE" firstAttribute="centerX" secondItem="Tjf-kx-D4n" secondAttribute="centerX" id="8jh-hc-5Gg"/>
                         <constraint firstItem="Fxo-eu-0Ta" firstAttribute="leading" secondItem="PDE-wm-Hfp" secondAttribute="trailing" constant="17" id="9Km-jK-U6p"/>
                         <constraint firstItem="rBy-Ki-65a" firstAttribute="leading" secondItem="Mgh-to-CMA" secondAttribute="trailing" constant="17" id="AcE-u2-w8C"/>
+                        <constraint firstAttribute="bottom" secondItem="TPh-dt-Iw0" secondAttribute="bottom" id="BCp-6S-921"/>
                         <constraint firstItem="hFn-Fh-4RE" firstAttribute="top" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="17" id="Dvn-82-9lq"/>
+                        <constraint firstItem="TPh-dt-Iw0" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" id="JB2-2T-xdo"/>
                         <constraint firstAttribute="trailing" secondItem="Tjf-kx-D4n" secondAttribute="trailing" constant="17" id="L1Z-Wf-igh"/>
+                        <constraint firstItem="TPh-dt-Iw0" firstAttribute="leading" secondItem="oz4-oI-ttj" secondAttribute="leading" id="MkE-5Q-KKj"/>
                         <constraint firstItem="E0J-0x-x8V" firstAttribute="top" secondItem="Mgh-to-CMA" secondAttribute="bottom" constant="17" id="Nra-ni-48h"/>
                         <constraint firstItem="Fu9-WU-uRm" firstAttribute="centerY" secondItem="PDE-wm-Hfp" secondAttribute="centerY" id="STh-l5-Mn6"/>
                         <constraint firstItem="i5H-0V-aTr" firstAttribute="centerX" secondItem="E0J-0x-x8V" secondAttribute="centerX" id="TH9-01-cmx"/>
+                        <constraint firstAttribute="trailing" secondItem="TPh-dt-Iw0" secondAttribute="trailing" id="TdC-Uo-yM4"/>
                         <constraint firstItem="E0J-0x-x8V" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="leading" id="Tfz-nZ-b9x"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="centerX" secondItem="iXP-bK-0Va" secondAttribute="centerX" id="Ua5-W3-WV9"/>
                         <constraint firstAttribute="bottom" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="334" id="YKp-tv-AnC"/>
