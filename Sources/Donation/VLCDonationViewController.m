@@ -15,10 +15,14 @@
 #import "VLC-Swift.h"
 #import "VLCDonationPayPalViewController.h"
 #import "VLCDonationCreditCardViewController.h"
+#import "VLCStripeController.h"
 
-@interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate>
+typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
+
+@interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
 {
     CGFloat _selectedDonationAmount;
+    NSString *_selectedCurrency;
     VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
@@ -27,8 +31,9 @@
     UIColor *_blueColor;
     UIColor *_lightBlueColor;
     BOOL _donationSuccess;
+    VLCStripeController *_stripeController;
+    CompletionHandler _successCompletionHandler;
 }
-
 @end
 
 @implementation VLCDonationViewController
@@ -41,6 +46,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    _stripeController = [[VLCStripeController alloc] init];
+    _stripeController.delegate = self;
+
+    // TODO: support non-EUR currencies
+    _selectedCurrency = @"EUR";
 
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
@@ -268,7 +279,7 @@
     paymentRequest.paymentSummaryItems = @[
         [PKPaymentSummaryItem summaryItemWithLabel:@"VideoLAN" amount:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithFloat:_selectedDonationAmount] decimalValue]]]
     ];
-    paymentRequest.currencyCode = @"EUR";
+    paymentRequest.currencyCode = _selectedCurrency;
     if (@available(iOS 12.0, *)) {
         paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex, PKPaymentNetworkMaestro];
     } else {
@@ -294,9 +305,8 @@
                        didAuthorizePayment:(PKPayment *)payment
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
-    // Complete the payment authorization
-    _donationSuccess = YES;
-    completion(PKPaymentAuthorizationStatusSuccess);
+    _successCompletionHandler = completion;
+    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(nonnull PKPaymentAuthorizationViewController *)controller {
@@ -305,6 +315,16 @@
             [self donationReceived];
         }
     }];
+}
+
+- (void)stripeProcessingCompleted:(BOOL)success
+{
+    _donationSuccess = success;
+    if (_donationSuccess) {
+        _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
+    } else {
+        _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
+    }
 }
 
 - (void)donationReceived
