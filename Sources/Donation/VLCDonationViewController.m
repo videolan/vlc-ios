@@ -31,6 +31,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     UIColor *_blueColor;
     UIColor *_lightBlueColor;
     BOOL _donationSuccess;
+    NSString *_donationErrorMessage;
     VLCStripeController *_stripeController;
     CompletionHandler _successCompletionHandler;
 }
@@ -313,18 +314,31 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [controller dismissViewControllerAnimated:YES completion:^{
         if (self->_donationSuccess) {
             [self donationReceived];
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
+                                                                                                               comment: "")
+                                                                                     message:self->_donationErrorMessage
+                                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action){
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
 }
 
-- (void)stripeProcessingCompleted:(BOOL)success
+- (void)stripeProcessingSucceeded
 {
-    _donationSuccess = success;
-    if (_donationSuccess) {
-        _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
-    } else {
-        _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
-    }
+    _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
+}
+
+- (void)stripeProcessingFailedWithError:(NSString *)errorMessage
+{
+    _donationErrorMessage = errorMessage;
+    _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
 }
 
 - (void)donationReceived

@@ -125,7 +125,7 @@ const NSString *secretStripeAPIKey = @"";
             // Handle error
             APLog(@"Error creating Stripe token: %@", error.localizedDescription);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingCompleted:NO];
+                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
             });
         } else {
             // Handle success
@@ -136,8 +136,9 @@ const NSString *secretStripeAPIKey = @"";
                 [self processPaymentWithStripe:stripeToken];
             } else {
                 APLog(@"Error creating Stripe token: %@", jsonResponse);
+                NSDictionary *errorDict = jsonResponse[@"error"];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingCompleted:NO];
+                    [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
                 });
             }
         }
@@ -165,7 +166,7 @@ const NSString *secretStripeAPIKey = @"";
             // Handle error
             APLog(@"Error processing payment: %@", error.localizedDescription);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingCompleted:NO];
+                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
             });
         } else {
             // Handle success
@@ -173,12 +174,16 @@ const NSString *secretStripeAPIKey = @"";
             BOOL success = [jsonResponse[@"paid"] boolValue];
             if (success) {
                 APLog(@"Payment successfully processed");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate stripeProcessingSucceeded];
+                });
             } else {
-                APLog(@"Receive negative response from Stripe: %@", jsonResponse);
+                NSDictionary *errorDict = jsonResponse[@"error"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
+                });
+                APLog(@"Received negative response from Stripe: %@", jsonResponse);
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingCompleted:success];
-            });
         }
     }] resume];
 }

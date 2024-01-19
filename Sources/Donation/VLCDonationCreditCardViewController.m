@@ -130,13 +130,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                      currency:_currencyCode];
 }
 
-- (void)stripeProcessingCompleted:(BOOL)success {
+- (void)stripeProcessingSucceeded {
     [self.activityIndicator stopAnimating];
-
-    if (!success) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        return;
-    }
 
     [self.confettiView startConfetti];
 
@@ -144,6 +139,23 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                                                                        comment: "")
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)stripeProcessingFailedWithError:(NSString *)errorMessage
+{
+    [self.activityIndicator stopAnimating];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
+                                                                                                       comment: "")
+                                                                             message:errorMessage
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
