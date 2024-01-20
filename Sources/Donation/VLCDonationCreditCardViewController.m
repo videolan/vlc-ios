@@ -219,9 +219,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull action){
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }]];
+                                                      handler:nil]];
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
