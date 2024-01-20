@@ -71,10 +71,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
 
-    ColorPalette *colors = PresentationTheme.current.colors;
-    _continueButton.backgroundColor = colors.orangeUI;
-    [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _continueButton.layer.cornerRadius = 5.;
+    [self updateColors];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
@@ -93,6 +90,22 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [_creditCardNumberField addTarget:self
                                action:@selector(reformatAsCardNumber:)
                      forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)updateColors
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _continueButton.backgroundColor = colors.orangeUI;
+    [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _continueButton.layer.cornerRadius = 5.;
+    _creditCardNumberField.backgroundColor = colors.background;
+    _creditCardNumberField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _expiryDateMonthField.backgroundColor = colors.background;
+    _expiryDateMonthField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _expiryDateYearField.backgroundColor = colors.background;
+    _expiryDateYearField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _cvvField.backgroundColor = colors.background;
+    _cvvField.layer.borderColor = colors.textfieldBorderColor.CGColor;
 }
 
 - (void)hideInputElements:(BOOL)bValue
@@ -219,7 +232,9 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
-                                                      handler:nil]];
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+        [self hideInputElements:NO];
+    }]];
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
