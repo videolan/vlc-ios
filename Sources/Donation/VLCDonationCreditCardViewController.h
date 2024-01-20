@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *continueButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
+@property (readwrite, nonatomic, weak) IBOutlet UIScrollView *contentScrollView;
 @property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
 
 - (IBAction)fieldAction:(id)sender;

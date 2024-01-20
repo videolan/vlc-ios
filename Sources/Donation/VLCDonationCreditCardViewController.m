@@ -66,6 +66,25 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_DONATE_BUTTON", nil) forState:UIControlStateNormal];
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
+
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _continueButton.backgroundColor = colors.orangeUI;
+    [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _continueButton.layer.cornerRadius = 5.;
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillHideNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillShowNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillChangeFrameNotification
+                             object:nil];
 }
 
 - (void)hideInputElements:(BOOL)bValue
@@ -85,6 +104,25 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     } else {
         self.descriptionLabel.text = NSLocalizedString(@"DONATION_CC_INFO_NOT_STORED", nil);
     }
+}
+
+- (void)adjustForKeyboard:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = [aNotification userInfo];
+
+    CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    id<UICoordinateSpace> fromCoordinateSpace = [(UIScreen *)aNotification.object coordinateSpace];
+    id<UICoordinateSpace> toCoordinateSpace = self.view;
+    keyboardFrameEnd = [fromCoordinateSpace convertRect:keyboardFrameEnd toCoordinateSpace:toCoordinateSpace];
+
+    if ([aNotification.name isEqualToString: UIKeyboardWillHideNotification]) {
+        _contentScrollView.contentInset = UIEdgeInsetsZero;
+    } else {
+        _contentScrollView.contentInset = UIEdgeInsetsMake(0., 0., keyboardFrameEnd.size.height - self.view.safeAreaInsets.bottom, 0.);
+    }
+
+    [_contentScrollView scrollRectToVisible:_continueButton.frame animated:YES];
 }
 
 - (NSString *)title

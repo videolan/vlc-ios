@@ -1476,12 +1476,12 @@
 			children = (
 				7D04E1C92AB0B5FB003AD39F /* VLCDonationViewController.h */,
 				7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */,
+				7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */,
 				7DDA303B2AF53AF400F96BB8 /* VLCDonationPayPalViewController.h */,
 				7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */,
 				7DDA303E2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.h */,
 				7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */,
 				7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */,
-				7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */,
 				7D2BC90F2B5A67AB00C6770B /* VLCStripeController.h */,
 				7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */,
 			);

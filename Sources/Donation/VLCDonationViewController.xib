@@ -144,7 +144,7 @@
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Custom Amount" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="E0J-0x-x8V">
                             <rect key="frame" x="55" y="424" width="289" height="34"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <connections>
                                 <action selector="customAmountFieldAction:" destination="-1" eventType="primaryActionTriggered" id="CHd-cG-ieL"/>
                                 <action selector="customAmountFieldAction:" destination="-1" eventType="editingDidEnd" id="aAC-ey-IZj"/>

@@ -95,6 +95,20 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_actionSheet.collectionView registerClass:[VLCActionSheetCell class]
                     forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillHideNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillShowNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillChangeFrameNotification
+                             object:nil];
+
     [self updateColors];
 }
 
@@ -104,25 +118,48 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     _blueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:1.0];
     _lightBlueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:.5];
-    UIColor *whileColor = [UIColor whiteColor];
+    UIColor *whiteColor = [UIColor whiteColor];
 
     _continueButton.backgroundColor = colors.orangeUI;
-    [_continueButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_continueButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _customAmountField.backgroundColor = colors.background;
     _customAmountField.layer.borderColor = colors.textfieldBorderColor.CGColor;
 
     _fiveButton.backgroundColor = _lightBlueColor;
-    [_fiveButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_fiveButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _tenButton.backgroundColor = _lightBlueColor;
-    [_tenButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_tenButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _twentyButton.backgroundColor = _lightBlueColor;
-    [_twentyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_twentyButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _thirtyButton.backgroundColor = _lightBlueColor;
-    [_thirtyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_thirtyButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _fiftyButton.backgroundColor = _lightBlueColor;
-    [_fiftyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_fiftyButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _hundredButton.backgroundColor = _lightBlueColor;
-    [_hundredButton setTitleColor:whileColor forState:UIControlStateNormal];
+    [_hundredButton setTitleColor:whiteColor forState:UIControlStateNormal];
+}
+
+- (void)adjustForKeyboard:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = [aNotification userInfo];
+
+    CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    id<UICoordinateSpace> fromCoordinateSpace = [(UIScreen *)aNotification.object coordinateSpace];
+    id<UICoordinateSpace> toCoordinateSpace = self.view;
+    keyboardFrameEnd = [fromCoordinateSpace convertRect:keyboardFrameEnd toCoordinateSpace:toCoordinateSpace];
+
+    if ([aNotification.name isEqualToString: UIKeyboardWillHideNotification]) {
+        _contentScrollView.contentInset = UIEdgeInsetsZero;
+    } else {
+        if (@available(iOS 11.0, *)) {
+            _contentScrollView.contentInset = UIEdgeInsetsMake(0., 0., keyboardFrameEnd.size.height - self.view.safeAreaInsets.bottom, 0.);
+        } else {
+            _contentScrollView.contentInset = UIEdgeInsetsMake(0., 0., keyboardFrameEnd.size.height, 0.);
+        }
+    }
+
+    [_contentScrollView scrollRectToVisible:_continueButton.frame animated:YES];
 }
 
 - (NSString *)title
