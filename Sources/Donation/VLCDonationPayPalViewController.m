@@ -16,7 +16,8 @@
 @interface VLCDonationPayPalViewController ()
 {
     WKWebView *_webView;
-    float _donationAmount;
+    int _donationAmount;
+    NSString *_currencyCode;
 }
 
 @end
@@ -43,9 +44,14 @@
     return NSLocalizedString(@"DONATION_WINDOW_TITLE", nil);
 }
 
-- (void)setDonationAmount:(float)donationAmount
+- (void)setDonationAmount:(int)donationAmount
 {
     _donationAmount = donationAmount;
+}
+
+- (void)setCurrencyCode:(NSString *)isoCode
+{
+    _currencyCode = isoCode;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,8 +62,8 @@
 
     NSLocale *currentLocale = [NSLocale currentLocale];
 
-    NSString *formData = @"cmd=_xclick&business=sponsor@videolan.org&item_name=VideoLAN&currency_code=EUR&tax=0&lc=%@&no_shipping=1&return=https://www.videolan.org/thank_you.html&amount=%0.2f";
-    formData = [NSString stringWithFormat:formData, currentLocale.languageCode, _donationAmount];
+    NSString *formData = @"cmd=_xclick&business=sponsor@videolan.org&item_name=VideoLAN&currency_code=%@&tax=0&lc=%@&no_shipping=1&return=https://www.videolan.org/thank_you.html&amount=%i";
+    formData = [NSString stringWithFormat:formData, _currencyCode, currentLocale.languageCode, _donationAmount];
 
     NSData *httpBody = [formData dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:httpBody];

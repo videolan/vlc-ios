@@ -16,13 +16,16 @@
 #import "VLCDonationPayPalViewController.h"
 #import "VLCDonationCreditCardViewController.h"
 #import "VLCStripeController.h"
+#import "VLCCurrency.h"
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 @interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
 {
-    CGFloat _selectedDonationAmount;
-    NSString *_selectedCurrency;
+    NSNumber *_selectedDonationAmount;
+    NSArray *_availableCurrencies;
+    VLCCurrency *_selectedCurrency;
+    BOOL _presentingCurrencySelector;
     VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
@@ -51,8 +54,18 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _stripeController = [[VLCStripeController alloc] init];
     _stripeController.delegate = self;
 
-    // TODO: support non-EUR currencies
-    _selectedCurrency = @"EUR";
+    /* use Euro as default currency and switch to a supported locale if available */
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *currentLocaleCurrency = locale.currencyCode;
+    _selectedCurrency = [[VLCCurrency alloc] initEUR];
+    _availableCurrencies = [VLCCurrency availableCurrencies];
+    for (VLCCurrency *currency in _availableCurrencies) {
+        if ([currency.isoCode isEqualToString:currentLocaleCurrency]) {
+            _selectedCurrency = currency;
+            break;
+        }
+    }
+    [self showSelectedCurrency];
 
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
@@ -63,11 +76,10 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
-    [_frequencySwitch setTitle:NSLocalizedString(@"DONATION_ONE_TIME", nil) forSegmentAtIndex:0];
-    [_frequencySwitch setTitle:NSLocalizedString(@"DONATION_MONTHLY", nil) forSegmentAtIndex:1];
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_continueButton setTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) forState:UIControlStateNormal];
 
+    _selectedCurrencyButton.layer.cornerRadius = 5.;
     _continueButton.layer.cornerRadius = 5.;
     _fiveButton.layer.cornerRadius = 5.;
     _tenButton.layer.cornerRadius = 5.;
@@ -75,18 +87,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _thirtyButton.layer.cornerRadius = 5.;
     _fiftyButton.layer.cornerRadius = 5.;
     _hundredButton.layer.cornerRadius = 5.;
-
-    // Check if Apple Pay is available
-    NSMutableArray *mutableProviders = [NSMutableArray arrayWithObject:@"PayPal"];
-    if ([PKPaymentAuthorizationViewController canMakePayments]) {
-        [mutableProviders addObject:@"Apple Pay"];
-    }
-    /* we need to support credit card authentication via 3D Secure for which we depend on
-     * ASWebAuthenticationSession that was introduced in iOS 12 */
-    if (@available(iOS 12.0, *)) {
-        [mutableProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
-    }
-    _paymentProviders = [mutableProviders copy];
 
     _actionSheet = [[VLCActionSheet alloc] init];
     _actionSheet.dataSource = self;
@@ -120,6 +120,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _lightBlueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:.5];
     UIColor *whiteColor = [UIColor whiteColor];
 
+    _selectedCurrencyButton.backgroundColor = colors.orangeUI;
+    [_selectedCurrencyButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _continueButton.backgroundColor = colors.orangeUI;
     [_continueButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _customAmountField.backgroundColor = colors.background;
@@ -186,7 +188,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)hidePurchaseInterface:(BOOL)bValue
 {
-    self.frequencySwitch.hidden = bValue;
+    self.selectedCurrencyButton.hidden = bValue;
     self.fiveButton.hidden = bValue;
     self.tenButton.hidden = bValue;
     self.twentyButton.hidden = bValue;
@@ -197,11 +199,21 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     self.continueButton.hidden = bValue;
 }
 
+- (IBAction)switchCurrency:(id)sender
+{
+    [_applePayButton removeFromSuperview];
+    _applePayButton = nil;
+    [_payPalImageView removeFromSuperview];
+    _payPalImageView = nil;
+    _presentingCurrencySelector = YES;
+    [self presentViewController:_actionSheet animated:YES completion:nil];
+}
+
 - (IBAction)numberButtonAction:(UIButton *)sender
 {
     [self uncheckNumberButtons];
     sender.selected = YES;
-    _selectedDonationAmount = sender.tag;
+    _selectedDonationAmount = [NSNumber numberWithInt:sender.tag];
     _continueButton.enabled = YES;
     _applePayButton.enabled = YES;
     sender.backgroundColor = _blueColor;
@@ -213,7 +225,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _applePayButton = nil;
     [_payPalImageView removeFromSuperview];
     _payPalImageView = nil;
-
+    _presentingCurrencySelector = NO;
     [self presentViewController:_actionSheet animated:YES completion:nil];
 }
 
@@ -227,25 +239,87 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (NSString *)headerViewTitle
 {
-    return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
+    if (_presentingCurrencySelector) {
+        return NSLocalizedString(@"DONATION_CHOOSE_CURRENCY", nil);
+    } else {
+        return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
+    }
 }
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return _paymentProviders[indexPath.row];
+    if (_presentingCurrencySelector) {
+        return _availableCurrencies[indexPath.row];
+    } else {
+        return _paymentProviders[indexPath.row];
+    }
 }
 
 - (void)actionSheetWithCollectionView:(UICollectionView *)collectionView didSelectItem:(id)item At:(NSIndexPath *)indexPath
 {
-    /* Apple Pay is handled by the button directly so no selection will be made */
-    _selectedPaymentProvider = _paymentProviders[indexPath.row];
+    if (_presentingCurrencySelector) {
+        _selectedCurrency = _availableCurrencies[indexPath.row];
+    } else {
+        _selectedPaymentProvider = _paymentProviders[indexPath.row];
+    }
 }
 
 - (void)actionSheetDidFinishClosingAnimation:(VLCActionSheet *)actionSheet
 {
+    if (_presentingCurrencySelector) {
+        [self showSelectedCurrency];
+    } else {
+        [self showSelectedPaymentProvider];
+    }
+}
+
+- (void)showSelectedCurrency
+{
+    [self uncheckNumberButtons];
+
+    [_selectedCurrencyButton setTitle:_selectedCurrency.userReadableName forState:UIControlStateNormal];
+    NSArray *values = _selectedCurrency.values;
+
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    formatter.currencySymbol = _selectedCurrency.localCurrencySymbol;
+    formatter.maximumFractionDigits = 0;
+
+    [_fiveButton setTitle:[formatter stringFromNumber:values[0]] forState:UIControlStateNormal];
+    [_fiveButton setTag:[values[0] intValue]];
+    [_tenButton setTitle:[formatter stringFromNumber:values[1]] forState:UIControlStateNormal];
+    [_tenButton setTag:[values[1] intValue]];
+    [_twentyButton setTitle:[formatter stringFromNumber:values[2]] forState:UIControlStateNormal];
+    [_twentyButton setTag:[values[2] intValue]];
+    [_thirtyButton setTitle:[formatter stringFromNumber:values[3]] forState:UIControlStateNormal];
+    [_thirtyButton setTag:[values[3] intValue]];
+    [_fiftyButton setTitle:[formatter stringFromNumber:values[4]] forState:UIControlStateNormal];
+    [_fiftyButton setTag:[values[4] intValue]];
+    [_hundredButton setTitle:[formatter stringFromNumber:values[5]] forState:UIControlStateNormal];
+    [_hundredButton setTag:[values[5] intValue]];
+
+    // Check if Apple Pay is available
+    NSMutableArray *mutableProviders = [NSMutableArray array];
+    if (_selectedCurrency.supportsPayPal) {
+        [mutableProviders addObject:@"PayPal"];
+    }
+    if ([PKPaymentAuthorizationViewController canMakePayments]) {
+        [mutableProviders addObject:@"Apple Pay"];
+    }
+    /* we need to support credit card authentication via 3D Secure for which we depend on
+     * ASWebAuthenticationSession that was introduced in iOS 12 */
+    if (@available(iOS 12.0, *)) {
+        [mutableProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
+    }
+    _paymentProviders = [mutableProviders copy];
+}
+
+- (void)showSelectedPaymentProvider
+{
     if ([_selectedPaymentProvider isEqualToString:@"PayPal"]) {
         VLCDonationPayPalViewController *payPalVC = [[VLCDonationPayPalViewController alloc] initWithNibName:nil bundle:nil];
-        [payPalVC setDonationAmount:_selectedDonationAmount];
+        [payPalVC setDonationAmount:_selectedDonationAmount.intValue];
+        [payPalVC setCurrencyCode:_selectedCurrency.isoCode];
         [self.navigationController pushViewController:payPalVC animated:YES];
     } else if ([_selectedPaymentProvider isEqualToString:@"Apple Pay"]) {
         [self initiateApplePayPayment];
@@ -265,6 +339,33 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     if (!cell) {
         cell = [[VLCActionSheetCell alloc] init];
     }
+    if (_presentingCurrencySelector) {
+        [self configureCellForCurrency:cell atIndexPath:indexPath];
+    } else {
+        [self configureCellForPaymentProvider:cell atIndexPath:indexPath];
+    }
+
+    return cell;
+}
+
+- (NSInteger)numberOfRows
+{
+    if (_presentingCurrencySelector) {
+        return _availableCurrencies.count;
+    }
+
+    return _paymentProviders.count;
+}
+
+- (void)configureCellForCurrency:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    VLCCurrency *currency = _availableCurrencies[indexPath.row];
+    cell.name.text = currency.userReadableName;
+    cell.name.textAlignment = NSTextAlignmentNatural;
+}
+
+- (void)configureCellForPaymentProvider:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
     NSString *paymentProviderName = _paymentProviders[indexPath.row];
     cell.name.text = @"";
 
@@ -298,13 +399,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         cell.name.text = paymentProviderName;
         cell.name.textAlignment = NSTextAlignmentCenter;
     }
-
-    return cell;
-}
-
-- (NSInteger)numberOfRows
-{
-    return _paymentProviders.count;
 }
 
 #pragma mark - payment view controller delegate
@@ -315,9 +409,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     paymentRequest.merchantIdentifier = @"merchant.org.videolan.vlc";
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
     paymentRequest.paymentSummaryItems = @[
-        [PKPaymentSummaryItem summaryItemWithLabel:@"VideoLAN" amount:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithFloat:_selectedDonationAmount] decimalValue]]]
+        [PKPaymentSummaryItem summaryItemWithLabel:@"VideoLAN" amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]]
     ];
-    paymentRequest.currencyCode = _selectedCurrency;
+    paymentRequest.currencyCode = _selectedCurrency.isoCode;
     if (@available(iOS 12.0, *)) {
         paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex, PKPaymentNetworkMaestro];
     } else {
@@ -344,7 +438,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
     _successCompletionHandler = completion;
-    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency];
+    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency.isoCode];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(nonnull PKPaymentAuthorizationViewController *)controller {

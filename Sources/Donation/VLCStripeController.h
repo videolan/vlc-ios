@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 
 @class PKPayment;
+@class VLCCurrency;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, weak) id<VLCStripeControllerDelegate> delegate;
 
-- (void)processPayment:(PKPayment *)payment forAmount:(CGFloat)amount currency:(NSString *)currencyCode;
-- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(CGFloat)amount currency:(NSString *)currencyCode;
+- (void)processPayment:(PKPayment *)payment forAmount:(NSNumber *)amount currency:(NSString *)currencyCode;
+- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency;
 
 - (void)continueWithPaymentIntent:(NSString *)paymentIntent;
 

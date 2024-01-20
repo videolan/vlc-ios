@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *descriptionLabel;
-@property (readwrite, nonatomic, weak) IBOutlet UISegmentedControl *frequencySwitch;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *selectedCurrencyButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *fiveButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *tenButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *twentyButton;
@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIScrollView *contentScrollView;
 @property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
 
+- (IBAction)switchCurrency:(id)sender;
 - (IBAction)numberButtonAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 - (IBAction)customAmountFieldAction:(id)sender;

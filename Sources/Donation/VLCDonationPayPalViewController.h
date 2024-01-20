@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCDonationPayPalViewController : UIViewController
 
-- (void)setDonationAmount:(float)donationAmount;
+- (void)setDonationAmount:(int)donationAmount;
+- (void)setCurrencyCode:(NSString *)isoCode;
 
 @end
 

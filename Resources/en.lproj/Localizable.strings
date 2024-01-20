@@ -604,14 +604,13 @@
 
 // MARK: - Donation
 "DONATION_CUSTOM_AMOUNT" = "Enter Custom Amount";
-"DONATION_MONTHLY" = "Monthly";
-"DONATION_ONE_TIME" = "One-Time";
 "DONATION_TITLE" = "Privacy over profit";
 "DONATION_DESCRIPTION" = "Private, open-source multimedia, funded by you. No ads, no tracking, no compromise. Free for everyone to use. Donate now to support VideoLAN.";
 "DONATION_WINDOW_TITLE" = "Make a Donation to VideoLAN";
 "DONATE_CC_DC" = "Credit or Debit card";
 "DONATION_CHOOSE_PP" = "Please select your payment provider";
-"DONATION_AMOUNT" = "Donation amount: %0.2f €";
+"DONATION_CHOOSE_CURRENCY" = "Please select a currency";
+"DONATION_AMOUNT" = "Donation amount: %@";
 "DONATION_CC_INFO_NOT_STORED" = "VideoLAN will neither receive nor store your credit card data.";
 "DONATION_CC_NUM" = "Credit Card Number";
 "DONATION_CC_EXPIRY_DATE" = "Expiry Date";

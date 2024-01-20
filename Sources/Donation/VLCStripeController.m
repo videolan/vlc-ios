@@ -13,6 +13,7 @@
 #import "VLCStripeController.h"
 #import <PassKit/PassKit.h>
 #import <AFNetworking/AFNetworking.h>
+#import "VLCCurrency.h"
 
 const NSString *publishableStripeAPIKey = @"";
 const NSString *secretStripeAPIKey = @"";
@@ -20,7 +21,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 @interface VLCStripeController()
 {
-    NSString *_currencyCode;
+    VLCCurrency *_currency;
     NSString *_amount;
 
     NSDictionary *_card;
@@ -32,10 +33,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 #pragma mark - apple pay internals
 
-- (void)processPayment:(PKPayment *)payment forAmount:(CGFloat)amount currency:(NSString *)currencyCode
+- (void)processPayment:(PKPayment *)payment forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency
 {
-    _currencyCode = currencyCode;
-    _amount = [[NSNumber numberWithInteger:(NSInteger)amount * 100] stringValue];
+    _currency = currency;
+    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
 
     NSDictionary *parameters = [self constructParametersForPayment:payment];
     [self createStripeTokenWithParameters:parameters];
@@ -91,10 +92,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 #pragma mark - CB internals
 
-- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(CGFloat)amount currency:(NSString *)currencyCode
+- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency
 {
-    _currencyCode = currencyCode;
-    _amount = [[NSNumber numberWithInteger:(NSInteger)amount * 100] stringValue];
+    _currency = currency;
+    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
 
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     mutDict[@"card[number]"] = cardNumber;
@@ -164,7 +165,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 
     // Construct the request body
-    NSString *bodyString = [NSString stringWithFormat:@"amount=%@&currency=%@&source=%@", _amount, _currencyCode, _tokenID];
+    NSString *bodyString = [NSString stringWithFormat:@"amount=%@&currency=%@&source=%@", _amount, _currency.isoCode, _tokenID];
     NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:bodyData];
 
@@ -210,7 +211,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     mutDict[@"confirm"] = @"true";
     mutDict[@"amount"] = _amount;
-    mutDict[@"currency"] = _currencyCode;
+    mutDict[@"currency"] = _currency.isoCode;
     mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
     mutDict[@"return_url"] = callbackURLString;
 

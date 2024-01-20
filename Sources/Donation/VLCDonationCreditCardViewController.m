@@ -12,6 +12,7 @@
 
 #import "VLCDonationCreditCardViewController.h"
 #import "VLCStripeController.h"
+#import "VLCCurrency.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -27,8 +28,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 @interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding>
 {
-    float _donationAmount;
-    NSString *_currencyCode;
+    NSNumber *_donationAmount;
+    VLCCurrency *_currency;
     VLCStripeController *_stripeController;
     ASWebAuthenticationSession *_webAuthenticationSession;
 }
@@ -136,16 +137,22 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)setDonationAmount:(float)donationAmount withCurrency:(NSString *)currency
+- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency
 {
     _donationAmount = donationAmount;
-    _currencyCode = currency;
+    _currency = currency;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_AMOUNT", nil), _donationAmount];
+
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    formatter.currencySymbol = _currency.localCurrencySymbol;
+    formatter.maximumFractionDigits = 0;
+
+    self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_AMOUNT", nil), [formatter stringFromNumber:_donationAmount]];
     [self hideInputElements:NO];
     if (DEBUG_MODE) {
         self.creditCardNumberField.text = @"4242424242424242";
@@ -171,7 +178,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                      exprMonth:self.expiryDateMonthField.text
                                      exprYear:self.expiryDateYearField.text
                                     forAmount:_donationAmount
-                                     currency:_currencyCode];
+                                     currency:_currency];
 }
 
 #pragma mark - stripe controller delegation
