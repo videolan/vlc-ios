@@ -438,7 +438,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
     _successCompletionHandler = completion;
-    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency.isoCode];
+    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(nonnull PKPaymentAuthorizationViewController *)controller {
