@@ -218,9 +218,9 @@
 "VO_VIDEOPLAYER_TITLE" = "Video Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
 
-"FIRST_STEPS_ITUNES" = "iTunes File Sync";
+"FIRST_STEPS_ITUNES" = "File Sync";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to use the Finder or iTunes for \"File Sharing\". Select VLC to transfer files.";
 "FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Clouds";
