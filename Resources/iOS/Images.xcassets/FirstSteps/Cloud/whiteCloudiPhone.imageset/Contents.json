@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "iPhone 14 dark coulds.png",
       "idiom" : "universal",
-      "filename" : "iPhone X (White).png",
       "scale" : "1x"
     },
     {
+      "filename" : "iPhone 14 dark coulds@2x.png",
       "idiom" : "universal",
-      "filename" : "iPhone X (White)@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "iPhone 14 dark coulds@3x.png",
       "idiom" : "universal",
-      "filename" : "iPhone X (White)@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
