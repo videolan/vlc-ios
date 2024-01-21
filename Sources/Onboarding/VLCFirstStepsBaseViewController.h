@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
     VLCFirstStepsPageiTunesSync = 0,
     VLCFirstStepsPageWifiSharing,
     VLCFirstStepsPageClouds,
+    VLCFirstStepsDonate,
     VLCFirstStepsPageCount
 };
 

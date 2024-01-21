@@ -12,6 +12,7 @@
 
 #import "VLCFirstStepsBaseViewController.h"
 #import "VLCFirstStepsiTunesSyncViewController.h"
+#import "VLCFirstStepsDonateViewController.h"
 #import "VLCFirstStepsWifiSharingViewController.h"
 #import "VLCFirstStepsCloudViewController.h"
 #import "VLC-Swift.h"
@@ -60,10 +61,11 @@
 
 - (void)updateTheme
 {
-    self.pageTitleLabel.textColor = PresentationTheme.current.colors.navigationbarTextColor;
-    self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.descriptionLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.pageTitleLabel.textColor = colors.navigationbarTextColor;
+    self.titleLabel.textColor = colors.cellTextColor;
+    self.descriptionLabel.textColor = colors.cellDetailTextColor;
+    self.view.backgroundColor = colors.background;
     self.bottomView.backgroundColor = self.view.backgroundColor;
     self.pageTitleLabel.backgroundColor = self.view.backgroundColor;
     self.pageTitleLabel.superview.backgroundColor = self.view.backgroundColor;
@@ -141,6 +143,41 @@
     self.titleLabel.text = [self.class titleText];
     self.descriptionLabel.text = [self.class descriptionText];
     [self updatePageTitle];
+
+    if (self.page == VLCFirstStepsDonate) {
+        [self setupLabelForDonation:self.titleLabel];
+        [self setupLabelForDonation:self.descriptionLabel];
+    } else {
+        ColorPalette *colors = PresentationTheme.current.colors;
+        self.titleLabel.userInteractionEnabled = NO;
+        self.titleLabel.textColor = colors.cellTextColor;
+        self.descriptionLabel.userInteractionEnabled = NO;
+        self.descriptionLabel.textColor = colors.cellDetailTextColor;
+    }
+}
+
+- (void)setupLabelForDonation:(UILabel *)label
+{
+    label.userInteractionEnabled = YES;
+    label.textColor = [UIColor VLCOrangeTintColor];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(didTapLabelWithGesture:)];
+    [label addGestureRecognizer:tapGesture];
+}
+
+- (void)didTapLabelWithGesture:(UIGestureRecognizer *)gesture
+{
+    UIViewController *vc;
+    /* show the IAP based view on old iOS releases and the donation screen on the newer */
+    if (@available(iOS 10.2, *)) {
+        vc = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
+    } else {
+        vc = [[StoreViewController alloc] initWithNibName:@"VLCStoreViewController" bundle:nil];
+    }
+    UINavigationController *donationVC = [[UINavigationController alloc] initWithRootViewController:vc];
+    donationVC.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:donationVC animated:YES completion:nil];
 }
 
 - (void)updatePageTitle
@@ -219,6 +256,7 @@
         [VLCFirstStepsiTunesSyncViewController class],
         [VLCFirstStepsWifiSharingViewController class],
         [VLCFirstStepsCloudViewController class],
+        [VLCFirstStepsDonateViewController class],
     ];
 }
 

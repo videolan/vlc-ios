@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,6 +29,8 @@
                 <outletCollection property="labelHeightConstraints" destination="p25-Na-NMh" id="sCt-7T-TmI"/>
                 <outletCollection property="labelHeightConstraints" destination="ZnE-BZ-WVr" id="6V8-bl-dt8"/>
                 <outletCollection property="labelHeightConstraints" destination="WXc-CJ-zhN" id="hsR-qD-Xch"/>
+                <outletCollection property="centralParts" destination="xpl-E9-eSE" id="4xK-4T-ADf"/>
+                <outletCollection property="images" destination="51L-Lq-Ojh" id="cwM-vs-hD8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -37,11 +39,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-Kr-wDr" userLabel="central">
-                    <rect key="frame" x="0.0" y="93" width="414" height="609"/>
+                    <rect key="frame" x="0.0" y="97" width="414" height="605"/>
                     <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJX-im-o5c" userLabel="pageTitleContainer">
-                    <rect key="frame" x="0.0" y="44" width="414" height="49"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="49"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clouds" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1O-0P-H5y" userLabel="pageTitleLabel">
                             <rect key="frame" x="20" y="4" width="374" height="41"/>
@@ -175,7 +177,7 @@
                 <constraint firstItem="Jxb-R3-e1c" firstAttribute="top" secondItem="CEJ-v4-pmu" secondAttribute="top" id="rJa-TL-Ri5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-629" y="-596"/>
+            <point key="canvasLocation" x="-630" y="-290"/>
         </view>
         <view hidden="YES" contentMode="scaleToFill" id="FS3-Ul-viJ" userLabel="central_Clouds">
             <rect key="frame" x="0.0" y="0.0" width="380" height="460"/>
@@ -224,8 +226,33 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="59" y="-556"/>
         </view>
+        <view hidden="YES" contentMode="scaleToFill" id="xpl-E9-eSE" userLabel="central_donation">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="340"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lunettes" translatesAutoresizingMaskIntoConstraints="NO" id="51L-Lq-Ojh">
+                    <rect key="frame" x="0.0" y="0.0" width="340" height="340"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="340" id="PDs-Ei-kRU"/>
+                        <constraint firstAttribute="height" constant="340" id="oM3-fl-2bu"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="hu0-fP-oAr"/>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="51L-Lq-Ojh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xpl-E9-eSE" secondAttribute="leading" id="06L-f5-RUs"/>
+                <constraint firstItem="51L-Lq-Ojh" firstAttribute="centerX" secondItem="xpl-E9-eSE" secondAttribute="centerX" id="KmG-45-f86"/>
+                <constraint firstItem="51L-Lq-Ojh" firstAttribute="top" secondItem="xpl-E9-eSE" secondAttribute="top" id="kYM-TD-rlQ"/>
+                <constraint firstAttribute="trailing" secondItem="51L-Lq-Ojh" secondAttribute="trailing" id="yx0-1m-Du5"/>
+                <constraint firstAttribute="bottom" secondItem="51L-Lq-Ojh" secondAttribute="bottom" id="zAl-Pn-g19"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-629" y="-596"/>
+        </view>
     </objects>
     <resources>
+        <image name="Lunettes" width="128" height="128"/>
         <image name="box" width="64" height="64"/>
         <image name="cable" width="310" height="669"/>
         <image name="cloudDownload" width="64" height="64"/>
@@ -234,8 +261,8 @@
         <image name="laptop" width="344.5" height="480.5"/>
         <image name="oneDrive" width="64" height="64"/>
         <image name="phone" width="218" height="423"/>
-        <image name="whiteCloudiPhone" width="649" height="703"/>
-        <image name="whiteiPhone" width="649" height="658"/>
+        <image name="whiteCloudiPhone" width="340" height="376.5"/>
+        <image name="whiteiPhone" width="340" height="374.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
