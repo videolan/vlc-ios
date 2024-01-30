@@ -24,7 +24,7 @@ UITextContentType const UITextContentTypeCreditCardExpiration = @"UITextContentT
 UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextContentTypeCreditCardSecurityCode";
 #endif
 
-@interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding>
+@interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding, UITextFieldDelegate>
 {
     NSNumber *_donationAmount;
     VLCCurrency *_currency;
@@ -46,10 +46,14 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _stripeController.delegate = self;
 
     self.creditCardNumberLabel.text = NSLocalizedString(@"DONATION_CC_NUM", nil);
+    self.creditCardNumberField.delegate = self;
     self.expiryDateLabel.text = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE", nil);
     self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
+    self.expiryDateMonthField.delegate = self;
     self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
+    self.expiryDateYearField.delegate = self;
     self.cvvLabel.text = NSLocalizedString(@"DONATION_CC_CVV", nil);
+    self.cvvField.delegate = self;
     if (@available(iOS 15.0, *)) {
         self.expiryDateMonthField.textContentType = UITextContentTypeDateTime;
         self.expiryDateYearField.textContentType = UITextContentTypeDateTime;
@@ -311,12 +315,24 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    int maxLength = 0;
+    if (textField == self.creditCardNumberField) {
+        maxLength = 19; // this includes the spaces
+    } else if (textField == self.expiryDateMonthField || textField == self.expiryDateYearField) {
+        maxLength = 2;
+    } else if (textField == self.cvvField) {
+        maxLength = 4;
+    }
+
+    NSString *currentString = textField.text;
+    NSString *newString = [currentString stringByReplacingCharactersInRange:range withString:string];
+
     // Note textField's current state before performing the change, in case
     // reformatTextField wants to revert it
     _previousTextFieldContent = textField.text;
     _previousSelection = textField.selectedTextRange;
 
-    return YES;
+    return newString.length <= maxLength;
 }
 
 /*
