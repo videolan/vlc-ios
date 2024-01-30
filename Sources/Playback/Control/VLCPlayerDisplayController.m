@@ -158,11 +158,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     if (self.playbackController.fullscreenSessionRequested && enforceFullscreen) {
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+    } else if ([media type] == VLCMLMediaTypeAudio && _playbackController.numberOfVideoTracks > 0) {
+        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
     }
 
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            if (media.type == VLCMLMediaTypeAudio || _playbackController.playAsAudio) {
+            if ((media.type == VLCMLMediaTypeAudio || _playbackController.playAsAudio) &&
+                _playbackController.numberOfVideoTracks == 0) {
                 [self _presentAudioPlayerViewIfNeeded];
             } else {
                 [self _presentFullscreenPlaybackViewIfNeeded];
