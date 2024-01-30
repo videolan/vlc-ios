@@ -84,6 +84,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (readonly) NSInteger indexOfCurrentSubtitleTrack;
 @property (readonly) NSInteger indexOfCurrentTitle;
 @property (readonly) NSInteger indexOfCurrentChapter;
+@property (readonly) NSInteger numberOfVideoTracks;
 @property (readonly) NSInteger numberOfAudioTracks;
 @property (readonly) NSInteger numberOfVideoSubtitlesIndexes;
 @property (readonly) NSInteger numberOfTitles;

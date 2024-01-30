@@ -625,6 +625,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     return _mediaPlayer.currentTitleIndex;
 }
 
+- (NSInteger)numberOfVideoTracks
+{
+    return [_mediaPlayer numberOfVideoTracks];
+}
+
 - (NSInteger)numberOfAudioTracks
 {
     return [_mediaPlayer numberOfAudioTracks] + 1;
