@@ -213,7 +213,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 {
     [self uncheckNumberButtons];
     sender.selected = YES;
-    _selectedDonationAmount = [NSNumber numberWithInt:sender.tag];
+    _selectedDonationAmount = [NSNumber numberWithInteger:sender.tag];
     _continueButton.enabled = YES;
     _applePayButton.enabled = YES;
     sender.backgroundColor = _blueColor;
@@ -384,7 +384,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         [cell addConstraints:constraints];
     } else if ([paymentProviderName isEqualToString:@"PayPal"]) {
         UIImage *paypalLogo = [UIImage imageNamed:@"paypal-color"];
-        UIImageView *_payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
+        _payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
         _payPalImageView.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:_payPalImageView];
         _payPalImageView.translatesAutoresizingMaskIntoConstraints = NO;
