@@ -24,8 +24,6 @@ UITextContentType const UITextContentTypeCreditCardExpiration = @"UITextContentT
 UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextContentTypeCreditCardSecurityCode";
 #endif
 
-#define DEBUG_MODE 0
-
 @interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding>
 {
     NSNumber *_donationAmount;
@@ -174,12 +172,6 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
     self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_AMOUNT", nil), [formatter stringFromNumber:_donationAmount]];
     [self hideInputElements:NO];
-    if (DEBUG_MODE) {
-        self.creditCardNumberField.text = @"4242424242424242";
-        self.cvvField.text = @"424";
-        self.expiryDateMonthField.text = @"12";
-        self.expiryDateYearField.text = @"42";
-    }
 }
 
 - (IBAction)fieldAction:(id)sender
