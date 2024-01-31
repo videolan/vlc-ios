@@ -572,6 +572,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     return self.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen;
 }
 
+- (void)audioPlayerViewControllerShouldSwitchPlayer:(VLCAudioPlayerViewController *)audioPlayerViewController
+{
+    [_audioPlayerViewController dismissViewControllerAnimated:[self shouldAnimate] completion:^{
+        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+        [self _presentFullscreenPlaybackViewIfNeeded];
+    }];
+}
+
 #pragma mark - KeyCommands
 
 - (void)handlePlayPauseKeyInput

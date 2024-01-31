@@ -16,6 +16,7 @@ protocol AudioPlayerViewControllerDelegate: AnyObject {
     func audioPlayerViewControllerDidMinimize(_ audioPlayerViewController: AudioPlayerViewController)
     func audioPlayerViewControllerDidClose(_ audioPlayerViewController: AudioPlayerViewController)
     func audioPlayerViewControllerShouldBeDisplayed(_ audioPlayerViewController: AudioPlayerViewController) -> Bool
+    func audioPlayerViewControllerShouldSwitchPlayer(_ audioPlayerViewController: AudioPlayerViewController)
 }
 
 @objc (VLCAudioPlayerViewController)
@@ -424,6 +425,12 @@ extension AudioPlayerViewController {
         let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")
         let accessibilityHint: String = isPlaying ? NSLocalizedString("MINIMIZE_HINT", comment: "") : NSLocalizedString("CLOSE_HINT", comment: "")
         mediaNavigationBar.updateCloseButton(with: image, accessibility: (accessibilityLabel, accessibilityHint))
+
+        if currentState == .opening && playbackService.numberOfVideoTracks > 0 {
+            // This media contains video tracks and can be played with the Video Player.
+            delegate?.audioPlayerViewControllerShouldSwitchPlayer(self)
+            return
+        }
 
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
