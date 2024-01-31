@@ -19,6 +19,7 @@ import MediaPlayer
 protocol VideoPlayerViewControllerDelegate: AnyObject {
     func videoPlayerViewControllerDidMinimize(_ videoPlayerViewController: VideoPlayerViewController)
     func videoPlayerViewControllerShouldBeDisplayed(_ videoPlayerViewController: VideoPlayerViewController) -> Bool
+    func videoPlayerViewControllerShouldSwitchPlayer(_ videoPlayerViewController: VideoPlayerViewController)
 }
 
 enum VideoPlayerSeekState {
@@ -1666,6 +1667,14 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
 
         if currentState == .opening || currentState == .stopped {
             resetABRepeat()
+        }
+
+        let media = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia)
+        if let media = media, currentState == .opening &&
+            (media.type() == .audio && playbackService.numberOfVideoTracks == 0) {
+            // This media is audio only and can be played with the Audio Player.
+            delegate?.videoPlayerViewControllerShouldSwitchPlayer(self)
+            return
         }
 
         if titleSelectionView.isHidden == false {
