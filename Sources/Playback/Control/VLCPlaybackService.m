@@ -1439,25 +1439,30 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #if TARGET_OS_IOS
 - (void)_recoverLastPlaybackState
 {
-    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
-    if (!media) return;
+    VLCMedia *media = _mediaPlayer.media;
+    VLCMLMedia *libraryMedia = [VLCMLMedia mediaForPlayingMedia:media];
+    if (!libraryMedia) return;
 
-    if (self.repeatMode != VLCDoNotRepeat) {
+    VLCMediaList *mediaList = [_listPlayer mediaList];
+    NSUInteger mediaIndex = [mediaList indexOfMedia:media];
+
+    /* continue playback for the first item even if repeating */
+    if (self.repeatMode != VLCDoNotRepeat && mediaIndex != _itemInMediaListToBePlayedFirst) {
         goto bailout;
     }
 
-    CGFloat lastPosition = media.progress;
-    SInt64 mediaDuration = media.duration;
+    CGFloat lastPosition = libraryMedia.progress;
+    SInt64 mediaDuration = libraryMedia.duration;
 
     if (_mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
-        if (media.type == VLCMLMediaTypeAudio) {
-            if (!media.isPodcast) {
+        if (libraryMedia.type == VLCMLMediaTypeAudio) {
+            if (!libraryMedia.isPodcast) {
                 goto bailout;
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
         } else {
-            if (mediaDuration < 10000 && !media.isExternalMedia) {
+            if (mediaDuration < 10000 && !libraryMedia.isExternalMedia) {
                 goto bailout;
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
@@ -1479,7 +1484,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
             presentingVC = presentingVC.presentedViewController ?: presentingVC;
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
-                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), media.title]
+                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), libraryMedia.title]
                                                viewController:presentingVC
                                                 buttonsAction:buttonsAction];
 
