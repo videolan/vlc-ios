@@ -24,6 +24,9 @@
 · Improve accessibility of the playmode buttons
 · Add new Donation screen
 · Add link to newly created Documentation to the Settings screen
+· Update on-boarding screen
+· Fix playback continuation in loop mode for the first item
+· Fix playback of mp3+cdg combinations for karaoke
 
 ## tvOS [3.5.0]
 · Fix the display of media's artworks for audio playback
