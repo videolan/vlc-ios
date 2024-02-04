@@ -298,13 +298,16 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_hundredButton setTitle:[formatter stringFromNumber:values[5]] forState:UIControlStateNormal];
     [_hundredButton setTag:[values[5] intValue]];
 
-    // Check if Apple Pay is available
     NSMutableArray *mutableProviders = [NSMutableArray array];
     if (_selectedCurrency.supportsPayPal) {
         [mutableProviders addObject:@"PayPal"];
     }
-    if ([PKPaymentAuthorizationViewController canMakePayments]) {
-        [mutableProviders addObject:@"Apple Pay"];
+    // We depend on PKPaymentButtonTypeDonate introduced in iOS 10.2
+    if (@available(iOS 10.2, *)) {
+        // Check if Apple Pay is available
+        if ([PKPaymentAuthorizationViewController canMakePayments]) {
+            [mutableProviders addObject:@"Apple Pay"];
+        }
     }
     /* we need to support credit card authentication via 3D Secure for which we depend on
      * ASWebAuthenticationSession that was introduced in iOS 12 */
