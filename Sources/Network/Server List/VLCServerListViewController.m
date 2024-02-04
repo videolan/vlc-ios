@@ -408,7 +408,11 @@
         return;
     }
 
-    [login loadLoginInformationFromKeychainWithError:nil];
+    NSError *error = nil;
+    if (![login loadLoginInformationFromKeychainWithError:&error]) {
+        [self showKeychainLoadError:error forLogin:login];
+        return;
+    }
 
     VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
 
@@ -453,6 +457,18 @@
     } else {
         return UITableViewAutomaticDimension;
     }
+}
+
+- (void)showKeychainLoadError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          [self connectToServer];
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)showViewController:(UIViewController *)viewController

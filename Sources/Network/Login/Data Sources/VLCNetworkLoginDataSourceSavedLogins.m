@@ -197,8 +197,25 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
 {
     [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:self.sectionIndex] animated:YES];
     VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation loginInformationWithKeychainIdentifier:self.serverList[row]];
-    [login loadLoginInformationFromKeychainWithError:nil];
-    [self.delegate loginsDataSource:self selectedLogin:login];
+    NSError *error = nil;
+    if ([login loadLoginInformationFromKeychainWithError:&error]) {
+        [self.delegate loginsDataSource:self selectedLogin:login];
+    } else {
+        [self showKeychainLoadError:error forLogin:login];
+    }
+}
+
+- (void)showKeychainLoadError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+
+    UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+    presentingVC = presentingVC.presentedViewController ?: presentingVC;
+    [presentingVC presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
