@@ -42,7 +42,7 @@
     return serviceIdentifier;
 }
 
-- (BOOL)loadLoginInformationFromKeychainWithError:(NSError *__autoreleasing _Nullable *)error
+- (BOOL)loadLoginInformationFromKeychainWithError:(NSError *__autoreleasing *)error
 {
     NSError *localError = nil;
     NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
@@ -77,7 +77,7 @@
     return YES;
 }
 
-- (BOOL)saveLoginInformationToKeychainWithError:(NSError *__autoreleasing  _Nullable *)error
+- (BOOL)saveLoginInformationToKeychainWithError:(NSError *__autoreleasing *)error
 {
     NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
     if (keychainServiceIdentifier == nil) {
@@ -111,7 +111,7 @@
     return [keychainItem saveWithError:error];
 }
 
-- (BOOL)deleteFromKeychainWithError:(NSError *__autoreleasing  _Nullable *)error
+- (BOOL)deleteFromKeychainWithError:(NSError *__autoreleasing *)error
 {
     NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
     if (!keychainServiceIdentifier) {

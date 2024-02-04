@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)loginInformationWithKeychainIdentifier:(NSString *)keychainIdentifier;
 
-- (BOOL)loadLoginInformationFromKeychainWithError:(NSError * _Nullable __autoreleasing *)error;
-- (BOOL)saveLoginInformationToKeychainWithError:(NSError * _Nullable __autoreleasing *)error;
-- (BOOL)deleteFromKeychainWithError:(NSError * _Nullable __autoreleasing *)error;
+- (BOOL)loadLoginInformationFromKeychainWithError:(NSError * __autoreleasing *)error;
+- (BOOL)saveLoginInformationToKeychainWithError:(NSError * __autoreleasing *)error;
+- (BOOL)deleteFromKeychainWithError:(NSError * __autoreleasing *)error;
 @end
 NS_ASSUME_NONNULL_END
