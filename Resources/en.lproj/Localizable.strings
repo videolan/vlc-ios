@@ -565,13 +565,6 @@
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
 
-// MARK: - tip jar
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed.";
-"SEND_DONATION" = "Send your donation";
-"PURCHASE_SUCESS_TITLE" = "Donation sent";
-"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
-
 // MARK: - QueueViewController
 
 "PLAY_HINT" = "Play";
@@ -620,6 +613,10 @@
 "DONATION_APPLE_PAY_NOT_POSSIBLE" = "Failure configuring Apple Pay";
 "DONATION_APPLE_PAY_NOT_POSSIBLE_LONG" = "VLC failed to configure Apple Pay to perform your donation. Please choose a different payment provider to continue.";
 "DONATION_DONATE_BUTTON" = "Donate";
+"PURCHASE_FAILED" = "Purchase Failed.";
+"SEND_DONATION" = "Send your donation";
+"PURCHASE_SUCESS_TITLE" = "Donation sent";
+"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
 
 // MARK: - Playback keyboard shortcuts
 

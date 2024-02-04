@@ -150,16 +150,10 @@ class SettingsController: UITableViewController {
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
         }
-        /* show the IAP based view on old iOS releases and the donation screen on the newer */
-        var vc: UIViewController
-        if #available(iOS 10.2, *) {
-            vc = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
-        } else {
-            vc = StoreViewController(nibName: "VLCStoreViewController", bundle: nil)
-        }
-        let donationVC = UINavigationController(rootViewController: vc)
-        donationVC.modalTransitionStyle = .flipHorizontal
-        present(donationVC, animated: true, completion: nil)
+        let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
+        let donationNC = UINavigationController(rootViewController: donationVC)
+        donationNC.modalTransitionStyle = .flipHorizontal
+        present(donationNC, animated: true, completion: nil)
     }
 
     @objc private func themeDidChange() {

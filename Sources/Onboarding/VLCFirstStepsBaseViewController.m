@@ -168,16 +168,10 @@
 
 - (void)didTapLabelWithGesture:(UIGestureRecognizer *)gesture
 {
-    UIViewController *vc;
-    /* show the IAP based view on old iOS releases and the donation screen on the newer */
-    if (@available(iOS 10.2, *)) {
-        vc = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
-    } else {
-        vc = [[StoreViewController alloc] initWithNibName:@"VLCStoreViewController" bundle:nil];
-    }
-    UINavigationController *donationVC = [[UINavigationController alloc] initWithRootViewController:vc];
-    donationVC.modalPresentationStyle = UIModalPresentationPopover;
-    [self presentViewController:donationVC animated:YES completion:nil];
+    UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
+    UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
+    donationNC.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:donationNC animated:YES completion:nil];
 }
 
 - (void)updatePageTitle
