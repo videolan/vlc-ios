@@ -77,7 +77,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
-    [_continueButton setTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) forState:UIControlStateNormal];
+    [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
 
     _selectedCurrencyButton.layer.cornerRadius = 5.;
     _continueButton.layer.cornerRadius = 5.;
@@ -429,7 +429,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DONATION_APPLE_PAY_NOT_POSSIBLE", nil)
                                                                                  message:NSLocalizedString(@"DONATION_APPLE_PAY_NOT_POSSIBLE_LONG", nil) preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil)
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_CONTINUE", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];

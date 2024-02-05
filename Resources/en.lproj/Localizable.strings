@@ -617,6 +617,7 @@
 "SEND_DONATION" = "Send your donation";
 "PURCHASE_SUCESS_TITLE" = "Donation sent";
 "PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
+"DONATION_CONTINUE" = "Continue";
 
 // MARK: - Playback keyboard shortcuts
 
