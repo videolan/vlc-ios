@@ -118,18 +118,18 @@
     self.downloadButton.hidden = !isDownloadable;
 }
 
-- (void)setIsFavorable:(BOOL)isFavorable
-{
-    self.favoriteButton.hidden = !isFavorable;
-}
-
 - (void)setIsFavorite:(BOOL)isFavorite
 {
-    if (isFavorite) {
-        [self.favoriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
+    if (@available(iOS 13.0, *)) {
+        // Display the favorite button only if the folder is marked as favorite
+        _favoriteButton.hidden = !isFavorite;
     } else {
-        [self.favoriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
+        // The contextual menu is not available so the favorite button is always displayed when available.
+        _favoriteButton.hidden = !_isFavorable;
+        UIImage *icon = isFavorite ? [UIImage imageNamed:@"heart.fill"] : [UIImage imageNamed:@"heart"];
+        [_favoriteButton setImage:icon forState:UIControlStateNormal];
     }
+
     _isFavorite = isFavorite;
 }
 

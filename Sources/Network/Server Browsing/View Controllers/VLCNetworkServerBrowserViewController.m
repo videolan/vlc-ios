@@ -8,6 +8,7 @@
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -260,6 +261,33 @@
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point
+API_AVAILABLE(ios(13.0)) {
+    VLCNetworkListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (!cell || !cell.isFavorable) {
+        return nil;
+    }
+
+    UIContextMenuConfiguration *menuConfiguration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                            previewProvider:nil
+                                                                                             actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        NSMutableArray* actions = [[NSMutableArray alloc] init];
+
+        NSString *optionTitle = cell.isFavorite ? NSLocalizedString(@"REMOVE_FAVORITE", "") : NSLocalizedString(@"ADD_FAVORITE", "");
+        UIImage *image = cell.isFavorite ? [UIImage imageNamed:@"heart"] : [UIImage imageNamed:@"heart.fill"];
+
+        [actions addObject:[UIAction actionWithTitle:optionTitle image:image identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            [self triggerFavoriteForCell:cell];
+        }]];
+
+        UIMenu* menu = [UIMenu menuWithTitle:@"" children:actions];
+        return menu;
+    }];
+
+    return menuConfiguration;
 }
 
 #pragma mark - VLCNetworkListCell delegation
