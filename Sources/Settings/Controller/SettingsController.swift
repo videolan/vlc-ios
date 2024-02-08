@@ -295,7 +295,13 @@ class SettingsController: UITableViewController {
 
     private func resetOptions() {
         GenericOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
+            if $0 == GenericOptions.automaticallyPlayNextItem {
+                let userDefaults = UserDefaults.standard
+                userDefaults.setValue(true, forKey: kVLCAutomaticallyPlayNextItem)
+                userDefaults.setValue(true, forKey: kVLCPlaylistPlayNextItem)
+            } else {
+                resetOption(for: $0.preferenceKey)
+            }
         }
 
         PrivacyOptions.allCases.forEach {
