@@ -94,7 +94,7 @@
 			<key>Key</key>
 			<string>deinterlace</string>
 			<key>DefaultValue</key>
-			<integer>-1</integer>
+			<string>-1</string>
 			<key>Values</key>
 			<array>
 				<integer>1</integer>
