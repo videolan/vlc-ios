@@ -112,4 +112,17 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     [self.delegate loginViewFieldCellDidEndEditing:self];
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+
+    if ([touch tapCount] == 1) {
+        [self setSelected:YES animated:YES];
+    } else if ([touch tapCount] == 2 && [_textField becomeFirstResponder]) {
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        [menu setTargetRect:_textField.frame inView:self];
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+
 @end
