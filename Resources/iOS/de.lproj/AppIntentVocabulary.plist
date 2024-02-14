@@ -9,7 +9,7 @@
 			<string>INSearchForMediaIntent</string>
 			<key>IntentExamples</key>
 			<array>
-				<string>Search for Jacques Brel in VLC</string>
+				<string>Suche nach Jacques Brel in VLC</string>
 			</array>
 		</dict>
 		<dict>
@@ -17,7 +17,7 @@
 			<string>INAddMediaIntent</string>
 			<key>IntentExamples</key>
 			<array>
-				<string>Add media to VLC</string>
+				<string>Füge Medium VLC hinzu</string>
 			</array>
 		</dict>
 	</array>
