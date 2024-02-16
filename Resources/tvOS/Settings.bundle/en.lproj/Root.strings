@@ -121,6 +121,8 @@
 "SETTINGS_DEBUG_LOG" = "Save debug logs on device";
 "SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
+"SETTINGS_RESET" = "Reset the settings";
+
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";

@@ -527,6 +527,18 @@
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>kVLCSettingReset</string>
+			<key>Title</key>
+			<string>SETTINGS_RESET</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>
 		</dict>
