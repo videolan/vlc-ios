@@ -451,35 +451,38 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         if (self->_donationSuccess) {
             [self donationReceived];
         } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
-                                                                                                               comment: "")
-                                                                                     message:self->_donationErrorMessage
-                                                                              preferredStyle:UIAlertControllerStyleActionSheet];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action){
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }]];
+            if (self->_donationErrorMessage != nil) {
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
+                                                                                                                   comment: "")
+                                                                                         message:self->_donationErrorMessage
+                                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * _Nonnull action){
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }]];
 
-            [self presentViewController:alertController animated:YES completion:nil];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
     }];
 }
 
 - (void)stripeProcessingSucceeded
 {
+    _donationSuccess = YES;
     _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
 }
 
 - (void)stripeProcessingFailedWithError:(NSString *)errorMessage
 {
+    _donationSuccess = NO;
     _donationErrorMessage = errorMessage;
     _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
 }
 
 - (void)donationReceived
 {
-    _donationSuccess = NO;
     [self hidePurchaseInterface:YES];
     [self.confettiView startConfetti];
 
