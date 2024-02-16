@@ -231,7 +231,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)customAmountFieldAction:(id)sender
 {
-    _continueButton.enabled = _customAmountField.text.floatValue > 0.;
+    CGFloat floatValue = _customAmountField.text.floatValue;
+    _continueButton.enabled = floatValue > 0.;
+    _selectedDonationAmount = [NSNumber numberWithFloat:floatValue];
     [self uncheckNumberButtons];
 }
 
