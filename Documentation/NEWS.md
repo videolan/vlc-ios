@@ -1,5 +1,9 @@
 # Changelog
 
+## iOS [3.5.1]
+· Fix copy/paste/select for the server login screen
+· Minor improvements for the Donation screen
+
 ## iOS [3.5.0]
 · Add new playback history feature
 · Add A to B loop support
