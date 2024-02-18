@@ -207,7 +207,7 @@
             if (login.protocolIdentifier)
                 [self showLoginAlertWithLogin:login];
             else {
-                VLCNetworkLoginTVViewController *targetViewController = [VLCNetworkLoginTVViewController alloc];
+                VLCNetworkLoginTVViewController *targetViewController = [[VLCNetworkLoginTVViewController alloc] initWithNibName:nil bundle:nil];
                 [self presentViewController:targetViewController animated:YES completion:nil];
             }
         } else {
