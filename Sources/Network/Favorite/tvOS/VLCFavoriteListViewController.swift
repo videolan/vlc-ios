@@ -40,7 +40,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
     
     private func showEmptyViewIfNeeded() {
         if favoriteService.numberOfFavoritedServers  == 0 {
-            self.nothingFoundLabel.text = NSLocalizedString("FAVORITES_DES_TVOS", comment: "")
+            self.nothingFoundLabel.text = NSLocalizedString("NO_FAVORITES_DESCRIPTION", comment: "")
             self.nothingFoundLabel.sizeToFit()
             let nothingFoundView = self.nothingFoundView
             nothingFoundView!.sizeToFit()
@@ -114,7 +114,7 @@ extension VLCFavoriteListViewController {
         self.isEditing = true
         let alertController = UIAlertController(title: NSLocalizedString("UNFAVORITE_ALERT_TITLE", comment: ""), message: nil, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: NSLocalizedString("UNFAVORITE_ALERT_BUTTON_TITLE", comment: ""), style: .default) { (action) in
+        let confirmAction = UIAlertAction(title: NSLocalizedString("REMOVE_FAVORITE", comment: ""), style: .default) { (action) in
             self.favoriteService.removeFavoriteOfServer(with: self.currentlyFocusedIndexPath!.section, at: self.currentlyFocusedIndexPath!.row)
         }
 

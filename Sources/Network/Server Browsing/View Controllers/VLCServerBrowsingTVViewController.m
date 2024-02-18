@@ -142,7 +142,7 @@
     if (![_favoriteService isFavoriteURL:favorite.url]) {
          favorite.userVisibleName = item.name;
          NSString *titleString = NSLocalizedString(@"FAVORITE_ALERT_TITLE", nil);
-         NSString *buttonString = NSLocalizedString(@"FAVORITE_ALERT_BUTTON_TITLE", nil);
+         NSString *buttonString = NSLocalizedString(@"ADD_FAVORITE", nil);
          alertController = [UIAlertController alertControllerWithTitle: titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
          alertAction = [UIAlertAction actionWithTitle: buttonString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
              [self setMediaFav:favorite isFavorite:YES];
@@ -150,7 +150,7 @@
      }
      else {
           NSString *titleString = NSLocalizedString(@"UNFAVORITE_ALERT_TITLE", nil);
-          NSString *buttonString = NSLocalizedString(@"UNFAVORITE_ALERT_BUTTON_TITLE", nil);
+          NSString *buttonString = NSLocalizedString(@"REMOVE_FAVORITE", nil);
           alertController = [UIAlertController alertControllerWithTitle: titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
           alertAction = [UIAlertAction actionWithTitle: buttonString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
               [self setMediaFav:favorite isFavorite:NO];
