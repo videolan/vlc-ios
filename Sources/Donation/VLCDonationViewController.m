@@ -304,12 +304,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     if (_selectedCurrency.supportsPayPal) {
         [mutableProviders addObject:@"PayPal"];
     }
-    // We depend on PKPaymentButtonTypeDonate introduced in iOS 10.2
-    if (@available(iOS 10.2, *)) {
-        // Check if Apple Pay is available
-        if ([PKPaymentAuthorizationViewController canMakePayments]) {
-            [mutableProviders addObject:@"Apple Pay"];
-        }
+    // Check if Apple Pay is available
+    if ([PKPaymentAuthorizationViewController canMakePayments]) {
+        [mutableProviders addObject:@"Apple Pay"];
     }
     /* we need to support credit card authentication via 3D Secure for which we depend on
      * ASWebAuthenticationSession that was introduced in iOS 12 */
@@ -375,7 +372,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     cell.name.text = @"";
 
     if ([paymentProviderName isEqualToString:@"Apple Pay"]) {
-        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
+        if (@available(iOS 10.2, *)) {
+            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
+        } else {
+            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
+        }
         [cell addSubview:_applePayButton];
         _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
         /* This is a fake button, the action is handled by the containing collection view */
@@ -410,7 +411,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)initiateApplePayPayment {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-    paymentRequest.countryCode = [[NSLocale currentLocale] countryCode];
+    paymentRequest.countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     paymentRequest.merchantIdentifier = @"merchant.org.videolan.vlc";
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
     paymentRequest.paymentSummaryItems = @[
