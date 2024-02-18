@@ -56,7 +56,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     /* use Euro as default currency and switch to a supported locale if available */
     NSLocale *locale = [NSLocale currentLocale];
-    NSString *currentLocaleCurrency = locale.currencyCode;
+    NSString *currentLocaleCurrency = [locale objectForKey:NSLocaleCurrencyCode];
     _selectedCurrency = [[VLCCurrency alloc] initEUR];
     _availableCurrencies = [VLCCurrency availableCurrencies];
     for (VLCCurrency *currency in _availableCurrencies) {

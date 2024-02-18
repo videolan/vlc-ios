@@ -33,7 +33,7 @@
 
 - (NSString *)userReadableName
 {
-    return [[NSLocale currentLocale] localizedStringForCurrencyCode:_isoCode];
+    return [[NSLocale currentLocale] displayNameForKey:NSLocaleCurrencyCode value:_isoCode];
 }
 
 - (instancetype)initEUR
