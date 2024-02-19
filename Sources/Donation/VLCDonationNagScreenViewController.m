@@ -30,7 +30,7 @@
     self.coloredBackgroundView.layer.shadowColor = colors.textfieldBorderColor.CGColor;
     self.coloredBackgroundView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.coloredBackgroundView.bounds cornerRadius:10.].CGPath;
     self.coloredBackgroundView.layer.shadowRadius = 8;
-    self.coloredBackgroundView.layer.shadowOffset = CGSizeMake(-10.,0.);
+    self.coloredBackgroundView.layer.shadowOffset = CGSizeMake(0.,0.);
     self.coloredBackgroundView.layer.masksToBounds = NO;
     self.coloredBackgroundView.layer.shadowOpacity = .25;
 
