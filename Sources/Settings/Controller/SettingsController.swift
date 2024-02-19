@@ -146,16 +146,6 @@ class SettingsController: UITableViewController {
         UIApplication.shared.openURL(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
     }
 
-    @objc private func showTipJar() {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
-        let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
-        let donationNC = UINavigationController(rootViewController: donationVC)
-        donationNC.modalTransitionStyle = .flipHorizontal
-        present(donationNC, animated: true, completion: nil)
-    }
-
     @objc private func themeDidChange() {
         self.view.backgroundColor = PresentationTheme.current.colors.background
         setNavBarAppearance()
@@ -516,8 +506,15 @@ extension SettingsController {
             playHaptics(sectionType: mainSection)
             showActionSheet(for: mainSection)
         case .donation:
-            showTipJar()
-            return
+            if #available(iOS 10, *) {
+                ImpactFeedbackGenerator().selectionChanged()
+            }
+            let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
+            let donationNC = UINavigationController(rootViewController: donationVC)
+            donationNC.modalPresentationStyle = .popover
+            donationNC.modalTransitionStyle = .flipHorizontal
+            donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            present(donationNC, animated: true, completion: nil)
         case .generic:
             let genericSection = GenericOptions(rawValue: indexPath.row)
             playHaptics(sectionType: genericSection)
