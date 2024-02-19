@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *notnowButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *donateButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIView *coloredBackgroundView;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *buttonSeparatorView;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)donate:(id)sender;

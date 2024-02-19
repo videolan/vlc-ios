@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDonationNagScreenViewController">
             <connections>
+                <outlet property="buttonSeparatorView" destination="ji7-UV-dfC" id="53Q-4k-p5S"/>
                 <outlet property="coloredBackgroundView" destination="TzP-MG-LJr" id="UyR-MP-7Vt"/>
                 <outlet property="descriptionLabel" destination="Qcx-jE-MX4" id="aAW-EL-pNn"/>
                 <outlet property="donateButton" destination="jFo-f2-HtM" id="TZk-HN-WJc"/>
@@ -94,6 +95,7 @@
                         <constraint firstItem="JIB-eN-6Dc" firstAttribute="leading" secondItem="TzP-MG-LJr" secondAttribute="leading" constant="20" id="s1S-YM-GAL"/>
                         <constraint firstItem="ji7-UV-dfC" firstAttribute="leading" secondItem="JIB-eN-6Dc" secondAttribute="trailing" constant="20" id="seJ-Uc-7w7"/>
                         <constraint firstItem="Jzi-V0-eZl" firstAttribute="top" secondItem="Kg4-5N-r77" secondAttribute="top" constant="3" id="tkX-MZ-DUG"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="450" id="urY-OQ-JnD"/>
                         <constraint firstItem="jFo-f2-HtM" firstAttribute="centerY" secondItem="ji7-UV-dfC" secondAttribute="centerY" id="v1s-t3-Tev"/>
                     </constraints>
                 </view>
