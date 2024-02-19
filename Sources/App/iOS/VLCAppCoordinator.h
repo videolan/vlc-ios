@@ -36,8 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
 
 @property (nullable) UIWindow *externalWindow;
-
-- (void)setTabBarController:(UITabBarController *)tabBarController;
+@property (retain) UITabBarController *tabBarController;
 
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 

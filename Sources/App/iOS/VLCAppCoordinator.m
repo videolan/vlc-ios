@@ -138,6 +138,11 @@
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }
 
+- (UITabBarController *)tabBarController
+{
+    return _tabBarController;
+}
+
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 {
     [_tabCoordinator handleShortcutItem:shortcutItem];
