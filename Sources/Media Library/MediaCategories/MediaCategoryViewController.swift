@@ -439,12 +439,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
-        showGuideOnLaunch()
         setNavbarAppearance()
         loadSort()
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        showGuideOnLaunch()
         updateCollectionViewForAlbum()
     }
 
@@ -483,6 +483,22 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController.modalPresentationStyle = .formSheet
             self.present(navigationController, animated: true)
             userDefaults.set(true, forKey: kVLCHasLaunchedBefore)
+        } else {
+            var lastNagMonth = userDefaults.integer(forKey: kVLCHasNaggedThisMonth)
+            let currentMonth = NSCalendar.current.component(.month, from: Date())
+
+            if lastNagMonth == 12 && currentMonth < 12 {
+                lastNagMonth = 0
+            }
+            if lastNagMonth < currentMonth {
+                userDefaults.setValue(currentMonth, forKey: kVLCHasNaggedThisMonth)
+                let donationVC = VLCDonationNagScreenViewController(nibName: "VLCDonationNagScreenViewController", bundle: nil)
+                let donationNC = UINavigationController(rootViewController: donationVC)
+                donationNC.navigationBar.isHidden = true
+                donationNC.modalTransitionStyle = .crossDissolve
+                donationNC.modalPresentationStyle = .overFullScreen
+                self.present(donationNC, animated: true)
+            }
         }
     }
 

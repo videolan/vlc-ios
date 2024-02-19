@@ -155,6 +155,7 @@
 #define kVLCSortDefault @"SortDefault"
 #define kVLCSortDescendingDefault @"SortDescendingDefault"
 #define kVLCHasLaunchedBefore @"hasLaunchedBefore"
+#define kVLCHasNaggedThisMonth @"kVLCHasNaggedThisMonth"
 
 #define kVLCTabBarIndex @"TabBarIndex"
 

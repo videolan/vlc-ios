@@ -46,3 +46,4 @@
 #import "UIImage+AverageColor.h"
 #import "VLCFavoriteService.h"
 #import "VLCDonationViewController.h"
+#import "VLCDonationNagScreenViewController.h"
