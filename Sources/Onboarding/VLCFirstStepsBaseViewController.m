@@ -171,6 +171,7 @@
     UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
     UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
     donationNC.modalPresentationStyle = UIModalPresentationPopover;
+    donationNC.popoverPresentationController.sourceView = self.titleLabel;
     [self presentViewController:donationNC animated:YES completion:nil];
 }
 
