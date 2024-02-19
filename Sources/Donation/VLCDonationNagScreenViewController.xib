@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDonationNagScreenViewController">
+            <connections>
+                <outlet property="coloredBackgroundView" destination="TzP-MG-LJr" id="UyR-MP-7Vt"/>
+                <outlet property="descriptionLabel" destination="Qcx-jE-MX4" id="aAW-EL-pNn"/>
+                <outlet property="donateButton" destination="jFo-f2-HtM" id="TZk-HN-WJc"/>
+                <outlet property="notnowButton" destination="JIB-eN-6Dc" id="NkI-6U-324"/>
+                <outlet property="titleLabel" destination="Jzi-V0-eZl" id="IIQ-6s-Kq6"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzP-MG-LJr">
+                    <rect key="frame" x="16" y="627" width="361" height="160"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lunettes" translatesAutoresizingMaskIntoConstraints="NO" id="Kg4-5N-r77">
+                            <rect key="frame" x="20" y="16" width="84" height="84"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="84" id="KGj-6k-6Vy"/>
+                                <constraint firstAttribute="width" secondItem="Kg4-5N-r77" secondAttribute="height" multiplier="1:1" id="oHU-Qm-x2Q"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Donate today" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzi-V0-eZl">
+                            <rect key="frame" x="120" y="19" width="106.33333333333331" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFo-f2-HtM">
+                            <rect key="frame" x="201" y="112.33333333333339" width="140" height="35.666666666666671"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Donate">
+                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="donate:" destination="-1" eventType="primaryActionTriggered" id="g7v-la-Egs"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIB-eN-6Dc">
+                            <rect key="frame" x="20" y="115" width="140" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Not now">
+                                <fontDescription key="titleFontDescription" type="system" weight="light" pointSize="18"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="dismiss:" destination="-1" eventType="primaryActionTriggered" id="9WX-sn-5LZ"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support free and open source multimedia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qcx-jE-MX4">
+                            <rect key="frame" x="120" y="59" width="233" height="38"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ji7-UV-dfC">
+                            <rect key="frame" x="180" y="110" width="1" height="40"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="893-f7-ywl"/>
+                                <constraint firstAttribute="height" constant="40" id="ob3-ql-qpf"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstItem="Kg4-5N-r77" firstAttribute="top" secondItem="TzP-MG-LJr" secondAttribute="top" constant="16" id="2Ar-77-Xuq"/>
+                        <constraint firstItem="jFo-f2-HtM" firstAttribute="leading" secondItem="ji7-UV-dfC" secondAttribute="trailing" constant="20" id="8a4-hx-fLs"/>
+                        <constraint firstAttribute="height" constant="160" id="9xm-Pl-PLP"/>
+                        <constraint firstItem="Qcx-jE-MX4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Jzi-V0-eZl" secondAttribute="bottom" constant="3" id="D1k-6o-fbX"/>
+                        <constraint firstItem="jFo-f2-HtM" firstAttribute="centerY" secondItem="JIB-eN-6Dc" secondAttribute="centerY" id="JXP-Jg-CJN"/>
+                        <constraint firstItem="ji7-UV-dfC" firstAttribute="centerX" secondItem="TzP-MG-LJr" secondAttribute="centerX" id="K0l-vh-Kqp"/>
+                        <constraint firstAttribute="bottom" secondItem="JIB-eN-6Dc" secondAttribute="bottom" constant="15" id="KqR-Re-MMs"/>
+                        <constraint firstItem="Kg4-5N-r77" firstAttribute="leading" secondItem="JIB-eN-6Dc" secondAttribute="leading" id="LXU-GC-FwT"/>
+                        <constraint firstItem="Qcx-jE-MX4" firstAttribute="leading" secondItem="Jzi-V0-eZl" secondAttribute="leading" id="OEg-3u-QBZ"/>
+                        <constraint firstItem="Jzi-V0-eZl" firstAttribute="leading" secondItem="Kg4-5N-r77" secondAttribute="trailing" constant="16" id="Xas-RW-XOI"/>
+                        <constraint firstAttribute="trailing" secondItem="Qcx-jE-MX4" secondAttribute="trailing" constant="8" id="d6i-WV-qpx"/>
+                        <constraint firstAttribute="bottom" secondItem="ji7-UV-dfC" secondAttribute="bottom" constant="10" id="dFT-Qn-lxI"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jzi-V0-eZl" secondAttribute="trailing" constant="8" id="fQ1-Ta-4Rs"/>
+                        <constraint firstItem="Qcx-jE-MX4" firstAttribute="bottom" secondItem="Kg4-5N-r77" secondAttribute="bottom" constant="-3" id="mif-YA-mwb"/>
+                        <constraint firstAttribute="trailing" secondItem="jFo-f2-HtM" secondAttribute="trailing" constant="20" id="nLu-EQ-47W"/>
+                        <constraint firstItem="JIB-eN-6Dc" firstAttribute="leading" secondItem="TzP-MG-LJr" secondAttribute="leading" constant="20" id="s1S-YM-GAL"/>
+                        <constraint firstItem="ji7-UV-dfC" firstAttribute="leading" secondItem="JIB-eN-6Dc" secondAttribute="trailing" constant="20" id="seJ-Uc-7w7"/>
+                        <constraint firstItem="Jzi-V0-eZl" firstAttribute="top" secondItem="Kg4-5N-r77" secondAttribute="top" constant="3" id="tkX-MZ-DUG"/>
+                        <constraint firstItem="jFo-f2-HtM" firstAttribute="centerY" secondItem="ji7-UV-dfC" secondAttribute="centerY" id="v1s-t3-Tev"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="TzP-MG-LJr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="ERO-8o-WjZ"/>
+                <constraint firstAttribute="trailing" secondItem="TzP-MG-LJr" secondAttribute="trailing" constant="16" id="qM4-yQ-k6y"/>
+                <constraint firstAttribute="bottom" secondItem="TzP-MG-LJr" secondAttribute="bottom" constant="65" id="rer-f3-cCF"/>
+            </constraints>
+            <point key="canvasLocation" x="139.69465648854961" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Lunettes" width="170.66667175292969" height="170.66667175292969"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

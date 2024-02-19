@@ -204,6 +204,8 @@
 		7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CEB2A0A6056001604B3 /* VLCOneDriveController.m */; };
 		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
+		7D799BA22B8394F100FF93F2 /* VLCDonationNagScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */; };
+		7D799BA32B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
 		7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
 		7D7F9C0D1BFBB05400508518 /* VLCRemoteBrowsingTVCell+CloudStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7F9C0C1BFBB05400508518 /* VLCRemoteBrowsingTVCell+CloudStorage.m */; };
@@ -836,6 +838,9 @@
 		7D6D2CEC2A0A6056001604B3 /* VLCOneDriveConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveConstants.h; path = Sources/Cloud/Services/OneDrive/VLCOneDriveConstants.h; sourceTree = SOURCE_ROOT; };
 		7D6D2CED2A0A6056001604B3 /* VLCOneDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveController.h; path = Sources/Cloud/Services/OneDrive/VLCOneDriveController.h; sourceTree = SOURCE_ROOT; };
 		7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCStreamingHistoryCell.xib; sourceTree = "<group>"; };
+		7D799B9F2B8394F100FF93F2 /* VLCDonationNagScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationNagScreenViewController.h; sourceTree = "<group>"; };
+		7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationNagScreenViewController.m; sourceTree = "<group>"; };
+		7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationNagScreenViewController.xib; sourceTree = "<group>"; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamTVViewController.h; sourceTree = "<group>"; };
 		7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamTVViewController.m; sourceTree = "<group>"; };
@@ -1505,6 +1510,9 @@
 				7D389AB32B5BEB8200F9D845 /* VLCCurrency.m */,
 				7D2BC90F2B5A67AB00C6770B /* VLCStripeController.h */,
 				7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */,
+				7D799B9F2B8394F100FF93F2 /* VLCDonationNagScreenViewController.h */,
+				7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */,
+				7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */,
 			);
 			path = Donation;
 			sourceTree = "<group>";
@@ -3198,6 +3206,7 @@
 				407EB587257A418900686B1F /* SleepTimerView.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
+				7D799BA32B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib in Resources */,
 				7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7DDA30422AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib in Resources */,
@@ -3747,6 +3756,7 @@
 				4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD3EFF511BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
+				7D799BA22B8394F100FF93F2 /* VLCDonationNagScreenViewController.m in Sources */,
 				41D7DD0520C1853E00AD94F6 /* ButtonBarView.swift in Sources */,
 				E08AD1712304DDE800E023B9 /* MediaPlayerActionSheet.swift in Sources */,
 				E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */,

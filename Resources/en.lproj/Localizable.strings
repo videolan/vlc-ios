@@ -622,6 +622,9 @@
 "PURCHASE_SUCESS_TITLE" = "Donation sent";
 "PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
 "DONATION_CONTINUE" = "Continue";
+"BUTTON_NOT_NOW" = "Not now";
+"DONATION_NAGSCREEN_TITLE" = "Donate today";
+"DONATION_NAGSCREEN_SUBTITLE" = "Support free and open source multimedia";
 
 // MARK: - Playback keyboard shortcuts
 
