@@ -26,7 +26,7 @@
     self.coloredBackgroundView.layer.backgroundColor = colors.background.CGColor;
     self.coloredBackgroundView.layer.cornerRadius = 10.;
     self.coloredBackgroundView.layer.borderWidth = 1.5;
-    self.coloredBackgroundView.layer.borderColor = colors.orangeUI.CGColor;
+    self.coloredBackgroundView.layer.borderColor = colors.orangeDarkAccent.CGColor;
     self.coloredBackgroundView.layer.shadowColor = colors.textfieldBorderColor.CGColor;
     self.coloredBackgroundView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.coloredBackgroundView.bounds cornerRadius:10.].CGPath;
     self.coloredBackgroundView.layer.shadowRadius = 8;
