@@ -214,6 +214,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                       handler:^(UIAlertAction * _Nonnull action){
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];
+    alertController.popoverPresentationController.sourceView = self.confettiView;
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -231,6 +232,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                       handler:^(UIAlertAction * _Nonnull action) {
         [self hideInputElements:NO];
     }]];
+    alertController.popoverPresentationController.sourceView = self.confettiView;
 
     [self presentViewController:alertController animated:YES completion:nil];
 }

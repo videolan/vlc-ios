@@ -462,6 +462,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                                                   handler:^(UIAlertAction * _Nonnull action){
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }]];
+                alertController.popoverPresentationController.sourceView = self.confettiView;
 
                 [self presentViewController:alertController animated:YES completion:nil];
             }
@@ -497,6 +498,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                                       handler:^(UIAlertAction * _Nonnull action){
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];
+    alertController.popoverPresentationController.sourceView = self.confettiView;
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
