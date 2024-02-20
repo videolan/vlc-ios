@@ -1075,10 +1075,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
         [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [VLCAspectRatioBridge stringToDisplayFor:_currentAspectRatio]]];
     }
-
-    if ([self.delegate respondsToSelector:@selector(playbackServiceDidSwitchAspectRatio:)]) {
-        [_delegate playbackServiceDidSwitchAspectRatio:_currentAspectRatio];
-    }
 }
 
 - (void)setCurrentAspectRatio:(NSInteger)currentAspectRatio
@@ -1118,6 +1114,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #else
             _mediaPlayer.videoAspectRatio = aspectRatio;
 #endif
+    }
+
+    if ([self.delegate respondsToSelector:@selector(playbackServiceDidSwitchAspectRatio:)]) {
+        [_delegate playbackServiceDidSwitchAspectRatio:_currentAspectRatio];
     }
 }
 
