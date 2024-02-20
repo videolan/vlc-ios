@@ -14,6 +14,7 @@
 
 @class PKPayment;
 @class VLCCurrency;
+@class VLCDonationPreviousChargesViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,12 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCStripeController : NSObject
 
+@property (readonly) BOOL previousChargesAvailable;
 @property (readwrite, weak) id<VLCStripeControllerDelegate> delegate;
 
 - (void)processPayment:(PKPayment *)payment forAmount:(NSNumber *)amount currency:(VLCCurrency *)currencyCode;
 - (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency;
 
 - (void)continueWithPaymentIntent:(NSString *)paymentIntent;
+
+- (void)requestChargesForViewController:(VLCDonationPreviousChargesViewController *)vc;
 
 @end
 

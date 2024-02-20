@@ -14,6 +14,8 @@
 #import <PassKit/PassKit.h>
 #import <AFNetworking/AFNetworking.h>
 #import "VLCCurrency.h"
+#import "VLCCharge.h"
+#import "VLCDonationPreviousChargesViewController.h"
 
 const NSString *publishableStripeAPIKey = @"";
 const NSString *secretStripeAPIKey = @"";
@@ -183,8 +185,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
             // Handle success
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSString *receipt = jsonResponse[@"receipt_url"];
+            NSString *chargeID = jsonResponse[@"id"];
             if ([jsonResponse[@"paid"] boolValue]) {
                 APLog(@"Payment successfully processed");
+                [self rememberCharge:chargeID];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.delegate stripeProcessingSucceededWithReceipt:receipt];
                 });
@@ -251,7 +255,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
                 }
             } else {
                 if (amountReceived > 0) {
-                    [self requestCharge:chargeID];
+                    [self rememberCharge:chargeID];
+                    [self forwardReceiptForCharge:chargeID];
                     return;
                 }
             }
@@ -291,7 +296,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
             int amountReceived = [jsonResponse[@"amount_received"] intValue];
             NSString *chargeID = jsonResponse[@"latest_charge"];
             if (amountReceived != 0) {
-                [self requestCharge:chargeID];
+                [self rememberCharge:chargeID];
+                [self forwardReceiptForCharge:chargeID];
                 return;
             }
 
@@ -304,7 +310,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }] resume];
 }
 
-- (void)requestCharge:(NSString *)chargeID
+#pragma mark - charge handling
+
+- (void)forwardReceiptForCharge:(NSString *)chargeID
 {
     // Construct the request URL and headers
     NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/charges/%@", chargeID];
@@ -342,6 +350,56 @@ NSString *callbackURLString = @"vlcpay://3ds";
                 [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
             });
             APLog(@"Received negative response from Stripe: %@", jsonResponse);
+        }
+    }] resume];
+}
+
+- (void)rememberCharge:(NSString *)chargeID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *mutArray = [defaults mutableArrayValueForKey:kVLCDonationCharges];
+    [mutArray addObject:chargeID];
+    [defaults setObject:mutArray forKey:kVLCDonationCharges];
+}
+
+- (BOOL)previousChargesAvailable
+{
+    NSArray *previousCharges = [[NSUserDefaults standardUserDefaults] arrayForKey:kVLCDonationCharges];
+    return previousCharges.count > 0;
+}
+
+- (void)requestChargesForViewController:(VLCDonationPreviousChargesViewController *)vc
+{
+    NSArray *chargeIDs = [[NSUserDefaults standardUserDefaults] arrayForKey:kVLCDonationCharges];
+    for (NSString *chargeID in chargeIDs) {
+        [self requestCharge:chargeID forViewController:vc];
+    }
+}
+
+- (void)requestCharge:(NSString *)chargeID forViewController:(VLCDonationPreviousChargesViewController *)vc
+{
+    // Construct the request URL and headers
+    NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/charges/%@", chargeID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:nil];
+
+    // Perform the request
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:request
+                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            // Handle error
+            APLog(@"Error requesting charge: %@", error.localizedDescription);
+        } else {
+            // Handle success
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            VLCCharge *charge = [[VLCCharge alloc] initWithDictionary:jsonResponse];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [vc addPreviousCharge:charge];
+            });
         }
     }] resume];
 }

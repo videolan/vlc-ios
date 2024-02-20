@@ -626,6 +626,8 @@
 "DONATION_NAGSCREEN_TITLE" = "Donate today";
 "DONATION_NAGSCREEN_SUBTITLE" = "Support free and open source multimedia";
 "DONATION_RECEIPT" = "Receipt";
+"DONATIONS_PREVIOUS" = "Previous Donations";
+"DONATION_CHARGES_CLEARED_ON_REINSTALL" = "If you have reinstalled VLC, receipts from previous donations will not be available as all your personal information is stored on this device only.";
 
 // MARK: - Playback keyboard shortcuts
 

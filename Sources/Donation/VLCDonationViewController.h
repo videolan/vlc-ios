@@ -31,11 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *continueButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIScrollView *contentScrollView;
 @property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *previousDonationsButton;
 
 - (IBAction)switchCurrency:(id)sender;
 - (IBAction)numberButtonAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 - (IBAction)customAmountFieldAction:(id)sender;
+- (IBAction)showPreviousCharges:(id)sender;
 
 @end
 

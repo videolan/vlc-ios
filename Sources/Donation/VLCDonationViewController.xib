@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4128" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +19,7 @@
                 <outlet property="fiftyButton" destination="Mgh-to-CMA" id="gIG-YH-DTh"/>
                 <outlet property="fiveButton" destination="Fu9-WU-uRm" id="8fT-vb-yAd"/>
                 <outlet property="hundredButton" destination="rBy-Ki-65a" id="tJC-z6-U19"/>
+                <outlet property="previousDonationsButton" destination="y87-Pd-xGd" id="off-4o-iyp"/>
                 <outlet property="selectedCurrencyButton" destination="iY3-9q-FNe" id="CQN-aq-9ck"/>
                 <outlet property="tenButton" destination="PDE-wm-Hfp" id="M7Y-1D-xmT"/>
                 <outlet property="thirtyButton" destination="tT8-UU-5YW" id="fLx-Q8-EgI"/>
@@ -166,8 +167,21 @@
                                 <action selector="continueButtonAction:" destination="-1" eventType="primaryActionTriggered" id="o1A-g7-tgy"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y87-Pd-xGd">
+                            <rect key="frame" x="55" y="527" width="289" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="jp0-E6-W0b"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Previous Donations"/>
+                            <connections>
+                                <action selector="showPreviousCharges:" destination="-1" eventType="primaryActionTriggered" id="V6T-Le-Aa6"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="top" secondItem="i5H-0V-aTr" secondAttribute="bottom" constant="17" id="19O-ei-FoW"/>
                         <constraint firstItem="Mgh-to-CMA" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="trailing" constant="17" id="4Kc-Jk-J5t"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="top" secondItem="iXP-bK-0Va" secondAttribute="bottom" constant="23" id="5WP-nk-pBR"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GlX-b5-DcZ" secondAttribute="trailing" constant="17" id="7yt-55-3ix"/>
@@ -177,10 +191,12 @@
                         <constraint firstAttribute="bottom" secondItem="TPh-dt-Iw0" secondAttribute="bottom" id="BCp-6S-921"/>
                         <constraint firstItem="iY3-9q-FNe" firstAttribute="top" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="20" id="FMg-3A-hY0"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" id="JB2-2T-xdo"/>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="width" secondItem="i5H-0V-aTr" secondAttribute="width" id="Kvf-E2-xna"/>
                         <constraint firstAttribute="trailing" secondItem="Tjf-kx-D4n" secondAttribute="trailing" constant="17" id="L1Z-Wf-igh"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="leading" secondItem="oz4-oI-ttj" secondAttribute="leading" id="MkE-5Q-KKj"/>
                         <constraint firstItem="iY3-9q-FNe" firstAttribute="centerX" secondItem="oz4-oI-ttj" secondAttribute="centerX" id="NQy-JD-QXy"/>
                         <constraint firstItem="E0J-0x-x8V" firstAttribute="top" secondItem="Mgh-to-CMA" secondAttribute="bottom" constant="17" id="Nra-ni-48h"/>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="centerX" secondItem="i5H-0V-aTr" secondAttribute="centerX" id="PwJ-FZ-GaA"/>
                         <constraint firstItem="Fu9-WU-uRm" firstAttribute="centerY" secondItem="PDE-wm-Hfp" secondAttribute="centerY" id="STh-l5-Mn6"/>
                         <constraint firstItem="i5H-0V-aTr" firstAttribute="centerX" secondItem="E0J-0x-x8V" secondAttribute="centerX" id="TH9-01-cmx"/>
                         <constraint firstAttribute="trailing" secondItem="TPh-dt-Iw0" secondAttribute="trailing" id="TdC-Uo-yM4"/>

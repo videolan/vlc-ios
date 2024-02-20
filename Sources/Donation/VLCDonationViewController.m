@@ -17,6 +17,7 @@
 #import "VLCDonationCreditCardViewController.h"
 #import "VLCStripeController.h"
 #import "VLCCurrency.h"
+#import "VLCDonationPreviousChargesViewController.h"
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
@@ -79,6 +80,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
+    [_previousDonationsButton setTitle:NSLocalizedString(@"DONATIONS_PREVIOUS", nil) forState:UIControlStateNormal];
 
     _selectedCurrencyButton.layer.cornerRadius = 5.;
     _continueButton.layer.cornerRadius = 5.;
@@ -88,6 +90,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _thirtyButton.layer.cornerRadius = 5.;
     _fiftyButton.layer.cornerRadius = 5.;
     _hundredButton.layer.cornerRadius = 5.;
+    _previousDonationsButton.layer.cornerRadius = 5.;
 
     _actionSheet = [[VLCActionSheet alloc] init];
     _actionSheet.dataSource = self;
@@ -127,6 +130,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_continueButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _customAmountField.backgroundColor = colors.background;
     _customAmountField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _previousDonationsButton.backgroundColor = colors.orangeUI;
+    [_previousDonationsButton setTitleColor:whiteColor forState:UIControlStateNormal];
 
     _fiveButton.backgroundColor = _lightBlueColor;
     [_fiveButton setTitleColor:whiteColor forState:UIControlStateNormal];
@@ -198,6 +203,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     self.hundredButton.hidden = bValue;
     self.customAmountField.hidden = bValue;
     self.continueButton.hidden = bValue;
+    if (bValue) {
+        self.previousDonationsButton.hidden = YES;
+    } else {
+        _previousDonationsButton.hidden = !_stripeController.previousChargesAvailable;
+    }
 }
 
 - (IBAction)switchCurrency:(id)sender
@@ -236,6 +246,12 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _continueButton.enabled = floatValue > 0.;
     _selectedDonationAmount = [NSNumber numberWithFloat:floatValue];
     [self uncheckNumberButtons];
+}
+
+- (IBAction)showPreviousCharges:(id)sender
+{
+    VLCDonationPreviousChargesViewController *previousChargesVC = [[VLCDonationPreviousChargesViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:previousChargesVC animated:YES];
 }
 
 #pragma mark - action sheet delegate
