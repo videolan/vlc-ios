@@ -35,6 +35,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     UIColor *_lightBlueColor;
     BOOL _donationSuccess;
     NSString *_donationErrorMessage;
+    NSString *_receiptURLString;
     VLCStripeController *_stripeController;
     CompletionHandler _successCompletionHandler;
 }
@@ -470,9 +471,10 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }];
 }
 
-- (void)stripeProcessingSucceeded
+- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt
 {
     _donationSuccess = YES;
+    _receiptURLString = receipt;
     _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
 }
 
@@ -493,6 +495,14 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    if (_receiptURLString != nil) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_RECEIPT", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action){
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self->_receiptURLString]];
+        }]];
+    }
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action){

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol VLCStripeControllerDelegate <NSObject>
 
 @required
-- (void)stripeProcessingSucceeded;
+- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt;
 - (void)stripeProcessingFailedWithError:(NSString *)errorMessage;
 
 @optional

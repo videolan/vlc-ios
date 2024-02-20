@@ -182,10 +182,11 @@ NSString *callbackURLString = @"vlcpay://3ds";
         } else {
             // Handle success
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSString *receipt = jsonResponse[@"receipt_url"];
             if ([jsonResponse[@"paid"] boolValue]) {
                 APLog(@"Payment successfully processed");
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingSucceeded];
+                    [self.delegate stripeProcessingSucceededWithReceipt:receipt];
                 });
             } else {
                 NSDictionary *errorDict = jsonResponse[@"error"];
@@ -234,6 +235,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSDictionary *nextAction = jsonResponse[@"next_action"];
             int amountReceived = [jsonResponse[@"amount_received"] intValue];
+            NSString *chargeID = jsonResponse[@"latest_charge"];
 
             if (nextAction != nil && nextAction != [NSNull null]) {
                 NSDictionary *redirectToURL = nextAction[@"redirect_to_url"];
@@ -249,9 +251,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
                 }
             } else {
                 if (amountReceived > 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.delegate stripeProcessingSucceeded];
-                    });
+                    [self requestCharge:chargeID];
                     return;
                 }
             }
@@ -289,9 +289,50 @@ NSString *callbackURLString = @"vlcpay://3ds";
             // Handle success
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             int amountReceived = [jsonResponse[@"amount_received"] intValue];
+            NSString *chargeID = jsonResponse[@"latest_charge"];
             if (amountReceived != 0) {
+                [self requestCharge:chargeID];
+                return;
+            }
+
+            NSDictionary *errorDict = jsonResponse[@"error"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
+            });
+            APLog(@"Received negative response from Stripe: %@", jsonResponse);
+        }
+    }] resume];
+}
+
+- (void)requestCharge:(NSString *)chargeID
+{
+    // Construct the request URL and headers
+    NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/charges/%@", chargeID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:nil];
+
+    // Perform the request
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:request
+                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            // Handle error
+            APLog(@"Error requesting charge: %@", error.localizedDescription);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+            });
+        } else {
+            // Handle success
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSString *receiptURLString = jsonResponse[@"receipt_url"];
+            BOOL captured = [jsonResponse[@"captured"] boolValue];
+
+            if (captured) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingSucceeded];
+                    [self.delegate stripeProcessingSucceededWithReceipt:receiptURLString];
                 });
                 return;
             }

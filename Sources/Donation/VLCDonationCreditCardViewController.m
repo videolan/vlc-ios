@@ -199,7 +199,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 #pragma mark - stripe controller delegation
 
-- (void)stripeProcessingSucceeded {
+- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt
+{
     [self.activityIndicator stopAnimating];
 
     [self.confettiView startConfetti];
@@ -209,6 +210,14 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    if (receipt != nil) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_RECEIPT", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action){
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:receipt]];
+        }]];
+    }
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action){
