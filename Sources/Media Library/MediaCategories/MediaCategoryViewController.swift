@@ -483,21 +483,27 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController.modalPresentationStyle = .formSheet
             self.present(navigationController, animated: true)
             userDefaults.set(true, forKey: kVLCHasLaunchedBefore)
+            userDefaults.set(1, forKey: kVLCNumberOfLaunches)
         } else {
             var lastNagMonth = userDefaults.integer(forKey: kVLCHasNaggedThisMonth)
+            let numberOfLaunches = userDefaults.integer(forKey: kVLCNumberOfLaunches)
             let currentMonth = NSCalendar.current.component(.month, from: Date())
 
             if lastNagMonth == 12 && currentMonth < 12 {
                 lastNagMonth = 0
             }
-            if lastNagMonth < currentMonth {
+
+            if lastNagMonth < currentMonth && numberOfLaunches >= 5 {
                 userDefaults.setValue(currentMonth, forKey: kVLCHasNaggedThisMonth)
+                userDefaults.setValue(0, forKey: kVLCNumberOfLaunches)
                 let donationVC = VLCDonationNagScreenViewController(nibName: "VLCDonationNagScreenViewController", bundle: nil)
                 let donationNC = UINavigationController(rootViewController: donationVC)
                 donationNC.navigationBar.isHidden = true
                 donationNC.modalTransitionStyle = .crossDissolve
                 donationNC.modalPresentationStyle = .overFullScreen
                 self.present(donationNC, animated: true)
+            } else {
+                userDefaults.setValue(numberOfLaunches + 1, forKey: kVLCNumberOfLaunches)
             }
         }
     }
