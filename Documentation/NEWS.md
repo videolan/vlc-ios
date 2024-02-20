@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.5.2]
+· Fix aspect ratio issue leading to incomplete fullscreen image display
+· Stability improvements
+
+## tvOS [3.5.2]
+· Allow folders on remote shares to be marked as favorites
+· Add feature to reset the settings to their default values
+· Stability improvements
+
 ## iOS [3.5.1]
 · Fix copy/paste/select for the server login screen
 · Minor improvements for the Donation screen
