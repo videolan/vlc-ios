@@ -1692,9 +1692,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         statusLabel.showStatusMessage(statusMessage)
     }
 
-    func playbackServiceDidSwitch(_ aspectRatio: Int) {
-        // subControls.isInFullScreen = aspectRatio == .fillToScreen
-
+    func playbackServiceDidSwitchAspectRatio(_ aspectRatio: Int) {
         if #available(iOS 11.0, *) {
             adaptVideoOutputToNotch()
         }
