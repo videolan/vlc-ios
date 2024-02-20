@@ -91,9 +91,6 @@ class VLCRendererDiscovererManager: NSObject {
         }
         // If only one renderer, choose it automatically
         if getAllRenderers().count == 1, let rendererItem = getAllRenderers().first {
-            let indexPath = IndexPath(row: 0, section: 0)
-            actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-            actionSheet(collectionView: actionSheet.collectionView, cellForItemAt: indexPath)
             actionSheet.action?(rendererItem)
         } else {
             presentingViewController.present(actionSheet, animated: false, completion: nil)
