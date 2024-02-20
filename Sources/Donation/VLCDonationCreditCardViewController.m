@@ -108,6 +108,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _expiryDateYearField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _cvvField.backgroundColor = colors.background;
     _cvvField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _activityIndicator.color = colors.orangeUI;
 }
 
 - (void)hideInputElements:(BOOL)bValue
