@@ -30,7 +30,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
-    NSArray *_paymentProviders;
+    NSMutableArray *_paymentProviders;
     NSString *_selectedPaymentProvider;
     UIColor *_blueColor;
     UIColor *_lightBlueColor;
@@ -39,6 +39,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     NSString *_receiptURLString;
     VLCStripeController *_stripeController;
     CompletionHandler _successCompletionHandler;
+    BOOL _recurring;
 }
 @end
 
@@ -74,6 +75,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }
     if (@available(iOS 14.0, *)) {
         self.continueButton.role = UIButtonRolePrimary;
+        self.monthlyUpdateButton.role = UIButtonRolePrimary;
+        self.monthlyCancelButton.role = UIButtonRoleCancel;
     }
 
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
@@ -81,6 +84,10 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
     [_previousDonationsButton setTitle:NSLocalizedString(@"DONATIONS_PREVIOUS", nil) forState:UIControlStateNormal];
+    [_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_UPDATE_MONTHLY", nil) forState:UIControlStateNormal];
+    [_monthlyCancelButton setTitle:NSLocalizedString(@"DONATION_CANCEL_MONTHLY", nil) forState:UIControlStateNormal];
+    [_intervalSelectorControl setTitle:NSLocalizedString(@"DONATION_ONCE", nil) forSegmentAtIndex:0];
+    [_intervalSelectorControl setTitle:NSLocalizedString(@"DONATION_MONTHLY", nil) forSegmentAtIndex:1];
 
     _selectedCurrencyButton.layer.cornerRadius = 5.;
     _continueButton.layer.cornerRadius = 5.;
@@ -91,6 +98,13 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _fiftyButton.layer.cornerRadius = 5.;
     _hundredButton.layer.cornerRadius = 5.;
     _previousDonationsButton.layer.cornerRadius = 5.;
+    _monthlyFirstOptionButton.layer.cornerRadius = 5.;
+    _monthlySecondOptionButton.layer.cornerRadius = 5.;
+    _monthlyThirdOptionButton.layer.cornerRadius = 5.;
+    _monthlyUpdateButton.layer.cornerRadius = 5.;
+    _monthlyCancelButton.layer.cornerRadius = 5.;
+
+    self.monthlyPaymentView.hidden = YES;
 
     _actionSheet = [[VLCActionSheet alloc] init];
     _actionSheet.dataSource = self;
@@ -126,11 +140,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     _selectedCurrencyButton.backgroundColor = colors.orangeUI;
     [_selectedCurrencyButton setTitleColor:whiteColor forState:UIControlStateNormal];
-    _continueButton.backgroundColor = colors.orangeUI;
+    _continueButton.backgroundColor = [UIColor grayColor];
     [_continueButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _customAmountField.backgroundColor = colors.background;
     _customAmountField.layer.borderColor = colors.textfieldBorderColor.CGColor;
-    _previousDonationsButton.backgroundColor = colors.orangeUI;
+    _previousDonationsButton.backgroundColor = colors.orangeDarkAccent;
     [_previousDonationsButton setTitleColor:whiteColor forState:UIControlStateNormal];
 
     _fiveButton.backgroundColor = _lightBlueColor;
@@ -145,6 +159,17 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_fiftyButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _hundredButton.backgroundColor = _lightBlueColor;
     [_hundredButton setTitleColor:whiteColor forState:UIControlStateNormal];
+
+    _monthlyFirstOptionButton.backgroundColor = _lightBlueColor;
+    [_monthlyFirstOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
+    _monthlySecondOptionButton.backgroundColor = _lightBlueColor;
+    [_monthlySecondOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
+    _monthlyThirdOptionButton.backgroundColor = _lightBlueColor;
+    [_monthlyThirdOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
+    _monthlyUpdateButton.backgroundColor = [UIColor grayColor];
+    [_monthlyUpdateButton setTitleColor:whiteColor forState:UIControlStateNormal];
+    _monthlyCancelButton.backgroundColor = colors.background;
+    [_monthlyCancelButton setTitleColor:colors.lightTextColor forState:UIControlStateNormal];
 }
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
@@ -167,7 +192,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         }
     }
 
-    [_contentScrollView scrollRectToVisible:_continueButton.frame animated:YES];
+    [_contentScrollView scrollRectToVisible:_previousDonationsButton.frame animated:YES];
 }
 
 - (NSString *)title
@@ -195,18 +220,20 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 - (void)hidePurchaseInterface:(BOOL)bValue
 {
     self.selectedCurrencyButton.hidden = bValue;
-    self.fiveButton.hidden = bValue;
-    self.tenButton.hidden = bValue;
-    self.twentyButton.hidden = bValue;
-    self.thirtyButton.hidden = bValue;
-    self.fiftyButton.hidden = bValue;
-    self.hundredButton.hidden = bValue;
-    self.customAmountField.hidden = bValue;
-    self.continueButton.hidden = bValue;
+    self.intervalSelectorControl.hidden = bValue;
     if (bValue) {
         self.previousDonationsButton.hidden = YES;
+        self.oneTimePaymentView.hidden = YES;
+        self.monthlyPaymentView.hidden = YES;
     } else {
         _previousDonationsButton.hidden = !_stripeController.previousChargesAvailable;
+        if (self.intervalSelectorControl.selectedSegmentIndex == 0) {
+            self.oneTimePaymentView.hidden = NO;
+            self.monthlyPaymentView.hidden = YES;
+        } else {
+            self.oneTimePaymentView.hidden = YES;
+            self.monthlyPaymentView.hidden = NO;
+        }
     }
 }
 
@@ -222,12 +249,15 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)numberButtonAction:(UIButton *)sender
 {
-    [self uncheckNumberButtons];
-    sender.selected = YES;
-    _selectedDonationAmount = [NSNumber numberWithInteger:sender.tag];
-    _continueButton.enabled = YES;
-    _applePayButton.enabled = YES;
-    sender.backgroundColor = _blueColor;
+    [UIView animateWithDuration:.25 animations:^{
+        [self uncheckNumberButtons];
+        sender.selected = YES;
+        self->_selectedDonationAmount = [NSNumber numberWithInteger:sender.tag];
+        self.continueButton.enabled = YES;
+        self.continueButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+        self->_applePayButton.enabled = YES;
+        sender.backgroundColor = self->_blueColor;
+    }];
 }
 
 - (IBAction)continueButtonAction:(id)sender
@@ -242,16 +272,76 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)customAmountFieldAction:(id)sender
 {
-    CGFloat floatValue = _customAmountField.text.floatValue;
-    _continueButton.enabled = floatValue > 0.;
-    _selectedDonationAmount = [NSNumber numberWithFloat:floatValue];
-    [self uncheckNumberButtons];
+    [UIView animateWithDuration:.25 animations:^{
+        CGFloat floatValue = self.customAmountField.text.floatValue;
+        self.continueButton.enabled = floatValue > 0.;
+        self.continueButton.backgroundColor = self.continueButton.enabled ? PresentationTheme.current.colors.orangeUI : [UIColor grayColor];
+        self->_selectedDonationAmount = [NSNumber numberWithFloat:floatValue];
+        [self uncheckNumberButtons];
+    }];
 }
 
 - (IBAction)showPreviousCharges:(id)sender
 {
     VLCDonationPreviousChargesViewController *previousChargesVC = [[VLCDonationPreviousChargesViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:previousChargesVC animated:YES];
+}
+
+- (IBAction)segmentedControlAction:(id)sender
+{
+    _selectedDonationAmount = nil;
+    [UIView animateWithDuration:0.5 animations:^{
+        if (self.intervalSelectorControl.selectedSegmentIndex == 0) {
+            self.oneTimePaymentView.hidden = NO;
+            self.monthlyPaymentView.hidden = YES;
+            if (self->_selectedCurrency.supportsPayPal) {
+                if ([self->_paymentProviders indexOfObject:@"PayPal"] == NSNotFound) {
+                    [self->_paymentProviders addObject:@"PayPal"];
+                }
+            }
+            [self uncheckNumberButtons];
+            self->_continueButton.enabled = NO;
+            self->_continueButton.backgroundColor = [UIColor grayColor];
+        } else {
+            self.oneTimePaymentView.hidden = YES;
+            self.monthlyPaymentView.hidden = NO;
+            [self->_paymentProviders removeObject:@"PayPal"];
+            [self uncheckMonthlyButtons];
+            self->_monthlyUpdateButton.enabled = NO;
+            self->_monthlyUpdateButton.backgroundColor = [UIColor grayColor];
+        }
+    }];
+}
+
+#pragma mark - monthly donation actions
+
+- (void)uncheckMonthlyButtons
+{
+    _monthlyFirstOptionButton.backgroundColor = _lightBlueColor;
+    _monthlySecondOptionButton.backgroundColor = _lightBlueColor;
+    _monthlyThirdOptionButton.backgroundColor = _lightBlueColor;
+}
+
+- (IBAction)monthlyOptionAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.25 animations:^{
+        [self uncheckMonthlyButtons];
+        self->_selectedDonationAmount = [NSNumber numberWithInteger:sender.tag];
+        sender.backgroundColor = self->_blueColor;
+
+        self->_monthlyUpdateButton.enabled = YES;
+        self->_monthlyUpdateButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    }];
+}
+
+- (IBAction)monthlyUpdateAction:(id)sender
+{
+    [self continueButtonAction:sender];
+}
+
+- (IBAction)monthlyCancelAction:(id)sender
+{
+
 }
 
 #pragma mark - action sheet delegate
@@ -296,7 +386,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 {
     [self uncheckNumberButtons];
 
-    [_selectedCurrencyButton setTitle:_selectedCurrency.userReadableName forState:UIControlStateNormal];
+    [_selectedCurrencyButton setTitle:_selectedCurrency.localCurrencySymbol forState:UIControlStateNormal];
     NSArray *values = _selectedCurrency.values;
 
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -306,10 +396,19 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     [_fiveButton setTitle:[formatter stringFromNumber:values[0]] forState:UIControlStateNormal];
     [_fiveButton setTag:[values[0] intValue]];
+    [_monthlyFirstOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                         [formatter stringFromNumber:values[0]]] forState:UIControlStateNormal];
+    [_monthlyFirstOptionButton setTag:[values[0] intValue]];
     [_tenButton setTitle:[formatter stringFromNumber:values[1]] forState:UIControlStateNormal];
     [_tenButton setTag:[values[1] intValue]];
+    [_monthlySecondOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                          [formatter stringFromNumber:values[1]]] forState:UIControlStateNormal];;
+    [_monthlySecondOptionButton setTag:[values[1] intValue]];
     [_twentyButton setTitle:[formatter stringFromNumber:values[2]] forState:UIControlStateNormal];
     [_twentyButton setTag:[values[2] intValue]];
+    [_monthlyThirdOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                         [formatter stringFromNumber:values[2]]] forState:UIControlStateNormal];;
+    [_monthlyThirdOptionButton setTag:[values[2] intValue]];
     [_thirtyButton setTitle:[formatter stringFromNumber:values[3]] forState:UIControlStateNormal];
     [_thirtyButton setTag:[values[3] intValue]];
     [_fiftyButton setTitle:[formatter stringFromNumber:values[4]] forState:UIControlStateNormal];
@@ -317,24 +416,24 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_hundredButton setTitle:[formatter stringFromNumber:values[5]] forState:UIControlStateNormal];
     [_hundredButton setTag:[values[5] intValue]];
 
-    NSMutableArray *mutableProviders = [NSMutableArray array];
+    _paymentProviders = [NSMutableArray array];
     if (_selectedCurrency.supportsPayPal) {
-        [mutableProviders addObject:@"PayPal"];
+        [_paymentProviders addObject:@"PayPal"];
     }
     // Check if Apple Pay is available
     if ([PKPaymentAuthorizationViewController canMakePayments]) {
-        [mutableProviders addObject:@"Apple Pay"];
+        [_paymentProviders addObject:@"Apple Pay"];
     }
     /* we need to support credit card authentication via 3D Secure for which we depend on
      * ASWebAuthenticationSession that was introduced in iOS 12 */
     if (@available(iOS 12.0, *)) {
-        [mutableProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
+        [_paymentProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
     }
-    _paymentProviders = [mutableProviders copy];
 }
 
 - (void)showSelectedPaymentProvider
 {
+    _recurring = self.intervalSelectorControl.selectedSegmentIndex != 0;
     if ([_selectedPaymentProvider isEqualToString:@"PayPal"]) {
         VLCDonationPayPalViewController *payPalVC = [[VLCDonationPayPalViewController alloc] initWithNibName:nil bundle:nil];
         [payPalVC setDonationAmount:_selectedDonationAmount.intValue];
@@ -427,13 +526,28 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 #pragma mark - payment view controller delegate
 
 - (void)initiateApplePayPayment {
+    PKPaymentSummaryItem *summaryItem;
+    if (_recurring) {
+        if (@available(iOS 15.0, *)) {
+            PKRecurringPaymentSummaryItem *summary = [PKRecurringPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
+                                                                                                  amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+            summary.intervalUnit = NSCalendarUnitMonth;
+            summary.intervalCount = 1;
+            summaryItem = summary;
+        } else {
+            summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_MONTHLY_VIDEOLAN", "")
+                                                              amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+        }
+    } else {
+        summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
+                                                          amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+    }
+
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     paymentRequest.countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     paymentRequest.merchantIdentifier = @"merchant.org.videolan.vlc";
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
-    paymentRequest.paymentSummaryItems = @[
-        [PKPaymentSummaryItem summaryItemWithLabel:@"VideoLAN" amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]]
-    ];
+    paymentRequest.paymentSummaryItems = @[summaryItem];
     paymentRequest.currencyCode = _selectedCurrency.isoCode;
     if (@available(iOS 12.0, *)) {
         paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex, PKPaymentNetworkMaestro];
@@ -461,7 +575,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
     _successCompletionHandler = completion;
-    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency];
+    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency recurring:_recurring];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(nonnull PKPaymentAuthorizationViewController *)controller {

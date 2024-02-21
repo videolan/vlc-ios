@@ -19,6 +19,14 @@
                 <outlet property="fiftyButton" destination="Mgh-to-CMA" id="gIG-YH-DTh"/>
                 <outlet property="fiveButton" destination="Fu9-WU-uRm" id="8fT-vb-yAd"/>
                 <outlet property="hundredButton" destination="rBy-Ki-65a" id="tJC-z6-U19"/>
+                <outlet property="intervalSelectorControl" destination="NW6-uU-xWw" id="nzH-VK-z1B"/>
+                <outlet property="monthlyCancelButton" destination="m0U-em-M5s" id="O9t-Qi-0b6"/>
+                <outlet property="monthlyFirstOptionButton" destination="vfN-Fb-dH2" id="7UK-Cj-5zi"/>
+                <outlet property="monthlyPaymentView" destination="iAm-HM-To6" id="cNV-8i-MPi"/>
+                <outlet property="monthlySecondOptionButton" destination="BW2-DT-eRM" id="7zV-qZ-rHM"/>
+                <outlet property="monthlyThirdOptionButton" destination="lH1-us-YIW" id="ADa-Sf-Pfv"/>
+                <outlet property="monthlyUpdateButton" destination="gy2-pm-AWr" id="VUd-mL-l8A"/>
+                <outlet property="oneTimePaymentView" destination="Um5-um-WTc" id="jk8-td-SJD"/>
                 <outlet property="previousDonationsButton" destination="y87-Pd-xGd" id="off-4o-iyp"/>
                 <outlet property="selectedCurrencyButton" destination="iY3-9q-FNe" id="CQN-aq-9ck"/>
                 <outlet property="tenButton" destination="PDE-wm-Hfp" id="M7Y-1D-xmT"/>
@@ -33,12 +41,15 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
                     <rect key="frame" x="-3" y="39" width="399" height="779"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="399" height="573"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="699"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="Jjm-4d-Jg6"/>
+                            </constraints>
                         </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="iXP-bK-0Va">
                             <rect key="frame" x="149.66666666666666" y="20" width="100" height="100"/>
@@ -53,122 +64,255 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjf-kx-D4n">
-                            <rect key="frame" x="17" y="181" width="365" height="58"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjf-kx-D4n">
+                            <rect key="frame" x="49.666666666666657" y="181" width="300" height="78"/>
                             <string key="text">Private, open-source multimedia, funded by you. No ads, no tracking, no comprise. Free for everyone to use. Donate now to support VideoLAN.</string>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iY3-9q-FNe">
-                            <rect key="frame" x="55" y="259" width="289" height="35"/>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NW6-uU-xWw">
+                            <rect key="frame" x="49.666666666666657" y="279" width="239.99999999999997" height="32"/>
+                            <segments>
+                                <segment title="One-Time"/>
+                                <segment title="Monthly"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlAction:" destination="-1" eventType="valueChanged" id="v1M-RA-hAc"/>
+                            </connections>
+                        </segmentedControl>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iY3-9q-FNe">
+                            <rect key="frame" x="299.66666666666669" y="278.66666666666669" width="50" height="32"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="35" id="4hv-zv-9h4"/>
+                                <constraint firstAttribute="width" constant="50" id="1Rk-AK-PnH"/>
+                                <constraint firstAttribute="height" constant="32" id="4hv-zv-9h4"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Euro (EUR)"/>
+                            <state key="normal" title="CNY"/>
                             <connections>
                                 <action selector="switchCurrency:" destination="-1" eventType="touchUpInside" id="gWY-Di-aD9"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fu9-WU-uRm">
-                            <rect key="frame" x="55" y="310" width="85" height="40"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Um5-um-WTc">
+                            <rect key="frame" x="49.666666666666657" y="326" width="300" height="250"/>
+                            <subviews>
+                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fu9-WU-uRm">
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="KqN-BU-k47"/>
+                                        <constraint firstAttribute="height" constant="40" id="auS-jS-u4i"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="5 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="qQw-78-d9O"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-wm-Hfp">
+                                    <rect key="frame" x="105" y="0.0" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="Wof-pH-9xg"/>
+                                        <constraint firstAttribute="height" constant="40" id="mXa-hZ-rTe"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="10 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="nS9-gk-5RR"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-eu-0Ta">
+                                    <rect key="frame" x="210.00000000000003" y="0.0" width="89.999999999999972" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="37e-FU-0Gp"/>
+                                        <constraint firstAttribute="width" constant="90" id="jfC-8g-CNC"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="20 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="oYE-YK-0KP"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBy-Ki-65a">
+                                    <rect key="frame" x="210.00000000000003" y="57" width="89.999999999999972" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="l1p-qH-0V4"/>
+                                        <constraint firstAttribute="width" constant="90" id="ovF-Qb-PVr"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="100 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="tN4-LT-lMI"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-to-CMA">
+                                    <rect key="frame" x="105" y="57" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="19P-21-ihg"/>
+                                        <constraint firstAttribute="width" constant="90" id="p8e-FR-d5u"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="50 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="eQM-fE-lPv"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT8-UU-5YW">
+                                    <rect key="frame" x="0.0" y="57" width="90" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="lKf-MS-Jjl"/>
+                                        <constraint firstAttribute="height" constant="40" id="mGY-2O-dDX"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="30 €"/>
+                                    <connections>
+                                        <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="hpR-wY-fb6"/>
+                                    </connections>
+                                </button>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Custom Amount" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="E0J-0x-x8V">
+                                    <rect key="frame" x="0.0" y="114" width="300" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="XoX-wy-TmI"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    <connections>
+                                        <action selector="customAmountFieldAction:" destination="-1" eventType="primaryActionTriggered" id="CHd-cG-ieL"/>
+                                        <action selector="customAmountFieldAction:" destination="-1" eventType="editingDidEnd" id="aAC-ey-IZj"/>
+                                        <action selector="customAmountFieldAction:" destination="-1" eventType="editingDidBegin" id="c8u-DX-P48"/>
+                                        <action selector="customAmountFieldAction:" destination="-1" eventType="editingChanged" id="eWT-6z-rca"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5H-0V-aTr">
+                                    <rect key="frame" x="0.0" y="171" width="300" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="FA0-D0-NyL"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Donate with Credit or Debit Card"/>
+                                    <connections>
+                                        <action selector="continueButtonAction:" destination="-1" eventType="primaryActionTriggered" id="o1A-g7-tgy"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="85" id="KqN-BU-k47"/>
-                                <constraint firstAttribute="height" constant="40" id="auS-jS-u4i"/>
+                                <constraint firstItem="PDE-wm-Hfp" firstAttribute="centerX" secondItem="Um5-um-WTc" secondAttribute="centerX" id="1eH-mB-HMx"/>
+                                <constraint firstAttribute="width" constant="300" id="4qJ-pP-x5B"/>
+                                <constraint firstItem="E0J-0x-x8V" firstAttribute="trailing" secondItem="rBy-Ki-65a" secondAttribute="trailing" id="5SK-zL-M9K"/>
+                                <constraint firstItem="i5H-0V-aTr" firstAttribute="trailing" secondItem="E0J-0x-x8V" secondAttribute="trailing" id="6q7-OQ-dNj"/>
+                                <constraint firstItem="i5H-0V-aTr" firstAttribute="leading" secondItem="E0J-0x-x8V" secondAttribute="leading" id="8uv-LZ-MBL"/>
+                                <constraint firstItem="i5H-0V-aTr" firstAttribute="top" secondItem="E0J-0x-x8V" secondAttribute="bottom" constant="17" id="93A-rc-ZKX"/>
+                                <constraint firstItem="E0J-0x-x8V" firstAttribute="top" secondItem="Mgh-to-CMA" secondAttribute="bottom" constant="17" id="9TC-rB-Qmr"/>
+                                <constraint firstItem="Fxo-eu-0Ta" firstAttribute="baseline" secondItem="PDE-wm-Hfp" secondAttribute="baseline" id="ABV-bx-2v4"/>
+                                <constraint firstItem="i5H-0V-aTr" firstAttribute="centerX" secondItem="E0J-0x-x8V" secondAttribute="centerX" id="CHu-HB-2hP"/>
+                                <constraint firstItem="Mgh-to-CMA" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="trailing" constant="15" id="FOv-T9-jzz"/>
+                                <constraint firstItem="rBy-Ki-65a" firstAttribute="top" secondItem="Fxo-eu-0Ta" secondAttribute="bottom" constant="17" id="MlN-Z3-MC4"/>
+                                <constraint firstItem="E0J-0x-x8V" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="leading" id="Rly-wq-WLs"/>
+                                <constraint firstItem="Mgh-to-CMA" firstAttribute="baseline" secondItem="tT8-UU-5YW" secondAttribute="baseline" id="V0N-bR-tO6"/>
+                                <constraint firstItem="Fxo-eu-0Ta" firstAttribute="leading" secondItem="PDE-wm-Hfp" secondAttribute="trailing" constant="15" id="X1p-HR-Iv2"/>
+                                <constraint firstItem="PDE-wm-Hfp" firstAttribute="top" secondItem="Um5-um-WTc" secondAttribute="top" id="a4u-37-GeW"/>
+                                <constraint firstItem="Fu9-WU-uRm" firstAttribute="centerY" secondItem="PDE-wm-Hfp" secondAttribute="centerY" id="eId-Lu-vBK"/>
+                                <constraint firstAttribute="height" constant="250" id="fh6-W7-lsV"/>
+                                <constraint firstItem="PDE-wm-Hfp" firstAttribute="leading" secondItem="Fu9-WU-uRm" secondAttribute="trailing" constant="15" id="fl1-Lp-byb"/>
+                                <constraint firstItem="Mgh-to-CMA" firstAttribute="baseline" secondItem="rBy-Ki-65a" secondAttribute="baseline" id="gFn-pj-uAi"/>
+                                <constraint firstItem="rBy-Ki-65a" firstAttribute="leading" secondItem="Mgh-to-CMA" secondAttribute="trailing" constant="15" id="mG1-8n-of8"/>
+                                <constraint firstItem="Mgh-to-CMA" firstAttribute="centerX" secondItem="PDE-wm-Hfp" secondAttribute="centerX" id="mmE-HV-b19"/>
                             </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="5 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="qQw-78-d9O"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-wm-Hfp">
-                            <rect key="frame" x="157" y="310" width="85" height="40"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAm-HM-To6">
+                            <rect key="frame" x="49.666666666666657" y="326" width="300" height="250"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfN-Fb-dH2">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="oCq-kg-Kbj"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="monthlyOptionAction:" destination="-1" eventType="primaryActionTriggered" id="lIR-gQ-Og0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BW2-DT-eRM">
+                                    <rect key="frame" x="0.0" y="57" width="300" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="IZL-vC-Ict"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="monthlyOptionAction:" destination="-1" eventType="primaryActionTriggered" id="IOi-1p-TD9"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lH1-us-YIW">
+                                    <rect key="frame" x="0.0" y="114" width="300" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="30B-uB-h0w"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="monthlyOptionAction:" destination="-1" eventType="primaryActionTriggered" id="vfh-dU-T5M"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gy2-pm-AWr">
+                                    <rect key="frame" x="0.0" y="171" width="300" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="isO-Ge-ffa"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Update subscription"/>
+                                    <connections>
+                                        <action selector="monthlyUpdateAction:" destination="-1" eventType="primaryActionTriggered" id="8SV-yH-19s"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0U-em-M5s">
+                                    <rect key="frame" x="0.0" y="216" width="300" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="Ggt-WV-gTF"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Cancel subscription"/>
+                                    <connections>
+                                        <action selector="monthlyCancelAction:" destination="-1" eventType="primaryActionTriggered" id="eVQ-2g-Lh1"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="85" id="Wof-pH-9xg"/>
-                                <constraint firstAttribute="height" constant="40" id="mXa-hZ-rTe"/>
+                                <constraint firstAttribute="trailing" secondItem="lH1-us-YIW" secondAttribute="trailing" id="618-jR-soM"/>
+                                <constraint firstItem="gy2-pm-AWr" firstAttribute="centerX" secondItem="lH1-us-YIW" secondAttribute="centerX" id="61a-UQ-BF8"/>
+                                <constraint firstItem="BW2-DT-eRM" firstAttribute="top" secondItem="vfN-Fb-dH2" secondAttribute="bottom" constant="17" id="8Rj-Da-7lW"/>
+                                <constraint firstAttribute="trailing" secondItem="BW2-DT-eRM" secondAttribute="trailing" id="Bg2-gI-5uD"/>
+                                <constraint firstItem="vfN-Fb-dH2" firstAttribute="leading" secondItem="iAm-HM-To6" secondAttribute="leading" id="CVG-W6-bKl"/>
+                                <constraint firstItem="gy2-pm-AWr" firstAttribute="top" secondItem="lH1-us-YIW" secondAttribute="bottom" constant="17" id="HF0-8M-3af"/>
+                                <constraint firstItem="BW2-DT-eRM" firstAttribute="leading" secondItem="iAm-HM-To6" secondAttribute="leading" id="HNb-Yc-DGg"/>
+                                <constraint firstAttribute="trailing" secondItem="vfN-Fb-dH2" secondAttribute="trailing" id="Hrw-ty-2il"/>
+                                <constraint firstItem="lH1-us-YIW" firstAttribute="top" secondItem="BW2-DT-eRM" secondAttribute="bottom" constant="17" id="KRR-M5-N34"/>
+                                <constraint firstItem="m0U-em-M5s" firstAttribute="leading" secondItem="iAm-HM-To6" secondAttribute="leading" id="P9l-Vk-psP"/>
+                                <constraint firstItem="lH1-us-YIW" firstAttribute="leading" secondItem="iAm-HM-To6" secondAttribute="leading" id="Ryi-l1-IQ9"/>
+                                <constraint firstItem="vfN-Fb-dH2" firstAttribute="centerX" secondItem="iAm-HM-To6" secondAttribute="centerX" id="T9Y-pT-3oM"/>
+                                <constraint firstAttribute="height" constant="250" id="WSX-gV-Iqz"/>
+                                <constraint firstItem="lH1-us-YIW" firstAttribute="centerX" secondItem="BW2-DT-eRM" secondAttribute="centerX" id="YzP-u5-0zA"/>
+                                <constraint firstAttribute="trailing" secondItem="gy2-pm-AWr" secondAttribute="trailing" id="cKB-am-Vjd"/>
+                                <constraint firstAttribute="trailing" secondItem="m0U-em-M5s" secondAttribute="trailing" id="dQZ-cl-Q8Q"/>
+                                <constraint firstItem="vfN-Fb-dH2" firstAttribute="top" secondItem="iAm-HM-To6" secondAttribute="top" id="e0f-gk-tK9"/>
+                                <constraint firstItem="gy2-pm-AWr" firstAttribute="leading" secondItem="iAm-HM-To6" secondAttribute="leading" id="ip3-tB-sQf"/>
+                                <constraint firstAttribute="width" constant="300" id="lY6-BL-h83"/>
+                                <constraint firstItem="m0U-em-M5s" firstAttribute="top" secondItem="gy2-pm-AWr" secondAttribute="bottom" constant="10" id="nYb-rw-4AJ"/>
+                                <constraint firstItem="BW2-DT-eRM" firstAttribute="centerX" secondItem="vfN-Fb-dH2" secondAttribute="centerX" id="s5V-S9-bfg"/>
+                                <constraint firstItem="m0U-em-M5s" firstAttribute="centerX" secondItem="gy2-pm-AWr" secondAttribute="centerX" id="t8X-RL-kH0"/>
                             </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="10 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="nS9-gk-5RR"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-eu-0Ta">
-                            <rect key="frame" x="259" y="310" width="85" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="37e-FU-0Gp"/>
-                                <constraint firstAttribute="width" constant="85" id="jfC-8g-CNC"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="20 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="oYE-YK-0KP"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT8-UU-5YW">
-                            <rect key="frame" x="55" y="367" width="85" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="85" id="lKf-MS-Jjl"/>
-                                <constraint firstAttribute="height" constant="40" id="mGY-2O-dDX"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="30 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="hpR-wY-fb6"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-to-CMA">
-                            <rect key="frame" x="157" y="367" width="85" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="19P-21-ihg"/>
-                                <constraint firstAttribute="width" constant="85" id="p8e-FR-d5u"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="50 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="eQM-fE-lPv"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBy-Ki-65a">
-                            <rect key="frame" x="259" y="367" width="85" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="l1p-qH-0V4"/>
-                                <constraint firstAttribute="width" constant="85" id="ovF-Qb-PVr"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="100 €"/>
-                            <connections>
-                                <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="tN4-LT-lMI"/>
-                            </connections>
-                        </button>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Custom Amount" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="E0J-0x-x8V">
-                            <rect key="frame" x="55" y="424" width="289" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            <connections>
-                                <action selector="customAmountFieldAction:" destination="-1" eventType="primaryActionTriggered" id="CHd-cG-ieL"/>
-                                <action selector="customAmountFieldAction:" destination="-1" eventType="editingDidEnd" id="aAC-ey-IZj"/>
-                                <action selector="customAmountFieldAction:" destination="-1" eventType="editingDidBegin" id="c8u-DX-P48"/>
-                                <action selector="customAmountFieldAction:" destination="-1" eventType="editingChanged" id="eWT-6z-rca"/>
-                            </connections>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5H-0V-aTr">
-                            <rect key="frame" x="55" y="475" width="289" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="35" id="FA0-D0-NyL"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Donate with Credit or Debit Card"/>
-                            <connections>
-                                <action selector="continueButtonAction:" destination="-1" eventType="primaryActionTriggered" id="o1A-g7-tgy"/>
-                            </connections>
-                        </button>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y87-Pd-xGd">
-                            <rect key="frame" x="55" y="527" width="289" height="35"/>
+                            <rect key="frame" x="49.666666666666657" y="593" width="300" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="jp0-E6-W0b"/>
                             </constraints>
@@ -181,47 +325,33 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="y87-Pd-xGd" firstAttribute="top" secondItem="i5H-0V-aTr" secondAttribute="bottom" constant="17" id="19O-ei-FoW"/>
-                        <constraint firstItem="Mgh-to-CMA" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="trailing" constant="17" id="4Kc-Jk-J5t"/>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="trailing" secondItem="Um5-um-WTc" secondAttribute="trailing" id="2bv-m5-KvO"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="top" secondItem="iXP-bK-0Va" secondAttribute="bottom" constant="23" id="5WP-nk-pBR"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GlX-b5-DcZ" secondAttribute="trailing" constant="17" id="7yt-55-3ix"/>
-                        <constraint firstItem="Fxo-eu-0Ta" firstAttribute="leading" secondItem="PDE-wm-Hfp" secondAttribute="trailing" constant="17" id="9Km-jK-U6p"/>
-                        <constraint firstItem="PDE-wm-Hfp" firstAttribute="top" secondItem="iY3-9q-FNe" secondAttribute="bottom" constant="16" id="9ok-Y9-dqn"/>
-                        <constraint firstItem="rBy-Ki-65a" firstAttribute="leading" secondItem="Mgh-to-CMA" secondAttribute="trailing" constant="17" id="AcE-u2-w8C"/>
-                        <constraint firstAttribute="bottom" secondItem="TPh-dt-Iw0" secondAttribute="bottom" id="BCp-6S-921"/>
-                        <constraint firstItem="iY3-9q-FNe" firstAttribute="top" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="20" id="FMg-3A-hY0"/>
+                        <constraint firstItem="NW6-uU-xWw" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="5cL-cQ-fjg"/>
+                        <constraint firstItem="Um5-um-WTc" firstAttribute="top" secondItem="NW6-uU-xWw" secondAttribute="bottom" constant="16" id="7Y3-17-yYn"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GlX-b5-DcZ" secondAttribute="trailing" constant="5" id="7yt-55-3ix"/>
+                        <constraint firstItem="iY3-9q-FNe" firstAttribute="leading" secondItem="NW6-uU-xWw" secondAttribute="trailing" constant="10" id="D0L-Xj-bSR"/>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="top" secondItem="Um5-um-WTc" secondAttribute="bottom" constant="17" id="DUi-tD-V74"/>
+                        <constraint firstItem="Tjf-kx-D4n" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="IHB-U1-ZLk"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" id="JB2-2T-xdo"/>
-                        <constraint firstItem="y87-Pd-xGd" firstAttribute="width" secondItem="i5H-0V-aTr" secondAttribute="width" id="Kvf-E2-xna"/>
-                        <constraint firstAttribute="trailing" secondItem="Tjf-kx-D4n" secondAttribute="trailing" constant="17" id="L1Z-Wf-igh"/>
+                        <constraint firstItem="Um5-um-WTc" firstAttribute="centerX" secondItem="oz4-oI-ttj" secondAttribute="centerX" id="KEN-Ci-NW5"/>
+                        <constraint firstAttribute="bottom" secondItem="TPh-dt-Iw0" secondAttribute="bottom" id="Kr7-U7-NHb"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="leading" secondItem="oz4-oI-ttj" secondAttribute="leading" id="MkE-5Q-KKj"/>
-                        <constraint firstItem="iY3-9q-FNe" firstAttribute="centerX" secondItem="oz4-oI-ttj" secondAttribute="centerX" id="NQy-JD-QXy"/>
-                        <constraint firstItem="E0J-0x-x8V" firstAttribute="top" secondItem="Mgh-to-CMA" secondAttribute="bottom" constant="17" id="Nra-ni-48h"/>
-                        <constraint firstItem="y87-Pd-xGd" firstAttribute="centerX" secondItem="i5H-0V-aTr" secondAttribute="centerX" id="PwJ-FZ-GaA"/>
-                        <constraint firstItem="Fu9-WU-uRm" firstAttribute="centerY" secondItem="PDE-wm-Hfp" secondAttribute="centerY" id="STh-l5-Mn6"/>
-                        <constraint firstItem="i5H-0V-aTr" firstAttribute="centerX" secondItem="E0J-0x-x8V" secondAttribute="centerX" id="TH9-01-cmx"/>
+                        <constraint firstItem="NW6-uU-xWw" firstAttribute="top" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="20" id="QSI-DE-kSs"/>
                         <constraint firstAttribute="trailing" secondItem="TPh-dt-Iw0" secondAttribute="trailing" id="TdC-Uo-yM4"/>
-                        <constraint firstItem="E0J-0x-x8V" firstAttribute="leading" secondItem="tT8-UU-5YW" secondAttribute="leading" id="Tfz-nZ-b9x"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="centerX" secondItem="iXP-bK-0Va" secondAttribute="centerX" id="Ua5-W3-WV9"/>
-                        <constraint firstItem="Fu9-WU-uRm" firstAttribute="leading" secondItem="iY3-9q-FNe" secondAttribute="leading" id="XMd-M1-44W"/>
-                        <constraint firstAttribute="bottom" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="334" id="YKp-tv-AnC"/>
+                        <constraint firstAttribute="bottom" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="440" id="YKp-tv-AnC"/>
                         <constraint firstItem="Tjf-kx-D4n" firstAttribute="top" secondItem="GlX-b5-DcZ" secondAttribute="bottom" constant="17" id="aPo-jv-fWH"/>
-                        <constraint firstItem="E0J-0x-x8V" firstAttribute="trailing" secondItem="rBy-Ki-65a" secondAttribute="trailing" id="bJw-Uz-nCA"/>
-                        <constraint firstItem="rBy-Ki-65a" firstAttribute="top" secondItem="Fxo-eu-0Ta" secondAttribute="bottom" constant="17" id="bOj-QT-UtZ"/>
-                        <constraint firstItem="PDE-wm-Hfp" firstAttribute="leading" secondItem="Fu9-WU-uRm" secondAttribute="trailing" constant="17" id="cl6-Sh-lwc"/>
-                        <constraint firstItem="GlX-b5-DcZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="17" id="dot-6E-9ez"/>
-                        <constraint firstItem="i5H-0V-aTr" firstAttribute="leading" secondItem="E0J-0x-x8V" secondAttribute="leading" id="gY5-6Y-6Uq"/>
+                        <constraint firstItem="y87-Pd-xGd" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="cmr-UE-jQv"/>
+                        <constraint firstItem="GlX-b5-DcZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="5" id="dot-6E-9ez"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="centerX" secondItem="Tjf-kx-D4n" secondAttribute="centerX" id="i71-Q4-bER"/>
                         <constraint firstItem="iXP-bK-0Va" firstAttribute="centerX" secondItem="oz4-oI-ttj" secondAttribute="centerX" id="kME-8f-Ear"/>
-                        <constraint firstItem="Fu9-WU-uRm" firstAttribute="top" secondItem="iY3-9q-FNe" secondAttribute="bottom" constant="16" id="mGv-Zv-s8F"/>
-                        <constraint firstItem="i5H-0V-aTr" firstAttribute="top" secondItem="E0J-0x-x8V" secondAttribute="bottom" constant="17" id="mKk-mm-kjv"/>
-                        <constraint firstItem="iY3-9q-FNe" firstAttribute="width" secondItem="i5H-0V-aTr" secondAttribute="width" id="mOH-yh-ffF"/>
-                        <constraint firstItem="Mgh-to-CMA" firstAttribute="baseline" secondItem="rBy-Ki-65a" secondAttribute="baseline" id="mSd-aj-RM7"/>
-                        <constraint firstItem="Mgh-to-CMA" firstAttribute="centerX" secondItem="PDE-wm-Hfp" secondAttribute="centerX" id="mlh-IL-Abm"/>
+                        <constraint firstItem="iAm-HM-To6" firstAttribute="top" secondItem="NW6-uU-xWw" secondAttribute="bottom" constant="16" id="mRO-X9-MvU"/>
                         <constraint firstItem="iXP-bK-0Va" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" constant="20" id="n5c-Qf-yiz"/>
-                        <constraint firstItem="Fxo-eu-0Ta" firstAttribute="baseline" secondItem="PDE-wm-Hfp" secondAttribute="baseline" id="pxq-Hg-VKG"/>
-                        <constraint firstItem="i5H-0V-aTr" firstAttribute="trailing" secondItem="E0J-0x-x8V" secondAttribute="trailing" id="tJK-13-MsT"/>
-                        <constraint firstItem="Tjf-kx-D4n" firstAttribute="leading" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="17" id="w7R-sp-5Xt"/>
-                        <constraint firstItem="Mgh-to-CMA" firstAttribute="baseline" secondItem="tT8-UU-5YW" secondAttribute="baseline" id="yZm-Wq-SO6"/>
+                        <constraint firstItem="iY3-9q-FNe" firstAttribute="trailing" secondItem="Um5-um-WTc" secondAttribute="trailing" id="nMn-bN-fLA"/>
+                        <constraint firstItem="iAm-HM-To6" firstAttribute="leading" secondItem="NW6-uU-xWw" secondAttribute="leading" id="nTo-SN-Or0"/>
+                        <constraint firstItem="Tjf-kx-D4n" firstAttribute="trailing" secondItem="Um5-um-WTc" secondAttribute="trailing" id="rEl-Sn-ORc"/>
+                        <constraint firstItem="iY3-9q-FNe" firstAttribute="centerY" secondItem="NW6-uU-xWw" secondAttribute="centerY" id="roF-s1-oic"/>
                     </constraints>
                 </scrollView>
             </subviews>

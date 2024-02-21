@@ -628,6 +628,13 @@
 "DONATION_RECEIPT" = "Receipt";
 "DONATIONS_PREVIOUS" = "Previous Donations";
 "DONATION_CHARGES_CLEARED_ON_REINSTALL" = "If you have reinstalled VLC, receipts from previous donations will not be available as all your personal information is stored on this device only.";
+"DONATION_CANCEL_MONTHLY" = "Cancel Regular Donation";
+"DONATION_MONTHLY" = "Monthly";
+"DONATION_MONTHLY_FORMAT" = "%@/month";
+"DONATION_MONTHLY_VIDEOLAN" = "Monthly Donation to VideoLAN";
+"DONATION_ONCE" = "One-Time";
+"DONATION_UPDATE_MONTHLY" = "Update Regular Donation";
+"DONATION_VIDEOLAN" = "Donation to VideoLAN";
 
 // MARK: - Playback keyboard shortcuts
 

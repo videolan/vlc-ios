@@ -32,12 +32,27 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIScrollView *contentScrollView;
 @property (readwrite, nonatomic, weak) IBOutlet VLCConfettiView *confettiView;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *previousDonationsButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *oneTimePaymentView;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *monthlyPaymentView;
+@property (readwrite, nonatomic, weak) IBOutlet UISegmentedControl *intervalSelectorControl;
+
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyFirstOptionButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlySecondOptionButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyThirdOptionButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyUpdateButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyCancelButton;
 
 - (IBAction)switchCurrency:(id)sender;
 - (IBAction)numberButtonAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 - (IBAction)customAmountFieldAction:(id)sender;
 - (IBAction)showPreviousCharges:(id)sender;
+
+- (IBAction)segmentedControlAction:(id)sender;
+
+- (IBAction)monthlyOptionAction:(id)sender;
+- (IBAction)monthlyUpdateAction:(id)sender;
+- (IBAction)monthlyCancelAction:(id)sender;
 
 @end
 
