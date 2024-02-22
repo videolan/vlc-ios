@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class VLCConfettiView;
 @class VLCCurrency;
+@class VLCPrice;
 
 @interface VLCDonationCreditCardViewController : UIViewController
 
@@ -41,7 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)fieldAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 
-- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring;
+- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency;
+- (void)setPrice:(VLCPrice *)selectedPrice withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring;
 
 @end
 

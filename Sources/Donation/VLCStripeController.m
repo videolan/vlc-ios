@@ -14,8 +14,12 @@
 #import <PassKit/PassKit.h>
 #import <AFNetworking/AFNetworking.h>
 #import "VLCCurrency.h"
+#import "VLCInvoice.h"
 #import "VLCCharge.h"
-#import "VLCDonationPreviousChargesViewController.h"
+#import "VLCPrice.h"
+#import "VLCSubscription.h"
+#import "VLCDonationInvoicesViewController.h"
+#import "VLCDonationViewController.h"
 
 const NSString *publishableStripeAPIKey = @"";
 const NSString *secretStripeAPIKey = @"";
@@ -25,12 +29,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     VLCCurrency *_currency;
     NSString *_amount;
+    VLCPrice *_price;
     BOOL _recurring;
 
-    NSDictionary *_card;
     NSString *_tokenID;
 
     NSString *_customerID;
+    NSString *_uuid;
+    NSString *_paymentMethod;
 
     AFHTTPSessionManager *_sessionManager;
 }
@@ -57,11 +63,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)processPayment:(PKPayment *)payment
              forAmount:(NSNumber *)amount
+                 price:(VLCPrice *)price
               currency:(VLCCurrency *)currency
              recurring:(BOOL)recurring
 {
+    APLog(@"Processing ApplePay, recurring? %i fixed price? %i", recurring, price != nil);
     _currency = currency;
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _price = price;
     _recurring = recurring;
 
     NSDictionary *parameters = [self constructParametersForPayment:payment];
@@ -123,11 +132,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
                      exprMonth:(NSString *)month
                       exprYear:(NSString *)year
                      forAmount:(NSNumber *)amount
+                         price:(VLCPrice *)price
                       currency:(VLCCurrency *)currency
                      recurring:(BOOL)recurring
 {
+    APLog(@"Processing CB, recurring? %i fixed price? %i", recurring, price != nil);
     _currency = currency;
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _price = price;
     _recurring = recurring;
 
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
@@ -165,13 +177,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
         self->_tokenID = jsonResponse[@"id"];
         if (self->_tokenID) {
             APLog(@"Stripe token created successfully");
-            self->_card = jsonResponse[@"card"];
-            // a CVC check is not needed
-            if (self->_card[@"cvc_check"] == nil) {
-                APLog(@"No CVC check needed, continuing with the charge");
-                [self processPayment];
+            if (self->_recurring) {
+                [self confirmSetupIntent];
             } else {
-                APLog(@"CVC check needed, requesting payment intent confirmation");
                 [self confirmPaymentIntent];
             }
         } else {
@@ -188,42 +196,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
     }];
-
 }
 
 #pragma mark - payment handling
-
-- (void)processPayment {
-    [_sessionManager POST:@"charges"
-               parameters:@{@"amount" : _amount,
-                            @"currency" : _currency.isoCode,
-                            @"source" : _tokenID}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
-        NSString *receipt = jsonResponse[@"receipt_url"];
-        NSString *chargeID = jsonResponse[@"id"];
-        if ([jsonResponse[@"paid"] boolValue]) {
-            APLog(@"Direct charge successfully processed");
-            [self rememberCharge:chargeID];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingSucceededWithReceipt:receipt];
-            });
-        } else {
-            NSDictionary *errorDict = jsonResponse[@"error"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
-            });
-            APLog(@"Error processing direct charge: %@", jsonResponse);
-        }
-    }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
-        APLog(@"Error processing direct charge: %@", error.localizedDescription);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
-        });
-    }];
-}
 
 - (void)confirmPaymentIntent
 {
@@ -239,13 +214,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
         NSDictionary *nextAction = jsonResponse[@"next_action"];
         int amountReceived = [jsonResponse[@"amount_received"] intValue];
-        NSString *chargeID = jsonResponse[@"latest_charge"];
+        self->_paymentMethod = jsonResponse[@"payment_method"];
 
         if (nextAction == (NSDictionary*) [NSNull null]) {
             APLog(@"Payment intent was approved, no further action needed");
             if (amountReceived > 0) {
-                [self rememberCharge:chargeID];
-                [self forwardReceiptForCharge:chargeID];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate stripeProcessingSucceeded];
+                });
                 return;
             }
         } else {
@@ -262,12 +238,6 @@ NSString *callbackURLString = @"vlcpay://3ds";
                 }
             }
         }
-
-        NSDictionary *errorDict = jsonResponse[@"error"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
-        });
-        APLog(@"Payment intent confirmation failed: %@", jsonResponse);
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Payment intent confirmation failed: %@", error.localizedDescription);
@@ -285,25 +255,221 @@ NSString *callbackURLString = @"vlcpay://3ds";
                  progress:nil
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
         int amountReceived = [jsonResponse[@"amount_received"] intValue];
-        NSString *chargeID = jsonResponse[@"latest_charge"];
         if (amountReceived != 0) {
             APLog(@"Successfully confirmed payment intent after additional action");
-            [self rememberCharge:chargeID];
-            [self forwardReceiptForCharge:chargeID];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingSucceeded];
+            });
             return;
         }
-
-        NSDictionary *errorDict = jsonResponse[@"error"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
-        });
-        APLog(@"Failed to confirm payment intent after additional action: %@", jsonResponse);
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Failed to confirm payment intent after additional action: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
+    }];
+}
+
+#pragma mark - confirmSetupIntent
+
+- (void)confirmSetupIntent
+{
+    [_sessionManager POST:@"setup_intents"
+               parameters:@{@"confirm" : @"true",
+                            @"usage" : @"off_session",
+                            @"payment_method_data" : @{ @"type" : @"card", @"card[token]" : _tokenID },
+                            @"return_url" : callbackURLString,
+                            @"customer" : _customerID}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Created Setup Intent");
+        NSDictionary *nextAction = jsonResponse[@"next_action"];
+        if (nextAction == (NSDictionary*) [NSNull null]) {
+            APLog(@"Setup intent was approved, no further action needed");
+            self->_paymentMethod = jsonResponse[@"payment_method"];
+            [self attachPaymentMethodToCustomer];
+        } else {
+            APLog(@"Received a next action on setup intent confirmation");
+            NSDictionary *redirectToURL = nextAction[@"redirect_to_url"];
+            NSString *url = redirectToURL[@"url"];
+            NSURL *redirectURL = [NSURL URLWithString:url];
+            if (redirectURL != nil) {
+                if ([self.delegate respondsToSelector:@selector(show3DS:withCallbackURL:)]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:callbackURLString]];
+                    });
+                    return;
+                }
+            }
+        }
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+- (void)continueWithSetupIntent:(NSString *)setupIntent
+{
+    [_sessionManager POST:[NSString stringWithFormat:@"setup_intents/%@", setupIntent]
+               parameters:nil
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Setup intent was approved after further action");
+        self->_paymentMethod = jsonResponse[@"payment_method"];
+        [self attachPaymentMethodToCustomer];
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Failed to confirm setup intent after additional action: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
+}
+
+#pragma mark - payment method handling
+
+- (void)attachPaymentMethodToCustomer
+{
+    [_sessionManager POST:[NSString stringWithFormat:@"payment_methods/%@/attach", _paymentMethod]
+               parameters:@{@"customer" : _customerID}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"payment method attached");
+        [self makePaymentMethodDefaultForCustomer];
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+- (void)makePaymentMethodDefaultForCustomer
+{
+    [_sessionManager POST:[NSString stringWithFormat:@"customers/%@", _customerID]
+               parameters:@{@"invoice_settings" : @{@"default_payment_method" : _paymentMethod}}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Set as default payment method");
+        [self addSubscription];
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+#pragma mark - subscription management
+
+- (void)addSubscription
+{
+    [_sessionManager POST:@"subscriptions"
+               parameters:@{@"customer" : _customerID,
+                            @"items[0][price]" : _price.id}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Subscription added");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingSucceeded];
+        });
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+- (void)requestCurrentCustomerSubscription
+{
+    if (_customerID == nil) {
+        // we will be called again as soon as the customer is loaded
+        return;
+    }
+    [_sessionManager GET:[NSString stringWithFormat:@"subscriptions?customer=%@", _customerID]
+              parameters:nil
+                 headers:[self secretKeyHeaders]
+                progress:nil success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSArray *searchResultList = jsonResponse[@"data"];
+        NSUInteger resultCount = searchResultList.count;
+        APLog(@"Found %li subscriptions", resultCount);
+
+        VLCSubscription *sub;
+        if (resultCount == 1) {
+            sub = [[VLCSubscription alloc] initWithDictionary:searchResultList.firstObject];
+        }
+
+        if ([self.delegate respondsToSelector:@selector(setCurrentSubscription:)]) {
+            [self.delegate setCurrentSubscription:sub];
+        }
+    }
+                 failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+- (void)updateSubscription:(VLCSubscription *)sub toPrice:(VLCPrice *)price
+{
+    _price = price;
+    [_sessionManager POST:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
+               parameters:@{@"items[0][id]" : sub.subscriptionitemid,
+                            @"items[0][price]" : _price.id}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Subscription updated");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingSucceeded];
+        });
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+- (void)cancelSubscription:(VLCSubscription *)sub
+{
+    [_sessionManager DELETE:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
+                 parameters:nil
+                    headers:[self secretKeyHeaders]
+                    success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Subscription cancelled");
+        if ([self.delegate respondsToSelector:@selector(setCurrentSubscription:)]) {
+            [self.delegate setCurrentSubscription:nil];
+        }
+    }
+                    failure:^(NSURLSessionTask *task, NSError *error) {
+        [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        APLog(@"%s: %@", __func__, error.localizedDescription);
+    }];
+}
+
+#pragma mark - pricing
+
+- (void)requestAvailablePricesInCurrency:(VLCCurrency *)currency
+{
+    [_sessionManager GET:@"prices"
+              parameters:@{@"currency" : currency.isoCode,
+                           @"type" : @"recurring",
+                           @"expand[]" : @"data.currency_options"}
+                 headers:[self secretKeyHeaders]
+                progress:nil success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSArray *dictList = jsonResponse[@"data"];
+        NSUInteger priceCount = dictList.count;
+        NSMutableArray *priceList = [NSMutableArray arrayWithCapacity:priceCount];
+        for (NSDictionary *dict in dictList) {
+            VLCPrice *price = [[VLCPrice alloc] initWithDictionary:dict
+                                                       forCurrency:currency];
+            [priceList addObject:price];
+        }
+        if ([self.delegate respondsToSelector:@selector(setRecurringPriceList:)]) {
+            [self.delegate setRecurringPriceList:priceList];
+        }
+    }
+                 failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error retrieving recurring pricelist: %@", error.localizedDescription);
     }];
 }
 
@@ -315,13 +481,13 @@ NSString *callbackURLString = @"vlcpay://3ds";
     _customerID = [defaults stringForKey:kVLCDonationAnonymousCustomerID];
 
     if (_customerID != nil && _customerID.length > 0) {
-        NSLog(@"Restored previous customer");
+        [self reloadCustomer];
         return;
     }
 
+    _uuid = [[NSUUID UUID] UUIDString];
     [_sessionManager POST:@"customers"
-               parameters:@{@"name" : [[UIDevice currentDevice] name],
-                            @"description" : [NSUUID UUID],
+               parameters:@{@"name" : _uuid,
                             @"preferred_locales" : @[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]}
                   headers:[self secretKeyHeaders]
                  progress:nil
@@ -329,83 +495,89 @@ NSString *callbackURLString = @"vlcpay://3ds";
         self->_customerID = jsonResponse[@"id"];
         [defaults setObject:self->_customerID forKey:kVLCDonationAnonymousCustomerID];
         APLog(@"Created customer");
+        if ([self.delegate respondsToSelector:@selector(customerSet)]) {
+            [self.delegate customerSet];
+        }
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Error creating customer: %@", error.localizedDescription);
     }];
 }
 
-#pragma mark - post-payment handling of charges
-
-- (void)forwardReceiptForCharge:(NSString *)chargeID
+- (void)reloadCustomer
 {
-    [_sessionManager POST:[NSString stringWithFormat:@"charges/%@", chargeID]
-               parameters:nil
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
-        NSString *receiptURLString = jsonResponse[@"receipt_url"];
-        BOOL captured = [jsonResponse[@"captured"] boolValue];
-
-        if (captured) {
-            APLog(@"Received receipt, forwarding to the UI");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingSucceededWithReceipt:receiptURLString];
-            });
-            return;
+    [_sessionManager GET:[NSString stringWithFormat:@"customers/%@", _customerID]
+              parameters:nil
+                 headers:[self secretKeyHeaders]
+                progress:nil
+                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"Reloaded customer");
+        self->_uuid = jsonResponse[@"name"];
+        if ([self.delegate respondsToSelector:@selector(customerSet)]) {
+            [self.delegate customerSet];
         }
-
-        NSDictionary *errorDict = jsonResponse[@"error"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
-        });
-        APLog(@"Failed to receive the receipt: %@", jsonResponse);
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
-        APLog(@"Failed to receive the receipt: %@", error.localizedDescription);
+                 failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error reloading customer: %@", error.localizedDescription);
+    }];
+}
+
+- (NSString *)customerName
+{
+    return _uuid;
+}
+
+- (void)requestInvoices
+{
+    [_sessionManager GET:@"invoices"
+              parameters:@{@"customer" : _customerID}
+                 headers:[self secretKeyHeaders]
+                progress:nil
+                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSArray *data = jsonResponse[@"data"];
+        NSUInteger dataCount = data.count;
+        APLog(@"Found %li invoices", dataCount);
+        NSMutableArray *invoices = [NSMutableArray arrayWithCapacity:dataCount];
+        for (NSDictionary *dict in data) {
+            VLCInvoice *invoice = [[VLCInvoice alloc] initWithDictionary:dict];
+            [invoices addObject:invoice];
+        }
+        if ([self.delegate respondsToSelector:@selector(setInvoices:)]) {
+            [self.delegate setInvoices:invoices];
+        }
+    } failure:^(NSURLSessionTask *task, NSError *error){
+        APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
     }];
 }
 
-- (void)rememberCharge:(NSString *)chargeID
+- (void)requestCharges
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *mutArray = [defaults mutableArrayValueForKey:kVLCDonationCharges];
-    [mutArray addObject:chargeID];
-    [defaults setObject:mutArray forKey:kVLCDonationCharges];
-}
-
-- (BOOL)previousChargesAvailable
-{
-    NSArray *previousCharges = [[NSUserDefaults standardUserDefaults] arrayForKey:kVLCDonationCharges];
-    return previousCharges.count > 0;
-}
-
-- (void)requestChargesForViewController:(VLCDonationPreviousChargesViewController *)vc
-{
-    NSArray *chargeIDs = [[NSUserDefaults standardUserDefaults] arrayForKey:kVLCDonationCharges];
-    for (NSString *chargeID in chargeIDs) {
-        [self requestCharge:chargeID forViewController:vc];
-    }
-}
-
-- (void)requestCharge:(NSString *)chargeID forViewController:(VLCDonationPreviousChargesViewController *)vc
-{
-    [_sessionManager POST:[NSString stringWithFormat:@"charges/%@", chargeID]
-               parameters:nil
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
-        VLCCharge *charge = [[VLCCharge alloc] initWithDictionary:jsonResponse];
-        APLog(@"Received requested charge, forwarding to UI");
+    [_sessionManager GET:@"charges"
+              parameters:@{@"customer" : _customerID}
+                 headers:[self secretKeyHeaders]
+                progress:nil
+                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSArray *data = jsonResponse[@"data"];
+        NSUInteger dataCount = data.count;
+        APLog(@"Found %li charges", dataCount);
+        NSMutableArray *charges = [NSMutableArray arrayWithCapacity:dataCount];
+        for (NSDictionary *dict in data) {
+            VLCCharge *charge = [[VLCCharge alloc] initWithDictionary:dict];
+            if (charge.receiptNumber != nil) {
+                [charges addObject:charge];
+            }
+        }
+        if ([self.delegate respondsToSelector:@selector(setCharges:)]) {
+            [self.delegate setCharges:charges];
+        }
+    } failure:^(NSURLSessionTask *task, NSError *error){
+        APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [vc addPreviousCharge:charge];
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
-    }
-                  failure:^(NSURLSessionTask *task, NSError *error){
-        APLog(@"Error requesting charge: %@", error.localizedDescription);
     }];
 }
 

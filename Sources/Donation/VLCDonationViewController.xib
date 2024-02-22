@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDonationViewController">
             <connections>
+                <outlet property="activityIndicatorView" destination="250-Dt-yeL" id="gSX-6Y-xPR"/>
                 <outlet property="confettiView" destination="TPh-dt-Iw0" id="W9u-gC-9Fw"/>
                 <outlet property="contentScrollView" destination="oz4-oI-ttj" id="ALL-E1-GrP"/>
                 <outlet property="continueButton" destination="i5H-0V-aTr" id="hTZ-Vn-3VL"/>
@@ -22,7 +23,7 @@
                 <outlet property="intervalSelectorControl" destination="NW6-uU-xWw" id="nzH-VK-z1B"/>
                 <outlet property="monthlyCancelButton" destination="m0U-em-M5s" id="O9t-Qi-0b6"/>
                 <outlet property="monthlyFirstOptionButton" destination="vfN-Fb-dH2" id="7UK-Cj-5zi"/>
-                <outlet property="monthlyPaymentView" destination="iAm-HM-To6" id="cNV-8i-MPi"/>
+                <outlet property="monthlyPaymentView" destination="iAm-HM-To6" id="HL7-Qh-UrS"/>
                 <outlet property="monthlySecondOptionButton" destination="BW2-DT-eRM" id="7zV-qZ-rHM"/>
                 <outlet property="monthlyThirdOptionButton" destination="lH1-us-YIW" id="ADa-Sf-Pfv"/>
                 <outlet property="monthlyUpdateButton" destination="gy2-pm-AWr" id="VUd-mL-l8A"/>
@@ -323,8 +324,12 @@
                                 <action selector="showPreviousCharges:" destination="-1" eventType="primaryActionTriggered" id="V6T-Le-Aa6"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="250-Dt-yeL">
+                            <rect key="frame" x="181" y="371" width="37" height="37"/>
+                        </activityIndicatorView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="iAm-HM-To6" firstAttribute="top" secondItem="250-Dt-yeL" secondAttribute="bottom" constant="-82" id="27N-l2-nng"/>
                         <constraint firstItem="y87-Pd-xGd" firstAttribute="trailing" secondItem="Um5-um-WTc" secondAttribute="trailing" id="2bv-m5-KvO"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="top" secondItem="iXP-bK-0Va" secondAttribute="bottom" constant="23" id="5WP-nk-pBR"/>
                         <constraint firstItem="NW6-uU-xWw" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="5cL-cQ-fjg"/>
@@ -332,6 +337,7 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GlX-b5-DcZ" secondAttribute="trailing" constant="5" id="7yt-55-3ix"/>
                         <constraint firstItem="iY3-9q-FNe" firstAttribute="leading" secondItem="NW6-uU-xWw" secondAttribute="trailing" constant="10" id="D0L-Xj-bSR"/>
                         <constraint firstItem="y87-Pd-xGd" firstAttribute="top" secondItem="Um5-um-WTc" secondAttribute="bottom" constant="17" id="DUi-tD-V74"/>
+                        <constraint firstItem="250-Dt-yeL" firstAttribute="centerX" secondItem="iAm-HM-To6" secondAttribute="centerX" id="Gwj-2j-2e0"/>
                         <constraint firstItem="Tjf-kx-D4n" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="IHB-U1-ZLk"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" id="JB2-2T-xdo"/>
                         <constraint firstItem="Um5-um-WTc" firstAttribute="centerX" secondItem="oz4-oI-ttj" secondAttribute="centerX" id="KEN-Ci-NW5"/>

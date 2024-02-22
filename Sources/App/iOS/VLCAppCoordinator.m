@@ -14,6 +14,7 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import "VLCRemoteControlService.h"
 #import "VLCFavoriteService.h"
+#import "VLCStripeController.h"
 #import "VLC-Swift.h"
 
 @interface VLCAppCoordinator()
@@ -27,6 +28,7 @@
     VLCPlayerDisplayController *_playerDisplayController;
     VLCRemoteControlService *_remoteControlService;
     UIWindow *_externalWindow;
+    VLCStripeController *_stripeController;
 }
 
 @end
@@ -164,6 +166,14 @@
     }
 
     return nil;
+}
+
+- (VLCStripeController *)stripeController
+{
+    if (!_stripeController) {
+        _stripeController = [[VLCStripeController alloc] init];
+    }
+    return _stripeController;
 }
 
 @end

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCCurrency.h
+ * VLCSubscription.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2024 VideoLAN. All rights reserved.
@@ -10,23 +10,19 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCCurrency : NSObject
+@interface VLCSubscription : NSObject
 
-+ (NSArray <VLCCurrency *> *)availableCurrencies;
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
-- (instancetype)initEUR;
-
-@property (readonly) NSString *isoCode;
-@property (readonly) NSString *userReadableName;
-@property (readonly) BOOL supportsPayPal;
-@property (readonly) NSString *localCurrencySymbol;
-
-@property (readonly) NSArray <NSNumber *> *values;
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
+@property (readonly) NSString *subscriptionid;
+@property (readonly) NSString *subscriptionitemid;
+@property (readonly) NSString *priceid;
 
 @end
 

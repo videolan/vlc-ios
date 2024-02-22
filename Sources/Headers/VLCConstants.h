@@ -164,7 +164,7 @@
 
 #define kVLCEqualizerSnapBands @"EqualizerSnapBands"
 
-#define kVLCDonationCharges @"kVLCDonationCharges"
+#define kVLCDonationAnonymousCustomerID @"kVLCDonationAnonymousCustomerID"
 
 /* LEGACY KEYS, DO NOT USE IN NEW CODE */
 #define kVLCFTPServer @"ftp-server"

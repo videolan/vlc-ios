@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCDonationPreviousChargesViewController.h
+ * VLCCurrency.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2024 VideoLAN. All rights reserved.
@@ -10,15 +10,24 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
 
-@class VLCCharge;
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCDonationPreviousChargesViewController : UITableViewController
+@interface VLCCurrency : NSObject
 
-- (void)addPreviousCharge:(VLCCharge *)charge;
++ (NSArray <VLCCurrency *> *)availableCurrencies;
++ (nullable VLCCurrency *)currencyForIsoCode:(NSString *)isoCode;
+
+- (instancetype)initEUR;
+
+@property (readonly) NSString *isoCode;
+@property (readonly) NSString *userReadableName;
+@property (readonly) BOOL supportsPayPal;
+@property (readonly) NSString *localCurrencySymbol;
+
+@property (readonly) NSArray <NSNumber *> *values;
 
 @end
 

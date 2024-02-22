@@ -17,7 +17,9 @@
 #import "VLCDonationCreditCardViewController.h"
 #import "VLCStripeController.h"
 #import "VLCCurrency.h"
-#import "VLCDonationPreviousChargesViewController.h"
+#import "VLCPrice.h"
+#import "VLCSubscription.h"
+#import "VLCDonationInvoicesViewController.h"
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
@@ -26,6 +28,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     NSNumber *_selectedDonationAmount;
     NSArray *_availableCurrencies;
     VLCCurrency *_selectedCurrency;
+    VLCPrice *_selectedPrice;
+    VLCSubscription *_currentSubscription;
     BOOL _presentingCurrencySelector;
     VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
@@ -36,10 +40,12 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     UIColor *_lightBlueColor;
     BOOL _donationSuccess;
     NSString *_donationErrorMessage;
-    NSString *_receiptURLString;
     VLCStripeController *_stripeController;
     CompletionHandler _successCompletionHandler;
     BOOL _recurring;
+
+    NSArray <VLCPrice *> *_recurringPriceList;
+    NSArray *_monthlyButtonList;
 }
 @end
 
@@ -47,14 +53,16 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self hidePurchaseInterface:NO];
     [super viewWillAppear:animated];
+    _stripeController.delegate = self;
+    [self hidePurchaseInterface:NO];
+    [_stripeController requestCurrentCustomerSubscription];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _stripeController = [[VLCStripeController alloc] init];
+    _stripeController = [[VLCAppCoordinator sharedInstance] stripeController];
     _stripeController.delegate = self;
 
     /* use Euro as default currency and switch to a supported locale if available */
@@ -83,8 +91,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
-    [_previousDonationsButton setTitle:NSLocalizedString(@"DONATIONS_PREVIOUS", nil) forState:UIControlStateNormal];
-    [_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_UPDATE_MONTHLY", nil) forState:UIControlStateNormal];
+    [_previousDonationsButton setTitle:NSLocalizedString(@"DONATION_INVOICES_RECEIPTS", nil) forState:UIControlStateNormal];
+    [_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
     [_monthlyCancelButton setTitle:NSLocalizedString(@"DONATION_CANCEL_MONTHLY", nil) forState:UIControlStateNormal];
     [_intervalSelectorControl setTitle:NSLocalizedString(@"DONATION_ONCE", nil) forSegmentAtIndex:0];
     [_intervalSelectorControl setTitle:NSLocalizedString(@"DONATION_MONTHLY", nil) forSegmentAtIndex:1];
@@ -97,12 +105,15 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _thirtyButton.layer.cornerRadius = 5.;
     _fiftyButton.layer.cornerRadius = 5.;
     _hundredButton.layer.cornerRadius = 5.;
-    _previousDonationsButton.layer.cornerRadius = 5.;
     _monthlyFirstOptionButton.layer.cornerRadius = 5.;
     _monthlySecondOptionButton.layer.cornerRadius = 5.;
     _monthlyThirdOptionButton.layer.cornerRadius = 5.;
     _monthlyUpdateButton.layer.cornerRadius = 5.;
     _monthlyCancelButton.layer.cornerRadius = 5.;
+
+    _monthlyButtonList = @[_monthlyFirstOptionButton,
+                           _monthlySecondOptionButton,
+                           _monthlyThirdOptionButton];
 
     self.monthlyPaymentView.hidden = YES;
 
@@ -128,6 +139,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                              object:nil];
 
     [self updateColors];
+
+    self.intervalSelectorControl.selectedSegmentIndex = 0;
+    [self segmentedControlAction:self];
 }
 
 - (void)updateColors
@@ -144,8 +158,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_continueButton setTitleColor:whiteColor forState:UIControlStateNormal];
     _customAmountField.backgroundColor = colors.background;
     _customAmountField.layer.borderColor = colors.textfieldBorderColor.CGColor;
-    _previousDonationsButton.backgroundColor = colors.orangeDarkAccent;
-    [_previousDonationsButton setTitleColor:whiteColor forState:UIControlStateNormal];
+    [_previousDonationsButton setTitleColor:colors.orangeDarkAccent forState:UIControlStateNormal];
 
     _fiveButton.backgroundColor = _lightBlueColor;
     [_fiveButton setTitleColor:whiteColor forState:UIControlStateNormal];
@@ -160,16 +173,12 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _hundredButton.backgroundColor = _lightBlueColor;
     [_hundredButton setTitleColor:whiteColor forState:UIControlStateNormal];
 
-    _monthlyFirstOptionButton.backgroundColor = _lightBlueColor;
-    [_monthlyFirstOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
-    _monthlySecondOptionButton.backgroundColor = _lightBlueColor;
-    [_monthlySecondOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
-    _monthlyThirdOptionButton.backgroundColor = _lightBlueColor;
-    [_monthlyThirdOptionButton setTitleColor:whiteColor forState:UIControlStateNormal];
-    _monthlyUpdateButton.backgroundColor = [UIColor grayColor];
+    for (UIButton *button in _monthlyButtonList) {
+        button.backgroundColor = _lightBlueColor;
+        [button setTitleColor:whiteColor forState:UIControlStateNormal];
+    }
     [_monthlyUpdateButton setTitleColor:whiteColor forState:UIControlStateNormal];
-    _monthlyCancelButton.backgroundColor = colors.background;
-    [_monthlyCancelButton setTitleColor:colors.lightTextColor forState:UIControlStateNormal];
+    self.activityIndicatorView.color = colors.orangeUI;
 }
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
@@ -221,12 +230,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 {
     self.selectedCurrencyButton.hidden = bValue;
     self.intervalSelectorControl.hidden = bValue;
+    self.previousDonationsButton.hidden = bValue;
     if (bValue) {
-        self.previousDonationsButton.hidden = YES;
         self.oneTimePaymentView.hidden = YES;
         self.monthlyPaymentView.hidden = YES;
     } else {
-        _previousDonationsButton.hidden = !_stripeController.previousChargesAvailable;
         if (self.intervalSelectorControl.selectedSegmentIndex == 0) {
             self.oneTimePaymentView.hidden = NO;
             self.monthlyPaymentView.hidden = YES;
@@ -283,7 +291,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)showPreviousCharges:(id)sender
 {
-    VLCDonationPreviousChargesViewController *previousChargesVC = [[VLCDonationPreviousChargesViewController alloc] initWithNibName:nil bundle:nil];
+    VLCDonationInvoicesViewController *previousChargesVC = [[VLCDonationInvoicesViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:previousChargesVC animated:YES];
 }
 
@@ -306,14 +314,60 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
             self.oneTimePaymentView.hidden = YES;
             self.monthlyPaymentView.hidden = NO;
             [self->_paymentProviders removeObject:@"PayPal"];
-            [self uncheckMonthlyButtons];
-            self->_monthlyUpdateButton.enabled = NO;
-            self->_monthlyUpdateButton.backgroundColor = [UIColor grayColor];
+            [self updateMonthlyButtons];
         }
     }];
 }
 
 #pragma mark - monthly donation actions
+
+- (void)setRecurringPriceList:(NSArray<VLCPrice *> *)priceList
+{
+    if (priceList.count != 3) {
+        APLog(@"Price list does not match expections");
+        [self.activityIndicatorView stopAnimating];
+        return;
+    }
+
+    _recurringPriceList = priceList;
+
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    formatter.currencySymbol = _selectedCurrency.localCurrencySymbol;
+    formatter.maximumFractionDigits = 0;
+
+    [UIView animateWithDuration:0.5 animations: ^{
+        VLCPrice *price = priceList[0];
+        self.monthlyFirstOptionButton.hidden = NO;
+        [self.monthlyFirstOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                             [formatter stringFromNumber:price.amount]]
+                                       forState:UIControlStateNormal];
+        [self.monthlyFirstOptionButton setTag:0];
+
+        price = priceList[1];
+        self.monthlySecondOptionButton.hidden = NO;
+        [self.monthlySecondOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                              [formatter stringFromNumber:price.amount]]
+                                        forState:UIControlStateNormal];;
+        [self.monthlySecondOptionButton setTag:1];
+
+        price = priceList[2];
+        self.monthlyThirdOptionButton.hidden = NO;
+        [self.monthlyThirdOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
+                                             [formatter stringFromNumber:price.amount]]
+                                       forState:UIControlStateNormal];;
+        [self.monthlyThirdOptionButton setTag:2];
+
+        [self.activityIndicatorView stopAnimating];
+    }];
+    [self updateMonthlyButtons];
+}
+
+- (void)setCurrentSubscription:(VLCSubscription *)sub
+{
+    _currentSubscription = sub;
+    [self updateMonthlyButtons];
+}
 
 - (void)uncheckMonthlyButtons
 {
@@ -322,11 +376,51 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _monthlyThirdOptionButton.backgroundColor = _lightBlueColor;
 }
 
+- (void)updateMonthlyButtons
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    [self uncheckMonthlyButtons];
+
+    if (!_recurringPriceList)
+        return;
+
+    if (!_currentSubscription) {
+        self->_monthlyUpdateButton.enabled = NO;
+        self->_monthlyUpdateButton.backgroundColor = [UIColor grayColor];
+        [self->_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
+        _monthlyCancelButton.backgroundColor = colors.background;
+        [_monthlyCancelButton setTitleColor:colors.lightTextColor forState:UIControlStateNormal];
+        return;
+    }
+
+    for (VLCPrice *price in _recurringPriceList) {
+        if ([price.id isEqualToString:_currentSubscription.priceid]) {
+            NSUInteger index = [_recurringPriceList indexOfObject:price];
+            UIButton *foundButton = _monthlyButtonList[index];
+            foundButton.backgroundColor = _blueColor;
+            [self setActiveSubscriptionState];
+            break;
+        }
+    }
+}
+
+- (void)setActiveSubscriptionState
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    [UIView animateWithDuration:.25 animations:^{
+        self->_monthlyUpdateButton.enabled = YES;
+        self->_monthlyUpdateButton.backgroundColor = colors.orangeUI;
+        [self->_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_UPDATE_MONTHLY", nil) forState:UIControlStateNormal];
+        self->_monthlyCancelButton.enabled = YES;
+        [self->_monthlyCancelButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
+    }];
+}
+
 - (IBAction)monthlyOptionAction:(UIButton *)sender
 {
     [UIView animateWithDuration:.25 animations:^{
         [self uncheckMonthlyButtons];
-        self->_selectedDonationAmount = [NSNumber numberWithInteger:sender.tag];
+        self->_selectedPrice = self->_recurringPriceList[sender.tag];
         sender.backgroundColor = self->_blueColor;
 
         self->_monthlyUpdateButton.enabled = YES;
@@ -336,12 +430,34 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)monthlyUpdateAction:(id)sender
 {
-    [self continueButtonAction:sender];
+    if (_currentSubscription == nil) {
+        [self continueButtonAction:sender];
+    } else {
+        [self.activityIndicatorView startAnimating];
+        [self hidePurchaseInterface:YES];
+        [_stripeController updateSubscription:_currentSubscription toPrice:_selectedPrice];
+    }
 }
 
 - (IBAction)monthlyCancelAction:(id)sender
 {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DONATION_VIDEOLAN",
+                                                                                                       comment: "")
+                                                                             message:NSLocalizedString(@"DONATION_CANCEL_LONG",
+                                                                                                       comment: "")
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_CONTINUE", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action){
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction * _Nonnull action){
+        [self->_stripeController cancelSubscription:self->_currentSubscription];
+    }]];
+    alertController.popoverPresentationController.sourceView = self.monthlyCancelButton;
 
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - action sheet delegate
@@ -384,6 +500,13 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)showSelectedCurrency
 {
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.activityIndicatorView startAnimating];
+        self.monthlyFirstOptionButton.hidden = YES;
+        self.monthlySecondOptionButton.hidden = YES;
+        self.monthlyThirdOptionButton.hidden = YES;
+    }];
+    [_stripeController requestAvailablePricesInCurrency:_selectedCurrency];
     [self uncheckNumberButtons];
 
     [_selectedCurrencyButton setTitle:_selectedCurrency.localCurrencySymbol forState:UIControlStateNormal];
@@ -396,19 +519,10 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     [_fiveButton setTitle:[formatter stringFromNumber:values[0]] forState:UIControlStateNormal];
     [_fiveButton setTag:[values[0] intValue]];
-    [_monthlyFirstOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
-                                         [formatter stringFromNumber:values[0]]] forState:UIControlStateNormal];
-    [_monthlyFirstOptionButton setTag:[values[0] intValue]];
     [_tenButton setTitle:[formatter stringFromNumber:values[1]] forState:UIControlStateNormal];
     [_tenButton setTag:[values[1] intValue]];
-    [_monthlySecondOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
-                                          [formatter stringFromNumber:values[1]]] forState:UIControlStateNormal];;
-    [_monthlySecondOptionButton setTag:[values[1] intValue]];
     [_twentyButton setTitle:[formatter stringFromNumber:values[2]] forState:UIControlStateNormal];
     [_twentyButton setTag:[values[2] intValue]];
-    [_monthlyThirdOptionButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"DONATION_MONTHLY_FORMAT", nil),
-                                         [formatter stringFromNumber:values[2]]] forState:UIControlStateNormal];;
-    [_monthlyThirdOptionButton setTag:[values[2] intValue]];
     [_thirtyButton setTitle:[formatter stringFromNumber:values[3]] forState:UIControlStateNormal];
     [_thirtyButton setTag:[values[3] intValue]];
     [_fiftyButton setTitle:[formatter stringFromNumber:values[4]] forState:UIControlStateNormal];
@@ -443,7 +557,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         [self initiateApplePayPayment];
     } else if ([_selectedPaymentProvider isEqualToString:NSLocalizedString(@"DONATE_CC_DC", nil)]) {
         VLCDonationCreditCardViewController *ccVC = [[VLCDonationCreditCardViewController alloc] initWithNibName:nil bundle:nil];
-        [ccVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency recurring:_recurring];
+        if (_selectedPrice) {
+            [ccVC setPrice:_selectedPrice withCurrency:_selectedCurrency recurring:_recurring];
+        } else {
+            [ccVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency];
+        }
         [self.navigationController pushViewController:ccVC animated:YES];
     }
     _selectedPaymentProvider = nil;
@@ -480,6 +598,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     VLCCurrency *currency = _availableCurrencies[indexPath.row];
     cell.name.text = currency.userReadableName;
     cell.name.textAlignment = NSTextAlignmentNatural;
+    if (currency == _selectedCurrency) {
+        cell.name.textColor = PresentationTheme.current.colors.orangeUI;
+    } else {
+        cell.name.textColor = PresentationTheme.current.colors.cellTextColor;
+    }
 }
 
 - (void)configureCellForPaymentProvider:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -523,24 +646,54 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }
 }
 
+#pragma mark - stripe controller delegate
+
+- (void)customerSet
+{
+    [_stripeController requestCurrentCustomerSubscription];
+}
+
+- (void)stripeProcessingSucceeded
+{
+    [self.activityIndicatorView stopAnimating];
+    _donationSuccess = YES;
+    if (_successCompletionHandler) {
+        _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
+    } else {
+        [self donationReceived];
+    }
+}
+
+- (void)stripeProcessingFailedWithError:(NSString *)errorMessage
+{
+    _donationSuccess = NO;
+    _donationErrorMessage = errorMessage;
+    if (_successCompletionHandler) {
+        _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
+    } else {
+        [self donationFailed];
+    }
+}
+
 #pragma mark - payment view controller delegate
 
 - (void)initiateApplePayPayment {
     PKPaymentSummaryItem *summaryItem;
+    NSNumber *amount = _selectedPrice ? _selectedPrice.amount : _selectedDonationAmount;
     if (_recurring) {
         if (@available(iOS 15.0, *)) {
             PKRecurringPaymentSummaryItem *summary = [PKRecurringPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
-                                                                                                  amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+                                                                                                  amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
             summary.intervalUnit = NSCalendarUnitMonth;
             summary.intervalCount = 1;
             summaryItem = summary;
         } else {
             summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_MONTHLY_VIDEOLAN", "")
-                                                              amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+                                                              amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
         }
     } else {
         summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
-                                                          amount:[NSDecimalNumber decimalNumberWithDecimal:[_selectedDonationAmount decimalValue]]];
+                                                          amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
     }
 
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
@@ -566,6 +719,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_CONTINUE", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
+        alertController.popoverPresentationController.sourceView = self.continueButton;
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
@@ -575,7 +729,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
     _successCompletionHandler = completion;
-    [_stripeController processPayment:payment forAmount:_selectedDonationAmount currency:_selectedCurrency recurring:_recurring];
+    [_stripeController processPayment:payment
+                            forAmount:_selectedDonationAmount
+                                price:_selectedPrice
+                             currency:_selectedCurrency
+                            recurring:_recurring];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(nonnull PKPaymentAuthorizationViewController *)controller {
@@ -583,36 +741,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         if (self->_donationSuccess) {
             [self donationReceived];
         } else {
-            if (self->_donationErrorMessage != nil) {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
-                                                                                                                   comment: "")
-                                                                                         message:self->_donationErrorMessage
-                                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
-                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                                    style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * _Nonnull action){
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }]];
-                alertController.popoverPresentationController.sourceView = self.confettiView;
-
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+            [self donationFailed];
         }
     }];
-}
-
-- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt
-{
-    _donationSuccess = YES;
-    _receiptURLString = receipt;
-    _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
-}
-
-- (void)stripeProcessingFailedWithError:(NSString *)errorMessage
-{
-    _donationSuccess = NO;
-    _donationErrorMessage = errorMessage;
-    _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
 }
 
 - (void)donationReceived
@@ -625,14 +756,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
-    if (_receiptURLString != nil) {
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_RECEIPT", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action){
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self->_receiptURLString]];
-        }]];
-    }
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action){
@@ -641,6 +764,24 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     alertController.popoverPresentationController.sourceView = self.confettiView;
 
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)donationFailed
+{
+    if (self->_donationErrorMessage != nil) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
+                                                                                                           comment: "")
+                                                                                 message:self->_donationErrorMessage
+                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action){
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        alertController.popoverPresentationController.sourceView = self.confettiView;
+
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 @end

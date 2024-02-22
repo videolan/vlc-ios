@@ -31,6 +31,17 @@
              [[VLCCurrency alloc] initSEK]];
 }
 
++ (VLCCurrency *)currencyForIsoCode:(NSString *)isoCode
+{
+    NSArray *availableCurrencies = [VLCCurrency availableCurrencies];
+    for (VLCCurrency *currency in availableCurrencies) {
+        if ([[isoCode uppercaseString] isEqualToString:currency.isoCode]) {
+            return currency;
+        }
+    }
+    return nil;
+}
+
 - (NSString *)userReadableName
 {
     return [[NSLocale currentLocale] displayNameForKey:NSLocaleCurrencyCode value:_isoCode];

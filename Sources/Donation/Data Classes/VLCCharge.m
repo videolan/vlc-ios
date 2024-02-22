@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCCharge.h"
+#import "VLCCurrency.h"
 
 @implementation VLCCharge
 
@@ -20,8 +21,16 @@
     if (dict != nil && self) {
         _creationDate = [NSDate dateWithTimeIntervalSince1970:[dict[@"created"] intValue]];
         _amount = [NSNumber numberWithInt:[dict[@"amount"] intValue] / 100];
-        _currencyCode = [dict[@"currency"] uppercaseString];
-        _receiptURL = [NSURL URLWithString:dict[@"receipt_url"]];
+        _currency = [VLCCurrency currencyForIsoCode:dict[@"currency"]];
+        NSString *urlString = dict[@"receipt_url"];
+        if (urlString != nil) {
+            _receiptURL = [NSURL URLWithString:urlString];
+        }
+        if (dict[@"receipt_number"] == (NSString *)[NSNull null]) {
+            _receiptNumber = @"";
+        } else {
+            _receiptNumber = dict[@"receipt_number"];
+        }
     }
     return self;
 }

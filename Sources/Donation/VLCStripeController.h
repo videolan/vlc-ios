@@ -14,32 +14,59 @@
 
 @class PKPayment;
 @class VLCCurrency;
-@class VLCDonationPreviousChargesViewController;
+@class VLCPrice;
+@class VLCInvoice;
+@class VLCCharge;
+@class VLCSubscription;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol VLCStripeControllerDelegate <NSObject>
 
 @required
-- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt;
+- (void)stripeProcessingSucceeded;
 - (void)stripeProcessingFailedWithError:(NSString *)errorMessage;
 
 @optional
+- (void)customerSet;
 - (void)show3DS:(NSURL *)redirectURL withCallbackURL:(NSURL *)callbackURL;
+- (void)setInvoices:(NSArray <VLCInvoice *>*)invoices;
+- (void)setCharges:(NSArray <VLCCharge *>*)charges;
+- (void)setCurrentSubscription:(nullable VLCSubscription *)subscription;
+- (void)setRecurringPriceList:(NSArray <VLCPrice *>*)priceList;
 
 @end
 
 @interface VLCStripeController : NSObject
 
-@property (readonly) BOOL previousChargesAvailable;
 @property (readwrite, weak) id<VLCStripeControllerDelegate> delegate;
+@property (readonly) NSString *customerName;
 
-- (void)processPayment:(PKPayment *)payment forAmount:(NSNumber *)amount currency:(VLCCurrency *)currencyCode recurring:(BOOL)recurring;
-- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency recurring:(BOOL)recurring;
+- (void)processPayment:(PKPayment *)payment
+             forAmount:(NSNumber *)amount
+                 price:(VLCPrice *)price
+              currency:(VLCCurrency *)currencyCode
+             recurring:(BOOL)recurring;
+
+- (void)processPaymentWithCard:(NSString *)cardNumber
+                           cvv:(NSString *)cvv
+                     exprMonth:(NSString *)month
+                      exprYear:(NSString *)year
+                     forAmount:(NSNumber *)amount
+                         price:(VLCPrice *)price
+                      currency:(VLCCurrency *)currency
+                     recurring:(BOOL)recurring;
 
 - (void)continueWithPaymentIntent:(NSString *)paymentIntent;
+- (void)continueWithSetupIntent:(NSString *)setupIntent;
 
-- (void)requestChargesForViewController:(VLCDonationPreviousChargesViewController *)vc;
+- (void)requestInvoices;
+- (void)requestCharges;
+- (void)requestAvailablePricesInCurrency:(VLCCurrency *)currency;
+- (void)requestCurrentCustomerSubscription;
+
+- (void)updateSubscription:(VLCSubscription *)sub toPrice:(VLCPrice *)price;
+- (void)cancelSubscription:(VLCSubscription *)sub;
 
 @end
 

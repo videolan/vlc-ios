@@ -13,6 +13,7 @@
 #import "VLCDonationCreditCardViewController.h"
 #import "VLCStripeController.h"
 #import "VLCCurrency.h"
+#import "VLCPrice.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -27,6 +28,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 @interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding, UITextFieldDelegate>
 {
     NSNumber *_donationAmount;
+    VLCPrice *_price;
     VLCCurrency *_currency;
     BOOL _recurring;
 
@@ -44,7 +46,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _stripeController = [[VLCStripeController alloc] init];
+    _stripeController = [[VLCAppCoordinator sharedInstance] stripeController];
     _stripeController.delegate = self;
 
     self.creditCardNumberLabel.text = NSLocalizedString(@"DONATION_CC_NUM", nil);
@@ -162,14 +164,22 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring
+- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency
 {
     _donationAmount = donationAmount;
     _currency = currency;
 }
 
+- (void)setPrice:(VLCPrice *)selectedPrice withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring
+{
+    _price = selectedPrice;
+    _currency = currency;
+    _recurring = recurring;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
+    _stripeController.delegate = self;
     [super viewWillAppear:animated];
 
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -177,7 +187,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     formatter.currencySymbol = _currency.localCurrencySymbol;
     formatter.maximumFractionDigits = 0;
 
-    self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_AMOUNT", nil), [formatter stringFromNumber:_donationAmount]];
+    NSNumber *amount = _price ? _price.amount : _donationAmount;
+    self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_AMOUNT", nil), [formatter stringFromNumber:amount]];
     [self hideInputElements:NO];
 }
 
@@ -198,13 +209,14 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                      exprMonth:self.expiryDateMonthField.text
                                      exprYear:self.expiryDateYearField.text
                                     forAmount:_donationAmount
+                                        price:_price
                                      currency:_currency
                                     recurring:_recurring];
 }
 
 #pragma mark - stripe controller delegation
 
-- (void)stripeProcessingSucceededWithReceipt:(NSString *)receipt
+- (void)stripeProcessingSucceeded
 {
     [self.activityIndicator stopAnimating];
 
@@ -215,14 +227,6 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
-    if (receipt != nil) {
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DONATION_RECEIPT", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action){
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:receipt]];
-        }]];
-    }
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action){
@@ -268,6 +272,11 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                 if ([queryItem.name isEqualToString:@"payment_intent"]) {
                     [self->_stripeController continueWithPaymentIntent:queryItem.value];
                     break;
+                } else if ([queryItem.name isEqualToString:@"setup_intent"]) {
+                    [self->_stripeController continueWithSetupIntent:queryItem.value];
+                    break;
+                } else {
+                    APLog(@"invalid query item name: %@", queryItem.name);
                 }
             }
         }

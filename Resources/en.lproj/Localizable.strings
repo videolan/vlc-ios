@@ -625,9 +625,10 @@
 "BUTTON_NOT_NOW" = "Not now";
 "DONATION_NAGSCREEN_TITLE" = "Donate today";
 "DONATION_NAGSCREEN_SUBTITLE" = "Support free and open source multimedia";
-"DONATION_RECEIPT" = "Receipt";
-"DONATIONS_PREVIOUS" = "Previous Donations";
-"DONATION_CHARGES_CLEARED_ON_REINSTALL" = "If you have reinstalled VLC, receipts from previous donations will not be available as all your personal information is stored on this device only.";
+"DONATION_INVOICES" = "Invoices";
+"DONATION_RECEIPTS" = "Receipts";
+"DONATION_INVOICES_RECEIPTS" = "Invoices & Receipts";
+"DONATION_CHARGES_CLEARED_ON_REINSTALL" = "If you have reinstalled VLC, invoices or receipts from previous donations will not be available as all your personal information is stored on this device only.\n\nIf you have any questions, contact us at donation@videolan.org and mention this anonymous user ID: %@";
 "DONATION_CANCEL_MONTHLY" = "Cancel Regular Donation";
 "DONATION_MONTHLY" = "Monthly";
 "DONATION_MONTHLY_FORMAT" = "%@/month";
@@ -635,6 +636,7 @@
 "DONATION_ONCE" = "One-Time";
 "DONATION_UPDATE_MONTHLY" = "Update Regular Donation";
 "DONATION_VIDEOLAN" = "Donation to VideoLAN";
+"DONATION_CANCEL_LONG" = "We are sad to see you cancelling the regular monthly donations to VideoLAN. Your previous support means a lot to us. Thank you so much!";
 
 // MARK: - Playback keyboard shortcuts
 

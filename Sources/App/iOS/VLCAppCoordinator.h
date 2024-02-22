@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MediaLibraryService;
 @class VLCRendererDiscovererManager;
 @class VLCMLMedia;
+@class VLCStripeController;
 #endif
 @class VLCFavoriteService;
 
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+@property (readonly) VLCStripeController *stripeController;
 
 @property (nullable) UIWindow *externalWindow;
 @property (retain) UITabBarController *tabBarController;

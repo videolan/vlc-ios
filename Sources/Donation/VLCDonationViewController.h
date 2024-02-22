@@ -2,7 +2,7 @@
  * VLCDonationViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -15,6 +15,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class VLCConfettiView;
+@class VLCPrice;
+@class VLCSubscription;
 
 @interface VLCDonationViewController : UIViewController
 
@@ -36,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIView *monthlyPaymentView;
 @property (readwrite, nonatomic, weak) IBOutlet UISegmentedControl *intervalSelectorControl;
 
+@property (readwrite, nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyFirstOptionButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlySecondOptionButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyThirdOptionButton;
@@ -53,6 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)monthlyOptionAction:(id)sender;
 - (IBAction)monthlyUpdateAction:(id)sender;
 - (IBAction)monthlyCancelAction:(id)sender;
+
+- (void)setRecurringPriceList:(NSArray <VLCPrice *> *)priceList;
+- (void)setCurrentSubscription:(nullable VLCSubscription *)plan;
 
 @end
 
