@@ -25,20 +25,41 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     VLCCurrency *_currency;
     NSString *_amount;
+    BOOL _recurring;
 
     NSDictionary *_card;
     NSString *_tokenID;
+
+    AFHTTPSessionManager *_sessionManager;
 }
 @end
 
 @implementation VLCStripeController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.stripe.com/v1/"]];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [_sessionManager invalidateSessionCancelingTasks:YES resetSession:YES];
+}
+
 #pragma mark - apple pay internals
 
-- (void)processPayment:(PKPayment *)payment forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency
+- (void)processPayment:(PKPayment *)payment
+             forAmount:(NSNumber *)amount
+              currency:(VLCCurrency *)currency
+             recurring:(BOOL)recurring
 {
     _currency = currency;
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _recurring = recurring;
 
     NSDictionary *parameters = [self constructParametersForPayment:payment];
     [self createStripeTokenWithParameters:parameters];
@@ -94,10 +115,17 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 #pragma mark - CB internals
 
-- (void)processPaymentWithCard:(NSString *)cardNumber cvv:(NSString *)cvv exprMonth:(NSString *)month exprYear:(NSString *)year forAmount:(NSNumber *)amount currency:(VLCCurrency *)currency
+- (void)processPaymentWithCard:(NSString *)cardNumber
+                           cvv:(NSString *)cvv
+                     exprMonth:(NSString *)month
+                      exprYear:(NSString *)year
+                     forAmount:(NSNumber *)amount
+                      currency:(VLCCurrency *)currency
+                     recurring:(BOOL)recurring
 {
     _currency = currency;
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _recurring = recurring;
 
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     mutDict[@"card[number]"] = cardNumber;
@@ -110,248 +138,199 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 #pragma mark - generic API
 
+- (NSDictionary *)publishableKeyHeaders
+{
+    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", publishableStripeAPIKey],
+              @"Content-Type" : @"application/x-www-form-urlencoded" };
+}
+
+- (NSDictionary *)secretKeyHeaders
+{
+    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey],
+              @"Content-Type" : @"application/x-www-form-urlencoded" };
+}
+
 - (void)createStripeTokenWithParameters:(NSDictionary *)parameters
 {
-    // Construct the request URL and headers
-    NSString *urlString = @"https://api.stripe.com/v1/tokens";
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", publishableStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-    // Construct the request body
-    NSString *bodyString = AFQueryStringFromParameters(parameters);
-    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:bodyData];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error creating Stripe token: %@", error.localizedDescription);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
-            });
-        } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            self->_tokenID = jsonResponse[@"id"];
-            if (self->_tokenID) {
-                APLog(@"Stripe token created successfully");
-                self->_card = jsonResponse[@"card"];
-                // a CVC check is not needed
-                if (self->_card[@"cvc_check"] == nil) {
-                    [self processPayment];
-                } else {
-                    [self confirmPaymentIntent];
-                }
+    [_sessionManager POST:@"tokens"
+               parameters:parameters
+                  headers:[self publishableKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        self->_tokenID = jsonResponse[@"id"];
+        if (self->_tokenID) {
+            APLog(@"Stripe token created successfully");
+            self->_card = jsonResponse[@"card"];
+            // a CVC check is not needed
+            if (self->_card[@"cvc_check"] == nil) {
+                APLog(@"No CVC check needed, continuing with the charge");
+                [self processPayment];
             } else {
-                APLog(@"Error creating Stripe token: %@", jsonResponse);
-                NSDictionary *errorDict = jsonResponse[@"error"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
-                });
+                APLog(@"CVC check needed, requesting payment intent confirmation");
+                [self confirmPaymentIntent];
             }
-        }
-    }] resume];
-}
-
-- (void)processPayment {
-    // Construct the request URL and headers
-    NSString *urlString = @"https://api.stripe.com/v1/charges";
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-    // Construct the request body
-    NSString *bodyString = [NSString stringWithFormat:@"amount=%@&currency=%@&source=%@", _amount, _currency.isoCode, _tokenID];
-    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:bodyData];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error processing payment: %@", error.localizedDescription);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
-            });
         } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSString *receipt = jsonResponse[@"receipt_url"];
-            NSString *chargeID = jsonResponse[@"id"];
-            if ([jsonResponse[@"paid"] boolValue]) {
-                APLog(@"Payment successfully processed");
-                [self rememberCharge:chargeID];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingSucceededWithReceipt:receipt];
-                });
-            } else {
-                NSDictionary *errorDict = jsonResponse[@"error"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
-                });
-                APLog(@"Received negative response from Stripe: %@", jsonResponse);
-            }
-        }
-    }] resume];
-}
-
-- (void)confirmPaymentIntent
-{
-    // Construct the request URL and headers
-    NSString *urlString = @"https://api.stripe.com/v1/payment_intents";
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-    // Construct the request body
-    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
-    mutDict[@"confirm"] = @"true";
-    mutDict[@"amount"] = _amount;
-    mutDict[@"currency"] = _currency.isoCode;
-    mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
-    mutDict[@"return_url"] = callbackURLString;
-
-    NSString *bodyString = AFQueryStringFromParameters(mutDict);
-    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:bodyData];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error processing payment: %@", error.localizedDescription);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
-            });
-        } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSDictionary *nextAction = jsonResponse[@"next_action"];
-            int amountReceived = [jsonResponse[@"amount_received"] intValue];
-            NSString *chargeID = jsonResponse[@"latest_charge"];
-
-            if (nextAction != nil && nextAction != [NSNull null]) {
-                NSDictionary *redirectToURL = nextAction[@"redirect_to_url"];
-                NSString *url = redirectToURL[@"url"];
-                NSURL *redirectURL = [NSURL URLWithString:url];
-                if (redirectURL != nil) {
-                    if ([self.delegate respondsToSelector:@selector(show3DS:withCallbackURL:)]) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:callbackURLString]];
-                        });
-                        return;
-                    }
-                }
-            } else {
-                if (amountReceived > 0) {
-                    [self rememberCharge:chargeID];
-                    [self forwardReceiptForCharge:chargeID];
-                    return;
-                }
-            }
-
+            APLog(@"Error creating Stripe token: %@", jsonResponse);
             NSDictionary *errorDict = jsonResponse[@"error"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
             });
-            APLog(@"Received negative response from Stripe: %@", jsonResponse);
         }
-    }] resume];
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error creating Stripe token: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
+
 }
 
-- (void)continueWithPaymentIntent:(NSString *)paymentIntent
-{
-    // Construct the request URL and headers
-    NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/payment_intents/%@", paymentIntent];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:nil];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error processing payment: %@", error.localizedDescription);
+- (void)processPayment {
+    [_sessionManager POST:@"charges"
+               parameters:@{@"amount" : _amount,
+                            @"currency" : _currency.isoCode,
+                            @"source" : _tokenID}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSString *receipt = jsonResponse[@"receipt_url"];
+        NSString *chargeID = jsonResponse[@"id"];
+        if ([jsonResponse[@"paid"] boolValue]) {
+            APLog(@"Direct charge successfully processed");
+            [self rememberCharge:chargeID];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+                [self.delegate stripeProcessingSucceededWithReceipt:receipt];
             });
         } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            int amountReceived = [jsonResponse[@"amount_received"] intValue];
-            NSString *chargeID = jsonResponse[@"latest_charge"];
-            if (amountReceived != 0) {
+            NSDictionary *errorDict = jsonResponse[@"error"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
+            });
+            APLog(@"Error processing direct charge: %@", jsonResponse);
+        }
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error processing direct charge: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
+}
+
+- (void)confirmPaymentIntent
+{
+    [_sessionManager POST:@"payment_intents"
+               parameters:@{@"confirm" : @"true",
+                            @"amount" : _amount,
+                            @"currency" : _currency.isoCode,
+                            @"payment_method_data" : @{ @"type" : @"card", @"card[token]" : _tokenID },
+                            @"return_url" : callbackURLString}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSDictionary *nextAction = jsonResponse[@"next_action"];
+        int amountReceived = [jsonResponse[@"amount_received"] intValue];
+        NSString *chargeID = jsonResponse[@"latest_charge"];
+
+        if (nextAction == (NSDictionary*) [NSNull null]) {
+            APLog(@"Payment intent was approved, no further action needed");
+            if (amountReceived > 0) {
                 [self rememberCharge:chargeID];
                 [self forwardReceiptForCharge:chargeID];
                 return;
             }
-
-            NSDictionary *errorDict = jsonResponse[@"error"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
-            });
-            APLog(@"Received negative response from Stripe: %@", jsonResponse);
+        } else {
+            APLog(@"Received a next action on payment intent confirmation");
+            NSDictionary *redirectToURL = nextAction[@"redirect_to_url"];
+            NSString *url = redirectToURL[@"url"];
+            NSURL *redirectURL = [NSURL URLWithString:url];
+            if (redirectURL != nil) {
+                if ([self.delegate respondsToSelector:@selector(show3DS:withCallbackURL:)]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:callbackURLString]];
+                    });
+                    return;
+                }
+            }
         }
-    }] resume];
+
+        NSDictionary *errorDict = jsonResponse[@"error"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"unknown"];
+        });
+        APLog(@"Payment intent confirmation failed: %@", jsonResponse);
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Payment intent confirmation failed: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
 }
 
-#pragma mark - charge handling
+- (void)continueWithPaymentIntent:(NSString *)paymentIntent
+{
+    [_sessionManager POST:[NSString stringWithFormat:@"payment_intents/%@", paymentIntent]
+               parameters:nil
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        int amountReceived = [jsonResponse[@"amount_received"] intValue];
+        NSString *chargeID = jsonResponse[@"latest_charge"];
+        if (amountReceived != 0) {
+            APLog(@"Successfully confirmed payment intent after additional action");
+            [self rememberCharge:chargeID];
+            [self forwardReceiptForCharge:chargeID];
+            return;
+        }
+
+        NSDictionary *errorDict = jsonResponse[@"error"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
+        });
+        APLog(@"Failed to confirm payment intent after additional action: %@", jsonResponse);
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Failed to confirm payment intent after additional action: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
+}
+
+#pragma mark - post-payment handling of charges
 
 - (void)forwardReceiptForCharge:(NSString *)chargeID
 {
-    // Construct the request URL and headers
-    NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/charges/%@", chargeID];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:nil];
+    [_sessionManager POST:[NSString stringWithFormat:@"charges/%@", chargeID]
+               parameters:nil
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        NSString *receiptURLString = jsonResponse[@"receipt_url"];
+        BOOL captured = [jsonResponse[@"captured"] boolValue];
 
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error requesting charge: %@", error.localizedDescription);
+        if (captured) {
+            APLog(@"Received receipt, forwarding to the UI");
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+                [self.delegate stripeProcessingSucceededWithReceipt:receiptURLString];
             });
-        } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSString *receiptURLString = jsonResponse[@"receipt_url"];
-            BOOL captured = [jsonResponse[@"captured"] boolValue];
-
-            if (captured) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingSucceededWithReceipt:receiptURLString];
-                });
-                return;
-            }
-
-            NSDictionary *errorDict = jsonResponse[@"error"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
-            });
-            APLog(@"Received negative response from Stripe: %@", jsonResponse);
+            return;
         }
-    }] resume];
+
+        NSDictionary *errorDict = jsonResponse[@"error"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:errorDict ? errorDict[@"message"] : @"Card rejected"];
+        });
+        APLog(@"Failed to receive the receipt: %@", jsonResponse);
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Failed to receive the receipt: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
 }
 
 - (void)rememberCharge:(NSString *)chargeID
@@ -378,30 +357,20 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)requestCharge:(NSString *)chargeID forViewController:(VLCDonationPreviousChargesViewController *)vc
 {
-    // Construct the request URL and headers
-    NSString *urlString = [NSString stringWithFormat:@"https://api.stripe.com/v1/charges/%@", chargeID];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:nil];
-
-    // Perform the request
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            // Handle error
-            APLog(@"Error requesting charge: %@", error.localizedDescription);
-        } else {
-            // Handle success
-            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            VLCCharge *charge = [[VLCCharge alloc] initWithDictionary:jsonResponse];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [vc addPreviousCharge:charge];
-            });
-        }
-    }] resume];
+    [_sessionManager POST:[NSString stringWithFormat:@"charges/%@", chargeID]
+               parameters:nil
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        VLCCharge *charge = [[VLCCharge alloc] initWithDictionary:jsonResponse];
+        APLog(@"Received requested charge, forwarding to UI");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [vc addPreviousCharge:charge];
+        });
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error){
+        APLog(@"Error requesting charge: %@", error.localizedDescription);
+    }];
 }
 
 @end

@@ -28,6 +28,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 {
     NSNumber *_donationAmount;
     VLCCurrency *_currency;
+    BOOL _recurring;
+
     VLCStripeController *_stripeController;
     ASWebAuthenticationSession *_webAuthenticationSession;
 
@@ -97,7 +99,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 - (void)updateColors
 {
     ColorPalette *colors = PresentationTheme.current.colors;
-    _continueButton.backgroundColor = colors.orangeUI;
+    _continueButton.backgroundColor = [UIColor grayColor];
     [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _continueButton.layer.cornerRadius = 5.;
     _creditCardNumberField.backgroundColor = colors.background;
@@ -160,7 +162,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency
+- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring
 {
     _donationAmount = donationAmount;
     _currency = currency;
@@ -183,6 +185,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 {
     // American Express cards have 4 digits for the CVV and only 15 digits
     _continueButton.enabled = _cvvField.text.length >= 3 && _expiryDateMonthField.text.length == 2 && _expiryDateYearField.text.length == 2 && _creditCardNumberField.text.length >= 15;
+    _continueButton.backgroundColor = _continueButton.enabled ? PresentationTheme.current.colors.orangeUI : [UIColor grayColor];
 }
 
 - (IBAction)continueButtonAction:(id)sender
@@ -195,7 +198,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                      exprMonth:self.expiryDateMonthField.text
                                      exprYear:self.expiryDateYearField.text
                                     forAmount:_donationAmount
-                                     currency:_currency];
+                                     currency:_currency
+                                    recurring:_recurring];
 }
 
 #pragma mark - stripe controller delegation

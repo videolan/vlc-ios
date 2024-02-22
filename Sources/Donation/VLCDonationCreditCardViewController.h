@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)fieldAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 
-- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency;
+- (void)setDonationAmount:(NSNumber *)donationAmount withCurrency:(VLCCurrency *)currency recurring:(BOOL)recurring;
 
 @end
 

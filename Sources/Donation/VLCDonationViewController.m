@@ -443,7 +443,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         [self initiateApplePayPayment];
     } else if ([_selectedPaymentProvider isEqualToString:NSLocalizedString(@"DONATE_CC_DC", nil)]) {
         VLCDonationCreditCardViewController *ccVC = [[VLCDonationCreditCardViewController alloc] initWithNibName:nil bundle:nil];
-        [ccVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency];
+        [ccVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency recurring:_recurring];
         [self.navigationController pushViewController:ccVC animated:YES];
     }
     _selectedPaymentProvider = nil;
