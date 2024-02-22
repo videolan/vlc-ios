@@ -315,6 +315,9 @@ import UIKit
             }
         }
 
+        buttonSave.isEnabled = login.address.isEmpty ? false : true
+        buttonConnect.isEnabled = login.address.isEmpty ? false : true
+
         showBrowserWithLogin(login)
     }
 
@@ -329,6 +332,9 @@ import UIKit
                 portField.text = nil
                 usernameField.text = nil
                 passwordField.text = nil
+
+                buttonSave.isEnabled = false
+                buttonConnect.isEnabled = false
             } catch let error as NSError {
                 // TODO : add vclalertview ?
                 print("Failed to save login with error: \(error)")
