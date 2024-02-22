@@ -2,11 +2,12 @@
  * VLCNetworkLoginTVViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2019, 2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2019, 2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -263,16 +264,31 @@ import UIKit
             cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "LoginSavedTableViewCell")
         }
 
-        let serviceString = serverList[indexPath.row]
-        let service = URL.init(string: serviceString as! String)
-        cell?.textLabel?.text = String(format: "%@ [%@]", service?.host ?? "", service?.scheme?.uppercased() ?? "")
-        do {
-            let keychainItem = try XKKeychainGenericPasswordItem.init(forService: (serviceString as? String), account: nil)
-            cell?.detailTextLabel?.text = keychainItem.account
-        } catch {
-            cell?.detailTextLabel?.text = ""
+        guard let cell = cell,
+              let serviceString = serverList[indexPath.row] as? String,
+              let service = URL.init(string: serviceString),
+              var serviceHost = service.host,
+              let serviceScheme = service.scheme else {
+            return UITableViewCell()
         }
-        return cell!
+
+        if !service.path.isEmpty {
+            serviceHost = serviceHost + service.path
+        }
+
+        cell.textLabel?.text = String(format: "%@ [%@]", serviceHost, serviceScheme)
+
+        let accountName: String
+        do {
+            let keychainItem = try XKKeychainGenericPasswordItem(forService: serviceString, account: nil)
+            accountName = keychainItem.account
+        } catch {
+            accountName = ""
+        }
+
+        cell.detailTextLabel?.text = accountName
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
