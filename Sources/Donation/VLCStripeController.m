@@ -30,6 +30,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
     NSDictionary *_card;
     NSString *_tokenID;
 
+    NSString *_customerID;
+
     AFHTTPSessionManager *_sessionManager;
 }
 @end
@@ -41,6 +43,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     self = [super init];
     if (self) {
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.stripe.com/v1/"]];
+        [self createCustomerIfNeeded];
     }
     return self;
 }
@@ -150,6 +153,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
               @"Content-Type" : @"application/x-www-form-urlencoded" };
 }
 
+#pragma mark - token creation
+
 - (void)createStripeTokenWithParameters:(NSDictionary *)parameters
 {
     [_sessionManager POST:@"tokens"
@@ -185,6 +190,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }];
 
 }
+
+#pragma mark - payment handling
 
 - (void)processPayment {
     [_sessionManager POST:@"charges"
@@ -225,7 +232,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
                             @"amount" : _amount,
                             @"currency" : _currency.isoCode,
                             @"payment_method_data" : @{ @"type" : @"card", @"card[token]" : _tokenID },
-                            @"return_url" : callbackURLString}
+                            @"return_url" : callbackURLString,
+                            @"customer" : _customerID}
                   headers:[self secretKeyHeaders]
                  progress:nil
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
@@ -296,6 +304,34 @@ NSString *callbackURLString = @"vlcpay://3ds";
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
+    }];
+}
+
+#pragma mark - customer handling
+
+- (void)createCustomerIfNeeded
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _customerID = [defaults stringForKey:kVLCDonationAnonymousCustomerID];
+
+    if (_customerID != nil && _customerID.length > 0) {
+        NSLog(@"Restored previous customer");
+        return;
+    }
+
+    [_sessionManager POST:@"customers"
+               parameters:@{@"name" : [[UIDevice currentDevice] name],
+                            @"description" : [NSUUID UUID],
+                            @"preferred_locales" : @[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]}
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        self->_customerID = jsonResponse[@"id"];
+        [defaults setObject:self->_customerID forKey:kVLCDonationAnonymousCustomerID];
+        APLog(@"Created customer");
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error creating customer: %@", error.localizedDescription);
     }];
 }
 
