@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2016 VideoLAN. All rights reserved.
+ * Copyright (c) 2016 - 2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Vincent L. Cone <vincent.l.cone # tuta.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -20,7 +21,8 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:keychainIdentifier];
 
     VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:components.scheme];
-    login.address = components.host;
+    NSString *address = [NSString stringWithFormat:@"%@%@", components.host, components.path];
+    login.address = address;
     login.port = components.port;
     return login;
 }
@@ -38,7 +40,15 @@
     } else {
         components.port = nil;
     }
+
     NSString *serviceIdentifier = components.URL.absoluteString;
+
+    // If the IP address is followed by a folder's name, the previous call will return nil so we need to
+    // create the string ourselves.
+    if (!serviceIdentifier) {
+        serviceIdentifier = [NSString stringWithFormat:@"%@://%@", components.scheme, components.host];
+    }
+
     return serviceIdentifier;
 }
 
