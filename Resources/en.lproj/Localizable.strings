@@ -638,6 +638,13 @@
 "DONATION_UPDATE_MONTHLY" = "Update Regular Donation";
 "DONATION_VIDEOLAN" = "Donation to VideoLAN";
 "DONATION_CANCEL_LONG" = "We are sad to see you cancelling the regular monthly donations to VideoLAN. Your previous support means a lot to us. Thank you so much!";
+"DONATION_BANK_TRANSFER" = "Bank Transfer";
+"DONATION_BANK_TRANSFER_LONG" = "Stripe processes donations made to VideoLAN. VideoLAN does not store or collect your personal information.";
+"DONATION_BUTTON_AGREE" = "Agree";
+"DONATION_IBAN" = "Bank Account Number (IBAN)";
+"DONATION_EMAIL" = "Email";
+"DONATION_NAME" = "Name";
+"DONATION_NAME_BANK_ACCOUNT" = "Name on Bank Account";
 
 // MARK: - Playback keyboard shortcuts
 

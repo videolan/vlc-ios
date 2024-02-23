@@ -208,6 +208,11 @@
 		7D715D572B852B01005873FE /* VLCInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D715D562B852B01005873FE /* VLCInvoice.m */; };
 		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
+		7D745DC82B88CE32004B4DCD /* VLCDonationSEPAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */; };
+		7D745DC92B88CE32004B4DCD /* VLCDonationSEPAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */; };
+		7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DCB2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m */; };
+		7D745DCE2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */; };
+		7D745DD12B88CEBE004B4DCD /* VLCSEPA.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DD02B88CEBE004B4DCD /* VLCSEPA.m */; };
 		7D799BA22B8394F100FF93F2 /* VLCDonationNagScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */; };
 		7D799BA32B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
@@ -851,6 +856,14 @@
 		7D715D552B852B01005873FE /* VLCInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCInvoice.h; sourceTree = "<group>"; };
 		7D715D562B852B01005873FE /* VLCInvoice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCInvoice.m; sourceTree = "<group>"; };
 		7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCStreamingHistoryCell.xib; sourceTree = "<group>"; };
+		7D745DC52B88CE32004B4DCD /* VLCDonationSEPAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDonationSEPAViewController.h; sourceTree = "<group>"; };
+		7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDonationSEPAViewController.m; sourceTree = "<group>"; };
+		7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCDonationSEPAViewController.xib; sourceTree = "<group>"; };
+		7D745DCA2B88CE9F004B4DCD /* VLCSEPANotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCSEPANotificationViewController.h; sourceTree = "<group>"; };
+		7D745DCB2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCSEPANotificationViewController.m; sourceTree = "<group>"; };
+		7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCSEPANotificationViewController.xib; sourceTree = "<group>"; };
+		7D745DCF2B88CEBE004B4DCD /* VLCSEPA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCSEPA.h; sourceTree = "<group>"; };
+		7D745DD02B88CEBE004B4DCD /* VLCSEPA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCSEPA.m; sourceTree = "<group>"; };
 		7D799B9F2B8394F100FF93F2 /* VLCDonationNagScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationNagScreenViewController.h; sourceTree = "<group>"; };
 		7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationNagScreenViewController.m; sourceTree = "<group>"; };
 		7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationNagScreenViewController.xib; sourceTree = "<group>"; };
@@ -1521,6 +1534,7 @@
 				7DDA303E2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.h */,
 				7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */,
 				7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */,
+				7D745DD22B88EB8A004B4DCD /* SEPA */,
 				7D715D522B852A92005873FE /* VLCDonationInvoicesViewController.h */,
 				7D715D532B852A92005873FE /* VLCDonationInvoicesViewController.m */,
 				7D1471722B88A49000AB642B /* Data Classes */,
@@ -1924,6 +1938,21 @@
 				7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */,
 			);
 			path = OneDrive;
+			sourceTree = "<group>";
+		};
+		7D745DD22B88EB8A004B4DCD /* SEPA */ = {
+			isa = PBXGroup;
+			children = (
+				7D745DC52B88CE32004B4DCD /* VLCDonationSEPAViewController.h */,
+				7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */,
+				7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */,
+				7D745DCA2B88CE9F004B4DCD /* VLCSEPANotificationViewController.h */,
+				7D745DCB2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m */,
+				7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */,
+				7D745DCF2B88CEBE004B4DCD /* VLCSEPA.h */,
+				7D745DD02B88CEBE004B4DCD /* VLCSEPA.m */,
+			);
+			path = SEPA;
 			sourceTree = "<group>";
 		};
 		7D8986D7278B0C30005396AA /* Thumbnail Cache */ = {
@@ -3214,6 +3243,7 @@
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				7DB559BE27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib in Resources */,
 				9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */,
+				7D745DC92B88CE32004B4DCD /* VLCDonationSEPAViewController.xib in Resources */,
 				7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */,
 				7DCD84F1242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */,
 				41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */,
@@ -3225,6 +3255,7 @@
 				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
 				8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
+				7D745DCE2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib in Resources */,
 				7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell.xib in Resources */,
 				41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */,
@@ -3641,6 +3672,7 @@
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */,
 				7DC869CB28CB80B800EE99F8 /* VLCNetworkServerBrowserViewController.m in Sources */,
+				7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */,
 				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC7BA7F28C894EC00109F28 /* NSObject+SettingsReader.swift in Sources */,
 				7DC7BA8D28C8953800109F28 /* Observable.swift in Sources */,
@@ -3754,6 +3786,7 @@
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
 				7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */,
+				7D745DD12B88CEBE004B4DCD /* VLCSEPA.m in Sources */,
 				7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,
 				8D9F1F9F24938B680074BDBB /* VideoPlayerViewController.swift in Sources */,
 				7DB40A9D28C77B8900EDACA0 /* VLCHTTPFileDownloader.m in Sources */,
@@ -3831,6 +3864,7 @@
 				8DE1879A21060DBE00A091D2 /* MediaCategory.swift in Sources */,
 				7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */,
 				DD3EFEEE1BDEBA3800B68579 /* VLCServerListViewController.m in Sources */,
+				7D745DC82B88CE32004B4DCD /* VLCDonationSEPAViewController.m in Sources */,
 				8DE187832105DB2E00A091D2 /* AudioViewController.swift in Sources */,
 				7DB0CB42247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				7D02C5A52A84F0830046DC5E /* VLCMLMedia+Podcast.m in Sources */,

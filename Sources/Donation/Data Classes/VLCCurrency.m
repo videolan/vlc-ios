@@ -56,6 +56,7 @@
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"€";
         _supportsPayPal = YES;
+        _supportsSEPA = YES;
     }
 
     return self;
@@ -70,6 +71,7 @@
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -84,6 +86,7 @@
         _values = @[@(8), @(15), @(30), @(50), @(75), @(150)];
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -98,6 +101,7 @@
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"£";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -112,6 +116,7 @@
         _values = @[@(20), @(50), @(100), @(125), @(250), @(500)];
         _localCurrencySymbol = @"R$";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -126,6 +131,7 @@
         _values = @[@(7), @(15), @(30), @(40), @(70), @(140)];
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -140,6 +146,7 @@
         _values = @[@(30), @(60), @(125), @(200), @(300), @(600)];
         _localCurrencySymbol = @"CN¥";
         _supportsPayPal = NO;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -154,6 +161,7 @@
         _values = @[@(300), @(750), @(1500), @(2000), @(4000), @(8000)];
         _localCurrencySymbol = @"₹";
         _supportsPayPal = NO;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -168,6 +176,7 @@
         _values = @[@(500), @(1000), @(2000), @(3000), @(5000), @(10000)];
         _localCurrencySymbol = @"¥";
         _supportsPayPal = YES;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -182,6 +191,7 @@
         _values = @[@(5000), @(10000), @(20000), @(30000), @(50000), @(100000)];
         _localCurrencySymbol = @"₩";
         _supportsPayPal = NO;
+        _supportsSEPA = NO;
     }
 
     return self;
@@ -196,6 +206,7 @@
         _values = @[@(20), @(40), @(80), @(125), @(250), @(500)];
         _localCurrencySymbol = @"zł";
         _supportsPayPal = YES;
+        _supportsSEPA = YES;
     }
 
     return self;
@@ -210,6 +221,7 @@
         _values = @[@(50), @(100), @(200), @(300), @(500), @(1000)];
         _localCurrencySymbol = @"kr‎";
         _supportsPayPal = YES;
+        _supportsSEPA = YES;
     }
 
     return self;
@@ -224,6 +236,7 @@
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"CHF";
         _supportsPayPal = YES;
+        _supportsSEPA = YES;
     }
 
     return self;

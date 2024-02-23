@@ -20,6 +20,8 @@
 #import "VLCPrice.h"
 #import "VLCSubscription.h"
 #import "VLCDonationInvoicesViewController.h"
+#import "VLCDonationSEPAViewController.h"
+#import "VLCSEPA.h"
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
@@ -543,6 +545,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     if (@available(iOS 12.0, *)) {
         [_paymentProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
     }
+    /* SEPA is available in EU, EFTA and 4 microstates for some currencies, if we have a valid translation for the legal contract
+     * As the UK is too complex after Brexit, it is ignored even SEPA is still supported with exceptions */
+    if ([VLCSEPA isAvailable] && _selectedCurrency.supportsSEPA) {
+        [_paymentProviders addObject:NSLocalizedString(@"DONATION_BANK_TRANSFER", nil)];
+    }
 }
 
 - (void)showSelectedPaymentProvider
@@ -563,6 +570,14 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
             [ccVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency];
         }
         [self.navigationController pushViewController:ccVC animated:YES];
+    } else if ([_selectedPaymentProvider isEqualToString:NSLocalizedString(@"DONATION_BANK_TRANSFER", nil)]){
+        VLCDonationSEPAViewController *sepaVC = [[VLCDonationSEPAViewController alloc] initWithNibName:nil bundle:nil];
+        if (_selectedPrice) {
+            [sepaVC setPrice:_selectedPrice withCurrency:_selectedCurrency recurring:_recurring];
+        } else {
+            [sepaVC setDonationAmount:_selectedDonationAmount withCurrency:_selectedCurrency];
+        }
+        [self.navigationController pushViewController:sepaVC animated:YES];
     }
     _selectedPaymentProvider = nil;
 }

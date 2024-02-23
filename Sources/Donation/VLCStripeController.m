@@ -36,6 +36,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
     NSString *_customerID;
     NSString *_uuid;
+
     NSString *_paymentMethod;
 
     AFHTTPSessionManager *_sessionManager;
@@ -72,6 +73,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
     _price = price;
     _recurring = recurring;
+    _tokenID = nil;
 
     NSDictionary *parameters = [self constructParametersForPayment:payment];
     [self createStripeTokenWithParameters:parameters];
@@ -141,6 +143,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
     _price = price;
     _recurring = recurring;
+    _tokenID = nil;
 
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     mutDict[@"card[number]"] = cardNumber;
@@ -149,6 +152,47 @@ NSString *callbackURLString = @"vlcpay://3ds";
     mutDict[@"card[cvc]"] = cvv;
 
     [self createStripeTokenWithParameters:[mutDict copy]];
+}
+
+#pragma mark - SEPA internals
+
+- (void)processPaymentWithSEPAAccount:(NSString *)accountNumber
+                                 name:(NSString *)name
+                                email:(NSString *)email
+                            forAmount:(NSNumber *)amount
+                                price:(VLCPrice *)price
+                             currency:(VLCCurrency *)currency
+                            recurring:(BOOL)recurring
+{
+    APLog(@"Processing SEPA payment, recurring? %i fixed price? %i", recurring, price != nil);
+    _currency = currency;
+    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _price = price;
+    _recurring = recurring;
+    _tokenID = nil;
+
+    [_sessionManager POST:@"payment_methods"
+               parameters:@{ @"type" : @"sepa_debit",
+                             @"[sepa_debit][iban]" : accountNumber,
+                             @"[billing_details][name]" : name,
+                             @"[billing_details][email]" : email }
+                  headers:[self secretKeyHeaders]
+                 progress:nil
+                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+        APLog(@"SEPA payment method created");
+        self->_paymentMethod = jsonResponse[@"id"];
+        if (self->_recurring) {
+            [self confirmSetupIntent];
+        } else {
+            [self confirmPaymentIntent];
+        }
+    }
+                  failure:^(NSURLSessionTask *task, NSError *error) {
+        APLog(@"Error creating sepa payment method: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
+    }];
 }
 
 #pragma mark - generic API
@@ -202,28 +246,37 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)confirmPaymentIntent
 {
+    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+    mutDict[@"confirm"] = @"true";
+    mutDict[@"amount"] = _amount;
+    mutDict[@"currency"] = _currency.isoCode;
+    mutDict[@"return_url"] = callbackURLString;
+    mutDict[@"customer"] = _customerID;
+
+    if (_tokenID == nil) {
+        mutDict[@"payment_method_types"] = @[@"sepa_debit"];
+        mutDict[@"payment_method"] = _paymentMethod;
+        mutDict[@"mandate_data[customer_acceptance"] = @{ @"type" : @"online",
+                                                          @"accepted_at" : [NSNumber numberWithLongLong:(long long)[[NSDate date] timeIntervalSince1970]],
+                                                          @"online" : @{ @"ip_address" : @"0.0.0.0",
+                                                                         @"user_agent" : [_sessionManager.requestSerializer valueForHTTPHeaderField:@"User-Agent"]}};
+    } else {
+        mutDict[@"payment_method_types"] = @[@"card"];
+        mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
+    }
+
     [_sessionManager POST:@"payment_intents"
-               parameters:@{@"confirm" : @"true",
-                            @"amount" : _amount,
-                            @"currency" : _currency.isoCode,
-                            @"payment_method_data" : @{ @"type" : @"card", @"card[token]" : _tokenID },
-                            @"return_url" : callbackURLString,
-                            @"customer" : _customerID}
+               parameters:mutDict
                   headers:[self secretKeyHeaders]
                  progress:nil
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
         NSDictionary *nextAction = jsonResponse[@"next_action"];
-        int amountReceived = [jsonResponse[@"amount_received"] intValue];
         self->_paymentMethod = jsonResponse[@"payment_method"];
-
         if (nextAction == (NSDictionary*) [NSNull null]) {
             APLog(@"Payment intent was approved, no further action needed");
-            if (amountReceived > 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingSucceeded];
-                });
-                return;
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate stripeProcessingSucceeded];
+            });
         } else {
             APLog(@"Received a next action on payment intent confirmation");
             NSDictionary *redirectToURL = nextAction[@"redirect_to_url"];
@@ -254,14 +307,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
                   headers:[self secretKeyHeaders]
                  progress:nil
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
-        int amountReceived = [jsonResponse[@"amount_received"] intValue];
-        if (amountReceived != 0) {
-            APLog(@"Successfully confirmed payment intent after additional action");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate stripeProcessingSucceeded];
-            });
-            return;
-        }
+        APLog(@"Successfully confirmed payment intent after additional action");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingSucceeded];
+        });
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Failed to confirm payment intent after additional action: %@", error.localizedDescription);
@@ -275,12 +324,26 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)confirmSetupIntent
 {
+    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+    mutDict[@"confirm"] = @"true";
+    mutDict[@"usage"] = @"off_session";
+    mutDict[@"return_url"] = callbackURLString;
+    mutDict[@"customer"] = _customerID;
+
+    if (_tokenID == nil) {
+        mutDict[@"payment_method_types"] = @[@"sepa_debit"];
+        mutDict[@"payment_method"] = _paymentMethod;
+        mutDict[@"mandate_data[customer_acceptance"] = @{ @"type" : @"online",
+                                                          @"accepted_at" : [NSNumber numberWithLongLong:(long long)[[NSDate date] timeIntervalSince1970]],
+                                                          @"online" : @{ @"ip_address" : @"0.0.0.0",
+                                                                         @"user_agent" : [_sessionManager.requestSerializer valueForHTTPHeaderField:@"User-Agent"]}};
+    } else {
+        mutDict[@"payment_method_types"] = @[@"card"];
+        mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
+    }
+
     [_sessionManager POST:@"setup_intents"
-               parameters:@{@"confirm" : @"true",
-                            @"usage" : @"off_session",
-                            @"payment_method_data" : @{ @"type" : @"card", @"card[token]" : _tokenID },
-                            @"return_url" : callbackURLString,
-                            @"customer" : _customerID}
+               parameters:mutDict
                   headers:[self secretKeyHeaders]
                  progress:nil
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
@@ -488,6 +551,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     _uuid = [[NSUUID UUID] UUIDString];
     [_sessionManager POST:@"customers"
                parameters:@{@"name" : _uuid,
+                            @"description" : _uuid,
                             @"preferred_locales" : @[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]}
                   headers:[self secretKeyHeaders]
                  progress:nil

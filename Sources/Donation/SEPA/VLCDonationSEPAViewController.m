@@ -10,22 +10,18 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCDonationCreditCardViewController.h"
+#import "VLCDonationSEPAViewController.h"
 #import "VLCStripeController.h"
 #import "VLCCurrency.h"
 #import "VLCPrice.h"
 #import "VLC-Swift.h"
+#import "VLCSEPANotificationViewController.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 #import <AuthenticationServices/AuthenticationServices.h>
 
-#ifndef UITextContentTypeCreditCardExpiration
-UITextContentType const UITextContentTypeCreditCardExpiration = @"UITextContentTypeCreditCardExpiration";
-UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextContentTypeCreditCardSecurityCode";
-#endif
-
-@interface VLCDonationCreditCardViewController () <VLCStripeControllerDelegate, ASWebAuthenticationPresentationContextProviding, UITextFieldDelegate>
+@interface VLCDonationSEPAViewController () <VLCStripeControllerDelegate, UITextFieldDelegate>
 {
     NSNumber *_donationAmount;
     VLCPrice *_price;
@@ -33,15 +29,16 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     BOOL _recurring;
 
     VLCStripeController *_stripeController;
-    ASWebAuthenticationSession *_webAuthenticationSession;
 
     NSString *_previousTextFieldContent;
     UITextRange *_previousSelection;
+
+    BOOL _sepaAuthorizationDisplayed;
 }
 
 @end
 
-@implementation VLCDonationCreditCardViewController
+@implementation VLCDonationSEPAViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,26 +46,17 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _stripeController = [[VLCAppCoordinator sharedInstance] stripeController];
     _stripeController.delegate = self;
 
-    self.creditCardNumberLabel.text = NSLocalizedString(@"DONATION_CC_NUM", nil);
-    self.creditCardNumberField.delegate = self;
-    self.expiryDateLabel.text = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE", nil);
-    self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
-    self.expiryDateMonthField.delegate = self;
-    self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
-    self.expiryDateYearField.delegate = self;
-    self.cvvLabel.text = NSLocalizedString(@"DONATION_CC_CVV", nil);
-    self.cvvField.delegate = self;
-    if (@available(iOS 15.0, *)) {
-        self.expiryDateMonthField.textContentType = UITextContentTypeDateTime;
-        self.expiryDateYearField.textContentType = UITextContentTypeDateTime;
-    }
+    self.bankAccountNumberLabel.text = NSLocalizedString(@"DONATION_IBAN", nil);
+    self.bankAccountNumberField.delegate = self;
+    self.nameLabel.text = NSLocalizedString(@"DONATION_NAME", nil);
+    self.nameField.placeholder = NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil);
+    self.emailLabel.text = NSLocalizedString(@"DONATION_EMAIL", nil);
+    self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
+
     if (@available(iOS 10.0, *)) {
-        self.creditCardNumberField.textContentType = UITextContentTypeCreditCardNumber;
-    }
-    if (@available(iOS 17.0, *)) {
-        self.expiryDateMonthField.textContentType = UITextContentTypeCreditCardExpiration;
-        self.expiryDateYearField.textContentType = UITextContentTypeCreditCardExpiration;
-        self.cvvField.textContentType = UITextContentTypeCreditCardSecurityCode;
+        self.bankAccountNumberField.textContentType = UITextContentTypeCreditCardNumber;
+        self.nameField.textContentType = UITextContentTypeName;
+        self.emailField.textContentType = UITextContentTypeEmailAddress;
     }
     if (@available(iOS 14.0, *)) {
         self.continueButton.role = UIButtonRolePrimary;
@@ -93,9 +81,9 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
                                name:UIKeyboardWillChangeFrameNotification
                              object:nil];
 
-    [_creditCardNumberField addTarget:self
-                               action:@selector(reformatAsCardNumber:)
-                     forControlEvents:UIControlEventEditingChanged];
+    [_bankAccountNumberField addTarget:self
+                                action:@selector(reformatAsCardNumber:)
+                      forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)updateColors
@@ -104,34 +92,24 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _continueButton.backgroundColor = [UIColor grayColor];
     [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _continueButton.layer.cornerRadius = 5.;
-    _creditCardNumberField.backgroundColor = colors.background;
-    _creditCardNumberField.layer.borderColor = colors.textfieldBorderColor.CGColor;
-    _expiryDateMonthField.backgroundColor = colors.background;
-    _expiryDateMonthField.layer.borderColor = colors.textfieldBorderColor.CGColor;
-    _expiryDateYearField.backgroundColor = colors.background;
-    _expiryDateYearField.layer.borderColor = colors.textfieldBorderColor.CGColor;
-    _cvvField.backgroundColor = colors.background;
-    _cvvField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _bankAccountNumberField.backgroundColor = colors.background;
+    _bankAccountNumberField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _nameField.backgroundColor = colors.background;
+    _nameField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    _emailField.backgroundColor = colors.background;
+    _emailField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _activityIndicator.color = colors.orangeUI;
 }
 
 - (void)hideInputElements:(BOOL)bValue
 {
-    self.creditCardNumberLabel.hidden = bValue;
-    self.expiryDateLabel.hidden = bValue;
-    self.expiryDateSeparatorLabel.hidden = bValue;
-    self.cvvLabel.hidden = bValue;
-    self.creditCardNumberField.hidden = bValue;
-    self.expiryDateMonthField.hidden = bValue;
-    self.expiryDateYearField.hidden = bValue;
-    self.cvvField.hidden = bValue;
+    self.bankAccountNumberLabel.hidden = bValue;
+    self.nameLabel.hidden = bValue;
+    self.emailLabel.hidden = bValue;
+    self.bankAccountNumberField.hidden = bValue;
+    self.nameField.hidden = bValue;
+    self.emailField.hidden = bValue;
     self.continueButton.hidden = bValue;
-
-    if (bValue) {
-        self.descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
-    } else {
-        self.descriptionLabel.text = NSLocalizedString(@"DONATION_CC_INFO_NOT_STORED", nil);
-    }
 }
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
@@ -160,7 +138,6 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (void)cancelDonation:(id)sender
 {
-    [_webAuthenticationSession cancel];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -179,9 +156,16 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _stripeController.delegate = self;
     [super viewWillAppear:animated];
 
+    if (!_sepaAuthorizationDisplayed) {
+        VLCSEPANotificationViewController *sepaNotifVC = [[VLCSEPANotificationViewController alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:sepaNotifVC animated:NO];
+        _sepaAuthorizationDisplayed = YES;
+        return;
+    }
+
+    _stripeController.delegate = self;
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterCurrencyStyle;
     formatter.currencySymbol = _currency.localCurrencySymbol;
@@ -199,8 +183,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (IBAction)fieldAction:(id)sender
 {
-    // American Express cards have 4 digits for the CVV and only 15 digits
-    _continueButton.enabled = _cvvField.text.length >= 3 && _expiryDateMonthField.text.length == 2 && _expiryDateYearField.text.length == 2 && _creditCardNumberField.text.length >= 15;
+    _continueButton.enabled = _bankAccountNumberField.text.length >= 13 && [_emailField.text containsString:@"@"] && _nameField.text.length >= 3;
     _continueButton.backgroundColor = _continueButton.enabled ? PresentationTheme.current.colors.orangeUI : [UIColor grayColor];
 }
 
@@ -209,14 +192,13 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self hideInputElements:YES];
     [self.activityIndicator startAnimating];
 
-    [_stripeController processPaymentWithCard:self.creditCardNumberField.text
-                                          cvv:self.cvvField.text
-                                     exprMonth:self.expiryDateMonthField.text
-                                     exprYear:self.expiryDateYearField.text
-                                    forAmount:_donationAmount
-                                        price:_price
-                                     currency:_currency
-                                    recurring:_recurring];
+    [_stripeController processPaymentWithSEPAAccount:self.bankAccountNumberField.text
+                                                name:self.nameField.text
+                                               email:self.emailField.text
+                                           forAmount:_donationAmount
+                                               price:_price
+                                            currency:_currency
+                                           recurring:_recurring];
 }
 
 #pragma mark - stripe controller delegation
@@ -260,51 +242,11 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)show3DS:(NSURL *)redirectURL withCallbackURL:(NSURL *)callbackURL
-{
-    _webAuthenticationSession = [[ASWebAuthenticationSession alloc] initWithURL:redirectURL
-                                                     callbackURLScheme:callbackURL.scheme
-                                                     completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-        if (error != nil) {
-            [self stripeProcessingFailedWithError:error.localizedDescription];
-            return;
-        }
-
-        if (callbackURL) {
-            NSURLComponents *components = [NSURLComponents componentsWithString:callbackURL.absoluteString];
-            NSArray *queryItems = components.queryItems;
-            for (NSURLQueryItem *queryItem in queryItems) {
-                if ([queryItem.name isEqualToString:@"payment_intent"]) {
-                    [self->_stripeController continueWithPaymentIntent:queryItem.value];
-                    break;
-                } else if ([queryItem.name isEqualToString:@"setup_intent"]) {
-                    [self->_stripeController continueWithSetupIntent:queryItem.value];
-                    break;
-                } else {
-                    APLog(@"invalid query item name: %@", queryItem.name);
-                }
-            }
-        }
-    }];
-
-    // Set the presentation context delegate
-    _webAuthenticationSession.presentationContextProvider = self;
-
-    // Start the authentication session
-    [_webAuthenticationSession start];
-}
-
-#pragma mark - ASWebAuthenticationPresentationContextProviding
-
-- (ASPresentationAnchor)presentationAnchorForWebAuthenticationSession:(ASWebAuthenticationSession *)session {
-    // Return the view controller's view as the anchor for presenting the authentication session
-    return self.view.window;
-}
-
 #pragma mark - credit card number formatting
 
 // Version 1.3
 // Source and explanation: http://stackoverflow.com/a/19161529/1709587
+// Adapted for IBAN formatting
 -(void)reformatAsCardNumber:(UITextField *)textField
 {
     // In order to make the cursor end up positioned correctly, we need to
@@ -317,15 +259,9 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     NSString *cardNumberWithoutSpaces = [self removeNonDigits:textField.text
                                     andPreserveCursorPosition:&targetCursorPosition];
 
-    if ([cardNumberWithoutSpaces length] > 19) {
-        // If the user is trying to enter more than 19 digits, we prevent
+    if ([cardNumberWithoutSpaces length] > 36) {
+        // If the user is trying to enter more than 29 digits, we prevent
         // their change, leaving the text field in  its previous state.
-        // While 16 digits is usual, credit card numbers have a hard
-        // maximum of 19 digits defined by ISO standard 7812-1 in section
-        // 3.8 and elsewhere. Applying this hard maximum here rather than
-        // a maximum of 16 ensures that users with unusual card numbers
-        // will still be able to enter their card number even if the
-        // resultant formatting is odd.
         [textField setText:_previousTextFieldContent];
         textField.selectedTextRange = _previousSelection;
         return;
@@ -346,12 +282,8 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     int maxLength = 0;
-    if (textField == self.creditCardNumberField) {
-        maxLength = 19; // this includes the spaces
-    } else if (textField == self.expiryDateMonthField || textField == self.expiryDateYearField) {
-        maxLength = 2;
-    } else if (textField == self.cvvField) {
-        maxLength = 4;
+    if (textField == self.bankAccountNumberField) {
+        maxLength = 36; // this includes the spaces
     }
 
     NSString *currentString = textField.text;
@@ -365,12 +297,6 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     return newString.length <= maxLength;
 }
 
-/*
- Removes non-digits from the string, decrementing `cursorPosition` as
- appropriate so that, for instance, if we pass in `@"1111 1123 1111"`
- and a cursor position of `8`, the cursor position will be changed to
- `7` (keeping it between the '2' and the '3' after the spaces are removed).
- */
 - (NSString *)removeNonDigits:(NSString *)string
     andPreserveCursorPosition:(NSUInteger *)cursorPosition
 {
@@ -378,70 +304,27 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     NSMutableString *digitsOnlyString = [NSMutableString new];
     for (NSUInteger i=0; i<[string length]; i++) {
         unichar characterToAdd = [string characterAtIndex:i];
-        if (isdigit(characterToAdd)) {
-            NSString *stringToAdd =
-            [NSString stringWithCharacters:&characterToAdd
-                                    length:1];
+        NSString *stringToAdd = [NSString stringWithCharacters:&characterToAdd
+                                                        length:1];
 
+        if (i >= 2) {
             [digitsOnlyString appendString:stringToAdd];
         } else {
-            if (i < originalCursorPosition) {
-                (*cursorPosition)--;
-            }
+            [digitsOnlyString appendString:[stringToAdd uppercaseString]];
         }
     }
 
     return digitsOnlyString;
 }
 
-/*
- Detects the card number format from the prefix, then inserts spaces into
- the string to format it as a credit card number, incrementing `cursorPosition`
- as appropriate so that, for instance, if we pass in `@"111111231111"` and a
- cursor position of `7`, the cursor position will be changed to `8` (keeping
- it between the '2' and the '3' after the spaces are added).
- */
 - (NSString *)insertCreditCardSpaces:(NSString *)string
            andPreserveCursorPosition:(NSUInteger *)cursorPosition
 {
-    // Mapping of card prefix to pattern is taken from
-    // https://baymard.com/checkout-usability/credit-card-patterns
-
-    // UATP cards have 4-5-6 (XXXX-XXXXX-XXXXXX) format
-    bool is456 = [string hasPrefix: @"1"];
-
-    // These prefixes reliably indicate either a 4-6-5 or 4-6-4 card. We treat all
-    // these as 4-6-5-4 to err on the side of always letting the user type more
-    // digits.
-    bool is465 = [string hasPrefix: @"34"] ||
-    [string hasPrefix: @"37"] ||
-
-    // Diners Club
-    [string hasPrefix: @"300"] ||
-    [string hasPrefix: @"301"] ||
-    [string hasPrefix: @"302"] ||
-    [string hasPrefix: @"303"] ||
-    [string hasPrefix: @"304"] ||
-    [string hasPrefix: @"305"] ||
-    [string hasPrefix: @"309"] ||
-    [string hasPrefix: @"36"] ||
-    [string hasPrefix: @"38"] ||
-    [string hasPrefix: @"39"];
-
-    // In all other cases, assume 4-4-4-4-3.
-    // This won't always be correct; for instance, Maestro has 4-4-5 cards
-    // according to https://baymard.com/checkout-usability/credit-card-patterns,
-    // but I don't know what prefixes identify particular formats.
-    bool is4444 = !(is456 || is465);
-
     NSMutableString *stringWithAddedSpaces = [NSMutableString new];
     NSUInteger cursorPositionInSpacelessString = *cursorPosition;
     for (NSUInteger i=0; i<[string length]; i++) {
-        bool needs465Spacing = (is465 && (i == 4 || i == 10 || i == 15));
-        bool needs456Spacing = (is456 && (i == 4 || i == 9 || i == 15));
-        bool needs4444Spacing = (is4444 && i > 0 && (i % 4) == 0);
-
-        if (needs465Spacing || needs456Spacing || needs4444Spacing) {
+        bool needs4444Spacing = (i > 0 && (i % 4) == 0);
+        if (needs4444Spacing) {
             [stringWithAddedSpaces appendString:@" "];
             if (i < cursorPositionInSpacelessString) {
                 (*cursorPosition)++;
@@ -450,7 +333,6 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
         unichar characterToAdd = [string characterAtIndex:i];
         NSString *stringToAdd =
         [NSString stringWithCharacters:&characterToAdd length:1];
-
         [stringWithAddedSpaces appendString:stringToAdd];
     }
 

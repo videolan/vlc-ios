@@ -57,6 +57,14 @@ NS_ASSUME_NONNULL_BEGIN
                       currency:(VLCCurrency *)currency
                      recurring:(BOOL)recurring;
 
+- (void)processPaymentWithSEPAAccount:(NSString *)accountNumber
+                                 name:(NSString *)name
+                                email:(NSString *)email
+                            forAmount:(NSNumber *)amount
+                                price:(VLCPrice *)price
+                             currency:(VLCCurrency *)currency
+                            recurring:(BOOL)recurring;
+
 - (void)continueWithPaymentIntent:(NSString *)paymentIntent;
 - (void)continueWithSetupIntent:(NSString *)setupIntent;
 
