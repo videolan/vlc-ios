@@ -850,8 +850,13 @@ static NSMutableDictionary *authentifiedHosts;
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     BOOL isDir = YES;
-    if (![fileManager fileExistsAtPath:uploadDirPath isDirectory:&isDir])
-        [fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![fileManager fileExistsAtPath:uploadDirPath isDirectory:&isDir]) {
+        NSError *error;
+        [fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error != nil) {
+            APLog(@"Creating upload directory failed: %@", error.localizedDescription);
+        }
+    }
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 

@@ -43,10 +43,9 @@
 {
     self = [super init];
     if (self) {
-        // Init the HTTP Server and clean its cache
-        // FIXME: VLCHTTPUploaderController should perhaps be a service?
+        // Init the HTTP Server
         _httpUploaderController = [[VLCHTTPUploaderController alloc] init];
-        [_httpUploaderController cleanCache];
+        // in contrast to the iOS port, never clean the cache! We don't have ~/Documents here!
 
         _remoteControlService = [[VLCRemoteControlService alloc] init];
     }

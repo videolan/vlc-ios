@@ -110,7 +110,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
     _fileURL = [NSURL fileURLWithPath:[basePath stringByAppendingPathComponent:_fileName]];
 
     if (![fileManager fileExistsAtPath:basePath]) {
-        [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSError *error;
+        [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error != nil) {
+            APLog(@"Creating upload directory failed: %@", error.localizedDescription);
+        }
     }
     completionHandler(nil);
 }
