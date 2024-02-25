@@ -328,6 +328,7 @@
 		7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */; };
 		7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */; };
 		7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BE81BD68BC9006E1093 /* Settings.bundle */; };
+		7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
@@ -1048,6 +1049,8 @@
 		7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFullscreenMovieTVViewController.m; sourceTree = "<group>"; };
 		7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFullscreenMovieTVViewController.xib; sourceTree = "<group>"; };
 		7DEC8BE81BD68BC9006E1093 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserFavorites.m; sourceTree = "<group>"; };
+		7DEF111D2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserFavorites.h; sourceTree = "<group>"; };
 		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web/web-download.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
@@ -2389,6 +2392,7 @@
 				7DC869D728CB859D00EE99F8 /* General */,
 				7DC869D628CB857900EE99F8 /* Shared Library */,
 				7DC869DF28CB863D00EE99F8 /* Manual Connection */,
+				7DEF111B2B8BA7930068D030 /* Favorites */,
 				7DC869DE28CB862900EE99F8 /* Bonjour */,
 				7DC869DD28CB861000EE99F8 /* PLEX */,
 				7DC869DC28CB85FC00EE99F8 /* UPnP */,
@@ -2740,6 +2744,15 @@
 				DD8095FA1BE628800065D8E1 /* Playback Info */,
 			);
 			path = "VideoPlayer-tvOS";
+			sourceTree = "<group>";
+		};
+		7DEF111B2B8BA7930068D030 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				7DEF111D2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.h */,
+				7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		8D144D6122298E5800984C46 /* MiniPlayer-iOS */ = {
@@ -3589,6 +3602,7 @@
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
+				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				7D577DEC2B0F6C640063A3C1 /* VLCFrostedGlasView.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,

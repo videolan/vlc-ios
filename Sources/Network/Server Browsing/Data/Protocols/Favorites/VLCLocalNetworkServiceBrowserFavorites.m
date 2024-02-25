@@ -1,23 +1,23 @@
 /*****************************************************************************
- * VLCLocalNetworkServiceBrowserManualConnect.m
+ * VLCLocalNetworkServiceBrowserFavorites.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserFavorites.h"
 #import "VLCNetworkServerLoginInformation.h"
 
-@interface VLCLocalNetworkServiceBrowserManualConnect ()
-@property (nonatomic, readonly) VLCLocalNetworkServiceItemLogin *loginItem;
+@interface VLCLocalNetworkServiceBrowserFavorites ()
+@property (nonatomic, readonly) VLCLocalNetworkServiceItemFavorite *loginItem;
 @end
 
-@implementation VLCLocalNetworkServiceBrowserManualConnect
+@implementation VLCLocalNetworkServiceBrowserFavorites
 @synthesize name = _name;
 @synthesize delegate = _delegate;
 
@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _name = @"";
-        _loginItem = [[VLCLocalNetworkServiceItemLogin alloc] initWithServiceName:_name];
+        _loginItem = [[VLCLocalNetworkServiceItemFavorite alloc] initWithServiceName:_name];
     }
     return self;
 }
@@ -45,12 +45,12 @@
 @end
 
 
-@interface VLCLocalNetworkServiceItemLogin ()
+@interface VLCLocalNetworkServiceItemFavorite ()
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong, nullable) UIImage *icon;
 @end
 
-@implementation VLCLocalNetworkServiceItemLogin
+@implementation VLCLocalNetworkServiceItemFavorite
 @synthesize serviceName = _serviceName;
 - (instancetype)initWithTile:(NSString *)title icon:(UIImage *)icon serviceName:(NSString *)serviceName
 {
@@ -65,8 +65,8 @@
 
 - (instancetype)initWithServiceName:(NSString *)serviceName
 {
-    self = [self initWithTile:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
-                         icon:[UIImage imageNamed:@"vlc-sharing"]
+    self = [self initWithTile:NSLocalizedString(@"FAVORITES", nil)
+                         icon:[UIImage imageNamed:@"heart.fill"]
                   serviceName:serviceName];
     if (self) {
 
@@ -76,7 +76,10 @@
 
 - (VLCNetworkServerLoginInformation *)loginInformation
 {
-    return [[VLCNetworkServerLoginInformation alloc] init];
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    login.protocolIdentifier = @"favorites";
+    return login;
+
 }
 
 @end

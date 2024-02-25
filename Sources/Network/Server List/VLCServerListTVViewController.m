@@ -19,6 +19,7 @@
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserFavorites.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
@@ -34,7 +35,6 @@
 
 @interface VLCServerListTVViewController ()
 @property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
-@property (nonatomic, strong) UIButton *favoritesButton;
 @end
 
 @implementation VLCServerListTVViewController
@@ -50,7 +50,7 @@
     if (@available(tvOS 13.0, *)) {
         self.navigationController.navigationBarHidden = YES;
     }
-    
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
 
@@ -65,17 +65,6 @@
     [nothingFoundView sizeToFit];
     [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:nothingFoundView];
-
-    // Create and configure the "View Favorites" button
-    self.favoritesButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.favoritesButton setImage:[UIImage imageNamed:@"heart.fill"] forState: UIControlStateNormal];
-    [self.favoritesButton addTarget:self action:@selector(viewFavoritesButtonTapped:) forControlEvents:UIControlEventPrimaryActionTriggered];
-    [self.favoritesButton sizeToFit];
-
-        // Add the button to the navigation bar
-    UIBarButtonItem *favoritesBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.favoritesButton];
-    self.navigationItem.rightBarButtonItem = favoritesBarButtonItem;
-    self.navigationController.navigationBarHidden = NO;
 
     NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
                                                                    attribute:NSLayoutAttributeCenterY
@@ -96,6 +85,7 @@
 
     NSArray *classes = @[
                          [VLCLocalNetworkServiceBrowserManualConnect class],
+                         [VLCLocalNetworkServiceBrowserFavorites class],
                          [VLCLocalNetworkServiceBrowserHTTP class],
                          [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserDSM class],
@@ -203,9 +193,16 @@
         NSError *error = nil;
         if ([login loadLoginInformationFromKeychainWithError:&error])
         {
-            if (login.protocolIdentifier)
-                [self showLoginAlertWithLogin:login];
-            else {
+            if (login.protocolIdentifier) {
+                if ([login.protocolIdentifier isEqualToString:@"favorites"]) {
+                    VLCFavoriteListViewController *favoriteListViewController = [[VLCFavoriteListViewController alloc] init];
+                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
+                    navController.view.window.translatesAutoresizingMaskIntoConstraints = NO;
+                     [self presentViewController: navController animated:YES completion:nil];
+                } else {
+                    [self showLoginAlertWithLogin:login];
+                }
+            } else {
                 VLCNetworkLoginTVViewController *targetViewController = [[VLCNetworkLoginTVViewController alloc] initWithNibName:nil bundle:nil];
                 [self presentViewController:targetViewController animated:YES completion:nil];
             }
@@ -412,14 +409,6 @@
 
     self.networkServices = newNetworkServices;
     [self.collectionView reloadData];
-}
-#pragma mark - Trigger VC for Favorite Folders
-- (void)viewFavoritesButtonTapped:(UIButton *)sender
-{
-    VLCFavoriteListViewController *favoriteListViewController = [[VLCFavoriteListViewController alloc] init];
-     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
-    navController.view.window.translatesAutoresizingMaskIntoConstraints = NO;
-     [self presentViewController: navController animated:YES completion:nil];
 }
 
 @end
