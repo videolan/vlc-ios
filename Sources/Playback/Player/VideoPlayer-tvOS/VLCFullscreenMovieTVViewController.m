@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 @property (nonatomic) CADisplayLink *displayLink;
 @property (nonatomic) NSTimer *audioDescriptionScrollTimer;
-@property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
+@property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDelayTimer;
 @property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
 @property (nonatomic) NSNumber *scanSavedPlaybackRate;
 @property (nonatomic) VLCPlayerScanState scanState;
@@ -838,7 +838,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 - (void)hidePlaybackControlsIfNeededAfterDelay
 {
-    self.hidePlaybackControlsViewAfterDeleayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+    self.hidePlaybackControlsViewAfterDelayTimer = [NSTimer scheduledTimerWithTimeInterval:.75
                                                                                      target:self
                                                                                    selector:@selector(fireHidePlaybackControlsIfNotPlayingTimer:)
                                                                                    userInfo:nil repeats:NO];
@@ -858,9 +858,9 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 
 #pragma mark - Properties
-- (void)setHidePlaybackControlsViewAfterDeleayTimer:(NSTimer *)hidePlaybackControlsViewAfterDeleayTimer {
-    [_hidePlaybackControlsViewAfterDeleayTimer invalidate];
-    _hidePlaybackControlsViewAfterDeleayTimer = hidePlaybackControlsViewAfterDeleayTimer;
+- (void)setHidePlaybackControlsViewAfterDelayTimer:(NSTimer *)hidePlaybackControlsViewAfterDelayTimer {
+    [_hidePlaybackControlsViewAfterDelayTimer invalidate];
+    _hidePlaybackControlsViewAfterDelayTimer = hidePlaybackControlsViewAfterDelayTimer;
 }
 
 - (VLCPlaybackInfoTVViewController *)infoViewController
