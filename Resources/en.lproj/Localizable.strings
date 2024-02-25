@@ -93,6 +93,7 @@
 "HTTP_UPLOAD_SERVER_OFF" = "Inactive Server";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
+"ALWAYS_STREAM_URL" = "Always play URLs";
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
 

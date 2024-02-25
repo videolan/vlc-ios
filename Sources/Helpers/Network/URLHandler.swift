@@ -150,6 +150,7 @@ extension VLCURLHandler {
         }
     }
 
+#if os(iOS)
     func createAlert() {
         guard let safeMovieURL = self.movieURL else {
             assertionFailure("VLCURLHandler: Fail to retrieve movieURL.")
@@ -157,13 +158,13 @@ extension VLCURLHandler {
         }
 
         let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD",
-                                                                   comment: ""),
+                                                               comment: ""),
                                       message: safeMovieURL.absoluteString,
                                       preferredStyle: .alert)
 
         let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD",
-                                                                     comment: ""),
-                                            style: .default) { _ in
+                                                                    comment: ""),
+                                           style: .default) { _ in
             self.handleDownload()
         }
 
@@ -173,8 +174,16 @@ extension VLCURLHandler {
             self.handlePlay()
         }
 
+        let alwaysPlayAction = UIAlertAction(title: NSLocalizedString("ALWAYS_STREAM_URL",
+                                                                      comment: ""),
+                                             style: .default) { _ in
+            UserDefaults.standard.set(true, forKey: kVLCSettingAlwaysPlayURLs)
+            self.handlePlay()
+        }
+
         alert.addAction(downloadAction)
         alert.addAction(playAction)
+        alert.addAction(alwaysPlayAction)
 
         var rootViewController = UIApplication.shared.keyWindow?.rootViewController
         if let tabBarController = UIApplication.shared.keyWindow?.rootViewController
@@ -184,6 +193,7 @@ extension VLCURLHandler {
 
         rootViewController?.present(alert, animated: true, completion: nil)
     }
+#endif
 }
 
 @objc class URLHandlers: NSObject {
@@ -356,7 +366,15 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             handleDownload()
             return true
         default:
-            self.createAlert()
+#if os(iOS)
+            if (UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs)) {
+                self.handlePlay()
+            } else {
+                self.createAlert()
+            }
+#else
+            self.handlePlay()
+#endif
             return true
         }
     }
@@ -396,7 +414,11 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 #if os(iOS)
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
-            self.createAlert()
+            if (UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs)) {
+                handlePlay()
+            } else {
+                self.createAlert()
+            }
         } else {
             handlePlay()
         }

@@ -95,6 +95,7 @@
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCResetSettings @"kVLCResetSettings"
+#define kVLCSettingAlwaysPlayURLs @"kVLCSettingAlwaysPlayURLs"
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 
