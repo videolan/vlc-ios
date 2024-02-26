@@ -109,6 +109,14 @@ NSString *VLCFavoritesFile = @"Favorites.plist";
     });
 }
 
+- (void)storeContentSynchronously
+{
+    @synchronized (self->_favoriteContentArray) {
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray];
+        [data writeToFile:self->_filePath atomically:YES];
+    }
+}
+
 - (NSInteger)numberOfFavoritedServers
 {
     return _serverHostnameArray.count;

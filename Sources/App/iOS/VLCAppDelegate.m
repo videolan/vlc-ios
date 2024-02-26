@@ -248,6 +248,9 @@
         VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
         [appCoordinator.mediaLibraryService savePlaybackStateFrom:vps];
     }
+
+    VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
+    [fs storeContentSynchronously];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler

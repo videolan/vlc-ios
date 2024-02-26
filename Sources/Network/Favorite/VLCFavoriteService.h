@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeFavorite:(VLCFavorite *)favorite;
 - (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
 
+- (void)storeContentSynchronously;
+
 @end
 
 NS_ASSUME_NONNULL_END

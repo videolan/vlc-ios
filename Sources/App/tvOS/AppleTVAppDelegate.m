@@ -117,4 +117,10 @@
     return NO;
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
+    [fs storeContentSynchronously];
+}
+
 @end
