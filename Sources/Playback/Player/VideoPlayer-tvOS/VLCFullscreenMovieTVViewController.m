@@ -931,21 +931,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 self.audioAlbumNameLabel.text = albumName;
                 self.audioAlbumNameLabel.hidden = NO;
             }];
-            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, albumName);
         } else if (artist != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
                 self.audioArtistLabel.hidden = NO;
                 self.audioAlbumNameLabel.hidden = YES;
             }];
-            APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
         } else if (title != nil) {
             NSRange deviderRange = [title rangeOfString:@" - "];
             if (deviderRange.length != 0) { // for radio stations, all we have is "ARTIST - TITLE"
                 artist = [title substringToIndex:deviderRange.location];
                 title = [title substringFromIndex:deviderRange.location + deviderRange.length];
             }
-            APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
                 self.audioArtistLabel.hidden = NO;
