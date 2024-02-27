@@ -267,8 +267,8 @@ extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
     private func enableViews(_ enable: Bool, _ view: UIView) {
         view.subviews.forEach() {
             $0.alpha = enable ? 1 : 0.5
-            $0.isUserInteractionEnabled = enable
         }
+        view.isUserInteractionEnabled = enable
     }
 
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
