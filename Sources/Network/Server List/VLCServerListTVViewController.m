@@ -112,18 +112,17 @@
     return NSLocalizedString(@"LOCAL_NETWORK", nil);
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self.discoveryController startDiscovery];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     [self.discoveryController stopDiscovery];
     self.networkServices = nil;
-    [self.collectionView reloadData];
 }
 
 #pragma mark - Collection view data source
