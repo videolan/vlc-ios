@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.5.4]
+· Fix login to network shares, especially with complex addresses
+· Add option to always play media opened through third-party apps
+
+## tvOS [3.5.4]
+· Fix login to network shares, especially with complex addresses
+· Relocate Favorites button
+· Hide UI promptly when playback continues
+· Fix cleaning of cached media when the app relaunches
+
+## iOS [3.5.3]
+· Fix browsing UPnP and SMB shares
+
+## tvOS [3.5.3]
+· Fix browsing UPnP and SMB shares
+
 ## iOS [3.5.2]
 · Fix aspect ratio issue leading to incomplete fullscreen image display
 · Stability improvements
