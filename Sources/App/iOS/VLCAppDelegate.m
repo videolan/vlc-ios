@@ -154,6 +154,9 @@
 
     [self configureShortCutItemsWithApplication:application];
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
+
     return YES;
 }
 

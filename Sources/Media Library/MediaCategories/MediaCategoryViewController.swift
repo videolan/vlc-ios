@@ -483,7 +483,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController.modalPresentationStyle = .formSheet
             self.present(navigationController, animated: true)
             userDefaults.set(true, forKey: kVLCHasLaunchedBefore)
-            userDefaults.set(1, forKey: kVLCNumberOfLaunches)
         } else {
             var lastNagMonth = userDefaults.integer(forKey: kVLCHasNaggedThisMonth)
             let numberOfLaunches = userDefaults.integer(forKey: kVLCNumberOfLaunches)
@@ -502,8 +501,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 donationNC.modalTransitionStyle = .crossDissolve
                 donationNC.modalPresentationStyle = .overFullScreen
                 self.present(donationNC, animated: true)
-            } else {
-                userDefaults.setValue(numberOfLaunches + 1, forKey: kVLCNumberOfLaunches)
             }
         }
     }
