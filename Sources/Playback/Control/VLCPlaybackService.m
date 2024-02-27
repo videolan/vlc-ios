@@ -801,7 +801,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             NSInteger nextIndex = [self nextMediaIndex:false];
 
             if (nextIndex > -1) {
-                [_listPlayer playItemAtNumber:@(nextIndex)];
+                if (_listPlayer.repeatMode != VLCRepeatCurrentItem && _shuffleMode) {
+                    [_listPlayer playItemAtNumber:@(nextIndex)];
+                }
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
             }
