@@ -6,7 +6,6 @@
 
 ## tvOS [3.5.4]
 · Fix login to network shares, especially with complex addresses
-· Relocate Favorites button
 · Hide UI promptly when playback continues
 · Fix cleaning of cached media when the app relaunches
 
