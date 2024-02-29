@@ -50,7 +50,6 @@ NSString *callbackURLString = @"vlcpay://3ds";
     self = [super init];
     if (self) {
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.stripe.com/v1/"]];
-        [self createCustomerIfNeeded];
     }
     return self;
 }
@@ -538,13 +537,34 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 #pragma mark - customer handling
 
-- (void)createCustomerIfNeeded
+- (void)handleCustomerToContinueWithTarget:(id)target selector:(SEL)action
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _customerID = [defaults stringForKey:kVLCDonationAnonymousCustomerID];
 
     if (_customerID != nil && _customerID.length > 0) {
-        [self reloadCustomer];
+        if (!self->_uuid) {
+            [_sessionManager GET:[NSString stringWithFormat:@"customers/%@", _customerID]
+                      parameters:nil
+                         headers:[self secretKeyHeaders]
+                        progress:nil
+                         success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+                APLog(@"Reloaded customer");
+                self->_uuid = jsonResponse[@"name"];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                [target performSelector:action];
+#pragma clang diagnostic pop
+            }
+                         failure:^(NSURLSessionTask *task, NSError *error) {
+                APLog(@"Error reloading customer: %@", error.localizedDescription);
+            }];
+        } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [target performSelector:action];
+#pragma clang diagnostic pop
+        }
         return;
     }
 
@@ -559,30 +579,13 @@ NSString *callbackURLString = @"vlcpay://3ds";
         self->_customerID = jsonResponse[@"id"];
         [defaults setObject:self->_customerID forKey:kVLCDonationAnonymousCustomerID];
         APLog(@"Created customer");
-        if ([self.delegate respondsToSelector:@selector(customerSet)]) {
-            [self.delegate customerSet];
-        }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [target performSelector:action];
+#pragma clang diagnostic pop
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Error creating customer: %@", error.localizedDescription);
-    }];
-}
-
-- (void)reloadCustomer
-{
-    [_sessionManager GET:[NSString stringWithFormat:@"customers/%@", _customerID]
-              parameters:nil
-                 headers:[self secretKeyHeaders]
-                progress:nil
-                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
-        APLog(@"Reloaded customer");
-        self->_uuid = jsonResponse[@"name"];
-        if ([self.delegate respondsToSelector:@selector(customerSet)]) {
-            [self.delegate customerSet];
-        }
-    }
-                 failure:^(NSURLSessionTask *task, NSError *error) {
-        APLog(@"Error reloading customer: %@", error.localizedDescription);
     }];
 }
 

@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stripeProcessingFailedWithError:(NSString *)errorMessage;
 
 @optional
-- (void)customerSet;
 - (void)show3DS:(NSURL *)redirectURL withCallbackURL:(NSURL *)callbackURL;
 - (void)setInvoices:(NSArray <VLCInvoice *>*)invoices;
 - (void)setCharges:(NSArray <VLCCharge *>*)charges;
@@ -75,6 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSubscription:(VLCSubscription *)sub toPrice:(VLCPrice *)price;
 - (void)cancelSubscription:(VLCSubscription *)sub;
+
+- (void)handleCustomerToContinueWithTarget:(id)target selector:(SEL)action;
 
 @end
 

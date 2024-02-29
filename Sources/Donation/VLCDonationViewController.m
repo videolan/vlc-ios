@@ -272,6 +272,15 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)continueButtonAction:(id)sender
 {
+    [self hidePurchaseInterface:YES];
+    [_activityIndicatorView startAnimating];
+    [_stripeController handleCustomerToContinueWithTarget:self selector:@selector(showPaymentProviderSelectorSheet)];
+}
+
+- (void)showPaymentProviderSelectorSheet
+{
+    [_activityIndicatorView stopAnimating];
+    [self hidePurchaseInterface:NO];
     [_applePayButton removeFromSuperview];
     _applePayButton = nil;
     [_payPalImageView removeFromSuperview];
@@ -293,6 +302,15 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (IBAction)showPreviousCharges:(id)sender
 {
+    [self hidePurchaseInterface:YES];
+    [_activityIndicatorView startAnimating];
+    [_stripeController handleCustomerToContinueWithTarget:self selector:@selector(showInvoicesAndReceipts)];
+}
+
+- (void)showInvoicesAndReceipts
+{
+    [_activityIndicatorView stopAnimating];
+    [self hidePurchaseInterface:NO];
     VLCDonationInvoicesViewController *previousChargesVC = [[VLCDonationInvoicesViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:previousChargesVC animated:YES];
 }
@@ -300,8 +318,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 - (IBAction)segmentedControlAction:(id)sender
 {
     _selectedDonationAmount = nil;
-    [UIView animateWithDuration:0.5 animations:^{
-        if (self.intervalSelectorControl.selectedSegmentIndex == 0) {
+    if (self.intervalSelectorControl.selectedSegmentIndex == 0) {
+        [UIView animateWithDuration:0.5 animations:^{
             self.oneTimePaymentView.hidden = NO;
             self.monthlyPaymentView.hidden = YES;
             if (self->_selectedCurrency.supportsPayPal) {
@@ -312,13 +330,25 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
             [self uncheckNumberButtons];
             self->_continueButton.enabled = NO;
             self->_continueButton.backgroundColor = [UIColor grayColor];
-        } else {
-            self.oneTimePaymentView.hidden = YES;
-            self.monthlyPaymentView.hidden = NO;
-            [self->_paymentProviders removeObject:@"PayPal"];
-            [self updateMonthlyButtons];
-        }
+        }];
+    } else {
+        [self hidePurchaseInterface:YES];
+        [self.activityIndicatorView startAnimating];
+        [self->_stripeController handleCustomerToContinueWithTarget:self selector:@selector(checkForSubscription)];
+    }
+}
+
+- (void)checkForSubscription
+{
+    [self.activityIndicatorView stopAnimating];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self hidePurchaseInterface:NO];
+        self.oneTimePaymentView.hidden = YES;
+        self.monthlyPaymentView.hidden = NO;
     }];
+    [self->_paymentProviders removeObject:@"PayPal"];
+    [self updateMonthlyButtons];
+    [_stripeController requestCurrentCustomerSubscription];
 }
 
 #pragma mark - monthly donation actions
@@ -662,11 +692,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 }
 
 #pragma mark - stripe controller delegate
-
-- (void)customerSet
-{
-    [_stripeController requestCurrentCustomerSubscription];
-}
 
 - (void)stripeProcessingSucceeded
 {
