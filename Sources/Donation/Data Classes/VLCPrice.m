@@ -22,7 +22,12 @@
         _id = dict[@"id"];
         NSDictionary *currencyOptions = dict[@"currency_options"];
         NSDictionary *option = currencyOptions[[currency.isoCode lowercaseString]];
-        _amount = [NSNumber numberWithInt:[option[@"unit_amount"] intValue] / 100];
+        NSNumber *unitAmount = option[@"unit_amount"];
+        if (unitAmount != (NSNumber *)[NSNull null]) {
+            _amount = [NSNumber numberWithInt:[option[@"unit_amount"] intValue] / 100];
+        } else {
+            _amount = @(0.);
+        }
         _recurring = [dict[@"type"] isEqualToString:@"recurring"];
     }
     return self;
