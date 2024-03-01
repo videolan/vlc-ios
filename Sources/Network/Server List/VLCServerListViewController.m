@@ -255,6 +255,7 @@
 {
     _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+    [super viewDidAppear:animated];
 }
 
 - (void)miniPlayerIsShown

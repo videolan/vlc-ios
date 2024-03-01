@@ -56,6 +56,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     NSURL *url = [NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
