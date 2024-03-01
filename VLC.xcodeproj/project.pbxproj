@@ -554,6 +554,8 @@
 		7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
 		7D8986D6278B0C25005396AA /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */; };
 		7D8A030F2913D45400789583 /* VLCAppCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8A030E2913D45400789583 /* VLCAppCoordinator.m */; };
+		7D8D00A92B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */; };
+		7D8D00AA2B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */; };
 		7D8E12552B5D3F3000BD81B7 /* VLCFullWidthCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4089F41BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.m */; };
 		7D8E12562B5D3F4A00BD81B7 /* VLCDeleteHintTVView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */; };
 		7D8ED53B2AAF10B200AE0D5E /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */; };
@@ -1238,6 +1240,7 @@
 		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
 		7D8A030D2913D45400789583 /* VLCAppCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAppCoordinator.h; sourceTree = "<group>"; };
 		7D8A030E2913D45400789583 /* VLCAppCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCAppCoordinator.m; sourceTree = "<group>"; };
+		7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7D8ED53C2AAF10B200AE0D5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		7D8ED53E2AAF10BF00AE0D5E /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = af; path = af.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		7D8ED53F2AAF10C300AE0D5E /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ar; path = ar.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
@@ -3302,6 +3305,7 @@
 				29125E5317492219003F03E5 /* web */,
 				417E68711F307D8F00DB9BB2 /* InfoPlist.strings */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
+				7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -3686,6 +3690,7 @@
 				7D405EDA1BEA1F56006ED886 /* style.css in Resources */,
 				7D0C20B228C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */,
 				7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */,
+				7D8D00AA2B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
 				7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */,
 				7D0C207628C897DA00CCFFEF /* About Contents.html in Resources */,
@@ -3807,6 +3812,7 @@
 				7DC869E628CB87A700EE99F8 /* VLCCloudServicesTableViewController.xib in Resources */,
 				8D15A1F322B0FCE000CFA758 /* QueueView.xib in Resources */,
 				4181087A2142894A0046A931 /* PlayingExternallyView.xib in Resources */,
+				7D8D00A92B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */,
 				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
 				7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */,
 			);
