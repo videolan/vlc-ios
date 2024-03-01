@@ -300,7 +300,6 @@
 - (NSString *)removeNonDigits:(NSString *)string
     andPreserveCursorPosition:(NSUInteger *)cursorPosition
 {
-    NSUInteger originalCursorPosition = *cursorPosition;
     NSMutableString *digitsOnlyString = [NSMutableString new];
     for (NSUInteger i=0; i<[string length]; i++) {
         unichar characterToAdd = [string characterAtIndex:i];
