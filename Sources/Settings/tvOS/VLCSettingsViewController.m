@@ -230,27 +230,10 @@
 
 - (void)resetSettings
 {
-    NSInteger numberOfSections = [_settingsReader numberOfSections];
-    NSInteger numberOfRowsPerSection[numberOfSections];
-
-    for (NSInteger section = 0; section < numberOfSections; section += 1) {
-        numberOfRowsPerSection[section] = [_settingsReader numberOfRowsForSection:section];
-
-        if (numberOfRowsPerSection[section] > 0) {
-            for (NSInteger row = 0; row < numberOfRowsPerSection[section]; row += 1) {
-                NSDictionary *dico = [_settingsReader specifierForIndexPath:[NSIndexPath indexPathForRow:row inSection:section]].specifierDict;
-
-                if (!dico[@"DefaultValue"]) {
-                    continue;
-                }
-
-                [[NSUserDefaults standardUserDefaults] setValue:dico[@"DefaultValue"] forKey:dico[@"Key"]];
-            }
-        }
-    }
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:bundleIdentifier];
 
     [_tableView reloadData];
 }
-
 
 @end

@@ -39,21 +39,6 @@ class ActionSheetSpecifier: NSObject {
         return IndexPath(row: row, section: 0)
     }
 
-    func reset() {
-        guard let preferenceKey = preferenceKey else {
-            assertionFailure("ActionSheetSpecifier: Invalid preference key")
-            return
-        }
-
-        guard let settingSpecifier = settingSpecifier,
-        let defaultValue = settingSpecifier.defaultValue else {
-            assertionFailure("ActionSheetSpecifier: Couldn't retrieve default value")
-            return
-        }
-
-        userDefaults.set(defaultValue, forKey: preferenceKey)
-    }
-
     private func loadData() {
         guard let preferenceKey = preferenceKey else {
             assertionFailure("No Preference Key Provided")

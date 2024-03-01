@@ -277,62 +277,10 @@ class SettingsController: UITableViewController {
         present(alert, animated: true)
     }
 
-    private func resetOption(for preferenceKey: String?) {
-        specifierManager.preferenceKey = preferenceKey
-        specifierManager.settingsBundle = settingsBundle
-        specifierManager.reset()
-    }
-
     private func resetOptions() {
-        GenericOptions.allCases.forEach {
-            if $0 == GenericOptions.automaticallyPlayNextItem {
-                let userDefaults = UserDefaults.standard
-                userDefaults.setValue(true, forKey: kVLCAutomaticallyPlayNextItem)
-                userDefaults.setValue(true, forKey: kVLCPlaylistPlayNextItem)
-            } else {
-                resetOption(for: $0.preferenceKey)
-            }
-        }
-
-        PrivacyOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        PlaybackControlOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        VideoOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        SubtitlesOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        AudioOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        CastingOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        MediaLibraryOptions.allCases.forEach {
-            if $0 != MediaLibraryOptions.forceVLCToRescanTheMediaLibrary {
-                resetOption(for: $0.preferenceKey)
-            }
-        }
-
-        NetworkOptions.allCases.forEach {
-            resetOption(for: $0.preferenceKey)
-        }
-
-        Lab.allCases.forEach {
-            if $0 != Lab.exportLibrary {
-                resetOption(for: $0.preferenceKey)
-            }
-        }
+        // note that [NSUserDefaults resetStandardUserDefaults] will NOT correctly reset to the defaults
+        let appDomain = Bundle.main.bundleIdentifier!
+        UserDefaults().removePersistentDomain(forName: appDomain)
     }
 }
 
