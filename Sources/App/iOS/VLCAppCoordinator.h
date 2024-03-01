@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
-- (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
+- (nullable VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
 #endif
 
 @end

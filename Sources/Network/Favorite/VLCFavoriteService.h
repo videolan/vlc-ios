@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) NSInteger numberOfFavoritedServers;
 - (NSInteger)numberOfFavoritesOfServerAtIndex:(NSInteger)index;
-- (VLCFavorite *)favoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
+- (nullable VLCFavorite *)favoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
 
 - (NSString *)nameOfFavoritedServerAtIndex:(NSInteger)index;
 - (void)setName:(NSString *)name ofFavoritedServerAtIndex:(NSInteger)index;
