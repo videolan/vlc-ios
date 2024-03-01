@@ -99,7 +99,7 @@
     _titleLabel.text = title;
 
     if (_oneDriveFile.audio) {
-        _thumbnailView.image = [UIImage imageNamed:@"audio"];
+        _thumbnailView.image = [UIImage imageNamed:@"audioFile"];
         duration = _oneDriveFile.audio.duration;
         [self loadThumbnail];
     } else if (_oneDriveFile.video) {
@@ -186,7 +186,7 @@
             if (isDirectory) {
                 self.thumbnailView.image = [UIImage imageNamed:@"folder"];
             } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
-                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
+                self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
             } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_video_list.png"]) {
                 self.thumbnailView.image = [UIImage imageNamed:@"movie"];
             } else {

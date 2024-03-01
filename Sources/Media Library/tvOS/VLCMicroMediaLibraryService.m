@@ -201,7 +201,7 @@
     if (title.isSupportedMediaFormat) {
         return [UIImage imageNamed:@"movie"];
     } else if (title.isSupportedAudioMediaFormat) {
-        return [UIImage imageNamed:@"audio"];
+        return [UIImage imageNamed:@"audioFile"];
     }
 
     return [UIImage imageNamed:@"blank"];
