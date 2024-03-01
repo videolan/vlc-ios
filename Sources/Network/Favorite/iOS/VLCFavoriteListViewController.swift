@@ -148,21 +148,23 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
-        cell.title = favorite.userVisibleName
-        cell.isDirectory = true
-        cell.thumbnailImage = UIImage(named: "folder")
-        cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            cell.title = favorite.userVisibleName
+            cell.isDirectory = true
+            cell.thumbnailImage = UIImage(named: "folder")
+            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
-        let media = VLCMedia(url: favorite.url)
-        let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
-        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
-                                                                       medialibraryService: VLCAppCoordinator().mediaLibraryService) {
-            self.navigationController?.pushViewController(serverBrowserVC, animated: true)
+        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            let media = VLCMedia(url: favorite.url)
+            let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+            if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
+                                                                           medialibraryService: VLCAppCoordinator().mediaLibraryService) {
+                self.navigationController?.pushViewController(serverBrowserVC, animated: true)
+            }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

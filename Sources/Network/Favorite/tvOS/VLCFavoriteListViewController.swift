@@ -78,9 +78,10 @@ extension VLCFavoriteListViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VLCRemoteBrowsingTVCell", for: indexPath) as! VLCRemoteBrowsingTVCell
-        cell.title = favorite.userVisibleName
+        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            cell.title = favorite.userVisibleName
+        }
         cell.isDirectory = true
         cell.thumbnailImage = UIImage(named: "folder")
         cell.titleLabel.textColor = UIColor.systemOrange
@@ -88,11 +89,12 @@ extension VLCFavoriteListViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
-        let media = VLCMedia(url: favorite.url)
-        let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
-        let serverBrowserVC = VLCServerBrowsingTVViewController(serverBrowser: serverBrowser)
-        self.navigationController?.pushViewController(serverBrowserVC, animated: true)
+        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            let media = VLCMedia(url: favorite.url)
+            let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+            let serverBrowserVC = VLCServerBrowsingTVViewController(serverBrowser: serverBrowser)
+            self.navigationController?.pushViewController(serverBrowserVC, animated: true)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
