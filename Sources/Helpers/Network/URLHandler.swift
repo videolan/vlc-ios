@@ -367,7 +367,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             return true
         default:
 #if os(iOS)
-            if (UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs)) {
+            if UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs) {
                 self.handlePlay()
             } else {
                 self.createAlert()
@@ -414,7 +414,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 #if os(iOS)
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
-            if (UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs)) {
+            if UserDefaults.standard.bool(forKey: kVLCSettingAlwaysPlayURLs) {
                 handlePlay()
             } else {
                 self.createAlert()

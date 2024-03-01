@@ -81,7 +81,7 @@ import UIKit
     @objc var delegate: EqualizerViewDelegate? {
         didSet {
             createFrequencyStacks()
-            if var profiles = delegate?.equalizerProfiles() as? [VLCAudioEqualizer.Preset] {
+            if let profiles = delegate?.equalizerProfiles() as? [VLCAudioEqualizer.Preset] {
                 presetSelectorView = EqualizerPresetSelector(profiles: profiles)
             }
             setupViews()

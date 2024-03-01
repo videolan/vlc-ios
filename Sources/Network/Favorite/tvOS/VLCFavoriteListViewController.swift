@@ -39,7 +39,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
     }
     
     private func showEmptyViewIfNeeded() {
-        if favoriteService.numberOfFavoritedServers  == 0 {
+        if favoriteService.numberOfFavoritedServers == 0 {
             self.nothingFoundLabel.text = NSLocalizedString("NO_FAVORITES_DESCRIPTION", comment: "")
             self.nothingFoundLabel.sizeToFit()
             let nothingFoundView = self.nothingFoundView
