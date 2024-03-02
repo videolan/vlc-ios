@@ -6,6 +6,7 @@
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *          Carola Nitz <caro # videolan.org>
+ *          Pratik Ray <raypratik365 # gmail.com>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -24,22 +25,70 @@ protocol PasscodeLockControllerDelegate: AnyObject {
 }
 
 class PasscodeLockController: UIViewController {
-
+    
     static let passcodeService = "org.videolan.vlc-ios.passcode"
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     private var tempPasscode = ""
     private var action: PasscodeAction?
+    private var defaultPasscodeLength: Int {
+            // Set your default passcode length here, e.g., 4
+            return 4
+        }
     weak var delegate: PasscodeLockControllerDelegate?
     var passcode = ""
+    private var passcodeLength: Int? {
+        didSet {
+            UserDefaults.standard.set(passcodeLength, forKey: "PasscodeLengthKey")
+        }
+    }
+    
+    private lazy var passcodeLengthAlertController: UIAlertController = {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Choose Passcode Length", comment: ""),
+            message: NSLocalizedString("Select the passcode length", comment: ""),
+            preferredStyle: .alert
+        )
 
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("4 digits", comment: ""),
+            style: .default,
+            handler: { _ in
+                self.passcodeLength = 4
+                self.showPasscodeEntry()
+            }
+        ))
+
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("6 digits", comment: ""),
+            style: .default,
+            handler: { _ in
+                self.passcodeLength = 6
+                self.showPasscodeEntry()
+            }
+        ))
+
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+            style: .cancel,
+            handler: { _ in
+                self.dismissViewWithoutEnablingPasscode()
+            }
+        ))
+
+        return alertController
+    }()
+    
+    private func dismissViewWithoutEnablingPasscode() {
+        userDefaults.set(false, forKey: kVLCSettingPasscodeOnKey)
+        dismiss(animated: true)
+    }
+    
     private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
-        var tapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handleTap))
-
+        var tapGestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(handleTap))
         return tapGestureRecognizer
     }()
-
+    
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("Enter a passcode", comment: "")
@@ -47,7 +96,7 @@ class PasscodeLockController: UIViewController {
         label.textColor = PresentationTheme.current.colors.cellTextColor
         return label
     }()
-
+    
     let passcodeTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 40, weight: .heavy)
@@ -57,7 +106,7 @@ class PasscodeLockController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-
+    
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -66,11 +115,11 @@ class PasscodeLockController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
-
+    
     private var isBiometricsEnabled: Bool {
         return faceIDEnabled || touchIDEnabled
     }
@@ -80,50 +129,70 @@ class PasscodeLockController: UIViewController {
     private var touchIDEnabled: Bool {
         var touchIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowTouchID)
         let laContext = LAContext()
-
+        
         if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
         }
         return touchIDEnabled
     }
-
+    
     private var faceIDEnabled: Bool {
         var faceIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowFaceID)
         let laContext = LAContext()
-
+        
         if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
         }
         return faceIDEnabled
     }
-
+    
     convenience init?(action: PasscodeAction) {
         self.init()
         self.action = action
         setup()
     }
-
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if action == .enter && !isBiometricsEnabled {
-            passcodeTextField.becomeFirstResponder()
-        }
-    }
+           super.viewDidAppear(animated)
+           
+           if action == .set && passcodeLength == nil {
+               presentPasscodeLengthSelection()
+           } else if action == .enter && !isBiometricsEnabled {
+               passcodeTextField.becomeFirstResponder()
+           } else {
+               // Retrieve the saved passcode length from UserDefaults
+               passcodeLength = UserDefaults.standard.integer(forKey: "PasscodeLengthKey")
+               
+               // If passcode is already set, use its length; otherwise, use default length
+               let storedPasscode = passcodeFromKeychain()
+               passcodeLength = !storedPasscode.isEmpty ? storedPasscode.count : defaultPasscodeLength
+               
+               // Show passcode entry
+               showPasscodeEntry()
+           }
+       }
 
+    
+    private func presentPasscodeLengthSelection() {
+        present(passcodeLengthAlertController, animated: true, completion: nil)
+    }
+    
+    private func showPasscodeEntry() {
+        passcodeTextField.becomeFirstResponder()
+    }
+    
     private func setup() {
         contentStackView.addGestureRecognizer(tapGestureRecognizer)
         setupView()
         setupTheme()
         setupObservers()
     }
-
+    
     @objc private func handleTap() {
         if !passcodeTextField.isFirstResponder {
             passcodeTextField.becomeFirstResponder()
         }
     }
-
-// MARK: - Setup
+    // MARK: - Setup
     private func setupView() {
         if action == .set {
             self.title = NSLocalizedString("Set Passcode", comment: "")
@@ -131,10 +200,12 @@ class PasscodeLockController: UIViewController {
             self.title = NSLocalizedString("Enter Passcode", comment: "")
         }
         var guide: LayoutAnchorContainer = view.layoutMarginsGuide
-         if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, *) {
             guide = view.safeAreaLayoutGuide
-         }
-        passcodeTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        }
+        // Determine the width based on passcode length
+        let passcodeWidth = CGFloat(passcodeLength ?? 4) * 40.0 // Adjust 40.0 based on desired width per digit
+        passcodeTextField.widthAnchor.constraint(equalToConstant: passcodeWidth).isActive = true
         contentStackView.addArrangedSubview(messageLabel)
         contentStackView.addArrangedSubview(passcodeTextField)
         view.addSubview(contentStackView)
@@ -151,7 +222,7 @@ class PasscodeLockController: UIViewController {
             passcodeTextField.becomeFirstResponder()
         }
     }
-
+    
     private func setupBarButton() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                            target: self,
@@ -159,7 +230,7 @@ class PasscodeLockController: UIViewController {
         cancelButton.tintColor = PresentationTheme.current.colors.orangeUI
         self.navigationItem.rightBarButtonItem = cancelButton
     }
-
+    
     private func setupObservers() {
         notificationCenter.addObserver(self,
                                        selector: #selector(setupTheme),
@@ -169,7 +240,7 @@ class PasscodeLockController: UIViewController {
                                     action: #selector(textFieldDidChange(_:)),
                                     for: .editingChanged)
     }
-
+    
     private func setNavBarAppearance() {
         if #available(iOS 13.0, *) {
             let navigationBarAppearance = AppearanceManager.navigationbarAppearance
@@ -177,15 +248,14 @@ class PasscodeLockController: UIViewController {
             self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
         }
     }
-
-// MARK: - Observer & Bar Button Actions
+    // MARK: - Observer & Bar Button Actions
     @objc private func setupTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
         messageLabel.textColor = PresentationTheme.current.colors.cellTextColor
         passcodeTextField.textColor = PresentationTheme.current.colors.cellTextColor
         setNavBarAppearance()
     }
-
+    
     @objc private func dismissView() {
         //If user dismisses the passcode view by pressing cancel the passcode lock should be disabled
         if #available(iOS 10, *) {
@@ -194,12 +264,15 @@ class PasscodeLockController: UIViewController {
         userDefaults.set(false, forKey: kVLCSettingPasscodeOnKey)
         dismiss(animated: true)
     }
-
-// MARK: - Logic
+    
+    @objc private func cancelPasscodeSetup() {
+        dismiss(animated: true)
+    }
+    // MARK: - Logic
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let passcodeText = passcodeTextField.text else { return }
-
-        if passcodeTextField.text?.count == 4 {
+        let passcodeLength = self.passcodeLength ?? defaultPasscodeLength
+        if passcodeText.count == passcodeLength {
             if action == .set {
                 if tempPasscode == "" {
                     //Once this check succeeds temporary passcode is stored and asks for re entry
@@ -253,8 +326,7 @@ class PasscodeLockController: UIViewController {
             }
         }
     }
-
-// MARK: - Keychain Password Helper Functions
+    // MARK: - Keychain Password Helper Functions
     @objc class func setPasscode(passcode: String?) throws {
         guard let passcode = passcode else {
             do {
@@ -274,18 +346,18 @@ class PasscodeLockController: UIViewController {
             throw error
         }
     }
-
+    
     private func isPasscodeValid(passedPasscode: String) -> Bool {
         return (passedPasscode == passcodeFromKeychain())
     }
-
+    
     private func passcodeFromKeychain() -> String {
-      do {
-        let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
-        return item.secret.stringValue
-      } catch let error {
-        assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
-        return ""
-      }
+        do {
+            let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
+            return item.secret.stringValue
+        } catch let error {
+            assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
+            return ""
+        }
     }
 }
