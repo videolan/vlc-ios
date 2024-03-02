@@ -178,6 +178,10 @@
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
 "Re-enter your passcode" = "Re-enter your passcode";
 "Set Passcode" = "Set Passcode";
+"PASSCODE_LENGTH" = "Passcode Length";
+"PASSCODE_LENGTH_LONG" = "Select the preferred length of your new passcode";
+"PASSCODE_4" = "4 digits";
+"PASSCODE_6" = "6 digits";
 
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";

@@ -45,13 +45,13 @@ class PasscodeLockController: UIViewController {
     
     private lazy var passcodeLengthAlertController: UIAlertController = {
         let alertController = UIAlertController(
-            title: NSLocalizedString("Choose Passcode Length", comment: ""),
-            message: NSLocalizedString("Select the passcode length", comment: ""),
+            title: NSLocalizedString("PASSCODE_LENGTH", comment: ""),
+            message: NSLocalizedString("PASSCODE_LENGTH_LONG", comment: ""),
             preferredStyle: .alert
-        )
+            )
 
         alertController.addAction(UIAlertAction(
-            title: NSLocalizedString("4 digits", comment: ""),
+            title: NSLocalizedString("PASSCODE_4", comment: ""),
             style: .default,
             handler: { _ in
                 self.passcodeLength = 4
