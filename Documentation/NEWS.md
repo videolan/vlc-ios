@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.5.5]
+· Minor improvements
+
 ## iOS [3.5.4]
 · Fix login to network shares, especially with complex addresses
 · Add option to always play media opened through third-party apps
