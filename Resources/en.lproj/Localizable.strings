@@ -699,3 +699,10 @@
 
 // MARK: - Download Completion Announcement
 "DOWNLOAD_COMPLETED_ANNOUNCEMENT" = "Downloading file \"%@\" completed";
+
+//MARK: - Playlist Add Action Status
+"ADD_TO_PLAYLIST_STATUS_MESSAGE" = "Added %d media to %@";
+"ADD_ALERT_TITLE" = "Already Existed Media";
+"ADD_ALERT_MESSAGE" = "You are trying to add already %d existed media in %@ ";
+"ADD_ANYWAY_ALERT_BUTTON_TITLE" = "Add anyway";
+"Cancel_ALERT_BUTTON_TITLE" = "Cancel";

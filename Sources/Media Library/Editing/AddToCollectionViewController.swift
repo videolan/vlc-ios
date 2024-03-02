@@ -251,6 +251,10 @@ extension AddToCollectionViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension AddToCollectionViewController: UICollectionViewDataSource {
+    
+    func reloadData() {
+        self.collectionView.reloadData()
+    }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // Do not add the moveToRoot action for playlists
         if collectionModelType is VLCMLPlaylist.Type {
