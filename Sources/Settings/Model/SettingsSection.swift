@@ -59,7 +59,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
         case .lab:
             return "SETTINGS_LAB"
         case .reset:
-            return "Reset"
+            return "SETTINGS_RESET_TITLE"
         }
     }
 }
