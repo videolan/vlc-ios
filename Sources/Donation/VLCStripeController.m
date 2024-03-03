@@ -369,6 +369,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -405,6 +408,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -420,6 +426,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -440,6 +449,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -468,6 +480,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                  failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -486,8 +501,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
         });
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
-        [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         APLog(@"%s: %@", __func__, error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -503,7 +520,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
         }
     }
                     failure:^(NSURLSessionTask *task, NSError *error) {
-        [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
         APLog(@"%s: %@", __func__, error.localizedDescription);
     }];
 }
@@ -532,6 +551,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                  failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Error retrieving recurring pricelist: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
@@ -558,6 +580,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
             }
                          failure:^(NSURLSessionTask *task, NSError *error) {
                 APLog(@"Error reloading customer: %@", error.localizedDescription);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+                });
             }];
         } else {
 #pragma clang diagnostic push
@@ -586,6 +611,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
         APLog(@"Error creating customer: %@", error.localizedDescription);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
+        });
     }];
 }
 
