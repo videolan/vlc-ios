@@ -458,7 +458,12 @@ NSString *callbackURLString = @"vlcpay://3ds";
 - (void)requestCurrentCustomerSubscription
 {
     if (_customerID == nil) {
-        // we will be called again as soon as the customer is loaded
+        // let's check if there is a customer stored that wasn't loaded yet
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _customerID = [defaults stringForKey:kVLCDonationAnonymousCustomerID];
+        if (_customerID != nil) {
+            [self handleCustomerToContinueWithTarget:self selector:@selector(requestCurrentCustomerSubscription)];
+        }
         return;
     }
     [_sessionManager GET:[NSString stringWithFormat:@"subscriptions?customer=%@", _customerID]

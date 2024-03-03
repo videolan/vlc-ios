@@ -334,7 +334,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     } else {
         [self hidePurchaseInterface:YES];
         [self.activityIndicatorView startAnimating];
-        [self->_stripeController handleCustomerToContinueWithTarget:self selector:@selector(checkForSubscription)];
+        [self checkForSubscription];
     }
 }
 
