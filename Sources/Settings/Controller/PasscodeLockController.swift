@@ -32,9 +32,8 @@ class PasscodeLockController: UIViewController {
     private var tempPasscode = ""
     private var action: PasscodeAction?
     private var defaultPasscodeLength: Int {
-            // Set your default passcode length here, e.g., 4
-            return 4
-        }
+        return 4
+    }
     weak var delegate: PasscodeLockControllerDelegate?
     var passcode = ""
     private var passcodeLength: Int? {
@@ -60,7 +59,7 @@ class PasscodeLockController: UIViewController {
         ))
 
         alertController.addAction(UIAlertAction(
-            title: NSLocalizedString("6 digits", comment: ""),
+            title: NSLocalizedString("PASSCODE_6", comment: ""),
             style: .default,
             handler: { _ in
                 self.passcodeLength = 6
@@ -85,7 +84,7 @@ class PasscodeLockController: UIViewController {
     }
     
     private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
-        var tapGestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(handleTap))
+        var tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         return tapGestureRecognizer
     }()
     
@@ -151,26 +150,26 @@ class PasscodeLockController: UIViewController {
         self.action = action
         setup()
     }
+   
     override func viewDidAppear(_ animated: Bool) {
-           super.viewDidAppear(animated)
-           
-           if action == .set && passcodeLength == nil {
-               presentPasscodeLengthSelection()
-           } else if action == .enter && !isBiometricsEnabled {
-               passcodeTextField.becomeFirstResponder()
-           } else {
-               // Retrieve the saved passcode length from UserDefaults
-               passcodeLength = UserDefaults.standard.integer(forKey: "PasscodeLengthKey")
-               
-               // If passcode is already set, use its length; otherwise, use default length
-               let storedPasscode = passcodeFromKeychain()
-               passcodeLength = !storedPasscode.isEmpty ? storedPasscode.count : defaultPasscodeLength
-               
-               // Show passcode entry
-               showPasscodeEntry()
-           }
-       }
-
+        super.viewDidAppear(animated)
+        
+        if action == .set && passcodeLength == nil {
+            presentPasscodeLengthSelection()
+        } else if action == .enter && !isBiometricsEnabled {
+            passcodeTextField.becomeFirstResponder()
+        } else {
+            // Retrieve the saved passcode length from UserDefaults
+            passcodeLength = UserDefaults.standard.integer(forKey: "PasscodeLengthKey")
+            
+            // If passcode is already set, use its length; otherwise, use default length
+            let storedPasscode = passcodeFromKeychain()
+            passcodeLength = !storedPasscode.isEmpty ? storedPasscode.count : defaultPasscodeLength
+            
+            // Show passcode entry
+            showPasscodeEntry()
+        }
+    }
     
     private func presentPasscodeLengthSelection() {
         present(passcodeLengthAlertController, animated: true, completion: nil)
