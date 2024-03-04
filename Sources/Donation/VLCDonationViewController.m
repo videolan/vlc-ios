@@ -27,6 +27,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 @interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
 {
+    BOOL _embargoedCountry;
+
     NSNumber *_selectedDonationAmount;
     NSArray *_availableCurrencies;
     VLCCurrency *_selectedCurrency;
@@ -56,9 +58,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _stripeController.delegate = self;
-    [self hidePurchaseInterface:NO];
-    [_stripeController requestCurrentCustomerSubscription];
+    if (!_embargoedCountry) {
+        _stripeController.delegate = self;
+        [self hidePurchaseInterface:NO];
+        [_stripeController requestCurrentCustomerSubscription];
+    }
 }
 
 - (void)viewDidLoad {
@@ -66,6 +70,19 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     _stripeController = [[VLCAppCoordinator sharedInstance] stripeController];
     _stripeController.delegate = self;
+    _embargoedCountry = [_stripeController currentLocaleIsEmbargoed];
+
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
+
+    if (_embargoedCountry) {
+        _titleLabel.text = NSLocalizedString(@"DONATION_WINDOW_TITLE", nil);
+        _descriptionLabel.text = NSLocalizedString(@"DONATION_EMBARGOED_COUNTRY", nil);
+        _descriptionLabel.textAlignment = NSTextAlignmentCenter;
+        [self hidePurchaseInterface:YES];
+        return;
+    }
 
     /* use Euro as default currency and switch to a supported locale if available */
     NSLocale *locale = [NSLocale currentLocale];
@@ -80,9 +97,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }
     [self showSelectedCurrency];
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
     if (@available(iOS 14.0, *)) {
         self.continueButton.role = UIButtonRolePrimary;
         self.monthlyUpdateButton.role = UIButtonRolePrimary;

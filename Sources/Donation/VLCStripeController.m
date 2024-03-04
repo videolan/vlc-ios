@@ -59,6 +59,18 @@ NSString *callbackURLString = @"vlcpay://3ds";
     [_sessionManager invalidateSessionCancelingTasks:YES resetSession:YES];
 }
 
+- (BOOL)currentLocaleIsEmbargoed
+{
+    NSString *countryCode = [[[NSLocale currentLocale] countryCode] uppercaseString];
+    NSArray *embargoedCountries = @[@"CU", @"IR", @"KP", @"SD", @"SY"]; // Cuba, Iran, North Korea, Sudan, Syria
+    for (NSString *embargoedCountry in embargoedCountries) {
+        if ([embargoedCountry isEqualToString:countryCode]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark - apple pay internals
 
 - (void)processPayment:(PKPayment *)payment

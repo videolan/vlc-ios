@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, weak) id<VLCStripeControllerDelegate> delegate;
 @property (readonly) NSString *customerName;
 
+@property (readonly) BOOL currentLocaleIsEmbargoed;
+
 - (void)processPayment:(PKPayment *)payment
              forAmount:(NSNumber *)amount
                  price:(VLCPrice *)price

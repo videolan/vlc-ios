@@ -645,6 +645,7 @@
 "DONATION_EMAIL" = "Email";
 "DONATION_NAME" = "Name";
 "DONATION_NAME_BANK_ACCOUNT" = "Name on Bank Account";
+"DONATION_EMBARGOED_COUNTRY" = "We currently cannot accept donations in your country. Enjoy VLC!";
 
 // MARK: - Playback keyboard shortcuts
 
