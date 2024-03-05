@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "heart.fill@1x.png",
+      "filename" : "ic_heart_fill_big.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "heart.fill@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "heart.fill@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -21,6 +19,7 @@
     "version" : 1
   },
   "properties" : {
+    "preserves-vector-representation" : true,
     "template-rendering-intent" : "template"
   }
 }

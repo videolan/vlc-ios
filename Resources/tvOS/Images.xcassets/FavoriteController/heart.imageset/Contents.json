@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "heart@1x.png",
+      "filename" : "ic_heart_big.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "heart@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "heart@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
