@@ -66,7 +66,7 @@
 - (instancetype)initWithServiceName:(NSString *)serviceName
 {
     self = [self initWithTile:NSLocalizedString(@"FAVORITES", nil)
-                         icon:[UIImage imageNamed:@"heart.fill"]
+                         icon:[UIImage imageNamed:@"heart"]
                   serviceName:serviceName];
     if (self) {
 
