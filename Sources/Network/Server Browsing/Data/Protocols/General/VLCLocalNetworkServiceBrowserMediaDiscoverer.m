@@ -91,7 +91,7 @@
 - (void)stopDiscovery
 {
     /* the UPnP module is special and may not be terminated */
-    if ([self.serviceName isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
+    if ([self.serviceName isEqualToString:@"upnp"]) {
         return;
     }
     VLCMediaDiscoverer *discoverer = self.mediaDiscoverer;
