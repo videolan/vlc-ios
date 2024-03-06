@@ -5,6 +5,7 @@
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Andrew Breckenridge <asbreckenridge # me.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -57,17 +58,14 @@ class AddToCollectionViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initViews()
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification,
                                                object: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -78,7 +76,7 @@ class AddToCollectionViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-     override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
           collectionView.collectionViewLayout.invalidateLayout()
     }
