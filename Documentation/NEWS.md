@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.5.6]
+· Fix UPnP browsing
+· Improve the favorites layout
+
+## tvOS [3.5.6]
+· Fix UPnP browsing
+· Relocate favorites button
+· Improve the favorites layout
+
 ## iOS [3.5.5]
 · Minor improvements
 
