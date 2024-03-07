@@ -21,12 +21,15 @@ class FavoriteHeaderContentView: UIView {
     lazy var hostnameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.systemOrange
+        let fontSize: CGFloat
+        let textColor: UIColor
         #if os(iOS)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        fontSize = 16
+        label.textColor = PresentationTheme.current.colors.cellTextColor
         #else
-        label.font = UIFont.systemFont(ofSize: 50, weight: .medium)
+        fontSize = 50
         #endif
+        label.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
         return label
     }()
     
