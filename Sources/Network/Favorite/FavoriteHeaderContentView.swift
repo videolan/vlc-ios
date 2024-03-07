@@ -1,10 +1,16 @@
-//
-//  FavoriteHeaderContentView.swift
-//  VLC-iOS
-//
-//  Authors: Rizky Maulana
-//           Eshan Singh
-//  Copyright © 2023 VideoLAN. All rights reserved.
+/*****************************************************************************
+ * FavoriteHeaderContentView.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Rizky Maulana <mrizky9601@gmail.com>
+ *          Eshan Singh <eeeshan789@icloud.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 import UIKit

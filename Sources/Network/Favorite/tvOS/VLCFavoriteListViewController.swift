@@ -1,10 +1,16 @@
-//
-//  VLCFavoriteListViewController.swift
-//  VLC
-//
-//  Created by Eshan Singh on 02/01/24.
-//  Copyright © 2024 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCFavoriteListViewController.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Eshan Singh <eeeshan789@icloud.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 

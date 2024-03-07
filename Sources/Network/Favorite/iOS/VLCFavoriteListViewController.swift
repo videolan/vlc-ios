@@ -1,10 +1,16 @@
-//
-//  VLCFavoriteListViewController.swift
-//  VLC-iOS
-//
-//  Created by Rizky Maulana on 16/06/23.
-//  Copyright © 2023 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCFavoriteListViewController.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Rizky Maulana <mrizky9601@gmail.com>
+ *          Eshan Singh <eeeshan789@icloud.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import UIKit
 

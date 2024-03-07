@@ -1,10 +1,15 @@
-//
-//  FavoriteSectionHeader.swift
-//  VLC-iOS
-//
-//  Created by Eshan Singh on 01/01/24.
-//  Copyright © 2024 VideoLAN. All rights reserved.
-
+/*****************************************************************************
+ * FavoriteSectionHeader.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Eshan Singh <eeeshan789@icloud.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import UIKit
 
