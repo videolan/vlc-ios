@@ -84,7 +84,6 @@ extension VLCFavoriteListViewController {
         }
         cell.isDirectory = true
         cell.thumbnailImage = UIImage(named: "folder")
-        cell.titleLabel.textColor = UIColor.systemOrange
         return cell
     }
     
