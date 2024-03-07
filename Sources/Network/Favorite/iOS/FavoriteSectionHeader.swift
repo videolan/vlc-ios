@@ -10,7 +10,7 @@ import UIKit
 
 class FavoriteSectionHeader: UITableViewHeaderFooterView {
     static var identifier = "FavoriteSectionHeader"
-    static var height: CGFloat = 4
+    static var height: CGFloat = 40
 
     lazy var headerView: FavoriteHeaderContentView = {
         return FavoriteHeaderContentView()
