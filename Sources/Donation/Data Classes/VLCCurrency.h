@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL supportsPayPal;
 @property (readonly) BOOL supportsSEPA;
 @property (readonly) NSString *localCurrencySymbol;
+@property (readonly) int stripeMultiplier;
 
 @property (readonly) NSArray <NSNumber *> *values;
 

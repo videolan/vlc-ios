@@ -81,7 +81,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     APLog(@"Processing ApplePay, recurring? %i fixed price? %i", recurring, price != nil);
     _currency = currency;
-    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _amount = [[NSNumber numberWithInt:amount.intValue * _currency.stripeMultiplier] stringValue];
     _price = price;
     _recurring = recurring;
     _tokenID = nil;
@@ -151,7 +151,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     APLog(@"Processing CB, recurring? %i fixed price? %i", recurring, price != nil);
     _currency = currency;
-    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _amount = [[NSNumber numberWithInt:amount.intValue * _currency.stripeMultiplier] stringValue];
     _price = price;
     _recurring = recurring;
     _tokenID = nil;
@@ -177,7 +177,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     APLog(@"Processing SEPA payment, recurring? %i fixed price? %i", recurring, price != nil);
     _currency = currency;
-    _amount = [[NSNumber numberWithInt:amount.intValue * 100] stringValue];
+    _amount = [[NSNumber numberWithInt:amount.intValue * _currency.stripeMultiplier] stringValue];
     _price = price;
     _recurring = recurring;
     _tokenID = nil;

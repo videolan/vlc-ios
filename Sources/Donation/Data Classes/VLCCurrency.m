@@ -57,6 +57,7 @@
         _localCurrencySymbol = @"€";
         _supportsPayPal = YES;
         _supportsSEPA = YES;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -72,6 +73,7 @@
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -87,6 +89,7 @@
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -102,6 +105,7 @@
         _localCurrencySymbol = @"£";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -117,6 +121,7 @@
         _localCurrencySymbol = @"R$";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -132,6 +137,7 @@
         _localCurrencySymbol = @"$";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -147,6 +153,7 @@
         _localCurrencySymbol = @"CN¥";
         _supportsPayPal = NO;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -162,6 +169,7 @@
         _localCurrencySymbol = @"₹";
         _supportsPayPal = NO;
         _supportsSEPA = NO;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -177,6 +185,7 @@
         _localCurrencySymbol = @"¥";
         _supportsPayPal = YES;
         _supportsSEPA = NO;
+        _stripeMultiplier = 1;
     }
 
     return self;
@@ -192,6 +201,7 @@
         _localCurrencySymbol = @"₩";
         _supportsPayPal = NO;
         _supportsSEPA = NO;
+        _stripeMultiplier = 1;
     }
 
     return self;
@@ -207,6 +217,7 @@
         _localCurrencySymbol = @"zł";
         _supportsPayPal = YES;
         _supportsSEPA = YES;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -222,6 +233,7 @@
         _localCurrencySymbol = @"kr‎";
         _supportsPayPal = YES;
         _supportsSEPA = YES;
+        _stripeMultiplier = 100;
     }
 
     return self;
@@ -237,6 +249,7 @@
         _localCurrencySymbol = @"CHF";
         _supportsPayPal = YES;
         _supportsSEPA = YES;
+        _stripeMultiplier = 100;
     }
 
     return self;
