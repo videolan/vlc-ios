@@ -23,7 +23,7 @@
         _amount = [NSNumber numberWithInt:[dict[@"amount"] intValue] / 100];
         _currency = [VLCCurrency currencyForIsoCode:dict[@"currency"]];
         NSString *urlString = dict[@"receipt_url"];
-        if (urlString != nil) {
+        if (urlString != nil && urlString != (NSURL *)[NSNull null]) {
             _receiptURL = [NSURL URLWithString:urlString];
         }
         if (dict[@"receipt_number"] == (NSString *)[NSNull null]) {
