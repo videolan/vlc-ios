@@ -64,7 +64,7 @@
     NSLocale *currentLocale = [NSLocale currentLocale];
 
     NSString *formData = @"cmd=_xclick&business=sponsor@videolan.org&item_name=VideoLAN&currency_code=%@&tax=0&lc=%@&no_shipping=1&return=https://www.videolan.org/thank_you.html&amount=%i";
-    formData = [NSString stringWithFormat:formData, _currencyCode, currentLocale.languageCode, _donationAmount];
+    formData = [NSString stringWithFormat:formData, _currencyCode, [currentLocale objectForKey:NSLocaleLanguageCode], _donationAmount];
 
     NSData *httpBody = [formData dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:httpBody];
