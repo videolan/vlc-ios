@@ -61,7 +61,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (BOOL)currentLocaleIsEmbargoed
 {
-    NSString *countryCode = [[[NSLocale currentLocale] countryCode] uppercaseString];
+    NSString *countryCode = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] uppercaseString];
     NSArray *embargoedCountries = @[@"CU", @"IR", @"KP", @"SD", @"SY"]; // Cuba, Iran, North Korea, Sudan, Syria
     for (NSString *embargoedCountry in embargoedCountries) {
         if ([embargoedCountry isEqualToString:countryCode]) {
