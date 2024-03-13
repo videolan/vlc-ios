@@ -6,6 +6,7 @@
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -31,6 +32,10 @@
         [notificationCenter addObserver:self
                                selector:@selector(playModeUpdated:)
                                    name:VLCPlaybackServicePlaybackModeUpdated
+                                 object:nil];
+        [notificationCenter addObserver:self
+                               selector:@selector(shuffleModeUpdated)
+                                   name:VLCPlaybackServiceShuffleModeUpdated
                                  object:nil];
     }
     return self;
@@ -113,12 +118,20 @@
             reportedRepeatType = MPRepeatTypeOff;
     }
     [MPRemoteCommandCenter sharedCommandCenter].changeRepeatModeCommand.currentRepeatType = reportedRepeatType;
+}
 
+- (void)shuffleModeUpdated
+{
+    VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
+
+    MPShuffleType shuffleType;
     if (vps.shuffleMode) {
-        [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeItems;
+        shuffleType = MPShuffleTypeItems;
     } else {
-        [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeOff;
+        shuffleType = MPShuffleTypeOff;
     }
+
+    [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = shuffleType;
 }
 
 @end
