@@ -375,6 +375,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
+        // Init the mini player view if needed
         if (!miniPlaybackView) {
             UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
 
@@ -412,6 +413,15 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
             [self.view layoutIfNeeded];
         }
+
+        // Properly set the shuffle and repeat mode
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if ([userDefaults boolForKey:kVLCPlayerShouldRememberState]) {
+            _playbackController.shuffleMode = [userDefaults boolForKey:kVLCPlayerIsShuffleEnabled];
+            NSInteger repeatMode = [userDefaults integerForKey:kVLCPlayerIsRepeatEnabled];
+            _playbackController.repeatMode = repeatMode;
+        }
+
         [self addPlayqueueToMiniPlayer];
         miniPlaybackView.visible = YES;
         [[NSNotificationCenter defaultCenter]
