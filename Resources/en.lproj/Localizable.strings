@@ -609,7 +609,6 @@
 "DONATION_CHOOSE_PP" = "Please select your payment provider";
 "DONATION_CHOOSE_CURRENCY" = "Please select a currency";
 "DONATION_AMOUNT" = "Donation amount: %@";
-"DONATION_CC_INFO_NOT_STORED" = "VideoLAN will neither receive nor store your credit card data.";
 "DONATION_CC_NUM" = "Credit Card Number";
 "DONATION_CC_EXPIRY_DATE" = "Expiry Date";
 "DONATION_CC_EXPIRY_DATE_MONTH" = "MM";

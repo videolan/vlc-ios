@@ -130,7 +130,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     if (bValue) {
         self.descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
     } else {
-        self.descriptionLabel.text = NSLocalizedString(@"DONATION_CC_INFO_NOT_STORED", nil);
+        self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
     }
 }
 
