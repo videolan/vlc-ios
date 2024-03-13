@@ -54,6 +54,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, strong, nullable) UIView *videoOutputView;
 
 @property (nonatomic, retain) VLCMediaList *mediaList;
+@property (nonatomic, retain) VLCMediaList *shuffledList;
 
 /* returns nil if currently playing item is not available,*/
 

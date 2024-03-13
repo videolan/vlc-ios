@@ -135,6 +135,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
+        _shuffledList = nil;
 
         // Initialize a separate media player in order to play silence so that the application can
         // stay alive in background exclusively for Chromecast.
@@ -344,16 +345,13 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     /* we are playing a collection without a valid index,
      * so this is either 0 or totally random */
     if (_itemInMediaListToBePlayedFirst == -1) {
-        if (_shuffleMode) {
-            int count = (int)_mediaList.count;
-            if (count > 0) {
+        int count = (int)_mediaList.count;
+        if (_shuffleMode && count > 0) {
                 _currentIndex = arc4random_uniform(count - 1);
                 [self shuffleMediaList];
-                _itemInMediaListToBePlayedFirst = (int)[_shuffledOrder[0] integerValue];
-            }
-        } else {
-            _itemInMediaListToBePlayedFirst = 0;
         }
+
+        _itemInMediaListToBePlayedFirst = 0;
     }
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
@@ -431,6 +429,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         }
 
         _mediaPlayer = nil;
+        _shuffledList = nil;
         _listPlayer = nil;
     }
 
@@ -801,7 +800,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             NSInteger nextIndex = [self nextMediaIndex:false];
 
             if (nextIndex > -1) {
-                if (_listPlayer.repeatMode != VLCRepeatCurrentItem && _shuffleMode) {
+                if (_listPlayer.repeatMode != VLCRepeatCurrentItem) {
                     [_listPlayer playItemAtNumber:@(nextIndex)];
                 }
                 [[NSNotificationCenter defaultCenter]
@@ -855,10 +854,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)playItemAtIndex:(NSUInteger)index
 {
-    VLCMedia *media = [_mediaList mediaAtIndex:index];
+    VLCMediaList *mediaList = _shuffleMode ? _shuffledList : _mediaList;
+    VLCMedia *media = [mediaList mediaAtIndex:index];
     [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:index]];
     _mediaPlayer.media = media;
-    _currentIndex = [_mediaList indexOfMedia:media];
+    _currentIndex = [mediaList indexOfMedia:media];
+
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 }
@@ -870,8 +871,20 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (_shuffleMode) {
         [self shuffleMediaList];
         _currentIndex = 0;
+
+        if ([_shuffledList count] == 0) {
+            NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
+            for (NSInteger i = _currentIndex; i < _mediaList.count; i++) {
+                [shuffledMedias addObject:[_mediaList mediaAtIndex:[_shuffledOrder[i] integerValue]]];
+            }
+
+            _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
+            _listPlayer.mediaList = _shuffledList;
+        }
     } else {
-        _currentIndex = [_shuffledOrder[_currentIndex] integerValue];
+        _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+        _shuffledList = nil;
+        _listPlayer.mediaList = _mediaList;
     }
 
     if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
@@ -910,7 +923,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     NSInteger nextIndex = 0;
     if (!_currentIndex) {
-        _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+        VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
+        _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
     }
 
     // Change the repeat mode if next button is pressed
@@ -937,10 +951,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     _currentIndex = nextIndex;
-
-    if (_shuffleMode && mediaListCount > 2 && _currentIndex >= 0 && _currentIndex < _shuffledOrder.count) {
-        return [_shuffledOrder[_currentIndex] integerValue];
-    }
 
     return _currentIndex;
 }
@@ -988,7 +998,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             [self savePlaybackState];
 #endif
             if (!_currentIndex) {
-                _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+                VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
+                _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
             }
 
             // Change the repeat mode if next button is pressed
@@ -1000,18 +1011,13 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
             }
 
-            if(_currentIndex > 0) {
+            if (_currentIndex > 0) {
                 _currentIndex -= 1;
-            } else{
-                if(_listPlayer.repeatMode == VLCRepeatAllItems) {
-                    _currentIndex = _mediaList.count - 1;
-                }
+            } else if (_listPlayer.repeatMode == VLCRepeatAllItems) {
+                _currentIndex = _mediaList.count - 1;
             }
-            if(_shuffleMode){
-                [_listPlayer playItemAtNumber:@([_shuffledOrder[_currentIndex] integerValue])];
-            }else{
-                [_listPlayer playItemAtNumber:@(_currentIndex)];
-            }
+
+            [_listPlayer playItemAtNumber:@(_currentIndex)];
         }
     } else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
