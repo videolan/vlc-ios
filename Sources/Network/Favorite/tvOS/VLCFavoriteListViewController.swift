@@ -123,6 +123,7 @@ extension VLCFavoriteListViewController {
 
         let confirmAction = UIAlertAction(title: NSLocalizedString("REMOVE_FAVORITE", comment: ""), style: .default) { (action) in
             self.favoriteService.removeFavoriteOfServer(with: self.currentlyFocusedIndexPath!.section, at: self.currentlyFocusedIndexPath!.row)
+            self.collectionView.reloadData()
         }
 
         let cancelAction = UIAlertAction(title:"BUTTON_CANCEL", style: .destructive, handler: nil)
