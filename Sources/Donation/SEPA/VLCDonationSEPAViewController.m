@@ -300,16 +300,18 @@
 - (NSString *)removeNonDigits:(NSString *)string
     andPreserveCursorPosition:(NSUInteger *)cursorPosition
 {
+    NSUInteger originalCursorPosition = *cursorPosition;
     NSMutableString *digitsOnlyString = [NSMutableString new];
     for (NSUInteger i=0; i<[string length]; i++) {
         unichar characterToAdd = [string characterAtIndex:i];
-        NSString *stringToAdd = [NSString stringWithCharacters:&characterToAdd
-                                                        length:1];
-
-        if (i >= 2) {
-            [digitsOnlyString appendString:stringToAdd];
-        } else {
+        if (characterToAdd != ' ') {
+            NSString *stringToAdd = [NSString stringWithCharacters:&characterToAdd
+                                                            length:1];
             [digitsOnlyString appendString:[stringToAdd uppercaseString]];
+        } else {
+            if (i < originalCursorPosition) {
+                (*cursorPosition)--;
+            }
         }
     }
 
