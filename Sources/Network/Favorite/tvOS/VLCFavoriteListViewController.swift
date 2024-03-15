@@ -121,7 +121,7 @@ extension VLCFavoriteListViewController {
                 }
             }
 
-            let serverBrowserVC = VLCServerBrowsingTVViewController(serverBrowser: serverBrowser!)
+            let serverBrowserVC = VLCSearchableServerBrowsingTVViewController(serverBrowser: serverBrowser!)
             self.navigationController?.pushViewController(serverBrowserVC, animated: true)
         }
     }
