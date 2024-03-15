@@ -100,7 +100,15 @@ NSString *VLCFavoritesFile = @"Favorites.plist";
 {
     self = [super init];
     if (self) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSSearchPathDirectory directory;
+#if TARGET_OS_IOS
+        directory = NSLibraryDirectory;
+#else
+        // There is no permanent storage on tvOS, we need to store the favorites in the cache directory.
+        // This data may be erased without a warning when the space runs low on the physical device.
+        directory = NSCachesDirectory;
+#endif
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(directory, NSUserDomainMask, YES);
         NSString *libraryFolder = [paths firstObject];
         _filePath = [libraryFolder stringByAppendingPathComponent:VLCFavoritesFile];
 
