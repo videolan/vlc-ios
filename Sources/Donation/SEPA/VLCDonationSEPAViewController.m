@@ -17,10 +17,6 @@
 #import "VLC-Swift.h"
 #import "VLCSEPANotificationViewController.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-#import <AuthenticationServices/AuthenticationServices.h>
-
 @interface VLCDonationSEPAViewController () <VLCStripeControllerDelegate, UITextFieldDelegate>
 {
     NSNumber *_donationAmount;
@@ -54,7 +50,6 @@
     self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
 
     if (@available(iOS 10.0, *)) {
-        self.bankAccountNumberField.textContentType = UITextContentTypeCreditCardNumber;
         self.nameField.textContentType = UITextContentTypeName;
         self.emailField.textContentType = UITextContentTypeEmailAddress;
     }
@@ -341,5 +336,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

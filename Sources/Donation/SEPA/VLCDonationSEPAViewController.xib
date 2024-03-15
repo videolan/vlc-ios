@@ -61,7 +61,7 @@
                                         <constraint firstAttribute="width" constant="300" id="G9S-5C-w6X"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="18"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     <connections>
                                         <action selector="fieldAction:" destination="-1" eventType="valueChanged" id="5B6-ro-paK"/>
                                         <action selector="fieldAction:" destination="-1" eventType="editingDidBegin" id="5RB-Z2-vCu"/>
@@ -82,7 +82,7 @@
                                         <constraint firstAttribute="width" constant="300" id="2dK-AE-sK9"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="18"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     <connections>
                                         <action selector="fieldAction:" destination="-1" eventType="editingDidEnd" id="BHp-V9-RlT"/>
                                         <action selector="fieldAction:" destination="-1" eventType="editingDidBegin" id="Y5H-BP-kMU"/>
@@ -141,7 +141,7 @@
                                 <constraint firstAttribute="height" constant="34" id="0rz-Fr-t9z"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="ASCIICapableNumberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <connections>
                                 <action selector="fieldAction:" destination="-1" eventType="valueChanged" id="Nbp-on-W2Q"/>
                                 <action selector="fieldAction:" destination="-1" eventType="editingDidBegin" id="Rd6-L8-Wwh"/>
