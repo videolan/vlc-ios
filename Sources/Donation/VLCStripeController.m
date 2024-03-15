@@ -287,6 +287,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             APLog(@"Payment intent was approved, no further action needed");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate stripeProcessingSucceeded];
+                [self donationSuccessful];
             });
         } else {
             APLog(@"Received a next action on payment intent confirmation");
@@ -320,6 +321,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
                   success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
         APLog(@"Successfully confirmed payment intent after additional action");
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self donationSuccessful];
             [self.delegate stripeProcessingSucceeded];
         });
     }
@@ -457,6 +459,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         APLog(@"Subscription added");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingSucceeded];
+            [self activeSubscription:YES];
         });
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
@@ -515,6 +518,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         APLog(@"Subscription updated");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingSucceeded];
+            [self activeSubscription:YES];
         });
     }
                   failure:^(NSURLSessionTask *task, NSError *error) {
@@ -534,6 +538,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         APLog(@"Subscription cancelled");
         if ([self.delegate respondsToSelector:@selector(setCurrentSubscription:)]) {
             [self.delegate setCurrentSubscription:nil];
+            [self activeSubscription:NO];
         }
     }
                     failure:^(NSURLSessionTask *task, NSError *error) {
@@ -691,6 +696,24 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
     }];
+}
+
+- (void)donationSuccessful
+{
+    NSInteger currentMonth = [NSCalendar.currentCalendar component:NSCalendarUnitMonth fromDate:[NSDate date]];
+    NSInteger nextReminderMonth;
+    if (currentMonth >= 10) {
+        nextReminderMonth = 2;
+    } else {
+        nextReminderMonth = currentMonth + 3;
+    }
+
+    [[NSUserDefaults standardUserDefaults] setInteger:nextReminderMonth forKey:kVLCHasNaggedThisMonth];
+}
+
+- (void)activeSubscription:(BOOL)bValue
+{
+    [[NSUserDefaults standardUserDefaults] setBool:bValue forKey:kVLCHasActiveSubscription];
 }
 
 @end

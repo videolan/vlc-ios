@@ -484,6 +484,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.present(navigationController, animated: true)
             userDefaults.set(true, forKey: kVLCHasLaunchedBefore)
         } else {
+            if userDefaults.bool(forKey: kVLCHasActiveSubscription) {
+                return
+            }
+
             var lastNagMonth = userDefaults.integer(forKey: kVLCHasNaggedThisMonth)
             let numberOfLaunches = userDefaults.integer(forKey: kVLCNumberOfLaunches)
             let currentMonth = NSCalendar.current.component(.month, from: Date())

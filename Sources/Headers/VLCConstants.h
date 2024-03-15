@@ -158,6 +158,7 @@
 #define kVLCHasLaunchedBefore @"hasLaunchedBefore"
 #define kVLCHasNaggedThisMonth @"kVLCHasNaggedThisMonth"
 #define kVLCNumberOfLaunches @"kVLCNumberOfLaunches"
+#define kVLCHasActiveSubscription @"kVLCHasActiveSubscription"
 
 #define kVLCTabBarIndex @"TabBarIndex"
 
