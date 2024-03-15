@@ -12,6 +12,7 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 #import "VLCPlaybackService+MediaLibrary.h"
 

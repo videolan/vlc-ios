@@ -2,7 +2,7 @@
  * VLCFavoriteService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import <Foundation/Foundation.h>
+@class VLCNetworkServerLoginInformation;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, retain) NSString *userVisibleName;
 @property (readwrite, retain) NSURL *url;
+@property (readonly) NSString *protocolIdentifier;
+@property (readonly, nullable) VLCNetworkServerLoginInformation *loginInformation;
 
 @end
 

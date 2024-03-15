@@ -2,7 +2,7 @@
  * VLCFavoriteListViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Rizky Maulana <mrizky9601@gmail.com>
@@ -165,8 +165,31 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
-            let media = VLCMedia(url: favorite.url)
-            let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+            var serverBrowser: VLCNetworkServerBrowser? = nil
+            let identifier = favorite.protocolIdentifier as NSString
+
+            /* fasttrack UPnP as it does not allow authentication */
+            if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierUPnP) {
+                serverBrowser = VLCNetworkServerBrowserVLCMedia.uPnPNetworkServerBrowser(with: favorite.url)
+            } else {
+                if let login = favorite.loginInformation {
+                    if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierFTP) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia.ftpNetworkServerBrowser(withLogin: login)
+                    } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierPlex) {
+                        serverBrowser = VLCNetworkServerBrowserPlex.init(login: login)
+                    } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSMB) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia.smbNetworkServerBrowser(withLogin: login)
+                    } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierNFS) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia.nfsNetworkServerBrowser(withLogin: login)
+                    } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSFTP) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia.sftpNetworkServerBrowser(withLogin: login)
+                    }
+                } else {
+                    let media = VLCMedia(url: favorite.url)
+                    serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+                }
+            }
+
             if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
                                                                            medialibraryService: VLCAppCoordinator().mediaLibraryService) {
                 self.navigationController?.pushViewController(serverBrowserVC, animated: true)

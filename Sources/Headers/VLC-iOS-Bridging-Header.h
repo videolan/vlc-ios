@@ -47,3 +47,13 @@
 #import "VLCFavoriteService.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNagScreenViewController.h"
+
+#import "VLCNetworkServerLoginInformation.h"
+#import "VLCNetworkServerBrowserPlex.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
+#import "VLCLocalNetworkServiceBrowserPlex.h"
+#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
+#import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserNFS.h"
+#import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"

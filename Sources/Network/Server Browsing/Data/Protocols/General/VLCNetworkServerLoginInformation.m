@@ -47,7 +47,10 @@
     return other;
 }
 
-
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"address: %@, user: %@, password? %i, protocol: %@", self.address, self.username, self.password.length > 0, self.protocolIdentifier];
+}
 
 static NSMutableDictionary<NSString *, VLCNetworkServerLoginInformation *> *VLCNetworkServerLoginInformationRegistry = nil;
 + (void)initialize

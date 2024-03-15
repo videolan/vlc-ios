@@ -2,7 +2,7 @@
  * VLCFavoriteService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCFavoriteService.h"
+#import "VLCNetworkServerLoginInformation+Keychain.h"
 
 NSString *VLCFavoritesContent = @"VLCFavoritesContent";
 NSString *VLCFavoriteUserVisibleName = @"VLCFavoriteUserVisibleName";
@@ -34,6 +35,28 @@ NSString *VLCFavoritesFile = @"Favorites.plist";
 {
     [coder encodeObject:self.userVisibleName forKey:VLCFavoriteUserVisibleName];
     [coder encodeObject:self.url forKey:VLCFavoriteURL];
+}
+
+- (NSString *)protocolIdentifier
+{
+    return [[self.url scheme] uppercaseString];
+}
+
+- (VLCNetworkServerLoginInformation *)loginInformation
+{
+    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation loginInformationWithKeychainIdentifier: self.url.absoluteString];
+    NSError *error = nil;
+    if ([login loadLoginInformationFromKeychainWithError:&error]) {
+        if (login.username == nil) {
+            /* in case the username wasn't saved per directory, try for the entire server */
+            NSString *identifier = [NSString stringWithFormat:@"%@://%@", self.protocolIdentifier, self.url.host];
+            login = [VLCNetworkServerLoginInformation loginInformationWithKeychainIdentifier:identifier];
+            [login loadLoginInformationFromKeychainWithError:&error];
+            /* restore the trick from above so we open the actually requested directory */
+            login.address = [self.url.host stringByAppendingPathComponent:self.url.path];
+        }
+    }
+    return login;
 }
 
 @end
