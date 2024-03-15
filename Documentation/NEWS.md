@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.5.7]
+· Fix runtime exceptions on iOS 9
+· Improve the donation process
+· Update the play queue according to the shuffle state
+· Fix the favorites authentication
+
+## tvOS [3.5.7]
+· Fix the favorites authentication and saving location
+· Improve the favorites navigation
+
 ## iOS [3.5.6]
 · Fix UPnP browsing
 · Improve the favorites layout
