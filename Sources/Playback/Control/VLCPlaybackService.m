@@ -894,6 +894,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #if TARGET_OS_IOS
             [self savePlaybackState];
 #endif
+
             NSInteger nextIndex = [self nextMediaIndex:false];
 
             if (nextIndex > -1) {
