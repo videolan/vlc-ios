@@ -113,7 +113,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         do {
             var htmlString = try String(contentsOfFile: staticHTMLPath) as NSString
 
-            let rangeOfLastStringToReplace = htmlString.range(of: "MOBILEVLCKITVERSION")
+            let rangeOfLastStringToReplace = htmlString.range(of: "VLCKITVERSION")
             let lengthOfStringToSearch = rangeOfLastStringToReplace.location +
             rangeOfLastStringToReplace.length +
             versionBuildNumberAndCodeName.count +
@@ -134,7 +134,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
                                                          with: backgroundColor,
                                                          options: .literal,
                                                          range: searchRange) as NSString
-            htmlString = htmlString.replacingOccurrences(of: "MOBILEVLCKITVERSION",
+            htmlString = htmlString.replacingOccurrences(of: "VLCKITVERSION",
                                                          with: vlcLibraryVersion,
                                                          options: .literal,
                                                          range: searchRange) as NSString

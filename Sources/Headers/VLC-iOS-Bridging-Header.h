@@ -1,5 +1,5 @@
 #import <AppAuth/AppAuth.h>
-#import <MobileVLCKit/MobileVLCKit.h>
+#import <VLCKit/VLCKit.h>
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
 #import <XKKeychain/XKKeychain.h>

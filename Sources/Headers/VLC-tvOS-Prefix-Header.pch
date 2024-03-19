@@ -18,8 +18,8 @@
 #import <Foundation/Foundation.h>
 #endif
 
-#import <TVVLCKit/TVVLCKit.h>
-#import <TVVLCKit/vlc/libvlc_version.h>
+#import <VLCKit/VLCKit.h>
+#import <VLCKit/vlc/libvlc_version.h>
 
 #import "UIColor+Presets.h"
 #import "VLCTVConstants.h"
