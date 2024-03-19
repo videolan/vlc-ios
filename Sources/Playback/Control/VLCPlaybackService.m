@@ -929,15 +929,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
     }
 
-    // Change the repeat mode if next button is pressed
-    if (self.repeatMode == VLCRepeatCurrentItem && isButtonPressed) {
-        [self setRepeatMode:VLCRepeatAllItems];
-        if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
-            [self.delegate playModeUpdated];
-        }
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
-    } else if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
+    if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
         return _currentIndex;
     }
 
@@ -1002,15 +994,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             if (!_currentIndex) {
                 VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
                 _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
-            }
-
-            // Change the repeat mode if next button is pressed
-            if (self.repeatMode == VLCRepeatCurrentItem) {
-                [self setRepeatMode:VLCRepeatAllItems];
-                if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
-                    [self.delegate playModeUpdated];
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
             }
 
             if (_currentIndex > 0) {
