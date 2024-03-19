@@ -19,15 +19,15 @@ import UIKit
             return
         }
 
-        let media = VLCMedia(url: URL(fileURLWithPath: videoURL.removingPercentEncoding!))
+        if let media = VLCMedia(url: URL(fileURLWithPath: videoURL.removingPercentEncoding!)) {
+            let thumbnailer = VLCMediaThumbnailer(media: media, andDelegate: self)
 
-        let thumbnailer = VLCMediaThumbnailer(media: media, andDelegate: self)
+            let thumbSize = CGSize(width: 800, height: 600)
+            thumbnailer.thumbnailWidth = thumbSize.width
+            thumbnailer.thumbnailHeight = thumbSize.height
 
-        let thumbSize = CGSize(width: 800, height: 600)
-        thumbnailer.thumbnailWidth = thumbSize.width
-        thumbnailer.thumbnailHeight = thumbSize.height
-
-        thumbnailer.fetchThumbnail()
+            thumbnailer.fetchThumbnail()
+        }
     }
 
     // MARK: - VLCMediaThumbnailer data source

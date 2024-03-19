@@ -109,11 +109,11 @@
     BOOL isSelected = [vpc indexOfCurrentTitle] == row;
     trackCell.selectionMarkerVisible = isSelected;
 
-    NSDictionary *description = [vpc titleDescriptionsDictAtIndex:row];
-    NSString *title = description[VLCTitleDescriptionName];
+    VLCMediaPlayerTitleDescription *titleDescription = [vpc titleDescriptionAtIndex:row];
+    NSString *title = titleDescription.name;
     if (title == nil)
         title = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"TITLE", nil), row];
-    NSString *titleName = [NSString stringWithFormat:@"%@ (%@)", title, [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
+    NSString *titleName = [NSString stringWithFormat:@"%@ (%@)", title, [titleDescription.durationTime stringValue]];
     trackCell.titleLabel.text = titleName;
     trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }
@@ -141,12 +141,12 @@
     trackCell.selectionMarkerVisible = isSelected;
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSDictionary *description = [vpc chapterDescriptionsDictAtIndex:row];
+    VLCMediaPlayerChapterDescription *chapterDescription = [vpc chapterDescriptionAtIndex:row];
 
-    NSString *chapter = description[VLCChapterDescriptionName];
+    NSString *chapter = chapterDescription.name;
     if (chapter == nil)
         chapter = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"CHAPTER", nil), row];
-    NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+    NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [chapterDescription.durationTime stringValue]];
     trackCell.titleLabel.text = chapterTitle;
     trackCell.titleLabel.textColor = UIColor.VLCLightTextColor;
 }

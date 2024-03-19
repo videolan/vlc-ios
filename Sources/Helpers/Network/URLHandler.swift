@@ -459,8 +459,10 @@ extension VLCURLHandler {
     // TODO: This code should probably not live here
     func play(url: URL, sub: URL? = nil, completion: ((Bool) -> Void)?) {
         let vpc = PlaybackService.sharedInstance()
-        let mediaList = VLCMediaList(array: [VLCMedia(url: url)])
-        vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: sub?.absoluteString, completion: completion)
+        if let media = VLCMedia(url: url) {
+            let mediaList = VLCMediaList(array: [media])
+            vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: sub?.absoluteString, completion: completion)
+        }
     }
 
 #if os(iOS)

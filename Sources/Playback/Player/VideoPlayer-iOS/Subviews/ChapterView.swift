@@ -139,19 +139,21 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
 
         if hasMultipleTitles() && section == 0 {
-            let description = playbackService.titleDescriptionsDict(at: row)
-            let name = description[VLCTitleDescriptionName] ?? ""
-            let duration = VLCTime(number: description[VLCTitleDescriptionDuration] as? NSNumber).stringValue
-            cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+            if let description = playbackService.titleDescription(at: row) {
+                let name = description.name ?? ""
+                let duration = description.durationTime.stringValue
+                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+            }
 
             if playbackService.indexOfCurrentTitle == row {
                 cell.textLabel?.textColor = colors.orangeUI
             }
         } else {
-            let description = playbackService.chapterDescriptionsDict(at: row)
-            let name = description[VLCChapterDescriptionName] ?? ""
-            let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue
-            cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+            if let description = playbackService.chapterDescription(at: row) {
+                let name = description.name ?? ""
+                let duration = description.durationTime.stringValue
+                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+            }
             if playbackService.indexOfCurrentChapter == row {
                 cell.textLabel?.textColor = colors.orangeUI
             }

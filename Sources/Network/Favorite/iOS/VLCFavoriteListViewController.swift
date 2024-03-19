@@ -185,8 +185,9 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
                         serverBrowser = VLCNetworkServerBrowserVLCMedia.sftpNetworkServerBrowser(withLogin: login)
                     }
                 } else {
-                    let media = VLCMedia(url: favorite.url)
-                    serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+                    if let media = VLCMedia(url: favorite.url) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+                    }
                 }
             }
 

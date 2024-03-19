@@ -250,10 +250,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             return;
         }
     }
@@ -329,10 +328,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)selectButtonPressed
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             [vpc performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
             return;
         }
@@ -368,10 +366,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)showInfoVCIfNotScrubbing
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             [vpc performNavigationAction:VLCMediaPlaybackNavigationActionDown];
             return;
         }
@@ -395,10 +392,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleIRPressUp
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             [vpc performNavigationAction:VLCMediaPlaybackNavigationActionUp];
         }
     }
@@ -407,10 +403,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleIRPressLeft
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             [vpc performNavigationAction:VLCMediaPlaybackNavigationActionLeft];
             return;
         }
@@ -424,10 +419,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleIRPressRight
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             [vpc performNavigationAction:VLCMediaPlaybackNavigationActionRight];
             return;
         }
@@ -498,10 +492,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleSiriRemote:(VLCSiriRemoteGestureRecognizer *)recognizer
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             switch (recognizer.state) {
                 case UIGestureRecognizerStateBegan:
                 case UIGestureRecognizerStateChanged:
@@ -879,10 +872,9 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (void)showPlaybackControlsIfNeededForUserInteraction
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger currentTitle = [vpc indexOfCurrentTitle];
-    if (currentTitle < [vpc numberOfTitles]) {
-        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
-        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+    VLCMediaPlayerTitleDescription *title = [vpc currentTitleDescription];
+    if (title != nil) {
+        if (title.menu) {
             return;
         }
     }
@@ -1014,8 +1006,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         UIImage *artworkImage = metadata.artworkImage;
 
         if ((![self.lastArtist isEqualToString:artist]) ||
-            (artworkImage != nil && self.audioArtworkImageView.image != artworkImage) ||
-            playbackService.mediaPlayerState == VLCMediaPlayerStateESAdded) {
+            (artworkImage != nil && self.audioArtworkImageView.image != artworkImage)) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self updateThumbnailImageViewsWith:artworkImage];
             });

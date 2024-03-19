@@ -54,6 +54,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     VLCMediaListPlayer *_listPlayer;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
+    VLCMediaPlayerTrack *videoTrack;
 
     NSString *_pathToExternalSubtitlesFile;
     int _itemInMediaListToBePlayedFirst;
@@ -466,6 +467,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if (media.isNew)
             return;
 
+#if LIBVLC_VERSION_MAJOR == 3
         SInt64 audioIndex = media.audioTrackIndex;
         NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
         if (audioIndex >= 0 && audioIndex < audioTrackIndexes.count) {
@@ -482,6 +484,25 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } else {
             [self selectVideoSubtitleAtIndex:media.subtitleTrackIndex];
         }
+#else
+        BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
+
+        NSArray *audioTracks = _mediaPlayer.audioTracks;
+        if (media.audioTrackIndex < audioTracks.count) {
+            VLCMediaPlayerTrack *track = audioTracks[media.audioTrackIndex];
+            track.selectedExclusively = YES;
+        }
+        
+        if (disableSubtitles) {
+            [_mediaPlayer deselectAllTextTracks];
+        } else {
+            NSArray *subtitlesTracks = _mediaPlayer.textTracks;
+            if (media.subtitleTrackIndex < subtitlesTracks.count) {
+                VLCMediaPlayerTrack *track = subtitlesTracks[media.subtitleTrackIndex];
+                track.selectedExclusively = YES;
+            }
+        }
+#endif
     }
 }
 #endif
@@ -545,7 +566,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 {
     /* allow track selection if there is more than 1 audio track or if there is video because even if
      * there is only video, there will always be the option to download additional subtitles */
-    return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoTrackIndexes] count] >= 1;
+    return [[_mediaPlayer audioTracks] count] > 2 || [[_mediaPlayer videoTracks] count] >= 1;
 }
 
 - (BOOL)isSeekable
@@ -627,17 +648,39 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)indexOfCurrentAudioTrack
 {
-    return [_mediaPlayer.audioTrackIndexes indexOfObject:@(_mediaPlayer.currentAudioTrackIndex)];
+    NSArray *audioTracks = [_mediaPlayer audioTracks];
+    for (VLCMediaPlayerTrack *track in audioTracks) {
+        if (track.isSelected) {
+            return [audioTracks indexOfObject:track];
+        }
+    }
+    return 0;
 }
 
 - (NSInteger)indexOfCurrentSubtitleTrack
 {
-    return [_mediaPlayer.videoSubTitlesIndexes indexOfObject:@(_mediaPlayer.currentVideoSubTitleIndex)];
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    for (VLCMediaPlayerTrack *track in textTracks) {
+        if (track.isSelected) {
+            return [textTracks indexOfObject:track];
+        }
+    }
+    return 0;
+}
+
+- (VLCMediaPlayerChapterDescription *)currentChapterDescription
+{
+    return _mediaPlayer.currentChapterDescription;
 }
 
 - (NSInteger)indexOfCurrentChapter
 {
     return _mediaPlayer.currentChapterIndex;
+}
+
+- (VLCMediaPlayerTitleDescription *)currentTitleDescription
+{
+    return _mediaPlayer.currentTitleDescription;
 }
 
 - (NSInteger)indexOfCurrentTitle
@@ -647,24 +690,24 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)numberOfVideoTracks
 {
-    return [_mediaPlayer numberOfVideoTracks];
+    return [[_mediaPlayer videoTracks] count];
 }
 
 - (NSInteger)numberOfAudioTracks
 {
-#if TARGET_OS_IOS
-    return [_mediaPlayer numberOfAudioTracks] + 1;
+#if TARGET_OS_TV
+    return [_mediaPlayer audioTracks];
 #else
-    return [_mediaPlayer numberOfAudioTracks];
+    return [[_mediaPlayer audioTracks] count] + 1;
 #endif
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
-#if TARGET_OS_IOS
-    return [_mediaPlayer numberOfSubtitlesTracks] + 2;
+#if TARGET_OS_TV
+    return [[_mediaPlayer textTracks] count]  + 1;
 #else
-    return [_mediaPlayer numberOfSubtitlesTracks] + 1;
+    return [[_mediaPlayer textTracks] count]  + 2;
 #endif
 }
 
@@ -680,59 +723,62 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index
 {
-    NSArray *videoSubTitlesNames = _mediaPlayer.videoSubTitlesNames;
-    NSInteger count = videoSubTitlesNames.count;
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    NSInteger count = textTracks.count;
 
     if (index == count) {
         return NSLocalizedString(@"SELECT_SUBTITLE_FROM_FILES", nil);
     } else if (index < count) {
-        return videoSubTitlesNames[index];
+        VLCMediaPlayerTrack *track = textTracks[index];
+        return track.trackName;
     }
     return @"";
 }
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index
 {
-    NSArray *audioTrackNames = _mediaPlayer.audioTrackNames;
-    NSInteger count = audioTrackNames.count;
+    NSArray *audioTracks = _mediaPlayer.audioTracks;
+    NSInteger count = audioTracks.count;
 
     if (index == count) {
         return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
     } else if (index < count) {
-        return audioTrackNames[index];
+        VLCMediaPlayerTrack *track = audioTracks[index];
+        return track.trackName;
     }
     return @"";
 }
 
-- (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index
+- (VLCMediaPlayerTitleDescription *)titleDescriptionAtIndex:(NSInteger)index
 {
     if (index >= 0 && index < _mediaPlayer.titleDescriptions.count)
         return _mediaPlayer.titleDescriptions[index];
-    return [NSDictionary dictionary];
+    return nil;
 }
 
-- (NSDictionary *)chapterDescriptionsDictAtIndex:(NSInteger)index
+- (VLCMediaPlayerChapterDescription *)chapterDescriptionAtIndex:(NSInteger)index
 {
     NSArray *chapterDescriptions = [_mediaPlayer chapterDescriptionsOfTitle:_mediaPlayer.currentTitleIndex];
     if (index >= 0 && index < chapterDescriptions.count)
         return chapterDescriptions[index];
-    return [NSDictionary dictionary];
+    return nil;
 }
 
 - (void)selectAudioTrackAtIndex:(NSInteger)index
 {
-    NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
-    if (index >= 0 && index < audioTrackIndexes.count) {
-        //we can cast this cause we won't have more than 2 million audiotracks
-        _mediaPlayer.currentAudioTrackIndex = [audioTrackIndexes[index] intValue];
+    NSArray *audioTracks = [_mediaPlayer audioTracks];
+    if (index >= 0 && index < audioTracks.count) {
+        VLCMediaPlayerTrack *track = audioTracks[index];
+        track.selected = YES;
     }
 }
 
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index
 {
-    NSArray *videoSubTitlesIndexes = _mediaPlayer.videoSubTitlesIndexes;
-    if (index >= 0 && index < videoSubTitlesIndexes.count) {
-        _mediaPlayer.currentVideoSubTitleIndex = [videoSubTitlesIndexes[index] intValue];
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    if (index >= 0 && index < [textTracks count]) {
+        VLCMediaPlayerTrack *track = textTracks[index];
+        track.selected = YES;
     }
 }
 
@@ -772,10 +818,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     _mediaPlayer.audio.passthrough = shouldPass;
 }
 
-- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+- (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
-    VLCMediaPlayerState currentState = _mediaPlayer.state;
-
     switch (currentState) {
         case VLCMediaPlayerStateBuffering: {
             /* attach delegate */
@@ -828,12 +872,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             _sessionWillRestart = NO;
             [self stopPlayback];
         } break;
-#if LIBVLC_VERSION_MAJOR == 3
-        case VLCMediaPlayerStateEnded: {
-#endif
-#if LIBVLC_VERSION_MAJOR == 4
         case VLCMediaPlayerStateStopping: {
-#endif
 #if TARGET_OS_IOS
             [self savePlaybackState];
 #endif
@@ -1171,7 +1210,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)setVideoTrackEnabled:(BOOL)enabled
 {
-    if (!enabled)
+    // FIXME: check if this hack is still possible with v4
+/*    if (!enabled)
         _mediaPlayer.currentVideoTrackIndex = -1;
     else if (_mediaPlayer.currentVideoTrackIndex == -1) {
         NSArray *videoTrackIndexes = _mediaPlayer.videoTrackIndexes;
@@ -1181,7 +1221,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                 break;
             }
         }
-    }
+    }*/
 }
 
 - (void)setVideoOutputView:(UIView *)videoOutputView
@@ -1614,7 +1654,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 - (void)disableSubtitlesIfNeeded
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
-        _mediaPlayer.currentVideoSubTitleIndex = -1;
+        [_mediaPlayer deselectAllTextTracks];
     }
 }
 
@@ -1657,14 +1697,14 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
 #if TARGET_OS_IOS
-    if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0 && [_mediaPlayer isPlaying])
+    if (!_renderer && _mediaPlayer.audioTracks.count > 0 && [_mediaPlayer isPlaying])
         [self setVideoTrackEnabled:false];
 
     if (_renderer) {
         [_backgroundDummyPlayer play];
     }
 #else
-    if (_mediaPlayer.audioTrackIndexes.count > 0 && [_mediaPlayer isPlaying])
+    if ([[_mediaPlayer audioTracks] count] > 0 && [_mediaPlayer isPlaying])
         [self setVideoTrackEnabled:false];
 #endif
 }
@@ -1682,9 +1722,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 #endif
 
+    /*
+     // FIXME: fix this hack
     if (_mediaPlayer.currentVideoTrackIndex == -1) {
         [self setVideoTrackEnabled:true];
     }
+     */
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;

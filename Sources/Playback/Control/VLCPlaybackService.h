@@ -30,6 +30,8 @@ extern NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem;
 @class VLCMLMedia;
 @class VLCPlayerDisplayController;
 @class VLCPlaybackServiceAdjustFilter;
+@class VLCMediaPlayerTitleDescription;
+@class VLCMediaPlayerChapterDescription;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
@@ -86,7 +88,9 @@ NS_SWIFT_NAME(PlaybackService)
 @property (readonly) NSInteger indexOfCurrentAudioTrack;
 @property (readonly) NSInteger indexOfCurrentSubtitleTrack;
 @property (readonly) NSInteger indexOfCurrentTitle;
+@property (readonly, nullable) VLCMediaPlayerTitleDescription *currentTitleDescription;
 @property (readonly) NSInteger indexOfCurrentChapter;
+@property (readonly, nullable) VLCMediaPlayerChapterDescription *currentChapterDescription;
 @property (readonly) NSInteger numberOfVideoTracks;
 @property (readonly) NSInteger numberOfAudioTracks;
 @property (readonly) NSInteger numberOfVideoSubtitlesIndexes;
@@ -130,8 +134,8 @@ NS_SWIFT_NAME(PlaybackService)
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index;
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index;
-- (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index;
-- (NSDictionary *)chapterDescriptionsDictAtIndex:(NSInteger)index;
+- (nullable VLCMediaPlayerTitleDescription *)titleDescriptionAtIndex:(NSInteger)index;
+- (nullable VLCMediaPlayerChapterDescription *)chapterDescriptionAtIndex:(NSInteger)index;
 - (void)selectAudioTrackAtIndex:(NSInteger)index;
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index;
 - (void)selectTitleAtIndex:(NSInteger)index;

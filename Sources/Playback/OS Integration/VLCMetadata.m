@@ -122,7 +122,8 @@
 
 - (void)checkIsAudioOnly:(VLCMediaPlayer *)mediaPlayer
 {
-    _isAudioOnly = mediaPlayer.numberOfVideoTracks == 0;
+    NSArray *videoTracks = [mediaPlayer videoTracks];
+    _isAudioOnly = videoTracks.count == 0;
 }
 
 - (void)fillFromMetaDict:(VLCMediaPlayer *)mediaPlayer
