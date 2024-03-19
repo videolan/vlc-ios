@@ -52,7 +52,7 @@ extension HistoryModel: MediaLibraryObserver {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        files = medialibrary.medialib.history(of: mediaType) ?? []
+        files = medialibrary.medialib.history(of: .global) ?? []
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
@@ -63,7 +63,7 @@ extension HistoryModel: MediaLibraryObserver {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        files = medialibrary.medialib.history(of: mediaType) ?? []
+        files = medialibrary.medialib.history(of: .global) ?? []
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }

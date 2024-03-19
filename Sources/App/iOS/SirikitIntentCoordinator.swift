@@ -87,7 +87,7 @@ extension SirikitIntentCoordinator: INAddMediaIntentHandling {
     }
     
     func handle(intent: INAddMediaIntent) async -> INAddMediaIntentResponse {
-        if let playlistName = intent.mediaDestination?.playlistName, let playlist = mediaLibraryService.medialib.searchPlaylists(byName: playlistName)?.first, let identifier = intent.mediaItems?.first?.identifier, let vlcIdentifier = Int64(identifier) {
+        if let playlistName = intent.mediaDestination?.playlistName, let playlist = mediaLibraryService.medialib.searchPlaylists(byName: playlistName, of: .all)?.first, let identifier = intent.mediaItems?.first?.identifier, let vlcIdentifier = Int64(identifier) {
             let appendMediaBool = playlist.appendMedia(withIdentifier: vlcIdentifier)
             let responsesCode: INAddMediaIntentResponseCode = appendMediaBool ? .success : .failure
             return .init(code: responsesCode, userActivity: nil)
@@ -134,7 +134,7 @@ private extension SirikitIntentCoordinator {
                 return .init(identifier: String(genre.identifier()), title: genre.name, type: .genre, artwork: nil)
             }
         case .playlist, .podcastPlaylist:
-            if let playlist = mediaLibraryService.medialib.searchPlaylists(byName: searchText)?.first {
+            if let playlist = mediaLibraryService.medialib.searchPlaylists(byName: searchText, of: .all)?.first {
                 return .init(identifier: String(playlist.identifier()), title: playlist.title(), type: .playlist, artwork: nil)
             }
         case .unknown:
