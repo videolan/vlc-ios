@@ -8,6 +8,8 @@ def shared_pods
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
   pod 'AFNetworking', '~>4.0'
+  pod 'VLCKit', '4.0.0a4'
+  pod 'VLCMediaLibraryKit', '0.13.0a6'
 
   # debug
   pod 'SwiftLint', '~> 0.47.1', :configurations => ['Debug']
@@ -20,8 +22,6 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '6.2.0'
-  pod 'MobileVLCKit', '3.6.1b1'
-  pod 'VLCMediaLibraryKit', '0.11.0b2'
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
@@ -45,7 +45,6 @@ target 'VLC-tvOS' do
   platform :tvos, '11.0'
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
-  pod 'TVVLCKit', '3.6.1b1'
   pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 

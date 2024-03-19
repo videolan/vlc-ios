@@ -48,7 +48,6 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
-  - MobileVLCKit (3.6.1b1)
   - ObjectiveDropboxOfficial (6.3.2)
   - OBSlider (1.1.0)
   - OneDriveSDK (1.3.0):
@@ -72,9 +71,9 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - TVVLCKit (3.6.1b1)
-  - VLCMediaLibraryKit (0.11.0b2):
-    - MobileVLCKit
+  - VLCKit (4.0.0a4)
+  - VLCMediaLibraryKit (0.13.0a6):
+    - VLCKit (>= 4.0.0a3)
   - XKKeychain (1.0.1)
 
 DEPENDENCIES:
@@ -89,14 +88,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.6.1b1)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - TVVLCKit (= 3.6.1b1)
-  - VLCMediaLibraryKit (= 0.11.0b2)
+  - VLCKit (= 4.0.0a4)
+  - VLCMediaLibraryKit (= 0.13.0a6)
   - XKKeychain (~> 1.0)
 
 SPEC REPOS:
@@ -110,12 +108,11 @@ SPEC REPOS:
     - GTMSessionFetcher
     - MarqueeLabel
     - MetaDataFetcherKit
-    - MobileVLCKit
     - ObjectiveDropboxOfficial
     - OBSlider
     - SimulatorStatusMagic
     - SwiftLint
-    - TVVLCKit
+    - VLCKit
     - VLCMediaLibraryKit
     - XKKeychain
 
@@ -172,16 +169,15 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
-  MobileVLCKit: 2d9c7c373393ae43086aeeff890bf0b1afc15c5c
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  TVVLCKit: 28e08c9f21a998b5818a0db4084873dce2702365
-  VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
+  VLCKit: 6babf874d4db4a47c3bf56ebafa3d2801152be91
+  VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: ab734be99072b14ae6d44d9f4a818525c897c2c1
+PODFILE CHECKSUM: 090fbbf2f5af46373e449f20cf9c017f2c096138
 
 COCOAPODS: 1.15.2
