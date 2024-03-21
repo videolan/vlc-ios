@@ -37,6 +37,7 @@ class TitleSelectionTableViewCell: UITableViewCell {
 
         let checkImageView: UIImageView = UIImageView(image: checkmarkImage)
         checkImageView.alpha = 0
+        checkImageView.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
         checkImageView.translatesAutoresizingMaskIntoConstraints = false
         return checkImageView
     }()
@@ -288,24 +289,29 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .clear
 
         var cellTitle: String = ""
+        var textColor: UIColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+
         if tableView == audioTableView {
             if playbackService.indexOfCurrentAudioTrack == indexPath.row {
-                cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.orangeUI
+                textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
             cellTitle = playbackService.audioTrackName(at: indexPath.row)
 
         } else {
             if playbackService.indexOfCurrentSubtitleTrack == indexPath.row {
-                cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.orangeUI
+                textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
             cellTitle = playbackService.videoSubtitleName(at: indexPath.row)
         }
+
         if cellTitle == "Disable" {
             cellTitle = NSLocalizedString("DISABLE_LABEL", comment: "")
         }
+
         cell.contentLabel.text = cellTitle
+        cell.contentLabel.textColor = textColor
         return cell
     }
 
