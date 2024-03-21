@@ -642,7 +642,6 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // _viewAppeared = YES;
         
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
@@ -652,7 +651,6 @@ class VideoPlayerViewController: UIViewController {
         }
         
         playbackService.recoverDisplayedMetadata()
-        // [self resetVideoFiltersSliders];
 
         // The video output view is not initialized when the play as audio option was chosen
         playbackService.videoOutputView = playbackService.playAsAudio ? nil : videoOutputView
@@ -664,11 +662,6 @@ class VideoPlayerViewController: UIViewController {
 
         moreOptionsActionSheet.resetOptionsIfNecessary()
     }
-
-//    override func viewDidLayoutSubviews() {
-//        FIXME: - equalizer
-//        self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-//    }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -689,10 +682,7 @@ class VideoPlayerViewController: UIViewController {
         if playbackService.videoOutputView == videoOutputView && !playbackService.isPlayingOnExternalScreen() {
             playbackService.videoOutputView = nil
         }
-        // FIXME: -
-        // _viewAppeared = NO;
 
-        // FIXME: - interface
         if idleTimer != nil {
             idleTimer?.invalidate()
             idleTimer = nil
