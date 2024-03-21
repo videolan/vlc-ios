@@ -96,6 +96,7 @@
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCResetSettings @"kVLCResetSettings"
 #define kVLCSettingAlwaysPlayURLs @"kVLCSettingAlwaysPlayURLs"
+#define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 

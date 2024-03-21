@@ -160,6 +160,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 #if TARGET_OS_IOS
 - (void)savePlaybackState;
+- (void)restoreAudioAndSubtitleTrack;
 #endif
 
 NS_ASSUME_NONNULL_END

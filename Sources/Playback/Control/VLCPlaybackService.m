@@ -461,7 +461,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     if (media) {
         _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
-        _mediaPlayer.currentVideoSubTitleIndex = (int) media.subtitleTrackIndex;
+
+        BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
+        _mediaPlayer.currentVideoSubTitleIndex = disableSubtitles ? -1 : (int) media.subtitleTrackIndex;
     }
 }
 #endif

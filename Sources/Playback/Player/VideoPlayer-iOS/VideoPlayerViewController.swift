@@ -636,6 +636,8 @@ class VideoPlayerViewController: UIViewController {
         setIconVisibility(optionsNavigationBar.videoFiltersButton)
 
         view.transform = .identity
+
+        playbackService.restoreAudioAndSubtitleTrack()
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -301,6 +301,16 @@
 			<string>SETTINGS_SUBTITLES_TITLE</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_DISABLE</string>
+			<key>Key</key>
+			<string>kVLCSettingDisableSubtitles</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>infobuttonvalue</key>
 			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>

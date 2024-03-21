@@ -489,6 +489,7 @@ enum VideoOptions: Int, CaseIterable, SectionType {
 }
 
 enum SubtitlesOptions: Int, CaseIterable, SectionType {
+    case disableSubtitles
     case font
     case relativeFontSize
     case useBoldFont
@@ -497,6 +498,8 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
 
     var description: String {
         switch self {
+        case .disableSubtitles:
+            return "SETTINGS_SUBTITLES_DISABLE"
         case .font:
             return "SETTINGS_SUBTITLES_FONT"
         case .relativeFontSize:
@@ -512,6 +515,8 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
 
     var containsSwitch: Bool {
         switch self {
+        case .disableSubtitles:
+            return true
         case .font:
             return false
         case .relativeFontSize:
@@ -527,6 +532,8 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
 
     var subtitle: String? {
         switch self {
+        case .disableSubtitles:
+            return "SETTINGS_SUBTITLES_DISABLE_LONG"
         case .font:
             return "Arial"
         case .relativeFontSize:
@@ -542,6 +549,8 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
 
     var preferenceKey: String? {
         switch self {
+        case .disableSubtitles:
+            return kVLCSettingDisableSubtitles
         case .font:
             return kVLCSettingSubtitlesFont
         case .relativeFontSize:
