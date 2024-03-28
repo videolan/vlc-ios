@@ -1644,6 +1644,33 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (activePlaybackSession)
         [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateFrom:self];
 }
+
+- (BOOL)mediaListContains:(NSURL *)url
+{
+    for (int index = 0; index < _mediaList.count; index++) {
+        if ([[_mediaList mediaAtIndex:index].url isEqual:url]) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+- (void)removeMediaFromMediaListAtIndex:(NSUInteger)index
+{
+    BOOL deleteCurrentMedia = [_mediaList indexOfMedia:self.currentlyPlayingMedia] == index ? YES : NO;
+
+    [_mediaList removeMediaAtIndex:index];
+    [_delegate reloadPlayQueue];
+
+    if (deleteCurrentMedia && _mediaList.count == 1) {
+        _currentIndex = 0;
+        [_listPlayer playItemAtNumber:@(_currentIndex)];
+    } else if (deleteCurrentMedia) {
+        _currentIndex -= 1;
+        [self next];
+    }
+}
 #endif
 
 #pragma mark - Renderer

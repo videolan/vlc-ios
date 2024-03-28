@@ -209,6 +209,14 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         progressBarView.progress = playbackService.playbackPosition
     }
+
+    func reloadPlayQueue() {
+        guard let queueViewController = queueViewController else {
+            return
+        }
+
+        queueViewController.reload()
+    }
 }
 
 // MARK: - UI Receivers

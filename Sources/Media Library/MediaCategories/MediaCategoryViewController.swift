@@ -1625,17 +1625,26 @@ extension MediaCategoryViewController {
 // MARK: - MediaCollectionViewCellDelegate
 
 extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
-
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
-        guard let indexPath = collectionView.indexPath(for: cell) else {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              let modelContent = currentDataSet.objectAtIndex(index: indexPath.row) else {
             return
         }
-        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
-        editController.editActions.objects = [modelContent!]
-        editController.editActions.delete() {
-            [weak self] state in
+
+        editController.editActions.objects = [modelContent]
+        editController.editActions.delete() { [weak self] state in
             if state == .success {
                 self?.searchDataSource.deleteInSearch(index: indexPath.row)
+
+                // If the media deleted is in the media list, the play queue should also be updated
+                let playbackService = PlaybackService.sharedInstance()
+                guard playbackService.playerIsSetup,
+                      let mlMediaUrl = (modelContent as? VLCMLMedia)?.mainFile()?.mrl,
+                      playbackService.mediaListContains(mlMediaUrl) else {
+                    return
+                }
+
+                playbackService.removeMediaFromMediaList(at: UInt(indexPath.row))
             }
         }
     }
