@@ -449,8 +449,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     [_playbackSessionManagementLock unlock];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
     if (_sessionWillRestart) {
-        _sessionWillRestart = NO;
-        [self startPlayback];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_sessionWillRestart = NO;
+            [self startPlayback];
+        });
     }
 }
 
