@@ -39,7 +39,7 @@
 
 + (NSString *)descriptionText
 {
-    return NSLocalizedString(@"FIRST_STEPS_WIFI_DETAILS", nil);
+    return [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_WIFI_DETAILS", nil), [[UIDevice currentDevice] localizedModel]];
 }
 
 - (void)configurePage
