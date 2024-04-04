@@ -186,6 +186,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         if #available(iOS 11.0, *) {
             guide = safeAreaLayoutGuide
         }
+
         thumbnailView.addSubview(checkboxImageView)
         addSubview(contentStackView)
         addSubview(selectionOverlay)
@@ -213,9 +214,11 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
             selectionOverlay.topAnchor.constraint(equalTo: thumbnailView.topAnchor),
             selectionOverlay.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor),
         ])
+
         selectionOverlay.isHidden = true
-        sizeLabel.isHidden = true 
+        sizeLabel.isHidden = true
         separatorLabel.isHidden = true
+
         themeDidChange()
         dynamicFontSizeChange()
     }
@@ -320,23 +323,31 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         } else {
             setShadow()
         }
+
+        applyRadius()
     }
 
     private func setShadow() {
-        thumbnailView.layer.shadowColor = PresentationTheme.current.colors.cellDetailTextColor.cgColor
-        thumbnailView.layer.shadowOpacity = 0.7
-        thumbnailView.layer.shadowOffset = .zero
-        thumbnailView.layer.shadowRadius = 8
-        thumbnailView.layer.shadowPath = UIBezierPath(rect: thumbnailView.bounds).cgPath
+        layer.shadowColor = PresentationTheme.current.colors.cellDetailTextColor.cgColor
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 5
+        layer.shadowPath = UIBezierPath(rect: thumbnailView.bounds).cgPath
     }
 
     private func clearShadow() {
-        thumbnailView.layer.shadowColor = UIColor.clear.cgColor
-        thumbnailView.layer.shadowOpacity = 0
-        thumbnailView.layer.shadowOffset = .zero
-        thumbnailView.layer.shadowRadius = 0
+        layer.shadowColor = UIColor.clear.cgColor
+        layer.shadowOpacity = 0
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 0
     }
 
+    private func applyRadius() {
+        thumbnailView.layer.masksToBounds = true
+        thumbnailView.layer.cornerRadius = 5
+        thumbnailView.backgroundColor = .clear
+        backgroundColor = .clear
+    }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
         if width <= DeviceDimensions.iPhone14ProMaxPortrait.rawValue {
