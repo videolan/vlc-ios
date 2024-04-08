@@ -438,7 +438,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             }
             [self->_queueViewController hide];
             [self->_queueViewController removeFromParentViewController];
-            [self resignFirstResponder];
         };
     }
     //when switching between tableview and collectionview all subviews are removed, make sure to readd it when this happens
