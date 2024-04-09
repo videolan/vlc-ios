@@ -1,25 +1,25 @@
 PODS:
   - ADAL (1.2.10)
-  - AFNetworking (4.0.0):
-    - AFNetworking/NSURLSession (= 4.0.0)
-    - AFNetworking/Reachability (= 4.0.0)
-    - AFNetworking/Security (= 4.0.0)
-    - AFNetworking/Serialization (= 4.0.0)
-    - AFNetworking/UIKit (= 4.0.0)
-  - AFNetworking/NSURLSession (4.0.0):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.0)
-  - AFNetworking/Security (4.0.0)
-  - AFNetworking/Serialization (4.0.0)
-  - AFNetworking/UIKit (4.0.0):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - AppAuth (1.6.2):
-    - AppAuth/Core (= 1.6.2)
-    - AppAuth/ExternalUserAgent (= 1.6.2)
-  - AppAuth/Core (1.6.2)
-  - AppAuth/ExternalUserAgent (1.6.2):
+  - AppAuth (1.7.3):
+    - AppAuth/Core (= 1.7.3)
+    - AppAuth/ExternalUserAgent (= 1.7.3)
+  - AppAuth/Core (1.7.3)
+  - AppAuth/ExternalUserAgent (1.7.3):
     - AppAuth/Core
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
@@ -46,8 +46,8 @@ PODS:
     - GTMSessionFetcher/Core (= 1.7.2)
   - InAppSettingsKit (2.14)
   - MarqueeLabel (4.0.2)
-  - MetaDataFetcherKit (0.5.0):
-    - AFNetworking (= 4.0.0)
+  - MetaDataFetcherKit (0.5.1):
+    - AFNetworking
   - MobileVLCKit (3.6.0b10)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.3.2)
@@ -169,32 +169,32 @@ CHECKOUT OPTIONS:
     :git: https://github.com/fkuehne/xmlrpc.git
 
 SPEC CHECKSUMS:
-  ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
-  AFNetworking: 42892080606935f7a9ec3fda4927fdd37e9cd369
-  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  ADAL: e97e102cac7fc420d3275b20c8da0b87a92f6354
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
-  box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
+  box-ios-sdk-v2: 6a507d6a6cf49de040f3bd6e0820835e27eb29e6
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
   GoogleSignIn: cdb27fee152cde4efd4bb814cfb4ad595fe1ff03
   GRKArrayDiff: bb58b8e3c77eff900c14b704bcc657f45ba76e13
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
-  InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
+  InAppSettingsKit: ef4b135a8f93b3104d729ad34ce3de49cfd733f8
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
-  MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
+  MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
   MobileVLCKit: 5600003cf2dc47acf7ad2fd87fe9f3739b2475ed
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
-  OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
+  OneDriveSDK: 5ef02252c447cf4c93330391c62680ea91676e9e
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   TVVLCKit: a19f04eedfb342c24e968fa1bf0c09ff0cf9fcf6
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
-  xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
+  xmlrpc: 1f2573295880d27b33ba2c07ed9e248fc9520828
 
 PODFILE CHECKSUM: faf948bab5058439ba70de164c3b51c1a4d0239c
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.2
