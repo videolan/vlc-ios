@@ -48,17 +48,12 @@
     self.controller = _dropboxController;
     self.controller.delegate = self;
 
-#if TARGET_OS_IOS
-
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
-#else
-    self.title = @"Dropbox";
-#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -157,7 +152,6 @@
 
 #pragma mark - VLCCloudStorageTableViewCell delegation
 
-#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
@@ -186,7 +180,5 @@
                                            viewController:self];
     }
 }
-
-#endif
 
 @end

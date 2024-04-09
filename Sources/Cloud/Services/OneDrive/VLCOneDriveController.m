@@ -14,10 +14,7 @@
 #import "VLCOneDriveConstants.h"
 #import "NSString+SupportedMedia.h"
 #import <OneDriveSDK.h>
-
-#if TARGET_OS_IOS
-# import "VLC-Swift.h"
-#endif
+#import "VLC-Swift.h"
 
 @interface VLCOneDriveController ()
 {
@@ -456,11 +453,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
 
-#if TARGET_OS_IOS
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
-#endif
     [self hideProgress];
     _downloadInProgress = NO;
     [self _triggerNextDownload];

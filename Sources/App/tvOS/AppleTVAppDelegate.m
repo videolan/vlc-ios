@@ -16,7 +16,6 @@
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCOpenManagedServersViewController.h"
 #import "VLCSettingsViewController.h"
-#import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
 #import "VLCMicroMediaLibraryService.h"
@@ -27,7 +26,6 @@
     UITabBarController *_mainViewController;
 
     VLCServerListTVViewController *_localNetworkVC;
-    VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCRemotePlaybackViewController *_remotePlaybackVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
     VLCOpenManagedServersViewController *_openManagedServersVC;

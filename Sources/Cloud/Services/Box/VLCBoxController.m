@@ -15,9 +15,7 @@
 #import "VLCPlaybackService.h"
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
-#if TARGET_OS_IOS
 #import "VLC-Swift.h"
-#endif
 
 @interface VLCBoxController ()
 {
@@ -187,8 +185,6 @@
     _operation = [[BoxSDK sharedSDK].foldersManager folderItemsWithID:_folderId requestBuilder:nil success:success failure:failure];
 }
 
-#if TARGET_OS_IOS
-
 - (void)downloadFileToDocumentFolder:(BoxItem *)file
 {
     if (file != nil) {
@@ -230,7 +226,6 @@
     });
     _downloadInProgress = YES;
 }
-#endif
 
 //just pick out Directories and supported formats.
 //if the resulting list contains less than 10 items try to get more
@@ -268,7 +263,6 @@
         [self.delegate mediaListUpdated];
 }
 
-#if TARGET_OS_IOS
 - (void)loadFile:(BoxFile *)file intoPath:(NSString*)destinationPath
 {
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
@@ -337,11 +331,9 @@
     APLog(@"BoxFile download was successful");
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
-#if TARGET_OS_IOS
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
-#endif
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
             [self.delegate operationWithProgressInformationStopped];
@@ -362,7 +354,6 @@
 
     [self _triggerNextDownload];
 }
-#endif
 
 #pragma mark - VLC internal communication and delegate
 

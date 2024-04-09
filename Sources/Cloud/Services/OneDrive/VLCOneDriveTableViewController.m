@@ -39,12 +39,10 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OneDriveWhite"]];
 
-#if TARGET_OS_IOS
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"OneDriveWhite"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
-#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -229,7 +227,6 @@
 
 #pragma mark - cell delegation
 
-#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -271,7 +268,5 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
-
-#endif
 
 @end

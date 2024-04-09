@@ -262,7 +262,6 @@
 "TITLE" = "Title";
 
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "Enter URL to play";
 "HTTP_SERVER_ON" = "Disable Remote Playback";
 "HTTP_SERVER_OFF" = "Enable Remote Playback";

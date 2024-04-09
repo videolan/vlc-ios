@@ -44,7 +44,6 @@
                            withObject:nil waitUntilDone:NO];
 }
 
-#if TARGET_OS_IOS
 - (void)setDriveFile:(GTLRDrive_File *)driveFile
 {
     if (driveFile != _driveFile)
@@ -53,7 +52,6 @@
     [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
                            withObject:nil waitUntilDone:NO];
 }
-#endif
 
 - (void)setBoxFile:(BoxItem *)boxFile
 {
@@ -162,7 +160,6 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
-#if TARGET_OS_IOS
     else if(_driveFile != nil){
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         if (isDirectory) {
@@ -195,7 +192,6 @@
             }
         }
     }
-#endif
     else if(_boxFile != nil) {
         BOOL isDirectory = [self.boxFile.type isEqualToString:@"folder"];
         if (isDirectory) {
@@ -239,11 +235,7 @@
 
 + (CGFloat)heightOfCell
 {
-#if TARGET_OS_IOS
     return 8. * 4. + [[UIFont preferredFontForTextStyle:UIFontTextStyleBody] lineHeight] + [[UIFont preferredFontForTextStyle:UIFontTextStyleCaption2] lineHeight];
-#else
-    return 107.;
-#endif
 }
 
 - (void)setIsDownloadable:(BOOL)isDownloadable

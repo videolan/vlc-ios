@@ -17,11 +17,7 @@
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
 
-#if TARGET_OS_IOS
 @interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate, NSURLConnectionDataDelegate>
-#else
-@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate, NSURLConnectionDataDelegate>
-#endif
 {
     BoxFile *_selectedFile;
     VLCBoxController *_boxController;
@@ -50,16 +46,12 @@
     self.controller = _boxController;
     self.controller.delegate = self;
 
-#if TARGET_OS_IOS
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BoxCell"]];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"box"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
-#else
-    self.title = @"Box";
-#endif
 
     // Handle logged in
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -73,7 +65,6 @@
                           name:BoxOAuth2SessionDidBecomeAuthenticatedNotification
                         object:[BoxSDK sharedSDK].OAuth2Session];
 
-#if TARGET_OS_IOS
     // Handle logout
     [defaultCenter addObserver:self
                       selector:@selector(boxDidGetLoggedOut)
@@ -92,10 +83,8 @@
                       selector:@selector(boxAPIInitiateLogin)
                           name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
                         object:[BoxSDK sharedSDK].OAuth2Session];
-#endif
 }
 
-#if TARGET_OS_IOS
 - (UIViewController *)createAuthController
 {
     NSURL *authorizationURL = [[BoxSDK sharedSDK].OAuth2Session authorizeURL];
@@ -104,7 +93,6 @@
     authorizationController.delegate = self;
     return authorizationController;
 }
-#endif
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -242,7 +230,6 @@
     return request;
 }
 
-#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _listOfFiles[[self.tableView indexPathForCell:cell].row];
@@ -270,8 +257,6 @@
     }
 }
 
-#endif
-
 #pragma mark - box controller delegate
 
 #pragma mark - BoxAuthorizationViewControllerDelegate
@@ -296,7 +281,6 @@
     [self requestInformationForCurrentPath];
 }
 
-#if TARGET_OS_IOS
 - (BOOL)authorizationViewController:(BoxAuthorizationViewController *)authorizationViewController shouldLoadReceivedOAuth2RedirectRequest:(NSURLRequest *)request
 {
     [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:request.URL];
@@ -333,7 +317,6 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-#endif
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -348,7 +331,6 @@
 }
 #pragma mark - login dialog
 
-#if TARGET_OS_IOS
 - (IBAction)loginAction:(id)sender
 {
     if (![_boxController isAuthorized]) {
@@ -358,6 +340,5 @@
         [_boxController logout];
     }
 }
-#endif
 
 @end
