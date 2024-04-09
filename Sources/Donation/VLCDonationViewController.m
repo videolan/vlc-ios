@@ -307,7 +307,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 {
     [UIView animateWithDuration:.25 animations:^{
         CGFloat floatValue = self.customAmountField.text.floatValue;
-        self.continueButton.enabled = floatValue > 0.;
+        self.continueButton.enabled = floatValue >= self->_selectedCurrency.minimalAmount && floatValue < self->_selectedCurrency.maximalAmount;
         self.continueButton.backgroundColor = self.continueButton.enabled ? PresentationTheme.current.colors.orangeUI : [UIColor grayColor];
         self->_selectedDonationAmount = [NSNumber numberWithFloat:floatValue];
         [self uncheckNumberButtons];

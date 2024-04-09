@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString *localCurrencySymbol;
 @property (readonly) int stripeMultiplier;
 
+@property (readonly) float minimalAmount;
+@property (readonly) float maximalAmount;
+
 @property (readonly) NSArray <NSNumber *> *values;
 
 @end

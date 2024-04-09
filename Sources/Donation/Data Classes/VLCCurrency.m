@@ -58,6 +58,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
+        _minimalAmount = 1.;
+        _maximalAmount = 1000.;
     }
 
     return self;
@@ -74,6 +76,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 1.;
+        _maximalAmount = 1000.;
     }
 
     return self;
@@ -90,6 +94,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 1.;
+        _maximalAmount = 1500.;
     }
 
     return self;
@@ -106,6 +112,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 1.;
+        _maximalAmount = 1000.;
     }
 
     return self;
@@ -122,6 +130,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 5.;
+        _maximalAmount = 5000.;
     }
 
     return self;
@@ -138,6 +148,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 2.;
+        _maximalAmount = 1400.;
     }
 
     return self;
@@ -154,6 +166,8 @@
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 6.;
+        _maximalAmount = 6000.;
     }
 
     return self;
@@ -170,6 +184,8 @@
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
+        _minimalAmount = 60.;
+        _maximalAmount = 80000.;
     }
 
     return self;
@@ -186,6 +202,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 1;
+        _minimalAmount = 100.;
+        _maximalAmount = 100000.;
     }
 
     return self;
@@ -202,6 +220,8 @@
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 1;
+        _minimalAmount = 1000.;
+        _maximalAmount = 1000000.;
     }
 
     return self;
@@ -218,6 +238,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
+        _minimalAmount = 4.;
+        _maximalAmount = 50000.;
     }
 
     return self;
@@ -234,6 +256,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
+        _minimalAmount = 10.;
+        _maximalAmount = 100000.;
     }
 
     return self;
@@ -250,6 +274,8 @@
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
+        _minimalAmount = 1.;
+        _maximalAmount = 1000.;
     }
 
     return self;
