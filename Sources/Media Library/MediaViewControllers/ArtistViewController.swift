@@ -31,7 +31,9 @@ class ArtistViewController: MediaViewController {
             return []
         }
 
-        if artist.albumsCount() == 0 {
+        let albumCount = artist.albumsCount()
+        if albumCount == 0 || albumCount == 1 {
+            // Display only the tracks
             return [CollectionCategoryViewController(mediaLibraryService, mediaCollection: artist)]
         } else {
             return [
