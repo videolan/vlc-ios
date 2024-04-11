@@ -266,7 +266,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         accessibilityLabel = audioTrack.accessibilityText(editing: false)
         var descriptionText = audioTrack.albumTrackArtistName()
         if let albumTitle = audioTrack.album?.title, !albumTitle.isEmpty {
-            descriptionText += " - " + albumTitle
+            descriptionText += " · " + albumTitle
         }
         descriptionLabel.text = descriptionText
         newLabel.isHidden = !audioTrack.isNew
@@ -289,7 +289,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         newLabel.isHidden = true
         titleLabel.text = artist.artistName()
         accessibilityLabel = artist.accessibilityText()
-        descriptionLabel.text = artist.numberOfTracksString()
+        let numberOfAlbums = artist.albumsCount()
+        descriptionLabel.text = numberOfAlbums == 0 ? artist.numberOfTracksString() :
+                                String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
         thumbnailView.image = artist.thumbnail()
     }
 
