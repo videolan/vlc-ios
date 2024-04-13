@@ -1,5 +1,17 @@
 # Changelog
 
+## iOS [3.5.9]
+· Layout improvements for the audio library
+· Improve support for shortcuts when using an external keyboard
+· Add option to disable subtitles by default
+· Improve behavior when going to the next item in repeat-one mode
+· Stability improvements and minor bug fixes
+
+## tvOS [3.5.9]
+· Add support for 360° video
+· Add option to disable subtitles by default
+· Stability improvements and minor bug fixes
+
 ## iOS [3.5.7]
 · Fix runtime exceptions on iOS 9
 · Improve the donation process
