@@ -13,57 +13,60 @@
 
 #define kLibraryXmlFile @"libMediaVLC.xml"
 
-NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance";
-
-@interface VLCSharedLibraryParser () <NSXMLParserDelegate>
+@interface VLCIndividualLibraryParser : NSObject  <NSXMLParserDelegate>
 {
     NSMutableArray *_containerInfo;
     NSMutableDictionary *_dicoInfo;
 }
+
+- (NSArray *)downloadAndProcessDataFromServer:(NSString*)hostnamePort;
+
 @end
+
+NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance";
 
 @implementation VLCSharedLibraryParser
 
 - (void)checkNetserviceForVLCService:(NSNetService *)aNetService
 {
-    [self performSelectorInBackground:@selector(parseNetServiceOnBackgroundThread:) withObject:aNetService];
-}
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", [aNetService hostName], (long)[aNetService port]];
+        VLCIndividualLibraryParser *libraryParser = [[VLCIndividualLibraryParser alloc] init];
+        NSArray *parsedContents = [libraryParser downloadAndProcessDataFromServer:hostnamePort];
 
-- (void)parseNetServiceOnBackgroundThread:(NSNetService *)aNetService
-{
-    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", [aNetService hostName], (long)[aNetService port]];
-    NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnamePort];
-
-    if (parsedContents.count > 0) {
-        if ([parsedContents.firstObject isKindOfClass:[NSDictionary class]]) {
-            if ([[parsedContents.firstObject objectForKey:@"identifier"] isEqualToString:@"org.videolan.vlc-ios"]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
-                                                                    object:self
-                                                                  userInfo:@{@"aNetService" : aNetService}];
+        if (parsedContents.count > 0) {
+            id firstObject = parsedContents.firstObject;
+            if ([firstObject isKindOfClass:[NSDictionary class]]) {
+                if ([[firstObject objectForKey:@"identifier"] isEqualToString:@"org.videolan.vlc-ios"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
+                                                                        object:self
+                                                                      userInfo:@{@"aNetService" : aNetService}];
+                }
             }
         }
-    }
+    });
 }
 
 - (void)fetchDataFromServer:(NSString *)hostname port:(long)port
 {
-    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", hostname, port];
-    [self performSelectorInBackground:@selector(processDataOnBackgroundThreadFromHostnameAndPort:) withObject:hostnamePort];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", hostname, port];
+        VLCIndividualLibraryParser *libraryParser = [[VLCIndividualLibraryParser alloc] init];
+        NSArray *parsedContents = [libraryParser downloadAndProcessDataFromServer:hostnamePort];
+
+        __weak typeof(self) weakSelf = self;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            id delegate = weakSelf.delegate;
+            if ([delegate respondsToSelector:@selector(sharedLibraryDataProcessings:)]) {
+                [delegate sharedLibraryDataProcessings:parsedContents];
+            }
+        }];
+    });
 }
 
-- (void)processDataOnBackgroundThreadFromHostnameAndPort:(NSString *)hostnameAndPort
-{
-    NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnameAndPort];
+@end
 
-    __weak typeof(self) weakSelf = self;
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        id delegate = weakSelf.delegate;
-        if ([delegate respondsToSelector:@selector(sharedLibraryDataProcessings:)]) {
-            [delegate sharedLibraryDataProcessings:parsedContents];
-        }
-    }];
-
-}
+@implementation VLCIndividualLibraryParser
 
 - (NSArray *)downloadAndProcessDataFromServer:(NSString *)hostnamePort
 {
