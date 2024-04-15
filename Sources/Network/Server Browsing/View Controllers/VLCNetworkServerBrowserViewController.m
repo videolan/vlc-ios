@@ -175,6 +175,15 @@
             [_browsingController configureSubtitlesInMediaList:mediaListToPlay];
 
             NSUInteger indexToPlay = [mediaListToPlay indexOfMedia:mediaSelected];
+            if (indexToPlay == NSNotFound) {
+                // this means the pointer to the media was manipulated, which does not mean that the media no longer exists
+                NSURL *mediaURL = mediaSelected.url;
+                for (VLCMedia *iter in mediaArray) {
+                    if ([iter.url isEqual:mediaURL]) {
+                        indexToPlay = [mediaArray indexOfObject:iter];
+                    }
+                }
+            }
             [_browsingController streamMediaList:mediaListToPlay startingAtIndex:indexToPlay];
         }
     }
