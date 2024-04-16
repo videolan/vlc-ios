@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, nullable) NSNumber *position;
 @property(readwrite, nullable) NSNumber *identifier;
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 #else
 - (void)updateMetadataFromMediaPlayer:(VLCMediaPlayer *)mediaPlayer;

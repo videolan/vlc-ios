@@ -14,7 +14,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 #import "VLC-Swift.h"
 #endif
 
@@ -41,7 +41,7 @@
 }
 #endif
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
     if (media && !media.isExternalMedia) {
@@ -182,10 +182,10 @@
     if ([self.trackNumber intValue] > 0)
         currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = self.trackNumber;
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     if (self.artworkImage) {
         MPMediaItemArtwork *mpartwork;
-        if (@available(iOS 10.0, *)) {
+        if (@available(iOS 10.0, visionOS 1.0, *)) {
             mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:self.artworkImage.size
                                                         requestHandler:^UIImage * _Nonnull(CGSize size) {
                 return self.artworkImage;
