@@ -166,10 +166,14 @@ enum PresentationThemeType: Int {
         if theme == .dark {
             presentationTheme = darkTheme
         } else if theme == .auto {
+#if os(iOS)
             if #available(iOS 13.0, *) {
                 let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
                 presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
             }
+#else
+            presentationTheme = darkTheme
+#endif
         }
         return presentationTheme
     }
