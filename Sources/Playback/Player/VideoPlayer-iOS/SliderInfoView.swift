@@ -102,7 +102,7 @@ class SliderInfoView: UIView {
 }
 
 class BrightnessControlView: SliderInfoView {
-
+#if os(iOS)
     init() {
         super.init(frame: .zero)
 
@@ -136,6 +136,7 @@ class BrightnessControlView: SliderInfoView {
             levelImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
+#endif
 }
 
 class VolumeControlView: SliderInfoView {

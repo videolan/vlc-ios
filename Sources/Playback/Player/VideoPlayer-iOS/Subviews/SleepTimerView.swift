@@ -106,11 +106,13 @@ class SleepTimerView: UIView {
     }
 
     @IBAction func valueDidChange(_ sender: Any) {
+#if os(iOS)
         if #available(iOS 10.0, *) {
             let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
             impactFeedbackGenerator.prepare()
             impactFeedbackGenerator.impactOccurred()
         }
+#endif
     }
 
     private func updateTimer(interval: TimeInterval) {

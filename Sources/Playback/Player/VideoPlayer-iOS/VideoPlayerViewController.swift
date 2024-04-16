@@ -32,8 +32,14 @@ class VideoPlayerViewController: PlayerViewController {
 
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
+#if os(visionOS)
+    private let screenPixelSize: CGSize = {
+        return UIApplication.shared.delegate?.window??.bounds.size
+    }()!
+#else
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
                                          height: UIScreen.main.bounds.height)
+#endif
 
     // MARK: - Private
     private var systemBrightness: Double?
@@ -70,6 +76,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var idleTimer: Timer?
 
+#if os(iOS)
     override var prefersStatusBarHidden: Bool {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad && !playerController.isControlsHidden {
             return false
@@ -79,6 +86,7 @@ class VideoPlayerViewController: PlayerViewController {
         }
         return true
     }
+#endif
 
     override var next: UIResponder? {
         get {
@@ -142,9 +150,13 @@ class VideoPlayerViewController: PlayerViewController {
     let notificationCenter = NotificationCenter.default
 
     private(set) lazy var titleSelectionView: TitleSelectionView = {
+#if os(iOS)
         let isLandscape = UIDevice.current.orientation.isLandscape
         let titleSelectionView = TitleSelectionView(frame: .zero,
                                                     orientation: isLandscape ? .horizontal : .vertical)
+#else
+        let titleSelectionView = TitleSelectionView(frame: .zero, orientation: .horizontal)
+#endif
         titleSelectionView.delegate = self
         titleSelectionView.isHidden = true
         return titleSelectionView
@@ -167,7 +179,7 @@ class VideoPlayerViewController: PlayerViewController {
     private lazy var topBottomBackgroundGradientLayer: CAGradientLayer = {
         let topBottomBackgroundGradientLayer = CAGradientLayer()
 
-        topBottomBackgroundGradientLayer.frame = UIScreen.main.bounds
+        topBottomBackgroundGradientLayer.frame = self.view.bounds
         topBottomBackgroundGradientLayer.colors = [UIColor.black.cgColor,
                                                    UIColor.clear.cgColor,
                                                    UIColor.clear.cgColor,
@@ -178,16 +190,19 @@ class VideoPlayerViewController: PlayerViewController {
 
     private lazy var backgroundGradientView: UIView = {
         let backgroundGradientView = UIView()
-        backgroundGradientView.frame = UIScreen.main.bounds
+        backgroundGradientView.frame = self.view.bounds
         backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         backgroundGradientView.layer.addSublayer(topBottomBackgroundGradientLayer)
         return backgroundGradientView
     }()
 
     private var artWorkImageView: UIImageView = {
-        let artWorkImageView = UIImageView()
-        artWorkImageView.frame.size.width = UIScreen.main.bounds.width * 0.6
-        artWorkImageView.frame.size.height = UIScreen.main.bounds.width * 0.6
+#if os(visionOS)
+        let frame = UIApplication.shared.delegate?.window??.bounds
+#else
+        let frame = CGRectMake(0, 0, UIScreen.main.bounds.width * 0.6, UIScreen.main.bounds.width * 0.6)
+#endif
+        let artWorkImageView = UIImageView(frame: frame!)
         artWorkImageView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
         return artWorkImageView
     }()
@@ -298,6 +313,16 @@ class VideoPlayerViewController: PlayerViewController {
         brightnessControlView.delegate = self
         volumeControlView.delegate = self
     }
+    #else
+    @objc init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+        self.mediaLibraryService = mediaLibraryService
+        self.playerController = playerController
+        super.init(nibName: nil, bundle: nil)
+        self.playerController.delegate = self
+        systemBrightness = 1.0
+        self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
+    }
+    #endif
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -320,9 +345,11 @@ class VideoPlayerViewController: PlayerViewController {
 
         artWorkImageView.image = nil
         // FIXME: Test userdefault
+#if os(iOS)
         let rendererDiscoverer = rendererDiscovererManager
         rendererDiscoverer.presentingViewController = self
         rendererDiscoverer.delegate = self
+#endif
 
         var color: UIColor = .white
         var image: UIImage? = UIImage(named: "renderer")
@@ -355,14 +382,16 @@ class VideoPlayerViewController: PlayerViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
+#if os(iOS)
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
             if let brightness = defaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
                 UIScreen.main.brightness = brightness
             }
         }
-        
+#endif
+
         playbackService.recoverDisplayedMetadata()
 
         // The video output view is not initialized when the play as audio option was chosen
@@ -385,9 +414,9 @@ class VideoPlayerViewController: PlayerViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        topBottomBackgroundGradientLayer.frame = UIScreen.main.bounds
-        brightnessBackgroundGradientLayer.frame = UIScreen.main.bounds
-        volumeBackgroundGradientLayer.frame = UIScreen.main.bounds
+        topBottomBackgroundGradientLayer.frame = self.view.bounds
+        brightnessBackgroundGradientLayer.frame = self.view.bounds
+        volumeBackgroundGradientLayer.frame = self.view.bounds
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -404,8 +433,10 @@ class VideoPlayerViewController: PlayerViewController {
         // Reset lock interface on end of playback.
         playerController.isInterfaceLocked = false
 
+#if os(iOS)
         volumeControlView.alpha = 0
         brightnessControlView.alpha = 0
+#endif
 
         numberOfGestureSeek = 0
         totalSeekDuration = 0
@@ -416,12 +447,14 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deviceMotion.stopDeviceMotion()
+#if os(iOS)
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
             let currentBrightness = UIScreen.main.brightness
             defaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
             UIScreen.main.brightness = systemBrightness!
         }
+#endif
     }
 
     override func viewDidLoad() {
@@ -431,7 +464,9 @@ class VideoPlayerViewController: PlayerViewController {
         setupViews()
         setupGestures()
         setupConstraints()
+#if os(iOS)
         setupRendererDiscoverer()
+#endif
     }
 
     // MARK: - Setup methods
@@ -532,6 +567,7 @@ class VideoPlayerViewController: PlayerViewController {
         playbackService.repeatMode = repeatMode
         playModeUpdated()
     }
+#endif
 
     @objc func setupQueueViewController(qvc: QueueViewController) {
         queueViewController = qvc
@@ -1037,6 +1073,7 @@ class VideoPlayerViewController: PlayerViewController {
 
         // 30.0 represents the exact size of the notch
         let constant: CGFloat = playbackService.currentAspectRatio != AspectRatio.fillToScreen.rawValue ? 30.0 : 0.0
+#if os(iOS)
         let interfaceOrientation = UIApplication.shared.statusBarOrientation
 
         if interfaceOrientation == .landscapeLeft
@@ -1047,6 +1084,10 @@ class VideoPlayerViewController: PlayerViewController {
             videoOutputViewLeadingConstraint.constant = 0
             videoOutputViewTrailingConstraint.constant = 0
         }
+#else
+        videoOutputViewLeadingConstraint.constant = 0
+        videoOutputViewTrailingConstraint.constant = 0
+#endif
         videoOutputView.layoutIfNeeded()
     }
 
@@ -1159,8 +1200,10 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func hideSystemVolumeInfo() {
+#if os(iOS)
         volumeView.alpha = 0.00001
         view.addSubview(volumeView)
+#endif
     }
 
     private func videoPlayerButtons() {
@@ -1182,7 +1225,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
-        mediaNavigationBar.deviceButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
         mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
         mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
@@ -1218,8 +1260,10 @@ class VideoPlayerViewController: PlayerViewController {
         downSwipeRecognizer.isEnabled = enabled
         panRecognizer.isEnabled = enabled
 
+#if os(iOS)
         brightnessControlView.isEnabled(enabled)
         volumeControlView.isEnabled(enabled)
+#endif
 
         playerController.isInterfaceLocked = !enabled
     }
@@ -1307,7 +1351,13 @@ extension VideoPlayerViewController {
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
 
         if playbackService.isPlayingOnExternalScreen() {
-            externalVideoOutputView.updateUI(rendererItem: playbackService.renderer, title: metadata.title)
+#if os(iOS)
+            if let renderer = playbackService.renderer {
+                externalVideoOutputView.updateUI(rendererName: renderer.name, title: metadata.title)
+            }
+#else
+            externalVideoOutputView.updateUI(rendererName: nil, title: metadata.title)
+#endif
         } else {
             self.externalVideoOutputView.isHidden = true
         }
@@ -1325,7 +1375,11 @@ extension VideoPlayerViewController {
             }
 
             // Only show the artwork when not casting to a device.
+#if os(iOS)
             artWorkImageView.isHidden = playbackService.renderer != nil ? true : false
+#else
+            artWorkImageView.isHidden = false
+#endif
             artWorkImageView.clipsToBounds = true
             artWorkImageView.contentMode = .scaleAspectFit
             playbackService.videoOutputView = nil
@@ -1444,10 +1498,11 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController {
     override func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+#if os(iOS)
         let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
 
         supportedInterfaceOrientations = supportedInterfaceOrientations == .allButUpsideDown ? mask : .allButUpsideDown
-
+#endif
         setPlayerInterfaceEnabled(!state)
     }
 

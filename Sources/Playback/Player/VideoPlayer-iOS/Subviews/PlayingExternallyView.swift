@@ -42,10 +42,10 @@ import Foundation
             options: nil).first as? PlayingExternallyView
     }
 
-    @objc func updateUI(rendererItem: VLCRendererItem?, title: String) {
-        if let rendererItem = rendererItem {
+    @objc func updateUI(rendererName: String?, title: String) {
+        if let rendererName = rendererName {
             playingExternallyTitle.text = title + NSLocalizedString("PLAYING_EXTERNALLY_ADDITION", comment:"\n should stay in every translation")
-            playingExternallyDescription.text = rendererItem.name
+            playingExternallyDescription.text = rendererName
         } else {
             playingExternallyTitle.text = title
             playingExternallyDescription.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")

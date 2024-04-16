@@ -21,8 +21,10 @@ enum PlayerSeekState {
 
 enum PlayerPanType {
     case none
+#if os(iOS)
     case brightness
     case volume
+#endif
     case projection
 }
 
@@ -71,7 +73,9 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Properties
     var mediaLibraryService: MediaLibraryService
+    #if os(iOS)
     var rendererDiscovererManager: VLCRendererDiscovererManager
+    #endif
     var playerController: PlayerController
     var playbackService: PlaybackService = PlaybackService.sharedInstance()
     var queueViewController: QueueViewController?
@@ -99,12 +103,15 @@ class PlayerViewController: UIViewController {
     }()
 
     lazy var mediaNavigationBar: MediaNavigationBar = {
+#if os(iOS)
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
                                                     rendererDiscovererService: rendererDiscovererManager)
+        mediaNavigationBar.chromeCastButton.isHidden = self.playbackService.renderer == nil
+#else
+        var mediaNavigationBar = MediaNavigationBar(frame: .zero)
+#endif
         mediaNavigationBar.delegate = self
         mediaNavigationBar.presentingViewController = self
-        mediaNavigationBar.chromeCastButton.isHidden =
-            self.playbackService.renderer == nil
         return mediaNavigationBar
     }()
 
@@ -168,6 +175,7 @@ class PlayerViewController: UIViewController {
         return contentOutputView
     }()
 
+#if os(iOS)
     private lazy var brightnessControl: SliderGestureControl = {
         return SliderGestureControl { value in
             UIScreen.main.brightness = CGFloat(value)
@@ -187,7 +195,7 @@ class PlayerViewController: UIViewController {
     lazy var volumeBackgroundGradientLayer: CAGradientLayer = {
         let volumeBackGroundGradientLayer = CAGradientLayer()
 
-        volumeBackGroundGradientLayer.frame = UIScreen.main.bounds
+        volumeBackGroundGradientLayer.frame = self.view.bounds
         volumeBackGroundGradientLayer.colors = [UIColor.clear.cgColor,
                                                 UIColor.clear.cgColor,
                                                 UIColor.clear.cgColor,
@@ -201,7 +209,7 @@ class PlayerViewController: UIViewController {
     lazy var brightnessBackgroundGradientLayer: CAGradientLayer = {
         let brightnessGroundGradientLayer = CAGradientLayer()
 
-        brightnessGroundGradientLayer.frame = UIScreen.main.bounds
+        brightnessGroundGradientLayer.frame = self.view.bounds
         brightnessGroundGradientLayer.colors = [UIColor.clear.cgColor,
                                                 UIColor.clear.cgColor,
                                                 UIColor.clear.cgColor,
@@ -214,7 +222,7 @@ class PlayerViewController: UIViewController {
 
     lazy var sideBackgroundGradientView: UIView = {
         let backgroundGradientView = UIView()
-        backgroundGradientView.frame = UIScreen.main.bounds
+        backgroundGradientView.frame = self.view.bounds
         backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         backgroundGradientView.layer.addSublayer(brightnessBackgroundGradientLayer)
@@ -237,7 +245,9 @@ class PlayerViewController: UIViewController {
         vc.alpha = 0
         return vc
     }()
+#endif
 
+#if os(iOS)
     lazy var rendererButton: UIButton = {
         let rendererButton = rendererDiscovererManager.setupRendererButton()
         rendererButton.tintColor = .white
@@ -262,8 +272,11 @@ class PlayerViewController: UIViewController {
 
         return rendererButton
     }()
+#endif
 
+#if os(iOS)
     let volumeView = MPVolumeView(frame: .zero)
+#endif
 
     var addBookmarksView: AddBookmarksView? = nil
 
@@ -288,9 +301,15 @@ class PlayerViewController: UIViewController {
     // MARK: Constants
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
+    #if os(visionOS)
+    private let screenPixelSize: CGSize = {
+        return UIApplication.shared.delegate?.window??.bounds.size
+    }()!
+    #else
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
                                          height: UIScreen.main.bounds.height)
-    
+    #endif
+
     // MARK: - Gestures
 
     lazy var panRecognizer: UIPanGestureRecognizer = {
@@ -342,6 +361,7 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Init
 
+    #if os(iOS)
     @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
         self.mediaLibraryService = mediaLibraryService
         self.rendererDiscovererManager = rendererDiscovererManager
@@ -350,6 +370,14 @@ class PlayerViewController: UIViewController {
         mediaNavigationBar.chromeCastButton = rendererButton
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
+    #else
+    @objc init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+        self.mediaLibraryService = mediaLibraryService
+        self.playerController = playerController
+        super.init(nibName: nil, bundle: nil)
+        mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
+    }
+    #endif
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -361,7 +389,9 @@ class PlayerViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+#if os(iOS)
         setupRendererDiscovererManager()
+#endif
 
         var color: UIColor = .white
         var image: UIImage? = UIImage(named: "renderer")
@@ -423,7 +453,8 @@ class PlayerViewController: UIViewController {
         rightSwipeRecognizer.isEnabled = !disable
         doubleTapGestureRecognizer.isEnabled = !disable
     }
-    
+
+#if os(iOS)
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         // We're observing outputVolume to handle volume changes from physical volume buttons
         // To processd properly we have to check we're not interacting with UI controls or gesture
@@ -446,6 +477,7 @@ class PlayerViewController: UIViewController {
             self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
         }
     }
+#endif
 
     func changeOutputView(to output: UIView?) {
         // Change the content output view if necessary according to the type of the player.
@@ -568,7 +600,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> PlayerPanType {
-        let window: UIWindow = UIApplication.shared.keyWindow!
+        let window: UIWindow = (UIApplication.shared.delegate?.window!)!
         let windowWidth: CGFloat = window.bounds.width
         let location: CGPoint = recognizer.location(in: window)
 
@@ -576,15 +608,17 @@ class PlayerViewController: UIViewController {
         guard minimizationInitialCenter == nil else { return .none }
 
         var panType: PlayerPanType = .none
-        if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
-            panType = .volume
-        }
         if location.x < 2 * windowWidth / 3 {
             panType = .none
         }
+#if os(iOS)
         if location.x < 1 * windowWidth / 3 && playerController.isBrightnessGestureEnabled {
              panType = .brightness
         }
+        if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
+            panType = .volume
+        }
+#endif
 
         if playbackService.currentMediaIs360Video {
             panType = .projection
@@ -618,14 +652,18 @@ class PlayerViewController: UIViewController {
         applyYaw(yaw: diffYaw, pitch: diffPitch)
     }
 
+#if os(iOS)
     private func setupRendererDiscovererManager() {
         rendererDiscovererManager.presentingViewController = self
         rendererDiscovererManager.delegate = self
     }
-    
+#endif
+
     private func hideSystemVolumeInfo() {
+#if os(iOS)
         volumeView.alpha = 0.00001
         view.addSubview(volumeView)
+#endif
     }
 
     private func setupObservers() {
@@ -708,17 +746,25 @@ class PlayerViewController: UIViewController {
             return handleMinimizeGesture(recognizer)
         }
 
+#if os(iOS)
         guard panType == .projection
                 || (panType == .volume && playerController.isVolumeGestureEnabled)
                 || (panType == .brightness && playerController.isBrightnessGestureEnabled)
         else {
             return
         }
+#else
+        guard panType == .projection
+        else {
+            return
+        }
+#endif
 
         if recognizer.state == .began {
             isGestureActive = true
             var animations : (() -> Void)?
             currentPanType = panType
+#if os(iOS)
             switch currentPanType {
             case .brightness:
                 brightnessBackgroundGradientLayer.isHidden = false
@@ -737,6 +783,7 @@ class PlayerViewController: UIViewController {
             default:
                 break
             }
+#endif
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 0,
                                options: .beginFromCurrentState, animations: animations,
@@ -749,6 +796,7 @@ class PlayerViewController: UIViewController {
         }
 
         switch currentPanType {
+#if os(iOS)
         case .volume:
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
@@ -764,6 +812,7 @@ class PlayerViewController: UIViewController {
                 brightnessControl.applyValueToDevice()
                 brightnessControlView.updateIcon(level: brightnessControl.value)
             }
+#endif
         case .projection:
             updateProjection(with: recognizer)
         case .none:
@@ -773,6 +822,7 @@ class PlayerViewController: UIViewController {
         if recognizer.state == .ended {
             var animations : (() -> Void)?
 
+#if os(iOS)
             // Check if both of the sliders are visible to hide them at the same time
             if currentPanType == .brightness && volumeControlView.alpha == 1 ||
                 currentPanType == .volume && brightnessControlView.alpha == 1 {
@@ -796,7 +846,9 @@ class PlayerViewController: UIViewController {
                     sideBackgroundGradientView.alpha = 0
                 }
             }
+#endif
 
+#if os(iOS)
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 0.5,
                                options: .beginFromCurrentState, animations: animations, completion: {
@@ -808,6 +860,10 @@ class PlayerViewController: UIViewController {
                     self.setControlsHidden(true, animated: true)
                 })
             }
+#else
+            self.isGestureActive = false
+            self.setControlsHidden(true, animated: true)
+#endif
 
             currentPanType = .none
             if playbackService.currentMediaIs360Video {
@@ -1253,12 +1309,14 @@ extension PlayerViewController: DeviceMotionDelegate {
 
 // MARK: - VLCRendererDiscovererManagerDelegate
 
+#if os(iOS)
 extension PlayerViewController: VLCRendererDiscovererManagerDelegate {
     func removedCurrentRendererItem(_ item: VLCRendererItem) {
         changeOutputView(to: contentOutputView)
         mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
     }
 }
+#endif
 
 // MARK: - Keyboard Controls
 
@@ -1331,6 +1389,31 @@ extension PlayerViewController {
     }
 
     override var keyCommands: [UIKeyCommand]? {
+        let playPauseSpace = UIKeyCommand(input: " ",
+                                          modifierFlags: [],
+                                          action: #selector(handlePlayPauseGesture))
+        playPauseSpace.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        let playPauseReturn = UIKeyCommand(input: "\r",
+                                           modifierFlags: [],
+                                           action: #selector(handlePlayPauseGesture))
+        playPauseReturn.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        let jumpBack = UIKeyCommand(input: UIKeyCommand.inputLeftArrow,
+                                    modifierFlags: [],
+                                    action: #selector(keyLeftArrow))
+        jumpBack.discoverabilityTitle = NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")
+        let jumpForward = UIKeyCommand(input: UIKeyCommand.inputRightArrow,
+                                       modifierFlags: [],
+                                       action: #selector(keyRightArrow))
+        jumpForward.discoverabilityTitle = NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")
+        let increaseSpeed = UIKeyCommand(input: "[",
+                                         modifierFlags: [],
+                                         action: #selector(keyRightBracket))
+        increaseSpeed.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")
+        let decreaseSpeed = UIKeyCommand(input: "]",
+                                         modifierFlags: [],
+                                         action: #selector(keyLeftBracket))
+        decreaseSpeed.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
+
         var commands: [UIKeyCommand] = [
             UIKeyCommand(input: " ",
                          modifierFlags: [],
@@ -1396,15 +1479,15 @@ extension PlayerViewController {
                          modifierFlags: [],
                          action: #selector(keyNumber0),
                          discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_START", comment: ""))
-
         ]
 
         if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
-            commands.append(UIKeyCommand(input: "=",
-                                         modifierFlags: [],
-                                         action: #selector(keyEqual),
-                                         discoverabilityTitle: NSLocalizedString("KEY_RESET_PLAYBACK_SPEED",
-                                                                                 comment: "")))
+            let resetSpeed = UIKeyCommand(input: "=",
+                                          modifierFlags: [],
+                                          action: #selector(keyEqual))
+            resetSpeed.discoverabilityTitle = NSLocalizedString("KEY_RESET_PLAYBACK_SPEED",
+                                                                comment: "")
+            commands.append(resetSpeed)
         }
 
         if #available(iOS 15, *) {

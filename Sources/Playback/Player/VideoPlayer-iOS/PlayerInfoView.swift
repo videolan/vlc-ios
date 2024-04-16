@@ -63,10 +63,10 @@ class PlayerInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func updateUI(rendererItem: VLCRendererItem?, title: String?) {
-        if let rendererItem = rendererItem {
+    @objc func updateUI(rendererName: String?, title: String?) {
+        if let rendererName = rendererName {
             titleLabel.text = NSLocalizedString("PLAYING_EXTERNALLY_ADDITION", comment:"")
-            descriptionLabel.text = rendererItem.name
+            descriptionLabel.text = rendererName
         } else {
             titleLabel.text = title
             descriptionLabel.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")
@@ -85,7 +85,11 @@ class PlayerInfoView: UIView {
             }
             rootView.addSubview(movieView)
 
+#if os(iOS)
             let bounds = externalWindow.screen.bounds
+#else
+            let bounds = externalWindow.bounds
+#endif
             rootView.frame = bounds
             movieView.frame = bounds
 

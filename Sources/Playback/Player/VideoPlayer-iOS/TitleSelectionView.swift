@@ -96,7 +96,7 @@ class TitleSelectionView: UIView {
 
     private lazy var backgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.frame = UIScreen.main.bounds
+        backgroundView.frame = self.frame
         backgroundView.isAccessibilityElement = true
         backgroundView.accessibilityLabel = NSLocalizedString("TITLESELECTION_BACKGROUND_LABEL",
                                                               comment: "")

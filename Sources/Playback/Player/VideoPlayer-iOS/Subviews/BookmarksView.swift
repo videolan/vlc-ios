@@ -201,6 +201,8 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [deleteAction, renameAction])
     }
 
+
+    #if os(iOS)
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
         let deleteAction = UITableViewRowAction(style: .destructive, title: deleteLabel, handler: { _, _ in
@@ -216,6 +218,9 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
 
         return [deleteAction, renameAction]
     }
+    #else
+    #warning("fix table view interaction")
+    #endif
 
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         delegate?.bookmarksViewShouldDisableGestures(true)

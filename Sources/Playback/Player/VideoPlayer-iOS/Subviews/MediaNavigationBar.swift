@@ -85,6 +85,9 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return rotateButton
     }()
 
+    private var closureQueue: (() -> Void)? = nil
+
+#if os(iOS)
     lazy var chromeCastButton: UIButton = {
         var chromeButton = UIButton(type: .system)
         chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchDown)
@@ -129,9 +132,11 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         actionSheet.headerView.title.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         return actionSheet
     }()
+#endif
 
     var presentingViewController: UIViewController?
 
+    #if os(iOS)
     private var rendererDiscovererService: VLCRendererDiscovererManager
 
     lazy var airplayRoutePickerView: UIView = {
@@ -140,7 +145,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         airPlayRoutePicker.tintColor = .white
         return airPlayRoutePicker
     }()
-    
+    #endif
+
     lazy var airplayVolumeView: MPVolumeView = {
         var airplayVolumeView = MPVolumeView()
         airplayVolumeView.tintColor = .white
@@ -154,12 +160,20 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         fatalError("init(coder: NSCoder) not implemented")
     }
 
+#if os(iOS)
     init(frame: CGRect, rendererDiscovererService: VLCRendererDiscovererManager) {
         self.rendererDiscovererService = rendererDiscovererService
         super.init(frame: frame)
         setupViews()
         setupContraints()
     }
+#else
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupContraints()
+    }
+#endif
 
     // MARK: Instance Methods
     func setMediaTitleLabelText(_ titleText: String?) {
@@ -175,8 +189,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     func updateDeviceButton(with image: UIImage?, color: UIColor) {
+#if os(iOS)
         deviceButton.setImage(image, for: .normal)
         deviceButton.tintColor = color
+#endif
     }
 
     private func setupContraints() {
@@ -197,8 +213,15 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(mediaTitleTextLabel)
         addArrangedSubview(rotateButton)
         addArrangedSubview(queueButton)
+#if os(iOS)
         addArrangedSubview(deviceButton)
+<<<<<<< HEAD
         addArrangedSubview(pictureInPictureButton)
+=======
+#else
+        addArrangedSubview(airplayVolumeView)
+#endif
+>>>>>>> 0b803b8dd (Update video player for visionOS)
     }
 
     // MARK: Gesture recognizer
@@ -215,12 +238,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     // MARK: Button Actions
 
+#if os(iOS)
     func toggleDeviceActionSheet() {
         deviceActionSheet.delegate = self
         deviceActionSheet.dataSource = self
         presentingViewController?.present(deviceActionSheet,
                                           animated: true)
     }
+#endif
 
     func togglePictureInPicture() {
         delegate?.mediaNavigationBarDidTapPictureInPicture?(self)
@@ -261,6 +286,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 }
 
+#if os(iOS)
 extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
     func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
         if indexPath.row == 0 {
@@ -336,4 +362,4 @@ extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
         closureQueue = nil
     }
 }
-
+#endif
