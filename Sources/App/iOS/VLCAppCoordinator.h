@@ -20,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class VLCMLMedia;
 @class VLCStripeController;
 #endif
+#if TARGET_OS_VISION
+@class MediaLibraryService;
+@class VLCMLMedia;
+@class VLCStripeController;
+#endif
 @class VLCFavoriteService;
 
 
@@ -35,6 +40,18 @@ NS_ASSUME_NONNULL_BEGIN
 #if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+@property (readonly) VLCStripeController *stripeController;
+
+@property (nullable) UIWindow *externalWindow;
+@property (retain) UITabBarController *tabBarController;
+
+- (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+
+- (nullable VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
+#endif
+
+#if TARGET_OS_VISION
+@property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCStripeController *stripeController;
 
 @property (nullable) UIWindow *externalWindow;

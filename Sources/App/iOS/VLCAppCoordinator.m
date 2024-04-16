@@ -20,7 +20,6 @@
 @interface VLCAppCoordinator()
 {
     MediaLibraryService *_mediaLibraryService;
-    VLCRendererDiscovererManager *_rendererDiscovererManager;
     VLCFavoriteService *_favoriteService;
     VLCHTTPUploaderController *_httpUploaderController;
     VLCBottomTabBarController *_tabBarController;
@@ -29,6 +28,10 @@
     VLCRemoteControlService *_remoteControlService;
     UIWindow *_externalWindow;
     VLCStripeController *_stripeController;
+
+#if TARGET_OS_IOS
+    VLCRendererDiscovererManager *_rendererDiscovererManager;
+#endif
 }
 
 @end
@@ -87,6 +90,7 @@
     return _favoriteService;
 }
 
+#if TARGET_OS_IOS
 - (VLCRendererDiscovererManager *)rendererDiscovererManager
 {
     if (!_rendererDiscovererManager) {
@@ -95,6 +99,7 @@
 
     return _rendererDiscovererManager;
 }
+#endif
 
 - (VLCHTTPUploaderController *)httpUploaderController
 {
@@ -111,6 +116,7 @@
 
 - (UIWindow *)externalWindow
 {
+#if TARGET_OS_IOS
     if (@available(iOS 13.0, *)) {
         return _externalWindow;
     } else {
@@ -126,6 +132,7 @@
         _externalWindow.screen = externalScreen;
         [_externalWindow makeKeyAndVisible];
     }
+#endif
     return _externalWindow;
 }
 
