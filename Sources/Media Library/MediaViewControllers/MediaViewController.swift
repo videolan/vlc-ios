@@ -16,7 +16,9 @@ import Foundation
 class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     var mediaLibraryService: MediaLibraryService
+    #if os(iOS)
     private var rendererButton: UIButton
+    #endif
     private(set) lazy var sortButton: UIBarButtonItem = {
         let sortButton = setupSortbutton()
 
@@ -84,7 +86,9 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     init(mediaLibraryService: MediaLibraryService) {
         self.mediaLibraryService = mediaLibraryService
+        #if os(iOS)
         rendererButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
+        #endif
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -103,9 +107,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             leftBarButtons = [sortButton, historyButton]
         }
 
+#if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtons?.append(UIBarButtonItem(customView: rendererButton))
         }
+#endif
 
         viewControllers.forEach {
             ($0 as? MediaCategoryViewController)?.delegate = self
@@ -130,7 +136,9 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
         navigationController?.navigationBar.isTranslucent = false
+        #if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
+        #endif
         updateButtonsFor(viewControllers[currentIndex])
     }
 
@@ -211,9 +219,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             rightBarButtonItems = [menuButton]
         }
 
+#if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtonItems.append(UIBarButtonItem(customView: rendererButton))
         }
+#endif
 
         return rightBarButtonItems
     }
@@ -269,9 +279,11 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
             rightBarButtons = isEditing ? [doneButton] : [editButton]
         }
 
+#if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtons?.append(UIBarButtonItem(customView: rendererButton))
         }
+#endif
 
         viewController.navigationItem.rightBarButtonItems = rightBarButtons
         viewController.navigationItem.leftBarButtonItems = leftBarButtons
@@ -312,9 +324,11 @@ extension MediaViewController {
             }
         }
 
+#if os(iOS)
         if !rendererButton.isHidden {
             rightButtons.append(UIBarButtonItem(customView: rendererButton))
         }
+#endif
 
         // Check if the playAllButton should be displayed
         if navigationController?.viewControllers.last is ArtistViewController,
