@@ -14,15 +14,17 @@ import UIKit
 
 extension UIAlertController {
     static func autoDismissable(title: String, message: String, dismissDelay: Double = 3.0) {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment:""),
-                                          style: .default,
-                                          handler: nil))
+        if let window = UIApplication.shared.delegate?.window {
+            if let rootViewController = window?.rootViewController {
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment:""),
+                                              style: .default,
+                                              handler: nil))
 
-            rootViewController.present(alert, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + dismissDelay) {
-                alert.dismiss(animated: true, completion: nil)
+                rootViewController.present(alert, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + dismissDelay) {
+                    alert.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }
