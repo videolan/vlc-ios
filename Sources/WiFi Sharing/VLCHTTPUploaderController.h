@@ -33,7 +33,7 @@
 
 - (void)moveFileFrom:(nonnull NSString *)filepath;
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)cleanCache;
 - (void)resetIdleTimer;
 #endif

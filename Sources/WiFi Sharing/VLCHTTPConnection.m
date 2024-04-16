@@ -53,12 +53,12 @@
 
 @implementation VLCHTTPConnection
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 static NSMutableDictionary *authentificationAttemptsHosts;
 static NSMutableDictionary *authentifiedHosts;
 #endif
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 + (void)initialize
 {
     authentificationAttemptsHosts = [[NSMutableDictionary alloc] init];
@@ -170,7 +170,7 @@ static NSMutableDictionary *authentifiedHosts;
     return [super expectsRequestBodyFromMethod:method atPath:path];
 }
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (int)authenticate:(NSString *)host
 {
     NSDictionary *params = [self parseGetParams];
@@ -272,7 +272,7 @@ static NSMutableDictionary *authentifiedHosts;
     NSError *error;
     NSURLRelationship relationship;
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 #else
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -313,7 +313,7 @@ static NSMutableDictionary *authentifiedHosts;
     return dataResponse;
 }
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (NSObject<HTTPResponse> *)_httpGETLibraryForPath:(NSString *)path
 {
     NSString *filePath = [self filePathForURI:path];
@@ -372,7 +372,7 @@ static NSMutableDictionary *authentifiedHosts;
                         stringByReplacingOccurrencesOfString:@"'" withString:@"&#039;"];
 }
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (NSString *)createHTMLMediaObjectFromMedia:(VLCMLMedia *)media
 {
     return [NSString stringWithFormat:
@@ -439,7 +439,7 @@ static NSMutableDictionary *authentifiedHosts;
     NSString *deviceModel = [[UIDevice currentDevice] model];
     NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:media.count];
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     for (NSObject <VLCMLObject> *mediaObject in media) {
         if ([mediaObject isKindOfClass:[VLCMLMedia class]]) {
             [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:(VLCMLMedia *)mediaObject]];
@@ -509,7 +509,7 @@ static NSMutableDictionary *authentifiedHosts;
     return fileResponse;
 }
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (HTTPDynamicFileResponse *)generateXMLResponseFrom:(NSArray *)media path:(NSString *)path
 {
     NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:media.count];
@@ -579,7 +579,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (NSObject<HTTPResponse> *)_httpGETCSSForPath:(NSString *)path
 {
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : _webInterfaceTitle};
 #else
     NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil)};
@@ -723,7 +723,7 @@ static NSMutableDictionary *authentifiedHosts;
     if ([path hasPrefix:@"/Thumbnail/"]) {
         return [self _httpGETThumbnailForPath:path];
     }
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     if ([path hasPrefix:@"/public/auth.html"]) {
         return [self _httpGETAuthentification];
     }
@@ -931,7 +931,7 @@ static NSMutableDictionary *authentifiedHosts;
     if (_storeFile) {
         @try {
             [_storeFile writeData:data];
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
             [_httpUploaderController resetIdleTimer];
 #endif
         }
