@@ -95,13 +95,17 @@
     self.activityIndicator.color = colors.cellDetailTextColor;
     self.progressView.progressTintColor = colors.orangeUI;
     [self.downloadsTable reloadData];
+#if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
+#if TARGET_OS_IOS
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return PresentationTheme.current.colors.statusBarStyle;
 }
+#endif
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -111,6 +115,7 @@
 
 #pragma mark - UI interaction
 
+#if TARGET_OS_IOS
 - (BOOL)shouldAutorotate
 {
     UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
@@ -118,6 +123,7 @@
         return NO;
     return YES;
 }
+#endif
 
 - (IBAction)downloadAction:(id)sender
 {

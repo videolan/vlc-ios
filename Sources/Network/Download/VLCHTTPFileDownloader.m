@@ -58,7 +58,11 @@
 {
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:_url];
     [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Safari/9537.53 VLC for iOS/%@",
+#if TARGET_OS_IOS
                           UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone",
+#else
+                          @"vision Pro",
+#endif
                           [[UIDevice currentDevice] systemVersion],
                           [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]
       forHTTPHeaderField:@"User-Agent"];
