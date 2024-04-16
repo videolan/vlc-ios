@@ -25,7 +25,7 @@
 #import "VLCPlayerDisplayController.h"
 #import <stdatomic.h>
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 #import "VLCMLMedia+Podcast.h"
 #import "VLCMLMedia+isWatched.h"
 #endif
@@ -43,10 +43,10 @@ NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlay
 NSString *const VLCPlaybackServiceShuffleModeUpdated = @"VLCPlaybackServiceShuffleModeUpdated";
 NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
 
-#if TARGET_OS_IOS
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate, VLCDrawable, VLCPictureInPictureDrawable>
-#else
+#if TARGET_OS_TV
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
+#else
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #endif
 {
     VLCMediaPlayer *_backgroundDummyPlayer;
@@ -230,7 +230,13 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     /* video decoding permanently fails if we don't provide a UIView to draw into on init
      * hence we provide one which is not attached to any view controller for off-screen drawing
      * and disable video decoding once playback started */
-    _actualVideoOutputView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    CGRect defaultVoutFrame;
+#if TARGET_OS_VISION
+    defaultVoutFrame = [[[[UIApplication sharedApplication] delegate] window] bounds];
+#else
+    defaultVoutFrame = [UIScreen mainScreen].bounds];
+#endif
+    _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
@@ -270,10 +276,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     BOOL saveDebugLogs = [userDefaults boolForKey:kVLCSaveDebugLogs];
     if (saveDebugLogs) {
         NSArray *searchPaths;
-#if TARGET_OS_IOS
-        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-#else
+#if TARGET_OS_TV
         searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+#else
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 #endif
         NSString* logFilePath = [searchPaths[0] stringByAppendingPathComponent:@"Logs"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -419,7 +425,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
         if (_mediaPlayer.media) {
             [_mediaPlayer pause];
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
             [self savePlaybackState];
 #endif
             [_mediaPlayer stop];
@@ -467,7 +473,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 }
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 - (void)restoreAudioAndSubtitleTrack
 {
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
@@ -855,7 +861,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 
         case VLCMediaPlayerStateOpening: {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
             [self _recoverLastPlaybackState];
 #else
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -876,7 +882,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 
         case VLCMediaPlayerStatePaused: {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
             [self savePlaybackState];
 #endif
             [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
@@ -1074,7 +1080,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     if (nextIndex < 0) {
         if (self.repeatMode == VLCRepeatAllItems) {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
             [self savePlaybackState];
 #endif
             [_listPlayer next];
@@ -1085,7 +1091,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         }
         return NO;
     }
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     [self savePlaybackState];
 #endif
 
@@ -1101,7 +1107,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if (playedTime.value.longLongValue / 2000 >= 1) {
             self.playbackPosition = .0;
         } else {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
             [self savePlaybackState];
 #endif
             if (!_currentIndex) {
@@ -1134,6 +1140,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     [_mediaPlayer jumpBackward:interval];
 }
 
+#if !TARGET_OS_VISION
 - (UIScreen *)currentScreen
 {
     return [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
@@ -1161,6 +1168,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     _mediaPlayer.scaleFactor = scale * screen.scale;
     _isInFillToScreen = YES;
 }
+#endif
 
 - (void)switchAspectRatio:(BOOL)toggleFullScreen
 {
@@ -1199,12 +1207,14 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             _mediaPlayer.videoCropGeometry = NULL;
 #endif
             break;
+#if !TARGET_OS_VISION
         case VLCAspectRatioFillToScreen:
             // Reset aspect ratio only with aspectRatio button since we want to keep
             // the user ratio with double tap.
             _mediaPlayer.videoAspectRatio = NULL;
             [self switchToFillToScreen];
             break;
+#endif
         case VLCAspectRatioFourToThree:
         case VLCAspectRatioFiveToFour:
         case VLCAspectRatioSixteenToTen:
@@ -1508,7 +1518,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (_externalAudioPlaybackDeviceConnected && !externalAudioPlaybackDeviceConnected && [_mediaPlayer isPlaying]) {
         APLog(@"Pausing playback as previously connected external audio playback device was removed");
         [_mediaPlayer pause];
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
        [self savePlaybackState];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
@@ -1543,17 +1553,17 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)setNeedsMetadataUpdate
 {
-#if TARGET_OS_IOS
+#if TARGET_OS_TV
+    [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
+#else
     VLCMLMedia *media = self->_mediaPlayer.media ? [VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
-#else
-    [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
 #endif
 
     [self recoverDisplayedMetadata];
 }
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 - (void)_recoverLastPlaybackState
 {
     VLCMedia *media = _mediaPlayer.media;
@@ -1699,7 +1709,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     [self savePlaybackState];
 #endif
     if (![self isPlayingOnExternalScreen]
@@ -1767,7 +1777,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     };
 }
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 - (void)savePlaybackState
 {
     BOOL activePlaybackSession = self.isPlaying || _playerIsSetup;
@@ -1830,7 +1840,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
 {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     [self _findCachedSubtitlesForMedia:media];
 #endif
 

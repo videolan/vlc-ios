@@ -21,8 +21,6 @@
 #import "UIStackView+Orientation.h"
 #endif
 
-#define SWIFT_VIDEO_PLAYER 1
-
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
 NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
@@ -75,10 +73,16 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     VLCPlayerController *pc = [[VLCPlayerController alloc] init];
     VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
+#if TARGET_OS_IOS
     _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
                                   initWithMediaLibraryService:ac.mediaLibraryService
                                   rendererDiscovererManager:ac.rendererDiscovererManager
                                   playerController:pc];
+#else
+    _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
+                                  initWithMediaLibraryService:ac.mediaLibraryService
+                                  playerController:pc];
+#endif
 
     [super viewDidLoad];
 }
@@ -113,19 +117,19 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         if (!_queueViewController) {
             [self initQueueViewController];
         }
-#if TARGET_OS_IOS
-            _movieViewController = _videoPlayerViewController;
-            ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
-            [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewControllerWithQvc:_queueViewController];
-#else
+#if TARGET_OS_TV
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
+#else
+        _movieViewController = _videoPlayerViewController;
+        ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
+        [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewControllerWithQvc:_queueViewController];
 #endif
         self.playbackController.delegate = _movieViewController;
         if (!_queueViewController) {
             [self initQueueViewController];
         }
     } else {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
         _movieViewController = _videoPlayerViewController;
 #endif
     }
@@ -141,9 +145,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
         VLCPlayerController *pc = [[VLCPlayerController alloc] init];
         VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
+#if TARGET_OS_IOS
         _audioPlayerViewController = [[VLCAudioPlayerViewController alloc] initWithMediaLibraryService:ac.mediaLibraryService
                                                                              rendererDiscovererManager:ac.rendererDiscovererManager
                                                                                       playerController:pc];
+#else
+        _audioPlayerViewController = [[VLCAudioPlayerViewController alloc] initWithMediaLibraryService:ac.mediaLibraryService
+                                                                                      playerController:pc];
+#endif
         [((VLCAudioPlayerViewController *)_audioPlayerViewController) setupQueueViewControllerWith:_queueViewController];
         ((VLCAudioPlayerViewController *) _audioPlayerViewController).delegate = self;
         self.playbackController.delegate = _audioPlayerViewController;
@@ -362,7 +371,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     navCon.modalPresentationCapturesStatusBarAppearance = YES;
     [movieViewController prepareForMediaPlayback:self.playbackController];
 
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     [window.rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
@@ -377,7 +386,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     _playbackController.delegate = audioPlayerViewController;
     [audioPlayerViewController prepareForMediaPlayback:self.playbackController];
 
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     [window.rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
@@ -437,7 +446,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     if (needsShow) {
         // Init the mini player view if needed
         if (!miniPlaybackView) {
-            UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+            UIViewController *rootViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
 
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
             self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:[VLCAppCoordinator sharedInstance].mediaLibraryService
@@ -516,7 +525,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                              if (needsShow) {
                                  self.bottomConstraint = [miniPlaybackView.bottomAnchor constraintEqualToAnchor:self.realBottomAnchor];
                              } else {
+#if TARGET_OS_IOS
                                  self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.bottomLayoutGuide.bottomAnchor];
+#else
+                                 self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
+#endif
                              }
                              self.bottomConstraint.active = YES;
                              [self.view layoutIfNeeded];
@@ -554,7 +567,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
                          animations:^{
             self.bottomConstraint.active = NO;
+#if TARGET_OS_IOS
             self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.bottomLayoutGuide.bottomAnchor];
+#else
+            self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
+#endif
             self.bottomConstraint.active = YES;
             [self.view layoutIfNeeded];
         }
@@ -572,7 +589,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 }
 
 #pragma mark - QueueViewController
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 
 - (void)initQueueViewController
 {

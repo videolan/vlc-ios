@@ -12,7 +12,8 @@ extension VLCPlayerDisplayController: MiniPlayerDraggingDelegate {
     static private let animationDuration = 0.2
 
     func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
-        let translation = sender.translation(in: UIApplication.shared.keyWindow?.rootViewController?.view)
+
+        let translation = sender.translation(in: UIApplication.shared.delegate?.window?!.rootViewController?.view)
 
         switch panDirection {
             case .vertical:

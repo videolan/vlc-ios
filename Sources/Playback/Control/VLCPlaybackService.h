@@ -172,7 +172,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index;
 - (void)togglePictureInPicture;
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 - (void)savePlaybackState;
 - (void)restoreAudioAndSubtitleTrack;
 - (BOOL)mediaListContains:(NSURL *)url;
