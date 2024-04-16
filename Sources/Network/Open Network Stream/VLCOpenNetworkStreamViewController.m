@@ -191,13 +191,17 @@
     self.privateToggleButton.tintColor = colors.orangeUI;
     self.scanSubToggleButton.tintColor = colors.orangeUI;
     [self.historyTableView reloadData];
+#if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
+#if TARGET_OS_IOS
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return PresentationTheme.current.colors.statusBarStyle;
 }
+#endif
 
 - (void)updatePasteboardTextInURLField
 {
@@ -241,6 +245,7 @@
 }
 
 #pragma mark - UI interaction
+#if TARGET_OS_IOS
 - (BOOL)shouldAutorotate
 {
     UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
@@ -248,6 +253,7 @@
         return NO;
     return YES;
 }
+#endif
 
 - (IBAction)toggleButtonAction:(UIButton *)sender
 {
