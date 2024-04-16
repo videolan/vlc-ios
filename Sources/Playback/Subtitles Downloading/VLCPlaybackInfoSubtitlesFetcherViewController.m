@@ -65,6 +65,7 @@
     
     // Setup activity indicator
     [self setupActivityIndicatorView];
+
     [self.view addSubview:self.activityIndicatorView];
 
     NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView
