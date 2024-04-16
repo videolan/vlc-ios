@@ -1,19 +1,19 @@
 PODS:
   - ADAL (1.2.10)
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
+  - AFNetworking (4.0.2):
+    - AFNetworking/NSURLSession (= 4.0.2)
+    - AFNetworking/Reachability (= 4.0.2)
+    - AFNetworking/Security (= 4.0.2)
+    - AFNetworking/Serialization (= 4.0.2)
+    - AFNetworking/UIKit (= 4.0.2)
+  - AFNetworking/NSURLSession (4.0.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
+  - AFNetworking/Reachability (4.0.2)
+  - AFNetworking/Security (4.0.2)
+  - AFNetworking/Serialization (4.0.2)
+  - AFNetworking/UIKit (4.0.2):
     - AFNetworking/NSURLSession
   - AppAuth (1.7.6):
     - AppAuth/Core (= 1.7.6)
@@ -73,13 +73,13 @@ PODS:
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.50.3)
   - VLCKit (4.0.0a10)
-  - VLCMediaLibraryKit (0.13.0a6):
-    - VLCKit (>= 4.0.0a3)
+  - VLCMediaLibraryKit (0.13.0a8):
+    - VLCKit (>= 4.0.0a5)
   - XKKeychain (1.0.1)
 
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
-  - AFNetworking (~> 4.0)
+  - AFNetworking (from `https://code.videolan.org/fkuehne/AFNetworking.git`, commit `ee51009a`)
   - box-ios-sdk-v2 (from `https://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
   - CocoaHTTPServer (from `https://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive (~> 1.2.1)
@@ -96,12 +96,11 @@ DEPENDENCIES:
   - SimulatorStatusMagic
   - SwiftLint (~> 0.50.3)
   - VLCKit (= 4.0.0a10)
-  - VLCMediaLibraryKit (= 0.13.0a6)
+  - VLCMediaLibraryKit (= 0.13.0a8)
   - XKKeychain (~> 1.0)
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - AppAuth
     - Base32
     - GoogleAPIClientForREST
@@ -123,6 +122,9 @@ EXTERNAL SOURCES:
   ADAL:
     :commit: 348e94df
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
+  AFNetworking:
+    :commit: ee51009a
+    :git: https://code.videolan.org/fkuehne/AFNetworking.git
   box-ios-sdk-v2:
     :commit: '08161e74'
     :git: https://github.com/fkuehne/box-ios-sdk-v2.git
@@ -141,6 +143,9 @@ CHECKOUT OPTIONS:
   ADAL:
     :commit: 348e94df
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
+  AFNetworking:
+    :commit: ee51009a
+    :git: https://code.videolan.org/fkuehne/AFNetworking.git
   box-ios-sdk-v2:
     :commit: '08161e74'
     :git: https://github.com/fkuehne/box-ios-sdk-v2.git
@@ -159,7 +164,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
-  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  AFNetworking: e88455b4d6f598a9b319603a32ad3a087d2a293b
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
@@ -179,9 +184,9 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   VLCKit: e21135aece10e3aa89e34020b7112b73d7cc98e6
-  VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
+  VLCMediaLibraryKit: 36218f5a1beb0fd46c8b0ac50a02e06f2140f673
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: 6121a999cbda5c4ffa071a4186132d70f9a0a24c
+PODFILE CHECKSUM: 54d4ce03ec91cbd40310ddd4fe8e96a548e15100
 
 COCOAPODS: 1.15.2

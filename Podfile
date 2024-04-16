@@ -5,11 +5,10 @@ inhibit_all_warnings!
 def shared_pods
   use_modular_headers!
   pod 'XKKeychain', '~>1.0'
-  pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-  pod 'AFNetworking', '~>4.0'
+  pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => 'ee51009a' # add visionOS support
   pod 'VLCKit', '4.0.0a10'
-  pod 'VLCMediaLibraryKit', '0.13.0a6'
+  pod 'VLCMediaLibraryKit', '0.13.0a8'
 
   # debug
   pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
@@ -28,6 +27,7 @@ target 'VLC-iOS' do
   pod 'MarqueeLabel', '4.0.2'
   pod 'ObjectiveDropboxOfficial'
   pod 'PCloudSDKSwift'
+  pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
 
   target 'VLC-iOSTests' do
       inherit! :search_paths
@@ -49,12 +49,23 @@ target 'VLC-tvOS' do
   pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 
+target 'VLC-visionOS' do
+  platform :ios, '17.0'
+  shared_pods
+  pod 'OBSlider', '1.1.0'
+  pod 'MarqueeLabel', '4.0.2'
+
+  use_modular_headers!
+end
+
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
      installer_representation.pods_project.build_configurations.each do |config|
        config.build_settings['SKIP_INSTALL'] = 'YES'
        config.build_settings['ARCHS'] = 'arm64 x86_64'
        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+       config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator appletvos appletvsimulator xros xrsimulator'
+       config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2,3,7'
      end
     target.build_configurations.each do |config|
         config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
