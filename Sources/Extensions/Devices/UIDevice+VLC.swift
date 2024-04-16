@@ -14,15 +14,22 @@
 
     @objc(VLCHasExternalDisplay)
     var hasExternalDisplay: Bool {
+        #if os(iOS)
         if UIScreen.screens.count <= 1 {
             return false
         }
+        #endif
 
-        if #available(iOS 13.0, tvOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, visionOS 1.0, *) {
             for scene in UIApplication.shared.connectedScenes {
                 if scene.session.role.rawValue == "CPTemplateApplicationSceneSessionRoleApplication" {
                     return false
                 }
+#if os(visionOS)
+                if scene.session.role.rawValue == "UIWindowSceneSessionRoleApplication" {
+                    return false
+                }
+#endif
             }
         }
         return true
