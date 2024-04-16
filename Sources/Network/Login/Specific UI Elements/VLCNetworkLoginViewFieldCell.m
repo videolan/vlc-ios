@@ -119,9 +119,11 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     if ([touch tapCount] == 1) {
         [self setSelected:YES animated:YES];
     } else if ([touch tapCount] == 2 && [_textField becomeFirstResponder]) {
+#if TARGET_OS_IOS
         UIMenuController *menu = [UIMenuController sharedMenuController];
         [menu setTargetRect:_textField.frame inView:self];
         [menu setMenuVisible:YES animated:YES];
+#endif
     }
 }
 
