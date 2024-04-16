@@ -84,8 +84,6 @@ class FavoriteListViewController: UIViewController {
         setupSearchDataSource()
     }
 
-    // MARK: - Setup methods
-
     private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
@@ -175,7 +173,9 @@ class FavoriteListViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+#if os(iOS)
         self.setNeedsStatusBarAppearanceUpdate()
+#endif
     }
 
     @objc private func toggleEdit() {
