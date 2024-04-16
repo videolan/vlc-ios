@@ -54,7 +54,11 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
 
     self.tableView.backgroundColor = _colors.background;
 
+#if TARGET_OS_IOS
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+#else
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+#endif
     _activityIndicator.color = _colors.orangeUI;
     _activityIndicator.hidesWhenStopped = YES;
     [self.tableView addSubview:_activityIndicator];
@@ -192,6 +196,7 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+#if TARGET_OS_IOS
     if (indexPath.section == 0) {
         VLCInvoice *invoice = _invoices[indexPath.row];
         [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL];
@@ -199,6 +204,15 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
         VLCCharge *charge = _charges[indexPath.row];
         [[UIApplication sharedApplication] openURL:charge.receiptURL];
     }
+#else
+    if (indexPath.section == 0) {
+        VLCInvoice *invoice = _invoices[indexPath.row];
+        [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL options:@{} completionHandler:nil];
+    } else {
+        VLCCharge *charge = _charges[indexPath.row];
+        [[UIApplication sharedApplication] openURL:charge.receiptURL options:@{} completionHandler:nil];
+    }
+#endif
 }
 
 @end

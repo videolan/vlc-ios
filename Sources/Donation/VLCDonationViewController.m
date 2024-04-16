@@ -212,6 +212,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
+#if TARGET_OS_IOS
     NSDictionary *userInfo = [aNotification userInfo];
 
     CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -231,6 +232,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }
 
     [_contentScrollView scrollRectToVisible:_previousDonationsButton.frame animated:YES];
+#endif
 }
 
 - (NSString *)title

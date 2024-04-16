@@ -109,6 +109,7 @@
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
+#if TARGET_OS_IOS
     NSDictionary *userInfo = [aNotification userInfo];
 
     CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -124,6 +125,7 @@
     }
 
     [_contentScrollView scrollRectToVisible:_continueButton.frame animated:YES];
+#endif
 }
 
 - (NSString *)title

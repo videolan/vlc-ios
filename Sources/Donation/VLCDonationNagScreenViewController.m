@@ -68,8 +68,9 @@
         UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
         donationNC.modalPresentationStyle = UIModalPresentationPopover;
         donationNC.popoverPresentationController.sourceView = [[[VLCAppCoordinator sharedInstance] tabBarController] tabBar];
-        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:donationNC animated:YES completion:nil];
+        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:donationNC animated:YES completion:nil];
     }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

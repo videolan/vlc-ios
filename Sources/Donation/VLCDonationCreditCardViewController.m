@@ -136,6 +136,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
+#if TARGET_OS_IOS
     NSDictionary *userInfo = [aNotification userInfo];
 
     CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -151,6 +152,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     }
 
     [_contentScrollView scrollRectToVisible:_continueButton.frame animated:YES];
+#endif
 }
 
 - (NSString *)title
