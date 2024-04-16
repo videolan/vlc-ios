@@ -164,9 +164,15 @@ class MediaLibraryService: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
 
-        let screen = UIScreen.main
-        let cellSizeWidth = MovieCollectionViewCell.cellSizeForWidth(screen.bounds.width).width
-        let scaledCellWidth = cellSizeWidth * screen.scale
+        #if os(iOS)
+        let screenWidth = UIScreen.main.bounds.width
+        let screenScale = UIScreen.main.scale
+        #else
+        let screenWidth: CGFloat = (UIApplication.shared.delegate?.window??.bounds.size.width)!
+        let screenScale: CGFloat = UITraitCollection.current.displayScale
+        #endif
+        let cellSizeWidth = MovieCollectionViewCell.cellSizeForWidth(screenWidth).width
+        let scaledCellWidth = cellSizeWidth * screenScale
         desiredThumbnailWidth = UInt(scaledCellWidth)
         desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
     }
