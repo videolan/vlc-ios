@@ -17,7 +17,9 @@ import MobileCoreServices
 enum RemoteNetworkCellType: Int {
     @available(iOS 11.0, *)
     case local
+#if os(iOS)
     case cloud
+#endif
     case streaming
     case download
     case wifi
@@ -46,7 +48,9 @@ protocol RemoteNetworkDataSourceDelegate {
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
 class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let localVC: UIDocumentPickerViewController
+    #if os(iOS)
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
+    #endif
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
     let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
     let favoriteVC = FavoriteListViewController()
@@ -73,6 +77,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 localFilesCell.accessibilityIdentifier = VLCAccessibilityIdentifier.local
                 return localFilesCell
             }
+#if os(iOS)
         case .cloud:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
                 networkCell.textLabel?.text = cloudVC.title
@@ -81,6 +86,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.cloud
                 return networkCell
             }
+#endif
         case .streaming:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
                 networkCell.textLabel?.text = streamingVC.title
@@ -151,8 +157,10 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         switch cellType {
         case .local:
             return localVC
+#if os(iOS)
         case .cloud:
             return cloudVC
+#endif
         case .streaming:
             return streamingVC
         case .download:

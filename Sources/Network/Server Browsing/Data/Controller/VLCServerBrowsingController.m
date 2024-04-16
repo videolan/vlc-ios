@@ -31,7 +31,7 @@
 
 @interface VLCServerBrowsingController()
 {
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     MediaLibraryService *_medialibraryService;
 #endif
 }
@@ -41,7 +41,7 @@
 
 - (instancetype)initWithViewController:(UIViewController *)viewController
                          serverBrowser:(id<VLCNetworkServerBrowser>)browser
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
                    medialibraryService:(MediaLibraryService *)medialibraryService
 #endif
 {
@@ -55,7 +55,7 @@
             movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
             [movieDBSessionManager fetchProperties];
         }
-# elif TARGET_OS_IOS
+#else
         _medialibraryService = medialibraryService;
 #endif
     }
@@ -115,7 +115,7 @@
             subtitle = duration;
         }
         cell.subtitle = subtitle;
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
         if ([cell isKindOfClass:[VLCNetworkListCell class]] && subtitle == nil) {
             [(VLCNetworkListCell *)cell setTitleLabelCentered:YES];
         }
@@ -130,12 +130,12 @@
     cell.title = item.name;
 
     NSURL *thumbnailURL = nil;
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     VLCMLMedia *media = [_medialibraryService fetchMediaWith:[item URL]];
     if (media != nil) {
         thumbnailURL = media.thumbnail;
     } else if ([item respondsToSelector:@selector(thumbnailURL)]) {
-#elif TARGET_OS_TV
+#else
         if ([item respondsToSelector:@selector(thumbnailURL)]) {
 #endif
         thumbnailURL = item.thumbnailURL;

@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "VLCNetworkServerBrowser-Protocol.h"
 
-#define DOWNLOAD_SUPPORTED TARGET_OS_IOS
+#define DOWNLOAD_SUPPORTED TARGET_OS_IOS || TARGET_OS_VISION
 
 @class MediaLibraryService;
 
@@ -42,13 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
-#if TARGET_OS_IOS
+#if TARGET_OS_TV
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                         serverBrowser:(id<VLCNetworkServerBrowser>)browser;
+#else
 - (instancetype)initWithViewController:(UIViewController *)viewController
                          serverBrowser:(id<VLCNetworkServerBrowser>)browser
                    medialibraryService:(MediaLibraryService *)medialibraryService;
-# elif TARGET_OS_TV
-- (instancetype)initWithViewController:(UIViewController *)viewController
-                         serverBrowser:(id<VLCNetworkServerBrowser>)browser;
 #endif
 
 - (void)configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item;

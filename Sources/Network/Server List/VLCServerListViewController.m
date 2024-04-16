@@ -41,10 +41,12 @@
 
 #import "VLCWiFiUploadTableViewCell.h"
 
+#if TARGET_OS_IOS
 #import "VLCBoxController.h"
 #import <OneDriveSDK.h>
 #import "VLCOneDriveConstants.h"
 #import "VLCDropboxConstants.h"
+#endif
 
 #import "VLC-Swift.h"
 
@@ -117,7 +119,11 @@
     _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
     _remoteNetworkDataSourceAndDelegate.delegate = self;
 
+#if TARGET_OS_VISION
+    CGRect screenDimensions = [[[[UIApplication sharedApplication] delegate] window] bounds];
+#else
     CGRect screenDimensions = [UIScreen mainScreen].bounds;
+#endif
 
     _localNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -155,7 +161,12 @@
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [_localNetworkTableView addSubview:_refreshControl];
 
+#if TARGET_OS_VISION
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    _activityIndicator.color = [UIColor whiteColor];
+#else
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+#endif
     _activityIndicator.center = _localNetworkTableView.center;
     _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     _activityIndicator.hidesWhenStopped = YES;
@@ -212,7 +223,9 @@
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
+#if TARGET_OS_IOS
     [notificationCenter addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
+#endif
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
                                name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
@@ -231,7 +244,9 @@
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
 
+#if TARGET_OS_IOS
     [self configureCloudControllers];
+#endif
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -271,6 +286,7 @@
     _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+#if TARGET_OS_IOS
 - (BOOL)shouldAutorotate
 {
     UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
@@ -278,6 +294,7 @@
         return NO;
     return YES;
 }
+#endif
 
 - (void)contentSizeDidChange
 {
@@ -302,6 +319,7 @@
         loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
 }
 
+#if TARGET_OS_IOS
 - (void)configureCloudControllers
 {
     VLCBoxController *boxController = [VLCBoxController sharedInstance];
@@ -319,6 +337,7 @@
     // Start P Cloud session on init to check whether it is logged in or not as soon as possible
     [controller startSession];
 }
+#endif
 
 - (void)boxSessionUpdated
 {
@@ -431,7 +450,9 @@
 
     loginViewController.loginInformation = login;
     loginViewController.delegate = self;
+#if TARGET_OS_IOS
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+#endif
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
         navCon.navigationBarHidden = NO;
         navCon.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -444,9 +465,11 @@
                                                                     target:self
                                                                     action:@selector(_dismissLogin)];
         }
+#if TARGET_OS_IOS
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
+#endif
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -523,7 +546,9 @@
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
     }
+#if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
 - (void)_dismissLogin
@@ -535,10 +560,12 @@
     }
 }
 
+#if TARGET_OS_IOS
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return PresentationTheme.current.colors.statusBarStyle;
 }
+#endif
 
 #pragma mark - Refresh
 
@@ -612,6 +639,7 @@
 
 #pragma mark - UIDocumentPickerDelegate
 
+#if TARGET_OS_IOS
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
 {
     if (url && [url startAccessingSecurityScopedResource]) {
@@ -621,6 +649,18 @@
         [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
     }
 }
+#else
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
+{
+    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+    for (NSURL *url in urls) {
+        [url startAccessingSecurityScopedResource];
+        [mediaList addMedia:[VLCMedia mediaWithURL:url]];
+        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+    }
+    [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+}
+#endif
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls API_AVAILABLE(ios(11.0))
 {

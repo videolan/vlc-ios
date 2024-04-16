@@ -376,7 +376,9 @@ API_AVAILABLE(ios(13.0)) {
 - (void)themeDidChange
 {
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+#if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
 @end
