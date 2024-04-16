@@ -114,10 +114,12 @@ class QueueViewController: UIViewController {
                                   selector: #selector(themeDidChange),
                                   name: .VLCThemeDidChangeNotification,
                                   object: nil)
+#if os(iOS)
         defaultCenter.addObserver(self,
                                   selector: #selector(deviceOrientationDidChange),
                                   name: UIDevice.orientationDidChangeNotification,
                                   object: nil)
+#endif
         defaultCenter.addObserver(self,
                                   selector: #selector(reload),
                                   name: Notification.Name(VLCPlaybackServiceShuffleModeUpdated),
@@ -437,7 +439,9 @@ private extension QueueViewController {
 
 private extension QueueViewController {
     @objc private func themeDidChange() {
+#if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
+#endif
     }
 
     private func updateCollectionViewCellApparence(_ cell: MediaCollectionViewCell, isSelected: Bool) {
