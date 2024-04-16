@@ -59,7 +59,12 @@ class ActionSheet: UIViewController {
     }()
 
     @objc lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: UIScreen.main.bounds,
+#if os(iOS)
+        let frame = UIScreen.main.bounds
+#else
+        let frame = UIApplication.shared.delegate?.window??.bounds
+#endif
+        let collectionView = UICollectionView(frame: frame!,
                                               collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -77,7 +82,12 @@ class ActionSheet: UIViewController {
     }()
 
     lazy var collectionWrapperView: UIView = {
-        let collectionWrapperView: UIView = UIView(frame: UIScreen.main.bounds)
+#if os(iOS)
+        let frame = UIScreen.main.bounds
+#else
+        let frame = UIApplication.shared.delegate?.window??.bounds
+#endif
+        let collectionWrapperView: UIView = UIView(frame: frame!)
         collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         return collectionWrapperView
     }()
@@ -201,7 +211,7 @@ class ActionSheet: UIViewController {
         mainStackView.addArrangedSubview(headerView)
         mainStackView.addArrangedSubview(collectionWrapperView)
 
-        backgroundView.frame = UIScreen.main.bounds
+        backgroundView.frame = self.view.frame
 
         backgroundView.accessibilityLabel = NSLocalizedString("ACTIONSHEET_BACKGROUND_LABEL",
                                                               comment: "")

@@ -73,6 +73,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
 
         buttonBarView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonBarView)
+#if os(iOS)
         NSLayoutConstraint.activate([
             buttonBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -87,6 +88,22 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
             containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ]
         )
+#else
+        NSLayoutConstraint.activate([
+            buttonBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            buttonBarView.heightAnchor.constraint(equalToConstant: buttonbarViewHeight)
+            ])
+
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
+            containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ]
+        )
+#endif
 
         buttonBarView.delegate = self
         buttonBarView.dataSource = self

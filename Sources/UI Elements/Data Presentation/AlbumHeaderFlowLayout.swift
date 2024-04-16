@@ -38,8 +38,12 @@ class AlbumHeaderLayout: UICollectionViewFlowLayout {
     }
 
     func getHeaderSize(with width: CGFloat) -> CGSize {
+#if os(iOS)
         let isLandscape: Bool = UIDevice.current.orientation.isLandscape
         let headerHeight: CGFloat = isLandscape ? 250.0 : 350.0
+#else
+        let headerHeight: CGFloat = 350.0
+#endif
 
         return CGSize(width: width, height: headerHeight)
     }
