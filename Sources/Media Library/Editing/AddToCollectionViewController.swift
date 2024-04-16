@@ -20,7 +20,7 @@ protocol AddToCollectionViewControllerDelegate: AnyObject {
                                        newCollectionName name: String,
                                        from mlType: MediaCollectionModel.Type)
     func addToCollectionViewControllerMoveCollections(_
-        addToCollectionViewController: AddToCollectionViewController)
+                                                      addToCollectionViewController: AddToCollectionViewController)
 }
 
 enum AddToCollectionSection: Int, CaseIterable {
@@ -73,16 +73,18 @@ class AddToCollectionViewController: UIViewController {
     override func viewSafeAreaInsetsDidChange() {
         collectionView.collectionViewLayout.invalidateLayout()
     }
-    
+
     override func viewDidLayoutSubviews() {
-          super.viewDidLayoutSubviews()
-          collectionView.collectionViewLayout.invalidateLayout()
+        super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
         collectionView.backgroundColor = PresentationTheme.current.colors.background
+#if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
+#endif
     }
 
     @objc private func dismissView() {
@@ -141,7 +143,7 @@ class AddToCollectionViewController: UIViewController {
                                           style: .default) {
             [weak alertController] _ in
             guard let alertController = alertController,
-                let textField = alertController.textFields?.first else { return }
+                  let textField = alertController.textFields?.first else { return }
 
             guard let text = textField.text, text != "" else {
                 DispatchQueue.main.async {
@@ -204,7 +206,7 @@ private extension AddToCollectionViewController {
     private func setupCollectionView() {
         let cellNib = UINib(nibName: MediaCollectionViewCell.nibName, bundle: nil)
         collectionView.register(cellNib,
-                                        forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
+                                forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = collectionViewLayout
@@ -233,7 +235,7 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
 extension AddToCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if  collectionModelType is VLCMLMediaGroup.Type
-            && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
+                && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
             delegate?.addToCollectionViewControllerMoveCollections(self)
             return
         }

@@ -72,7 +72,7 @@ class EditToolbar: UIView {
         delegate?.editToolbarDidDelete(self)
     }
 
-    @objc func rename() {
+    @objc func renameSelection() {
         delegate?.editToolbarDidRename(self)
     }
 

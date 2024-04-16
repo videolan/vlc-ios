@@ -28,7 +28,7 @@ class EditActions {
     }()
 
     init(model: MediaLibraryBaseModel, mediaLibraryService: MediaLibraryService) {
-        self.rootViewController = UIApplication.shared.keyWindow!.rootViewController!
+        self.rootViewController = (UIApplication.shared.delegate?.window??.rootViewController!)!
         self.model = model
         self.mediaLibraryService = mediaLibraryService
     }
@@ -210,8 +210,10 @@ extension EditActions {
 
     func share(origin: UIView, _ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
+#if os(iOS)
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
+#endif
+
         guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: URLs(),
                                                                                       presenting: nil,
                                                                                       presenting: rootViewController,
@@ -220,7 +222,9 @@ extension EditActions {
                 self.completion?(.success)
             }
         ) else {
+#if os(iOS)
             UIApplication.shared.endIgnoringInteractionEvents()
+#endif
             self.completion?(.fail)
             return
         }
@@ -228,7 +232,9 @@ extension EditActions {
         controller.popoverPresentationController?.permittedArrowDirections = .any
         controller.popoverPresentationController?.sourceRect = origin.bounds
         rootViewController.present(controller, animated: true) {
+#if os(iOS)
             UIApplication.shared.endIgnoringInteractionEvents()
+#endif
         }
     }
 }
