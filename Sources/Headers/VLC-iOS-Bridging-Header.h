@@ -1,13 +1,10 @@
-#import <AppAuth/AppAuth.h>
 #import <VLCKit/VLCKit.h>
-#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCExternalDisplayController.h"
 #import "UIColor+Presets.h"
 #import "VLCAppDelegate.h"
 #import "VLCAppCoordinator.h"
-#import "VLCCloudServicesTableViewController.h"
 #import "VLCConstants.h"
 #import "VLCDownloadController.h"
 #import "VLCDownloadViewController.h"
@@ -26,18 +23,13 @@
 #import "VLCActivityViewControllerVendor.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCMigrationViewController.h"
-#import "VLCCloudStorageTableViewController.h"
-#import "VLCCloudStorageTableViewCell.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCFirstStepsViewController.h"
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
-#import "VLCDropboxConstants.h"
 #import "VLCStatusLabel.h"
 #import "VLCThumbnailsCache.h"
-#import "VLCGoogleDriveTableViewController.h"
-#import "VLCGoogleDriveConstants.h"
 #import "VLCMLMedia+App.h"
 #import "VLCNonInteractiveWindowSceneDelegate.h"
 #import "VLCNetworkListCell.h"
@@ -48,7 +40,6 @@
 #import "VLCFavoriteService.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNagScreenViewController.h"
-
 #import "VLCNetworkServerLoginInformation.h"
 #import "VLCNetworkServerBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
@@ -59,11 +50,17 @@
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 
+#if TARGET_OS_IOS
+#import <AppAuth/AppAuth.h>
+#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+#import "VLCGoogleDriveTableViewController.h"
+#import "VLCGoogleDriveConstants.h"
+#import "VLCCloudServicesTableViewController.h"
+#import "VLCCloudStorageTableViewController.h"
+#import "VLCCloudStorageTableViewCell.h"
+#import "VLCDropboxConstants.h"
 #import "VLCDropboxTableViewController.h"
 #import "VLCDropboxController.h"
-
-#import "VLCBoxTableViewController.h"
-
-#import "VLCCloudStorageTableViewCell.h"
-#import "VLCCloudStorageTableViewController.h"
 #import "VLCPCloudConstants.h"
+#import "VLCBoxTableViewController.h"
+#endif
