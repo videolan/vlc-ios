@@ -25,6 +25,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         return PresentationTheme.current.colors.statusBarStyle
     }
 
+#if os(iOS)
     override var shouldAutorotate: Bool {
         let toInterfaceOrientation = UIApplication.shared.statusBarOrientation
         let currentUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
@@ -33,6 +34,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         }
         return true
     }
+#endif
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -155,7 +157,9 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     }
 
     @objc private func sendFeedbackEmail() {
+#if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
+#endif
 
         if MFMailComposeViewController.canSendMail() {
             let mailComposerVC = MFMailComposeViewController()
@@ -213,7 +217,10 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
 
 
     @objc private func dismissView() {
+#if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
+#endif
+
         dismiss(animated: true)
     }
 }
@@ -227,11 +234,15 @@ extension AboutController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         guard let requestURL = navigationAction.request.url else {return}
+#if os(iOS)
         if (requestURL.scheme != "") && UIApplication.shared.openURL(requestURL) {
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
         }
+#else
+        decisionHandler(.allow)
+#endif
     }
 }
 
