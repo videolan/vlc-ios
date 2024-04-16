@@ -142,6 +142,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if TARGET_OS_IOS
     if (@available(iOS 13.0, *)) {
         APLog(@"Using Scene flow");
     } else {
@@ -153,6 +154,7 @@
         [self setupTabBarAppearance];
     }
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+#endif
 
     [self configureShortCutItemsWithApplication:application];
 
