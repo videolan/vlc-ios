@@ -59,6 +59,7 @@ class AudioPlayerViewController: PlayerViewController {
 
     // MARK: - Init
 
+#if os(iOS)
     @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
@@ -77,6 +78,25 @@ class AudioPlayerViewController: PlayerViewController {
         setupSliders()
         setupStatusLabel()
     }
+#else
+    @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+        super.init(mediaLibraryService: mediaLibraryService, playerController: playerController)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
+
+        self.playerController.delegate = self
+        mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
+        audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
+        audioPlayerView.updateThumbnailImageView()
+        audioPlayerView.setupPlaybackSpeed()
+        audioPlayerView.setupBackgroundColor()
+        mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
+        audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
+        audioPlayerView.setupExternalOutputView(with: externalOutputView)
+        setupAudioPlayerViewConstraints()
+        setupOptionsNavigationBar()
+        setupStatusLabel()
+    }
+#endif
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -98,9 +118,13 @@ class AudioPlayerViewController: PlayerViewController {
             changeOutputView(to: externalOutputView.displayView)
         }
 
+#if os(iOS)
         let orientation = getDeviceOrientation()
         audioPlayerView.updateConstraints(for: orientation)
         mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
+#else
+        mediaScrubProgressBar.shouldHideScrubLabels = false
+#endif
 
         let displayShortcutView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
         audioPlayerView.shouldDisplaySecondaryStackView(displayShortcutView)
@@ -114,11 +138,13 @@ class AudioPlayerViewController: PlayerViewController {
         previousSeekState = .default
     }
 
+#if os(iOS)
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let orientation = getDeviceOrientation()
         audioPlayerView.updateConstraints(for: orientation)
         mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
     }
+#endif
 
     // MARK: Public methods
 
@@ -184,6 +210,7 @@ class AudioPlayerViewController: PlayerViewController {
         }
     }
 
+#if os(iOS)
     override func changeOutputView(to output: UIView?) {
         guard output == externalOutputView.displayView else {
             externalOutputView.isHidden = true
@@ -191,10 +218,13 @@ class AudioPlayerViewController: PlayerViewController {
             return
         }
 
-        externalOutputView.updateUI(rendererItem: playbackService.renderer, title: nil)
-        externalOutputView.isHidden = false
-        audioPlayerView.thumbnailView.isHidden = true
+        if let renderer = playbackService.renderer {
+            externalOutputView.updateUI(rendererName: renderer.name, title: nil)
+            externalOutputView.isHidden = false
+            audioPlayerView.thumbnailView.isHidden = true
+        }
     }
+#endif
 
     override func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
         let screenWidth: CGFloat = view.frame.size.width
@@ -236,6 +266,7 @@ class AudioPlayerViewController: PlayerViewController {
         ])
     }
 
+#if os(iOS)
     private func setupSliders() {
         audioPlayerView.setupSliders(with: brightnessControlView, and: volumeControlView)
 
@@ -244,6 +275,7 @@ class AudioPlayerViewController: PlayerViewController {
             volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }
+#endif
 
     private func setupStatusLabel() {
         audioPlayerView.addSubview(statusLabel)
@@ -278,9 +310,14 @@ class AudioPlayerViewController: PlayerViewController {
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
+#if os(iOS)
         mediaNavigationBar.deviceButton.isEnabled = enabled
         mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
         mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
+#else
+        mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = enabled
+        mediaNavigationBar.airplayVolumeView.alpha = !enabled ? 0.5 : 1
+#endif
 
         mediaScrubProgressBar.progressSlider.isEnabled = enabled
         mediaScrubProgressBar.remainingTimeButton.isEnabled = enabled
@@ -292,6 +329,7 @@ class AudioPlayerViewController: PlayerViewController {
         playerController.isInterfaceLocked = !enabled
     }
 
+#if os(iOS)
     private func getDeviceOrientation() -> UIDeviceOrientation {
         // Return the correct device orientation even if it is detected
         // as flat.
@@ -332,7 +370,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 
         return image
     }
-    
+
     func audioPlayerViewDelegateGetPlaybackSpeed(_ audioPlayerView: AudioPlayerView) -> Float {
         return playbackService.playbackRate
     }
@@ -396,6 +434,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         }
     }
 
+#if os(iOS)
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {
         return brightnessControlView
     }
@@ -403,6 +442,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView {
         return volumeControlView
     }
+#endif
 }
 
 // MARK: - VLCPlaybackServiceDelegate

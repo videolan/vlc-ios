@@ -23,8 +23,10 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
-    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
+    #if os(iOS)
     func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
+    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
+    #endif
 }
 
 class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
@@ -171,8 +173,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private var thumbnailImageViewWidthConstant: CGFloat = 270.0
 
     private lazy var progressionViewBottomConstant: CGFloat = {
+#if os(iOS)
         let isSmallerScreen: Bool = UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
         return isSmallerScreen ? 40 : 60
+#else
+        return 60
+#endif
     }()
 
     private lazy var progressionViewBottomConstraint: NSLayoutConstraint = progressionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
@@ -381,6 +387,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     func updateConstraints(for orientation: UIDeviceOrientation) {
         let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
 
+#if os(iOS)
         if orientation.isLandscape {
             thumbnailViewTopConstraint.constant = 5
             progressionViewBottomConstraint.constant = -5.0
@@ -392,6 +399,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             progressionViewHeightConstraint.constant = 70
             controlsStackView.spacing = isPad ? controlsStackViewMinSpacing * 2 : controlsStackViewMinSpacing
         }
+#else
+        thumbnailViewTopConstraint.constant = 5
+        progressionViewBottomConstraint.constant = -5.0
+        progressionViewHeightConstraint.constant = 30
+        controlsStackView.spacing = controlsStackViewMaxSpacing * 2
+#endif
 
         setNeedsLayout()
         layoutIfNeeded()
@@ -568,8 +581,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupProgressionView() {
+#if os(iOS)
         let isSmallerScreen: Bool = UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
         let padding: CGFloat = isSmallerScreen ? 10.0 : 25.0
+#else
+        let padding: CGFloat = 25.0
+#endif
 
         progressionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -584,7 +601,11 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func applyCornerRadius() {
+#if os(iOS)
         let cornerRadius = UIScreen.main.displayCornerRadius
+#else
+        let cornerRadius = 5.0
+#endif
         overlayView.layer.cornerRadius = cornerRadius
         backgroundView.layer.cornerRadius = cornerRadius
     }
