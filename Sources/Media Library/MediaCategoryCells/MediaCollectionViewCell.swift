@@ -222,10 +222,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
 
         if scrollView.contentOffset.x >= deleteButton.frame.size.width + 30 {
+#if os(iOS)
             let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
             impactFeedbackGenerator.prepare()
             impactFeedbackGenerator.impactOccurred()
-
+#endif
             vibrationTriggered = true
             scrollContentView.isHidden = true
         } else {
