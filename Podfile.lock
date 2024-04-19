@@ -15,11 +15,11 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - AppAuth (1.7.3):
-    - AppAuth/Core (= 1.7.3)
-    - AppAuth/ExternalUserAgent (= 1.7.3)
-  - AppAuth/Core (1.7.3)
-  - AppAuth/ExternalUserAgent (1.7.3):
+  - AppAuth (1.7.4):
+    - AppAuth/Core (= 1.7.4)
+    - AppAuth/ExternalUserAgent (= 1.7.4)
+  - AppAuth/Core (1.7.4)
+  - AppAuth/ExternalUserAgent (1.7.4):
     - AppAuth/Core
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
@@ -48,7 +48,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
-  - MobileVLCKit (3.6.0b10)
+  - MobileVLCKit (3.6.0b11)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.3.2)
   - OBSlider (1.1.0)
@@ -73,7 +73,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - TVVLCKit (3.6.0b10)
+  - TVVLCKit (3.6.0b11)
   - VLCMediaLibraryKit (0.11.0b2):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -92,13 +92,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.6.0b10)
+  - MobileVLCKit (= 3.6.0b11)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - TVVLCKit (= 3.6.0b10)
+  - TVVLCKit (= 3.6.0b11)
   - VLCMediaLibraryKit (= 0.11.0b2)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -171,7 +171,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ADAL: e97e102cac7fc420d3275b20c8da0b87a92f6354
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
+  AppAuth: 182c5b88630569df5acb672720534756c29b3358
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 6a507d6a6cf49de040f3bd6e0820835e27eb29e6
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
@@ -183,18 +183,18 @@ SPEC CHECKSUMS:
   InAppSettingsKit: ef4b135a8f93b3104d729ad34ce3de49cfd733f8
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
-  MobileVLCKit: 5600003cf2dc47acf7ad2fd87fe9f3739b2475ed
+  MobileVLCKit: d20b1e96a93446d97abd377a1daa230202147619
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: 5ef02252c447cf4c93330391c62680ea91676e9e
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  TVVLCKit: a19f04eedfb342c24e968fa1bf0c09ff0cf9fcf6
+  TVVLCKit: eee93f9f55af3b6fe633d7a7906ad60f89983dbd
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 1f2573295880d27b33ba2c07ed9e248fc9520828
 
-PODFILE CHECKSUM: faf948bab5058439ba70de164c3b51c1a4d0239c
+PODFILE CHECKSUM: 4e09d248a7889b415160da482e75f83fdfef4952
 
 COCOAPODS: 1.15.2

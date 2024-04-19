@@ -21,7 +21,7 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '6.2.0'
-  pod 'MobileVLCKit', '3.6.0b10'
+  pod 'MobileVLCKit', '3.6.0b11'
   pod 'VLCMediaLibraryKit', '0.11.0b2'
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
@@ -37,6 +37,7 @@ target 'VLC-iOS' do
 end
 
 target 'VLC-iOS-Screenshots' do
+  platform :ios, '9.0'
   inherit! :search_paths
   pod 'SimulatorStatusMagic'
 end
@@ -45,7 +46,7 @@ target 'VLC-tvOS' do
   platform :tvos, '11.0'
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
-  pod 'TVVLCKit', '3.6.0b10'
+  pod 'TVVLCKit', '3.6.0b11'
   pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 
