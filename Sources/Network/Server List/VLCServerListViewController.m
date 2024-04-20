@@ -401,7 +401,12 @@
 
     /* UPnP does not support authentication, so skip this step */
     if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
-        VLCNetworkServerBrowserVLCMedia *serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+        VLCNetworkServerBrowserVLCMedia *serverBrowser;
+        if (login.rootMedia != nil) {
+            serverBrowser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:login.rootMedia options:login.options];
+        } else {
+            serverBrowser= [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+        }
         VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
                                                      initWithServerBrowser:serverBrowser
                                                      medialibraryService:_medialibraryService];

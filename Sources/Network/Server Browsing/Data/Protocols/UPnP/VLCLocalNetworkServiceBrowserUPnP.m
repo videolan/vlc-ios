@@ -66,6 +66,7 @@ NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"UPNP";
 
     VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:VLCNetworkServerProtocolIdentifierUPnP];
     login.address = self.mediaItem.url.absoluteString;
+    login.rootMedia = media;
 
     /* SAT>IP needs the host address of the UPnP server set as an option as
      * when using a generic playlist, the host address will be 'sat.ip' and

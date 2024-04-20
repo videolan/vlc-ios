@@ -13,6 +13,8 @@
 #import <Foundation/Foundation.h>
 #import "VLCLocalNetworkService-Protocol.h"
 
+@class VLCMedia;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCNetworkServerLoginInformationField : NSObject <NSCopying, VLCNetworkServerLoginInformationField>
@@ -36,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *protocolIdentifier;
 @property (nonatomic, copy) NSArray<VLCNetworkServerLoginInformationField *> *additionalFields;
 @property (nonatomic, copy) NSDictionary *options;
+@property (nonatomic, retain) VLCMedia *rootMedia;
 
 + (instancetype)newLoginInformationForProtocol:(NSString *)protocolIdentifier;
 + (void)registerTemplateLoginInformation:(VLCNetworkServerLoginInformation *)loginInformation;
