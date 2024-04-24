@@ -72,6 +72,7 @@
 #define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
+#define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"
 
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
 #define kVLCPlayerIsShuffleEnabled @"PlayerIsShuffleEnabled"

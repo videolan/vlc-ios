@@ -199,6 +199,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [vpc recoverDisplayedMetadata];
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
+    [vpc disableSubtitlesIfNeeded];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -1550,6 +1550,13 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         [self.delegate prepareForMediaPlayback:self];
 }
 
+- (void)disableSubtitlesIfNeeded
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
+        _mediaPlayer.currentVideoSubTitleIndex = -1;
+    }
+}
+
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval
 {
     if (_sleepTimer) {

@@ -49,6 +49,8 @@
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitles";
+"SETTINGS_SUBTITLES_DISABLE" = "Disable subtitles";
+"SETTINGS_SUBTITLES_DISABLE_LONG" = "Disable the automatic selection of subtitles";
 "SETTINGS_SUBTITLES_FONT" = "Font";
 "SETTINGS_SUBTITLES_TEXT_ENCODING" = "Text encoding";
 "SETTINGS_SUBTITLES_FONTSIZE" = "Relative font size";

@@ -145,6 +145,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 - (void)recoverDisplayedMetadata;
 - (void)recoverPlaybackState;
+- (void)disableSubtitlesIfNeeded;
 
 - (BOOL)isPlayingOnExternalScreen;
 

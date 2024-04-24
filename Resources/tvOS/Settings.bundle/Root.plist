@@ -136,6 +136,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_DISABLE</string>
+			<key>Key</key>
+			<string>kVLCSettingDisableSubtitles</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_SUBTITLES_FONT</string>
