@@ -182,8 +182,15 @@
 
         /* UPnP does not support authentication, so skip this step */
         if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
-            VLCNetworkServerBrowserVLCMedia *serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
-                        VLCServerBrowsingTVViewController *browsingViewController = [[VLCSearchableServerBrowsingTVViewController alloc] initWithServerBrowser:serverBrowser];
+            VLCNetworkServerBrowserVLCMedia *serverBrowser;
+            if (login.rootMedia != nil) {
+                serverBrowser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:login.rootMedia options:login.options];
+            } else {
+                serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+            }
+
+            VLCServerBrowsingTVViewController *browsingViewController = [[VLCSearchableServerBrowsingTVViewController alloc] initWithServerBrowser:serverBrowser];
+
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browsingViewController]
                                animated:YES
                              completion:nil];
