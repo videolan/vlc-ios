@@ -405,7 +405,7 @@
         if (login.rootMedia != nil) {
             serverBrowser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:login.rootMedia options:login.options];
         } else {
-            serverBrowser= [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+            serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
         }
         VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
                                                      initWithServerBrowser:serverBrowser
