@@ -636,12 +636,20 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)numberOfAudioTracks
 {
+#if TARGET_OS_IOS
     return [_mediaPlayer numberOfAudioTracks] + 1;
+#else
+    return [_mediaPlayer numberOfAudioTracks];
+#endif
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
-    return _mediaPlayer.videoSubTitlesIndexes.count + 2;
+#if TARGET_OS_IOS
+    return [_mediaPlayer numberOfSubtitlesTracks] + 2;
+#else
+    return [_mediaPlayer numberOfSubtitlesTracks] + 1;
+#endif
 }
 
 - (NSInteger)numberOfTitles
@@ -657,24 +665,23 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index
 {
     NSInteger count = _mediaPlayer.videoSubTitlesNames.count;
-    if (index >= 0 && index < count) {
-        return _mediaPlayer.videoSubTitlesNames[index];
-    } else if (index == count) {
+
+    if (index == count) {
         return NSLocalizedString(@"SELECT_SUBTITLE_FROM_FILES", nil);
+    } else {
+        return _mediaPlayer.videoSubTitlesNames[index];
     }
-    else if (index == count + 1) {
-        return NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
-    }
-    return @"";
 }
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index
 {
-    if (index >= 0 && index < _mediaPlayer.audioTrackNames.count)
-        return _mediaPlayer.audioTrackNames[index];
-    else if (index == _mediaPlayer.audioTrackNames.count)
+    NSInteger count = _mediaPlayer.audioTrackNames.count;
+
+    if (index == count) {
         return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
-    return @"";
+    } else {
+        return _mediaPlayer.audioTrackNames[index];
+    }
 }
 
 - (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index

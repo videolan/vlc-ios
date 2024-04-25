@@ -303,7 +303,10 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
                 textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
-            cellTitle = playbackService.videoSubtitleName(at: indexPath.row)
+
+            let count = playbackService.numberOfVideoSubtitlesIndexes
+            cellTitle = indexPath.row == count - 1 ? NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO", comment: "") :
+                        playbackService.videoSubtitleName(at: indexPath.row)
         }
 
         if cellTitle == "Disable" {

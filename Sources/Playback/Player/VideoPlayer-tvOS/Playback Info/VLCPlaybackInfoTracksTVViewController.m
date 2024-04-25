@@ -154,7 +154,8 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger row = indexPath.row;
     NSString *trackName;
-    if (row >= [vpc numberOfVideoSubtitlesIndexes]) {
+
+    if (row == [vpc numberOfVideoSubtitlesIndexes] - 1) {
         trackName = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     } else {
         BOOL isSelected = [vpc indexOfCurrentSubtitleTrack] == row;
