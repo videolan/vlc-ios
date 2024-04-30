@@ -568,7 +568,6 @@
 		7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */; };
 		7DB40A9D28C77B8900EDACA0 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */; };
 		7DB559BE27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */; };
-		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCDownloadController.m */; };
 		7DBB9D3F27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */; };
 		7DBB9D4027FF3BFB00ABCEC7 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
@@ -3754,7 +3753,6 @@
 				7DCD84F1242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */,
 				41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
-				7DB638AB185BC0890003887C /* Images.xcassets in Resources */,
 				6D3C676C23CDF1FC0039ACFD /* public in Resources */,
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
 				7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */,
@@ -5509,6 +5507,10 @@
 					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIconDev;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIconDev;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -5566,6 +5568,10 @@
 					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -5624,6 +5630,10 @@
 					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
