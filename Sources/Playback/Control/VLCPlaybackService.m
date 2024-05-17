@@ -137,6 +137,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
         _shuffledList = nil;
+        _shuffledOrder = [[NSMutableArray alloc] init];
 
         // Initialize a separate media player in order to play silence so that the application can
         // stay alive in background exclusively for Chromecast.
@@ -884,14 +885,16 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         [self shuffleMediaList];
         _currentIndex = 0;
 
-        if ([_shuffledList count] == 0) {
-            NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
-            for (NSInteger i = _currentIndex; i < _mediaList.count; i++) {
-                [shuffledMedias addObject:[_mediaList mediaAtIndex:[_shuffledOrder[i] integerValue]]];
-            }
+        @synchronized (_shuffledOrder) {
+            if ([_shuffledList count] == 0) {
+                NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
+                for (NSInteger i = _currentIndex; i < _mediaList.count; i++) {
+                    [shuffledMedias addObject:[_mediaList mediaAtIndex:[_shuffledOrder[i] integerValue]]];
+                }
 
-            _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
-            _listPlayer.mediaList = _shuffledList;
+                _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
+                _listPlayer.mediaList = _shuffledList;
+            }
         }
     } else {
         _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
@@ -912,21 +915,25 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 }
 
 - (void)shuffleMediaList {
-    NSInteger mediaListLength = _mediaList.count;
+    @synchronized (_shuffledOrder) {
+        NSInteger mediaListLength = _mediaList.count;
 
-    if (mediaListLength <= 1) {
-        return;
-    }
-    _shuffledOrder = [[NSMutableArray alloc]init];
-    for (int i = 0; i < mediaListLength; i++)
-    {
-        [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
-    }
-    [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
-    for (NSInteger i = 1; i < mediaListLength; i++) {
-        NSInteger nElements = mediaListLength - i;
-        NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
-        [_shuffledOrder exchangeObjectAtIndex:i withObjectAtIndex:n];
+        if (mediaListLength <= 1) {
+            return;
+        }
+
+        [_shuffledOrder removeAllObjects];
+
+        for (int i = 0; i < mediaListLength; i++)
+        {
+            [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
+        }
+        [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
+        for (NSInteger i = 1; i < mediaListLength; i++) {
+            NSInteger nElements = mediaListLength - i;
+            NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
+            [_shuffledOrder exchangeObjectAtIndex:i withObjectAtIndex:n];
+        }
     }
 }
 
