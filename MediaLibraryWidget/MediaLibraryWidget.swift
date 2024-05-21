@@ -60,7 +60,7 @@ struct MediaLibraryWidgetEntryView: View {
 
     @Environment(\.widgetFamily) var widgetFamily
 
-    private static let urlScheme: String = "ml-widget://"
+    private static let urlScheme: String = "ml-widget:///"
 
     var body: some View {
         ZStack {

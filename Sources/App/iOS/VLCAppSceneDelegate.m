@@ -90,6 +90,12 @@
         return;
     }
 
+    if ([url.scheme isEqualToString:@"ml-widget"]) {
+        NSArray<NSString *> *pathComponents = url.pathComponents;
+        NSURL *documentsURL = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+        url = [documentsURL URLByAppendingPathComponent:pathComponents.lastObject];
+    }
+
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
     [appDelegate application:sharedApplication openURL:url options:@{}];
