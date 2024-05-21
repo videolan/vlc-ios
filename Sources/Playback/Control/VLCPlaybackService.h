@@ -55,6 +55,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)reloadPlayQueue;
 - (void)pictureInPictureStateDidChange:(BOOL)isEnabled
 NS_SWIFT_NAME(pictureInPictureStateDidChange(enabled:));
+- (void)updateWidgetsIfNeeded;
 @end
 
 NS_SWIFT_NAME(PlaybackService)

@@ -1039,6 +1039,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             case VLCMediaPlayerStatePlaying: {
                 APLog(@"%s: playing", __func__);
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
+#if TARGET_OS_IOS
+                [self saveMediaForWidget];
+#endif
             } break;
 
             case VLCMediaPlayerStatePaused: {
@@ -2145,4 +2148,65 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 }
 #endif
 
+#pragma mark - Widgets
+
+#if TARGET_OS_IOS
+- (void)saveMediaForWidget
+{
+    VLCMedia *currentMedia = self.currentlyPlayingMedia;
+    if (!currentMedia) {
+        return;
+    }
+
+    VLCMLMedia *mlMedia = [VLCMLMedia mediaForPlayingMedia:currentMedia];
+    VLCMLArtist *artist = mlMedia.artist;
+    UIImage *thumbnailImage = mlMedia.thumbnailImage;
+
+    if (!mlMedia || !artist || !thumbnailImage) {
+        return;
+    }
+
+    NSData *imageData = UIImagePNGRepresentation(thumbnailImage);
+    NSString *stringData = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+
+    if (!stringData) {
+        return;
+    }
+
+    UIColor *averageColor = [thumbnailImage averageColor];
+    CGFloat red, green, blue, alpha;
+
+    if (![averageColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        red = green = blue = alpha = 0;
+    }
+
+    NSDictionary *color = @{
+        @"red": @(red),
+        @"green": @(green),
+        @"blue": @(blue),
+        @"alpha": @(alpha)
+    };
+
+    NSDictionary *object = @{
+        @"albumName": mlMedia.title,
+        @"artistName": mlMedia.artist.name ?: @"",
+        @"imageData": stringData,
+        @"mediaURL": currentMedia.url.lastPathComponent ?: @"",
+        @"color": color
+    };
+
+    NSError *error = nil;
+    NSData *mediaData = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
+
+    NSString *groupIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MLKitGroupIdentifier"];
+    if (mediaData && groupIdentifier) {
+        NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:groupIdentifier];
+        [sharedDefaults setObject:mediaData forKey:@"media"];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(updateWidgetsIfNeeded)]) {
+        [self.delegate updateWidgetsIfNeeded];
+    }
+}
+#endif
 @end

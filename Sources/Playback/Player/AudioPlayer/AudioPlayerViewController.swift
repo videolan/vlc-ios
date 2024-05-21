@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 import UIKit
+import WidgetKit
 
 @objc(VLCAudioPlayerViewControllerDelegate)
 protocol AudioPlayerViewControllerDelegate: AnyObject {
@@ -528,6 +529,24 @@ extension AudioPlayerViewController {
 
     func playModeUpdated() {
         audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
+    }
+
+    func updateWidgetsIfNeeded() {
+        guard #available(iOS 14.0, *) else {
+            return
+        }
+
+        let widgetCenter = WidgetCenter.shared
+        widgetCenter.getCurrentConfigurations({ result in
+            switch result {
+            case let .success(widgetInfo):
+                if !widgetInfo.isEmpty {
+                    widgetCenter.reloadAllTimelines()
+                }
+            case let .failure(error):
+                assertionFailure("AudioPlayerViewController: \(error)")
+            }
+        })
     }
 }
 

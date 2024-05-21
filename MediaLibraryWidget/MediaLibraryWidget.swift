@@ -32,13 +32,9 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationAppIntent
 
     var decodedData: MLWidgetBridge? = {
-        let encodedData = UserDefaults(suiteName: "group.com.example.vlc-ios")!.object(forKey: "media") as? Data
-        guard let encodedData = encodedData else {
-            return nil
-        }
-
-        let decodedData = try? JSONDecoder().decode(MLWidgetBridge.self, from: encodedData)
-        guard let decodedData = decodedData else {
+        guard let groupIdentifier = Bundle.main.object(forInfoDictionaryKey: "MLKitGroupIdentifier") as? String,
+              let encodedData = UserDefaults(suiteName: groupIdentifier)?.object(forKey: "media") as? Data,
+              let decodedData = try? JSONDecoder().decode(MLWidgetBridge.self, from: encodedData) else {
             return nil
         }
 

@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 import UIKit
+import WidgetKit
 
 enum MiniPlayerVerticalPosition {
     case bottom
@@ -232,6 +233,24 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         }
 
         queueViewController.reload()
+    }
+
+    func updateWidgetsIfNeeded() {
+        guard #available(iOS 14.0, *) else {
+            return
+        }
+
+        let widgetCenter = WidgetCenter.shared
+        widgetCenter.getCurrentConfigurations({ result in
+            switch result {
+            case let .success(widgetInfo):
+                if !widgetInfo.isEmpty {
+                    widgetCenter.reloadAllTimelines()
+                }
+            case let .failure(error):
+                assertionFailure("AudioMiniPlayer: \(error)")
+            }
+        })
     }
 }
 
