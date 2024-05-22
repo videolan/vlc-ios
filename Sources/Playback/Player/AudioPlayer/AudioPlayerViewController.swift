@@ -135,8 +135,8 @@ class AudioPlayerViewController: PlayerViewController {
         super.showPopup(popupView, with: contentView, accessoryViewsDelegate: accessoryViewsDelegate)
 
         let iPhone5width: CGFloat = 320
-        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
-        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.leadingAnchor, constant: 10)
+        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor, constant: -10)
         leadingConstraint.priority = .required
         trailingConstraint.priority = .required
 
