@@ -378,7 +378,6 @@ extension EqualizerView {
         showCancel = true
         parentPopup?.updateAccessoryViews()
         UIDelegate?.equalizerViewShowIcon()
-        hideEqualizerIconIfNeeded()
     }
 
     @objc func sliderDidDrag(sender: UISlider) {
@@ -433,26 +432,22 @@ extension EqualizerView {
     }
 
     @objc func resetEqualizer() {
-        for eqFrequency in eqFrequencies {
-            eqFrequency.slider.value = 0
-            sliderDidChangeValue(sender: eqFrequency.slider.slider)
-            eqFrequency.currentValueLabel.text = "0.0"
+        let userDefaults = UserDefaults.standard
+        let isEqualizerDisabled = userDefaults.bool(forKey: kVLCSettingEqualizerProfileDisabled)
+
+        let profile: Int
+        if !isEqualizerDisabled {
+            profile = userDefaults.integer(forKey: kVLCSettingEqualizerProfile) + 1
+        } else {
+            profile = 0
         }
 
-        let preampValue = UserDefaults.standard.float(forKey: kVLCSettingDefaultPreampLevel)
-        delegate?.preAmplification = CGFloat(preampValue)
-        presetSelectorView?.setPreampSliderValue(preampValue)
-
-        UIDelegate?.equalizerViewHideIcon()
+        delegate?.resetEqualizer(fromProfile: UInt32(profile))
+        reloadData()
+        hideEqualizerIconIfNeeded()
     }
 
     private func hideEqualizerIconIfNeeded() {
-        for eqFrequency in eqFrequencies {
-            if eqFrequency.slider.value != 0 {
-                return
-            }
-        }
-
         UIDelegate?.equalizerViewHideIcon()
     }
 }
