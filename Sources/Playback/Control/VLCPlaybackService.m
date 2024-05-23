@@ -318,26 +318,23 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
+
+    VLCAudioEqualizer *equalizer;
 
     if (equalizerEnabled) {
         NSArray *presets = [VLCAudioEqualizer presets];
         unsigned int profile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
-        VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[profile]];
-        equalizer.preAmplification = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
-        _mediaPlayer.equalizer = equalizer;
+        equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[profile]];
     } else {
         float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
-        if (preampValue != 0.) {
-            APLog(@"Enforcing presumbly disabled equalizer due to custom preamp value of %f2.0", preampValue);
-            VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] init];
-            equalizer.preAmplification = preampValue;
-            _mediaPlayer.equalizer = equalizer;
-        }
+        equalizer = [[VLCAudioEqualizer alloc] init];
+        equalizer.preAmplification = preampValue;
     }
 
+    _mediaPlayer.equalizer = equalizer;
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
 
 #if TARGET_OS_IOS
