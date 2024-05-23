@@ -233,7 +233,7 @@ class QueueViewController: UIViewController {
             return
         }
 
-        let currentIndex = playbackService.mediaList.index(of: currentMedia)
+        let currentIndex = mediaList.index(of: currentMedia)
 
         guard currentIndex != NSNotFound else {
             return
