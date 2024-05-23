@@ -4,6 +4,7 @@
 * Copyright © 2021 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+*                         Diogo Simao Marques <dogo@videolabs.io>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -127,26 +128,30 @@ class SpoilerButton: UIStackView {
     }
 
     func toggleHiddenView() {
-        if let hiddenView = hiddenView {
-            isOpened = !isOpened
+        guard let hiddenView = hiddenView else {
+            return
+        }
 
-            if isOpened {
-                addArrangedSubview(hiddenView)
+        isOpened = !isOpened
+
+        UIView.animate(withDuration: 0.3, animations: {
+            if self.isOpened {
+                self.addArrangedSubview(hiddenView)
                 NSLayoutConstraint.activate([
-                    hiddenView.widthAnchor.constraint(equalTo: widthAnchor)
+                    hiddenView.widthAnchor.constraint(equalTo: self.widthAnchor)
                 ])
             } else {
                 hiddenView.removeFromSuperview()
             }
-            UIView.animate(withDuration: 0.3, animations: {
-                self.hiddenHeightConstraint?.isActive = !self.isOpened
-                self.shownHeightConstraint?.isActive = self.isOpened
-                hiddenView.isHidden = !self.isOpened
-                self.chevronImage.transform = CGAffineTransform(rotationAngle: self.isOpened ? .pi : 0)
-                self.parent?.layoutIfNeeded()
-                self.layoutIfNeeded()
-            })
-            needsUpdateHiddenView = false
-        }
+
+            self.hiddenHeightConstraint?.isActive = !self.isOpened
+            self.shownHeightConstraint?.isActive = self.isOpened
+            hiddenView.isHidden = !self.isOpened
+            self.chevronImage.transform = CGAffineTransform(rotationAngle: self.isOpened ? .pi : 0)
+            self.parent?.layoutIfNeeded()
+            self.layoutIfNeeded()
+        }, completion: { _ in
+            self.needsUpdateHiddenView = false
+        })
     }
 }
