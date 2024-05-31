@@ -18,6 +18,7 @@ NSString *VLCFavoriteUserVisibleName = @"VLCFavoriteUserVisibleName";
 NSString *VLCFavoriteURL = @"VLCFavoriteURL";
 NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 NSString *VLCFavoritesFile = @"Favorites.plist";
+NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
 
 @implementation VLCFavorite
 
@@ -119,15 +120,38 @@ NSString *VLCFavoritesFile = @"Favorites.plist";
             }
         }
 
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
         if (_favoriteContentArray == nil) {
             _favoriteContentArray = [NSMutableArray array];
+            [defaults setBool:YES forKey:VLCTransitionedUPnPFavorites];
+        } else {
+            if (![defaults boolForKey:VLCTransitionedUPnPFavorites]) {
+                [self _transitionUPnPFavorites];
+                [defaults setBool:YES forKey:VLCTransitionedUPnPFavorites];
+            }
         }
+
         _serverHostnameArray = [NSMutableArray arrayWithCapacity:_favoriteContentArray.count];
         for (VLCFavoriteServer *server in _favoriteContentArray) {
             [_serverHostnameArray addObject:server.url.host];
         }
     }
     return self;
+}
+
+- (void)_transitionUPnPFavorites
+{
+    for (VLCFavoriteServer *server in _favoriteContentArray) {
+        for (VLCFavorite *favorite in server.favorites) {
+            NSString *stringURL = favorite.url.absoluteString;
+            if ([stringURL hasPrefix:@"upnp://http//"]) {
+                stringURL = [stringURL stringByReplacingOccurrencesOfString:@"upnp://http//" withString:@"upnp://"];
+                [favorite setUrl:[NSURL URLWithString:stringURL]];
+            }
+        }
+    }
+    [self storeContent];
 }
 
 - (void)storeContent
