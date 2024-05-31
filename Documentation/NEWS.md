@@ -1,16 +1,21 @@
 # Changelog
 
 ## iOS [3.5.9]
-· Layout improvements for the audio library
+· Layout improvements for the audio library, equalizer
 · Improve support for shortcuts when using an external keyboard
 · Add option to disable subtitles by default
 · Improve behavior when going to the next item in repeat-one mode
 · Stability improvements and minor bug fixes
+· An equalizer profile's pre-amp level is no longer overwritten
+· Minor improvements when browsing UPnP shares and favoriting them
+· Fix playback of certain media shared by VLC instances on the local network
 
 ## tvOS [3.5.9]
 · Add support for 360° video
 · Add option to disable subtitles by default
 · Stability improvements and minor bug fixes
+· Minor improvements when browsing UPnP shares and favoriting them
+· Fix playback of certain media shared by VLC instances on the local network
 
 ## iOS [3.5.7]
 · Fix runtime exceptions on iOS 9
