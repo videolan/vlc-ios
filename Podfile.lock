@@ -45,11 +45,11 @@ PODS:
   - GTMSessionFetcher/Full (1.7.2):
     - GTMSessionFetcher/Core (= 1.7.2)
   - InAppSettingsKit (2.14)
-  - MarqueeLabel (4.0.2)
+  - MarqueeLabel (4.5.0)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
   - ObjectiveDropboxOfficial (7.4.1)
-  - OBSlider (1.1.0)
+  - OBSlider (1.1.1)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
     - OneDriveSDK/Common (= 1.3.0)
@@ -81,23 +81,23 @@ DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
   - AFNetworking (from `https://code.videolan.org/fkuehne/AFNetworking.git`, commit `ee51009a`)
   - box-ios-sdk-v2 (from `https://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
-  - CocoaHTTPServer (from `https://github.com/fkuehne/CocoaHTTPServer.git`)
+  - CocoaHTTPServer (from `https://code.videolan.org/fkuehne/CocoaHTTPServer.git`, commit `08f9b818`)
   - GoogleAPIClientForREST/Drive (~> 1.2.1)
   - GoogleSignIn (= 6.2.0)
   - GRKArrayDiff (from `https://code.videolan.org/fkuehne/GRKArrayDiff.git`)
   - GTMAppAuth (~> 1.0)
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
-  - MarqueeLabel (= 4.0.2)
+  - MarqueeLabel (from `https://code.videolan.org/fkuehne/MarqueeLabel.git`, commit `dc511900`)
   - MetaDataFetcherKit (~> 0.5.0)
   - ObjectiveDropboxOfficial
-  - OBSlider (= 1.1.0)
+  - OBSlider (from `https://code.videolan.org/fkuehne/OBSlider.git`, commit `e60cddfe`)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - PCloudSDKSwift
   - SimulatorStatusMagic
   - SwiftLint (~> 0.50.3)
   - VLCKit (= 4.0.0a10)
   - VLCMediaLibraryKit (= 0.13.0a8)
-  - XKKeychain (~> 1.0)
+  - XKKeychain (from `https://code.videolan.org/fkuehne/XKKeychain.git`, commit `40abb8f1`)
 
 SPEC REPOS:
   trunk:
@@ -107,16 +107,13 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
-    - MarqueeLabel
     - MetaDataFetcherKit
     - ObjectiveDropboxOfficial
-    - OBSlider
     - PCloudSDKSwift
     - SimulatorStatusMagic
     - SwiftLint
     - VLCKit
     - VLCMediaLibraryKit
-    - XKKeychain
 
 EXTERNAL SOURCES:
   ADAL:
@@ -129,15 +126,25 @@ EXTERNAL SOURCES:
     :commit: '08161e74'
     :git: https://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
-    :git: https://github.com/fkuehne/CocoaHTTPServer.git
+    :commit: 08f9b818
+    :git: https://code.videolan.org/fkuehne/CocoaHTTPServer.git
   GRKArrayDiff:
     :git: https://code.videolan.org/fkuehne/GRKArrayDiff.git
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
+  MarqueeLabel:
+    :commit: dc511900
+    :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
+  OBSlider:
+    :commit: e60cddfe
+    :git: https://code.videolan.org/fkuehne/OBSlider.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
+  XKKeychain:
+    :commit: 40abb8f1
+    :git: https://code.videolan.org/fkuehne/XKKeychain.git
 
 CHECKOUT OPTIONS:
   ADAL:
@@ -150,17 +157,26 @@ CHECKOUT OPTIONS:
     :commit: '08161e74'
     :git: https://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
-    :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
-    :git: https://github.com/fkuehne/CocoaHTTPServer.git
+    :commit: 08f9b818
+    :git: https://code.videolan.org/fkuehne/CocoaHTTPServer.git
   GRKArrayDiff:
     :commit: f4151360f979c3305a41a68e911079ee60652701
     :git: https://code.videolan.org/fkuehne/GRKArrayDiff.git
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
+  MarqueeLabel:
+    :commit: dc511900
+    :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
+  OBSlider:
+    :commit: e60cddfe
+    :git: https://code.videolan.org/fkuehne/OBSlider.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
+  XKKeychain:
+    :commit: 40abb8f1
+    :git: https://code.videolan.org/fkuehne/XKKeychain.git
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
@@ -168,25 +184,25 @@ SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
-  CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
+  CocoaHTTPServer: 2c7e47a6aa9c13f4a702979d6c2aaa9e90d3df4b
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
   GoogleSignIn: cdb27fee152cde4efd4bb814cfb4ad595fe1ff03
   GRKArrayDiff: bb58b8e3c77eff900c14b704bcc657f45ba76e13
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
-  MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
+  MarqueeLabel: 078f768fd80e373dbf99c2272ce4a7da3ce98a09
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
   ObjectiveDropboxOfficial: 8699fa65969a94f8305d8dabf9c9a8dd856ac598
-  OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
+  OBSlider: 6b0165a168681fd3810ef5e793e928889e543201
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   PCloudSDKSwift: 1c1c9a93db5e086c4d421d529091f458b4f59923
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   VLCKit: e21135aece10e3aa89e34020b7112b73d7cc98e6
   VLCMediaLibraryKit: 36218f5a1beb0fd46c8b0ac50a02e06f2140f673
-  XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
+  XKKeychain: 160ce5bfeff49e9fef091f7fc2b2fe5a5aa08e08
 
-PODFILE CHECKSUM: 54d4ce03ec91cbd40310ddd4fe8e96a548e15100
+PODFILE CHECKSUM: 8160297719432f5d0d5b58d134211a713304ee9d
 
 COCOAPODS: 1.15.2

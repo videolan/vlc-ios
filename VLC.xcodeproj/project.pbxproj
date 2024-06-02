@@ -474,7 +474,6 @@
 		7D50C6FF2BBD20DF00B9F1A0 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
 		7D50C7002BBD20DF00B9F1A0 /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		7D50C7012BBD20DF00B9F1A0 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
-		7D50C7022BBD20DF00B9F1A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D50C7032BBD20DF00B9F1A0 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 6D3C676B23CDF1FC0039ACFD /* public */; };
 		7D50C7042BBD20DF00B9F1A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D50C7052BBD20DF00B9F1A0 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
@@ -522,6 +521,8 @@
 		7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
+		7D638AAF2C0CA171006A0E75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
+		7D638AB12C0CA191006A0E75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
@@ -3419,7 +3420,6 @@
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
-				9FC273B6B91160C54B8FDFE5 /* [CP] Copy Pods Resources */,
 				07C556AE104BE8998C7FC4C2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -3694,7 +3694,6 @@
 				7D50C6FF2BBD20DF00B9F1A0 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */,
 				7D50C7002BBD20DF00B9F1A0 /* VLCCloudServiceCell.xib in Resources */,
 				7D50C7012BBD20DF00B9F1A0 /* index.html in Resources */,
-				7D50C7022BBD20DF00B9F1A0 /* Images.xcassets in Resources */,
 				7D50C7032BBD20DF00B9F1A0 /* public in Resources */,
 				7D50C7042BBD20DF00B9F1A0 /* Settings.bundle in Resources */,
 				7D50C7052BBD20DF00B9F1A0 /* VLCNetworkListCell.xib in Resources */,
@@ -3709,6 +3708,7 @@
 				7D50C70E2BBD20DF00B9F1A0 /* VLCLabelCell.xib in Resources */,
 				7D50C70F2BBD20DF00B9F1A0 /* MovieCollectionViewCell.xib in Resources */,
 				7D50C7102BBD20DF00B9F1A0 /* VLCCloudStorageTableViewController.xib in Resources */,
+				7D638AB12C0CA191006A0E75 /* Images.xcassets in Resources */,
 				7D50C7112BBD20DF00B9F1A0 /* VLCEmptyLibraryView.xib in Resources */,
 				7D50C7122BBD20DF00B9F1A0 /* favicon.ico in Resources */,
 				7D50C7132BBD20DF00B9F1A0 /* gradient-cell.png in Resources */,
@@ -3767,6 +3767,7 @@
 				41D7DD2120C1FC2D00AD94F6 /* VLCLabelCell.xib in Resources */,
 				41EC28E92136DE46004BCF0F /* MovieCollectionViewCell.xib in Resources */,
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
+				7D638AAF2C0CA171006A0E75 /* Images.xcassets in Resources */,
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView.xib in Resources */,
 				7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */,
 				7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */,
@@ -3990,33 +3991,15 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-visionOS/Pods-VLC-visionOS-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS17.0/XKKeychain.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/MarqueeLabel-visionOS/MarqueeLabel.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MarqueeLabel.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-visionOS/Pods-VLC-visionOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9FC273B6B91160C54B8FDFE5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-tvOS12.0/XKKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A7E516CDB189F9DFEC0DA54B /* [CP] Copy Pods Resources */ = {
@@ -4031,8 +4014,8 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth/AppAuthCore_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/MarqueeLabel-iOS/MarqueeLabel.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectiveDropboxOfficial/ObjectiveDropboxPrivacyInfo.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS12.0/XKKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -4041,8 +4024,8 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppAuthCore_Privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MarqueeLabel.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ObjectiveDropboxPrivacyInfo.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5506,11 +5489,7 @@
 					"$(ARCHS_STANDARD)",
 					armv7s,
 				);
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIconDev;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIconDev;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconVisionOSDev;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -5546,7 +5525,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -5554,7 +5533,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Headers/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 7;
 				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
@@ -5567,11 +5546,7 @@
 					"$(ARCHS_STANDARD)",
 					armv7s,
 				);
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconVisionOS;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -5608,7 +5583,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -5616,7 +5591,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Headers/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 7;
 				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
@@ -5629,11 +5604,7 @@
 					"$(ARCHS_STANDARD)",
 					armv7s,
 				);
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphonesimulator*]" = AppIcon;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xros*]" = AppIconVisionOS;
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=xrsimulator*]" = AppIconVisionOS;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconVisionOS;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -5670,14 +5641,14 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Headers/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 7;
 				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Distribution;

@@ -4,30 +4,30 @@ inhibit_all_warnings!
 
 def shared_pods
   use_modular_headers!
-  pod 'XKKeychain', '~>1.0'
-  pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
+  pod 'XKKeychain', :git => 'https://code.videolan.org/fkuehne/XKKeychain.git', :commit => '40abb8f1'
+  pod 'CocoaHTTPServer', :git => 'https://code.videolan.org/fkuehne/CocoaHTTPServer.git', :commit => '08f9b818'
   pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => 'ee51009a' # add visionOS support
   pod 'VLCKit', '4.0.0a10'
   pod 'VLCMediaLibraryKit', '0.13.0a8'
-
-  # debug
-  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 target 'VLC-iOS' do
   platform :ios, '12.0'
   shared_pods
-  pod 'OBSlider', '1.1.0'
+  pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '6.2.0'
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
-  pod 'MarqueeLabel', '4.0.2'
+  pod 'MarqueeLabel', :git => 'https://code.videolan.org/fkuehne/MarqueeLabel.git', :commit => 'dc511900'
   pod 'ObjectiveDropboxOfficial'
   pod 'PCloudSDKSwift'
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
+
+  # debug
+  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 
   target 'VLC-iOSTests' do
       inherit! :search_paths
@@ -47,13 +47,16 @@ target 'VLC-tvOS' do
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
   pod 'MetaDataFetcherKit', '~>0.5.0'
+
+  # debug
+  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 target 'VLC-visionOS' do
-  platform :ios, '17.0'
+  platform :visionos, '1.0'
   shared_pods
-  pod 'OBSlider', '1.1.0'
-  pod 'MarqueeLabel', '4.0.2'
+  pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
+  pod 'MarqueeLabel', :git => 'https://code.videolan.org/fkuehne/MarqueeLabel.git', :commit => 'dc511900'
 
   use_modular_headers!
 end
