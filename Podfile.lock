@@ -87,7 +87,7 @@ DEPENDENCIES:
   - GRKArrayDiff (from `https://code.videolan.org/fkuehne/GRKArrayDiff.git`)
   - GTMAppAuth (~> 1.0)
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
-  - MarqueeLabel (from `https://code.videolan.org/fkuehne/MarqueeLabel.git`, commit `dc511900`)
+  - MarqueeLabel (from `https://code.videolan.org/fkuehne/MarqueeLabel.git`, commit `36e3683b`)
   - MetaDataFetcherKit (~> 0.5.0)
   - ObjectiveDropboxOfficial
   - OBSlider (from `https://code.videolan.org/fkuehne/OBSlider.git`, commit `e60cddfe`)
@@ -134,7 +134,7 @@ EXTERNAL SOURCES:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
   MarqueeLabel:
-    :commit: dc511900
+    :commit: 36e3683b
     :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
   OBSlider:
     :commit: e60cddfe
@@ -166,7 +166,7 @@ CHECKOUT OPTIONS:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
   MarqueeLabel:
-    :commit: dc511900
+    :commit: 36e3683b
     :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
   OBSlider:
     :commit: e60cddfe
@@ -203,6 +203,6 @@ SPEC CHECKSUMS:
   VLCMediaLibraryKit: 36218f5a1beb0fd46c8b0ac50a02e06f2140f673
   XKKeychain: 160ce5bfeff49e9fef091f7fc2b2fe5a5aa08e08
 
-PODFILE CHECKSUM: 8160297719432f5d0d5b58d134211a713304ee9d
+PODFILE CHECKSUM: f2edb17541a5e6f7c155354db4de86f10dc5ee30
 
 COCOAPODS: 1.15.2
