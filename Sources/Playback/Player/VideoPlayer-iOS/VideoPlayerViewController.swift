@@ -198,11 +198,11 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var artWorkImageView: UIImageView = {
 #if os(visionOS)
-        let frame = UIApplication.shared.delegate?.window??.bounds
+        let frame = UIApplication.shared.delegate!.window!!.bounds
 #else
         let frame = CGRectMake(0, 0, UIScreen.main.bounds.width * 0.6, UIScreen.main.bounds.width * 0.6)
 #endif
-        let artWorkImageView = UIImageView(frame: frame!)
+        let artWorkImageView = UIImageView(frame: frame)
         artWorkImageView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
         return artWorkImageView
     }()

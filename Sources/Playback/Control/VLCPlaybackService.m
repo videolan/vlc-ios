@@ -234,7 +234,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #if TARGET_OS_VISION
     defaultVoutFrame = [[[[UIApplication sharedApplication] delegate] window] bounds];
 #else
-    defaultVoutFrame = [UIScreen mainScreen].bounds];
+    defaultVoutFrame = [UIScreen mainScreen].bounds;
 #endif
     _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

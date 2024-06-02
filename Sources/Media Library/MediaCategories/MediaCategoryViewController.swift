@@ -41,7 +41,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
     private let userDefaults = UserDefaults.standard
+#if os(iOS)
     private var rendererButton: UIButton
+#endif
     private lazy var editController: EditController = {
         let editController = EditController(mediaLibraryService:mediaLibraryService,
                                             model: model,
@@ -58,11 +60,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private lazy var statusBarView: UIView = {
         let statusBarFrame: CGRect
+#if os(iOS)
         if #available(iOS 13.0, *) {
             statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
         } else {
             statusBarFrame = UIApplication.shared.statusBarFrame
         }
+#else
+        statusBarFrame = CGRectMake(0, 0, 500, 100) // view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+#endif
 
         let statusBarView = UIView(frame: statusBarFrame)
         return statusBarView
@@ -142,9 +148,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return setupSelectAllButton()
     }()
 
+#if os(iOS)
     private lazy var rendererBarButton: UIBarButtonItem = {
         return UIBarButtonItem(customView: rendererButton)
     }()
+#endif
 
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
@@ -198,14 +206,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.secondModel = videoModel
         }
 
+#if os(iOS)
         self.rendererButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
-        self.searchDataSource = LibrarySearchDataSource(model: model)
-
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         if PlaybackService.sharedInstance().renderer != nil {
             rendererButton.isSelected = true
         }
+#endif
+        self.searchDataSource = LibrarySearchDataSource(model: model)
+
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         if let model = model as? CollectionModel,
            let collection = model.mediaCollection as? VLCMLAlbum {
@@ -285,6 +295,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
         collectionView.collectionViewLayout = albumFlowLayout
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        #if os(iOS)
         let isLandscape: Bool = UIDevice.current.orientation.isLandscape
         let constant: CGFloat
         if let navigationBarHeight = navigationController?.navigationBar.frame.height {
@@ -292,6 +303,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         } else {
             constant = isLandscape ? searchBarSize : searchBarSize * 2
         }
+        #else
+        let constant: CGFloat
+        if let navigationBarHeight = navigationController?.navigationBar.frame.height {
+            constant = navigationBarHeight
+        } else {
+            constant = searchBarSize
+        }
+#endif
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -constant),
@@ -406,19 +425,20 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+#if os(iOS)
         let manager = VLCAppCoordinator.sharedInstance().rendererDiscovererManager
         manager.delegate = self
         if manager.discoverers.isEmpty {
             // Either didn't start or stopped before
             manager.start()
         }
-
+        manager.presentingViewController = self
+#endif
         let playbackService = PlaybackService.sharedInstance()
         playbackService.setPlayerHidden(isEditing)
         playbackService.playerDisplayController.isMiniPlayerVisible
             ? miniPlayerIsShown() : miniPlayerIsHidden()
 
-        manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
@@ -491,7 +511,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
         navigationController?.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
+#if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
+#endif
     }
 
     @objc func themeDidChange() {
@@ -717,7 +739,6 @@ extension MediaCategoryViewController {
         return clearHistory
     }
 
-
     private func setupSortButton() -> UIButton {
         // Fetch sortButton configuration from MediaVC
         let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
@@ -757,10 +778,28 @@ extension MediaCategoryViewController {
                 rightBarButtonItems.append(sortBarButton)
             }
         }
+#if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtonItems.append(rendererBarButton)
         }
+#endif
         return rightBarButtonItems
+    }
+
+    private func updateBarButtonItems() {
+        if !isEditing {
+            navigationItem.rightBarButtonItems = rightBarButtonItems()
+            navigationItem.setHidesBackButton(isEditing, animated: true)
+        }
+
+        if self is HistoryCategoryViewController {
+            navigationItem.rightBarButtonItem = clearHistoryButton
+        }
+
+        if isEmptyCollectionView() {
+            navigationItem.rightBarButtonItem = nil
+            navigationItem.leftBarButtonItem = nil
+        }
     }
 
     func handleRegroup() {
@@ -816,7 +855,9 @@ extension MediaCategoryViewController {
 
     @objc func handleSortLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
+#if os(iOS)
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+#endif
             handleSortShortcut()
         }
     }
@@ -864,23 +905,8 @@ extension MediaCategoryViewController {
 
 // MARK: - VLCRendererDiscovererManagerDelegate
 
+#if os(iOS)
 extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
-    private func updateBarButtonItems() {
-        if !isEditing {
-            navigationItem.rightBarButtonItems = rightBarButtonItems()
-            navigationItem.setHidesBackButton(isEditing, animated: true)
-        }
-        
-        if self is HistoryCategoryViewController {
-            navigationItem.rightBarButtonItem = clearHistoryButton
-        }
-
-        if isEmptyCollectionView() {
-            navigationItem.rightBarButtonItem = nil
-            navigationItem.leftBarButtonItem = nil
-        }
-    }
-
     @objc func addedRendererItem() {
         updateBarButtonItems()
 
@@ -898,6 +924,7 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
         }
     }
 }
+#endif
 
 // MARK: - UISearchBarDelegate
 
