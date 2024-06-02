@@ -32,13 +32,13 @@ class VideoPlayerViewController: PlayerViewController {
 
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
-#if os(visionOS)
+#if os(iOS)
+    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
+                                         height: UIScreen.main.bounds.height)
+#else
     private let screenPixelSize: CGSize = {
         return UIApplication.shared.delegate?.window??.bounds.size
     }()!
-#else
-    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
-                                         height: UIScreen.main.bounds.height)
 #endif
 
     // MARK: - Private
@@ -197,10 +197,10 @@ class VideoPlayerViewController: PlayerViewController {
     }()
 
     private var artWorkImageView: UIImageView = {
-#if os(visionOS)
-        let frame = UIApplication.shared.delegate!.window!!.bounds
+#if os(iOS)
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
 #else
-        let frame = CGRectMake(0, 0, UIScreen.main.bounds.width * 0.6, UIScreen.main.bounds.width * 0.6)
+        let frame = UIApplication.shared.delegate!.window!!.bounds
 #endif
         let artWorkImageView = UIImageView(frame: frame)
         artWorkImageView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]

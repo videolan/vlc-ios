@@ -25,7 +25,8 @@
                 if scene.session.role.rawValue == "CPTemplateApplicationSceneSessionRoleApplication" {
                     return false
                 }
-#if os(visionOS)
+#if !os(iOS) && !os(tvOS)
+                // visionOS
                 if scene.session.role.rawValue == "UIWindowSceneSessionRoleApplication" {
                     return false
                 }

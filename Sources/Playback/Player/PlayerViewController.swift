@@ -301,13 +301,14 @@ class PlayerViewController: UIViewController {
     // MARK: Constants
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
-    #if os(visionOS)
+    #if os(iOS)
+    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
+                                         height: UIScreen.main.bounds.height)
+
+    #else
     private let screenPixelSize: CGSize = {
         return UIApplication.shared.delegate?.window??.bounds.size
     }()!
-    #else
-    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
-                                         height: UIScreen.main.bounds.height)
     #endif
 
     // MARK: - Gestures

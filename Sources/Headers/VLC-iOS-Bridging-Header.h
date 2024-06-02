@@ -17,10 +17,6 @@
 #import "VLCServerListViewController.h"
 #import "VLCSlider.h"
 #import "VLCWiFiUploadTableViewCell.h"
-#if TARGET_OS_IOS
-#import "IASKSettingsReader.h"
-#import "IASKSwitch.h"
-#endif
 #import "VLCHTTPUploaderController.h"
 #import "VLCActivityViewControllerVendor.h"
 #import "VLCMediaFileDiscoverer.h"
@@ -53,6 +49,8 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 #if TARGET_OS_IOS
+#import "IASKSettingsReader.h"
+#import "IASKSwitch.h"
 #import <AppAuth/AppAuth.h>
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCGoogleDriveTableViewController.h"

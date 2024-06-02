@@ -185,7 +185,7 @@
 #if TARGET_OS_IOS || TARGET_OS_VISION
     if (self.artworkImage) {
         MPMediaItemArtwork *mpartwork;
-        if (@available(iOS 10.0, visionOS 1.0, *)) {
+        if (@available(iOS 10.0 VISIONOS_AVAILABLE, *)) {
             mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:self.artworkImage.size
                                                         requestHandler:^UIImage * _Nonnull(CGSize size) {
                 return self.artworkImage;

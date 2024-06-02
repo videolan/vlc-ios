@@ -84,7 +84,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchController.searchBar.translucent = navBar.translucent;
     _searchController.searchBar.opaque = navBar.opaque;
     [_searchController.searchBar sizeToFit];
-    if (@available(iOS 11.0, visionOS 1.0, *)) {
+    if (@available(iOS 11.0 VISIONOS_AVAILABLE, *)) {
         // search bar text field background color
         UITextField *searchTextField = [_searchController.searchBar valueForKey:@"searchField"];
         UIView *backgroundView = searchTextField.subviews.firstObject;
@@ -110,7 +110,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (@available(iOS 11.0, visionOS 1.0, *)) {
+    if (@available(iOS 11.0 VISIONOS_AVAILABLE, *)) {
         //iOS 11
     } else {
         CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
