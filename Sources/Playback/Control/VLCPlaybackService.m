@@ -885,8 +885,15 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         @synchronized (_shuffledOrder) {
             if ([_shuffledList count] == 0) {
                 NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
-                for (NSInteger i = _currentIndex; i < _mediaList.count; i++) {
-                    [shuffledMedias addObject:[_mediaList mediaAtIndex:[_shuffledOrder[i] integerValue]]];
+                NSUInteger mediaListCount = _mediaList.count;
+                NSUInteger shuffledOrderCount = _shuffledOrder.count;
+                for (NSInteger i = _currentIndex; i < mediaListCount; i++) {
+                    if (i < shuffledOrderCount) {
+                        NSUInteger shuffleOrderIndex = [_shuffledOrder[i] unsignedIntegerValue];
+                        if (shuffleOrderIndex < mediaListCount) {
+                            [shuffledMedias addObject:[_mediaList mediaAtIndex:shuffleOrderIndex]];
+                        }
+                    }
                 }
 
                 _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
