@@ -828,6 +828,22 @@ static NSMutableDictionary *authentifiedHosts;
 //-----------------------------------------------------------------
 #pragma mark multipart form data parser delegate
 
+- (NSString *)_sanitizeFilePath:(NSString *)path {
+    NSArray *pathComponents = [path pathComponents];
+    NSMutableArray *validComponents = [NSMutableArray array];
+
+    for (NSString *component in pathComponents) {
+        if ([component isEqualToString:@".."] || [component isEqualToString:@"."]) {
+            // Skip "." and ".."
+            continue;
+        } else {
+            // Add valid component to the array
+            [validComponents addObject:component];
+        }
+    }
+
+    return [NSString pathWithComponents:validComponents];
+}
 
 - (void)processStartOfPartWithHeader:(MultipartMessageHeader*) header
 {
@@ -842,6 +858,9 @@ static NSMutableDictionary *authentifiedHosts;
         // an empty form sent. we won't handle it.
         return;
     }
+
+    // make sure to exclude illegal characters
+    filename = [self _sanitizeFilePath:filename];
 
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
