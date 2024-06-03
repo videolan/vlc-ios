@@ -398,7 +398,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     [fileManager moveItemAtPath:filepath toPath:finalFilePath error:&error];
     if (error) {
         APLog(@"Moving received media %@ to library folder failed (%li), deleting", fileName, (long)error.code);
-        [fileManager removeItemAtPath:filepath error:nil];
+        error = nil;
+        [fileManager removeItemAtPath:filepath error:&error];
+        if (error) {
+            APLog(@"Deleting media %@ failed (%li)", fileName, (long)error.code);
+        }
     }
 
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
