@@ -48,7 +48,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
-  - MobileVLCKit (3.6.0b12)
+  - MobileVLCKit (3.6.0)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.3.2)
   - OBSlider (1.1.0)
@@ -73,7 +73,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - TVVLCKit (3.6.0b12)
+  - TVVLCKit (3.6.0)
   - VLCMediaLibraryKit (0.11.0b2):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -92,13 +92,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.6.0b12)
+  - MobileVLCKit (= 3.6.0)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - TVVLCKit (= 3.6.0b12)
+  - TVVLCKit (= 3.6.0)
   - VLCMediaLibraryKit (= 0.11.0b2)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -183,18 +183,18 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
-  MobileVLCKit: ae5fe5c090c24413790dcd122714af74ddb6b4bd
+  MobileVLCKit: 8fe98ae53b7464f32e4bdf527cc7d53053e4d3a5
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  TVVLCKit: e8d4923c5485bab59b7941a427f76cb2f501c3af
+  TVVLCKit: d9a82e11f847a015690ad6aa6b510b46987ce288
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 1f2573295880d27b33ba2c07ed9e248fc9520828
 
-PODFILE CHECKSUM: 616ecec1700eff370b4d2dfba240f30dbaebce5b
+PODFILE CHECKSUM: c3b165834367ee088a25bae9c4997a980055a1e5
 
 COCOAPODS: 1.15.2
