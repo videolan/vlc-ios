@@ -705,3 +705,6 @@
 "ADD_ALERT_TITLE" = "Selection found in playlist";
 "ADD_ALERT_MESSAGE_SINGLE" = "You are trying to add a media that is already part of %@";
 "ADD_ALERT_MESSAGE_MULTIPLE" = "You are trying to add %d media that are already part of %@";
+
+//MARK: - Last played playlist indicator
+"LAST_PLAYED_PLAYLIST_LABEL_TITLE" = "Last Played";

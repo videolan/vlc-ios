@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const VLCPlaybackServicePlaybackDidStart;
 extern NSString *const VLCPlaybackServicePlaybackDidPause;
 extern NSString *const VLCPlaybackServicePlaybackDidResume;
+extern NSString *const VLCPlaybackServicePlaybackWillStop;
 extern NSString *const VLCPlaybackServicePlaybackDidStop;
 extern NSString *const VLCPlaybackServicePlaybackDidFail;
 extern NSString *const VLCPlaybackServicePlaybackMetadataDidChange;
@@ -24,6 +25,7 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 extern NSString *const VLCPlaybackServicePlaybackModeUpdated;
 extern NSString *const VLCPlaybackServiceShuffleModeUpdated;
 extern NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem;
+extern NSString *const VLCLastPlaylistPlayedMedia;
 
 @class VLCPlaybackService;
 @class VLCMetaData;

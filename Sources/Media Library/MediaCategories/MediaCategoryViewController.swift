@@ -200,6 +200,22 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         )
         return button
     }()
+
+    private var lastPlaylist: LastPlayedPlaylistModel? {
+        let encodedLastPlaylist = userDefaults.data(forKey: kVLCLastPlayedPlaylist)
+        guard let encodedData = encodedLastPlaylist,
+              let lastPlayed = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? LastPlayedPlaylistModel else {
+            return nil
+        }
+        return lastPlayed
+    }
+
+    private var isPlaylistCurrentlyPlaying: Bool { // Indicating that the current chosen collection to play is playlist, useful for handling Observer
+        return userDefaults.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
+    }
+    // catch the selected index from collection view, helper for playbackDidStart
+    private var collectionSelectedIndex: IndexPath? = nil
+
     // MARK: - Initializers
 
     @available(*, unavailable)
@@ -468,11 +484,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         configureContinueWatchingButton()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        showGuideOnLaunch()
-        updateCollectionViewForAlbum()
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -484,6 +495,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             removeThemeChangeObserver()
         }
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        showGuideOnLaunch()
+        updateCollectionViewForAlbum()
+    }
+    
 
     private func addInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
@@ -506,6 +523,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         notificationCenter.addObserver(self, selector: #selector(playbackDidStop),
                                        name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
+
+        if PlaybackService.sharedInstance().isPlaying && isPlaylistCurrentlyPlaying {
+            addPlaybackWillStopObserver()
+        }
+
+        notificationCenter.addObserver(self, selector: #selector(playbackDidStart), 
+                                              name: Notification.Name(VLCPlaybackServicePlaybackDidStart), object: nil)
     }
 
     private func removeInitializationCommonObservers() {
@@ -529,6 +553,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private func removeThemeChangeObserver() {
         NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
+
+        if PlaybackService.sharedInstance().isPlaying && isPlaylistCurrentlyPlaying {
+            removePlaybackWillStopObserver()
+        }
+
+        notificationCenter.removeObserver(self, name: Notification.Name(VLCPlaybackServicePlaybackDidStart), object: nil)
     }
 
     func loadSort() {
@@ -601,6 +631,32 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         handleContinueWatchingButtonVisibility()
     }
 
+    @objc private func playbackDidStart() {
+        if let model = model as? CollectionModel, let playlist = model.mediaCollection as? VLCMLPlaylist, let selectedIndex = collectionSelectedIndex {
+            saveCurrentPlaylistInfo(with: playlist.identifier(), playlistTitle: playlist.title(), media: playlist.media?[selectedIndex.row])
+            addPlaybackWillStopObserver()
+            reloadData()
+            userDefaults.set(true, forKey: kVLCIsCurrentlyPlayingPlaylist)
+        } else if let playlists = currentDataSet as? [VLCMLPlaylist], let selectedIndex = collectionSelectedIndex {
+            let selectedPlaylist = playlists[selectedIndex.row]
+            guard let media = PlaybackService.sharedInstance().currentlyPlayingMedia,
+                  let mlMedia = VLCMLMedia(forPlaying: media) else { return }
+
+            saveCurrentPlaylistInfo(with: selectedPlaylist.identifier(), playlistTitle: selectedPlaylist.title(), media: mlMedia)
+            addPlaybackWillStopObserver()
+            reloadData()
+            userDefaults.set(true, forKey: kVLCIsCurrentlyPlayingPlaylist)
+        } else if isPlaylistCurrentlyPlaying {
+            //if the playlist media is already being played and the current model is not Playlist or playlist collection media.
+            //This will update the value of last played media, leading to right indication if the app is suddenly closed.
+            guard let media = PlaybackService.sharedInstance().currentlyPlayingMedia,
+                  let mlMedia = VLCMLMedia(forPlaying: media),
+                  let lastPlaylist = lastPlaylist else {
+                return
+            }
+            saveCurrentPlaylistInfo(with: lastPlaylist.identifier, playlistTitle: lastPlaylist.title, media: mlMedia)
+        }
+    }
     // MARK: - Renderer
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1031,6 +1087,7 @@ private extension MediaCategoryViewController {
             default:
                 assertionFailure("generatePlayAction: cannot be used with other actions")
             }
+
             playbackController.mediaList.unlock()
         } else if let collection = modelContent as? MediaCollectionModel {
             let playbackController = PlaybackService.sharedInstance()
@@ -1056,7 +1113,13 @@ private extension MediaCategoryViewController {
             default:
                 assertionFailure("generatePlayAction: cannot be used with other actions")
             }
+
             playbackController.mediaList.unlock()
+        }
+        // handle catching current played playlist or media by queue options from different platlists
+        if type == .appendToQueue || type == .playNextInQueue {
+            guard let modelContent = modelContent else { return }
+            cachePlaylistInfoFromPlayerQueue(for: modelContent)
         }
     }
 
@@ -1064,7 +1127,7 @@ private extension MediaCategoryViewController {
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let index = indexPath.row
         let modelContent = currentDataSet.objectAtIndex(index: index)
-
+        collectionSelectedIndex = indexPath
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
         let actionList = EditButtonsFactory.buttonList(for: model).filter({
             return $0 != .addToMediaGroup
@@ -1169,7 +1232,7 @@ extension MediaCategoryViewController {
 
     private func selectedItem(at indexPath: IndexPath) {
         let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
-
+        collectionSelectedIndex = indexPath
         // Reset the play as audio variable
         let playbackService = PlaybackService.sharedInstance()
         playbackService.playAsAudio = false
@@ -1303,11 +1366,42 @@ extension MediaCategoryViewController {
             mediaCell.delegate = self
             mediaCell.isEditing = false
         }
+        // For Playlists Model, check for the last playlist from all playlists
+        if let model = mediaObject as? VLCMLPlaylist, isLastPlayedPlaylist(model) {
+            setLastPlayed(for: mediaCell)
+        } else if let model = model as? CollectionModel,
+                  let playlist = model.mediaCollection as? VLCMLPlaylist,
+                  isLastPlayedPlaylist(playlist),
+                  let media = mediaObject as? VLCMLMedia {
 
+          // Check if collection model is a playlist and it is the last played media. This check is done inside a playlist
+            if let lastMedia = lastPlaylist?.lastPlayedMedia {
+                let isLastMedia = lastMedia.identifier == media.identifier() && lastMedia.title == media.title
+                if isLastMedia {
+                    setLastPlayed(for: mediaCell)
+                }
+            }
+        }
+        
         mediaCell.media = mediaObject
         mediaCell.isAccessibilityElement = true
 
         return mediaCell
+    }
+
+    // Helper function to check if a playlist is the last played playlist
+    func isLastPlayedPlaylist(_ playlist: VLCMLPlaylist?) -> Bool {
+        guard let playlist = playlist, let lastPlaylist = lastPlaylist else { return false }
+        return playlist.title() == lastPlaylist.title && playlist.identifier() == lastPlaylist.identifier
+    }
+
+    // Helper function to set the lastPlayed property for the cell
+    func setLastPlayed(for mediaCell: UICollectionViewCell?) {
+        if let cell = mediaCell as? MediaCollectionViewCell {
+            cell.lastPlayed = true
+        } else if let cell = mediaCell as? MovieCollectionViewCell {
+            cell.lastPlayed = true
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -1724,6 +1818,68 @@ extension MediaCategoryViewController {
             tracks = currentDataSet as? [VLCMLMedia] ?? []
         }
         playbackController.playMedia(at: index, fromCollection: tracks)
+    }
+ 
+    func saveCurrentPlaylistInfo(with playlistId: Int64?, playlistTitle: String?, media: VLCMLMedia?) {
+        guard let media = media, let playlistId = playlistId, let playlistTitle = playlistTitle else {
+            return
+        }
+
+        let lastMedia = LastPlayed(identifier: media.identifier(), title: media.title)
+        let playlistInfo = LastPlayedPlaylistModel(identifier: playlistId, title: playlistTitle, lastPlayedMedia: lastMedia)
+        userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: playlistInfo), forKey: kVLCLastPlayedPlaylist)
+    }
+    
+    private func addPlaybackWillStopObserver() {
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(self.playlistPlaybackWillStop(_:)),
+            name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackWillStop),
+            object: nil
+        )
+    }
+
+    @objc func playlistPlaybackWillStop(_ notification: NSNotification) {
+        // checking playlist info exsited in queue dictionary, this handling indicating last media when playing action is done through queue options[appendToQueue, playNextAtQueue]
+        if let lastPlayed = notification.userInfo?[VLCLastPlaylistPlayedMedia] as? VLCMLMedia {
+            let currentPlaylistMediaQueue = PlaybackCacheHelper.shared.getCurrentPlaylistMediasQueue()
+            if let queueLastPlaylist = currentPlaylistMediaQueue[lastPlayed.identifier()] {
+                saveCurrentPlaylistInfo(with: queueLastPlaylist.identifier, playlistTitle: queueLastPlaylist.title, media: lastPlayed)
+            } else if let lastPlaylist = lastPlaylist{
+                saveCurrentPlaylistInfo(with: lastPlaylist.identifier, playlistTitle: lastPlaylist.title, media: lastPlayed)
+            }
+        }
+
+        reloadData()
+        removePlaybackWillStopObserver()
+        userDefaults.setValue(false, forKey: kVLCIsCurrentlyPlayingPlaylist)
+        PlaybackCacheHelper.shared.clearQueuePlaylistInfo()
+    }
+
+    private func removePlaybackWillStopObserver() {
+        NotificationCenter.default.removeObserver(self,
+            name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackWillStop),
+            object: nil
+        )
+    }
+
+    private func cachePlaylistInfoFromPlayerQueue(for contentModel: VLCMLObject) {
+        if let playlists = currentDataSet as? [VLCMLPlaylist], let model = contentModel as? VLCMLPlaylist {
+            guard let index = playlists.firstIndex(where: {
+                $0.identifier() == model.identifier() && $0.title() == model.title()
+            }) else { return }
+            
+            let selectedPlaylist = playlists[index]
+            guard let medias = selectedPlaylist.media else { return }
+
+            let playlistInfo = LastPlayed(identifier: selectedPlaylist.identifier(), title: selectedPlaylist.title())
+            PlaybackCacheHelper.shared.appendCurrentlyPlayingPlaylistInfoQueue(medias: medias, playlistInfo)
+        } else if let media = contentModel as? VLCMLMedia,
+                  let collection = model as? CollectionModel,
+                  let playlist = collection.mediaCollection as? VLCMLPlaylist {
+
+            let playlistInfo = LastPlayed(identifier: playlist.identifier(), title: playlist.title())
+            PlaybackCacheHelper.shared.appendCurrentlyPlayingMediaInfoQueue(media: media, playlistInfo)
+        }
     }
 }
 

@@ -223,3 +223,58 @@ extension VLCMLPlaylist: MediaCollectionModel {
         return name
     }
 }
+
+// MARK: - Last Played Playlist Model
+
+class LastPlayedPlaylistModel: NSObject, NSCoding {
+    var identifier: Int64
+    var title: String
+    var lastPlayedMedia: LastPlayed
+    
+    init(identifier: Int64, title: String, lastPlayedMedia: LastPlayed) {
+        self.identifier = identifier
+        self.title = title
+        self.lastPlayedMedia = lastPlayedMedia
+    }
+
+    required init?(coder: NSCoder) {
+        self.identifier = coder.decodeInt64(forKey: "identifier")
+        guard let title = coder.decodeObject(forKey: "title") as? String,
+              let lastPlayedMedia = coder.decodeObject(forKey: "lastPlayedMedia") as? LastPlayed else {
+            return nil
+        }
+        
+        self.title = title
+        self.lastPlayedMedia = lastPlayedMedia
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(identifier, forKey: "identifier")
+        coder.encode(title, forKey: "title")
+        coder.encode(lastPlayedMedia, forKey: "lastPlayedMedia")
+    }
+}
+
+
+class LastPlayed: NSObject, NSCoding {
+    var identifier: Int64
+    var title: String
+    
+    init(identifier: Int64, title: String) {
+        self.identifier = identifier
+        self.title = title
+    }
+    
+    required init?(coder: NSCoder) {
+        self.identifier = coder.decodeInt64(forKey: "identifier")
+        guard let title = coder.decodeObject(forKey: "title") as? String else {
+            return nil
+        }
+        self.title = title
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(identifier, forKey: "identifier")
+        coder.encode(title, forKey: "title")
+    }
+}

@@ -36,11 +36,12 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var additionalMediaOverlay: UIView!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
+    @IBOutlet weak var groupLastPlayedLabel: UILabel!
 
     private var thumbnailsArray: [UIImageView] = []
     private let itemCornerRadius: CGFloat = 4.5
     private let groupCornerRadius: CGFloat = 3.0
-
+    var lastPlayed: Bool = false
     override class var edgePadding: CGFloat {
         return 12.5
     }
@@ -91,6 +92,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
 
+        groupLastPlayedLabel.text = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
+        groupLastPlayedLabel.textColor = PresentationTheme.current.colors.orangeUI
+
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(themeDidChange),
                                        name: .VLCThemeDidChangeNotification,
@@ -131,6 +135,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         mediaView.backgroundColor = backgroundColor
         groupView.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
+        groupLastPlayedLabel.backgroundColor = backgroundColor
         thumbnailsBackground.backgroundColor = colors.thumbnailBackgroundColor
     }
 
@@ -141,6 +146,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         sizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         groupSizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        groupLastPlayedLabel.font = UIFont.preferredCustomFont(forTextStyle: .caption1).bolded
     }
 
     private func setThumbnails(medias: [VLCMLMedia]?) {
@@ -174,6 +180,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         }
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.formatSize()
+        groupLastPlayedLabel.isHidden = true
 
         progressView.progressViewStyle = .bar
 
@@ -185,6 +192,16 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(playlist: VLCMLPlaylist) {
+        let playbackService = PlaybackService.sharedInstance()
+
+        if lastPlayed {
+            let isCurrentlyPlayingPlaylist = UserDefaults.standard.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
+            let shouldDisplayLastPlayedLabel = (!playbackService.isPlaying && playbackService.currentlyPlayingMedia == nil) || !isCurrentlyPlayingPlaylist
+            groupLastPlayedLabel.isHidden = !shouldDisplayLastPlayedLabel
+            groupLastPlayedLabel.text = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
+        } else {
+            groupLastPlayedLabel.isHidden = true
+        }
         mediaView.isHidden = true
         progressView.isHidden = true
 
@@ -221,6 +238,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         groupSizeLabel.text = mediaGroup.numberOfTracksString()
 
         groupView.isHidden = false
+        groupLastPlayedLabel.isHidden = true
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
@@ -277,5 +295,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         numberLabel.text = ""
         groupSizeLabel.text = ""
         groupView.isHidden = true
+        groupLastPlayedLabel.isHidden = true
+        lastPlayed = false
     }
 }
