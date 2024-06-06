@@ -9,6 +9,14 @@
 · An equalizer profile's pre-amp level is no longer overwritten
 · Minor improvements when browsing UPnP shares and favoriting them
 · Fix playback of certain media shared by VLC instances on the local network
+· Update libvlc to 3.0.21
+· Update FFmpeg to 4.4.4, dav1d to 1.4.2, libvpx to 1.14.1
+· Fix security integer overflow in MMS module
+· Fix potential denial-of-service attack against the WiFi Sharing feature
+  which allows unnoticed arbitrary data uploads within the application context
+· Fix various warnings, leaks and potential crashes
+· Improve subtitles rendering of notably Asian languages by correcting font
+  fallback lookups
 
 ## tvOS [3.5.9]
 · Add support for 360° video
@@ -16,6 +24,12 @@
 · Stability improvements and minor bug fixes
 · Minor improvements when browsing UPnP shares and favoriting them
 · Fix playback of certain media shared by VLC instances on the local network
+· Update libvlc to 3.0.21
+· Update FFmpeg to 4.4.4, dav1d to 1.4.2, libvpx to 1.14.1
+· Fix security integer overflow in MMS module
+· Fix various warnings, leaks and potential crashes
+· Improve subtitles rendering of notably Asian languages by correcting font
+  fallback lookups
 
 ## iOS [3.5.7]
 · Fix runtime exceptions on iOS 9
