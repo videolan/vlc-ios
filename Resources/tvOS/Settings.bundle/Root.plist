@@ -398,7 +398,7 @@
 			<key>Key</key>
 			<string>pre-amp-level</string>
 			<key>DefaultValue</key>
-			<integer>0</integer>
+			<integer>6</integer>
 			<key>Titles</key>
 			<array>
 				<string>-12 dB</string>
