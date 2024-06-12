@@ -17,11 +17,10 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     private let preampSlider = UISlider()
     private let preampValueLabel = UILabel()
     private let preampStackView = UIStackView()
-    private let presetsTableView = UITableView()
+    let presetsTableView = UITableView()
     private let profiles: [VLCAudioEqualizer.Preset]
     var delegate: EqualizerPresetSelectorDelegate?
     private let presetTableViewReuseIdentifier = "presetTableViewReuseIdentifier"
-    var selectedProfileIndex = Int.init(0)
 
     // MARK: - Init
     required init(coder: NSCoder) {
@@ -102,41 +101,86 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     }
 
     // MARK: - table view data source
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+        guard let profilesData = profilesData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: profilesData).decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+            return 1
+        }
+
+        return customProfiles.profiles.isEmpty ? 1 : 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // We need to return the number of profiles + 1 as we fake the "Off" profile in this table view
-        return profiles.count + 1
+        if section == 0 {
+            // We need to return the number of profiles + 1 as we fake the "Off" profile in this table view
+            return profiles.count + 1
+        }
+
+        let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+        guard let profilesData = profilesData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: profilesData).decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+            return 0
+        }
+
+        return customProfiles.profiles.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell.init(style: UITableViewCell.CellStyle.value1, reuseIdentifier: presetTableViewReuseIdentifier)
 
         let colors = PresentationTheme.darkTheme.colors
-        if indexPath.row == 0 {
-            cell.textLabel?.text = NSLocalizedString("OFF", comment: "")
-        } else if indexPath.row - 1 < profiles.count {
-            cell.textLabel?.text = profiles[indexPath.row - 1].name
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                cell.textLabel?.text = NSLocalizedString("OFF", comment: "")
+            } else if indexPath.row - 1 < profiles.count {
+                cell.textLabel?.text = profiles[indexPath.row - 1].name
+            }
+        } else {
+            let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+            guard let profilesData = profilesData,
+                  let customProfiles = NSKeyedUnarchiver(forReadingWith: profilesData).decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+                return cell
+            }
+
+            cell.textLabel?.text = customProfiles.profiles[indexPath.row].name
         }
 
-        if selectedProfileIndex == indexPath.row {
+        let selectedProfileIndex = PlaybackService.sharedInstance().selectedEqualizerProfile()
+        if selectedProfileIndex == indexPath {
             cell.textLabel?.textColor = colors.orangeUI
             cell.textLabel?.font = .boldSystemFont(ofSize: 16)
         } else {
             cell.textLabel?.textColor = .white
             cell.textLabel?.font = .systemFont(ofSize: 16)
         }
+
         cell.backgroundColor = colors.cellBackgroundA
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
 
         return cell
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return NSLocalizedString("CUSTOM_EQUALIZER_PROFILES", comment: "")
+        default:
+            return ""
+        }
+    }
+
     // MARK: - table view delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        delegate?.equalizerPresetSelector(self, didSelectPreset: indexPath.row)
+        let isCustomProfile: Bool = indexPath.section == 0 ? false : true
+        UserDefaults.standard.setValue(isCustomProfile, forKey: kVLCCustomProfileEnabled)
+        delegate?.equalizerPresetSelector(self, didSelectPreset: indexPath.row, isCustom: isCustomProfile)
+        presetsTableView.reloadData()
         toggleHiddenView()
     }
 
+    // MARK: - Slider event
     @objc func preampSliderDidChangeValue(sender: UISlider) {
         delegate?.equalizerPresetSelector(self, didSetPreamp: sender.value)
         preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
@@ -147,14 +191,9 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         preampSlider.value = value
         preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
     }
-
-    func setSelectedProfileValue(_ value: UInt32) {
-        selectedProfileIndex = Int(value)
-        presetsTableView.reloadData()
-    }
 }
 
 @objc protocol EqualizerPresetSelectorDelegate {
     @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float)
-    @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int)
+    @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int, isCustom: Bool)
 }

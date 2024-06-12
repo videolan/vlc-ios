@@ -19,6 +19,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
+    func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController)
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
     func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float)
@@ -344,6 +345,10 @@ extension MediaMoreOptionsActionSheet: EqualizerViewUIDelegate {
 
     func equalizerViewHideIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .equalizer)
+    }
+
+    func displayAlert(_ alert: UIAlertController) {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayEqualizerAlert(alert)
     }
 }
 

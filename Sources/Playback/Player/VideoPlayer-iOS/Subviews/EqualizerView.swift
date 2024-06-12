@@ -11,6 +11,60 @@
 
 import UIKit
 
+// MARK: - Custom Equalizer Profiles
+class CustomEqualizerProfile: NSObject, NSCoding {
+    var name: String
+    var preAmpLevel: Float
+    var frequencies: [Float]
+
+    init(name: String, preAmpLevel: Float, frequencies: [Float]) {
+        self.name = name
+        self.preAmpLevel = preAmpLevel
+        self.frequencies = frequencies
+    }
+
+    required init?(coder: NSCoder) {
+        guard let name = coder.decodeObject(forKey: "name") as? String,
+              let frequencies = coder.decodeObject(forKey: "frequencies") as? [Float] else {
+            self.name = ""
+            self.preAmpLevel = 6.0
+            self.frequencies = []
+            return
+        }
+
+        self.name = name
+        self.preAmpLevel = coder.decodeFloat(forKey: "preAmpLevel")
+        self.frequencies = frequencies
+    }
+
+    func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "name")
+        coder.encode(preAmpLevel, forKey: "preAmpLevel")
+        coder.encode(frequencies, forKey: "frequencies")
+    }
+}
+
+class CustomEqualizerProfiles: NSObject, NSCoding {
+    required init?(coder: NSCoder) {
+        guard let customProfiles = coder.decodeObject(forKey: "profiles") as? [CustomEqualizerProfile] else {
+            self.profiles = []
+            return
+        }
+
+        self.profiles = customProfiles
+    }
+
+    init(profiles: [CustomEqualizerProfile]) {
+        self.profiles = profiles
+    }
+
+    func encode(with coder: NSCoder) {
+        coder.encode(self.profiles, forKey: "profiles")
+    }
+
+    var profiles: [CustomEqualizerProfile]
+}
+
 @objc class EqualizerView: UIView {
 
     // MARK: - EqualizerFrequency structure
@@ -104,7 +158,7 @@ import UIKit
     private let minus20Label = UILabel()
     private let snapBandsLabel = UILabel()
     private let snapBandsSwitch = UISwitch()
-    private let cancelButton = UIButton()
+    private let saveButton = UIButton()
     private let resetButton = UIButton()
 
     private var eqFrequencies: [EqualizerFrequency] = []
@@ -112,7 +166,9 @@ import UIKit
     private var oldValues: [Float] = []
 
     private var parentPopup: PopupView?
-    private var showCancel = false
+    private var showSave = false
+
+    private var playbackService = PlaybackService.sharedInstance()
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -132,7 +188,7 @@ import UIKit
     }
 
     func willShow() {
-        showCancel = false
+        showSave = false
         parentPopup?.updateAccessoryViews()
         reloadData()
         resetValuesOnShow()
@@ -222,9 +278,10 @@ import UIKit
         snapBandsStackView.alignment = .center
 
         //Init buttons views
-        cancelButton.setImage(UIImage(named: "iconUndo"), for: .normal)
-        cancelButton.addTarget(self, action: #selector(cancelEqualizer), for: .touchUpInside)
-        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
+        saveButton.setTitle(NSLocalizedString("BUTTON_SAVE", comment: ""), for: .normal)
+        saveButton.addTarget(self, action: #selector(saveNewProfile), for: .touchUpInside)
+        saveButton.setContentHuggingPriority(.required, for: .horizontal)
+
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         resetButton.addTarget(self, action: #selector(resetEqualizer), for: .touchUpInside)
         resetButton.setContentHuggingPriority(.required, for: .vertical)
@@ -340,7 +397,7 @@ import UIKit
         zeroLabel.textColor = colors.cellTextColor
         minus20Label.textColor = colors.cellTextColor
         snapBandsLabel.textColor = colors.cellTextColor
-        cancelButton.tintColor = colors.orangeUI
+        saveButton.setTitleColor(colors.orangeUI, for: .normal)
         resetButton.setTitleColor(colors.orangeUI, for: .normal)
 
         for eqFrequency in eqFrequencies {
@@ -352,8 +409,7 @@ import UIKit
 
     @objc func reloadData() {
         if let delegate = delegate {
-            presetSelectorView?.setPreampSliderValue(Float(delegate.preAmplification))
-            presetSelectorView?.setSelectedProfileValue(delegate.selectedEqualizerProfile())
+            presetSelectorView?.setPreampSliderValue(Float(playbackService.preAmplification))
 
             for (i, eqFrequency) in eqFrequencies.enumerated() {
                 eqFrequency.slider.value = Float(delegate.amplification(ofBand: UInt32(i)))
@@ -374,8 +430,8 @@ extension EqualizerView {
     }
 
     @objc func sliderDidChangeValue(sender: UISlider) {
-        delegate?.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
-        showCancel = true
+        playbackService.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
+        showSave = true
         parentPopup?.updateAccessoryViews()
         UIDelegate?.equalizerViewShowIcon()
     }
@@ -417,38 +473,106 @@ extension EqualizerView {
     }
 }
 
-// MARK: - Reset button event
+// MARK: - Buttons event
 
 extension EqualizerView {
-    @objc func cancelEqualizer() {
-        for (i, eqFrequency) in eqFrequencies.enumerated() {
-            let value = valuesOnShow.objectAtIndex(index: i) ?? 0
-            eqFrequency.slider.value = value
-            sliderDidChangeValue(sender: eqFrequency.slider.slider)
-            eqFrequency.currentValueLabel.text = "\(Double(Int(value * 100)) / 100)"
+    @objc func saveNewProfile() {
+        let alertController = UIAlertController(title: NSLocalizedString("CUSTOM_EQUALIZER_ALERT_TITLE", comment: ""),
+                                                message: NSLocalizedString("CUSTOM_EQUALIZER_ALERT_MESSAGE", comment: ""),
+                                                preferredStyle: .alert)
+
+        alertController.addTextField { textField in
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            textField.text = NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
         }
-        showCancel = false
-        parentPopup?.updateAccessoryViews()
+
+        let saveAction = UIAlertAction(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { _ in
+            let name: String = alertController.textFields?.first?.text ?? NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
+            var frequencies: [Float] = []
+
+            for frequency in self.eqFrequencies {
+                frequencies.append(frequency.slider.value)
+            }
+
+            let preAmplification = self.playbackService.preAmplification
+
+            let customProfile = CustomEqualizerProfile(name: name, preAmpLevel: Float(preAmplification), frequencies: frequencies)
+            let encodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+            var customProfiles: CustomEqualizerProfiles
+
+            if let encodedProfiles = encodedProfiles,
+               let profiles = NSKeyedUnarchiver(forReadingWith: encodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles {
+                profiles.profiles.append(customProfile)
+                customProfiles = profiles
+            } else {
+                customProfiles = CustomEqualizerProfiles(profiles: [customProfile])
+            }
+
+            let index = customProfiles.profiles.count - 1
+            let userDefaults = UserDefaults.standard
+            userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+            userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
+            userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
+            userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
+
+            self.showSave = false
+            self.parentPopup?.updateAccessoryViews()
+            self.presetSelectorView?.presetsTableView.reloadData()
+            self.hideEqualizerIconIfNeeded()
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+
+        UIDelegate?.displayAlert(alertController)
     }
 
     @objc func resetEqualizer() {
         let userDefaults = UserDefaults.standard
         let isEqualizerDisabled = userDefaults.bool(forKey: kVLCSettingEqualizerProfileDisabled)
+        let isCustomProfile = userDefaults.bool(forKey: kVLCCustomProfileEnabled)
 
         let profile: Int
-        if !isEqualizerDisabled {
-            profile = userDefaults.integer(forKey: kVLCSettingEqualizerProfile) + 1
+        if !isCustomProfile {
+            profile = isEqualizerDisabled ? 0 : userDefaults.integer(forKey: kVLCSettingEqualizerProfile) + 1
+            delegate?.resetEqualizer(fromProfile: UInt32(profile))
         } else {
-            profile = 0
+            profile = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
+            applyCustomProfile(profile)
         }
 
-        delegate?.resetEqualizer(fromProfile: UInt32(profile))
         reloadData()
         hideEqualizerIconIfNeeded()
+        showSave = false
+        parentPopup?.updateAccessoryViews()
     }
 
     private func hideEqualizerIconIfNeeded() {
         UIDelegate?.equalizerViewHideIcon()
+    }
+
+    private func applyCustomProfile(_ index: Int) {
+        let userDefaults = UserDefaults.standard
+        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
+
+        guard let encodedData = encodedData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+              index < customProfiles.profiles.count else {
+            return
+        }
+
+        let selectedProfile = customProfiles.profiles[index]
+        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
+
+        for (bandIndex, frequency) in selectedProfile.frequencies.enumerated() {
+            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(bandIndex))
+        }
+
+        userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
+        userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
+        userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
     }
 }
 
@@ -456,11 +580,20 @@ extension EqualizerView {
 
 extension EqualizerView: EqualizerPresetSelectorDelegate {
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float) {
-        delegate?.preAmplification = CGFloat(preamp)
+        playbackService.preAmplification = CGFloat(preamp)
+        showSave = true
+        parentPopup?.updateAccessoryViews()
     }
 
-    func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int) {
-        delegate?.resetEqualizer(fromProfile: UInt32(preset))
+    func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int, isCustom: Bool) {
+        if !isCustom {
+            delegate?.resetEqualizer(fromProfile: UInt32(preset))
+        } else {
+            applyCustomProfile(preset)
+        }
+
+        showSave = false
+        parentPopup?.updateAccessoryViews()
         reloadData()
     }
 }
@@ -472,8 +605,9 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
         if parentPopup == nil {
             parentPopup = popupView
         }
-        if showCancel {
-            return [cancelButton, resetButton]
+
+        if showSave {
+            return [saveButton, resetButton]
         } else {
             return [resetButton]
         }
@@ -483,14 +617,11 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
 // MARK: - EqualizerViewDelegate
 
 @objc protocol EqualizerViewDelegate {
-    @objc var preAmplification: CGFloat { get set }
-    @objc func setAmplification(_ amplification: CGFloat, forBand index: UInt32)
     @objc func amplification(ofBand index: UInt32) -> CGFloat
     @objc func equalizerProfiles() -> NSArray
     @objc func resetEqualizer(fromProfile profile: UInt32)
     @objc func numberOfBands() -> UInt32
     @objc func frequencyOfBand(atIndex index: UInt32) -> CGFloat
-    @objc func selectedEqualizerProfile() -> UInt32
 }
 
 // MARK: - EqualizerViewUIDelegate
@@ -498,4 +629,5 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
 protocol EqualizerViewUIDelegate: AnyObject {
     func equalizerViewShowIcon()
     func equalizerViewHideIcon()
+    func displayAlert(_ alert: UIAlertController)
 }

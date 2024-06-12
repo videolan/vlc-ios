@@ -2004,6 +2004,10 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         }
     }
 
+    func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
+    }
+
     func mediaMoreOptionsActionSheetUpdateProgressBar() {
         if !playbackService.isPlaying {
             playbackService.playPause()

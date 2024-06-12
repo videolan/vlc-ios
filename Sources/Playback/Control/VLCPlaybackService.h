@@ -101,6 +101,8 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;
 
+@property (nonatomic, readwrite) CGFloat preAmplification;
+
 #if TARGET_OS_IOS
 @property (nonatomic, nullable) VLCRendererItem *renderer;
 #endif
@@ -160,11 +162,14 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)addAudioToCurrentPlaybackFromURL:(NSURL *)audioURL;
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
 
+- (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index;
+
 #if TARGET_OS_IOS
 - (void)savePlaybackState;
 - (void)restoreAudioAndSubtitleTrack;
 - (BOOL)mediaListContains:(NSURL *)url;
 - (void)removeMediaFromMediaListAtIndex:(NSUInteger)index;
+- (NSIndexPath *)selectedEqualizerProfile;
 #endif
 
 NS_ASSUME_NONNULL_END

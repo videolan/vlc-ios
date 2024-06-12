@@ -1361,17 +1361,24 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     return band.frequency;
 }
 
-- (unsigned int)selectedEqualizerProfile
+#if TARGET_OS_IOS
+- (NSIndexPath *)selectedEqualizerProfile
 {
     /* this is a bit complex, if the eq is off, we need to return 0
      * if it is on, we need to provide the profile + 1 as the UI fakes a "Off" profile in its list */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled]) {
-        return 0;
+        return [NSIndexPath indexPathForRow:0 inSection:0];
     }
+
     unsigned int actualProfile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
-    return actualProfile + 1;
+    if (![userDefaults boolForKey:kVLCCustomProfileEnabled]) {
+        return [NSIndexPath indexPathForRow:actualProfile + 1 inSection:0];
+    } else {
+        return [NSIndexPath indexPathForRow:actualProfile inSection:1];
+    }
 }
+#endif
 
 #pragma mark - AVAudioSession Notification Observers
 

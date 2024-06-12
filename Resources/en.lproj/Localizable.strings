@@ -215,6 +215,11 @@
 "RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
 "RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
+"CUSTOM_EQUALIZER_PROFILES" = "Custom profiles";
+"DEFAULT_PROFILE_NAME" = "Custom profile";
+"CUSTOM_EQUALIZER_ALERT_TITLE" = "Save new profile";
+"CUSTOM_EQUALIZER_ALERT_MESSAGE" = "Do you want to save a new profile with the selected values?";
+
 "VERSION_FORMAT" = "Version: %@";
 "BASED_ON_FORMAT" = "Based on:<br />%@";
 
