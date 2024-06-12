@@ -219,6 +219,9 @@
 "DEFAULT_PROFILE_NAME" = "Custom profile";
 "CUSTOM_EQUALIZER_ALERT_TITLE" = "Save new profile";
 "CUSTOM_EQUALIZER_ALERT_MESSAGE" = "Do you want to save a new profile with the selected values?";
+"RENAME_CUSTOM_PROFILE_TITLE" = "Rename the profile";
+"DELETE_CUSTOM_PROFILE_TITLE" = "Delete the profile";
+"DELETE_CUSTOM_PROFILE_MESSAGE" = "Do you want to delete the selected profile?";
 
 "VERSION_FORMAT" = "Version: %@";
 "BASED_ON_FORMAT" = "Based on:<br />%@";

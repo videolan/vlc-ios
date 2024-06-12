@@ -170,6 +170,11 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         }
     }
 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Only custom profiles can be deleted
+        return indexPath.section == 0 ? false : true
+    }
+
     // MARK: - table view delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
@@ -178,6 +183,20 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         delegate?.equalizerPresetSelector(self, didSelectPreset: indexPath.row, isCustom: isCustomProfile)
         presetsTableView.reloadData()
         toggleHiddenView()
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: NSLocalizedString("BUTTON_DELETE", comment: "")) { action, index in
+            self.delegate?.equalizerPresetSelector(self, displayAlertOfType: .delete, index: indexPath)
+        }
+
+        let rename = UITableViewRowAction(style: .default, title: NSLocalizedString("BUTTON_RENAME", comment: "")) { action, index in
+            self.delegate?.equalizerPresetSelector(self, displayAlertOfType: .rename, index: indexPath)
+        }
+
+        delete.backgroundColor = UIColor.red
+        rename.backgroundColor = PresentationTheme.current.colors.orangeUI
+        return [delete, rename]
     }
 
     // MARK: - Slider event
@@ -196,4 +215,5 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
 @objc protocol EqualizerPresetSelectorDelegate {
     @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float)
     @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int, isCustom: Bool)
+    @objc func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, displayAlertOfType type: EqualizerEditActionsIdentifier, index: IndexPath)
 }

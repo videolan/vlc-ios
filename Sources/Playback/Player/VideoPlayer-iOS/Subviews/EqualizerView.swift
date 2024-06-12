@@ -65,6 +65,12 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
     var profiles: [CustomEqualizerProfile]
 }
 
+// MARK: - EqualizerEditActionsIdentifier
+@objc enum EqualizerEditActionsIdentifier: Int {
+    case rename = 1
+    case delete
+}
+
 @objc class EqualizerView: UIView {
 
     // MARK: - EqualizerFrequency structure
@@ -595,6 +601,59 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
         showSave = false
         parentPopup?.updateAccessoryViews()
         reloadData()
+    }
+
+    func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, displayAlertOfType type: EqualizerEditActionsIdentifier, index: IndexPath) {
+        let title = type == .delete ? NSLocalizedString("DELETE_CUSTOM_PROFILE_TITLE", comment: "") : NSLocalizedString("RENAME_CUSTOM_PROFILE_TITLE", comment: "")
+        let message = type == .delete ? NSLocalizedString("DELETE_CUSTOM_PROFILE_MESSAGE", comment: "") : ""
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let action: UIAlertAction
+
+        if type == .delete {
+            action = UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""), style: .destructive) { _ in
+                let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+                guard let customEncodedProfiles = customEncodedProfiles,
+                      var customProfiles = NSKeyedUnarchiver(forReadingWith: customEncodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+                      index.row < customProfiles.profiles.count else {
+                    return
+                }
+
+                customProfiles.profiles.remove(at: index.row)
+                UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+                self.presetSelectorView?.presetsTableView.reloadData()
+            }
+        } else {
+            alertController.addTextField { textField in
+                textField.translatesAutoresizingMaskIntoConstraints = false
+                textField.text = self.presetSelectorView?.presetsTableView.cellForRow(at: index)?.textLabel?.text
+            }
+
+            action = UIAlertAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""), style: .default) { _ in
+                let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
+                guard let customEncodedProfiles = customEncodedProfiles,
+                      let customProfiles = NSKeyedUnarchiver(forReadingWith: customEncodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+                      index.row < customProfiles.profiles.count else {
+                    return
+                }
+
+                guard let newName = alertController.textFields?.first?.text,
+                      !newName.isEmpty else {
+                    return
+                }
+
+                customProfiles.profiles[index.row].name = newName
+                UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+                self.presetSelectorView?.presetsTableView.reloadData()
+            }
+        }
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+
+        alertController.addAction(action)
+        alertController.addAction(cancelAction)
+
+        UIDelegate?.displayAlert(alertController)
     }
 }
 
