@@ -657,6 +657,29 @@ class PlayerViewController: UIViewController {
         }
     }
 
+    private func applyCustomEqualizerProfileIfNeeded() {
+        let userDefaults = UserDefaults.standard
+        guard userDefaults.bool(forKey: kVLCCustomProfileEnabled) else {
+            return
+        }
+
+        let profileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
+        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
+
+        guard let encodedData = encodedData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+              profileIndex < customProfiles.profiles.count else {
+            return
+        }
+
+        let selectedProfile = customProfiles.profiles[profileIndex]
+        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
+
+        for (index, frequency) in selectedProfile.frequencies.enumerated() {
+            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(index))
+        }
+    }
+
     // MARK: - Gesture handlers
 
     @objc func handlePlayPauseGesture() {
@@ -882,6 +905,12 @@ class PlayerViewController: UIViewController {
 extension PlayerViewController: VLCPlaybackServiceDelegate {
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
+    }
+
+    func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState, isPlaying: Bool, currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool, for playbackService: PlaybackService) {
+        if currentState == .opening {
+            applyCustomEqualizerProfileIfNeeded()
+        }
     }
 
     func showStatusMessage(_ statusMessage: String) {

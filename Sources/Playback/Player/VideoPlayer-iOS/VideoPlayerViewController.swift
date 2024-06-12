@@ -907,6 +907,29 @@ private extension VideoPlayerViewController {
             seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
         }
     }
+
+    private func applyCustomEqualizerProfileIfNeeded() {
+        let userDefaults = UserDefaults.standard
+        guard userDefaults.bool(forKey: kVLCCustomProfileEnabled) else {
+            return
+        }
+
+        let profileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
+        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
+
+        guard let encodedData = encodedData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+              profileIndex < customProfiles.profiles.count else {
+            return
+        }
+
+        let selectedProfile = customProfiles.profiles[profileIndex]
+        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
+
+        for (index, frequency) in selectedProfile.frequencies.enumerated() {
+            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(index))
+        }
+    }
 }
 
 // MARK: - Gesture handlers
@@ -1753,7 +1776,12 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
         }
+
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
+
+        if currentState == .opening {
+            applyCustomEqualizerProfileIfNeeded()
+        }
     }
 
     func showStatusMessage(_ statusMessage: String) {

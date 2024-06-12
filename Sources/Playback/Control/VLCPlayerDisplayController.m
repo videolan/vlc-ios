@@ -345,6 +345,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:audioPlayerViewController];
     navCon.modalPresentationStyle = UIModalPresentationOverFullScreen;
     navCon.modalPresentationCapturesStatusBarAppearance = YES;
+    _playbackController.delegate = audioPlayerViewController;
     [audioPlayerViewController prepareForMediaPlayback:self.playbackController];
 
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];

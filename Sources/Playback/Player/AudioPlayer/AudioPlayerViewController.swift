@@ -415,10 +415,15 @@ extension AudioPlayerViewController {
         }
     }
 
-    func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
+    override func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
                                  isPlaying: Bool,
                                  currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool,
                                  for playbackService: PlaybackService) {
+        super.mediaPlayerStateChanged(currentState, isPlaying: isPlaying,
+                                      currentMediaHasTrackToChooseFrom: currentMediaHasTrackToChooseFrom,
+                                      currentMediaHasChapters: currentMediaHasChapters,
+                                      for: playbackService)
+
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
 
         let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
