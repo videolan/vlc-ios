@@ -172,7 +172,6 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
     private var oldValues: [Float] = []
 
     private var parentPopup: PopupView?
-    private var showSave = false
 
     private var playbackService = PlaybackService.sharedInstance()
 
@@ -194,10 +193,9 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
     }
 
     func willShow() {
-        showSave = false
-        parentPopup?.updateAccessoryViews()
-        reloadData()
+        shouldDisplaySaveButton(false)
         resetValuesOnShow()
+        reloadData()
     }
 
     // MARK: - Setup
@@ -437,8 +435,7 @@ extension EqualizerView {
 
     @objc func sliderDidChangeValue(sender: UISlider) {
         playbackService.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
-        showSave = true
-        parentPopup?.updateAccessoryViews()
+        shouldDisplaySaveButton(true)
         UIDelegate?.equalizerViewShowIcon()
     }
 
@@ -521,9 +518,8 @@ extension EqualizerView {
             userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
             userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
 
-            self.showSave = false
-            self.parentPopup?.updateAccessoryViews()
             self.presetSelectorView?.presetsTableView.reloadData()
+            self.shouldDisplaySaveButton(false)
             self.hideEqualizerIconIfNeeded()
         }
 
@@ -551,8 +547,7 @@ extension EqualizerView {
 
         reloadData()
         hideEqualizerIconIfNeeded()
-        showSave = false
-        parentPopup?.updateAccessoryViews()
+        shouldDisplaySaveButton(false)
     }
 
     private func hideEqualizerIconIfNeeded() {
@@ -580,6 +575,12 @@ extension EqualizerView {
         userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
         userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
     }
+
+    private func shouldDisplaySaveButton(_ display: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.saveButton.isHidden = !display
+        }
+    }
 }
 
 // MARK: - EqualizerPresetSelectorDelegate
@@ -587,8 +588,7 @@ extension EqualizerView {
 extension EqualizerView: EqualizerPresetSelectorDelegate {
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float) {
         playbackService.preAmplification = CGFloat(preamp)
-        showSave = true
-        parentPopup?.updateAccessoryViews()
+        shouldDisplaySaveButton(true)
     }
 
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int, isCustom: Bool) {
@@ -598,8 +598,7 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
             applyCustomProfile(preset)
         }
 
-        showSave = false
-        parentPopup?.updateAccessoryViews()
+        shouldDisplaySaveButton(false)
         reloadData()
     }
 
@@ -665,11 +664,7 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
             parentPopup = popupView
         }
 
-        if showSave {
-            return [saveButton, resetButton]
-        } else {
-            return [resetButton]
-        }
+        return [saveButton, resetButton]
     }
 }
 
