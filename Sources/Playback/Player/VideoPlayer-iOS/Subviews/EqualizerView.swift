@@ -295,6 +295,11 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
         setupFrequenciesStackView()
         setupConstraints()
         setupTheme()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(resetEqualizer),
+                                               name: NSNotification.Name(VLCPlaybackServicePlaybackDidStop),
+                                               object: nil)
     }
 
     private func setupConstraints() {
