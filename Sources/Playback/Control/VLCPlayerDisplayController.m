@@ -205,7 +205,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)closeFullscreenPlayback
 {
-    [self.movieViewController dismissViewControllerAnimated:[self shouldAnimate] completion:nil];
+    [self.movieViewController dismissViewControllerAnimated:[self shouldAnimate] completion:^{
+        [self _updateInterfaceOrientation];
+    }];
     self.displayMode = VLCPlayerDisplayControllerDisplayModeMiniplayer;
     [self _showHideMiniPlaybackView];
 }
@@ -309,7 +311,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         BOOL animated = [self shouldAnimate];
-        [self.movieViewController dismissViewControllerAnimated:animated completion:nil];
+        [self.movieViewController dismissViewControllerAnimated:animated completion:^{
+            [self _updateInterfaceOrientation];
+        }];
         [self _showHideMiniPlaybackView];
     });
 }
@@ -340,6 +344,23 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     [window.rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
+}
+
+- (void)_updateInterfaceOrientation
+{
+    if (@available(iOS 16, *)) {
+        UIWindowScene *windowScene = self.view.window.windowScene;
+
+        if (windowScene) {
+            UIWindowSceneGeometryPreferences *geometry = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskAllButUpsideDown];
+            [windowScene requestGeometryUpdateWithPreferences:geometry errorHandler:nil];
+            [self setNeedsUpdateOfSupportedInterfaceOrientations];
+        }
+    } else {
+        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationMaskAllButUpsideDown];
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+        [UIViewController attemptRotationToDeviceOrientation];
+    }
 }
 
 #pragma mark - miniplayer

@@ -66,6 +66,19 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return queueButton
     }()
 
+    lazy var rotateButton: UIButton = {
+        var rotateButton = UIButton(type: .system)
+        rotateButton.addTarget(self, action: #selector(toggleOrientation), for: .touchDown)
+        if #available(iOS 13, *) {
+            rotateButton.setImage(UIImage(systemName: "rectangle.landscape.rotate"), for: .normal)
+        } else {
+            rotateButton.setImage(UIImage(named: "rectangle.landscape.rotate"), for: .normal)
+        }
+        rotateButton.tintColor = .white
+        rotateButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return rotateButton
+    }()
+
     lazy var chromeCastButton: UIButton = {
         var chromeButton = UIButton(type: .system)
         chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchDown)
@@ -159,7 +172,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         var constraints: [NSLayoutConstraint] = [
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            queueButton.widthAnchor.constraint(equalTo: heightAnchor)
+            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
+            rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
         ]
 
         if #available(iOS 11.0, *) {
@@ -177,6 +191,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
+        addArrangedSubview(rotateButton)
         addArrangedSubview(queueButton)
         if #available(iOS 11.0, *) {
             addArrangedSubview(deviceButton)
@@ -214,6 +229,28 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     func toggleQueueView() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidToggleQueueView?(self)
+    }
+
+    func toggleOrientation() {
+        if #available(iOS 16, *) {
+            if let windowScene = self.window?.windowScene {
+                if windowScene.interfaceOrientation == .portrait {
+                    windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+                } else {
+                    windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                }
+            }
+        } else {
+            let value: Int
+            if UIApplication.shared.statusBarOrientation == .portrait {
+                value = UIInterfaceOrientation.landscapeRight.rawValue
+            } else {
+                value = UIInterfaceOrientation.portrait.rawValue
+            }
+
+            UIDevice.current.setValue(value, forKey: "orientation")
+            UIViewController.attemptRotationToDeviceOrientation()
+        }
     }
 
     func toggleChromeCast() {
