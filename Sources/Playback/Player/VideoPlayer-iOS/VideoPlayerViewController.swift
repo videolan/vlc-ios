@@ -109,6 +109,11 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Private
     private var systemBrightness: Double?
+
+    /// Stores previous playback speed for long press gesture
+    /// to be able to restore playback speed to its previous state after long press ended.
+    private var previousPlaybackSpeed: Float?
+
     // MARK: - 360
 
     private var fov: CGFloat = 0
@@ -286,6 +291,16 @@ class VideoPlayerViewController: UIViewController {
     private var currentPanType: VideoPlayerPanType = .none
 
     private var projectionLocation: CGPoint = .zero
+
+    private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
+        let view: LongPressPlaybackSpeedView = Bundle.main.loadNibNamed("LongPressPlaybackSpeedView", owner: nil)?.first as! LongPressPlaybackSpeedView
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        view.layer.opacity = 0
+
+        return view
+    }()
+
 
     // MARK: - VideoOutput
 
@@ -481,6 +496,11 @@ class VideoPlayerViewController: UIViewController {
     private lazy var minimizeGestureRecognizer: UIPanGestureRecognizer = {
         let dismissGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleMinimizeGesture(_:)))
         return dismissGestureRecognizer
+    }()
+
+    private lazy var longPressGestureRecognizer: UILongPressGestureRecognizer = {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
+        return longPressRecognizer
     }()
 
     private var isGestureActive: Bool = false
@@ -1280,6 +1300,50 @@ extension VideoPlayerViewController {
             break
         }
     }
+
+    @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard playbackService.isPlaying else { return }
+
+        switch gestureRecognizer.state {
+        case .began:
+            // Store previous playback speed
+            previousPlaybackSpeed = playbackService.playbackRate
+            // Hide controls
+            setControlsHidden(true, animated: true)
+
+            // Set playback speed
+            if playbackService.playbackRate < 2 {
+                playbackService.playbackRate = 2
+            } else {
+                let playbackSpeed = playbackService.playbackRate + 1
+                playbackService.playbackRate = min(playbackSpeed, 8)
+            }
+
+            // Update view multiplier label
+            longPressPlaybackSpeedView.speedMultiplier = playbackService.playbackRate
+
+            // Generate selection feedback
+            if #available(iOS 10, *) {
+                let feedbackGenerator = UISelectionFeedbackGenerator()
+                feedbackGenerator.selectionChanged()
+            }
+
+            // Show playback speed view
+            UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
+                self.longPressPlaybackSpeedView.layer.opacity = 1
+            }
+        case .ended:
+            // Set playback speed previous state
+            playbackService.playbackRate = previousPlaybackSpeed ?? 1
+            
+            // Hide playback speed view
+            UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
+                self.longPressPlaybackSpeedView.layer.opacity = 0
+            }
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - Private setups
@@ -1317,6 +1381,7 @@ private extension VideoPlayerViewController {
         view.addSubview(externalVideoOutputView)
         view.addSubview(statusLabel)
         view.addSubview(titleSelectionView)
+        view.addSubview(longPressPlaybackSpeedView)
 
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
@@ -1340,6 +1405,7 @@ private extension VideoPlayerViewController {
         view.addGestureRecognizer(rightSwipeRecognizer)
         view.addGestureRecognizer(upSwipeRecognizer)
         view.addGestureRecognizer(downSwipeRecognizer)
+        view.addGestureRecognizer(longPressGestureRecognizer)
 
         panRecognizer.require(toFail: leftSwipeRecognizer)
         panRecognizer.require(toFail: rightSwipeRecognizer)
@@ -1385,6 +1451,7 @@ private extension VideoPlayerViewController {
         setupVolumeControlConstraints()
         setupStatusLabelConstraints()
         setupTitleSelectionConstraints()
+        setupLongPressPlaybackSpeedConstraints()
     }
 
     private func setupTitleSelectionConstraints() {
@@ -1494,6 +1561,13 @@ private extension VideoPlayerViewController {
         NSLayoutConstraint.activate([
             statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    private func setupLongPressPlaybackSpeedConstraints() {
+        NSLayoutConstraint.activate([
+            longPressPlaybackSpeedView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            longPressPlaybackSpeedView.centerYAnchor.constraint(equalTo: mediaNavigationBar.centerYAnchor)
         ])
     }
 
