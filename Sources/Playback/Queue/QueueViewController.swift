@@ -239,8 +239,16 @@ class QueueViewController: UIViewController {
             return
         }
 
+        guard currentIndex < mediaList.count else {
+            return
+        }
+
         let currentIndexPath = IndexPath(row: Int(currentIndex), section: 0)
-        queueCollectionView.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: true)
+
+        // Dispatch the scrolling operation to the main queue to ensure UI updates are processed first
+        DispatchQueue.main.async {
+            self.queueCollectionView.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: true)
+        }
     }
 
     @objc init(medialibraryService: MediaLibraryService) {
