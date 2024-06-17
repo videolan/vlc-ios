@@ -293,7 +293,7 @@ class VideoPlayerViewController: UIViewController {
     private var projectionLocation: CGPoint = .zero
 
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
-        let view: LongPressPlaybackSpeedView = Bundle.main.loadNibNamed("LongPressPlaybackSpeedView", owner: nil)?.first as! LongPressPlaybackSpeedView
+        let view = LongPressPlaybackSpeedView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.layer.opacity = 0

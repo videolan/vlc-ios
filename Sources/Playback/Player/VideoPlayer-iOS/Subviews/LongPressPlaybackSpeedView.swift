@@ -9,10 +9,17 @@
 import UIKit
 
 class LongPressPlaybackSpeedView: UIView {
-    @IBOutlet private weak var stackView: UIStackView!
-    @IBOutlet private weak var label: UILabel!
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-    private let numberFormatter: NumberFormatter = {
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private static let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
 
         formatter.minimumFractionDigits = 0
@@ -24,25 +31,98 @@ class LongPressPlaybackSpeedView: UIView {
 
     var speedMultiplier: Float = 2 {
         didSet {
-            let formatted = numberFormatter.string(from: NSNumber(value: speedMultiplier))
-            label.text = "\(formatted ?? String(speedMultiplier))x"
+            // Format the fraction
+            let formatted = Self.numberFormatter.string(from: NSNumber(value: speedMultiplier))
+
+            // Update multiplier label text
+            multiplierLabel.text = "\(formatted ?? String(speedMultiplier))x"
         }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    private let multiplierLabel: UILabel = {
+        let label = UILabel()
 
-        stackView.layoutMargins = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
-        stackView.isLayoutMarginsRelativeArrangement = true
+        label.text = "2x"
+        label.font = .preferredFont(forTextStyle: .subheadline).bolded
 
-        stackView.layer.cornerRadius = stackView.bounds.height / 2
-        stackView.layer.masksToBounds = true
-        
-        stackView.backgroundColor = stackView.backgroundColor?.withAlphaComponent(0.5)
+        return label
+    }()
 
-        // Make label font bold
+    private var playSymbolView: UIImageView {
+        let imageView: UIImageView
+
         if #available(iOS 13, *) {
-            label.font = .preferredFont(forTextStyle: .subheadline, compatibleWith: .init(legibilityWeight: .bold))
+            let image = UIImage(systemName: "play.fill")?
+                .applyingSymbolConfiguration(.init(scale: .small))
+            imageView = UIImageView(image: image)
+            imageView.tintColor = .label
+        } else {
+            let image = UIImage(named: "play.fill")
+            imageView = UIImageView(image: image)
+            imageView.tintColor = .black
         }
+
+        return imageView
+    }
+
+    func setupView() {
+        if #available(iOS 13, *) {
+            let symbolStackView = UIStackView(arrangedSubviews: [playSymbolView, playSymbolView])
+            symbolStackView.spacing = 0
+
+            let stackView = UIStackView(arrangedSubviews: [multiplierLabel, symbolStackView])
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+
+            stackView.spacing = 5
+
+            stackView.layoutMargins = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
+            stackView.isLayoutMarginsRelativeArrangement = true
+
+            self.addSubview(stackView)
+
+            NSLayoutConstraint.activate([
+                self.topAnchor.constraint(equalTo: stackView.topAnchor),
+                self.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                self.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+            ])
+
+            self.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.5)
+        } else {
+            let playSymbolView1 = playSymbolView
+            let playSymbolView2 = playSymbolView
+
+            multiplierLabel.translatesAutoresizingMaskIntoConstraints = false
+            playSymbolView1.translatesAutoresizingMaskIntoConstraints = false
+            playSymbolView2.translatesAutoresizingMaskIntoConstraints = false
+
+            self.addSubview(multiplierLabel)
+            self.addSubview(playSymbolView1)
+            self.addSubview(playSymbolView2)
+
+            NSLayoutConstraint.activate([
+                // Center everything
+                self.centerYAnchor.constraint(equalTo: multiplierLabel.centerYAnchor),
+                multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView1.centerYAnchor),
+                multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView2.centerYAnchor),
+                // Margins
+                self.topAnchor.constraint(equalTo: multiplierLabel.topAnchor, constant: -5),
+                self.leadingAnchor.constraint(equalTo: multiplierLabel.leadingAnchor, constant: -20),
+                self.bottomAnchor.constraint(equalTo: multiplierLabel.bottomAnchor, constant: 5),
+                self.trailingAnchor.constraint(equalTo: playSymbolView2.trailingAnchor, constant: 20),
+                // UI Elements
+                multiplierLabel.trailingAnchor.constraint(equalTo: playSymbolView1.leadingAnchor, constant: -5),
+                playSymbolView1.trailingAnchor.constraint(equalTo: playSymbolView2.leadingAnchor)
+            ])
+
+            self.backgroundColor = .black.withAlphaComponent(0.35)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.layer.cornerRadius = self.bounds.height / 2
+        self.layer.masksToBounds = true
     }
 }
