@@ -662,24 +662,28 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index
 {
-    NSInteger count = _mediaPlayer.videoSubTitlesNames.count;
+    NSArray *videoSubTitlesNames = _mediaPlayer.videoSubTitlesNames;
+    NSInteger count = videoSubTitlesNames.count;
 
     if (index == count) {
         return NSLocalizedString(@"SELECT_SUBTITLE_FROM_FILES", nil);
-    } else {
-        return _mediaPlayer.videoSubTitlesNames[index];
+    } else if (index < count) {
+        return videoSubTitlesNames[index];
     }
+    return @"";
 }
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index
 {
-    NSInteger count = _mediaPlayer.audioTrackNames.count;
+    NSArray *audioTrackNames = _mediaPlayer.audioTrackNames;
+    NSInteger count = audioTrackNames.count;
 
     if (index == count) {
         return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
-    } else {
-        return _mediaPlayer.audioTrackNames[index];
+    } else if (index < count) {
+        return audioTrackNames[index];
     }
+    return @"";
 }
 
 - (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index
@@ -699,16 +703,18 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)selectAudioTrackAtIndex:(NSInteger)index
 {
-    if (index >= 0 && index < _mediaPlayer.audioTrackIndexes.count) {
+    NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
+    if (index >= 0 && index < audioTrackIndexes.count) {
         //we can cast this cause we won't have more than 2 million audiotracks
-        _mediaPlayer.currentAudioTrackIndex = [_mediaPlayer.audioTrackIndexes[index] intValue];
+        _mediaPlayer.currentAudioTrackIndex = [audioTrackIndexes[index] intValue];
     }
 }
 
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index
 {
-    if (index >= 0 && index < _mediaPlayer.videoSubTitlesIndexes.count) {
-        _mediaPlayer.currentVideoSubTitleIndex = [_mediaPlayer.videoSubTitlesIndexes[index] intValue];
+    NSArray *videoSubTitlesIndexes = _mediaPlayer.videoSubTitlesIndexes;
+    if (index >= 0 && index < videoSubTitlesIndexes.count) {
+        _mediaPlayer.currentVideoSubTitleIndex = [videoSubTitlesIndexes[index] intValue];
     }
 }
 
@@ -1141,7 +1147,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (!enabled)
         _mediaPlayer.currentVideoTrackIndex = -1;
     else if (_mediaPlayer.currentVideoTrackIndex == -1) {
-        for (NSNumber *trackId in _mediaPlayer.videoTrackIndexes) {
+        NSArray *videoTrackIndexes = _mediaPlayer.videoTrackIndexes;
+        for (NSNumber *trackId in videoTrackIndexes) {
             if ([trackId intValue] != -1) {
                 _mediaPlayer.currentVideoTrackIndex = [trackId intValue];
                 break;
