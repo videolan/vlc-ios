@@ -103,7 +103,8 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
 
     // MARK: - table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profiles.count
+        // We need to return the number of profiles + 1 as we fake the "Off" profile in this table view
+        return profiles.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,8 +113,8 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         let colors = PresentationTheme.darkTheme.colors
         if indexPath.row == 0 {
             cell.textLabel?.text = NSLocalizedString("OFF", comment: "")
-        } else {
-            cell.textLabel?.text = profiles[indexPath.row].name
+        } else if indexPath.row - 1 < profiles.count {
+            cell.textLabel?.text = profiles[indexPath.row - 1].name
         }
 
         if selectedProfileIndex == indexPath.row {
