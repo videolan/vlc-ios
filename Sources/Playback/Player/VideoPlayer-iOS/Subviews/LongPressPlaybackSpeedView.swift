@@ -59,7 +59,6 @@ class LongPressPlaybackSpeedView: UIView {
         } else {
             let image = UIImage(named: "play.fill")
             imageView = UIImageView(image: image)
-            imageView.tintColor = .black
         }
 
         return imageView
