@@ -44,6 +44,7 @@
 #import "VLCNetworkServerBrowserViewController.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "UIImage+AverageColor.h"
+#import "UIStackView+Orientation.h"
 #import "VLCFavoriteService.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNagScreenViewController.h"

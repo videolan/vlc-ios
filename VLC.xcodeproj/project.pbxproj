@@ -140,6 +140,7 @@
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
 		7D21407F2431F3A50075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
+		7D2891822C21E3FA00FA2CB7 /* UIStackView+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */; };
 		7D2BC9112B5A67AB00C6770B /* VLCStripeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */; };
 		7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
 		7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
@@ -736,6 +737,8 @@
 		7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7D23F3ED2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D23F3EE2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D2891802C21E3FA00FA2CB7 /* UIStackView+Orientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIStackView+Orientation.h"; path = "Sources/Extensions/UIKit/UIStackView+Orientation.h"; sourceTree = SOURCE_ROOT; };
+		7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIStackView+Orientation.m"; path = "Sources/Extensions/UIKit/UIStackView+Orientation.m"; sourceTree = SOURCE_ROOT; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2BC90F2B5A67AB00C6770B /* VLCStripeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCStripeController.h; sourceTree = "<group>"; };
@@ -2132,6 +2135,8 @@
 		7DC7BAA628C8957A00109F28 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				7D2891802C21E3FA00FA2CB7 /* UIStackView+Orientation.h */,
+				7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */,
 				7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */,
 				7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */,
 				7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */,
@@ -3782,6 +3787,7 @@
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				DD3EFF4F1BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				8F67A5912A34E820005A8AC1 /* HistoryModel.swift in Sources */,
+				7D2891822C21E3FA00FA2CB7 /* UIStackView+Orientation.m in Sources */,
 				8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */,

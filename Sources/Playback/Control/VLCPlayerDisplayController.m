@@ -17,6 +17,8 @@
 #import "VLC-Swift.h"
 #if TARGET_OS_TV
 #import "VLCFullscreenMovieTVViewController.h"
+#else
+#import "UIStackView+Orientation.h"
 #endif
 
 #define SWIFT_VIDEO_PLAYER 1
@@ -346,13 +348,13 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }];
 }
 
+#if !TARGET_OS_TV
 - (void)_updateInterfaceOrientation
 {
     if (@available(iOS 16, *)) {
         UIWindowScene *windowScene = self.view.window.windowScene;
-
         if (windowScene) {
-            UIWindowSceneGeometryPreferences *geometry = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskAllButUpsideDown];
+            id geometry = [[VLCWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskAllButUpsideDown];
             [windowScene requestGeometryUpdateWithPreferences:geometry errorHandler:nil];
             [self setNeedsUpdateOfSupportedInterfaceOrientations];
         }
@@ -362,6 +364,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         [UIViewController attemptRotationToDeviceOrientation];
     }
 }
+#endif
 
 #pragma mark - miniplayer
 

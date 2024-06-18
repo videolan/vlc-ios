@@ -240,25 +240,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     func toggleOrientation() {
-        if #available(iOS 16, *) {
-            if let windowScene = self.window?.windowScene {
-                if windowScene.interfaceOrientation == .portrait {
-                    windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
-                } else {
-                    windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-                }
-            }
-        } else {
-            let value: Int
-            if UIApplication.shared.statusBarOrientation == .portrait {
-                value = UIInterfaceOrientation.landscapeRight.rawValue
-            } else {
-                value = UIInterfaceOrientation.portrait.rawValue
-            }
-
-            UIDevice.current.setValue(value, forKey: "orientation")
-            UIViewController.attemptRotationToDeviceOrientation()
-        }
+        vlc_toggleOrientation()
     }
 
     func toggleChromeCast() {
