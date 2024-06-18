@@ -1,5 +1,16 @@
 # Changelog
 
+## iOS [3.5.10]
+· Fix stability issues when decoding specific AV1 content on 64bit devices
+· Fix silence when playing specific content in the OPUS format
+· Add long press gesture to speed up playback speed
+· Stability improvements
+
+## tvOS [3.5.10]
+· Fix stability issues when decoding specific AV1 content
+· Fix silence when playing specific content in the OPUS format
+· Stability improvements
+
 ## iOS [3.5.9]
 · Layout improvements for the audio library, equalizer
 · Improve support for shortcuts when using an external keyboard
