@@ -403,7 +403,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
         } else if !parsedString.hasPrefix("http://") && !parsedString.hasPrefix("https://") && !parsedString.hasPrefix("ftp://") {
             parsedString = "http://\(parsedString)"
         }
-        return URL(string: parsedString)!
+        return URL(string: parsedString) ?? url
     }
 
     public func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
