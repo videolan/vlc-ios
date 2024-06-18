@@ -260,6 +260,8 @@
 
 "DURATION" = "Duration";
 "TITLE" = "Title";
+"ROTATE_BUTTON" = "Rotate"; /* Accessibility label for rotate button on the player */
+"ROTATE_BUTTON_HINT" = "Toggles the video player between landscape and portrait mode."; /* Accessibility hint for rotate button on the player */
 
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
 "ENTER_URL" = "Enter URL to play";

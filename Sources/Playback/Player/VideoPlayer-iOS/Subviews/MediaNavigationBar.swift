@@ -76,6 +76,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         }
         rotateButton.tintColor = .white
         rotateButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        rotateButton.accessibilityLabel = NSLocalizedString(
+            "ROTATE_BUTTON",
+            comment: "Accessibility label for rotate button on the player"
+        )
+        rotateButton.accessibilityHint = NSLocalizedString(
+            "ROTATE_BUTTON_HINT",
+            comment: "Accessibility hint for rotate button on the player"
+        )
         return rotateButton
     }()
 
