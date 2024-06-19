@@ -902,9 +902,6 @@ extension MediaCategoryViewController {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchDataSource.shouldReloadFor(searchString: searchText)
         reloadData()
-        if searchText.isEmpty {
-            self.searchBar.resignFirstResponder()
-        }
     }
 }
 
