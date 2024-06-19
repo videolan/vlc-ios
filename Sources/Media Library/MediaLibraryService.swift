@@ -162,6 +162,8 @@ class MediaLibraryService: NSObject {
     @objc var isExcludingFromBackup: Bool = false
     @objc var isHidingLibrary: Bool = false
 
+    var currentlyPlayingCollection: CurrentlyPlayingCollectionModel?
+
     override init() {
         super.init()
         setupMediaLibrary()
@@ -780,6 +782,45 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, historyChangedOf type: VLCMLHistoryType) {
         observable.notifyObservers {
             $0.medialibrary?(self, historyChangedOfType: type)
+        }
+    }
+}
+
+// MARK: - Currently Playing Collection
+
+extension MediaLibraryService {
+    func setCurrentlyPlayingCollection(with model: MediaLibraryBaseModel, for index: Int) {
+        guard index != -1 else { return }
+        
+        switch model {
+        case let model as CollectionModel:
+            if let playlist = model.mediaCollection as? VLCMLPlaylist {
+                let info = CurrentlyPlayingCollectionInfo(id: playlist.identifier(), name: playlist.name)
+                currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .playlist(info))
+            } else if let videoGroup = model.mediaCollection as? VLCMLMediaGroup {
+                let info = CurrentlyPlayingCollectionInfo(id: videoGroup.identifier(), name: videoGroup.name())
+                currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .mediaGroup(info))
+            } else if model.mediaCollection is VLCMLAlbum {
+                currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .album)
+            } else if model.mediaCollection is VLCMLArtist {
+                currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .artist)
+            }
+        case is TrackModel:
+            currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .allSongs)
+        case is ArtistModel:
+            currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .artist)
+        case is AlbumModel:
+            currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .album)
+        case let model as MediaGroupViewModel:
+            let mediaGroup = model.files[index]
+            let info = CurrentlyPlayingCollectionInfo(id: mediaGroup.identifier(), name: mediaGroup.name())
+            currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .mediaGroup(info))
+        case let model as PlaylistModel:
+            let playlist = model.files[index]
+            let info = CurrentlyPlayingCollectionInfo(id: playlist.identifier(), name: playlist.name)
+            currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .playlist(info))
+        default:
+            break
         }
     }
 }
