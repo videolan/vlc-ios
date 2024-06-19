@@ -41,6 +41,7 @@ class LongPressPlaybackSpeedView: UIView {
 
     private let multiplierLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
 
         label.text = "2x"
         label.font = .preferredFont(forTextStyle: .subheadline).bolded
@@ -48,6 +49,7 @@ class LongPressPlaybackSpeedView: UIView {
         return label
     }()
 
+    /// Creates a new instance of UIImageView with play symbol
     private var playSymbolView: UIImageView {
         let imageView: UIImageView
 
@@ -61,59 +63,37 @@ class LongPressPlaybackSpeedView: UIView {
             imageView = UIImageView(image: image)
         }
 
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
         return imageView
     }
 
     func setupView() {
+        let playSymbolView1 = playSymbolView
+        let playSymbolView2 = playSymbolView
+
+        self.addSubview(multiplierLabel)
+        self.addSubview(playSymbolView1)
+        self.addSubview(playSymbolView2)
+
+        NSLayoutConstraint.activate([
+            // Center everything
+            self.centerYAnchor.constraint(equalTo: multiplierLabel.centerYAnchor),
+            multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView1.centerYAnchor),
+            multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView2.centerYAnchor),
+            // Margins
+            self.topAnchor.constraint(equalTo: multiplierLabel.topAnchor, constant: -5),
+            self.leadingAnchor.constraint(equalTo: multiplierLabel.leadingAnchor, constant: -20),
+            self.bottomAnchor.constraint(equalTo: multiplierLabel.bottomAnchor, constant: 5),
+            self.trailingAnchor.constraint(equalTo: playSymbolView2.trailingAnchor, constant: 20),
+            // UI Elements
+            multiplierLabel.trailingAnchor.constraint(equalTo: playSymbolView1.leadingAnchor, constant: -5),
+            playSymbolView1.trailingAnchor.constraint(equalTo: playSymbolView2.leadingAnchor)
+        ])
+        
         if #available(iOS 13, *) {
-            let symbolStackView = UIStackView(arrangedSubviews: [playSymbolView, playSymbolView])
-            symbolStackView.spacing = 0
-
-            let stackView = UIStackView(arrangedSubviews: [multiplierLabel, symbolStackView])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-
-            stackView.spacing = 5
-
-            stackView.layoutMargins = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
-            stackView.isLayoutMarginsRelativeArrangement = true
-
-            self.addSubview(stackView)
-
-            NSLayoutConstraint.activate([
-                self.topAnchor.constraint(equalTo: stackView.topAnchor),
-                self.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-                self.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-                self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
-            ])
-
             self.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.5)
         } else {
-            let playSymbolView1 = playSymbolView
-            let playSymbolView2 = playSymbolView
-
-            multiplierLabel.translatesAutoresizingMaskIntoConstraints = false
-            playSymbolView1.translatesAutoresizingMaskIntoConstraints = false
-            playSymbolView2.translatesAutoresizingMaskIntoConstraints = false
-
-            self.addSubview(multiplierLabel)
-            self.addSubview(playSymbolView1)
-            self.addSubview(playSymbolView2)
-
-            NSLayoutConstraint.activate([
-                // Center everything
-                self.centerYAnchor.constraint(equalTo: multiplierLabel.centerYAnchor),
-                multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView1.centerYAnchor),
-                multiplierLabel.centerYAnchor.constraint(equalTo: playSymbolView2.centerYAnchor),
-                // Margins
-                self.topAnchor.constraint(equalTo: multiplierLabel.topAnchor, constant: -5),
-                self.leadingAnchor.constraint(equalTo: multiplierLabel.leadingAnchor, constant: -20),
-                self.bottomAnchor.constraint(equalTo: multiplierLabel.bottomAnchor, constant: 5),
-                self.trailingAnchor.constraint(equalTo: playSymbolView2.trailingAnchor, constant: 20),
-                // UI Elements
-                multiplierLabel.trailingAnchor.constraint(equalTo: playSymbolView1.leadingAnchor, constant: -5),
-                playSymbolView1.trailingAnchor.constraint(equalTo: playSymbolView2.leadingAnchor)
-            ])
-
             self.backgroundColor = .black.withAlphaComponent(0.35)
         }
     }
