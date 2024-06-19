@@ -17,6 +17,8 @@ import LocalAuthentication
 @objc(VLCKeychainCoordinator)
 class KeychainCoordinator: NSObject {
 
+    static let passcodeService = "org.videolan.vlc-ios.passcode"
+
     @objc class var passcodeLockEnabled: Bool {
         return UserDefaults.standard.bool(forKey: kVLCSettingPasscodeOnKey)
     }
@@ -44,8 +46,6 @@ class KeychainCoordinator: NSObject {
         return faceIDEnabled
     }
 
-    static let passcodeService = "org.videolan.vlc-ios.passcode"
-
     var completion: (() -> Void)?
 
     private var avoidPromptingTouchOrFaceID = false
@@ -58,10 +58,13 @@ class KeychainCoordinator: NSObject {
 
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(appInForeground),
-                                               name: UIApplication.didBecomeActiveNotification,
-                                               object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appInForeground),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
     }
 
     @objc class func setPasscode(passcode: String?) throws {
@@ -85,9 +88,9 @@ class KeychainCoordinator: NSObject {
     }
 
     @objc func validatePasscode(completion: @escaping () -> Void) {
-        passcodeLockController.passcode = passcodeFromKeychain()
         self.completion = completion
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController, passcodeLockController.passcode != "" else {
+
+        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController, KeychainCoordinator.passcodeLockEnabled else {
             self.completion?()
             self.completion = nil
             return
@@ -145,7 +148,7 @@ class KeychainCoordinator: NSObject {
                                             } else {
                                                 // user hit cancel and wants to enter the passcode
                                                 self?.avoidPromptingTouchOrFaceID = true
-                                                self?.passcodeLockController.passcodeTextField.becomeFirstResponder()
+                                                self?.passcodeLockController.passcodeField.becomeFirstResponder()
                                             }
                                         }
             })
