@@ -9,7 +9,7 @@
         <string>INSearchForMediaIntent</string>
         <key>IntentExamples</key>
         <array>
-          <string>Αναζητήστε για Jacques Brel στο VLC</string>
+          <string>Αναζήτηση Jacques Brel στο VLC</string>
         </array>
       </dict>
       <dict>
