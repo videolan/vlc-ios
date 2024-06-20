@@ -7,6 +7,7 @@
  *
  * Authors:Carola Nitz <caro # videolan.org>
  *          Swapnanil Dhol<swapnanildhol # gmail.com>
+ *       İbrahim Çetin <mail # ibrahimcetin.dev>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -16,87 +17,95 @@ import LocalAuthentication
 
 @objc(VLCKeychainCoordinator)
 class KeychainCoordinator: NSObject {
+    // Shared instance of passcodeService
+    @objc static let passcodeService = KeychainCoordinator(serviceIdentifier: "org.videolan.vlc-ios.passcode")
 
-    static let passcodeService = "org.videolan.vlc-ios.passcode"
+    let serviceIdentifier: String
 
-    @objc class var passcodeLockEnabled: Bool {
-        return UserDefaults.standard.bool(forKey: kVLCSettingPasscodeOnKey)
+    init(serviceIdentifier: String) {
+        self.serviceIdentifier = serviceIdentifier
     }
 
-    // Since FaceID and TouchID are both set to 1 when the defaults are registered
-    // we have to double check for the biometry type to not return true even though the setting is not visible
-    // and that type is not supported by the device
-    private var touchIDEnabled: Bool {
-        var touchIDEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPasscodeAllowTouchID)
-        let laContext = LAContext()
-
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
-        }
-        return touchIDEnabled
+    @objc var hasSecret: Bool {
+        // If there is a passcode in keychain, passcode is enabled
+        return secretFromKeychain != nil
     }
 
-    private var faceIDEnabled: Bool {
-        var faceIDEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPasscodeAllowFaceID)
-        let laContext = LAContext()
-
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
-        }
-        return faceIDEnabled
+    private var secretFromKeychain: String? {
+        let item = try? XKKeychainGenericPasswordItem(forService: serviceIdentifier, account: serviceIdentifier)
+        return item?.secret.stringValue
     }
 
-    var completion: (() -> Void)?
-
-    private var avoidPromptingTouchOrFaceID = false
-
-    private lazy var passcodeLockController: PasscodeLockController = {
-        let passcodeController = PasscodeLockController(action: .enter)
-        passcodeController.delegate = self
-        return passcodeController
-    }()
-
-    override init() {
-        super.init()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(appInForeground),
-            name: UIApplication.didBecomeActiveNotification,
-            object: nil
-        )
-    }
-
-    @objc class func setPasscode(passcode: String?) throws {
-        guard let passcode = passcode else {
-            do {
-                try XKKeychainGenericPasswordItem.removeItems(forService: passcodeService)
-            } catch let error {
-                throw error
-            }
-            return
-        }
+    func setSecret(_ secret: String) throws {
         let keychainItem = XKKeychainGenericPasswordItem()
-        keychainItem.service = passcodeService
-        keychainItem.account = passcodeService
-        keychainItem.secret.stringValue = passcode
-        do {
-            try keychainItem.save()
-        } catch let error {
-            throw error
+        keychainItem.service = serviceIdentifier
+        keychainItem.account = serviceIdentifier
+        keychainItem.secret.stringValue = secret
+
+        try? keychainItem.save()
+    }
+
+    func removeSecret() throws {
+        try XKKeychainGenericPasswordItem.removeItems(forService: serviceIdentifier)
+    }
+
+    func isSecretValid(_ secret: String) -> Bool {
+        secret == secretFromKeychain
+    }
+
+    var secretLength: Int {
+        secretFromKeychain?.count ?? 0
+    }
+}
+
+// - MARK: Helper methods
+
+extension KeychainCoordinator {
+    func setSecretView(completion: @escaping () -> Void) {
+        showPasscodeController(action: .set) { [weak self] secret in
+            guard let self else { return }
+
+            if let secret {
+                try? setSecret(secret)
+            } else {
+                try? removeSecret()
+            }
+
+            completion()
         }
     }
 
-    @objc func validatePasscode(completion: @escaping () -> Void) {
-        self.completion = completion
+    @objc func validateSecret(completion: @escaping () -> Void) {
+        if hasSecret {
+            showPasscodeController(action: .enter) { _ in
+                completion()
+            }
+        } else {
+            completion()
+        }
+    }
 
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController, KeychainCoordinator.passcodeLockEnabled else {
-            self.completion?()
-            self.completion = nil
-            return
+    /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided. Otherwise nil.
+    private func showPasscodeController(action: PasscodeAction, completion: @escaping (String?) -> Void) {
+        guard let presentingViewController else { return }
+
+        let passcodeController = PasscodeLockController(action: action, keychainService: self) { secret in
+            completion(secret)
         }
 
-        //if we have no video displayed we should use the current rootViewController
+        let passcodeNavigationController = UINavigationController(rootViewController: passcodeController)
+        passcodeNavigationController.modalPresentationStyle = .fullScreen
+        passcodeNavigationController.modalTransitionStyle = .crossDissolve
+
+        presentingViewController.present(passcodeNavigationController, animated: true)
+    }
+
+    private var presentingViewController: UIViewController? {
+        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+            return nil
+        }
+
+        // if we have no video displayed we should use the current rootViewController
         var presentingViewController = rootViewController
         // If playing a video, show the passcode view above the player.
         if let playerViewController = rootViewController.presentedViewController {
@@ -107,77 +116,6 @@ class KeychainCoordinator: NSObject {
             }
         }
 
-        let navigationController = UINavigationController(rootViewController: passcodeLockController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .crossDissolve
-
-        presentingViewController.present(navigationController, animated: true) {
-            [weak self] in
-            if self?.touchIDEnabled == true || self?.faceIDEnabled == true {
-                self?.touchOrFaceIDQuery()
-            }
-        }
-    }
-
-    @objc private func appInForeground(notification: Notification) {
-        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController, navigationController.topViewController is PasscodeLockController,
-            touchIDEnabled || faceIDEnabled {
-            touchOrFaceIDQuery()
-        }
-    }
-
-    private func touchOrFaceIDQuery() {
-        if avoidPromptingTouchOrFaceID || UIApplication.shared.applicationState != .active {
-            return
-        }
-
-        let laContext = LAContext()
-
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            avoidPromptingTouchOrFaceID = true
-            laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
-                                     localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: ""),
-                                     reply: { [weak self] success, _ in
-                                        DispatchQueue.main.async {
-                                            if success {
-                                                UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
-                                                    self?.completion?()
-                                                    self?.completion = nil
-                                                    self?.avoidPromptingTouchOrFaceID = false
-                                                })
-                                            } else {
-                                                // user hit cancel and wants to enter the passcode
-                                                self?.avoidPromptingTouchOrFaceID = true
-                                                self?.passcodeLockController.passcodeField.becomeFirstResponder()
-                                            }
-                                        }
-            })
-        }
-    }
-
-    private func passcodeFromKeychain() -> String {
-        do {
-            let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
-            return item.secret.stringValue
-        } catch let error {
-            assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
-            return ""
-        }
-    }
-}
-
-extension KeychainCoordinator: PasscodeLockControllerDelegate {
-    func passcodeViewControllerDidEnterPassword(controller: PasscodeLockController) {
-        avoidPromptingTouchOrFaceID = false
-        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController,
-            let passcodeController = navigationController.topViewController?.presentedViewController as? PasscodeLockController ??
-                navigationController.topViewController {
-            //either dismiss the passcode controller presented from movieVC or as topViewController
-            passcodeController.dismiss(animated: true, completion: {
-                [weak self] in
-                self?.completion?()
-                self?.completion = nil
-            })
-        }
+        return presentingViewController
     }
 }

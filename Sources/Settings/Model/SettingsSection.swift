@@ -1,23 +1,24 @@
 /*****************************************************************************
-* SettingsSection.swift
-* VLC for iOS
-*****************************************************************************
-* Copyright (c) 2020-2023 VideoLAN. All rights reserved.
-*
-* Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
-*          Soomin Lee < bubu@mikan.io >
-*          Edgar Fouillet <vlc # edgar.fouillet.eu>
-*          Diogo Simao Marques <dogo@videolabs.io>
-*          Felix Paul Kühne <fkuehne # videolan.org>
-*          Eshan Singh <eeeshan789@icloud.com>
-*
-* Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ * SettingsSection.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2020-2023 VideoLAN. All rights reserved.
+ *
+ * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
+ *          Soomin Lee < bubu@mikan.io >
+ *          Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Eshan Singh <eeeshan789@icloud.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 import LocalAuthentication
 
 // MARK: - SettingsItem
+
 struct SettingsItem: Equatable {
     let title: String
     let subtitle: String?
@@ -27,9 +28,9 @@ struct SettingsItem: Equatable {
     @available(*, deprecated, message: "access from self.action")
     var preferenceKey: String? {
         switch action {
-        case .toggle(let toggle):
+        case let .toggle(toggle):
             return toggle.preferenceKey
-        case .showActionSheet(_, let preferenceKey, _):
+        case let .showActionSheet(_, preferenceKey, _):
             return preferenceKey
         default:
             return nil
@@ -44,7 +45,7 @@ struct SettingsItem: Equatable {
     }
 
     static func toggle(title: String, subtitle: String?, preferenceKey: String) -> Self {
-        return Self.init(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)))
+        return Self(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)))
     }
 
     enum Action: Equatable {
@@ -97,7 +98,7 @@ struct SettingsItem: Equatable {
             observers.removeValue(forKey: Int)
         }
 
-        @objc private func didChange(_ note: Notification) {
+        @objc private func didChange(_: Notification) {
             notifyObservers()
         }
 
@@ -108,9 +109,9 @@ struct SettingsItem: Equatable {
 
             // copy the keys so we can detect departures
             let keys = observers.keys
-            keys.forEach { k in
+            for k in keys {
                 // skip observers that have departed as we call out to each
-                guard observers.keys.contains(k) else { return }
+                guard observers.keys.contains(k) else { continue }
 
                 observers[k]!(isOn)
             }
@@ -125,6 +126,7 @@ struct SettingsItem: Equatable {
 }
 
 // MARK: - SettingsSection
+
 struct SettingsSection: Equatable {
     let title: String?
     let items: [SettingsItem]
@@ -153,12 +155,13 @@ struct SettingsSection: Equatable {
             NetworkOptions.section(),
             Accessibility.section(),
             Lab.section(isLabActivated: isLabActivated),
-            Reset.section()
+            Reset.section(),
         ].compactMap { $0 }
     }
 }
 
 // MARK: - MainOptions
+
 enum MainOptions {
     static var privacy: SettingsItem {
         .init(title: "SETTINGS_PRIVACY_TITLE",
@@ -176,12 +179,13 @@ enum MainOptions {
     static func section() -> SettingsSection? {
         .init(title: nil, items: [
             privacy,
-            appearance
+            appearance,
         ])
     }
 }
 
 // MARK: - DonationOptions
+
 enum DonationOptions {
     static var donate: SettingsItem {
         .init(title: "SETTINGS_DONATE",
@@ -195,6 +199,7 @@ enum DonationOptions {
 }
 
 // MARK: - GenericOptions
+
 enum GenericOptions {
     static var defaultPlaybackSpeed: SettingsItem {
         let k = kVLCSettingPlaybackSpeedDefaultValue
@@ -257,12 +262,13 @@ enum GenericOptions {
             automaticallyPlayNextItem,
             enableTextScrollingInMediaList,
             rememberPlayerState,
-            restoreLastPlayedMedia
+            restoreLastPlayedMedia,
         ])
     }
 }
 
 // MARK: - PrivacyOptions
+
 enum PrivacyOptions {
     static var passcodeLock: SettingsItem {
         .toggle(title: "SETTINGS_PASSCODE_LOCK",
@@ -303,12 +309,13 @@ enum PrivacyOptions {
         .init(title: "SETTINGS_PRIVACY_TITLE", items: [
             passcodeLock,
             enableBiometrics,
-            hideLibraryInFilesApp
-        ].compactMap({$0}))
+            hideLibraryInFilesApp,
+        ].compactMap { $0 })
     }
 }
 
 // MARK: - GestureControlOptions
+
 enum GestureControlOptions {
     static var swipeUpDownForVolume: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_VOLUME",
@@ -399,8 +406,8 @@ enum GestureControlOptions {
             isForwardBackwardEqual ? nil : backwardSkipLength,
             isTapSwipeEqual ? nil : forwardSkipLengthSwipe,
             (isTapSwipeEqual || isForwardBackwardEqual) ? nil : backwardSkipLengthSwipe,
-            longTouchToSpeedUp
-        ].compactMap({$0}))
+            longTouchToSpeedUp,
+        ].compactMap { $0 })
     }
 
     private static func dynamicForwardSkipDescription() -> String {
@@ -440,6 +447,7 @@ enum GestureControlOptions {
 }
 
 // MARK: - VideoOptions
+
 enum VideoOptions {
     static var deBlockingFilter: SettingsItem {
         let k = kVLCSettingSkipLoopFilter
@@ -486,6 +494,7 @@ enum VideoOptions {
 }
 
 // MARK: - SubtitlesOptions
+
 enum SubtitlesOptions {
     static var disableSubtitles: SettingsItem {
         .toggle(title: "SETTINGS_SUBTITLES_DISABLE",
@@ -497,8 +506,7 @@ enum SubtitlesOptions {
         let k = kVLCSettingSubtitlesFont
         return .init(title: "SETTINGS_SUBTITLES_FONT",
                      subtitle: Localizer.getSubtitle(for: k),
-                     action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONT", preferenceKey: k, hasInfo: true)
-        )
+                     action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONT", preferenceKey: k, hasInfo: true))
     }
 
     static var relativeFontSize: SettingsItem {
@@ -535,12 +543,13 @@ enum SubtitlesOptions {
             relativeFontSize,
             useBoldFont,
             fontColor,
-            textEncoding
+            textEncoding,
         ])
     }
 }
 
 // MARK: - CastingOptions
+
 enum CastingOptions {
     static var audioPassThrough: SettingsItem {
         .toggle(title: "SETTINGS_PTCASTING",
@@ -558,12 +567,13 @@ enum CastingOptions {
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_CASTING", items: [
             audioPassThrough,
-            conversionQuality
+            conversionQuality,
         ])
     }
 }
 
 // MARK: - AudioOptions
+
 enum AudioOptions {
     static var preampLevel: SettingsItem {
         let k = kVLCSettingDefaultPreampLevel
@@ -588,12 +598,13 @@ enum AudioOptions {
         .init(title: "SETTINGS_AUDIO_TITLE", items: [
             preampLevel,
             timeStretchingAudio,
-            audioPlaybackInBackground
+            audioPlaybackInBackground,
         ])
     }
 }
 
 // MARK: - MediaLibraryOptions
+
 enum MediaLibraryOptions {
     static var forceVLCToRescanTheMediaLibrary: SettingsItem {
         .init(title: "SETTINGS_MEDIA_LIBRARY_RESCAN",
@@ -640,11 +651,10 @@ enum MediaLibraryOptions {
 
     static func section(isBackingUp: Bool) -> SettingsSection? {
         var options = [forceVLCToRescanTheMediaLibrary,
-                        optimiseItemNamesForDisplay,
-                        disableGrouping,
-                        showVideoThumbnails,
-                        showAudioArtworks
-        ]
+                       optimiseItemNamesForDisplay,
+                       disableGrouping,
+                       showVideoThumbnails,
+                       showAudioArtworks]
 
         if isBackingUp {
             options.append(includeMediaLibInDeviceBackupWhenBackingUp)
@@ -657,6 +667,7 @@ enum MediaLibraryOptions {
 }
 
 // MARK: - NetworkOptions
+
 enum NetworkOptions {
     static var networkCachingLevel: SettingsItem {
         let k = kVLCSettingNetworkCaching
@@ -688,12 +699,13 @@ enum NetworkOptions {
             networkCachingLevel,
             ipv6SupportForWiFiSharing,
             forceSMBv1,
-            rtspctp
+            rtspctp,
         ])
     }
 }
 
 // MARK: - Accessibility
+
 enum Accessibility {
     static var playerControlDuration: SettingsItem {
         let k = kVLCSettingPlayerControlDuration
@@ -704,12 +716,13 @@ enum Accessibility {
 
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_ACCESSIBILITY", items: [
-            playerControlDuration
+            playerControlDuration,
         ])
     }
 }
 
 // MARK: - Lab
+
 enum Lab {
     static var debugLogging: SettingsItem {
         .toggle(title: "SETTINGS_DEBUG_LOG",
@@ -728,12 +741,13 @@ enum Lab {
 
         return .init(title: "SETTINGS_LAB", items: [
             debugLogging,
-            exportLibrary
+            exportLibrary,
         ])
     }
 }
 
 // MARK: - Reset
+
 enum Reset {
     static var resetOptions: SettingsItem {
         .init(title: "SETTINGS_RESET",
@@ -748,11 +762,10 @@ enum Reset {
 }
 
 // MARK: - Private
-fileprivate enum Localizer {
+
+private enum Localizer {
     private static let localizer = NSObject()
-    private static let settingsBundle = {
-        localizer.getSettingsBundle()!
-    }()
+    private static let settingsBundle = localizer.getSettingsBundle()!
 
     static func localizedTitle(key: String) -> String {
         settingsBundle.localizedString(forKey: key, value: key, table: "Root")

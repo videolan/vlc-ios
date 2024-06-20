@@ -699,6 +699,11 @@
 /* New strings */
 "Enter your passcode" = "Enter your passcode";
 
+/* New strings */
+"4-Digit Numeric Code" = "4-Digit Numeric Code"; /* Passcode 4 digit numeric code */
+"6-Digit Numeric Code" = "6-Digit Numeric Code"; /* Passcode 6 digit numeric code */
+"Passcode Options" = "Passcode Options";
+
 // MARK: - AppIntent Strings
 "APPINTENT_PLAY_MEDIA_TITLE" = "Play in the background";
 "APPINTENT_PLAY_MEDIA_DESCRIPTION" = "Play the selected playlist in the background without opening the app.";

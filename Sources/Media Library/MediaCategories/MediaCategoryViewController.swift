@@ -669,7 +669,7 @@ private extension MediaCategoryViewController {
     }
 
     private func createSpotlightItem(media: VLCMLMedia) {
-        if KeychainCoordinator.passcodeLockEnabled {
+        if KeychainCoordinator.passcodeService.hasSecret {
             return
         }
         userActivity = NSUserActivity(activityType: kVLCUserActivityPlaying)

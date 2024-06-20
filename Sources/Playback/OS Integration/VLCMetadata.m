@@ -77,7 +77,7 @@
     [self updatePlaybackRate:mediaPlayer];
 
     //Down here because we still need to populate the miniplayer
-    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
 
     [self populateInfoCenterFromMetadata];
 }
@@ -150,7 +150,7 @@
                         self.artworkImage = [UIImage imageWithData:imageData];
                         [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
 #if TARGET_OS_IOS
-                        if ([VLCKeychainCoordinator passcodeLockEnabled])
+                        if ([[VLCKeychainCoordinator passcodeService] hasSecret])
                             return;
 #endif
                         [self populateInfoCenterFromMetadata];

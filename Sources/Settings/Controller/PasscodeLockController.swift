@@ -22,30 +22,50 @@ enum PasscodeAction {
     case enter
 }
 
-// MARK: - PasscodeLockControllerDelegate
-
-protocol PasscodeLockControllerDelegate: AnyObject {
-    func passcodeViewControllerDidEnterPassword(controller: PasscodeLockController)
-}
-
-// MARK: - PasscodeLockController
-
 class PasscodeLockController: UIViewController {
-    static let passcodeService = "org.videolan.vlc-ios.passcode"
-
+    // - MARK: Properties
+    let keychainService: KeychainCoordinator
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
 
     let action: PasscodeAction
-    weak var delegate: PasscodeLockControllerDelegate?
+
+    /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided.
+    /// Otherwise nil.
+    var completionHandler: ((String?) -> Void)?
 
     private var tempPasscode = ""
+    private var avoidPromptingBiometricAuth = false
 
-    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
-        var tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        return tapGestureRecognizer
-    }()
+    private var passcodeLength: Int {
+        // If a passcode exists, return its length
+        // Else return default length to set action.
+        keychainService.hasSecret ? keychainService.secretLength : 4
+    }
 
+    // - MARK: Initiliazer
+    init(
+        action: PasscodeAction,
+        keychainService: KeychainCoordinator,
+        completionHandler: ((String?) -> Void)? = nil
+    ) {
+        self.action = action
+        self.keychainService = keychainService
+        self.completionHandler = completionHandler
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        notificationCenter.removeObserver(self)
+    }
+
+    // - MARK: UI Elements
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +88,9 @@ class PasscodeLockController: UIViewController {
         return label
     }()
 
+    /// This constraint will be used to center the passcode field
+    private var passcodeFieldCenterYConstraint: NSLayoutConstraint!
+
     let passcodeField: PasscodeField = {
         let field = PasscodeField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -75,58 +98,64 @@ class PasscodeLockController: UIViewController {
         return field
     }()
 
-    /// This constraint will use to center the passcode stack view
-    private var passcodeCenterYConstraint: NSLayoutConstraint!
+    /// This constraint will be used to put options button top on keyboard
+    private var passcodeOptionsButtonYConstraint: NSLayoutConstraint!
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return PresentationTheme.current.colors.statusBarStyle
-    }
+    private lazy var passcodeOptionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
-    private var isBiometricsEnabled: Bool {
-        return faceIDEnabled || touchIDEnabled
-    }
+        button.setTitle(NSLocalizedString("Passcode Options", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(showPasscodeOptions), for: .touchUpInside)
 
-    // Since FaceID and TouchID are both set to 1 when the defaults are registered
-    // we have to double check for the biometry type to not return true even though the setting is not visible
-    // and that type is not supported by the device
-    private var touchIDEnabled: Bool {
-        var touchIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowTouchID)
-        let laContext = LAContext()
+        return button
+    }()
 
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
-        }
-        return touchIDEnabled
-    }
+    private lazy var passcodeOptionsAlert: UIAlertController = {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-    private var faceIDEnabled: Bool {
-        var faceIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowFaceID)
-        let laContext = LAContext()
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("4-Digit Numeric Code", comment: "Passcode 4 digit numeric code"),
+                style: .default,
+                handler: { _ in
+                    self.passcodeField.maxLength = 4
+                }
+            )
+        )
 
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
-        }
-        return faceIDEnabled
-    }
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("6-Digit Numeric Code", comment: "Passcode 6 digit numeric code"),
+                style: .default,
+                handler: { _ in
+                    self.passcodeField.maxLength = 6
+                }
+            )
+        )
 
-    init(action: PasscodeAction) {
-        self.action = action
-        super.init(nibName: nil, bundle: nil)
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                style: .cancel,
+                handler: nil
+            )
+        )
 
-        setup()
-    }
+        return alert
+    }()
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // - MARK: Gestures
+    private lazy var tapGestureRecognizer: UITapGestureRecognizer = .init(
+        target: self,
+        action: #selector(handleTap)
+    )
 
-    deinit {
-        notificationCenter.removeObserver(self)
-    }
-
+    // - MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setup()
 
         passcodeField.delegate = self
     }
@@ -134,7 +163,16 @@ class PasscodeLockController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        // Set passcode length
+        passcodeField.maxLength = passcodeLength
+
         passcodeField.becomeFirstResponder()
+    }
+
+    override func viewDidAppear(_: Bool) {
+        // The observer isn't triggering on launch
+        // So we should also call here
+        biometricAuthRequest()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -146,11 +184,10 @@ class PasscodeLockController: UIViewController {
         // Hide failedLabel to reset
         failedLabel.isHidden = true
 
-        passcodeField.resignFirstResponder()
-    }
+        // Reset
+        avoidPromptingBiometricAuth = false
 
-    private func presentPasscodeLengthSelection() {
-        present(passcodeLengthAlertController, animated: true, completion: nil)
+        passcodeField.resignFirstResponder()
     }
 
     // MARK: - Setup
@@ -162,14 +199,6 @@ class PasscodeLockController: UIViewController {
 
         view.addGestureRecognizer(tapGestureRecognizer)
     }
-
-    @objc private func handleTap() {
-        if !passcodeField.isFirstResponder {
-            passcodeField.becomeFirstResponder()
-        }
-    }
-
-    // MARK: - Setup
 
     private func setupView() {
         // Set the title
@@ -186,7 +215,7 @@ class PasscodeLockController: UIViewController {
         view.addSubview(failedLabel)
 
         // Create center y constraint
-        passcodeCenterYConstraint = view.centerYAnchor.constraint(equalTo: passcodeField.centerYAnchor)
+        passcodeFieldCenterYConstraint = view.centerYAnchor.constraint(equalTo: passcodeField.centerYAnchor)
 
         NSLayoutConstraint.activate([
             // Put messageLabel top on passcodeField
@@ -197,11 +226,12 @@ class PasscodeLockController: UIViewController {
             passcodeField.centerXAnchor.constraint(equalTo: failedLabel.centerXAnchor),
             // Center passcodeField
             view.centerXAnchor.constraint(equalTo: passcodeField.centerXAnchor),
-            passcodeCenterYConstraint,
+            passcodeFieldCenterYConstraint,
         ])
 
         if action == .set {
             setupBarButton()
+            setupPasscodeOptionsButton()
         }
 
         if #available(iOS 11, *) {
@@ -213,12 +243,46 @@ class PasscodeLockController: UIViewController {
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
-            action: #selector(dismissView)
+            action: #selector(handleCancel)
         )
 
         cancelButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.rightBarButtonItem = cancelButton
     }
+
+    private func setupPasscodeOptionsButton() {
+        view.addSubview(passcodeOptionsButton)
+
+        let viewBottomAnchor = if #available(iOS 11, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            view.bottomAnchor
+        }
+
+        passcodeOptionsButtonYConstraint = viewBottomAnchor.constraint(
+            equalTo: passcodeOptionsButton.bottomAnchor
+        )
+
+        NSLayoutConstraint.activate([
+            // Center passcodeOptionsButton
+            passcodeField.centerXAnchor.constraint(equalTo: passcodeOptionsButton.centerXAnchor),
+            passcodeOptionsButtonYConstraint,
+        ])
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
+    }
+
+    private func setNavBarAppearance() {
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
+            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
+            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
+        }
+    }
+
+    // MARK: - Observers & Button Actions
 
     private func setupObservers() {
         // Theme change observer
@@ -243,17 +307,15 @@ class PasscodeLockController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-    }
 
-    private func setNavBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
-            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
-            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
-        }
+        // Biometric auth observer
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(biometricAuthRequest),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
     }
-
-    // MARK: - Observer & Bar Button Actions
 
     @objc private func setupTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
@@ -261,11 +323,24 @@ class PasscodeLockController: UIViewController {
         setNavBarAppearance()
     }
 
-    @objc private func dismissView() {
-        // If user dismisses the passcode view by pressing cancel the passcode lock should be disabled
-        ImpactFeedbackGenerator().selectionChanged()
-        userDefaults.set(false, forKey: kVLCSettingPasscodeOnKey)
+    @objc private func handleTap() {
+        if !passcodeField.isFirstResponder {
+            passcodeField.becomeFirstResponder()
+        }
+    }
+
+    @objc private func handleCancel() {
+        completionHandler?(nil)
+
+        if #available(iOS 10, *) {
+            ImpactFeedbackGenerator().selectionChanged()
+        }
+
         dismiss(animated: true)
+    }
+
+    @objc private func showPasscodeOptions() {
+        present(passcodeOptionsAlert, animated: true)
     }
 }
 
@@ -285,6 +360,9 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 // Update label
                 messageLabel.text = NSLocalizedString("Re-enter your passcode", comment: "")
 
+                // Hide passcode options
+                passcodeOptionsButton.isHidden = true
+
                 if #available(iOS 10, *) {
                     ImpactFeedbackGenerator().selectionChanged()
                 }
@@ -294,14 +372,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     failedLabel.isHidden = true
 
                     // Two time entry has matched. Save the password to keychain
-                    do {
-                        try PasscodeLockController.setPasscode(passcode: passcode)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                    }
-
-                    // Set passcode on
-                    userDefaults.set(true, forKey: kVLCSettingPasscodeOnKey)
+                    completionHandler?(passcode)
 
                     if #available(iOS 10, *) {
                         NotificationFeedbackGenerator().success()
@@ -321,15 +392,17 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 }
             }
         case .enter:
-            if isPasscodeValid(passedPasscode: passcode) {
-                // Call the delegate method
-                delegate?.passcodeViewControllerDidEnterPassword(controller: self)
+            if keychainService.isSecretValid(passcode) {
+                // Call completion handler
+                completionHandler?(nil)
 
                 if #available(iOS 10, *) {
                     ImpactFeedbackGenerator().selectionChanged()
                 }
+
+                dismiss(animated: true)
             } else {
-                // Update label
+                // Show failed label
                 failedLabel.isHidden = false
 
                 // Clear passcode field
@@ -343,42 +416,63 @@ extension PasscodeLockController: PasscodeFieldDelegate {
     }
 }
 
-// MARK: - Keychain Password Helper Functions
+// MARK: - Biometric Authentication Helpers
 
 extension PasscodeLockController {
-    @objc class func setPasscode(passcode: String?) throws {
-        guard let passcode = passcode else {
-            do {
-                try XKKeychainGenericPasswordItem.removeItems(forService: passcodeService)
-            } catch {
-                throw error
+    @available(iOS 11, *)
+    func isBiometryEnabled(_ type: LABiometryType) -> Bool {
+        let context = LAContext()
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            return context.biometryType == type
+        } else {
+            return false
+        }
+    }
+
+    var isBiometricAuthEnabled: Bool {
+        if #available(iOS 11, *) {
+            return isBiometryEnabled(.faceID) || isBiometryEnabled(.touchID)
+        } else {
+            let context = LAContext()
+            return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        }
+    }
+
+    @objc private func biometricAuthRequest() {
+        guard action == .enter, // action is enter
+              view.window != nil, // view controller is presented and visible
+              userDefaults.bool(forKey: kVLCSettingPasscodeEnableBiometricAuth), // biometric auth is enabled from user in app
+              isBiometricAuthEnabled, // biometric auth is enabled from system settings
+              !avoidPromptingBiometricAuth, // there is no already showing auth view
+              UIApplication.shared.applicationState == .active, // the app is active state
+              keychainService.hasSecret
+        else { return }
+
+        avoidPromptingBiometricAuth = true
+
+        let context = LAContext()
+
+        context.evaluatePolicy(
+            .deviceOwnerAuthenticationWithBiometrics,
+            localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: "")
+        ) { [weak self] success, _ in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                if success {
+                    self.avoidPromptingBiometricAuth = false
+
+                    // Dismiss and call completion handler
+                    self.dismiss(animated: true) {
+                        self.completionHandler?(nil)
+                    }
+                } else {
+                    // User hit cancel and wants to enter the passcode
+                    self.avoidPromptingBiometricAuth = true
+                    self.passcodeField.becomeFirstResponder()
+                }
             }
-            return
-        }
-
-        let keychainItem = XKKeychainGenericPasswordItem()
-        keychainItem.service = passcodeService
-        keychainItem.account = passcodeService
-        keychainItem.secret.stringValue = passcode
-
-        do {
-            try keychainItem.save()
-        } catch {
-            throw error
-        }
-    }
-
-    private func isPasscodeValid(passedPasscode: String) -> Bool {
-        return passedPasscode == passcodeFromKeychain()
-    }
-
-    private func passcodeFromKeychain() -> String {
-        do {
-            let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
-            return item.secret.stringValue
-        } catch {
-            assertionFailure("Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
-            return ""
         }
     }
 }
@@ -393,12 +487,14 @@ extension PasscodeLockController {
         let keyboardSize = keyboardValue.cgRectValue
 
         // The used area's bottom edge coordinate from top
-        let coordinateFromTop: CGFloat = if let navigationController {
-            navigationController.navigationBar.frame.maxY
+        let coordinateFromTop: CGFloat
+
+        if let navigationController {
+            coordinateFromTop = navigationController.navigationBar.frame.maxY
         } else if #available(iOS 11, *) {
-            view.safeAreaInsets.top
+            coordinateFromTop = view.safeAreaInsets.top
         } else {
-            0
+            coordinateFromTop = 0
         }
 
         // The coordinate of keyboard's top edge
@@ -406,13 +502,22 @@ extension PasscodeLockController {
 
         // Find the center coordinate of visible area while keyboard is showing.
         let centerY = (view.bounds.height - keyboardTopCoordinate - coordinateFromTop) / 2
-        passcodeCenterYConstraint.constant = max(centerY, 0)
+        passcodeFieldCenterYConstraint.constant = max(centerY, 0)
+
+        // Update passcode options y constraint
+        if action == .set {
+            passcodeOptionsButtonYConstraint.constant = keyboardSize.height
+        }
 
         view.layoutIfNeeded()
     }
 
     @objc func keyboardWillHide(_: Notification) {
-        passcodeCenterYConstraint.constant = 0
+        // Update passcode options y constraint
+        if action == .set {
+            passcodeOptionsButtonYConstraint.constant = 0
+        }
+
         view.layoutIfNeeded()
     }
 }

@@ -1,13 +1,13 @@
 /*****************************************************************************
-* SettingsCell.swift
-* VLC for iOS
-*****************************************************************************
-* Copyright (c) 2020 VideoLAN. All rights reserved.
-*
-* Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
-*
-* Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ * SettingsCell.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2020 VideoLAN. All rights reserved.
+ *
+ * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import UIKit
 
@@ -22,8 +22,8 @@ protocol SettingsCellDelegate: AnyObject {
 
 class SettingsCell: UITableViewCell {
     private enum Constants {
-        static let mainLabelFont: UIFont = .preferredFont(forTextStyle: .callout) //16pt default
-        static let subtitleLabelFont: UIFont = .preferredFont(forTextStyle: .footnote) //13pt default
+        static let mainLabelFont: UIFont = .preferredFont(forTextStyle: .callout) // 16pt default
+        static let subtitleLabelFont: UIFont = .preferredFont(forTextStyle: .footnote) // 13pt default
         static let numberOfLines = 2
         static let minHeight: CGFloat = 44
         static let marginTop: CGFloat = 10
@@ -32,9 +32,9 @@ class SettingsCell: UITableViewCell {
         static let marginTrailing: CGFloat = 70
     }
 
-    internal weak var delegate: SettingsCellDelegate?
+    weak var delegate: SettingsCellDelegate?
 
-    internal var toggleObserver: (SettingsItem.Toggle, Int)? {
+    var toggleObserver: (SettingsItem.Toggle, Int)? {
         willSet {
             if let toggleObserver = toggleObserver {
                 toggleObserver.0.removeObserver(toggleObserver.1)
@@ -156,7 +156,7 @@ class SettingsCell: UITableViewCell {
                 accessoryType = .none
                 selectionStyle = .none
 
-            case .toggle(let toggle):
+            case let .toggle(toggle):
                 switchControl.isHidden = false
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true
@@ -165,12 +165,12 @@ class SettingsCell: UITableViewCell {
                 selectionStyle = .none
 
                 switchControl.isOn = toggle.isOn
-                let obs = toggle.addObserver() { [weak self] isOn in
+                let obs = toggle.addObserver { [weak self] isOn in
                     self?.switchControl.isOn = isOn
                 }
                 toggleObserver = (toggle, obs)
 
-            case .showActionSheet(_, _, let hasInfo):
+            case let .showActionSheet(_, _, hasInfo):
                 switchControl.isHidden = true
                 infoButton.isHidden = !hasInfo
                 activityIndicator.isHidden = true
@@ -201,7 +201,6 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .none
                 selectionStyle = .default
-
             }
 
             if !activityIndicator.isHidden {
@@ -209,7 +208,6 @@ class SettingsCell: UITableViewCell {
             } else {
                 activityIndicator.stopAnimating()
             }
-
         }
     }
 
@@ -218,13 +216,14 @@ class SettingsCell: UITableViewCell {
         setup()
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        backgroundColor = .clear //Required to prevent theme mismatch during setupTheme
+        backgroundColor = .clear // Required to prevent theme mismatch during setupTheme
         activityIndicator.isHidden = true
 
         // Reset to default colors.
@@ -247,21 +246,21 @@ class SettingsCell: UITableViewCell {
             stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Constants.marginLeading),
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Constants.marginTop),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.marginBottom),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginTrailing)
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginTrailing),
         ])
 
         contentView.addSubview(activityIndicator)
         activityIndicator.isHidden = true
         NSLayoutConstraint.activate([
             activityIndicator.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
         ])
 
         contentView.addSubview(infoButton)
         infoButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
-            infoButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40)
+            infoButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40),
         ])
         infoButton.isHidden = true
     }
@@ -287,7 +286,7 @@ class SettingsCell: UITableViewCell {
         guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
-        case .toggle(let toggle):
+        case let .toggle(toggle):
             toggle.set(isOn: sender.isOn)
             delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: toggle.preferenceKey, isOn: sender.isOn)
 
@@ -297,18 +296,16 @@ class SettingsCell: UITableViewCell {
         }
     }
 
-    @objc func infoTapped(sender: UIButton) {
+    @objc func infoTapped(sender _: UIButton) {
         guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
-        case .showActionSheet(_, let preferenceKey, _):
+        case let .showActionSheet(_, preferenceKey, _):
             delegate?.settingsCellInfoButtonPressed(cell: self, preferenceKey: preferenceKey)
 
         default:
             // should never get here; only action sheets have info buttons
             break
         }
-
     }
-
 }

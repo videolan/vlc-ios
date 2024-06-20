@@ -25,7 +25,6 @@
 @interface VLCAppDelegate ()
 {
     BOOL _isComingFromHandoff;
-    VLCKeychainCoordinator *_keychainCoordinator;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
 }
@@ -43,8 +42,6 @@
     }
 
     NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(appThemeIndex),
-                                  kVLCSettingPasscodeAllowFaceID : @(1),
-                                  kVLCSettingPasscodeAllowTouchID : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
                                   kVLCSettingDefaultPreampLevel : @(6),
@@ -199,7 +196,7 @@
         if ([handler canHandleOpenWithUrl:url options:options]) {
             /* if no passcode is set, immediately execute the handler
              * otherwise, store it for later use by the passcode controller's completion function */
-            if (![VLCKeychainCoordinator passcodeLockEnabled]) {
+            if (![[VLCKeychainCoordinator passcodeService] hasSecret]) {
                 return [handler performOpenWithUrl:url options:options];
             } else {
                 _urlHandlerToExecute = handler;
@@ -277,19 +274,11 @@
 }
 
 #pragma mark - pass code validation
-- (VLCKeychainCoordinator *)keychainCoordinator
-{
-    if (!_keychainCoordinator) {
-        _keychainCoordinator = [[VLCKeychainCoordinator alloc] init];
-    }
-    return _keychainCoordinator;
-}
-
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
-    if ([VLCKeychainCoordinator passcodeLockEnabled]) {
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
         //TODO: Dismiss playback
-        [self.keychainCoordinator validatePasscodeWithCompletion:completion];
+        [[VLCKeychainCoordinator passcodeService] validateSecretWithCompletion:completion];
     } else {
         completion();
     }

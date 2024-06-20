@@ -12,8 +12,7 @@
  *****************************************************************************/
 
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
-#define kVLCSettingPasscodeAllowTouchID @"AllowTouchID"
-#define kVLCSettingPasscodeAllowFaceID @"AllowFaceID"
+#define kVLCSettingPasscodeEnableBiometricAuth @"EnableBiometricAuth"
 #define kVLCSettingHideLibraryInFilesApp @"HideLibraryInFilesApp"
 #define kVLCThemeDidChangeNotification @"themeDidChangeNotfication"
 #define kVLCSettingAppTheme @"darkMode"

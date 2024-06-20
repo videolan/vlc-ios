@@ -171,7 +171,7 @@ extension VLCMLMedia {
     }
 
     func updateCoreSpotlightEntry() {
-        if !KeychainCoordinator.passcodeLockEnabled {
+        if !KeychainCoordinator.passcodeService.hasSecret {
             let groupIdentifier = ProcessInfo.processInfo.environment["GROUP_IDENTIFIER"]
             let item = CSSearchableItem(uniqueIdentifier: "\(identifier())", domainIdentifier: groupIdentifier, attributeSet: coreSpotlightAttributeSet())
             CSSearchableIndex.default().indexSearchableItems([item], completionHandler: nil)

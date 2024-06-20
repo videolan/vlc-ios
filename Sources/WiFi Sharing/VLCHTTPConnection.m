@@ -86,7 +86,7 @@ static NSMutableDictionary *authentifiedHosts;
         || [path isEqualToString:@"/favicon.ico"]) {
         return NO;
     }
-    return [VLCKeychainCoordinator passcodeLockEnabled];
+    return [[VLCKeychainCoordinator passcodeService] hasSecret];
 }
 
 - (void)handleAuthenticationFailed
