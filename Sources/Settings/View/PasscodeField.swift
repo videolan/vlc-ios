@@ -41,6 +41,7 @@ class PasscodeField: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.spacing = 25
+        stackView.axis = .horizontal
 
         return stackView
     }()
@@ -72,8 +73,9 @@ class PasscodeField: UIView {
 
     private func createPins() {
         // Clear stack view
-        stackView.subviews.forEach { view in
+        stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
 
         // Create pins and add to stack view
@@ -122,18 +124,14 @@ extension PasscodeField: UIKeyInput {
         get {
             .numberPad
         }
-        set {
-            // Nothing
-        }
+        set { /* Nothing */ }
     }
 
     var isSecureTextEntry: Bool {
         get {
             true
         }
-        set {
-            // Nothing
-        }
+        set { /* Nothing */ }
     }
 }
 
