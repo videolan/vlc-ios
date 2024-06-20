@@ -210,13 +210,6 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    //Touch ID is shown
-    if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
-        UINavigationController *navCon = (UINavigationController *)_window.rootViewController.presentedViewController;
-        if ([navCon.topViewController isKindOfClass:[PasscodeLockController class]]){
-            return;
-        }
-    }
     [self validatePasscodeIfNeededWithCompletion:^{
         //TODO: handle updating the videoview and
         if ([VLCPlaybackService sharedInstance].isPlaying){

@@ -68,6 +68,7 @@ extension KeychainCoordinator {
             if let secret {
                 try? setSecret(secret)
             } else {
+                // if cancelled remove secret
                 try? removeSecret()
             }
 
@@ -76,18 +77,17 @@ extension KeychainCoordinator {
     }
 
     @objc func validateSecret(completion: @escaping () -> Void) {
-        if hasSecret {
-            showPasscodeController(action: .enter) { _ in
-                completion()
-            }
-        } else {
+        guard hasSecret else { return }
+
+        showPasscodeController(action: .enter) { _ in
             completion()
         }
     }
 
     /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided. Otherwise nil.
     private func showPasscodeController(action: PasscodeAction, completion: @escaping (String?) -> Void) {
-        guard let presentingViewController else { return }
+        // Check if a presentingViewController exists and passcode not already showing
+        guard let presentingViewController, !isPasscodeControllerPresenting else { return }
 
         let passcodeController = PasscodeLockController(action: action, keychainService: self) { secret in
             completion(secret)
@@ -117,5 +117,18 @@ extension KeychainCoordinator {
         }
 
         return presentingViewController
+    }
+
+    private var isPasscodeControllerPresenting: Bool {
+        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+            return false
+        }
+
+        // TODO: Find an array of the given view controller type instead of one
+        if rootViewController.findViewController(ofType: PasscodeLockController.self) != nil {
+            return true
+        }
+
+        return false
     }
 }

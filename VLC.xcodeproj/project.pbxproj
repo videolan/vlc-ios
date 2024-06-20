@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F007EB12C2B46440042A95F /* VLCMLMedia+isWatched.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007EB02C2B46440042A95F /* VLCMLMedia+isWatched.m */; };
 		0F47AB962C1C42FF004B630F /* LongPressPlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */; };
+		0F856A212C24BF0E005806FE /* UIViewController+findViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */; };
 		0F998BB62C230BD500BCBAF8 /* PasscodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F998BB52C230BD500BCBAF8 /* PasscodeField.swift */; };
 		13925DC647EC27EEB2818FD2 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E3BE184ED7B95399C04EB6 /* libPods-VLC-tvOS.a */; };
 		1B39FA082C73BBA200F6F960 /* NSURLSessionConfiguration+default.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DEE8F2C63D57300E414B4 /* NSURLSessionConfiguration+default.m */; };
@@ -540,6 +541,7 @@
 		0F007EAF2C2B46440042A95F /* VLCMLMedia+isWatched.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+isWatched.h"; sourceTree = "<group>"; };
 		0F007EB02C2B46440042A95F /* VLCMLMedia+isWatched.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "VLCMLMedia+isWatched.m"; sourceTree = "<group>"; };
 		0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressPlaybackSpeedView.swift; sourceTree = "<group>"; };
+		0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+findViewController.swift"; sourceTree = "<group>"; };
 		0F998BB52C230BD500BCBAF8 /* PasscodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeField.swift; sourceTree = "<group>"; };
 		1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCFirstStepsBaseViewController.h; sourceTree = "<group>"; };
 		1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCFirstStepsBaseViewController.m; sourceTree = "<group>"; };
@@ -2226,6 +2228,7 @@
 				7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */,
 				44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */,
 				44D57DD92D360503009D80AA /* UIImage+Util.swift */,
+				0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3755,6 +3758,7 @@
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */,
 				7DC869CB28CB80B800EE99F8 /* VLCNetworkServerBrowserViewController.m in Sources */,
+				0F856A212C24BF0E005806FE /* UIViewController+findViewController.swift in Sources */,
 				7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */,
 				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC7BA7F28C894EC00109F28 /* NSObject+SettingsReader.swift in Sources */,
