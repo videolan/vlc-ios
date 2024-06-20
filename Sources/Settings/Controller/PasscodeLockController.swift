@@ -419,24 +419,9 @@ extension PasscodeLockController: PasscodeFieldDelegate {
 // MARK: - Biometric Authentication Helpers
 
 extension PasscodeLockController {
-    @available(iOS 11, *)
-    func isBiometryEnabled(_ type: LABiometryType) -> Bool {
-        let context = LAContext()
-
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            return context.biometryType == type
-        } else {
-            return false
-        }
-    }
-
     var isBiometricAuthEnabled: Bool {
-        if #available(iOS 11, *) {
-            return isBiometryEnabled(.faceID) || isBiometryEnabled(.touchID)
-        } else {
-            let context = LAContext()
-            return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
-        }
+        let context = LAContext()
+        return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
     }
 
     @objc private func biometricAuthRequest() {
@@ -468,8 +453,9 @@ extension PasscodeLockController {
                         self.completionHandler?(nil)
                     }
                 } else {
-                    // User hit cancel and wants to enter the passcode
                     self.avoidPromptingBiometricAuth = true
+
+                    // User hit cancel and wants to enter the passcode
                     self.passcodeField.becomeFirstResponder()
                 }
             }
