@@ -33,4 +33,31 @@ extension UIViewController {
 
         return self.presentedViewController?.findViewController(ofType: type)
     }
+
+    /// Finds all child view controllers of the given type
+    func findViewControllers<T: UIViewController>(ofType type: T.Type) -> [T] {
+        var matchingVCs = [T]()
+
+        if let matchingVC = self as? T {
+            matchingVCs.append(matchingVC)
+        }
+
+        if let navController = self as? UINavigationController {
+            for vc in navController.viewControllers {
+                matchingVCs.append(contentsOf: vc.findViewControllers(ofType: type))
+            }
+        }
+
+        if let tabController = self as? UITabBarController {
+            for vc in tabController.viewControllers ?? [] {
+                matchingVCs.append(contentsOf: vc.findViewControllers(ofType: type))
+            }
+        }
+
+        if let presentedVC = self.presentedViewController {
+            matchingVCs.append(contentsOf: presentedVC.findViewControllers(ofType: type))
+        }
+
+        return matchingVCs
+    }
 }

@@ -124,8 +124,8 @@ extension KeychainCoordinator {
             return false
         }
 
-        // TODO: Find an array of the given view controller type instead of one
-        if rootViewController.findViewController(ofType: PasscodeLockController.self) != nil {
+        let passcodeControllers = rootViewController.findViewControllers(ofType: PasscodeLockController.self)
+        for controller in passcodeControllers where controller.keychainService === self {
             return true
         }
 
