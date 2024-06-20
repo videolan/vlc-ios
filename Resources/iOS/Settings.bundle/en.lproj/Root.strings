@@ -25,6 +25,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_PASSCODE_LOCK_ALLOWOPTICID" = "Allow Optic ID for unlock";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_HIDE_UI_DURING_PLAYBACK" = "Hide user interface during playback";
