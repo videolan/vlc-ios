@@ -467,6 +467,7 @@ extension SettingsController {
             // passcode will remain open even if the user doesn't set the new passcode.
             // So, this may cause the app being locked.
             try? KeychainCoordinator.passcodeService.removeSecret()
+            UserDefaults.standard.set(false, forKey: kVLCSettingPasscodeOnKey)
 
             reloadSettingsSections()
         }

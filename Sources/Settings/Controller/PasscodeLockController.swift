@@ -319,6 +319,14 @@ class PasscodeLockController: UIViewController {
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
+
+        // Application will terminate observer
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(handleApplicationWillTerminate),
+            name: UIApplication.willTerminateNotification,
+            object: nil
+        )
     }
 
     @objc private func setupTheme() {
@@ -345,6 +353,10 @@ class PasscodeLockController: UIViewController {
 
     @objc private func showPasscodeOptionsAlert() {
         present(passcodeOptionsAlert, animated: true)
+    }
+
+    @objc private func handleApplicationWillTerminate() {
+        completionHandler?(nil)
     }
 }
 
