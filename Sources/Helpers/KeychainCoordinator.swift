@@ -61,8 +61,8 @@ class KeychainCoordinator: NSObject {
 // - MARK: Helper methods
 
 extension KeychainCoordinator {
-    func setSecret(completion: @escaping (Bool) -> Void) {
-        showPasscodeController(action: .set) { [weak self] success, secret in
+    func setSecret(isCancellable: Bool = true, completion: @escaping (Bool) -> Void) {
+        showPasscodeController(action: .set, isCancellable: isCancellable) { [weak self] success, secret in
             guard let self else { return }
 
             do {
@@ -80,10 +80,19 @@ extension KeychainCoordinator {
         }
     }
 
-    @objc func validateSecret(allowBiometricAuthentication: Bool = false, completion: @escaping (Bool) -> Void) {
+    /// If ``PasscodeLockController/cancellable`` is `false`, **completion** always takes `true` because it will be called only on success case.
+    @objc func validateSecret(
+        allowBiometricAuthentication: Bool = false,
+        isCancellable: Bool = false,
+        completion: @escaping (Bool) -> Void
+    ) {
         guard hasSecret else { return }
 
-        showPasscodeController(action: .enter, allowBiometricAuthentication: allowBiometricAuthentication) { success, _ in
+        showPasscodeController(
+            action: .enter,
+            allowBiometricAuthentication: allowBiometricAuthentication,
+            isCancellable: isCancellable
+        ) { success, _ in
             completion(success)
         }
     }
@@ -92,6 +101,7 @@ extension KeychainCoordinator {
     private func showPasscodeController(
         action: PasscodeAction,
         allowBiometricAuthentication: Bool = false,
+        isCancellable: Bool = false,
         completion: @escaping (Bool, String?) -> Void
     ) {
         // Check if a presentingViewController exists and passcode not already showing
@@ -101,6 +111,7 @@ extension KeychainCoordinator {
             completion(success, secret)
         }
         passcodeController.allowBiometricAuthentication = allowBiometricAuthentication
+        passcodeController.isCancellable = isCancellable
 
         let passcodeNavigationController = UINavigationController(rootViewController: passcodeController)
         passcodeNavigationController.modalPresentationStyle = .fullScreen

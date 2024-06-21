@@ -31,6 +31,7 @@ class PasscodeLockController: UIViewController {
     let keychainService: KeychainCoordinator
 
     var allowBiometricAuthentication: Bool = false
+    var isCancellable: Bool = false
 
     /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided if successfully set.
     /// Otherwise nil.
@@ -174,9 +175,7 @@ class PasscodeLockController: UIViewController {
     override func viewDidAppear(_: Bool) {
         // The observer isn't triggering on launch
         // So we should also call here
-        if allowBiometricAuthentication {
-            biometricAuthRequest()
-        }
+        biometricAuthRequest()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -233,8 +232,11 @@ class PasscodeLockController: UIViewController {
             passcodeFieldCenterYConstraint,
         ])
 
+        if isCancellable {
+            setupCancelButton()
+        }
+
         if action == .set {
-            setupBarButton()
             setupPasscodeOptionsButton()
         }
 
@@ -243,7 +245,7 @@ class PasscodeLockController: UIViewController {
         }
     }
 
-    private func setupBarButton() {
+    private func setupCancelButton() {
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
