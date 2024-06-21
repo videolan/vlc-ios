@@ -505,7 +505,7 @@ class VideoPlayerViewController: UIViewController {
 
     private var isGestureActive: Bool = false
 
-    private var viewTranslation: CGPoint = CGPoint(x: 0, y: 0)
+    private var minimizationInitialCenter: CGPoint?
 
     // MARK: - Popup Views
 
@@ -1055,6 +1055,9 @@ extension VideoPlayerViewController {
         let windowWidth: CGFloat = window.bounds.width
         let location: CGPoint = recognizer.location(in: window)
 
+        // If minimization handler not ended yet, don't detect other gestures to don't block it.
+        guard minimizationInitialCenter == nil else { return .none }
+
         var panType: VideoPlayerPanType = .none
         if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
             panType = .volume
@@ -1069,6 +1072,7 @@ extension VideoPlayerViewController {
         if playbackService.currentMediaIs360Video {
             panType = .projection
         }
+
         return panType
     }
 
@@ -1262,43 +1266,41 @@ extension VideoPlayerViewController {
         }
     }
 
-    @objc private func handleMinimizeGesture(_ sender: UIPanGestureRecognizer) {
-        switch sender.state {
+    @objc private func handleMinimizeGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+
+        switch gesture.state {
+        case .began:
+            // Save the initial center position of the view
+            minimizationInitialCenter = view.center
+
         case .changed:
-            viewTranslation = sender.translation(in: view)
-            if viewTranslation.y < 0 {
-                return
+            // Move the view with the pan gesture
+            if let initialCenter = minimizationInitialCenter, translation.y > 0 { // Only allow downward sliding
+                view.center = CGPoint(x: view.center.x, y: initialCenter.y + translation.y)
             }
 
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
-                           usingSpringWithDamping: 0.7,
-                           initialSpringVelocity: 1,
-                           options: .curveEaseOut,
-                           animations: {
-                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-
-            break
-        case .ended:
-            let height = view.frame.height * 0.1
-            if viewTranslation.y < height {
-                UIView.animate(withDuration: 0.5,
-                               delay: 0,
-                               usingSpringWithDamping: 0.7,
-                               initialSpringVelocity: 1,
-                               options: .curveEaseOut,
-                               animations: {
-                    self.view.transform = .identity
-                })
-            } else {
-                delegate?.videoPlayerViewControllerDidMinimize(self)
+        case .ended, .cancelled, .failed:
+            // Determine if the view should be dismissed or return to its original position
+            if let minimizationInitialCenter {
+                if translation.y > view.bounds.height * 0.1 { // Adjust the threshold as needed
+                    minimizePlayer()
+                } else {
+                    // Animate the view returning to its original position
+                    UIView.animate(withDuration: 0.3) {
+                        self.view.center = minimizationInitialCenter
+                    }
+                }
             }
 
-            break
+            minimizationInitialCenter = nil
         default:
             break
         }
+    }
+
+    func minimizePlayer() {
+        delegate?.videoPlayerViewControllerDidMinimize(self)
     }
 
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
