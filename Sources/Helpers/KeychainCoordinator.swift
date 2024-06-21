@@ -36,7 +36,7 @@ class KeychainCoordinator: NSObject {
         return item?.secret.stringValue
     }
 
-    func setSecret(_ secret: String) throws {
+    private func setSecret(_ secret: String) throws {
         let keychainItem = XKKeychainGenericPasswordItem()
         keychainItem.service = serviceIdentifier
         keychainItem.account = serviceIdentifier
@@ -61,37 +61,46 @@ class KeychainCoordinator: NSObject {
 // - MARK: Helper methods
 
 extension KeychainCoordinator {
-    func setSecretView(completion: @escaping () -> Void) {
+    func setSecret(completion: @escaping (Bool) -> Void) {
         showPasscodeController(action: .set) { [weak self] secret in
             guard let self else { return }
 
-            if let secret {
-                try? setSecret(secret)
-            } else {
-                // if cancelled remove secret
-                try? removeSecret()
+            do {
+                if let secret {
+                    try setSecret(secret)
+                    completion(true)
+                } else {
+                    // if cancelled remove secret
+                    try removeSecret()
+                    completion(false)
+                }
+            } catch {
+                completion(false)
             }
-
-            completion()
         }
     }
 
-    @objc func validateSecret(completion: @escaping () -> Void) {
+    @objc func validateSecret(allowBiometricAuthentication: Bool = false, completion: @escaping () -> Void) {
         guard hasSecret else { return }
 
-        showPasscodeController(action: .enter) { _ in
+        showPasscodeController(action: .enter, allowBiometricAuthentication: allowBiometricAuthentication) { _ in
             completion()
         }
     }
 
     /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided. Otherwise nil.
-    private func showPasscodeController(action: PasscodeAction, completion: @escaping (String?) -> Void) {
+    private func showPasscodeController(
+        action: PasscodeAction,
+        allowBiometricAuthentication: Bool = false,
+        completion: @escaping (String?) -> Void
+    ) {
         // Check if a presentingViewController exists and passcode not already showing
         guard let presentingViewController, !isPasscodeControllerPresenting else { return }
 
         let passcodeController = PasscodeLockController(action: action, keychainService: self) { secret in
             completion(secret)
         }
+        passcodeController.allowBiometricAuthentication = allowBiometricAuthentication
 
         let passcodeNavigationController = UINavigationController(rootViewController: passcodeController)
         passcodeNavigationController.modalPresentationStyle = .fullScreen

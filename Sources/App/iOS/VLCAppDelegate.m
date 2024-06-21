@@ -271,7 +271,11 @@
 {
     if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
         //TODO: Dismiss playback
-        [[VLCKeychainCoordinator passcodeService] validateSecretWithCompletion:completion];
+        BOOL allowBiometricAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeEnableBiometricAuth];
+
+        [[VLCKeychainCoordinator passcodeService]
+         validateSecretWithAllowBiometricAuthentication:allowBiometricAuthentication
+         completion:completion];
     } else {
         completion();
     }

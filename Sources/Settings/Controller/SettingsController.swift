@@ -457,7 +457,7 @@ extension SettingsController: SettingsCellDelegate {
 extension SettingsController {
     func passcodeLockSwitchOn(state: Bool) {
         if state {
-            KeychainCoordinator.passcodeService.setSecretView {
+            KeychainCoordinator.passcodeService.setSecret { _ in
                 self.reloadSettingsSections() // To show/hide biometric row
             }
         } else {

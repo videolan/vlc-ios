@@ -24,13 +24,15 @@ enum PasscodeAction {
 
 class PasscodeLockController: UIViewController {
     // - MARK: Properties
-    let keychainService: KeychainCoordinator
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
 
     let action: PasscodeAction
+    let keychainService: KeychainCoordinator
 
-    /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided.
+    var allowBiometricAuthentication: Bool = false
+
+    /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided if successfully set.
     /// Otherwise nil.
     var completionHandler: ((String?) -> Void)?
 
@@ -106,7 +108,7 @@ class PasscodeLockController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.setTitle(NSLocalizedString("Passcode Options", comment: ""), for: .normal)
-        button.addTarget(self, action: #selector(showPasscodeOptions), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPasscodeOptionsAlert), for: .touchUpInside)
 
         return button
     }()
@@ -172,7 +174,9 @@ class PasscodeLockController: UIViewController {
     override func viewDidAppear(_: Bool) {
         // The observer isn't triggering on launch
         // So we should also call here
-        biometricAuthRequest()
+        if allowBiometricAuthentication {
+            biometricAuthRequest()
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -339,7 +343,7 @@ class PasscodeLockController: UIViewController {
         dismiss(animated: true)
     }
 
-    @objc private func showPasscodeOptions() {
+    @objc private func showPasscodeOptionsAlert() {
         present(passcodeOptionsAlert, animated: true)
     }
 }
@@ -427,8 +431,8 @@ extension PasscodeLockController {
     @objc private func biometricAuthRequest() {
         guard action == .enter, // action is enter
               view.window != nil, // view controller is presented and visible
-              userDefaults.bool(forKey: kVLCSettingPasscodeEnableBiometricAuth), // biometric auth is enabled from user in app
               isBiometricAuthEnabled, // biometric auth is enabled from system settings
+              allowBiometricAuthentication, // biometric authentication allowed from user in app
               !avoidPromptingBiometricAuth, // there is no already showing auth view
               UIApplication.shared.applicationState == .active, // the app is active state
               keychainService.hasSecret
