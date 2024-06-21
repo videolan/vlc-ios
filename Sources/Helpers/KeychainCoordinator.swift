@@ -62,7 +62,7 @@ class KeychainCoordinator: NSObject {
 
 extension KeychainCoordinator {
     func setSecret(completion: @escaping (Bool) -> Void) {
-        showPasscodeController(action: .set) { [weak self] secret in
+        showPasscodeController(action: .set) { [weak self] success, secret in
             guard let self else { return }
 
             do {
@@ -80,11 +80,11 @@ extension KeychainCoordinator {
         }
     }
 
-    @objc func validateSecret(allowBiometricAuthentication: Bool = false, completion: @escaping () -> Void) {
+    @objc func validateSecret(allowBiometricAuthentication: Bool = false, completion: @escaping (Bool) -> Void) {
         guard hasSecret else { return }
 
-        showPasscodeController(action: .enter, allowBiometricAuthentication: allowBiometricAuthentication) { _ in
-            completion()
+        showPasscodeController(action: .enter, allowBiometricAuthentication: allowBiometricAuthentication) { success, _ in
+            completion(success)
         }
     }
 
@@ -92,13 +92,13 @@ extension KeychainCoordinator {
     private func showPasscodeController(
         action: PasscodeAction,
         allowBiometricAuthentication: Bool = false,
-        completion: @escaping (String?) -> Void
+        completion: @escaping (Bool, String?) -> Void
     ) {
         // Check if a presentingViewController exists and passcode not already showing
         guard let presentingViewController, !isPasscodeControllerPresenting else { return }
 
-        let passcodeController = PasscodeLockController(action: action, keychainService: self) { secret in
-            completion(secret)
+        let passcodeController = PasscodeLockController(action: action, keychainService: self) { success, secret in
+            completion(success, secret)
         }
         passcodeController.allowBiometricAuthentication = allowBiometricAuthentication
 

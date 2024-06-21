@@ -34,7 +34,7 @@ class PasscodeLockController: UIViewController {
 
     /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided if successfully set.
     /// Otherwise nil.
-    var completionHandler: ((String?) -> Void)?
+    var completionHandler: ((Bool, String?) -> Void)?
 
     private var tempPasscode = ""
     private var avoidPromptingBiometricAuth = false
@@ -49,7 +49,7 @@ class PasscodeLockController: UIViewController {
     init(
         action: PasscodeAction,
         keychainService: KeychainCoordinator,
-        completionHandler: ((String?) -> Void)? = nil
+        completionHandler: ((Bool, String?) -> Void)? = nil
     ) {
         self.action = action
         self.keychainService = keychainService
@@ -342,7 +342,7 @@ class PasscodeLockController: UIViewController {
     }
 
     @objc private func handleCancel() {
-        completionHandler?(nil)
+        completionHandler?(false, nil)
 
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
@@ -356,7 +356,7 @@ class PasscodeLockController: UIViewController {
     }
 
     @objc private func handleApplicationWillTerminate() {
-        completionHandler?(nil)
+        completionHandler?(false, nil)
     }
 }
 
@@ -387,8 +387,8 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     // Just for cosmetic
                     failedLabel.isHidden = true
 
-                    // Two time entry has matched. Save the password to keychain
-                    completionHandler?(passcode)
+                    // Two time entry has matched. Call completionHandler with success and passcode.
+                    completionHandler?(true, passcode)
 
                     if #available(iOS 10, *) {
                         NotificationFeedbackGenerator().success()
@@ -409,8 +409,8 @@ extension PasscodeLockController: PasscodeFieldDelegate {
             }
         case .enter:
             if keychainService.isSecretValid(passcode) {
-                // Call completion handler
-                completionHandler?(nil)
+                // Call completion handler with success but don't give passcode
+                completionHandler?(true, nil)
 
                 if #available(iOS 10, *) {
                     ImpactFeedbackGenerator().selectionChanged()
@@ -466,7 +466,7 @@ extension PasscodeLockController {
 
                     // Dismiss and call completion handler
                     self.dismiss(animated: true) {
-                        self.completionHandler?(nil)
+                        self.completionHandler?(true, nil)
                     }
                 } else {
                     self.avoidPromptingBiometricAuth = true

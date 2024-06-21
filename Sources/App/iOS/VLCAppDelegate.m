@@ -275,7 +275,9 @@
 
         [[VLCKeychainCoordinator passcodeService]
          validateSecretWithAllowBiometricAuthentication:allowBiometricAuthentication
-         completion:completion];
+         completion:^(BOOL success){
+            completion();
+        }];
     } else {
         completion();
     }
