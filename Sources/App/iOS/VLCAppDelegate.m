@@ -42,6 +42,7 @@
     }
 
     NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(appThemeIndex),
+                                  kVLCSettingPasscodeEnableBiometricAuth : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
                                   kVLCSettingDefaultPreampLevel : @(6),
