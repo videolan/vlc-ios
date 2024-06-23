@@ -69,11 +69,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     lazy var rotateButton: UIButton = {
         var rotateButton = UIButton(type: .system)
         rotateButton.addTarget(self, action: #selector(toggleOrientation), for: .touchDown)
-        if #available(iOS 13, *) {
-            rotateButton.setImage(UIImage(systemName: "rectangle.landscape.rotate"), for: .normal)
-        } else {
-            rotateButton.setImage(UIImage(named: "rectangle.landscape.rotate"), for: .normal)
-        }
+        rotateButton.setImage(UIImage(named: "rectangle.landscape.rotate"), for: .normal)
         rotateButton.tintColor = .white
         rotateButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         rotateButton.accessibilityLabel = NSLocalizedString(
