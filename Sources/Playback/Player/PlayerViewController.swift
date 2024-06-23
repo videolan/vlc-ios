@@ -853,13 +853,13 @@ class PlayerViewController: UIViewController {
 
         case .ended, .cancelled, .failed:
             // Determine if the view should be dismissed or return to its original position
-            if let minimizationInitialCenter {
+            if let initialCenter = minimizationInitialCenter {
                 if translation.y > view.bounds.height * 0.1 { // Adjust the threshold as needed
                     minimizePlayer()
                 } else {
                     // Animate the view returning to its original position
                     UIView.animate(withDuration: 0.3) {
-                        self.view.center = minimizationInitialCenter
+                        self.view.center = initialCenter
                     }
                 }
             }
