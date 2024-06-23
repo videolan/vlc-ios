@@ -84,6 +84,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 #pragma mark - properties
 
+- (UIViewController *)videoPlayerViewController
+{
+    return _videoPlayerViewController;
+}
+
 - (VLCPlayerDisplayControllerDisplayMode)displayMode
 {
     return [[NSUserDefaults standardUserDefaults] integerForKey:VLCPlayerDisplayControllerDisplayModeKey];
@@ -359,8 +364,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self setNeedsUpdateOfSupportedInterfaceOrientations];
         }
     } else {
-        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationMaskAllButUpsideDown];
-        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+        VLCPlayerDisplayController *vpdc = [[VLCPlaybackService sharedInstance] playerDisplayController];
+        VLCVideoPlayerViewController *videoVC = (VLCVideoPlayerViewController *)vpdc.videoPlayerViewController;
+        videoVC.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
         [UIViewController attemptRotationToDeviceOrientation];
     }
 }

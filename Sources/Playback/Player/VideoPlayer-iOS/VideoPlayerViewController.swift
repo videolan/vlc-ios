@@ -125,7 +125,7 @@ class VideoPlayerViewController: UIViewController {
 
     private var orientations = UIInterfaceOrientationMask.allButUpsideDown
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    @objc override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get { return self.orientations }
         set { self.orientations = newValue }
     }

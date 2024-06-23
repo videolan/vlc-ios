@@ -11,6 +11,23 @@
  *****************************************************************************/
 
 #import "UIStackView+Orientation.h"
+#import "VLCPlayerDisplayController.h"
+#import "VLC-Swift.h"
+
+@interface DummyViewController : UIViewController
+@end
+
+@implementation DummyViewController
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+@end
 
 @implementation UIStackView(Orientation)
 
@@ -26,14 +43,22 @@
         }
         [windowScene requestGeometryUpdateWithPreferences:prefs errorHandler:nil];
     } else {
-        UIInterfaceOrientation orientation;
+        UIInterfaceOrientationMask orientation;
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
-            orientation = UIInterfaceOrientationLandscapeRight;
+            orientation = UIInterfaceOrientationMaskLandscapeRight;
         } else {
-            orientation = UIInterfaceOrientationPortrait;
+            orientation = UIInterfaceOrientationMaskPortrait;
         }
-        [UIDevice setValue:@(orientation) forKey:@"orientation"];
-        [UIViewController attemptRotationToDeviceOrientation];
+        VLCPlayerDisplayController *vpdc = [[VLCPlaybackService sharedInstance] playerDisplayController];
+        VLCVideoPlayerViewController *videoVC = (VLCVideoPlayerViewController *)vpdc.videoPlayerViewController;
+        videoVC.supportedInterfaceOrientations = orientation;
+
+        /* this is a gross hack to force the OS to redraw */
+        DummyViewController *dummyVC = [DummyViewController new];
+        dummyVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        [videoVC.navigationController presentViewController:dummyVC animated:NO completion:^{
+            [dummyVC dismissViewControllerAnimated:NO completion:nil];
+        }];
     }
 }
 
