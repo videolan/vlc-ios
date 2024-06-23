@@ -299,7 +299,7 @@ extension MediaViewController {
             rightButtons = [editButton]
         } else if viewControllers[currentIndex] is ArtistAlbumCategoryViewController ||
                     viewControllers[currentIndex] is CollectionCategoryViewController {
-            leftBarButtons = nil
+            leftBarButtons = isEditing ? [selectAllButton] : nil
             rightButtons = [editButton, sortButton]
         } else {
             leftBarButtons = isEditing ? [selectAllButton] : [sortButton, historyButton]
