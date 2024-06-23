@@ -259,10 +259,11 @@ class PasscodeLockController: UIViewController {
     private func setupPasscodeOptionsButton() {
         view.addSubview(passcodeOptionsButton)
 
-        let viewBottomAnchor = if #available(iOS 11, *) {
-            self.view.safeAreaLayoutGuide.bottomAnchor
+        let viewBottomAnchor: NSLayoutYAxisAnchor
+        if #available(iOS 11, *) {
+            viewBottomAnchor = self.view.safeAreaLayoutGuide.bottomAnchor
         } else {
-            view.bottomAnchor
+            viewBottomAnchor = view.bottomAnchor
         }
 
         passcodeOptionsButtonYConstraint = viewBottomAnchor.constraint(
@@ -460,7 +461,7 @@ extension PasscodeLockController {
             .deviceOwnerAuthenticationWithBiometrics,
             localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: "")
         ) { [weak self] success, _ in
-            guard let self else { return }
+            guard let self = self else { return }
 
             DispatchQueue.main.async {
                 if success {
@@ -493,7 +494,7 @@ extension PasscodeLockController {
         // The used area's bottom edge coordinate from top
         let coordinateFromTop: CGFloat
 
-        if let navigationController {
+        if let navigationController = navigationController {
             coordinateFromTop = navigationController.navigationBar.frame.maxY
         } else if #available(iOS 11, *) {
             coordinateFromTop = view.safeAreaInsets.top
