@@ -139,7 +139,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var editBarButton: UIBarButtonItem = {
         return setupEditBarButton()
     }()
-    
+
     private lazy var clearHistoryButton: UIBarButtonItem = {
         return setupClearHistoryButton()
     }()
@@ -163,7 +163,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if model is PlaylistModel {
             emptyView.contentType = .noPlaylists
         }
-        
+
         // Check if history page
         if model is HistoryModel {
             emptyView.contentType = .noHistory
@@ -171,7 +171,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         // Check if it is inside a playlist
         if let collectionModel = model as? CollectionModel,
-            collectionModel.mediaCollection is VLCMLPlaylist {
+           collectionModel.mediaCollection is VLCMLPlaylist {
             emptyView.contentType = .playlist
         }
 
@@ -185,6 +185,21 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var scrolledCellIndex: IndexPath = IndexPath()
     private(set) var isAllSelected: Bool = false
 
+    //Continue watching last played media
+    private var continueWatchingBottomConstraint: NSLayoutConstraint?
+
+    private lazy var continueWatchingButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = PresentationTheme.current.colors.orangeUI
+        button.tintColor = PresentationTheme.current.colors.background
+        button.setImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.layer.cornerRadius = 30
+        button.addTarget(
+            self, action: #selector(self.continueWatchingButtonPressed),
+            for: .touchUpInside
+        )
+        return button
+    }()
     // MARK: - Initializers
 
     @available(*, unavailable)
@@ -223,7 +238,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         } else if let collection = model as? CollectionModel {
             navItemTitle.text = collection.mediaCollection.title()
         }
-        
+
         if model is HistoryModel {
             navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
         }
@@ -251,10 +266,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc func miniPlayerIsShown() {
         collectionView.contentInset.bottom = CGFloat(AudioMiniPlayer.height)
+        handleContinueWatchingButtonVisibility()
     }
 
     @objc func miniPlayerIsHidden() {
         collectionView.contentInset.bottom = 0
+        handleContinueWatchingButtonVisibility()
     }
 
     private func updateAlbumHeader() {
@@ -295,7 +312,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
         collectionView.collectionViewLayout = albumFlowLayout
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        #if os(iOS)
+#if os(iOS)
         let isLandscape: Bool = UIDevice.current.orientation.isLandscape
         let constant: CGFloat
         if let navigationBarHeight = navigationController?.navigationBar.frame.height {
@@ -303,7 +320,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         } else {
             constant = isLandscape ? searchBarSize : searchBarSize * 2
         }
-        #else
+#else
         let constant: CGFloat
         if let navigationBarHeight = navigationController?.navigationBar.frame.height {
             constant = navigationBarHeight
@@ -412,6 +429,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 updateCollectionViewForAlbum()
             }
         }
+
+        addThemeChangeObserver()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -437,15 +456,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let playbackService = PlaybackService.sharedInstance()
         playbackService.setPlayerHidden(isEditing)
         playbackService.playerDisplayController.isMiniPlayerVisible
-            ? miniPlayerIsShown() : miniPlayerIsHidden()
+        ? miniPlayerIsShown() : miniPlayerIsHidden()
 
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
         setNavbarAppearance()
         loadSort()
-        
+
         addInitializationCommonObservers()
+        configureContinueWatchingButton()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -455,36 +475,42 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        continueWatchingButton.removeFromSuperview()
+
         removeInitializationCommonObservers()
+
+        if isMovingFromParent {
+            removeThemeChangeObserver()
+        }
     }
-    
+
     private func addInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
 
-        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
-                                               name: .VLCThemeDidChangeNotification, object: nil)
-
         notificationCenter.addObserver(self, selector: #selector(miniPlayerIsShown),
-                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
-                                               object: nil)
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                       object: nil)
         notificationCenter.addObserver(self, selector: #selector(miniPlayerIsHidden),
-                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
-                                               object: nil)
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                       object: nil)
         notificationCenter.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)),
-                                               name: UIContentSizeCategory.didChangeNotification,
-                                               object: nil)
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
 
         if model is MediaGroupViewModel || model is VideoModel {
             notificationCenter.addObserver(self, selector: #selector(handleDisableGrouping),
-                                                   name: .VLCDisableGroupingDidChangeNotification,
-                                                   object: nil)
+                                           name: .VLCDisableGroupingDidChangeNotification,
+                                           object: nil)
         }
+
+        notificationCenter.addObserver(self, selector: #selector(playbackDidStop),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
     }
-    
+
     private func removeInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
 
-        notificationCenter.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
         notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer), object: nil)
         notificationCenter.removeObserver(self, name:  NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer), object: nil)
         notificationCenter.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
@@ -492,6 +518,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if model is MediaGroupViewModel || model is VideoModel {
             notificationCenter.removeObserver(self, name: .VLCDisableGroupingDidChangeNotification, object: nil)
         }
+
+        notificationCenter.removeObserver(self, name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
+    }
+
+    private func addThemeChangeObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+    }
+
+    private func removeThemeChangeObserver() {
+        NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     func loadSort() {
@@ -522,6 +559,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let marqueeLabel = navigationItem.titleView as? VLCMarqueeLabel {
             marqueeLabel.textColor = PresentationTheme.current.colors.navigationbarTextColor
         }
+
+        continueWatchingButton.tintColor = PresentationTheme.current.colors.background
     }
 
     private func showGuideOnLaunch() {
@@ -557,6 +596,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
+    @objc private func playbackDidStop() {
+        //Handles the visibility when stop the playback from a full screen video player
+        handleContinueWatchingButtonVisibility()
+    }
+
     // MARK: - Renderer
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -564,6 +608,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         toSize = size
         collectionView?.collectionViewLayout.invalidateLayout()
+        updateContinueWatchingConstraints()
     }
 
     // MARK: - Edit
@@ -571,7 +616,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         resetScrollView()
     }
-    
+
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
         if searchDataSource.isSearching {
@@ -632,6 +677,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         reloadData()
+        // this will set continue button to be hidden, in editing mode
+        handleContinueWatchingButtonVisibility()
     }
 
     private func displayEditToolbar() {
@@ -730,10 +777,10 @@ extension MediaCategoryViewController {
         selectAll.accessibilityHint = NSLocalizedString("BUTTON_SELECT_ALL_HINT", comment: "")
         return selectAll
     }
-    
+
     private func setupClearHistoryButton() -> UIBarButtonItem {
         let clearHistory = UIBarButtonItem(title: NSLocalizedString("BUTTON_CLEAR", comment: ""),
-                                        style: .plain, target: self,
+                                           style: .plain, target: self,
                                            action: #selector(handleClearHistory))
         clearHistory.accessibilityLabel = NSLocalizedString("BUTTON_CLEAR", comment: "")
         return clearHistory
@@ -813,10 +860,10 @@ extension MediaCategoryViewController {
         let regroupButton = VLCAlertButton(title: NSLocalizedString("BUTTON_REGROUP", comment: ""),
                                            style: .destructive,
                                            action: {
-                                            [unowned self] action in
-                                            self.mediaLibraryService.medialib.regroupAll()
-                                            mediaGroupViewModel.files = self.mediaLibraryService.medialib.mediaGroups() ?? []
-                                            self.delegate?.setEditingStateChanged(for: self, editing: false)
+            [unowned self] action in
+            self.mediaLibraryService.medialib.regroupAll()
+            mediaGroupViewModel.files = self.mediaLibraryService.medialib.mediaGroups() ?? []
+            self.delegate?.setEditingStateChanged(for: self, editing: false)
         })
 
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("BUTTON_REGROUP_TITLE", comment: ""),
@@ -840,16 +887,16 @@ extension MediaCategoryViewController {
     @objc func handleSort() {
         var currentSortIndex: Int = 0
         for (index, criteria) in
-            model.sortModel.sortingCriteria.enumerated()
-            where criteria == model.sortModel.currentSort {
-                currentSortIndex = index
-                break
+                model.sortModel.sortingCriteria.enumerated()
+        where criteria == model.sortModel.currentSort {
+            currentSortIndex = index
+            break
         }
         present(sortActionSheet, animated: false) {
             [sortActionSheet, currentSortIndex] in
             sortActionSheet.collectionView.selectItem(at:
-                IndexPath(row: currentSortIndex, section: 0), animated: false,
-                                                              scrollPosition: .centeredVertically)
+                                                        IndexPath(row: currentSortIndex, section: 0), animated: false,
+                                                      scrollPosition: .centeredVertically)
         }
     }
 
@@ -882,7 +929,7 @@ extension MediaCategoryViewController {
         isAllSelected = !isAllSelected
         editController.selectAll()
         selectAllBarButton.image = isAllSelected ? UIImage(named: "allSelected")
-            : UIImage(named: "emptySelectAll")
+        : UIImage(named: "emptySelectAll")
     }
 
     @objc func handleSortShortcut() {
@@ -894,7 +941,7 @@ extension MediaCategoryViewController {
         navigationItem.rightBarButtonItems = isEditing ? [UIBarButtonItem(barButtonSystemItem: .done,
                                                                           target: self,
                                                                           action: #selector(handleEditingInsideCollection))]
-            : rightBarButtonItems()
+        : rightBarButtonItems()
         navigationItem.leftBarButtonItems = leftBarButtonItem()
         if navigationController?.viewControllers.last is ArtistViewController || navigationController?.viewControllers.last is CollectionCategoryViewController {
             delegate?.updateNavigationBarButtons(for: self, isEditing: isEditing)
@@ -934,6 +981,8 @@ extension MediaCategoryViewController {
         searchDataSource.isSearching = true
         delegate?.enableCategorySwitching(for: self, enable: false)
         searchBar.setShowsCancelButton(true, animated: true)
+        // hides continue watching button when searching is active
+        handleContinueWatchingButtonVisibility()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -945,6 +994,8 @@ extension MediaCategoryViewController {
         searchDataSource.isSearching = false
         delegate?.enableCategorySwitching(for: self, enable: true)
         reloadData()
+        // shows continue watching button when searching is done
+        handleContinueWatchingButtonVisibility()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -1114,8 +1165,8 @@ extension MediaCategoryViewController {
         // Put the collection view into editing mode.
         delegate?.setEditingStateChanged(for: self, editing: true)
     }
-    
-    
+
+
     private func selectedItem(at indexPath: IndexPath) {
         let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
 
@@ -1124,7 +1175,7 @@ extension MediaCategoryViewController {
         playbackService.playAsAudio = false
 
         if let mediaGroup = modelContent as? VLCMLMediaGroup,
-            mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
+           mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
             // We handle only mediagroups of video
             guard let media = mediaGroup.media(of: .unknown)?.first else {
                 assertionFailure("MediaCategoryViewController: Failed to fetch mediagroup video.")
@@ -1346,8 +1397,8 @@ extension MediaCategoryViewController: ActionSheetDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ActionSheetCell.identifier,
             for: indexPath) as? ActionSheetCell else {
-                assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-                return UICollectionViewCell()
+            assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+            return UICollectionViewCell()
         }
 
         let sortingCriterias = model.sortModel.sortingCriteria
@@ -1742,6 +1793,86 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
     private func resetScrollView() {
         if let mediaCell = mediaCollectionViewCellGetScrolledCell() {
             mediaCell.resetScrollView()
+        }
+    }
+}
+
+// MARK: - Continue Watching Last Media Button
+
+extension MediaCategoryViewController {
+    private func configureContinueWatchingButton() {
+        if let model = model as? CollectionModel, model.mediaCollection is VLCMLMediaGroup {
+            addContinueWatchingButton()
+        } else if model is MediaGroupViewModel {
+            addContinueWatchingButton()
+        }
+    }
+
+    private func addContinueWatchingButton() {
+        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        keyWindow.addSubview(continueWatchingButton)
+
+        self.setContinueWatchingButtonConstraints()
+        self.handleContinueWatchingButtonVisibility()
+    }
+
+    @objc private func continueWatchingButtonPressed() {
+        let playbackService = PlaybackService.sharedInstance()
+        if let lastMedia = mediaLibraryService.medialib.history(of: .video)?.first {
+            playbackService.play(lastMedia)
+        }
+    }
+
+    private func handleContinueWatchingButtonVisibility() {
+        continueWatchingButton.isHidden = shouldHideContinueWatchingButton()
+    }
+
+    private func shouldHideContinueWatchingButton() -> Bool {
+        if PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible {
+            return true
+        }
+
+        if let historyCount = mediaLibraryService.medialib.history(of: .video)?.count, historyCount == 0 {
+            return true
+        }
+
+        if isEditing || searchDataSource.isSearching {
+            return true
+        }
+
+        return false
+    }
+
+    private func setContinueWatchingButtonConstraints() {
+        guard let keywindow = UIApplication.shared.keyWindow else { return }
+        var layoutGuide = keywindow.layoutMarginsGuide
+
+        if #available(iOS 11.0, *) {
+            layoutGuide = keywindow.safeAreaLayoutGuide
+        }
+
+        continueWatchingButton.translatesAutoresizingMaskIntoConstraints = false
+
+        guard let tabBarHeight = self.tabBarController?.tabBar.frame.height else { return }
+        continueWatchingBottomConstraint = continueWatchingButton.bottomAnchor.constraint(
+            equalTo: layoutGuide.bottomAnchor,
+            constant: -tabBarHeight + 10
+        )
+
+        NSLayoutConstraint.activate([
+            continueWatchingButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
+            continueWatchingBottomConstraint!,
+            continueWatchingButton.widthAnchor.constraint(equalToConstant: 60),
+            continueWatchingButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
+
+    //Helper functions for handling constraints when orientation state is changed
+    private func updateContinueWatchingConstraints() {
+        DispatchQueue.main.async {
+            guard let tabBarHeight = self.tabBarController?.tabBar.frame.height else { return }
+            self.continueWatchingBottomConstraint?.constant = -tabBarHeight + 10
+            self.continueWatchingButton.layoutIfNeeded()
         }
     }
 }
