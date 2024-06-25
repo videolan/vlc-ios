@@ -97,10 +97,11 @@ extension AlbumModel {
 extension VLCMLAlbum: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
         var matches = false
-        matches = matches || title.lowercased().contains(searchString)
-        matches = matches || String(releaseYear()).lowercased().contains(searchString)
-        matches = matches || shortSummary.lowercased().contains(searchString)
-        matches = matches || albumArtist?.contains(searchString) ?? false
+
+        matches = matches || search(searchString, in: title)
+        matches = matches || search(searchString, in: String(releaseYear()))
+        matches = matches || search(searchString, in: shortSummary)
+        matches = matches || search(searchString, in: albumArtist?.name ?? "")
 
         return matches
     }

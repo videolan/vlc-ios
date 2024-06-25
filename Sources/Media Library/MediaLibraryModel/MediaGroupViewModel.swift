@@ -237,7 +237,7 @@ extension MediaGroupViewModel: MediaLibraryObserver {
 
 extension VLCMLMediaGroup: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
-        return name().lowercased().contains(searchString)
+        return search(searchString, in: name())
     }
 }
 

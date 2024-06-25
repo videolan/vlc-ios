@@ -83,6 +83,26 @@ protocol SearchableMLModel {
     func contains(_ searchString: String) -> Bool
 }
 
+extension SearchableMLModel {
+    func search(_ searchString: String, in fullString: String) -> Bool {
+        do {
+            let separatedString = searchString.components(separatedBy: " ")
+
+            let matches = try separatedString.allSatisfy { pattern in
+                guard !pattern.isEmpty else { return true }
+
+                let regex = try NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .ignoreMetacharacters])
+                let numberOfMatches = regex.numberOfMatches(in: fullString, range: NSRange(location: 0, length: fullString.count))
+                return numberOfMatches > 0
+            }
+
+            return matches
+        } catch {
+            return false
+        }
+    }
+}
+
 protocol MediaCollectionModel {
     func files(with criteria: VLCMLSortingCriteria,
                desc: Bool) -> [VLCMLMedia]?
