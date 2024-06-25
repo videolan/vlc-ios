@@ -12,6 +12,7 @@
  *          Vincent L. Cone <vincent.l.cone # tuta.io>
  *          Carola Nitz <caro # videolan.org>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Eshan Singh <eeeshan789@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -60,6 +61,7 @@
     NSLayoutConstraint* _localNetworkHeight;
     NSLayoutConstraint* _remoteNetworkHeight;
     MediaLibraryService *_medialibraryService;
+    UIDocumentPickerViewController *_documentPicker;
 }
 
 @end
@@ -106,11 +108,11 @@
     [self.view addSubview:_scrollView];
 
     [NSLayoutConstraint activateConstraints:@[
-                                              [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-                                              [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_scrollView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
-                                              [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-                                              ]];
+        [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+        [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+        [_scrollView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
+        [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+    ]];
 
     _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
     _remoteNetworkDataSourceAndDelegate.delegate = self;
@@ -167,19 +169,19 @@
     _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkTableView.contentSize.height];
 
     [NSLayoutConstraint activateConstraints:@[
-                                              [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-                                              [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
-                                              [fileServerView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
-                                              [fileServerView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-                                              [fileServerView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_localNetworkTableView.topAnchor constraintEqualToAnchor:fileServerView.bottomAnchor],
-                                              [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-                                              [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
-                                              _localNetworkHeight,
-                                              _remoteNetworkHeight
-                                              ]];
+        [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+        [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+        [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
+        [fileServerView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
+        [fileServerView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+        [fileServerView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+        [_localNetworkTableView.topAnchor constraintEqualToAnchor:fileServerView.bottomAnchor],
+        [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+        [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+        [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
+        _localNetworkHeight,
+        _remoteNetworkHeight
+    ]];
 }
 
 - (void)setupUI
@@ -206,7 +208,7 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
-    
+
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
@@ -218,13 +220,13 @@
 
     [self themeDidChange];
     NSArray *browserClasses = @[
-                                [VLCLocalNetworkServiceBrowserUPnP class],
-                                [VLCLocalNetworkServiceBrowserPlex class],
-                                [VLCLocalNetworkServiceBrowserHTTP class],
-                                [VLCLocalNetworkServiceBrowserDSM class],
-                                [VLCLocalNetworkServiceBrowserBonjour class],
-                                [VLCLocalNetworkServiceBrowserNFS class],
-                                ];
+        [VLCLocalNetworkServiceBrowserUPnP class],
+        [VLCLocalNetworkServiceBrowserPlex class],
+        [VLCLocalNetworkServiceBrowserHTTP class],
+        [VLCLocalNetworkServiceBrowserDSM class],
+        [VLCLocalNetworkServiceBrowserBonjour class],
+        [VLCLocalNetworkServiceBrowserNFS class],
+    ];
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
@@ -472,8 +474,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          [self connectToServer];
-                                                      }]];
+        [self connectToServer];
+    }]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -484,8 +486,13 @@
 
 - (void)showDocumentPickerViewController:(UIDocumentPickerViewController *)viewControllerToPresent
 {
-    viewControllerToPresent.delegate = self;
-    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
+    _documentPicker = viewControllerToPresent;
+    _documentPicker.delegate = self;
+    if (@available(iOS 11.0, *)) {
+        [self showAlertforDocumentPicker];
+    } else {
+        [self presentViewController: _documentPicker animated: true completion: nil];
+    }
 }
 
 - (void)reloadRemoteTableView
@@ -583,6 +590,31 @@
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
+-(void)showAlertforDocumentPicker
+{
+    if (@available(iOS 11.0, *)) {
+        UIAlertController *optionsAlert =  [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PLAY_FILE", nil) message: nil preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *folderAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"PLAY_FOLDER", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self->_documentPicker.allowsMultipleSelection = NO;
+            [self presentViewController:self->_documentPicker animated:YES completion:nil];
+        }];
+
+        UIAlertAction *filesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"PLAY_FILES", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self->_documentPicker.allowsMultipleSelection = YES;
+            [self presentViewController:self->_documentPicker animated:YES completion:nil];
+        }];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+
+        [optionsAlert addAction:folderAction];
+        [optionsAlert addAction:filesAction];
+        [optionsAlert addAction:cancelAction];
+
+        [self presentViewController:optionsAlert animated:YES completion:nil];
+    }
+}
+
 #pragma mark - UIDocumentPickerDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
@@ -592,6 +624,53 @@
         [medialist addMedia:[VLCMedia mediaWithURL:url]];
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
         [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+    }
+}
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
+{
+    if (urls.count > 0) {
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+
+        for (NSURL *url in urls) {
+            NSString *pathExtension = [url pathExtension];
+            if ([pathExtension isEqualToString:@""]) {
+                if (@available(iOS 11.0, *)) {
+                    if (![_documentPicker allowsMultipleSelection])
+                        [self getFolderData:url mediaList:medialist];
+                }
+            } else {
+                if (url && [url startAccessingSecurityScopedResource]) {
+                    [medialist addMedia:[VLCMedia mediaWithURL:url]];
+                    [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+                }
+            }
+        }
+
+        if ([medialist count] > 0) {
+            [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        }
+    }
+}
+
+-(void)getFolderData:(NSURL*)url mediaList:(VLCMediaList*) list
+{
+    NSURL *folderURL = url;
+    NSError *error = nil;
+    NSArray<NSURL *> *filesInFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL
+                                                                    includingPropertiesForKeys:@[]
+                                                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                                         error:&error];
+    if (error) {
+        NSLog(@"Error reading directory: %@", error);
+        return;
+    }
+
+    for (NSURL *fileURL in filesInFolder) {
+        if ([fileURL startAccessingSecurityScopedResource]) {
+            [list addMedia:[VLCMedia mediaWithURL:fileURL]];
+            [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:fileURL];
+        }
     }
 }
 

@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 import UIKit
+import MobileCoreServices
 
 enum RemoteNetworkCellType: Int {
     @available(iOS 11.0, *)
@@ -44,7 +45,7 @@ protocol RemoteNetworkDataSourceDelegate {
 
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
 class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-    let localVC = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+    let localVC: UIDocumentPickerViewController
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
     let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
@@ -113,7 +114,16 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         assertionFailure("Cell is nil, did you forget to register the identifier?")
         return UITableViewCell()
     }
-
+    // MARK: - INIT
+    
+    override init() {
+          if #available(iOS 11.0, *) {
+              localVC = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+          } else {
+              localVC = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+          }
+          super.init()
+    }
     // MARK: - Delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -670,3 +670,9 @@
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
+
+// MARK: - UIDOCUMENT PICKER ALERT STRINGS FOR LOCAL FILES PLAYBACK
+/* New strings */
+"PLAY_FILE" = "Would you like to open files or an entire folder?";
+"PLAY_FOLDER" = "Folder";
+"PLAY_FILES" = "Files";
