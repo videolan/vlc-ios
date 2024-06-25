@@ -7,7 +7,6 @@ def shared_pods
   pod 'XKKeychain', '~>1.0'
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-  pod 'xmlrpc', :git => 'https://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
   pod 'AFNetworking', '~>4.0'
 
   # debug

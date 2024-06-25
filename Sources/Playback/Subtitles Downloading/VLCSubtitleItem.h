@@ -12,19 +12,20 @@
 
 @interface VLCSubtitleItem : NSObject
 
-@property (copy, nonatomic) NSString *language;
+@property (copy, nonatomic) NSNumber *ID;
 @property (copy, nonatomic) NSString *name;
-@property (copy, nonatomic) NSString *format;
-@property (copy, nonatomic) NSString *iso639Language;
-@property (copy, nonatomic) NSString *downloadAddress;
+@property (copy, nonatomic) NSString *language;
+@property (copy, nonatomic) NSString *fps;
+@property (nonatomic) BOOL hd;
 @property (copy, nonatomic) NSString *rating;
+@property (copy, nonatomic) NSString *downloadCount;
+@property (copy, nonatomic) NSDate *uploadDate;
 
 @end
 
 @interface VLCSubtitleLanguage : NSObject
 
-@property (copy, nonatomic) NSString *ID;
-@property (copy, nonatomic) NSString *localizedName;
-@property (copy, nonatomic) NSString *iso639Language;
+@property (copy, nonatomic) NSString *languageCode;
+@property (copy, nonatomic) NSString *languageName;
 
 @end

@@ -49,7 +49,6 @@ PODS:
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
   - MobileVLCKit (3.6.1b1)
-  - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.3.2)
   - OBSlider (1.1.0)
   - OneDriveSDK (1.3.0):
@@ -77,8 +76,6 @@ PODS:
   - VLCMediaLibraryKit (0.11.0b2):
     - MobileVLCKit
   - XKKeychain (1.0.1)
-  - xmlrpc (2.3.4):
-    - "NSData+Base64"
 
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
@@ -101,7 +98,6 @@ DEPENDENCIES:
   - TVVLCKit (= 3.6.1b1)
   - VLCMediaLibraryKit (= 0.11.0b2)
   - XKKeychain (~> 1.0)
-  - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
 
 SPEC REPOS:
   trunk:
@@ -115,7 +111,6 @@ SPEC REPOS:
     - MarqueeLabel
     - MetaDataFetcherKit
     - MobileVLCKit
-    - "NSData+Base64"
     - ObjectiveDropboxOfficial
     - OBSlider
     - SimulatorStatusMagic
@@ -141,9 +136,6 @@ EXTERNAL SOURCES:
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
-  xmlrpc:
-    :commit: 3f8ce3a8
-    :git: https://github.com/fkuehne/xmlrpc.git
 
 CHECKOUT OPTIONS:
   ADAL:
@@ -164,9 +156,6 @@ CHECKOUT OPTIONS:
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
-  xmlrpc:
-    :commit: 3f8ce3a8
-    :git: https://github.com/fkuehne/xmlrpc.git
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
@@ -184,7 +173,6 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
   MobileVLCKit: 2d9c7c373393ae43086aeeff890bf0b1afc15c5c
-  "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
@@ -193,8 +181,7 @@ SPEC CHECKSUMS:
   TVVLCKit: 28e08c9f21a998b5818a0db4084873dce2702365
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
-  xmlrpc: 1f2573295880d27b33ba2c07ed9e248fc9520828
 
-PODFILE CHECKSUM: 90334a16a668b07e8eb38bed6bc6b9e02730a41f
+PODFILE CHECKSUM: ab734be99072b14ae6d44d9f4a818525c897c2c1
 
 COCOAPODS: 1.15.2

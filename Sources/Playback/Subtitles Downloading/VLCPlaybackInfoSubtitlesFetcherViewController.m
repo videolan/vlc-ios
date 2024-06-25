@@ -12,7 +12,6 @@
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 #import "VLCOSOFetcher.h"
 #import "VLCSubtitleItem.h"
-#import "NSString+Locale.h"
 #import "VLCMetadata.h"
 #import "VLCPlaybackService.h"
 #if !TARGET_OS_TV
@@ -56,32 +55,9 @@
     self.osoFetcher.dataRecipient = self;
     [self.osoFetcher prepareForFetching];
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *selectedLocale = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    if (!selectedLocale) {
-        NSString *preferredLanguage = [[NSLocale preferredLanguages] firstObject];
-        /* we may receive 'en-GB' so strip that to 'en' */
-        if ([preferredLanguage containsString:@"-"]) {
-            preferredLanguage = [[preferredLanguage componentsSeparatedByString:@"-"] firstObject];
-        }
-        selectedLocale = [preferredLanguage VLCthreeLetterLanguageKeyForTwoLetterCode];
-        /* last resort */
-        if (selectedLocale == nil) {
-            selectedLocale = @"eng";
-        }
-        [defaults setObject:selectedLocale forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    }
-    self.osoFetcher.subtitleLanguageId = selectedLocale;
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
-    } else {
-        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    }
-    self.activityIndicatorView.color = [UIColor lightGrayColor];
-    [self.activityIndicatorView sizeToFit];
-    [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.osoFetcher.subtitleLanguageCode = [self selectedSubtitleLanguageCode];
+
+    [self setupActivityIndicatorView];
     [self.view addSubview:self.activityIndicatorView];
 
     NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView
@@ -154,6 +130,46 @@
 #endif
 }
 
+- (NSString *)selectedSubtitleLanguageCode 
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *selectedLanguage = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+
+    if (!selectedLanguage) {
+        NSString *preferredLanguage = [[NSLocale preferredLanguages] firstObject];
+        /* we may receive 'en-GB' so strip that to 'en' */
+        if ([preferredLanguage containsString:@"-"]) {
+            preferredLanguage = [[preferredLanguage componentsSeparatedByString:@"-"] firstObject];
+        }
+
+        /* last resort */
+        if (selectedLanguage == nil) {
+            selectedLanguage = @"en";
+        }
+
+        // Save selected locale
+        [defaults setObject:selectedLanguage forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+    }
+
+    return selectedLanguage;
+}
+
+- (void) setupActivityIndicatorView
+{
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    if (@available(iOS 13.0, tvOS 13.0, *)) {
+        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+    } else {
+        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    }
+
+    self.activityIndicatorView.color = [UIColor lightGrayColor];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    [self.activityIndicatorView sizeToFit];
+}
+
 - (void)dismiss
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -224,8 +240,8 @@
     [self startActivity];
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    APLog(@"%s: query: '%@' language: '%@'", __func__, self.osoFetcher.subtitleLanguageId, vpc.metadata.title);
+    self.osoFetcher.subtitleLanguageCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+    APLog(@"%s: query: '%@' language: '%@'", __func__, vpc.metadata.title, self.osoFetcher.subtitleLanguageCode);
     [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
 }
 
@@ -260,11 +276,26 @@
     self.activityCancelled = NO;
 }
 
-- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFailToDownloadForItem:(VLCSubtitleItem *)subtitleItem
+- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFailToDownloadForItem:(VLCSubtitleItem *)subtitleItem withError:(nonnull NSError *)error
 {
     [self stopActivity];
-    // FIXME: missing error handling
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    // Show error alert
+    UIAlertController *alert = [UIAlertController 
+                                alertControllerWithTitle:NSLocalizedString(@"ERROR", nil)
+                                message:error.localizedDescription
+                                preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction 
+                                    actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) {
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                    }];
+
+    [alert addAction:defaultAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(VLCSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
@@ -312,13 +343,22 @@
     if (indexPath.section != 0) {
         VLCSubtitleItem *item = self.searchResults[indexPath.row];
         cell.textLabel.text = item.name;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", item.rating, [item.format uppercaseStringWithLocale:[NSLocale currentLocale]]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ fps - %@", item.fps, item.rating];
+
+        if (item.hd) {
+            cell.detailTextLabel.text = [cell.detailTextLabel.text stringByAppendingString:@" - HD"];
+        }
+
         cell.accessoryType = UITableViewCellAccessoryNone;
     } else {
-        NSString *selectedLocale = [[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
         cell.textLabel.text = NSLocalizedString(@"LANGUAGE", nil);
-        NSString *detail = [[selectedLocale VLCtwoLetterLanguageKeyForThreeLetterCode] VLClocalizedLanguageNameForTwoLetterCode];
-        cell.detailTextLabel.text = detail ? detail : selectedLocale;
+
+        // Get selected subtitle language code
+        NSString *selectedLanguageCode = [self selectedSubtitleLanguageCode];
+        // Get localized name of the code
+        NSString *localizedLanguageName = [[NSLocale currentLocale] localizedStringForLanguageCode:selectedLanguageCode];
+
+        cell.detailTextLabel.text = localizedLanguageName ? localizedLanguageName : selectedLanguageCode;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
@@ -357,21 +397,32 @@
                                                                                  message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
         NSArray<VLCSubtitleLanguage *> *languages = self.osoFetcher.availableLanguages;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *currentCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+        NSString *selectedLanguageCode = [self selectedSubtitleLanguageCode];
 
         for (VLCSubtitleLanguage *item in languages) {
-            NSString *itemID = item.ID;
-            UIAlertAction *action = [UIAlertAction actionWithTitle:item.localizedName
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                               self.osoFetcher.subtitleLanguageId = itemID;
-                                                               [defaults setObject:itemID forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-                                                               [self searchForMedia];
-                                                               [self.tableView reloadData];
-                                                           }];
+            NSString *languageCode = item.languageCode;
+            NSString *localizedLanguageName = [[NSLocale currentLocale] localizedStringForLanguageCode:languageCode];
+
+            // If localized language code not found, use the code
+            if (!localizedLanguageName) {
+                localizedLanguageName = languageCode;
+            }
+
+            UIAlertAction *action = [UIAlertAction actionWithTitle:localizedLanguageName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // Set service's language code
+                self.osoFetcher.subtitleLanguageCode = languageCode;
+
+                // Save the selected language
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:languageCode forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+
+                // Update tableView
+                [self searchForMedia];
+                [self.tableView reloadData];
+            }];
+
             [alertController addAction:action];
-            if ([itemID isEqualToString:currentCode])
+            if ([languageCode isEqualToString:selectedLanguageCode])
                 [alertController setPreferredAction:action];
         }
 
@@ -389,7 +440,7 @@
         [self startActivity];
 
         VLCSubtitleItem *item = self.searchResults[indexPath.row];
-        NSString *subStorageLocation;
+        NSURL *subStorageDirectory;
         NSFileManager *fileManager = [NSFileManager defaultManager];
 #if TARGET_OS_IOS
         /* on iOS, we try to retain the subtitles if the played media is stored locally */
@@ -406,35 +457,34 @@
             if (![mediaURLpath containsString:potentialInboxFolderPath] && [mediaURLpath containsString:documentFolderPath]) {
                 /* the media is stored in the Documents folder but not in Inbox */
                 NSString *mediaPath = mediaURL.path;
-                subStorageLocation = [[mediaPath stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
+                subStorageDirectory = [NSURL fileURLWithPath:[mediaPath stringByDeletingLastPathComponent] isDirectory:YES];
 
                 /* make extra sure that we may write in the surrounding folder, otherwise drop it and save in caches */
                 if (![fileManager isWritableFileAtPath:[mediaPath stringByDeletingLastPathComponent]]) {
-                    subStorageLocation = nil;
+                    subStorageDirectory = nil;
                 }
             }
 
-            if (!subStorageLocation) {
+            if (!subStorageDirectory) {
                 /* cache the downloaded subtitle in a writeable cache folder that is eventually emptied by the OS */
-                NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
                 searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
                 NSString *cacheFolderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
                 [fileManager createDirectoryAtPath:cacheFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
-                subStorageLocation = [cacheFolderPath stringByAppendingFormat:@"/%@.%@", mediaFileName, item.format];
+                subStorageDirectory = [NSURL fileURLWithPath:cacheFolderPath isDirectory:YES];
             }
         }
-        if (!subStorageLocation) {
+        if (!subStorageDirectory) {
 #endif
             /* media is not a file or we are on tvOS, then just store the downloaded subtitle under its own name
              * and have it deleted by the OS some day through the cache folder */
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *folderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
             [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
-            subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
+            subStorageDirectory = [NSURL fileURLWithPath:folderPath isDirectory:YES];
 #if TARGET_OS_IOS
         }
 #endif
-        [self.osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
+        [self.osoFetcher downloadSubtitleItem:item toDirectory:subStorageDirectory];
     }
 }
 

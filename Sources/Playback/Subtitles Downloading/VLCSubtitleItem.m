@@ -16,7 +16,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%s: name: '%@' format: '%@' language: '%@'", __PRETTY_FUNCTION__, self.name, self.format, self.language];
+    return [NSString stringWithFormat:@"%s: id: '%@' name: '%@' language: '%@'", __PRETTY_FUNCTION__, self.ID, self.name, self.language];
 }
 
 @end
@@ -25,7 +25,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%s: ID: '%@', ISO639: '%@', localized: '%@'", __PRETTY_FUNCTION__, self.ID, self.iso639Language, self.localizedName];
+    return [NSString stringWithFormat:@"%s: code: '%@', name: '%@'", __PRETTY_FUNCTION__, self.languageCode, self.languageName];
 }
 
 @end

@@ -22,7 +22,7 @@
 - (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFailToFindSubtitlesForSearchRequest:(NSString * _Nonnull)searchRequest;
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher subtitleDownloadSucceededForItem:(VLCSubtitleItem * _Nonnull)subtitleItem atPath:(NSString * _Nonnull)pathToFile;
-- (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFailToDownloadForItem:(VLCSubtitleItem * _Nonnull)subtitleItem;
+- (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFailToDownloadForItem:(VLCSubtitleItem * _Nonnull)subtitleItem withError:(nonnull NSError *)error;
 
 @end
 
@@ -49,13 +49,13 @@
  * \return the current language ID [STRING]
  * \note if none is set, the default value "eng" will be used
  */
-@property (retain, nonnull, nonatomic) NSString *subtitleLanguageId;
+@property (retain, nonnull, nonatomic) NSString *subtitleLanguageCode;
 
 /**
  * the query string to search for
  */
 - (void)searchForSubtitlesWithQuery:(NSString * _Nonnull)query;
 
-- (void)downloadSubtitleItem:(VLCSubtitleItem * _Nonnull)item toPath:(NSString * _Nonnull)path;
+- (void)downloadSubtitleItem:(VLCSubtitleItem * _Nonnull)item toDirectory:(NSURL * _Nonnull)path;
 
 @end

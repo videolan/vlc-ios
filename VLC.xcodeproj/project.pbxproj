@@ -142,8 +142,8 @@
 		7D21407F2431F3A50075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
 		7D2891822C21E3FA00FA2CB7 /* UIStackView+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */; };
 		7D2BC9112B5A67AB00C6770B /* VLCStripeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */; };
-		7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
-		7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
+		7D2DE69324D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m */; };
+		7D2DE69424D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m */; };
 		7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */; };
 		7D2DE69C24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */; };
 		7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */; };
@@ -275,8 +275,6 @@
 		7DC7BA8D28C8953800109F28 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA8A28C8953800109F28 /* Observable.swift */; };
 		7DC7BA9428C8954B00109F28 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */; };
 		7DC7BA9528C8954B00109F28 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */; };
-		7DC7BA9628C8954B00109F28 /* NSString+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9328C8954B00109F28 /* NSString+Locale.m */; };
-		7DC7BA9728C8954B00109F28 /* NSString+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9328C8954B00109F28 /* NSString+Locale.m */; };
 		7DC7BA9E28C8955F00109F28 /* UIAlertController+autoDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9928C8955F00109F28 /* UIAlertController+autoDismissable.swift */; };
 		7DC7BAA028C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9A28C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */; };
 		7DC7BAA228C8955F00109F28 /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA9C28C8955F00109F28 /* UIBarButtonItem+Theme.m */; };
@@ -744,8 +742,8 @@
 		7D2BC90F2B5A67AB00C6770B /* VLCStripeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCStripeController.h; sourceTree = "<group>"; };
 		7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCStripeController.m; sourceTree = "<group>"; };
 		7D2D7FD21BD2F109002D6B6D /* VLC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VLC.entitlements; path = Resources/tvOS/VLC.entitlements; sourceTree = SOURCE_ROOT; };
-		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
-		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
+		7D2DE69124D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenSubtitlesDownloader.h; sourceTree = "<group>"; };
+		7D2DE69224D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenSubtitlesDownloader.m; sourceTree = "<group>"; };
 		7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOSOFetcher.m; sourceTree = "<group>"; };
 		7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSubtitleItem.h; sourceTree = "<group>"; };
 		7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOSOFetcher.h; sourceTree = "<group>"; };
@@ -992,10 +990,8 @@
 		7DC7BA8328C8951C00109F28 /* UIDevice+VLC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+VLC.swift"; sourceTree = "<group>"; };
 		7DC7BA8928C8953800109F28 /* APLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APLog.swift; sourceTree = "<group>"; };
 		7DC7BA8A28C8953800109F28 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		7DC7BA9028C8954B00109F28 /* NSString+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Locale.h"; sourceTree = "<group>"; };
 		7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
 		7DC7BA9228C8954B00109F28 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
-		7DC7BA9328C8954B00109F28 /* NSString+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Locale.m"; sourceTree = "<group>"; };
 		7DC7BA9928C8955F00109F28 /* UIAlertController+autoDismissable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+autoDismissable.swift"; sourceTree = "<group>"; };
 		7DC7BA9A28C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+flashScrollIndicatorsIfNeeded.swift"; sourceTree = "<group>"; };
 		7DC7BA9B28C8955F00109F28 /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Theme.h"; sourceTree = "<group>"; };
@@ -1612,8 +1608,8 @@
 				7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */,
 				7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */,
 				7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */,
-				7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */,
-				7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */,
+				7D2DE69124D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.h */,
+				7D2DE69224D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m */,
 			);
 			path = "Subtitles Downloading";
 			sourceTree = "<group>";
@@ -2110,8 +2106,6 @@
 		7DC7BA8F28C8954400109F28 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
-				7DC7BA9028C8954B00109F28 /* NSString+Locale.h */,
-				7DC7BA9328C8954B00109F28 /* NSString+Locale.m */,
 				7DC7BA9228C8954B00109F28 /* NSString+SupportedMedia.h */,
 				7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */,
 			);
@@ -3550,7 +3544,6 @@
 				DD3EFF4A1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,
 				7DC7BAB428C8958900109F28 /* UIImage+Blur.m in Sources */,
 				D9691C4828F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
-				7DC7BA9728C8954B00109F28 /* NSString+Locale.m in Sources */,
 				226D57E22B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */,
 				DD3EABEF1BE14720003668DA /* VLCPlaybackControlsFocusView.m in Sources */,
 				DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */,
@@ -3584,7 +3577,7 @@
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
-				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
+				7D2DE69424D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
 				7D577DEC2B0F6C640063A3C1 /* VLCFrostedGlasView.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m in Sources */,
@@ -3643,7 +3636,6 @@
 				4144C4661A0ED6C700918C89 /* Reachability.m in Sources */,
 				DD846BDF1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m in Sources */,
 				226D57E12B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */,
-				7DC7BA9628C8954B00109F28 /* NSString+Locale.m in Sources */,
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				7D0C208428C8993400CCFFEF /* main.m in Sources */,
 				4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */,
@@ -3728,7 +3720,7 @@
 				D9B4027D298BEF4F007E923F /* AlbumHeaderFlowLayout.swift in Sources */,
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
 				7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */,
-				7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
+				7D2DE69324D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,
 				7D3150A92AA8B8B90068D478 /* UIImage+AverageColor.m in Sources */,
