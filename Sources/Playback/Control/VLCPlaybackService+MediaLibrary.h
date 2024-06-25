@@ -16,6 +16,7 @@
 @interface VLCPlaybackService (MediaLibrary)
 
 - (void)playMedia:(VLCMLMedia *)media;
+- (void)playMedia:(VLCMLMedia *)media openInMiniPlayer:(BOOL)openInMiniPlayer;
 - (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection;
 - (void)playMediaNextInQueue:(VLCMLMedia *)media NS_SWIFT_NAME(playMediaNextInQueue(_:));
 - (void)appendMediaToQueue:(VLCMLMedia *)media NS_SWIFT_NAME(appendMediaToQueue(_:));

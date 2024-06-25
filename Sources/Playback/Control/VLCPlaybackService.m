@@ -24,6 +24,7 @@
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import <stdatomic.h>
+#import "VLCMLMedia+isWatched.h"
 
 #if TARGET_OS_IOS
 #import "VLCMLMedia+Podcast.h"
@@ -80,6 +81,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     NSInteger _currentIndex;
     NSMutableArray *_shuffledOrder;
+
+    BOOL _openInMiniPlayer;
 }
 
 @end
@@ -785,7 +788,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                 _mediaPlayer.audio.passthrough = bValue;
             }
 #endif
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
+                kVLCPlayerOpenInMiniPlayer: @(_openInMiniPlayer)
+            }];
+            _openInMiniPlayer = NO;
         } break;
 
         case VLCMediaPlayerStatePlaying: {
@@ -1483,26 +1489,25 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     CGFloat lastPosition = libraryMedia.progress;
-    SInt64 mediaDuration = libraryMedia.duration;
 
     if (_mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
+
+        if ([libraryMedia isWatched]) {
+            goto bailout;
+        }
+
         if (libraryMedia.type == VLCMLMediaTypeAudio) {
             if (!libraryMedia.isPodcast) {
                 goto bailout;
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
         } else {
-            if (mediaDuration < 10000 && !libraryMedia.isExternalMedia) {
-                goto bailout;
-            }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
         }
 
         if (continuePlayback == 1) {
-            if (lastPosition * mediaDuration > 120000.) {
-                [self setPlaybackPosition:lastPosition];
-            }
+            [self setPlaybackPosition:lastPosition];
         } else if (continuePlayback == 0) {
             NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                                          style: UIAlertActionStyleCancel

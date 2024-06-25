@@ -20,6 +20,7 @@
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
 #import "VLCAppSceneDelegate.h"
+#import "VLCMLMedia+isWatched.h"
 
 @interface VLCAppDelegate ()
 {
@@ -158,6 +159,8 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
 
+    [self recoverLastPlayingMedia];
+
     return YES;
 }
 
@@ -252,6 +255,8 @@
 
     VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
     [fs storeContentSynchronously];
+
+    [self savePlayingMediaIdentifier];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
@@ -311,6 +316,31 @@
 
 - (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(ios(13.0))
 {
+}
+
+#pragma mark - Recover last playing media
+
+- (void)savePlayingMediaIdentifier {
+    VLCMedia *currentMedia = [[VLCPlaybackService sharedInstance] currentlyPlayingMedia];
+    VLCMLIdentifier identifier = -1;
+
+    if (currentMedia) {
+        VLCMLMedia *libraryMedia = [VLCMLMedia mediaForPlayingMedia:currentMedia];
+        identifier = libraryMedia.identifier;
+    }
+
+    [[NSUserDefaults standardUserDefaults] setInteger:identifier forKey:kVLCLastPlayedMediaIdentifier];
+}
+
+- (void)recoverLastPlayingMedia {
+    VLCMLIdentifier identifier = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCLastPlayedMediaIdentifier];
+    APLog(@"LastPlayedMediaIdentifier: %lld", identifier);
+
+    VLCMLMedia *media = [[[VLCAppCoordinator sharedInstance] mediaLibraryService] mediaFor:identifier];
+    // If media exists and not watched, recover it.
+    if (media && ![media isWatched]) {
+        [[VLCPlaybackService sharedInstance] playMedia:media openInMiniPlayer:YES];
+    }
 }
 
 @end

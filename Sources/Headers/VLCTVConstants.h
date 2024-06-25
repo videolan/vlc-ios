@@ -74,6 +74,9 @@
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"
 
+#define kVLCLastPlayedMediaIdentifier @"LastPlayedMediaIdentifier"
+
+#define kVLCPlayerOpenInMiniPlayer @"OpenInMiniPlayer"
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
 #define kVLCPlayerIsShuffleEnabled @"PlayerIsShuffleEnabled"
 #define kVLCPlayerIsShuffleEnabledDefaultValue @NO
