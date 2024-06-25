@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.6.0]
+· Add rotation during video playback to show the video independent of the actual state of the device
+· Add support for custom equalizer profiles
+· Add support for playing entire folders and multiple files on iOS 11 and above stored outside the VLC context
+· Rewrite OpenSubtitles.org integration using the JSON API
+· Improve search of locally stored content with regex matching
+
+## tvOS [3.6.0]
+· Rewrite OpenSubtitles.org integration using the JSON API
+
 ## iOS [3.5.10]
 · Fix stability issues when decoding specific AV1 content on 64bit devices
 · Fix silence when playing specific content in the OPUS format
