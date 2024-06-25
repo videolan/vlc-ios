@@ -80,6 +80,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             "ROTATE_BUTTON_HINT",
             comment: "Accessibility hint for rotate button on the player"
         )
+        rotateButton.isHidden = true
         return rotateButton
     }()
 

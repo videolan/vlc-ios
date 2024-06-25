@@ -205,6 +205,7 @@ class VideoPlayerViewController: UIViewController {
         mediaNavigationBar.presentingViewController = self
         mediaNavigationBar.chromeCastButton.isHidden =
             self.playbackService.renderer == nil
+        mediaNavigationBar.rotateButton.isHidden = false
         return mediaNavigationBar
     }()
 
