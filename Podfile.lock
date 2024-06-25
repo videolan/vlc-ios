@@ -48,7 +48,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
-  - ObjectiveDropboxOfficial (6.3.2)
+  - ObjectiveDropboxOfficial (7.3.1)
   - OBSlider (1.1.0)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
-  ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
+  ObjectiveDropboxOfficial: 12fa0e80221f1cbc3a3bfd0be5c4451882d08d9f
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
@@ -178,6 +178,6 @@ SPEC CHECKSUMS:
   VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: 090fbbf2f5af46373e449f20cf9c017f2c096138
+PODFILE CHECKSUM: 449c9d04cc9f4bd5ad4fae33a28263871ffe740c
 
 COCOAPODS: 1.15.2

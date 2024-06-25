@@ -16,7 +16,7 @@ def shared_pods
 end
 
 target 'VLC-iOS' do
-  platform :ios, '9.0'
+  platform :ios, '12.0'
   shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
@@ -36,13 +36,13 @@ target 'VLC-iOS' do
 end
 
 target 'VLC-iOS-Screenshots' do
-  platform :ios, '9.0'
+  platform :ios, '12.0'
   inherit! :search_paths
   pod 'SimulatorStatusMagic'
 end
 
 target 'VLC-tvOS' do
-  platform :tvos, '11.0'
+  platform :tvos, '12.0'
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
   pod 'MetaDataFetcherKit', '~>0.5.0'
@@ -52,10 +52,12 @@ post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
      installer_representation.pods_project.build_configurations.each do |config|
        config.build_settings['SKIP_INSTALL'] = 'YES'
-       config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 x86_64'
+       config.build_settings['ARCHS'] = 'arm64 x86_64'
        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
      end
     target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+        config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
         xcconfig_path = config.base_configuration_reference.real_path
         xcconfig = File.read(xcconfig_path)
         new_xcconfig = xcconfig.sub('-l"sqlite3"', '')
