@@ -61,6 +61,7 @@
                                   kVLCSettingBrightnessGesture : @(YES),
                                   kVLCSettingSeekGesture : @(YES),
                                   kVLCSettingCloseGesture : @(YES),
+                                  kVLCSettingPlaybackLongTouchSpeedUp : @(YES),
                                   kVLCSettingVideoFullscreenPlayback : @(YES),
                                   kVLCSettingContinuePlayback : @(1),
                                   kVLCSettingContinueAudioPlayback : @(1),

@@ -64,6 +64,10 @@ class PlayerController: NSObject {
         return UserDefaults.standard.bool(forKey: kVLCSettingCloseGesture)
     }
 
+    var isSpeedUpGestureEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCSettingPlaybackLongTouchSpeedUp)
+    }
+
     var isShuffleEnabled: Bool {
         return UserDefaults.standard.bool(forKey: kVLCPlayerIsShuffleEnabled)
     }

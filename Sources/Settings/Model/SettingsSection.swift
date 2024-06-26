@@ -314,6 +314,7 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
     case backwardSkipLength
     case forwardSkipLengthSwipe
     case backwardSkipLengthSwipe
+    case longTouchToSpeedUp
 
     var containsInfobutton: Bool { return false }
 
@@ -341,6 +342,8 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return false
         case .backwardSkipLengthSwipe:
             return false
+        case .longTouchToSpeedUp:
+            return true
         }
     }
 
@@ -383,6 +386,8 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE"
         case .backwardSkipLengthSwipe:
             return "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE"
+        case .longTouchToSpeedUp:
+            return "SETINGS_LONG_TOUCH_SPEED_UP"
         }
     }
 
@@ -412,6 +417,8 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return kVLCSettingPlaybackForwardSkipLengthSwipe
         case .backwardSkipLengthSwipe:
             return kVLCSettingPlaybackBackwardSkipLengthSwipe
+        case .longTouchToSpeedUp:
+            return kVLCSettingPlaybackLongTouchSpeedUp
         }
     }
 }

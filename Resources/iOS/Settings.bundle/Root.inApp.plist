@@ -425,6 +425,16 @@
 			</array>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>LongTouchSpeedUp</string>
+			<key>Title</key>
+			<string>SETINGS_LONG_TOUCH_SPEED_UP</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

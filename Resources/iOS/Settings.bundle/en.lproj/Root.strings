@@ -147,6 +147,7 @@
 "SETTINGS_PLAYBACK_SKIP_BACKWARD_TAP" = "Backward skip on tap";
 "SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE" = "Forward skip on swipe";
 "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE" = "Backward skip on swipe";
+"SETINGS_LONG_TOUCH_SPEED_UP" = "Long touch to speed-up";
 
 "SETTINGS_DURATION_FIVE" = "5 seconds";
 "SETTINGS_DURATION_TEN" =  "10 seconds";

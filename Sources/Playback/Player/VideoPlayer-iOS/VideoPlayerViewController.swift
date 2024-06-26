@@ -1328,6 +1328,9 @@ extension VideoPlayerViewController {
     }
 
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
+
+        guard playerController.isSpeedUpGestureEnabled else { return }
+
         guard playbackService.isPlaying else { return }
 
         switch gestureRecognizer.state {
