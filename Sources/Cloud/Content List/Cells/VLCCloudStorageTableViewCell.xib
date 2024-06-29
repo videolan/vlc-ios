@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,14 +23,14 @@
                             <constraint firstAttribute="width" secondItem="4" secondAttribute="height" multiplier="1:1" id="10D-U5-sbF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="54" y="10" width="201" height="17"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="54" y="10" width="201" height="18.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="54" y="18.5" width="258" height="17"/>
+                        <rect key="frame" x="54" y="17" width="258" height="20.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -58,6 +59,21 @@
                             <action selector="triggerDownload:" destination="3" eventType="touchUpInside" id="vmr-i0-5y5"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYG-PY-W9b">
+                        <rect key="frame" x="261" y="8" width="48" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="7MV-yu-USF"/>
+                            <constraint firstAttribute="height" constant="38" id="9Qh-nG-9qa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="heart">
+                            <color key="titleColor" systemColor="systemOrangeColor"/>
+                        </state>
+                        <connections>
+                            <action selector="didTapFavorite:" destination="3" eventType="touchUpInside" id="ndG-Sf-fBg"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7" firstAttribute="trailing" secondItem="661-nY-3Tr" secondAttribute="leading" constant="-8" id="3TX-CG-pVW"/>
@@ -68,10 +84,13 @@
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="C3b-pA-uOA"/>
                     <constraint firstItem="23" firstAttribute="trailing" secondItem="Tip-yB-5Gh" secondAttribute="trailing" constant="-8" id="Fqx-O2-LB5"/>
                     <constraint firstItem="7" firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="-2" id="KGc-0W-IIt"/>
+                    <constraint firstItem="TYG-PY-W9b" firstAttribute="leading" secondItem="6" secondAttribute="trailing" constant="6" id="Xnl-Mi-4el"/>
                     <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="8" id="acL-xO-d30"/>
+                    <constraint firstItem="TYG-PY-W9b" firstAttribute="top" secondItem="4" secondAttribute="top" id="bOM-e0-C6q"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="c7M-0S-tyB"/>
                     <constraint firstItem="4" firstAttribute="centerY" secondItem="Tip-yB-5Gh" secondAttribute="centerY" id="fyJ-RB-ru7"/>
                     <constraint firstItem="6" firstAttribute="trailing" secondItem="661-nY-3Tr" secondAttribute="leading" constant="-8" id="hp2-dT-ocj"/>
+                    <constraint firstAttribute="trailing" secondItem="TYG-PY-W9b" secondAttribute="trailing" constant="11" id="lMx-hh-aQL"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="Tip-yB-5Gh" secondAttribute="top" constant="8" id="mTr-4f-FSJ"/>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="rrY-Y1-Ttv"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="Tip-yB-5Gh" secondAttribute="leading" constant="8" id="scr-nK-URb"/>
@@ -80,15 +99,20 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="downloadButton" destination="661-nY-3Tr" id="ehk-e3-y2O"/>
+                <outlet property="favouriteButton" destination="TYG-PY-W9b" id="bKy-Ua-Geq"/>
                 <outlet property="folderTitleLabel" destination="23" id="24"/>
                 <outlet property="subtitleLabel" destination="7" id="8"/>
                 <outlet property="thumbnailView" destination="4" id="9"/>
                 <outlet property="titleLabel" destination="6" id="10"/>
             </connections>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="download.png" width="32" height="32"/>
+        <image name="heart" width="24" height="24"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

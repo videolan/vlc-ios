@@ -58,3 +58,8 @@
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
+
+#import "VLCDropboxTableViewController.h"
+#import "VLCDropboxController.h"
+
+#import "VLCBoxTableViewController.h"

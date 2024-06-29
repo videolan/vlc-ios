@@ -30,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
+@property (nonatomic, strong) IBOutlet UIButton *favouriteButton;
 
 @property (nonatomic, retain) DBFILESMetadata *dropboxFile;
 @property (nonatomic, retain) ODItem *oneDriveFile;
@@ -39,6 +40,9 @@
 #endif
 
 @property (nonatomic, readwrite) BOOL isDownloadable;
+@property (nonatomic, readwrite) BOOL isFavourite;
+// We use this property here to determine folders
+@property (nonatomic, readwrite) BOOL isFavourable;
 
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
@@ -50,5 +54,6 @@
 @protocol VLCCloudStorageTableViewCell <NSObject>
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell;
+- (void)triggerFavoriteForCell:(VLCCloudStorageTableViewCell *)cell;
 
 @end

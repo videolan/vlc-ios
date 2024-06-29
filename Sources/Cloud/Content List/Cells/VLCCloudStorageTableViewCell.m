@@ -28,11 +28,21 @@
     cell.titleLabel.hidden = YES;
     cell.subtitleLabel.hidden = YES;
     cell.folderTitleLabel.hidden = YES;
-
+    
+    cell.isFavourite = NO;
+    cell.isFavourable = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(updateAppearanceForColorScheme) name:kVLCThemeDidChangeNotification object:nil];
     [cell updateAppearanceForColorScheme];
 
     return cell;
+}
+
+- (IBAction)didTapFavorite:(id)sender
+{
+    self.isFavourite = !self.isFavourite;
+   [self.delegate triggerFavoriteForCell: self];
+    
 }
 
 - (void)setDropboxFile:(DBFILESMetadata *)dropboxFile
@@ -149,6 +159,15 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
             self.downloadButton.hidden = YES;
+            self.isFavourable = YES;
+        
+            VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
+            
+            NSString *selectedFilePath = _dropboxFile.pathLower;
+            NSString *urlString = [NSString stringWithFormat:@"file://DropBox/%@", selectedFilePath];
+            NSURL *url = [NSURL URLWithString:urlString];
+            self.isFavourite = [service isFavoriteURL:url];
+            
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
             DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
@@ -157,22 +176,34 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
             self.downloadButton.hidden = NO;
+            self.isFavourable = NO;
+            self.favouriteButton.hidden = YES;
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
-    else if(_driveFile != nil){
+    else if(_driveFile != nil) {
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         if (isDirectory) {
             self.folderTitleLabel.text = self.driveFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
+            self.isFavourable = YES;
+            
+            VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
+            
+            NSString *selectedFilePath = _driveFile.identifier;
+            NSString *urlString = [NSString stringWithFormat:@"file://Drive/%@", selectedFilePath];
+            NSURL *url = [NSURL URLWithString:urlString];
+            
+            self.isFavourite = [service isFavoriteURL:url];
         } else {
             NSString *title = self.driveFile.name;
             self.titleLabel.text = title;
             self.subtitleLabel.text = (self.driveFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.driveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-
+            self.favouriteButton.hidden = YES;
+            
             if (_driveFile.thumbnailLink != nil) {
                 [self.thumbnailView setImageWithURL:[NSURL URLWithString:_driveFile.thumbnailLink]];
             }
@@ -199,6 +230,15 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
             self.downloadButton.hidden = YES;
+            self.isFavourable = YES;
+            
+            VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
+            
+            NSString *selectedFilePath = _boxFile.modelID;
+            NSString *urlString = [NSString stringWithFormat:@"file://Box/%@", selectedFilePath];
+            NSURL *url = [NSURL URLWithString:urlString];
+            
+            self.isFavourite = [service isFavoriteURL:url];
         } else {
             NSString *title = self.boxFile.name;
             self.titleLabel.text = title;
@@ -206,6 +246,7 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
             self.downloadButton.hidden = NO;
+            self.favouriteButton.hidden = YES;
         }
         //TODO: correct thumbnails
 //        if (_boxFile.modelID != nil) {
@@ -233,6 +274,7 @@
         [self.delegate triggerDownloadForCell:self];
 }
 
+
 + (CGFloat)heightOfCell
 {
     return 8. * 4. + [[UIFont preferredFontForTextStyle:UIFontTextStyleBody] lineHeight] + [[UIFont preferredFontForTextStyle:UIFontTextStyleCaption2] lineHeight];
@@ -241,6 +283,25 @@
 - (void)setIsDownloadable:(BOOL)isDownloadable
 {
     self.downloadButton.hidden = !isDownloadable;
+}
+
+- (void)setIsFavourite:(BOOL)isFavourite
+{
+    if (@available(iOS 13.0, *)) {
+        _favouriteButton.hidden = !isFavourite;
+        if (isFavourite) {
+            [_favouriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        }
+    } else {
+        _favouriteButton.hidden = NO;
+        if (isFavourite) {
+            [_favouriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
+        } else {
+            [_favouriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        }
+    }
+       
+    _isFavourite = isFavourite;
 }
 
 - (void)prepareForReuse {

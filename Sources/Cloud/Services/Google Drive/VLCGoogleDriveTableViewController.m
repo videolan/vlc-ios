@@ -178,4 +178,23 @@
     }
 }
 
+- (void)triggerFavoriteForCell:(VLCCloudStorageTableViewCell *)cell 
+{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    VLCFavoriteService *service = [VLCAppCoordinator sharedInstance].favoriteService;
+    GTLRDrive_File *fileAtIndex = _googleDriveController.currentListFiles[indexPath.row];
+
+    VLCFavorite *fav = [[VLCFavorite alloc] init];
+    fav.userVisibleName = fileAtIndex.name;
+    fav.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://Drive/%@", fileAtIndex.identifier]];
+
+    if (cell.isFavourite) {
+        [service addFavorite:fav];
+    } else {
+        [service removeFavorite:fav];
+    }
+}
+
+
 @end

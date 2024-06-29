@@ -23,6 +23,7 @@
     VLCBoxController *_boxController;
     NSArray *_listOfFiles;
     NSString *_currentFileName;
+    NSString *_initialPath;
 }
 
 @end
@@ -43,6 +44,8 @@
     [super viewDidLoad];
 
     _boxController = [VLCBoxController sharedInstance];
+    _initialPath = self.currentPath;
+    
     self.controller = _boxController;
     self.controller.delegate = self;
 
@@ -159,6 +162,12 @@
 
 - (void)goBack
 {
+    // We return if we are viewing favorites.
+    if ([self.currentPath isEqualToString: _initialPath]) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
     // When the user is logged in, the root directory can have both an empty value or a '0' as its ID.
     // The current path is nil otherwise.
     if ([self.currentPath isEqualToString:@""] || [self.currentPath isEqualToString:@"0"] || !self.currentPath) {
@@ -334,5 +343,23 @@
         [_boxController logout];
     }
 }
+
+- (void)triggerFavoriteForCell:(VLCCloudStorageTableViewCell *)cell 
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    VLCFavoriteService *service = [VLCAppCoordinator sharedInstance].favoriteService;
+    BoxFile *file = _listOfFiles[indexPath.row];
+
+    VLCFavorite *fav = [[VLCFavorite alloc] init];
+    fav.userVisibleName = file.name;
+    fav.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://Box/%@", file.modelID]];
+
+    if (cell.isFavourite) {
+        [service addFavorite:fav];
+    } else {
+        [service removeFavorite:fav];
+    }
+}
+
 
 @end

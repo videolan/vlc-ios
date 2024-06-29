@@ -62,6 +62,8 @@
     self.controller = [VLCDropboxController sharedInstance];
     self.controller.delegate = self;
 
+    [self requestInformationForCurrentPath];   
+    
     if (self.currentPath != nil)
         self.title = self.currentPath.lastPathComponent;
 
@@ -173,5 +175,25 @@
                                        viewController:self
                                         buttonsAction:buttonsAction];
 }
+
+- (void)triggerFavoriteForCell:(VLCCloudStorageTableViewCell *)cell
+{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    VLCFavoriteService *service = [VLCAppCoordinator sharedInstance].favoriteService;
+    _selectedFile = _mediaList[indexPath.row];
+
+    VLCFavorite *fav = [[VLCFavorite alloc] init];
+    fav.userVisibleName = _selectedFile.name;
+    fav.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://DropBox/%@", _selectedFile.pathLower]];
+
+    if (cell.isFavourite) {
+        [service addFavorite:fav];
+    } else {
+        [service removeFavorite:fav];
+    }
+    
+}
+
 
 @end

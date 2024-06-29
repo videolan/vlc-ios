@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageController.h"
+#import "VLCCloudStorageTableViewCell.h"
 
 @interface VLCCloudStorageTableViewController : UIViewController <VLCCloudStorageDelegate>
 

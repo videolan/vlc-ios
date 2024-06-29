@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
     UINavigationController *tempNav;
+    NSString *_initialPath;
 }
 
 @end
@@ -101,6 +102,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
     [self updateToolbarWithProgress:nil];
     [self updateForTheme];
+    
+    _initialPath = self.currentPath;
 }
 
 - (void)updateForTheme
@@ -241,11 +244,16 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
 - (void)goBack
 {
+    if ([self.currentPath isEqualToString: _initialPath]) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     if (((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) && [self.controller isAuthorized]){
         self.currentPath = [self.currentPath stringByDeletingLastPathComponent];
         [self requestInformationForCurrentPath];
-    } else
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)showLoginPanel
@@ -317,6 +325,39 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
 - (IBAction)playAllAction:(id)sender
 {
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point
+API_AVAILABLE(ios(13.0)) {
+     VLCCloudStorageTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (cell.isFavourable == false) {
+        return nil;
+    }
+    
+    UIContextMenuConfiguration *menuConfiguration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                            previewProvider:nil
+                                                                                             actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        NSMutableArray* actions = [[NSMutableArray alloc] init];
+
+        NSString *optionTitle = cell.isFavourite ? NSLocalizedString(@"REMOVE_FAVORITE", "") : NSLocalizedString(@"ADD_FAVORITE", "");
+        UIImage *image = cell.isFavourite ? [UIImage imageNamed:@"heart"] : [UIImage imageNamed:@"heart.fill"];
+
+        [actions addObject:[UIAction actionWithTitle:optionTitle image:image identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            cell.isFavourite = !cell.isFavourite;
+            [self triggerFavoriteForCell: cell];
+        }]];
+
+        UIMenu* menu = [UIMenu menuWithTitle:@"" children:actions];
+        return menu;
+    }];
+
+    return menuConfiguration;
+}
+
+- (void)triggerFavoriteForCell:(VLCCloudStorageTableViewCell *)cell
+{
+  // nop
 }
 
 @end

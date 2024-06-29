@@ -221,6 +221,11 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let favorite = isSearching ? searchResults.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
             
+            if favorite.protocolIdentifier == "FILE" {
+                showCloudFavVC(fav: favorite)
+                return
+            }
+            
             var serverBrowser: VLCNetworkServerBrowser? = nil
             let identifier = favorite.protocolIdentifier as NSString
 
@@ -274,6 +279,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
     }
 }
 
+
 extension VLCFavoriteListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             if searchText.isEmpty {
@@ -303,6 +309,38 @@ extension VLCFavoriteListViewController: UIScrollViewDelegate {
         view.layoutIfNeeded()
         if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
             tableView.contentInset.top = searchBarSize
+        }
+    }
+}
+
+
+extension VLCFavoriteListViewController {
+    private func showCloudFavVC(fav: VLCFavorite) {
+        let favURL = fav.url
+        var cloudVC: VLCCloudStorageTableViewController?
+        
+        if let favoritetype = favURL.host {
+            switch favoritetype {
+            case "DropBox":
+                cloudVC = VLCDropboxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+                break
+            case "Drive":
+                cloudVC = VLCGoogleDriveTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+            case "OneDrive":
+                break
+            case "Box":
+                cloudVC = VLCBoxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+                break
+            default:
+                break
+            }
+        }
+        
+        if let viewController = cloudVC {
+            let basePath = favURL.path
+            let filePath = basePath.hasPrefix("/") ? String(basePath.dropFirst()) : basePath
+            viewController.currentPath = filePath
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
