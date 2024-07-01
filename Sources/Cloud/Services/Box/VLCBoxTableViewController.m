@@ -234,27 +234,21 @@
 {
     _selectedFile = _listOfFiles[[self.tableView indexPathForCell:cell].row];
 
-    if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
-        /* selected item is a proper file, ask the user if s/he wants to download it */
-        NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                     style: UIAlertActionStyleCancel
-                                                                                    action: ^(UIAlertAction *action) {
-                                                                                        self->_selectedFile = nil;
-                                                                                    }],
-                                                     [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
-                                                                                    action:^(UIAlertAction *action) {
-                                                                                        [self->_boxController downloadFileToDocumentFolder:self->_selectedFile];
-                                                                                        self->_selectedFile = nil;
-                                                                                    }]];
-        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
-                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                           viewController:self
-                                            buttonsAction:buttonsAction];
-    } else {
-        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                           viewController:self];
-    }
+    /* selected item is a proper file, ask the user if s/he wants to download it */
+    NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                 style: UIAlertActionStyleCancel
+                                                                                action: ^(UIAlertAction *action) {
+        self->_selectedFile = nil;
+    }],
+                                                 [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                                                                action:^(UIAlertAction *action) {
+                                                     [self->_boxController downloadFileToDocumentFolder:self->_selectedFile];
+                                                     self->_selectedFile = nil;
+                                                 }]];
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
+                                         errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
+                                       viewController:self
+                                        buttonsAction:buttonsAction];
 }
 
 #pragma mark - box controller delegate

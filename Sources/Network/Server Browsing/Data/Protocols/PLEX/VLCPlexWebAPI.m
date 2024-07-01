@@ -176,35 +176,32 @@
 
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
-    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
-        NSArray *searchPaths =  nil;
-        if (modeStream)
-            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        else
-            searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *searchPaths =  nil;
+    if (modeStream)
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    else
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-        NSString *directoryPath = [searchPaths objectAtIndex:0];
-        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *directoryPath = [searchPaths objectAtIndex:0];
+    FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
         if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath])
-                APLog(@"file creation failed, no data was saved");
-        }
-        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
-    } else {
-        NSString *title = NSLocalizedString(@"DISK_FULL", nil);
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]];
+            APLog(@"file creation failed, no data was saved");
+            NSString *title = NSLocalizedString(@"DISK_FULL", nil);
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]];
 
-        if (outError) {
-            *outError = [NSError errorWithDomain:@"org.videolan.vlc-ios.plex"
-                                            code:EX_CANTCREAT
-                                        userInfo:@{NSLocalizedDescriptionKey : title,
-                                                   NSLocalizedFailureReasonErrorKey : message
-                                                   }];
+            if (outError) {
+                *outError = [NSError errorWithDomain:@"org.videolan.vlc-ios.plex"
+                                                code:EX_CANTCREAT
+                                            userInfo:@{NSLocalizedDescriptionKey : title,
+                                                       NSLocalizedFailureReasonErrorKey : message
+                                                     }];
+            }
         }
-
     }
+    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
 
     return FileSubtitlePath;
 }

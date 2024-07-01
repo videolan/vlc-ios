@@ -879,22 +879,21 @@ static NSMutableDictionary *authentifiedHosts;
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 
-    NSNumber *freeSpace = [[UIDevice currentDevice] VLCFreeDiskSpace];
-    if (_contentLength >= freeSpace.longLongValue) {
-        /* avoid deadlock since we are on a background thread */
+    APLog(@"Saving file to %@", _filepath);
+    if (![fileManager createDirectoryAtPath:[_filepath stringByDeletingLastPathComponent]
+                withIntermediateDirectories:true attributes:nil error:nil]) {
+        APLog(@"Could not create directory at path: %@", _filepath);
         [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];
         [self handleResourceNotFound];
         [self stop];
-        return;
     }
 
-    APLog(@"Saving file to %@", _filepath);
-    if (![fileManager createDirectoryAtPath:[_filepath stringByDeletingLastPathComponent]
-                withIntermediateDirectories:true attributes:nil error:nil])
-        APLog(@"Could not create directory at path: %@", _filepath);
-
-    if (![fileManager createFileAtPath:_filepath contents:nil attributes:nil])
+    if (![fileManager createFileAtPath:_filepath contents:nil attributes:nil]) {
         APLog(@"Could not create file at path: %@", _filepath);
+        [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];
+        [self handleResourceNotFound];
+        [self stop];
+    }
 
     _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
 
@@ -905,14 +904,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
-#if TARGET_OS_IOS
-    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                         errorMessage:[NSString stringWithFormat:
-                                                       NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                       filename,
-                                                       [[UIDevice currentDevice] model]]
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-#else
+#if TARGET_OS_TV
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                                              message:[NSString stringWithFormat:
                                                                                       NSLocalizedString(@"DISK_FULL_FORMAT", nil),
@@ -923,6 +915,13 @@ static NSMutableDictionary *authentifiedHosts;
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+#else
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                         errorMessage:[NSString stringWithFormat:
+                                                       NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                       filename,
+                                                       [[UIDevice currentDevice] model]]
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 #endif
 }
 

@@ -11,24 +11,6 @@
  *****************************************************************************/
 
 @objc extension UIDevice {
-    @objc(VLCFreeDiskSpace)
-    var freeDiskSpace: NSNumber {
-        if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last {
-            do {
-                let dictionary = try FileManager.default.attributesOfFileSystem(forPath: path)
-                if let totalSpace = dictionary[FileAttributeKey.systemSize] as? Int64,
-                    let totalFreeSpace = dictionary[FileAttributeKey.systemFreeSize] as? Int64 {
-                    let totalSize = ByteCountFormatter.string(fromByteCount: totalSpace, countStyle: .file)
-                    let totalFreeSize = ByteCountFormatter.string(fromByteCount: totalFreeSpace, countStyle: .file)
-                    APLog("Memory Capacity of \(totalSize) with \(totalFreeSize) Free memory available.")
-                    return NSNumber(value: totalFreeSpace)
-                }
-            } catch let error as NSError {
-                APLog("Error Obtaining System Memory Info: Domain = \(error.domain), Code = \(error.code)")
-            }
-        }
-        return 0
-    }
 
     @objc(VLCHasExternalDisplay)
     var hasExternalDisplay: Bool {

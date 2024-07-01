@@ -343,35 +343,32 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     if (itemSubtitle[@"filename"]) {
         NSData *receivedSub = [NSData dataWithContentsOfURL:[itemSubtitle objectForKey:@"url"]]; // TODO: fix synchronous load
 
-        if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
-            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *directoryPath = searchPaths.firstObject;
-            fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[itemSubtitle objectForKey:@"filename"]];
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths.firstObject;
+        fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[itemSubtitle objectForKey:@"filename"]];
 
-            NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
             if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-                //create local subtitle file
-                [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
-                if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-                    APLog(@"file creation failed, no data was saved");
-                    return nil;
-                }
+                APLog(@"file creation failed, no data was saved");
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                                         message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                                                                  [itemSubtitle objectForKey:@"filename"],
+                                                                                                  [[UIDevice currentDevice] model]]
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                   style:UIAlertActionStyleCancel
+                                                                 handler:nil];
+
+                [alertController addAction:okAction];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                return nil;
             }
-            [receivedSub writeToFile:fileSubtitlePath atomically:YES];
-        } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                                                     message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                                                              [itemSubtitle objectForKey:@"filename"],
-                                                                                              [[UIDevice currentDevice] model]]
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
-
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:nil];
-
-            [alertController addAction:okAction];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
+        [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     }
 
     return fileSubtitlePath;
