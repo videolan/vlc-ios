@@ -222,25 +222,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
 
         self.navigationItem.titleView = navItemTitle
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
-                                               name: .VLCThemeDidChangeNotification, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsShown),
-                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsHidden),
-                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)),
-                                               name: UIContentSizeCategory.didChangeNotification,
-                                               object: nil)
-
-        if model is MediaGroupViewModel || model is VideoModel {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleDisableGrouping),
-                                                   name: .VLCDisableGroupingDidChangeNotification,
-                                                   object: nil)
-        }
-
 
     }
 
@@ -441,11 +422,50 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupCollectionView() //Fixes crash that is caused due to layout change
         setNavbarAppearance()
         loadSort()
+        
+        addInitializationCommonObservers()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         showGuideOnLaunch()
         updateCollectionViewForAlbum()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeInitializationCommonObservers()
+    }
+    
+    private func addInitializationCommonObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsShown),
+                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsHidden),
+                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)),
+                                               name: UIContentSizeCategory.didChangeNotification,
+                                               object: nil)
+
+        if model is MediaGroupViewModel || model is VideoModel {
+            NotificationCenter.default.addObserver(self, selector: #selector(handleDisableGrouping),
+                                                   name: .VLCDisableGroupingDidChangeNotification,
+                                                   object: nil)
+        }
+    }
+    
+    private func removeInitializationCommonObservers() {
+        NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer), object: nil)
+        NotificationCenter.default.removeObserver(self, name:  NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer), object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+        if model is MediaGroupViewModel || model is VideoModel {
+            NotificationCenter.default.removeObserver(self, name: .VLCDisableGroupingDidChangeNotification, object: nil)
+        }
     }
 
     func loadSort() {
