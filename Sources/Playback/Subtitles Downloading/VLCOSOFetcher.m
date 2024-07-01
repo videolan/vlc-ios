@@ -20,6 +20,9 @@ static NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.9";
 {
     VLCOpenSubtitlesDownloader *_subtitleDownloader;
 }
+
+@property (readwrite, nonatomic, copy, nullable) NSString *latestQuery;
+
 @end
 
 @implementation VLCOSOFetcher

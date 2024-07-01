@@ -21,12 +21,16 @@
 #define SPUDownloadReUseIdentifier @"SPUDownloadReUseIdentifier"
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
 
-@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, VLCOSOFetcherDataRecipient>
+@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, VLCOSOFetcherDataRecipient, UISearchBarDelegate>
+{
+    NSString *_lastQuery;
+}
 
 @property (strong, nonatomic) VLCOSOFetcher *osoFetcher;
 @property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UILabel *nothingFoundLabel;
+@property (strong, nonatomic) UISearchController *searchController;
 @property (nonatomic) BOOL activityCancelled;
 
 @end
@@ -40,14 +44,16 @@
     self.titleLabel.text = self.title;
     self.tableView.backgroundColor = [UIColor clearColor];
 #else
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-    doneButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done;
+    [self setupDoneButton];
 
-    self.navigationItem.rightBarButtonItem = doneButton;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
         self.navigationItem.largeTitleDisplayMode = NO;
+        
+        // Setup search controller
+        [self setupSearchController];
     }
 #endif
 
@@ -56,7 +62,8 @@
     [self.osoFetcher prepareForFetching];
 
     self.osoFetcher.subtitleLanguageCode = [self selectedSubtitleLanguageCode];
-
+    
+    // Setup activity indicator
     [self setupActivityIndicatorView];
     [self.view addSubview:self.activityIndicatorView];
 
@@ -77,19 +84,8 @@
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
 
-    self.nothingFoundLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-#if TARGET_OS_TV
-    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:32];
-#else
-    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:16];
-#endif
-    self.nothingFoundLabel.hidden = YES;
-    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
-    self.nothingFoundLabel.numberOfLines = 0;
-    self.nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
-    [self.nothingFoundLabel sizeToFit];
-    [self.nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.nothingFoundLabel.textColor = [UIColor blackColor];
+    // Setup nothing found lable
+    [self setupNothingFoundLabel];
     [self.view addSubview:self.nothingFoundLabel];
 
     yConstraint = [NSLayoutConstraint constraintWithItem:self.nothingFoundLabel
@@ -154,7 +150,30 @@
     return selectedLanguage;
 }
 
-- (void) setupActivityIndicatorView
+#pragma mark - UI Elements setup
+
+#if TARGET_OS_IOS
+- (void)setupDoneButton
+{
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    doneButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done;
+
+    self.navigationItem.rightBarButtonItem = doneButton;
+}
+
+- (void)setupSearchController API_AVAILABLE(ios(11))
+{
+    self.searchController = [[UISearchController alloc] init];
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
+
+    self.searchController.searchBar.delegate = self;
+
+    self.navigationItem.searchController = self.searchController;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+}
+#endif
+
+- (void)setupActivityIndicatorView
 {
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
     [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -168,6 +187,26 @@
     self.activityIndicatorView.color = [UIColor lightGrayColor];
     self.activityIndicatorView.hidesWhenStopped = YES;
     [self.activityIndicatorView sizeToFit];
+}
+
+- (void)setupNothingFoundLabel 
+{
+    self.nothingFoundLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+#if TARGET_OS_TV
+    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:32];
+#else
+    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:16];
+#endif
+
+    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), @""];
+    self.nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
+    self.nothingFoundLabel.textColor = [UIColor blackColor];
+    self.nothingFoundLabel.numberOfLines = 0;
+    self.nothingFoundLabel.hidden = YES;
+
+    [self.nothingFoundLabel sizeToFit];
 }
 
 - (void)dismiss
@@ -232,17 +271,23 @@
 
 - (void)VLCOSOFetcherReadyToSearch:(VLCOSOFetcher *)aFetcher
 {
-    [self searchForMedia];
+    [self searchFor: [VLCPlaybackService sharedInstance].metadata.title];
 }
 
-- (void)searchForMedia
+- (void)searchFor:(NSString *)query
 {
     [self startActivity];
-    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.osoFetcher.subtitleLanguageCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    APLog(@"%s: query: '%@' language: '%@'", __func__, vpc.metadata.title, self.osoFetcher.subtitleLanguageCode);
-    [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
+    _lastQuery = query;
+
+    self.osoFetcher.subtitleLanguageCode = [self selectedSubtitleLanguageCode];
+    [self.osoFetcher searchForSubtitlesWithQuery:query];
+
+    APLog(@"%s: query: '%@' language: '%@'", __func__, query, self.osoFetcher.subtitleLanguageCode);
+
+    // Update searchbar text if it is not the same
+    if (![self.searchController.searchBar.text isEqualToString:query]) {
+        [self.searchController.searchBar setText:query];
+    }
 }
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFindSubtitles:(NSArray<VLCSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
@@ -254,7 +299,7 @@
     [self.tableView reloadData];
 
     if (count == 0) {
-        self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
+        self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), self.searchController.searchBar.text];
         self.nothingFoundLabel.hidden = NO;
     } else {
         self.nothingFoundLabel.hidden = YES;
@@ -271,7 +316,7 @@
     self.searchResults = @[];
     [self.tableView reloadData];
 
-    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
+    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), self.searchController.searchBar.text];
     self.nothingFoundLabel.hidden = NO;
     self.activityCancelled = NO;
 }
@@ -417,7 +462,7 @@
                 [defaults setObject:languageCode forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
 
                 // Update tableView
-                [self searchForMedia];
+                [self searchFor: [VLCPlaybackService sharedInstance].metadata.title];
                 [self.tableView reloadData];
             }];
 
@@ -487,6 +532,41 @@
         [self.osoFetcher downloadSubtitleItem:item toDirectory:subStorageDirectory];
     }
 }
+
+#pragma mark - Search bar delegate
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar 
+{
+#if TARGET_OS_IOS
+    [searchBar setShowsCancelButton:NO animated:YES];
+#endif
+
+    if (searchBar.text.length == 0) {
+        return;
+    }
+
+    [self searchFor:searchBar.text];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+#if TARGET_OS_IOS
+    [searchBar setShowsCancelButton:YES animated:YES];
+#endif
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar 
+{
+    NSString *lastQuery = _lastQuery;
+
+    // When cancel button clicked, the searchbar's text will be removed. This is a simply workaround for it.
+    // This will change searchbar text to latest query to match the results on tableview.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1)), dispatch_get_main_queue(), ^{
+        searchBar.text = lastQuery;
+    });
+}
+
+#pragma mark - Activity controls
 
 - (void)startActivity
 {
