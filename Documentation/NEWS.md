@@ -4,11 +4,16 @@
 · Add rotation during video playback to show the video independent of the actual state of the device
 · Add support for custom equalizer profiles
 · Add support for playing entire folders and multiple files on iOS 11 and above stored outside the VLC context
-· Rewrite OpenSubtitles.org integration using the JSON API
+· Rewrite OpenSubtitles.org integration using the JSON API and improve search
 · Improve search of locally stored content with regex matching
+· Continue playback of the last playing media
+· Fix issue when deleting, renaming or sharing locally stored media
+· Fix issue when calculating the remaining free space of a device
+· Add option to disable long press gesture to increase speed
 
 ## tvOS [3.6.0]
 · Rewrite OpenSubtitles.org integration using the JSON API
+· Fix issue when calculating the remaining free space of a device
 
 ## iOS [3.5.10]
 · Fix stability issues when decoding specific AV1 content on 64bit devices
