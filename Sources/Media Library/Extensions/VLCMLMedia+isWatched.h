@@ -1,16 +1,21 @@
-//
-//  VLCMLMedia+isWatched.h
-//  VLC-iOS
-//
-//  Created by İbrahim Çetin on 25.06.2024.
-//  Copyright © 2024 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCMLMedia+isWatched.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Author: İbrahim Çetin <cetinibrahim.ci # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
+#import <Foundation/Foundation.h>
 #import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCMLMedia (VLCMLMedia_isWatched)
+@interface VLCMLMedia (isWatched)
 
 - (BOOL)isWatched;
 

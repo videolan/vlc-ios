@@ -334,9 +334,8 @@
 
 - (void)recoverLastPlayingMedia {
     VLCMLIdentifier identifier = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCLastPlayedMediaIdentifier];
-    APLog(@"LastPlayedMediaIdentifier: %lld", identifier);
-
     VLCMLMedia *media = [[[VLCAppCoordinator sharedInstance] mediaLibraryService] mediaFor:identifier];
+
     // If media exists and not watched, recover it.
     if (media && ![media isWatched]) {
         [[VLCPlaybackService sharedInstance] playMedia:media openInMiniPlayer:YES];
