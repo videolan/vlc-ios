@@ -37,10 +37,10 @@ class EditButton {
         self.accessibilityHint = accessibilityHint
     }
 
-    func button(_ selector: Selector) -> UIButton {
+    func button(_ target: Any?, _ selector: Selector) -> UIButton {
         let generatedButton = UIButton(type: .system)
         generatedButton.setImage(UIImage(named: image), for: .normal)
-        generatedButton.addTarget(self, action: selector, for: .touchUpInside)
+        generatedButton.addTarget(target, action: selector, for: .touchUpInside)
         generatedButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         generatedButton.tintColor = .orange
         generatedButton.accessibilityLabel = accessibilityLabel

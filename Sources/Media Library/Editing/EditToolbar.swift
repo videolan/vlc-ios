@@ -139,21 +139,21 @@ class EditToolbar: UIView {
         for button in buttons {
             switch button.identifier {
             case .addToPlaylist:
-                rightStackView.addArrangedSubview(button.button(#selector(addToPlaylist)))
+                rightStackView.addArrangedSubview(button.button(self, #selector(addToPlaylist)))
             case .addToMediaGroup:
-                addToMediaGroupButton = button.button(#selector(addToMediaGroup))
+                addToMediaGroupButton = button.button(self, #selector(addToMediaGroup))
                 rightStackView.addArrangedSubview(addToMediaGroupButton)
             case .removeFromMediaGroup:
-                removeFromMediaGroupButton = button.button(#selector(removeFromMediaGroup))
+                removeFromMediaGroupButton = button.button(self, #selector(removeFromMediaGroup))
                 rightStackView.addArrangedSubview(removeFromMediaGroupButton)
             case .rename:
-                renameButton = button.button(#selector(rename))
+                renameButton = button.button(self, #selector(rename))
                 rightStackView.addArrangedSubview(renameButton)
             case .delete:
-                deleteButton = button.button(#selector(deleteSelection))
+                deleteButton = button.button(self, #selector(deleteSelection))
                 rightStackView.addArrangedSubview(deleteButton)
             case .share:
-                shareButton = button.button(#selector(share))
+                shareButton = button.button(self, #selector(share))
                 rightStackView.addArrangedSubview(shareButton)
             //Not supported in edit mode
             case .play,
