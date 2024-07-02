@@ -24,10 +24,10 @@
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import <stdatomic.h>
-#import "VLCMLMedia+isWatched.h"
 
 #if TARGET_OS_IOS
 #import "VLCMLMedia+Podcast.h"
+#import "VLCMLMedia+isWatched.h"
 #endif
 
 #import "VLC-Swift.h"
