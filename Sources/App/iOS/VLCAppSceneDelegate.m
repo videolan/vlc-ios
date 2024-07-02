@@ -73,7 +73,6 @@
 
 - (void)sceneDidEnterBackground:(UIScene *)scene
 {
-    NSLog(@"%s", __func__);
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
     [appDelegate applicationWillTerminate:sharedApplication];
