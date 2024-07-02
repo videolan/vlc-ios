@@ -333,12 +333,16 @@
 }
 
 - (void)recoverLastPlayingMedia {
-    VLCMLIdentifier identifier = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCLastPlayedMediaIdentifier];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    VLCMLIdentifier identifier = [defaults integerForKey:kVLCLastPlayedMediaIdentifier];
     VLCMLMedia *media = [[[VLCAppCoordinator sharedInstance] mediaLibraryService] mediaFor:identifier];
 
     // If media exists and not watched, recover it.
     if (media && ![media isWatched]) {
         [[VLCPlaybackService sharedInstance] playMedia:media openInMiniPlayer:YES];
+
+        // only recover a given media once
+        [defaults setInteger:-1 forKey:kVLCLastPlayedMediaIdentifier];
     }
 }
 
