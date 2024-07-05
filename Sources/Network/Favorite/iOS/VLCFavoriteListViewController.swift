@@ -104,7 +104,7 @@ class VLCFavoriteListViewController: UIViewController {
         searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
         view.addSubview(searchBar)
             NSLayoutConstraint.activate([
-                searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 5),
+                searchBarConstraint!,
                 searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
                 searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
                 searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
@@ -210,10 +210,10 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
         if let favorite = isSearching ? searchResults[indexPath.row] : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
-                cell.title = favorite.userVisibleName
-                cell.isDirectory = true
-                cell.thumbnailImage = UIImage(named: "folder")
-                cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+            cell.title = favorite.userVisibleName
+            cell.isDirectory = true
+            cell.thumbnailImage = UIImage(named: "folder")
+            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
         }
         return cell
     }
@@ -280,7 +280,6 @@ extension VLCFavoriteListViewController: UISearchBarDelegate {
                 searchResults = searchDataSource
             } else {
                 searchResults = searchDataSource.filter { favorite in
-                    print(favorite.userVisibleName)
                     return favorite.userVisibleName.range(of: searchText, options: .caseInsensitive) != nil
                 }
             }
@@ -301,6 +300,7 @@ extension VLCFavoriteListViewController: UISearchBarDelegate {
 extension VLCFavoriteListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        view.layoutIfNeeded()
         if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
             tableView.contentInset.top = searchBarSize
         }
