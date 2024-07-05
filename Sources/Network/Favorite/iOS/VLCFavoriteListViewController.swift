@@ -15,6 +15,7 @@
 import UIKit
 
 class VLCFavoriteListViewController: UIViewController {
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITES", comment: "")
@@ -41,6 +42,14 @@ class VLCFavoriteListViewController: UIViewController {
     let cellImage = UIImage(named: "heart")
     let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService
 
+    // Search properties
+    var searchResults = [VLCFavorite]()
+    var searchDataSource = [VLCFavorite]()
+    var searchBar = UISearchBar(frame: .zero)
+    private let searchBarSize: CGFloat = 50.0
+    private var searchBarConstraint: NSLayoutConstraint?
+    private var isSearching: Bool = false
+    
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
@@ -53,8 +62,9 @@ class VLCFavoriteListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupBarButton()
+        setupSearchBar()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.setEditing(false, animated: false)
@@ -62,6 +72,7 @@ class VLCFavoriteListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.style = .plain
         self.tableView.reloadData()
         showEmptyViewIfNeeded()
+        setupSearchDataSource()
     }
 
     @objc func themeDidChange() {
@@ -71,12 +82,53 @@ class VLCFavoriteListViewController: UIViewController {
         }
         self.setNeedsStatusBarAppearanceUpdate()
     }
+    
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        searchBar.backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+        
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+            if let backgroundview = textfield.subviews.first {
+                backgroundview.backgroundColor = UIColor.white
+                backgroundview.layer.cornerRadius = 10
+                backgroundview.clipsToBounds = true
+            }
+        }
 
+        searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+        view.addSubview(searchBar)
+            NSLayoutConstraint.activate([
+                searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 5),
+                searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
+            ])
+    }
+    
+    private func setupSearchDataSource() {
+        if !searchDataSource.isEmpty {
+            searchDataSource.removeAll()
+        }
+        for section in 0..<tableView.numberOfSections {
+            for row in 0..<tableView.numberOfRows(inSection: section) {
+                if let fav = favoriteService.favoriteOfServer(with: section, at: row) {
+                    searchDataSource.append(fav)
+                }
+            }
+        }
+    }
+    
     private func setupTableView() {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
-        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -133,14 +185,17 @@ class VLCFavoriteListViewController: UIViewController {
 
 extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return favoriteService.numberOfFavoritedServers
+        return isSearching ? 1 : favoriteService.numberOfFavoritedServers
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return FavoriteSectionHeader.height
+        return isSearching ? 0 : FavoriteSectionHeader.height
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if isSearching {
+            return nil
+        }
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoriteSectionHeader.identifier) as! FavoriteSectionHeader
         header.headerView.hostnameLabel.text = favoriteService.nameOfFavoritedServer(at: section)
         header.headerView.delegate = self
@@ -149,22 +204,23 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteService.numberOfFavoritesOfServer(at: section)
+        return isSearching ? searchResults.count : favoriteService.numberOfFavoritesOfServer(at: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
-            cell.title = favorite.userVisibleName
-            cell.isDirectory = true
-            cell.thumbnailImage = UIImage(named: "folder")
-            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        if let favorite = isSearching ? searchResults[indexPath.row] : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+                cell.title = favorite.userVisibleName
+                cell.isDirectory = true
+                cell.thumbnailImage = UIImage(named: "folder")
+                cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+        if let favorite = isSearching ? searchResults.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            
             var serverBrowser: VLCNetworkServerBrowser? = nil
             let identifier = favorite.protocolIdentifier as NSString
 
@@ -203,6 +259,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
+            setupSearchDataSource()
             self.tableView.reloadData()
             self.showEmptyViewIfNeeded()
         }
@@ -216,3 +273,37 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
         }
     }
 }
+
+extension VLCFavoriteListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            if searchText.isEmpty {
+                searchResults = searchDataSource
+            } else {
+                searchResults = searchDataSource.filter { favorite in
+                    print(favorite.userVisibleName)
+                    return favorite.userVisibleName.range(of: searchText, options: .caseInsensitive) != nil
+                }
+            }
+        
+            searchBar.setShowsCancelButton(true, animated: true)
+            isSearching = !searchText.isEmpty
+            tableView.reloadData()
+        }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+        isSearching = false
+        tableView.reloadData()
+    }
+}
+
+extension VLCFavoriteListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+            tableView.contentInset.top = searchBarSize
+        }
+    }
+}
+
