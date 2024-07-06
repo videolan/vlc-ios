@@ -521,14 +521,16 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - (sidePadding * 2))
+        let padding = sidePadding + 5.0
+        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - padding)
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         let grabberHeight = topView.isHidden ? 0 : topView.frame.height
-        return UIEdgeInsets(top: topPadding + grabberHeight, left: sidePadding, bottom: bottomPadding, right: sidePadding)
+        let leftInset = 5.0
+        return UIEdgeInsets(top: topPadding + grabberHeight, left: leftInset, bottom: bottomPadding, right: sidePadding)
     }
 }
 
@@ -570,6 +572,7 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             self.mediaList.removeMedia(at: UInt(indexPath.row))
             self.reload()
             NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
+            self.handleEmptyMediaList()
         })
     }
 
@@ -708,7 +711,32 @@ extension QueueViewController: UICollectionViewDataSource {
         }
         cell.newLabel.isHidden = true
 
+        cell.queueRemoveDelegate = self
+        if collectionView.numberOfItems(inSection: 0) > 1 {
+            cell.showRemoveButtonForQueueCell(true)
+        }
         return cell
+    }
+}
+
+// MARK: - Media Collection View Cell Queue Remove Button Delegate/ Empty Media List handler
+
+extension QueueViewController: MediaCollectionViewCellQueueRemoveButtonDelegate {
+    func mediaCollectionViewPressedRemoveButton(in cell: MediaCollectionViewCell) {
+        guard let indexPath = queueCollectionView.indexPath(for: cell) else {
+            return
+        }
+        mediaList.removeMedia(at: UInt(indexPath.row))
+        queueCollectionView.deleteItems(at: [indexPath])
+        queueCollectionView.collectionViewLayout.invalidateLayout()
+        
+        handleEmptyMediaList()
+    }
+    
+    func handleEmptyMediaList() {
+        if mediaList.count < 1 {
+            playbackService.stopPlayback()
+        }
     }
 }
 
