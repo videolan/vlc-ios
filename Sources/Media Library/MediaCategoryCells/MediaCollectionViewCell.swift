@@ -23,6 +23,9 @@ protocol MediaCollectionViewCellDelegate: AnyObject {
     func mediaCollectionViewCellGetModel() -> MediaLibraryBaseModel?
 }
 
+protocol MediaCollectionViewCellQueueRemoveButtonDelegate: AnyObject {
+    func mediaCollectionViewPressedRemoveButton(in cell: MediaCollectionViewCell)
+}
 // MARK: -
 class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
@@ -60,7 +63,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     var isMediaBeingPlayed: Bool = false
     var backupThumbnail: UIImage? = nil
 
+    @IBOutlet weak var removeQueueCellButton: UIButton!
+
     weak var delegate: MediaCollectionViewCellDelegate?
+    weak var queueRemoveDelegate: MediaCollectionViewCellQueueRemoveButtonDelegate?
 
     override var media: VLCMLObject? {
         didSet {
@@ -245,6 +251,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel?.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
         dragIndicatorImageView.tintColor = colors.cellDetailTextColor
+        removeQueueCellButton.tintColor = colors.cellDetailTextColor
     }
 
     func getDefaultConstant() -> CGFloat {
@@ -452,6 +459,17 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         scrollViewLeadingConstraint.constant = constant
     }
 
+    func showRemoveButtonForQueueCell(_ show: Bool) {
+        removeQueueCellButton.isHidden = !show
+        let width = removeQueueCellButton.frame.size.width
+        var padding = -width
+        
+        if show {
+            padding = 5.0
+        }
+        scrollViewLeadingConstraint.constant = padding
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
@@ -469,6 +487,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
         enableScrollView()
+        showRemoveButtonForQueueCell(false)
     }
 
     // MARK: - Private methods
@@ -588,5 +607,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let subtitleHeight = UIFont.preferredFont(forTextStyle: .subheadline).lineHeight
 
         return CGSize(width: cellWidth, height: titleHeight + subtitleHeight + edgePadding + interItemPadding * 2)
+    }
+    
+    // MARK: - Queue Cell Remove Button
+
+    @IBAction func didPressRemoveMediaButton(_ sender: UIButton) {
+        queueRemoveDelegate?.mediaCollectionViewPressedRemoveButton(in: self)
     }
 }
