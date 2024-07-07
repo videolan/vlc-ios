@@ -569,10 +569,18 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             return
         }
         resetScrollView({ _ in
+            let removedMedia = VLCMLMedia(forPlaying: self.mediaList.media(at: UInt(indexPath.row)))
+            self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
+
             self.mediaList.removeMedia(at: UInt(indexPath.row))
-            self.reload()
             NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
-            self.handleEmptyMediaList()
+
+            self.queueCollectionView.performBatchUpdates({
+                self.queueCollectionView.deleteItems(at: [indexPath])
+            }) { _ in
+                self.reload()
+            }
+            self.stopPlaybackIfNeeded()
         })
     }
 
@@ -711,10 +719,9 @@ extension QueueViewController: UICollectionViewDataSource {
         }
         cell.newLabel.isHidden = true
 
-        cell.queueRemoveDelegate = self
-        if collectionView.numberOfItems(inSection: 0) > 1 {
-            cell.showRemoveButtonForQueueCell(true)
-        }
+        cell.queueMediaRemoveButtonDelegate = self
+        cell.showRemoveButtonForQueueCell(true)
+
         return cell
     }
 }
@@ -726,16 +733,41 @@ extension QueueViewController: MediaCollectionViewCellQueueRemoveButtonDelegate 
         guard let indexPath = queueCollectionView.indexPath(for: cell) else {
             return
         }
+
+        let removedMedia = VLCMLMedia(forPlaying: mediaList.media(at: UInt(indexPath.row)))
+
+        // Handle the removal if it is the currently playing media
+        handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
         mediaList.removeMedia(at: UInt(indexPath.row))
-        queueCollectionView.deleteItems(at: [indexPath])
-        queueCollectionView.collectionViewLayout.invalidateLayout()
         
-        handleEmptyMediaList()
+        // Update the collection view to reflect the removal and animate the new played media if there is a one
+        queueCollectionView.performBatchUpdates({
+            queueCollectionView.deleteItems(at: [indexPath])
+        }) { _ in
+            self.reload()
+        }
+
+        stopPlaybackIfNeeded()
     }
     
-    func handleEmptyMediaList() {
+    func stopPlaybackIfNeeded() {
         if mediaList.count < 1 {
             playbackService.stopPlayback()
+        }
+    }
+
+    func handleRemoveCurrentMediaIfNeeded(_ media: VLCMLMedia?, at index: Int) {
+        guard mediaList.count > 1,
+              let currentMedia = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia),
+              let mlMedia = media,
+              mlMedia.identifier() == currentMedia.identifier() else { return }
+        
+        if playbackService.repeatMode == .repeatAllItems {
+            playbackService.next()
+        } else if index == mediaList.count - 1 {
+            playbackService.playItem(at: UInt(index - 1))
+        } else {
+            playbackService.playItem(at: UInt(index + 1))
         }
     }
 }
