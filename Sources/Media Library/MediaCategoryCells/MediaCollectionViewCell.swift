@@ -66,7 +66,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var removeQueueCellButton: UIButton!
 
     weak var delegate: MediaCollectionViewCellDelegate?
-    weak var queueRemoveDelegate: MediaCollectionViewCellQueueRemoveButtonDelegate?
+    weak var queueMediaRemoveButtonDelegate: MediaCollectionViewCellQueueRemoveButtonDelegate?
 
     override var media: VLCMLObject? {
         didSet {
@@ -612,6 +612,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     // MARK: - Queue Cell Remove Button
 
     @IBAction func didPressRemoveMediaButton(_ sender: UIButton) {
-        queueRemoveDelegate?.mediaCollectionViewPressedRemoveButton(in: self)
+        queueMediaRemoveButtonDelegate?.mediaCollectionViewPressedRemoveButton(in: self)
     }
 }
