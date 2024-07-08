@@ -762,9 +762,7 @@ extension QueueViewController: MediaCollectionViewCellQueueRemoveButtonDelegate 
               let mlMedia = media,
               mlMedia.identifier() == currentMedia.identifier() else { return }
         
-        if playbackService.repeatMode == .repeatAllItems {
-            playbackService.next()
-        } else if index == mediaList.count - 1 {
+        if index == mediaList.count - 1 {
             playbackService.playItem(at: UInt(index - 1))
         } else {
             playbackService.playItem(at: UInt(index + 1))
