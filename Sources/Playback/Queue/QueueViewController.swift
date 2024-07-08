@@ -240,9 +240,9 @@ class QueueViewController: UIViewController {
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1.0
             self.darkOverlayView.isHidden = false
-        })
-
-        scrollToCurrentlyPlaying()
+        }) { _ in
+            self.scrollToCurrentlyPlaying()
+        }
     }
 
     @objc func hide() {
