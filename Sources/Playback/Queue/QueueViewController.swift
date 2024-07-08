@@ -228,7 +228,36 @@ class QueueViewController: UIViewController {
 
         topConstraint?.constant = topConstraintConstant
         reload()
+    }
 
+    @objc init(medialibraryService: MediaLibraryService) {
+        self.medialibraryService = medialibraryService
+        super.init(nibName: nil, bundle: nil)
+        view.alpha = 0.0
+    }
+
+    @objc func show() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.alpha = 1.0
+            self.darkOverlayView.isHidden = false
+        })
+
+        scrollToCurrentlyPlaying()
+    }
+
+    @objc func hide() {
+        if let parent = parent as? VLCPlayerDisplayController {
+            guard !parent.hintingPlayqueue else {
+                return
+            }
+        }
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.alpha = 0.0
+            self.darkOverlayView.isHidden = true
+        })
+    }
+
+    private func scrollToCurrentlyPlaying() {
         guard let currentMedia = playbackService.currentlyPlayingMedia else {
             return
         }
@@ -249,31 +278,6 @@ class QueueViewController: UIViewController {
         DispatchQueue.main.async {
             self.queueCollectionView.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: true)
         }
-    }
-
-    @objc init(medialibraryService: MediaLibraryService) {
-        self.medialibraryService = medialibraryService
-        super.init(nibName: nil, bundle: nil)
-        view.alpha = 0.0
-    }
-
-    @objc func show() {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.view.alpha = 1.0
-            self.darkOverlayView.isHidden = false
-        })
-    }
-
-    @objc func hide() {
-        if let parent = parent as? VLCPlayerDisplayController {
-            guard !parent.hintingPlayqueue else {
-                return
-            }
-        }
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.view.alpha = 0.0
-            self.darkOverlayView.isHidden = true
-        })
     }
 
     required init?(coder aDecoder: NSCoder) {
