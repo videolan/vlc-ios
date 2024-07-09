@@ -10,10 +10,12 @@
 · Fix issue when deleting, renaming or sharing locally stored media
 · Fix issue when calculating the remaining free space of a device
 · Add option to disable long press gesture to increase speed
+· Major updates of the Spanish and Portuguese translations including their varieties
 
 ## tvOS [3.6.0]
 · Rewrite OpenSubtitles.org integration using the JSON API
 · Fix issue when calculating the remaining free space of a device
+· Major updates of the Spanish and Portuguese translations including their varieties
 
 ## iOS [3.5.10]
 · Fix stability issues when decoding specific AV1 content on 64bit devices
