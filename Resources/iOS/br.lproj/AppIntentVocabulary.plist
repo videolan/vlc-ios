@@ -6,7 +6,7 @@
     <array>
       <dict>
         <key>IntentName</key>
-        <string></string>
+        <string>INSearchForMediaIntent</string>
         <key>IntentExamples</key>
         <array>
           <string>Klask war-lerc&apos;h Jacques Brel e VLC</string>
@@ -14,7 +14,7 @@
       </dict>
       <dict>
         <key>IntentName</key>
-        <string></string>
+        <string>INAddMediaIntent</string>
         <key>IntentExamples</key>
         <array>
           <string>Ouzhpennañ ar media da VLC</string>
