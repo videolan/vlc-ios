@@ -30,7 +30,8 @@ class AudioViewController: MediaViewController {
             ArtistCategoryViewController(mediaLibraryService),
             AlbumCategoryViewController(mediaLibraryService),
             TrackCategoryViewController(mediaLibraryService),
-            GenreCategoryViewController(mediaLibraryService)
+            GenreCategoryViewController(mediaLibraryService),
+            FolderViewController(mediaLibraryService, isAudio: true, folder: mediaLibraryService.medialib.entryPoints()!.first!)
         ]
     }
 

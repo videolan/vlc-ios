@@ -723,3 +723,12 @@
 
 //MARK: - Last played playlist indicator
 "LAST_PLAYED_PLAYLIST_LABEL_TITLE" = "Last Played";
+
+//MARK - something with folders
+"PLAY_FILE" = "Would you like to open files or an entire folder?";
+"PLAY_FOLDER" = "Folder";
+"PLAY_FILES" = "Files";
+"BUTTON_FOLDER" = "Folders";
+"BUTTON_FOLDER_HINT" = "Browse your folders";
+"EMPTY_FOLDER" = "Empty Folder";
+"EMPTY_FOLDER_DES" = "Add audio or video media in this folder";

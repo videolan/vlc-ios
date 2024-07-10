@@ -85,6 +85,11 @@
             description = NSLocalizedString(@"NO_FAVORITES_DESCRIPTION", nil);
             _learnMoreButton.hidden = YES;
             break;
+        case VLCEmptyLibraryViewContentTypeEmptyFolder:
+            title = NSLocalizedString(@"EMPTY_FOLDER", nil);
+            description = NSLocalizedString(@"EMPTY_FOLDER_DES", nil);
+            _learnMoreButton.hidden = YES;
+            break;
     }
     _emptyLibraryLabel.text = title;
     _emptyLibraryLongDescriptionLabel.text = description;

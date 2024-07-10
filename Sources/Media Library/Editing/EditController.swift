@@ -32,7 +32,11 @@ class EditController: UIViewController {
     private(set) var editActions: EditActions
     private var isAllSelected: Bool = false
     private var currentDataSet: [VLCMLObject] {
-        return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
+        if let model = model as? FolderModel {
+            return model.folderMediaFiles
+        } else {
+            return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
+        }
     }
 
     weak var delegate: EditControllerDelegate?
@@ -383,7 +387,11 @@ extension EditController: UICollectionViewDelegate {
 
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentDataSet.count
+        if let model = model as? FolderModel {
+            return model.folderMediaFiles.count
+        } else {
+            return currentDataSet.count
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -416,8 +424,11 @@ extension EditController: UICollectionViewDataSource {
             if cell.isSelected {
                 cell.selectionViewOverlay?.isHidden = !showOverlay
             }
-            
-            cell.media = currentDataSet[indexPath.row]
+            if let model = model as? FolderModel {
+                cell.media = model.folderMediaFiles[indexPath.row]
+            } else {
+                cell.media = currentDataSet[indexPath.row]
+            }
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")

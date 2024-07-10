@@ -379,6 +379,11 @@ extension MediaViewController {
         navigationController?.pushViewController(historyView, animated: true)
     }
 
+    @objc func handleFolders() {
+        let folderVC = FolderCategoryViewController(medialib: mediaLibraryService, folder: mediaLibraryService.medialib.entryPoints()!.first!, isAudio: false)
+        navigationController?.pushViewController(folderVC, animated: true)
+    }
+
     @objc func handleSelectAll() {
         let controller: MediaCategoryViewController
         if let mediaCategoryViewController = navigationController?.viewControllers.last as? CollectionCategoryViewController {
@@ -508,6 +513,19 @@ extension MediaViewController {
     }
 
     @available(iOS 14.0, *)
+    func generateFolderMenu() -> UIMenu {
+        let folderAction = UIAction(title: NSLocalizedString("BUTTON_FOLDER", comment: ""),
+                                     image: UIImage(systemName: "folder")) { _ in
+            self.handleFolders()
+        }
+
+        folderAction.accessibilityLabel = NSLocalizedString("BUTTON_FOLDER", comment: "")
+        folderAction.accessibilityHint = NSLocalizedString("BUTTON_FOLDER_HINT", comment: "")
+
+        return UIMenu(options: .displayInline, children: [folderAction])
+    }
+
+    @available(iOS 14.0, *)
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
@@ -521,6 +539,12 @@ extension MediaViewController {
            parentViewController is VideoViewController || parentViewController is AudioViewController {
             let historyMenu = generateHistoryMenu()
             rightMenuItems.append(historyMenu)
+        }
+
+        if let parentViewController = viewController?.parent,
+           parentViewController is VideoViewController {
+            let folderMenu = generateFolderMenu()
+            rightMenuItems.append(folderMenu)
         }
 
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)

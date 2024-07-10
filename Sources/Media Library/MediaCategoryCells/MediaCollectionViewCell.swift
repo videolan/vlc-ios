@@ -80,6 +80,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 update(genre: genre)
             } else if let mediaGroup = media as? VLCMLMediaGroup {
                 update(mediaGroup: mediaGroup)
+            } else if let folder = media as? VLCMLFolder {
+                update(folder: folder)
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
@@ -406,6 +408,15 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     // Indicating the currentlyPlayingMedia value when choosing actions like "play," "play next in queue," and "append to queue" is necessary because the playbackService.isPlaying value doesn't update immediately.
     // This delay causes the reloadData() call to be ineffective in hiding the last played label.
+    func update(folder: VLCMLFolder) {
+        titleLabel.text = folder.mrl.lastPathComponent
+        scrollView.isScrollEnabled = false
+        newLabel.isHidden = true
+        thumbnailView.layer.cornerRadius = 3
+        thumbnailView.image = UIImage(named: "folder")
+        sizeDescriptionLabel.text = ""
+    }
+
     func update(playlist: VLCMLPlaylist) {
         if lastPlayed {
             handleLastPlayed()

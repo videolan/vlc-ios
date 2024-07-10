@@ -24,6 +24,8 @@
 		1B39FA102C73BBA900F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DEE8C2C63D52000E414B4 /* NSURLSession+sharedMPTCPSession.m */; };
 		1B39FA112C73BBA900F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DEE8C2C63D52000E414B4 /* NSURLSession+sharedMPTCPSession.m */; };
 		1B39FA122C73BBA900F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DEE8C2C63D52000E414B4 /* NSURLSession+sharedMPTCPSession.m */; };
+		226C04202C3EADEA003B005E /* FolderCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */; };
+		226C04222C3EAEEC003B005E /* FolderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C04212C3EAEEC003B005E /* FolderModel.swift */; };
 		226D57DD2B42C4710090AD88 /* VLCFavoriteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA58D642B10E96800E5BA84 /* VLCFavoriteService.m */; };
 		226D57E12B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */; };
 		226D57E22B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */; };
@@ -1278,6 +1280,8 @@
 		1B2DEE8F2C63D57300E414B4 /* NSURLSessionConfiguration+default.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+default.m"; sourceTree = "<group>"; };
 		1D2A6F31539F0725C551A983 /* Pods-VLC-iOS-no-watch.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch.distribution.xcconfig"; sourceTree = "<group>"; };
 		1E570C9102E506B9CAE13AE6 /* libPods-VLC-watchOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-watchOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCategoryViewController.swift; sourceTree = "<group>"; };
+		226C04212C3EAEEC003B005E /* FolderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModel.swift; sourceTree = "<group>"; };
 		226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderContentView.swift; sourceTree = "<group>"; };
 		226D57E82B4439080090AD88 /* FavoriteSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSectionHeader.swift; sourceTree = "<group>"; };
 		226D57EB2B4439880090AD88 /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
@@ -3756,6 +3760,7 @@
 				8DE187802105DAB100A091D2 /* VideoViewController.swift */,
 				41EB6633216147DD00FDC38B /* PlaylistViewController.swift */,
 				D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */,
+				226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */,
 			);
 			path = MediaViewControllers;
 			sourceTree = "<group>";
@@ -3788,6 +3793,7 @@
 				4120863922323E87006A6630 /* CollectionModel.swift */,
 				8D83219A234256A900B28912 /* MediaGroupViewModel.swift */,
 				8F67A5902A34E820005A8AC1 /* HistoryModel.swift */,
+				226C04212C3EAEEC003B005E /* FolderModel.swift */,
 			);
 			path = MediaLibraryModel;
 			sourceTree = "<group>";
@@ -5342,6 +5348,7 @@
 				416443862048419E00CAC646 /* DeviceMotion.swift in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsWifiSharingViewController.m in Sources */,
 				7DBF605C2B5D652900F16BB4 /* VLCFirstStepsDonateViewController.m in Sources */,
+				226C04202C3EADEA003B005E /* FolderCategoryViewController.swift in Sources */,
 				7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */,
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				8DF966B121188BDB00D0FCD6 /* EditController.swift in Sources */,
@@ -5520,6 +5527,7 @@
 				7DD71F9728FB421300327ACE /* CPListTemplate+NetworkStreams.m in Sources */,
 				7D5A23CF24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */,
 				7DC869F028CB895400EE99F8 /* VLCCloudStorageTableViewCell.m in Sources */,
+				226C04222C3EAEEC003B005E /* FolderModel.swift in Sources */,
 				7DC7BA8B28C8953800109F28 /* APLog.swift in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				DD3EFF491BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,

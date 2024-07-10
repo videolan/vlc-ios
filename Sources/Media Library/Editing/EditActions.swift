@@ -204,9 +204,14 @@ extension EditActions {
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
                                           style: .destructive,
                                           action: { [unowned self] action in
-            self.model.anyDelete(self.objects)
-            self.objects.removeAll()
-            self.completion?(.success)
+                     if let model = model as? FolderModel {
+                            model.delete(media: (self.objects as? [VLCMLMedia])!)
+                            self.completion?(.success)
+                     } else {
+                            self.model.anyDelete(self.objects)
+                            self.objects.removeAll()
+                     }
+                      self.completion?(.success)
         })
 
         VLCAlertViewController.alertViewManager(title: title,
