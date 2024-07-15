@@ -63,3 +63,7 @@
 #import "VLCDropboxController.h"
 
 #import "VLCBoxTableViewController.h"
+
+#import "VLCCloudStorageTableViewCell.h"
+#import "VLCCloudStorageTableViewController.h"
+#import "VLCPCloudConstants.h"

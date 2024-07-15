@@ -310,9 +310,14 @@
 
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+    [DBClientsManager authorizedClient];
 
     // Configure OneDrive
     [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
+
+    VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
+    // Start P Cloud session on init to check whether it is logged in or not as soon as possible
+    [controller startSession];
 }
 
 - (void)boxSessionUpdated

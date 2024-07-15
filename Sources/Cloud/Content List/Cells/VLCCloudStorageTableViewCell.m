@@ -72,6 +72,14 @@
                            withObject:nil waitUntilDone:NO];
 }
 
+- (void)setPcloudFile:(VLCPCloudCellContentWrapper *)pcloudFile {
+    if (pcloudFile != _pcloudFile)
+        _pcloudFile = pcloudFile;
+
+    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
+                           withObject:nil waitUntilDone:NO];
+}
+
 - (void)updateOneDriveDisplayAsFolder
 {
     _downloadButton.hidden = YES;
@@ -261,6 +269,28 @@
         }
     } else if(_oneDriveFile != nil) {
         [self updateOneDriveDisplayedInformation];
+    } else if(_pcloudFile != nil) {
+        BOOL isDirectory = self.pcloudFile.isDirectory;
+
+        if (isDirectory) {
+            self.folderTitleLabel.text = self.pcloudFile.name;
+            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
+            self.folderTitleLabel.hidden = NO;
+            self.downloadButton.hidden = YES;
+        } else {
+            self.titleLabel.text = self.pcloudFile.name;
+            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
+            self.subtitleLabel.text = (self.pcloudFile.fileSize > 0) ? [NSByteCountFormatter stringFromByteCount:[self.pcloudFile.fileSize longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.folderTitleLabel.hidden = YES;
+            self.downloadButton.hidden = NO;
+        }
+
+        if (isDirectory) {
+            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else {
+            // TO DO : FETCH THUMBNAIL
+            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+        }
     }
 
     [self setNeedsDisplay];

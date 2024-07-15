@@ -27,6 +27,7 @@ target 'VLC-iOS' do
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
   pod 'MarqueeLabel', '4.0.2'
   pod 'ObjectiveDropboxOfficial'
+  pod 'PCloudSDKSwift'
 
   target 'VLC-iOSTests' do
       inherit! :search_paths
