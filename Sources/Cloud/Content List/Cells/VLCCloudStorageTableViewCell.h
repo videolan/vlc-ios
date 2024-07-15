@@ -20,6 +20,7 @@
 
 @class VLCNetworkImageView;
 @class ODItem;
+@class VLCPCloudCellContentWrapper;
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
+@property (nonatomic, retain) VLCPCloudCellContentWrapper *pcloudFile;
 @property (nonatomic, retain) DBFILESMetadata *dropboxFile;
 @property (nonatomic, retain) ODItem *oneDriveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
@@ -49,6 +51,7 @@
 
 @protocol VLCCloudStorageTableViewCell <NSObject>
 
+@optional
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell;
 
 @end

@@ -31,7 +31,7 @@
 @property (nonatomic) VLCBoxTableViewController *boxTableViewController;
 @property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
 @property (nonatomic) VLCDocumentPickerController *documentPickerController;
-
+@property (nonatomic) VLCPCloudViewController *pcloudTableViewController;
 @end
 
 @implementation VLCCloudServicesTableViewController
@@ -48,6 +48,7 @@
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    self.pcloudTableViewController = [[VLCPCloudViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.documentPickerController = [VLCDocumentPickerController new];
 }
 
@@ -100,6 +101,7 @@
     i += [[VLCGoogleDriveController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCBoxController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
+    i += [[VLCPCloudController pCloudInstance] isAuthorized] ? 1 : 0;
     return i;
 }
 
@@ -117,7 +119,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -173,12 +175,23 @@
             cell.lonesomeCloudTitle.text = @"";
             break;
         }
-        case 4:
-            //Cloud Drives
+        case 4: {
+            // P Cloud
+            BOOL isAuthorized =  [[VLCPCloudController pCloudInstance] isAuthorized];
+            cell.icon.image = [UIImage imageNamed:@""];
+            cell.cloudTitle.text = @"P Cloud";
+            cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
+            cell.lonesomeCloudTitle.text = @"";
+            break;
+        }
+        case 5: {
+            // Cloud Drives
             cell.icon.image = [UIImage imageNamed:@"iCloudCell"];
             cell.lonesomeCloudTitle.text = @"iCloud";
             cell.cloudTitle.text = cell.cloudInformation.text = @"";
             break;
+        }
         default:
             break;
     }
@@ -214,6 +227,10 @@
             [self.navigationController pushViewController:self.oneDriveTableViewController animated:YES];
             break;
         case 4:
+           // P Cloud
+            [self.navigationController pushViewController:self.pcloudTableViewController animated:YES];
+            break;
+        case 5:
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                 [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
             else

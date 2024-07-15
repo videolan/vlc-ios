@@ -140,6 +140,9 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
+		7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */; };
+		7D20EA2D2D2A88D6001CE62D /* VLCPCloudContentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */; };
+		7D20EA2E2D2A88D6001CE62D /* VLCPCloudController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */; };
 		7D21407F2431F3A50075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
 		7D2891822C21E3FA00FA2CB7 /* UIStackView+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */; };
 		7D2BC9112B5A67AB00C6770B /* VLCStripeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */; };
@@ -736,6 +739,10 @@
 		7D1AB28B179C98DC004CC271 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudViewController.swift; sourceTree = "<group>"; };
+		7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudContentWrapper.swift; sourceTree = "<group>"; };
+		7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudController.swift; sourceTree = "<group>"; };
+		7D20EA2B2D2A88D6001CE62D /* VLCPCloudConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPCloudConstants.h; sourceTree = "<group>"; };
 		7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7D23F3ED2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D23F3EE2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1385,6 +1392,17 @@
 				226D57EB2B4439880090AD88 /* VLCFavoriteListViewController.swift */,
 			);
 			path = tvOS;
+			sourceTree = "<group>";
+		};
+		2289D9DD2C41B1FA005DF938 /* PCloud */ = {
+			isa = PBXGroup;
+			children = (
+				7D20EA2B2D2A88D6001CE62D /* VLCPCloudConstants.h */,
+				7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */,
+				7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */,
+				7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */,
+			);
+			path = PCloud;
 			sourceTree = "<group>";
 		};
 		27CE104D2A3C5E820061C92B /* Favorite */ = {
@@ -2584,6 +2602,7 @@
 		7DC869F128CB89C100EE99F8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2289D9DD2C41B1FA005DF938 /* PCloud */,
 				7D6D2CE82A0A603F001604B3 /* OneDrive */,
 				7DC869F428CB8A4600EE99F8 /* Dropbox */,
 				7DC869F328CB8A3200EE99F8 /* Google Drive */,
@@ -3722,6 +3741,7 @@
 				44C8BBB324AF36F4003F8940 /* SettingsHeaderFooterView.swift in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */,
+				7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				27CE104F2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift in Sources */,
 				413EC987201A329D00BF412F /* SortModel.swift in Sources */,
@@ -3805,6 +3825,7 @@
 				D9D6E989291BDF2200ADBC74 /* AudioPlayerViewController.swift in Sources */,
 				417E68B91F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */,
 				7D2BC9112B5A67AB00C6770B /* VLCStripeController.m in Sources */,
+				7D20EA2E2D2A88D6001CE62D /* VLCPCloudController.swift in Sources */,
 				6D86F50525F8168600044C79 /* SpoilerButton.swift in Sources */,
 				8DD651BA208F6AF00052EE68 /* ActionSheetCell.swift in Sources */,
 				418B144D20179C75000447AA /* TabBarCoordinator.swift in Sources */,
@@ -3860,6 +3881,7 @@
 				4170AF9722848DCB008881BA /* LibrarySearchDataSource.swift in Sources */,
 				7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */,
 				E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */,
+				7D20EA2D2D2A88D6001CE62D /* VLCPCloudContentWrapper.swift in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				8DE1879A21060DBE00A091D2 /* MediaCategory.swift in Sources */,
 				7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */,
