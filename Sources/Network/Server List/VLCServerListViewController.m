@@ -591,6 +591,18 @@
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
+-(void)showEmptyMediaListAlert
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EMPTY_MEDIA_LIST", "")
+                                                                             message:NSLocalizedString(@"EMPTY_MEDIA_LIST_DESCRIPTION", "")
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DISMISS", "") style:UIAlertActionStyleCancel handler:nil];
+
+    [alertController addAction:dismissAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - UIDocumentPickerDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
@@ -624,6 +636,8 @@
 
         if ([medialist count] > 0) {
             [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        } else {
+            [self showEmptyMediaListAlert];
         }
     }
 }

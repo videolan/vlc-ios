@@ -60,6 +60,7 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Delete";
 "BUTTON_OK" = "OK";
+"BUTTON_DISMISS" = "Dismiss";
 "BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Connect";
 "BUTTON_RENAME" = "Rename";
@@ -192,6 +193,9 @@
 
 "EMPTY_HISTORY" = "Empty History";
 "EMPTY_HISTORY_DESCRIPTION" = "No media yet.";
+
+"EMPTY_MEDIA_LIST" = "Empty Media List";
+"EMPTY_MEDIA_LIST_DESCRIPTION" = "The media list is empty therefore the playback could not start";
 
 "PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
@@ -670,9 +674,3 @@
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
-
-// MARK: - UIDOCUMENT PICKER ALERT STRINGS FOR LOCAL FILES PLAYBACK
-/* New strings */
-"PLAY_FILE" = "Would you like to open files or an entire folder?";
-"PLAY_FOLDER" = "Folder";
-"PLAY_FILES" = "Files";
