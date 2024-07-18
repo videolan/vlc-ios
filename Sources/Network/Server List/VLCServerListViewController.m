@@ -488,11 +488,12 @@
 {
     _documentPicker = viewControllerToPresent;
     _documentPicker.delegate = self;
+
     if (@available(iOS 11.0, *)) {
-        [self showAlertforDocumentPicker];
-    } else {
-        [self presentViewController: _documentPicker animated: true completion: nil];
+        _documentPicker.allowsMultipleSelection = YES;
     }
+
+    [self presentViewController:_documentPicker animated:YES completion:nil];
 }
 
 - (void)reloadRemoteTableView
@@ -590,31 +591,6 @@
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
--(void)showAlertforDocumentPicker
-{
-    if (@available(iOS 11.0, *)) {
-        UIAlertController *optionsAlert =  [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PLAY_FILE", nil) message: nil preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *folderAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"PLAY_FOLDER", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self->_documentPicker.allowsMultipleSelection = NO;
-            [self presentViewController:self->_documentPicker animated:YES completion:nil];
-        }];
-
-        UIAlertAction *filesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"PLAY_FILES", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self->_documentPicker.allowsMultipleSelection = YES;
-            [self presentViewController:self->_documentPicker animated:YES completion:nil];
-        }];
-
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
-
-        [optionsAlert addAction:folderAction];
-        [optionsAlert addAction:filesAction];
-        [optionsAlert addAction:cancelAction];
-
-        [self presentViewController:optionsAlert animated:YES completion:nil];
-    }
-}
-
 #pragma mark - UIDocumentPickerDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
@@ -627,22 +603,21 @@
     }
 }
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls API_AVAILABLE(ios(11.0))
 {
     if (urls.count > 0) {
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
 
-        for (NSURL *url in urls) {
-            NSString *pathExtension = [url pathExtension];
-            if ([pathExtension isEqualToString:@""]) {
-                if (@available(iOS 11.0, *)) {
-                    if (![_documentPicker allowsMultipleSelection])
-                        [self getFolderData:url mediaList:medialist];
-                }
-            } else {
-                if (url && [url startAccessingSecurityScopedResource]) {
-                    [medialist addMedia:[VLCMedia mediaWithURL:url]];
-                    [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+        if (urls.count == 1 && [[urls[0] pathExtension] isEqualToString:@""]) {
+            [self getFolderData:urls[0] mediaList:medialist];
+        } else {
+            for (NSURL *url in urls) {
+                NSString *pathExtension = [url pathExtension];
+                if (![pathExtension isEqualToString:@""]) {
+                    if (url && [url startAccessingSecurityScopedResource]) {
+                        [medialist addMedia:[VLCMedia mediaWithURL:url]];
+                        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+                    }
                 }
             }
         }
@@ -667,7 +642,7 @@
     }
 
     for (NSURL *fileURL in filesInFolder) {
-        if ([fileURL startAccessingSecurityScopedResource]) {
+        if (![fileURL.pathExtension isEqual:@""]) {
             [list addMedia:[VLCMedia mediaWithURL:fileURL]];
             [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:fileURL];
         }
