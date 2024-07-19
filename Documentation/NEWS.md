@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.6.1]
+· Fix playback of media stored locally on device outside the application context
+
 ## iOS [3.6.0]
 · Add rotation during video playback to show the video independent of the actual state of the device
 · Add support for custom equalizer profiles
