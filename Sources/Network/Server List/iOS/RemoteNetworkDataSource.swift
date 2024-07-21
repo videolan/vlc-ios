@@ -117,8 +117,8 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     // MARK: - INIT
     
     override init() {
-          if #available(iOS 11.0, *) {
-              localVC = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+          if #available(iOS 14.0, *) {
+              localVC = UIDocumentPickerViewController(forOpeningContentTypes: [.item, .folder], asCopy: false)
           } else {
               localVC = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
           }
