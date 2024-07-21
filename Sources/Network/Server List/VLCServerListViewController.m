@@ -646,6 +646,7 @@
 {
     NSURL *folderURL = url;
     NSError *error = nil;
+    [url startAccessingSecurityScopedResource];
     NSArray<NSURL *> *filesInFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL
                                                                     includingPropertiesForKeys:@[]
                                                                                        options:NSDirectoryEnumerationSkipsHiddenFiles
