@@ -120,7 +120,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
           if #available(iOS 14.0, *) {
               localVC = UIDocumentPickerViewController(forOpeningContentTypes: [.item, .folder], asCopy: false)
           } else {
-              localVC = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+              localVC = UIDocumentPickerViewController(documentTypes: ["public.item", "public.folder"], in: .open)
           }
           super.init()
     }
