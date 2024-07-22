@@ -39,6 +39,7 @@
 "SETTINGS_PLAY_ALL" = "Seamless playback for collections";
 "SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_RESTORE_LAST_PLAYED_MEDIA" = "Restore last played media on launch";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
 "SETTINGS_SKIP_LOOP_FILTER_INFO" = "Skipping the loop filter (aka deblocking) usually has a detrimental effect on quality. However it provides a big speedup for high definition streams.";

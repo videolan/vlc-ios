@@ -98,7 +98,8 @@
                                   kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue,
                                   kVLCSettingPlaybackSpeedDefaultValue: @(1.0),
                                   kVLCPlayerShowPlaybackSpeedShortcut: @(NO),
-                                  kVLCSettingAlwaysPlayURLs: @(NO)
+                                  kVLCSettingAlwaysPlayURLs: @(NO),
+                                  kVLCRestoreLastPlayedMedia: @(YES)
     };
     [defaults registerDefaults:appDefaults];
 }
@@ -334,6 +335,11 @@
 
 - (void)recoverLastPlayingMedia {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if (![defaults boolForKey:kVLCRestoreLastPlayedMedia]) {
+        return;
+    }
+
     VLCMLIdentifier identifier = [defaults integerForKey:kVLCLastPlayedMediaIdentifier];
     VLCMLMedia *media = [[[VLCAppCoordinator sharedInstance] mediaLibraryService] mediaFor:identifier];
 

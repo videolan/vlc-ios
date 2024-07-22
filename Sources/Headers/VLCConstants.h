@@ -113,6 +113,7 @@
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
 #define kVLCLastPlayedMediaIdentifier @"LastPlayedMediaIdentifier"
+#define kVLCRestoreLastPlayedMedia @"RestoreLastPlayedMedia"
 
 #define kVLCPlayerOpenInMiniPlayer @"OpenInMiniPlayer"
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
