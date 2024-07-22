@@ -158,6 +158,19 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     self.intervalSelectorControl.selectedSegmentIndex = 0;
     [self segmentedControlAction:self];
+
+    if (@available(iOS 13.0, *)) {
+        // not needed as the swipe gesture to close the view controller is supported
+    } else {
+        // not needed on iPad as this VC is not a fullscreen modal
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(dismiss)];
+            self.navigationItem.rightBarButtonItem = dismissButton;
+        }
+    }
 }
 
 - (void)updateColors
@@ -223,6 +236,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 - (NSString *)title
 {
     return NSLocalizedString(@"DONATION_WINDOW_TITLE", nil);
+}
+
+- (void)dismiss
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)uncheckNumberButtons
