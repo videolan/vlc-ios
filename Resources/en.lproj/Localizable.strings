@@ -474,6 +474,8 @@
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
+"SELECT_A_MARK" = "Select the A mark";
+"SELECT_B_MARK" = "Select the B mark";
 "AB_LOOP" = "A→B Loop";
 "AB_LOOP_MARKS" = "A→B Loop Marks";
 
