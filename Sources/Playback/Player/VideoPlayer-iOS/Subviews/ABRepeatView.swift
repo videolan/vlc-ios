@@ -66,6 +66,7 @@ class ABRepeatView: UIView {
     private lazy var aMarkButton: UIButton = {
         let aMarkButton = UIButton(type: .custom)
         aMarkButton.setTitle(NSLocalizedString("SELECT_A_MARK", comment: ""), for: .normal)
+        aMarkButton.accessibilityHint = NSLocalizedString("SELECT_A_MARK_HINT", comment: "")
         aMarkButton.addTarget(self, action: #selector(handleAMarkSelection(_:)), for: .touchUpInside)
         aMarkButton.translatesAutoresizingMaskIntoConstraints = false
         return aMarkButton
@@ -82,6 +83,7 @@ class ABRepeatView: UIView {
     private lazy var bMarkButton: UIButton = {
         let bMarkButton = UIButton(type: .custom)
         bMarkButton.setTitle(NSLocalizedString("SELECT_B_MARK", comment: ""), for: .normal)
+        bMarkButton.accessibilityHint = NSLocalizedString("SELECT_B_MARK_HINT", comment: "")
         bMarkButton.addTarget(self, action: #selector(handleBMarkSelection(_:)), for: .touchUpInside)
         bMarkButton.translatesAutoresizingMaskIntoConstraints = false
         return bMarkButton

@@ -475,7 +475,10 @@
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
 "SELECT_A_MARK" = "Select the A mark";
+"SELECT_A_MARK_HINT" = "Select the A mark of the AB loop";
 "SELECT_B_MARK" = "Select the B mark";
+"SELECT_B_MARK_HINT" = "Select the B mark of the AB loop";
+
 "AB_LOOP" = "A→B Loop";
 "AB_LOOP_MARKS" = "A→B Loop Marks";
 
