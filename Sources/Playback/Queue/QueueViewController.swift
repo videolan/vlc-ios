@@ -570,16 +570,19 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
         }
         resetScrollView({ _ in
             let removedMedia = VLCMLMedia(forPlaying: self.mediaList.media(at: UInt(indexPath.row)))
-            self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
 
+            // Handle the removal if it is the currently playing media
+            self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
             self.mediaList.removeMedia(at: UInt(indexPath.row))
             NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
 
+            // Update the collection view to reflect the removal and animate the new played media if there is a one
             self.queueCollectionView.performBatchUpdates({
                 self.queueCollectionView.deleteItems(at: [indexPath])
             }) { _ in
                 self.reload()
             }
+
             self.stopPlaybackIfNeeded()
         })
     }
@@ -719,37 +722,13 @@ extension QueueViewController: UICollectionViewDataSource {
         }
         cell.newLabel.isHidden = true
 
-        cell.queueMediaRemoveButtonDelegate = self
-        cell.showRemoveButtonForQueueCell(true)
-
         return cell
     }
 }
 
-// MARK: - Media Collection View Cell Queue Remove Button Delegate/ Empty Media List handler
+// MARK: - Media Collection View Cell Queue Remove/ Empty Media List handler
 
-extension QueueViewController: MediaCollectionViewCellQueueRemoveButtonDelegate {
-    func mediaCollectionViewPressedRemoveButton(in cell: MediaCollectionViewCell) {
-        guard let indexPath = queueCollectionView.indexPath(for: cell) else {
-            return
-        }
-
-        let removedMedia = VLCMLMedia(forPlaying: mediaList.media(at: UInt(indexPath.row)))
-
-        // Handle the removal if it is the currently playing media
-        handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
-        mediaList.removeMedia(at: UInt(indexPath.row))
-        
-        // Update the collection view to reflect the removal and animate the new played media if there is a one
-        queueCollectionView.performBatchUpdates({
-            queueCollectionView.deleteItems(at: [indexPath])
-        }) { _ in
-            self.reload()
-        }
-
-        stopPlaybackIfNeeded()
-    }
-    
+extension QueueViewController {
     func stopPlaybackIfNeeded() {
         if mediaList.count < 1 {
             playbackService.stopPlayback()
