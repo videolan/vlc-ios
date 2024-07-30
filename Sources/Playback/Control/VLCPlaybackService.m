@@ -1509,21 +1509,24 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if (continuePlayback == 1) {
             [self setPlaybackPosition:lastPosition];
         } else if (continuePlayback == 0) {
-            NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                         style: UIAlertActionStyleCancel
-                                                                                        action: nil],
-                                                         [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
-                                                                                        action: ^(UIAlertAction *action) {
-                                                                                            [self setPlaybackPosition:lastPosition];
-                                                                                        }]
-                                                         ];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil) message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), libraryMedia.title] preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
+            }];
+            UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self setPlaybackPosition:lastPosition];
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
+            }];
+
+            [alertController addAction:cancelAction];
+            [alertController addAction:continueAction];
+
             UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
             presentingVC = presentingVC.presentedViewController ?: presentingVC;
-            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
-                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), libraryMedia.title]
-                                               viewController:presentingVC
-                                                buttonsAction:buttonsAction];
-
+            [presentingVC presentViewController:alertController
+                                       animated:YES
+                                     completion:nil];
         }
     }
 
