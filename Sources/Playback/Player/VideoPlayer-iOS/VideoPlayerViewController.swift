@@ -1786,6 +1786,13 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if currentState == .opening {
             applyCustomEqualizerProfileIfNeeded()
         }
+
+        if currentState == .stopped {
+            moreOptionsActionSheet.resetPlaybackSpeed()
+            mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
+            moreOptionsActionSheet.resetSleepTimer()
+            mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
+        }
     }
 
     func showStatusMessage(_ statusMessage: String) {

@@ -101,7 +101,7 @@ class PlaybackSpeedView: UIView {
         handleSegmentedControlChange(optionsSegmentedControl)
     }
 
-    private func setupSliderAndButtons() {
+    func setupSliderAndButtons() {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
         var currentButtonText: String = ""
         var increaseAccessibilityHint: String = ""

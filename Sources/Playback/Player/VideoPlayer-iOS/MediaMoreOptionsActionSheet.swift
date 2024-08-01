@@ -242,6 +242,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         case .filter:
             openOptionView(videoFiltersView)
         case .playback:
+            playbackSpeedView.setupSliderAndButtons()
             openOptionView(playbackSpeedView)
         case .sleepTimer:
             openOptionView(sleepTimerView)

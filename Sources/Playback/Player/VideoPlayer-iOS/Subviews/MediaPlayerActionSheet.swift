@@ -281,6 +281,9 @@ class MediaPlayerActionSheet: ActionSheet {
                 } else if let abRepeatView = item as? ABRepeatView {
                     self.removeActionSheet()
                     actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
+                } else if let playbackSpeedView = item as? PlaybackSpeedView {
+                    playbackSpeedView.setupSliderAndButtons()
+                    self.add(childView: playbackSpeedView)
                 } else {
                     self.add(childView: item)
                 }
