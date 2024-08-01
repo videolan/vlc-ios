@@ -955,7 +955,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             showIcon(button: optionsNavigationBar.abRepeatMarksButton)
             break
         default:
-            assertionFailure("AudioPlayerViewController: Invalid option.")
+            assertionFailure("PlayerViewController: Invalid option.")
         }
     }
 
@@ -977,7 +977,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
             break
         default:
-            assertionFailure("AudioPlayerViewController: Invalid option.")
+            assertionFailure("PlayerViewController: Invalid option.")
         }
     }
 
