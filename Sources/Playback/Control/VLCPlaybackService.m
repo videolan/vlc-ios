@@ -819,6 +819,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #if LIBVLC_VERSION_MAJOR == 4
         case VLCMediaPlayerStateStopping: {
 #endif
+#if TARGET_OS_IOS
+            [self savePlaybackState];
+#endif
             NSInteger nextIndex = [self nextMediaIndex:false];
 
             if (nextIndex > -1) {
