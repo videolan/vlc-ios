@@ -13,6 +13,7 @@
 #import "VLCPlexParser.h"
 #import "VLC-Swift.h"
 #import "sysexits.h"
+#import "NSURLSession+sharedMPTCPSession.h"
 
 #define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.xml"
 //#define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.json"
@@ -234,7 +235,7 @@
     BOOL __block reqProcessed = false;
     NSURLResponse __block *urlResponse;
 
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+    [[[NSURLSession sharedMPTCPSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
         urlResponse = _response;
         erreur = _error;
         data = _data;

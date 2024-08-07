@@ -11,6 +11,7 @@
 
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
+#import "NSURLSession+sharedMPTCPSession.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 
 static NSString *const kPlexMediaServerDirInit = @"/library/sections";
@@ -261,7 +262,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
     BOOL __block reqProcessed = false;
     NSURLResponse __block *urlResponse;
 
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+    [[[NSURLSession sharedMPTCPSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
         urlResponse = _response;
         erreur = _error;
         data = _data;
