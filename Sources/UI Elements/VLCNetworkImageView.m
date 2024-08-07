@@ -11,6 +11,7 @@
 
 
 #import "VLCNetworkImageView.h"
+#import "NSURLSession+sharedMPTCPSession.h"
 
 @implementation VLCNetworkImageView
 
@@ -51,7 +52,7 @@ static NSCache *sharedImageCache = nil;
         self.image = cachedImage;
     } else {
         __weak typeof(self) weakSelf = self;
-        NSURLSession *sharedSession = [NSURLSession sharedSession];
+        NSURLSession *sharedSession = [NSURLSession sharedMPTCPSession];
         self.downloadTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (!data) {
                 return;

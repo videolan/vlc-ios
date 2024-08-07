@@ -12,6 +12,7 @@
 
 #import "VLCOpenNetworkSubtitlesFinder.h"
 #import "VLCPlaybackService.h"
+#import "NSURLSession+sharedMPTCPSession.h"
 
 @implementation VLCOpenNetworkSubtitlesFinder
 
@@ -61,7 +62,7 @@
     NSURLResponse __block *urlResponse;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+    [[[NSURLSession sharedMPTCPSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
         urlResponse = _response;
         erreur = _error;
         data = _data;
