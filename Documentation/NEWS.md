@@ -1,5 +1,12 @@
 # Changelog
 
+## iOS [3.6.2]
+· Add option to disable restoring the last played media
+· Improve the donation process
+· Fix the player's options reset
+· Fix the resume playback feature
+· Fix the playback state saving
+
 ## iOS [3.6.1]
 · Fix playback of media stored locally on device outside the application context
 
