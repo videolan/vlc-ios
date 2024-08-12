@@ -31,6 +31,10 @@ class AlbumModel: AudioCollectionModel {
 
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
+    var intialPageSize = 12
+    var currentPage = 0
+    var firstTime = true
+
     required init(medialibrary: MediaLibraryService) {
         defer {
             fileArrayLock.unlock()
@@ -38,7 +42,6 @@ class AlbumModel: AudioCollectionModel {
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
         fileArrayLock.lock()
-        files = medialibrary.albums()
     }
 
     init(medialibrary: MediaLibraryService, artist: VLCMLArtist) {
@@ -63,6 +66,21 @@ class AlbumModel: AudioCollectionModel {
         fileArrayLock.lock()
         files.append(item)
     }
+
+    func getMedia() {
+        print("page", intialPageSize)
+        currentPage += 1
+        let offset = (currentPage - 1) * intialPageSize
+        let mediaAtOffset = medialibrary.albums(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(intialPageSize), offset: UInt32(offset))
+
+           for  album in mediaAtOffset {
+                files.append(album)
+            }
+
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
+        }
+    }
 }
 
 // MARK: - Sort
@@ -72,23 +90,17 @@ extension AlbumModel {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        if artist != nil {
-            var albums: [VLCMLAlbum] = []
-            medialibrary.albums(sortingCriteria: criteria, desc: desc).forEach() {
-                if let albumArtist = $0.albumArtist?.artistName(),
-                   let artist = self.artist?.artistName(),
-                   albumArtist == artist {
-                    albums.append($0)
-                }
-            }
-            files = albums
-        } else {
-            files = medialibrary.albums(sortingCriteria: criteria, desc: desc)
-        }
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
+        if firstTime {
+            print("Intial Page" , intialPageSize)
+            getMedia()
+            firstTime = false
+        } else {
+            files.removeAll()
+            intialPageSize = 12
+            currentPage = 0
+            getMedia()
         }
     }
 }

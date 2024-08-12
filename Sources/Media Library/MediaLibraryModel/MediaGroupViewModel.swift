@@ -18,7 +18,7 @@ class MediaGroupViewModel: MLBaseModel {
     var fileArrayLock = NSRecursiveLock()
     let fileArrayQueue: DispatchQueue
 
-    var files: [VLCMLMediaGroup]
+    var files = [VLCMLMediaGroup]()
 
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\(name)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
@@ -30,6 +30,10 @@ class MediaGroupViewModel: MLBaseModel {
 
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
+    var intialPageSize = 12
+    var currentPage = 0
+    var firstTime = true
+
     required init(medialibrary: MediaLibraryService) {
         fileArrayQueue = DispatchQueue.init(label: "MediaGroupViewModelDispatchQueue",
                                             qos: .background,
@@ -37,7 +41,6 @@ class MediaGroupViewModel: MLBaseModel {
                                             autoreleaseFrequency: .inherit,
                                             target: nil)
         self.medialibrary = medialibrary
-        files = medialibrary.medialib.mediaGroups() ?? []
         medialibrary.observable.addObserver(self)
     }
 
@@ -90,13 +93,16 @@ class MediaGroupViewModel: MLBaseModel {
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        fileArrayQueue.sync {
-            files = medialibrary.medialib.mediaGroups(with: criteria, desc: desc) ?? []
-        }
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
+        if firstTime {
+            getMedia()
+            firstTime = false
+        } else {
+            files.removeAll()
+            intialPageSize = 12
+            currentPage = 0
+            getMedia()
         }
     }
 
@@ -136,6 +142,28 @@ class MediaGroupViewModel: MLBaseModel {
             medialibrary.medialib.deleteMediaGroup(withIdentifier: originMediaGroup.identifier())
         }
         return true
+    }
+
+    func getMedia() {
+        currentPage += 1
+        let offset = (currentPage - 1) * intialPageSize
+        print(offset)
+        print(intialPageSize)
+        let mediaAtOffset = medialibrary.medialib.mediaGroups(with: sortModel.currentSort, desc: sortModel.desc, UInt32(intialPageSize), UInt32(offset))
+        print(mediaAtOffset?.count)
+        if let mediaGroups = mediaAtOffset {
+            for mediaGroup in mediaGroups {
+                for file in files {
+                    if file.identifier() == mediaGroup.identifier() {
+                        return
+                    }
+                }
+                append(mediaGroup)
+            }
+        }
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 

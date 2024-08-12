@@ -389,8 +389,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
         let titleHeight = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded.lineHeight
         let newHeight = UIFont.preferredCustomFont(forTextStyle: .headline).bolded.lineHeight
+        let finalHeight = cellWidth * aspectRatio + (titleHeight * 2) + newHeight + (3 * 3)
 
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (titleHeight * 2) + newHeight + (3 * 3))
+        return CGSize(width: cellWidth, height: finalHeight)
     }
 
     override func prepareForReuse() {

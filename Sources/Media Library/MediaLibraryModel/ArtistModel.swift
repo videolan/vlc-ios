@@ -33,6 +33,10 @@ class ArtistModel: AudioCollectionModel {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryHideFeatArtists)")
     }
 
+    var intialPageSize = 12
+    var currentPage = 0
+    var firstTime = true
+
     required init(medialibrary: MediaLibraryService) {
         defer {
             fileArrayLock.unlock()
@@ -40,7 +44,6 @@ class ArtistModel: AudioCollectionModel {
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
         fileArrayLock.lock()
-        files = hideFeatArtists ? medialibrary.artists(listAll: false) : medialibrary.artists()
     }
 
     func append(_ item: VLCMLArtist) {
@@ -81,6 +84,18 @@ class ArtistModel: AudioCollectionModel {
             }
         }
     }
+
+    func getMedia() {
+        currentPage += 1
+        let offset = (currentPage - 1) * intialPageSize
+        let mediaAtOffset = hideFeatArtists ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: true, items: UInt32(intialPageSize), offset: UInt32(offset)) : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: false, items: UInt32(intialPageSize), offset: UInt32(offset))
+            for artist in mediaAtOffset {
+                files.append(artist)
+            }
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
+        }
+    }
 }
 
 // MARK: - Sort
@@ -89,13 +104,16 @@ extension ArtistModel {
         defer {
             fileArrayLock.unlock()
         }
-        fileArrayLock.lock()
-        files = hideFeatArtists ? medialibrary.artists(sortingCriteria: criteria, desc: desc, listAll: false) :
-                                medialibrary.artists(sortingCriteria: criteria, desc: desc, listAll: true)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
+        if firstTime {
+            getMedia()
+            firstTime = false
+        } else {
+            files.removeAll()
+            intialPageSize = 12
+            currentPage = 0
+            getMedia()
         }
     }
 }

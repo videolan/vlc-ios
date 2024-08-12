@@ -10,6 +10,14 @@
  *****************************************************************************/
 
 class HistoryModel: MLBaseModel {
+    var intialPageSize: Int = 0
+    var currentPage: Int = 0
+    var firstTime: Bool = false
+
+    func getMedia() {
+        // dummy
+    }
+
     // These two are initialized with the class
     var medialibrary: MediaLibraryService
     var mediaType: VLCMLMediaType

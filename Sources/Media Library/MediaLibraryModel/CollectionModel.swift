@@ -11,6 +11,14 @@
 import Foundation
 
 class CollectionModel: MLBaseModel {
+    var intialPageSize: Int = 0
+    var currentPage: Int = 0
+    var firstTime: Bool = false
+
+    func getMedia() {
+        // dummy
+    }
+
     typealias MLType = VLCMLMedia
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])

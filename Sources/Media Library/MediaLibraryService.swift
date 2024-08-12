@@ -367,6 +367,13 @@ private extension MediaLibraryService {
                               : medialib.audioFiles(with: sort, desc: desc) ?? []
     }
 
+    func media(ofType type: VLCMLMediaType,
+               sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+               desc: Bool = false , items: UInt32 , offset: UInt32) -> [VLCMLMedia] {
+        return type == .video ? medialib.videoFiles(with: sort, desc: desc, items, offset) ?? []
+        : medialib.audioFiles(with: sort, desc: desc, items: items, offset: offset) ?? []
+    }
+
     @objc func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
         guard let mrl = mrl  else {
             return nil //Happens when we have a URL or there is no currently playing file
@@ -507,9 +514,19 @@ private extension MediaLibraryService {
         return medialib.artists(with: sort, desc: desc, all: all) ?? []
     }
 
+    func artists(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                 desc: Bool = false, listAll all: Bool = true , items: UInt32 , offset: UInt32) -> [VLCMLArtist] {
+        return medialib.artists(with: sort, desc: desc, all: all, items, offset) ?? []
+    }
+
     func albums(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
                 desc: Bool = false) -> [VLCMLAlbum] {
         return medialib.albums(with: sort, desc: desc) ?? []
+    }
+
+    func albums(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                desc: Bool = false, items: UInt32 , offset: UInt32) -> [VLCMLAlbum] {
+        return medialib.albums(with: sort, desc: desc, items , offset) ?? []
     }
 }
 

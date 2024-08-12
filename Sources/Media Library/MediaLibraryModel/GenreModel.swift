@@ -29,6 +29,10 @@ class GenreModel: AudioCollectionModel {
 
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
+    var intialPageSize = 12
+    var currentPage = 0
+    var firstTime = true
+
     required init(medialibrary: MediaLibraryService) {
         defer {
             fileArrayLock.unlock()
@@ -36,7 +40,7 @@ class GenreModel: AudioCollectionModel {
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
         fileArrayLock.lock()
-        files = medialibrary.genres()
+        getMedia()
     }
 
     func append(_ item: VLCMLGenre) {
@@ -45,6 +49,20 @@ class GenreModel: AudioCollectionModel {
         }
         fileArrayLock.lock()
         files.append(item)
+    }
+
+    func getMedia() {
+        currentPage += 1
+        let offset = (currentPage - 1) * intialPageSize
+        let mediaAtOffset = medialibrary.medialib.genres(with: sortModel.currentSort, desc: sortModel.desc, UInt32(intialPageSize), UInt32(offset))
+        if let generes = mediaAtOffset {
+            for  genre in  generes {
+                files.append(genre)
+            }
+        }
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -108,11 +126,16 @@ extension GenreModel {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
+        if firstTime {
+            getMedia()
+            firstTime = false
+        } else {
+            files.removeAll()
+            intialPageSize = 12
+            currentPage = 0
+            getMedia()
         }
     }
 }

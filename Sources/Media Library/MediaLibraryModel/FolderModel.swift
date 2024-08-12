@@ -20,6 +20,10 @@ class FolderModel: MLBaseModel {
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder
 
+    var intialPageSize: Int = 0
+    var currentPage: Int = 0
+    var firstTime: Bool = false
+
     var name: String = "Folder"
     var indicatorName: String = NSLocalizedString("BUTTON_FOLDER", comment: "")
     var cellType: BaseCollectionViewCell.Type {
@@ -53,6 +57,10 @@ class FolderModel: MLBaseModel {
 
     func delete(_ items: [VLCMLFolder]) {
         // dummy function
+    }
+
+    func getMedia() {
+        // stub - FolderModel uses setupData() instead
     }
 
     func append(_ item: VLCMLFolder) {
