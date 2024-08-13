@@ -790,7 +790,7 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func setCurrentlyPlayingCollection(with model: MediaLibraryBaseModel, for index: Int) {
-        guard index != -1 else { return }
+        guard index != NSNotFound else { return }
         
         switch model {
         case let model as CollectionModel:
