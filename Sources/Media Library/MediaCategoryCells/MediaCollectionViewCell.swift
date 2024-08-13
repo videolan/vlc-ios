@@ -409,8 +409,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func update(playlist: VLCMLPlaylist) {
         if lastPlayed {
             handleLastPlayed()
-        } else {
+        }
+        else {
             newLabel.isHidden = true
+            dragIndicatorImageView.isHidden = false
         }
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
@@ -419,7 +421,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.image = playlist.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
-        dragIndicatorImageView.isHidden = false
         scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
     }
@@ -542,7 +543,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     @objc fileprivate func dynamicFontSizeChange() {
-        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .footnote).bolded
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .footnote).semibolded
         titleLabel.font = isMediaBeingPlayed ? UIFont.preferredFont(forTextStyle: .title3).bolded : UIFont.preferredFont(forTextStyle: .title3)
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
     }
@@ -617,6 +618,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let isCurrentlyPlayingPlaylist = UserDefaults.standard.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
         let shouldDisplayLastPlayedLabel = (!playbackService.isPlaying && playbackService.currentlyPlayingMedia == nil) || !isCurrentlyPlayingPlaylist
         newLabel.isHidden = !shouldDisplayLastPlayedLabel
+        
+        if media is VLCMLPlaylist {
+            dragIndicatorImageView.isHidden = shouldDisplayLastPlayedLabel
+        } else {
+            dragIndicatorImageView.isHidden = true
+        }
+
         newLabel.text = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
     }
     
