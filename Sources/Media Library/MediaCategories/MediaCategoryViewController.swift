@@ -1375,11 +1375,9 @@ extension MediaCategoryViewController {
                   let media = mediaObject as? VLCMLMedia {
 
           // Check if collection model is a playlist and it is the last played media. This check is done inside a playlist
-            if let lastMedia = lastPlaylist?.lastPlayedMedia {
-                let isLastMedia = lastMedia.identifier == media.identifier() && lastMedia.title == media.title
-                if isLastMedia {
-                    setLastPlayed(for: mediaCell)
-                }
+            if let lastMedia = lastPlaylist?.lastPlayedMedia,
+               lastMedia.identifier == media.identifier() && lastMedia.title == media.title {
+                setLastPlayed(for: mediaCell)
             }
         }
         
@@ -1844,7 +1842,7 @@ extension MediaCategoryViewController {
             let currentPlaylistMediaQueue = PlaybackCacheHelper.shared.getCurrentPlaylistMediasQueue()
             if let queueLastPlaylist = currentPlaylistMediaQueue[lastPlayed.identifier()] {
                 saveCurrentPlaylistInfo(with: queueLastPlaylist.identifier, playlistTitle: queueLastPlaylist.title, media: lastPlayed)
-            } else if let lastPlaylist = lastPlaylist{
+            } else if let lastPlaylist = lastPlaylist {
                 saveCurrentPlaylistInfo(with: lastPlaylist.identifier, playlistTitle: lastPlaylist.title, media: lastPlayed)
             }
         }
