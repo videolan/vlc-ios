@@ -658,6 +658,8 @@ class VideoPlayerViewController: UIViewController {
 
         view.transform = .identity
 
+        self.longPressPlaybackSpeedView.layer.opacity = 0
+
         playbackService.restoreAudioAndSubtitleTrack()
     }
 
@@ -1361,7 +1363,7 @@ extension VideoPlayerViewController {
             UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
                 self.longPressPlaybackSpeedView.layer.opacity = 1
             }
-        case .ended:
+        case .ended, .cancelled:
             // Set playback speed previous state
             playbackService.playbackRate = previousPlaybackSpeed ?? 1
             
