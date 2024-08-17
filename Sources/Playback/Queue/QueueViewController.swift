@@ -571,18 +571,9 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
         resetScrollView({ _ in
             let removedMedia = VLCMLMedia(forPlaying: self.mediaList.media(at: UInt(indexPath.row)))
 
-            // Handle the removal if it is the currently playing media
-            self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath.row)
-            self.mediaList.removeMedia(at: UInt(indexPath.row))
             NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
 
-            // Update the collection view to reflect the removal and animate the new played media if there is a one
-            self.queueCollectionView.performBatchUpdates({
-                self.queueCollectionView.deleteItems(at: [indexPath])
-            }) { _ in
-                self.reload()
-            }
-
+            self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath)
             self.stopPlaybackIfNeeded()
         })
     }
@@ -735,16 +726,41 @@ extension QueueViewController {
         }
     }
 
-    func handleRemoveCurrentMediaIfNeeded(_ media: VLCMLMedia?, at index: Int) {
+    func handleRemoveCurrentMediaIfNeeded(_ media: VLCMLMedia?, at index: IndexPath) {
         guard mediaList.count > 1,
               let currentMedia = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia),
               let mlMedia = media,
-              mlMedia.identifier() == currentMedia.identifier() else { return }
+              mlMedia.identifier() == currentMedia.identifier() else {
+            performDeleteMediaFromQueue(at: index)
+            return
+        }
         
-        if index == mediaList.count - 1 {
-            playbackService.playItem(at: UInt(index - 1))
+        let repeatMode = playbackService.repeatMode
+        
+        // avoiding UI Crash when removing the last index in the media list
+        if (repeatMode == .doNotRepeat || repeatMode == .repeatCurrentItem) &&
+            index.row == mediaList.count - 1 {
+            performDeleteMediaFromQueue(at: index, isLastMedia: true)
         } else {
-            playbackService.playItem(at: UInt(index + 1))
+            performDeleteMediaFromQueue(at: index)
+        }
+    }
+    
+    func performDeleteMediaFromQueue(at index: IndexPath, isLastMedia: Bool = false) {
+        self.queueCollectionView.performBatchUpdates({
+            self.queueCollectionView.deleteItems(at: [index])
+            //handle removing last media
+            if isLastMedia {
+                // cases of doNotReapeat and repeatCurrentItem using the next() method causes wrong updates in the collection view which breaks the UI.
+                // playing the index - 1 is the solution for this case
+                self.mediaList.removeMedia(at: UInt(index.row))
+                playbackService.playItem(at: UInt(index.row - 1))
+            } else {
+                // removes the media form the media list and updates the currentIndex, then plays the next
+                playbackService.removeMediaFromMediaList(at: UInt(index.row))
+            }
+        }) { _ in
+            self.reload()
         }
     }
 }
