@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.6.3]
+· Add support for ATRAC3 Audio metadata
+
 ## iOS [3.6.2]
 · Add option to disable restoring the last played media
 · Fix the player's options reset

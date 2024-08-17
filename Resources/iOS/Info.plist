@@ -69,7 +69,7 @@
 				<string>com.real.realaudio</string>
 				<string>org.videolan.vlc</string>
 				<string>org.videolan.w64</string>
-				<string>org.videolan.oma</string>
+				<string>org.videolan.atrac3-audio</string>
 				<string>org.videolan.caf</string>
 				<string>org.videolan.opus</string>
 				<string>org.videolan.flac</string>
@@ -511,6 +511,27 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
+			<string>ATRAC3 Audio</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.atrac3-audio</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+				<string>aa3</string>
+				<string>oma</string>
+				<string>at3</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>audio/atrac3</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
 			<string>OPUS</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.opus</string>
@@ -586,23 +607,6 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>caf</string>
-				<key>public.mime-type</key>
-				<string>application/octet-stream</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.audio</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>OMA</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.videolan.oma</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<string>oma</string>
 				<key>public.mime-type</key>
 				<string>application/octet-stream</string>
 			</dict>
