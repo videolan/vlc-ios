@@ -463,10 +463,16 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
 
     if (media) {
-        _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
+        if (media.isNew)
+            return;
 
-        BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
-        _mediaPlayer.currentVideoSubTitleIndex = disableSubtitles ? -1 : (int) media.subtitleTrackIndex;
+        [self selectAudioTrackAtIndex:media.audioTrackIndex];
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
+            _mediaPlayer.currentVideoSubTitleIndex = -1;
+        } else {
+            [self selectVideoSubtitleAtIndex:media.subtitleTrackIndex];
+        }
     }
 }
 #endif
@@ -1457,6 +1463,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     [self setNeedsMetadataUpdate];
+#if TARGET_OS_IOS
+    [self restoreAudioAndSubtitleTrack];
+#endif
 }
 
 - (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
@@ -1488,7 +1497,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     /* continue playback for the first item even if repeating */
     if (self.repeatMode != VLCDoNotRepeat && mediaIndex != _itemInMediaListToBePlayedFirst) {
-        goto bailout;
+        return;
     }
 
     CGFloat lastPosition = libraryMedia.progress;
@@ -1497,12 +1506,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         NSInteger continuePlayback;
 
         if ([libraryMedia isWatched]) {
-            goto bailout;
+            return;
         }
 
         if (libraryMedia.type == VLCMLMediaTypeAudio) {
             if (!libraryMedia.isPodcast) {
-                goto bailout;
+                return;
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
         } else {
@@ -1532,9 +1541,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                                      completion:nil];
         }
     }
-
-    bailout:
-    [self restoreAudioAndSubtitleTrack];
 }
 
 - (void)_findCachedSubtitlesForMedia:(VLCMedia *)media
