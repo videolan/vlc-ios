@@ -14,7 +14,7 @@
       </dict>
       <dict>
         <key>IntentName</key>
-        <string>DITambahkanMediaIntent</string>
+        <string>INAddMediaIntent</string>
         <key>IntentExamples</key>
         <array>
           <string>Add media to VLC</string>
