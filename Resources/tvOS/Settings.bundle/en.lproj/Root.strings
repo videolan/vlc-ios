@@ -4,6 +4,9 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
+"SETTINGS_DONATE" = "Make a Donation to VideoLAN";
+"SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
+
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "Automatic";
@@ -26,12 +29,17 @@
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_HIDE_UI_DURING_PLAYBACK" = "Hide user interface during playback";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK_INFO" = "This continues playback of video files from the last position.";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK_INFO" = "This continues playback of audio files from the last position that are of a certain length or match the podcast criteria.";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_PLAY_ALL" = "Seamless playback for collections";
+"SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_RESTORE_LAST_PLAYED_MEDIA" = "Restore last played media on launch";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
 "SETTINGS_SKIP_LOOP_FILTER_INFO" = "Skipping the loop filter (aka deblocking) usually has a detrimental effect on quality. However it provides a big speedup for high definition streams.";
@@ -47,6 +55,8 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to skip";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL" = "Use the same interval to seek forward and backwards";
+"SETTINGS_GESTURES_TAP_SWIPE_EQUAL" = "Use the same interval for tap and swipe gestures";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitles";
 "SETTINGS_SUBTITLES_DISABLE" = "Disable subtitles";
@@ -75,6 +85,7 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Thin";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Thick";
+"SETTINGS_SUBTITLES_INFO" = "This option may not be applicable to subtitles that are based on bitmaps or are stored in the SSA format.";
 
 "SETTINGS_DEINTERLACE" = "Deinterlace";
 "SETTINGS_DEINTERLACE_INFO" = "Deinterlacing filters will be applied automatically to interlaced content to prevent motion artifacts and increase playback quality. They can be disabled to save battery life.";
@@ -123,8 +134,6 @@
 "SETTINGS_DEBUG_LOG" = "Save debug logs on device";
 "SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
-"SETTINGS_RESET" = "Reset the settings";
-
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
@@ -132,9 +141,20 @@
 
 "SETTINGS_PLAYBACK_SKIP_FORWARD" = "Forward skip";
 "SETTINGS_PLAYBACK_SKIP_BACKWARD" = "Backward skip";
+"SETTINGS_PLAYBACK_SKIP_GENERIC" = "Skip Duration";
+"SETTINGS_PLAYBACK_SKIP_TAP" = "Skip duration on tap";
+"SETTINGS_PLAYBACK_SKIP_SWIPE" = "Skip duration on swipe";
+"SETTINGS_PLAYBACK_SKIP_FORWARD_TAP" = "Forward skip on tap";
+"SETTINGS_PLAYBACK_SKIP_BACKWARD_TAP" = "Backward skip on tap";
+"SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE" = "Forward skip on swipe";
+"SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE" = "Backward skip on swipe";
+"SETINGS_LONG_TOUCH_SPEED_UP" = "Long touch to speed-up";
 
 "SETTINGS_DURATION_FIVE" = "5 seconds";
 "SETTINGS_DURATION_TEN" =  "10 seconds";
 "SETTINGS_DURATION_FIFTEEN" = "15 seconds";
 "SETTINGS_DURATION_THIRTY" =  "30 seconds";
 "SETTINGS_DURATION_SIXTY" = "60 seconds";
+
+"SETTINGS_RESET" = "Reset the settings";
+"SETTINGS_RESET_TITLE" = "Reset";
