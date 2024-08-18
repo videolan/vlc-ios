@@ -1,7 +1,9 @@
 # Changelog
 
 ## iOS [3.6.3]
-· Add support for ATRAC3 Audio metadata
+· Fix silence on repeat
+· Correctly restore previous audio and subtitles track selection on continued playback
+· Add support for ATRAC3 audio metadata
 
 ## iOS [3.6.2]
 · Add option to disable restoring the last played media
