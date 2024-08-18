@@ -186,8 +186,8 @@
 
 - (void)setupUI
 {
-    self.title = NSLocalizedString(@"NETWORK", nil);
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"NETWORK", nil)
+    self.title = NSLocalizedString(@"BROWSE", nil);
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"BROWSE", nil)
                                                     image: [UIImage imageNamed:@"Network"]
                                             selectedImage: [UIImage imageNamed:@"Network"]];
     self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;

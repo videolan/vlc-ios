@@ -126,6 +126,7 @@
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"BROWSE" = "Browse";
 "NETWORK" = "Network";
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
