@@ -466,7 +466,16 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if (media.isNew)
             return;
 
-        [self selectAudioTrackAtIndex:media.audioTrackIndex];
+        SInt64 audioIndex = media.audioTrackIndex;
+        NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
+        if (audioIndex >= 0 && audioIndex < audioTrackIndexes.count) {
+            // we can cast this cause we won't have more than 2 million audiotracks
+            int actualAudioIndex = [audioTrackIndexes[audioIndex] intValue];
+            // never restore silence
+            if (actualAudioIndex != -1) {
+                _mediaPlayer.currentAudioTrackIndex = actualAudioIndex;
+            }
+        }
 
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
             _mediaPlayer.currentVideoSubTitleIndex = -1;
