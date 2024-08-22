@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.6.4]
+· Fix another edge-case of silent playback recovery
+
 ## iOS [3.6.3]
 · Fix silence on repeat
 · Correctly restore previous audio and subtitles track selection on continued playback
