@@ -10,6 +10,8 @@
 		0F007EB12C2B46440042A95F /* VLCMLMedia+isWatched.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007EB02C2B46440042A95F /* VLCMLMedia+isWatched.m */; };
 		0F47AB962C1C42FF004B630F /* LongPressPlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */; };
 		13925DC647EC27EEB2818FD2 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E3BE184ED7B95399C04EB6 /* libPods-VLC-tvOS.a */; };
+		1B5B1EDE2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5B1EDA2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.m */; };
+		1B5B1EDF2C625C6A00A75699 /* NSURLSessionConfiguration+default.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5B1EDD2C625C6A00A75699 /* NSURLSessionConfiguration+default.m */; };
 		226D57DD2B42C4710090AD88 /* VLCFavoriteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA58D642B10E96800E5BA84 /* VLCFavoriteService.m */; };
 		226D57E12B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */; };
 		226D57E22B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */; };
@@ -520,6 +522,10 @@
 		0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressPlaybackSpeedView.swift; sourceTree = "<group>"; };
 		1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCFirstStepsBaseViewController.h; sourceTree = "<group>"; };
 		1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCFirstStepsBaseViewController.m; sourceTree = "<group>"; };
+		1B5B1EDA2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+sharedMPTCPSession.m"; sourceTree = "<group>"; };
+		1B5B1EDB2C625C6A00A75699 /* NSURLSessionConfiguration+default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+default.h"; sourceTree = "<group>"; };
+		1B5B1EDC2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+sharedMPTCPSession.h"; sourceTree = "<group>"; };
+		1B5B1EDD2C625C6A00A75699 /* NSURLSessionConfiguration+default.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+default.m"; sourceTree = "<group>"; };
 		226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderContentView.swift; sourceTree = "<group>"; };
 		226D57E82B4439080090AD88 /* FavoriteSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSectionHeader.swift; sourceTree = "<group>"; };
 		226D57EB2B4439880090AD88 /* VLCFavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCFavoriteListViewController.swift; sourceTree = "<group>"; };
@@ -1364,6 +1370,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1B5740B62C634DC100B18EA2 /* URLSession */ = {
+			isa = PBXGroup;
+			children = (
+				1B5B1EDC2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.h */,
+				1B5B1EDA2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.m */,
+			);
+			path = URLSession;
+			sourceTree = "<group>";
+		};
+		1B5740B72C634DD200B18EA2 /* URLSessionConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				1B5B1EDB2C625C6A00A75699 /* NSURLSessionConfiguration+default.h */,
+				1B5B1EDD2C625C6A00A75699 /* NSURLSessionConfiguration+default.m */,
+			);
+			path = URLSessionConfiguration;
+			sourceTree = "<group>";
+		};
 		226D57E62B44379E0090AD88 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -2079,6 +2103,8 @@
 		7DC7BA7628C894DA00109F28 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1B5740B72C634DD200B18EA2 /* URLSessionConfiguration */,
+				1B5740B62C634DC100B18EA2 /* URLSession */,
 				7DC7BAB928C8959300109F28 /* URLs */,
 				7DC7BAA628C8957A00109F28 /* UIKit */,
 				7DC7BA9828C8955700109F28 /* UI Elements */,
@@ -3815,9 +3841,11 @@
 				7DBF605B2B5D64FF00F16BB4 /* VLCFirstStepsBaseViewController.m in Sources */,
 				6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */,
 				4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */,
+				1B5B1EDF2C625C6A00A75699 /* NSURLSessionConfiguration+default.m in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD3EFF511BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7D799BA22B8394F100FF93F2 /* VLCDonationNagScreenViewController.m in Sources */,
+				1B5B1EDE2C625C6A00A75699 /* NSURLSession+sharedMPTCPSession.m in Sources */,
 				41D7DD0520C1853E00AD94F6 /* ButtonBarView.swift in Sources */,
 				E08AD1712304DDE800E023B9 /* MediaPlayerActionSheet.swift in Sources */,
 				E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */,

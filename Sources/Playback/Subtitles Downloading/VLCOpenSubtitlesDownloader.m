@@ -8,6 +8,7 @@
 //
 
 #import "VLCOpenSubtitlesDownloader.h"
+#import "NSURLSession+sharedMPTCPSession.h"
 
 #define kVLCOpenSubtitlesDownloaderApiKey @""
 
@@ -45,7 +46,7 @@ static NSString * const kDomain = @"org.videolan.vlc-ios.openSubtitlesDownloader
     self = [super init];
     if (!self) return nil;
 
-    _session = [NSURLSession sharedSession];
+    _session = [NSURLSession sharedMPTCPSession];
 
     _userAgent = userAgent;
     _apiKey = apiKey;
