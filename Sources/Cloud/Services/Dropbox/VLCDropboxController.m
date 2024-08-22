@@ -7,7 +7,7 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Jean-Baptiste Kempf <jb # videolan.org>
- *
+ *                     Eshan Singh <eeeshan789@gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
@@ -26,7 +26,7 @@
 
 @property (strong, nonatomic) DBUserClient *client;
 @property (strong, nonatomic) NSArray *currentFileList;
-
+@property (strong, nonatomic) NSArray *folderFileList;
 @property (strong, nonatomic) NSMutableArray *listOfDropboxFilesToDownload;
 @property (assign, nonatomic) BOOL downloadInProgress;
 
@@ -125,7 +125,14 @@
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     if (self.isAuthorized) {
-        [self listFiles:path];
+        [self listFiles: path : NO];
+    }
+}
+
+-(void)downloadFolderFiles:(DBFILESFolderMetadata *)folder
+{
+    if ([folder isKindOfClass:[DBFILESFolderMetadata class]]) {
+        [self listFiles: folder.pathLower :YES];
     }
 }
 
@@ -182,16 +189,22 @@
 
 # pragma mark - Dropbox API Request
 
-- (void)listFolderContinueWithClient:(DBUserClient *)client cursor:(NSString *)cursor list:(NSMutableArray *)list {
+- (void)listFolderContinueWithClient:(DBUserClient *)client cursor:(NSString *)cursor list:(NSMutableArray *)list : (BOOL)downloadingFolder {
     [[[self client].filesRoutes listFolderContinue:cursor]
      setResponseBlock:^(DBFILESListFolderResult *response, DBFILESListFolderContinueError *routeError,
                         DBRequestError *networkError) {
         if (response) {
             [list addObjectsFromArray:response.entries];
             if ([response.hasMore boolValue]) {
-                [self listFolderContinueWithClient:client cursor:response.cursor list:list];
+                if (downloadingFolder) {
+                    [self listFolderContinueWithClient: client cursor:response.cursor list:list: downloadingFolder];
+                }
             } else {
-                [self sendMediaListUpdatedWithList:list];
+                if (downloadingFolder) {
+                    [self sendMediaListUpdatedWithList:list :YES];
+                } else {
+                    [self sendMediaListUpdatedWithList:list: NO];
+                }
             }
         } else {
             NSLog(@"%@\n%@\n", routeError, networkError);
@@ -199,20 +212,34 @@
     }];
 }
 
-- (void)sendMediaListUpdatedWithList:(NSArray *)list
+- (void)sendMediaListUpdatedWithList:(NSArray *)list : (BOOL)downloadingFolder
 {
-    self.currentFileList = [[list sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSString *first = [(DBFILESMetadata*)a name];
-        NSString *second = [(DBFILESMetadata*)b name];
-        return [first caseInsensitiveCompare:second];
-    }] copy];
-    APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
-        [self.delegate mediaListUpdated];
+    if (downloadingFolder) {
+        self.folderFileList = [[list sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSString *first = [(DBFILESMetadata*)a name];
+            NSString *second = [(DBFILESMetadata*)b name];
+            return [first caseInsensitiveCompare:second];
+        }] copy];
+        for (DBFILESMetadata *file in self.folderFileList) {
+            if ([file isKindOfClass:[DBFILESFileMetadata class]]) {
+                [self downloadFileToDocumentFolder:file];
+            }
+        }
+        self.folderFileList = nil;
+    } else {
+        self.currentFileList = [[list sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSString *first = [(DBFILESMetadata*)a name];
+            NSString *second = [(DBFILESMetadata*)b name];
+            return [first caseInsensitiveCompare:second];
+        }] copy];
+        APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);
+        if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
+            [self.delegate mediaListUpdated];
+        }
     }
 }
 
-- (void)listFiles:(NSString *)path
+- (void)listFiles:(NSString *)path : (BOOL)downloadingFolder
 {
     // DropBox API prefers an empty path than a '/'
     if (!path || [path isEqualToString:@"/"]) {
@@ -224,9 +251,17 @@
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
             if ([result.hasMore boolValue]) {
-                [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock];
+                if (downloadingFolder) {
+                    [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock: YES];
+                } else {
+                    [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock: NO];
+                }
             } else {
-                [self sendMediaListUpdatedWithList:result.entries];
+                if (downloadingFolder) {
+                    [self sendMediaListUpdatedWithList:result.entries : YES];
+                } else {
+                    [self sendMediaListUpdatedWithList:result.entries : NO];
+                }
             }
         } else {
             APLog(@"listFiles failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);

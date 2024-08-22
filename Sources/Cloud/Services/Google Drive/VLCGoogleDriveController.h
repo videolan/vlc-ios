@@ -21,7 +21,7 @@
 
 - (void)stopSession;
 - (void)streamFile:(GTLRDrive_File *)file;
-- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file;
+- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file : (NSString *) currentPath;
 - (BOOL)hasMoreFiles;
 - (BOOL)supportSorting;
 @end

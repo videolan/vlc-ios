@@ -158,7 +158,7 @@
             self.folderTitleLabel.text = self.dropboxFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
-            self.downloadButton.hidden = YES;
+            self.downloadButton.hidden = NO;
             self.isFavourable = YES;
         
             VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
@@ -167,8 +167,8 @@
             NSString *urlString = [NSString stringWithFormat:@"file://DropBox/%@", selectedFilePath];
             NSURL *url = [NSURL URLWithString:urlString];
             self.isFavourite = [service isFavoriteURL:url];
-            
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+
         } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
             DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
             self.titleLabel.text = file.name;
@@ -229,6 +229,7 @@
             self.folderTitleLabel.text = self.boxFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
+<<<<<<< HEAD
             self.downloadButton.hidden = YES;
             self.isFavourable = YES;
             
@@ -239,6 +240,9 @@
             NSURL *url = [NSURL URLWithString:urlString];
             
             self.isFavourite = [service isFavoriteURL:url];
+=======
+            self.downloadButton.hidden = NO;
+>>>>>>> 4af7124fe (Cloud Services: Support for downloadingFolders)
         } else {
             NSString *title = self.boxFile.name;
             self.titleLabel.text = title;

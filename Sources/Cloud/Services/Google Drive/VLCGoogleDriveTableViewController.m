@@ -105,7 +105,7 @@
     if (row < listOfFiles.count) {
         cell.driveFile = listOfFiles[row];
         if ([cell.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"])
-            [cell setIsDownloadable:NO];
+            [cell setIsDownloadable: YES];
         else
             [cell setIsDownloadable:YES];
     }
@@ -145,9 +145,14 @@
                                                                                 action: ^(UIAlertAction *action) {
         self->_selectedFile = nil;
     }],
-                                                 [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                                 [[VLCAlertButton alloc] initWithTitle:  NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
                                                                                 action: ^(UIAlertAction *action) {
-                                                     [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile];
+                                                     if  ([self->_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]){
+                                                         NSLog(@"Iden: %@", self->_selectedFile.identifier);
+                                                         [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile: self.currentPath];
+                                                     } else {
+                                                         [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile: @""];
+                                                     }
                                                      self->_selectedFile = nil;
                                                  }]
     ];

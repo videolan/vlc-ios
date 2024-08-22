@@ -24,6 +24,7 @@
 {
     VLCDropboxController *_dropboxController;
     DBFILESMetadata *_selectedFile;
+    DBFILESFolderMetadata *_folder;
     NSArray *_mediaList;
 }
 
@@ -156,8 +157,13 @@
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
-    _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
-
+  
+    if ([_mediaList[[self.tableView indexPathForCell:cell].row] isKindOfClass:[DBFILESFolderMetadata class]]) {
+        _folder = _mediaList[[self.tableView indexPathForCell:cell].row];
+    } else {
+        _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
+    }
+    
     /* selected item is a proper file, ask the user if s/he wants to download it */
     NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                                  style: UIAlertActionStyleCancel
@@ -166,8 +172,13 @@
     }],
                                                  [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
                                                                                 action: ^(UIAlertAction *action) {
-                                                     [self->_dropboxController downloadFileToDocumentFolder:self->_selectedFile];
-                                                     self->_selectedFile = nil;
+                                                     if (!(self->_folder == NULL)) {
+                                                         [self->_dropboxController downloadFolderFiles:self->_folder];
+                                                         self->_folder = nil;
+                                                     } else {
+                                                         [self->_dropboxController downloadFileToDocumentFolder:self->_selectedFile];
+                                                         self->_selectedFile = nil;
+                                                     }
                                                  }]
     ];
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)

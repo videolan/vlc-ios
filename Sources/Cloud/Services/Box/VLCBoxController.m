@@ -23,7 +23,8 @@
     BoxAPIJSONOperation *_operation;
 
     NSArray *_currentFileList;
-
+    NSArray *_folderFileList;
+    
     NSMutableArray *_listOfBoxFilesToDownload;
     BOOL _downloadInProgress;
 
@@ -134,7 +135,7 @@
     //we entered a different folder so discard all current files
     if (![path isEqualToString:_folderId])
         _currentFileList = nil;
-    [self listFilesWithID:path];
+    [self listFilesWithID:path: NO];
 }
 
 - (BOOL)hasMoreFiles
@@ -149,7 +150,7 @@
         BoxFolder *folder = collection.parent;
         NSString *parentId = folder.modelID;
         self->_currentFileList = nil;
-        [self listFilesWithID:parentId];
+        [self listFilesWithID:parentId: NO];
         [self.delegate updateCurrentPath:parentId];
     };
 
@@ -162,7 +163,7 @@
     _operation = [[BoxSDK sharedSDK].foldersManager folderInfoWithID:_folderId requestBuilder:nil success:success failure:failure];
 }
 
-- (void)listFilesWithID:(NSString *)folderId
+- (void)listFilesWithID:(NSString *)folderId : (BOOL)isDownloadingFolder
 {
     _fileList = nil;
     _folderId = folderId;
@@ -173,7 +174,11 @@
     BoxCollectionBlock success = ^(BoxCollection *collection)
     {
         self->_fileList = collection;
-        [self _listOfGoodFilesAndFolders];
+        if (isDownloadingFolder) {
+            [self _listOfGoodFilesAndFolders: YES];
+        } else {
+            [self _listOfGoodFilesAndFolders: NO];
+        }
     };
 
     BoxAPIJSONFailureBlock failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSDictionary *JSONDictionary)
@@ -187,15 +192,23 @@
 
 - (void)downloadFileToDocumentFolder:(BoxItem *)file
 {
-    if (file != nil) {
-        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
-
-        if (!_listOfBoxFilesToDownload)
-            _listOfBoxFilesToDownload = [NSMutableArray new];
-
-        [_listOfBoxFilesToDownload addObject:file];
+    if (file != nil)  {
+        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) {
+            
+            [self listFilesWithID: file.modelID: YES];
+        } else {
+            [self queueDownloads:file];
+        }
     }
+}
 
+-(void)queueDownloads:(BoxItem *)file
+{
+    if (!_listOfBoxFilesToDownload)
+        _listOfBoxFilesToDownload = [NSMutableArray new];
+
+    [_listOfBoxFilesToDownload addObject:file];
+    
     if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
         [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
 
@@ -230,7 +243,7 @@
 //just pick out Directories and supported formats.
 //if the resulting list contains less than 10 items try to get more
 
-- (void)_listOfGoodFilesAndFolders
+- (void)_listOfGoodFilesAndFolders: (BOOL)isDownloadingFolder
 {
     NSMutableArray *listOfGoodFilesAndFolders = [NSMutableArray new];
     _maxOffset = _fileList.totalCount.intValue;
@@ -246,26 +259,45 @@
             BoxFile * file = (BoxFile *)boxFile;
             supportedFile = [[NSString stringWithFormat:@".%@",file.name.lastPathComponent] isSupportedFormat];
         }
-
-       if (isDirectory || supportedFile)
-            [listOfGoodFilesAndFolders addObject:boxFile];
+        if (isDownloadingFolder) {
+            if (supportedFile)
+                 [listOfGoodFilesAndFolders addObject:boxFile];
+        } else {
+            if (isDirectory || supportedFile)
+                 [listOfGoodFilesAndFolders addObject:boxFile];
+        }
+    
     }
-    _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
-
-    if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
-        [self listFilesWithID:_folderId];
-        return;
+    
+    if (isDownloadingFolder) {
+        _folderFileList = [_folderFileList count] ? [_folderFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+        
+        if ([_folderFileList count] <= 10 && [self hasMoreFiles]) {
+            [self listFilesWithID:_folderId: isDownloadingFolder];
+            return;
+        }
+        for (BoxItem *file in _folderFileList) {
+            [self queueDownloads:file];
+        }
+        _folderFileList = nil;
+    } else {
+        _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+        
+        if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
+            [self listFilesWithID:_folderId: isDownloadingFolder];
+            return;
+        }
+        if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+            [self.delegate mediaListUpdated];
+        
+        APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
     }
-
-    APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
-
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-        [self.delegate mediaListUpdated];
 }
 
 - (void)loadFile:(BoxFile *)file intoPath:(NSString*)destinationPath
 {
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
+    
     _startDL = [NSDate timeIntervalSinceReferenceDate];
     BoxDownloadSuccessBlock successBlock = ^(NSString *downloadedFileID, long long expectedContentLength)
     {

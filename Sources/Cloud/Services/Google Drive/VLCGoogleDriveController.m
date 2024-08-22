@@ -29,7 +29,8 @@
     GTLRServiceTicket *_fileListTicket;
 
     NSArray *_currentFileList;
-
+    NSArray *_folderFileList;
+    
     NSMutableArray *_listOfGoogleDriveFilesToDownload;
     BOOL _downloadInProgress;
 
@@ -156,7 +157,7 @@
         //we entered a different folder so discard all current files
         if (![path isEqualToString:_folderId])
             _currentFileList = nil;
-        [self listFilesWithID:path];
+        [self listFilesWithID:path: NO];
     }
 }
 
@@ -165,25 +166,39 @@
     return _nextPageToken != nil;
 }
 
-- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file
+- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file : (NSString *) currentPath
 {
     if (file == nil)
         return;
 
-    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) return;
+    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+        if (currentPath != nil) {
+            if (![currentPath isEqualToString:@""]) {
+                currentPath = [currentPath stringByAppendingString:@"/"];
+            }
+            currentPath = [currentPath stringByAppendingString:file.identifier];
+            [self listFilesWithID: currentPath : YES];
+            NSLog(@"current path %@", currentPath);
+        }
+    } else {
+        [self queueDownloads: file];
+    }
+}
 
+-(void)queueDownloads:(GTLRDrive_File *)file
+{
     if (!_listOfGoogleDriveFilesToDownload)
         _listOfGoogleDriveFilesToDownload = [[NSMutableArray alloc] init];
-
+    
     [_listOfGoogleDriveFilesToDownload addObject:file];
-
+    
     if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
         [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
-
+    
     [self _triggerNextDownload];
 }
 
-- (void)listFilesWithID:(NSString *)folderId
+- (void)listFilesWithID:(NSString *)folderId : (BOOL)isDownloadingFolder
 {
     _fileList = nil;
     _folderId = folderId;
@@ -213,7 +228,7 @@
                                   self->_fileList = fileList;
                                   self->_nextPageToken = fileList.nextPageToken;
                                   self->_fileListTicket = nil;
-                                  [self _listOfGoodFilesAndFolders];
+                                  [self _listOfGoodFilesAndFolders: isDownloadingFolder];
                               } else {
                                   [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_FETCHING_FILES",nil) message:error.localizedDescription];
                               }
@@ -266,7 +281,7 @@
     return NO;
 }
 
-- (void)_listOfGoodFilesAndFolders
+- (void)_listOfGoodFilesAndFolders : (BOOL)isDownloadingFolder
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
@@ -278,20 +293,38 @@
         BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         BOOL supportedFile = [self _supportedFileExtension:iter.name];
 
-        if (isDirectory || supportedFile)
-            [listOfGoodFilesAndFolders addObject:iter];
+        if (isDownloadingFolder)  {
+            if (supportedFile)
+                [listOfGoodFilesAndFolders addObject:iter];
+        } else {
+            if (isDirectory || supportedFile)
+                [listOfGoodFilesAndFolders addObject:iter];
+        }
     }
-    _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
-
-    if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
-        [self listFilesWithID:_folderId];
-        return;
+    if (isDownloadingFolder) {
+        _folderFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+        if ([_folderFileList count] <= 10 && [self hasMoreFiles]) {
+            [self listFilesWithID: _folderId : isDownloadingFolder];
+            return;
+        }
+        
+        for (GTLRDrive_File *file in _folderFileList) {
+            [self queueDownloads:file];
+        }
+        
+    } else {
+        _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+        
+        if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
+            [self listFilesWithID: _folderId : isDownloadingFolder];
+            return;
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+            [self.delegate mediaListUpdated];
     }
-
+    
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
-
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-        [self.delegate mediaListUpdated];
 }
 
 - (void)loadFile:(GTLRDrive_File*)file intoPath:(NSString*)destinationPath
