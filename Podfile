@@ -8,7 +8,7 @@ def shared_pods
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
   pod 'AFNetworking', '~>4.0'
-  pod 'VLCKit', '4.0.0a5'
+  pod 'VLCKit', '4.0.0a6'
   pod 'VLCMediaLibraryKit', '0.13.0a6'
 
   # debug
