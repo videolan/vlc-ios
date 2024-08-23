@@ -1,11 +1,14 @@
 /*****************************************************************************
-  * NSURLSessionConfiguration+default.m
-  * VLC for iOS
-  *****************************************************************************
-  *
-  * Author: Anthony Doeraene <anthony.doeraene@hotmail.com>
-  *
-  *****************************************************************************/
+ * NSURLSessionConfiguration+default.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Anthony Doeraene <anthony.doeraene@hotmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
  #import <Foundation/Foundation.h>
  #include "NSURLSessionConfiguration+default.h"
