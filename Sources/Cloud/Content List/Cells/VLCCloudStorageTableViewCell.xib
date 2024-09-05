@@ -60,10 +60,10 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYG-PY-W9b">
-                        <rect key="frame" x="261" y="8" width="48" height="38"/>
+                        <rect key="frame" x="227" y="8" width="44" height="48"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="48" id="7MV-yu-USF"/>
-                            <constraint firstAttribute="height" constant="38" id="9Qh-nG-9qa"/>
+                            <constraint firstAttribute="width" constant="44" id="7MV-yu-USF"/>
+                            <constraint firstAttribute="height" constant="48" id="9Qh-nG-9qa"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -84,13 +84,12 @@
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="C3b-pA-uOA"/>
                     <constraint firstItem="23" firstAttribute="trailing" secondItem="Tip-yB-5Gh" secondAttribute="trailing" constant="-8" id="Fqx-O2-LB5"/>
                     <constraint firstItem="7" firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="-2" id="KGc-0W-IIt"/>
-                    <constraint firstItem="TYG-PY-W9b" firstAttribute="leading" secondItem="6" secondAttribute="trailing" constant="6" id="Xnl-Mi-4el"/>
                     <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="8" id="acL-xO-d30"/>
                     <constraint firstItem="TYG-PY-W9b" firstAttribute="top" secondItem="4" secondAttribute="top" id="bOM-e0-C6q"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="c7M-0S-tyB"/>
                     <constraint firstItem="4" firstAttribute="centerY" secondItem="Tip-yB-5Gh" secondAttribute="centerY" id="fyJ-RB-ru7"/>
                     <constraint firstItem="6" firstAttribute="trailing" secondItem="661-nY-3Tr" secondAttribute="leading" constant="-8" id="hp2-dT-ocj"/>
-                    <constraint firstAttribute="trailing" secondItem="TYG-PY-W9b" secondAttribute="trailing" constant="11" id="lMx-hh-aQL"/>
+                    <constraint firstAttribute="trailing" secondItem="TYG-PY-W9b" secondAttribute="trailing" constant="49" id="lMx-hh-aQL"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="Tip-yB-5Gh" secondAttribute="top" constant="8" id="mTr-4f-FSJ"/>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="rrY-Y1-Ttv"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="Tip-yB-5Gh" secondAttribute="leading" constant="8" id="scr-nK-URb"/>
@@ -105,7 +104,7 @@
                 <outlet property="thumbnailView" destination="4" id="9"/>
                 <outlet property="titleLabel" destination="6" id="10"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
+            <point key="canvasLocation" x="230" y="22"/>
         </tableViewCell>
     </objects>
     <resources>

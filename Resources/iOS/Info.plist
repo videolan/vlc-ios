@@ -245,7 +245,7 @@
 			<string>GoogleAuth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1014939615316-3pbavebokl0smjlr0r03uqqjha0ie3l7</string>
+				<string>com.googleusercontent.apps.CLIENT</string>
 			</array>
 		</dict>
 	</array>

@@ -5,9 +5,9 @@
  * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Carola Nitz <nitz.carola # googlemail.com>
- *          Felix Paul Kühne <fkuehne # videolan.org>
- *
+ * Authors:  Carola Nitz <nitz.carola # googlemail.com>
+ *        Felix Paul Kühne <fkuehne # videolan.org>
+ *        Eshan Singh <eeeshan789 # gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
@@ -168,7 +168,6 @@
             NSURL *url = [NSURL URLWithString:urlString];
             self.isFavourite = [service isFavoriteURL:url];
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
-
         } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
             DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
             self.titleLabel.text = file.name;
@@ -229,20 +228,15 @@
             self.folderTitleLabel.text = self.boxFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
-<<<<<<< HEAD
-            self.downloadButton.hidden = YES;
+            self.downloadButton.hidden = NO;
             self.isFavourable = YES;
             
             VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
-            
             NSString *selectedFilePath = _boxFile.modelID;
             NSString *urlString = [NSString stringWithFormat:@"file://Box/%@", selectedFilePath];
             NSURL *url = [NSURL URLWithString:urlString];
             
             self.isFavourite = [service isFavoriteURL:url];
-=======
-            self.downloadButton.hidden = NO;
->>>>>>> 4af7124fe (Cloud Services: Support for downloadingFolders)
         } else {
             NSString *title = self.boxFile.name;
             self.titleLabel.text = title;

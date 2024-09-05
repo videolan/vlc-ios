@@ -8,7 +8,7 @@
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
  *          Soomin Lee <TheHungryBu # gmail.com>
- *
+ *          Eshan Singh <eeeshan789 # gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 

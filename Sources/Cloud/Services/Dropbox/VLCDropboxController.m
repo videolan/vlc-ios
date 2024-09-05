@@ -6,8 +6,8 @@
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
- *          Jean-Baptiste Kempf <jb # videolan.org>
- *                     Eshan Singh <eeeshan789@gmail.com>
+ *       Jean-Baptiste Kempf <jb # videolan.org>
+ *       Eshan Singh <eeeshan789@gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 

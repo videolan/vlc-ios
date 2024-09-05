@@ -10,7 +10,7 @@
  *          Carola Nitz <nitz.carola # googlemail.com>
  *          Fabio Ritrovato <sephiroth87 # videolan.org>
  *          Tamas Timar <ttimar.vlc # gmail.com>
- *
+ *          Eshan Singh <eeeshan789 # gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
@@ -157,7 +157,6 @@
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
-  
     if ([_mediaList[[self.tableView indexPathForCell:cell].row] isKindOfClass:[DBFILESFolderMetadata class]]) {
         _folder = _mediaList[[self.tableView indexPathForCell:cell].row];
     } else {
@@ -165,22 +164,24 @@
     }
     
     /* selected item is a proper file, ask the user if s/he wants to download it */
-    NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                 style: UIAlertActionStyleCancel
-                                                                                action: ^(UIAlertAction *action) {
-        self->_selectedFile = nil;
-    }],
-                                                 [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
-                                                                                action: ^(UIAlertAction *action) {
-                                                     if (!(self->_folder == NULL)) {
-                                                         [self->_dropboxController downloadFolderFiles:self->_folder];
-                                                         self->_folder = nil;
-                                                     } else {
-                                                         [self->_dropboxController downloadFileToDocumentFolder:self->_selectedFile];
-                                                         self->_selectedFile = nil;
-                                                     }
-                                                 }]
+    NSArray<VLCAlertButton *> *buttonsAction = @[
+        [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                       style:UIAlertActionStyleCancel
+                                      action:^(UIAlertAction *action) {
+            self->_selectedFile = nil;
+        }],
+        [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                      action:^(UIAlertAction *action) {
+            if (self->_folder == NULL) {
+                [self->_dropboxController downloadFileToDocumentFolder:self->_selectedFile];
+                self->_selectedFile = nil;
+            } else {
+                [self->_dropboxController downloadFolderFiles:self->_folder];
+                self->_folder = nil;
+            }
+        }]
     ];
+    
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
                                          errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                        viewController:self

@@ -266,7 +266,6 @@
             if (isDirectory || supportedFile)
                  [listOfGoodFilesAndFolders addObject:boxFile];
         }
-    
     }
     
     if (isDownloadingFolder) {

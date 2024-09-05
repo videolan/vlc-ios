@@ -5,9 +5,9 @@
  * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Felix Paul Kühne <fkuehne # videolan.org>
- *          Carola Nitz <nitz.carola # googlemail.com>
- *
+ * Authors:  Felix Paul Kühne <fkuehne # videolan.org>
+ *        Carola Nitz <nitz.carola # googlemail.com>
+ *        Eshan Singh <eeeshan789 # gmail.com>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
