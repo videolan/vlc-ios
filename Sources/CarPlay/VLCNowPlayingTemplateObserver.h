@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const VLCDisplayPlayQueueCarPlay;
+
 @interface VLCNowPlayingTemplateObserver : NSObject <CPNowPlayingTemplateObserver>
 
 - (void)configureNowPlayingTemplate;

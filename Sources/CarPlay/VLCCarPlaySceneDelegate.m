@@ -25,13 +25,16 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@interface VLCCarPlaySceneDelegate() <CPTemplateApplicationSceneDelegate, CPMediaLibraryObserverDelegate>
+@interface VLCCarPlaySceneDelegate() <CPTemplateApplicationSceneDelegate, CPMediaLibraryObserverDelegate, CPListTemplateDelegate>
 {
     CPInterfaceController *_interfaceController;
     CarPlayMediaLibraryObserver *_mediaLibraryObserver;
     VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
     VLCCarPlayArtistsController *_artistsController;
     VLCCarPlayPlaylistsController *_playlistsController;
+    CPListTemplate *_playQueueTemplate;
+    CPListSection *_section;
+    VLCPlaybackService *_playbackService;
 }
 
 @end
@@ -51,6 +54,11 @@
     _nowPlayingTemplateObserver = [VLCNowPlayingTemplateObserver new];
     [[CPNowPlayingTemplate sharedTemplate] addObserver:_nowPlayingTemplateObserver];
     [_nowPlayingTemplateObserver configureNowPlayingTemplate];
+
+    _playbackService = [VLCPlaybackService sharedInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayPlayQueueTemplate) name:VLCDisplayPlayQueueCarPlay object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServicePlaybackDidStop object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServiceShuffleModeUpdated object:nil];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
@@ -61,6 +69,9 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
     _mediaLibraryObserver = nil;
     [[CPNowPlayingTemplate sharedTemplate] removeObserver:_nowPlayingTemplateObserver];
     _nowPlayingTemplateObserver = nil;
+    _playQueueTemplate = nil;
+    _section = nil;
+    _playbackService = nil;
 }
 
 - (CPTabBarTemplate *)generateRootTemplate
@@ -85,6 +96,54 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 - (void)templatesNeedUpdate
 {
     [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
+}
+
+- (CPListSection *)createListSection
+{
+    VLCMediaList *mediaList = _playbackService.isShuffleMode ? _playbackService.shuffledList : _playbackService.mediaList;
+    NSInteger mediaListCount = mediaList.count;
+    NSMutableArray<CPListItem *> *items = [NSMutableArray new];
+
+    for (NSInteger index = 0; index < mediaListCount; index++) {
+        VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:[mediaList mediaAtIndex:index]];
+        CPListItem *listItem = [[CPListItem alloc] initWithText:media.title detailText:media.artist.name];
+
+        [items addObject:listItem];
+    }
+
+    return [[CPListSection alloc] initWithItems:items];
+}
+
+- (void)listTemplate:(CPListTemplate *)listTemplate didSelectListItem:(CPListItem *)item completionHandler:(void (^)(void))completionHandler
+{
+    VLCMediaList *mediaList = _playbackService.isShuffleMode ? _playbackService.shuffledList : _playbackService.mediaList;
+    NSIndexPath *index = [listTemplate indexPathForItem:item];
+    if (index.row >= mediaList.count) {
+        return;
+    }
+
+    [_playbackService playItemAtIndex:index.row];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->_interfaceController popTemplateAnimated:YES];
+    });
+}
+
+- (void)displayPlayQueueTemplate
+{
+    if (!_playQueueTemplate) {
+        _section = [self createListSection];
+        _playQueueTemplate = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"QUEUE_LABEL", "") sections:@[_section]];
+        _playQueueTemplate.delegate = self;
+    }
+
+    [_interfaceController pushTemplate:_playQueueTemplate animated:YES];
+}
+
+- (void)resetPlayQueueTemplate
+{
+    _playQueueTemplate = nil;
+    _section = nil;
 }
 
 @end
