@@ -596,6 +596,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"QUEUE_LABEL" = "Queue";
 
 "DISPLAY_AS" = "Display as";
 
