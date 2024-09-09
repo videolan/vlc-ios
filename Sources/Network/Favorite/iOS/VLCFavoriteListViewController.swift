@@ -16,7 +16,7 @@
 import UIKit
 
 class VLCFavoriteListViewController: UIViewController {
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITES", comment: "")
@@ -50,7 +50,7 @@ class VLCFavoriteListViewController: UIViewController {
     private let searchBarSize: CGFloat = 50.0
     private var searchBarConstraint: NSLayoutConstraint?
     private var isSearching: Bool = false
-    
+
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
@@ -65,7 +65,7 @@ class VLCFavoriteListViewController: UIViewController {
         setupBarButton()
         setupSearchBar()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.setEditing(false, animated: false)
@@ -83,7 +83,7 @@ class VLCFavoriteListViewController: UIViewController {
         }
         self.setNeedsStatusBarAppearanceUpdate()
     }
-    
+
     private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
@@ -93,7 +93,7 @@ class VLCFavoriteListViewController: UIViewController {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
-        
+
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {
                 backgroundview.backgroundColor = UIColor.white
@@ -104,14 +104,14 @@ class VLCFavoriteListViewController: UIViewController {
 
         searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
         view.addSubview(searchBar)
-            NSLayoutConstraint.activate([
-                searchBarConstraint!,
-                searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-                searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-                searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
-            ])
+        NSLayoutConstraint.activate([
+            searchBarConstraint!,
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
+        ])
     }
-    
+
     private func setupSearchDataSource() {
         if !searchDataSource.isEmpty {
             searchDataSource.removeAll()
@@ -124,7 +124,7 @@ class VLCFavoriteListViewController: UIViewController {
             }
         }
     }
-    
+
     private func setupTableView() {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -221,12 +221,12 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let favorite = isSearching ? searchResults.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
-            
+
             if favorite.protocolIdentifier == "FILE" {
                 showCloudFavVC(fav: favorite)
                 return
             }
-            
+
             var serverBrowser: VLCNetworkServerBrowser? = nil
             let identifier = favorite.protocolIdentifier as NSString
 
@@ -280,22 +280,21 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
     }
 }
 
-
 extension VLCFavoriteListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            if searchText.isEmpty {
-                searchResults = searchDataSource
-            } else {
-                searchResults = searchDataSource.filter { favorite in
-                    return favorite.userVisibleName.range(of: searchText, options: .caseInsensitive) != nil
-                }
+        if searchText.isEmpty {
+            searchResults = searchDataSource
+        } else {
+            searchResults = searchDataSource.filter { favorite in
+                return favorite.userVisibleName.range(of: searchText, options: .caseInsensitive) != nil
             }
-        
-            searchBar.setShowsCancelButton(true, animated: true)
-            isSearching = !searchText.isEmpty
-            tableView.reloadData()
         }
-    
+
+        searchBar.setShowsCancelButton(true, animated: true)
+        isSearching = !searchText.isEmpty
+        tableView.reloadData()
+    }
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
@@ -328,12 +327,11 @@ extension VLCFavoriteListViewController: UIScrollViewDelegate {
     }
 }
 
-
 extension VLCFavoriteListViewController {
     private func showCloudFavVC(fav: VLCFavorite) {
         let favURL = fav.url
         var cloudVC: VLCCloudStorageTableViewController?
-        
+
         if let favoritetype = favURL.host {
             switch favoritetype {
             case "DropBox":
@@ -350,7 +348,7 @@ extension VLCFavoriteListViewController {
                 break
             }
         }
-        
+
         if let viewController = cloudVC {
             let basePath = favURL.path
             let filePath = basePath.hasPrefix("/") ? String(basePath.dropFirst()) : basePath
