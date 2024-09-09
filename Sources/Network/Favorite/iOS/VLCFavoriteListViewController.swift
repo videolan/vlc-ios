@@ -8,6 +8,7 @@
  * Authors: Rizky Maulana <mrizky9601@gmail.com>
  *          Eshan Singh <eeeshan789@icloud.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -298,6 +299,7 @@ extension VLCFavoriteListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
+        searchBar.text = ""
         isSearching = false
         tableView.reloadData()
     }
