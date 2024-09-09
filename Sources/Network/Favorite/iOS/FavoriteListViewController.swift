@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCFavoriteListViewController.swift
+ * FavoriteListViewController.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
@@ -15,7 +15,7 @@
 
 import UIKit
 
-class VLCFavoriteListViewController: UIViewController {
+class FavoriteListViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -184,7 +184,7 @@ class VLCFavoriteListViewController: UIViewController {
     }
 }
 
-extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
+extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return isSearching ? 1 : favoriteService.numberOfFavoritedServers
     }
@@ -272,7 +272,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     }
 }
 
-extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
+extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
     func reloadData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -280,7 +280,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
     }
 }
 
-extension VLCFavoriteListViewController: UISearchBarDelegate {
+extension FavoriteListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchResults = searchDataSource
@@ -304,7 +304,7 @@ extension VLCFavoriteListViewController: UISearchBarDelegate {
     }
 }
 
-extension VLCFavoriteListViewController: UIScrollViewDelegate {
+extension FavoriteListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
         if isSearching {
@@ -327,7 +327,7 @@ extension VLCFavoriteListViewController: UIScrollViewDelegate {
     }
 }
 
-extension VLCFavoriteListViewController {
+extension FavoriteListViewController {
     private func showCloudFavVC(fav: VLCFavorite) {
         let favURL = fav.url
         var cloudVC: VLCCloudStorageTableViewController?
@@ -357,4 +357,3 @@ extension VLCFavoriteListViewController {
         }
     }
 }
-

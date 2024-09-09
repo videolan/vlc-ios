@@ -49,7 +49,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
     let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
-    let favoriteVC = VLCFavoriteListViewController()
+    let favoriteVC = FavoriteListViewController()
 
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 

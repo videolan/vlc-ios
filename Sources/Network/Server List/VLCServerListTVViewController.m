@@ -202,7 +202,7 @@
         {
             if (login.protocolIdentifier) {
                 if ([login.protocolIdentifier isEqualToString:@"favorites"]) {
-                    VLCFavoriteListViewController *favoriteListViewController = [[VLCFavoriteListViewController alloc] init];
+                    FavoriteListViewController *favoriteListViewController = [[FavoriteListViewController alloc] init];
                      UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
                     navController.view.window.translatesAutoresizingMaskIntoConstraints = NO;
                      [self presentViewController: navController animated:YES completion:nil];

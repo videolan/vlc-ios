@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCFavoriteListViewController.swift
+ * FavoriteListViewController.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2024 VideoLAN. All rights reserved.
@@ -14,36 +14,36 @@
 
 import Foundation
 
-class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
-    
+class FavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
+
     let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService
-    
+
     // For delete operations
     private var currentlyFocusedIndexPath: IndexPath?
     private var isAnyCellFocused: Bool = false
-    
+
     init() {
         super.init(nibName: "VLCRemoteBrowsingCollectionViewController", bundle: nil)
         title = NSLocalizedString("FAVORITES", comment: "")
         super.collectionView.register(FavoriteSectionHeader.self, forSupplementaryViewOfKind:
                                         UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoriteSectionHeader.identifier)
-        
+
         let deleteRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(startEditMode))
         deleteRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.select.rawValue)]
         deleteRecognizer.minimumPressDuration = 1.0
         self.view.addGestureRecognizer(deleteRecognizer)
-        
+
         let cancelRecognizer = UITapGestureRecognizer(target: self, action: #selector(endEditMode))
         cancelRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.select.rawValue), NSNumber(value: UIPress.PressType.menu.rawValue)]
         cancelRecognizer.isEnabled = self.isEditing
         self.view.addGestureRecognizer(cancelRecognizer)
         showEmptyViewIfNeeded()
     }
-    
+
     required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func showEmptyViewIfNeeded() {
         if favoriteService.numberOfFavoritedServers == 0 {
             self.nothingFoundLabel.text = NSLocalizedString("NO_FAVORITES_DESCRIPTION", comment: "")
@@ -52,7 +52,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
             nothingFoundView!.sizeToFit()
             nothingFoundView!.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(nothingFoundView!)
-            
+
             let yConstraint = NSLayoutConstraint(item: nothingFoundView as Any,
                                                  attribute: .centerY,
                                                  relatedBy: .equal,
@@ -61,7 +61,7 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
                                                  multiplier: 1.0,
                                                  constant: 0.0)
             self.view.addConstraint(yConstraint)
-            
+
             let xConstraint = NSLayoutConstraint(item: nothingFoundView as Any,
                                                  attribute: .centerX,
                                                  relatedBy: .equal,
@@ -73,16 +73,17 @@ class VLCFavoriteListViewController: VLCRemoteBrowsingCollectionViewController {
         }
     }
 }
+
 // MARK: - UICollectionView
-extension VLCFavoriteListViewController {
+extension FavoriteListViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favoriteService.numberOfFavoritesOfServer(at: section)
     }
-    
+
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return favoriteService.numberOfFavoritedServers
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VLCRemoteBrowsingTVCell", for: indexPath) as! VLCRemoteBrowsingTVCell
         if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
@@ -92,7 +93,7 @@ extension VLCFavoriteListViewController {
         cell.thumbnailImage = UIImage(named: "folder")
         return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
 
@@ -126,7 +127,7 @@ extension VLCFavoriteListViewController {
             self.navigationController?.pushViewController(serverBrowserVC, animated: true)
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
          if kind == UICollectionView.elementKindSectionHeader {
              let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoriteSectionHeader.identifier, for: indexPath) as!  FavoriteSectionHeader
@@ -138,10 +139,10 @@ extension VLCFavoriteListViewController {
          }
         return UICollectionReusableView()
     }
-    
 }
+
 // MARK: - Deletion
-extension VLCFavoriteListViewController {
+extension FavoriteListViewController {
     @objc private func startEditMode() {
         self.isEditing = true
         let alertController = UIAlertController(title: NSLocalizedString("UNFAVORITE_ALERT_TITLE", comment: ""), message: nil, preferredStyle: .alert)
@@ -159,21 +160,22 @@ extension VLCFavoriteListViewController {
         if self.isAnyCellFocused {
             present(alertController, animated: true, completion: nil)
         }
-            
     }
-    
+
     @objc private func endEditMode() {
         self.isEditing = false
     }
 }
+
 // MARK: - Rename Delegate
-extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
+extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
     func reloadData() {
         self.collectionView.reloadData()
     }
 }
+
 // MARK: - UICollectionViewFlowLayout
-extension VLCFavoriteListViewController {
+extension FavoriteListViewController {
     override func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         guard let nextFocusedIndexPath = context.nextFocusedIndexPath else {
             // Handle the case where nextFocusedIndexPath is nil, if needed.
@@ -189,7 +191,7 @@ extension VLCFavoriteListViewController {
     }
 }
 
-extension VLCFavoriteListViewController: UICollectionViewDelegateFlowLayout {
+extension FavoriteListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: FavoriteSectionHeader.height)
     }
@@ -197,24 +199,24 @@ extension VLCFavoriteListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 50, left: 100, bottom: 50, right: 100)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 100.00
     }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 48
     }
-    
 }
 
 public extension IndexPath {
-  func isLastRow(at collectionView: UICollectionView) -> Bool {
-    return row == (collectionView.numberOfItems(inSection: section) - 1)
-  }
+    func isLastRow(at collectionView: UICollectionView) -> Bool {
+        return row == (collectionView.numberOfItems(inSection: section) - 1)
+    }
 }
 
 // MARK: - Focus Engine Guide for Header's Rename Button
-extension VLCFavoriteListViewController {
+extension FavoriteListViewController {
     private func setupFocusGuide(for header: FavoriteSectionHeader, at indexPath: IndexPath, in collectionView: UICollectionView) {
         let focusGuide = UIFocusGuide()
         self.view.addLayoutGuide(focusGuide)
@@ -222,7 +224,7 @@ extension VLCFavoriteListViewController {
         focusGuide.preferredFocusEnvironments = [header.headerView.renameButton]
 
         let cell = collectionView.cellForItem(at: indexPath)
-        
+
         focusGuide.widthAnchor.constraint(equalTo: cell?.widthAnchor ?? focusGuide.widthAnchor).isActive = true
         focusGuide.heightAnchor.constraint(equalTo: cell?.heightAnchor ?? focusGuide.heightAnchor).isActive = true
 
