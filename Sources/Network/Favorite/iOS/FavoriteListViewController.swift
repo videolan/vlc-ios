@@ -270,6 +270,27 @@ extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource
             self.showEmptyViewIfNeeded()
         }
     }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // This ensures that the search bar is always visible like a sticky while searching
+        if isSearching {
+            searchBar.endEditing(true)
+            if let searchBarText = searchBar.text,
+               searchBarText.isEmpty {
+                searchBarCancelButtonClicked(searchBar)
+            }
+            return
+        }
+
+        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+            tableView.contentInset.top = searchBarSize
+        }
+
+        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
+            tableView.contentInset.top = 0
+        }
+    }
 }
 
 extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
@@ -301,29 +322,6 @@ extension FavoriteListViewController: UISearchBarDelegate {
         searchBar.text = ""
         isSearching = false
         tableView.reloadData()
-    }
-}
-
-extension FavoriteListViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // This ensures that the search bar is always visible like a sticky while searching
-        if isSearching {
-            searchBar.endEditing(true)
-            if let searchBarText = searchBar.text,
-               searchBarText.isEmpty {
-                searchBarCancelButtonClicked(searchBar)
-            }
-            return
-        }
-
-        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
-        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
-            tableView.contentInset.top = searchBarSize
-        }
-
-        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
-            tableView.contentInset.top = 0
-        }
     }
 }
 
