@@ -127,7 +127,7 @@ If you have any question or if you're not sure it's actually an issue, please vi
 
 You have encountered an issue and wish to report it to the VLC dev team?
 
-You can create one on our [GitLab](https://code.videolan.org/videolan/vlc-ios/issues) or on our [bug tracker](https://trac.videolan.org/vlc/).
+You can create one on our [GitLab](https://code.videolan.org/videolan/vlc-ios/issues).
 
 Before creating an issue or ticket, please double check for duplicates!
 
