@@ -277,6 +277,14 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
             self.downloadButton.hidden = YES;
+            self.isFavourable = YES;
+
+            VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
+            NSNumber *folderIDNumber = _pcloudFile.folderID;
+            NSString *selectedFilePath = [folderIDNumber stringValue];
+            NSString *urlString = [NSString stringWithFormat:@"file://PCloud/%@", selectedFilePath];
+            NSURL *url = [NSURL URLWithString:urlString];
+            self.isFavourite = [service isFavoriteURL:url];
         } else {
             self.titleLabel.text = self.pcloudFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;

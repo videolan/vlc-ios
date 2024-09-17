@@ -339,6 +339,8 @@ extension FavoriteListViewController {
             case "Box":
                 cloudVC = VLCBoxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
                 break
+            case "PCloud":
+                cloudVC = VLCPCloudViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
             default:
                 break
             }

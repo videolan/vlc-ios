@@ -140,7 +140,6 @@ class VLCPCloudController: VLCCloudStorageController {
         let documentDirectory = searchPaths[0]
         if let meta = file.fileMetadata {
             let filePath = documentDirectory.appending("/\(meta.name)")
-            print(filePath)
             getFileURL(id: file.fileMetadata!.id, completion: { [self] url in
                 if let fileURL = url {
                     downloadFile(path: fileURL, destination: filePath)
