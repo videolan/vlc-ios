@@ -70,6 +70,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) VLCMetaData *metadata;
 
 @property (nonatomic, readonly) NSInteger mediaDuration;
+@property (nonatomic, readonly) VLCTime *mediaLength;
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, readonly) BOOL playerIsSetup;
 @property (nonatomic, readwrite) BOOL playAsAudio;

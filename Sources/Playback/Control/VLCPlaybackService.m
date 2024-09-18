@@ -529,7 +529,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)mediaDuration
 {
-    return _mediaPlayer.media.length.intValue;;
+    return _mediaPlayer.media.length.intValue;
+}
+
+- (VLCTime *)mediaLength
+{
+    return _mediaPlayer.media.length;
 }
 
 - (BOOL)isPlaying
