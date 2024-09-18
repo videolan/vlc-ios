@@ -129,11 +129,9 @@ class MediaScrubProgressBar: UIStackView {
     }
 
     func updateCurrentTime() {
-        let mediaDuration = playbackService.mediaDuration
-
         let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
-            ? VLCTime(number: NSNumber(value: -(Int32(mediaDuration) - playbackService.playedTime().intValue))).stringValue
-            : VLCTime(number: NSNumber.init(value:mediaDuration)).stringValue
+            ? playbackService.remainingTime().stringValue
+            : playbackService.mediaLength.stringValue
 
         remainingTimeButton.setTitle(timeToDisplay, for: .normal)
         remainingTimeButton.setNeedsLayout()
