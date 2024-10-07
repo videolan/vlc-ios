@@ -139,6 +139,8 @@ extension CollectionViewCellPreviewController {
                                         label: NSLocalizedString("ENCODING", comment: "")))
         infos.append(PreviewInformation(value: video.videoDimensions(),
                                         label: NSLocalizedString("VIDEO_DIMENSIONS", comment: "")))
+        infos.append(PreviewInformation(value: String(video.playCount()),
+                                        label: NSLocalizedString("PLAY_COUNT", comment: "")))
         return infos
     }
 
@@ -167,6 +169,10 @@ extension CollectionViewCellPreviewController {
                 if !codecs.isEmpty {
                     infos.append(PreviewInformation(value: codecs))
                 }
+                
+                let playCount = String(media.playCount())
+                infos.append(PreviewInformation(value: playCount,
+                                                label: NSLocalizedString("PLAY_COUNT", comment: "")))
             } else {
                 infos += infoForVideo(media)
             }
