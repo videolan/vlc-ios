@@ -1740,9 +1740,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         mediaNavigationBar.setMediaTitleLabelText("")
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
 
-        DispatchQueue.main.async {
-            self.updateAudioInterface(with: playbackService.metadata)
-        }
         // FIXME: -
         resetIdleTimer()
     }
@@ -1786,6 +1783,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
 
         if currentState == .opening {
+            updateAudioInterface(with: playbackService.metadata)
             applyCustomEqualizerProfileIfNeeded()
         }
 
@@ -1822,8 +1820,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         } else {
             self.externalVideoOutputView.isHidden = true
         }
-
-        updateAudioInterface(with: metadata)
 
         videoPlayerButtons()
     }
