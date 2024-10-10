@@ -685,3 +685,8 @@
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
+ 
+// MARK: - AppIntent Strings
+"APPINTENT_PLAY_MEDIA_TITLE" = "Play in the background";
+"APPINTENT_PLAY_MEDIA_DESCRIPTION" = "Play the selected playlist in the background without opening the app.";
+"APPINTENT_PLAY_MEDIA_PLAY_${mediaName}" = "Play ${mediaName} in the background";
