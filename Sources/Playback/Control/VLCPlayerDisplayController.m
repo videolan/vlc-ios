@@ -60,6 +60,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackServicePlaybackDidStart object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackServicePlaybackDidFail object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackServicePlaybackDidStop object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidMoveToNextMedia:) name:VLCPlaybackServicePlaybackDidMoveOnToNextItem object:nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
     }
     return self;
@@ -161,11 +162,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     VLCMedia *currentMedia = _playbackController.currentlyPlayingMedia;
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:currentMedia];
 
-    _playbackController.fullscreenSessionRequested = [media type] != VLCMLMediaTypeAudio;
+    _currentMediaType = [media type];
+    _playbackController.fullscreenSessionRequested = _currentMediaType != VLCMLMediaTypeAudio;
 
     if (self.playbackController.fullscreenSessionRequested && enforceFullscreen) {
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
-    } else if ([media type] == VLCMLMediaTypeAudio && _playbackController.numberOfVideoTracks > 0) {
+    } else if (_currentMediaType == VLCMLMediaTypeAudio && _playbackController.numberOfVideoTracks > 0) {
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
     }
 
@@ -194,11 +196,33 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)playbackDidStop:(NSNotification *)notification
 {
     [self dismissPlaybackView];
+    _currentMediaType = VLCMLMediaTypeUnknown;
 }
 
 - (void)playbackDidFail:(NSNotification *)notification
 {
     [self showPlaybackError];
+}
+
+- (void)playbackDidMoveToNextMedia:(NSNotification *)notification
+{
+    VLCMedia *currentMedia = _playbackController.currentlyPlayingMedia;
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:currentMedia];
+
+    VLCMLMediaType mediaType = [media type];
+    if (media == nil || mediaType == VLCMLMediaTypeUnknown || [self isMiniPlayerVisible]) {
+        return;
+    }
+
+    if (_currentMediaType == VLCMLMediaTypeAudio && mediaType == VLCMLMediaTypeVideo) {
+        [self dismissPlaybackView];
+        [self showFullscreenPlayback];
+    } else if (_currentMediaType == VLCMLMediaTypeVideo && mediaType == VLCMLMediaTypeAudio) {
+        [self dismissPlaybackView];
+        [self showAudioPlayer];
+    }
+
+    _currentMediaType = mediaType;
 }
 
 #pragma mark - API

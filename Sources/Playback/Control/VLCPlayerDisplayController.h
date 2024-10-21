@@ -17,6 +17,8 @@
 @class VLCServices;
 @class VLCQueueViewController;
 
+typedef NS_ENUM(UInt8, VLCMLMediaType);
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const VLCPlayerDisplayControllerDisplayMiniPlayer;
@@ -56,6 +58,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
 @property (nonatomic, readonly) BOOL canBecomeFirstResponder;
 @property (readonly, nullable) UIViewController *videoPlayerViewController;
+@property (readwrite, nonatomic) VLCMLMediaType currentMediaType;
 
 - (nullable instancetype)init;
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
