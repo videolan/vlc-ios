@@ -534,9 +534,11 @@ private extension AudioMiniPlayer {
 
             playbackService.videoOutputView = nil
         } else {
+            artworkImageView.image = nil
             artworkBlurImageView.image = nil
-            queueViewController?.reloadBackground(with: nil)
             artworkBlurView.isHidden = true
+            queueViewController?.reloadBackground(with: nil)
+            playbackService.videoOutputView = artworkImageView
         }
     }
 }
