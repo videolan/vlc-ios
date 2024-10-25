@@ -150,6 +150,18 @@ class VideoPlayerControls: UIView {
         playPauseButton.setImage(UIImage(named: imageName), for: .normal)
     }
 
+    func shouldEnableSeekButtons(_ enable: Bool) {
+        backwardButton.isEnabled = enable
+        backwardButton.isHidden = !enable
+        forwardButton.isEnabled = enable
+        forwardButton.isHidden = !enable
+
+        previousMediaButton.isEnabled = !enable
+        previousMediaButton.isHidden = enable
+        nextMediaButton.isEnabled = !enable
+        nextMediaButton.isHidden = enable
+    }
+
     func shouldDisableControls(_ disable: Bool) {
         subtitleButton.isEnabled = !disable
         dvdButton.isEnabled = !disable

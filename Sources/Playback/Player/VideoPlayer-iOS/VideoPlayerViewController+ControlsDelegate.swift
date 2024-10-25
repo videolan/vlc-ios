@@ -75,7 +75,10 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
-        jumpBackwards(seekBackwardBy)
+        totalSeekDuration = previousSeekState == .forward ? -seekBackwardBy : totalSeekDuration - seekBackwardBy
+        previousSeekState = .backward
+
+        displayAndApplySeekDuration(seekBackwardBy)
     }
 
     func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls) {
@@ -96,7 +99,10 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
-        jumpForwards(seekForwardBy)
+        totalSeekDuration = previousSeekState == .backward ? seekForwardBy : totalSeekDuration + seekForwardBy
+        previousSeekState = .forward
+
+        displayAndApplySeekDuration(seekForwardBy)
     }
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {

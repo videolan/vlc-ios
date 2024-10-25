@@ -137,8 +137,8 @@ class VideoPlayerViewController: UIViewController {
     // MARK: - Seek
    
     private var numberOfGestureSeek: Int = 0
-    private var totalSeekDuration: Int = 0
-    private var previousSeekState: VideoPlayerSeekState = .default
+    var totalSeekDuration: Int = 0
+    var previousSeekState: VideoPlayerSeekState = .default
     var tapSwipeEqual: Bool = true
     var forwardBackwardEqual: Bool = true
     var seekForwardBy: Int = 0
@@ -305,7 +305,7 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - VideoOutput
 
-    private lazy var statusLabel: VLCStatusLabel = {
+    lazy var statusLabel: VLCStatusLabel = {
         var statusLabel = VLCStatusLabel()
         statusLabel.isHidden = true
         statusLabel.textColor = .white
@@ -760,6 +760,22 @@ class VideoPlayerViewController: UIViewController {
         titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
         titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
+
+    func displayAndApplySeekDuration(_ currentSeek: Int) {
+        var hudString: String
+        if totalSeekDuration > 0 {
+            hudString = "⇒ "
+            playbackService.jumpForward(Int32(currentSeek))
+        } else {
+            hudString = "⇐ "
+            playbackService.jumpBackward(Int32(currentSeek))
+        }
+
+        // Convert the time in seconds into milliseconds in order to the get the right VLCTime value.
+        let duration: VLCTime = VLCTime(number: NSNumber(value: abs(totalSeekDuration) * 1000))
+        hudString.append(duration.stringValue)
+        statusLabel.showStatusMessage(hudString)
+    }
 }
 
 // MARK: -
@@ -873,18 +889,7 @@ private extension VideoPlayerViewController {
             previousSeekState = .backward
         }
 
-        if totalSeekDuration > 0 {
-            hudString = "⇒ "
-            playbackService.jumpForward(Int32(currentSeek))
-        } else {
-            hudString = "⇐ "
-            playbackService.jumpBackward(Int32(currentSeek))
-        }
-
-        // Convert the time in seconds into milliseconds in order to the get the right VLCTime value.
-        let duration: VLCTime = VLCTime(number: NSNumber(value: abs(totalSeekDuration) * 1000))
-        hudString.append(duration.stringValue)
-        statusLabel.showStatusMessage(hudString)
+        displayAndApplySeekDuration(currentSeek)
     }
 
     private func setupSeekDurations() {
@@ -1753,6 +1758,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
                                  currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool,
                                  for playbackService: PlaybackService) {
         videoPlayerControls.updatePlayPauseButton(toState: isPlaying)
+        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
