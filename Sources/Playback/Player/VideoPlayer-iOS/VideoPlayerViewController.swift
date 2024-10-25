@@ -1380,6 +1380,10 @@ extension VideoPlayerViewController {
             break
         }
     }
+
+    @objc func updatePlayerControls() {
+        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
+    }
 }
 
 // MARK: - Private setups
@@ -1389,6 +1393,9 @@ private extension VideoPlayerViewController {
     private func setupObservers() {
         try? AVAudioSession.sharedInstance().setActive(true)
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
     }
 
     private func setupVideoControlsState() {

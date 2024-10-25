@@ -937,17 +937,19 @@ private extension MediaCategoryViewController {
             let playbackController = PlaybackService.sharedInstance()
             playbackController.mediaList.lock()
             switch type {
-                case .play:
-                    playbackController.play(media)
-                case .playNextInQueue:
-                    playbackController.playMediaNextInQueue(media)
-                case .appendToQueue:
-                    playbackController.appendMediaToQueue(media)
-                case .playAsAudio:
-                    playbackController.playAsAudio = true
-                    playbackController.play(media)
-                default:
-                    assertionFailure("generatePlayAction: cannot be used with other actions")
+            case .play:
+                playbackController.play(media)
+            case .playNextInQueue:
+                playbackController.playMediaNextInQueue(media)
+                NotificationCenter.default.post(name: .VLCDidAppendMediaToQueue, object: nil)
+            case .appendToQueue:
+                playbackController.appendMediaToQueue(media)
+                NotificationCenter.default.post(name: .VLCDidAppendMediaToQueue, object: nil)
+            case .playAsAudio:
+                playbackController.playAsAudio = true
+                playbackController.play(media)
+            default:
+                assertionFailure("generatePlayAction: cannot be used with other actions")
             }
             playbackController.mediaList.unlock()
         } else if let collection = modelContent as? MediaCollectionModel {
@@ -960,17 +962,19 @@ private extension MediaCategoryViewController {
                 files = collection.files(with: .default, desc: false)
             }
             switch type {
-                case .play:
-                    playbackController.playCollection(files)
-                case .playNextInQueue:
-                    playbackController.playCollectionNextInQueue(files)
-                case .appendToQueue:
-                    playbackController.appendCollectionToQueue(files)
-                case .playAsAudio:
-                    playbackController.playAsAudio = true
-                    playbackController.playCollection(files)
-                default:
-                    assertionFailure("generatePlayAction: cannot be used with other actions")
+            case .play:
+                playbackController.playCollection(files)
+            case .playNextInQueue:
+                playbackController.playCollectionNextInQueue(files)
+                NotificationCenter.default.post(name: .VLCDidAppendMediaToQueue, object: nil)
+            case .appendToQueue:
+                playbackController.appendCollectionToQueue(files)
+                NotificationCenter.default.post(name: .VLCDidAppendMediaToQueue, object: nil)
+            case .playAsAudio:
+                playbackController.playAsAudio = true
+                playbackController.playCollection(files)
+            default:
+                assertionFailure("generatePlayAction: cannot be used with other actions")
             }
             playbackController.mediaList.unlock()
         }

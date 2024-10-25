@@ -10,6 +10,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+extension Notification.Name {
+    static let VLCDidAppendMediaToQueue = Notification.Name("didAppendMediaToQueue")
+    static let VLCDidRemoveMediaFromQueue = Notification.Name("didRemoveMediaFromQueue")
+}
+
 @objc(VLCQueueViewControllerDelegate)
 protocol QueueViewControllerDelegate {
     @objc optional func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?)
@@ -569,6 +574,7 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
         resetScrollView({ _ in
             self.mediaList.removeMedia(at: UInt(indexPath.row))
             self.reload()
+            NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
         })
     }
 
