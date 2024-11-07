@@ -630,10 +630,13 @@ class PlayerViewController: UIViewController {
         volumeView.alpha = 0.00001
         view.addSubview(volumeView)
     }
-    
+
     private func setupObservers() {
         try? AVAudioSession.sharedInstance().setActive(true)
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
     }
 
     private func setupSeekDurations() {
@@ -900,6 +903,10 @@ class PlayerViewController: UIViewController {
         // CHECK THE TAP LOCATION
 
         executeSeekFromGesture(.tap)
+    }
+
+    @objc func updatePlayerControls() {
+        // UPDATE THE PLAYER CONTROLS
     }
 }
 

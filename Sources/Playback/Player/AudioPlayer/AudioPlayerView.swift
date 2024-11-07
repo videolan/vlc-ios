@@ -376,6 +376,18 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         playbackSpeedButton.alpha = enabled ? 1.0 : 0.5
     }
 
+    func shouldEnableSeekButtons(_ enabled: Bool) {
+        backwardButton.isEnabled = enabled
+        backwardButton.isHidden = !enabled
+        forwardButton.isEnabled = enabled
+        forwardButton.isHidden = !enabled
+
+        previousButton.isEnabled = !enabled
+        previousButton.isHidden = enabled
+        nextButton.isEnabled = !enabled
+        nextButton.isHidden = enabled
+    }
+
     func updateConstraints(for orientation: UIDeviceOrientation) {
         let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
 
