@@ -342,6 +342,13 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         updateShuffleState()
     }
 
+    func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView) {
+        totalSeekDuration = previousSeekState == .forward ? -seekBackwardBy : totalSeekDuration - seekBackwardBy
+        previousSeekState = .backward
+
+        displayAndApplySeekDuration(seekBackwardBy)
+    }
+
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView) {
         playbackService.previous()
     }
@@ -353,6 +360,13 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 
     func audioPlayerViewDelegateDidTapNextButton(_ audioPlayerView: AudioPlayerView) {
         playbackService.next()
+    }
+
+    func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView) {
+        totalSeekDuration = previousSeekState == .backward ? seekForwardBy : totalSeekDuration + seekForwardBy
+        previousSeekState = .forward
+
+        displayAndApplySeekDuration(seekForwardBy)
     }
 
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView) {

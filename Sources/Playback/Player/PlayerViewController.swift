@@ -466,30 +466,8 @@ class PlayerViewController: UIViewController {
         playbackService.toggleRepeatMode()
     }
 
-    // MARK: - Private methods
-
-    private func jumpBackwards(_ interval: Int = 10) {
-        playbackService.jumpBackward(Int32(interval))
-    }
-
-    private func jumpForwards(_ interval: Int = 10) {
-        playbackService.jumpForward(Int32(interval))
-    }
-
-    private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
-        var hudString: String = ""
-
-        let currentSeek: Int
-        if numberOfGestureSeek > 0 {
-            currentSeek = type == .tap ? seekForwardBy : seekForwardBySwipe
-            totalSeekDuration = previousSeekState == .backward ? currentSeek : totalSeekDuration + currentSeek
-            previousSeekState = .forward
-        } else {
-            currentSeek = type == .tap ? seekBackwardBy : seekBackwardBySwipe
-            totalSeekDuration = previousSeekState == .forward ? -currentSeek : totalSeekDuration - currentSeek
-            previousSeekState = .backward
-        }
-
+    func displayAndApplySeekDuration(_ currentSeek: Int) {
+        var hudString: String
         if totalSeekDuration > 0 {
             hudString = "⇒ "
             jumpForwards(currentSeek)
@@ -502,6 +480,31 @@ class PlayerViewController: UIViewController {
         let duration: VLCTime = VLCTime(number: NSNumber(value: abs(totalSeekDuration) * 1000))
         hudString.append(duration.stringValue)
         statusLabel.showStatusMessage(hudString)
+    }
+
+    // MARK: - Private methods
+
+    private func jumpBackwards(_ interval: Int = 10) {
+        playbackService.jumpBackward(Int32(interval))
+    }
+
+    private func jumpForwards(_ interval: Int = 10) {
+        playbackService.jumpForward(Int32(interval))
+    }
+
+    private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
+        let currentSeek: Int
+        if numberOfGestureSeek > 0 {
+            currentSeek = type == .tap ? seekForwardBy : seekForwardBySwipe
+            totalSeekDuration = previousSeekState == .backward ? currentSeek : totalSeekDuration + currentSeek
+            previousSeekState = .forward
+        } else {
+            currentSeek = type == .tap ? seekBackwardBy : seekBackwardBySwipe
+            totalSeekDuration = previousSeekState == .forward ? -currentSeek : totalSeekDuration - currentSeek
+            previousSeekState = .backward
+        }
+
+        displayAndApplySeekDuration(currentSeek)
     }
 
     private func showIcon(button: UIButton) {
