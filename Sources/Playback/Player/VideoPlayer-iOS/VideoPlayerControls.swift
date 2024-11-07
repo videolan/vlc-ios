@@ -26,7 +26,7 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     @objc optional func videoPlayerControlsDelegateDidLongPressPlayPauseBegan(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidLongPressPlayPauseEnded(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapForward(_ videoPlayerControls: VideoPlayerControls)
 
     // MARK: - Right Controls
 
@@ -231,7 +231,7 @@ extension VideoPlayerControls {
     }
 
     @IBAction func handleForwardButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelegateDidTapForeward(self)
+        delegate?.videoPlayerControlsDelegateDidTapForward(self)
     }
 }
 

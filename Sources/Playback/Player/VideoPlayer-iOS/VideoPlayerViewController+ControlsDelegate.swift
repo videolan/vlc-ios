@@ -98,7 +98,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         playbackService.next()
     }
 
-    func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapForward(_ videoPlayerControls: VideoPlayerControls) {
         totalSeekDuration = previousSeekState == .backward ? seekForwardBy : totalSeekDuration + seekForwardBy
         previousSeekState = .forward
 
