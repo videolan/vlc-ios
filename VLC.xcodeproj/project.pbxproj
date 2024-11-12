@@ -421,7 +421,6 @@
 		D9B2DCD72938A9EC003269D8 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */; };
 		D9B36AF52AF3E01200A10C99 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */; };
 		D9B36AF62AF4020000A10C99 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */; };
-		D9B4027A298BC614007E923F /* UINavigationController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */; };
 		D9B4027D298BEF4F007E923F /* AlbumHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */; };
 		D9B421732B14AB1C000F7318 /* ABRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B421722B14AB1C000F7318 /* ABRepeatView.swift */; };
 		D9D6E989291BDF2200ADBC74 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */; };
@@ -1168,7 +1167,6 @@
 		D9AFDCA427D6383F002326CC /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
-		D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+StatusBar.swift"; sourceTree = "<group>"; };
 		D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderFlowLayout.swift; sourceTree = "<group>"; };
 		D9B421722B14AB1C000F7318 /* ABRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABRepeatView.swift; sourceTree = "<group>"; };
 		D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
@@ -2182,7 +2180,6 @@
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
 				7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */,
 				D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */,
-				D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */,
 				D96CC64B2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift */,
 				7D3150A72AA8B8B90068D478 /* UIImage+AverageColor.h */,
 				7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */,
@@ -3798,7 +3795,6 @@
 				4170152C209A1D3600802E44 /* MediaViewController.swift in Sources */,
 				DD8F84311B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m in Sources */,
 				418B144720179C00000447AA /* MediaCategoryViewController.swift in Sources */,
-				D9B4027A298BC614007E923F /* UINavigationController+StatusBar.swift in Sources */,
 				41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				8DD651C4208F786F0052EE68 /* ActionSheetSectionHeader.swift in Sources */,
