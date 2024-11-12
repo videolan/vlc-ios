@@ -255,8 +255,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             backgroundColor = .clear
         }
 
-        navigationController?.navigationBar.backgroundColor = backgroundColor
-        navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
+        if #available(iOS 13.0, *) {
+            let standardAppearance = navigationItem.standardAppearance
+            let scrollEdgeAppearance = navigationItem.scrollEdgeAppearance
+            standardAppearance?.backgroundColor = backgroundColor
+            scrollEdgeAppearance?.backgroundColor = backgroundColor
+        }
 
         if let albumHeader = albumHeader,
            let navBar = navigationController?.navigationBar {
@@ -1465,8 +1469,12 @@ extension MediaCategoryViewController: EditControllerDelegate {
                 backgroundColor = .clear
             }
 
-            navigationController?.navigationBar.backgroundColor = backgroundColor
-            navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
+            if #available(iOS 13.0, *) {
+                let standardAppearance = navigationItem.standardAppearance
+                let scrollEdgeAppearance = navigationItem.scrollEdgeAppearance
+                standardAppearance?.backgroundColor = backgroundColor
+                scrollEdgeAppearance?.backgroundColor = backgroundColor
+            }
 
             if let albumHeader = albumHeader,
                let navBar = navigationController?.navigationBar {
