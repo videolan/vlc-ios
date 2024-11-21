@@ -59,7 +59,7 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     `./compileAndBuildVLCKit.sh -a ${MYARCH}`
 
-    MYARCH can be `x86_64` `armv7` or `aarch64`.
+    MYARCH can be `x86_64` or `aarch64`.
 
     Add `-d` for a debug build (to have valid stack straces and asserts).
 
