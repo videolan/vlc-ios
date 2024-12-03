@@ -17,832 +17,779 @@
 import Foundation
 import LocalAuthentication
 
-enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
-    case main
-    case donation
-    case generic
-    case privacy
-    case gestureControl
-    case video
-    case subtitles
-    case audio
-    case casting
-    case mediaLibrary
-    case network
-    case lab
-    case reset
+// MARK: - SettingsItem
+struct SettingsItem: Equatable {
+    let title: String
+    let subtitle: String?
+    let action: Action
+    let emphasizedTitle: Bool
 
-    var description: String {
-        switch self {
-        case .main:
-            return ""
-        case .donation:
-            return ""
-        case .generic:
-            return "SETTINGS_GENERIC_TITLE"
-        case .privacy:
-            return "SETTINGS_PRIVACY_TITLE"
-        case .gestureControl:
-            return "SETTINGS_GESTURES"
-        case .video:
-            return "SETTINGS_VIDEO_TITLE"
-        case .subtitles:
-            return "SETTINGS_SUBTITLES_TITLE"
-        case .audio:
-            return "SETTINGS_AUDIO_TITLE"
-        case .casting:
-            return "SETTINGS_CASTING"
-        case .mediaLibrary:
-            return "SETTINGS_MEDIA_LIBRARY"
-        case .network:
-            return "SETTINGS_NETWORK"
-        case .lab:
-            return "SETTINGS_LAB"
-        case .reset:
-            return "SETTINGS_RESET_TITLE"
-        }
-    }
-}
-
-enum MainOptions: Int, CaseIterable, SectionType {
-    case privacy
-    case appearance
-
-    var description: String {
-        switch self {
-        case .privacy:
-            return "SETTINGS_PRIVACY_TITLE"
-        case .appearance:
-            return "SETTINGS_DARKTHEME"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .privacy:
-            return false
-        case .appearance:
-            return false
-        }
-    }
-
-    var containsInfobutton: Bool { return false }
-
-    var subtitle: String? {
-        switch self {
-        case .privacy:
-            return "SETTINGS_PRIVACY_SUBTITLE"
-        case .appearance:
-            return "SETTINGS_THEME_SYSTEM"
-        }
-    }
-
+    @available(*, deprecated, message: "access from self.action")
     var preferenceKey: String? {
-        switch self {
-        case .privacy:
-            return kVLCSettingPasscodeOnKey
-        case .appearance:
-            return kVLCSettingAppTheme
-        }
-    }
-}
-
-enum DonationOptions: Int, CaseIterable, SectionType {
-    case donate
-
-    var description: String {
-        return "SETTINGS_DONATE"
-    }
-
-    var containsSwitch: Bool { return false }
-
-    var containsInfobutton: Bool { return false }
-
-    var subtitle: String? {
-        return "SETTINGS_DONATE_LONG"
-    }
-
-    var preferenceKey: String? { return nil }
-}
-
-enum GenericOptions: Int, CaseIterable, SectionType {
-    case defaultPlaybackSpeed
-    case continueAudioPlayback
-    case playVideoInFullScreen
-    case continueVideoPlayback
-    case automaticallyPlayNextItem
-    case enableTextScrollingInMediaList
-    case rememberPlayerState
-    case restoreLastPlayedMedia
-
-    var description: String {
-        switch self {
-        case .defaultPlaybackSpeed:
-            return "SETTINGS_PLAYBACK_SPEED_DEFAULT"
-        case .continueAudioPlayback:
-            return "SETTINGS_CONTINUE_AUDIO_PLAYBACK"
-        case .playVideoInFullScreen:
-            return "SETTINGS_VIDEO_FULLSCREEN"
-        case .continueVideoPlayback:
-            return "SETTINGS_CONTINUE_VIDEO_PLAYBACK"
-        case .automaticallyPlayNextItem:
-            return "SETTINGS_NETWORK_PLAY_ALL"
-        case .enableTextScrollingInMediaList:
-            return "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING"
-        case .rememberPlayerState:
-            return "SETTINGS_REMEMBER_PLAYER_STATE"
-        case .restoreLastPlayedMedia:
-            return "SETTINGS_RESTORE_LAST_PLAYED_MEDIA"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .defaultPlaybackSpeed:
-            return false
-        case .continueAudioPlayback:
-            return false
-        case .playVideoInFullScreen:
-            return true
-        case .continueVideoPlayback:
-            return false
-        case .automaticallyPlayNextItem:
-            return false
-        case .enableTextScrollingInMediaList:
-            return true
-        case .rememberPlayerState:
-            return true
-        case .restoreLastPlayedMedia:
-            return true
-        }
-    }
-
-    var containsInfobutton: Bool {
-        switch self {
-        case .continueAudioPlayback:
-            return true
-        case .continueVideoPlayback:
-            return true
+        switch action {
+        case .toggle(let preferenceKey):
+            return preferenceKey
+        case .showActionSheet(_, let preferenceKey, _):
+            return preferenceKey
         default:
-            return false
-        }
-    }
-
-    var subtitle: String? {
-        switch self {
-        case .defaultPlaybackSpeed:
-            return "1.00x"
-        case .continueAudioPlayback:
-            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
-        case .playVideoInFullScreen:
-            return nil
-        case .continueVideoPlayback:
-            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
-        case .automaticallyPlayNextItem:
-            return nil
-        case .enableTextScrollingInMediaList:
-            return nil
-        case .rememberPlayerState:
-            return nil
-        case .restoreLastPlayedMedia:
             return nil
         }
     }
 
-    var preferenceKey: String? {
-        switch self {
-        case .defaultPlaybackSpeed:
-            return kVLCSettingPlaybackSpeedDefaultValue
-        case .continueAudioPlayback:
-            return kVLCSettingContinueAudioPlayback
-        case .playVideoInFullScreen:
-            return kVLCSettingVideoFullscreenPlayback
-        case .continueVideoPlayback:
-            return kVLCSettingContinuePlayback
-        case .automaticallyPlayNextItem:
-            return kVLCAutomaticallyPlayNextItem
-        case .enableTextScrollingInMediaList:
-            return kVLCSettingEnableMediaCellTextScrolling
-        case .rememberPlayerState:
-            return kVLCPlayerShouldRememberState
-        case .restoreLastPlayedMedia:
-            return kVLCRestoreLastPlayedMedia
-        }
+    init(title: String, subtitle: String?, action: Action, emphasizedTitle: Bool = false) {
+        self.title = title
+        self.subtitle = subtitle
+        self.action = action
+        self.emphasizedTitle = emphasizedTitle
+    }
+
+    enum Action: Equatable {
+        case isLoading
+        case toggle(preferenceKey: String)
+        case showActionSheet(title: String, preferenceKey: String, hasInfo: Bool)
+        case donation
+        case openPrivacySettings
+        case forceRescanAlert
+        case exportMediaLibrary
+        case displayResetAlert
     }
 }
 
-enum PrivacyOptions: Int, CaseIterable, SectionType {
-    case passcodeLock
-    case enableBiometrics
-    case hideLibraryInFilesApp
+// MARK: - SettingsSection
+struct SettingsSection: Equatable {
+    let title: String?
+    let items: [SettingsItem]
 
-    var description: String {
-        switch self {
-        case .passcodeLock:
-            return "SETTINGS_PASSCODE_LOCK"
-        case .enableBiometrics:
-            let authContext = LAContext()
-            let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+    var isEmpty: Bool {
+        items.isEmpty
+    }
+
+    static func sections(isLabActivated: Bool, isBackingUp: Bool, isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> [SettingsSection] {
+        [
+            MainOptions.section(),
+            DonationOptions.section(),
+            GenericOptions.section(),
+            PrivacyOptions.section(),
+            GestureControlOptions.section(isForwardBackwardEqual: isForwardBackwardEqual, isTapSwipeEqual: isTapSwipeEqual),
+            VideoOptions.section(),
+            SubtitlesOptions.section(),
+            AudioOptions.section(),
+            CastingOptions.section(),
+            MediaLibraryOptions.section(isBackingUp: isBackingUp),
+            NetworkOptions.section(),
+            Lab.section(isLabActivated: isLabActivated),
+            Reset.section()
+        ].compactMap { $0 }
+    }
+}
+
+// MARK: - MainOptions
+enum MainOptions {
+    static var privacy: SettingsItem {
+        .init(
+            title: "SETTINGS_PRIVACY_TITLE",
+            subtitle: "SETTINGS_PRIVACY_SUBTITLE",
+            action: .openPrivacySettings
+        )
+    }
+
+    static var appearance: SettingsItem {
+        .init(
+            title: "SETTINGS_DARKTHEME",
+            subtitle: "SETTINGS_THEME_SYSTEM",
+            action: .showActionSheet(title: "SETTINGS_DARKTHEME", preferenceKey: kVLCSettingAppTheme, hasInfo: false)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: nil, items: [
+            privacy,
+            appearance
+        ])
+    }
+}
+
+// MARK: - DonationOptions
+enum DonationOptions {
+    static var donate: SettingsItem {
+        .init(
+            title: "SETTINGS_DONATE",
+            subtitle: "SETTINGS_DONATE_LONG",
+            action: .donation
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_DONATE_TITLE", items: [donate])
+    }
+}
+
+// MARK: - GenericOptions
+enum GenericOptions {
+    static var defaultPlaybackSpeed: SettingsItem {
+        .init(
+            title: "SETTINGS_PLAYBACK_SPEED_DEFAULT",
+            subtitle: "1.00x",
+            action: .showActionSheet(title: "SETTINGS_PLAYBACK_SPEED_DEFAULT", preferenceKey: kVLCSettingPlaybackSpeedDefaultValue, hasInfo: false)
+        )
+    }
+
+    static var continueAudioPlayback: SettingsItem {
+        .init(
+            title: "SETTINGS_CONTINUE_AUDIO_PLAYBACK",
+            subtitle: "SETTINGS_CONTINUE_PLAYBACK_ALWAYS",
+            action: .showActionSheet(title: "SETTINGS_CONTINUE_AUDIO_PLAYBACK", preferenceKey: kVLCSettingContinueAudioPlayback, hasInfo: true)
+        )
+    }
+
+    static var playVideoInFullScreen: SettingsItem {
+        .init(
+            title: "SETTINGS_VIDEO_FULLSCREEN",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingVideoFullscreenPlayback)
+        )
+    }
+
+    static var continueVideoPlayback: SettingsItem {
+        .init(
+            title: "SETTINGS_CONTINUE_VIDEO_PLAYBACK",
+            subtitle: "SETTINGS_CONTINUE_PLAYBACK_ALWAYS",
+            action: .showActionSheet(title: "SETTINGS_CONTINUE_VIDEO_PLAYBACK", preferenceKey: kVLCSettingContinuePlayback, hasInfo: true)
+        )
+    }
+
+    static var automaticallyPlayNextItem: SettingsItem {
+        .init(
+            title: "SETTINGS_NETWORK_PLAY_ALL",
+            subtitle: nil,
+            action: .showActionSheet(title: "SETTINGS_NETWORK_PLAY_ALL", preferenceKey: kVLCAutomaticallyPlayNextItem, hasInfo: false)
+        )
+    }
+
+    static var enableTextScrollingInMediaList: SettingsItem {
+        .init(
+            title: "SETTINGS_NETWORK_PLAY_ALL",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingEnableMediaCellTextScrolling)
+        )
+    }
+
+    static var rememberPlayerState: SettingsItem {
+        .init(
+            title: "SETTINGS_REMEMBER_PLAYER_STATE",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCPlayerShouldRememberState)
+        )
+    }
+
+    static var restoreLastPlayedMedia: SettingsItem {
+        .init(
+            title: "SETTINGS_RESTORE_LAST_PLAYED_MEDIA",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCRestoreLastPlayedMedia)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_GENERIC_TITLE", items: [
+            defaultPlaybackSpeed,
+            continueAudioPlayback,
+            playVideoInFullScreen,
+            continueVideoPlayback,
+            automaticallyPlayNextItem,
+            enableTextScrollingInMediaList,
+            rememberPlayerState,
+            restoreLastPlayedMedia
+        ])
+    }
+
+}
+
+// MARK: - PrivacyOptions
+enum PrivacyOptions {
+    static var passcodeLock: SettingsItem {
+        .init(
+            title: "SETTINGS_PASSCODE_LOCK",
+            subtitle: "SETTINGS_PASSCODE_LOCK_SUBTITLE",
+            action: .toggle(preferenceKey: kVLCSettingPasscodeOnKey)
+        )
+    }
+
+    static var enableBiometrics: SettingsItem? {
+        let authContext = LAContext()
+
+        if authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             switch authContext.biometryType {
-            case .none:
-                return ""
             case .touchID:
-                return "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID"
+                return .init(
+                    title: "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID",
+                    subtitle: nil,
+                    action: .toggle(preferenceKey: kVLCSettingPasscodeAllowTouchID)
+                )
             case .faceID:
-                return "SETTINGS_PASSCODE_LOCK_ALLOWFACEID"
+                return .init(
+                    title: "SETTINGS_PASSCODE_LOCK_ALLOWFACEID",
+                    subtitle: nil,
+                    action: .toggle(preferenceKey: kVLCSettingPasscodeAllowFaceID)
+                )
+            case .none, .opticID:
+                fallthrough
             @unknown default:
-                return ""
+                return nil
             }
-        case .hideLibraryInFilesApp:
-            return "SETTINGS_HIDE_LIBRARY_IN_FILES_APP"
         }
+
+        return nil
     }
 
-    var containsSwitch: Bool {
-        switch self {
-        case .passcodeLock:
-            return true
-        case .enableBiometrics:
-            return true
-        case .hideLibraryInFilesApp:
-            return true
-        }
+    static var hideLibraryInFilesApp: SettingsItem {
+        .init(
+            title: "SETTINGS_HIDE_LIBRARY_IN_FILES_APP",
+            subtitle: "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE",
+            action: .toggle(preferenceKey: kVLCSettingHideLibraryInFilesApp)
+        )
     }
 
-    var containsInfobutton: Bool { return false }
-
-    var subtitle: String? {
-        switch self {
-        case .passcodeLock:
-            return "SETTINGS_PASSCODE_LOCK_SUBTITLE"
-        case .enableBiometrics:
-            return nil
-        case .hideLibraryInFilesApp:
-            return "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE"
-        }
-    }
-
-    var preferenceKey: String? {
-        switch self {
-        case .passcodeLock:
-            return kVLCSettingPasscodeOnKey
-        case .enableBiometrics:
-            let authContext = LAContext()
-                let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
-                switch authContext.biometryType {
-                case .none:
-                    return nil
-                case .touchID:
-                    return kVLCSettingPasscodeAllowTouchID
-                case .faceID:
-                    return kVLCSettingPasscodeAllowFaceID
-                @unknown default:
-                    return nil
-                }
-        case .hideLibraryInFilesApp:
-            return kVLCSettingHideLibraryInFilesApp
-        }
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_PRIVACY_TITLE", items: [
+            passcodeLock,
+            enableBiometrics,
+            hideLibraryInFilesApp
+        ].compactMap({$0}))
     }
 }
 
-enum PlaybackControlOptions: Int, CaseIterable, SectionType {
-    case swipeUpDownForVolume
-    case twoFingerTap
-    case swipeUpDownForBrightness
-    case swipeRightLeftToSeek
-    case pinchToClose
-    case forwardBackwardEqual
-    case tapSwipeEqual
-    case forwardSkipLength
-    case backwardSkipLength
-    case forwardSkipLengthSwipe
-    case backwardSkipLengthSwipe
-    case longTouchToSpeedUp
-
-    var containsInfobutton: Bool { return false }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .swipeUpDownForVolume:
-            return true
-        case .twoFingerTap:
-            return true
-        case .swipeUpDownForBrightness:
-            return true
-        case .swipeRightLeftToSeek:
-            return true
-        case .pinchToClose:
-            return true
-        case .forwardBackwardEqual:
-            return true
-        case .tapSwipeEqual:
-            return true
-        case .forwardSkipLength:
-            return false
-        case .backwardSkipLength:
-            return false
-        case .forwardSkipLengthSwipe:
-            return false
-        case .backwardSkipLengthSwipe:
-            return false
-        case .longTouchToSpeedUp:
-            return true
-        }
+// MARK: - GestureControlOptions
+enum GestureControlOptions {
+    static var swipeUpDownForVolume: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_VOLUME",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingVolumeGesture)
+        )
     }
 
-    var description: String {
+    static var twoFingerTap: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_PLAYPAUSE",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlayPauseGesture)
+        )
+    }
+
+    static var swipeUpDownForBrightness: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_BRIGHTNESS",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingBrightnessGesture)
+        )
+    }
+
+    static var swipeRightLeftToSeek: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_SEEK",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingSeekGesture)
+        )
+    }
+
+    static var pinchToClose: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_CLOSE",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingCloseGesture)
+        )
+    }
+
+    static var forwardBackwardEqual: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlaybackForwardBackwardEqual)
+        )
+    }
+
+    static var tapSwipeEqual: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_TAP_SWIPE_EQUAL",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlaybackTapSwipeEqual)
+        )
+    }
+
+    static var forwardSkipLength: SettingsItem {
+        .init(
+            title: dynamicForwardSkipDescription(),
+            subtitle: nil,
+            action: .showActionSheet(title: dynamicForwardSkipDescription(), preferenceKey: kVLCSettingPlaybackForwardSkipLength, hasInfo: false)
+        )
+    }
+
+    static var backwardSkipLength: SettingsItem {
+        .init(
+            title: dynamicBackwardSkipDescription(),
+            subtitle: nil,
+            action: .showActionSheet(title: dynamicBackwardSkipDescription(), preferenceKey: kVLCSettingPlaybackBackwardSkipLength, hasInfo: false)
+        )
+    }
+
+    static var forwardSkipLengthSwipe: SettingsItem {
+        .init(
+            title: dynamicForwardSwipeDescription(),
+            subtitle: nil,
+            action: .showActionSheet(title: dynamicForwardSwipeDescription(), preferenceKey: kVLCSettingPlaybackForwardSkipLengthSwipe, hasInfo: false)
+        )
+    }
+
+    static var backwardSkipLengthSwipe: SettingsItem {
+        .init(
+            title: "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE",
+            subtitle: nil,
+            action: .showActionSheet(title: "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE", preferenceKey: kVLCSettingPlaybackBackwardSkipLengthSwipe, hasInfo: false)
+        )
+    }
+
+    static var longTouchToSpeedUp: SettingsItem {
+        .init(
+            title: "SETINGS_LONG_TOUCH_SPEED_UP",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
+        )
+    }
+
+    static func section(isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> SettingsSection? {
+        .init(title: "SETTINGS_GESTURES", items: [
+            swipeUpDownForVolume,
+            twoFingerTap,
+            swipeUpDownForBrightness,
+            swipeRightLeftToSeek,
+            pinchToClose,
+            forwardBackwardEqual,
+            tapSwipeEqual,
+            forwardSkipLength,
+            isForwardBackwardEqual ? nil : backwardSkipLength,
+            isTapSwipeEqual ? nil : forwardSkipLengthSwipe,
+            (isTapSwipeEqual || isForwardBackwardEqual) ? nil : backwardSkipLengthSwipe,
+            longTouchToSpeedUp
+        ].compactMap({$0}))
+    }
+
+    private static func dynamicForwardSkipDescription() -> String {
         let forwardBackwardEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
         let tapSwipeEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
-        switch self {
-        case .swipeUpDownForVolume:
-            return "SETTINGS_GESTURES_VOLUME"
-        case .twoFingerTap:
-            return "SETTINGS_GESTURES_PLAYPAUSE"
-        case .swipeUpDownForBrightness:
-            return "SETTINGS_GESTURES_BRIGHTNESS"
-        case .swipeRightLeftToSeek:
-            return "SETTINGS_GESTURES_SEEK"
-        case .pinchToClose:
-            return "SETTINGS_GESTURES_CLOSE"
-        case .forwardBackwardEqual:
-            return "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL"
-        case .tapSwipeEqual:
-            return "SETTINGS_GESTURES_TAP_SWIPE_EQUAL"
-        case .forwardSkipLength:
-            if forwardBackwardEqual && tapSwipeEqual {
-                return "SETTINGS_PLAYBACK_SKIP_GENERIC"
-            } else if forwardBackwardEqual && !tapSwipeEqual {
-                return "SETTINGS_PLAYBACK_SKIP_TAP"
-            } else if !forwardBackwardEqual && !tapSwipeEqual {
-                return "SETTINGS_PLAYBACK_SKIP_FORWARD_TAP"
-            }
-            return  "SETTINGS_PLAYBACK_SKIP_FORWARD"
-        case .backwardSkipLength:
-            if tapSwipeEqual {
-                return "SETTINGS_PLAYBACK_SKIP_BACKWARD"
-            }
+
+        if forwardBackwardEqual && tapSwipeEqual {
+            return "SETTINGS_PLAYBACK_SKIP_GENERIC"
+        } else if forwardBackwardEqual && !tapSwipeEqual {
+            return "SETTINGS_PLAYBACK_SKIP_TAP"
+        } else if !forwardBackwardEqual && !tapSwipeEqual {
+            return "SETTINGS_PLAYBACK_SKIP_FORWARD_TAP"
+        } else {
+            return "SETTINGS_PLAYBACK_SKIP_FORWARD"
+        }
+    }
+
+    private static func dynamicBackwardSkipDescription() -> String {
+        let tapSwipeEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+
+        if tapSwipeEqual {
+            return "SETTINGS_PLAYBACK_SKIP_BACKWARD"
+        } else {
             return "SETTINGS_PLAYBACK_SKIP_BACKWARD_TAP"
-        case .forwardSkipLengthSwipe:
-            if forwardBackwardEqual {
-                return "SETTINGS_PLAYBACK_SKIP_SWIPE"
-            }
+        }
+    }
+
+    private static func dynamicForwardSwipeDescription() -> String {
+        let forwardBackwardEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+
+        if forwardBackwardEqual {
+            return "SETTINGS_PLAYBACK_SKIP_SWIPE"
+        } else {
             return "SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE"
-        case .backwardSkipLengthSwipe:
-            return "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE"
-        case .longTouchToSpeedUp:
-            return "SETINGS_LONG_TOUCH_SPEED_UP"
-        }
-    }
-
-    var subtitle: String? { return nil }
-
-    var preferenceKey: String? {
-        switch self {
-        case .swipeUpDownForVolume:
-            return kVLCSettingVolumeGesture
-        case .twoFingerTap:
-            return kVLCSettingPlayPauseGesture
-        case .swipeUpDownForBrightness:
-            return kVLCSettingBrightnessGesture
-        case .swipeRightLeftToSeek:
-            return kVLCSettingSeekGesture
-        case .pinchToClose:
-            return kVLCSettingCloseGesture
-        case .forwardBackwardEqual:
-            return kVLCSettingPlaybackForwardBackwardEqual
-        case .tapSwipeEqual:
-            return kVLCSettingPlaybackTapSwipeEqual
-        case .forwardSkipLength:
-            return kVLCSettingPlaybackForwardSkipLength
-        case .backwardSkipLength:
-            return kVLCSettingPlaybackBackwardSkipLength
-        case .forwardSkipLengthSwipe:
-            return kVLCSettingPlaybackForwardSkipLengthSwipe
-        case .backwardSkipLengthSwipe:
-            return kVLCSettingPlaybackBackwardSkipLengthSwipe
-        case .longTouchToSpeedUp:
-            return kVLCSettingPlaybackLongTouchSpeedUp
         }
     }
 }
 
-enum VideoOptions: Int, CaseIterable, SectionType {
-    case deBlockingFilter
-    case deInterlace
-    case hardwareDecoding
-    case rememberPlayerBrightness
-
-    var description: String {
-        switch self {
-        case .deBlockingFilter:
-            return "SETTINGS_SKIP_LOOP_FILTER"
-        case .deInterlace:
-            return "SETTINGS_DEINTERLACE"
-        case .hardwareDecoding:
-            return "SETTINGS_HWDECODING"
-        case .rememberPlayerBrightness:
-            return "SETTINGS_REMEMBER_PLAYER_BRIGHTNESS"
-        }
+// MARK: - PlaybackControlOptions
+enum PlaybackControlOptions {
+    static var swipeUpDownForVolume: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_VOLUME",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingVolumeGesture)
+        )
     }
 
-    var containsSwitch: Bool {
-        switch self {
-        case .deBlockingFilter:
-            return false
-        case .deInterlace:
-            return false
-        case .hardwareDecoding:
-            return false
-        case .rememberPlayerBrightness:
-            return true
-        }
+    static var twoFingerTap: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_PLAYPAUSE",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlayPauseGesture)
+        )
     }
 
-    var containsInfobutton: Bool {
-        switch self {
-        case .deBlockingFilter:
-            return true
-        case .deInterlace:
-            return true
-        case .hardwareDecoding:
-            return true
-        case .rememberPlayerBrightness:
-            return false
-        }
+    static var swipeUpDownForBrightness: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_BRIGHTNESS",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingBrightnessGesture)
+        )
     }
 
-    var subtitle: String? {
-        switch self {
-        case .deBlockingFilter:
-            return "SETTINGS_SKIP_LOOP_FILTER_NONREF"
-        case .deInterlace:
-            return "SETTINGS_DEINTERLACE_OFF"
-        case .hardwareDecoding:
-            return "SETTINGS_HWDECODING_ON"
-        case .rememberPlayerBrightness:
-            return nil
-        }
+    static var swipeRightLeftToSeek: SettingsItem {
+        .init(
+            title: "SETTINGS_GESTURES_SEEK",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingSeekGesture)
+        )
     }
 
-    var preferenceKey: String? {
-        switch self {
-        case .deBlockingFilter:
-            return kVLCSettingSkipLoopFilter
-        case .deInterlace:
-            return kVLCSettingDeinterlace
-        case .hardwareDecoding:
-            return kVLCSettingHardwareDecoding
-        case .rememberPlayerBrightness:
-            return kVLCPlayerShouldRememberBrightness
-        }
+    static var longTouchToSpeedUp: SettingsItem {
+        .init(
+            title: "SETINGS_LONG_TOUCH_SPEED_UP",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_GESTURES", items: [
+            swipeUpDownForVolume,
+            twoFingerTap,
+            swipeUpDownForBrightness,
+            swipeRightLeftToSeek,
+            longTouchToSpeedUp
+        ])
     }
 }
 
-enum SubtitlesOptions: Int, CaseIterable, SectionType {
-    case disableSubtitles
-    case font
-    case relativeFontSize
-    case useBoldFont
-    case fontColor
-    case textEncoding
-
-    var description: String {
-        switch self {
-        case .disableSubtitles:
-            return "SETTINGS_SUBTITLES_DISABLE"
-        case .font:
-            return "SETTINGS_SUBTITLES_FONT"
-        case .relativeFontSize:
-            return "SETTINGS_SUBTITLES_FONTSIZE"
-        case .useBoldFont:
-            return "SETTINGS_SUBTITLES_BOLDFONT"
-        case .fontColor:
-            return "SETTINGS_SUBTITLES_FONTCOLOR"
-        case .textEncoding:
-            return "SETTINGS_SUBTITLES_TEXT_ENCODING"
-        }
+// MARK: - VideoOptions
+enum VideoOptions {
+    static var deBlockingFilter: SettingsItem {
+        .init(
+            title: "SETTINGS_SKIP_LOOP_FILTER",
+            subtitle: "SETTINGS_SKIP_LOOP_FILTER_NONREF",
+            action: .showActionSheet(title: "SETTINGS_SKIP_LOOP_FILTER", preferenceKey: kVLCSettingSkipLoopFilter, hasInfo: true)
+        )
     }
 
-    var containsSwitch: Bool {
-        switch self {
-        case .disableSubtitles:
-            return true
-        case .font:
-            return false
-        case .relativeFontSize:
-            return false
-        case .useBoldFont:
-            return true
-        case .fontColor:
-            return false
-        case .textEncoding:
-            return false
-        }
+    static var deInterlace: SettingsItem {
+        .init(
+            title: "SETTINGS_DEINTERLACE",
+            subtitle: "SETTINGS_DEINTERLACE_OFF",
+            action: .showActionSheet(title: "SETTINGS_DEINTERLACE", preferenceKey: kVLCSettingDeinterlace, hasInfo: true)
+        )
     }
 
-    var subtitle: String? {
-        switch self {
-        case .disableSubtitles:
-            return "SETTINGS_SUBTITLES_DISABLE_LONG"
-        case .font:
-            return "Arial"
-        case .relativeFontSize:
-            return "SETTINGS_SUBTITLES_FONTSIZE_NORMAL"
-        case .useBoldFont:
-            return nil
-        case .fontColor:
-            return "SETTINGS_SUBTITLES_FONTCOLOR_BLACK"
-        case .textEncoding:
-            return "Western European (Windows-1252)"
-        }
+    static var hardwareDecoding: SettingsItem {
+        .init(
+            title: "SETTINGS_HWDECODING",
+            subtitle: "SETTINGS_HWDECODING_ON",
+            action: .showActionSheet(title: "SETTINGS_HWDECODING", preferenceKey: kVLCSettingHardwareDecoding, hasInfo: true)
+        )
     }
 
-    var preferenceKey: String? {
-        switch self {
-        case .disableSubtitles:
-            return kVLCSettingDisableSubtitles
-        case .font:
-            return kVLCSettingSubtitlesFont
-        case .relativeFontSize:
-            return kVLCSettingSubtitlesFontSize
-        case .useBoldFont:
-            return kVLCSettingSubtitlesBoldFont
-        case .fontColor:
-            return kVLCSettingSubtitlesFontColor
-        case .textEncoding:
-            return kVLCSettingTextEncoding
-        }
+    static var rememberPlayerBrightness: SettingsItem {
+        .init(
+            title: "SETTINGS_REMEMBER_PLAYER_BRIGHTNESS",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCPlayerShouldRememberBrightness)
+        )
     }
 
-    var containsInfobutton: Bool { return true }
-}
-
-enum CastingOptions: Int, CaseIterable, SectionType {
-    case audioPassThrough
-    case conversionQuality
-
-    var description: String {
-        switch self {
-        case .audioPassThrough:
-            return "SETTINGS_PTCASTING"
-        case .conversionQuality:
-            return "SETTINGS_CASTING_CONVERSION_QUALITY"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .audioPassThrough:
-            return true
-        case .conversionQuality:
-            return false
-        }
-    }
-
-    var preferenceKey: String? {
-        switch self {
-        case .audioPassThrough:
-            return kVLCSettingCastingAudioPassthrough
-        case .conversionQuality:
-            return kVLCSettingCastingConversionQuality
-        }
-    }
-
-    var subtitle: String? {
-        switch self {
-        case .audioPassThrough:
-            return "SETTINGS_PTCASTINGLONG"
-        case .conversionQuality:
-            return "SETTINGS_MEDIUM"
-        }
-    }
-
-    var containsInfobutton: Bool { return false }
-}
-
-enum AudioOptions: Int, CaseIterable, SectionType {
-    case preampLevel
-    case timeStretchingAudio
-    case audioPlaybackInBackground
-
-    var description: String {
-        switch self {
-        case .preampLevel:
-            return "SETTINGS_AUDIO_PREAMP_LEVEL"
-        case .timeStretchingAudio:
-            return "SETTINGS_TIME_STRETCH_AUDIO"
-        case .audioPlaybackInBackground:
-            return "SETTINGS_BACKGROUND_AUDIO"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .preampLevel:
-            return false
-        default:
-            return true
-        }
-    }
-    var subtitle: String? {
-        switch self {
-        case .preampLevel:
-            return "6 dB"
-        case .timeStretchingAudio:
-            return "SETTINGS_TIME_STRETCH_AUDIO_LONG"
-        default:
-            return nil
-        }
-    }
-
-    var preferenceKey: String? {
-        switch self {
-        case .preampLevel:
-            return kVLCSettingDefaultPreampLevel
-        case .timeStretchingAudio:
-            return kVLCSettingStretchAudio
-        case .audioPlaybackInBackground:
-            return kVLCSettingContinueAudioInBackgroundKey
-        }
-    }
-
-    var containsInfobutton: Bool { return false }
-}
-
-enum MediaLibraryOptions: Int, CaseIterable, SectionType {
-    case forceVLCToRescanTheMediaLibrary
-    case optimiseItemNamesForDisplay
-    case disableGrouping
-    case showVideoThumbnails
-    case showAudioArtworks
-    case includeMediaLibInDeviceBackup
-
-    var description: String {
-        switch self {
-        case .forceVLCToRescanTheMediaLibrary:
-            return "SETTINGS_MEDIA_LIBRARY_RESCAN"
-        case .optimiseItemNamesForDisplay:
-            return "SETTINGS_DECRAPIFY"
-        case .disableGrouping:
-            return "SETTINGS_DISABLE_GROUPING"
-        case .showVideoThumbnails:
-            return "SETTINGS_SHOW_THUMBNAILS"
-        case .showAudioArtworks:
-            return "SETTINGS_SHOW_ARTWORKS"
-        case .includeMediaLibInDeviceBackup:
-            return "SETTINGS_BACKUP_MEDIA_LIBRARY"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .forceVLCToRescanTheMediaLibrary:
-            return false
-        default:
-            return true
-        }
-    }
-
-    var subtitle: String? { return nil }
-
-    var preferenceKey: String? {
-        switch self {
-        case .forceVLCToRescanTheMediaLibrary:
-            return nil
-        case .optimiseItemNamesForDisplay:
-            return kVLCSettingsDecrapifyTitles
-        case .disableGrouping:
-            return kVLCSettingsDisableGrouping
-        case .showVideoThumbnails:
-            return kVLCSettingShowThumbnails
-        case .showAudioArtworks:
-            return kVLCSettingShowArtworks
-        case .includeMediaLibInDeviceBackup:
-            return kVLCSettingBackupMediaLibrary
-        }
-    }
-
-    var containsInfobutton: Bool { return false }
-}
-
-enum NetworkOptions: Int, CaseIterable, SectionType {
-    case networkCachingLevel
-    case ipv6SupportForWiFiSharing
-    case forceSMBv1
-    case rtspctp
-
-    var description: String {
-        switch self {
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_TITLE"
-        case .ipv6SupportForWiFiSharing:
-            return "SETTINGS_WIFISHARING_IPv6"
-        case .forceSMBv1:
-            return "SETTINGS_FORCE_SMBV1"
-        case .rtspctp:
-            return "SETTINGS_RTSP_TCP"
-        }
-    }
-
-    var containsSwitch: Bool {
-        switch self {
-        case .networkCachingLevel:
-            return false
-        case .ipv6SupportForWiFiSharing:
-            return true
-        case .forceSMBv1:
-            return true
-        case .rtspctp:
-            return true
-        }
-    }
-
-    var subtitle: String? {
-        switch self {
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
-        case .ipv6SupportForWiFiSharing:
-            return nil
-        case .forceSMBv1:
-            return "SETTINGS_FORCE_SMBV1_LONG"
-        case .rtspctp:
-            return nil
-        }
-    }
-
-    var preferenceKey: String? {
-        switch self {
-        case .networkCachingLevel:
-            return kVLCSettingNetworkCaching
-        case .ipv6SupportForWiFiSharing:
-            return kVLCSettingWiFiSharingIPv6
-        case .forceSMBv1:
-            return kVLCForceSMBV1
-        case .rtspctp:
-            return kVLCSettingNetworkRTSPTCP
-        }
-    }
-
-    var containsInfobutton: Bool {
-        switch self {
-        case .networkCachingLevel:
-            return true
-        case .ipv6SupportForWiFiSharing:
-            return false
-        case .forceSMBv1:
-            return false
-        case .rtspctp:
-            return false
-        }
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_VIDEO_TITLE", items: [
+            deBlockingFilter,
+            deInterlace,
+            hardwareDecoding,
+            rememberPlayerBrightness
+        ])
     }
 }
 
-enum Lab: Int, CaseIterable, SectionType {
-    case debugLogging
-    case exportLibrary
-
-    var description: String {
-        switch self {
-        case .debugLogging:
-            return "SETTINGS_DEBUG_LOG"
-        case .exportLibrary:
-            return "SETTINGS_EXPORT_LIBRARY"
-        }
+// MARK: - SubtitlesOptions
+enum SubtitlesOptions {
+    static var disableSubtitles: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_DISABLE",
+            subtitle: "SETTINGS_SUBTITLES_DISABLE_LONG",
+            action: .toggle(preferenceKey: kVLCSettingDisableSubtitles)
+        )
     }
 
-    var containsSwitch: Bool {
-        switch self {
-        case .exportLibrary:
-            return false
-        default:
-            return true
-        }
+    static var font: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_FONT",
+            subtitle: "Arial",
+            action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONT", preferenceKey: kVLCSettingSubtitlesFont, hasInfo: true)
+        )
     }
 
-    var subtitle: String? { return nil }
-
-    var preferenceKey: String? {
-        switch self {
-        case .debugLogging:
-            return kVLCSaveDebugLogs
-        case .exportLibrary:
-            return nil
-        }
+    static var relativeFontSize: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_FONTSIZE",
+            subtitle: "SETTINGS_SUBTITLES_FONTSIZE_NORMAL",
+            action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONTSIZE", preferenceKey: kVLCSettingSubtitlesFontSize, hasInfo: true)
+        )
     }
 
-    var containsInfobutton: Bool { return false }
+    static var useBoldFont: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_BOLDFONT",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingSubtitlesBoldFont)
+        )
+    }
+
+    static var fontColor: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_FONTCOLOR",
+            subtitle: "SETTINGS_SUBTITLES_FONTCOLOR_BLACK",
+            action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONTCOLOR", preferenceKey: kVLCSettingSubtitlesFontColor, hasInfo: true)
+        )
+    }
+
+    static var textEncoding: SettingsItem {
+        .init(
+            title: "SETTINGS_SUBTITLES_TEXT_ENCODING",
+            subtitle: "Western European (Windows-1252)",
+            action: .showActionSheet(title: "SETTINGS_SUBTITLES_TEXT_ENCODING", preferenceKey: kVLCSettingTextEncoding, hasInfo: true)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_SUBTITLES_TITLE", items: [
+            disableSubtitles,
+            font,
+            relativeFontSize,
+            useBoldFont,
+            fontColor,
+            textEncoding
+        ])
+    }
 }
 
-enum Reset: Int, CaseIterable, SectionType {
-    case resetOptions
+// MARK: - CastingOptions
+enum CastingOptions {
+    static var audioPassThrough: SettingsItem {
+        .init(
+            title: "SETTINGS_PTCASTING",
+            subtitle: "SETTINGS_PTCASTINGLONG",
+            action: .toggle(preferenceKey: kVLCSettingCastingAudioPassthrough)
+        )
+    }
 
-    var containsSwitch: Bool { return false }
+    static var conversionQuality: SettingsItem {
+        .init(
+            title: "SETTINGS_CASTING_CONVERSION_QUALITY",
+            subtitle: "SETTINGS_MEDIUM",
+            action: .showActionSheet(title: "SETTINGS_CASTING_CONVERSION_QUALITY", preferenceKey: kVLCSettingCastingConversionQuality, hasInfo: false)
+        )
+    }
 
-    var subtitle: String? { return nil }
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_CASTING", items: [
+            audioPassThrough,
+            conversionQuality
+        ])
+    }
+}
 
-    var preferenceKey: String? { return kVLCResetSettings }
+// MARK: - AudioOptions
+enum AudioOptions {
+    static var preampLevel: SettingsItem {
+        .init(
+            title: "SETTINGS_AUDIO_PREAMP_LEVEL",
+            subtitle: "6 dB",
+            action: .showActionSheet(title: "SETTINGS_AUDIO_PREAMP_LEVEL", preferenceKey: kVLCSettingDefaultPreampLevel, hasInfo: false)
+        )
+    }
 
-    var containsInfobutton: Bool { return false }
+    static var timeStretchingAudio: SettingsItem {
+        .init(
+            title: "SETTINGS_TIME_STRETCH_AUDIO",
+            subtitle: "SETTINGS_TIME_STRETCH_AUDIO_LONG",
+            action: .toggle(preferenceKey: kVLCSettingStretchAudio)
+        )
+    }
 
-    var description: String { return "SETTINGS_RESET" }
+    static var audioPlaybackInBackground: SettingsItem {
+        .init(
+            title: "SETTINGS_BACKGROUND_AUDIO",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingContinueAudioInBackgroundKey)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_AUDIO_TITLE", items: [
+            preampLevel,
+            timeStretchingAudio,
+            audioPlaybackInBackground
+        ])
+    }
+}
+
+// MARK: - MediaLibraryOptions
+enum MediaLibraryOptions {
+    static var forceVLCToRescanTheMediaLibrary: SettingsItem {
+        .init(
+            title: "SETTINGS_MEDIA_LIBRARY_RESCAN",
+            subtitle: nil,
+            action: .forceRescanAlert,
+            emphasizedTitle: true
+        )
+    }
+
+    static var optimiseItemNamesForDisplay: SettingsItem {
+        .init(
+            title: "SETTINGS_DECRAPIFY",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingsDecrapifyTitles)
+        )
+    }
+
+    static var disableGrouping: SettingsItem {
+        .init(
+            title: "SETTINGS_DISABLE_GROUPING",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingsDisableGrouping)
+        )
+    }
+
+    static var showVideoThumbnails: SettingsItem {
+        .init(
+            title: "SETTINGS_SHOW_THUMBNAILS",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingShowThumbnails)
+        )
+    }
+
+    static var showAudioArtworks: SettingsItem {
+        .init(
+            title: "SETTINGS_SHOW_ARTWORKS",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingShowArtworks)
+        )
+    }
+
+    static var includeMediaLibInDeviceBackup: SettingsItem {
+        .init(
+            title: "SETTINGS_BACKUP_MEDIA_LIBRARY",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingBackupMediaLibrary)
+        )
+    }
+
+    static var includeMediaLibInDeviceBackupWhenBackingUp: SettingsItem {
+        .init(
+            title: "SETTINGS_BACKUP_MEDIA_LIBRARY",
+            subtitle: nil,
+            action: .isLoading
+        )
+    }
+
+    static func section(isBackingUp: Bool) -> SettingsSection? {
+        .init(title: "SETTINGS_MEDIA_LIBRARY", items: [
+            forceVLCToRescanTheMediaLibrary,
+            optimiseItemNamesForDisplay,
+            disableGrouping,
+            showVideoThumbnails,
+            showAudioArtworks,
+            {
+                if isBackingUp {
+                    return includeMediaLibInDeviceBackupWhenBackingUp
+                } else {
+                    return includeMediaLibInDeviceBackup
+                }
+            }()
+        ])
+    }
+}
+
+// MARK: - NetworkOptions
+enum NetworkOptions {
+    static var networkCachingLevel: SettingsItem {
+        .init(
+            title: "SETTINGS_NETWORK_CACHING_TITLE",
+            subtitle: "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL",
+            action: .showActionSheet(title: "SETTINGS_NETWORK_CACHING_TITLE", preferenceKey: kVLCSettingNetworkCaching, hasInfo: true)
+        )
+    }
+
+    static var ipv6SupportForWiFiSharing: SettingsItem {
+        .init(
+            title: "SETTINGS_WIFISHARING_IPv6",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingWiFiSharingIPv6)
+        )
+    }
+
+    static var forceSMBv1: SettingsItem {
+        .init(
+            title: "SETTINGS_FORCE_SMBV1",
+            subtitle: "SETTINGS_FORCE_SMBV1_LONG",
+            action: .toggle(preferenceKey: kVLCForceSMBV1)
+        )
+    }
+
+    static var rtspctp: SettingsItem {
+        .init(
+            title: "SETTINGS_RTSP_TCP",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSettingNetworkRTSPTCP)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_NETWORK", items: [
+            networkCachingLevel,
+            ipv6SupportForWiFiSharing,
+            forceSMBv1,
+            rtspctp
+        ])
+    }
+}
+
+// MARK: - Lab
+enum Lab {
+    static var debugLogging: SettingsItem {
+        .init(
+            title: "SETTINGS_DEBUG_LOG",
+            subtitle: nil,
+            action: .toggle(preferenceKey: kVLCSaveDebugLogs)
+        )
+    }
+
+    static var exportLibrary: SettingsItem {
+        .init(
+            title: "SETTINGS_EXPORT_LIBRARY",
+            subtitle: nil,
+            action: .exportMediaLibrary
+        )
+    }
+
+    static func section(isLabActivated: Bool) -> SettingsSection? {
+        guard isLabActivated else { return nil }
+
+        return .init(title: "SETTINGS_LAB", items: [
+            debugLogging,
+            exportLibrary
+        ])
+    }
+}
+
+// MARK: - Reset
+enum Reset {
+    static var resetOptions: SettingsItem {
+        .init(
+            title: "SETTINGS_RESET",
+            subtitle: nil,
+            action: .displayResetAlert
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_RESET_TITLE", items: [resetOptions])
+    }
 }

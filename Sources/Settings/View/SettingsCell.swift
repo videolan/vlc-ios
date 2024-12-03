@@ -11,40 +11,11 @@
 
 import UIKit
 
-protocol SectionType: CustomStringConvertible {
-    var containsSwitch: Bool { get }
-    var subtitle: String? { get }
-    var preferenceKey: String? { get }
-    var containsInfobutton: Bool { get }
-}
-
-protocol PasscodeActivateDelegate: AnyObject {
-    func passcodeLockSwitchOn(state: Bool)
-}
-
-protocol MedialibraryHidingActivateDelegate: AnyObject {
-    func medialibraryHidingLockSwitchOn(state: Bool)
-}
-
-protocol MediaLibraryBackupActivateDelegate: AnyObject {
-    func mediaLibraryBackupActivateSwitchOn(state: Bool)
-}
-
-protocol MediaLibraryDisableGroupingDelegate: AnyObject {
-    func medialibraryDisableGroupingSwitchOn(state: Bool)
-}
-
 class SettingsCell: UITableViewCell {
 
-    private let userDefaults = UserDefaults.standard
-    private let notificationCenter = NotificationCenter.default
+    private var userDefaults: UserDefaults { UserDefaults.standard }
+    private var notificationCenter: NotificationCenter { NotificationCenter.default }
     var settingsBundle = Bundle()
-    var showsActivityIndicator = false
-    weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
-    weak var skipDurationDelegate: UITableViewController?
-    weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
-    weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
-    weak var medialibraryDisableGroupingSwitchDelegate: MediaLibraryDisableGroupingDelegate?
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -98,54 +69,78 @@ class SettingsCell: UITableViewCell {
         return stackView
     }()
 
-    var sectionType: SectionType? {
+    var settingsItem: SettingsItem? {
         didSet {
-            guard let sectionType = sectionType else {
+            guard let settingsItem = settingsItem else {
                 assertionFailure("No Section Type provided")
                 return
             }
-            mainLabel.text = settingsBundle.localizedString(forKey: sectionType.description, value: sectionType.description, table: "Root")
-            if let subtitle = sectionType.subtitle {
+
+            mainLabel.text = settingsBundle.localizedString(forKey: settingsItem.title, value: settingsItem.title, table: "Root")
+
+            mainLabel.textColor = settingsItem.emphasizedTitle
+                ? PresentationTheme.current.colors.orangeUI
+                : PresentationTheme.current.colors.cellTextColor
+
+            if let subtitle = settingsItem.subtitle {
                 //Handles No Value (No user-defaults value set) case
                 subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
             }
             else {
-                subtitleLabel.text = sectionType.subtitle
+                subtitleLabel.text = settingsItem.subtitle
             }
-            switchControl.isHidden = !sectionType.containsSwitch
-            infoButton.isHidden = !sectionType.containsInfobutton
-            if switchControl.isHidden && infoButton.isHidden {
+
+            switch settingsItem.action {
+            case .isLoading:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = false
+                accessoryView = .none
+                accessoryType = .none
+                selectionStyle = .none
+            case .toggle(_):
+                switchControl.isHidden = false
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = switchControl
+                accessoryType = .none
+                selectionStyle = .none
+            case .showActionSheet(_, _, let hasInfo):
+                switchControl.isHidden = true
+                infoButton.isHidden = !hasInfo
+                activityIndicator.isHidden = true
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
+            case .donation:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = .none
+                accessoryType = .disclosureIndicator
+                selectionStyle = .default
+            case .openPrivacySettings:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = .none
+                accessoryType = .disclosureIndicator
+                selectionStyle = .default
+            case .forceRescanAlert, .exportMediaLibrary, .displayResetAlert:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = .none
+                accessoryType = .none
+                selectionStyle = .default
             }
-            else {
-                //When Media Library is adding or removing files to device backup
-                //We show a Activity Indicator instead of a switch while the process
-                //is going on. On completion, we show the switch again
-                if showsActivityIndicator && sectionType.preferenceKey == kVLCSettingBackupMediaLibrary {
-                    activityIndicator.isHidden = false
-                    accessoryView = .none
-                    selectionStyle = .none
-                } else {
-                    if switchControl.isHidden == false {
-                        activityIndicator.isHidden = true
-                        accessoryView = switchControl
-                        selectionStyle = .none
-                    } else {
-                        addSubview(infoButton)
-                        infoButton.translatesAutoresizingMaskIntoConstraints = false
-                        NSLayoutConstraint.activate([
-                            infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
-                            infoButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40)
-                        ])
 
-                        accessoryView = .none
-                        accessoryType = .disclosureIndicator
-                        selectionStyle = .default
-                    }
-                }
+            if !activityIndicator.isHidden {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
             }
+
             updateSwitch()
             updateSubtitle()
         }
@@ -189,6 +184,14 @@ class SettingsCell: UITableViewCell {
             activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
         activityIndicator.isHidden = true
+
+        addSubview(infoButton)
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+            infoButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -40)
+        ])
+        infoButton.isHidden = true
     }
 
     private func setupObservers() {
@@ -203,19 +206,20 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc func handleSwitchAction(sender: UISwitch) {
-        guard let key = sectionType?.preferenceKey else { return }
-        userDefaults.set(sender.isOn ? true : false, forKey: key)
+        guard let settingsItem else { return }
 
-        if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
-            passcodeSwitchDelegate?.passcodeLockSwitchOn(state: sender.isOn)
-        } else if sectionType?.preferenceKey == kVLCSettingHideLibraryInFilesApp {
-            medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)
-        } else if sectionType?.preferenceKey == kVLCSettingBackupMediaLibrary {
-            mediaLibraryBackupSwitchDelegate?.mediaLibraryBackupActivateSwitchOn(state: sender.isOn)
-        } else if sectionType?.preferenceKey == kVLCSettingsDisableGrouping {
-            medialibraryDisableGroupingSwitchDelegate?.medialibraryDisableGroupingSwitchOn(state: sender.isOn)
-        } else if sectionType?.preferenceKey == kVLCSettingPlaybackTapSwipeEqual || sectionType?.preferenceKey == kVLCSettingPlaybackForwardBackwardEqual {
-            skipDurationDelegate?.tableView.reloadData()
+        switch settingsItem.action {
+        case .toggle(let preferenceKey):
+            let note = Notification(name: .VLCDidToggleSettingNotification,
+                                    object: nil,
+                                    userInfo: [
+                                        SettingsController.toggleNotificationKey: preferenceKey,
+                                        SettingsController.toggleNotificationValue: sender.isOn
+                                    ])
+            notificationCenter.post(note)
+
+        default:
+            break
         }
     }
 
@@ -237,7 +241,7 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc func infoTapped(sender: UIButton) {
-        guard let settingSpecifier = getSettingsSpecifier(for: (sectionType?.preferenceKey)!) else {
+        guard let settingSpecifier = getSettingsSpecifier(for: (settingsItem?.preferenceKey)!) else {
             return
         }
 
@@ -266,14 +270,19 @@ class SettingsCell: UITableViewCell {
     }
 
     private func updateSwitch() {
-        if let key = self.sectionType?.preferenceKey {
-            let value = self.userDefaults.bool(forKey: key)
-            self.switchControl.isOn = value ? true : false
+        guard let settingsItem else { return }
+
+        switch settingsItem.action {
+        case .toggle(let preferenceKey):
+            let value = self.userDefaults.bool(forKey: preferenceKey)
+            self.switchControl.isOn = value
+        default:
+            break
         }
     }
 
     private func updateSubtitle() {
-        if let subtitle = self.getSubtitle(for: self.sectionType?.preferenceKey ?? "") {
+        if let subtitle = self.getSubtitle(for: self.settingsItem?.preferenceKey ?? "") {
             self.subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
         }
     }

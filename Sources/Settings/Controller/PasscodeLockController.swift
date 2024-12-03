@@ -134,7 +134,7 @@ class PasscodeLockController: UIViewController {
 
     // MARK: - Init
 
-    convenience init?(action: PasscodeAction) {
+    convenience init(action: PasscodeAction) {
         self.init()
         self.action = action
         setup()

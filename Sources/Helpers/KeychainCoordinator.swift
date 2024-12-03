@@ -52,8 +52,8 @@ class KeychainCoordinator: NSObject {
 
     private lazy var passcodeLockController: PasscodeLockController = {
         let passcodeController = PasscodeLockController(action: .enter)
-        passcodeController?.delegate = self
-        return passcodeController!
+        passcodeController.delegate = self
+        return passcodeController
     }()
 
     override init() {

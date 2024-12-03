@@ -1,0 +1,7 @@
+retain_objc_accessible: true
+retain_public: true
+schemes:
+- VLC-iOS
+targets:
+- VLC-iOS
+workspace: VLC.xcworkspace
