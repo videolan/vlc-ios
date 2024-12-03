@@ -232,7 +232,7 @@ enum PrivacyOptions {
                     subtitle: nil,
                     action: .toggle(preferenceKey: kVLCSettingPasscodeAllowFaceID)
                 )
-            case .none, .opticID:
+            case .none:
                 fallthrough
             @unknown default:
                 return nil

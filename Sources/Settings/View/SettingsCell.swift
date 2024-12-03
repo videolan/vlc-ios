@@ -206,7 +206,7 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc func handleSwitchAction(sender: UISwitch) {
-        guard let settingsItem else { return }
+        guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
         case .toggle(let preferenceKey):
@@ -270,7 +270,7 @@ class SettingsCell: UITableViewCell {
     }
 
     private func updateSwitch() {
-        guard let settingsItem else { return }
+        guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
         case .toggle(let preferenceKey):
