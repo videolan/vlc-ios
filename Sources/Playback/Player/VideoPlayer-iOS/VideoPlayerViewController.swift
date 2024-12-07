@@ -42,8 +42,6 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
 
     // MARK: - Private
-    private var systemBrightness: Double?
-
     /// Stores previous playback speed for long press gesture
     /// to be able to restore playback speed to its previous state after long press ended.
     private var previousPlaybackSpeed: Float?
@@ -281,7 +279,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
         videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                            constant: -5)
+                                                    constant: -5)
     }()
 
     private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
@@ -307,8 +305,6 @@ class VideoPlayerViewController: PlayerViewController {
         super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
 
         self.playerController.delegate = self
-        systemBrightness = UIScreen.main.brightness
-        NotificationCenter.default.addObserver(self, selector: #selector(systemBrightnessChanged), name: UIApplication.didBecomeActiveNotification, object: nil)
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
 
         brightnessControlView.delegate = self
@@ -390,7 +386,8 @@ class VideoPlayerViewController: PlayerViewController {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
             if let brightness = defaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
-                UIScreen.main.brightness = brightness
+                animateBrightness(to: brightness)
+                self.brightnessControl.value = Float(brightness)
             }
         }
 #endif
@@ -456,9 +453,17 @@ class VideoPlayerViewController: PlayerViewController {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
             let currentBrightness = UIScreen.main.brightness
+            self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
             defaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
-            UIScreen.main.brightness = systemBrightness!
         }
+
+        //set the value of system brightness after closing the app x
+        //even if the Player Should Remember Brightness option is disabled
+        animateBrightness(to: systemBrightness!, duration: 0.35)
+
+        // remove the observer when the view disappears to avoid breaking the brightness view value
+        // when the video player is not shown to save the persisted values
+        removePlayerBrightnessObservers()
 #endif
     }
 
@@ -611,7 +616,61 @@ class VideoPlayerViewController: PlayerViewController {
             slider.widthAnchor.constraint(equalToConstant: 50),
             yConstraint,
         ])
+
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let isLandscape: Bool = size.width >= view.frame.size.width
+
+        titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
+        titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
+    }
+
+    private func addPlayerBrightnessObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(systemBrightnessChanged),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(playerWillResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(playerWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+    }
+
+    private func removePlayerBrightnessObservers() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+    }
+
+    // MARK: - Private helpers
 
 #if os(iOS)
     private func setupBrightnessControlConstraints() {
@@ -953,9 +1012,9 @@ class VideoPlayerViewController: PlayerViewController {
         UIView.transition(with: volumeControlView, duration: 0.4,
                           options: .transitionCrossDissolve,
                           animations : {
-                            self.volumeControlView.updateIcon(level: volumelevel as! Float)
+            self.volumeControlView.updateIcon(level: volumelevel as! Float)
 
-                          })
+        })
     }
 #endif
 
@@ -972,20 +1031,6 @@ class VideoPlayerViewController: PlayerViewController {
         // safeAreaInsets can take some time to get set.
         // Once updated, check if we need to update the constraints for notches
         adaptVideoOutputToNotch()
-    }
-
-#if os(iOS)
-    @objc func systemBrightnessChanged() {
-        systemBrightness = UIScreen.main.brightness
-    }
-#endif
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        let isLandscape: Bool = size.width >= view.frame.size.width
-
-        titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
-        titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
 
     override func setControlsHidden(_ hidden: Bool, animated: Bool) {
@@ -1311,9 +1356,9 @@ extension VideoPlayerViewController {
     }
 
     override func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
-                                 isPlaying: Bool,
-                                 currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool,
-                                 for playbackService: PlaybackService) {
+                                          isPlaying: Bool,
+                                          currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool,
+                                          for playbackService: PlaybackService) {
         super.mediaPlayerStateChanged(currentState,
                                       isPlaying: isPlaying,
                                       currentMediaHasTrackToChooseFrom: currentMediaHasTrackToChooseFrom,
@@ -1698,8 +1743,8 @@ extension VideoPlayerViewController {
 extension VideoPlayerViewController {
     @objc func downloadMoreSPU() {
         let targetViewController: VLCPlaybackInfoSubtitlesFetcherViewController =
-            VLCPlaybackInfoSubtitlesFetcherViewController(nibName: nil,
-                                                          bundle: nil)
+        VLCPlaybackInfoSubtitlesFetcherViewController(nibName: nil,
+                                                      bundle: nil)
         targetViewController.title = NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO",
                                                        comment: "")
 

@@ -73,9 +73,9 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Properties
     var mediaLibraryService: MediaLibraryService
-    #if os(iOS)
+#if os(iOS)
     var rendererDiscovererManager: VLCRendererDiscovererManager
-    #endif
+#endif
     var playerController: PlayerController
     var playbackService: PlaybackService = PlaybackService.sharedInstance()
     var queueViewController: QueueViewController?
@@ -169,14 +169,14 @@ class PlayerViewController: UIViewController {
 
         contentOutputView.accessibilityIdentifier = "Video Player Title"
         contentOutputView.accessibilityLabel = NSLocalizedString("VO_VIDEOPLAYER_TITLE",
-                                                               comment: "")
+                                                                 comment: "")
         contentOutputView.accessibilityHint = NSLocalizedString("VO_VIDEOPLAYER_DOUBLETAP",
-                                                              comment: "")
+                                                                comment: "")
         return contentOutputView
     }()
 
 #if os(iOS)
-    private lazy var brightnessControl: SliderGestureControl = {
+    lazy var brightnessControl: SliderGestureControl = {
         return SliderGestureControl { value in
             UIScreen.main.brightness = CGFloat(value)
         } deviceGetter: {
@@ -184,7 +184,7 @@ class PlayerViewController: UIViewController {
         }
     }()
 
-    private lazy var volumeControl: SliderGestureControl = {
+    lazy var volumeControl: SliderGestureControl = {
         return SliderGestureControl { [weak self] value in
             self?.volumeView.setVolume(value)
         } deviceGetter: {
@@ -298,18 +298,23 @@ class PlayerViewController: UIViewController {
         return deviceMotion
     }()
 
+    var systemBrightness: Double?
+
     // MARK: Constants
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
-    #if os(iOS)
+#if os(iOS)
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
                                          height: UIScreen.main.bounds.height)
-
-    #else
+#else
     private let screenPixelSize: CGSize = {
         return UIApplication.shared.delegate?.window??.bounds.size
     }()!
-    #endif
+#endif
+
+    private let notificationCenter = NotificationCenter.default
+
+    private let userDefaults = UserDefaults.standard
 
     // MARK: - Gestures
 
@@ -362,7 +367,7 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Init
 
-    #if os(iOS)
+#if os(iOS)
     @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
         self.mediaLibraryService = mediaLibraryService
         self.rendererDiscovererManager = rendererDiscovererManager
@@ -370,20 +375,21 @@ class PlayerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         mediaNavigationBar.chromeCastButton = rendererButton
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
+        systemBrightness = UIScreen.main.brightness
     }
-    #else
+#else
     @objc init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         self.mediaLibraryService = mediaLibraryService
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
-    #endif
+#endif
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         setupObservers()
         hideSystemVolumeInfo()
@@ -412,6 +418,28 @@ class PlayerViewController: UIViewController {
         }
 
         view.transform = .identity
+
+        //update the system brightness value before player appears
+        self.systemBrightness = UIScreen.main.brightness
+
+        //update the value of brightness control view
+        //In case of remember brightness option is disabled, this will update the brightness bar with current brightness.
+        if !playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+            brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+            if let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
+                animateBrightness(to: brightness)
+                self.brightnessControl.value = Float(brightness)
+            }
+        }
+
+        addPlayerBrightnessObservers()
     }
 
     override func viewWillLayoutSubviews() {
@@ -419,6 +447,23 @@ class PlayerViewController: UIViewController {
 
         // Adjust the position of the AB Repeat marks if needed based on the device's orientation.
         mediaScrubProgressBar.adjustABRepeatMarks(aMark: aMark, bMark: bMark)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        if playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+            let currentBrightness = UIScreen.main.brightness
+            self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
+            userDefaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
+        }
+        //set the value of system brightness after closing the app
+        //even if the Player Should Remember Brightness option is disabled
+        animateBrightness(to: systemBrightness!, duration: 0.35)
+
+        // remove the observer when the view disappears to avoid breaking the brightness view value
+        // when the player is not shown to save the persisted values
+        removePlayerBrightnessObservers()
     }
 
     // MARK: - Public methods
@@ -460,9 +505,9 @@ class PlayerViewController: UIViewController {
         // We're observing outputVolume to handle volume changes from physical volume buttons
         // To processd properly we have to check we're not interacting with UI controls or gesture
         if  keyPath == "outputVolume" &&
-            !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
-            !isGestureActive && // Check if the slider did not just changed value
-            currentPanType != .volume { // Check we're not doing pan gestures for volume
+                !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
+                !isGestureActive && // Check if the slider did not just changed value
+                currentPanType != .volume { // Check we're not doing pan gestures for volume
             let appearAnimations = { [volumeControlView] in
                 volumeControlView.alpha = 1
             }
@@ -614,7 +659,7 @@ class PlayerViewController: UIViewController {
         }
 #if os(iOS)
         if location.x < 1 * windowWidth / 3 && playerController.isBrightnessGestureEnabled {
-             panType = .brightness
+            panType = .brightness
         }
         if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
             panType = .volume
@@ -671,8 +716,8 @@ class PlayerViewController: UIViewController {
         try? AVAudioSession.sharedInstance().setActive(true)
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
     }
 
     private func setupSeekDurations() {
@@ -720,6 +765,79 @@ class PlayerViewController: UIViewController {
         for (index, frequency) in selectedProfile.frequencies.enumerated() {
             playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(index))
         }
+    }
+
+    // MARK: - Observers
+
+    private func addPlayerBrightnessObservers() {
+        notificationCenter.addObserver(self,
+                                       selector: #selector(systemBrightnessChanged),
+                                       name: UIApplication.didBecomeActiveNotification,
+                                       object: nil)
+
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playerWillResignActive),
+                                       name: UIApplication.willResignActiveNotification,
+                                       object: nil)
+
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playerWillEnterForeground),
+                                       name: UIApplication.willEnterForegroundNotification,
+                                       object: nil)
+    }
+
+    private func removePlayerBrightnessObservers() {
+        notificationCenter.removeObserver(self,
+                                          name: UIApplication.didBecomeActiveNotification,
+                                          object: nil)
+
+        notificationCenter.removeObserver(self,
+                                          name: UIApplication.willResignActiveNotification,
+                                          object: nil)
+
+        notificationCenter.removeObserver(self,
+                                          name: UIApplication.willEnterForegroundNotification,
+                                          object: nil
+        )
+    }
+
+    func animateBrightness(to value: CGFloat, duration: CGFloat = 0.3) {
+        UIScreen.main.animateBrightnessChange(to: value, duration: duration)
+    }
+
+    @objc func systemBrightnessChanged() {
+        let conversionThreshold: Float = 0.03 // threshold for conversion error value
+
+        //incase the control center is opened without any changes in the brightness.
+        //except setting the brightness value to the system one by the willResignActiveNotification observer.
+        //reseting the value of brightness to the player one.
+        if abs(Float(UIScreen.main.brightness - self.systemBrightness!)) <= conversionThreshold {
+            animateBrightness(to: CGFloat(self.brightnessControl.value))
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            // Compare the current screen brightness with the value from the brightness control.
+            // If they are different, the value is changed to the control center value.
+            // This is important to ensure we do not lose track of the actual system brightness setting
+
+            if abs(Float(UIScreen.main.brightness) - self.brightnessControl.value) > conversionThreshold {
+                let brightness = UIScreen.main.brightness
+                self.systemBrightness = brightness
+                self.brightnessControl.value = Float(brightness)
+                self.brightnessControlView.updateIcon(level: Float(brightness))
+            }
+        })
+    }
+
+    @objc func playerWillResignActive() {
+        animateBrightness(to: systemBrightness!)
+    }
+
+    @objc func playerWillEnterForeground() {
+        //updates the value of system brightness
+        //if the brightness is changed when the player was in the background
+        self.systemBrightness = UIScreen.main.brightness
+        animateBrightness(to: systemBrightness!)
     }
 
     // MARK: - Gesture handlers

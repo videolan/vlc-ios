@@ -82,6 +82,9 @@ class PlayerController: NSObject {
         return UserDefaults.standard.bool(forKey: kVLCPlayerShouldRememberState)
     }
 
+    var isRememberBrightnessEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCPlayerShouldRememberBrightness)
+    }
 
     @objc override init() {
         super.init()
