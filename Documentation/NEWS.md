@@ -1,5 +1,10 @@
 # Changelog
 
+## iOS [3.6.5]
+· Fix login to Google Drive after the app was finally approved again
+· Fix Now Playing CarPlay screen behavior
+· Renamed 'Network' tab to 'Browse'
+
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
 
