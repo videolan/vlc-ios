@@ -20,13 +20,9 @@ import LocalAuthentication
 
 extension Notification.Name {
     static let VLCDisableGroupingDidChangeNotification = Notification.Name("disableGroupingDidChangeNotfication")
-    static let VLCDidToggleSettingNotification = Notification.Name("didToggleSettingNotification")
 }
 
 class SettingsController: UITableViewController {
-    static let toggleNotificationKey = "toggleNotificationKey"
-    static let toggleNotificationValue = "toggleNotificationValue"
-
     private let cellReuseIdentifier = "settingsCell"
     private let sectionHeaderReuseIdentifier = "sectionHeaderReuseIdentifier"
     private let sectionFooterReuseIdentifier = "sectionFooterReuseIdentifier"
@@ -105,10 +101,6 @@ class SettingsController: UITableViewController {
                                        selector: #selector(miniPlayerIsHidden),
                                        name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
                                        object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(didToggleSettingNotification(note:)),
-                                       name: .VLCDidToggleSettingNotification,
-                                       object: nil)
     }
 
     private func registerTableViewClasses() {
@@ -178,28 +170,6 @@ class SettingsController: UITableViewController {
                                                    left: 0,
                                                    bottom: 0,
                                                    right: 0)
-    }
-
-    @objc private func didToggleSettingNotification(note: Notification) {
-        guard let preferenceKey = note.userInfo?[Self.toggleNotificationKey] as? String else { return }
-        guard let isOn = note.userInfo?[Self.toggleNotificationValue] as? Bool else { return }
-
-        userDefaults.set(isOn, forKey: preferenceKey)
-
-        switch preferenceKey {
-        case kVLCSettingPasscodeOnKey:
-            passcodeLockSwitchOn(state: isOn)
-        case kVLCSettingHideLibraryInFilesApp:
-            medialibraryHidingLockSwitchOn(state: isOn)
-        case kVLCSettingBackupMediaLibrary:
-            mediaLibraryBackupActivateSwitchOn(state: isOn)
-        case kVLCSettingsDisableGrouping:
-            medialibraryDisableGroupingSwitchOn(state: isOn)
-        case kVLCSettingPlaybackTapSwipeEqual, kVLCSettingPlaybackForwardBackwardEqual:
-            reloadSettingsSections()
-        default:
-            break
-        }
     }
 
 // MARK: - Helper Functions
@@ -333,6 +303,7 @@ extension SettingsController {
         }
 
         cell.settingsBundle = settingsBundle
+        cell.delegate = self
 
         let section = settingsSections[indexPath.section]
         let settingsItem = section.items[indexPath.row]
@@ -432,6 +403,27 @@ extension SettingsController: MediaLibraryHidingDelegate {
 }
 
 // MARK: - SwitchOn Delegates
+
+extension SettingsController: SettingsCellDelegate {
+    func settingsCellDidChangeSwitchState(preferenceKey: String, isOn: Bool) {
+        userDefaults.set(isOn, forKey: preferenceKey)
+
+        switch preferenceKey {
+        case kVLCSettingPasscodeOnKey:
+            passcodeLockSwitchOn(state: isOn)
+        case kVLCSettingHideLibraryInFilesApp:
+            medialibraryHidingLockSwitchOn(state: isOn)
+        case kVLCSettingBackupMediaLibrary:
+            mediaLibraryBackupActivateSwitchOn(state: isOn)
+        case kVLCSettingsDisableGrouping:
+            medialibraryDisableGroupingSwitchOn(state: isOn)
+        case kVLCSettingPlaybackTapSwipeEqual, kVLCSettingPlaybackForwardBackwardEqual:
+            reloadSettingsSections()
+        default:
+            break
+        }
+    }
+}
 
 extension SettingsController {
 

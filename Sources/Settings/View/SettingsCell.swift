@@ -11,11 +11,18 @@
 
 import UIKit
 
+protocol SettingsCellDelegate: AnyObject {
+    func settingsCellDidChangeSwitchState(preferenceKey: String, isOn: Bool)
+}
+
 class SettingsCell: UITableViewCell {
 
     private var userDefaults: UserDefaults { UserDefaults.standard }
     private var notificationCenter: NotificationCenter { NotificationCenter.default }
-    var settingsBundle = Bundle()
+
+    internal var settingsBundle = Bundle()
+
+    internal weak var delegate: SettingsCellDelegate?
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -162,6 +169,9 @@ class SettingsCell: UITableViewCell {
 
         // Reset to default colors.
         themeDidChange()
+
+        settingsItem = nil
+        delegate = nil
     }
 
     private func setup() {
@@ -210,13 +220,7 @@ class SettingsCell: UITableViewCell {
 
         switch settingsItem.action {
         case .toggle(let preferenceKey):
-            let note = Notification(name: .VLCDidToggleSettingNotification,
-                                    object: nil,
-                                    userInfo: [
-                                        SettingsController.toggleNotificationKey: preferenceKey,
-                                        SettingsController.toggleNotificationValue: sender.isOn
-                                    ])
-            notificationCenter.post(note)
+            delegate?.settingsCellDidChangeSwitchState(preferenceKey: preferenceKey, isOn: sender.isOn)
 
         default:
             break
