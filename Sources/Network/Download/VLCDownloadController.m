@@ -24,6 +24,7 @@
     NSMutableArray *_downloadedMedia;
     NSMutableArray *_downloadedMediaDates;
     NSDateFormatter *_dateFormatter;
+
     BOOL _downloadActive;
     NSString *_humanReadableFilename;
     NSMutableDictionary *_userDefinedFileNameForDownloadItem;
@@ -201,7 +202,7 @@
     if (_mediaDownloader.downloadInProgress || _httpDownloader.downloadInProgress) {
         return;
     }
-    
+
     NSURL *mediaURL = media.url;
     _humanReadableFilename = [_userDefinedFileNameForDownloadItem objectForKey:mediaURL];
     if (!_humanReadableFilename) {
@@ -209,20 +210,19 @@
     } else {
         _humanReadableFilename = [_humanReadableFilename stringByRemovingPercentEncoding];
     }
-    
+
     [self fetchExpectedDownloadSizeForMedia:media completionHandler:^(CGFloat expectedDownloadSize) {
         self->_downloadActive = YES; // Allow download regardless of the expected size
-        
+
         if ([media.url.scheme isEqualToString:@"http"]) {
             [self->_httpDownloader downloadFileFromVLCMedia:media withName:self->_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
         } else {
             [self->_mediaDownloader downloadFileFromVLCMedia:media withName:self->_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
         }
-        
+
         [self->_userDefinedFileNameForDownloadItem removeObjectForKey:media.url];
         [self->_expectedDownloadSizesForItem removeObjectForKey:media.url];
     }];
-    
 }
 
 - (void)fetchExpectedDownloadSizeForMedia:(VLCMedia *)media completionHandler:(void (^)(CGFloat expectedDownloadSize))completionHandler
@@ -285,7 +285,8 @@
 }
 
 #pragma mark - Download completion announcement
-- (void)announceDownloadCompletion {
+- (void)announceDownloadCompletion
+{
     if (!UIAccessibilityIsVoiceOverRunning()) {
         return;
     }
@@ -304,6 +305,7 @@
     utterance.volume = 0.8;
     [speechSynthesizer speakUtterance:utterance];
 }
+
 #pragma mark - VLC media downloader delegate
 - (void)mediaFileDownloadStarted:(VLCMediaFileDownloader *)theDownloader
 {
@@ -348,7 +350,8 @@
     [self mediaFileDownloadEnded:theDownloader];
 }
 
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize {
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
     _totalReceived += receivedDataSize;
     _lastReceived += receivedDataSize;
 
