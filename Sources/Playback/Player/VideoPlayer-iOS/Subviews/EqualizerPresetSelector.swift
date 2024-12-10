@@ -197,6 +197,22 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         delete.backgroundColor = UIColor.red
         rename.backgroundColor = PresentationTheme.current.colors.orangeUI
         return [delete, rename]
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let moveUpAction = UIContextualAction(style: .normal, title: nil, handler: { _, _, _ in
+            self.moveProfile(.up, at: indexPath)
+            tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+        })
+
+        let moveDownAction = UIContextualAction(style: .normal, title: nil, handler: { _, _, _ in
+            self.moveProfile(.down, at: indexPath)
+            tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+        })
+
+        moveUpAction.image = UIImage(named: "chevronUp")
+        moveDownAction.image = UIImage(named: "chevronDown")
+
+        let actions: [UIContextualAction] = [moveUpAction, moveDownAction]
+        return UISwipeActionsConfiguration(actions: actions)
     }
 
     // MARK: - Slider event
@@ -209,6 +225,23 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     func setPreampSliderValue(_ value: Float) {
         preampSlider.value = value
         preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
+    }
+
+    func moveProfile(_ moveIdentifier: MoveEventIdentifier, at index: IndexPath) {
+        let userDefaults = UserDefaults.standard
+        let profilesData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
+        guard let profilesData = profilesData,
+              let customProfiles = NSKeyedUnarchiver(forReadingWith: profilesData).decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+            return
+        }
+
+        if moveIdentifier == .up {
+            customProfiles.moveUp(index: index.row)
+        } else {
+            customProfiles.moveDown(index: index.row)
+        }
+
+        userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
     }
 }
 

@@ -45,6 +45,8 @@ class CustomEqualizerProfile: NSObject, NSCoding {
 }
 
 class CustomEqualizerProfiles: NSObject, NSCoding {
+    var profiles: [CustomEqualizerProfile]
+
     required init?(coder: NSCoder) {
         guard let customProfiles = coder.decodeObject(forKey: "profiles") as? [CustomEqualizerProfile] else {
             self.profiles = []
@@ -62,7 +64,48 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
         coder.encode(self.profiles, forKey: "profiles")
     }
 
-    var profiles: [CustomEqualizerProfile]
+    func moveUp(index: Int) {
+        guard index - 1 >= 0 else {
+            return
+        }
+
+        profiles.swapAt(index, index - 1)
+
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey: kVLCCustomProfileEnabled) {
+            let currentProfileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
+
+            if currentProfileIndex == index {
+                userDefaults.setValue(index - 1, forKeyPath: kVLCSettingEqualizerProfile)
+            } else if currentProfileIndex == index - 1 {
+                userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
+            }
+        }
+    }
+
+    func moveDown(index: Int) {
+        guard index + 1 < profiles.count else {
+            return
+        }
+
+        profiles.swapAt(index, index + 1)
+
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey: kVLCCustomProfileEnabled) {
+            let currentProfileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
+
+            if currentProfileIndex == index {
+                userDefaults.setValue(index + 1, forKeyPath: kVLCSettingEqualizerProfile)
+            } else if currentProfileIndex == index + 1 {
+                userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
+            }
+        }
+    }
+}
+
+enum MoveEventIdentifier: Int {
+    case up = 1
+    case down
 }
 
 // MARK: - EqualizerEditActionsIdentifier
