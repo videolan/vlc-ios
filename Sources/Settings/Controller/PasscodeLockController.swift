@@ -7,7 +7,7 @@
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *          Carola Nitz <caro # videolan.org>
  *          Pratik Ray <raypratik365 # gmail.com>
- *
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -31,17 +31,11 @@ class PasscodeLockController: UIViewController {
     private let notificationCenter = NotificationCenter.default
     private var tempPasscode = ""
     private var action: PasscodeAction?
-    private var defaultPasscodeLength: Int {
-        return 4
-    }
+    private var passcodeLength: Int = 4
+
     weak var delegate: PasscodeLockControllerDelegate?
     var passcode = ""
-    private var passcodeLength: Int? {
-        didSet {
-            UserDefaults.standard.set(passcodeLength, forKey: "PasscodeLengthKey")
-        }
-    }
-    
+
     private lazy var passcodeLengthAlertController: UIAlertController = {
         let alertController = UIAlertController(
             title: NSLocalizedString("PASSCODE_LENGTH", comment: ""),
@@ -153,21 +147,18 @@ class PasscodeLockController: UIViewController {
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if action == .set && passcodeLength == nil {
+
+        if action == .set {
             presentPasscodeLengthSelection()
-        } else if action == .enter && !isBiometricsEnabled {
-            passcodeTextField.becomeFirstResponder()
         } else {
-            // Retrieve the saved passcode length from UserDefaults
-            passcodeLength = UserDefaults.standard.integer(forKey: "PasscodeLengthKey")
-            
-            // If passcode is already set, use its length; otherwise, use default length
-            let storedPasscode = passcodeFromKeychain()
-            passcodeLength = !storedPasscode.isEmpty ? storedPasscode.count : defaultPasscodeLength
-            
-            // Show passcode entry
-            showPasscodeEntry()
+            let storedPasscodeLength = passcodeFromKeychain().count
+            if storedPasscodeLength > 0 {
+                self.passcodeLength = storedPasscodeLength
+            }
+
+            if !isBiometricsEnabled {
+                passcodeTextField.becomeFirstResponder()
+            }
         }
     }
     
@@ -203,7 +194,7 @@ class PasscodeLockController: UIViewController {
             guide = view.safeAreaLayoutGuide
         }
         // Determine the width based on passcode length
-        let passcodeWidth = CGFloat(passcodeLength ?? 4) * 40.0 // Adjust 40.0 based on desired width per digit
+        let passcodeWidth = CGFloat(passcodeLength) * 40.0 // Adjust 40.0 based on desired width per digit
         passcodeTextField.widthAnchor.constraint(equalToConstant: passcodeWidth).isActive = true
         contentStackView.addArrangedSubview(messageLabel)
         contentStackView.addArrangedSubview(passcodeTextField)
@@ -270,7 +261,6 @@ class PasscodeLockController: UIViewController {
     // MARK: - Logic
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let passcodeText = passcodeTextField.text else { return }
-        let passcodeLength = self.passcodeLength ?? defaultPasscodeLength
         if passcodeText.count == passcodeLength {
             if action == .set {
                 if tempPasscode == "" {
