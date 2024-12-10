@@ -185,18 +185,22 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         toggleHiddenView()
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: NSLocalizedString("BUTTON_DELETE", comment: "")) { action, index in
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             self.delegate?.equalizerPresetSelector(self, displayAlertOfType: .delete, index: indexPath)
         }
 
-        let rename = UITableViewRowAction(style: .default, title: NSLocalizedString("BUTTON_RENAME", comment: "")) { action, index in
+        let renameAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
             self.delegate?.equalizerPresetSelector(self, displayAlertOfType: .rename, index: indexPath)
         }
 
-        delete.backgroundColor = UIColor.red
-        rename.backgroundColor = PresentationTheme.current.colors.orangeUI
-        return [delete, rename]
+        deleteAction.image = UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate)
+        renameAction.image = UIImage(named: "rename")?.withRenderingMode(.alwaysTemplate)
+        renameAction.backgroundColor = PresentationTheme.current.colors.orangeUI
+
+        return UISwipeActionsConfiguration(actions: [deleteAction, renameAction])
+    }
+
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveUpAction = UIContextualAction(style: .normal, title: nil, handler: { _, _, _ in
             self.moveProfile(.up, at: indexPath)
