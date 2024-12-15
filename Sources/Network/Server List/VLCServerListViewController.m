@@ -586,9 +586,11 @@
 
 - (void)discoveryFoundSomethingNew
 {
-    [_localNetworkTableView reloadData];
-    [_localNetworkTableView layoutIfNeeded];
-    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_localNetworkTableView reloadData];
+        [self->_localNetworkTableView layoutIfNeeded];
+        self->_localNetworkHeight.constant = self->_localNetworkTableView.contentSize.height;
+    });
 }
 
 -(void)showEmptyMediaListAlert
