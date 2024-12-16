@@ -4794,7 +4794,6 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
-					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
@@ -4846,7 +4845,6 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
-					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4947,7 +4945,6 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
-					armv7s,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
