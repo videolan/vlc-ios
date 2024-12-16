@@ -484,17 +484,22 @@ extension EditActions: AddToCollectionViewControllerDelegate {
             self.updateActionStatusLabelPresentingView()
             self.showAddSuccessLabel(numOfMedia: numOfDuplicated, title: playlist.title())
         }
-        let addTitle = String(format: NSLocalizedString("ADD_ANYWAY_ALERT_BUTTON_TITLE", comment: ""))
+        let addTitle = String(format: NSLocalizedString("BUTTON_CONTINUE", comment: ""))
         let addAlertButton = VLCAlertButton(
             title: addTitle,
             style: .default,
             action: addAction
         )
         
-        let cancelTitle = String(format: NSLocalizedString("Cancel_ALERT_BUTTON_TITLE", comment: ""))
+        let cancelTitle = String(format: NSLocalizedString("BUTTON_CANCEL", comment: ""))
         let cancelAlertButton = VLCAlertButton(title: cancelTitle, style: .destructive, action: nil)
         let alertTitle = String(format: NSLocalizedString("ADD_ALERT_TITLE", comment: ""))
-        let alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE", comment: ""), numOfDuplicated, playlist.title())
+        let alertMessage: String
+        if numOfDuplicated == 1 {
+            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_SINGLE", comment: ""), playlist.title())
+        } else {
+            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_MULTIPLE", comment: ""), numOfDuplicated, playlist.title())
+        }
 
         guard let presentedViewController = self.rootViewController.presentedViewController else {
             return
