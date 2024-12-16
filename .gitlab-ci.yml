@@ -24,7 +24,7 @@ variables:
 .build-base:
     script:
         - xcodebuild -version
-        - xcodebuild -verbose -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -configuration "Debug" clean build -destination "$BUILD_DESTINATION"
+        - xcodebuild -verbose -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -configuration "Debug" clean build -destination "$BUILD_DESTINATION" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
 ## Lint
 
