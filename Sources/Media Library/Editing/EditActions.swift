@@ -88,7 +88,7 @@ extension EditActions {
 
         var mediaGroupIds = [VLCMLIdentifier]()
         objects.forEach() { mediaGroupIds.append($0.identifier()) }
-        
+
         guard var mediaGroups = mediaLibraryService.medialib.mediaGroups() else {
             assertionFailure("EditActions: addToMediaGroup: Failed to retrieve mediaGroups.")
             completion?(.fail)
@@ -173,7 +173,7 @@ extension EditActions {
                 } else if let playlist = mlObject as? VLCMLPlaylist {
                     playlist.updateName(text)
                 } else if let mediaGroup = mlObject as? VLCMLMediaGroup,
-                      let mediaGroupViewModel = self.model as? MediaGroupViewModel {
+                          let mediaGroupViewModel = self.model as? MediaGroupViewModel {
                     mediaGroupViewModel.rename(mediaGroup, to: text)
                 }
                 self.objects.removeFirst()
@@ -203,8 +203,7 @@ extension EditActions {
                                           style: .cancel)
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
                                           style: .destructive,
-                                          action: {
-            [unowned self] action in
+                                          action: { [unowned self] action in
             self.model.anyDelete(self.objects)
             self.objects.removeAll()
             self.completion?(.success)
@@ -226,8 +225,7 @@ extension EditActions {
         guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: URLs(),
                                                                                       presenting: nil,
                                                                                       presenting: rootViewController,
-                                                                                      completionHandler: {
-            [unowned self] _ in
+                                                                                      completionHandler: { [unowned self] _ in
             self.completion?(.success)
         }
         ) else {
@@ -419,6 +417,55 @@ private extension EditActions {
         actionStatusLabel.showStatusMessage(message)
         completion?(.success)
     }
+
+    private func showAddDuplicatedMediaAlert(collectionVC: AddToCollectionViewController, with existedMedia: [VLCMLMedia], to playlist: VLCMLPlaylist, numOfDuplicated: Int, numOfNonDuplicated: Int) {
+        let addAction: (UIAlertAction) -> Void = { _ in
+            existedMedia.forEach { media in
+                playlist.appendMedia(media)
+            }
+            collectionVC.reloadData()
+            collectionVC.dismiss(animated: true)
+            self.updateActionStatusLabelPresentingView()
+            self.showAddSuccessLabel(numOfMedia: numOfDuplicated, title: playlist.title())
+        }
+
+        let addTitle = String(format: NSLocalizedString("BUTTON_CONTINUE", comment: ""))
+        let addAlertButton = VLCAlertButton(title: addTitle, style: .default, action: addAction)
+
+        let cancelTitle = String(format: NSLocalizedString("BUTTON_CANCEL", comment: ""))
+        let cancelAlertButton = VLCAlertButton(title: cancelTitle, style: .destructive, action: nil)
+        let alertTitle = String(format: NSLocalizedString("ADD_ALERT_TITLE", comment: ""))
+        let alertMessage: String
+        if numOfDuplicated == 1 {
+            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_SINGLE", comment: ""), playlist.title())
+        } else {
+            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_MULTIPLE", comment: ""), numOfDuplicated, playlist.title())
+        }
+
+        guard let presentedViewController = self.rootViewController.presentedViewController else {
+            return
+        }
+
+        VLCAlertViewController.alertViewManager(title: alertTitle, errorMessage: alertMessage,
+                                                viewController: presentedViewController,
+                                                buttonsAction: [cancelAlertButton, addAlertButton])
+    }
+
+    private func showAddSuccessLabel(numOfMedia: Int, title: String) {
+        let message = String(format: NSLocalizedString("ADD_TO_PLAYLIST_STATUS_MESSAGE", comment: ""), numOfMedia, title)
+        actionStatusLabel.showStatusMessage(message)
+    }
+
+    private func updateActionStatusLabelPresentingView(with view: UIViewController? = nil) {
+        self.actionStatusLabel.removeFromSuperview()
+        let presentedView = view ?? self.rootViewController
+        presentedView.view.addSubview(actionStatusLabel)
+        presentedView.view.bringSubviewToFront(actionStatusLabel)
+        NSLayoutConstraint.activate([
+            actionStatusLabel.centerXAnchor.constraint(equalTo: presentedView.view.centerXAnchor),
+            actionStatusLabel.centerYAnchor.constraint(equalTo: presentedView.view.bottomAnchor, constant: -110)
+        ])
+    }
 }
 
 // MARK: - AddToCollectionViewControllerDelegate
@@ -439,6 +486,7 @@ extension EditActions: AddToCollectionViewControllerDelegate {
             completion?(.fail)
             return
         }
+
         if let mediaGroup = collection as? VLCMLMediaGroup,
            let mediaGroupModel = self.model as? MediaGroupViewModel {
             mediaGroupModel.append(tmpMedia, to: mediaGroup)
@@ -472,46 +520,6 @@ extension EditActions: AddToCollectionViewControllerDelegate {
             }
         }
         completion?(.success)
-    }
-    
-    private func showAddDuplicatedMediaAlert(collectionVC: AddToCollectionViewController, with existedMedia: [VLCMLMedia], to playlist: VLCMLPlaylist, numOfDuplicated: Int, numOfNonDuplicated: Int) {
-        let addAction: (UIAlertAction) -> Void = { _ in
-            existedMedia.forEach { media in
-                playlist.appendMedia(media)
-            }
-            collectionVC.reloadData()
-            collectionVC.dismiss(animated: true)
-            self.updateActionStatusLabelPresentingView()
-            self.showAddSuccessLabel(numOfMedia: numOfDuplicated, title: playlist.title())
-        }
-        let addTitle = String(format: NSLocalizedString("BUTTON_CONTINUE", comment: ""))
-        let addAlertButton = VLCAlertButton(
-            title: addTitle,
-            style: .default,
-            action: addAction
-        )
-        
-        let cancelTitle = String(format: NSLocalizedString("BUTTON_CANCEL", comment: ""))
-        let cancelAlertButton = VLCAlertButton(title: cancelTitle, style: .destructive, action: nil)
-        let alertTitle = String(format: NSLocalizedString("ADD_ALERT_TITLE", comment: ""))
-        let alertMessage: String
-        if numOfDuplicated == 1 {
-            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_SINGLE", comment: ""), playlist.title())
-        } else {
-            alertMessage = String(format: NSLocalizedString("ADD_ALERT_MESSAGE_MULTIPLE", comment: ""), numOfDuplicated, playlist.title())
-        }
-
-        guard let presentedViewController = self.rootViewController.presentedViewController else {
-            return
-        }
-        VLCAlertViewController.alertViewManager(title: alertTitle, errorMessage: alertMessage,
-                                                viewController: presentedViewController,
-                                                buttonsAction: [cancelAlertButton, addAlertButton])
-    }
-    
-    private func showAddSuccessLabel(numOfMedia: Int, title: String) {
-        let message = String(format: NSLocalizedString("ADD_TO_PLAYLIST_STATUS_MESSAGE", comment: ""), numOfMedia, title)
-        actionStatusLabel.showStatusMessage(message)
     }
 
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
@@ -551,16 +559,5 @@ extension EditActions: AddToCollectionViewControllerDelegate {
         mediaGroupViewModel.filterFilesFromDeletion(of: mediaGroupsIds)
         addToCollectionViewController.dismiss(animated: true, completion: nil)
         completion?(.success)
-    }
-
-    private func updateActionStatusLabelPresentingView(with view: UIViewController? = nil) {
-        self.actionStatusLabel.removeFromSuperview()
-        let presentedView = view ?? self.rootViewController
-        presentedView.view.addSubview(actionStatusLabel)
-        presentedView.view.bringSubviewToFront(actionStatusLabel)
-        NSLayoutConstraint.activate([
-            actionStatusLabel.centerXAnchor.constraint(equalTo: presentedView.view.centerXAnchor),
-            actionStatusLabel.centerYAnchor.constraint(equalTo: presentedView.view.bottomAnchor, constant: -110)
-        ])
     }
 }
