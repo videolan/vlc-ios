@@ -6,7 +6,7 @@ default:
     before_script:
         - arch -x86_64 pod update
     tags:
-        - monterey-m1-lasvegas
+        - macos-xcode15
     interruptible: true
 
 variables:
@@ -85,7 +85,7 @@ tvOS 15.x:
         - .job-base
         - .build-base
     tags:
-        - monterey-m1-lasvegas
+        - macos-xcode15
     stage: build
     variables:
         BUILD_SCHEME: "VLC-tvOS"
