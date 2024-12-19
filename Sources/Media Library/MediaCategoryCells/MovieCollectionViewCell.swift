@@ -202,6 +202,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         } else {
             groupLastPlayedLabel.isHidden = true
         }
+
         mediaView.isHidden = true
         progressView.isHidden = true
 

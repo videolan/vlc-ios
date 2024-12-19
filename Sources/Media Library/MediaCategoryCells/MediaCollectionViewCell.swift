@@ -403,17 +403,17 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         updateSizeDescriptionLabelConstraint()
         updateLabelsViewContraint()
     }
-    
-    //Indicating the currentlyPlayingMedia value when choosing actions like "play," "play next in queue," and "append to queue" is necessary because the playbackService.isPlaying value doesn't update immediately.
+
+    // Indicating the currentlyPlayingMedia value when choosing actions like "play," "play next in queue," and "append to queue" is necessary because the playbackService.isPlaying value doesn't update immediately.
     // This delay causes the reloadData() call to be ineffective in hiding the last played label.
     func update(playlist: VLCMLPlaylist) {
         if lastPlayed {
             handleLastPlayed()
-        }
-        else {
+        } else {
             newLabel.isHidden = true
             dragIndicatorImageView.isHidden = false
         }
+
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
         sizeDescriptionLabel.text = playlist.numberOfTracksString() + " · " + playlist.durationString()
@@ -613,12 +613,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         return CGSize(width: cellWidth, height: titleHeight + subtitleHeight + edgePadding + interItemPadding * 2)
     }
-// MARK: - Handle  New label Text
+
+    // MARK: - Handle  New label Text
+
     func handleLastPlayed() {
         let isCurrentlyPlayingPlaylist = UserDefaults.standard.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
         let shouldDisplayLastPlayedLabel = (!playbackService.isPlaying && playbackService.currentlyPlayingMedia == nil) || !isCurrentlyPlayingPlaylist
         newLabel.isHidden = !shouldDisplayLastPlayedLabel
-        
+
         if media is VLCMLPlaylist {
             dragIndicatorImageView.isHidden = shouldDisplayLastPlayedLabel
         } else {
@@ -627,7 +629,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         newLabel.text = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
     }
-    
+
     func setMediaNew() {
         newLabel.text = NSLocalizedString("NEW", comment: "")
     }
