@@ -410,59 +410,6 @@ enum GestureControlOptions {
     }
 }
 
-// MARK: - PlaybackControlOptions
-enum PlaybackControlOptions {
-    static var swipeUpDownForVolume: SettingsItem {
-        .init(
-            title: "SETTINGS_GESTURES_VOLUME",
-            subtitle: nil,
-            action: .toggle(preferenceKey: kVLCSettingVolumeGesture)
-        )
-    }
-
-    static var twoFingerTap: SettingsItem {
-        .init(
-            title: "SETTINGS_GESTURES_PLAYPAUSE",
-            subtitle: nil,
-            action: .toggle(preferenceKey: kVLCSettingPlayPauseGesture)
-        )
-    }
-
-    static var swipeUpDownForBrightness: SettingsItem {
-        .init(
-            title: "SETTINGS_GESTURES_BRIGHTNESS",
-            subtitle: nil,
-            action: .toggle(preferenceKey: kVLCSettingBrightnessGesture)
-        )
-    }
-
-    static var swipeRightLeftToSeek: SettingsItem {
-        .init(
-            title: "SETTINGS_GESTURES_SEEK",
-            subtitle: nil,
-            action: .toggle(preferenceKey: kVLCSettingSeekGesture)
-        )
-    }
-
-    static var longTouchToSpeedUp: SettingsItem {
-        .init(
-            title: "SETINGS_LONG_TOUCH_SPEED_UP",
-            subtitle: nil,
-            action: .toggle(preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
-        )
-    }
-
-    static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_GESTURES", items: [
-            swipeUpDownForVolume,
-            twoFingerTap,
-            swipeUpDownForBrightness,
-            swipeRightLeftToSeek,
-            longTouchToSpeedUp
-        ])
-    }
-}
-
 // MARK: - VideoOptions
 enum VideoOptions {
     static var deBlockingFilter: SettingsItem {
