@@ -109,6 +109,7 @@
 #define kVLCSettingPlayerControlDuration @"kVLCSettingPlayerControlDuration"
 #define kVLCSettingPlayerControlDurationDefaultValue @(4)
 #define kVLCSettingPauseWhenShowingControls @"kVLCSettingPauseWhenShowingControls"
+#define kVLCSettingEnableScrollToCurrentlyPlayingMedia @"kVLCSettingEnableScrollToCurrentlyPlayingMedia"
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 

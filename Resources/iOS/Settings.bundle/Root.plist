@@ -144,6 +144,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_ENABLE_SCROLL_TO_CURRENTLY_PLAYING_MEDIA</string>
+			<key>Key</key>
+			<string>kVLCSettingEnableScrollToCurrentlyPlayingMedia</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_GESTURES</string>
