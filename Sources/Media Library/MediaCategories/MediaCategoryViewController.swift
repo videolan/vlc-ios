@@ -728,6 +728,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         // resets the current playing model value when playback stops
         userDefaults.removeObject(forKey: kVLCCurrentPlayingModel)
     }
+
     // MARK: - Renderer
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -875,15 +876,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 }
 
 // MARK: - Automatic Scrolling to currently playing media
+
 extension MediaCategoryViewController {
     func scrollToCurrentlyPlaying() {
         let playbackService = PlaybackService.sharedInstance()
-        
-        guard let currentMedia = playbackService.currentlyPlayingMedia, let currentModel = mediaLibraryService.currentlyPlayingCollection else {
+
+        guard let currentMedia = playbackService.currentlyPlayingMedia,
+              let currentModel = mediaLibraryService.currentlyPlayingCollection else {
             return
         }
+
         let mlMedia = VLCMLMedia(forPlaying: currentMedia)
-        
+
         switch model {
         case is TrackModel:
             autoScrollSongs(media: mlMedia, currentMedia: currentMedia, currentModel: currentModel)
@@ -901,41 +905,48 @@ extension MediaCategoryViewController {
             break
         }
     }
-    
+
     private func autoScrollSongs(media: VLCMLMedia?, currentMedia: VLCMedia, currentModel: CurrentlyPlayingCollectionModel) {
         guard let medias = currentDataSet as? [VLCMLMedia],
-              let media = media else { return }
-        
+              let media = media else {
+            return
+        }
+
+        var index: Int
         if case .allSongs = currentModel.collectionType {
-            let index = mediaListIndex(for: currentMedia)
+            index = mediaListIndex(for: currentMedia)
             if media.identifier() == medias[index].identifier() {
                 scrollTo(index)
             } else {
-                let index = datasetIndex(for: media)
+                index = datasetIndex(for: media)
                 scrollTo(index)
             }
         } else {
-            let index = medias.firstIndex {
+            index = medias.firstIndex {
                 $0.identifier() == media.identifier() && $0.title == media.title
             } ?? NSNotFound
             scrollTo(index)
         }
     }
-    
+
     private func autoScrollArtists(media: VLCMLMedia?) {
         guard let media = media, media.subtype() == .albumTrack,
-              let artists = currentDataSet as? [VLCMLArtist] else { return }
-        
+              let artists = currentDataSet as? [VLCMLArtist] else {
+            return
+        }
+
         var variousArtistIndex: Int? = nil
         let index = artists.firstIndex { artist in
             if artist.identifier() == VariousArtistID, let albums = artist.albums() {
                 for album in albums {
                     guard let albumArtists = album.artists(),
-                          let mediaArtist = media.artist else { continue }
-                    
-                    for (i, albumArtist) in albumArtists.enumerated() {
+                          let mediaArtist = media.artist else {
+                        continue
+                    }
+
+                    for (artistIndex, albumArtist) in albumArtists.enumerated() {
                         if albumArtist.identifier() == mediaArtist.identifier() && albumArtist.title() == mediaArtist.title() {
-                            variousArtistIndex = i
+                            variousArtistIndex = artistIndex
                             break
                         }
                     }
@@ -945,16 +956,19 @@ extension MediaCategoryViewController {
             if variousArtistIndex != nil {
                 return true
             }
+
             return artist.identifier() == media.artist?.identifier() && artist.title() == media.artist?.title()
         } ?? NSNotFound
 
         scrollTo(index)
     }
-    
+
     private func autoScrollAlbums(media: VLCMLMedia?) {
         guard let media = media, media.subtype() == .albumTrack,
               let mediaAlbum = media.album,
-              let albums = currentDataSet as? [VLCMLAlbum] else { return }
+              let albums = currentDataSet as? [VLCMLAlbum] else {
+            return
+        }
 
         let index = albums.firstIndex {
             $0.identifier() == mediaAlbum.identifier() && $0.title == mediaAlbum.title
@@ -962,93 +976,122 @@ extension MediaCategoryViewController {
 
         scrollTo(index)
     }
-    
+
     private func autoScrollPlaylists(currentModel: CurrentlyPlayingCollectionModel) {
         if case .playlist(let current) = currentModel.collectionType {
-            guard let playlists = currentDataSet as? [VLCMLPlaylist] else { return }
+            guard let playlists = currentDataSet as? [VLCMLPlaylist] else {
+                return
+            }
+
             let index = playlists.firstIndex {
                 $0.identifier() == current.id && $0.title() == current.name
             } ?? NSNotFound
+
             scrollTo(index)
         }
     }
-    
+
     private func autoScrollVideoGroups(currentModel: CurrentlyPlayingCollectionModel, media: VLCMLMedia?) {
-        guard let mediaGroups = currentDataSet as? [VLCMLMediaGroup] else { return }
+        guard let mediaGroups = currentDataSet as? [VLCMLMediaGroup] else {
+            return
+        }
 
         if case .mediaGroup(let current) = currentModel.collectionType {
             let index = mediaGroups.firstIndex {
                 return $0.identifier() == current.id && $0.title() == current.name
             } ?? NSNotFound
+
             scrollTo(index)
-        } else { // handle getting index in case of single media group
-            guard let media = media else { return }
+        } else {
+            // handle getting index in case of single media group
+            guard let media = media else {
+                return
+            }
+
             let index = mediaGroups.firstIndex(where: {
                 return $0.title() == media.title() && $0.nbTotalMedia() == 1
             }) ?? NSNotFound
+
             scrollTo(index)
         }
     }
 
     // check for the current viewed collection model and if it is the same model at MediaList in the playbackService
     private func autoScrollCollections(currentMedia: VLCMedia, currentModel: CurrentlyPlayingCollectionModel) {
-        guard let collection = model as? CollectionModel else { return }
-        
-        guard let media = VLCMLMedia(forPlaying: currentMedia) else { return }
-        
+        guard let collection = model as? CollectionModel,
+              let media = VLCMLMedia(forPlaying: currentMedia) else {
+            return
+        }
+
         switch collection.mediaCollection {
         case let album as VLCMLAlbum:
-            if let mediaAlbum = media.album, album.identifier() == mediaAlbum.identifier() {
+            if let mediaAlbum = media.album,
+               album.identifier() == mediaAlbum.identifier() {
                 autoScrollMediaCollection(media: currentMedia, currentModel: currentModel, collectionType: .album)
             }
+            break
         case let artist as VLCMLArtist:
-            guard let mediaArtist = media.artist else { return }
+            guard let mediaArtist = media.artist else {
+                return
+            }
+
             if artist.identifier() == VariousArtistID, let artistMedias = artist.tracks() {
-                
                 for i in 0 ..< artistMedias.count {
-                    guard let artist = artistMedias[i].artist else { return }
+                    guard let artist = artistMedias[i].artist else {
+                        return
+                    }
 
                     if mediaArtist.title() == artist.title() && mediaArtist.identifier() == artist.identifier() {
                         autoScrollMediaCollection(media: currentMedia, currentModel: currentModel, collectionType: .artist)
                         break
                     }
                 }
-
             } else if mediaArtist.identifier() == artist.identifier() && mediaArtist.title() == artist.title() {
                 autoScrollMediaCollection(media: currentMedia, currentModel: currentModel, collectionType: .artist)
             }
+            break
         case let playlist as VLCMLPlaylist:
             let playlistModel = CurrentlyPlayingCollectionInfo(id: playlist.identifier(), name: playlist.title())
             autoScrollMediaCollection(media: currentMedia, currentModel: currentModel, collectionType: .playlist(playlistModel))
+            break
         case let mediaGroup as VLCMLMediaGroup where media.subtype() != .albumTrack:
             let mediaGroupModel = CurrentlyPlayingCollectionInfo(id: mediaGroup.identifier(), name: mediaGroup.title())
             autoScrollMediaCollection(media: currentMedia, currentModel: currentModel, collectionType: .mediaGroup(mediaGroupModel))
+            break
         default:
             break
         }
     }
-    
+
     private func autoScrollMediaCollection(media: VLCMedia, currentModel: CurrentlyPlayingCollectionModel, collectionType: MediaCollectionType) {
-        guard let mlMedia = VLCMLMedia(forPlaying: media) else { return }
-        
+        guard let mlMedia = VLCMLMedia(forPlaying: media) else {
+            return
+        }
+
+        var index: Int
         if currentModel.collectionType == collectionType {
-            let index = mediaListIndex(for: media)
-            guard let datasetMedia = currentDataSet.objectAtIndex(index: index) else { return }
+            index = mediaListIndex(for: media)
+            guard let datasetMedia = currentDataSet.objectAtIndex(index: index) else {
+                return
+            }
+
             /* For playing a single media from a collection with queue options, playback service mediaList would have only added media to queue, so returned index for media in current collection will be wrong. This check should handle this problem by comparing currentDataSet media of index returned from mediaList  and currently playing media */
             if datasetMedia.identifier() == mlMedia.identifier() {
                 scrollTo(index)
             } else {
-                let index = datasetIndex(for: mlMedia)
+                index = datasetIndex(for: mlMedia)
                 scrollTo(index)
             }
         } else {
-            let index = datasetIndex(for: mlMedia)
+            index = datasetIndex(for: mlMedia)
             scrollTo(index)
         }
     }
-    
+
     private func scrollTo(_ index: Int) {
-        guard index != NSNotFound else { return }
+        guard index != NSNotFound else {
+            return
+        }
 
         let indexPath = IndexPath(row: index, section: 0)
         let currentOffset = collectionView.contentOffset.y
@@ -1060,17 +1103,20 @@ extension MediaCategoryViewController {
                 self?.shouldHighlightCurrentPlaying()
             }
         })
-
     }
-    
+
     // get current media access if the mediaList collection model is different from the current Model
     private func datasetIndex(for media: VLCMLMedia?) -> Int {
         guard let medias = currentDataSet as? [VLCMLMedia],
-              let media = media else { return NSNotFound }
+              let media = media else {
+            return NSNotFound
+        }
+
         return medias.firstIndex(where: {
             $0.identifier() == media.identifier() && $0.title == media.title
         }) ?? NSNotFound
     }
+
     // get current media index form current playing model at medialist
     private func mediaListIndex(for media: VLCMedia) -> Int {
         let playbackService = PlaybackService.sharedInstance()
@@ -1089,6 +1135,7 @@ extension MediaCategoryViewController {
         guard let index = autoScrolledCellIndex, let cell = collectionView.cellForItem(at: index) else {
             return
         }
+
         // isMediaBeingPlayed is true only for audio tracks, no need to highlight audioTracks cell as it is already highlighed by animation
         if let cell = cell as? MediaCollectionViewCell, cell.isMediaBeingPlayed {
             return
@@ -1107,6 +1154,7 @@ extension MediaCategoryViewController {
         }
     }
 }
+
 // MARK: - MediaCategoryViewController - Private Helpers
 
 private extension MediaCategoryViewController {

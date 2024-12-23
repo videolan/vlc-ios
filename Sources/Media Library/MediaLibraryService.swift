@@ -790,8 +790,10 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func setCurrentlyPlayingCollection(with model: MediaLibraryBaseModel, for index: Int) {
-        guard index != NSNotFound else { return }
-        
+        guard index != NSNotFound else {
+            return
+        }
+
         switch model {
         case let model as CollectionModel:
             if let playlist = model.mediaCollection as? VLCMLPlaylist {
@@ -805,20 +807,26 @@ extension MediaLibraryService {
             } else if model.mediaCollection is VLCMLArtist {
                 currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .artist)
             }
+            break
         case is TrackModel:
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .allSongs)
+            break
         case is ArtistModel:
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .artist)
+            break
         case is AlbumModel:
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .album)
+            break
         case let model as MediaGroupViewModel:
             let mediaGroup = model.files[index]
             let info = CurrentlyPlayingCollectionInfo(id: mediaGroup.identifier(), name: mediaGroup.name())
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .mediaGroup(info))
+            break
         case let model as PlaylistModel:
             let playlist = model.files[index]
             let info = CurrentlyPlayingCollectionInfo(id: playlist.identifier(), name: playlist.name)
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .playlist(info))
+            break
         default:
             break
         }

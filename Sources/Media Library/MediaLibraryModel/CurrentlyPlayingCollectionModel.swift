@@ -1,10 +1,15 @@
-//
-//  CurrentPlayingModel.swift
-//  VLC-iOS
-//
-//  Created by mohamed sliem on 14/06/2024.
-//  Copyright © 2024 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * CurrentlyPlayingCollectionModel.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Mohamed Sliem <mohamedhu99@gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
@@ -14,7 +19,7 @@ enum MediaCollectionType: Equatable {
     case mediaGroup(CurrentlyPlayingCollectionInfo)
     case playlist(CurrentlyPlayingCollectionInfo)
     case allSongs
-    
+
     static func == (lhs: MediaCollectionType, rhs: MediaCollectionType) -> Bool {
         switch (lhs, rhs) {
         case (.album, .album):
