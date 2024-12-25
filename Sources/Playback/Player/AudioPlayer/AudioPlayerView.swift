@@ -168,16 +168,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     lazy var progressionView: UIView = UIView()
 
-    lazy var layoutGuide: UILayoutGuide = {
-        var layoutGuide = layoutMarginsGuide
-
-        if #available(iOS 11.0, *) {
-            layoutGuide = safeAreaLayoutGuide
-        }
-
-        return layoutGuide
-    }()
-
     private var thumbnailImageViewWidthConstant: CGFloat = 270.0
 
     private lazy var progressionViewBottomConstant: CGFloat = {
@@ -185,7 +175,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         return isSmallerScreen ? 40 : 60
     }()
 
-    private lazy var progressionViewBottomConstraint: NSLayoutConstraint = progressionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
+    private lazy var progressionViewBottomConstraint: NSLayoutConstraint = progressionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
 
     private lazy var progressionViewHeightConstraint: NSLayoutConstraint = progressionView.heightAnchor.constraint(equalToConstant: 70)
 
@@ -471,9 +461,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         addSubview(navigationBarView)
         NSLayoutConstraint.activate([
-            navigationBarView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: padding),
-            navigationBarView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: padding),
-            navigationBarView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding)
+            navigationBarView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            navigationBarView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding),
+            navigationBarView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding)
         ])
     }
 
@@ -482,9 +472,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         addSubview(thumbnailView)
         NSLayoutConstraint.activate([
-            thumbnailView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+            thumbnailView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             thumbnailViewTopConstraint,
-            thumbnailView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+            thumbnailView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
         ])
 
         setupThumbnailSubviews()
@@ -585,9 +575,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         addSubview(progressionView)
         NSLayoutConstraint.activate([
-            progressionView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: padding),
+            progressionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: padding),
-            progressionView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
+            progressionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             progressionViewBottomConstraint,
             progressionViewHeightConstraint
         ])

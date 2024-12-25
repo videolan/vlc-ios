@@ -65,17 +65,12 @@ class FavoriteHeaderContentView: UIView {
         super.init(frame: frame)
         addSubview(renameButton)
         addSubview(hostnameLabel)
-        var guide: LayoutAnchorContainer = self
-        
-        if #available(iOS 11.0, *) {
-           guide = safeAreaLayoutGuide
-        }
-                
+
         NSLayoutConstraint.activate([
          hostnameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-         hostnameLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: buttonPadding),
+         hostnameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: buttonPadding),
          renameButton.firstBaselineAnchor.constraint(equalTo: hostnameLabel.firstBaselineAnchor),
-         renameButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -buttonPadding),
+         renameButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -buttonPadding),
         ])
     }
 

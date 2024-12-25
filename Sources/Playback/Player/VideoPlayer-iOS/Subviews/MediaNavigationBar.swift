@@ -124,15 +124,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     private var rendererDiscovererService: VLCRendererDiscovererManager
 
     lazy var airplayRoutePickerView: UIView = {
-        if #available(iOS 11.0, *) {
-            var airPlayRoutePicker = AVRoutePickerView()
-            airPlayRoutePicker.activeTintColor = .orange
-            airPlayRoutePicker.tintColor = .white
-            return airPlayRoutePicker
-        } else {
-            assertionFailure("airplay route picker view is unavailable to iOS 10 and earlier")
-            return UIView()
-        }
+        var airPlayRoutePicker = AVRoutePickerView()
+        airPlayRoutePicker.activeTintColor = .orange
+        airPlayRoutePicker.tintColor = .white
+        return airPlayRoutePicker
     }()
     
     lazy var airplayVolumeView: MPVolumeView = {
@@ -174,20 +169,13 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     private func setupContraints() {
-        var constraints: [NSLayoutConstraint] = [
+        NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
             rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
-        ]
-
-        if #available(iOS 11.0, *) {
-            constraints.append(deviceButton.widthAnchor.constraint(equalTo: heightAnchor))
-        } else {
-            constraints.append(airplayVolumeView.widthAnchor.constraint(equalTo: heightAnchor))
-        }
-
-        NSLayoutConstraint.activate(constraints)
+            deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
     }
 
     private func setupViews() {
@@ -198,11 +186,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(mediaTitleTextLabel)
         addArrangedSubview(rotateButton)
         addArrangedSubview(queueButton)
-        if #available(iOS 11.0, *) {
-            addArrangedSubview(deviceButton)
-        } else {
-            addArrangedSubview(airplayVolumeView)
-        }
+        addArrangedSubview(deviceButton)
     }
 
     // MARK: Gesture recognizer

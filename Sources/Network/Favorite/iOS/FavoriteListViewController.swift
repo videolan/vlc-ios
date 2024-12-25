@@ -90,9 +90,7 @@ class FavoriteListViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         searchBar.backgroundColor = PresentationTheme.current.colors.background
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
+        navigationItem.largeTitleDisplayMode = .never
 
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {

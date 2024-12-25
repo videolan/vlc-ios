@@ -311,9 +311,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         searchBar.backgroundColor = PresentationTheme.current.colors.background
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
+        navigationItem.largeTitleDisplayMode = .never
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {
                 backgroundview.backgroundColor = UIColor.white
@@ -816,9 +814,7 @@ extension MediaCategoryViewController {
 
     @objc func handleSortLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            if #available(iOS 10.0, *) {
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-            }
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             handleSortShortcut()
         }
     }
@@ -1263,12 +1259,10 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
             //For iOS 10 when rotating we take the value from willTransition to size, for the first layout pass that value is 0 though,
             //so we need the frame.size width. For rotation on iOS 11 this approach doesn't work because at the time when this is called
             //we don't have yet the updated safeare layout frame. This is addressed by relayouting from viewSafeAreaInsetsDidChange
-            var toWidth = toSize.width != 0 ? toSize.width : collectionView.frame.size.width
-            if #available(iOS 11.0, *) {
-                // In case of nested views, the safe area may not be updated.
-                // Getting its parent's safe area gives us the true updated safe area.
-                toWidth = parent?.view.safeAreaLayoutGuide.layoutFrame.width ?? collectionView.safeAreaLayoutGuide.layoutFrame.width
-            }
+
+            // In case of nested views, the safe area may not be updated.
+            // Getting its parent's safe area gives us the true updated safe area.
+            let toWidth = parent?.view.safeAreaLayoutGuide.layoutFrame.width ?? collectionView.safeAreaLayoutGuide.layoutFrame.width
             cachedCellSize = model.cellType.cellSizeForWidth(toWidth)
         }
         return cachedCellSize
@@ -1557,11 +1551,7 @@ private extension MediaCategoryViewController {
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
         longPressGesture.minimumPressDuration = 0.2
         collectionView?.addGestureRecognizer(longPressGesture)
-        if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .always
-            //            collectionView?.dragDelegate = dragAndDropManager
-            //            collectionView?.dropDelegate = dragAndDropManager
-        }
+        collectionView?.contentInsetAdjustmentBehavior = .always
     }
 
     func constrainOnX(_ location: CGPoint, for width: CGFloat) -> CGPoint {

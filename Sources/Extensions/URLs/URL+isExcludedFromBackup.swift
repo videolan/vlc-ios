@@ -28,18 +28,7 @@ extension URL {
 
             resourceValue.isExcludedFromBackup = excluded
             if path == documentPath {
-                // iOS 11+ : Never exclude the Documents folder from backup, it makes iOS Files app hide VLC.
-                // iOS 9 / 10 : usually not powerful old devices, the Files app is not available.
-                // Exclude Documents anyway, do not exclude its content though, it would be useless.
-                if #available(iOS 11.0, *) {
-                    resourceValue.isExcludedFromBackup = false
-                } else if excluded {
-                    // If we have an iOS 9 / 10 device and want to exclude from backup, no need to be recursive,
-                    // excluding the Documents folder will be enough.
-                    // If we are including into the backup, we will stay recursive, all files get reincluded, as
-                    // older VLC iOS versions used per-file exclusion.
-                    recursive = false
-                }
+                resourceValue.isExcludedFromBackup = false
             }
             do {
                 try setResourceValues(resourceValue)

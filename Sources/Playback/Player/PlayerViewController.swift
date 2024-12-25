@@ -158,10 +158,7 @@ class PlayerViewController: UIViewController {
         contentOutputView.backgroundColor = .clear
         contentOutputView.isUserInteractionEnabled = false
         contentOutputView.translatesAutoresizingMaskIntoConstraints = false
-
-        if #available(iOS 11.0, *) {
-            contentOutputView.accessibilityIgnoresInvertColors = true
-        }
+        contentOutputView.accessibilityIgnoresInvertColors = true
 
         contentOutputView.accessibilityIdentifier = "Video Player Title"
         contentOutputView.accessibilityLabel = NSLocalizedString("VO_VIDEOPLAYER_TITLE",

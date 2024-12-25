@@ -64,11 +64,7 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         containerView.showsHorizontalScrollIndicator = false
         containerView.isPagingEnabled = true
         containerView.backgroundColor = PresentationTheme.current.colors.background
-        if #available(iOS 11.0, *) {
-            containerView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
+        containerView.contentInsetAdjustmentBehavior = .never
         view.addSubview(containerView)
 
         reloadViewControllers()

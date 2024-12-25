@@ -242,20 +242,17 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_PASSCODE_LOCK"
         case .enableBiometrics:
             let authContext = LAContext()
-            if #available(iOS 11.0.1, *) {
-                let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
-                switch authContext.biometryType {
-                case .none:
-                    return ""
-                case .touchID:
-                    return "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID"
-                case .faceID:
-                    return "SETTINGS_PASSCODE_LOCK_ALLOWFACEID"
-                @unknown default:
-                    return ""
-                }
+            let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+            switch authContext.biometryType {
+            case .none:
+                return ""
+            case .touchID:
+                return "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID"
+            case .faceID:
+                return "SETTINGS_PASSCODE_LOCK_ALLOWFACEID"
+            @unknown default:
+                return ""
             }
-            return ""
         case .hideLibraryInFilesApp:
             return "SETTINGS_HIDE_LIBRARY_IN_FILES_APP"
         }
@@ -291,7 +288,6 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
             return kVLCSettingPasscodeOnKey
         case .enableBiometrics:
             let authContext = LAContext()
-            if #available(iOS 11.0.1, *) {
                 let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
                 switch authContext.biometryType {
                 case .none:
@@ -303,8 +299,6 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
                 @unknown default:
                     return nil
                 }
-            }
-            return nil
         case .hideLibraryInFilesApp:
             return kVLCSettingHideLibraryInFilesApp
         }

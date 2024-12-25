@@ -63,13 +63,9 @@ extension VLCURLHandler {
                 return
             }
 
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(callback,
-                                          options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]),
-                                          completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(callback)
-            }
+            UIApplication.shared.open(callback,
+                                      options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]),
+                                      completionHandler: nil)
         }
     }
 

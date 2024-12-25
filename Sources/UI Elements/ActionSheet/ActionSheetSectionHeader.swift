@@ -64,15 +64,6 @@ class ActionSheetSectionHeader: UIView {
         return previousButton
     }()
 
-    lazy var guide: LayoutAnchorContainer = {
-        var guide: LayoutAnchorContainer = self
-
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
-        return guide
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackView()
@@ -92,8 +83,8 @@ class ActionSheetSectionHeader: UIView {
 
         addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
@@ -122,8 +113,8 @@ class ActionSheetSectionHeader: UIView {
     fileprivate func setupSeparator() {
         addSubview(separator)
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            separator.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            separator.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            separator.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             separator.heightAnchor.constraint(equalToConstant: 0.5),
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: -1)
         ])
@@ -132,7 +123,7 @@ class ActionSheetSectionHeader: UIView {
     fileprivate func setupTitle() {
         addSubview(title)
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            title.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
         ])
     }
 }

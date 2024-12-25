@@ -113,9 +113,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if #available(iOS 11.0, *) {
-            thumbnailView.accessibilityIgnoresInvertColors = true
-        }
+        thumbnailView.accessibilityIgnoresInvertColors = true
 
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
@@ -224,11 +222,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
 
         if scrollView.contentOffset.x >= deleteButton.frame.size.width + 30 {
-            if #available(iOS 10.0, *), !vibrationTriggered {
-                let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-                impactFeedbackGenerator.prepare()
-                impactFeedbackGenerator.impactOccurred()
-            }
+            let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            impactFeedbackGenerator.prepare()
+            impactFeedbackGenerator.impactOccurred()
 
             vibrationTriggered = true
             scrollContentView.isHidden = true

@@ -191,20 +191,15 @@ class QueueViewController: UIViewController {
 
             let leadingAnchor: NSLayoutXAxisAnchor
             let trailingAnchor: NSLayoutXAxisAnchor
-            if #available(iOS 11.0, *) {
-                let safeArea: UILayoutGuide
-                if let miniPlayerView = miniPlayerView {
-                    safeArea = miniPlayerView.safeAreaLayoutGuide
-                } else {
-                    safeArea = parent.view.safeAreaLayoutGuide
-                }
-
-                leadingAnchor = safeArea.leadingAnchor
-                trailingAnchor = safeArea.trailingAnchor
+            let safeArea: UILayoutGuide
+            if let miniPlayerView = miniPlayerView {
+                safeArea = miniPlayerView.safeAreaLayoutGuide
             } else {
-                leadingAnchor = parent.view.leadingAnchor
-                trailingAnchor = parent.view.trailingAnchor
+                safeArea = parent.view.safeAreaLayoutGuide
             }
+            
+            leadingAnchor = safeArea.leadingAnchor
+            trailingAnchor = safeArea.trailingAnchor
 
             constraints = [
                 view.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -345,11 +340,7 @@ class QueueViewController: UIViewController {
 
     @objc private func dismissPlayqueue() {
         if let parent = parent {
-            var newY: CGFloat = view.frame.height
-            if #available(iOS 11.0, *) {
-                newY -= view.safeAreaInsets.bottom
-            }
-            bottomConstraint?.constant = newY
+            bottomConstraint?.constant = view.frame.height - view.safeAreaInsets.bottom
             UIView.animate(withDuration: animationDuration, animations: {
                 parent.view.layoutIfNeeded()
             }, completion: { _ in
