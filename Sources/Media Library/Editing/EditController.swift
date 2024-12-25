@@ -463,12 +463,7 @@ extension EditController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var toWidth = collectionView.frame.size.width
-        if #available(iOS 11.0, *) {
-            toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
-        }
-
-        return model.cellType.cellSizeForWidth(toWidth)
+        model.cellType.cellSizeForWidth(collectionView.safeAreaLayoutGuide.layoutFrame.width)
     }
 
     func collectionView(_ collectionView: UICollectionView,

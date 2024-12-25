@@ -79,18 +79,12 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
             buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
             buttonBarView.heightAnchor.constraint(equalToConstant: buttonbarViewHeight)
             ])
-        //make sure that top and bottom are not covered by tabbar and navigationbar
-        let bottomGuide: NSLayoutConstraint
-        if #available(iOS 11.0, *) {
-            bottomGuide = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        } else {
-            bottomGuide = containerView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
-        }
+        // make sure that top and bottom are not covered by tabbar and navigationbar
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            bottomGuide
+            containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ]
         )
 

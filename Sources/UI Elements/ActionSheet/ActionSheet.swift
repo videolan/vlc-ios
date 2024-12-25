@@ -121,16 +121,6 @@ class ActionSheet: UIViewController {
         return collectionViewHeightConstraint
     }()
 
-    private lazy var layoutGuide: UILayoutGuide = {
-        var layoutGuide = view.layoutMarginsGuide
-
-        if #available(iOS 11.0, *) {
-            layoutGuide = view.safeAreaLayoutGuide
-        }
-
-        return layoutGuide
-    }()
-
     let collectionViewEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
 
     var collectionViewHeight: CGFloat {
@@ -142,7 +132,7 @@ class ActionSheet: UIViewController {
     var maxCollectionViewHeight: CGFloat {
         let maxMargin: CGFloat = 75
         let minCollectionViewHeight: CGFloat = cellHeight * 1.5 + collectionViewEdgeInsets.top * 2
-        let maxCollectionViewHeight = max(layoutGuide.layoutFrame.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
+        let maxCollectionViewHeight = max(view.safeAreaLayoutGuide.layoutFrame.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
         return maxCollectionViewHeight
     }
 
@@ -318,18 +308,11 @@ private extension ActionSheet {
     }
 
     private func setupCollectionViewConstraints() {
-        let bottomConstraint: NSLayoutConstraint
-        if #available(iOS 11, *) {
-            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.safeAreaLayoutGuide.bottomAnchor)
-        } else {
-            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.bottomAnchor)
-        }
-
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: collectionWrapperView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: collectionWrapperView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: collectionWrapperView.trailingAnchor),
-            bottomConstraint,
+            collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.safeAreaLayoutGuide.bottomAnchor),
             collectionViewHeightConstraint,
             maxCollectionViewHeightConstraint,
             collectionView.widthAnchor.constraint(equalTo: collectionWrapperView.widthAnchor),
@@ -337,26 +320,11 @@ private extension ActionSheet {
     }
 
     private func setupMainStackViewConstraints() {
-        let leadingAnchor: NSLayoutXAxisAnchor
-        let trailingAnchor: NSLayoutXAxisAnchor
-        let widthAnchor: NSLayoutDimension
-
-        if #available(iOS 11.0, *) {
-            let safeArea: UILayoutGuide = view.safeAreaLayoutGuide
-            leadingAnchor = safeArea.leadingAnchor
-            trailingAnchor = safeArea.trailingAnchor
-            widthAnchor = safeArea.widthAnchor
-        } else {
-            leadingAnchor = view.leadingAnchor
-            trailingAnchor = view.trailingAnchor
-            widthAnchor = view.widthAnchor
-        }
-
         NSLayoutConstraint.activate([
             // Extra padding for spring animation
-            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mainStackView.widthAnchor.constraint(equalTo: widthAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }

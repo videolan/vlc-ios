@@ -135,8 +135,8 @@ class AudioPlayerViewController: PlayerViewController {
         super.showPopup(popupView, with: contentView, accessoryViewsDelegate: accessoryViewsDelegate)
 
         let iPhone5width: CGFloat = 320
-        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.leadingAnchor, constant: 10)
-        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor, constant: -10)
+        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         leadingConstraint.priority = .required
         trailingConstraint.priority = .required
 
@@ -232,7 +232,7 @@ class AudioPlayerViewController: PlayerViewController {
         view.addSubview(optionsNavigationBar)
         NSLayoutConstraint.activate([
             optionsNavigationBar.topAnchor.constraint(equalTo: audioPlayerView.navigationBarView.bottomAnchor, constant: padding),
-            optionsNavigationBar.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor, constant: -padding)
+            optionsNavigationBar.trailingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.trailingAnchor, constant: -padding)
         ])
     }
 
@@ -279,13 +279,8 @@ class AudioPlayerViewController: PlayerViewController {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
         mediaNavigationBar.deviceButton.isEnabled = enabled
-        if #available(iOS 11.0, *) {
-            mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
-            mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
-        } else {
-            mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = enabled
-            mediaNavigationBar.airplayVolumeView.alpha = !enabled ? 0.5 : 1
-        }
+        mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
+        mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
 
         mediaScrubProgressBar.progressSlider.isEnabled = enabled
         mediaScrubProgressBar.remainingTimeButton.isEnabled = enabled
@@ -572,9 +567,9 @@ extension AudioPlayerViewController {
             view.addSubview(bookmarksView)
             NSLayoutConstraint.activate([
                 bookmarksView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor),
-                bookmarksView.topAnchor.constraint(equalTo: audioPlayerView.layoutGuide.topAnchor, constant: 16),
+                bookmarksView.leadingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.leadingAnchor),
+                bookmarksView.trailingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.trailingAnchor),
+                bookmarksView.topAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.topAnchor, constant: 16),
                 bookmarksView.bottomAnchor.constraint(equalTo: audioPlayerView.controlsStackView.topAnchor),
             ])
         }
@@ -603,7 +598,7 @@ extension AudioPlayerViewController {
         audioPlayerView.bringSubviewToFront(abRepeatView)
         abRepeatView.isUserInteractionEnabled = true
         NSLayoutConstraint.activate([
-            abRepeatView.centerXAnchor.constraint(equalTo: audioPlayerView.layoutGuide.centerXAnchor),
+            abRepeatView.centerXAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.centerXAnchor),
             abRepeatView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10.0),
         ])
     }

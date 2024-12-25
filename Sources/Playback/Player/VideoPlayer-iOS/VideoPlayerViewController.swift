@@ -179,15 +179,6 @@ class VideoPlayerViewController: UIViewController {
         return .fade
     }
 
-    private lazy var layoutGuide: UILayoutGuide = {
-        var layoutGuide = view.layoutMarginsGuide
-
-        if #available(iOS 11.0, *) {
-            layoutGuide = view.safeAreaLayoutGuide
-        }
-        return layoutGuide
-    }()
-
     private lazy var videoOutputViewLeadingConstraint: NSLayoutConstraint = {
         let videoOutputViewLeadingConstraint = videoOutputView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         return videoOutputViewLeadingConstraint
@@ -526,26 +517,17 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Constraints
 
-    private lazy var mainLayoutGuide: UILayoutGuide = {
-        let guide: UILayoutGuide
-        if #available(iOS 11.0, *) {
-            return view.safeAreaLayoutGuide
-        } else {
-            return view.layoutMarginsGuide
-        }
-    }()
-
     private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {
         videoPlayerControls.heightAnchor.constraint(equalToConstant: 44)
     }()
 
     private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
-        videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
+        videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                             constant: -5)
     }()
 
     private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
-        equalizerPopupView.topAnchor.constraint(equalTo: mainLayoutGuide.topAnchor, constant: 10)
+        equalizerPopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
     }()
 
     private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
@@ -553,7 +535,7 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     private lazy var trackSelectorPopupTopConstraint: NSLayoutConstraint = {
-        trackSelectorPopupView.topAnchor.constraint(equalTo: mainLayoutGuide.topAnchor, constant: 10)
+        trackSelectorPopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
     }()
 
     private lazy var trackSelectorPopupBottomConstraint: NSLayoutConstraint = {
@@ -1359,10 +1341,7 @@ extension VideoPlayerViewController {
             longPressPlaybackSpeedView.speedMultiplier = playbackService.playbackRate
 
             // Generate selection feedback
-            if #available(iOS 10, *) {
-                let feedbackGenerator = UISelectionFeedbackGenerator()
-                feedbackGenerator.selectionChanged()
-            }
+            UISelectionFeedbackGenerator().selectionChanged()
 
             // Show playback speed view
             UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
@@ -1567,9 +1546,9 @@ private extension VideoPlayerViewController {
             mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor, constant: -8),
             mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor, constant: 8),
-            mediaNavigationBar.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
+            mediaNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                                     constant: padding),
-            optionsNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
+            optionsNavigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
         ])
     }
@@ -1580,9 +1559,9 @@ private extension VideoPlayerViewController {
 
         NSLayoutConstraint.activate([
             videoPlayerControlsHeightConstraint,
-            videoPlayerControls.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
+            videoPlayerControls.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
                                                          constant: padding),
-            videoPlayerControls.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
+            videoPlayerControls.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
                                                           constant: -padding),
             videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
                                                        constant: -2 * minPadding),
@@ -1677,13 +1656,8 @@ private extension VideoPlayerViewController {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
         mediaNavigationBar.deviceButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
-        if #available(iOS 11.0, *) {
-            mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
-            mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
-        } else {
-            mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = enabled
-            mediaNavigationBar.airplayVolumeView.alpha = !enabled ? 0.5 : 1
-        }
+        mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
+        mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
 
         scrubProgressBar.progressSlider.isEnabled = enabled
         scrubProgressBar.remainingTimeButton.isEnabled = enabled
@@ -1813,9 +1787,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func playbackServiceDidSwitchAspectRatio(_ aspectRatio: Int) {
-        if #available(iOS 11.0, *) {
-            adaptVideoOutputToNotch()
-        }
+        adaptVideoOutputToNotch()
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
@@ -2161,10 +2133,10 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         if let bookmarksView = addBookmarksView {
             view.addSubview(bookmarksView)
             NSLayoutConstraint.activate([
-                bookmarksView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
-                bookmarksView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 16),
+                bookmarksView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+                bookmarksView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                bookmarksView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                bookmarksView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
                 bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: scrubProgressBar.topAnchor),
             ])
         }
@@ -2215,7 +2187,7 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         view.bringSubviewToFront(abRepeatView)
         abRepeatView.isUserInteractionEnabled = true
         NSLayoutConstraint.activate([
-            abRepeatView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            abRepeatView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             abRepeatView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -20.0),
         ])
 
@@ -2372,8 +2344,8 @@ extension VideoPlayerViewController {
         view.addSubview(popupView)
 
         let iPhone5width: CGFloat = 320
-        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10)
-        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
+        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
+        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         leadingConstraint.priority = .required
         trailingConstraint.priority = .required
 
@@ -2391,7 +2363,7 @@ extension VideoPlayerViewController {
             popupViewBottomConstraint,
             leadingConstraint,
             trailingConstraint,
-            popupView.centerXAnchor.constraint(equalTo: mainLayoutGuide.centerXAnchor),
+            popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             popupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
         ]
         NSLayoutConstraint.activate(newConstraints)

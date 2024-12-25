@@ -165,9 +165,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if #available(iOS 11.0, *) {
-            thumbnailView.accessibilityIgnoresInvertColors = true
-        }
+        thumbnailView.accessibilityIgnoresInvertColors = true
         clipsToBounds = true
         layer.cornerRadius = 2
         titleLabel.labelize = enableMarquee
@@ -182,11 +180,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     private func setupUI() {
-        var guide: LayoutAnchorContainer = self
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
-
         thumbnailView.addSubview(checkboxImageView)
         addSubview(contentStackView)
         addSubview(selectionOverlay)
@@ -206,9 +199,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
             thumbnailView.heightAnchor.constraint(equalTo: thumbnailView.widthAnchor),
             checkboxImageView.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -5),
             checkboxImageView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -5),
-            contentStackView.topAnchor.constraint(equalTo: guide.topAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            contentStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             selectionOverlay.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
             selectionOverlay.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor),
             selectionOverlay.topAnchor.constraint(equalTo: thumbnailView.topAnchor),

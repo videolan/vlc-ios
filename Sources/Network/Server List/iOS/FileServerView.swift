@@ -67,19 +67,13 @@ class FileServerView: UIView {
     }
 
     func setupUI() {
-        var guide: LayoutAnchorContainer = self
-
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
-
         NSLayoutConstraint.activate([
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: trailingAnchor),
             separator.topAnchor.constraint(equalTo: topAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 15),
+            textLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
             textLabel.trailingAnchor.constraint(lessThanOrEqualTo: connectButton.leadingAnchor),
-            connectButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            connectButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             textLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 15),
             textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9),
             connectButton.firstBaselineAnchor.constraint(equalTo: textLabel.firstBaselineAnchor),

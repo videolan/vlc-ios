@@ -131,19 +131,15 @@ class SettingsController: UITableViewController {
 // MARK: - Observer & BarButton Actions
 
     @objc private func showAbout() {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+        ImpactFeedbackGenerator().selectionChanged()
         let aboutController = AboutController()
         let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
         present(aboutNavigationController, animated: true)
     }
 
     @objc private func showDocumentation() {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
-        UIApplication.shared.openURL(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
+        ImpactFeedbackGenerator().selectionChanged()
+        UIApplication.shared.open(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
     }
 
     @objc private func themeDidChange() {
@@ -170,9 +166,7 @@ class SettingsController: UITableViewController {
 // MARK: - Helper Functions
 
     private func forceRescanAlert() {
-        if #available(iOS 10, *) {
-            NotificationFeedbackGenerator().warning()
-        }
+        NotificationFeedbackGenerator().warning()
         let alert = UIAlertController(title: NSLocalizedString("FORCE_RESCAN_TITLE", comment: ""),
                                       message: NSLocalizedString("FORCE_RESCAN_MESSAGE", comment: ""),
                                       preferredStyle: .alert)
@@ -182,10 +176,8 @@ class SettingsController: UITableViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_RESCAN", comment: ""),
                                       style: .destructive,
                                       handler: { _ in
-                                        if #available(iOS 10, *) {
-                                            ImpactFeedbackGenerator().selectionChanged()
-                                        }
-                                        self.forceRescanLibrary()
+            ImpactFeedbackGenerator().selectionChanged()
+            self.forceRescanLibrary()
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -198,12 +190,8 @@ class SettingsController: UITableViewController {
     }
 
     private func openPrivacySettings() {
-        if #available(iOS 10.0, *) {
-            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-            UIApplication.shared.open(url,
-                                      options: [:],
-                                      completionHandler: nil)
-        }
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
     private func showActionSheet(for sectionType: SectionType?) {
@@ -250,7 +238,7 @@ class SettingsController: UITableViewController {
 
     private func playHaptics(sectionType: SectionType?) {
         guard let sectionType = sectionType else { return }
-        if #available(iOS 10, *), !sectionType.containsSwitch {
+        if !sectionType.containsSwitch {
             ImpactFeedbackGenerator().selectionChanged()
         }
     }
@@ -454,9 +442,7 @@ extension SettingsController {
             playHaptics(sectionType: mainSection)
             showActionSheet(for: mainSection)
         case .donation:
-            if #available(iOS 10, *) {
-                ImpactFeedbackGenerator().selectionChanged()
-            }
+            ImpactFeedbackGenerator().selectionChanged()
             let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
             let donationNC = UINavigationController(rootViewController: donationVC)
             donationNC.modalPresentationStyle = .popover

@@ -91,7 +91,7 @@ class AlbumHeader: UICollectionReusableView {
     private func setupConstraints() {
         let buttonSize: CGFloat = 50.0
         let playShuffleTrailingAnchor: NSLayoutConstraint
-        if let parentView = parentView, #available(iOS 11.0, *) {
+        if let parentView {
             playShuffleTrailingAnchor = playShuffleButton.trailingAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         } else {
             playShuffleTrailingAnchor = playShuffleButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)

@@ -57,10 +57,7 @@ class TabBarCoordinator: NSObject {
                 navController.navigationBar.barTintColor = colors.navigationbarColor
                 navController.navigationBar.tintColor = colors.orangeUI
                 navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  colors.navigationbarTextColor]
-
-                if #available(iOS 11.0, *) {
-                    navController.navigationBar.prefersLargeTitles = false
-                }
+                navController.navigationBar.prefersLargeTitles = false
                 if #available(iOS 13.0, *) {
                     navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
                     navController.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
@@ -121,16 +118,12 @@ private extension TabBarCoordinator {
         tabBarController.tabBar.bringSubviewToFront(editToolbar)
 
         let view = tabBarController.tabBar
-        var guide: LayoutAnchorContainer = view
-        if #available(iOS 11.0, *) {
-            guide = view.safeAreaLayoutGuide
-        }
 
         NSLayoutConstraint.activate([
             editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editToolbar.topAnchor.constraint(equalTo: guide.topAnchor),
-            editToolbar.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            editToolbar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }

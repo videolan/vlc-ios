@@ -28,12 +28,9 @@ class AppearanceManager: NSObject {
         UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).barTintColor = nil
         UINavigationBar.appearance().tintColor = theme.colors.orangeUI
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]
-
-        if #available(iOS 11.0, *) {
-            UINavigationBar.appearance().prefersLargeTitles = true
-            UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]
-        }
+        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]
 
         let selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = theme.colors.mediaCategorySeparatorColor
@@ -49,9 +46,7 @@ class AppearanceManager: NSObject {
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).lineBreakMode = .byWordWrapping
 
         UITabBar.appearance().tintColor = theme.colors.orangeUI
-        if #available(iOS 10.0, *) {
-            UITabBar.appearance().unselectedItemTintColor = theme.colors.cellDetailTextColor
-        }
+        UITabBar.appearance().unselectedItemTintColor = theme.colors.cellDetailTextColor
 
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI

@@ -116,7 +116,7 @@ class PasscodeLockController: UIViewController {
         var touchIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowTouchID)
         let laContext = LAContext()
         
-        if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
         }
         return touchIDEnabled
@@ -126,7 +126,7 @@ class PasscodeLockController: UIViewController {
         var faceIDEnabled = userDefaults.bool(forKey: kVLCSettingPasscodeAllowFaceID)
         let laContext = LAContext()
         
-        if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
         }
         return faceIDEnabled
@@ -177,11 +177,6 @@ class PasscodeLockController: UIViewController {
             self.title = NSLocalizedString("Enter Passcode", comment: "")
         }
 
-        var guide: LayoutAnchorContainer = view.layoutMarginsGuide
-        if #available(iOS 11.0, *) {
-            guide = view.safeAreaLayoutGuide
-        }
-
         // Determine the width based on passcode length
         let passcodeWidth = CGFloat(passcodeLength) * 40.0 // Adjust 40.0 based on desired width per digit
         passcodeTextField.widthAnchor.constraint(equalToConstant: passcodeWidth).isActive = true
@@ -189,9 +184,9 @@ class PasscodeLockController: UIViewController {
         contentStackView.addArrangedSubview(passcodeTextField)
         view.addSubview(contentStackView)
         NSLayoutConstraint.activate([
-            contentStackView.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: -40),
-            contentStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
-            contentStackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10)
+            contentStackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -40),
+            contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
 
         if action == .set {
@@ -241,9 +236,7 @@ class PasscodeLockController: UIViewController {
 
     @objc private func dismissView() {
         //If user dismisses the passcode view by pressing cancel the passcode lock should be disabled
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+        ImpactFeedbackGenerator().selectionChanged()
         userDefaults.set(false, forKey: kVLCSettingPasscodeOnKey)
         dismiss(animated: true)
     }
@@ -268,9 +261,7 @@ class PasscodeLockController: UIViewController {
             if action == .set {
                 if tempPasscode == "" {
                     //Once this check succeeds temporary passcode is stored and asks for re entry
-                    if #available(iOS 10, *) {
-                        ImpactFeedbackGenerator().selectionChanged()
-                    }
+                    ImpactFeedbackGenerator().selectionChanged()
                     messageLabel.text = NSLocalizedString("Re-enter your passcode",
                                                           comment: "")
                     passcodeTextField.text = ""
@@ -283,15 +274,11 @@ class PasscodeLockController: UIViewController {
                         } catch {
                             assertionFailure(error.localizedDescription)
                         }
-                        if #available(iOS 10, *) {
-                            NotificationFeedbackGenerator().success()
-                        }
+                        NotificationFeedbackGenerator().success()
                         userDefaults.set(true, forKey: kVLCSettingPasscodeOnKey)
                         dismiss(animated: true)
                     } else {
-                        if #available(iOS 10, *) {
-                            NotificationFeedbackGenerator().error()
-                        }
+                        NotificationFeedbackGenerator().error()
                         messageLabel.text = NSLocalizedString("Passcodes did not match. Try again.",
                                                               comment: "")
                         passcodeTextField.text = ""
@@ -303,16 +290,12 @@ class PasscodeLockController: UIViewController {
             if action == .enter {
                 if isPasscodeValid(passedPasscode: passcodeText) {
                     delegate?.passcodeViewControllerDidEnterPassword(controller: self)
-                    if #available(iOS 10, *) {
-                        ImpactFeedbackGenerator().selectionChanged()
-                    }
+                    ImpactFeedbackGenerator().selectionChanged()
 
                     messageLabel.text = NSLocalizedString("Enter a passcode", comment: "")
                     passcodeTextField.text = ""
                 } else {
-                    if #available(iOS 10, *) {
-                        NotificationFeedbackGenerator().error()
-                    }
+                    NotificationFeedbackGenerator().error()
 
                     messageLabel.text = NSLocalizedString("Passcodes did not match. Try again.", comment: "")
                     passcodeTextField.text = ""

@@ -72,9 +72,7 @@ private extension CustomDialogRendererHandler {
         alertController.addTextField {
             textField in
             usernameField = textField
-            if #available(iOS 11.0, *) {
-                textField.textContentType = .username
-            }
+            textField.textContentType = .username
             textField.placeholder = NSLocalizedString("USER_LABEL", comment:"")
             if username != "" {
                 textField.text = username
@@ -84,9 +82,7 @@ private extension CustomDialogRendererHandler {
         alertController.addTextField {
             textField in
             passwordField = textField
-            if #available(iOS 11.0, *) {
-                textField.textContentType = .password
-            }
+            textField.textContentType = .password
             textField.isSecureTextEntry = true
             textField.placeholder = NSLocalizedString("PASSWORD_LABEL", comment:"")
         }

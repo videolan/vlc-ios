@@ -155,9 +155,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     }
 
     @objc private func sendFeedbackEmail() {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+        ImpactFeedbackGenerator().selectionChanged()
 
         if MFMailComposeViewController.canSendMail() {
             let mailComposerVC = MFMailComposeViewController()
@@ -215,9 +213,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
 
 
     @objc private func dismissView() {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+        ImpactFeedbackGenerator().selectionChanged()
         dismiss(animated: true)
     }
 }
@@ -255,8 +251,6 @@ class AboutNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 11.0, *) {
-            navigationBar.prefersLargeTitles = false
-        }
+        navigationBar.prefersLargeTitles = false
     }
 }

@@ -71,16 +71,10 @@ class TitleSelectionTableViewCell: UITableViewCell {
         mainStackView.addArrangedSubview(checkImageView)
         mainStackView.addArrangedSubview(contentLabel)
 
-        var layoutGuide = layoutMarginsGuide
-
-        if #available(iOS 11.0, *) {
-            layoutGuide = safeAreaLayoutGuide
-        }
-
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
+            mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
                                                    constant: 5),
-            mainStackView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
+            mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
                                                     constant: -5),
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -146,19 +140,13 @@ class TitleSelectionView: UIView {
     private var audioTableViewHeight: CGFloat {
         let rowsCount: CGFloat = CGFloat(playbackService.numberOfAudioTracks)
         let tableViewHeight = (rowsCount * TitleSelectionTableViewCell.size) + TitleSelectionTableViewCell.size
-        if #available(iOS 11.0, *) {
-            return tableViewHeight + safeAreaInsets.bottom
-        }
-        return tableViewHeight
+        return tableViewHeight + safeAreaInsets.bottom
     }
 
     private var subtitleTableViewHeight: CGFloat {
         let rowsCount: CGFloat = CGFloat(playbackService.numberOfVideoSubtitlesIndexes)
         let tableViewHeight = (rowsCount * TitleSelectionTableViewCell.size) + TitleSelectionTableViewCell.size
-        if #available(iOS 11.0, *) {
-            return tableViewHeight + safeAreaInsets.bottom
-        }
-        return tableViewHeight
+        return tableViewHeight + safeAreaInsets.bottom
     }
 
     private lazy var audioTableViewHeightConstraint = audioTableView.heightAnchor.constraint(equalToConstant: audioTableViewHeight)

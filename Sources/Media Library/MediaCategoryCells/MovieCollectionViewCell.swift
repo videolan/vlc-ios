@@ -83,9 +83,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if #available(iOS 11.0, *) {
-            thumbnailView.accessibilityIgnoresInvertColors = true
-        }
+        thumbnailView.accessibilityIgnoresInvertColors = true
 
         clipsToBounds = true
         layer.cornerRadius = 2
@@ -180,18 +178,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.progressViewStyle = .bar
 
         if !progressView.isHidden {
-            if #available(iOS 11.0, *) {
-                progressView.layer.cornerRadius = itemCornerRadius
-                progressView.clipsToBounds = true
-                progressView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            } else {
-                let path = UIBezierPath(roundedRect: progressView.bounds,
-                                        byRoundingCorners: [.bottomLeft, .bottomRight],
-                                        cornerRadii: CGSize(width: 7, height: 7))
-                let maskLayer = CAShapeLayer()
-                maskLayer.path = path.cgPath
-                progressView.layer.mask = maskLayer
-            }
+            progressView.layer.cornerRadius = itemCornerRadius
+            progressView.clipsToBounds = true
+            progressView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         }
     }
 

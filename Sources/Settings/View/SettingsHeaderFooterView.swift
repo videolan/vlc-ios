@@ -39,18 +39,14 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setupView() {
-        var guide: LayoutAnchorContainer = self
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         addSubview(containerView)
         addSubview(sectionHeaderLabel)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: guide.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             sectionHeaderLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             sectionHeaderLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             sectionHeaderLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
@@ -97,17 +93,13 @@ class SettingsFooterView: UITableViewHeaderFooterView {
     }
 
     private func setupView() {
-        var guide: LayoutAnchorContainer = self
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         addSubview(footerView)
         footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
         NSLayoutConstraint.activate([
-            footerView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
-            footerView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10),
-            footerView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 24),
+            footerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            footerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            footerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
             footerView.heightAnchor.constraint(equalToConstant: 1.0),
         ])
     }

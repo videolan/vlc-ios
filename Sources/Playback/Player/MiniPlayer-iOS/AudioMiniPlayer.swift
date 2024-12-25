@@ -140,10 +140,8 @@ private extension AudioMiniPlayer {
 
         progressBarView.clipsToBounds = true
 
-        if #available(iOS 11.0, *) {
-            artworkImageView.accessibilityIgnoresInvertColors = true
-            artworkBlurImageView.accessibilityIgnoresInvertColors = true
-        }
+        artworkImageView.accessibilityIgnoresInvertColors = true
+        artworkBlurImageView.accessibilityIgnoresInvertColors = true
         artworkImageView.clipsToBounds = true
         artworkImageView.layer.cornerRadius = 2
 
@@ -158,19 +156,12 @@ private extension AudioMiniPlayer {
     }
 
     private func setupConstraint() {
-        var guide: LayoutAnchorContainer = self
-
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         audioMiniPlayer.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([audioMiniPlayer.leadingAnchor.constraint(equalTo: guide.leadingAnchor,
-                                                                              constant: 8),
-                                     audioMiniPlayer.trailingAnchor.constraint(equalTo: guide.trailingAnchor,
-                                                                               constant: -8),
-                                     audioMiniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                             constant: -8),
-                                     ])
+        NSLayoutConstraint.activate([
+            audioMiniPlayer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            audioMiniPlayer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            audioMiniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+        ])
     }
 
     private func applyCustomEqualizerProfileIfNeeded() {
@@ -481,7 +472,7 @@ extension AudioMiniPlayer {
                     hapticFeedbackNeeded = horizontalTranslation(in: superview)
             }
         }
-        if hapticFeedbackNeeded, #available(iOS 10.0, *) {
+        if hapticFeedbackNeeded {
             ImpactFeedbackGenerator().limitOverstepped()
         }
     }

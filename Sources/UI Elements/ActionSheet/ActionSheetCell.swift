@@ -225,14 +225,9 @@ class DoubleActionSheetCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        var guide: LayoutAnchorContainer = self
-
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            mainStackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainStackView.heightAnchor.constraint(equalTo: heightAnchor),
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             leftStackView.widthAnchor.constraint(equalTo: rightStackView.widthAnchor),
@@ -466,14 +461,9 @@ class ActionSheetCell: UICollectionViewCell {
         // allow the didSet to set the checkmark image
         accessoryType = .checkmark
 
-        var guide: LayoutAnchorContainer = self
-
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             stackView.heightAnchor.constraint(equalTo: heightAnchor),
             stackView.topAnchor.constraint(equalTo: topAnchor)
         ])

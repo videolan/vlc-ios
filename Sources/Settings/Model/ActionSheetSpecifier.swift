@@ -77,9 +77,7 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             PresentationTheme.themeDidUpdate()
         }
 
-        if #available(iOS 10, *) {
-            NotificationFeedbackGenerator().success()
-        }
+        NotificationFeedbackGenerator().success()
     }
 
     func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {

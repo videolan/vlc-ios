@@ -28,7 +28,7 @@ class KeychainCoordinator: NSObject {
         var touchIDEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPasscodeAllowTouchID)
         let laContext = LAContext()
 
-        if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
         }
         return touchIDEnabled
@@ -38,7 +38,7 @@ class KeychainCoordinator: NSObject {
         var faceIDEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPasscodeAllowFaceID)
         let laContext = LAContext()
 
-        if #available(iOS 11.0.1, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
         }
         return faceIDEnabled
