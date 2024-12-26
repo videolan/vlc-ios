@@ -10,6 +10,7 @@
  *          Edgar Fouillet <vlc # edgar.fouillet.eu>
  *          Diogo Simao Marques <dogo@videolabs.io>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Andrew Breckenridge <asbreckenridge@me.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -73,6 +74,7 @@ class SettingsController: UITableViewController {
         self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
         tableView.separatorStyle = .none
         tableView.cellLayoutMarginsFollowReadableWidth = false //Fix for iPad
+        tableView.verticalScrollIndicatorInsets = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
         view.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.modalPresentationStyle = .custom
         guard let unsafeSettingsBundle = getSettingsBundle() else { return }
