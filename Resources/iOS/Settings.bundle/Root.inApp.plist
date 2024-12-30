@@ -435,6 +435,28 @@
 			</array>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAYER_CONTROL_DURATION</string>
+			<key>Key</key>
+			<string>kVLCSettingPlayerControlDuration</string>
+			<key>DefaultValue</key>
+			<integer>4</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FOUR</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_TWENTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>4</integer>
+				<integer>10</integer>
+				<integer>20</integer>
+			</array>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>

@@ -150,11 +150,16 @@
 "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE" = "Backward skip on swipe";
 "SETINGS_LONG_TOUCH_SPEED_UP" = "Long touch to speed-up";
 
+"SETTINGS_DURATION_FOUR" = "4 seconds";
 "SETTINGS_DURATION_FIVE" = "5 seconds";
 "SETTINGS_DURATION_TEN" =  "10 seconds";
 "SETTINGS_DURATION_FIFTEEN" = "15 seconds";
+"SETTINGS_DURATION_TWENTY" =  "20 seconds";
 "SETTINGS_DURATION_THIRTY" =  "30 seconds";
 "SETTINGS_DURATION_SIXTY" = "60 seconds";
+
+"SETTINGS_ACCESSIBILITY" = "Accessibility";
+"SETTINGS_PLAYER_CONTROL_DURATION" = "Playback controls duration";
 
 "SETTINGS_RESET" = "Reset the settings";
 "SETTINGS_RESET_TITLE" = "Reset";

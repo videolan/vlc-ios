@@ -616,6 +616,28 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FOUR</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_TWENTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>4</integer>
+				<integer>10</integer>
+				<integer>20</integer>
+			</array>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_TEXT_ENCODING</string>
+			<key>Key</key>
+			<string>kVLCSettingPlayerControlDuration</string>
+			<key>DefaultValue</key>
+			<integer>4</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_AUDIO_TITLE</string>

@@ -152,6 +152,7 @@ struct SettingsSection: Equatable {
             CastingOptions.section(),
             MediaLibraryOptions.section(isBackingUp: isBackingUp),
             NetworkOptions.section(),
+            Accessibility.section(),
             Lab.section(isLabActivated: isLabActivated),
             Reset.section()
         ].compactMap { $0 }
@@ -788,6 +789,23 @@ enum NetworkOptions {
             ipv6SupportForWiFiSharing,
             forceSMBv1,
             rtspctp
+        ])
+    }
+}
+
+// MARK: - Accessibility
+enum Accessibility {
+    static var playerControlDuration: SettingsItem {
+        .init(
+            title: "SETTINGS_PLAYER_CONTROL_DURATION",
+            subtitle: nil,
+            action: .showActionSheet(title: "SETTINGS_PLAYER_CONTROL_DURATION", preferenceKey: kVLCSettingPlayerControlDuration, hasInfo: false)
+        )
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_ACCESSIBILITY", items: [
+            playerControlDuration
         ])
     }
 }

@@ -98,6 +98,8 @@
 #define kVLCResetSettings @"kVLCResetSettings"
 #define kVLCSettingAlwaysPlayURLs @"kVLCSettingAlwaysPlayURLs"
 #define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"
+#define kVLCSettingPlayerControlDuration @"kVLCSettingPlayerControlDuration"
+#define kVLCSettingPlayerControlDurationDefaultValue @(4)
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 

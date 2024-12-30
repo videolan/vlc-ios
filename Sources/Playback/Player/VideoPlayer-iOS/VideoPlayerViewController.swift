@@ -1135,8 +1135,13 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func resetIdleTimer() {
+        let intervalSetting = UserDefaults.standard
+            .integer(forKey: kVLCSettingPlayerControlDuration)
+
+        let interval = TimeInterval(max(intervalSetting, 4))
+
         guard let safeIdleTimer = idleTimer else {
-            idleTimer = Timer.scheduledTimer(timeInterval: 4,
+            idleTimer = Timer.scheduledTimer(timeInterval: interval,
                                              target: self,
                                              selector: #selector(handleIdleTimerExceeded),
                                              userInfo: nil,
@@ -1144,8 +1149,8 @@ class VideoPlayerViewController: PlayerViewController {
             return
         }
 
-        if fabs(safeIdleTimer.fireDate.timeIntervalSinceNow) < 4 {
-            safeIdleTimer.fireDate = Date(timeIntervalSinceNow: 4)
+        if fabs(safeIdleTimer.fireDate.timeIntervalSinceNow) < interval {
+            safeIdleTimer.fireDate = Date(timeIntervalSinceNow: interval)
         }
     }
 
