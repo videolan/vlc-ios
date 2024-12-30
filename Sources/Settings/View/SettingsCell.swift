@@ -79,7 +79,6 @@ class SettingsCell: UITableViewCell {
     var settingsItem: SettingsItem? {
         didSet {
             guard let settingsItem = settingsItem else {
-                assertionFailure("No Section Type provided")
                 return
             }
 
