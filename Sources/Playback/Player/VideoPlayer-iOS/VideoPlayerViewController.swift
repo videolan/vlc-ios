@@ -1484,6 +1484,14 @@ extension VideoPlayerViewController {
 
         videoPlayerControls.shuffleButton.tintColor = playbackService.isShuffleMode ? orangeColor : .white
     }
+
+    func reloadPlayQueue() {
+        guard let queueViewController = queueViewController else {
+            return
+        }
+
+        queueViewController.reload()
+    }
 }
 
 // MARK: - PlayerControllerDelegate
