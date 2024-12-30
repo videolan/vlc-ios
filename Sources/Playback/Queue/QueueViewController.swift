@@ -574,7 +574,6 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             NotificationCenter.default.post(name: .VLCDidRemoveMediaFromQueue, object: nil)
 
             self.handleRemoveCurrentMediaIfNeeded(removedMedia, at: indexPath)
-            self.stopPlaybackIfNeeded()
         })
     }
 
@@ -720,12 +719,6 @@ extension QueueViewController: UICollectionViewDataSource {
 // MARK: - Media Collection View Cell Queue Remove/ Empty Media List handler
 
 extension QueueViewController {
-    func stopPlaybackIfNeeded() {
-        if mediaList.count < 1 {
-            playbackService.stopPlayback()
-        }
-    }
-
     func handleRemoveCurrentMediaIfNeeded(_ media: VLCMLMedia?, at index: IndexPath) {
         guard mediaList.count > 1,
               let currentMedia = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia),
