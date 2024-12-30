@@ -727,9 +727,9 @@ extension QueueViewController {
             performDeleteMediaFromQueue(at: index)
             return
         }
-        
+
         let repeatMode = playbackService.repeatMode
-        
+
         // avoiding UI Crash when removing the last index in the media list
         if (repeatMode == .doNotRepeat || repeatMode == .repeatCurrentItem) &&
             index.row == mediaList.count - 1 {
@@ -738,22 +738,17 @@ extension QueueViewController {
             performDeleteMediaFromQueue(at: index)
         }
     }
-    
+
     func performDeleteMediaFromQueue(at index: IndexPath, isLastMedia: Bool = false) {
-        self.queueCollectionView.performBatchUpdates({
-            self.queueCollectionView.deleteItems(at: [index])
-            //handle removing last media
-            if isLastMedia {
-                // cases of doNotReapeat and repeatCurrentItem using the next() method causes wrong updates in the collection view which breaks the UI.
-                // playing the index - 1 is the solution for this case
-                self.mediaList.removeMedia(at: UInt(index.row))
-                playbackService.playItem(at: UInt(index.row - 1))
-            } else {
-                // removes the media form the media list and updates the currentIndex, then plays the next
-                playbackService.removeMediaFromMediaList(at: UInt(index.row))
-            }
-        }) { _ in
-            self.reload()
+        // handle removing last media
+        if isLastMedia {
+            // cases of doNotReapeat and repeatCurrentItem using the next() method causes wrong updates in the collection view which breaks the UI.
+            // playing the index - 1 is the solution for this case
+            self.mediaList.removeMedia(at: UInt(index.row))
+            playbackService.playItem(at: UInt(index.row - 1))
+        } else {
+            // removes the media form the media list and updates the currentIndex, then plays the next
+            playbackService.removeMediaFromMediaList(at: UInt(index.row))
         }
     }
 }
