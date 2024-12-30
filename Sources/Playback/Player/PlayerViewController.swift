@@ -1119,6 +1119,14 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
     func showStatusMessage(_ statusMessage: String) {
         statusLabel.showStatusMessage(statusMessage)
     }
+
+    func reloadPlayQueue() {
+        guard let queueViewController = queueViewController else {
+            return
+        }
+
+        queueViewController.reload()
+    }
 }
 
 // MARK: - MediaNavigationBarDelegate

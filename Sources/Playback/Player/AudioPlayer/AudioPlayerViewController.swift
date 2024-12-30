@@ -529,14 +529,6 @@ extension AudioPlayerViewController {
     func playModeUpdated() {
         audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
     }
-    
-    func reloadPlayQueue() {
-        guard let queueViewController = queueViewController else {
-            return
-        }
-
-        queueViewController.reload()
-    }
 }
 
 // MARK: - PlayerControllerDelegate
