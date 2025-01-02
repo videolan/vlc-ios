@@ -170,7 +170,7 @@ class QueueViewController: UIViewController {
                 if let parent = parent as? VideoPlayerViewController {
                     topConstraint = nil
                     heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
-                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.scrubProgressBar.frame.height))
+                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.mediaScrubProgressBar.frame.height))
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
                                                                     constant: self.view.frame.height)
                 } else if let parent = parent as? AudioPlayerViewController {

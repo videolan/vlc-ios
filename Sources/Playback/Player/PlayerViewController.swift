@@ -187,7 +187,7 @@ class PlayerViewController: UIViewController {
         }
     }()
 
-    private lazy var volumeBackgroundGradientLayer: CAGradientLayer = {
+    lazy var volumeBackgroundGradientLayer: CAGradientLayer = {
         let volumeBackGroundGradientLayer = CAGradientLayer()
 
         volumeBackGroundGradientLayer.frame = UIScreen.main.bounds
@@ -201,7 +201,7 @@ class PlayerViewController: UIViewController {
         return volumeBackGroundGradientLayer
     }()
 
-    private lazy var brightnessBackgroundGradientLayer: CAGradientLayer = {
+    lazy var brightnessBackgroundGradientLayer: CAGradientLayer = {
         let brightnessGroundGradientLayer = CAGradientLayer()
 
         brightnessGroundGradientLayer.frame = UIScreen.main.bounds
@@ -701,7 +701,7 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    @objc private func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+    @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         let verticalPanVelocity: Float = Float(recognizer.velocity(in: view).y)
 
         let currentPos = recognizer.location(in: view)
@@ -830,7 +830,7 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    @objc private func handleSwipeGestures(recognizer: UISwipeGestureRecognizer) {
+    @objc func handleSwipeGestures(recognizer: UISwipeGestureRecognizer) {
         guard playerController.isSwipeSeekGestureEnabled else {
             return
         }
@@ -1092,6 +1092,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
                 alertController.addAction(mainAction)
             }
 
+            self.setControlsHidden(true, animated: true)
             self.present(alertController, animated: true, completion: nil)
             self.alertController = alertController
         }
