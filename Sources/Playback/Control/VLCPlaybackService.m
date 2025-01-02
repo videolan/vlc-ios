@@ -2,7 +2,7 @@
  * VLCPlaybackService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2023 VLC authors and VideoLAN
+ * Copyright (c) 2013-2025 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -44,9 +44,9 @@ NSString *const VLCPlaybackServiceShuffleModeUpdated = @"VLCPlaybackServiceShuff
 NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
 
 #if TARGET_OS_IOS
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #else
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #endif
 {
     VLCMediaPlayer *_backgroundDummyPlayer;
@@ -85,6 +85,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     BOOL _openInMiniPlayer;
 }
+
+@property (weak, atomic) id<VLCPictureInPictureWindowControlling> pipController;
+@property (atomic) id<VLCPictureInPictureMediaControlling> mediaController;
 
 @end
 
@@ -251,9 +254,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
     if (libVLCOptions.count > 0) {
         _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
-                                                      andDrawable:_actualVideoOutputView];
+                                                      andDrawable:self];
     } else {
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:self];
     }
     _listPlayer.delegate = self;
 
@@ -298,6 +301,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     newFilter.enabled = _adjustFilter.mediaPlayerAdjustFilter.isEnabled;
     _adjustFilter = [[VLCPlaybackServiceAdjustFilter alloc] initWithMediaPlayerAdjustFilter:newFilter];
     _mediaPlayer = _listPlayer.mediaPlayer;
+#if TARGET_OS_IOS
+    _mediaController = [[VLCPictureInPictureMediaController alloc] initWithMediaPlayer:_mediaPlayer];
+#endif
 
     [_mediaPlayer setDelegate:self];
     CGFloat defaultPlaybackSpeed = [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue];
@@ -827,6 +833,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
+    id<VLCPictureInPictureWindowControlling> pipController = _pipController;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [pipController invalidatePlaybackState];
+    });
     switch (currentState) {
         case VLCMediaPlayerStateBuffering: {
             /* attach delegate */
@@ -1828,6 +1838,29 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
                                                         object:self];
+}
+
+#pragma mark - VLCDrawable
+
+- (void)addSubview:(UIView *)view {
+    [_actualVideoOutputView addSubview:view];
+}
+
+- (CGRect)bounds { 
+    return [_actualVideoOutputView bounds];
+}
+
+#pragma mark - VLCPictureInPictureDrawable
+
+- (void (^)(id<VLCPictureInPictureWindowControlling>))pictureInPictureReady {
+    __weak typeof(self) drawable = self;
+    return ^(id<VLCPictureInPictureWindowControlling> pipController){
+        drawable.pipController = pipController;
+    };
+}
+
+- (void)togglePictureInPicture {
+    [self.pipController startPictureInPicture];
 }
 
 @end

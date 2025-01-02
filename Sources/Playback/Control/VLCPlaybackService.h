@@ -168,6 +168,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index;
+- (void)togglePictureInPicture;
 
 #if TARGET_OS_IOS
 - (void)savePlaybackState;

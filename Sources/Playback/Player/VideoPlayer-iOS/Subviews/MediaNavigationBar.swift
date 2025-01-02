@@ -16,6 +16,7 @@ import MediaPlayer
 @objc (VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
+    @objc optional func mediaNavigationBarDidTapPictureInPicture(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
@@ -104,6 +105,16 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return chromeButton
     }()
 
+    lazy var pictureInPictureButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(togglePictureInPicture),
+                               for: .touchDown)
+        button.setImage(UIImage(named: "pip.enter"), for: .normal)
+        button.tintColor = .white
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return button
+    }()
+
     private var closureQueue: (() -> Void)? = nil
 
     private lazy var deviceActionSheet: ActionSheet = {
@@ -187,6 +198,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(rotateButton)
         addArrangedSubview(queueButton)
         addArrangedSubview(deviceButton)
+        addArrangedSubview(pictureInPictureButton)
     }
 
     // MARK: Gesture recognizer
@@ -208,6 +220,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         deviceActionSheet.dataSource = self
         presentingViewController?.present(deviceActionSheet,
                                           animated: true)
+    }
+
+    func togglePictureInPicture() {
+        delegate?.mediaNavigationBarDidTapPictureInPicture?(self)
     }
 
     func handleCloseTap() {

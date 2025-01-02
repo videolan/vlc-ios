@@ -1453,6 +1453,10 @@ extension VideoPlayerViewController {
     func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar) {
         statusLabel.showStatusMessage(NSLocalizedString("MINIMIZE_HINT", comment: ""))
     }
+
+    func mediaNavigationBarDidTapPictureInPicture(_ mediaNavigationBar: MediaNavigationBar) {
+        playbackService.togglePictureInPicture()
+    }
 }
 
 // MARK: - MediaScrubProgressBarDelegate
