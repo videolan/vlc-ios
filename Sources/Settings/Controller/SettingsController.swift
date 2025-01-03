@@ -90,6 +90,10 @@ class SettingsController: UITableViewController {
 
     private func addObservers() {
         notificationCenter.addObserver(self,
+                                       selector: #selector(reloadSettingsSections2),
+                                       name: UserDefaults.didChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
                                        selector: #selector(themeDidChange),
                                        name: .VLCThemeDidChangeNotification,
                                        object: nil)
@@ -280,8 +284,12 @@ class SettingsController: UITableViewController {
 
 extension SettingsController {
 
-    func reloadSettingsSections() {
-        // , passcodeLockSwitchOn: true
+    @objc func reloadSettingsSections2() {
+        print("reloadSettingsSections2")
+        reloadSettingsSections()
+    }
+
+    @objc func reloadSettingsSections() {
         settingsSections = SettingsSection
             .sections(isLabActivated: isLabActivated,
                       isBackingUp: isBackingUp,

@@ -82,19 +82,13 @@ class SettingsCell: UITableViewCell {
                 return
             }
 
-            mainLabel.text = settingsBundle.localizedString(forKey: settingsItem.title, value: settingsItem.title, table: "Root")
+            mainLabel.text = settingsItem.title
 
-            mainLabel.textColor = settingsItem.emphasizedTitle
+            mainLabel.textColor = settingsItem.isTitleEmphasized
                 ? PresentationTheme.current.colors.orangeUI
                 : PresentationTheme.current.colors.cellTextColor
 
-            if let subtitle = settingsItem.subtitle {
-                //Handles No Value (No user-defaults value set) case
-                subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
-            }
-            else {
-                subtitleLabel.text = settingsItem.subtitle
-            }
+            subtitleLabel.text = settingsItem.subtitle
 
             switch settingsItem.action {
             case .isLoading:
@@ -104,8 +98,9 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .none
                 selectionStyle = .none
-            case .toggle(_):
+            case .toggle(_, let isOn):
                 switchControl.isHidden = false
+                switchControl.isOn = isOn
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true
                 accessoryView = switchControl
@@ -147,8 +142,6 @@ class SettingsCell: UITableViewCell {
                 activityIndicator.stopAnimating()
             }
 
-            updateSwitch()
-            updateSubtitle()
         }
     }
 
@@ -208,20 +201,17 @@ class SettingsCell: UITableViewCell {
                                        selector: #selector(themeDidChange),
                                        name: .VLCThemeDidChangeNotification,
                                        object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(updateValues),
-                                       name: UserDefaults.didChangeNotification,
-                                       object: nil)
     }
 
     @objc func handleSwitchAction(sender: UISwitch) {
         guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
-        case .toggle(let preferenceKey):
+        case .toggle(let preferenceKey, _):
             delegate?.settingsCellDidChangeSwitchState(preferenceKey: preferenceKey, isOn: sender.isOn)
 
         default:
+            // we should never get here; only toggles have a switch
             break
         }
     }
@@ -265,28 +255,4 @@ class SettingsCell: UITableViewCell {
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
-    @objc private func updateValues() {
-        DispatchQueue.main.async {
-            self.updateSwitch()
-            self.updateSubtitle()
-        }
-    }
-
-    private func updateSwitch() {
-        guard let settingsItem = settingsItem else { return }
-
-        switch settingsItem.action {
-        case .toggle(let preferenceKey):
-            let value = self.userDefaults.bool(forKey: preferenceKey)
-            self.switchControl.isOn = value
-        default:
-            break
-        }
-    }
-
-    private func updateSubtitle() {
-        if let subtitle = self.getSubtitle(for: self.settingsItem?.preferenceKey ?? "") {
-            self.subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
-        }
-    }
 }
