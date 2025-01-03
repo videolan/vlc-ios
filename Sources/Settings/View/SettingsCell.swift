@@ -17,9 +17,6 @@ protocol SettingsCellDelegate: AnyObject {
 }
 
 class SettingsCell: UITableViewCell {
-
-    private var notificationCenter: NotificationCenter { NotificationCenter.default }
-
     private enum Constants {
         static let mainLabelFont: UIFont = .preferredFont(forTextStyle: .callout) //16pt default
         static let subtitleLabelFont: UIFont = .preferredFont(forTextStyle: .footnote) //13pt default
@@ -132,6 +129,7 @@ class SettingsCell: UITableViewCell {
                 : PresentationTheme.current.colors.cellTextColor
 
             subtitleLabel.text = settingsItem.subtitle
+            subtitleLabel.isHidden = settingsItem.subtitle?.isEmpty ?? true
 
             switch settingsItem.action {
             case .isLoading:
@@ -199,11 +197,11 @@ class SettingsCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        backgroundColor = .clear //Required to prevent theme mismatch during themeDidChange Notification
+        backgroundColor = .clear //Required to prevent theme mismatch during setupTheme
         activityIndicator.isHidden = true
 
         // Reset to default colors.
-        themeDidChange()
+        setupTheme()
 
         settingsItem = nil
         delegate = nil
@@ -211,8 +209,7 @@ class SettingsCell: UITableViewCell {
 
     private func setup() {
         setupView()
-        setupObservers()
-        themeDidChange()
+        setupTheme()
     }
 
     private func setupView() {
@@ -242,27 +239,7 @@ class SettingsCell: UITableViewCell {
         infoButton.isHidden = true
     }
 
-    private func setupObservers() {
-        notificationCenter.addObserver(self,
-                                       selector: #selector(themeDidChange),
-                                       name: .VLCThemeDidChangeNotification,
-                                       object: nil)
-    }
-
-    @objc func handleSwitchAction(sender: UISwitch) {
-        guard let settingsItem = settingsItem else { return }
-
-        switch settingsItem.action {
-        case .toggle(let preferenceKey, _):
-            delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: preferenceKey, isOn: sender.isOn)
-
-        default:
-            // we should never get here; only toggles have a switch
-            break
-        }
-    }
-
-    @objc fileprivate func themeDidChange() {
+    private func setupTheme() {
         let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
@@ -279,14 +256,26 @@ class SettingsCell: UITableViewCell {
         }
     }
 
-    @objc func infoTapped(sender: UIButton) {
-        guard let settingsItem = settingsItem else {
-            return
+    @objc func handleSwitchAction(sender: UISwitch) {
+        guard let settingsItem = settingsItem else { return }
+
+        switch settingsItem.action {
+        case .toggle(let preferenceKey, _):
+            delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: preferenceKey, isOn: sender.isOn)
+
+        default:
+            // we should never get here; only toggles have a switch
+            break
         }
+    }
+
+    @objc func infoTapped(sender: UIButton) {
+        guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
         case .showActionSheet(_, let preferenceKey, _):
             delegate?.settingsCellInfoButtonPressed(cell: self, preferenceKey: preferenceKey)
+
         default:
             // should never get here; only action sheets have info buttons
             break

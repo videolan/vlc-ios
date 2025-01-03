@@ -38,7 +38,6 @@ class FavoriteListViewController: UIViewController {
         return tableView
     }()
 
-    let userDefaults: UserDefaults = UserDefaults.standard
     let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
     let cellImage = UIImage(named: "heart")
     let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService

@@ -38,7 +38,10 @@ class SettingsController: UITableViewController {
     /// the source of all data.
     private var settingsSections: [SettingsSection] = [] {
         didSet {
-            tableView.reloadData()
+            // only reload when it's actually different
+            if oldValue != settingsSections {
+                tableView.reloadData()
+            }
         }
     }
 
@@ -90,7 +93,7 @@ class SettingsController: UITableViewController {
 
     private func addObservers() {
         notificationCenter.addObserver(self,
-                                       selector: #selector(reloadSettingsSections2),
+                                       selector: #selector(reloadSettingsSections),
                                        name: UserDefaults.didChangeNotification,
                                        object: nil)
         notificationCenter.addObserver(self,
@@ -283,11 +286,6 @@ class SettingsController: UITableViewController {
 }
 
 extension SettingsController {
-
-    @objc func reloadSettingsSections2() {
-        print("reloadSettingsSections2")
-        reloadSettingsSections()
-    }
 
     @objc func reloadSettingsSections() {
         settingsSections = SettingsSection
