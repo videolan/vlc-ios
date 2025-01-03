@@ -414,7 +414,6 @@ extension SettingsController: MediaLibraryHidingDelegate {
 
 extension SettingsController: SettingsCellDelegate {
     func settingsCellDidChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool) {
-        userDefaults.set(isOn, forKey: preferenceKey)
 
         switch preferenceKey {
         case kVLCSettingPasscodeOnKey:
@@ -425,8 +424,6 @@ extension SettingsController: SettingsCellDelegate {
             mediaLibraryBackupActivateSwitchOn(state: isOn)
         case kVLCSettingsDisableGrouping:
             medialibraryDisableGroupingSwitchOn(state: isOn)
-        case kVLCSettingPlaybackTapSwipeEqual, kVLCSettingPlaybackForwardBackwardEqual:
-            reloadSettingsSections()
         default:
             break
         }

@@ -27,8 +27,8 @@ struct SettingsItem: Equatable {
     @available(*, deprecated, message: "access from self.action")
     var preferenceKey: String? {
         switch action {
-        case .toggle(let preferenceKey, _):
-            return preferenceKey
+        case .toggle(let toggle):
+            return toggle.preferenceKey
         case .showActionSheet(_, let preferenceKey, _):
             return preferenceKey
         default:
@@ -44,19 +44,84 @@ struct SettingsItem: Equatable {
     }
 
     static func toggle(title: String, subtitle: String?, preferenceKey: String) -> Self {
-        let isOn = UserDefaults.standard.bool(forKey: preferenceKey)
-        return Self.init(title: title, subtitle: subtitle, action: .toggle(preferenceKey: preferenceKey, isOn: isOn))
+        return Self.init(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)))
     }
 
     enum Action: Equatable {
         case isLoading
-        case toggle(preferenceKey: String, isOn: Bool)
+        case toggle(Toggle)
         case showActionSheet(title: String, preferenceKey: String, hasInfo: Bool)
         case donation
         case openPrivacySettings
         case forceRescanAlert
         case exportMediaLibrary
         case displayResetAlert
+    }
+
+    final class Toggle: Equatable {
+        typealias Observer = (Bool) -> Void
+
+        let preferenceKey: String
+
+        var isOn: Bool {
+            UserDefaults.standard.bool(forKey: preferenceKey)
+        }
+
+        private var observers: [Int: Observer] = [:]
+        private var isNotifyingObservers: Bool = false
+        private static let lock = NSLock()
+        private static var _lastId: Int = 0
+        private static var lastId: Int {
+            get { lock.withLock { _lastId } }
+            set { lock.withLock { _lastId = newValue } }
+        }
+
+        init(preferenceKey: String) {
+            self.preferenceKey = preferenceKey
+            NotificationCenter.default
+                .addObserver(self, selector: #selector(didChange), name: UserDefaults.didChangeNotification, object: nil)
+        }
+
+        func set(isOn: Bool) {
+            UserDefaults.standard.set(isOn, forKey: preferenceKey)
+        }
+
+        // does not call out initially.
+        func addObserver(_ observer: @escaping Observer) -> Int {
+            let id = Self.lastId + 1
+            Self.lastId = id
+            observers[id] = observer
+            return id
+        }
+
+        func removeObserver(_ Int: Int) {
+            observers.removeValue(forKey: Int)
+        }
+
+        @objc private func didChange(_ note: Notification) {
+            notifyObservers()
+        }
+
+        private func notifyObservers() {
+            precondition(!isNotifyingObservers, "[\(preferenceKey)] updating the toggle switch from an observer is illegal")
+
+            isNotifyingObservers = true
+
+            // copy the keys so we can detect departures
+            let keys = observers.keys
+            keys.forEach { k in
+                // skip observers that have departed as we call out to each
+                guard observers.keys.contains(k) else { return }
+
+                observers[k]!(isOn)
+            }
+
+            isNotifyingObservers = false
+        }
+
+        static func == (lhs: SettingsItem.Toggle, rhs: SettingsItem.Toggle) -> Bool {
+            lhs.preferenceKey == rhs.preferenceKey
+        }
     }
 }
 

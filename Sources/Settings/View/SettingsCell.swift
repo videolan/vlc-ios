@@ -12,7 +12,11 @@
 import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
+    /// Implementations should only perform side effects on
+    /// specific preferences; updating the preference itself
+    /// is handled by the cell.
     func settingsCellDidChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool)
+
     func settingsCellInfoButtonPressed(cell: SettingsCell, preferenceKey: String)
 }
 
@@ -29,6 +33,18 @@ class SettingsCell: UITableViewCell {
     }
 
     internal weak var delegate: SettingsCellDelegate?
+
+    internal var toggleObserver: (SettingsItem.Toggle, Int)? {
+        willSet {
+            if let toggleObserver = toggleObserver {
+                toggleObserver.0.removeObserver(toggleObserver.1)
+            }
+        }
+    }
+
+    private lazy var layoutGuide: UILayoutGuide = {
+        safeAreaLayoutGuide
+    }()
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -117,6 +133,10 @@ class SettingsCell: UITableViewCell {
     }()
 
     var settingsItem: SettingsItem? {
+        willSet {
+            toggleObserver = nil
+        }
+
         didSet {
             guard let settingsItem = settingsItem else {
                 return
@@ -139,14 +159,21 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .none
                 selectionStyle = .none
-            case .toggle(_, let isOn):
+
+            case .toggle(let toggle):
                 switchControl.isHidden = false
-                switchControl.isOn = isOn
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true
                 accessoryView = switchControl
                 accessoryType = .none
                 selectionStyle = .none
+
+                switchControl.isOn = toggle.isOn
+                let obs = toggle.addObserver() { [weak self] isOn in
+                    self?.switchControl.isOn = isOn
+                }
+                toggleObserver = (toggle, obs)
+
             case .showActionSheet(_, _, let hasInfo):
                 switchControl.isHidden = true
                 infoButton.isHidden = !hasInfo
@@ -154,6 +181,7 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
+
             case .donation:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
@@ -161,6 +189,7 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
+
             case .openPrivacySettings:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
@@ -168,6 +197,7 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
+
             case .forceRescanAlert, .exportMediaLibrary, .displayResetAlert:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
@@ -175,6 +205,7 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .none
                 selectionStyle = .default
+
             }
 
             if !activityIndicator.isHidden {
@@ -260,8 +291,9 @@ class SettingsCell: UITableViewCell {
         guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
-        case .toggle(let preferenceKey, _):
-            delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: preferenceKey, isOn: sender.isOn)
+        case .toggle(let toggle):
+            toggle.set(isOn: sender.isOn)
+            delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: toggle.preferenceKey, isOn: sender.isOn)
 
         default:
             // we should never get here; only toggles have a switch
