@@ -180,8 +180,8 @@ class SettingsCell: UITableViewCell {
     }
 
     private func setupView() {
-        addSubview(stackView)
-        addSubview(activityIndicator)
+        contentView.addSubview(stackView)
+        contentView.addSubview(activityIndicator)
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
         NSLayoutConstraint.activate([
@@ -194,7 +194,7 @@ class SettingsCell: UITableViewCell {
         ])
         activityIndicator.isHidden = true
 
-        addSubview(infoButton)
+        contentView.addSubview(infoButton)
         infoButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),

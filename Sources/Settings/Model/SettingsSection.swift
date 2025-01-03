@@ -168,7 +168,7 @@ enum GenericOptions {
 
     static var enableTextScrollingInMediaList: SettingsItem {
         .init(
-            title: "SETTINGS_NETWORK_PLAY_ALL",
+            title: "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING",
             subtitle: nil,
             action: .toggle(preferenceKey: kVLCSettingEnableMediaCellTextScrolling)
         )
