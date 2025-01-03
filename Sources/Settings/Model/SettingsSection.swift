@@ -37,8 +37,8 @@ struct SettingsItem: Equatable {
     }
 
     init(title: String, subtitle: String?, action: Action, isTitleEmphasized: Bool = false) {
-        self.title = Self.localizedTitle(key: title)
-        self.subtitle = subtitle.flatMap(Self.localizedTitle(key:))
+        self.title = Localizer.localizedTitle(key: title)
+        self.subtitle = subtitle.flatMap(Localizer.localizedTitle(key:))
         self.action = action
         self.isTitleEmphasized = isTitleEmphasized
     }
@@ -67,6 +67,11 @@ struct SettingsSection: Equatable {
 
     var isEmpty: Bool {
         items.isEmpty
+    }
+
+    init(title: String? = nil, items: [SettingsItem]) {
+        self.title = title.flatMap(Localizer.localizedTitle(key:))
+        self.items = items
     }
 
     static func sections(isLabActivated: Bool, isBackingUp: Bool, isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> [SettingsSection] {
@@ -102,7 +107,7 @@ enum MainOptions {
         let k = kVLCSettingAppTheme
         return .init(
             title: "SETTINGS_DARKTHEME",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_DARKTHEME", preferenceKey: k, hasInfo: false)
         )
     }
@@ -136,7 +141,7 @@ enum GenericOptions {
         let k = kVLCSettingPlaybackSpeedDefaultValue
         return .init(
             title: "SETTINGS_PLAYBACK_SPEED_DEFAULT",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_PLAYBACK_SPEED_DEFAULT", preferenceKey: k, hasInfo: false)
         )
     }
@@ -145,7 +150,7 @@ enum GenericOptions {
         let k = kVLCSettingContinueAudioPlayback
         return .init(
             title: "SETTINGS_CONTINUE_AUDIO_PLAYBACK",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_CONTINUE_AUDIO_PLAYBACK", preferenceKey: k, hasInfo: true)
         )
     }
@@ -162,7 +167,7 @@ enum GenericOptions {
         let k = kVLCSettingContinuePlayback
         return .init(
             title: "SETTINGS_CONTINUE_VIDEO_PLAYBACK",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_CONTINUE_VIDEO_PLAYBACK", preferenceKey: k, hasInfo: true)
         )
     }
@@ -171,7 +176,7 @@ enum GenericOptions {
         let k = kVLCAutomaticallyPlayNextItem
         return .init(
             title: "SETTINGS_NETWORK_PLAY_ALL",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_NETWORK_PLAY_ALL", preferenceKey: k, hasInfo: false)
         )
     }
@@ -331,7 +336,7 @@ enum GestureControlOptions {
         let k = kVLCSettingPlaybackForwardSkipLength
         return .init(
             title: dynamicForwardSkipDescription(),
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: dynamicForwardSkipDescription(), preferenceKey: k, hasInfo: false)
         )
     }
@@ -340,7 +345,7 @@ enum GestureControlOptions {
         let k = kVLCSettingPlaybackBackwardSkipLength
         return .init(
             title: dynamicBackwardSkipDescription(),
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: dynamicBackwardSkipDescription(), preferenceKey: k, hasInfo: false)
         )
     }
@@ -349,7 +354,7 @@ enum GestureControlOptions {
         let k = kVLCSettingPlaybackForwardSkipLengthSwipe
         return .init(
             title: dynamicForwardSwipeDescription(),
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: dynamicForwardSwipeDescription(), preferenceKey: k, hasInfo: false)
         )
     }
@@ -358,7 +363,7 @@ enum GestureControlOptions {
         let k = kVLCSettingPlaybackBackwardSkipLengthSwipe
         return .init(
             title: "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE", preferenceKey: k, hasInfo: false)
         )
     }
@@ -430,7 +435,7 @@ enum VideoOptions {
         let k = kVLCSettingSkipLoopFilter
         return .init(
             title: "SETTINGS_SKIP_LOOP_FILTER",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_SKIP_LOOP_FILTER", preferenceKey: k, hasInfo: true)
         )
     }
@@ -439,7 +444,7 @@ enum VideoOptions {
         let k = kVLCSettingDeinterlace
         return .init(
             title: "SETTINGS_DEINTERLACE",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_DEINTERLACE", preferenceKey: k, hasInfo: true)
         )
     }
@@ -448,7 +453,7 @@ enum VideoOptions {
         let k = kVLCSettingHardwareDecoding
         return .init(
             title: "SETTINGS_HWDECODING",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_HWDECODING", preferenceKey: k, hasInfo: true)
         )
     }
@@ -485,7 +490,7 @@ enum SubtitlesOptions {
         let k = kVLCSettingSubtitlesFont
         return .init(
             title: "SETTINGS_SUBTITLES_FONT",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONT", preferenceKey: k, hasInfo: true)
         )
     }
@@ -494,7 +499,7 @@ enum SubtitlesOptions {
         let k = kVLCSettingSubtitlesFontSize
         return .init(
             title: "SETTINGS_SUBTITLES_FONTSIZE",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONTSIZE", preferenceKey: k, hasInfo: true)
         )
     }
@@ -511,7 +516,7 @@ enum SubtitlesOptions {
         let k = kVLCSettingSubtitlesFontColor
         return .init(
             title: "SETTINGS_SUBTITLES_FONTCOLOR",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_SUBTITLES_FONTCOLOR", preferenceKey: k, hasInfo: true)
         )
     }
@@ -520,7 +525,7 @@ enum SubtitlesOptions {
         let k = kVLCSettingTextEncoding
         return .init(
             title: "SETTINGS_SUBTITLES_TEXT_ENCODING",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_SUBTITLES_TEXT_ENCODING", preferenceKey: k, hasInfo: true)
         )
     }
@@ -551,7 +556,7 @@ enum CastingOptions {
         let k = kVLCSettingCastingConversionQuality
         return .init(
             title: "SETTINGS_CASTING_CONVERSION_QUALITY",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_CASTING_CONVERSION_QUALITY", preferenceKey: k, hasInfo: false)
         )
     }
@@ -570,7 +575,7 @@ enum AudioOptions {
         let k = kVLCSettingDefaultPreampLevel
         return .init(
             title: "SETTINGS_AUDIO_PREAMP_LEVEL",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_AUDIO_PREAMP_LEVEL", preferenceKey: k, hasInfo: false)
         )
     }
@@ -683,7 +688,7 @@ enum NetworkOptions {
         let k = kVLCSettingNetworkCaching
         return .init(
             title: "SETTINGS_NETWORK_CACHING_TITLE",
-            subtitle: SettingsItem.getSubtitle(for: k),
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_NETWORK_CACHING_TITLE", preferenceKey: k, hasInfo: true)
         )
     }
@@ -766,7 +771,7 @@ enum Reset {
 }
 
 // MARK: - Private
-fileprivate extension SettingsItem {
+fileprivate enum Localizer {
     private static let localizer = NSObject()
     private static let settingsBundle = {
         localizer.getSettingsBundle()!

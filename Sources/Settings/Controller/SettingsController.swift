@@ -351,7 +351,7 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView( withIdentifier: sectionHeaderReuseIdentifier) as? SettingsHeaderView else { return nil }
         guard let title = settingsSections[section].title else { return nil }
-        headerView.sectionHeaderLabel.text = settingsBundle.localizedString(forKey: title, value: title, table: "Root")
+        headerView.sectionHeaderLabel.text = title
         return headerView
     }
 
