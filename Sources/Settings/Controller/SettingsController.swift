@@ -375,7 +375,10 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        UITableView.automaticDimension
+        SettingsCell.height(
+            for: settingsSections[indexPath.section].items[indexPath.item],
+            width: self.tableView.bounds.width
+        )
     }
 }
 

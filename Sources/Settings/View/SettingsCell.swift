@@ -20,6 +20,17 @@ class SettingsCell: UITableViewCell {
     private var userDefaults: UserDefaults { UserDefaults.standard }
     private var notificationCenter: NotificationCenter { NotificationCenter.default }
 
+    private enum Constants {
+        static let mainLabelFont: UIFont = .preferredFont(forTextStyle: .callout) //16pt default
+        static let subtitleLabelFont: UIFont = .preferredFont(forTextStyle: .footnote) //13pt default
+        static let numberOfLines = 2
+        static let minHeight: CGFloat = 44
+        static let marginTop: CGFloat = 10
+        static let marginBottom: CGFloat = 10
+        static let marginLeading: CGFloat = 20
+        static let marginTrailing: CGFloat = 70
+    }
+
     internal var settingsBundle = Bundle()
 
     internal weak var delegate: SettingsCellDelegate?
@@ -51,9 +62,9 @@ class SettingsCell: UITableViewCell {
     let mainLabel: UILabel = {
         let label = UILabel()
         let colors = PresentationTheme.current.colors
-        label.numberOfLines = 2
+        label.numberOfLines = Constants.numberOfLines
         label.textColor = colors.cellTextColor
-        label.font = .preferredFont(forTextStyle: .callout) //16pt default
+        label.font = Constants.mainLabelFont
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,8 +72,8 @@ class SettingsCell: UITableViewCell {
     let subtitleLabel: UILabel = {
         let label = UILabel()
         let colors = PresentationTheme.current.colors
-        label.font = .preferredFont(forTextStyle: .footnote) //13pt default
-        label.numberOfLines = 2
+        label.font = Constants.subtitleLabelFont
+        label.numberOfLines = Constants.numberOfLines
         label.textColor = colors.cellDetailTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -74,6 +85,40 @@ class SettingsCell: UITableViewCell {
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
+    }()
+
+    static func height(for settingsItem: SettingsItem, width: CGFloat) -> CGFloat {
+        let w = max(width - (Constants.marginLeading + Constants.marginTrailing), 1)
+
+        measurementTitleLabel.text = settingsItem.title
+        measurementSubitleLabel.text = settingsItem.subtitle
+
+        let rect = CGRect(origin: .zero, size: CGSize(width: w, height: .greatestFiniteMagnitude))
+
+        let titleHeight = measurementTitleLabel
+            .textRect(forBounds: rect, limitedToNumberOfLines: Constants.numberOfLines).height
+
+        let subtitleHeight = measurementSubitleLabel
+            .textRect(forBounds: rect, limitedToNumberOfLines: Constants.numberOfLines).height
+
+        return max(
+            Constants.marginTop + titleHeight + subtitleHeight + Constants.marginBottom,
+            Constants.minHeight
+        )
+    }
+
+    private static let measurementTitleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = Constants.numberOfLines
+        label.font = Constants.mainLabelFont
+        return label
+    }()
+
+    private static let measurementSubitleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = Constants.numberOfLines
+        label.font = Constants.subtitleLabelFont
+        return label
     }()
 
     var settingsItem: SettingsItem? {
@@ -174,18 +219,21 @@ class SettingsCell: UITableViewCell {
 
     private func setupView() {
         contentView.addSubview(stackView)
-        contentView.addSubview(activityIndicator)
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -70),
-            activityIndicator.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            stackView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: Constants.marginLeading),
+            stackView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: Constants.marginTop),
+            stackView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -Constants.marginBottom),
+            stackView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -Constants.marginTrailing)
+        ])
+
+        contentView.addSubview(activityIndicator)
+        activityIndicator.isHidden = true
+        NSLayoutConstraint.activate([
+            activityIndicator.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -30),
             activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
-        activityIndicator.isHidden = true
 
         contentView.addSubview(infoButton)
         infoButton.translatesAutoresizingMaskIntoConstraints = false
