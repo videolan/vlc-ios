@@ -12,12 +12,12 @@
 import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
-    func settingsCellDidChangeSwitchState(preferenceKey: String, isOn: Bool)
+    func settingsCellDidChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool)
+    func settingsCellInfoButtonPressed(cell: SettingsCell, preferenceKey: String)
 }
 
 class SettingsCell: UITableViewCell {
 
-    private var userDefaults: UserDefaults { UserDefaults.standard }
     private var notificationCenter: NotificationCenter { NotificationCenter.default }
 
     private enum Constants {
@@ -30,8 +30,6 @@ class SettingsCell: UITableViewCell {
         static let marginLeading: CGFloat = 20
         static let marginTrailing: CGFloat = 70
     }
-
-    internal var settingsBundle = Bundle()
 
     internal weak var delegate: SettingsCellDelegate?
 
@@ -256,7 +254,7 @@ class SettingsCell: UITableViewCell {
 
         switch settingsItem.action {
         case .toggle(let preferenceKey, _):
-            delegate?.settingsCellDidChangeSwitchState(preferenceKey: preferenceKey, isOn: sender.isOn)
+            delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: preferenceKey, isOn: sender.isOn)
 
         default:
             // we should never get here; only toggles have a switch
@@ -282,25 +280,18 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc func infoTapped(sender: UIButton) {
-        guard let settingSpecifier = getSettingsSpecifier(for: (settingsItem?.preferenceKey)!) else {
+        guard let settingsItem = settingsItem else {
             return
         }
 
-        let title = settingsBundle.localizedString(forKey: settingSpecifier.title, value: settingSpecifier.title, table: "Root")
-        let alert = UIAlertController(title: title,
-                                      message: settingsBundle.localizedString(forKey: settingSpecifier.infobuttonvalue,
-                                                                              value: settingSpecifier.infobuttonvalue,
-                                                                              table: "Root"),
-                                      preferredStyle: .actionSheet)
-        let donetitle = NSLocalizedString("BUTTON_DONE", comment: "")
-        alert.addAction(UIAlertAction(title: donetitle, style: .cancel, handler: nil))
+        switch settingsItem.action {
+        case .showActionSheet(_, let preferenceKey, _):
+            delegate?.settingsCellInfoButtonPressed(cell: self, preferenceKey: preferenceKey)
+        default:
+            // should never get here; only action sheets have info buttons
+            break
+        }
 
-        // Set up the popoverPresentationController to avoid crash issues on iPad.
-        alert.popoverPresentationController?.sourceView = self
-        alert.popoverPresentationController?.permittedArrowDirections = .any
-        alert.popoverPresentationController?.sourceRect = self.bounds
-
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
 }

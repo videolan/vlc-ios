@@ -310,7 +310,6 @@ extension SettingsController {
             return UITableViewCell()
         }
 
-        cell.settingsBundle = settingsBundle
         cell.delegate = self
 
         let section = settingsSections[indexPath.section]
@@ -416,7 +415,7 @@ extension SettingsController: MediaLibraryHidingDelegate {
 // MARK: - SwitchOn Delegates
 
 extension SettingsController: SettingsCellDelegate {
-    func settingsCellDidChangeSwitchState(preferenceKey: String, isOn: Bool) {
+    func settingsCellDidChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool) {
         userDefaults.set(isOn, forKey: preferenceKey)
 
         switch preferenceKey {
@@ -433,6 +432,28 @@ extension SettingsController: SettingsCellDelegate {
         default:
             break
         }
+    }
+
+    func settingsCellInfoButtonPressed(cell: SettingsCell, preferenceKey: String) {
+        guard let settingSpecifier = getSettingsSpecifier(for: preferenceKey) else {
+            return
+        }
+
+        let title = settingsBundle.localizedString(forKey: settingSpecifier.title, value: settingSpecifier.title, table: "Root")
+        let alert = UIAlertController(title: title,
+                                      message: settingsBundle.localizedString(forKey: settingSpecifier.infobuttonvalue,
+                                                                              value: settingSpecifier.infobuttonvalue,
+                                                                              table: "Root"),
+                                      preferredStyle: .actionSheet)
+        let donetitle = NSLocalizedString("BUTTON_DONE", comment: "")
+        alert.addAction(UIAlertAction(title: donetitle, style: .cancel, handler: nil))
+
+        // Set up the popoverPresentationController to avoid crash issues on iPad.
+        alert.popoverPresentationController?.sourceView = cell
+        alert.popoverPresentationController?.permittedArrowDirections = .any
+        alert.popoverPresentationController?.sourceRect = cell.bounds
+
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }
 
