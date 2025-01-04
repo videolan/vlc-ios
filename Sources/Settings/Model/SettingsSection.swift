@@ -796,9 +796,10 @@ enum NetworkOptions {
 // MARK: - Accessibility
 enum Accessibility {
     static var playerControlDuration: SettingsItem {
-        .init(
+        let k = kVLCSettingPlayerControlDuration
+        return .init(
             title: "SETTINGS_PLAYER_CONTROL_DURATION",
-            subtitle: nil,
+            subtitle: Localizer.getSubtitle(for: k),
             action: .showActionSheet(title: "SETTINGS_PLAYER_CONTROL_DURATION", preferenceKey: kVLCSettingPlayerControlDuration, hasInfo: false)
         )
     }

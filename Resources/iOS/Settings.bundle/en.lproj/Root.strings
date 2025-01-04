@@ -159,7 +159,7 @@
 "SETTINGS_DURATION_SIXTY" = "60 seconds";
 
 "SETTINGS_ACCESSIBILITY" = "Accessibility";
-"SETTINGS_PLAYER_CONTROL_DURATION" = "Playback controls duration";
+"SETTINGS_PLAYER_CONTROL_DURATION" = "Hide playback controls after";
 
 "SETTINGS_RESET" = "Reset the settings";
 "SETTINGS_RESET_TITLE" = "Reset";
