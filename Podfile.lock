@@ -15,11 +15,11 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - AppAuth (1.7.5):
-    - AppAuth/Core (= 1.7.5)
-    - AppAuth/ExternalUserAgent (= 1.7.5)
-  - AppAuth/Core (1.7.5)
-  - AppAuth/ExternalUserAgent (1.7.5):
+  - AppAuth (1.7.6):
+    - AppAuth/Core (= 1.7.6)
+    - AppAuth/ExternalUserAgent (= 1.7.6)
+  - AppAuth/Core (1.7.6)
+  - AppAuth/ExternalUserAgent (1.7.6):
     - AppAuth/Core
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
@@ -71,7 +71,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - VLCKit (4.0.0a6)
+  - VLCKit (4.0.0a8)
   - VLCMediaLibraryKit (0.13.0a6):
     - VLCKit (>= 4.0.0a3)
   - XKKeychain (1.0.1)
@@ -93,7 +93,7 @@ DEPENDENCIES:
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - VLCKit (= 4.0.0a6)
+  - VLCKit (= 4.0.0a8)
   - VLCMediaLibraryKit (= 0.13.0a6)
   - XKKeychain (~> 1.0)
 
@@ -157,7 +157,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
+  AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
@@ -174,10 +174,10 @@ SPEC CHECKSUMS:
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  VLCKit: 80332c6fbe83e9278aca1b7e27799f2b521a7f76
+  VLCKit: c9f1a9f9c8c580067d104bc83b75dbfb75c3f8ab
   VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: b3faa067594e458bfec6754b5898d7564ccda8b3
+PODFILE CHECKSUM: af46eb6eecb746e4cca3dd14b23807f4562abc8e
 
 COCOAPODS: 1.15.2
