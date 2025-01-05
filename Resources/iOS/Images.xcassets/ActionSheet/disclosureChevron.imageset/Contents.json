@@ -3,16 +3,37 @@
     {
       "filename" : "disclosureChevron.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "disclosureChevron-rtl.png",
+      "idiom" : "universal",
+      "language-direction" : "right-to-left",
       "scale" : "1x"
     },
     {
       "filename" : "disclosureChevron@2x.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "disclosureChevron@2x-rtl.png",
+      "idiom" : "universal",
+      "language-direction" : "right-to-left",
       "scale" : "2x"
     },
     {
       "filename" : "disclosureChevron@3x.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "disclosureChevron@3x-rtl.png",
+      "idiom" : "universal",
+      "language-direction" : "right-to-left",
       "scale" : "3x"
     }
   ],
@@ -21,6 +42,7 @@
     "version" : 1
   },
   "properties" : {
+    "localizable" : true,
     "template-rendering-intent" : "template"
   }
 }
