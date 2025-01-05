@@ -351,6 +351,7 @@ class PasscodeLockController: UIViewController {
             ImpactFeedbackGenerator().selectionChanged()
         }
 
+<<<<<<< HEAD
         dismiss(animated: true)
     }
 
@@ -382,9 +383,11 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 // Hide passcode options
                 passcodeOptionsButton.isHidden = true
 
+#if os(iOS)
                 if #available(iOS 10, *) {
                     ImpactFeedbackGenerator().selectionChanged()
                 }
+#endif
             } else {
                 if passcode == tempPasscode {
                     // Just for cosmetic
@@ -393,9 +396,11 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     // Two time entry has matched. Call completionHandler with success and passcode.
                     completionHandler?(true, passcode)
 
+#if os(iOS)
                     if #available(iOS 10, *) {
                         NotificationFeedbackGenerator().success()
                     }
+#endif
 
                     dismiss(animated: true)
                 } else {
@@ -405,9 +410,11 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     // Clear passcode field
                     passcodeField.clear()
 
+#if os(iOS)
                     if #available(iOS 10, *) {
                         NotificationFeedbackGenerator().error()
                     }
+#endif
                 }
             }
         case .enter:
@@ -415,9 +422,11 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 // Call completion handler with success but don't give passcode
                 completionHandler?(true, nil)
 
+#if os(iOS)
                 if #available(iOS 10, *) {
                     ImpactFeedbackGenerator().selectionChanged()
                 }
+#endif
 
                 dismiss(animated: true)
             } else {
@@ -427,9 +436,11 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 // Clear passcode field
                 passcodeField.clear()
 
+#if os(iOS)
                 if #available(iOS 10, *) {
                     NotificationFeedbackGenerator().error()
                 }
+#endif
             }
         }
     }

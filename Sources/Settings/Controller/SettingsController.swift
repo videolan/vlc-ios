@@ -148,21 +148,27 @@ class SettingsController: UITableViewController {
     // MARK: - Observer & BarButton Actions
 
     @objc private func showAbout() {
+#if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
+#endif
         let aboutController = AboutController()
         let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
         present(aboutNavigationController, animated: true)
     }
 
     @objc private func showDocumentation() {
+#if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
+#endif
         UIApplication.shared.open(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
     }
 
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
         setNavBarAppearance()
+#if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
+#endif
         reloadSettingsSections() // When theme changes hide the black theme section if needed
     }
 
@@ -183,9 +189,9 @@ class SettingsController: UITableViewController {
     // MARK: - Helper Functions
 
     private func showDonation(indexPath: IndexPath) {
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+#if os(iOS)
+        ImpactFeedbackGenerator().selectionChanged()
+#endif
         let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
         let donationNC = UINavigationController(rootViewController: donationVC)
         donationNC.modalPresentationStyle = .popover
@@ -195,7 +201,9 @@ class SettingsController: UITableViewController {
     }
 
     private func forceRescanAlert() {
+#if os(iOS)
         NotificationFeedbackGenerator().warning()
+#endif
         let alert = UIAlertController(title: NSLocalizedString("FORCE_RESCAN_TITLE", comment: ""),
                                       message: NSLocalizedString("FORCE_RESCAN_MESSAGE", comment: ""),
                                       preferredStyle: .alert)
@@ -205,7 +213,9 @@ class SettingsController: UITableViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_RESCAN", comment: ""),
                                       style: .destructive,
                                       handler: { _ in
+#if os(iOS)
                                           ImpactFeedbackGenerator().selectionChanged()
+#endif
                                           self.forceRescanLibrary()
                                       }))
         present(alert, animated: true, completion: nil)
@@ -256,7 +266,9 @@ class SettingsController: UITableViewController {
         case .toggle:
             break
         default:
+#if os(iOS)
             ImpactFeedbackGenerator().selectionChanged()
+#endif
         }
     }
 
@@ -450,7 +462,7 @@ extension SettingsController: SettingsCellDelegate {
         alert.popoverPresentationController?.permittedArrowDirections = .any
         alert.popoverPresentationController?.sourceRect = cell.bounds
 
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
