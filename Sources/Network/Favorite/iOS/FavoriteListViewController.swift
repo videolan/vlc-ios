@@ -259,10 +259,12 @@ extension FavoriteListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let favorite = isSearching ? searchResults.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
 
+#if os(iOS)
             if favorite.protocolIdentifier == "FILE" {
                 showCloudFavVC(fav: favorite)
                 return
             }
+#endif
 
             var serverBrowser: VLCNetworkServerBrowser? = nil
             let identifier = favorite.protocolIdentifier as NSString

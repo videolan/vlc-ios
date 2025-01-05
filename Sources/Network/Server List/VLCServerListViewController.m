@@ -112,7 +112,7 @@
     [NSLayoutConstraint activateConstraints:@[
         [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
         [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_scrollView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
+        [_scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
         [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
@@ -649,20 +649,9 @@
         [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
     }
 }
-#else
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
-{
-    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
-    for (NSURL *url in urls) {
-        [url startAccessingSecurityScopedResource];
-        [mediaList addMedia:[VLCMedia mediaWithURL:url]];
-        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
-    }
-    [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
-}
 #endif
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls API_AVAILABLE(ios(11.0))
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
 {
     if (urls.count > 0) {
         VLCMediaList *medialist = [[VLCMediaList alloc] init];

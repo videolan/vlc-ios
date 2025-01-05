@@ -921,7 +921,7 @@ static NSMutableDictionary *authentifiedHosts;
                                                        NSLocalizedString(@"DISK_FULL_FORMAT", nil),
                                                        filename,
                                                        [[UIDevice currentDevice] model]]
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+                                       viewController:[(VLCAppDelegate *)[UIApplication sharedApplication].delegate window].rootViewController];
 #endif
 }
 
