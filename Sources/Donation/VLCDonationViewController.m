@@ -159,6 +159,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     self.intervalSelectorControl.selectedSegmentIndex = 0;
     [self segmentedControlAction:self];
 
+#if TARGET_OS_IOS
     if (@available(iOS 13.0, *)) {
         // not needed as the swipe gesture to close the view controller is supported
     } else {
@@ -171,6 +172,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
             self.navigationItem.rightBarButtonItem = dismissButton;
         }
     }
+#endif
 }
 
 - (void)updateColors
