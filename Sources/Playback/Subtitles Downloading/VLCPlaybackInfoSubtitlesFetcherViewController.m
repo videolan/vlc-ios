@@ -153,7 +153,7 @@
 
 #pragma mark - UI Elements setup
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 - (void)setupDoneButton
 {
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
@@ -179,11 +179,15 @@
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
     [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
+#if TARGET_OS_VISION
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+#else
     if (@available(iOS 13.0, tvOS 13.0, *)) {
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
     } else {
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     }
+#endif
 
     self.activityIndicatorView.color = [UIColor lightGrayColor];
     self.activityIndicatorView.hidesWhenStopped = YES;

@@ -302,6 +302,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     // MARK: - Init methods
 
+#if os(iOS)
     @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
 
@@ -313,16 +314,18 @@ class VideoPlayerViewController: PlayerViewController {
         brightnessControlView.delegate = self
         volumeControlView.delegate = self
     }
-    #else
-    @objc init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+#else
+    @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+        super.init(mediaLibraryService: mediaLibraryService, playerController: playerController)
+
         self.mediaLibraryService = mediaLibraryService
         self.playerController = playerController
-        super.init(nibName: nil, bundle: nil)
+
         self.playerController.delegate = self
         systemBrightness = 1.0
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
-    #endif
+#endif
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -415,8 +418,10 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         topBottomBackgroundGradientLayer.frame = self.view.bounds
+#if os(iOS)
         brightnessBackgroundGradientLayer.frame = self.view.bounds
         volumeBackgroundGradientLayer.frame = self.view.bounds
+#endif
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -492,8 +497,10 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(videoPlayerControls)
         view.addSubview(mediaScrubProgressBar)
         view.addSubview(videoOutputView)
+#if os(iOS)
         view.addSubview(brightnessControlView)
         view.addSubview(volumeControlView)
+#endif
         view.addSubview(externalVideoOutputView)
         view.addSubview(statusLabel)
         view.addSubview(titleSelectionView)
@@ -502,7 +509,9 @@ class VideoPlayerViewController: PlayerViewController {
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
+#if os(iOS)
         view.insertSubview(sideBackgroundGradientView, aboveSubview: backgroundGradientView)
+#endif
         videoOutputView.addSubview(artWorkImageView)
     }
 
@@ -529,13 +538,16 @@ class VideoPlayerViewController: PlayerViewController {
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
+#if os(iOS)
         setupBrightnessControlConstraints()
         setupVolumeControlConstraints()
+#endif
         setupStatusLabelConstraints()
         setupTitleSelectionConstraints()
         setupLongPressPlaybackSpeedConstraints()
     }
 
+#if os(iOS)
     private func setupRendererDiscoverer() {
         rendererButton = rendererDiscovererManager.setupRendererButton()
         rendererButton.tintColor = .white
@@ -559,6 +571,7 @@ class VideoPlayerViewController: PlayerViewController {
             }
         }
     }
+#endif
 
     private func setupVideoControlsState() {
         let isShuffleEnabled = playerController.isShuffleEnabled
@@ -567,7 +580,6 @@ class VideoPlayerViewController: PlayerViewController {
         playbackService.repeatMode = repeatMode
         playModeUpdated()
     }
-#endif
 
     @objc func setupQueueViewController(qvc: QueueViewController) {
         queueViewController = qvc
@@ -601,6 +613,7 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
+#if os(iOS)
     private func setupBrightnessControlConstraints() {
         setupCommonSliderConstraints(for: brightnessControlView)
         NSLayoutConstraint.activate([
@@ -616,6 +629,7 @@ class VideoPlayerViewController: PlayerViewController {
             volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }
+#endif
 
     private func setupVideoOutputConstraints() {
         videoOutputViewLeadingConstraint = videoOutputView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
@@ -907,8 +921,10 @@ class VideoPlayerViewController: PlayerViewController {
             // Update view multiplier label
             longPressPlaybackSpeedView.speedMultiplier = playbackService.playbackRate
 
+#if os(iOS)
             // Generate selection feedback
             UISelectionFeedbackGenerator().selectionChanged()
+#endif
 
             // Show playback speed view
             UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
@@ -918,7 +934,7 @@ class VideoPlayerViewController: PlayerViewController {
         case .ended, .cancelled:
             // Set playback speed previous state
             playbackService.playbackRate = previousPlaybackSpeed ?? 1
-            
+
             // Hide playback speed view
             UIView.transition(with: longPressPlaybackSpeedView, duration: 0.4, options: .transitionCrossDissolve) {
                 self.longPressPlaybackSpeedView.layer.opacity = 0
@@ -931,6 +947,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     // MARK: - Observers
 
+#if os(iOS)
     @objc func systemVolumeDidChange(notification: NSNotification) {
         let volumelevel = notification.userInfo?["AVSystemController_AudioVolumeNotificationParameter"]
         UIView.transition(with: volumeControlView, duration: 0.4,
@@ -940,6 +957,7 @@ class VideoPlayerViewController: PlayerViewController {
 
                           })
     }
+#endif
 
     // MARK: - Public helpers
 
@@ -956,9 +974,11 @@ class VideoPlayerViewController: PlayerViewController {
         adaptVideoOutputToNotch()
     }
 
+#if os(iOS)
     @objc func systemBrightnessChanged() {
         systemBrightness = UIScreen.main.brightness
     }
+#endif
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -989,23 +1009,29 @@ class VideoPlayerViewController: PlayerViewController {
         let animations = { [weak self, playerController] in
             self?.mediaNavigationBar.alpha = uiComponentOpacity
             self?.optionsNavigationBar.alpha = uiComponentOpacity
+#if os(iOS)
             self?.volumeControlView.alpha = playerController.isVolumeGestureEnabled ? uiComponentOpacity : 0
             self?.brightnessControlView.alpha = playerController.isBrightnessGestureEnabled ? uiComponentOpacity : 0
+#endif
             if !hidden || qvcHidden {
                 self?.videoPlayerControls.alpha = uiComponentOpacity
                 self?.mediaScrubProgressBar.alpha = uiComponentOpacity
             }
             self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
+#if os(iOS)
             if hidden {
                 self?.sideBackgroundGradientView.alpha = 0
             }
+#endif
         }
 
         let duration = animated ? 0.2 : 0
         UIView.animate(withDuration: duration, delay: 0,
                        options: .beginFromCurrentState, animations: animations,
                        completion: nil)
+#if os(iOS)
         self.setNeedsStatusBarAppearanceUpdate()
+#endif
     }
 
     @objc override func updatePlayerControls() {
@@ -1226,8 +1252,10 @@ class VideoPlayerViewController: PlayerViewController {
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
+#if os(iOS)
         mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
         mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
+#endif
 
         mediaScrubProgressBar.progressSlider.isEnabled = enabled
         mediaScrubProgressBar.remainingTimeButton.isEnabled = enabled
@@ -1353,7 +1381,7 @@ extension VideoPlayerViewController {
         if playbackService.isPlayingOnExternalScreen() {
 #if os(iOS)
             if let renderer = playbackService.renderer {
-                externalVideoOutputView.updateUI(rendererName: renderer.name, title: metadata.title)
+                externalVideoOutputView.updateUI(rendererName: playbackService.renderer?.name, title: metadata.title)
             }
 #else
             externalVideoOutputView.updateUI(rendererName: nil, title: metadata.title)
@@ -1503,6 +1531,7 @@ extension VideoPlayerViewController {
 
         supportedInterfaceOrientations = supportedInterfaceOrientations == .allButUpsideDown ? mask : .allButUpsideDown
 #endif
+
         setPlayerInterfaceEnabled(!state)
     }
 
@@ -1714,7 +1743,7 @@ extension VideoPlayerViewController: TitleSelectionViewDelegate {
         vc.delegate = self
         present(vc, animated: true)
     }
-    
+
     func titleSelectionViewDelegateDidSelectTrack(_ titleSelectionView: TitleSelectionView) {
         titleSelectionView.isHidden = true
     }

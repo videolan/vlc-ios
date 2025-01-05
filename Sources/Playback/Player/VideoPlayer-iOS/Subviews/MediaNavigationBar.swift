@@ -196,6 +196,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     private func setupContraints() {
+#if os(iOS)
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
@@ -203,6 +204,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
             deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
+#else
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 44),
+            closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
+            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
+            rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
+        ])
+#endif
     }
 
     private func setupViews() {

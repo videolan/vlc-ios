@@ -353,6 +353,7 @@ class AudioPlayerViewController: PlayerViewController {
 
         return orientation
     }
+#endif
 
     @objc override func updatePlayerControls() {
         audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)

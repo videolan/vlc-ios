@@ -218,6 +218,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         let actions: [UIContextualAction] = [moveUpAction, moveDownAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
+#endif
 
     // MARK: - Slider event
     @objc func preampSliderDidChangeValue(sender: UISlider) {
