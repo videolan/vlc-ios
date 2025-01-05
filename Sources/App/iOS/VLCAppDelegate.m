@@ -105,6 +105,8 @@
 
 - (void)setupTabBarAppearance
 {
+    [self recoverLastPlayingMedia];
+
     VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
     void (^setupAppCoordinator)(void) = ^{
         [appCoordinator setTabBarController:(VLCBottomTabBarController *)self->_window.rootViewController];
@@ -160,8 +162,6 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
-
-    [self recoverLastPlayingMedia];
 
     return YES;
 }
