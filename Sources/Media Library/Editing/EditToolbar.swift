@@ -147,7 +147,7 @@ class EditToolbar: UIView {
                 removeFromMediaGroupButton = button.button(self, #selector(removeFromMediaGroup))
                 rightStackView.addArrangedSubview(removeFromMediaGroupButton)
             case .rename:
-                renameButton = button.button(self, #selector(rename))
+                renameButton = button.button(self, #selector(renameSelection))
                 rightStackView.addArrangedSubview(renameButton)
             case .delete:
                 deleteButton = button.button(self, #selector(deleteSelection))

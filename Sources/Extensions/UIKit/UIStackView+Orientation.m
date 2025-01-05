@@ -33,7 +33,7 @@
 
 - (void)vlc_toggleOrientation
 {
-    if (@available(iOS 16.0, *)) {
+    if (@available(iOS 16.0, visionOS 1.0, *)) {
         UIWindowScene *windowScene = self.window.windowScene;
         id prefs;
         if (windowScene.interfaceOrientation == UIInterfaceOrientationPortrait) {
@@ -42,6 +42,9 @@
             prefs = [[VLCWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations: UIInterfaceOrientationMaskPortrait];
         }
         [windowScene requestGeometryUpdateWithPreferences:prefs errorHandler:nil];
+#if TARGET_OS_VISION
+    }
+#else
     } else {
         UIInterfaceOrientationMask orientation;
         if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
@@ -60,6 +63,7 @@
             [dummyVC dismissViewControllerAnimated:NO completion:nil];
         }];
     }
+#endif
 }
 
 @end

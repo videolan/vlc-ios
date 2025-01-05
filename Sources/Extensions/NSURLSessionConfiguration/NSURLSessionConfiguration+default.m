@@ -19,9 +19,9 @@
      static dispatch_once_t onceToken;
      dispatch_once(&onceToken, ^{
          NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
-         #if TARGET_OS_IOS
-             // multipath is only supported on iOS 11.0+
-             if (@available(iOS 11.0, *)) {
+         #if TARGET_OS_IOS || TARGET_OS_VISION
+             // multipath is only supported on iOS 11.0+ and visionOS
+             if (@available(iOS 11.0, visionOS 1.0 , *)) {
                  conf.multipathServiceType = NSURLSessionMultipathServiceTypeHandover;
              }
          #endif
