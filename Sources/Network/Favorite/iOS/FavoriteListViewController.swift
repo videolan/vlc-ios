@@ -16,20 +16,7 @@
 import UIKit
 
 class FavoriteListViewController: UIViewController {
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        title = NSLocalizedString("FAVORITES", comment: "")
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(themeDidChange),
-                                       name: NSNotification.Name(kVLCThemeDidChangeNotification),
-                                       object: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - Properties
 
     var tableView: UITableView = {
         let tableView = UITableView()
@@ -63,6 +50,22 @@ class FavoriteListViewController: UIViewController {
         return emptyView
     }()
 
+    // MARK: - Init
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        title = NSLocalizedString("FAVORITES", comment: "")
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(themeDidChange),
+                                       name: NSNotification.Name(kVLCThemeDidChangeNotification),
+                                       object: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupEmptyView()
@@ -81,13 +84,7 @@ class FavoriteListViewController: UIViewController {
         setupSearchDataSource()
     }
 
-    @objc func themeDidChange() {
-        self.tableView.backgroundColor = PresentationTheme.current.colors.background
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        self.setNeedsStatusBarAppearanceUpdate()
-    }
+    // MARK: - Setup methods
 
     private func setupSearchBar() {
         searchBar.delegate = self
@@ -171,6 +168,16 @@ class FavoriteListViewController: UIViewController {
         navigationItem.rightBarButtonItem = editBarButton
     }
 
+    // MARK: - Handlers
+
+    @objc func themeDidChange() {
+        self.tableView.backgroundColor = PresentationTheme.current.colors.background
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+
     @objc private func toggleEdit() {
         let editing = self.tableView.isEditing
         self.tableView.setEditing(!editing, animated: true)
@@ -198,13 +205,42 @@ class FavoriteListViewController: UIViewController {
             }
         }
     }
+
+    private func showCloudFavVC(fav: VLCFavorite) {
+        let favURL = fav.url
+        var cloudVC: VLCCloudStorageTableViewController?
+
+        if let favoritetype = favURL.host {
+            switch favoritetype {
+            case "DropBox":
+                cloudVC = VLCDropboxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+                break
+            case "Drive":
+                cloudVC = VLCGoogleDriveTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+            case "OneDrive":
+                break
+            case "Box":
+                cloudVC = VLCBoxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+                break
+            case "PCloud":
+                cloudVC = VLCPCloudViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
+            default:
+                break
+            }
+        }
+
+        if let viewController = cloudVC {
+            let basePath = favURL.path
+            let filePath = basePath.hasPrefix("/") ? String(basePath.dropFirst()) : basePath
+            viewController.currentPath = filePath
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
 }
 
-extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return isSearching ? 1 : favoriteService.numberOfFavoritedServers
-    }
+// MARK: - UITableViewDelegate
 
+extension FavoriteListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return isSearching ? 0 : FavoriteSectionHeader.height
     }
@@ -218,21 +254,6 @@ extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource
         header.headerView.delegate = self
         header.headerView.section = section
         return header
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? searchResults.count : favoriteService.numberOfFavoritesOfServer(at: section)
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        if let favorite = isSearching ? searchResults[indexPath.row] : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
-            cell.title = favorite.userVisibleName
-            cell.isDirectory = true
-            cell.thumbnailImage = UIImage(named: "folder")
-            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        }
-        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -278,15 +299,6 @@ extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
-            setupSearchDataSource()
-            self.tableView.reloadData()
-            self.showEmptyViewIfNeeded()
-        }
-    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
         if isSearching {
@@ -309,6 +321,40 @@ extension FavoriteListViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+// MARK: - UITableViewDataSource
+
+extension FavoriteListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return isSearching ? 1 : favoriteService.numberOfFavoritedServers
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return isSearching ? searchResults.count : favoriteService.numberOfFavoritesOfServer(at: section)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
+        if let favorite = isSearching ? searchResults[indexPath.row] : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+            cell.title = favorite.userVisibleName
+            cell.isDirectory = true
+            cell.thumbnailImage = UIImage(named: "folder")
+            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        }
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
+            setupSearchDataSource()
+            self.tableView.reloadData()
+            self.showEmptyViewIfNeeded()
+        }
+    }
+}
+
+// MARK: - FavoriteSectionHeaderDelegate
+
 extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
     func reloadData() {
         DispatchQueue.main.async {
@@ -316,6 +362,8 @@ extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
         }
     }
 }
+
+// MARK: - UISearchBarDelegate
 
 extension FavoriteListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -338,38 +386,5 @@ extension FavoriteListViewController: UISearchBarDelegate {
         searchBar.text = ""
         isSearching = false
         tableView.reloadData()
-    }
-}
-
-extension FavoriteListViewController {
-    private func showCloudFavVC(fav: VLCFavorite) {
-        let favURL = fav.url
-        var cloudVC: VLCCloudStorageTableViewController?
-
-        if let favoritetype = favURL.host {
-            switch favoritetype {
-            case "DropBox":
-                cloudVC = VLCDropboxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
-                break
-            case "Drive":
-                cloudVC = VLCGoogleDriveTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
-            case "OneDrive":
-                break
-            case "Box":
-                cloudVC = VLCBoxTableViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
-                break
-            case "PCloud":
-                cloudVC = VLCPCloudViewController(nibName: "VLCCloudStorageTableViewController", bundle: nil)
-            default:
-                break
-            }
-        }
-
-        if let viewController = cloudVC {
-            let basePath = favURL.path
-            let filePath = basePath.hasPrefix("/") ? String(basePath.dropFirst()) : basePath
-            viewController.currentPath = filePath
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
     }
 }
