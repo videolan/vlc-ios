@@ -167,7 +167,8 @@ private extension EditController {
 
 extension EditController: EditToolbarDelegate {
     private func getSelectedObjects() {
-        for index in selectedCellIndexPaths where index.row < currentDataSet.count {
+        let sortedSelectedCells = selectedCellIndexPaths.sorted()
+        for index in sortedSelectedCells where index.row < currentDataSet.count {
             if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
                 guard let files = mediaCollection.files() else {
                     assertionFailure("EditController: Fail to retrieve tracks.")
