@@ -563,6 +563,15 @@ class PlayerViewController: UIViewController {
         statusLabel.showStatusMessage(hudString)
     }
 
+    func togglePlayPause() {
+        if playbackService.isPlaying {
+            playbackService.pause()
+            setControlsHidden(false, animated: playerController.isControlsHidden)
+        } else {
+            playbackService.play()
+        }
+    }
+
     // MARK: - Private methods
 
     private func jumpBackwards(_ interval: Int = 10) {
@@ -855,12 +864,7 @@ class PlayerViewController: UIViewController {
             return
         }
 
-        if playbackService.isPlaying {
-            playbackService.pause()
-            setControlsHidden(false, animated: playerController.isControlsHidden)
-        } else {
-            playbackService.play()
-        }
+        togglePlayPause()
     }
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {

@@ -222,6 +222,24 @@ class VideoPlayerViewController: PlayerViewController {
         return videoOutputView
     }()
 
+    /// An invisible button that resides in the middle of the screen which
+    /// Switch Control will focus on when it is in Item mode. Tapping it will
+    /// present the player controls.
+    ///
+    /// Without this, Switch Control uses Point mode, which is cumbersome.
+    private var switchControlUtility: UIControl = {
+        var switchControlUtility = UIControl()
+        switchControlUtility.backgroundColor = .clear
+        switchControlUtility.translatesAutoresizingMaskIntoConstraints = false
+        switchControlUtility.isUserInteractionEnabled = true
+        switchControlUtility.isAccessibilityElement = true
+        switchControlUtility.addTarget(VideoPlayerViewController.self,
+                                       action: #selector(handleTapOnVideo),
+                                       for: .touchUpInside)
+
+        return switchControlUtility
+    }()
+
     private lazy var externalVideoOutputView: PlayerInfoView = {
         let externalVideoOutputView = PlayerInfoView()
         externalVideoOutputView.isHidden = true
@@ -472,6 +490,7 @@ class VideoPlayerViewController: PlayerViewController {
         navigationController?.navigationBar.isHidden = true
         setupObservers()
         setupViews()
+        setupAccessibility()
         setupGestures()
         setupConstraints()
 #if os(iOS)
@@ -498,6 +517,7 @@ class VideoPlayerViewController: PlayerViewController {
             setupVideoControlsState()
         }
 
+        view.addSubview(switchControlUtility)
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
         view.addSubview(mediaScrubProgressBar)
@@ -520,6 +540,26 @@ class VideoPlayerViewController: PlayerViewController {
         videoOutputView.addSubview(artWorkImageView)
     }
 
+    /* override */ func setupAccessibility() {
+        let playPause = UIAccessibilityCustomAction(name: "Play/Pause",
+                                                    target: self,
+                                                    selector: #selector(handleAccessibilityPlayPause))
+
+        let close = UIAccessibilityCustomAction(name: "Close",
+                                                target: self,
+                                                selector: #selector(handleAccessibilityClose))
+
+        let forward = UIAccessibilityCustomAction(name: "Forward",
+                                                  target: self,
+                                                  selector: #selector(handleAccessibilityForward))
+
+        let backward = UIAccessibilityCustomAction(name: "Backward",
+                                                  target: self,
+                                                  selector: #selector(handleAccessibilityBackward))
+
+        accessibilityCustomActions = [playPause, close, forward, backward]
+    }
+
     override func setupGestures() {
         super.setupGestures()
         view.addGestureRecognizer(tapOnVideoRecognizer)
@@ -539,6 +579,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupConstraints() {
         setupVideoOutputConstraints()
+        setupSwitchControlUtilityConstraints()
         setupExternalVideoOutputConstraints()
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
@@ -704,6 +745,15 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
+    private func setupSwitchControlUtilityConstraints() {
+        NSLayoutConstraint.activate([
+            switchControlUtility.heightAnchor.constraint(equalToConstant: 44),
+            switchControlUtility.widthAnchor.constraint(equalToConstant: 44),
+            switchControlUtility.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            switchControlUtility.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    }
+
     private func setupExternalVideoOutputConstraints() {
         NSLayoutConstraint.activate([
             externalVideoOutputView.heightAnchor.constraint(equalToConstant: 320),
@@ -804,6 +854,28 @@ class VideoPlayerViewController: PlayerViewController {
         if mediaHasProjection {
             deviceMotion.startDeviceMotion()
         }
+    }
+
+    @objc private func handleAccessibilityPlayPause() -> Bool {
+        togglePlayPause()
+        return true
+    }
+
+    @objc private func handleAccessibilityClose() -> Bool {
+        playbackService.stopPlayback()
+        return true
+    }
+
+    @objc private func handleAccessibilityForward() -> Bool {
+        // use the side effects from this method to seek
+        videoPlayerControlsDelegateDidTapForward(videoPlayerControls)
+        return true
+    }
+
+    @objc private func handleAccessibilityBackward() -> Bool {
+        // use the side effects from this method to seek
+        videoPlayerControlsDelegateDidTapBackward(videoPlayerControls)
+        return true
     }
 
     // MARK: - Gesture handlers
@@ -1075,7 +1147,9 @@ class VideoPlayerViewController: PlayerViewController {
         let duration = animated ? 0.2 : 0
         UIView.animate(withDuration: duration, delay: 0,
                        options: .beginFromCurrentState, animations: animations,
-                       completion: nil)
+                       completion: { _ in
+            self.switchControlUtility.alpha = hidden ? 1 : 0
+        })
 #if os(iOS)
         self.setNeedsStatusBarAppearanceUpdate()
 #endif

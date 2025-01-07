@@ -500,6 +500,9 @@
 "MORE_OPTIONS_BUTTON" = "More";
 "MORE_OPTIONS_HINT" = "View more option controls";
 
+"PLAYBACK_CONTROLS_BAR_TITLE" = "Playback controls";
+"PLAYBACK_CONTROLS_BAR_HINT" = "Pause, seek, next chapter";
+
 "PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
 "PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
 

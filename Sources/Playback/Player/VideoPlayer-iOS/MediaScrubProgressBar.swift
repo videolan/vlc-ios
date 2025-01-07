@@ -109,9 +109,19 @@ class MediaScrubProgressBar: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        initAccessibility()
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillResignActive),
                                                name: UIApplication.willResignActiveNotification, object: nil)
+    }
+
+    private func initAccessibility() {
+        isAccessibilityElement = true
+        accessibilityNavigationStyle = .combined
+        accessibilityLabel = "playback position" // TODO: localize this
+        accessibilityTraits = .updatesFrequently
+        updateAccessibilityValue()
+        applyAccessibilityControls(progressSlider, remainingTimeButton)
     }
 
     @objc func updateInterfacePosition() {
@@ -126,12 +136,19 @@ class MediaScrubProgressBar: UIStackView {
         updateCurrentTime()
 
         elapsedTimeLabel.setNeedsLayout()
+
+        updateAccessibilityValue()
     }
 
     func updateCurrentTime() {
-        let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
-            ? playbackService.remainingTime().stringValue
-            : playbackService.mediaLength.stringValue
+        let timeToDisplay: String = {
+            switch RemainingTimeMode.current {
+            case .remaining:
+                return playbackService.remainingTime().stringValue
+            case .total:
+                return playbackService.mediaLength.stringValue
+            }
+        }()
 
         remainingTimeButton.setTitle(timeToDisplay, for: .normal)
         remainingTimeButton.setNeedsLayout()
@@ -148,7 +165,7 @@ class MediaScrubProgressBar: UIStackView {
             String(format: "%@: %@",
                    NSLocalizedString("PLAYBACK_POSITION", comment: ""),
                    newPosition.stringValue)
-        if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+        if RemainingTimeMode.current == .remaining {
             let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
             remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value: newRemainingTime)).stringValue, for: .normal)
             remainingTimeButton.setNeedsLayout()
@@ -285,12 +302,21 @@ private extension MediaScrubProgressBar {
         progressSlider.value = minPosition
     }
 
+    private func updateAccessibilityValue() {
+        switch RemainingTimeMode.current {
+        case .total:
+            accessibilityValue = String(format: "%@ elapsed, total duration %@", playbackService.playedTime().verboseStringValue, playbackService.mediaLength.verboseStringValue)
+
+        case .remaining:
+            accessibilityValue = String(format: "%@ elapsed, %@", playbackService.playedTime().verboseStringValue, playbackService.remainingTime().verboseStringValue)
+
+        }
+    }
+
     // MARK: -
 
     @objc private func handleTimeDisplay() {
-        let userDefault = UserDefaults.standard
-        let currentSetting = userDefault.bool(forKey: kVLCShowRemainingTime)
-        userDefault.set(!currentSetting, forKey: kVLCShowRemainingTime)
+        RemainingTimeMode.toggle()
 
         updateCurrentTime()
         delegate?.mediaScrubProgressBarShouldResetIdleTimer?()
@@ -315,7 +341,7 @@ private extension MediaScrubProgressBar {
                        NSLocalizedString("PLAYBACK_POSITION", comment: ""),
                        newPosition.stringValue)
             // Update only remaining time and not media duration.
-            if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+            if RemainingTimeMode.current == .remaining {
                 let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
                 remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value:newRemainingTime)).stringValue,
                                              for: .normal)
@@ -341,5 +367,29 @@ private extension MediaScrubProgressBar {
 
     @objc private func handleWillResignActive() {
         progressSliderTouchUp()
+    }
+}
+
+// MARK: -
+
+fileprivate enum RemainingTimeMode {
+    case total
+    case remaining
+
+    static var current: RemainingTimeMode {
+        let userDefault = UserDefaults.standard
+        let currentSetting = userDefault.bool(forKey: kVLCShowRemainingTime)
+
+        switch currentSetting {
+            case true: return .remaining
+            case false: return .total
+        }
+    }
+
+    @discardableResult
+    static func toggle() -> RemainingTimeMode {
+        let userDefault = UserDefaults.standard
+        userDefault.set(!userDefault.bool(forKey: kVLCShowRemainingTime), forKey: kVLCShowRemainingTime)
+        return current
     }
 }

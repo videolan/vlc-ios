@@ -113,6 +113,8 @@ class BrightnessControlView: SliderInfoView {
         }
         self.iconNames = ["brightnessLow", "brightnessLow", "brightnessMedium", "brightnessHigh"]
         levelSlider.addTarget(self, action: #selector(self.onLuminosityChange), for: .valueChanged)
+
+        levelSlider.isAccessibilityElement = true
         levelSlider.accessibilityLabel = NSLocalizedString("BRIGHTNESS_SLIDER", comment: "")
         levelSlider.accessibilityHint = NSLocalizedString("BRIGHTNESS_HINT", comment: "")
         levelSlider.accessibilityTraits = .adjustable
@@ -158,6 +160,7 @@ class VolumeControlView: SliderInfoView {
         levelSlider.addTarget(self, action: #selector(self.onTouchEnded), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         self.iconNames = ["noSound", "lowSound", "mediumSound", "highSound"]
 
+        levelSlider.isAccessibilityElement = true
         levelSlider.accessibilityLabel = NSLocalizedString("VOLUME_SLIDER", comment: "")
         levelSlider.accessibilityHint = NSLocalizedString("VOLUME_HINT", comment: "")
         levelSlider.accessibilityTraits = .adjustable

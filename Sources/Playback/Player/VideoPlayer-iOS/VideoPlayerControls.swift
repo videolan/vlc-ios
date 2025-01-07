@@ -138,6 +138,32 @@ class VideoPlayerControls: UIView {
                                                                  comment: "")
         moreActionsButton.accessibilityHint = NSLocalizedString("MORE_OPTIONS_HINT",
                                                                 comment: "")
+
+        self.accessibilityLabel = NSLocalizedString("PLAYBACK_CONTROLS_BAR_TITLE",
+                                                    comment: "")
+        self.accessibilityHint = NSLocalizedString("PLAYBACK_CONTROLS_BAR_HINT",
+                                                   comment: "")
+
+        self.accessibilityNavigationStyle = .combined
+
+        // Play/pause is the most important.
+        // Then, next track, then previous.
+        // Lastly, iterate over the remaining controls left to right.
+        applyAccessibilityControls(
+            playPauseButton,
+            nextMediaButton,
+            previousMediaButton,
+
+            rotationLockButton,
+            dvdButton,
+            subtitleButton,
+            repeatButton,
+            backwardButton,
+            forwardButton,
+            shuffleButton,
+            aspectRatioButton,
+            moreActionsButton
+        )
     }
 
     func setupLongPressGestureRecognizer() {
