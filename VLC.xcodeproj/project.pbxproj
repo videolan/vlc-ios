@@ -2609,6 +2609,8 @@
 				0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */,
 				55B880DE2CE02A8B009C181A /* UIScreen+Brightness.swift */,
 				44E18A522D2B806300CB415D /* NSObject+Accessibility.swift */,
+				44D57DCE2D2D940F009D80AA /* UIAccessibilityCustomAction+Util.swift */,
+				44D57DD12D2D9653009D80AA /* UIImage+Util.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -4210,6 +4212,7 @@
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC7BA7E28C894EC00109F28 /* GRKArrayDiff+UICollectionView.m in Sources */,
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
+				44D57DD32D2D9662009D80AA /* UIImage+Util.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
@@ -4219,6 +4222,7 @@
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m in Sources */,
 				7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				7DC869D228CB84AF00EE99F8 /* VLCRemoteBrowsingTVCell.m in Sources */,
+				44D57DCF2D2D941A009D80AA /* UIAccessibilityCustomAction+Util.swift in Sources */,
 				7DC869C728CB7F6E00EE99F8 /* VLCServerListTVViewController.m in Sources */,
 				7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */,
 				7D2DE69E24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,

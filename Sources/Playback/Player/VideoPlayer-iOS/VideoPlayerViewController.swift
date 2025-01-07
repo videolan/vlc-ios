@@ -541,21 +541,29 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     /* override */ func setupAccessibility() {
-        let playPause = UIAccessibilityCustomAction(name: "Play/Pause",
-                                                    target: self,
-                                                    selector: #selector(handleAccessibilityPlayPause))
+        let playPause = UIAccessibilityCustomAction
+            .create(name: "Play/Pause",
+                    image: .with(systemName: "playpause"),
+                    target: self,
+                    selector: #selector(handleAccessibilityPlayPause))
 
-        let close = UIAccessibilityCustomAction(name: "Close",
-                                                target: self,
-                                                selector: #selector(handleAccessibilityClose))
+        let close = UIAccessibilityCustomAction
+            .create(name: "Close",
+                    image: .with(systemName: "xmark"),
+                    target: self,
+                    selector: #selector(handleAccessibilityClose))
 
-        let forward = UIAccessibilityCustomAction(name: "Forward",
-                                                  target: self,
-                                                  selector: #selector(handleAccessibilityForward))
+        let forward = UIAccessibilityCustomAction
+            .create(name: "Skip Forward",
+                    image: .with(systemName: "forward.frame"),
+                    target: self,
+                    selector: #selector(handleAccessibilityForward))
 
-        let backward = UIAccessibilityCustomAction(name: "Backward",
-                                                  target: self,
-                                                  selector: #selector(handleAccessibilityBackward))
+        let backward = UIAccessibilityCustomAction
+            .create(name: "Skip Backward",
+                    image: .with(systemName: "backward.frame"),
+                    target: self,
+                    selector: #selector(handleAccessibilityBackward))
 
         accessibilityCustomActions = [playPause, close, forward, backward]
     }
