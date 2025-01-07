@@ -53,13 +53,19 @@ class FavoriteListViewController: UIViewController {
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
-        guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
+        guard let emptyView = nib?.first as? VLCEmptyLibraryView else {
+            fatalError("Can't find nib for \(name)")
+        }
+
         emptyView.contentType = .noFavorites
+        emptyView.backgroundColor = PresentationTheme.current.colors.background
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
         return emptyView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupEmptyView()
         setupTableView()
         setupBarButton()
         setupSearchBar()
@@ -122,6 +128,17 @@ class FavoriteListViewController: UIViewController {
         }
     }
 
+    private func setupEmptyView() {
+        view.addSubview(emptyView)
+
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
     private func setupTableView() {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -169,13 +186,15 @@ class FavoriteListViewController: UIViewController {
 
     private func showEmptyViewIfNeeded() {
         if favoriteService.numberOfFavoritedServers == 0 {
-            self.tableView.backgroundView = self.emptyView
-            self.tableView.isEditing = false
+            emptyView.isHidden = false
+            tableView.isEditing = false
+            tableView.isHidden = true
             self.navigationItem.rightBarButtonItem = nil
         } else {
-            self.tableView.backgroundView = nil
+            emptyView.isHidden = true
+            tableView.isHidden = false
             if self.navigationItem.rightBarButtonItem == nil {
-                self.setupBarButton()
+                setupBarButton()
             }
         }
     }
