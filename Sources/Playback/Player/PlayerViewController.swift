@@ -910,6 +910,10 @@ class PlayerViewController: UIViewController {
 // MARK: - VLCPlaybackServiceDelegate
 
 extension PlayerViewController: VLCPlaybackServiceDelegate {
+    func pictureInPictureStateDidChange(enabled: Bool) {
+        mediaNavigationBar.updatePictureInPictureButton(enabled: enabled)
+    }
+
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
     }

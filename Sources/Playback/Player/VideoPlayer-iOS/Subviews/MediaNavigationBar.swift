@@ -254,6 +254,11 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         closePlaybackButton.accessibilityLabel = accessibility.0
         closePlaybackButton.accessibilityHint = accessibility.1
     }
+
+    func updatePictureInPictureButton(enabled:Bool) {
+        let image = UIImage(named: enabled ? "pip.exit" : "pip.enter")
+        pictureInPictureButton.setImage(image, for: .normal)
+    }
 }
 
 extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {

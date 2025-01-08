@@ -50,6 +50,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
               nextMedia:(VLCMedia *)media;
 - (void)playModeUpdated;
 - (void)reloadPlayQueue;
+- (void)pictureInPictureStateDidChange:(BOOL)isEnabled
+NS_SWIFT_NAME(pictureInPictureStateDidChange(enabled:));
 @end
 
 NS_SWIFT_NAME(PlaybackService)

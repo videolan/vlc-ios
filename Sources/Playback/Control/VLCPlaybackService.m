@@ -87,6 +87,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 }
 
 @property (weak, atomic) id<VLCPictureInPictureWindowControlling> pipController;
+@property (atomic) BOOL isPipEnabled;
 @property (atomic) id<VLCPictureInPictureMediaControlling> mediaController;
 
 @end
@@ -1856,11 +1857,19 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     __weak typeof(self) drawable = self;
     return ^(id<VLCPictureInPictureWindowControlling> pipController){
         drawable.pipController = pipController;
+        drawable.pipController.stateChangeEventHandler = ^(BOOL isEnabled) {
+            drawable.isPipEnabled = isEnabled;
+            if ([drawable.delegate respondsToSelector:@selector(pictureInPictureStateDidChange:)])
+                [drawable.delegate pictureInPictureStateDidChange:isEnabled];
+        };
     };
 }
 
 - (void)togglePictureInPicture {
-    [self.pipController startPictureInPicture];
+    if (self.isPipEnabled)
+        [self.pipController stopPictureInPicture];
+    else
+        [self.pipController startPictureInPicture];
 }
 
 @end
