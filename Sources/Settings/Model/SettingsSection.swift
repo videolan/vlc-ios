@@ -718,9 +718,16 @@ enum Accessibility {
                      action: .showActionSheet(title: "SETTINGS_PLAYER_CONTROL_DURATION", preferenceKey: kVLCSettingPlayerControlDuration, hasInfo: false))
     }
 
+    static var pauseWhenShowingControls: SettingsItem {
+        .toggle(title: "SETTINGS_PAUSE_WHEN_SHOWING_CONTROLS",
+                subtitle: nil,
+                preferenceKey: kVLCSettingPauseWhenShowingControls)
+    }
+
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_ACCESSIBILITY", items: [
             playerControlDuration,
+            pauseWhenShowingControls
         ])
     }
 }

@@ -983,6 +983,10 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     @objc func handleTapOnVideo() {
+        if UserDefaults.standard.bool(forKey: kVLCSettingPauseWhenShowingControls) && playbackService.isPlaying {
+            playbackService.pause()
+        }
+
         numberOfGestureSeek = 0
         totalSeekDuration = 0
         setControlsHidden(!playerController.isControlsHidden, animated: true)

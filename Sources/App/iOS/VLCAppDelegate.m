@@ -98,7 +98,8 @@
                                   kVLCPlayerShowPlaybackSpeedShortcut: @(NO),
                                   kVLCSettingAlwaysPlayURLs: @(NO),
                                   kVLCRestoreLastPlayedMedia: @(YES),
-                                  kVLCSettingPlayerControlDuration: kVLCSettingPlayerControlDurationDefaultValue
+                                  kVLCSettingPlayerControlDuration: kVLCSettingPlayerControlDurationDefaultValue,
+                                  kVLCSettingPauseWhenShowingControls: @(NO)
     };
     [defaults registerDefaults:appDefaults];
 }

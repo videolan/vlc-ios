@@ -163,5 +163,7 @@
 "SETTINGS_ACCESSIBILITY" = "Accessibility";
 "SETTINGS_PLAYER_CONTROL_DURATION" = "Hide playback controls after";
 
+"SETTINGS_PAUSE_WHEN_SHOWING_CONTROLS" = "Pause player when showing controls";
+
 "SETTINGS_RESET" = "Reset the settings";
 "SETTINGS_RESET_TITLE" = "Reset";
