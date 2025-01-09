@@ -144,8 +144,6 @@ class VideoPlayerControls: UIView {
         self.accessibilityHint = NSLocalizedString("PLAYBACK_CONTROLS_BAR_HINT",
                                                    comment: "")
 
-        self.accessibilityNavigationStyle = .combined
-
         // Play/pause is the most important.
         // Then, next track, then previous.
         // Lastly, iterate over the remaining controls left to right.

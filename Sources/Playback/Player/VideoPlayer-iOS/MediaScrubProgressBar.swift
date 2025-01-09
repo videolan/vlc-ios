@@ -117,11 +117,47 @@ class MediaScrubProgressBar: UIStackView {
 
     private func initAccessibility() {
         isAccessibilityElement = true
-        accessibilityNavigationStyle = .combined
         accessibilityLabel = "playback position" // TODO: localize this
         accessibilityTraits = .updatesFrequently
+
+        let forward = UIAccessibilityCustomAction
+            .create(name: "Skip Forward",
+                    image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
+                    target: self,
+                    selector: #selector(handleAccessibilityForward))
+
+        let backward = UIAccessibilityCustomAction
+            .create(name: "Skip Backward",
+                    image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
+                    target: self,
+                    selector: #selector(handleAccessibilityBackward))
+
+        let timeDisplay = UIAccessibilityCustomAction
+            .create(name: "Time Display",
+                    image: nil,
+                    target: self,
+                    selector: #selector(handleAccessibilityTimeDisplay))
+
+        accessibilityCustomActions = [forward, backward, timeDisplay]
+
         updateAccessibilityValue()
-        applyAccessibilityControls(progressSlider, remainingTimeButton)
+    }
+
+    @objc private func handleAccessibilityForward() -> Bool {
+        let defaults = UserDefaults.standard
+        playbackService.jumpForward(Int32(defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)))
+        return true
+    }
+
+    @objc private func handleAccessibilityBackward() -> Bool {
+        let defaults = UserDefaults.standard
+        playbackService.jumpBackward(Int32(defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)))
+        return true
+    }
+
+    @objc private func handleAccessibilityTimeDisplay() -> Bool {
+        handleTimeDisplay()
+        return true
     }
 
     @objc func updateInterfacePosition() {

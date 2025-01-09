@@ -12,12 +12,8 @@
 
 extension NSObject {
     /// 
-    public func applyAccessibilityControls(_ elements: UIControl?...) {
+    public func applyAccessibilityControls(_ elements: UIView?...) {
         self.accessibilityElements = elements
-            .compactMap {
-                $0.flatMap {
-                    $0.isEnabled && !$0.isHidden ? $0 : nil
-                }
-            }
+            .compactMap { $0 }
     }
 }

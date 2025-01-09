@@ -540,7 +540,26 @@ class VideoPlayerViewController: PlayerViewController {
         videoOutputView.addSubview(artWorkImageView)
     }
 
-    /* override */ func setupAccessibility() {
+    private func setupAccessibility() {
+
+        if playerController.isControlsHidden {
+            view.applyAccessibilityControls(
+                switchControlUtility
+            )
+
+        } else {
+            view.applyAccessibilityControls(
+                videoPlayerControls,
+                mediaScrubProgressBar,
+                volumeControlView,
+                brightnessControlView,
+                mediaNavigationBar
+            )
+
+        }
+
+        // - custom actions
+
         let playPause = UIAccessibilityCustomAction
             .create(name: "Play/Pause",
                     image: .with(systemName: "playpause"),
@@ -555,17 +574,29 @@ class VideoPlayerViewController: PlayerViewController {
 
         let forward = UIAccessibilityCustomAction
             .create(name: "Skip Forward",
-                    image: .with(systemName: "forward.frame"),
+                    image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
             .create(name: "Skip Backward",
-                    image: .with(systemName: "backward.frame"),
+                    image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 
-        accessibilityCustomActions = [playPause, close, forward, backward]
+        let next = UIAccessibilityCustomAction
+            .create(name: "Next Media",
+                    image: .with(systemName: "forward.end"),
+                    target: self,
+                    selector: #selector(handleAccessibilityNext))
+
+        let prev = UIAccessibilityCustomAction
+            .create(name: "Previous Media",
+                    image: .with(systemName: "backward.end"),
+                    target: self,
+                    selector: #selector(handleAccessibilityPrev))
+
+        accessibilityCustomActions = [playPause, close, forward, backward, next, prev]
     }
 
     override func setupGestures() {
@@ -875,14 +906,22 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     @objc private func handleAccessibilityForward() -> Bool {
-        // use the side effects from this method to seek
-        videoPlayerControlsDelegateDidTapForward(videoPlayerControls)
+        jumpForwards()
         return true
     }
 
     @objc private func handleAccessibilityBackward() -> Bool {
-        // use the side effects from this method to seek
-        videoPlayerControlsDelegateDidTapBackward(videoPlayerControls)
+        jumpBackwards()
+        return true
+    }
+
+    @objc private func handleAccessibilityNext() -> Bool {
+        playbackService.next()
+        return true
+    }
+
+    @objc private func handleAccessibilityPrev() -> Bool {
+        playbackService.previous()
         return true
     }
 
@@ -1157,6 +1196,7 @@ class VideoPlayerViewController: PlayerViewController {
                        options: .beginFromCurrentState, animations: animations,
                        completion: { _ in
             self.switchControlUtility.alpha = hidden ? 1 : 0
+            self.setupAccessibility()
         })
 #if os(iOS)
         self.setNeedsStatusBarAppearanceUpdate()
