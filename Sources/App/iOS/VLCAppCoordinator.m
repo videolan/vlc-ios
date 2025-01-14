@@ -23,7 +23,7 @@
     VLCRendererDiscovererManager *_rendererDiscovererManager;
     VLCFavoriteService *_favoriteService;
     VLCHTTPUploaderController *_httpUploaderController;
-    UITabBarController *_tabBarController;
+    VLCBottomTabBarController *_tabBarController;
     TabBarCoordinator *_tabCoordinator;
     VLCPlayerDisplayController *_playerDisplayController;
     VLCRemoteControlService *_remoteControlService;
@@ -129,7 +129,7 @@
     return _externalWindow;
 }
 
-- (void)setTabBarController:(UITabBarController *)tabBarController
+- (void)setTabBarController:(VLCBottomTabBarController *)tabBarController
 {
     _tabBarController = tabBarController;
     _tabCoordinator = [[TabBarCoordinator alloc] initWithTabBarController:_tabBarController mediaLibraryService:self.mediaLibraryService];
@@ -141,7 +141,7 @@
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }
 
-- (UITabBarController *)tabBarController
+- (VLCBottomTabBarController*)tabBarController
 {
     return _tabBarController;
 }
