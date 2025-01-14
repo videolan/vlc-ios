@@ -137,6 +137,15 @@
     [_tabBarController.view addSubview:_playerDisplayController.view];
     _playerDisplayController.view.layoutMargins = UIEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
     _playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor;
+
+    if (@available(iOS 18.0, *)) {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            // Adjust the margins and the constraint to the previous tab bar appearance on iPadOS
+            _playerDisplayController.view.layoutMargins = UIEdgeInsetsMake(0, 0, tabBarController.bottomBar.frame.size.height, 0);
+            _playerDisplayController.realBottomAnchor = tabBarController.bottomBar.topAnchor;
+        }
+    }
+
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }
 
