@@ -14,7 +14,7 @@
 class BottomTabBarController: UITabBarController {
     // MARK: - Properties
 
-    lazy var bottomBar: UITabBar = {
+    @objc lazy var bottomBar: UITabBar = {
         let bottomBar = UITabBar()
         bottomBar.translatesAutoresizingMaskIntoConstraints = false
         return bottomBar
