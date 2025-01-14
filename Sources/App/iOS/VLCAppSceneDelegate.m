@@ -31,7 +31,7 @@
     [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
 
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
-    window.rootViewController = [UITabBarController new];
+    window.rootViewController = [VLCBottomTabBarController new];
     [window makeKeyAndVisible];
 
     [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];

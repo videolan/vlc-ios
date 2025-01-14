@@ -361,10 +361,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             popViewIfNecessary()
         }
 
-        if isEditing {
-            if let editToolbar = tabBarController?.editToolBar() {
-                editToolbar.updateEditToolbar(for: model)
-            }
+        if let tabBarController = tabBarController as? BottomTabBarController,
+           let editToolBar = tabBarController.editToolBar(),
+           isEditing {
+            editToolBar.updateEditToolbar(for: model)
         }
     }
 
@@ -616,11 +616,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func displayEditToolbar() {
-        if isEditing {
-            tabBarController?.editToolBar()?.delegate = editController
-            tabBarController?.displayEditToolbar(with: model)
-        } else {
-            tabBarController?.hideEditToolbar()
+        if let tabBarController = tabBarController as? BottomTabBarController {
+            if isEditing {
+                tabBarController.editToolBar()?.delegate = editController
+                tabBarController.displayEditToolbar(with: model)
+            } else {
+                tabBarController.hideEditToolbar()
+            }
         }
     }
 
@@ -1417,16 +1419,18 @@ extension MediaCategoryViewController: EditControllerDelegate {
     func editControllerDidSelectMultipleItem(editContrller: EditController) {
         searchBar.isUserInteractionEnabled = false
         searchBar.alpha = 0.5
-        if let editToolbar = tabBarController?.editToolBar() {
-            editToolbar.enableEditActions(true)
+        if let tabBarController = tabBarController as? BottomTabBarController,
+           let editToolBar = tabBarController.editToolBar() {
+            editToolBar.enableEditActions(true)
         }
     }
 
     func editControllerDidDeSelectMultipleItem() {
         searchBar.isUserInteractionEnabled = true
         searchBar.alpha = 1
-        if let editToolbar = tabBarController?.editToolBar() {
-            editToolbar.enableEditActions(false)
+        if let tabBarController = tabBarController as? BottomTabBarController,
+           let editToolBar = tabBarController.editToolBar() {
+            editToolBar.enableEditActions(false)
         }
     }
 

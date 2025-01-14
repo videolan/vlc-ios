@@ -108,7 +108,7 @@
 {
     VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
     void (^setupAppCoordinator)(void) = ^{
-        [appCoordinator setTabBarController:(UITabBarController *)self->_window.rootViewController];
+        [appCoordinator setTabBarController:(VLCBottomTabBarController *)self->_window.rootViewController];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 }
@@ -148,7 +148,7 @@
     } else {
         APLog(@"Using Traditional flow");
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = [UITabBarController new];
+        self.window.rootViewController = [VLCBottomTabBarController new];
         [self.window makeKeyAndVisible];
         [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         [self setupTabBarAppearance];

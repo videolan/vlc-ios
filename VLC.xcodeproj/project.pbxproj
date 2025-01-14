@@ -399,6 +399,7 @@
 		D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */; };
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */; };
+		D91042AF2D356F8800036D12 /* BottomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91042AE2D356F7F00036D12 /* BottomTabBarController.swift */; };
 		D9250B7D291BB3190081F729 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		D926A50129CDD48100FC3A6C /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926A50029CDD48100FC3A6C /* Document.swift */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
@@ -1143,6 +1144,7 @@
 		D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStreamingHistoryCell.h; path = "Sources/Network/Open Network Stream/VLCStreamingHistoryCell.h"; sourceTree = SOURCE_ROOT; };
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = "Sources/Network/Open Network Stream/VLCStreamingHistoryCell.m"; sourceTree = SOURCE_ROOT; };
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
+		D91042AE2D356F7F00036D12 /* BottomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarController.swift; sourceTree = "<group>"; };
 		D9250B7C291BB3180081F729 /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		D926A50029CDD48100FC3A6C /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
@@ -1851,6 +1853,7 @@
 				41FCD2F720B565B500660AAB /* VLCAlertViewController.swift */,
 				7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */,
 				7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */,
+				D91042AE2D356F7F00036D12 /* BottomTabBarController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -3802,6 +3805,7 @@
 				8DD651BA208F6AF00052EE68 /* ActionSheetCell.swift in Sources */,
 				418B144D20179C75000447AA /* TabBarCoordinator.swift in Sources */,
 				DD3EAC091BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
+				D91042AF2D356F8800036D12 /* BottomTabBarController.swift in Sources */,
 				6C5B0C9F27A46258005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */,
 				7DC869C428CB7E8400EE99F8 /* VLCNetworkLoginViewController.m in Sources */,
 				D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */,
