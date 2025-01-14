@@ -33,6 +33,37 @@
 
 #import "VLC-Swift.h"
 
+@interface AlertControllerWithMessageHeight : UIAlertController
+@end
+
+@implementation AlertControllerWithMessageHeight
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self adjustMessageConstraint];
+}
+
+- (void)adjustMessageConstraint {
+    [self traverseAndAdjust:self.view];
+}
+
+- (void)traverseAndAdjust:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        if ([subview isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)subview;
+            if ([label.text isEqualToString:self.message]) {
+                [NSLayoutConstraint activateConstraints:@[
+                    [label.heightAnchor constraintGreaterThanOrEqualToConstant:20]
+                ]];
+            }
+        }
+
+        [self traverseAndAdjust:subview];
+    }
+}
+
+@end
+
 @interface VLCServerListTVViewController ()
 @property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
 @end
@@ -267,7 +298,7 @@
 }
 - (void)showLoginAlertWithLogin:(nonnull VLCNetworkServerLoginInformation *)login
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
+    AlertControllerWithMessageHeight *alertController = [AlertControllerWithMessageHeight alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
                                                                              message:login.address preferredStyle:UIAlertControllerStyleAlert];
 
     __block UITextField *usernameField = nil;
