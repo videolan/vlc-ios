@@ -169,12 +169,19 @@ class EditToolbar: UIView {
         stackView.addArrangedSubview(addToPlaylistButton)
         stackView.addArrangedSubview(rightStackView)
 
+        let layoutGuide: UILayoutGuide
+        if #available(iOS 11.0, *) {
+            layoutGuide = safeAreaLayoutGuide
+        } else {
+            layoutGuide = layoutMarginsGuide
+        }
+
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
         ])
     }
 
