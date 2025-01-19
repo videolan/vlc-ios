@@ -1283,6 +1283,53 @@ extension PlayerViewController {
         playbackService.playbackRate = 1.0
     }
 
+    @objc func keyNumber(_ n: Int) {
+        guard playbackService.isSeekable else { return }
+
+        // n=6 --> seek to 60%
+        playbackService.playbackPosition = (Float(n) / 10.0)
+    }
+
+    @objc func keyNumber1() {
+        keyNumber(1)
+    }
+
+    @objc func keyNumber2() {
+        keyNumber(2)
+    }
+
+    @objc func keyNumber3() {
+        keyNumber(3)
+    }
+
+    @objc func keyNumber4() {
+        keyNumber(4)
+    }
+
+    @objc func keyNumber5() {
+        keyNumber(5)
+    }
+
+    @objc func keyNumber6() {
+        keyNumber(6)
+    }
+
+    @objc func keyNumber7() {
+        keyNumber(7)
+    }
+
+    @objc func keyNumber8() {
+        keyNumber(8)
+    }
+
+    @objc func keyNumber9() {
+        keyNumber(9)
+    }
+
+    @objc func keyNumber0() {
+        keyNumber(0)
+    }
+
     override var keyCommands: [UIKeyCommand]? {
         var commands: [UIKeyCommand] = [
             UIKeyCommand(input: " ",
@@ -1308,7 +1355,48 @@ extension PlayerViewController {
             UIKeyCommand(input: "]",
                          modifierFlags: [],
                          action: #selector(keyLeftBracket),
-                         discoverabilityTitle: NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: ""))
+                         discoverabilityTitle: NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")),
+            UIKeyCommand(input: "1",
+                         modifierFlags: [],
+                         action: #selector(keyNumber1),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_10_PERCENT", comment: "")),
+            UIKeyCommand(input: "2",
+                         modifierFlags: [],
+                         action: #selector(keyNumber2),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_20_PERCENT", comment: "")),
+            UIKeyCommand(input: "3",
+                         modifierFlags: [],
+                         action: #selector(keyNumber3),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_30_PERCENT", comment: "")),
+            UIKeyCommand(input: "4",
+                         modifierFlags: [],
+                         action: #selector(keyNumber4),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_40_PERCENT", comment: "")),
+            UIKeyCommand(input: "5",
+                         modifierFlags: [],
+                         action: #selector(keyNumber5),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_50_PERCENT", comment: "")),
+            UIKeyCommand(input: "6",
+                         modifierFlags: [],
+                         action: #selector(keyNumber6),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_60_PERCENT", comment: "")),
+            UIKeyCommand(input: "7",
+                         modifierFlags: [],
+                         action: #selector(keyNumber7),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_70_PERCENT", comment: "")),
+            UIKeyCommand(input: "8",
+                         modifierFlags: [],
+                         action: #selector(keyNumber8),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_80_PERCENT", comment: "")),
+            UIKeyCommand(input: "9",
+                         modifierFlags: [],
+                         action: #selector(keyNumber9),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_90_PERCENT", comment: "")),
+            UIKeyCommand(input: "0",
+                         modifierFlags: [],
+                         action: #selector(keyNumber0),
+                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_START", comment: ""))
+
         ]
 
         if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
