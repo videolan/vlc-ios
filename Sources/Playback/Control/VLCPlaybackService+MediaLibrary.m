@@ -44,16 +44,20 @@
 
 - (void)playMedia:(VLCMLMedia *)media withMode:(EditButtonType)mode
 {
-    if ([self.mediaList count] > 0) {
+    VLCMediaList *list = self.isShuffleMode ? self.shuffledList : self.mediaList;
+    
+    if ([list count] > 0) {
         VLCMedia *vlcmedia = [VLCMedia mediaWithURL:media.mainFile.mrl];
 
         [vlcmedia addOptions:self.mediaOptionsDictionary];
         switch (mode) {
             case EditButtonTypePlayNextInQueue:
                 [self.mediaList insertMedia:vlcmedia atIndex:[self.mediaList indexOfMedia:self.currentlyPlayingMedia] + 1];
+                [self.shuffledList insertMedia:vlcmedia atIndex:[self.shuffledList indexOfMedia:self.currentlyPlayingMedia] + 1];
                 break;
             case EditButtonTypeAppendToQueue:
                 [self.mediaList addMedia:vlcmedia];
+                [self.shuffledList addMedia:vlcmedia];
                 break;
             default:
                 break;

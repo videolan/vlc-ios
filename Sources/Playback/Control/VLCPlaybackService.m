@@ -1033,7 +1033,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)nextMediaIndex:(BOOL)isButtonPressed
 {
-    int mediaListCount = (int) _mediaList.count;
+    int mediaListCount = (int) _listPlayer.mediaList.count;
 
     NSInteger nextIndex = 0;
     if (!_currentIndex) {
