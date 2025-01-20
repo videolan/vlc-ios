@@ -976,11 +976,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)nextMediaIndex:(BOOL)isButtonPressed
 {
-    int mediaListCount = (int) _listPlayer.mediaList.count;
+    VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
+    int mediaListCount = (int) currentMediaList.count;
 
     NSInteger nextIndex = 0;
     if (!_currentIndex) {
-        VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
         _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
     }
 
