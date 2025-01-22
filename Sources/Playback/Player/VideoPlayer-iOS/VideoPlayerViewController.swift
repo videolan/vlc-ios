@@ -1316,6 +1316,14 @@ extension VideoPlayerViewController {
 
         if currentState == .opening {
             updateAudioInterface(with: playbackService.metadata)
+            if UserDefaults.standard.bool(forKey: kVLCSettingRotationLock) {
+                videoPlayerControls.handleRotationLockButton(videoPlayerControls)
+            }
+        }
+
+        if currentState == .stopped {
+            supportedInterfaceOrientations = .allButUpsideDown
+            videoPlayerControls.rotationLockButton.tintColor = .white
         }
     }
 

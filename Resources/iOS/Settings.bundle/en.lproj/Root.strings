@@ -97,6 +97,7 @@
 "SETTINGS_HWDECODING_INFO" = "Content encoded in the H.264 and H.265 formats can be decoded in hardware leading to a significant improvement of battery life and performance. Be careful when disabling this option.";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_LOCK_ROTATION" = "Force the rotation lock";
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";

@@ -532,13 +532,18 @@ enum VideoOptions {
         )
     }
 
+    static var lockRotation: SettingsItem {
+        .toggle(title: "SETTINGS_LOCK_ROTATION", subtitle: nil, preferenceKey: kVLCSettingRotationLock)
+    }
+
     static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_VIDEO_TITLE", items: [
-            deBlockingFilter,
-            deInterlace,
-            hardwareDecoding,
-            rememberPlayerBrightness
-        ])
+        var options = [deBlockingFilter, deInterlace, hardwareDecoding, rememberPlayerBrightness]
+
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            options.append(lockRotation)
+        }
+
+        return .init(title: "SETTINGS_VIDEO_TITLE", items: options)
     }
 }
 

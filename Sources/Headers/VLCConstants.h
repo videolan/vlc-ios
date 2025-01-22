@@ -49,6 +49,7 @@
 #define kVLCSettingDeinterlaceDefaultValue @(-1)
 #define kVLCSettingHardwareDecoding @"codec"
 #define kVLCSettingHardwareDecodingDefault @""
+#define kVLCSettingRotationLock @"kVLCSettingRotationLock"
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingNetworkRTSPTCP @"rtsp-tcp"
