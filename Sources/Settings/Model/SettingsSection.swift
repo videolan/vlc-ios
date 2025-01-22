@@ -283,7 +283,7 @@ enum PrivacyOptions {
                 return .toggle(title: "SETTINGS_PASSCODE_LOCK_ALLOWFACEID",
                                subtitle: nil,
                                preferenceKey: kVLCSettingPasscodeAllowFaceID)
-            case .none:
+            case .none, .opticID:
                 fallthrough
             @unknown default:
                 return nil
