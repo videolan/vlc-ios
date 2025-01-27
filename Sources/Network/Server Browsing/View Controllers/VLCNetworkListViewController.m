@@ -91,7 +91,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     }
     self.definesPresentationContext = YES;
 
-    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
+    [self addPlayAllAction];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -136,6 +136,16 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)stopActivityIndicator
 {
     [_activityIndicator stopAnimating];
+}
+
+- (void)addPlayAllAction
+{
+    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
+}
+
+- (void)removePlayAllAction
+{
+    self.navigationItem.rightBarButtonItems = @[];
 }
 
 #pragma mark - Table view data source

@@ -25,4 +25,7 @@ extern NSString *VLCNetworkListCellIdentifier;
 - (IBAction)playAllAction:(id)sender;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)addPlayAllAction;
+- (void)removePlayAllAction;
+
 @end

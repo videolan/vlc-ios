@@ -97,6 +97,7 @@
     if (_serverBrowser.items.count == 0 &&
         [(VLCNetworkServerBrowserVLCMedia *)_serverBrowser retrieveParsedStatus] == VLCMediaParsedStatusDone) {
         [self stopActivityIndicator];
+        [self removePlayAllAction];
     }
 }
 
@@ -126,6 +127,7 @@
 - (void)networkServerBrowserEndParsing:(id<VLCNetworkServerBrowser>)networkBrowser
 {
     [self stopActivityIndicator];
+    [self removePlayAllActionIfNeeded];
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error
@@ -153,9 +155,16 @@
     [[VLCActivityManager defaultManager] networkActivityStarted];
 }
 
--(void)handleRefresh
+- (void)handleRefresh
 {
     [self update];
+}
+
+- (void)removePlayAllActionIfNeeded
+{
+    if ([_serverBrowser.items count] == 0) {
+        [self removePlayAllAction];
+    }
 }
 
 #pragma mark - server browser item specifics
