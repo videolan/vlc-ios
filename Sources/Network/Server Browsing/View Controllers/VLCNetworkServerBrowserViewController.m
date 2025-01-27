@@ -89,6 +89,17 @@
     [self updateUI];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // The container selected has already been parsed and is empty
+    if (_serverBrowser.items.count == 0 &&
+        [(VLCNetworkServerBrowserVLCMedia *)_serverBrowser retrieveParsedStatus] == VLCMediaParsedStatusDone) {
+        [self stopActivityIndicator];
+    }
+}
+
 - (void)miniPlayerIsShown
 {
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0,

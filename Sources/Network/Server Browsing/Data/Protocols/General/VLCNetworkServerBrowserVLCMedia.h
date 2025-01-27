@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerBrowserVLCMedia : NSObject <VLCNetworkServerBrowser>
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
+- (VLCMediaParsedStatus)retrieveParsedStatus;
 @end
 
 @interface VLCNetworkServerBrowserItemVLCMedia : NSObject <VLCNetworkServerBrowserItem>

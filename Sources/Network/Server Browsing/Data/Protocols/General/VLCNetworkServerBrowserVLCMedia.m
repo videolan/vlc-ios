@@ -103,6 +103,11 @@
     return self.mutableItems.copy;
 }
 
+- (VLCMediaParsedStatus)retrieveParsedStatus
+{
+    return _rootMedia.parsedStatus;
+}
+
 #pragma mark - media list delegate
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
