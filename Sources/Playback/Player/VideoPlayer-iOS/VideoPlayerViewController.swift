@@ -22,19 +22,6 @@ protocol VideoPlayerViewControllerDelegate: AnyObject {
     func videoPlayerViewControllerShouldSwitchPlayer(_ videoPlayerViewController: VideoPlayerViewController)
 }
 
-enum VideoPlayerSeekState {
-    case `default`
-    case forward
-    case backward
-}
-
-enum VideoPlayerPanType {
-    case none
-    case brightness
-    case volume
-    case projection
-}
-
 @objc(VLCVideoPlayerViewController)
 class VideoPlayerViewController: PlayerViewController {
     @objc weak var delegate: VideoPlayerViewControllerDelegate?
@@ -162,8 +149,6 @@ class VideoPlayerViewController: PlayerViewController {
         titleSelectionView.isHidden = true
         return titleSelectionView
     }()
-
-    private var currentPanType: VideoPlayerPanType = .none
 
     private var projectionLocation: CGPoint = .zero
 
@@ -309,6 +294,9 @@ class VideoPlayerViewController: PlayerViewController {
         systemBrightness = UIScreen.main.brightness
         NotificationCenter.default.addObserver(self, selector: #selector(systemBrightnessChanged), name: UIApplication.didBecomeActiveNotification, object: nil)
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
+
+        brightnessControlView.delegate = self
+        volumeControlView.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -352,8 +340,11 @@ class VideoPlayerViewController: PlayerViewController {
             adaptVideoOutputToNotch()
         }
 
-        let setIconVisibility = playbackService.adjustFilter.isEnabled ? showIcon : hideIcon
-        setIconVisibility(optionsNavigationBar.videoFiltersButton)
+        if playbackService.adjustFilter.isEnabled {
+            showIcon(button: optionsNavigationBar.videoFiltersButton)
+        } else {
+            hideIcon(button: optionsNavigationBar.videoFiltersButton)
+        }
 
         view.transform = .identity
 
@@ -829,32 +820,6 @@ class VideoPlayerViewController: PlayerViewController {
         }
         //_isTapSeeking = YES;
         executeSeekFromGesture(.tap)
-    }
-
-    private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> VideoPlayerPanType {
-        let window: UIWindow = UIApplication.shared.keyWindow!
-        let windowWidth: CGFloat = window.bounds.width
-        let location: CGPoint = recognizer.location(in: window)
-
-        // If minimization handler not ended yet, don't detect other gestures to don't block it.
-        guard minimizationInitialCenter == nil else { return .none }
-
-        var panType: VideoPlayerPanType = .none
-        if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
-            panType = .volume
-        }
-        if location.x < 2 * windowWidth / 3 {
-            panType = .none
-        }
-        if location.x < 1 * windowWidth / 3 && playerController.isBrightnessGestureEnabled {
-             panType = .brightness
-        }
-
-        if playbackService.currentMediaIs360Video {
-            panType = .projection
-        }
-
-        return panType
     }
 
     private func applyYaw(yaw: CGFloat, pitch: CGFloat) {
@@ -1510,12 +1475,6 @@ extension VideoPlayerViewController {
         }
     }
 
-    private func openOptionView(view: ActionSheetCellIdentifier) {
-        present(moreOptionsActionSheet, animated: true, completion: {
-            self.moreOptionsActionSheet.addView(view)
-        })
-    }
-
     override func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
         super.mediaMoreOptionsActionSheetDisplayAddBookmarksView(bookmarksView)
 
@@ -1645,7 +1604,7 @@ extension VideoPlayerViewController {
             resetABRepeatMarks(true)
             return
         default:
-            assertionFailure("VideoPlayerViewController: Unvalid button.")
+            assertionFailure("VideoPlayerViewController: Invalid button.")
         }
     }
 }
@@ -1829,5 +1788,13 @@ extension VideoPlayerViewController: ActionSheetDataSource {
 extension VideoPlayerViewController: ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool {
         return true
+    }
+}
+
+// MARK: - SliderInfoViewDelegate
+
+extension VideoPlayerViewController: SliderInfoViewDelegate {
+    func sliderInfoViewDidReceiveTouch(_ sliderInfoView: SliderInfoView) {
+        resetIdleTimer()
     }
 }

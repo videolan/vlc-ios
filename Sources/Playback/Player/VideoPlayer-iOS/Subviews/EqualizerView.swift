@@ -17,13 +17,13 @@ import UIKit
     private struct EqualizerFrequency {
         let stack: UIStackView
         let currentValueLabel: UILabel
-        let slider: VerticalSlider
+        let slider: VerticalSliderControl
         let frequencyLabel: UILabel
 
         init(frequency: Int, index: Int) {
             stack = UIStackView()
             currentValueLabel = UILabel()
-            slider = VerticalSlider()
+            slider = VerticalSliderControl()
             frequencyLabel = UILabel()
 
             setupSlider(tag: index)
@@ -46,10 +46,10 @@ import UIKit
 
         private func setupSlider(tag: Int) {
             slider.tag = tag
-            slider.maximumValue = 20.0
-            slider.value = 0.0
-            slider.minimumValue = -20.0
-            slider.setThumbImage(image: UIImage(named: "sliderKnob"), for: .normal)
+            slider.range = -20...20
+            slider.setValue(0, animated: false)
+            slider.thumbImage = UIImage(named: "sliderKnob")
+            slider.trackWidth = 4
         }
 
         private func setupCurrentValueLabel() {
@@ -351,7 +351,8 @@ import UIKit
 
         for eqFrequency in eqFrequencies {
             eqFrequency.currentValueLabel.textColor = colors.cellTextColor
-            eqFrequency.slider.tintColor = colors.orangeUI
+            eqFrequency.slider.minimumTrackLayerColor = colors.orangeUI.cgColor
+            eqFrequency.slider.maximumTrackLayerColor = UIColor(white: 1, alpha: 0.25).cgColor
             eqFrequency.frequencyLabel.textColor = colors.cellTextColor
         }
     }
@@ -361,7 +362,7 @@ import UIKit
             presetSelectorView?.setPreampSliderValue(Float(playbackService.preAmplification))
 
             for (i, eqFrequency) in eqFrequencies.enumerated() {
-                eqFrequency.slider.value = Float(delegate.amplification(ofBand: UInt32(i)))
+                eqFrequency.slider.setValue(Float(delegate.amplification(ofBand: UInt32(i))), animated: false)
                 eqFrequency.currentValueLabel.text = "\(Double(Int(eqFrequency.slider.value * 100)) / 100)"
             }
         }
@@ -371,20 +372,20 @@ import UIKit
 // MARK: - Slider events
 
 extension EqualizerView {
-    @objc func sliderWillChangeValue(sender: UISlider) {
+    @objc func sliderWillChangeValue(sender: VerticalSliderControl) {
         oldValues.removeAll()
         for eqFrequency in eqFrequencies {
             oldValues.append(eqFrequency.slider.value)
         }
     }
 
-    @objc func sliderDidChangeValue(sender: UISlider) {
+    @objc func sliderDidChangeValue(sender: VerticalSliderControl) {
         playbackService.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
         shouldDisplaySaveButton(true)
         UIDelegate?.equalizerViewShowIcon()
     }
 
-    @objc func sliderDidDrag(sender: UISlider) {
+    @objc func sliderDidDrag(sender: VerticalSliderControl) {
         let index = sender.tag
 
         if snapBandsSwitch.isOn {
@@ -395,7 +396,8 @@ extension EqualizerView {
                     if let currentSlider = eqFrequencies.objectAtIndex(index: i),
                        let oldValue = oldValues.objectAtIndex(index: i) {
                         let delta_index = Float(abs(i - index))
-                        currentSlider.slider.value = oldValue + delta / Float(pow(delta_index, 3) + 1)
+                        let newValue = oldValue + delta / Float(pow(delta_index, 3) + 1)
+                        currentSlider.slider.setValue(newValue, animated: false)
                     }
                 }
             }

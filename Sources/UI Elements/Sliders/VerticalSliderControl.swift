@@ -100,13 +100,22 @@ class VerticalSliderControl: UIControl {
         }
     }
 
-    /// an image to show on the maximum of the slider, i.e. the top
     var minimumValueInsets: UIEdgeInsets = defaultImageInsets {
         didSet {
             setNeedsUpdateConstraints()
         }
     }
 
+    var minimumTrackLayerColor: CGColor? {
+        get {
+            minimumTrackLayer.backgroundColor
+        }
+        set {
+            minimumTrackLayer.backgroundColor = newValue
+        }
+    }
+
+    /// an image to show on the maximum of the slider, i.e. the top
     var maximumValueImage: UIImage? {
         didSet {
             maximumValueImageView.image = maximumValueImage
@@ -116,6 +125,15 @@ class VerticalSliderControl: UIControl {
     var maximumValueInsets: UIEdgeInsets = defaultImageInsets {
         didSet {
             setNeedsUpdateConstraints()
+        }
+    }
+
+    var maximumTrackLayerColor: CGColor? {
+        get {
+            maximumTrackLayer.backgroundColor
+        }
+        set {
+            maximumTrackLayer.backgroundColor = newValue
         }
     }
 
