@@ -72,7 +72,7 @@ PODS:
   - PCloudSDKSwift (3.2.3)
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - VLCKit (4.0.0a9)
+  - VLCKit (4.0.0a10)
   - VLCMediaLibraryKit (0.13.0a6):
     - VLCKit (>= 4.0.0a3)
   - XKKeychain (1.0.1)
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - PCloudSDKSwift
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - VLCKit (= 4.0.0a9)
+  - VLCKit (= 4.0.0a10)
   - VLCMediaLibraryKit (= 0.13.0a6)
   - XKKeychain (~> 1.0)
 
@@ -178,10 +178,10 @@ SPEC CHECKSUMS:
   PCloudSDKSwift: 1c1c9a93db5e086c4d421d529091f458b4f59923
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  VLCKit: 48034d9264f63bd7abe234c4302d5b2844a0bc27
+  VLCKit: e21135aece10e3aa89e34020b7112b73d7cc98e6
   VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: b36cd4429ddf360dd353a733b9fb93a0f6a96698
+PODFILE CHECKSUM: 30a59f704d8ee52546c2d5dec43613d6e309ef56
 
 COCOAPODS: 1.15.2
