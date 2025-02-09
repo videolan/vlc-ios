@@ -353,6 +353,7 @@
 		7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */; };
 		7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */; };
 		7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
+		7DF782E32D58C171000049DC /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F60EB082A58802000CC577B /* Intents.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B471BE7A8110059C0E3 /* IASKSettingsReader.m */; };
@@ -1354,6 +1355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DF782E32D58C171000049DC /* Intents.framework in Frameworks */,
 				7D43A29E28FB40B3002C41B1 /* CarPlay.framework in Frameworks */,
 				7D8968711BD3058800F4EAAD /* LocalAuthentication.framework in Frameworks */,
 				7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */,
