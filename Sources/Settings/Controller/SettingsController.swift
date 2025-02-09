@@ -457,7 +457,10 @@ extension SettingsController: SettingsCellDelegate {
 extension SettingsController {
     func passcodeLockSwitchOn(state: Bool) {
         if state {
-            KeychainCoordinator.passcodeService.setSecret { _ in
+            KeychainCoordinator.passcodeService.setSecret { success in
+                // If the user cancels setting the password, the toggle should revert to the unset state.
+                // This ensures the UI reflects the correct state.
+                UserDefaults.standard.set(success, forKey: kVLCSettingPasscodeOnKey)
                 self.reloadSettingsSections() // To show/hide biometric row
             }
         } else {
@@ -467,7 +470,6 @@ extension SettingsController {
             // passcode will remain open even if the user doesn't set the new passcode.
             // So, this may cause the app being locked.
             try? KeychainCoordinator.passcodeService.removeSecret()
-            UserDefaults.standard.set(false, forKey: kVLCSettingPasscodeOnKey)
 
             reloadSettingsSections()
         }
