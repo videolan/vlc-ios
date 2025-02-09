@@ -4,12 +4,13 @@
 · VLC now requires iOS 12 or later
 · 32bit iOS devices are no longer supported :(
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
-· Add support for HDR playback
-· Add support for multi-channel and spatial audio
+· Add HDR playback
+· Add multi-channel and spatial audio
+· Add Picture-in-Picture playback
+· Add App-Intent to play media (iOS 16.4 and later)
 · Audio player: Add seek backward/forward buttons
 · Add play count metadata to media long press UI
-· Cloud services: allow downloads of entire folders
-· Cloud services: favorite folders
+· Cloud services: allow downloads of entire folders and to favorite them
 · Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
@@ -17,10 +18,12 @@
 · Remove support for the real player dialect of RTSP
 · Improve proxy configuration handling
 · Fix silence for a split second when starting playback
+· Add option to force the video playback orientation lock
+· Seek playback using the number keys on external keyboards
+· Integrate with the pCloud service
 
 Known issues:
 · Thumbnailing content is broken
-· Picture-in-Picture playback is not exposed in the user interface
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
