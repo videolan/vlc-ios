@@ -11,7 +11,7 @@
 
 import UIKit
 
-@objc (VLCAudioPlayerViewControllerDelegate)
+@objc(VLCAudioPlayerViewControllerDelegate)
 protocol AudioPlayerViewControllerDelegate: AnyObject {
     func audioPlayerViewControllerDidMinimize(_ audioPlayerViewController: AudioPlayerViewController)
     func audioPlayerViewControllerDidClose(_ audioPlayerViewController: AudioPlayerViewController)
@@ -19,7 +19,7 @@ protocol AudioPlayerViewControllerDelegate: AnyObject {
     func audioPlayerViewControllerShouldSwitchPlayer(_ audioPlayerViewController: AudioPlayerViewController)
 }
 
-@objc (VLCAudioPlayerViewController)
+@objc(VLCAudioPlayerViewController)
 class AudioPlayerViewController: PlayerViewController {
     // MARK: - Properties
 

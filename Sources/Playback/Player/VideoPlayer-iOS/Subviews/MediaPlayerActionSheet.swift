@@ -85,18 +85,18 @@ enum ActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     }
 }
 
-@objc (VLCMediaPlayerActionSheetDataSource)
+@objc(VLCMediaPlayerActionSheetDataSource)
 protocol MediaPlayerActionSheetDataSource {
     var configurableCellModels: [ActionSheetCellModel] { get }
 }
 
-@objc (VLCMediaPlayerActionSheetDelegate)
+@objc(VLCMediaPlayerActionSheetDelegate)
 protocol MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String?
     @objc optional func mediaPlayerDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
 }
 
-@objc (VLCMediaPlayerActionSheet)
+@objc(VLCMediaPlayerActionSheet)
 class MediaPlayerActionSheet: ActionSheet {
     
     // MARK: Private Instance Properties

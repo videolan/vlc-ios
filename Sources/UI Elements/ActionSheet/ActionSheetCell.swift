@@ -36,7 +36,7 @@ class ActionSheetCellImageView: UIImageView {
 }
 
 /// Model that determines the layout presentation of the ActionSheetCell.
-@objc (VLCActionSheetCellModel)
+@objc(VLCActionSheetCellModel)
 @objcMembers class ActionSheetCellModel: NSObject {
     var title: String
     var iconImage: UIImage?
@@ -58,13 +58,13 @@ class ActionSheetCellImageView: UIImageView {
     }
 }
 
-@objc (VLCActionSheetCellDelegate)
+@objc(VLCActionSheetCellDelegate)
 protocol ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool
     @objc optional func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
 }
 
-@objc (VLCDoubleActionSheetCellDelegate)
+@objc(VLCDoubleActionSheetCellDelegate)
 protocol DoubleActionSheetCellDelegate {
     func doubleActionSheetCellShouldUpdateColors() -> Bool
     func doubleActionSheetCellDidTapLeft(_ cell: DoubleActionSheetCell)

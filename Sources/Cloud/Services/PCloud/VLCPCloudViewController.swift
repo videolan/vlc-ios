@@ -136,7 +136,7 @@ extension VLCPCloudViewController: VLCCloudStorageTableViewCellProtocol {
                 if let folderId = pCloudFile.content.folderMetadata?.id {
                    let folderIdString = String(folderId)
                    let urlString = "file://PCloud/\(folderIdString)"
-                    if let url =  URL(string: urlString) {
+                    if let url = URL(string: urlString) {
                         favorite.url = url
                     }
                 }

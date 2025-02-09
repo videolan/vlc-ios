@@ -13,7 +13,7 @@
 import AVKit
 import MediaPlayer
 
-@objc (VLCMediaNavigationBarDelegate)
+@objc(VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidTapPictureInPicture(_ mediaNavigationBar: MediaNavigationBar)
@@ -27,7 +27,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     case airplay, chromecast
 }
 
-@objc (VLCMediaNavigationBar)
+@objc(VLCMediaNavigationBar)
 @objcMembers class MediaNavigationBar: UIStackView {
     // MARK: Instance Variables
     weak var delegate: MediaNavigationBarDelegate?

@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@objc (VLCMediaScrubProgressBarDelegate)
+@objc(VLCMediaScrubProgressBarDelegate)
 protocol MediaScrubProgressBarDelegate: AnyObject {
     @objc optional func mediaScrubProgressBarShouldResetIdleTimer()
     func mediaScrubProgressBarSetPlaybackPosition(to value: Float)
@@ -18,7 +18,7 @@ protocol MediaScrubProgressBarDelegate: AnyObject {
     func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView
 }
 
-@objc (VLCMediaScrubProgressBar)
+@objc(VLCMediaScrubProgressBar)
 class MediaScrubProgressBar: UIStackView {
     weak var delegate: MediaScrubProgressBarDelegate?
     private var playbackService = PlaybackService.sharedInstance()

@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
 
-@objc (VLCVideoPlayerControlsDelegate)
+@objc(VLCVideoPlayerControlsDelegate)
 protocol VideoPlayerControlsDelegate: AnyObject {
     // MARK: - Left Controls
 

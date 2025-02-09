@@ -12,7 +12,7 @@
 import UIKit
 import GoogleSignIn
 
-@objc (VLCGoogleSignInAuthenticator)
+@objc(VLCGoogleSignInAuthenticator)
 class GoogleSignInAuthenticator: NSObject {
     @objc class func create() -> GoogleSignInAuthenticator {
         return GoogleSignInAuthenticator()

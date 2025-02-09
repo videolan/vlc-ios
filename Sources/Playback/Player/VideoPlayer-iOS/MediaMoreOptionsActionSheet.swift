@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@objc (VLCMediaMoreOptionsActionSheetDelegate)
+@objc(VLCMediaMoreOptionsActionSheetDelegate)
 protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool)
     @objc optional func mediaMoreOptionsActionSheetDidAppeared()
@@ -37,7 +37,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     @objc optional func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool)
 }
 
-@objc (VLCMediaMoreOptionsActionSheet)
+@objc(VLCMediaMoreOptionsActionSheet)
 @objcMembers class MediaMoreOptionsActionSheet: MediaPlayerActionSheet {
 
     // MARK: - Instance variables
