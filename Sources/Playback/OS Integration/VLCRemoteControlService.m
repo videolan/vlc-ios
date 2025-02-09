@@ -17,7 +17,7 @@
 
 @implementation VLCRemoteControlService
 
-static inline NSArray * RemoteCommandCenterCommandsToHandle()
+static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
 {
     MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
     NSMutableArray *commands = [NSMutableArray arrayWithObjects:

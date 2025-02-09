@@ -592,7 +592,7 @@
 - (void)discoveryFoundSomethingNew
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_localNetworkTableView reloadData];
+        [self->_localNetworkTableView reloadData];
         [self->_localNetworkTableView layoutIfNeeded];
         self->_localNetworkHeight.constant = self->_localNetworkTableView.contentSize.height;
     });

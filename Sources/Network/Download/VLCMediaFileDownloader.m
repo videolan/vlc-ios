@@ -181,10 +181,8 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     [self terminateBackgroundTask];
 }
 
-- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+- (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
-        VLCMediaPlayerState currentState = _mediaPlayer.state;
-
         switch (currentState) {
             case VLCMediaPlayerStatePlaying:
                 _timer = [NSTimer scheduledTimerWithTimeInterval:1. target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];

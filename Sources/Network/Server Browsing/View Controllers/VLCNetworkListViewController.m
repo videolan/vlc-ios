@@ -66,7 +66,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
     _searchController.delegate = self;
-    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.obscuresBackgroundDuringPresentation = NO;
 
     _searchController.searchBar.delegate = self;
     _searchController.searchBar.barTintColor = navBar.barTintColor;
