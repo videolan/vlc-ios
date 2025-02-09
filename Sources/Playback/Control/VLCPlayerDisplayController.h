@@ -60,10 +60,10 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (readonly, nullable) UIViewController *videoPlayerViewController;
 @property (readwrite, nonatomic) VLCMLMediaType currentMediaType;
 
-- (nullable instancetype)init;
+- (instancetype)init;
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
                                  bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
 - (void)showFullscreenPlayback;
 - (void)showAudioPlayer;

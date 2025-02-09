@@ -52,7 +52,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 @implementation VLCPlayerDisplayController
 
-- (nullable instancetype)init
+- (instancetype)init
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
