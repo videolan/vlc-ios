@@ -172,16 +172,16 @@
 "REMAINING_TIME" = "Remaining time: %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
-//PAPasscode Strings that we need to localize for them
+// Passcode Strings that we need to localize for them
+"Set Passcode" = "Set Passcode";
 "Enter Passcode" = "Enter Passcode";
 "Enter a passcode" = "Enter a passcode";
+"Enter your passcode" = "Enter your passcode";
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
 "Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
-"PASSCODE_LENGTH" = "Passcode Length";
-"PASSCODE_LENGTH_LONG" = "Select the preferred length of your new passcode";
-"PASSCODE_4" = "4 digits";
-"PASSCODE_6" = "6 digits";
+"Passcode Options" = "Passcode Options";
+"4-Digit Numeric Code" = "4-Digit Numeric Code"; /* Passcode 4 digit numeric code */
+"6-Digit Numeric Code" = "6-Digit Numeric Code"; /* Passcode 6 digit numeric code */
 
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -695,14 +695,6 @@
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
 "DELETE_MULTIPLE_TITLE" = "Delete \"%@\" and %d others?";
-
-/* New strings */
-"Enter your passcode" = "Enter your passcode";
-
-/* New strings */
-"4-Digit Numeric Code" = "4-Digit Numeric Code"; /* Passcode 4 digit numeric code */
-"6-Digit Numeric Code" = "6-Digit Numeric Code"; /* Passcode 6 digit numeric code */
-"Passcode Options" = "Passcode Options";
 
 // MARK: - AppIntent Strings
 "APPINTENT_PLAY_MEDIA_TITLE" = "Play in the background";
