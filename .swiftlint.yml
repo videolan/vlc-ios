@@ -1,6 +1,5 @@
-whitelist_rules:
+only_rules:
   - closing_brace
-  - colon
   - comma
   - control_statement
   - custom_rules

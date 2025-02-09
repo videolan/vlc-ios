@@ -71,7 +71,7 @@ PODS:
     - OneDriveSDK/Common
   - PCloudSDKSwift (3.2.3)
   - SimulatorStatusMagic (2.7)
-  - SwiftLint (0.47.1)
+  - SwiftLint (0.50.3)
   - VLCKit (4.0.0a10)
   - VLCMediaLibraryKit (0.13.0a6):
     - VLCKit (>= 4.0.0a3)
@@ -94,7 +94,7 @@ DEPENDENCIES:
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - PCloudSDKSwift
   - SimulatorStatusMagic
-  - SwiftLint (~> 0.47.1)
+  - SwiftLint (~> 0.50.3)
   - VLCKit (= 4.0.0a10)
   - VLCMediaLibraryKit (= 0.13.0a6)
   - XKKeychain (~> 1.0)
@@ -177,11 +177,11 @@ SPEC CHECKSUMS:
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   PCloudSDKSwift: 1c1c9a93db5e086c4d421d529091f458b4f59923
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
-  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
+  SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   VLCKit: e21135aece10e3aa89e34020b7112b73d7cc98e6
   VLCMediaLibraryKit: d6e0f9def251a0b742c15e54dd6b826dfa931349
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
 
-PODFILE CHECKSUM: 30a59f704d8ee52546c2d5dec43613d6e309ef56
+PODFILE CHECKSUM: 6121a999cbda5c4ffa071a4186132d70f9a0a24c
 
 COCOAPODS: 1.15.2

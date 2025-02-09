@@ -12,7 +12,7 @@ def shared_pods
   pod 'VLCMediaLibraryKit', '0.13.0a6'
 
   # debug
-  pod 'SwiftLint', '~> 0.47.1', :configurations => ['Debug']
+  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 target 'VLC-iOS' do
