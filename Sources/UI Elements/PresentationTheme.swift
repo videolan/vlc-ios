@@ -34,6 +34,7 @@ extension Notification.Name {
     let separatorColor: UIColor
     let mediaCategorySeparatorColor: UIColor
     let tabBarColor: UIColor
+    let tabBarIconColor: UIColor
     let orangeUI: UIColor
     let orangeDarkAccent: UIColor
     let toolBarStyle: UIBarStyle
@@ -57,6 +58,7 @@ extension Notification.Name {
          separatorColor: UIColor,
          mediaCategorySeparatorColor: UIColor,
          tabBarColor: UIColor,
+         tabBarIconColor: UIColor,
          orangeUI: UIColor,
          orangeDarkAccent: UIColor,
          toolBarStyle: UIBarStyle,
@@ -79,6 +81,7 @@ extension Notification.Name {
         self.separatorColor = separatorColor
         self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
         self.tabBarColor = tabBarColor
+        self.tabBarIconColor = tabBarIconColor
         self.orangeUI = orangeUI
         self.orangeDarkAccent = orangeDarkAccent
         self.toolBarStyle = toolBarStyle
@@ -256,6 +259,7 @@ let brightPalette = ColorPalette(isDark: false,
                                  separatorColor: UIColor(0xF0F2F7),
                                  mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
+                                 tabBarIconColor: UIColor(0x88949c),
                                  orangeUI: UIColor(0xFF8800),
                                  orangeDarkAccent: UIColor(0xFF8800),
                                  toolBarStyle: UIBarStyle.default,
@@ -279,6 +283,7 @@ let darkPalette = ColorPalette(isDark: true,
                                separatorColor: UIColor(0x25292C),
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x25292C),
+                               tabBarIconColor: UIColor(0x88949c),
                                orangeUI: UIColor(0xFF8800),
                                orangeDarkAccent: UIColor(0xD57200),
                                toolBarStyle: UIBarStyle.black,
@@ -302,6 +307,7 @@ let blackPalette = ColorPalette(isDark: true,
                                 separatorColor: UIColor(0x25292C),
                                 mediaCategorySeparatorColor: UIColor(0x25292C),
                                 tabBarColor: UIColor(0x000000),
+                                tabBarIconColor: UIColor(0x88949c),
                                 orangeUI: UIColor(0xFF8800),
                                 orangeDarkAccent: UIColor(0xD57200),
                                 toolBarStyle: UIBarStyle.black,
