@@ -21,6 +21,54 @@ class TabBarCoordinator: NSObject {
 
     private lazy var editToolbar = EditToolbar()
 
+    private lazy var videoNavigationController: UINavigationController = {
+        let rootViewController = VideoViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var audioNavigationController: UINavigationController = {
+        let rootViewController = AudioViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var artistsNavigationController: UINavigationController = {
+        let rootViewController = ArtistsViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var albumsNavigationController: UINavigationController = {
+        let rootViewController = AlbumsViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var tracksNavigationController: UINavigationController = {
+        let rootViewController = TracksViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var genresNavigationController: UINavigationController = {
+        let rootViewController = GenresViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var playlistsNavigationController: UINavigationController = {
+        let rootViewController = PlaylistViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var browseNavigationController: UINavigationController? = {
+        guard let rootViewController = VLCServerListViewController(medialibraryService: mediaLibraryService) else {
+            return nil
+        }
+
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
+    private lazy var settingsNavigationController: UINavigationController = {
+        let rootViewController = SettingsController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
     // MARK: - Init
 
     @objc init(tabBarController: BottomTabBarController, mediaLibraryService: MediaLibraryService) {
@@ -39,19 +87,77 @@ class TabBarCoordinator: NSObject {
         setupViewControllers()
         setupEditToolbar()
         updateTheme()
+        tabBarController.title = "VLC  iOS"
+        if #available(iOS 18.0, *) {
+            tabBarController.mode = .tabSidebar
+            let sideBar = tabBarController.sidebar
+            sideBar.isHidden = false
+            sideBar.preferredLayout = .overlap
+            sideBar.delegate = self
+        }
     }
 
     private func setupViewControllers() {
-        let controllers: [UIViewController] = [
-            VideoViewController(mediaLibraryService: mediaLibraryService),
-            AudioViewController(mediaLibraryService: mediaLibraryService),
-            PlaylistViewController(mediaLibraryService: mediaLibraryService),
-            VLCServerListViewController(medialibraryService: mediaLibraryService),
-            SettingsController(mediaLibraryService: mediaLibraryService)
-        ]
+        var controllers: [UINavigationController] = [videoNavigationController]
 
-        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
+        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
+           !tabBarController.sidebar.isHidden {
+            controllers.append(artistsNavigationController)
+            controllers.append(albumsNavigationController)
+            controllers.append(tracksNavigationController)
+            controllers.append(genresNavigationController)
+            controllers.append(playlistsNavigationController)
+
+            if let browseNavigationController = browseNavigationController {
+                controllers.append(browseNavigationController)
+            }
+
+            controllers.append(settingsNavigationController)
+            tabBarController.viewControllers = controllers
+        } else {
+            controllers.append(audioNavigationController)
+            controllers.append(playlistsNavigationController)
+
+            if let browseNavigationController = browseNavigationController {
+                controllers.append(browseNavigationController)
+            }
+
+            controllers.append(settingsNavigationController)
+            tabBarController.viewControllers = controllers
+        }
+
         tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
+    }
+
+    private func updateTabBarIndexIfNeeded() {
+        let userDefaults = UserDefaults.standard
+        var tabIndex: Int = userDefaults.integer(forKey: kVLCTabBarIndex)
+
+        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
+           !tabBarController.sidebar.isHidden {
+            switch tabIndex {
+            case 0, 1:
+                break
+            default:
+                tabIndex += 3
+                break
+            }
+        } else {
+            switch tabIndex {
+            case 0:
+                tabIndex = 0
+                break
+            case 1, 2, 3, 4:
+                tabIndex = 1
+                break
+            default:
+                tabIndex -= 3
+                break
+            }
+        }
+
+        tabBarController.selectedIndex = tabIndex
+        userDefaults.set(tabIndex, forKey: kVLCTabBarIndex)
     }
 
     func setupEditToolbar() {
@@ -112,6 +218,7 @@ class TabBarCoordinator: NSObject {
         bottomBarLayer.shadowOpacity = 0.6
         bottomBarLayer.shadowPath = UIBezierPath(rect: bottomBar.bounds).cgPath
 
+        tabBarController.view.backgroundColor = colors.background
         editToolbar.backgroundColor = colors.tabBarColor
 
         tabBarController.viewControllers?.forEach {
@@ -192,5 +299,13 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
             return false
         }
         return true
+    }
+}
+
+@available(iOS 18.0, *)
+extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
+    func tabBarController(_ tabBarController: UITabBarController, sidebarVisibilityWillChange sidebar: UITabBarController.Sidebar, animator: any UITabBarController.Sidebar.Animating) {
+        setupViewControllers()
+        updateTabBarIndexIfNeeded()
     }
 }
