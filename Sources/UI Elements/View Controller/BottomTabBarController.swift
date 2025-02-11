@@ -21,11 +21,11 @@ class BottomTabBarController: UITabBarController {
     }()
 
     lazy var isBottomBarActive: Bool = {
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
-           self.responds(to: Selector("setTabBarHidden:animated:")) {
-            self.perform(Selector("setTabBarHidden:animated:"), with: true, with: true)
-            return true
-        }
+//        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
+//           self.responds(to: Selector("setTabBarHidden:animated:")) {
+//            self.perform(Selector("setTabBarHidden:animated:"), with: true, with: true)
+//            return true
+//        }
 
         return false
     }()
