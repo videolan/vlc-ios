@@ -515,6 +515,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         needsShow = NO;
     }
 
+    UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
         // Init the mini player view if needed
@@ -593,7 +595,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                          animations:^{
                              self.bottomConstraint.active = NO;
                              if (needsShow) {
-                                 self.bottomConstraint = [miniPlaybackView.bottomAnchor constraintEqualToAnchor:self.realBottomAnchor];
+                                 self.bottomConstraint = [miniPlaybackView.bottomAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.bottomAnchor];
                              } else {
 #if TARGET_OS_IOS
                                  self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.bottomLayoutGuide.bottomAnchor];
