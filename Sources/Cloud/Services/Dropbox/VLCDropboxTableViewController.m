@@ -138,8 +138,11 @@
         [DBClientsManager authorizeFromControllerV2:[UIApplication sharedApplication]
                                          controller:self
                               loadingStatusDelegate:nil
-                                            openURL:^(NSURL * _Nonnull url)  {
-            [[UIApplication sharedApplication] openURL:url];
+                                            openURL:^(NSURL * _Nonnull url) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                // nothing to do
+            }];
+
         } scopeRequest:nil];
     } else
         [_dropboxController logout];

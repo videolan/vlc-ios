@@ -240,18 +240,19 @@ class SettingsController: UITableViewController {
         actionSheet.delegate = specifierManager
         actionSheet.dataSource = specifierManager
 
-        if preferenceKey == MainOptions.appearance.preferenceKey ||
-            preferenceKey == GenericOptions.automaticallyPlayNextItem.preferenceKey
-        {
+        var numberOfColumns: CGFloat = 1
+
+        switch preferenceKey {
+        case MainOptions.appearance.preferenceKey, GenericOptions.automaticallyPlayNextItem.preferenceKey:
             specifierManager.delegate = self
+
+        case GenericOptions.defaultPlaybackSpeed.preferenceKey, SubtitlesOptions.fontColor.preferenceKey:
+            numberOfColumns = 2
+
+        default:
+            break
         }
 
-        var numberOfColumns: CGFloat = 1
-        if preferenceKey == GenericOptions.defaultPlaybackSpeed.preferenceKey ||
-            preferenceKey == SubtitlesOptions.fontColor.preferenceKey
-        {
-            numberOfColumns = 2
-        }
         actionSheet.numberOfColums = numberOfColumns
 
         present(actionSheet, animated: false) {
@@ -284,8 +285,7 @@ class SettingsController: UITableViewController {
         let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
                                          style: .cancel)
         let resetAction = UIAlertAction(title: NSLocalizedString("BUTTON_RESET", comment: ""),
-                                        style: .destructive)
-        { _ in
+                                        style: .destructive) { _ in
             self.resetOptions()
         }
 

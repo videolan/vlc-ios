@@ -285,7 +285,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
 #if os(iOS)
-    func updatePictureInPictureButton(enabled:Bool) {
+    func updatePictureInPictureButton(enabled: Bool) {
         let image = UIImage(named: enabled ? "pip.exit" : "pip.enter")
         pictureInPictureButton.setImage(image, for: .normal)
     }

@@ -199,10 +199,14 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
 #if TARGET_OS_IOS
     if (indexPath.section == 0) {
         VLCInvoice *invoice = _invoices[indexPath.row];
-        [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL];
+        [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL options:@{} completionHandler:^(BOOL success) {
+            // nothing to do
+        }];
     } else {
         VLCCharge *charge = _charges[indexPath.row];
-        [[UIApplication sharedApplication] openURL:charge.receiptURL];
+        [[UIApplication sharedApplication] openURL:charge.receiptURL options:@{} completionHandler:^(BOOL success) {
+            // nothing to do
+        }];
     }
 #else
     if (indexPath.section == 0) {
