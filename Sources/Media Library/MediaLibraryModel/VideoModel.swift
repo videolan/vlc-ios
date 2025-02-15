@@ -55,8 +55,8 @@ extension VideoModel {
                                    desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -70,8 +70,8 @@ extension VideoModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         videos.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -82,8 +82,8 @@ extension VideoModel: MediaLibraryObserver {
             }
             fileArrayLock.lock()
             files = swapModels(with: videos)
-            observable.observers.forEach() {
-                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            observable.notifyObservers {
+                $0.mediaLibraryBaseModelReloadView()
             }
         }
     }
@@ -99,8 +99,8 @@ extension VideoModel: MediaLibraryObserver {
             }
             return true
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -117,8 +117,8 @@ extension VideoModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         files = swapModels(with: [media])
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }

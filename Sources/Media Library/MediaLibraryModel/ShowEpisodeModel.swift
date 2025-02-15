@@ -58,8 +58,8 @@ extension ShowEpisodeModel {
 extension ShowEpisodeModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddShowEpisodes showEpisodes: [VLCMLMedia]) {
         showEpisodes.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 

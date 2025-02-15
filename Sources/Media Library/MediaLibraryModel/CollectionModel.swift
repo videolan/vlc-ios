@@ -110,8 +110,8 @@ class CollectionModel: MLBaseModel {
         files = mediaCollection.files(with: criteria, desc: desc) ?? []
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -126,8 +126,8 @@ extension CollectionModel: MediaLibraryObserver {
         if mediaCollection is VLCMLPlaylist {
             fileArrayLock.lock()
             files = mediaCollection.files() ?? []
-            observable.observers.forEach() {
-                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            observable.notifyObservers {
+                $0.mediaLibraryBaseModelReloadView()
             }
 
             sort(by: sortModel.currentSort, desc: sortModel.desc)
@@ -140,8 +140,8 @@ extension CollectionModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         files = mediaCollection.files() ?? []
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
 
         sort(by: sortModel.currentSort, desc: sortModel.desc)
@@ -153,8 +153,8 @@ extension CollectionModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         files = mediaCollection.files() ?? []
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
 
         sort(by: sortModel.currentSort, desc: sortModel.desc)
@@ -171,8 +171,8 @@ extension CollectionModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         files = mediaCollection.files() ?? []
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
 
         sort(by: sortModel.currentSort, desc: sortModel.desc)

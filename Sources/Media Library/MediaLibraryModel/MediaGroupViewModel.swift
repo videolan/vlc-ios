@@ -95,8 +95,8 @@ class MediaGroupViewModel: MLBaseModel {
         }
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -172,8 +172,8 @@ extension MediaGroupViewModel: MediaLibraryObserver {
                 }
             }
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -192,8 +192,8 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         fileArrayQueue.sync {
             files = swapModels(with: mediaGroups)
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -204,18 +204,18 @@ extension MediaGroupViewModel: MediaLibraryObserver {
                 mediaGroupsIds.contains(NSNumber(value: $0.identifier()))
             }
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
     // MARK: - VLCMLMedia
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyVideos videos: [VLCMLMedia]) {
-        if !videos.isEmpty {
-            observable.observers.forEach() {
-                $0.value.observer?.mediaLibraryBaseModelReloadView()
-            }
+        guard !videos.isEmpty else { return }
+
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -227,8 +227,8 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         guard success else {
             return
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }

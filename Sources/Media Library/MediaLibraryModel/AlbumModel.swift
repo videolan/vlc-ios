@@ -87,8 +87,8 @@ extension AlbumModel {
         }
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -112,8 +112,8 @@ extension VLCMLAlbum: SearchableMLModel {
 extension AlbumModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {
         albums.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -134,8 +134,8 @@ extension AlbumModel: MediaLibraryObserver {
 
         fileArrayLock.lock()
         files = swapModels(with: albums)
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -147,8 +147,8 @@ extension AlbumModel: MediaLibraryObserver {
         files.removeAll {
             albumsIds.contains(NSNumber(value: $0.identifier()))
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 

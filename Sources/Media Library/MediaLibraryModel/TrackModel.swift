@@ -54,8 +54,8 @@ extension TrackModel {
                                    desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -69,8 +69,8 @@ extension TrackModel: MediaLibraryObserver {
         }
         fileArrayLock.lock()
         tracks.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -81,8 +81,8 @@ extension TrackModel: MediaLibraryObserver {
             }
             fileArrayLock.lock()
             files = swapModels(with: tracks)
-            observable.observers.forEach() {
-                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            observable.notifyObservers {
+                $0.mediaLibraryBaseModelReloadView()
             }
         }
     }
@@ -98,8 +98,8 @@ extension TrackModel: MediaLibraryObserver {
             }
             return true
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }

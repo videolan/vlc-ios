@@ -77,8 +77,8 @@ class PlaylistModel: MLBaseModel {
         // Update directly the UI without waiting the delegate to avoid showing 'ghost' items
         fileArrayLock.lock()
         filterFilesFromDeletion(of: items)
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -89,8 +89,8 @@ class PlaylistModel: MLBaseModel {
             return
         }
         append(playlist)
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -105,8 +105,8 @@ extension PlaylistModel {
         files = medialibrary.playlists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -122,8 +122,8 @@ extension VLCMLPlaylist: SearchableMLModel {
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -144,8 +144,8 @@ extension PlaylistModel: MediaLibraryObserver {
 
         fileArrayLock.lock()
         files = swapModels(with: playlists)
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -160,8 +160,8 @@ extension PlaylistModel: MediaLibraryObserver {
             }
             return true
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 

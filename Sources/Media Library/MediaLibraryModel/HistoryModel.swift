@@ -57,8 +57,8 @@ extension HistoryModel: MediaLibraryObserver {
         } else {
             files = medialibrary.medialib.videoHistory() ?? []
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -72,8 +72,8 @@ extension HistoryModel: MediaLibraryObserver {
         } else {
             files = medialibrary.medialib.videoHistory() ?? []
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
     

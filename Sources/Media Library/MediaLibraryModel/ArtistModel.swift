@@ -94,8 +94,8 @@ extension ArtistModel {
                                 medialibrary.artists(sortingCriteria: criteria, desc: desc, listAll: true)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -112,8 +112,8 @@ extension VLCMLArtist: SearchableMLModel {
 extension ArtistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
         artists.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -137,8 +137,8 @@ extension ArtistModel: MediaLibraryObserver {
         files = swapModels(with: artists)
         addNewArtists(artists)
         filterGeneratedArtists()
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -150,8 +150,8 @@ extension ArtistModel: MediaLibraryObserver {
         files.removeAll {
             artistsIds.contains(NSNumber(value: $0.identifier()))
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 

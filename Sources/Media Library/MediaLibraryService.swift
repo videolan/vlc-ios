@@ -510,9 +510,9 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         let videos = media.filter {( $0.type() == .video )}
         let tracks = media.filter {( $0.type() == .audio )}
 
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddVideos: videos)
-            observer.value.observer?.medialibrary?(self, didAddTracks: tracks)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddVideos: videos)
+            $0.medialibrary?(self, didAddTracks: tracks)
         }
     }
 
@@ -534,11 +534,11 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         let tracks = media.filter {( $0.type() == .audio)}
 
         // Shows and albumtracks are known only after when the medialibrary calls didModifyMedia
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddShowEpisodes: showEpisodes)
-            observer.value.observer?.medialibrary?(self, didAddAlbumTracks: albumTrack)
-            observer.value.observer?.medialibrary?(self, didModifyVideos: videos)
-            observer.value.observer?.medialibrary?(self, didModifyTracks: tracks)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddShowEpisodes: showEpisodes)
+            $0.medialibrary?(self, didAddAlbumTracks: albumTrack)
+            $0.medialibrary?(self, didModifyVideos: videos)
+            $0.medialibrary?(self, didModifyTracks: tracks)
         }
     }
 
@@ -547,16 +547,16 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         mediaIds.forEach { stringIds.append("\($0)") }
         CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: stringIds, completionHandler: nil)
 
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, thumbnailReadyFor media: VLCMLMedia,
                       of type: VLCMLThumbnailSizeType, withSuccess success: Bool) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, thumbnailReady: media,
-                                                   type: type, success: success)
+        observable.notifyObservers {
+            $0.medialibrary?(self, thumbnailReady: media,
+                             type: type, success: success)
         }
     }
 }
@@ -565,21 +565,21 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd artists: [VLCMLArtist]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddArtists: artists)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddArtists: artists)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didModifyArtistsWithIds artistsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didModifyArtistsWithIds: artistsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifyArtistsWithIds: artistsIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteArtistsWithIds artistsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didDeleteArtistsWithIds: artistsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteArtistsWithIds: artistsIds)
         }
     }
 }
@@ -588,21 +588,21 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd albums: [VLCMLAlbum]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddAlbums: albums)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didModifyAlbumsWithIds albumsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didModifyAlbumsWithIds: albumsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifyAlbumsWithIds: albumsIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteAlbumsWithIds albumsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didDeleteAlbumsWithIds: albumsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteAlbumsWithIds: albumsIds)
         }
     }
 }
@@ -611,22 +611,22 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd genres: [VLCMLGenre]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddGenres: genres)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddGenres: genres)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didModifyGenresWithIds genresIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didModifyGenresWithIds: genresIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifyGenresWithIds: genresIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didDeleteGenresWithIds genresIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didDeleteGenresWithIds: genresIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteGenresWithIds: genresIds)
         }
     }
 }
@@ -635,21 +635,21 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd playlists: [VLCMLPlaylist]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didAddPlaylists: playlists)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddPlaylists: playlists)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didModifyPlaylistsWithIds: playlistsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifyPlaylistsWithIds: playlistsIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, didDeletePlaylistsWithIds: playlistsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeletePlaylistsWithIds: playlistsIds)
         }
     }
 }
@@ -658,25 +658,22 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd mediaGroups: [VLCMLMediaGroup]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self,
-                                                   didAddMediaGroups: mediaGroups)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddMediaGroups: mediaGroups)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didModifyMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self,
-                                                   didModifyMediaGroupsWithIds: mediaGroupsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifyMediaGroupsWithIds: mediaGroupsIds)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self,
-                                                   didDeleteMediaGroupsWithIds: mediaGroupsIds)
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteMediaGroupsWithIds: mediaGroupsIds)
         }
     }
 }
@@ -717,16 +714,16 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func medialibraryDidStartRescan(_ medialibrary: VLCMediaLibrary) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibraryDidStartRescan?()
+        observable.notifyObservers {
+            $0.medialibraryDidStartRescan?()
         }
     }
 }
 
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, historyChangedOf type: VLCMLHistoryType) {
-        for observer in observable.observers {
-            observer.value.observer?.medialibrary?(self, historyChangedOfType: type)
+        observable.notifyObservers {
+            $0.medialibrary?(self, historyChangedOfType: type)
         }
     }
 }

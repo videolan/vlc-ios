@@ -53,8 +53,8 @@ class GenreModel: AudioCollectionModel {
 extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -74,8 +74,8 @@ extension GenreModel: MediaLibraryObserver {
 
         fileArrayLock.lock()
         files = swapModels(with: genres)
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -87,8 +87,8 @@ extension GenreModel: MediaLibraryObserver {
         files.removeAll {
             genresIds.contains(NSNumber(value: $0.identifier()))
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -111,8 +111,8 @@ extension GenreModel {
         files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
