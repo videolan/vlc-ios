@@ -283,7 +283,10 @@ class VerticalSliderControl: UIControl {
         isAccessibilityElement = true
         // the owner can and should customize accessibilityLabel
         accessibilityLabel = NSLocalizedString("VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL", comment: "")
-        accessibilityTraits = .adjustable
+
+        // We avoid using `adjustable` here. We have our own increment and
+        // decrement actions; we don't need the system to add its own.
+        accessibilityTraits = []
 
         let increment = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("VERTICAL_SLIDER_CONTROL_INCREMENT_ACTION", comment: ""),

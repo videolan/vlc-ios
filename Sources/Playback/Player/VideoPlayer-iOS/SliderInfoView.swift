@@ -117,7 +117,10 @@ class BrightnessControlView: SliderInfoView {
         levelSlider.isAccessibilityElement = true
         levelSlider.accessibilityLabel = NSLocalizedString("BRIGHTNESS_SLIDER", comment: "")
         levelSlider.accessibilityHint = NSLocalizedString("BRIGHTNESS_HINT", comment: "")
-        levelSlider.accessibilityTraits = .adjustable
+
+        // Avoid the temptation to put `adjustable` here; the system will add
+        // accessibility controls that do not work.
+        levelSlider.accessibilityTraits = []
 
         update(level: Float(UIScreen.main.brightness))
     }
@@ -163,7 +166,14 @@ class VolumeControlView: SliderInfoView {
         levelSlider.isAccessibilityElement = true
         levelSlider.accessibilityLabel = NSLocalizedString("VOLUME_SLIDER", comment: "")
         levelSlider.accessibilityHint = NSLocalizedString("VOLUME_HINT", comment: "")
-        levelSlider.accessibilityTraits = .adjustable
+
+        // Avoid the temptation to put `adjustable` here; the system will add
+        // accessibility controls that do not work.
+        levelSlider.accessibilityTraits = []
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     @objc func onVolumeChange() {
@@ -177,9 +187,6 @@ class VolumeControlView: SliderInfoView {
 
     @objc func onTouchEnded() {
         isBeingTouched = false
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func setupView() {
