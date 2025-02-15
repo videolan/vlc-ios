@@ -139,9 +139,7 @@
                                          controller:self
                               loadingStatusDelegate:nil
                                             openURL:^(NSURL * _Nonnull url) {
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-                // nothing to do
-            }];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 
         } scopeRequest:nil];
     } else
