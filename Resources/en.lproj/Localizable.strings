@@ -676,16 +676,7 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
 "KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
-"KEY_SEEK_TO_10_PERCENT" = "Seek to 10% of duration";
-"KEY_SEEK_TO_20_PERCENT" = "Seek to 20% of duration";
-"KEY_SEEK_TO_30_PERCENT" = "Seek to 30% of duration";
-"KEY_SEEK_TO_40_PERCENT" = "Seek to 40% of duration";
-"KEY_SEEK_TO_50_PERCENT" = "Seek to 50% of duration";
-"KEY_SEEK_TO_60_PERCENT" = "Seek to 60% of duration";
-"KEY_SEEK_TO_70_PERCENT" = "Seek to 70% of duration";
-"KEY_SEEK_TO_80_PERCENT" = "Seek to 80% of duration";
-"KEY_SEEK_TO_90_PERCENT" = "Seek to 90% of duration";
-"KEY_SEEK_TO_START" = "Seek to beginning of video";
+"KEY_SEEK_TO_\(number * 10)_PERCENT" = "KEY_SEEK_TO_\(number * 10)_PERCENT";
 
 // MARK: - TitleSelection
 

@@ -86,15 +86,18 @@ class TabBarCoordinator: NSObject {
         let bottomBarLayer = bottomBar.layer
 
         //Setting this in appearanceManager doesn't update tabbar and UINavigationbar of the settingsViewController on change hence we do it here
-        tabBar.isTranslucent = true
         tabBar.backgroundColor = colors.tabBarColor
         tabBar.barTintColor = colors.tabBarColor
         tabBar.itemPositioning = .fill
 
-        bottomBar.isTranslucent = false
         bottomBar.backgroundColor = colors.tabBarColor
         bottomBar.barTintColor = colors.tabBarColor
         bottomBar.itemPositioning = .fill
+
+#if os(iOS)
+        tabBar.isTranslucent = true
+        bottomBar.isTranslucent = false
+#endif
 
         tabBarLayer.shadowOffset = CGSize(width: 0, height: 0)
         tabBarLayer.shadowRadius = 1.0

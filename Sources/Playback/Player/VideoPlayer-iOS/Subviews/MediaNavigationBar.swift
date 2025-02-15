@@ -85,8 +85,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return rotateButton
     }()
 
-    private var closureQueue: (() -> Void)? = nil
-
 #if os(iOS)
     lazy var chromeCastButton: UIButton = {
         var chromeButton = UIButton(type: .system)
@@ -224,13 +222,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(queueButton)
 #if os(iOS)
         addArrangedSubview(deviceButton)
-<<<<<<< HEAD
         addArrangedSubview(pictureInPictureButton)
-=======
 #else
         addArrangedSubview(airplayVolumeView)
 #endif
->>>>>>> 0b803b8dd (Update video player for visionOS)
     }
 
     // MARK: Gesture recognizer
@@ -289,10 +284,12 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         closePlaybackButton.accessibilityHint = accessibility.1
     }
 
+#if os(iOS)
     func updatePictureInPictureButton(enabled:Bool) {
         let image = UIImage(named: enabled ? "pip.exit" : "pip.enter")
         pictureInPictureButton.setImage(image, for: .normal)
     }
+#endif
 }
 
 #if os(iOS)

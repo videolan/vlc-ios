@@ -347,11 +347,12 @@ class PasscodeLockController: UIViewController {
     @objc private func handleCancel() {
         completionHandler?(false, nil)
 
+#if os(iOS)
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
         }
+#endif
 
-<<<<<<< HEAD
         dismiss(animated: true)
     }
 

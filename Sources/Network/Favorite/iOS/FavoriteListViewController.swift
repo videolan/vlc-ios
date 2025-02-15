@@ -206,6 +206,7 @@ class FavoriteListViewController: UIViewController {
         }
     }
 
+#if os(iOS)
     private func showCloudFavVC(fav: VLCFavorite) {
         let favURL = fav.url
         var cloudVC: VLCCloudStorageTableViewController?
@@ -236,6 +237,7 @@ class FavoriteListViewController: UIViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
+#endif
 }
 
 // MARK: - UITableViewDelegate

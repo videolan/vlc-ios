@@ -967,9 +967,11 @@ class PlayerViewController: UIViewController {
 // MARK: - VLCPlaybackServiceDelegate
 
 extension PlayerViewController: VLCPlaybackServiceDelegate {
+#if os(iOS)
     func pictureInPictureStateDidChange(enabled: Bool) {
         mediaNavigationBar.updatePictureInPictureButton(enabled: enabled)
     }
+#endif
 
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
@@ -1415,72 +1417,35 @@ extension PlayerViewController {
                                          action: #selector(keyLeftBracket))
         decreaseSpeed.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
 
-        var commands: [UIKeyCommand] = [
-            UIKeyCommand(input: " ",
-                         modifierFlags: [],
-                         action: #selector(handlePlayPauseGesture),
-                         discoverabilityTitle: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")),
-            UIKeyCommand(input: "\r",
-                         modifierFlags: [],
-                         action: #selector(handlePlayPauseGesture),
-                         discoverabilityTitle: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")),
-            UIKeyCommand(input: UIKeyCommand.inputLeftArrow,
-                         modifierFlags: [],
-                         action: #selector(keyLeftArrow),
-                         discoverabilityTitle: NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")),
-            UIKeyCommand(input: UIKeyCommand.inputRightArrow,
-                         modifierFlags: [],
-                         action: #selector(keyRightArrow),
-                         discoverabilityTitle: NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")),
-            UIKeyCommand(input: "[",
-                         modifierFlags: [],
-                         action: #selector(keyRightBracket),
-                         discoverabilityTitle: NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")),
-            UIKeyCommand(input: "]",
-                         modifierFlags: [],
-                         action: #selector(keyLeftBracket),
-                         discoverabilityTitle: NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")),
-            UIKeyCommand(input: "1",
-                         modifierFlags: [],
-                         action: #selector(keyNumber1),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_10_PERCENT", comment: "")),
-            UIKeyCommand(input: "2",
-                         modifierFlags: [],
-                         action: #selector(keyNumber2),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_20_PERCENT", comment: "")),
-            UIKeyCommand(input: "3",
-                         modifierFlags: [],
-                         action: #selector(keyNumber3),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_30_PERCENT", comment: "")),
-            UIKeyCommand(input: "4",
-                         modifierFlags: [],
-                         action: #selector(keyNumber4),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_40_PERCENT", comment: "")),
-            UIKeyCommand(input: "5",
-                         modifierFlags: [],
-                         action: #selector(keyNumber5),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_50_PERCENT", comment: "")),
-            UIKeyCommand(input: "6",
-                         modifierFlags: [],
-                         action: #selector(keyNumber6),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_60_PERCENT", comment: "")),
-            UIKeyCommand(input: "7",
-                         modifierFlags: [],
-                         action: #selector(keyNumber7),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_70_PERCENT", comment: "")),
-            UIKeyCommand(input: "8",
-                         modifierFlags: [],
-                         action: #selector(keyNumber8),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_80_PERCENT", comment: "")),
-            UIKeyCommand(input: "9",
-                         modifierFlags: [],
-                         action: #selector(keyNumber9),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_90_PERCENT", comment: "")),
-            UIKeyCommand(input: "0",
-                         modifierFlags: [],
-                         action: #selector(keyNumber0),
-                         discoverabilityTitle: NSLocalizedString("KEY_SEEK_TO_START", comment: ""))
-        ]
+        var commands: [UIKeyCommand] = {
+            let playPauseCommand1 = UIKeyCommand(input: " ", modifierFlags: [], action: #selector(handlePlayPauseGesture))
+            playPauseCommand1.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+
+            let playPauseCommand2 = UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(handlePlayPauseGesture))
+            playPauseCommand2.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+
+            let leftArrowCommand = UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: [], action: #selector(keyLeftArrow))
+            leftArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")
+
+            let rightArrowCommand = UIKeyCommand(input: UIKeyCommand.inputRightArrow, modifierFlags: [], action: #selector(keyRightArrow))
+            rightArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")
+
+            let increaseSpeedCommand = UIKeyCommand(input: "[", modifierFlags: [], action: #selector(keyRightBracket))
+            increaseSpeedCommand.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")
+
+            let decreaseSpeedCommand = UIKeyCommand(input: "]", modifierFlags: [], action: #selector(keyLeftBracket))
+            decreaseSpeedCommand.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
+
+            let numberCommands = (0...9).map { number -> UIKeyCommand in
+                let input = "\(number)"
+                let selector = Selector("keyNumber\(number)")
+                let command = UIKeyCommand(input: input, modifierFlags: [], action: selector)
+                command.discoverabilityTitle = NSLocalizedString("KEY_SEEK_TO_\(number * 10)_PERCENT", comment: "")
+                return command
+            }
+
+            return [playPauseCommand1, playPauseCommand2, leftArrowCommand, rightArrowCommand, increaseSpeedCommand, decreaseSpeedCommand] + numberCommands
+        }()
 
         if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
             let resetSpeed = UIKeyCommand(input: "=",

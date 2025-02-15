@@ -1,12 +1,12 @@
 /*****************************************************************************
-* EqualizerPresetSelector.swift
-*
-* Copyright © 2021 VLC authors and VideoLAN
-*
-* Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
-*
-* Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ * EqualizerPresetSelector.swift
+ *
+ * Copyright © 2021 VLC authors and VideoLAN
+ *
+ * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import UIKit
 
@@ -218,7 +218,6 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         let actions: [UIContextualAction] = [moveUpAction, moveDownAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
-#endif
 
     // MARK: - Slider event
     @objc func preampSliderDidChangeValue(sender: UISlider) {
