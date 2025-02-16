@@ -52,7 +52,11 @@ extension HistoryModel: MediaLibraryObserver {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        files = medialibrary.medialib.history(of: .global) ?? []
+        if self.mediaType == .audio {
+            files = medialibrary.medialib.audioHistory() ?? []
+        } else {
+            files = medialibrary.medialib.videoHistory() ?? []
+        }
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
@@ -63,7 +67,11 @@ extension HistoryModel: MediaLibraryObserver {
             fileArrayLock.unlock()
         }
         fileArrayLock.lock()
-        files = medialibrary.medialib.history(of: .global) ?? []
+        if self.mediaType == .audio {
+            files = medialibrary.medialib.audioHistory() ?? []
+        } else {
+            files = medialibrary.medialib.videoHistory() ?? []
+        }
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
