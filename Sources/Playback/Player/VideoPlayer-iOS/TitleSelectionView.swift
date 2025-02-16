@@ -205,14 +205,8 @@ private extension TitleSelectionView {
 
     private func setupTableViews() {
         if #available(iOS 15, *) {
-            // Workaround in order to be able to compile with an older SDK
-            let sectionHeaderTopPaddingSelector = NSSelectorFromString("setSectionHeaderTopPadding:")
-            if audioTableView.responds(to: sectionHeaderTopPaddingSelector) {
-                audioTableView.perform(sectionHeaderTopPaddingSelector, with: 0)
-            }
-            if subtitleTableView.responds(to: sectionHeaderTopPaddingSelector) {
-                subtitleTableView.perform(sectionHeaderTopPaddingSelector, with: 0)
-            }
+            audioTableView.sectionHeaderTopPadding = 0
+            subtitleTableView.sectionHeaderTopPadding = 0
         }
 
         audioTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: audioTableView.frame.size.width, height: 1))
