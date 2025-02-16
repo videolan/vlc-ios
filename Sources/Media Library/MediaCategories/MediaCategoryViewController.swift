@@ -1809,8 +1809,8 @@ extension MediaCategoryViewController {
     }
 
     private func addContinueWatchingButton() {
-        guard let keyWindow = UIApplication.shared.keyWindow else { return }
-        keyWindow.addSubview(continueWatchingButton)
+        guard let keyWindow = UIApplication.shared.delegate?.window else { return }
+        keyWindow?.addSubview(continueWatchingButton)
 
         self.setContinueWatchingButtonConstraints()
         self.handleContinueWatchingButtonVisibility()
@@ -1844,11 +1844,11 @@ extension MediaCategoryViewController {
     }
 
     private func setContinueWatchingButtonConstraints() {
-        guard let keywindow = UIApplication.shared.keyWindow else { return }
-        var layoutGuide = keywindow.layoutMarginsGuide
+        guard let keywindow = UIApplication.shared.delegate?.window else { return }
+        guard var layoutGuide = keywindow?.layoutMarginsGuide else { return }
 
         if #available(iOS 11.0, *) {
-            layoutGuide = keywindow.safeAreaLayoutGuide
+            layoutGuide = keywindow!.safeAreaLayoutGuide
         }
 
         continueWatchingButton.translatesAutoresizingMaskIntoConstraints = false
