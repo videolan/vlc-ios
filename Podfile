@@ -8,7 +8,7 @@ def shared_pods
   pod 'CocoaHTTPServer', :git => 'https://code.videolan.org/fkuehne/CocoaHTTPServer.git', :commit => '08f9b818'
   pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => 'ee51009a' # add visionOS support
   pod 'VLCKit', '4.0.0a10'
-  pod 'VLCMediaLibraryKit', '0.13.0a8'
+  pod 'VLCMediaLibraryKit', '0.13.0a10'
 end
 
 target 'VLC-iOS' do
