@@ -1818,7 +1818,7 @@ extension MediaCategoryViewController {
 
     @objc private func continueWatchingButtonPressed() {
         let playbackService = PlaybackService.sharedInstance()
-        if let lastMedia = mediaLibraryService.medialib.history(of: .video)?.first {
+        if let lastMedia = mediaLibraryService.medialib.videoHistory()?.first {
             playbackService.play(lastMedia)
         }
     }
@@ -1832,7 +1832,7 @@ extension MediaCategoryViewController {
             return true
         }
 
-        if let historyCount = mediaLibraryService.medialib.history(of: .video)?.count, historyCount == 0 {
+        if let historyCount = mediaLibraryService.medialib.videoHistory()?.count, historyCount == 0 {
             return true
         }
 
