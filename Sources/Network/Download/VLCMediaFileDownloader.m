@@ -97,6 +97,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     }
 
     _demuxDumpFilePath = [libraryPath stringByAppendingPathComponent:downloadFileName];
+    _filename = downloadFileName;
 
     [media addOptions:@{ @"demuxdump-file" : _demuxDumpFilePath,
                          @"demux" : @"demuxdump" }];

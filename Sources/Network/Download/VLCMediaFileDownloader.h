@@ -17,6 +17,7 @@
 @property (nonatomic, readonly) BOOL downloadInProgress;
 @property (nonatomic, retain) id delegate;
 @property (readonly, copy) NSString *downloadLocationPath;
+@property (readonly, copy) NSString *filename;
 
 - (void)cancelDownload;
 - (NSString *)downloadFileFromVLCMedia:(VLCMedia *)media withName:(NSString *)name expectedDownloadSize:(unsigned long long)expectedDownloadSize;
