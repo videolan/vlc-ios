@@ -38,6 +38,8 @@
     NSMutableArray *_lastSpeeds;
     CGFloat _totalReceived;
     CGFloat _lastReceived;
+
+    AVSpeechSynthesizer *_speechSynthesizer;
 }
 @end
 
@@ -285,25 +287,24 @@
 }
 
 #pragma mark - Download completion announcement
-- (void)announceDownloadCompletion
+- (void)announceDownloadCompletionForFilename:(NSString *)filename
 {
     if (!UIAccessibilityIsVoiceOverRunning()) {
         return;
     }
-    static AVSpeechSynthesizer *speechSynthesizer = nil;
-    if (!speechSynthesizer) {
-        speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    if (!_speechSynthesizer) {
+        _speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     }
     NSLocale *currentLocale = [NSLocale currentLocale];
     NSString *languageCode = [currentLocale objectForKey:NSLocaleLanguageCode];
-    NSString *announcement = NSLocalizedString(@"DOWNLOAD_COMPLETED_ANNOUNCEMENT", comment: "");
+    NSString *announcement = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_COMPLETED_ANNOUNCEMENT", comment: ""), filename];
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:announcement];
     AVSpeechSynthesisVoice *customVoice = [AVSpeechSynthesisVoice voiceWithLanguage:languageCode];
     utterance.voice = customVoice;
     utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
     utterance.pitchMultiplier = 1.2;
     utterance.volume = 0.8;
-    [speechSynthesizer speakUtterance:utterance];
+    [_speechSynthesizer speakUtterance:utterance];
 }
 
 #pragma mark - VLC media downloader delegate
@@ -333,7 +334,7 @@
         if ([_downloadedMedia indexOfObject:storageLocationPath] == NSNotFound) {
             [_downloadedMedia addObject:storageLocationPath];
             [_downloadedMediaDates addObject:[NSDate date]];
-            [self announceDownloadCompletion];
+            [self announceDownloadCompletionForFilename:theDownloader.filename];
         }
     }
 

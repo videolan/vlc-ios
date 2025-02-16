@@ -698,4 +698,4 @@
 "VERTICAL_SLIDER_CONTROL_DECREMENT_ACTION" = "Decrement";
 
 // MARK: - Download Completion Announcement
-"DOWNLOAD_COMPLETED_ANNOUNCEMENT" = "Download has been completed, enjoy your content!";
+"DOWNLOAD_COMPLETED_ANNOUNCEMENT" = "Downloading file \"%@\" completed";
