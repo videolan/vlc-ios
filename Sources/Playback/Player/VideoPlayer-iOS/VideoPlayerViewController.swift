@@ -627,6 +627,7 @@ class VideoPlayerViewController: PlayerViewController {
         titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
 
+#if os(iOS)
     private func addPlayerBrightnessObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -669,6 +670,7 @@ class VideoPlayerViewController: PlayerViewController {
             object: nil
         )
     }
+#endif
 
     // MARK: - Private helpers
 

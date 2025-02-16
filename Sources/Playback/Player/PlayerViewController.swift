@@ -419,6 +419,7 @@ class PlayerViewController: UIViewController {
 
         view.transform = .identity
 
+#if os(iOS)
         //update the system brightness value before player appears
         self.systemBrightness = UIScreen.main.brightness
 
@@ -427,8 +428,10 @@ class PlayerViewController: UIViewController {
         if !playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
             brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         }
+#endif
     }
 
+#if os(iOS)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -441,6 +444,7 @@ class PlayerViewController: UIViewController {
 
         addPlayerBrightnessObservers()
     }
+#endif
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -449,6 +453,7 @@ class PlayerViewController: UIViewController {
         mediaScrubProgressBar.adjustABRepeatMarks(aMark: aMark, bMark: bMark)
     }
 
+#if os(iOS)
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -465,6 +470,7 @@ class PlayerViewController: UIViewController {
         // when the player is not shown to save the persisted values
         removePlayerBrightnessObservers()
     }
+#endif
 
     // MARK: - Public methods
 
@@ -769,6 +775,7 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Observers
 
+#if os(iOS)
     private func addPlayerBrightnessObservers() {
         notificationCenter.addObserver(self,
                                        selector: #selector(systemBrightnessChanged),
@@ -839,6 +846,7 @@ class PlayerViewController: UIViewController {
         self.systemBrightness = UIScreen.main.brightness
         animateBrightness(to: systemBrightness!)
     }
+#endif
 
     // MARK: - Gesture handlers
 
