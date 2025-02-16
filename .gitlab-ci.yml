@@ -38,17 +38,6 @@ lint:
 
 ### iOS Builds
 
-# iOS 9.0:
-# extends:
-#     - .job-base
-#     - .build-base
-# tags:
-#     - macos
-# stage: build
-# variables:
-#     BUILD_SCHEME: "VLC-iOS"
-#     BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 5,OS=9.0"
-
 iOS 12.x:
     extends:
         - .job-base
@@ -69,17 +58,6 @@ iOS 15.x:
 
 ### tvOS Builds
 
-# tvOS 11.0:
-# extends:
-#     - .job-base
-#     - .build-base
-# tags:
-#     - macos
-# stage: build
-# variables:
-#     BUILD_SCHEME: "VLC-tvOS"
-#     BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=11.0"
-
 tvOS 15.x:
     extends:
         - .job-base
@@ -90,3 +68,16 @@ tvOS 15.x:
     variables:
         BUILD_SCHEME: "VLC-tvOS"
         BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=15.4"
+
+### visionOS Builds
+
+visionOS 1.x:
+    extends:
+        - .job-base
+        - .build-base
+    tags:
+        - macos-xcode15
+    stage: build
+    variables:
+        BUILD_SCHEME: "VLC-visionOS"
+        BUILD_DESTINATION: "platform=xrOS Simulator,name=Apple Vision Pro,OS=1.2"
