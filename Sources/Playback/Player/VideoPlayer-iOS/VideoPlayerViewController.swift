@@ -561,40 +561,41 @@ class VideoPlayerViewController: PlayerViewController {
         // - custom actions
 
         let playPause = UIAccessibilityCustomAction
-            .create(name: "Play/Pause",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_PLAY_PAUSE", comment: ""),
                     image: .with(systemName: "playpause"),
                     target: self,
                     selector: #selector(handleAccessibilityPlayPause))
 
         let close = UIAccessibilityCustomAction
-            .create(name: "Close",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_CLOSE", comment: ""),
                     image: .with(systemName: "xmark"),
                     target: self,
                     selector: #selector(handleAccessibilityClose))
 
         let forward = UIAccessibilityCustomAction
-            .create(name: "Skip Forward",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_SKIP_FORWARD", comment: ""),
                     image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
-            .create(name: "Skip Backward",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_SKIP_BACKWARD", comment: ""),
                     image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 
         let next = UIAccessibilityCustomAction
-            .create(name: "Next Media",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_NEXT_MEDIA", comment: ""),
                     image: .with(systemName: "forward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityNext))
 
         let prev = UIAccessibilityCustomAction
-            .create(name: "Previous Media",
+            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_PREVIOUS_MEDIA", comment: ""),
                     image: .with(systemName: "backward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityPrev))
+
 
         accessibilityCustomActions = [playPause, close, forward, backward, next, prev]
     }

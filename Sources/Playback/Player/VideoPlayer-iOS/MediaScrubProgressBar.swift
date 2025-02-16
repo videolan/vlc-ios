@@ -117,23 +117,23 @@ class MediaScrubProgressBar: UIStackView {
 
     private func initAccessibility() {
         isAccessibilityElement = true
-        accessibilityLabel = "playback position" // TODO: localize this
+        accessibilityLabel = NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_TITLE", comment: "")
         accessibilityTraits = .updatesFrequently
 
         let forward = UIAccessibilityCustomAction
-            .create(name: "Skip Forward",
+            .create(name: NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_SKIP_FORWARD", comment: ""),
                     image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
-            .create(name: "Skip Backward",
+            .create(name: NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_SKIP_BACKWARD", comment: ""),
                     image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 
         let timeDisplay = UIAccessibilityCustomAction
-            .create(name: "Time Display",
+            .create(name: NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_TIME_DISPLAY", comment: ""),
                     image: nil,
                     target: self,
                     selector: #selector(handleAccessibilityTimeDisplay))

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * NSObject+Accessibility.swift
+ * UIView+Accessibility.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2025 VideoLAN. All rights reserved.
@@ -10,8 +10,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-extension NSObject {
-    /// 
+extension UIView {
+    /// Sets `accessibilityElements` using the elements provided, by filtering
+    /// non-nil elements.
     public func applyAccessibilityControls(_ elements: UIView?...) {
         self.accessibilityElements = elements
             .compactMap { $0 }
