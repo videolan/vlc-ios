@@ -416,7 +416,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
     VLCMLMedia * lastMedia = [VLCMLMedia mediaForPlayingMedia: _mediaPlayer.media]; //last played VLCMLMeida before playback stops
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackWillStop object: nil userInfo: @{VLCLastPlaylistPlayedMedia: lastMedia}];
 #endif

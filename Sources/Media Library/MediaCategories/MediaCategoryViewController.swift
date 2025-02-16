@@ -505,12 +505,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        showGuideOnLaunch()
-        updateCollectionViewForAlbum()
-    }
-    
-
     private func addInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
 
@@ -537,8 +531,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             addPlaybackWillStopObserver()
         }
 
-        notificationCenter.addObserver(self, selector: #selector(playbackDidStart), 
-                                              name: Notification.Name(VLCPlaybackServicePlaybackDidStart), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(playbackDidStart),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStart), object: nil)
     }
 
     private func removeInitializationCommonObservers() {
@@ -561,7 +555,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func removeThemeChangeObserver() {
-        NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
 
         if PlaybackService.sharedInstance().isPlaying && isPlaylistCurrentlyPlaying {
             removePlaybackWillStopObserver()
@@ -1832,7 +1828,7 @@ extension MediaCategoryViewController {
         }
         playbackController.playMedia(at: index, fromCollection: tracks)
     }
- 
+
     func saveCurrentPlaylistInfo(with playlistId: Int64?, playlistTitle: String?, media: VLCMLMedia?) {
         guard let media = media, let playlistId = playlistId, let playlistTitle = playlistTitle else {
             return
@@ -1869,8 +1865,8 @@ extension MediaCategoryViewController {
 
     private func removePlaybackWillStopObserver() {
         NotificationCenter.default.removeObserver(self,
-            name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackWillStop),
-            object: nil
+                                                  name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackWillStop),
+                                                  object: nil
         )
     }
 

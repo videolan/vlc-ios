@@ -136,8 +136,8 @@ extension PlaylistModel: MediaLibraryObserver {
 
         playlistsIds.forEach() {
             guard let safePlaylist = medialibrary.medialib.playlist(withIdentifier: $0.int64Value)
-                else {
-                    return
+            else {
+                return
             }
             playlists.append(safePlaylist)
         }

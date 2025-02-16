@@ -8,7 +8,7 @@
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *
  * Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ *****************************************************************************/
 
 import Foundation
 import UIKit
@@ -52,7 +52,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     override var isSelected: Bool {
         didSet {
             checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
-                : UIImage(named: "checkboxEmpty")
+            : UIImage(named: "checkboxEmpty")
         }
     }
 

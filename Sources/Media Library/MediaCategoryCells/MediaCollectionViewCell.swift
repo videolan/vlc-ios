@@ -101,7 +101,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     override var isSelected: Bool {
         didSet {
             checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
-                : UIImage(named: "checkboxEmpty")
+            : UIImage(named: "checkboxEmpty")
         }
     }
 
@@ -372,7 +372,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = artist.accessibilityText()
         let numberOfAlbums = artist.albumsCount()
         sizeDescriptionLabel.text = numberOfAlbums == 0 ? artist.numberOfTracksString() :
-                                    String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
+        String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
         thumbnailView.image = artist.thumbnail()
         scrollView.isScrollEnabled = false
         updateSizeDescriptionLabelConstraint()
@@ -386,7 +386,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = !movie.isNew
 
         if movie.isNew {
-           setMediaNew()
+            setMediaNew()
         }
 
         if lastPlayed {
