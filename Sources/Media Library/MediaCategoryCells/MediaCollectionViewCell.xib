@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -46,22 +45,22 @@
                                                 <rect key="frame" x="69" y="12" width="378" height="56"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="402" height="26"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="24"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIy-sV-YQZ" userLabel="DetailContainer">
-                                                        <rect key="frame" x="0.0" y="26" width="402" height="33"/>
+                                                        <rect key="frame" x="0.0" y="24" width="378" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
-                                                                <rect key="frame" x="378.5" y="0.0" width="23.5" height="33"/>
+                                                                <rect key="frame" x="354.5" y="0.0" width="23.5" height="35"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="373.5" height="33"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="349.5" height="35"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -189,14 +188,6 @@
             <point key="canvasLocation" x="108.8" y="-53.973013493253376"/>
         </collectionViewCell>
     </objects>
-    <designables>
-        <designable name="WKd-DQ-8Uh">
-            <size key="intrinsicContentSize" width="37.5" height="20"/>
-        </designable>
-        <designable name="Zkn-vN-SN4">
-            <size key="intrinsicContentSize" width="48" height="26"/>
-        </designable>
-    </designables>
     <resources>
         <image name="checkboxEmpty" width="24" height="24"/>
         <image name="list" width="24" height="24"/>

@@ -199,7 +199,7 @@ class QueueViewController: UIViewController {
             } else {
                 safeArea = parent.view.safeAreaLayoutGuide
             }
-            
+
             leadingAnchor = safeArea.leadingAnchor
             trailingAnchor = safeArea.trailingAnchor
 
@@ -288,14 +288,14 @@ class QueueViewController: UIViewController {
 
     @IBAction func didDrag(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
-            case .began:
-                dragDidBegin(sender)
-            case .changed:
-                dragStateDidChange(sender)
-            case .ended:
-                dragDidEnd(sender)
-            default:
-                break
+        case .began:
+            dragDidBegin(sender)
+        case .changed:
+            dragStateDidChange(sender)
+        case .ended:
+            dragDidEnd(sender)
+        default:
+            break
         }
     }
 
@@ -469,8 +469,8 @@ private extension QueueViewController {
         switch gesture.state {
         case .began:
             guard let selectedIndexPath = queueCollectionView.indexPathForItem(at:
-                gesture.location(in: queueCollectionView)) else {
-                    break
+                                                                                gesture.location(in: queueCollectionView)) else {
+                break
             }
             queueCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
             grabbedCellIndex = selectedIndexPath
@@ -655,7 +655,7 @@ extension QueueViewController: UICollectionViewDataSource {
                         moveItemAt sourceIndexPath: IndexPath,
                         to destinationIndexPath: IndexPath) {
         guard sourceIndexPath.row <= mediaList.count
-            && destinationIndexPath.row <= mediaList.count else {
+                && destinationIndexPath.row <= mediaList.count else {
             assertionFailure("QueueViewController: moveItemAt: IndexPath out of range.")
             return
         }
@@ -673,9 +673,9 @@ extension QueueViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell =
-            collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier,
-                                               for: indexPath) as? MediaCollectionViewCell else {
-                                                return UICollectionViewCell()
+                collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier,
+                                                   for: indexPath) as? MediaCollectionViewCell else {
+            return UICollectionViewCell()
         }
 
         guard indexPath.row <= mediaList.count else {
