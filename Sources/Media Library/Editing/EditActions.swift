@@ -1,12 +1,12 @@
 /*****************************************************************************
-* EditActions.swift
-*
-* Copyright © 2019-2023 VLC authors and VideoLAN
-*
-* Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
-*
-* Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ * EditActions.swift
+ *
+ * Copyright © 2019-2023 VLC authors and VideoLAN
+ *
+ * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 enum completionState {
     case inProgress
@@ -534,7 +534,7 @@ extension EditActions: AddToCollectionViewControllerDelegate {
     }
 
     func addToCollectionViewControllerMoveCollections(_
-        addToCollectionViewController: AddToCollectionViewController) {
+                                                      addToCollectionViewController: AddToCollectionViewController) {
         guard let mediaGroups = objects as? [VLCMLMediaGroup] else {
             assertionFailure("EditActions: Cannot move out if not VLCMLMediaGroups.")
             completion?(.fail)

@@ -251,7 +251,7 @@ extension AddToCollectionViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension AddToCollectionViewController: UICollectionViewDataSource {
-    
+
     func reloadData() {
         self.collectionView.reloadData()
     }
