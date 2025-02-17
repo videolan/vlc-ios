@@ -548,6 +548,7 @@ class VideoPlayerViewController: PlayerViewController {
             )
 
         } else {
+#if os(iOS)
             view.applyAccessibilityControls(
                 videoPlayerControls,
                 mediaScrubProgressBar,
@@ -555,6 +556,13 @@ class VideoPlayerViewController: PlayerViewController {
                 brightnessControlView,
                 mediaNavigationBar
             )
+#else
+            view.applyAccessibilityControls(
+                videoPlayerControls,
+                mediaScrubProgressBar,
+                mediaNavigationBar
+            )
+#endif
 
         }
 

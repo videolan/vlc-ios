@@ -108,10 +108,10 @@
 		44D57DD82D360438009D80AA /* UIAccessibilityCustomAction+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */; };
 		44D57DDA2D36050E009D80AA /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
 		44D57DDB2D36050E009D80AA /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
-		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
 		44E18A532D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E18A542D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
-		4B079F7D58CA85ECBFEE7115 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
+		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
 		597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		6C5B0C9E27A43098005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5B0C9C27A43098005AE25B /* PlaybackServiceAdjustFilter.swift */; };
 		6C5B0C9F27A46258005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5B0C9C27A43098005AE25B /* PlaybackServiceAdjustFilter.swift */; };
@@ -2607,9 +2607,6 @@
 				44D57DD92D360503009D80AA /* UIImage+Util.swift */,
 				0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */,
 				55B880DE2CE02A8B009C181A /* UIScreen+Brightness.swift */,
-				44E18A522D2B806300CB415D /* NSObject+Accessibility.swift */,
-				44D57DCE2D2D940F009D80AA /* UIAccessibilityCustomAction+Util.swift */,
-				44D57DD12D2D9653009D80AA /* UIImage+Util.swift */,
 				44E18A522D2B806300CB415D /* UIView+Accessibility.swift */,
 			);
 			path = UIKit;
@@ -4371,6 +4368,7 @@
 				7D50C6422BBD20DF00B9F1A0 /* VLCFirstStepsiTunesSyncViewController.m in Sources */,
 				7D50C6432BBD20DF00B9F1A0 /* EditActions.swift in Sources */,
 				7D50C6442BBD20DF00B9F1A0 /* VLCOpenInActivity.m in Sources */,
+				44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */,
 				7D50C6452BBD20DF00B9F1A0 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
 				7D93B7612D60EF5000F952DE /* CustomEqualizerProfiles.swift in Sources */,
 				7D50C6462BBD20DF00B9F1A0 /* VLCNetworkServerBrowserPlex.m in Sources */,
