@@ -123,7 +123,6 @@
 		44E18A542D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
-		4B079F7D58CA85ECBFEE7115 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D7CA6C946BEC69172FE01C /* libPods-VLC-iOS.a */; };
 		55E4CD822C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */; };
 		597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		5D2FF65C2C9E21EBF46A7998 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DF5C43BEEACDF6DB606E06 /* libPods-VLC-iOS.a */; };
@@ -1177,6 +1176,7 @@
 		D9B421732B14AB1C000F7318 /* ABRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B421722B14AB1C000F7318 /* ABRepeatView.swift */; };
 		D9D6907D2D083B62008C6C40 /* CustomEqualizerProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6907C2D083B5D008C6C40 /* CustomEqualizerProfiles.swift */; };
 		D9D6E989291BDF2200ADBC74 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */; };
+		D9E0B7EC2D63990100235CBA /* CurrentlyPlayingCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */; };
 		D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F0D6792937624900A97964 /* PlayerViewController.swift */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
 		DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
@@ -5299,6 +5299,7 @@
 				7D50C61D2BBD20DF00B9F1A0 /* UISegmentedControl+CustomLabels.swift in Sources */,
 				7D50C61E2BBD20DF00B9F1A0 /* RemoteNetworkDataSource.swift in Sources */,
 				7D50C61F2BBD20DF00B9F1A0 /* VLCAppDelegate.m in Sources */,
+				D9E0B7EC2D63990100235CBA /* CurrentlyPlayingCollectionModel.swift in Sources */,
 				7D50C6202BBD20DF00B9F1A0 /* SettingsController.swift in Sources */,
 				7D50C6212BBD20DF00B9F1A0 /* VLCNetworkImageView.m in Sources */,
 				7D50C6222BBD20DF00B9F1A0 /* EqualizerView.swift in Sources */,
