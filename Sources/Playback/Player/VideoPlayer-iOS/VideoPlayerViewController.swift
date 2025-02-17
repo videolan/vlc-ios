@@ -561,37 +561,37 @@ class VideoPlayerViewController: PlayerViewController {
         // - custom actions
 
         let playPause = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_PLAY_PAUSE", comment: ""),
+            .create(name: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: ""),
                     image: .with(systemName: "playpause"),
                     target: self,
                     selector: #selector(handleAccessibilityPlayPause))
 
         let close = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_CLOSE", comment: ""),
+            .create(name: NSLocalizedString("STOP_BUTTON", comment: ""),
                     image: .with(systemName: "xmark"),
                     target: self,
                     selector: #selector(handleAccessibilityClose))
 
         let forward = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_SKIP_FORWARD", comment: ""),
+            .create(name: NSLocalizedString("FWD_BUTTON", comment: ""),
                     image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_SKIP_BACKWARD", comment: ""),
+            .create(name: NSLocalizedString("BWD_BUTTON", comment: ""),
                     image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 
         let next = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_NEXT_MEDIA", comment: ""),
+            .create(name: NSLocalizedString("NEXT_HINT", comment: ""),
                     image: .with(systemName: "forward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityNext))
 
         let prev = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VIDEO_PLAYER_ACCESSIBILITY_PREVIOUS_MEDIA", comment: ""),
+            .create(name: NSLocalizedString("PREVIOUS_HINT", comment: ""),
                     image: .with(systemName: "backward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityPrev))

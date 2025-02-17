@@ -117,17 +117,17 @@ class MediaScrubProgressBar: UIStackView {
 
     private func initAccessibility() {
         isAccessibilityElement = true
-        accessibilityLabel = NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_TITLE", comment: "")
+        accessibilityLabel = NSLocalizedString("PLAYBACK_POSITION", comment: "")
         accessibilityTraits = .updatesFrequently
 
         let forward = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_SKIP_FORWARD", comment: ""),
+            .create(name: NSLocalizedString("FWD_BUTTON", comment: ""),
                     image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("PLAYBACK_SCRUB_ACCESSIBILITY_SKIP_BACKWARD", comment: ""),
+            .create(name: NSLocalizedString("BWD_BUTTON", comment: ""),
                     image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
@@ -341,10 +341,14 @@ private extension MediaScrubProgressBar {
     private func updateAccessibilityValue() {
         switch RemainingTimeMode.current {
         case .total:
-            accessibilityValue = String(format: "%@ elapsed, total duration %@", playbackService.playedTime().verboseStringValue, playbackService.mediaLength.verboseStringValue)
+            accessibilityValue = String(format: NSLocalizedString("PLAYBACK_SCRUB_TOTAL_TIME_FORMAT", comment: "1: elapsed time, 2: total time"),
+                                        playbackService.playedTime().verboseStringValue,
+                                        playbackService.mediaLength.verboseStringValue)
 
         case .remaining:
-            accessibilityValue = String(format: "%@ elapsed, %@", playbackService.playedTime().verboseStringValue, playbackService.remainingTime().verboseStringValue)
+            accessibilityValue = String(format: NSLocalizedString("PLAYBACK_SCRUB_REMAINING_TIME_FORMAT", comment: "1: elapsed time, 2: remaining time"),
+                                        playbackService.playedTime().verboseStringValue,
+                                        playbackService.remainingTime().verboseStringValue)
 
         }
     }
