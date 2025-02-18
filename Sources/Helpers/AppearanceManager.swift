@@ -59,9 +59,13 @@ class AppearanceManager: NSObject {
                            initialSpringVelocity: 0,
                            options: .curveEaseIn,
                            animations: {
+#if os(iOS)
+                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+#else
                 if let window = UIApplication.shared.delegate?.window {
                     window?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
                 }
+#endif
             })
         }
     }
