@@ -7,10 +7,15 @@
 · Add HDR playback
 · Add multi-channel and spatial audio
 · Add Picture-in-Picture playback
+· Add support for visionOS
 · Add App-Intent to play media (iOS 16.4 and later)
 · Audio player: Add seek backward/forward buttons
 · Add play count metadata to media long press UI
+· Add supports for passcodes with four and six digits
 · Cloud services: allow downloads of entire folders and to favorite them
+· Major accessbility improvements for the playback interface
+· Last played item in a playlist is now indicate
+· Improve brightness restoration and handling
 · Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
