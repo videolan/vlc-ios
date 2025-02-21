@@ -1578,7 +1578,7 @@ extension PlayerViewController {
                 let input = "\(number)"
                 let selector = Selector("keyNumber\(number)")
                 let command = UIKeyCommand(input: input, modifierFlags: [], action: selector)
-                command.discoverabilityTitle = NSLocalizedString("KEY_SEEK_TO_\(number * 10)_PERCENT", comment: "")
+                command.discoverabilityTitle = String(format:NSLocalizedString("KEY_SEEK_TO_PERCENT", comment: ""), number * 10)
                 return command
             }
 
