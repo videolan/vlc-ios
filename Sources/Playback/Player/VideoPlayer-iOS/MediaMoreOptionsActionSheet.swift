@@ -498,7 +498,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
             let cellModel = ActionSheetCellModel(
                 title: String(describing: $0),
-                imageIdentifier: $0.rawValue == "bookmarks" ? "chapters" : $0.rawValue,
+                imageIdentifier: $0.rawValue,
                 viewToPresent: selectViewToPresent(for: $0),
                 cellIdentifier: $0
             )
