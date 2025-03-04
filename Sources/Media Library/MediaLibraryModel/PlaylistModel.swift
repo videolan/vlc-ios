@@ -216,7 +216,7 @@ extension VLCMLPlaylist: MediaCollectionModel {
 
     func files(with criteria: VLCMLSortingCriteria = .alpha,
                desc: Bool = false) -> [VLCMLMedia]? {
-        return media
+        return media(with: criteria, desc: desc)
     }
 
     func title() -> String {
