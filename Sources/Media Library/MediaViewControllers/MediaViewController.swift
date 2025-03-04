@@ -452,8 +452,12 @@ extension MediaViewController {
         for (index, criterion) in sortModel.sortingCriteria.enumerated() {
             let currentSort: Bool = index == currentSortIndex
             let chevronImageName: String = sortModel.desc ? "chevron.down" : "chevron.up"
-            let actionImage: UIImage? = currentSort ?
-            UIImage(systemName: chevronImageName) : nil
+            var actionImage: UIImage? = currentSort ? UIImage(systemName: chevronImageName) : nil
+
+            // There is no need to display the desc image since it has no impact
+            if criterion == VLCMLSortingCriteria.default {
+                actionImage = nil
+            }
 
             let action = UIAction(title: String(describing: criterion),
                                   image: actionImage,
