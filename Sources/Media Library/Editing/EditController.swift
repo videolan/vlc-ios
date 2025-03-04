@@ -393,7 +393,9 @@ extension EditController: UICollectionViewDataSource {
             if let cell = cell as? MediaCollectionViewCell {
                 cell.showCheckmark(true)
                 cell.disableScrollView()
-                if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
+                if let collectionModel = model as? CollectionModel,
+                   collectionModel.mediaCollection is VLCMLPlaylist,
+                   collectionModel.sortModel.currentSort == .default {
                     cell.dragIndicatorImageView.isHidden = false
                 } else if cell.media is VLCMLMediaGroup || cell.media is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = true
@@ -427,9 +429,12 @@ extension EditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
+        if let collectionModel = model as? CollectionModel,
+           collectionModel.mediaCollection is VLCMLPlaylist,
+           collectionModel.sortModel.currentSort == .default {
             return true
         }
+
         return false
     }
 
