@@ -513,11 +513,6 @@ extension MediaViewController {
 
         var rightMenuItems: [UIMenuElement] = [selectAction]
 
-        if let model = mediaCategoryViewController.model as? CollectionModel,
-           model.mediaCollection is VLCMLPlaylist {
-            return UIMenu(options: .displayInline, children: rightMenuItems)
-        }
-
         if let parentViewController = viewController?.parent,
            parentViewController is VideoViewController || parentViewController is AudioViewController {
             let historyMenu = generateHistoryMenu()
@@ -526,6 +521,12 @@ extension MediaViewController {
 
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
         let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
+
+        if let model = mediaCategoryViewController.model as? CollectionModel,
+           model.mediaCollection is VLCMLPlaylist {
+            rightMenuItems.append(sortSubMenu)
+            return UIMenu(options: .displayInline, children: rightMenuItems)
+        }
 
         rightMenuItems.append(layoutSubMenu)
         rightMenuItems.append(sortSubMenu)
