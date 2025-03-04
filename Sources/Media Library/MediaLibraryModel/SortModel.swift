@@ -71,7 +71,7 @@ extension VLCMLSortingCriteria: CustomStringConvertible {
         case .trackID:
             return NSLocalizedString("TRACK_ID", comment: "")
         case .default:
-            return NSLocalizedString("DEFAULT", comment: "")
+            return NSLocalizedString("CUSTOM", comment: "")
         @unknown default:
             return NSLocalizedString("DEFAULT", comment: "")
         }

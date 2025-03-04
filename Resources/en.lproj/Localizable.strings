@@ -432,6 +432,7 @@
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
 "TRACK_ID" = "Track ID";
+"CUSTOM" = "Custom";
 
 // MARK: - VLCNetworkLoginTVViewController
 
