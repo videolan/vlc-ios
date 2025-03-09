@@ -26,13 +26,9 @@ protocol PlayerControllerDelegate: AnyObject {
 class PlayerController: NSObject {
     weak var delegate: PlayerControllerDelegate?
 
-    private var playbackService: PlaybackService = PlaybackService.sharedInstance()
-
     // MARK: - States
 
     var isControlsHidden: Bool = false
-
-    var lockedOrientation: UIInterfaceOrientation = .unknown
 
     var isInterfaceLocked: Bool = false
 

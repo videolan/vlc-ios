@@ -60,8 +60,13 @@ class AudioPlayerViewController: PlayerViewController {
     // MARK: - Init
 
 #if os(iOS)
-    @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
-        super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
+    @objc init(mediaLibraryService: MediaLibraryService,
+               rendererDiscovererManager: VLCRendererDiscovererManager,
+               playerController: PlayerController) {
+        super.init(mediaLibraryService: mediaLibraryService,
+                   rendererDiscovererManager: rendererDiscovererManager,
+                   playerController: playerController,
+                   isBrightnessControlEnabled: false)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
 
         self.playerController.delegate = self
@@ -111,7 +116,6 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setupBackgroundColor()
         audioPlayerView.setupPlaybackSpeed()
         mediaScrubProgressBar.updateInterfacePosition()
-        setupGestures()
         playModeUpdated()
 
         if playbackService.isPlayingOnExternalScreen() {

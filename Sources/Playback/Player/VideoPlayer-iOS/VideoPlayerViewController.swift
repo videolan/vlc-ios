@@ -311,8 +311,13 @@ class VideoPlayerViewController: PlayerViewController {
     // MARK: - Init methods
 
 #if os(iOS)
-    @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
-        super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
+    @objc init(mediaLibraryService: MediaLibraryService,
+               rendererDiscovererManager: VLCRendererDiscovererManager,
+               playerController: PlayerController) {
+        super.init(mediaLibraryService: mediaLibraryService,
+                   rendererDiscovererManager: rendererDiscovererManager,
+                   playerController: playerController,
+                   isBrightnessControlEnabled: true)
 
         self.playerController.delegate = self
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
@@ -341,7 +346,6 @@ class VideoPlayerViewController: PlayerViewController {
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
         mediaScrubProgressBar.updateInterfacePosition()
 
@@ -391,16 +395,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-#if os(iOS)
-        let defaults = UserDefaults.standard
-        if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
-            if let brightness = defaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
-                animateBrightness(to: brightness)
-                self.brightnessControl.value = Float(brightness)
-            }
-        }
-#endif
 
         playbackService.recoverDisplayedMetadata()
 
@@ -467,7 +461,6 @@ class VideoPlayerViewController: PlayerViewController {
         setupObservers()
         setupViews()
         setupAccessibility()
-        setupGestures()
         setupConstraints()
 #if os(iOS)
         setupRendererDiscoverer()

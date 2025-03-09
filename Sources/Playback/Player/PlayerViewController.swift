@@ -279,6 +279,8 @@ class PlayerViewController: UIViewController {
 
     var addBookmarksView: AddBookmarksView? = nil
 
+    private let isBrightnessControlEnabled: Bool
+
     private var isGestureActive: Bool = false
 
     private var currentPanType: PlayerPanType = .none
@@ -365,20 +367,29 @@ class PlayerViewController: UIViewController {
     // MARK: - Init
 
 #if os(iOS)
-    @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
+    init(mediaLibraryService: MediaLibraryService,
+         rendererDiscovererManager: VLCRendererDiscovererManager,
+         playerController: PlayerController,
+         isBrightnessControlEnabled: Bool) {
         self.mediaLibraryService = mediaLibraryService
         self.rendererDiscovererManager = rendererDiscovererManager
         self.playerController = playerController
+        self.isBrightnessControlEnabled = isBrightnessControlEnabled
+
         super.init(nibName: nil, bundle: nil)
+
         mediaNavigationBar.chromeCastButton = rendererButton
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
         systemBrightness = UIScreen.main.brightness
     }
 #else
-    @objc init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
+    init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         self.mediaLibraryService = mediaLibraryService
         self.playerController = playerController
+        self.isBrightnessControlEnabled = false
+
         super.init(nibName: nil, bundle: nil)
+
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 #endif
@@ -388,11 +399,16 @@ class PlayerViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         setupObservers()
+        setupGestures()
         hideSystemVolumeInfo()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
 #if os(iOS)
         setupRendererDiscovererManager()
 #endif
@@ -422,7 +438,7 @@ class PlayerViewController: UIViewController {
 
         //update the value of brightness control view
         //In case of remember brightness option is disabled, this will update the brightness bar with current brightness.
-        if !playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+        if !playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
             brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         }
 #endif
@@ -432,7 +448,7 @@ class PlayerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+        if playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
             if let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
                 animateBrightness(to: brightness)
                 self.brightnessControl.value = Float(brightness)
@@ -454,7 +470,7 @@ class PlayerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if playerController.isRememberBrightnessEnabled && self is VideoPlayerViewController {
+        if playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
             let currentBrightness = UIScreen.main.brightness
             self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
             userDefaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
@@ -485,7 +501,7 @@ class PlayerViewController: UIViewController {
     }
 
     func setControlsHidden(_ hidden: Bool, animated: Bool) {
-        // HIDE THE CONTROLS IF NEEDED
+        // Empty implementation. Should override in subclasses.
     }
 
     func setupGestures() {
@@ -653,7 +669,7 @@ class PlayerViewController: UIViewController {
             resetABRepeatMarks(true)
             break
         default:
-            assertionFailure("VideoPlayerViewController: Unvalid button.")
+            assertionFailure("PlayerViewController: Invalid button.")
         }
     }
 
