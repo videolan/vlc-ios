@@ -23,10 +23,6 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
-    #if os(iOS)
-    func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
-    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
-    #endif
 }
 
 class AudioPlayerView: UIView, UIGestureRecognizerDelegate {

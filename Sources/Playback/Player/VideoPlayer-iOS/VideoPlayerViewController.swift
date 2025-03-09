@@ -26,8 +26,6 @@ protocol VideoPlayerViewControllerDelegate: AnyObject {
 class VideoPlayerViewController: PlayerViewController {
     @objc weak var delegate: VideoPlayerViewControllerDelegate?
 
-    var playAsAudio: Bool = false
-
     // MARK: - Constants
 
     private let ZOOM_SENSITIVITY: CGFloat = 5
@@ -145,8 +143,6 @@ class VideoPlayerViewController: PlayerViewController {
         return aspectRatioActionSheet
     }()
 
-    let notificationCenter = NotificationCenter.default
-
     private(set) lazy var titleSelectionView: TitleSelectionView = {
 #if os(iOS)
         let isLandscape = UIDevice.current.orientation.isLandscape
@@ -159,8 +155,6 @@ class VideoPlayerViewController: PlayerViewController {
         titleSelectionView.isHidden = true
         return titleSelectionView
     }()
-
-    private var projectionLocation: CGPoint = .zero
 
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
         let view = LongPressPlaybackSpeedView()
@@ -278,8 +272,6 @@ class VideoPlayerViewController: PlayerViewController {
     }()
 
     private var isGestureActive: Bool = false
-
-    private var minimizationInitialCenter: CGPoint?
 
     // MARK: - Popup Views
 
@@ -467,22 +459,6 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deviceMotion.stopDeviceMotion()
-#if os(iOS)
-        let defaults = UserDefaults.standard
-        if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
-            let currentBrightness = UIScreen.main.brightness
-            self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
-            defaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
-        }
-
-        //set the value of system brightness after closing the app x
-        //even if the Player Should Remember Brightness option is disabled
-        animateBrightness(to: systemBrightness!, duration: 0.35)
-
-        // remove the observer when the view disappears to avoid breaking the brightness view value
-        // when the video player is not shown to save the persisted values
-        removePlayerBrightnessObservers()
-#endif
     }
 
     override func viewDidLoad() {
@@ -715,51 +691,6 @@ class VideoPlayerViewController: PlayerViewController {
         titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
         titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
-
-#if os(iOS)
-    private func addPlayerBrightnessObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(systemBrightnessChanged),
-            name: UIApplication.didBecomeActiveNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(playerWillResignActive),
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(playerWillEnterForeground),
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil
-        )
-    }
-
-    private func removePlayerBrightnessObservers() {
-        NotificationCenter.default.removeObserver(
-            self,
-            name: UIApplication.didBecomeActiveNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.removeObserver(
-            self,
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.removeObserver(
-            self,
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil
-        )
-    }
-#endif
 
     // MARK: - Private helpers
 
@@ -1065,31 +996,6 @@ class VideoPlayerViewController: PlayerViewController {
         executeSeekFromGesture(.tap)
     }
 
-    private func applyYaw(yaw: CGFloat, pitch: CGFloat) {
-        //Add and limit new pitch and yaw
-        deviceMotion.yaw += yaw
-        deviceMotion.pitch += pitch
-
-        playbackService.updateViewpoint(deviceMotion.yaw,
-                                        pitch: deviceMotion.pitch,
-                                        roll: 0,
-                                        fov: fov, absolute: true)
-    }
-
-    private func updateProjection(with recognizer: UIPanGestureRecognizer) {
-        let newLocationInView: CGPoint = recognizer.location(in: view)
-
-        let diffX = newLocationInView.x - projectionLocation.x
-        let diffY = newLocationInView.y - projectionLocation.y
-        projectionLocation = newLocationInView
-
-        // ScreenSizePixel width is used twice to get a constant speed on the movement.
-        let diffYaw = fov * -diffX / screenPixelSize.width
-        let diffPitch = fov * -diffY / screenPixelSize.width
-
-        applyYaw(yaw: diffYaw, pitch: diffPitch)
-    }
-
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
         guard playerController.isSpeedUpGestureEnabled,
               playbackService.isPlaying else {
@@ -1384,29 +1290,6 @@ class VideoPlayerViewController: PlayerViewController {
         displayAndApplySeekDuration(currentSeek)
     }
 
-    private func applyCustomEqualizerProfileIfNeeded() {
-        let userDefaults = UserDefaults.standard
-        guard userDefaults.bool(forKey: kVLCCustomProfileEnabled) else {
-            return
-        }
-
-        let profileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
-        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
-
-        guard let encodedData = encodedData,
-              let customProfiles = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
-              profileIndex < customProfiles.profiles.count else {
-            return
-        }
-
-        let selectedProfile = customProfiles.profiles[profileIndex]
-        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
-
-        for (index, frequency) in selectedProfile.frequencies.enumerated() {
-            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(index))
-        }
-    }
-
     private func hideSystemVolumeInfo() {
 #if os(iOS)
         volumeView.alpha = 0.00001
@@ -1476,6 +1359,18 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
 
         playerController.isInterfaceLocked = !enabled
+    }
+
+    private func showIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = false
+        }, completion: nil)
+    }
+
+    private func hideIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = true
+        }, completion: nil)
     }
 }
 
@@ -1803,83 +1698,6 @@ extension VideoPlayerViewController {
             abRepeatView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             abRepeatView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -20.0),
         ])
-    }
-}
-
-// MARK: - OptionsNavigationBarDelegate
-
-extension VideoPlayerViewController {
-    private func resetVideoFilters() {
-        hideIcon(button: optionsNavigationBar.videoFiltersButton)
-        moreOptionsActionSheet.resetVideoFilters()
-    }
-
-    private func resetPlaybackSpeed() {
-        hideIcon(button: optionsNavigationBar.playbackSpeedButton)
-        moreOptionsActionSheet.resetPlaybackSpeed()
-    }
-
-    private func resetEqualizer() {
-        moreOptionsActionSheet.resetEqualizer()
-        hideIcon(button: optionsNavigationBar.equalizerButton)
-    }
-
-    private func resetSleepTimer() {
-        hideIcon(button: optionsNavigationBar.sleepTimerButton)
-        moreOptionsActionSheet.resetSleepTimer()
-    }
-
-    private func resetABRepeatMarks(_ shouldDisplayView: Bool = false) {
-        hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
-        aMark.removeFromSuperview()
-        aMark.isEnabled = false
-
-        bMark.removeFromSuperview()
-        bMark.isEnabled = false
-
-        guard let abRepeatView = abRepeatView,
-              shouldDisplayView else {
-            return
-        }
-
-        mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
-    }
-
-    private func showIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = false
-        }, completion: nil)
-    }
-
-    private func hideIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = true
-        }, completion: nil)
-    }
-
-    private func handleReset(button: UIButton) {
-        switch button {
-        case optionsNavigationBar.videoFiltersButton:
-            resetVideoFilters()
-            return
-        case optionsNavigationBar.playbackSpeedButton:
-            resetPlaybackSpeed()
-            return
-        case optionsNavigationBar.equalizerButton:
-            resetEqualizer()
-            return
-        case optionsNavigationBar.sleepTimerButton:
-            resetSleepTimer()
-            return
-        case optionsNavigationBar.abRepeatButton:
-            resetABRepeat()
-            return
-        case optionsNavigationBar.abRepeatMarksButton:
-            resetABRepeatMarks(true)
-            return
-        default:
-            assertionFailure("VideoPlayerViewController: Invalid button.")
-        }
     }
 }
 

@@ -61,7 +61,6 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
     private let animationDuration = 0.2
 
-    private var mediaService: MediaLibraryService
     private lazy var playbackService = PlaybackService.sharedInstance()
 
     private var queueViewController: QueueViewController?
@@ -79,8 +78,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
         }
     }
 
-    @objc init(service: MediaLibraryService, draggingDelegate: MiniPlayerDraggingDelegate) {
-        self.mediaService = service
+    @objc init(draggingDelegate: MiniPlayerDraggingDelegate) {
         self.draggingDelegate = draggingDelegate
         super.init(frame: .zero)
         initView()

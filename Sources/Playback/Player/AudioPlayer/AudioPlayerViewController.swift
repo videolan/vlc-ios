@@ -435,15 +435,6 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         }
     }
 
-#if os(iOS)
-    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {
-        return brightnessControlView
-    }
-
-    func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView {
-        return volumeControlView
-    }
-#endif
 }
 
 // MARK: - VLCPlaybackServiceDelegate
@@ -499,10 +490,6 @@ extension AudioPlayerViewController {
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
-        }
-
-        if currentState == .buffering {
-            mediaDuration = playbackService.mediaDuration
         }
 
         if currentState == .opening || currentState == .stopped {

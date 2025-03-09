@@ -449,8 +449,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             UIViewController *rootViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
 
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
-            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:[VLCAppCoordinator sharedInstance].mediaLibraryService
-                                                                                  draggingDelegate:self];
+            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithDraggingDelegate:self];
             if (!_queueViewController) {
                 [self initQueueViewController];
             }

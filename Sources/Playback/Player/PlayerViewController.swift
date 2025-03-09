@@ -90,7 +90,6 @@ class PlayerViewController: UIViewController {
     var seekBackwardBySwipe: Int = 0
     var forwardBackwardEqual: Bool = true
     var tapSwipeEqual: Bool = true
-    var numberOfTapSeek: Int = 0
     var previousSeekState: PlayerSeekState = .default
 
     // MARK: UI Elements
@@ -279,8 +278,6 @@ class PlayerViewController: UIViewController {
 #endif
 
     var addBookmarksView: AddBookmarksView? = nil
-
-    var mediaDuration: Int = 0
 
     private var isGestureActive: Bool = false
 

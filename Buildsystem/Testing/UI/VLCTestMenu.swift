@@ -78,6 +78,5 @@ class VLCTestMenu: XCTestCase {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)
         app.navigationBars.buttons[VLCAccessibilityIdentifier.about].tap()
         XCTAssertNotNil(app.navigationBars.buttons[VLCAccessibilityIdentifier.done])
-        XCTAssertNotNil(app.navigationBars.buttons[VLCAccessibilityIdentifier.contribute])
     }
 }

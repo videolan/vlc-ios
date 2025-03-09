@@ -36,13 +36,7 @@ class PlayerController: NSObject {
 
     var isInterfaceLocked: Bool = false
 
-    var isTapSeeking: Bool = false
-
     // MARK: - UserDefaults computed properties getters
-
-    var displayRemainingTime: Bool {
-        return UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
-    }
 
     var isVolumeGestureEnabled: Bool {
         return UserDefaults.standard.bool(forKey: kVLCSettingVolumeGesture)
@@ -89,10 +83,6 @@ class PlayerController: NSObject {
     @objc override init() {
         super.init()
         setupObservers()
-    }
-
-    func updateUserDefaults() {
-
     }
 
     private func setupObservers() {
