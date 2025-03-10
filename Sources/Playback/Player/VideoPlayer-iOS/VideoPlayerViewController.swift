@@ -329,11 +329,7 @@ class VideoPlayerViewController: PlayerViewController {
     @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, playerController: playerController)
 
-        self.mediaLibraryService = mediaLibraryService
-        self.playerController = playerController
-
         self.playerController.delegate = self
-        systemBrightness = 1.0
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 #endif
@@ -350,8 +346,6 @@ class VideoPlayerViewController: PlayerViewController {
         mediaScrubProgressBar.updateInterfacePosition()
 
         setControlsHidden(false, animated: false)
-
-        setupSeekDurations()
 
         // Make sure interface is enabled on
         setPlayerInterfaceEnabled(true)
@@ -458,7 +452,6 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
-        setupObservers()
         setupViews()
         setupAccessibility()
         setupConstraints()
@@ -469,18 +462,9 @@ class VideoPlayerViewController: PlayerViewController {
 
     // MARK: - Setup methods
 
-    private func setupObservers() {
-        try? AVAudioSession.sharedInstance().setActive(true)
-        AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
-    }
-
     private func setupViews() {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
-        hideSystemVolumeInfo()
         videoPlayerButtons()
         if playerController.isRememberStateEnabled {
             setupVideoControlsState()
@@ -788,30 +772,6 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
-    private func setupSeekDurations() {
-        let defaults = UserDefaults.standard
-
-        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
-        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
-        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
-        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
-        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
-
-        if tapSwipeEqual, forwardBackwardEqual {
-            // if tap = swipe, and backward = forward, then backward swipe = forward tap
-            seekBackwardBySwipe = seekForwardBy
-        } else if tapSwipeEqual, !forwardBackwardEqual {
-            // if tap = swipe, and backward != forward, then backward swipe = backward tap
-            seekBackwardBySwipe = seekBackwardBy
-        } else if !tapSwipeEqual, forwardBackwardEqual {
-            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
-            seekBackwardBySwipe = seekForwardBySwipe
-        } else {
-            // otherwise backward swipe = backward swipe
-            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
-        }
-    }
-
     private func setupForMediaProjection() {
         let mediaHasProjection = playbackService.currentMediaIs360Video
 
@@ -827,6 +787,8 @@ class VideoPlayerViewController: PlayerViewController {
             deviceMotion.startDeviceMotion()
         }
     }
+
+    // MARK: - Accessibility
 
     @objc private func handleAccessibilityPlayPause() -> Bool {
         togglePlayPause()
@@ -880,6 +842,11 @@ class VideoPlayerViewController: PlayerViewController {
         let forwardBoundary: CGFloat = 2 * screenWidth / 3.0
 
         let tapPosition = sender.location(in: view)
+
+        // Limit y position in order to avoid conflicts with the bottom controls
+        guard tapPosition.y <= mediaScrubProgressBar.frame.origin.y else {
+            return
+        }
 
         // Reset number(set to -1/1) of seek when orientation has been changed.
         if tapPosition.x < backwardBoundary {
@@ -954,39 +921,6 @@ class VideoPlayerViewController: PlayerViewController {
             mediaScrubProgressBar.spacing = scrubProgressBarSpacing
             view.layoutSubviews()
         }
-    }
-
-    func jumpBackwards(_ interval: Int = 10) {
-        playbackService.jumpBackward(Int32(interval))
-    }
-
-    func jumpForwards(_ interval: Int = 10) {
-        playbackService.jumpForward(Int32(interval))
-    }
-
-    @objc func handleDoubleTapGesture(recognizer: UITapGestureRecognizer) {
-        let screenWidth: CGFloat = view.frame.size.width
-        let backwardBoundary: CGFloat = screenWidth / 3.0
-        let forwardBoundary: CGFloat = 2 * screenWidth / 3.0
-
-        let tapPosition = recognizer.location(in: view)
-
-        // Limit y position in order to avoid conflicts with the bottom controls
-        if tapPosition.y > mediaScrubProgressBar.frame.origin.y {
-            return
-        }
-
-        // Reset number(set to -1/1) of seek when orientation has been changed.
-        if tapPosition.x < backwardBoundary {
-            numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
-        } else if tapPosition.x > forwardBoundary {
-            numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
-        } else {
-            playbackService.switchAspectRatio(true)
-            return
-        }
-        //_isTapSeeking = YES;
-        executeSeekFromGesture(.tap)
     }
 
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -1267,29 +1201,6 @@ class VideoPlayerViewController: PlayerViewController {
         }
     }
 
-    private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
-
-        let currentSeek: Int
-        if numberOfGestureSeek > 0 {
-            currentSeek = type == .tap ? seekForwardBy : seekForwardBySwipe
-            totalSeekDuration = previousSeekState == .backward ? currentSeek : totalSeekDuration + currentSeek
-            previousSeekState = .forward
-        } else {
-            currentSeek = type == .tap ? seekBackwardBy : seekBackwardBySwipe
-            totalSeekDuration = previousSeekState == .forward ? -currentSeek : totalSeekDuration - currentSeek
-            previousSeekState = .backward
-        }
-
-        displayAndApplySeekDuration(currentSeek)
-    }
-
-    private func hideSystemVolumeInfo() {
-#if os(iOS)
-        volumeView.alpha = 0.00001
-        view.addSubview(volumeView)
-#endif
-    }
-
     private func videoPlayerButtons() {
         let audioMedia: Bool = playbackService.metadata.isAudioOnly
         if audioMedia || playbackService.playAsAudio {
@@ -1352,18 +1263,6 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
 
         playerController.isInterfaceLocked = !enabled
-    }
-
-    private func showIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = false
-        }, completion: nil)
-    }
-
-    private func hideIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = true
-        }, completion: nil)
     }
 }
 
@@ -1451,7 +1350,7 @@ extension VideoPlayerViewController {
         if playbackService.isPlayingOnExternalScreen() {
 #if os(iOS)
             if let renderer = playbackService.renderer {
-                externalVideoOutputView.updateUI(rendererName: playbackService.renderer?.name, title: metadata.title)
+                externalVideoOutputView.updateUI(rendererName: renderer.name, title: metadata.title)
             }
 #else
             externalVideoOutputView.updateUI(rendererName: nil, title: metadata.title)
@@ -1506,14 +1405,6 @@ extension VideoPlayerViewController {
         }
 
         videoPlayerControls.shuffleButton.tintColor = playbackService.isShuffleMode ? orangeColor : .white
-    }
-
-    override func reloadPlayQueue() {
-        guard let queueViewController = queueViewController else {
-            return
-        }
-
-        queueViewController.reload()
     }
 }
 
@@ -1604,6 +1495,8 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController {
     override func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+        super.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
+
 #if os(iOS)
         let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
 

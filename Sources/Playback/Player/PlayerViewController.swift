@@ -19,7 +19,7 @@ enum PlayerSeekState {
     case backward
 }
 
-enum PlayerPanType {
+fileprivate enum PlayerPanType {
     case none
 #if os(iOS)
     case brightness
@@ -28,7 +28,7 @@ enum PlayerPanType {
     case projection
 }
 
-enum PlayerSeekGestureType {
+fileprivate enum PlayerSeekGestureType {
     case tap
     case swipe
 }
@@ -72,12 +72,13 @@ class PlayerViewController: UIViewController {
     }
 
     // MARK: - Properties
-    var mediaLibraryService: MediaLibraryService
+    let mediaLibraryService: MediaLibraryService
 #if os(iOS)
-    var rendererDiscovererManager: VLCRendererDiscovererManager
+    let rendererDiscovererManager: VLCRendererDiscovererManager
 #endif
-    var playerController: PlayerController
-    var playbackService: PlaybackService = PlaybackService.sharedInstance()
+    let playerController: PlayerController
+    let playbackService: PlaybackService = PlaybackService.sharedInstance()
+
     var queueViewController: QueueViewController?
     var alertController: UIAlertController?
 
@@ -244,9 +245,7 @@ class PlayerViewController: UIViewController {
         vc.alpha = 0
         return vc
     }()
-#endif
 
-#if os(iOS)
     lazy var rendererButton: UIButton = {
         let rendererButton = rendererDiscovererManager.setupRendererButton()
         rendererButton.tintColor = .white
@@ -271,9 +270,7 @@ class PlayerViewController: UIViewController {
 
         return rendererButton
     }()
-#endif
 
-#if os(iOS)
     let volumeView = MPVolumeView(frame: .zero)
 #endif
 
@@ -297,10 +294,7 @@ class PlayerViewController: UIViewController {
         return deviceMotion
     }()
 
-    var systemBrightness: Double?
-
-    // MARK: Constants
-    private let ZOOM_SENSITIVITY: CGFloat = 5
+    private var systemBrightness: Double?
 
 #if os(iOS)
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
@@ -387,6 +381,7 @@ class PlayerViewController: UIViewController {
         self.mediaLibraryService = mediaLibraryService
         self.playerController = playerController
         self.isBrightnessControlEnabled = false
+        self.systemBrightness = 1.0
 
         super.init(nibName: nil, bundle: nil)
 
@@ -585,15 +580,27 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    // MARK: - Private methods
+    func showIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = false
+        }, completion: nil)
+    }
 
-    private func jumpBackwards(_ interval: Int = 10) {
+    func hideIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = true
+        }, completion: nil)
+    }
+    
+    func jumpBackwards(_ interval: Int = 10) {
         playbackService.jumpBackward(Int32(interval))
     }
 
-    private func jumpForwards(_ interval: Int = 10) {
+    func jumpForwards(_ interval: Int = 10) {
         playbackService.jumpForward(Int32(interval))
     }
+
+    // MARK: - Private methods
 
     private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
         let currentSeek: Int
@@ -610,22 +617,10 @@ class PlayerViewController: UIViewController {
         displayAndApplySeekDuration(currentSeek)
     }
 
-    private func showIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = false
-        }, completion: nil)
-    }
-
     private func openOptionView(view: ActionSheetCellIdentifier) {
         present(moreOptionsActionSheet, animated: true, completion: {
             self.moreOptionsActionSheet.addView(view)
         })
-    }
-
-    private func hideIcon(button: UIButton) {
-        UIView.animate(withDuration: 0.5, animations: {
-            button.isHidden = true
-        }, completion: nil)
     }
 
     private func resetVideoFilters() {
@@ -1016,14 +1011,7 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
-        if playbackService.currentMediaIs360Video {
-            let zoom: CGFloat = MediaProjection.FOV.default * -(ZOOM_SENSITIVITY * recognizer.velocity / screenPixelSize.width)
-            if playbackService.updateViewpoint(0, pitch: 0,
-                                               roll: 0, fov: zoom, absolute: false) {
-                // Clam FOV between min and max
-                fov = max(min(fov + zoom, MediaProjection.FOV.max), MediaProjection.FOV.min)
-            }
-        }
+        // Empty implementation. Override in subclasses.
     }
 
     @objc func handleSwipeGestures(recognizer: UISwipeGestureRecognizer) {
@@ -1096,8 +1084,6 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
-        // CHECK THE TAP LOCATION
-
         executeSeekFromGesture(.tap)
     }
 
@@ -1120,15 +1106,18 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState, isPlaying: Bool, currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool, for playbackService: PlaybackService) {
-        if currentState == .opening {
+        switch currentState {
+        case .opening:
             applyCustomEqualizerProfileIfNeeded()
-        }
 
-        if currentState == .stopped {
+        case .stopped:
             moreOptionsActionSheet.resetPlaybackSpeed()
             mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
             moreOptionsActionSheet.resetSleepTimer()
             mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
+
+        default:
+            break
         }
     }
 

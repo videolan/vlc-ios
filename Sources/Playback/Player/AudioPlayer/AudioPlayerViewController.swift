@@ -589,6 +589,8 @@ extension AudioPlayerViewController {
 
 extension AudioPlayerViewController {
     override func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+        super.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
+
         setPlayerInterfaceEnabled(!state)
     }
 
