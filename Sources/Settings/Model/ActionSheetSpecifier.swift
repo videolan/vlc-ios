@@ -60,12 +60,6 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             return
         }
 
-        guard preferenceKey != kVLCSettingAppTheme ||
-                (!PresentationTheme.current.isDark || indexPath.row != numberOfRows() - 1) else {
-            // Disable the selection for the black background option cell in the appearance action sheet
-            return
-        }
-
         guard preferenceKey != kVLCAutomaticallyPlayNextItem else {
             // Disable the selection for the automatically play next item options
             return
@@ -106,15 +100,6 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             return 0
         }
 
-        if preferenceKey == kVLCSettingAppTheme {
-            let isThemeDark: Bool = PresentationTheme.current.isDark
-            if #available(iOS 13, *) {
-                return isThemeDark ? rowCount : rowCount - 1
-            } else {
-                return isThemeDark ? rowCount - 1 : rowCount - 2
-            }
-        }
-
         return rowCount
     }
 
@@ -128,20 +113,7 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             return UICollectionViewCell()
         }
 
-        if preferenceKey == kVLCSettingAppTheme &&
-            PresentationTheme.current.isDark && indexPath.row == numberOfRows() - 1 {
-            // Update the black background option cell
-            cell.setAccessoryType(to: .toggleSwitch)
-            cell.setToggleSwitch(state: UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack))
-            cell.name.text = settingsBundle.localizedString(forKey: "SETTINGS_THEME_BLACK", value: "", table: "Root")
-            let cellIdentifier = ActionSheetCellIdentifier.blackBackground
-            cell.identifier = cellIdentifier
-            cell.name.accessibilityLabel = cellIdentifier.description
-            cell.name.accessibilityHint = cellIdentifier.accessibilityHint
-            cell.delegate = self
-
-            return cell
-        } else if preferenceKey == kVLCAutomaticallyPlayNextItem {
+        if preferenceKey == kVLCAutomaticallyPlayNextItem {
             cell.setAccessoryType(to: .toggleSwitch)
             let isFirstRow: Bool = indexPath.row == 0
 

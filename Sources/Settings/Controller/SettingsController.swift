@@ -509,9 +509,6 @@ extension SettingsController {
 extension SettingsController: ActionSheetSpecifierDelegate {
     func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool) {
         switch cell.identifier {
-        case .blackBackground:
-            userDefaults.setValue(state, forKey: kVLCSettingAppThemeBlack)
-            PresentationTheme.themeDidUpdate()
         case .playNextItem:
             userDefaults.setValue(state, forKey: kVLCAutomaticallyPlayNextItem)
         case .playlistPlayNextItem:

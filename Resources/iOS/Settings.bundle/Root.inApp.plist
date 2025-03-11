@@ -42,14 +42,12 @@
 				<string>SETTINGS_THEME_BRIGHT</string>
 				<string>SETTINGS_THEME_DARK</string>
 				<string>SETTINGS_THEME_SYSTEM</string>
-				<string>SETTINGS_THEME_BLACK</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
 				<integer>2</integer>
-				<string>3</string>
 			</array>
 		</dict>
 		<dict>

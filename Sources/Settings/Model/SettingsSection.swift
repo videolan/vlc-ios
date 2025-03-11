@@ -44,7 +44,7 @@ struct SettingsItem: Equatable {
         self.isTitleEmphasized = isTitleEmphasized
     }
 
-    static func toggle(title: String, subtitle: String?, preferenceKey: String) -> Self {
+    static func toggle(title: String, subtitle: String? = nil, preferenceKey: String) -> Self {
         return Self(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)))
     }
 
@@ -176,11 +176,18 @@ enum MainOptions {
                      action: .showActionSheet(title: "SETTINGS_DARKTHEME", preferenceKey: k, hasInfo: false))
     }
 
+    static var blackTheme: SettingsItem {
+        .toggle(title: "SETTINGS_THEME_BLACK",
+                subtitle: "SETTINGS_THEME_BLACK_SUBTITLE",
+                preferenceKey: kVLCSettingAppThemeBlack)
+    }
+
     static func section() -> SettingsSection? {
         var items = [privacy]
         #if !os(visionOS)
         // visionOS uses a standard system appearance and doesn't have light/dark mode.
         items.append(appearance)
+        items.append(blackTheme)
         #endif
         return .init(title: nil, items: items)
     }
@@ -219,7 +226,6 @@ enum GenericOptions {
 
     static var playVideoInFullScreen: SettingsItem {
         .toggle(title: "SETTINGS_VIDEO_FULLSCREEN",
-                subtitle: nil,
                 preferenceKey: kVLCSettingVideoFullscreenPlayback)
     }
 
@@ -239,19 +245,16 @@ enum GenericOptions {
 
     static var enableTextScrollingInMediaList: SettingsItem {
         .toggle(title: "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING",
-                subtitle: nil,
                 preferenceKey: kVLCSettingEnableMediaCellTextScrolling)
     }
 
     static var rememberPlayerState: SettingsItem {
         .toggle(title: "SETTINGS_REMEMBER_PLAYER_STATE",
-                subtitle: nil,
                 preferenceKey: kVLCPlayerShouldRememberState)
     }
 
     static var restoreLastPlayedMedia: SettingsItem {
         .toggle(title: "SETTINGS_RESTORE_LAST_PLAYED_MEDIA",
-                subtitle: nil,
                 preferenceKey: kVLCRestoreLastPlayedMedia)
     }
 
@@ -325,43 +328,36 @@ enum PrivacyOptions {
 enum GestureControlOptions {
     static var swipeUpDownForVolume: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_VOLUME",
-                subtitle: nil,
                 preferenceKey: kVLCSettingVolumeGesture)
     }
 
     static var twoFingerTap: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_PLAYPAUSE",
-                subtitle: nil,
                 preferenceKey: kVLCSettingPlayPauseGesture)
     }
 
     static var swipeUpDownForBrightness: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_BRIGHTNESS",
-                subtitle: nil,
                 preferenceKey: kVLCSettingBrightnessGesture)
     }
 
     static var swipeRightLeftToSeek: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_SEEK",
-                subtitle: nil,
                 preferenceKey: kVLCSettingSeekGesture)
     }
 
     static var pinchToClose: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_CLOSE",
-                subtitle: nil,
                 preferenceKey: kVLCSettingCloseGesture)
     }
 
     static var forwardBackwardEqual: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL",
-                subtitle: nil,
                 preferenceKey: kVLCSettingPlaybackForwardBackwardEqual)
     }
 
     static var tapSwipeEqual: SettingsItem {
         .toggle(title: "SETTINGS_GESTURES_TAP_SWIPE_EQUAL",
-                subtitle: nil,
                 preferenceKey: kVLCSettingPlaybackTapSwipeEqual)
     }
 
@@ -395,7 +391,6 @@ enum GestureControlOptions {
 
     static var longTouchToSpeedUp: SettingsItem {
         .toggle(title: "SETINGS_LONG_TOUCH_SPEED_UP",
-                subtitle: nil,
                 preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
     }
 
@@ -494,13 +489,11 @@ enum VideoOptions {
 
     static var rememberPlayerBrightness: SettingsItem {
         .toggle(title: "SETTINGS_REMEMBER_PLAYER_BRIGHTNESS",
-                subtitle: nil,
                 preferenceKey: kVLCPlayerShouldRememberBrightness)
     }
 
     static var lockRotation: SettingsItem {
         .toggle(title: "SETTINGS_LOCK_ROTATION",
-                subtitle: nil,
                 preferenceKey: kVLCSettingRotationLock)
     }
 
@@ -540,7 +533,6 @@ enum SubtitlesOptions {
 
     static var useBoldFont: SettingsItem {
         .toggle(title: "SETTINGS_SUBTITLES_BOLDFONT",
-                subtitle: nil,
                 preferenceKey: kVLCSettingSubtitlesBoldFont)
     }
 
@@ -612,7 +604,6 @@ enum AudioOptions {
 
     static var audioPlaybackInBackground: SettingsItem {
         .toggle(title: "SETTINGS_BACKGROUND_AUDIO",
-                subtitle: nil,
                 preferenceKey: kVLCSettingContinueAudioInBackgroundKey)
     }
 
@@ -637,31 +628,26 @@ enum MediaLibraryOptions {
 
     static var optimiseItemNamesForDisplay: SettingsItem {
         .toggle(title: "SETTINGS_DECRAPIFY",
-                subtitle: nil,
                 preferenceKey: kVLCSettingsDecrapifyTitles)
     }
 
     static var disableGrouping: SettingsItem {
         .toggle(title: "SETTINGS_DISABLE_GROUPING",
-                subtitle: nil,
                 preferenceKey: kVLCSettingsDisableGrouping)
     }
 
     static var showVideoThumbnails: SettingsItem {
         .toggle(title: "SETTINGS_SHOW_THUMBNAILS",
-                subtitle: nil,
                 preferenceKey: kVLCSettingShowThumbnails)
     }
 
     static var showAudioArtworks: SettingsItem {
         .toggle(title: "SETTINGS_SHOW_ARTWORKS",
-                subtitle: nil,
                 preferenceKey: kVLCSettingShowArtworks)
     }
 
     static var includeMediaLibInDeviceBackup: SettingsItem {
         .toggle(title: "SETTINGS_BACKUP_MEDIA_LIBRARY",
-                subtitle: nil,
                 preferenceKey: kVLCSettingBackupMediaLibrary)
     }
 
@@ -700,7 +686,6 @@ enum NetworkOptions {
 
     static var ipv6SupportForWiFiSharing: SettingsItem {
         .toggle(title: "SETTINGS_WIFISHARING_IPv6",
-                subtitle: nil,
                 preferenceKey: kVLCSettingWiFiSharingIPv6)
     }
 
@@ -712,7 +697,6 @@ enum NetworkOptions {
 
     static var rtspctp: SettingsItem {
         .toggle(title: "SETTINGS_RTSP_TCP",
-                subtitle: nil,
                 preferenceKey: kVLCSettingNetworkRTSPTCP)
     }
 
@@ -738,7 +722,6 @@ enum Accessibility {
 
     static var pauseWhenShowingControls: SettingsItem {
         .toggle(title: "SETTINGS_PAUSE_WHEN_SHOWING_CONTROLS",
-                subtitle: nil,
                 preferenceKey: kVLCSettingPauseWhenShowingControls)
     }
 
@@ -755,7 +738,6 @@ enum Accessibility {
 enum Lab {
     static var debugLogging: SettingsItem {
         .toggle(title: "SETTINGS_DEBUG_LOG",
-                subtitle: nil,
                 preferenceKey: kVLCSaveDebugLogs)
     }
 
