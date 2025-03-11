@@ -30,6 +30,7 @@ class SettingsCell: UITableViewCell {
         static let marginBottom: CGFloat = 10
         static let marginLeading: CGFloat = 20
         static let marginTrailing: CGFloat = 70
+        static let disabledAlpha: CGFloat = 0.3
     }
 
     weak var delegate: SettingsCellDelegate?
@@ -208,6 +209,15 @@ class SettingsCell: UITableViewCell {
             } else {
                 activityIndicator.stopAnimating()
             }
+
+            if settingsItem.isEnabled {
+                switchControl.isEnabled = true
+                contentView.alpha = 1
+            } else {
+                switchControl.isEnabled = false
+                contentView.alpha = Constants.disabledAlpha
+            }
+
         }
     }
 

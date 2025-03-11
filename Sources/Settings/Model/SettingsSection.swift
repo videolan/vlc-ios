@@ -23,6 +23,7 @@ struct SettingsItem: Equatable {
     let title: String
     let subtitle: String?
     let action: Action
+    let isEnabled: Bool
     let isTitleEmphasized: Bool
 
     @available(*, deprecated, message: "access from self.action")
@@ -37,15 +38,16 @@ struct SettingsItem: Equatable {
         }
     }
 
-    init(title: String, subtitle: String?, action: Action, isTitleEmphasized: Bool = false) {
+    init(title: String, subtitle: String?, action: Action, isEnabled: Bool = true, isTitleEmphasized: Bool = false) {
         self.title = Localizer.localizedTitle(key: title)
         self.subtitle = subtitle.flatMap(Localizer.localizedTitle(key:))
         self.action = action
+        self.isEnabled = isEnabled
         self.isTitleEmphasized = isTitleEmphasized
     }
 
-    static func toggle(title: String, subtitle: String? = nil, preferenceKey: String) -> Self {
-        return Self(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)))
+    static func toggle(title: String, subtitle: String? = nil, preferenceKey: String, isEnabled: Bool = true) -> Self {
+        return Self(title: title, subtitle: subtitle, action: .toggle(Toggle(preferenceKey: preferenceKey)), isEnabled: isEnabled)
     }
 
     enum Action: Equatable {
@@ -179,7 +181,8 @@ enum MainOptions {
     static var blackTheme: SettingsItem {
         .toggle(title: "SETTINGS_THEME_BLACK",
                 subtitle: "SETTINGS_THEME_BLACK_SUBTITLE",
-                preferenceKey: kVLCSettingAppThemeBlack)
+                preferenceKey: kVLCSettingAppThemeBlack,
+                isEnabled: UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeBright)
     }
 
     static func section() -> SettingsSection? {
