@@ -166,7 +166,9 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             mailComposerVC.mailComposeDelegate = self
             mailComposerVC.setToRecipients([feedbackEmail])
             mailComposerVC.setSubject(NSLocalizedString("FEEDBACK_EMAIL_TITLE", comment: ""))
-            mailComposerVC.setMessageBody(generateFeedbackEmailPrefill(), isHTML: false)
+            mailComposerVC.addAttachmentData(generateFeedbackEmailAttachment(),
+                                             mimeType: "application/json",
+                                             fileName: "details.json")
             self.present(mailComposerVC, animated: true)
         } else {
             let alert = UIAlertController(title: NSLocalizedString("FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE", comment: ""),
@@ -178,26 +180,33 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         }
     }
 
-    func generateFeedbackEmailPrefill() -> String {
+    func generateFeedbackEmailAttachment() -> Data {
         let bundleShortVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let device = UIDevice.current
         let defaults = UserDefaults.standard
         let locale = NSLocale.autoupdatingCurrent
-        let prefilledFeedback = String(format: "\n\n\n----------------------------------------\n%@\nDevice: %@\nOS: %@ - %@\nLocale: %@ (%@)\nVLC app version: %@\nlibvlc version: %@\nhardware decoding: %i\nnetwork caching level: %i\nskip loop filter: %i\nRTSP over TCP: %i\nAudio time stretching: %i",
-                                       NSLocalizedString("FEEDBACK_EMAIL_BODY", comment: ""),
-                                       generateDeviceIdentifier(),
-                                       device.systemName,
-                                       device.systemVersion,
-                                       locale.languageCode!,
-                                       locale.regionCode!,
-                                       bundleShortVersionString,
-                                       VLCLibrary.shared().changeset,
-                                       defaults.integer(forKey: kVLCSettingHardwareDecoding),
-                                       defaults.integer(forKey: kVLCSettingNetworkCaching),
-                                       defaults.integer(forKey: kVLCSettingSkipLoopFilter),
-                                       defaults.integer(forKey: kVLCSettingNetworkRTSPTCP),
-                                       defaults.integer(forKey: kVLCSettingStretchAudio))
-        return prefilledFeedback
+
+        let json: [String: Any] = [
+            "Device": generateDeviceIdentifier(),
+            "OS": "\(device.systemName) - \(device.systemVersion)",
+            "Locale": "\(locale.languageCode!) (\(locale.regionCode!))",
+            "VLC app version": bundleShortVersionString,
+            "libvlc version": VLCLibrary.shared().changeset,
+            "hardware decoding": defaults.integer(forKey: kVLCSettingHardwareDecoding),
+            "network caching level": defaults.integer(forKey: kVLCSettingNetworkCaching),
+            "skip loop filter": defaults.integer(forKey: kVLCSettingSkipLoopFilter),
+            "RTSP over TCP": defaults.integer(forKey: kVLCSettingNetworkRTSPTCP),
+            "Audio time stretching": defaults.integer(forKey: kVLCSettingStretchAudio)
+        ]
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+            return jsonData
+        } catch {
+            print("Error encoding JSON: \(error.localizedDescription)")
+            return Data()
+        }
+
     }
 
     func generateDeviceIdentifier() -> String {
