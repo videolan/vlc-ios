@@ -94,8 +94,9 @@
     [super viewDidAppear:animated];
 
     // The container selected has already been parsed and is empty
-    if (_serverBrowser.items.count == 0 &&
-        [(VLCNetworkServerBrowserVLCMedia *)_serverBrowser retrieveParsedStatus] == VLCMediaParsedStatusDone) {
+    if ([_serverBrowser isKindOfClass:[VLCNetworkServerBrowserVLCMedia class]] &&
+        [(VLCNetworkServerBrowserVLCMedia *)_serverBrowser retrieveParsedStatus] == VLCMediaParsedStatusDone &&
+        _serverBrowser.items.count == 0) {
         [self stopActivityIndicator];
         [self removePlayAllAction];
     }
