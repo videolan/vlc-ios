@@ -417,8 +417,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         return;
     }
 #if !TARGET_OS_TV
-    VLCMLMedia * lastMedia = [VLCMLMedia mediaForPlayingMedia: _mediaPlayer.media]; //last played VLCMLMeida before playback stops
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackWillStop object: nil userInfo: @{VLCLastPlaylistPlayedMedia: lastMedia}];
+    // Last played VLCMLMedia before the playback stops
+    VLCMLMedia *lastMedia = [VLCMLMedia mediaForPlayingMedia: _mediaPlayer.media];
+    if (lastMedia) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackWillStop object: nil userInfo: @{VLCLastPlaylistPlayedMedia: lastMedia}];
+    }
 #endif
     if (_mediaPlayer) {
         @try {
