@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PreferenceSpecifiers</key>
+    <array>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>Title</key>
+            <string>First Section</string>
+            <key>FooterText</key>
+            <string>First</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+            <key>DefaultValue</key>
+            <integer>0</integer>
+            <key>Key</key>
+            <string>numberOfParkingTickets</string>
+            <key>Title</key>
+            <string>Number of Parking Tickets</string>
+            <key>Titles</key>
+            <array>
+                <string>Zero</string>
+                <string>One</string>
+                <string>Two</string>
+                <string>Three</string>
+            </array>
+            <key>Values</key>
+            <array>
+                <integer>0</integer>
+                <integer>1</integer>
+                <integer>2</integer>
+                <integer>3</integer>
+            </array>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSMultiValueSpecifier</string>
+            <key>DefaultValue</key>
+            <string>Zero</string>
+            <key>Key</key>
+            <string>numberOfSpeedingTickets</string>
+            <key>Title</key>
+            <string>Number of Speeding Tickets</string>
+            <key>Titles</key>
+            <array>
+                <string>Zero</string>
+                <string>One</string>
+                <string>Two</string>
+                <string>Three</string>
+            </array>
+            <key>Values</key>
+            <array>
+                <string>Zero</string>
+                <string>One</string>
+                <string>Two</string>
+                <string>Three</string>
+            </array>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+            <key>Title</key>
+            <string>Name</string>
+            <key>FooterText</key>
+            <string>Enter your name</string>
+            <key>Key</key>
+            <string>name</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>DefaultValue</key>
+            <true/>
+            <key>Key</key>
+            <string>WashHandsBeforeEating</string>
+            <key>Title</key>
+            <string>Wash Hands Before Eating</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>VLCCustomSpecifier</string>
+            <key>Subtype</key>
+            <string>HelloWorld</string>
+            <key>Title</key>
+            <string>Greetings Earth</string>
+            <key>Population</key>
+            <integer>8200000000</integer>
+        </dict>
+    </array>
+    <key>StringsTable</key>
+    <string>Root</string>
+</dict>
+</plist>

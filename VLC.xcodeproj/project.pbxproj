@@ -95,6 +95,10 @@
 		4342C3C327474CA000E52334 /* SortedMediaFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342C3C227474CA000E52334 /* SortedMediaFiles.swift */; };
 		444E5BFA24C6081B0003B69C /* PasscodeLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E5BF924C6081A0003B69C /* PasscodeLockController.swift */; };
 		444E5C0024C719480003B69C /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E5BFF24C719480003B69C /* AboutController.swift */; };
+		448BA8482D83116D008CCDFF /* PreferenceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BA8472D83115D008CCDFF /* PreferenceSetting.swift */; };
+		448BA8492D83116D008CCDFF /* PreferenceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BA8472D83115D008CCDFF /* PreferenceSetting.swift */; };
+		448BA84B2D832D30008CCDFF /* PreferenceSettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BA84A2D832D30008CCDFF /* PreferenceSettingTests.swift */; };
+		448BA84D2D84E1ED008CCDFF /* PreferenceSettingTestsSuccess.plist in Resources */ = {isa = PBXBuildFile; fileRef = 448BA84C2D84E1DE008CCDFF /* PreferenceSettingTestsSuccess.plist */; };
 		44B5822024E434FD001A2583 /* MediaGridCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B5821F24E434FD001A2583 /* MediaGridCollectionCell.swift */; };
 		44C8BBA324AF2B5C003F8940 /* FeedbackGenerators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8BBA224AF2B5C003F8940 /* FeedbackGenerators.swift */; };
 		44C8BBAE24AF36F4003F8940 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8BBA624AF36F4003F8940 /* SettingsController.swift */; };
@@ -1014,6 +1018,9 @@
 		4342C3C227474CA000E52334 /* SortedMediaFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedMediaFiles.swift; sourceTree = "<group>"; };
 		444E5BF924C6081A0003B69C /* PasscodeLockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockController.swift; sourceTree = "<group>"; };
 		444E5BFF24C719480003B69C /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
+		448BA8472D83115D008CCDFF /* PreferenceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSetting.swift; sourceTree = "<group>"; };
+		448BA84A2D832D30008CCDFF /* PreferenceSettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSettingTests.swift; sourceTree = "<group>"; };
+		448BA84C2D84E1DE008CCDFF /* PreferenceSettingTestsSuccess.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; path = PreferenceSettingTestsSuccess.plist; sourceTree = "<group>"; };
 		44B5821F24E434FD001A2583 /* MediaGridCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaGridCollectionCell.swift; sourceTree = "<group>"; };
 		44C8BBA224AF2B5C003F8940 /* FeedbackGenerators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackGenerators.swift; sourceTree = "<group>"; };
 		44C8BBA624AF36F4003F8940 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -1867,6 +1874,8 @@
 		41533C92211338D500EC3ABA /* Unit Testing */ = {
 			isa = PBXGroup;
 			children = (
+				448BA84C2D84E1DE008CCDFF /* PreferenceSettingTestsSuccess.plist */,
+				448BA84A2D832D30008CCDFF /* PreferenceSettingTests.swift */,
 				41533CA1211343D100EC3ABA /* Info.plist */,
 				41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */,
 			);
@@ -1901,6 +1910,7 @@
 		44C8BBA124AF2B5C003F8940 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				448BA8472D83115D008CCDFF /* PreferenceSetting.swift */,
 				419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */,
 				4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */,
 				7D0C209A28C89F5400CCFFEF /* Network */,
@@ -3658,6 +3668,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				448BA84D2D84E1ED008CCDFF /* PreferenceSettingTestsSuccess.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4134,6 +4145,7 @@
 				1B39FA112C73BBA900F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */,
 				1B39FA0B2C73BBA300F6F960 /* NSURLSessionConfiguration+default.m in Sources */,
 				41533C9E2113392F00EC3ABA /* URLHandlerTests.swift in Sources */,
+				448BA84B2D832D30008CCDFF /* PreferenceSettingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4340,6 +4352,7 @@
 				7D50C6202BBD20DF00B9F1A0 /* SettingsController.swift in Sources */,
 				7D50C6212BBD20DF00B9F1A0 /* VLCNetworkImageView.m in Sources */,
 				7D50C6222BBD20DF00B9F1A0 /* EqualizerView.swift in Sources */,
+				448BA8492D83116D008CCDFF /* PreferenceSetting.swift in Sources */,
 				7D50C6232BBD20DF00B9F1A0 /* VLCConfettiView.swift in Sources */,
 				7D50C6252BBD20DF00B9F1A0 /* VLCAppCoordinator.m in Sources */,
 				7D50C6272BBD20DF00B9F1A0 /* PlayerController.swift in Sources */,
@@ -4662,6 +4675,7 @@
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
 				DD3EFF3B1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				8DB0D71924CED15C00915506 /* VideoPlayerControls.swift in Sources */,
+				448BA8482D83116D008CCDFF /* PreferenceSetting.swift in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				1B39FA082C73BBA200F6F960 /* NSURLSessionConfiguration+default.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
@@ -5129,7 +5143,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Buildsystem/Testing/Unit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5172,7 +5186,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Buildsystem/Testing/Unit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5214,7 +5228,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Buildsystem/Testing/Unit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
