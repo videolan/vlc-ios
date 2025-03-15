@@ -2369,6 +2369,7 @@
 			children = (
 				448BA8472D83115D008CCDFF /* PreferenceSetting.swift */,
 				419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */,
+				8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */,
 				4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */,
 				7D0C209A28C89F5400CCFFEF /* Network */,
 				7D8986D7278B0C30005396AA /* Thumbnail Cache */,
@@ -3827,7 +3828,6 @@
 		CAC0AFE720CF8A6900EDB035 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */,
 				CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */,
 				CAD925802075613100F88496 /* SnapshotHelper.swift */,
 				CAA0B0F620726A0E00B9274E /* TestHelper.swift */,

@@ -17,6 +17,11 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([VLCAppDelegate class]));
+        // Avoid launching the app during testing.
+        if (NSClassFromString(@"XCTestCase") != nil) {
+            return UIApplicationMain(argc, argv, nil, nil);
+        } else {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([VLCAppDelegate class]));
+        }
     }
 }
