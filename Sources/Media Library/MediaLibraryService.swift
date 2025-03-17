@@ -189,9 +189,10 @@ private extension MediaLibraryService {
     }
 
     private func startMediaLibrary(on path: String) {
-        let excludeMediaLibrary = !UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
+        let includeMediaLibrary = UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
+        includeInDeviceBackup(includeMediaLibrary)
+
         let hideML = UserDefaults.standard.bool(forKey: kVLCSettingHideLibraryInFilesApp)
-        excludeFromDeviceBackup(excludeMediaLibrary)
         hideMediaLibrary(hideML)
 
         if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
@@ -341,7 +342,8 @@ private extension MediaLibraryService {
         saveMetaData(of: mlMedia, from: player)
     }
 
-    @objc func excludeFromDeviceBackup(_ exclude: Bool) {
+    func includeInDeviceBackup(_ include: Bool) {
+        let exclude = !include
         if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             var documentURL = URL(fileURLWithPath: documentPath)
             isExcludingFromBackup = true

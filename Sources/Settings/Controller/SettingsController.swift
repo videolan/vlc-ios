@@ -496,7 +496,7 @@ extension SettingsController {
 
 extension SettingsController {
     func mediaLibraryBackupActivateSwitchOn(state: Bool) {
-        mediaLibraryService.excludeFromDeviceBackup(state)
+        mediaLibraryService.includeInDeviceBackup(state)
     }
 }
 
