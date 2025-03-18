@@ -149,7 +149,7 @@ extension MLBaseModel {
 }
 
 extension VLCMLObject {
-    static func == (lhs: VLCMLObject, rhs: VLCMLObject) -> Bool {
+    static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.identifier() == rhs.identifier()
     }
 }
