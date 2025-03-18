@@ -97,9 +97,10 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     }
 
     private func loadWebsite() {
+        let webTheme = PresentationTheme.current.webEquivalentTheme
         let mainBundle = Bundle.main
-        let textColor = PresentationTheme.current.colors.cellTextColor.toHex ?? "#000000"
-        let backgroundColor = PresentationTheme.current.colors.background.toHex ?? "#FFFFFF"
+        let textColor = webTheme.colors.cellTextColor.toHex ?? "#000000"
+        let backgroundColor = webTheme.colors.background.toHex ?? "#FFFFFF"
         guard let bundleShortVersionString = mainBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
             return
         }

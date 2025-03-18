@@ -177,10 +177,12 @@ enum MainOptions {
     }
 
     static func section() -> SettingsSection? {
-        .init(title: nil, items: [
-            privacy,
-            appearance,
-        ])
+        var items = [privacy]
+        #if !os(visionOS)
+        // visionOS uses a standard system appearance and doesn't have light/dark mode.
+        items.append(appearance)
+        #endif
+        return .init(title: nil, items: items)
     }
 }
 
