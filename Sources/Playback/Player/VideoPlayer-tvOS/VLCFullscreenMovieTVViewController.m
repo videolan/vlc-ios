@@ -645,15 +645,17 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     NSInteger duration = [VLCPlaybackService sharedInstance].mediaDuration;
-    if (duration==0) {
+    if (duration == 0) {
         return;
     }
+
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
 
-    CGFloat intervalFraction = ((CGFloat)interval)/((CGFloat)duration);
-    CGFloat currentFraction = vpc.playbackPosition;
-    currentFraction += intervalFraction;
-    vpc.playbackPosition = currentFraction;
+    if (interval > 0) {
+        [vpc jumpForward:(int)interval];
+    } else {
+        [vpc jumpBackward:(int)-interval];
+    }
 }
 
 - (void)scrubbingJumpInterval:(NSInteger)interval
