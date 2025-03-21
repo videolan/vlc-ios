@@ -614,17 +614,17 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 }
 
 #pragma mark -
-static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (void)jumpForward
 {
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackForwardSkipLength];
 
     if (vpc.isPlaying) {
-        [self jumpInterval:VLCJumpInterval];
+        [self jumpInterval:jumpInterval];
     } else {
-        [self scrubbingJumpInterval:VLCJumpInterval];
+        [self scrubbingJumpInterval:jumpInterval];
     }
 }
 - (void)jumpBackward
@@ -632,11 +632,12 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackBackwardSkipLength];
 
     if (vpc.isPlaying) {
-        [self jumpInterval:-VLCJumpInterval];
+        [self jumpInterval:-jumpInterval];
     } else {
-        [self scrubbingJumpInterval:-VLCJumpInterval];
+        [self scrubbingJumpInterval:-jumpInterval];
     }
 }
 
