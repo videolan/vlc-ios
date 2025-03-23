@@ -406,8 +406,8 @@ extension MediaViewController {
                                   image: UIImage(systemName: "square.grid.2x2"),
                                   state: isGridLayout ? .on : .off,
                                   handler: {
-            [unowned self] _ in
-            mediaCategoryViewController.handleLayoutChange(gridLayout: true)
+            [unowned self, weak mediaCategoryViewController] _ in
+            mediaCategoryViewController?.handleLayoutChange(gridLayout: true)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -415,8 +415,8 @@ extension MediaViewController {
                                   image: UIImage(systemName: "list.bullet"),
                                   state: isGridLayout ? .off : .on,
                                   handler: {
-            [unowned self] _ in
-            mediaCategoryViewController.handleLayoutChange(gridLayout: false)
+            [unowned self, weak mediaCategoryViewController] _ in
+            mediaCategoryViewController?.handleLayoutChange(gridLayout: false)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -447,8 +447,8 @@ extension MediaViewController {
                                   image: actionImage,
                                   state: currentSort ? .on : .off,
                                   handler: {
-                [unowned self] _ in
-                mediaCategoryViewController.executeSortAction(with: criterion,
+                [unowned self, weak mediaCategoryViewController] _ in
+                mediaCategoryViewController?.executeSortAction(with: criterion,
                                                               desc: !sortModel.desc)
                 menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
             })
@@ -481,8 +481,8 @@ extension MediaViewController {
     @available(iOS 14.0, *)
     func generateHistoryMenu() -> UIMenu {
         let historyAction = UIAction(title: NSLocalizedString("BUTTON_HISTORY", comment: ""),
-                                     image: UIImage(systemName: "clock.arrow.2.circlepath")) { _ in
-            self.handleHistory()
+                                     image: UIImage(systemName: "clock.arrow.2.circlepath")) { [weak self] _ in
+            self?.handleHistory()
         }
 
         historyAction.accessibilityLabel = NSLocalizedString("BUTTON_HISTORY", comment: "")
@@ -525,8 +525,8 @@ extension MediaViewController {
             let includeAllArtist = UIAction(title: NSLocalizedString("HIDE_FEAT_ARTISTS", comment: ""),
                                             image: UIImage(systemName: "person.3"),
                                             state: isIncludeAllArtistActive ? .on : .off,
-                                            handler: { _ in
-                mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
+                                            handler: { [weak mediaCategoryViewController] _ in
+                mediaCategoryViewController?.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
             })
 
             additionalMenuItems.append(includeAllArtist)
@@ -536,8 +536,8 @@ extension MediaViewController {
             let hideTrackNumbers = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
             let hideTrackNumbersAction = UIAction(title: NSLocalizedString("HIDE_TRACK_NUMBERS", comment: ""),
                                                      state: hideTrackNumbers ? .on : .off,
-                                                     handler: { _ in
-                mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
+                                                     handler: { [weak mediaCategoryViewController] _ in
+                mediaCategoryViewController?.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
             })
 
             additionalMenuItems.append(hideTrackNumbersAction)
