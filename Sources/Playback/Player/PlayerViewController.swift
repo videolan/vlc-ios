@@ -666,24 +666,23 @@ class PlayerViewController: UIViewController {
         let location: CGPoint = recognizer.location(in: window)
 
         // If minimization handler not ended yet, don't detect other gestures to don't block it.
-        guard minimizationInitialCenter == nil else { return .none }
+        guard minimizationInitialCenter == nil else {
+            return .none
+        }
+
+        guard !playbackService.currentMediaIs360Video else {
+            return .projection
+        }
 
         var panType: PlayerPanType = .none
-        if location.x < 2 * windowWidth / 3 {
-            panType = .none
-        }
+
 #if os(iOS)
-        if location.x < 1 * windowWidth / 3 && playerController.isBrightnessGestureEnabled {
+        if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled {
             panType = .brightness
-        }
-        if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
+        } else if location.x > windowWidth / 2 && playerController.isVolumeGestureEnabled {
             panType = .volume
         }
 #endif
-
-        if playbackService.currentMediaIs360Video {
-            panType = .projection
-        }
 
         return panType
     }
