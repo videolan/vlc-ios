@@ -79,6 +79,7 @@
 				<string>3.00x</string>
 				<string>3.50x</string>
 				<string>4.00x</string>
+				<string>Custom Speed</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -94,7 +95,22 @@
 				<real>3</real>
 				<real>3.5</real>
 				<real>4</real>
+				<string>custom</string>
 			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_CUSTOM_PLAYBACK_SPEED</string>
+			<key>Key</key>
+			<string>playback-speed-custom</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>IsSecure</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>

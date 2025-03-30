@@ -681,6 +681,12 @@
 "KEY_SEEK_TO_PERCENT" = "Seek to %i%% of duration";
 "KEY_NEXT_FRAME" = "Jump to the next frame";
 
+// MARK: - Custom Playback Speed
+
+"SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
+"SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE" = "Enter a speed between 0.1 and 8.0";
+"SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.1 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */
+
 // MARK: - TitleSelection
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
@@ -711,3 +717,10 @@
 
 //MARK: - Last played playlist indicator
 "LAST_PLAYED_PLAYLIST_LABEL_TITLE" = "Last Played";
+
+/* New strings */
+"SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
+"SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE" = "Enter a speed between 0.1 and 8.0";
+
+/* New strings */
+"SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.1 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */

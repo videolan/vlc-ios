@@ -50,7 +50,10 @@ class PlaybackSpeedView: UIView {
     private var currentSpeed: Float = 1.0
 
     private let defaultDelay: Float = 0.0
-    private var defaultSpeed: Float = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
+    private var defaultSpeed: Float {
+        return PlaybackSpeedCustomManager.shared.effectiveSpeedValue
+    }
+
 
     let vpc = PlaybackService.sharedInstance()
     let notificationCenter = NotificationCenter.default
@@ -264,7 +267,6 @@ class PlaybackSpeedView: UIView {
     }
 
     func reset() {
-        defaultSpeed = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
         currentSpeed = defaultSpeed
         vpc.playbackRate = currentSpeed
         notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
