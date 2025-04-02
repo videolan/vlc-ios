@@ -76,6 +76,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private weak var albumHeader: AlbumHeader?
     private lazy var albumFlowLayout = AlbumHeaderLayout()
+
+    private weak var playlistHeader: PlaylistHeader?
+
     private lazy var navItemTitle: VLCMarqueeLabel = VLCMarqueeLabel()
 
     private var hasLaunchedBefore: Bool {
@@ -670,6 +673,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         toSize = size
         collectionView?.collectionViewLayout.invalidateLayout()
         updateContinueWatchingConstraints()
+
+        if let playlistHeader = playlistHeader {
+            playlistHeader.updateAfterRotation()
+        }
     }
 
     // MARK: - Edit
@@ -1322,12 +1329,17 @@ extension MediaCategoryViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let model = model as? CollectionModel,
-              model.mediaCollection is VLCMLAlbum else {
+        guard let model = model as? CollectionModel else {
             return .init(width: 0, height: 0)
         }
 
-        return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
+        if model.mediaCollection is VLCMLAlbum {
+            return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
+        } else if model.mediaCollection is VLCMLPlaylist {
+            return PlaylistHeader.getHeaderSize(with: collectionView.frame.size.width)
+        } else {
+            return .init(width: 0, height: 0)
+        }
     }
 }
 
@@ -1413,24 +1425,44 @@ extension MediaCategoryViewController {
         }
     }
 
+    private func setupAlbumHeaderReusableView(headerView: AlbumHeader, collection: VLCMLAlbum) -> UICollectionReusableView {
+        let thumbnail = collection.thumbnail()
+        headerView.updateImage(with: thumbnail)
+        headerView.collection = collection
+        headerView.updateThumbnailTitle(collection.title)
+
+        headerView.shouldDisablePlayButtons(false)
+        headerView.updateParentView(parent: view)
+        albumHeader = headerView
+
+        return headerView
+    }
+
+    private func setupPlaylistHeaderReusableView(headerView: PlaylistHeader, collection: VLCMLPlaylist) -> UICollectionReusableView {
+        headerView.updateImage(with: collection.thumbnail())
+        headerView.updateTitle(with: collection.title())
+        headerView.collection = collection
+        headerView.sortModel = model.sortModel
+        playlistHeader = headerView
+        return headerView
+    }
+
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath)
-        guard let header = headerView as? AlbumHeader,
-              let collectionModel = model as? CollectionModel,
-              let collection = collectionModel.mediaCollection as? VLCMLAlbum else {
-            return headerView
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
         }
 
-        let thumbnail = collectionModel.thumbnail
-        header.updateImage(with: thumbnail)
-        header.collection = collection
-        header.updateThumbnailTitle(collection.title)
+        if let collectionModel = model as? CollectionModel,
+           let collection = collectionModel.mediaCollection as? VLCMLAlbum,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath) as? AlbumHeader {
+            return setupAlbumHeaderReusableView(headerView: header, collection: collection)
+        } else if let collectionModel = model as? CollectionModel,
+                  let collection = collectionModel.mediaCollection as? VLCMLPlaylist,
+                  let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlaylistHeader.headerID, for: indexPath) as? PlaylistHeader {
+            return setupPlaylistHeaderReusableView(headerView: header, collection: collection)
+        }
 
-        header.shouldDisablePlayButtons(false)
-        header.updateParentView(parent: view)
-        albumHeader = header
-
-        return header
+        return UICollectionReusableView()
     }
 }
 
@@ -1719,6 +1751,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
 private extension MediaCategoryViewController {
     func setupCollectionView() {
         collectionView.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
+        collectionView.register(PlaylistHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlaylistHeader.headerID)
 
         if model.cellType.nibName == mediaGridCellNibIdentifier {
             //GridCells are made programmatically so we register the cell class directly.
