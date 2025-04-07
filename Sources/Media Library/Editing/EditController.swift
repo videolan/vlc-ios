@@ -364,13 +364,18 @@ extension EditController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let model = model as? CollectionModel,
-              model.mediaCollection is VLCMLAlbum,
-              let size = delegate?.editControllerGetAlbumHeaderSize(with: collectionView.frame.size.width) else {
+        guard let model = model as? CollectionModel else {
             return .init(width: 0, height: 0)
         }
 
-        return size
+        if model.mediaCollection is VLCMLAlbum,
+           let size = delegate?.editControllerGetAlbumHeaderSize(with: collectionView.frame.size.width) {
+            return size
+        } else if model.mediaCollection is VLCMLPlaylist {
+            return PlaylistHeader.getHeaderSize(with: collectionView.frame.size.width)
+        } else {
+            return .init(width: 0, height: 0)
+        }
     }
 }
 
@@ -439,21 +444,23 @@ extension EditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath)
-
-        guard let header = headerView as? AlbumHeader,
-              let collectionModel = model as? CollectionModel,
-              collectionModel.mediaCollection is VLCMLAlbum else {
-            return headerView
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
         }
 
-        if let currentThumbnail = delegate?.editControllerGetCurrentThumbnail() {
-            header.updateImage(with: currentThumbnail)
+        if let collectionModel = model as? CollectionModel,
+           collectionModel.mediaCollection is VLCMLAlbum,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath) as? AlbumHeader {
+            header.updateImage(with: delegate?.editControllerGetCurrentThumbnail())
+            header.shouldDisablePlayButtons(true)
+            return header
+        } else if let collectionModel = model as? CollectionModel,
+                  collectionModel.mediaCollection is VLCMLPlaylist,
+                  let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlaylistHeader.headerID, for: indexPath) as? PlaylistHeader {
+            return header
         }
 
-        header.shouldDisablePlayButtons(true)
-
-        return header
+        return UICollectionReusableView()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
