@@ -211,7 +211,7 @@ extension VLCMLPlaylist {
 
 extension VLCMLPlaylist: MediaCollectionModel {
     func sortModel() -> SortModel? {
-        return nil
+        return SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount, .default])
     }
 
     func files(with criteria: VLCMLSortingCriteria = .alpha,

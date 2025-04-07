@@ -51,10 +51,6 @@ class CollectionModel: MLBaseModel {
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
 
-        if mediaCollection is VLCMLPlaylist {
-            sortModel.sortingCriteria.append(.default)
-        }
-
         self.sortModel = mediaCollection.sortModel() ?? self.sortModel
 
         var sortingCriteria: VLCMLSortingCriteria = .default
