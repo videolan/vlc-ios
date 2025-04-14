@@ -317,7 +317,7 @@ class VideoPlayerViewController: PlayerViewController {
         super.init(mediaLibraryService: mediaLibraryService,
                    rendererDiscovererManager: rendererDiscovererManager,
                    playerController: playerController,
-                   isBrightnessControlEnabled: true)
+                   isBrightnessControlAvailable: true)
 
         self.playerController.delegate = self
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)

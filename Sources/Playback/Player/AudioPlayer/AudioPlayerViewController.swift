@@ -66,7 +66,7 @@ class AudioPlayerViewController: PlayerViewController {
         super.init(mediaLibraryService: mediaLibraryService,
                    rendererDiscovererManager: rendererDiscovererManager,
                    playerController: playerController,
-                   isBrightnessControlEnabled: false)
+                   isBrightnessControlAvailable: false)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
 
         self.playerController.delegate = self

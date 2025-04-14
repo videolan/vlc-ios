@@ -276,7 +276,7 @@ class PlayerViewController: UIViewController {
 
     var addBookmarksView: AddBookmarksView? = nil
 
-    private let isBrightnessControlEnabled: Bool
+    private let isBrightnessControlAvailable: Bool
 
     private var isGestureActive: Bool = false
 
@@ -364,11 +364,11 @@ class PlayerViewController: UIViewController {
     init(mediaLibraryService: MediaLibraryService,
          rendererDiscovererManager: VLCRendererDiscovererManager,
          playerController: PlayerController,
-         isBrightnessControlEnabled: Bool) {
+         isBrightnessControlAvailable: Bool) {
         self.mediaLibraryService = mediaLibraryService
         self.rendererDiscovererManager = rendererDiscovererManager
         self.playerController = playerController
-        self.isBrightnessControlEnabled = isBrightnessControlEnabled
+        self.isBrightnessControlAvailable = isBrightnessControlAvailable
 
         super.init(nibName: nil, bundle: nil)
 
@@ -380,7 +380,7 @@ class PlayerViewController: UIViewController {
     init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         self.mediaLibraryService = mediaLibraryService
         self.playerController = playerController
-        self.isBrightnessControlEnabled = false
+        self.isBrightnessControlAvailable = false
         self.systemBrightness = 1.0
 
         super.init(nibName: nil, bundle: nil)
@@ -433,7 +433,7 @@ class PlayerViewController: UIViewController {
 
         //update the value of brightness control view
         //In case of remember brightness option is disabled, this will update the brightness bar with current brightness.
-        if !playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
+        if !playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
             brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         }
 #endif
@@ -443,7 +443,7 @@ class PlayerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
+        if playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
             if let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
                 animateBrightness(to: brightness)
                 self.brightnessControl.value = Float(brightness)
@@ -465,7 +465,7 @@ class PlayerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if playerController.isRememberBrightnessEnabled && isBrightnessControlEnabled {
+        if playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
             let currentBrightness = UIScreen.main.brightness
             self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
             userDefaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
