@@ -798,11 +798,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)selectAudioTrackAtIndex:(NSInteger)index
 {
-    NSArray *audioTracks = [_mediaPlayer audioTracks];
-    if (index >= 0 && index < audioTracks.count) {
-        VLCMediaPlayerTrack *track = audioTracks[index];
-        track.selected = YES;
-    }
+    [_mediaPlayer selectTrackAtIndex:index type:VLCMediaTrackTypeAudio];
+}
 
 - (void)disableAudio
 {
@@ -811,11 +808,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index
 {
-    NSArray *textTracks = [_mediaPlayer textTracks];
-    if (index >= 0 && index < [textTracks count]) {
-        VLCMediaPlayerTrack *track = textTracks[index];
-        track.selected = YES;
-    }
+    [_mediaPlayer selectTrackAtIndex:index type:VLCMediaTrackTypeText];
+}
 
 - (void)disableSubtitles
 {
