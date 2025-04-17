@@ -273,26 +273,32 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         var cellTitle: String = ""
         var textColor: UIColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
 
-        if tableView == audioTableView {
-            if playbackService.indexOfCurrentAudioTrack == indexPath.row {
+        let currentAudioTrackIndex = playbackService.indexOfCurrentAudioTrack
+        let currentSubtitlesTrackIndex = playbackService.indexOfCurrentSubtitleTrack
+
+        if indexPath.row == 0 {
+            cellTitle = NSLocalizedString("DISABLE_LABEL", comment: "")
+            if (tableView == audioTableView && currentAudioTrackIndex == -1) ||
+                (tableView == subtitleTableView && currentSubtitlesTrackIndex == -1) {
                 textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
-            cellTitle = playbackService.audioTrackName(at: indexPath.row)
+        } else if tableView == audioTableView {
+            if currentAudioTrackIndex + 1 == indexPath.row {
+                textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+                cell.checkImageView.alpha = 1
+            }
 
+            cellTitle = playbackService.audioTrackName(at: indexPath.row - 1)
         } else {
-            if playbackService.indexOfCurrentSubtitleTrack == indexPath.row {
+            if currentSubtitlesTrackIndex + 1 == indexPath.row {
                 textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
 
             let count = playbackService.numberOfVideoSubtitlesIndexes
             cellTitle = indexPath.row == count - 1 ? NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO", comment: "") :
-                        playbackService.videoSubtitleName(at: indexPath.row)
-        }
-
-        if cellTitle == "Disable" {
-            cellTitle = NSLocalizedString("DISABLE_LABEL", comment: "")
+                        playbackService.videoSubtitleName(at: indexPath.row - 1)
         }
 
         cell.contentLabel.text = cellTitle
@@ -307,22 +313,28 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         currentCell?.checkImageView.alpha = 1
 
         if tableView == audioTableView {
-            if indexPath.row == playbackService.numberOfAudioTracks - 1 {
+            if indexPath.row == 0 {
+                playbackService.disableAudio()
+                delegate?.titleSelectionViewDelegateDidSelectTrack(self)
+            } else if indexPath.row == playbackService.numberOfAudioTracks - 1 {
                 currentCell?.checkImageView.alpha = 0
                 delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
+            } else {
+                playbackService.selectAudioTrack(at: indexPath.row - 1)
+                delegate?.titleSelectionViewDelegateDidSelectTrack(self)
             }
-            playbackService.selectAudioTrack(at: indexPath.row)
-            delegate?.titleSelectionViewDelegateDidSelectTrack(self)
         } else {
-            if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
+            if indexPath.row == 0 {
+                playbackService.disableSubtitles()
+                delegate?.titleSelectionViewDelegateDidSelectTrack(self)
+            } else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
                 currentCell?.checkImageView.alpha = 0
                 delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
-            }
-            else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
+            } else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
                 currentCell?.checkImageView.alpha = 0
                 delegate?.titleSelectionViewDelegateDidSelectDownloadSPU(self)
             } else {
-                playbackService.selectVideoSubtitle(at: indexPath.row)
+                playbackService.selectVideoSubtitle(at: indexPath.row - 1)
                 delegate?.titleSelectionViewDelegateDidSelectTrack(self)
             }
         }
