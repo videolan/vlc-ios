@@ -142,7 +142,9 @@ NS_SWIFT_NAME(PlaybackService)
 - (nullable VLCMediaPlayerTitleDescription *)titleDescriptionAtIndex:(NSInteger)index;
 - (nullable VLCMediaPlayerChapterDescription *)chapterDescriptionAtIndex:(NSInteger)index;
 - (void)selectAudioTrackAtIndex:(NSInteger)index;
+- (void)disableAudio;
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index;
+- (void)disableSubtitles;
 - (void)selectTitleAtIndex:(NSInteger)index;
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;

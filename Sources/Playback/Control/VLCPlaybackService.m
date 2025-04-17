@@ -686,7 +686,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             return [audioTracks indexOfObject:track];
         }
     }
-    return 0;
+    return -1;
 }
 
 - (NSInteger)indexOfCurrentSubtitleTrack
@@ -697,7 +697,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             return [textTracks indexOfObject:track];
         }
     }
-    return 0;
+    return -1;
 }
 
 - (VLCMediaPlayerChapterDescription *)currentChapterDescription
@@ -728,18 +728,18 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (NSInteger)numberOfAudioTracks
 {
 #if TARGET_OS_TV
-    return [[_mediaPlayer audioTracks] count];
-#else
     return [[_mediaPlayer audioTracks] count] + 1;
+#else
+    return [[_mediaPlayer audioTracks] count] + 2;
 #endif
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
 #if TARGET_OS_TV
-    return [[_mediaPlayer textTracks] count]  + 1;
-#else
     return [[_mediaPlayer textTracks] count]  + 2;
+#else
+    return [[_mediaPlayer textTracks] count]  + 3;
 #endif
 }
 
@@ -803,6 +803,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         VLCMediaPlayerTrack *track = audioTracks[index];
         track.selected = YES;
     }
+
+- (void)disableAudio
+{
+    [_mediaPlayer deselectAllAudioTracks];
 }
 
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index
@@ -812,6 +816,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         VLCMediaPlayerTrack *track = textTracks[index];
         track.selected = YES;
     }
+
+- (void)disableSubtitles
+{
+    [_mediaPlayer deselectAllTextTracks];
 }
 
 - (void)selectTitleAtIndex:(NSInteger)index
