@@ -62,10 +62,10 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
     if ([response statusCode] != 200) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
-            NSString *serviceString = [NSString stringWithFormat:@"plex://%@:%@", address, port];
+            NSString *serviceString = [NSString stringWithFormat:@"PLEX://%@:%@", address, port];
             XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
             if (!keychainItem) {
-                serviceString = [NSString stringWithFormat:@"plex://Account:%@", port];
+                serviceString = [NSString stringWithFormat:@"PLEX://Account:%@", port];
                 keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
             }
             if (keychainItem) {
