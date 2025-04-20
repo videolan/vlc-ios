@@ -39,11 +39,13 @@
 
 - (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
 {
+    _plexWebAPI = [[VLCPlexWebAPI alloc] init];
+
     return [self initWithName:login.address
                          host:login.address
                    portNumber:login.port
                          path:@""
-           authentificication:@""];
+           authentificication:[_plexWebAPI PlexAuthentification:login.username password:login.password]];
 }
 
 - (instancetype)initWithName:(NSString *)name host:(NSString *)addressOrName portNumber:(NSNumber *)portNumber path:(NSString *)path authentificication:(NSString *)auth
@@ -58,7 +60,6 @@
         _plexAuthentification = auth;
 
         _plexParser = [[VLCPlexParser alloc] init];
-        _plexWebAPI = [[VLCPlexWebAPI alloc] init];
 
         _plexQueue = [[NSOperationQueue alloc] init];
         _plexQueue.maxConcurrentOperationCount = 1;
