@@ -7,7 +7,7 @@ def shared_pods
   pod 'XKKeychain', :git => 'https://code.videolan.org/fkuehne/XKKeychain.git', :commit => '40abb8f1'
   pod 'CocoaHTTPServer', :git => 'https://code.videolan.org/fkuehne/CocoaHTTPServer.git', :commit => '08f9b818'
   pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => 'ee51009a' # add visionOS support
-  pod 'VLCKit', '4.0.0a10'
+  pod 'VLCKit', '4.0.0a11'
   pod 'VLCMediaLibraryKit', '0.13.0a11'
 end
 
