@@ -728,7 +728,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (NSInteger)numberOfAudioTracks
 {
 #if TARGET_OS_TV
-    return [_mediaPlayer audioTracks];
+    return [[_mediaPlayer audioTracks] count];
 #else
     return [[_mediaPlayer audioTracks] count] + 1;
 #endif
