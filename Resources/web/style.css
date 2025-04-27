@@ -120,6 +120,34 @@ div.main.drop {
     margin: 10px auto;
 }
 
+.fail {
+  background: linear-gradient(to bottom, #900 0%, #c00 25%, #c00 75%, #900 100%);
+}
+
+.done {
+  background-image: linear-gradient(to bottom, rgba(120, 230, 120, 0.5) 0%, rgba(170, 255, 170, 0.5) 25%, rgba(170, 255, 170, 0.5) 75%, rgba(120, 230, 120, 0.5) 100%);
+}
+
+.uploads li, .done, .fail  {
+  box-sizing: border-box;
+  padding: 0.6em 1.2em;
+  line-height: 1.2em;
+  min-height: 2.4em;
+  height: auto;
+  margin: 0;
+}
+
+.uploads li:not(.done):not(.fail) {
+  font-size: 20px;
+}
+
+.uploads .filename {
+  height: auto;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  padding: 0;
+}
+
 .downloads li {
     font-size: 20px;
     line-height: 50px;
@@ -341,6 +369,15 @@ div.main.drop {
     position: relative;
     overflow: hidden;
     padding: 2px;
+    margin-top: 1.2em;
+}
+
+.progress .bar {
+  transition: width 400ms ease;
+  min-width: 24px;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .uploads .progress .barWrapper {
