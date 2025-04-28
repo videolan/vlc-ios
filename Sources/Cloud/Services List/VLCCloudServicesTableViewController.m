@@ -176,10 +176,10 @@
             break;
         }
         case 4: {
-            // P Cloud
+            // pCloud
             BOOL isAuthorized =  [[VLCPCloudController pCloudInstance] isAuthorized];
-            cell.icon.image = [UIImage imageNamed:@""];
-            cell.cloudTitle.text = @"P Cloud";
+            cell.icon.image = [UIImage imageNamed:@"pCloudCell"];
+            cell.cloudTitle.text = @"pCloud";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
             cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
             cell.lonesomeCloudTitle.text = @"";
