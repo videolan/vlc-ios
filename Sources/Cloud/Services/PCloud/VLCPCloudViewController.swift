@@ -19,7 +19,10 @@ class VLCPCloudViewController: VLCCloudStorageTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.titleView = UIImageView(image: UIImage(named: "pCloud"))
+        let imageView = UIImageView(image: UIImage(named: "pCloud"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        self.navigationItem.titleView = imageView
 
         self.cloudStorageLogo.image = UIImage(named: "pCloud")
         self.cloudStorageLogo.sizeToFit()
