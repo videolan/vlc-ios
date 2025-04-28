@@ -1,18 +1,26 @@
-//
-//  VLCPCloudViewController.swift
-//  VLC-iOS
-//
-//  Created by Eshan Singh on 13/07/24.
-//  Copyright © 2024 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCPCloudViewController.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2014-2025 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Eshan Singh <eeeshan789@icloud.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 import PCloudSDKSwift
 
 class VLCPCloudViewController: VLCCloudStorageTableViewController {
+    //MARK: - Properties
 
     var pcloudController = VLCPCloudController.pCloudInstance
     var currentFile: Content?
+
+    // MARK: - Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +30,16 @@ class VLCPCloudViewController: VLCCloudStorageTableViewController {
         imageView.clipsToBounds = true
         self.navigationItem.titleView = imageView
 
-        self.cloudStorageLogo.image = UIImage(named: "pCloud")
-        self.cloudStorageLogo.sizeToFit()
-        self.cloudStorageLogo.center = self.view.center
+        cloudStorageLogo.image = UIImage(named: "pCloud")
+        cloudStorageLogo.contentMode = .scaleAspectFit
+        cloudStorageLogo.clipsToBounds = true
+        cloudStorageLogo.sizeToFit()
+        cloudStorageLogo.center = self.view.center
 
         self.currentPath = String(pcloudController.folderID)
 
-        self.controller = self.pcloudController
-        self.controller.delegate = self
+        controller = pcloudController
+        controller.delegate = self
 
         pcloudController.setupData()
     }
@@ -37,47 +47,17 @@ class VLCPCloudViewController: VLCCloudStorageTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.updateViewAfterSessionChange()
         super.viewWillAppear(animated)
+
+        controller = pcloudController
+        controller.delegate = self
+        pcloudController.setupData()
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "PCloudCell"
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? VLCCloudStorageTableViewCell
-
-        if cell == nil {
-            cell = VLCCloudStorageTableViewCell(reuseIdentifier: cellIdentifier)
-        }
-
-        let pCloudFile = VLCPCloudCellContentWrapper(content: controller.currentListFiles[indexPath.row] as! Content)
-        cell?.pcloudFile = pCloudFile
-        cell?.delegate = self
-        return cell!
-    }
-
-    override func tableView(_ tableView: UITableView!, didSelectRowAt indexPath: IndexPath!) {
-
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        let file = controller.currentListFiles[indexPath.row] as! Content
-        if file.isFolder {
-            // Dive into Sub Directory
-            if let folderId = file.folderMetadata?.id {
-                let folderIdString = String(folderId)
-                print(folderIdString)
-                self.currentPath = folderIdString
-                self.currentFile = file
-                self.requestInformationForCurrentPath()
-            } else {
-                print("Folder ID is nil")
-                return
-            }
-        } else {
-            // Play the media file
-            self.pcloudController.playfile(file: file)
-        }
-    }
+    // MARK: - Helpers
 
     override func goBack() {
-        if !self.controller.isAuthorized {
+        // Check authorization status
+        if !controller.isAuthorized {
             self.navigationController?.popViewController(animated: true)
             return
         }
@@ -105,8 +85,49 @@ class VLCPCloudViewController: VLCCloudStorageTableViewController {
     override func mediaListUpdated() {
         super.mediaListUpdated()
     }
+
+    // MARK: - UITableViewDataSource
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "PCloudCell"
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? VLCCloudStorageTableViewCell
+
+        if cell == nil {
+            cell = VLCCloudStorageTableViewCell(reuseIdentifier: cellIdentifier)
+        }
+
+        let pCloudFile = VLCPCloudCellContentWrapper(content: controller.currentListFiles[indexPath.row] as! Content)
+        cell?.pcloudFile = pCloudFile
+        cell?.delegate = self
+        return cell!
+    }
+
+    // MARK: - UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView!, didSelectRowAt indexPath: IndexPath!) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let file = controller.currentListFiles[indexPath.row] as! Content
+        if file.isFolder {
+            // Dive into Sub Directory
+            if let folderId = file.folderMetadata?.id {
+                let folderIdString = String(folderId)
+                print(folderIdString)
+                self.currentPath = folderIdString
+                self.currentFile = file
+                self.requestInformationForCurrentPath()
+            } else {
+                print("Folder ID is nil")
+                return
+            }
+        } else {
+            // Play the media file
+            self.pcloudController.playfile(file: file)
+        }
+    }
 }
 
+// MARK: - VLCCloudStorageTableViewCellProtocol
 extension VLCPCloudViewController: VLCCloudStorageTableViewCellProtocol {
     func triggerDownload(for cell: VLCCloudStorageTableViewCell!) {
         let indexPath = tableView.indexPath(for: cell)
