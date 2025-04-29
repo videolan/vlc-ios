@@ -532,26 +532,28 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)]) {
-        [self.delegate playbackPositionUpdated:self];
-        if (_metadata.isLiveStream && [self mediaDuration] > 0) {
-            [self setNeedsMetadataUpdate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)]) {
+            [self.delegate playbackPositionUpdated:self];
+            if (self->_metadata.isLiveStream && [self mediaDuration] > 0) {
+                [self setNeedsMetadataUpdate];
+            }
         }
-    }
 
-    if (_majorPositionChangeInProgress >= 1) {
-        [self.metadata updateExposedTimingFromMediaPlayer:_listPlayer.mediaPlayer];
-        _majorPositionChangeInProgress++;
+        if (self->_majorPositionChangeInProgress >= 1) {
+            [self.metadata updateExposedTimingFromMediaPlayer:self->_listPlayer.mediaPlayer];
+            self->_majorPositionChangeInProgress++;
 
-        /* we wait up to 10 time change intervals for the major position change
-         * to take effect, afterwards we give up, safe battery and let the OS calculate the position */
-        if (_majorPositionChangeInProgress == 10) {
-            _majorPositionChangeInProgress = 0;
+            /* we wait up to 10 time change intervals for the major position change
+             * to take effect, afterwards we give up, safe battery and let the OS calculate the position */
+            if (self->_majorPositionChangeInProgress == 10) {
+                self->_majorPositionChangeInProgress = 0;
+            }
         }
-    }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackPositionUpdated
-                                                        object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackPositionUpdated
+                                                            object:self];
+    });
 }
 
 - (NSInteger)mediaDuration
@@ -854,105 +856,102 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
-    id<VLCPictureInPictureWindowControlling> pipController = _pipController;
     dispatch_async(dispatch_get_main_queue(), ^{
+        id<VLCPictureInPictureWindowControlling> pipController = self->_pipController;
         [pipController invalidatePlaybackState];
-    });
-    switch (currentState) {
-        case VLCMediaPlayerStateBuffering: {
-            /* attach delegate */
-            _mediaPlayer.media.delegate = self;
 
-            /* on-the-fly values through hidden API */
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        switch (currentState) {
+            case VLCMediaPlayerStateBuffering: {
+                /* attach delegate */
+                self->_mediaPlayer.media.delegate = self;
+
+                /* on-the-fly values through hidden API */
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-            [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
+                [self->_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
+                [self->_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
+                [self->_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
+                [self->_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
 #pragma clang diagnostic pop
-        } break;
+            } break;
 
-        case VLCMediaPlayerStateOpening: {
+            case VLCMediaPlayerStateOpening: {
 #if !TARGET_OS_TV
-            [self _recoverLastPlaybackState];
+                [self _recoverLastPlaybackState];
 #else
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
 
-            if (bValue) {
-                _mediaPlayer.audio.passthrough = bValue;
-            }
-#endif
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
-                kVLCPlayerOpenInMiniPlayer: @(_openInMiniPlayer)
-            }];
-            _openInMiniPlayer = NO;
-        } break;
-
-        case VLCMediaPlayerStatePlaying: {
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
-        } break;
-
-        case VLCMediaPlayerStatePaused: {
-#if !TARGET_OS_TV
-            [self savePlaybackState];
-#endif
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
-        } break;
-
-        case VLCMediaPlayerStateError: {
-            APLog(@"Playback failed");
-            dispatch_async(dispatch_get_main_queue(),^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
-            });
-            _sessionWillRestart = NO;
-            [self stopPlayback];
-        } break;
-        case VLCMediaPlayerStateStopping: {
-#if TARGET_OS_IOS
-            [self savePlaybackState];
-#endif
-
-            NSInteger nextIndex = [self nextMediaIndex:false];
-
-            if (nextIndex > -1) {
-                if (_listPlayer.repeatMode != VLCRepeatCurrentItem) {
-                    [_listPlayer playItemAtNumber:@(nextIndex)];
+                if (bValue) {
+                    self->_mediaPlayer.audio.passthrough = bValue;
                 }
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
-            }
-        } break;
-        case VLCMediaPlayerStateStopped: {
-            [_listPlayer.mediaList lock];
-            NSUInteger listCount = _listPlayer.mediaList.count;
-            [_listPlayer.mediaList unlock];
+#endif
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
+                    kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer)
+                }];
+                self->_openInMiniPlayer = NO;
+            } break;
 
-            if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1
-                && self.repeatMode == VLCDoNotRepeat) {
-                _sessionWillRestart = NO;
+            case VLCMediaPlayerStatePlaying: {
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
+            } break;
+
+            case VLCMediaPlayerStatePaused: {
+#if !TARGET_OS_TV
+                [self savePlaybackState];
+#endif
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
+            } break;
+
+            case VLCMediaPlayerStateError: {
+                APLog(@"Playback failed");
+                dispatch_async(dispatch_get_main_queue(),^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
+                });
+                self->_sessionWillRestart = NO;
                 [self stopPlayback];
-            }
-        } break;
-        default:
-            break;
-    }
+            } break;
+            case VLCMediaPlayerStateStopping: {
+#if TARGET_OS_IOS
+                [self savePlaybackState];
+#endif
 
-    _mediaPlayerState = currentState;
+                NSInteger nextIndex = [self nextMediaIndex:false];
 
-    if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackService:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+                if (nextIndex > -1) {
+                    if (self->_listPlayer.repeatMode != VLCRepeatCurrentItem) {
+                        [self->_listPlayer playItemAtNumber:@(nextIndex)];
+                    }
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+                }
+            } break;
+            case VLCMediaPlayerStateStopped: {
+                [self->_listPlayer.mediaList lock];
+                NSUInteger listCount = self->_listPlayer.mediaList.count;
+                [self->_listPlayer.mediaList unlock];
+
+                if ([self->_listPlayer.mediaList indexOfMedia:self->_mediaPlayer.media] == listCount - 1
+                    && self.repeatMode == VLCDoNotRepeat) {
+                    self->_sessionWillRestart = NO;
+                    [self stopPlayback];
+                }
+            } break;
+            default:
+                break;
+        }
+
+        self->_mediaPlayerState = currentState;
+
+        if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackService:)]) {
             [self.delegate mediaPlayerStateChanged:currentState
                                          isPlaying:self->_mediaPlayer.isPlaying
                   currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
                            currentMediaHasChapters:self.currentMediaHasChapters
                                 forPlaybackService:self];
-        });
-    }
+        }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsMetadataUpdate];
     });
 }
@@ -1269,22 +1268,24 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)setVideoOutputView:(UIView *)videoOutputView
 {
-    if (videoOutputView) {
-        if ([_actualVideoOutputView superview] != nil)
-            [_actualVideoOutputView removeFromSuperview];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (videoOutputView) {
+            if ([self->_actualVideoOutputView superview] != nil)
+                [self->_actualVideoOutputView removeFromSuperview];
 
-        _actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
+            self->_actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
 
-        [self setVideoTrackEnabled:true];
+            [self setVideoTrackEnabled:true];
 
-        [videoOutputView addSubview:_actualVideoOutputView];
-        [_actualVideoOutputView layoutSubviews];
-        [_actualVideoOutputView updateConstraints];
-        [_actualVideoOutputView setNeedsLayout];
-    } else
-        [_actualVideoOutputView removeFromSuperview];
+            [videoOutputView addSubview:self->_actualVideoOutputView];
+            [self->_actualVideoOutputView layoutSubviews];
+            [self->_actualVideoOutputView updateConstraints];
+            [self->_actualVideoOutputView setNeedsLayout];
+        } else
+            [self->_actualVideoOutputView removeFromSuperview];
 
-    _videoOutputViewWrapper = videoOutputView;
+        self->_videoOutputViewWrapper = videoOutputView;
+    });
 }
 
 - (UIView *)videoOutputView
@@ -1554,15 +1555,19 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 }
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    [self setNeedsMetadataUpdate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsMetadataUpdate];
 #if TARGET_OS_IOS
-    [self restoreAudioAndSubtitleTrack];
+        [self restoreAudioAndSubtitleTrack];
 #endif
+    });
 }
 
 - (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
 {
-    [self setNeedsMetadataUpdate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsMetadataUpdate];
+    });
 }
 
 - (void)setNeedsMetadataUpdate

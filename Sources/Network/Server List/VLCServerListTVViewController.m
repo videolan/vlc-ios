@@ -431,22 +431,24 @@
 #pragma mark - VLCLocalServerDiscoveryController
 - (void)discoveryFoundSomethingNew
 {
-    NSMutableArray<id<VLCLocalNetworkService>> *newNetworkServices = [NSMutableArray array];
-    VLCLocalServerDiscoveryController *discoveryController = self.discoveryController;
-    NSUInteger sectionCount = [discoveryController numberOfSections];
-    for (NSUInteger section = 0; section < sectionCount; ++section) {
-        NSUInteger itemsCount = [discoveryController numberOfItemsInSection:section];
-        for (NSUInteger index = 0; index < itemsCount; ++index) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
-            id<VLCLocalNetworkService> service = [discoveryController networkServiceForIndexPath:indexPath];
-            if (service != nil) {
-                [newNetworkServices addObject:service];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableArray<id<VLCLocalNetworkService>> *newNetworkServices = [NSMutableArray array];
+        VLCLocalServerDiscoveryController *discoveryController = self.discoveryController;
+        NSUInteger sectionCount = [discoveryController numberOfSections];
+        for (NSUInteger section = 0; section < sectionCount; ++section) {
+            NSUInteger itemsCount = [discoveryController numberOfItemsInSection:section];
+            for (NSUInteger index = 0; index < itemsCount; ++index) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
+                id<VLCLocalNetworkService> service = [discoveryController networkServiceForIndexPath:indexPath];
+                if (service != nil) {
+                    [newNetworkServices addObject:service];
+                }
             }
         }
-    }
 
-    self.networkServices = newNetworkServices;
-    [self.collectionView reloadData];
+        self.networkServices = newNetworkServices;
+        [self.collectionView reloadData];
+    });
 }
 
 @end

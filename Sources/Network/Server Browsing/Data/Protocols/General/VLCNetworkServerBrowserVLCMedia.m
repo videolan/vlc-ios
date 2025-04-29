@@ -90,7 +90,9 @@
 - (void)update {
     int ret = [self.rootMedia parseWithOptions:VLCMediaParseNetwork];
     if (ret == -1) {
-        [self.delegate networkServerBrowserDidUpdate:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate networkServerBrowserDidUpdate:self];
+        });
     }
 }
 
@@ -116,7 +118,9 @@
     [self.mediaList insertMedia:media atIndex:mediaIndex];
     [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
 
-    [self.delegate networkServerBrowserDidUpdate:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate networkServerBrowserDidUpdate:self];
+    });
 }
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
@@ -125,24 +129,28 @@
     NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
     [self.mediaList removeMediaAtIndex:mediaIndex];
     [self.mutableItems removeObjectAtIndex:mediaIndex];
-    [self.delegate networkServerBrowserDidUpdate:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate networkServerBrowserDidUpdate:self];
+    });
 }
 
 #pragma mark - media delegate
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
-        if ([self.delegate respondsToSelector:@selector(networkServerBrowserShouldPopView:)]) {
-            [self.delegate networkServerBrowserShouldPopView:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
+            if ([self.delegate respondsToSelector:@selector(networkServerBrowserShouldPopView:)]) {
+                [self.delegate networkServerBrowserShouldPopView:self];
+            }
+        } else if (self.mediaList.count != 0) {
+            [self.delegate networkServerBrowserDidUpdate:self];
+        } else {
+            if ([self.delegate respondsToSelector:@selector(networkServerBrowserEndParsing:)]) {
+                [self.delegate networkServerBrowserEndParsing:self];
+            }
         }
-    } else if (self.mediaList.count != 0) {
-        [self.delegate networkServerBrowserDidUpdate:self];
-    } else {
-        if ([self.delegate respondsToSelector:@selector(networkServerBrowserEndParsing:)]) {
-            [self.delegate networkServerBrowserEndParsing:self];
-        }
-    }
+    });
 }
 
 @end

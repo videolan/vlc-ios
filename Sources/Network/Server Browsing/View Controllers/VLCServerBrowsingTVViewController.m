@@ -197,17 +197,17 @@
     GRKArrayDiff *diff = [[GRKArrayDiff alloc] initWithPreviousArray:oldItems
                                                         currentArray:newItems
                                                        identityBlock:^NSString * _Nullable(id <VLCNetworkServerBrowserItem> item) {
-                                                           return [NSString stringWithFormat:@"%@#%@",item.URL.absoluteString ?: @"", item.name];
-                                                       }
+        return [NSString stringWithFormat:@"%@#%@",item.URL.absoluteString ?: @"", item.name];
+    }
                                                        modifiedBlock:nil];
 
     [diff performBatchUpdatesWithCollectionView:self.collectionView
                                         section:0
                                dataSourceUpdate:^{
-                                   self.items = newItems;
-                               } completion:nil];
+        self.items = newItems;
+    } completion:nil];
     if (self.items.count == 0) {
-        [_activityIndicator stopAnimating];
+        [self->_activityIndicator stopAnimating];
         self.nothingFoundLabel.hidden = NO;
     }
 }

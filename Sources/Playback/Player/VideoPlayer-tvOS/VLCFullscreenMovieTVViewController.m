@@ -814,24 +814,26 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 }
 
 - (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
-    if (self.playbackUIShouldHide) {
-        return;
-    }
-    UIActivityIndicatorView *indicator = self.activityIndicator;
-    switch (state) {
-        case VLCMediaPlayerStateBuffering:
-            if (!indicator.isAnimating) {
-                self.activityIndicator.alpha = 1.0;
-                [self.activityIndicator startAnimating];
-            }
-            break;
-        default:
-            if (indicator.isAnimating) {
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.alpha = 0.0;
-            }
-            break;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.playbackUIShouldHide) {
+            return;
+        }
+        UIActivityIndicatorView *indicator = self.activityIndicator;
+        switch (state) {
+            case VLCMediaPlayerStateBuffering:
+                if (!indicator.isAnimating) {
+                    self.activityIndicator.alpha = 1.0;
+                    [self.activityIndicator startAnimating];
+                }
+                break;
+            default:
+                if (indicator.isAnimating) {
+                    [self.activityIndicator stopAnimating];
+                    self.activityIndicator.alpha = 0.0;
+                }
+                break;
+        }
+    });
 }
 
 - (void)disableIdleTimer {
@@ -938,7 +940,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)playbackDidStop
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -972,61 +976,63 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
                                  metadata:(VLCMetaData *)metadata
 {
-    NSString *title = metadata.title;
-    NSString *artist = metadata.artist;
-    NSString *albumName = metadata.albumName;
-    self.titleLabel.text = title;
-    if (metadata.isAudioOnly) {
-        self.audioDescriptionTextView.hidden = YES;
-        [self stopAudioDescriptionAnimation];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *title = metadata.title;
+        NSString *artist = metadata.artist;
+        NSString *albumName = metadata.albumName;
+        self.titleLabel.text = title;
+        if (metadata.isAudioOnly) {
+            self.audioDescriptionTextView.hidden = YES;
+            [self stopAudioDescriptionAnimation];
 
-        if (artist != nil && albumName != nil) {
-            [UIView animateWithDuration:.3 animations:^{
-                self.audioArtistLabel.text = artist;
-                self.audioArtistLabel.hidden = NO;
-                self.audioAlbumNameLabel.text = albumName;
-                self.audioAlbumNameLabel.hidden = NO;
-            }];
-        } else if (artist != nil) {
-            [UIView animateWithDuration:.3 animations:^{
-                self.audioArtistLabel.text = artist;
-                self.audioArtistLabel.hidden = NO;
-                self.audioAlbumNameLabel.hidden = YES;
-            }];
-        } else if (title != nil) {
-            NSRange deviderRange = [title rangeOfString:@" - "];
-            if (deviderRange.length != 0) { // for radio stations, all we have is "ARTIST - TITLE"
-                artist = [title substringToIndex:deviderRange.location];
-                title = [title substringFromIndex:deviderRange.location + deviderRange.length];
+            if (artist != nil && albumName != nil) {
+                [UIView animateWithDuration:.3 animations:^{
+                    self.audioArtistLabel.text = artist;
+                    self.audioArtistLabel.hidden = NO;
+                    self.audioAlbumNameLabel.text = albumName;
+                    self.audioAlbumNameLabel.hidden = NO;
+                }];
+            } else if (artist != nil) {
+                [UIView animateWithDuration:.3 animations:^{
+                    self.audioArtistLabel.text = artist;
+                    self.audioArtistLabel.hidden = NO;
+                    self.audioAlbumNameLabel.hidden = YES;
+                }];
+            } else if (title != nil) {
+                NSRange deviderRange = [title rangeOfString:@" - "];
+                if (deviderRange.length != 0) { // for radio stations, all we have is "ARTIST - TITLE"
+                    artist = [title substringToIndex:deviderRange.location];
+                    title = [title substringFromIndex:deviderRange.location + deviderRange.length];
+                }
+                [UIView animateWithDuration:.3 animations:^{
+                    self.audioArtistLabel.text = artist;
+                    self.audioArtistLabel.hidden = NO;
+                    self.audioAlbumNameLabel.hidden = YES;
+                }];
             }
-            [UIView animateWithDuration:.3 animations:^{
-                self.audioArtistLabel.text = artist;
-                self.audioArtistLabel.hidden = NO;
-                self.audioAlbumNameLabel.hidden = YES;
+
+            UIImage *artworkImage = metadata.artworkImage;
+
+            if ((![self.lastArtist isEqualToString:artist]) ||
+                (artworkImage != nil && self.audioArtworkImageView.image != artworkImage)) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateThumbnailImageViewsWith:artworkImage];
+                });
+            }
+
+            self.lastArtist = artist;
+            self.audioTitleLabel.text = title;
+            self.audioTitleLabel.hidden = NO;
+
+            [UIView animateWithDuration:0.3 animations:^{
+                self.audioView.hidden = NO;
             }];
+        } else if (!self.audioView.hidden) {
+            self.audioView.hidden = YES;
+            self.audioArtworkImageView.image = nil;
+            [self.audioLargeBackgroundImageView stopAnimating];
         }
-
-        UIImage *artworkImage = metadata.artworkImage;
-
-        if ((![self.lastArtist isEqualToString:artist]) ||
-            (artworkImage != nil && self.audioArtworkImageView.image != artworkImage)) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self updateThumbnailImageViewsWith:artworkImage];
-            });
-        }
-
-        self.lastArtist = artist;
-        self.audioTitleLabel.text = title;
-        self.audioTitleLabel.hidden = NO;
-
-        [UIView animateWithDuration:0.3 animations:^{
-            self.audioView.hidden = NO;
-        }];
-    } else if (!self.audioView.hidden) {
-        self.audioView.hidden = YES;
-        self.audioArtworkImageView.image = nil;
-        [self.audioLargeBackgroundImageView stopAnimating];
-    }
+    });
 }
 
 #pragma mark -

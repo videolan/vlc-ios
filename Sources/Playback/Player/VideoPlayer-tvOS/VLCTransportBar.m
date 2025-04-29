@@ -166,47 +166,49 @@ static inline void sharedSetup(VLCTransportBar *self) {
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    const CGRect bounds = self.bounds;
-    const CGFloat width = CGRectGetWidth(bounds)-VLCTransportBarMarkerWidth;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [super layoutSubviews];
+        const CGRect bounds = self.bounds;
+        const CGFloat width = CGRectGetWidth(bounds)-VLCTransportBarMarkerWidth;
 
-    self.playbackPositionMarker.center = CGPointMake(width*self.playbackFraction+VLCTransportBarMarkerWidth/2.0,
-                                                     CGRectGetMidY(bounds));
-
-
-    const BOOL withThumbnail = NO;
-    const CGRect scrubberFrame = scrubbingMarkerFrameForBounds_fraction_withThumb(bounds,
-                                                                                  self.scrubbingFraction,
-                                                                                  withThumbnail);
-    self.scrubbingPostionMarker.frame = scrubberFrame;
+        self.playbackPositionMarker.center = CGPointMake(width*self.playbackFraction+VLCTransportBarMarkerWidth/2.0,
+                                                         CGRectGetMidY(bounds));
 
 
-    UILabel *remainingLabel = self.remainingTimeLabel;
-    [remainingLabel sizeToFit];
-    CGRect remainingLabelFrame = remainingLabel.frame;
-    remainingLabelFrame.origin.y = CGRectGetMaxY(bounds)+15.0;
-    remainingLabelFrame.origin.x = width-CGRectGetWidth(remainingLabelFrame);
-    remainingLabel.frame = remainingLabelFrame;
+        const BOOL withThumbnail = NO;
+        const CGRect scrubberFrame = scrubbingMarkerFrameForBounds_fraction_withThumb(bounds,
+                                                                                      self.scrubbingFraction,
+                                                                                      withThumbnail);
+        self.scrubbingPostionMarker.frame = scrubberFrame;
 
-    UILabel *markerLabel = self.markerTimeLabel;
-    [markerLabel sizeToFit];
 
-    CGPoint timeLabelCenter = remainingLabel.center;
-    timeLabelCenter.x = self.scrubbingPostionMarker.center.x;
-    markerLabel.center = timeLabelCenter;
+        UILabel *remainingLabel = self.remainingTimeLabel;
+        [remainingLabel sizeToFit];
+        CGRect remainingLabelFrame = remainingLabel.frame;
+        remainingLabelFrame.origin.y = CGRectGetMaxY(bounds)+15.0;
+        remainingLabelFrame.origin.x = width-CGRectGetWidth(remainingLabelFrame);
+        remainingLabel.frame = remainingLabelFrame;
 
-    CGRect markerLabelFrame = markerLabel.frame;
+        UILabel *markerLabel = self.markerTimeLabel;
+        [markerLabel sizeToFit];
 
-    UIImageView *leftHint = self.leftHintImageView;
-    CGFloat leftImageSize = CGRectGetWidth(leftHint.bounds);
-    leftHint.center = CGPointMake(CGRectGetMinX(markerLabelFrame)-leftImageSize, timeLabelCenter.y);
+        CGPoint timeLabelCenter = remainingLabel.center;
+        timeLabelCenter.x = self.scrubbingPostionMarker.center.x;
+        markerLabel.center = timeLabelCenter;
 
-    UIImageView *rightHint = self.rightHintImageView;
-    CGFloat rightImageSize = CGRectGetWidth(rightHint.bounds);
-    rightHint.center = CGPointMake(CGRectGetMaxX(markerLabelFrame)+rightImageSize, timeLabelCenter.y);
+        CGRect markerLabelFrame = markerLabel.frame;
 
-    CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
-    remainingLabel.alpha = remainingAlfa;
+        UIImageView *leftHint = self.leftHintImageView;
+        CGFloat leftImageSize = CGRectGetWidth(leftHint.bounds);
+        leftHint.center = CGPointMake(CGRectGetMinX(markerLabelFrame)-leftImageSize, timeLabelCenter.y);
+
+        UIImageView *rightHint = self.rightHintImageView;
+        CGFloat rightImageSize = CGRectGetWidth(rightHint.bounds);
+        rightHint.center = CGPointMake(CGRectGetMaxX(markerLabelFrame)+rightImageSize, timeLabelCenter.y);
+
+        CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
+        remainingLabel.alpha = remainingAlfa;
+    });
 }
 
 
