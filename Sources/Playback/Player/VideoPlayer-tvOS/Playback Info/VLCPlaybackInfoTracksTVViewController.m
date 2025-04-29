@@ -103,21 +103,13 @@
     NSInteger row = indexPath.row;
     NSString *trackName;
 
-    if (row >= [vpc numberOfAudioTracks]) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF]) {
-            trackName = [@"✓ " stringByAppendingString:NSLocalizedString(@"USE_SPDIF", nil)];
-            trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
-        } else
-            trackName = NSLocalizedString(@"USE_SPDIF", nil);
-    } else {
-        BOOL isSelected = row == [vpc indexOfCurrentAudioTrack];
-        trackCell.selectionMarkerVisible = isSelected;
+    BOOL isSelected = row == [vpc indexOfCurrentAudioTrack];
+    trackCell.selectionMarkerVisible = isSelected;
 
-        trackName = [vpc audioTrackNameAtIndex:row];
-        if (trackName != nil) {
-            if ([trackName isEqualToString:@"Disable"])
-                trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
-        }
+    trackName = [vpc audioTrackNameAtIndex:row];
+    if (trackName != nil) {
+        if ([trackName isEqualToString:@"Disable"])
+            trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
     }
 
     trackCell.titleLabel.text = trackName;
@@ -128,15 +120,7 @@
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger row = indexPath.row;
-    if (row >= [vpc numberOfAudioTracks]) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL bValue = ![defaults boolForKey:kVLCSettingUseSPDIF];
-        [vpc setAudioPassthrough:bValue];
-
-        [defaults setBool:bValue forKey:kVLCSettingUseSPDIF];
-    } else {
-        [vpc selectAudioTrackAtIndex:row];
-    }
+    [vpc selectAudioTrackAtIndex:row];
     [collectionView reloadData];
 }
 

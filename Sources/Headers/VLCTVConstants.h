@@ -71,7 +71,6 @@
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCPlayerUIShouldHide @"PlayerUIShouldHide"
 #define kVLCSettingDownloadArtwork @"download-artwork"
-#define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"

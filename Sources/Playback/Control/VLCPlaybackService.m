@@ -894,13 +894,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             case VLCMediaPlayerStateOpening: {
 #if !TARGET_OS_TV
                 [self _recoverLastPlaybackState];
-#else
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
-
-                if (bValue) {
-                    self->_mediaPlayer.audio.passthrough = bValue;
-                }
 #endif
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
                     kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer)
