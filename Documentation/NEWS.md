@@ -7,14 +7,14 @@
 · Add HDR playback
 · Add multi-channel and spatial audio
 · Add Picture-in-Picture playback
-· Add support for visionOS
 · Add App-Intent to play media (iOS 16.4 and later)
 · Audio player: Add seek backward/forward buttons
 · Add play count metadata to media long press UI
 · Add supports for passcodes with four and six digits
 · Cloud services: allow downloads of entire folders and to favorite them
 · Major accessbility improvements for the playback interface
-· Last played item in a playlist is now indicate
+· Last played item in a playlist is now indicated
+· Add more sorting options for playlists and improve appearance
 · Improve brightness restoration and handling
 · Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
@@ -28,9 +28,31 @@
 · Add options to skip forward/back instead of go to next/previous track
     - on lockscreen and when using external controls (like headphones and car controls)
 · Integrate with the pCloud service
+· Frame-by-Frame playback
 
 Known issues:
 · Thumbnailing content is broken
+· Picture-in-Picture featured is offered on devices where it is actually unsupported
+· Google Drive integration fails to stream
+
+## visionOS [4.0.0]
+· Initial release
+
+## tvOS [4.0.0]
+· VLC now requires tvOS 12 or later
+· Update to libvlc v4 with all its features (new clock, player, playlist and more)
+· Add HDR playback
+· Add multi-channel and spatial audio
+· Add play count metadata to media long press UI
+· Add Multipath TCP (MPTCP) support
+· New support for the IMM4, 708, AGM, VP4 codecs
+· New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
+· New support for the RIST, AMT and Gopher protocols
+· Remove support for the real player dialect of RTSP
+· Improve proxy configuration handling
+· Fix silence for a split second when starting playback
+· Fix PLEX integration
+· Remove S/PDIF option on tvOS as it was discontinued in tvOS 11
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
