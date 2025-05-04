@@ -78,7 +78,6 @@
 "BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
 "BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
-"UPGRADING_LIBRARY" = "Upgrading Media Library";
 
 "FAVORITES" = "Favorites";
 "NO_FAVORITES" = "There are no Favorites yet";
@@ -294,7 +293,6 @@
 "NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "SELECT_AUDIO_FROM_FILES" = "Load External Audio...";
 "SELECT_SUBTITLE_FROM_FILES" = "Load External Subtitles...";
-"USE_SPDIF" = "Use Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Playback";
 "REPEAT_MODE" = "Repeat";

@@ -20,7 +20,6 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCActivityViewControllerVendor.h"
 #import "VLCMediaFileDiscoverer.h"
-#import "VLCMigrationViewController.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import "NSString+SupportedMedia.h"
