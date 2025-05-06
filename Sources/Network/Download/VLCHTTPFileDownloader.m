@@ -20,6 +20,7 @@
 {
     NSURL *_url;
     NSString *_fileName;
+    NSString *_fileExtension;
     NSURL *_fileURL;
 
     NSURLSession *_urlSession;
@@ -64,14 +65,35 @@
     return theRequest;
 }
 
+- (BOOL)containsSpecialCharactersIn:(NSString *)fileName
+{
+    NSMutableCharacterSet *characterSet = NSMutableCharacterSet.alphanumericCharacterSet;
+    [characterSet formUnionWithCharacterSet:NSMutableCharacterSet.whitespaceCharacterSet];
+
+    if ([fileName rangeOfCharacterFromSet:characterSet.invertedSet].location != NSNotFound) {
+        return YES;
+    }
+
+    return NO;
+}
+
 - (NSString *)downloadFileFromVLCMedia:(VLCMedia *)media withName:(NSString *)name expectedDownloadSize:(unsigned long long)expectedDownloadSize
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = [searchPaths firstObject];
 
     _url = media.url;
-    _fileName = name;
-    _fileURL = [NSURL fileURLWithPath:[libraryPath stringByAppendingPathComponent:name]];
+    if ([self containsSpecialCharactersIn:[name stringByDeletingPathExtension]]) {
+        // Properly percent encode the special characters in the media's name to validate the URL
+        _fileName = [[name stringByDeletingPathExtension] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
+        _fileExtension = [name pathExtension];
+        NSString *newFileName = [NSString stringWithFormat:@"%@.%@", _fileName, _fileExtension];
+        NSArray<NSString *> *pathComponents = @[libraryPath, newFileName];
+        _fileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    } else {
+        _fileName = name;
+        _fileURL = [NSURL fileURLWithPath:[libraryPath stringByAppendingPathComponent:name]];
+    }
 
     NSString *identifier = [[NSUUID UUID] UUIDString];
 
