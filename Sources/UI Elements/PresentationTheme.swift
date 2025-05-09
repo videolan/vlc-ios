@@ -43,27 +43,27 @@ extension Notification.Name {
     let thumbnailBackgroundColor: UIColor
 
     init(isDark: Bool,
-                name: String,
-                statusBarStyle: UIStatusBarStyle,
-                navigationbarColor: UIColor,
-                navigationbarTextColor: UIColor,
-                background: UIColor,
-                cellBackgroundA: UIColor,
-                cellBackgroundB: UIColor,
-                cellDetailTextColor: UIColor,
-                cellTextColor: UIColor,
-                lightTextColor: UIColor,
-                sectionHeaderTextColor: UIColor,
-                separatorColor: UIColor,
-                mediaCategorySeparatorColor: UIColor,
-                tabBarColor: UIColor,
-                orangeUI: UIColor,
-                orangeDarkAccent: UIColor,
-                toolBarStyle: UIBarStyle,
-                blurStyle: UIBlurEffect.Style,
-                textfieldBorderColor: UIColor,
-                textfieldPlaceholderColor: UIColor,
-                thumbnailBackgroundColor: UIColor) {
+         name: String,
+         statusBarStyle: UIStatusBarStyle,
+         navigationbarColor: UIColor,
+         navigationbarTextColor: UIColor,
+         background: UIColor,
+         cellBackgroundA: UIColor,
+         cellBackgroundB: UIColor,
+         cellDetailTextColor: UIColor,
+         cellTextColor: UIColor,
+         lightTextColor: UIColor,
+         sectionHeaderTextColor: UIColor,
+         separatorColor: UIColor,
+         mediaCategorySeparatorColor: UIColor,
+         tabBarColor: UIColor,
+         orangeUI: UIColor,
+         orangeDarkAccent: UIColor,
+         toolBarStyle: UIBarStyle,
+         blurStyle: UIBlurEffect.Style,
+         textfieldBorderColor: UIColor,
+         textfieldPlaceholderColor: UIColor,
+         thumbnailBackgroundColor: UIColor) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -89,6 +89,8 @@ extension Notification.Name {
     }
 }
 
+// MARK: - Typography
+
 @objcMembers class Typography: NSObject {
     
     let tableHeaderFont: UIFont
@@ -105,6 +107,8 @@ enum PresentationThemeType: Int {
     case dark
     case auto
 }
+
+// MARK: - PresentationTheme
 
 @objcMembers class PresentationTheme: NSObject {
 
@@ -199,6 +203,8 @@ enum PresentationThemeType: Int {
     let colors: ColorPalette
     let font = defaultFont
 }
+
+// MARK: - UIColor
 
 @objc extension UIColor {
 

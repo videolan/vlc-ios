@@ -231,6 +231,10 @@ class SettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func themeChanged() {
+        setupTheme()
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         backgroundColor = .clear // Required to prevent theme mismatch during setupTheme

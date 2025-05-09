@@ -169,7 +169,14 @@ class SettingsController: UITableViewController {
 #if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
 #endif
-        reloadSettingsSections() // When theme changes hide the black theme section if needed
+
+        tableView.visibleCells.forEach { cell in
+            guard let cell = cell as? SettingsCell else { return }
+
+            cell.themeChanged()
+        }
+
+        reloadSettingsSections()
     }
 
     @objc private func miniPlayerIsShown() {
@@ -430,6 +437,8 @@ extension SettingsController: MediaLibraryHidingDelegate {
 extension SettingsController: SettingsCellDelegate {
     func settingsCellDidChangeSwitchState(cell _: SettingsCell, preferenceKey: String, isOn: Bool) {
         switch preferenceKey {
+        case kVLCSettingAppThemeBlack:
+            PresentationTheme.themeDidUpdate()
         case kVLCSettingPasscodeOnKey:
             passcodeLockSwitchOn(state: isOn)
         case kVLCSettingHideLibraryInFilesApp:
