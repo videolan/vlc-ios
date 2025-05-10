@@ -167,17 +167,6 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         return (CGFloat(index) * containerView.bounds.width) + ((containerView.bounds.width - view.bounds.width) * 0.5)
     }
 
-    enum PagerTabStripError: Error {
-        case viewControllerOutOfBounds
-    }
-
-    func offsetForChild(viewController: UIViewController) throws -> CGFloat {
-        guard let index = viewControllers.firstIndex(of: viewController) else {
-            throw PagerTabStripError.viewControllerOutOfBounds
-        }
-        return offsetForChild(at: index)
-    }
-
     func pageFor(contentOffset: CGFloat) -> Int {
         let result = virtualPageFor(contentOffset: contentOffset)
         return pageFor(virtualPage: result)
@@ -240,8 +229,7 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         preCurrentIndex = currentIndex
         let changeCurrentIndex = newCurrentIndex != oldCurrentIndex
 
-        if let progressiveDelegate = self as? PagerTabStripIsProgressiveDelegate {
-
+        if let progressiveDelegate = delegate {
             let (fromIndex, toIndex, scrollPercentage) = progressiveIndicatorData(virtualPage)
             progressiveDelegate.updateIndicator(for: self, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: scrollPercentage, indexWasChanged: changeCurrentIndex)
         }
