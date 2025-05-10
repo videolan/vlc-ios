@@ -166,8 +166,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     lazy var progressionView: UIView = UIView()
 
-    private var thumbnailImageViewWidthConstant: CGFloat = 270.0
-
     private lazy var progressionViewBottomConstant: CGFloat = {
 #if os(iOS)
         let isSmallerScreen: Bool = UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
@@ -241,17 +239,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     func setupLabels() {
         titleLabel.textColor = .white
         artistLabel.textColor = .white
-    }
-
-    func setupPlayqueueView(with qvc: UIView) {
-        playqueueView.addSubview(qvc)
-        playqueueView.bringSubviewToFront(qvc)
-        NSLayoutConstraint.activate([
-            qvc.topAnchor.constraint(equalTo: playqueueView.topAnchor),
-            qvc.leadingAnchor.constraint(equalTo: playqueueView.leadingAnchor),
-            qvc.trailingAnchor.constraint(equalTo: playqueueView.trailingAnchor),
-            qvc.bottomAnchor.constraint(equalTo: playqueueView.bottomAnchor)
-        ])
     }
 
     func setupProgressView(with view: MediaScrubProgressBar) {

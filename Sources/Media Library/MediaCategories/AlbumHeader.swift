@@ -25,8 +25,6 @@ class AlbumHeader: UICollectionReusableView {
 
     private var playShuffleButton = UIButton(type: .custom)
 
-    private var layoutGuide: UILayoutGuide?
-
     // MARK: - Initializers
 
     override init(frame: CGRect) {

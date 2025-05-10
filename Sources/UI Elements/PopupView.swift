@@ -176,17 +176,6 @@ extension PopupView {
         ])
         NSLayoutConstraint.activate(newConstraints)
     }
-
-    func updateAccessoryViews() {
-        while titleStackView.arrangedSubviews.count > 2 {
-            if let subview = titleStackView.arrangedSubviews.last {
-                titleStackView.removeArrangedSubview(subview)
-                subview.removeFromSuperview()
-            }
-        }
-        addAccessoryViews()
-        titleStackView.layoutSubviews()
-    }
 }
 
 // MARK: - PopupViewDelegate

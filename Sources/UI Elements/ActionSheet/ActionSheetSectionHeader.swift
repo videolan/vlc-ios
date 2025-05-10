@@ -10,9 +10,6 @@
  *****************************************************************************/
 
 class ActionSheetSectionHeader: UIView {
-
-    static let identifier = "VLCActionSheetSectionHeader"
-
     public var accessoryViewsDelegate: ActionSheetAccessoryViewsDelegate? {
         didSet {
             addAccessoryViews()
@@ -117,13 +114,6 @@ class ActionSheetSectionHeader: UIView {
             separator.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             separator.heightAnchor.constraint(equalToConstant: 0.5),
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: -1)
-        ])
-    }
-
-    fileprivate func setupTitle() {
-        addSubview(title)
-        NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
         ])
     }
 }
