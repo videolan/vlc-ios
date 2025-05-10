@@ -29,7 +29,6 @@ protocol MediaLibraryBaseModel {
     #if !os(tvOS) && !os(watchOS)
     var cellType: BaseCollectionViewCell.Type { get }
     #endif
-    func anyAppend(_ item: VLCMLObject)
     func anyDelete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
 
@@ -72,13 +71,6 @@ extension MLBaseModel {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
         return files
-    }
-
-    func anyAppend(_ item: VLCMLObject) {
-        guard let item = item as? MLType else {
-            preconditionFailure("MLBaseModel: Wrong underlying ML type.")
-        }
-        append(item)
     }
 
     func anyDelete(_ items: [VLCMLObject]) {
