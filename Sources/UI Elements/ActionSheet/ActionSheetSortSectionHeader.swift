@@ -29,8 +29,6 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }
 
     private var sortModel: SortModel
-    private var secondSortModel: SortModel?
-    private let userDefaults = UserDefaults.standard
     private var isAdditionalOptionShown: Bool = false
 
     private let descendingStackView: UIStackView = {
@@ -187,11 +185,11 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     private var isVideoModel: Bool
 
-    init(model: SortModel, secondModel: SortModel?,
-         isVideoModel: Bool, currentModelType: String) {
+    init(model: SortModel,
+         isVideoModel: Bool,
+         currentModelType: String) {
         modelType = currentModelType
         sortModel = model
-        secondSortModel = secondModel
         self.isVideoModel = isVideoModel
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc

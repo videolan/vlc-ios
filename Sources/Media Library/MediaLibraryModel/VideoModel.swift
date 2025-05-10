@@ -29,8 +29,6 @@ class VideoModel: NSObject, MediaModel {
 
     var name: String = "ALL_VIDEOS"
 
-    var secondName: String = ""
-
     var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 
     var currentPage = 0
