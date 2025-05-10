@@ -82,18 +82,6 @@ class PlaylistModel: NSObject, MLBaseModel {
         }
     }
 
-    // Creates a VLCMLPlaylist appending it and updates linked view
-    func create(name: String) {
-        guard let playlist = medialibrary.createPlaylist(with: name) else {
-            assertionFailure("PlaylistModel: create: Failed to create a playlist.")
-            return
-        }
-        append(playlist)
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
-    }
-
     func fetchPage(offset: Int, limit: Int) -> [VLCMLPlaylist] {
         return medialibrary.medialib.playlists(with: sortModel.currentSort,
                                                desc: sortModel.desc,
