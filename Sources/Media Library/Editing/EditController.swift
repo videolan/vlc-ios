@@ -10,14 +10,11 @@
  *****************************************************************************/
 
 protocol EditControllerDelegate: AnyObject {
-    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
-    func editController(editController: EditController, present viewController: UIViewController)
     func editControllerDidSelectMultipleItem(editContrller: EditController)
     func editControllerDidDeSelectMultipleItem()
     func editControllerDidFinishEditing(editController: EditController?)
     func editControllerGetCurrentThumbnail() -> UIImage?
     func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
-    func editControllerUpdateNavigationBar(offset: CGFloat)
     func editControllerSetNavigationItemTitle(with title: String?)
     func editControllerUpdateIsAllSelected(with allSelected: Bool)
 }
@@ -26,7 +23,6 @@ class EditController: UIViewController {
     // Cache selectedIndexPath separately to indexPathsForSelectedItems in order to have persistance
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
-    private let mediaLibraryService: MediaLibraryService
     private let presentingView: UICollectionView
     private let searchDataSource: LibrarySearchDataSource
     private(set) var editActions: EditActions
@@ -45,8 +41,8 @@ class EditController: UIViewController {
 
     init(mediaLibraryService: MediaLibraryService,
          model: MediaLibraryBaseModel,
-         presentingView: UICollectionView, searchDataSource: LibrarySearchDataSource) {
-        self.mediaLibraryService = mediaLibraryService
+         presentingView: UICollectionView,
+         searchDataSource: LibrarySearchDataSource) {
         self.model = model
         self.presentingView = presentingView
         self.editActions = EditActions(model: model, mediaLibraryService: mediaLibraryService)
@@ -108,55 +104,6 @@ class EditController: UIViewController {
 // MARK: - Helpers
 
 private extension EditController {
-    private struct TextFieldAlertInfo {
-        var alertTitle: String
-        var alertDescription: String
-        var placeHolder: String
-        var textfieldText: String
-        var confirmActionTitle: String
-
-        init(alertTitle: String = "",
-             alertDescription: String = "",
-             placeHolder: String = "",
-             textfieldText: String = "",
-             confirmActionTitle: String = NSLocalizedString("BUTTON_DONE", comment: "")) {
-            self.alertTitle = alertTitle
-            self.alertDescription = alertDescription
-            self.placeHolder = placeHolder
-            self.textfieldText = textfieldText
-            self.confirmActionTitle = confirmActionTitle
-        }
-    }
-
-    private func presentTextFieldAlert(with info: TextFieldAlertInfo,
-                                       completionHandler: @escaping (String) -> Void) {
-        let alertController = UIAlertController(title: info.alertTitle,
-                                                message: info.alertDescription,
-                                                preferredStyle: .alert)
-
-        alertController.addTextField(configurationHandler: {
-            textField in
-            textField.text = info.textfieldText
-            textField.placeholder = info.placeHolder
-        })
-
-        let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
-                                         style: .cancel)
-
-
-        let confirmAction = UIAlertAction(title: info.confirmActionTitle, style: .default) {
-            [weak alertController] _ in
-            guard let alertController = alertController,
-                let textField = alertController.textFields?.first else { return }
-            completionHandler(textField.text ?? "")
-        }
-
-        alertController.addAction(cancelButton)
-        alertController.addAction(confirmAction)
-
-        present(alertController, animated: true, completion: nil)
-    }
-
     private func getTitle(for count: Int) -> String {
         var title = "\(count) "
         if count == 1 {

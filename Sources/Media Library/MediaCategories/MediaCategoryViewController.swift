@@ -2161,16 +2161,6 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
 // MARK: - EditControllerDelegate
 
 extension MediaCategoryViewController: EditControllerDelegate {
-    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell? {
-        return collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell
-    }
-
-    func editController(editController: EditController,
-                        present viewController: UIViewController) {
-        let newNavigationController = UINavigationController(rootViewController: viewController)
-        navigationController?.present(newNavigationController, animated: true, completion: nil)
-    }
-
     func enableEditToolBarActions(_ enable: Bool) {
         activeEditToolbar().enableEditActions(enable)
     }
@@ -2212,39 +2202,6 @@ extension MediaCategoryViewController: EditControllerDelegate {
 
     func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize {
         return albumFlowLayout.getHeaderSize(with: width)
-    }
-
-    func editControllerUpdateNavigationBar(offset: CGFloat) {
-        if let model = model as? CollectionModel,
-           model.mediaCollection is VLCMLAlbum {
-
-            let backgroundColor: UIColor
-            if offset >= 50 {
-                backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (offset / 100))
-            } else {
-                backgroundColor = .clear
-            }
-
-            if #available(iOS 13.0, *) {
-                let standardAppearance = navigationItem.standardAppearance
-                let scrollEdgeAppearance = navigationItem.scrollEdgeAppearance
-                standardAppearance?.backgroundColor = backgroundColor
-                scrollEdgeAppearance?.backgroundColor = backgroundColor
-            }
-
-            if let albumHeader = albumHeader,
-               let navBar = navigationController?.navigationBar {
-                let padding = statusBarView.frame.maxY + navBar.frame.maxY
-                let hideNavigationBarTitle: Bool
-                if offset >= albumHeader.frame.maxY - padding {
-                    hideNavigationBarTitle = false
-                } else {
-                    hideNavigationBarTitle = true
-                }
-
-                navigationItem.titleView?.isHidden = hideNavigationBarTitle
-            }
-        }
     }
 
     func editControllerSetNavigationItemTitle(with title: String?) {

@@ -49,27 +49,6 @@ extension EditActions {
         rootViewController.present(navigationController, animated: true, completion: nil)
     }
 
-    private func createMediaGroup(from mediaGroupIds: [VLCMLIdentifier],
-                                  _ completion: ((completionState) -> Void)? = nil) {
-        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("MEDIA_GROUPS", comment: ""),
-                                           placeHolder: NSLocalizedString("MEDIA_GROUPS_PLACEHOLDER",
-                                                                          comment: ""))
-
-        presentTextFieldAlert(with: alertInfo) {
-            [unowned self] text -> Void in
-            guard text != "" else {
-                DispatchQueue.main.async {
-                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_EMPTY_NAME",
-                                                                                     comment: ""),
-                                                            viewController: self.rootViewController)
-                    completion?(.fail)
-                }
-                return
-            }
-            self.createMediaGroup(with: text)
-        }
-    }
-
     func addToPlaylist(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
         ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
