@@ -102,28 +102,6 @@ class MediaGroupViewModel: MLBaseModel {
         return true
     }
 
-    func create(with name: String, from mediaContent: [VLCMLMedia]) -> Bool {
-        let originIds = originMediaGroupsIds(from: mediaContent)
-        return create(with: name, from: originIds, content: mediaContent)
-    }
-
-    func unGroupMedia(_ media: [VLCMLMedia], from originMediaGroup: VLCMLMediaGroup) -> Bool {
-        for medium in media {
-            medium.removeFromGroup()
-            guard let newGroup = medialibrary.medialib.createMediaGroup(withName: medium.title) else {
-                return false
-            }
-            newGroup.add(medium)
-        }
-        if originMediaGroup.nbTotalMedia() == 0 {
-            fileArrayLock.lock()
-            defer { fileArrayLock.unlock() }
-            filterFilesFromDeletion(of: [originMediaGroup])
-            medialibrary.medialib.deleteMediaGroup(withIdentifier: originMediaGroup.identifier())
-        }
-        return true
-    }
-
     func fetchPage(offset: Int, limit: Int) -> [VLCMLMediaGroup] {
         return medialibrary.medialib.mediaGroups(with: sortModel.currentSort,
                                                  desc: sortModel.desc,
