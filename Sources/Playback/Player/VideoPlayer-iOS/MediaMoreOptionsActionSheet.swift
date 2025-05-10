@@ -392,10 +392,6 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAlert(title: title, message: message, action: action, index: index, isEditing: isEditing)
     }
 
-    func bookmarksViewOpenBookmarksView() {
-        openOptionView(bookmarksView)
-    }
-
     func bookmarksViewOpenAddBookmarksView() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAddBookmarksView(addBookmarksView)
         removeActionSheet()

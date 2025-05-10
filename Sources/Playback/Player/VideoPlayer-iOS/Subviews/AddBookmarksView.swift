@@ -25,7 +25,7 @@ class AddBookmarksView: UIView {
 
     private var bookmarksTableView: UITableView = UITableView()
 
-    weak var delegate: BookmarksView?
+    weak var delegate: AddBookmarksViewDelegate?
 
     init(frame: CGRect, tableView: UITableView) {
         super.init(frame: frame)

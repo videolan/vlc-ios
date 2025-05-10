@@ -16,7 +16,6 @@ protocol BookmarksViewDelegate: AnyObject {
     func bookmarksViewDidSelectBookmark(value: Float)
     func bookmarksViewShouldDisableGestures(_ disable: Bool)
     func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool)
-    func bookmarksViewOpenBookmarksView()
     func bookmarksViewOpenAddBookmarksView()
     func bookmarksViewCloseAddBookmarksView()
 }
@@ -166,11 +165,6 @@ class BookmarksView: UIView {
             }
         }
         return ""
-    }
-
-    func restoreTable() {
-        bookmarksTableView.delegate = self
-        bookmarksTableView.dataSource = self
     }
 
     func getAddBookmarksView() -> AddBookmarksView {
