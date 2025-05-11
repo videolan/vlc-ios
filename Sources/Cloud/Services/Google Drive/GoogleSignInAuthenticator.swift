@@ -24,14 +24,14 @@ class GoogleSignInAuthenticator: NSObject {
         signIn.signIn(with: configuration,
                       presenting: presentingView,
                       hint: nil,
-                      additionalScopes: [kGTLRAuthScopeDriveFile]) { user, error in
+                      additionalScopes: [kGTLRAuthScopeDriveReadonly]) { user, error in
             if error != nil {
                 return
             }
 
             if let user = user,
                let grantedScopes = user.grantedScopes,
-               grantedScopes.contains(kGTLRAuthScopeDriveFile) {
+               grantedScopes.contains(kGTLRAuthScopeDriveReadonly) {
                 presentingView.setAuthorizerAndUpdate()
             }
         }
