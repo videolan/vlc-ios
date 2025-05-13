@@ -391,6 +391,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 updateCollectionViewForAlbum()
             }
         }
+
+        addThemeChangeObserver()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -435,12 +437,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewWillDisappear(animated)
         removeInitializationCommonObservers()
     }
+
+    private func addThemeChangeObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification,
+                                               object: nil)
+    }
     
     private func addInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
-
-        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
-                                               name: .VLCThemeDidChangeNotification, object: nil)
 
         notificationCenter.addObserver(self, selector: #selector(miniPlayerIsShown),
                                                name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
@@ -462,7 +468,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private func removeInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
 
-        notificationCenter.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
         notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer), object: nil)
         notificationCenter.removeObserver(self, name:  NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer), object: nil)
         notificationCenter.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
