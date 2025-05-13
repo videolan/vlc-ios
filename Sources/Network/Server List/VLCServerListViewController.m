@@ -623,7 +623,9 @@
         if (urls.count == 1 && [[urls[0] pathExtension] isEqualToString:@""]) {
             [self getFolderData:urls[0] mediaList:medialist];
         } else {
-            for (NSURL *url in urls) {
+            NSSortDescriptor *urlSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString" ascending:YES selector:@selector(localizedStandardCompare:)];
+            NSArray<NSURL *> *sortedArray = [urls sortedArrayUsingDescriptors:@[urlSortDescriptor]];
+            for (NSURL *url in sortedArray) {
                 NSString *pathExtension = [url pathExtension];
                 if (![pathExtension isEqualToString:@""]) {
                     if (url && [url startAccessingSecurityScopedResource]) {
