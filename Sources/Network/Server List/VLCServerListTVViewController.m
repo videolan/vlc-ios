@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 - 2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 - 2025 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -34,7 +34,7 @@
 #import "VLC-Swift.h"
 
 @interface VLCServerListTVViewController ()
-@property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
+@property (nonatomic, retain) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
 @end
 
 @implementation VLCServerListTVViewController
@@ -112,7 +112,6 @@
 {
     [super viewWillDisappear:animated];
     [self.discoveryController stopDiscovery];
-    self.networkServices = nil;
 }
 
 #pragma mark - Collection view data source
@@ -414,7 +413,7 @@
         }
     }
 
-    self.networkServices = newNetworkServices;
+    self.networkServices = [newNetworkServices copy];
     [self.collectionView reloadData];
 }
 
