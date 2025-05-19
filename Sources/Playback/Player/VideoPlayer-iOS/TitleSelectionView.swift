@@ -122,18 +122,22 @@ class TitleSelectionView: UIView {
     }()
 
     private lazy var audioTableView: UITableView = {
-        let audioTableView: UITableView = UITableView(frame: .zero, style: .grouped)
+        let audioTableView: UITableView = UITableView(frame: .zero, style: .plain)
         audioTableView.delegate = self
         audioTableView.dataSource = self
         audioTableView.translatesAutoresizingMaskIntoConstraints = false
+        audioTableView.contentInsetAdjustmentBehavior = .never
+        audioTableView.sectionIndexBackgroundColor = .clear
         return audioTableView
     }()
 
     private lazy var subtitleTableView: UITableView = {
-        let subtitleTableView: UITableView = UITableView(frame: .zero, style: .grouped)
+        let subtitleTableView: UITableView = UITableView(frame: .zero, style: .plain)
         subtitleTableView.delegate = self
         subtitleTableView.dataSource = self
         subtitleTableView.translatesAutoresizingMaskIntoConstraints = false
+        subtitleTableView.contentInsetAdjustmentBehavior = .never
+        subtitleTableView.sectionIndexBackgroundColor = .clear
         return subtitleTableView
     }()
 
@@ -214,12 +218,14 @@ private extension TitleSelectionView {
         audioTableView.register(TitleSelectionTableViewCell.self,
                                 forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
         audioTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        audioTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
 
         subtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: subtitleTableView.frame.size.width, height: 1))
         subtitleTableView.delegate = self
         subtitleTableView.register(TitleSelectionTableViewCell.self,
                                    forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
         subtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        subtitleTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
     }
 
     private func setupConstraints() {
@@ -350,32 +356,73 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         return TitleSelectionTableViewCell.size
     }
 
-    func tableView(_ tableView: UITableView,
-                   titleForHeaderInSection section: Int) -> String? {
-        if tableView == audioTableView {
-            return NSLocalizedString("AUDIO", comment: "")
-        } else {
-            return NSLocalizedString("SUBTITLES", comment: "")
-        }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: TitleSelectionTableViewHeaderView = TitleSelectionTableViewHeaderView(
+            title: tableView == audioTableView ? NSLocalizedString("AUDIO", comment: "").capitalized : 
+            NSLocalizedString("SUBTITLES", comment: "").capitalized
+        )
+        
+        return headerView
+    }
+}
+
+// MARK: - TitleSelectionTableViewHeaderView
+fileprivate final class TitleSelectionTableViewHeaderView: UIView {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var separator: UIView = {
+        let separator = UIView()
+        separator.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        return separator
+    }()
+
+    private lazy var containerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.95)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+
+    init(title: String) {
+        super.init(frame: .zero)
+        titleLabel.text = title
+        
+        addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(separator)
+
+        setupConstraints()
     }
 
-    func tableView(_ tableView: UITableView,
-                   willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else {
-            return
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-        header.tintColor = UIColor.black.withAlphaComponent(0.8)
-        header.textLabel?.textColor = .white
+    func configure(title: String) {
+        titleLabel.text = title
+    }
 
-        header.textLabel?.text = header.textLabel?.text?.capitalized
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-        if #available(iOS 13.0, *) {
-            header.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        } else {
-            header.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        }
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            titleLabel.centerYAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.centerYAnchor),
 
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+            separator.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor),
+            separator.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
+            separator.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
     }
 }
