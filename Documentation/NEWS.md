@@ -4,6 +4,12 @@
 · Fix login to Google Drive after the app was finally approved again
 · Fix Now Playing CarPlay screen behavior
 · Renamed 'Network' tab to 'Browse'
+· Fix the media download feature
+· Fix PLEX login
+
+## tvOS [3.6.5]
+· Fix PLEX login
+· Fix manual server connection
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
