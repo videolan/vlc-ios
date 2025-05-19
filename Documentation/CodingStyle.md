@@ -1,11 +1,11 @@
-# Coding Rules
+# Coding Style Rules
 
 This document defines Swift and Objective-C code style rules for this project.
 
 ## Table of Contents
 * [Swift](#swift)
 * [Objective-C](#objective-c)
-# Objective-c code style
+* [Commit naming](#commit-naming)
 
 ## Swift
 
@@ -167,4 +167,40 @@ NSArray *array = @[obj1, obj2, obj3];
 **Wrong:**
 ```objc-c
 NSArray *array = [NSArray arrayWithObjects: obj1, obj2, obj3, nil];
+```
+
+## Commit naming
+
+Commit titles should follow a certain template in order to keep a better track of them.
+
+A commit message can be added if needed to explain the purpose of the commit and give more context.
+
+This is how you should title your commits:
+
+```
+filename: Brief description
+
+or
+
+subject: Brief description
+```
+
+Example: Some changes were made to the UPnP integration in order to drop the obsolete iOS 7 support in the VLCNetworkServerBrowserUPnP.m file.
+
+**Right:**
+```
+VLCNetworkServerBrowserUPnP: Remove iOS 7 compatibility code
+
+or
+
+UPnP: Remove iOS 7 compatibility code
+```
+
+**Wrong:**
+```
+Remove iOS 7 compatibility code => Lack of context
+
+VLCNetworkServer: Remove iOS 7 compatibility code => Incomplete file name
+
+VLCNetworkServerBrowserUPnP.m: Remove iOS 7 compatibility code => Useless file extension
 ```
