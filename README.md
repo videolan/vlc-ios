@@ -111,6 +111,8 @@ For example:
     Closes #166
 ```
 
+Further rules can be found on this [Coding Style](./Documentation/CodingStyle.md) guide.
+
 ### Gitlab issues
 
 You can look through issues we currently have on the [VideoLAN GitLab](https://code.videolan.org/videolan/vlc-ios/issues).
