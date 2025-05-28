@@ -14,6 +14,7 @@
 #import "VLCMetadata.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
+#import "VLCMicroMediaLibraryService.h"
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 #import "VLC-Swift.h"
@@ -131,13 +132,22 @@
 - (void)fillFromMetaDict:(VLCMediaPlayer *)mediaPlayer
 {
     VLCMediaMetaData *metadata = mediaPlayer.media.metaData;
+    VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
 
     if (metadata) {
+#if TARGET_OS_TV
+        VLCMediaList *mediaList = playbackService.mediaList;
+        NSInteger currentIndex = [mediaList indexOfMedia:mediaPlayer.media];
+        VLCMicroMediaLibraryService *microMediaLibrary = [VLCMicroMediaLibraryService sharedInstance];
+        NSString *currentTitle = [microMediaLibrary titleForItemAtIndex:currentIndex];
+        self.title = [currentTitle stringByDeletingPathExtension];
+#else
         if (metadata.nowPlaying != nil) {
             self.title = metadata.nowPlaying;
         } else {
             self.title = metadata.title;
         }
+#endif
         self.artist = metadata.artist;
         self.albumName = metadata.album;
         self.trackNumber = @(metadata.trackNumber);
@@ -150,7 +160,7 @@
                 if (imageData) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.artworkImage = [UIImage imageWithData:imageData];
-                        [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
+                        [playbackService recoverDisplayedMetadata];
 #if TARGET_OS_IOS
                         if ([[VLCKeychainCoordinator passcodeService] hasSecret])
                             return;
