@@ -14,6 +14,8 @@
 #import "VLCSubtitleItem.h"
 #import "VLCMetadata.h"
 #import "VLCPlaybackService.h"
+#import "VLCSearchController.h"
+#import "VLCIRTVTapGestureRecognizer.h"
 #if !TARGET_OS_TV
 #import "VLC-Swift.h"
 #endif
@@ -21,7 +23,7 @@
 #define SPUDownloadReUseIdentifier @"SPUDownloadReUseIdentifier"
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
 
-@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, VLCOSOFetcherDataRecipient, UISearchBarDelegate>
+@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, VLCOSOFetcherDataRecipient, UISearchBarDelegate, UISearchControllerDelegate>
 {
     NSString *_lastQuery;
 }
@@ -30,9 +32,9 @@
 @property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UILabel *nothingFoundLabel;
-@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) VLCSearchController *searchController;
 @property (nonatomic) BOOL activityCancelled;
-
+@property (nonatomic) NSNumber *collectionTopContentOffset;
 @end
 
 @implementation VLCPlaybackInfoSubtitlesFetcherViewController
@@ -43,6 +45,16 @@
 #if TARGET_OS_TV
     self.titleLabel.text = self.title;
     self.tableView.backgroundColor = [UIColor clearColor];
+    [self setupTVSearchController];
+
+    // Gestures to access the search bar
+    UITapGestureRecognizer *upArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUpGestures)];
+    upArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
+    [self.view addGestureRecognizer:upArrowRecognizer];
+
+    UISwipeGestureRecognizer *upSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleUpGestures)];
+    upSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:upSwipeRecognizer];
 #else
     [self setupDoneButton];
 
@@ -172,6 +184,30 @@
     self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
 }
+
+#else
+- (void)handleUpGestures
+{
+    if (_tableView.contentOffset.y == [_collectionTopContentOffset floatValue]) {
+        [self presentViewController:_searchController animated:NO completion:nil];
+    }
+}
+
+- (void)setupTVSearchController
+{
+    _searchController = [[VLCSearchController alloc] init];
+    [_searchController.searchBar sizeToFit];
+    _tableView.tableHeaderView = _searchController.searchBar;
+    [_searchController setupTapGesture];
+
+    _searchController.delegate = self;
+    _searchController.searchBar.delegate = self;
+
+    if (_collectionTopContentOffset == nil) {
+        _collectionTopContentOffset = [[NSNumber alloc] initWithDouble:_tableView.contentOffset.y];
+    }
+}
+
 #endif
 
 - (void)setupActivityIndicatorView
