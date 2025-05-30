@@ -90,6 +90,24 @@ extension VLCURLHandler {
         fileName = nil
     }
 
+    func getURLForValue(value: String) -> URL? {
+        /* check of the entire URL is encoded including "://"
+         * if not, don't remove percent encoding as just singular path components will be encoded
+         * while if the entire URL is encoded, it needs to be decoded before forwarding it to VLC */
+        let length = value.count
+        let end = value.index(value.startIndex, offsetBy: length > 14 ? 14 : length)
+        if value.range(of: "%3A%2F%2F", options: NSString.CompareOptions.caseInsensitive, range: value.startIndex..<end, locale: nil) == nil {
+            return URL(string: value)
+        }
+
+        guard let normalizedString = value.removingPercentEncoding else {
+            return URL(string: value)
+        }
+
+        /* in case removing percent encoding fails, still try to open what we have */
+        return URL(string: normalizedString)
+    }
+
     func parseURL(url: URL) {
         guard let query = url.query else {
             assertionFailure("VLCURLHandler: Invalid query.")
@@ -113,26 +131,10 @@ extension VLCURLHandler {
 
             switch callback {
             case .url:
-                /* check of the entire URL is encoded including "://"
-                 * if not, don't remove percent encoding as just singular path components will be encoded
-                 * while if the entire URL is encoded, it needs to be decoded before forwarding it to VLC */
-                let length = value.count
-                let end = value.index(value.startIndex, offsetBy: length > 14 ? 14 : length)
-                if value.range(of: "%3A%2F%2F", options: NSString.CompareOptions.caseInsensitive, range: value.startIndex..<end, locale: nil) == nil {
-                    movieURL = URL(string: value)
-                    break
-                }
-
-                guard let normalizedString = value.removingPercentEncoding else {
-                    movieURL = URL(string: value)
-                    break
-                }
-
-                /* in case removing percent encoding fails, still try to open what we have */
-                movieURL = URL(string: normalizedString)
+                movieURL = getURLForValue(value: value)
                 break
             case .sub:
-                subURL = URL(string: value)
+                subURL = getURLForValue(value: value)
                 break
             case .filename:
                 fileName = value.removingPercentEncoding
