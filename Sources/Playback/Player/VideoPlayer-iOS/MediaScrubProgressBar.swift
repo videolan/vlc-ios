@@ -190,6 +190,13 @@ class MediaScrubProgressBar: UIStackView {
         remainingTimeButton.setNeedsLayout()
     }
 
+    func updateProgressValues() {
+        elapsedTimeLabel.text = playbackService.playedTime().stringValue
+        progressSlider.value = playbackService.playbackPosition
+
+        updateCurrentTime()
+    }
+
     func updateSliderWithValue(value: Float) {
         perform(#selector(updatePlaybackPosition), with: nil, afterDelay: 0.3)
         progressSlider.value = value / Float(playbackService.mediaDuration)
