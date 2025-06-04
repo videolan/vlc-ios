@@ -1161,6 +1161,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_mediaPlayer jumpBackward:interval];
 }
 
+- (void)nextFrame
+{
+    [_mediaPlayer gotoNextFrame];
+}
+
 #if !TARGET_OS_VISION
 - (UIScreen *)currentScreen
 {

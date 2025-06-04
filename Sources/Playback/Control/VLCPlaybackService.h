@@ -134,6 +134,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (BOOL)previous;
 - (void)jumpForward:(int)interval;
 - (void)jumpBackward:(int)interval;
+- (void)nextFrame;
 - (void)toggleRepeatMode;
 - (VLCTime *)remainingTime;
 
