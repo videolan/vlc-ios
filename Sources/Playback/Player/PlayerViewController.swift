@@ -1530,6 +1530,15 @@ extension PlayerViewController {
         keyNumber(0)
     }
 
+    @objc func nextFrame() {
+        if playbackService.isPlaying {
+            playbackService.pause()
+        }
+
+        playbackService.nextFrame()
+        mediaScrubProgressBar.updateProgressValues()
+    }
+
     override var keyCommands: [UIKeyCommand]? {
         let playPauseSpace = UIKeyCommand(input: " ",
                                           modifierFlags: [],
@@ -1575,6 +1584,8 @@ extension PlayerViewController {
             let decreaseSpeedCommand = UIKeyCommand(input: "]", modifierFlags: [], action: #selector(keyLeftBracket))
             decreaseSpeedCommand.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
 
+            let nextFrameKey = UIKeyCommand(input: "e", modifierFlags: [], action: #selector(nextFrame))
+
             let numberCommands = (0...9).map { number -> UIKeyCommand in
                 let input = "\(number)"
                 let selector = Selector("keyNumber\(number)")
@@ -1583,7 +1594,7 @@ extension PlayerViewController {
                 return command
             }
 
-            return [playPauseCommand1, playPauseCommand2, leftArrowCommand, rightArrowCommand, increaseSpeedCommand, decreaseSpeedCommand] + numberCommands
+            return [playPauseCommand1, playPauseCommand2, leftArrowCommand, rightArrowCommand, increaseSpeedCommand, decreaseSpeedCommand, nextFrameKey] + numberCommands
         }()
 
         if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
