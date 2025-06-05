@@ -679,6 +679,7 @@
 "KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
 "KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
 "KEY_SEEK_TO_PERCENT" = "Seek to %i%% of duration";
+"KEY_NEXT_FRAME" = "Jump to the next frame";
 
 // MARK: - TitleSelection
 

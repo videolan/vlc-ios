@@ -1540,62 +1540,40 @@ extension PlayerViewController {
     }
 
     override var keyCommands: [UIKeyCommand]? {
-        let playPauseSpace = UIKeyCommand(input: " ",
-                                          modifierFlags: [],
-                                          action: #selector(handlePlayPauseGesture))
-        playPauseSpace.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
-        let playPauseReturn = UIKeyCommand(input: "\r",
-                                           modifierFlags: [],
-                                           action: #selector(handlePlayPauseGesture))
-        playPauseReturn.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
-        let jumpBack = UIKeyCommand(input: UIKeyCommand.inputLeftArrow,
-                                    modifierFlags: [],
-                                    action: #selector(keyLeftArrow))
-        jumpBack.discoverabilityTitle = NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")
-        let jumpForward = UIKeyCommand(input: UIKeyCommand.inputRightArrow,
-                                       modifierFlags: [],
-                                       action: #selector(keyRightArrow))
-        jumpForward.discoverabilityTitle = NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")
-        let increaseSpeed = UIKeyCommand(input: "[",
-                                         modifierFlags: [],
-                                         action: #selector(keyRightBracket))
-        increaseSpeed.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")
-        let decreaseSpeed = UIKeyCommand(input: "]",
-                                         modifierFlags: [],
-                                         action: #selector(keyLeftBracket))
-        decreaseSpeed.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
+        let spaceCommand = UIKeyCommand(input: " ", modifierFlags: [], action: #selector(handlePlayPauseGesture))
+        spaceCommand.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
 
-        var commands: [UIKeyCommand] = {
-            let playPauseCommand1 = UIKeyCommand(input: " ", modifierFlags: [], action: #selector(handlePlayPauseGesture))
-            playPauseCommand1.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        let returnCommand = UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(handlePlayPauseGesture))
+        returnCommand.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
 
-            let playPauseCommand2 = UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(handlePlayPauseGesture))
-            playPauseCommand2.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        let leftArrowCommand = UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: [], action: #selector(keyLeftArrow))
+        leftArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")
 
-            let leftArrowCommand = UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: [], action: #selector(keyLeftArrow))
-            leftArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")
+        let rightArrowCommand = UIKeyCommand(input: UIKeyCommand.inputRightArrow, modifierFlags: [], action: #selector(keyRightArrow))
+        rightArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")
 
-            let rightArrowCommand = UIKeyCommand(input: UIKeyCommand.inputRightArrow, modifierFlags: [], action: #selector(keyRightArrow))
-            rightArrowCommand.discoverabilityTitle = NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")
+        let leftBracketCommand = UIKeyCommand(input: "[", modifierFlags: [], action: #selector(keyLeftBracket))
+        leftBracketCommand.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
 
-            let increaseSpeedCommand = UIKeyCommand(input: "[", modifierFlags: [], action: #selector(keyRightBracket))
-            increaseSpeedCommand.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")
+        let rightBracketCommand = UIKeyCommand(input: "]", modifierFlags: [], action: #selector(keyRightBracket))
+        rightBracketCommand.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")
 
-            let decreaseSpeedCommand = UIKeyCommand(input: "]", modifierFlags: [], action: #selector(keyLeftBracket))
-            decreaseSpeedCommand.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: "")
+        let eCommand = UIKeyCommand(input: "e", modifierFlags: [], action: #selector(nextFrame))
+        eCommand.discoverabilityTitle = NSLocalizedString("KEY_NEXT_FRAME", comment: "")
 
-            let nextFrameKey = UIKeyCommand(input: "e", modifierFlags: [], action: #selector(nextFrame))
+        var commands: [UIKeyCommand] = [
+            spaceCommand, returnCommand, leftArrowCommand, rightArrowCommand, leftBracketCommand, rightBracketCommand, eCommand
+        ]
 
-            let numberCommands = (0...9).map { number -> UIKeyCommand in
-                let input = "\(number)"
-                let selector = Selector("keyNumber\(number)")
-                let command = UIKeyCommand(input: input, modifierFlags: [], action: selector)
-                command.discoverabilityTitle = String(format:NSLocalizedString("KEY_SEEK_TO_PERCENT", comment: ""), number * 10)
-                return command
-            }
+        let numberCommands = (0...9).map { number -> UIKeyCommand in
+            let input = "\(number)"
+            let selector = Selector("keyNumber\(number)")
+            let command = UIKeyCommand(input: input, modifierFlags: [], action: selector)
+            command.discoverabilityTitle = String(format:NSLocalizedString("KEY_SEEK_TO_PERCENT", comment: ""), number * 10)
+            return command
+        }
 
-            return [playPauseCommand1, playPauseCommand2, leftArrowCommand, rightArrowCommand, increaseSpeedCommand, decreaseSpeedCommand, nextFrameKey] + numberCommands
-        }()
+        commands += numberCommands
 
         if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
             let resetSpeed = UIKeyCommand(input: "=",
