@@ -107,6 +107,22 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     [_searchData removeAllObjects];
 }
 
+#if TARGET_OS_IOS
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // ensure that the last row is not cut-off on iPad by the tab bar
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.tabBarController) {
+        UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+        contentInsets.bottom += self.tabBarController.tabBar.frame.size.height;
+
+        self.tableView.contentInset = contentInsets;
+        self.tableView.scrollIndicatorInsets = contentInsets;
+    }
+}
+#endif
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
