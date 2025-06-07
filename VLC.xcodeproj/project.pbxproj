@@ -246,7 +246,6 @@
 		7D50C5EF2BBD20DF00B9F1A0 /* VLCNetworkServerLoginInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECBD1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m */; };
 		7D50C5F02BBD20DF00B9F1A0 /* CustomDialogRendererHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */; };
 		7D50C5F22BBD20DF00B9F1A0 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */; };
-		7D50C5F32BBD20DF00B9F1A0 /* VLCFirstStepsCloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */; };
 		7D50C5F42BBD20DF00B9F1A0 /* VLCLocalNetworkServiceVLCMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEFF1BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m */; };
 		7D50C5F52BBD20DF00B9F1A0 /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */; };
 		7D50C5F62BBD20DF00B9F1A0 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AFDCA427D6383F002326CC /* BookmarksView.swift */; };
@@ -320,7 +319,6 @@
 		7D50C63E2BBD20DF00B9F1A0 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */; };
 		7D50C63F2BBD20DF00B9F1A0 /* KeychainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */; };
 		7D50C6412BBD20DF00B9F1A0 /* MediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41884A4F214BE0D800D2C6B4 /* MediaCollectionViewCell.swift */; };
-		7D50C6422BBD20DF00B9F1A0 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D50C6432BBD20DF00B9F1A0 /* EditActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4756B023607D49005F670E /* EditActions.swift */; };
 		7D50C6442BBD20DF00B9F1A0 /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		7D50C6452BBD20DF00B9F1A0 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */; };
@@ -5083,7 +5081,6 @@
 				7D50C5EF2BBD20DF00B9F1A0 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7D50C5F02BBD20DF00B9F1A0 /* CustomDialogRendererHandler.swift in Sources */,
 				7D50C5F22BBD20DF00B9F1A0 /* UIImage+Blur.m in Sources */,
-				7D50C5F32BBD20DF00B9F1A0 /* VLCFirstStepsCloudViewController.m in Sources */,
 				7D50C5F42BBD20DF00B9F1A0 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7D50C5F52BBD20DF00B9F1A0 /* VLCLocalServerDiscoveryController.m in Sources */,
 				7D50C5F62BBD20DF00B9F1A0 /* BookmarksView.swift in Sources */,
@@ -5163,7 +5160,6 @@
 				7D50C63F2BBD20DF00B9F1A0 /* KeychainCoordinator.swift in Sources */,
 				7D7FAC032F30C82D00AFD748 /* FolderModel.swift in Sources */,
 				7D50C6412BBD20DF00B9F1A0 /* MediaCollectionViewCell.swift in Sources */,
-				7D50C6422BBD20DF00B9F1A0 /* VLCFirstStepsiTunesSyncViewController.m in Sources */,
 				7D50C6432BBD20DF00B9F1A0 /* EditActions.swift in Sources */,
 				7D50C6442BBD20DF00B9F1A0 /* VLCOpenInActivity.m in Sources */,
 				44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */,

@@ -12,9 +12,11 @@
  *****************************************************************************/
 
 #import "VLCFirstStepsViewController.h"
+#if TARGET_OS_IOS
 #import "VLCFirstStepsiTunesSyncViewController.h"
-#import "VLCFirstStepsWifiSharingViewController.h"
 #import "VLCFirstStepsCloudViewController.h"
+#endif
+#import "VLCFirstStepsWifiSharingViewController.h"
 #import "VLC-Swift.h"
 
 @interface VLCFirstStepsViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
@@ -36,7 +38,11 @@
 
     [[pageVC view] setFrame:[[self view] bounds]];
 
+#if TARGET_OS_IOS
     VLCFirstStepsBaseViewController *firstVC = [[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil];
+#else
+    VLCFirstStepsBaseViewController *firstVC = [[VLCFirstStepsWifiSharingViewController alloc] initWithNibName:nil bundle:nil];
+#endif
     [pageVC setViewControllers:@[firstVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
     UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismissFirstSteps)];

@@ -11,10 +11,12 @@
  *****************************************************************************/
 
 #import "VLCFirstStepsBaseViewController.h"
+#if TARGET_OS_IOS
 #import "VLCFirstStepsiTunesSyncViewController.h"
+#import "VLCFirstStepsCloudViewController.h"
+#endif
 #import "VLCFirstStepsDonateViewController.h"
 #import "VLCFirstStepsWifiSharingViewController.h"
-#import "VLCFirstStepsCloudViewController.h"
 #import "VLC-Swift.h"
 
 @implementation VLCFirstStepsBaseViewController
@@ -248,9 +250,11 @@
 + (NSArray *)pageClasses
 {
     return @[
+#if TARGET_OS_IOS
         [VLCFirstStepsiTunesSyncViewController class],
-        [VLCFirstStepsWifiSharingViewController class],
         [VLCFirstStepsCloudViewController class],
+#endif
+        [VLCFirstStepsWifiSharingViewController class],
         [VLCFirstStepsDonateViewController class],
     ];
 }

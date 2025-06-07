@@ -14,6 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if TARGET_OS_IOS
 typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
     VLCFirstStepsPageFirst,
     VLCFirstStepsPageiTunesSync = 0,
@@ -22,6 +23,14 @@ typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
     VLCFirstStepsDonate,
     VLCFirstStepsPageCount
 };
+#else
+typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
+    VLCFirstStepsPageFirst,
+    VLCFirstStepsPageWifiSharing = 0,
+    VLCFirstStepsDonate,
+    VLCFirstStepsPageCount
+};
+#endif
 
 @interface VLCFirstStepsBaseViewController : UIViewController
 
