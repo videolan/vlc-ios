@@ -194,10 +194,18 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 0) {
         VLCInvoice *invoice = _invoices[indexPath.row];
-        [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:invoice.hostedInvoiceURL];
+        }
     } else {
         VLCCharge *charge = _charges[indexPath.row];
-        [[UIApplication sharedApplication] openURL:charge.receiptURL];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:charge.receiptURL options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:charge.receiptURL];
+        }
     }
 }
 
