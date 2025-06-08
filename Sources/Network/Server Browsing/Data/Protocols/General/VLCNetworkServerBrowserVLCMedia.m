@@ -178,6 +178,11 @@
         _name = title;
         _URL = media.url;
         _mediaOptions = [mediaOptions copy];
+        uint64_t fileSize;
+        [media fileStatValueForType:VLCMediaFileStatTypeSize value:&fileSize];
+        if (fileSize > 0) {
+            _fileSizeBytes = [NSNumber numberWithUnsignedLongLong:fileSize];
+        }
     }
     return self;
 }
