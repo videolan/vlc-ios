@@ -451,15 +451,11 @@ extension PasscodeLockController {
 
             DispatchQueue.main.async {
                 if success {
-                    self.avoidPromptingBiometricAuth = false
-
                     // Dismiss and call completion handler
                     self.dismiss(animated: true) {
                         self.completionHandler?(true, nil)
                     }
                 } else {
-                    self.avoidPromptingBiometricAuth = true
-
                     // User hit cancel and wants to enter the passcode
                     self.passcodeField.becomeFirstResponder()
                 }
