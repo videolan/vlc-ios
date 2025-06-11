@@ -25,6 +25,7 @@ fileprivate enum PlayerPanType {
     case brightness
     case volume
 #endif
+    case seek
     case projection
 }
 
@@ -92,6 +93,45 @@ class PlayerViewController: UIViewController {
     var forwardBackwardEqual: Bool = true
     var tapSwipeEqual: Bool = true
     var previousSeekState: PlayerSeekState = .default
+    private var seekStartPosition: Float = 0
+    private var accumulatedSeekTime: Float = 0
+    private let seekSensitivity: Float = 0.1
+    
+    private lazy var seekPreviewLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        label.layer.cornerRadius = 4
+        label.clipsToBounds = true
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        return label
+    }()
+    
+    // MARK: - Time Unit Conversion Helpers
+
+    private func getMediaDurationInSeconds() -> Float {
+        let durationInMilliseconds = playbackService.mediaDuration
+        return Float(durationInMilliseconds) / 1000.0
+    }
+
+    private func getCurrentTimeInSeconds() -> Float {
+        let durationInSeconds = getMediaDurationInSeconds()
+        return playbackService.playbackPosition * durationInSeconds
+    }
+
+    private func secondsToPosition(_ seconds: Float) -> Float {
+        let duration = getMediaDurationInSeconds()
+        guard duration > 0 else { return 0 }
+        return seconds / duration
+    }
+
+    private func positionToMilliseconds(_ position: Float) -> Int {
+        let durationInMilliseconds = playbackService.mediaDuration
+        return Int(position * Float(durationInMilliseconds))
+    }
 
     // MARK: UI Elements
     lazy var statusLabel: VLCStatusLabel = {
@@ -672,6 +712,7 @@ class PlayerViewController: UIViewController {
         let window: UIWindow = (UIApplication.shared.delegate?.window!)!
         let windowWidth: CGFloat = window.bounds.width
         let location: CGPoint = recognizer.location(in: window)
+        let velocity = recognizer.velocity(in: window)
 
         // If minimization handler not ended yet, don't detect other gestures to don't block it.
         guard minimizationInitialCenter == nil else {
@@ -681,14 +722,22 @@ class PlayerViewController: UIViewController {
         guard !playbackService.currentMediaIs360Video else {
             return .projection
         }
+        
+        let angle = atan2(abs(velocity.y), abs(velocity.x))
+        let angleThreshold = CGFloat.pi / 4
+        let isHorizontalSwipe = angle < angleThreshold
 
         var panType: PlayerPanType = .none
 
 #if os(iOS)
-        if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled {
-            panType = .brightness
-        } else if location.x > windowWidth / 2 && playerController.isVolumeGestureEnabled {
-            panType = .volume
+        if isHorizontalSwipe && playerController.isSwipeSeekGestureEnabled {
+            panType = .seek
+        } else if !isHorizontalSwipe {
+            if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled {
+                panType = .brightness
+            } else if location.x > windowWidth / 2 && playerController.isVolumeGestureEnabled {
+                panType = .volume
+            }
         }
 #endif
 
@@ -876,6 +925,7 @@ class PlayerViewController: UIViewController {
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         let verticalPanVelocity: Float = Float(recognizer.velocity(in: view).y)
+        let horizontalPanVelocity: Float = Float(recognizer.velocity(in: view).x)
 
         let currentPos = recognizer.location(in: view)
 
@@ -886,6 +936,7 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
         guard panType == .projection
+                || (panType == .seek && playerController.isSwipeSeekGestureEnabled)
                 || (panType == .volume && playerController.isVolumeGestureEnabled)
                 || (panType == .brightness && playerController.isBrightnessGestureEnabled)
         else {
@@ -904,6 +955,13 @@ class PlayerViewController: UIViewController {
             currentPanType = panType
 #if os(iOS)
             switch currentPanType {
+            case .seek:
+                seekStartPosition = playbackService.playbackPosition
+                accumulatedSeekTime = 0
+                seekPreviewLabel.isHidden = false
+                UIView.animate(withDuration: 0.2) {
+                    self.seekPreviewLabel.alpha = 1
+                }
             case .brightness:
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
@@ -935,6 +993,48 @@ class PlayerViewController: UIViewController {
 
         switch currentPanType {
 #if os(iOS)
+        case .seek:
+            if recognizer.state == .changed {
+                let baseTimeChangeRate: Float = 0.05
+                
+                let durationInSeconds = getMediaDurationInSeconds()
+                let durationFactor = min(1.0, durationInSeconds / 3600.0)
+                let adjustedRate = baseTimeChangeRate * (1.0 + durationFactor)
+                
+                let seekDelta = horizontalPanVelocity * adjustedRate * seekSensitivity
+                accumulatedSeekTime += seekDelta
+                
+                let startTimeInSeconds = seekStartPosition * durationInSeconds
+                let newTimeInSeconds = startTimeInSeconds + accumulatedSeekTime
+                let newPosition = secondsToPosition(newTimeInSeconds)
+                let clampedPosition = max(0, min(1, newPosition))
+                
+                updateSeekPreview(newPosition: clampedPosition,
+                                seekTime: accumulatedSeekTime)
+            }
+            else if recognizer.state == .ended || recognizer.state == .cancelled {
+                let durationInSeconds = getMediaDurationInSeconds()
+                
+                if durationInSeconds > 0 && abs(accumulatedSeekTime) > 0.1 {
+                    let startTimeInSeconds = seekStartPosition * durationInSeconds
+                    let finalTimeInSeconds = startTimeInSeconds + accumulatedSeekTime
+                    let finalPosition = secondsToPosition(finalTimeInSeconds)
+                    let clampedPosition = max(0, min(1, finalPosition))
+                    
+                    playbackService.playbackPosition = clampedPosition
+                    
+                    let seekMessage = accumulatedSeekTime > 0 ?
+                        "⇒ \(formatSeekTime(accumulatedSeekTime))" :
+                        "⇐ \(formatSeekTime(abs(accumulatedSeekTime)))"
+                    statusLabel.showStatusMessage(seekMessage)
+                }
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.seekPreviewLabel.alpha = 0
+                }) { _ in
+                    self.seekPreviewLabel.isHidden = true
+                }
+            }
         case .volume:
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
@@ -1009,7 +1109,53 @@ class PlayerViewController: UIViewController {
             }
         }
     }
+    
+    private func updateSeekPreview(newPosition: Float, seekTime: Float) {
+        let currentMilliseconds = positionToMilliseconds(newPosition)
+        
+        let currentTimeVLC = VLCTime(number: NSNumber(value: currentMilliseconds))
+        let currentTimeString = currentTimeVLC.stringValue
+        
+        let seekTimeString: String
+        if abs(seekTime) < 0.1 {
+            seekPreviewLabel.text = currentTimeString
+        } else {
+            seekTimeString = seekTime > 0 ? "+\(formatSeekTime(seekTime))" : formatSeekTime(seekTime)
+            seekPreviewLabel.text = "\(currentTimeString) (\(seekTimeString))"
+        }
+        
+        updatePreviewLabelPosition(for: newPosition)
+    }
 
+    private func updatePreviewLabelPosition(for position: Float) {
+        let progressBarFrame = mediaScrubProgressBar.progressSlider.frame
+        let thumbRect = mediaScrubProgressBar.progressSlider.thumbRect(
+            forBounds: mediaScrubProgressBar.progressSlider.bounds,
+            trackRect: mediaScrubProgressBar.progressSlider.trackRect(
+                forBounds: mediaScrubProgressBar.progressSlider.bounds
+            ),
+            value: position
+        )
+        
+        let labelX = mediaScrubProgressBar.frame.origin.x + thumbRect.midX - seekPreviewLabel.frame.width / 2
+        let labelY = mediaScrubProgressBar.frame.origin.y - seekPreviewLabel.frame.height - 10
+        
+        seekPreviewLabel.center = CGPoint(x: labelX + seekPreviewLabel.frame.width / 2,
+                                         y: labelY + seekPreviewLabel.frame.height / 2)
+    }
+    
+    private func formatSeekTime(_ seconds: Float) -> String {
+        let absSeconds = abs(seconds)
+        if absSeconds < 60 {
+            return String(format: "%.0fs", absSeconds)
+        } else {
+            let minutes = Int(absSeconds) / 60
+            let remainingSeconds = Int(absSeconds) % 60
+            return String(format: "%dm%ds", minutes, remainingSeconds)
+        }
+    }
+
+    
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
         // Empty implementation. Override in subclasses.
     }

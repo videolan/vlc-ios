@@ -568,14 +568,9 @@ class VideoPlayerViewController: PlayerViewController {
         view.addGestureRecognizer(doubleTapGestureRecognizer)
         view.addGestureRecognizer(playPauseRecognizer)
         view.addGestureRecognizer(panRecognizer)
-        view.addGestureRecognizer(leftSwipeRecognizer)
-        view.addGestureRecognizer(rightSwipeRecognizer)
         view.addGestureRecognizer(upSwipeRecognizer)
         view.addGestureRecognizer(downSwipeRecognizer)
         view.addGestureRecognizer(longPressGestureRecognizer)
-
-        panRecognizer.require(toFail: leftSwipeRecognizer)
-        panRecognizer.require(toFail: rightSwipeRecognizer)
     }
 
     private func setupConstraints() {
