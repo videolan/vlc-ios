@@ -6,7 +6,9 @@
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *          Carola Nitz <caro # videolan.org>
- *        İbrahim Çetin <mail # ibrahimcetin.dev>
+ *          Pratik Ray <raypratik365 # gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *          İbrahim Çetin <mail # ibrahimcetin.dev>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -23,7 +25,7 @@ enum PasscodeAction {
 }
 
 class PasscodeLockController: UIViewController {
-    // - MARK: Properties
+    // MARK: - Properties
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
 
@@ -46,12 +48,8 @@ class PasscodeLockController: UIViewController {
         keychainService.hasSecret ? keychainService.secretLength : 4
     }
 
-    // - MARK: Initiliazer
-    init(
-        action: PasscodeAction,
-        keychainService: KeychainCoordinator,
-        completionHandler: ((Bool, String?) -> Void)? = nil
-    ) {
+    // MARK: - Initiliazer
+    init(action: PasscodeAction, keychainService: KeychainCoordinator, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.action = action
         self.keychainService = keychainService
         self.completionHandler = completionHandler
@@ -68,7 +66,7 @@ class PasscodeLockController: UIViewController {
         notificationCenter.removeObserver(self)
     }
 
-    // - MARK: UI Elements
+    // MARK: - UI Elements
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -117,49 +115,35 @@ class PasscodeLockController: UIViewController {
     private lazy var passcodeOptionsAlert: UIAlertController = {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        alert.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("4-Digit Numeric Code", comment: "Passcode 4 digit numeric code"),
-                style: .default,
-                handler: { _ in
-                    self.passcodeField.maxLength = 4
-                }
-            )
-        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("4-Digit Numeric Code", comment: "Passcode 4 digit numeric code"),
+                                      style: .default,
+                                      handler: { _ in
+            self.passcodeField.maxLength = 4
+        }))
 
-        alert.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("6-Digit Numeric Code", comment: "Passcode 6 digit numeric code"),
-                style: .default,
-                handler: { _ in
-                    self.passcodeField.maxLength = 6
-                }
-            )
-        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("6-Digit Numeric Code", comment: "Passcode 6 digit numeric code"),
+                                      style: .default,
+                                      handler: { _ in
+            self.passcodeField.maxLength = 6
+        }))
 
-        alert.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
-                style: .cancel,
-                handler: nil
-            )
-        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                      style: .cancel,
+                                      handler: nil))
 
         return alert
     }()
 
-    // - MARK: Gestures
-    private lazy var tapGestureRecognizer: UITapGestureRecognizer = .init(
-        target: self,
-        action: #selector(handleTap)
-    )
+    // MARK: - Gestures
+    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        return tapGestureRecognizer
+    }()
 
-    // - MARK: View lifecycle
+    // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
-
         passcodeField.delegate = self
     }
 
@@ -168,7 +152,6 @@ class PasscodeLockController: UIViewController {
 
         // Set passcode length
         passcodeField.maxLength = passcodeLength
-
         passcodeField.becomeFirstResponder()
     }
 
@@ -246,11 +229,9 @@ class PasscodeLockController: UIViewController {
     }
 
     private func setupCancelButton() {
-        let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(handleCancel)
-        )
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                           target: self,
+                                           action: #selector(handleCancel))
 
         cancelButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.rightBarButtonItem = cancelButton
@@ -282,54 +263,46 @@ class PasscodeLockController: UIViewController {
     }
 
     private func setNavBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
-            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
-            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
+        guard #available(iOS 13.0, *) else {
+            return
         }
+
+        let navigationBarAppearance = AppearanceManager.navigationbarAppearance
+        self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
     }
 
     // MARK: - Observers & Button Actions
 
     private func setupObservers() {
         // Theme change observer
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(setupTheme),
-            name: .VLCThemeDidChangeNotification,
-            object: nil
-        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(setupTheme),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
 
         // Keyboard observers
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(keyboardWillShow(_:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillShow(_:)),
+                                       name: UIResponder.keyboardWillShowNotification,
+                                       object: nil)
 
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(_:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillHide(_:)),
+                                       name: UIResponder.keyboardWillHideNotification,
+                                       object: nil)
 
         // Biometric auth observer
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(biometricAuthRequest),
-            name: UIApplication.didBecomeActiveNotification,
-            object: nil
-        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(biometricAuthRequest),
+                                       name: UIApplication.didBecomeActiveNotification,
+                                       object: nil)
 
         // Application will terminate observer
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(handleApplicationWillTerminate),
-            name: UIApplication.willTerminateNotification,
-            object: nil
-        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(handleApplicationWillTerminate),
+                                       name: UIApplication.willTerminateNotification,
+                                       object: nil)
     }
 
     @objc private func setupTheme() {
@@ -462,18 +435,19 @@ extension PasscodeLockController {
               allowBiometricAuthentication, // biometric authentication allowed from user in app
               !avoidPromptingBiometricAuth, // there is no already showing auth view
               UIApplication.shared.applicationState == .active, // the app is active state
-              keychainService.hasSecret
-        else { return }
+              keychainService.hasSecret else {
+            return
+        }
 
         avoidPromptingBiometricAuth = true
 
         let context = LAContext()
 
-        context.evaluatePolicy(
-            .deviceOwnerAuthenticationWithBiometrics,
-            localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: "")
-        ) { [weak self] success, _ in
-            guard let self = self else { return }
+        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                               localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: "")) { [weak self] success, _ in
+            guard let self = self else {
+                return
+            }
 
             DispatchQueue.main.async {
                 if success {
@@ -498,8 +472,9 @@ extension PasscodeLockController {
 
 extension PasscodeLockController {
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        else { return }
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
 
         let keyboardSize = keyboardValue.cgRectValue
 
