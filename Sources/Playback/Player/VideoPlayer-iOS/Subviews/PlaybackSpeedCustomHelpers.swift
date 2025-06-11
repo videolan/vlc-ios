@@ -108,7 +108,7 @@ enum UIUtils {
         #endif
         
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
-        toolBar.barStyle = .default
+        toolBar.barStyle = PresentationTheme.current.colors.toolBarStyle
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -124,6 +124,20 @@ class CustomSpeedInputHandler {
             message: NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE", comment: ""),
             preferredStyle: .alert
         )
+        
+        alertController.view.tintColor = PresentationTheme.current.colors.orangeUI
+        
+        let titleString = NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED", comment: "")
+        let attributedTitle = NSAttributedString(string: titleString, attributes: [
+            .foregroundColor: PresentationTheme.current.colors.cellTextColor
+        ])
+        alertController.setValue(attributedTitle, forKey: "attributedTitle")
+
+        let messageString = NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE", comment: "")
+        let attributedMessage = NSAttributedString(string: messageString, attributes: [
+            .foregroundColor: PresentationTheme.current.colors.cellDetailTextColor
+        ])
+        alertController.setValue(attributedMessage, forKey: "attributedMessage")
         
         alertController.addTextField { textField in
             textField.keyboardType = .decimalPad
@@ -206,6 +220,20 @@ class CustomSpeedInputHandler {
             message: NSLocalizedString("SETTINGS_INVALID_SPEED_VALUE", comment: "Please enter a valid number between 0.25 and 8.0"),
             preferredStyle: .alert
         )
+
+        errorAlert.view.tintColor = PresentationTheme.current.colors.orangeUI
+
+        let titleString = NSLocalizedString("ERROR", comment: "")
+        let attributedTitle = NSAttributedString(string: titleString, attributes: [
+            .foregroundColor: PresentationTheme.current.colors.cellTextColor
+        ])
+        errorAlert.setValue(attributedTitle, forKey: "attributedTitle")
+
+        let messageString = NSLocalizedString("SETTINGS_INVALID_SPEED_VALUE", comment: "Please enter a valid number between 0.25 and 8.0")
+        let attributedMessage = NSAttributedString(string: messageString, attributes: [
+            .foregroundColor: PresentationTheme.current.colors.cellDetailTextColor
+        ])
+        errorAlert.setValue(attributedMessage, forKey: "attributedMessage")
         
         errorAlert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .default) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + PlaybackSpeedConfig.dismissDelay) {
