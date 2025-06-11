@@ -41,7 +41,14 @@ class PlaybackSpeedCustomManager {
     var effectiveSpeedValue: Float {
         if currentSpeedSetting == "custom" {
             return customSpeedValue
-        } else if let floatValue = Float(currentSpeedSetting) {
+        }
+        
+        let presetSpeedValue = userDefaults.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
+        if presetSpeedValue > 0 {
+            return presetSpeedValue
+        }
+        
+        if let floatValue = Float(currentSpeedSetting) {
             return floatValue
         }
         return 1.0
