@@ -13,6 +13,7 @@
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Soomin Lee <TheHungryBu # gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -275,7 +276,8 @@
 #pragma mark - pass code validation
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
-    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeOnKey] &&
+        [[VLCKeychainCoordinator passcodeService] hasSecret]) {
         //TODO: Dismiss playback
         BOOL allowBiometricAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeEnableBiometricAuth];
 
