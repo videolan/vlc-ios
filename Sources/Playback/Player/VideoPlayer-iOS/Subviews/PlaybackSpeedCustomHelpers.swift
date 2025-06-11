@@ -121,6 +121,7 @@ class CustomSpeedInputHandler {
         alertController.addTextField { textField in
             textField.keyboardType = .decimalPad
             textField.placeholder = "1.0"
+            textField.textColor = self.defaultTextColor()
             
             #if !os(visionOS)
             textField.inputAccessoryView = UIUtils.createToolbar()
@@ -159,15 +160,16 @@ class CustomSpeedInputHandler {
         guard let textField = alertController?.textFields?.first,
               let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !text.isEmpty,
-              let speedValue = Float(text) else {
+              let speedValue = Float(text),
+              speedValue >= PlaybackSpeedConfig.minSpeed,
+              speedValue <= PlaybackSpeedConfig.maxSpeed else {
             showInvalidSpeedAlert()
             return
         }
         
-        let clampedValue = PlaybackSpeedCustomManager.shared.validateAndClampSpeed(speedValue)
-        
-        PlaybackSpeedCustomManager.shared.customSpeedValue = clampedValue
-        PlaybackSpeedCustomManager.shared.setSpeedSetting("custom")
+        let speedManager = PlaybackSpeedCustomManager.shared
+        speedManager.customSpeedValue = speedValue
+        speedManager.setSpeedSetting("custom")
         
         NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
         
@@ -181,23 +183,14 @@ class CustomSpeedInputHandler {
             textField.textColor = defaultTextColor()
             return
         }
-        
-        guard let speedValue = Float(text) else {
-            textField.textColor = .systemRed
-            return
-        }
-        
-        let isValidRange = speedValue >= PlaybackSpeedConfig.minSpeed &&
-                           speedValue <= PlaybackSpeedConfig.maxSpeed
-        textField.textColor = isValidRange ? defaultTextColor() : .systemRed
     }
     
     private func defaultTextColor() -> UIColor {
-        if #available(iOS 13.0, *) {
-            return .label
-        } else {
-            return .black
-        }
+        return PresentationTheme.current.colors.cellTextColor
+    }
+    
+    private func placeholderTextColor() -> UIColor {
+        return PresentationTheme.current.colors.textfieldPlaceholderColor
     }
     
     private func showInvalidSpeedAlert() {
@@ -218,5 +211,3 @@ class CustomSpeedInputHandler {
         }
     }
 }
-
-

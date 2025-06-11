@@ -99,14 +99,10 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
         AppearanceManager.setupUserInterfaceStyle()
     }
     
-    
     private func showCustomSpeedInputAlert() {
         customSpeedHandler.presentCustomSpeedInput()
     }
-    
 }
-
-
 
 extension ActionSheetSpecifier: ActionSheetDataSource {
 
@@ -176,4 +172,3 @@ extension ActionSheetSpecifier: ActionSheetCellDelegate {
         delegate?.actionSheetSpecifierHandleToggleSwitch(for: cell, state: state)
     }
 }
-
