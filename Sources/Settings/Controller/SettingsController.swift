@@ -88,7 +88,11 @@ class SettingsController: UITableViewController {
         tableView.verticalScrollIndicatorInsets = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
         view.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.modalPresentationStyle = .custom
-        guard let unsafeSettingsBundle = getSettingsBundle() else { return }
+
+        guard let unsafeSettingsBundle = getSettingsBundle() else {
+            return
+        }
+
         settingsBundle = unsafeSettingsBundle
     }
 
@@ -369,14 +373,19 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderReuseIdentifier) as? SettingsHeaderView else { return nil }
-        guard let title = settingsSections[section].title else { return nil }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderReuseIdentifier) as? SettingsHeaderView,
+              let title = settingsSections[section].title else {
+            return nil
+        }
+
         headerView.sectionHeaderLabel.text = title
         return headerView
     }
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionFooterReuseIdentifier) as? SettingsFooterView else { return nil }
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionFooterReuseIdentifier) as? SettingsFooterView else {
+            return nil
+        }
 
         // Do not display a separator for the last section
         return section == tableView.numberOfSections - 1 ? nil : footerView
@@ -395,10 +404,8 @@ extension SettingsController {
     }
 
     override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        SettingsCell.height(
-            for: settingsSections[indexPath.section].items[indexPath.item],
-            width: tableView.bounds.width
-        )
+        SettingsCell.height(for: settingsSections[indexPath.section].items[indexPath.item],
+                            width: tableView.bounds.width)
     }
 }
 
