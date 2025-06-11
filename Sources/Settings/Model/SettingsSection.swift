@@ -288,19 +288,24 @@ enum PrivacyOptions {
         let authContext = LAContext()
 
         if authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            let isEnabled: Bool = UserDefaults.standard.bool(forKey: kVLCSettingPasscodeOnKey)
+
             switch authContext.biometryType {
             case .touchID:
                 return .toggle(title: "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID",
                                subtitle: nil,
-                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth)
+                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth,
+                               isEnabled: isEnabled)
             case .faceID:
                 return .toggle(title: "SETTINGS_PASSCODE_LOCK_ALLOWFACEID",
                                subtitle: nil,
-                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth)
+                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth,
+                               isEnabled: isEnabled)
             case .opticID:
                 return .toggle(title: "SETTINGS_PASSCODE_LOCK_ALLOWOPTICID",
                                subtitle: nil,
-                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth)
+                               preferenceKey: kVLCSettingPasscodeEnableBiometricAuth,
+                               isEnabled: isEnabled)
             case .none:
                 fallthrough
             @unknown default:
