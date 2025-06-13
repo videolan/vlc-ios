@@ -97,33 +97,15 @@ class PlayerViewController: UIViewController {
     private var accumulatedSeekTime: Float = 0
     private let seekSensitivity: Float = 0.1
     
-    private lazy var seekPreviewLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        label.layer.cornerRadius = 4
-        label.clipsToBounds = true
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isHidden = true
-        return label
-    }()
-    
     // MARK: - Time Unit Conversion Helpers
 
-    private func getMediaDurationInSeconds() -> Float {
+    private func MediaDurationInSeconds() -> Float {
         let durationInMilliseconds = playbackService.mediaDuration
         return Float(durationInMilliseconds) / 1000.0
     }
 
-    private func getCurrentTimeInSeconds() -> Float {
-        let durationInSeconds = getMediaDurationInSeconds()
-        return playbackService.playbackPosition * durationInSeconds
-    }
-
     private func secondsToPosition(_ seconds: Float) -> Float {
-        let duration = getMediaDurationInSeconds()
+        let duration = MediaDurationInSeconds()
         guard duration > 0 else { return 0 }
         return seconds / duration
     }
@@ -131,6 +113,13 @@ class PlayerViewController: UIViewController {
     private func positionToMilliseconds(_ position: Float) -> Int {
         let durationInMilliseconds = playbackService.mediaDuration
         return Int(position * Float(durationInMilliseconds))
+    }
+    
+    private func formatSeekTime(_ seconds: Float) -> String {
+        let absSeconds = abs(seconds)
+        let minutes = Int(absSeconds) / 60
+        let remainingSeconds = Int(absSeconds) % 60
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
 
     // MARK: UI Elements
@@ -656,6 +645,26 @@ class PlayerViewController: UIViewController {
 
         displayAndApplySeekDuration(currentSeek)
     }
+    
+    private func updateStatusLabelWithSeekInfo(newPosition: Float, seekTime: Float, isFinal: Bool = false) {
+        let currentMilliseconds = positionToMilliseconds(newPosition)
+        let currentTimeVLC = VLCTime(number: NSNumber(value: currentMilliseconds))
+        let currentTimeString = currentTimeVLC.stringValue
+        
+        let statusMessage: String
+        if abs(seekTime) < 0.1 && !isFinal {
+            statusMessage = currentTimeString
+        } else {
+            let seekTimeString: String = formatSeekTime(seekTime)
+            let arrow = seekTime > 0 ? "⇒" : "⇐"
+            statusMessage = "\(arrow)  \(seekTimeString) (\(currentTimeString))"
+        }
+        
+        self.statusLabel.showStatusMessage(statusMessage)
+        if statusLabel.isHidden {
+            statusLabel.isHidden = false
+        }
+    }
 
     private func openOptionView(view: ActionSheetCellIdentifier) {
         present(moreOptionsActionSheet, animated: true, completion: {
@@ -958,10 +967,6 @@ class PlayerViewController: UIViewController {
             case .seek:
                 seekStartPosition = playbackService.playbackPosition
                 accumulatedSeekTime = 0
-                seekPreviewLabel.isHidden = false
-                UIView.animate(withDuration: 0.2) {
-                    self.seekPreviewLabel.alpha = 1
-                }
             case .brightness:
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
@@ -997,7 +1002,7 @@ class PlayerViewController: UIViewController {
             if recognizer.state == .changed {
                 let baseTimeChangeRate: Float = 0.05
                 
-                let durationInSeconds = getMediaDurationInSeconds()
+                let durationInSeconds = MediaDurationInSeconds()
                 let durationFactor = min(1.0, durationInSeconds / 3600.0)
                 let adjustedRate = baseTimeChangeRate * (1.0 + durationFactor)
                 
@@ -1009,11 +1014,10 @@ class PlayerViewController: UIViewController {
                 let newPosition = secondsToPosition(newTimeInSeconds)
                 let clampedPosition = max(0, min(1, newPosition))
                 
-                updateSeekPreview(newPosition: clampedPosition,
-                                seekTime: accumulatedSeekTime)
+                updateStatusLabelWithSeekInfo(newPosition: clampedPosition, seekTime: accumulatedSeekTime)
             }
             else if recognizer.state == .ended || recognizer.state == .cancelled {
-                let durationInSeconds = getMediaDurationInSeconds()
+                let durationInSeconds = MediaDurationInSeconds()
                 
                 if durationInSeconds > 0 && abs(accumulatedSeekTime) > 0.1 {
                     let startTimeInSeconds = seekStartPosition * durationInSeconds
@@ -1021,20 +1025,17 @@ class PlayerViewController: UIViewController {
                     let finalPosition = secondsToPosition(finalTimeInSeconds)
                     let clampedPosition = max(0, min(1, finalPosition))
                     
+                    updateStatusLabelWithSeekInfo(newPosition: clampedPosition,
+                                                seekTime: accumulatedSeekTime,
+                                                isFinal: true)
                     playbackService.playbackPosition = clampedPosition
-                    
-                    let seekMessage = accumulatedSeekTime > 0 ?
-                        "⇒ \(formatSeekTime(accumulatedSeekTime))" :
-                        "⇐ \(formatSeekTime(abs(accumulatedSeekTime)))"
-                    statusLabel.showStatusMessage(seekMessage)
                 }
                 
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.seekPreviewLabel.alpha = 0
-                }) { _ in
-                    self.seekPreviewLabel.isHidden = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.statusLabel.isHidden = true
                 }
             }
+            break
         case .volume:
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
@@ -1109,52 +1110,6 @@ class PlayerViewController: UIViewController {
             }
         }
     }
-    
-    private func updateSeekPreview(newPosition: Float, seekTime: Float) {
-        let currentMilliseconds = positionToMilliseconds(newPosition)
-        
-        let currentTimeVLC = VLCTime(number: NSNumber(value: currentMilliseconds))
-        let currentTimeString = currentTimeVLC.stringValue
-        
-        let seekTimeString: String
-        if abs(seekTime) < 0.1 {
-            seekPreviewLabel.text = currentTimeString
-        } else {
-            seekTimeString = seekTime > 0 ? "+\(formatSeekTime(seekTime))" : formatSeekTime(seekTime)
-            seekPreviewLabel.text = "\(currentTimeString) (\(seekTimeString))"
-        }
-        
-        updatePreviewLabelPosition(for: newPosition)
-    }
-
-    private func updatePreviewLabelPosition(for position: Float) {
-        let progressBarFrame = mediaScrubProgressBar.progressSlider.frame
-        let thumbRect = mediaScrubProgressBar.progressSlider.thumbRect(
-            forBounds: mediaScrubProgressBar.progressSlider.bounds,
-            trackRect: mediaScrubProgressBar.progressSlider.trackRect(
-                forBounds: mediaScrubProgressBar.progressSlider.bounds
-            ),
-            value: position
-        )
-        
-        let labelX = mediaScrubProgressBar.frame.origin.x + thumbRect.midX - seekPreviewLabel.frame.width / 2
-        let labelY = mediaScrubProgressBar.frame.origin.y - seekPreviewLabel.frame.height - 10
-        
-        seekPreviewLabel.center = CGPoint(x: labelX + seekPreviewLabel.frame.width / 2,
-                                         y: labelY + seekPreviewLabel.frame.height / 2)
-    }
-    
-    private func formatSeekTime(_ seconds: Float) -> String {
-        let absSeconds = abs(seconds)
-        if absSeconds < 60 {
-            return String(format: "%.0fs", absSeconds)
-        } else {
-            let minutes = Int(absSeconds) / 60
-            let remainingSeconds = Int(absSeconds) % 60
-            return String(format: "%dm%ds", minutes, remainingSeconds)
-        }
-    }
-
     
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
         // Empty implementation. Override in subclasses.
