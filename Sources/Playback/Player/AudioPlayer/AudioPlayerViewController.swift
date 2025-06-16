@@ -203,9 +203,10 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.thumbnailView.addGestureRecognizer(doubleTapGestureRecognizer)
         audioPlayerView.addGestureRecognizer(playPauseRecognizer)
         audioPlayerView.addGestureRecognizer(pinchRecognizer)
-
-        panRecognizer.require(toFail: leftSwipeRecognizer)
-        panRecognizer.require(toFail: rightSwipeRecognizer)
+        
+        panRecognizer.delegate = self
+        leftSwipeRecognizer.delegate = self
+        rightSwipeRecognizer.delegate = self
     }
 
     @objc override func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
@@ -644,5 +645,20 @@ extension AudioPlayerViewController {
     override func popupViewDidClose(_ popupView: PopupView) {
         super.popupViewDidClose(popupView)
         moreOptionsButton.isEnabled = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension AudioPlayerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                          shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer == panRecognizer &&
+            (otherGestureRecognizer == leftSwipeRecognizer || otherGestureRecognizer == rightSwipeRecognizer)) ||
+           ((gestureRecognizer == leftSwipeRecognizer || gestureRecognizer == rightSwipeRecognizer) &&
+            otherGestureRecognizer == panRecognizer) {
+            return true
+        }
+        return false
     }
 }
