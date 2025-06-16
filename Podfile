@@ -4,8 +4,8 @@ inhibit_all_warnings!
 
 def core_vlc_pods
   use_modular_headers!
-  pod 'VLCKit', '4.0.0a11'
-  pod 'VLCMediaLibraryKit', '0.14.0a1'
+  pod 'VLCKit', '4.0.0a13'
+  pod 'VLCMediaLibraryKit', '0.14.0a2'
 end
 
 def shared_pods
@@ -37,8 +37,6 @@ target 'VLC-iOS' do
   target 'VLC-iOSTests' do
       inherit! :search_paths
   end
-
-  use_modular_headers!
 end
 
 target 'VLC-iOS-Screenshots' do
@@ -64,34 +62,52 @@ target 'VLC-visionOS' do
   shared_pods
   pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
   pod 'MarqueeLabel', :git => 'https://code.videolan.org/fkuehne/MarqueeLabel.git', :commit => 'e289fa32'
-
-  use_modular_headers!
 end
 
 target 'VLC-watchOS' do
-  platform :watchos, '8.0'
+  platform :watchos, '9.0'
   core_vlc_pods
-  
-  use_modular_headers!
+
+  # debug
+  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
-     installer_representation.pods_project.build_configurations.each do |config|
-       config.build_settings['SKIP_INSTALL'] = 'YES'
-       config.build_settings['ARCHS'] = 'arm64 x86_64'
-       config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-       config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator appletvos appletvsimulator xros xrsimulator watchos watchsimulator'
-       config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2,3,4,7'
-     end
     target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-        config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
-        config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = "8.0"
-        xcconfig_path = config.base_configuration_reference.real_path
-        xcconfig = File.read(xcconfig_path)
-        new_xcconfig = xcconfig.sub('-l"sqlite3"', '')
-        File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
+      # Set deployment targets
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = '9.0'
+
+      # Read platform of target
+      platform = target.platform_name
+
+      # Apply per-platform ARCHS
+      case platform
+      when :ios
+        config.build_settings['ARCHS'] = 'arm64 x86_64'
+      when :tvos
+        config.build_settings['ARCHS'] = 'arm64 x86_64'
+      when :visionos
+        config.build_settings['ARCHS'] = 'arm64 x86_64'
+      when :watchos
+        # VLCKit only has arm64_32 arm64 for watchOS devices
+        config.build_settings['ARCHS'] = 'arm64_32 arm64 x86_64'
+        config.build_settings['EXCLUDED_ARCHS[sdk=watchos*]'] = 'armv7k'
+      end
+
+      # Always set SKIP_INSTALL and other global settings
+      config.build_settings['SKIP_INSTALL'] = 'YES'
+      config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+      config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator appletvos appletvsimulator xros xrsimulator watchos watchsimulator'
+      config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2,3,4,7'
+
+      # Patch out sqlite3 linker flag
+      xcconfig_path = config.base_configuration_reference.real_path
+      xcconfig = File.read(xcconfig_path)
+      new_xcconfig = xcconfig.sub('-l"sqlite3"', '')
+      File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
     end
   end
 end

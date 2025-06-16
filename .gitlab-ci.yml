@@ -81,3 +81,13 @@ visionOS 1.x:
     variables:
         BUILD_SCHEME: "VLC-visionOS"
         BUILD_DESTINATION: "platform=xrOS Simulator,name=Apple Vision Pro,OS=1.2"
+
+### watchOS Builds
+watchOS 10.x:
+    extends:
+        - .job-base
+        - .build-base
+    stage: build
+    variables:
+        BUILD_SCHEME: "VLC-watchOS"
+        BUILD_DESTINATION: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm),OS=10.5"
