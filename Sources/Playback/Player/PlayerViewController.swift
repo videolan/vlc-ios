@@ -997,7 +997,6 @@ class PlayerViewController: UIViewController {
         }
 
         switch currentPanType {
-#if os(iOS)
         case .seek:
             if recognizer.state == .changed {
                 let baseTimeChangeRate: Float = 0.05
@@ -1036,6 +1035,8 @@ class PlayerViewController: UIViewController {
                 }
             }
             break
+
+#if os(iOS)
         case .volume:
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
