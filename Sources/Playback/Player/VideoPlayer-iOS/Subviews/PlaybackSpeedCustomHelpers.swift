@@ -63,7 +63,6 @@ class PlaybackSpeedCustomManager {
     }
 }
 
-
 enum UIUtils {
     static func findTopViewController() -> UIViewController? {
         var keyWindow: UIWindow?
@@ -118,68 +117,57 @@ enum UIUtils {
 }
 
 class CustomSpeedInputHandler {
+    private weak var currentAlertController: UIAlertController?
+    
     func presentCustomSpeedInput() {
-        let alertController = UIAlertController(
+        guard let topVC = UIUtils.findTopViewController() else {
+            print("Failed to find top view controller for presenting alert")
+            return
+        }
+        
+        let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+        let saveButton = VLCAlertButton(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { [weak self] action in
+            self?.handleSaveAction()
+        }
+        
+        let currentCustomSpeed = PlaybackSpeedCustomManager.shared.customSpeedValue
+        let textFieldText = currentCustomSpeed > 0 ? String(format: "%.2f", currentCustomSpeed) : nil
+        
+        let alert = UIAlertController(
             title: NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED", comment: ""),
             message: NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE", comment: ""),
             preferredStyle: .alert
         )
         
-        alertController.view.tintColor = PresentationTheme.current.colors.orangeUI
+        self.currentAlertController = alert
         
-        let titleString = NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED", comment: "")
-        let attributedTitle = NSAttributedString(string: titleString, attributes: [
-            .foregroundColor: PresentationTheme.current.colors.cellTextColor
-        ])
-        alertController.setValue(attributedTitle, forKey: "attributedTitle")
-
-        let messageString = NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE", comment: "")
-        let attributedMessage = NSAttributedString(string: messageString, attributes: [
-            .foregroundColor: PresentationTheme.current.colors.cellDetailTextColor
-        ])
-        alertController.setValue(attributedMessage, forKey: "attributedMessage")
-        
-        alertController.addTextField { textField in
+        alert.addTextField { textField in
             textField.keyboardType = .decimalPad
             textField.placeholder = "1.0"
-            textField.textColor = self.defaultTextColor()
+            textField.text = textFieldText
             
             #if !os(visionOS)
             textField.inputAccessoryView = UIUtils.createToolbar()
             #endif
-            
-            let currentCustomSpeed = PlaybackSpeedCustomManager.shared.customSpeedValue
-            if currentCustomSpeed > 0 {
-                textField.text = String(format: "%.2f", currentCustomSpeed)
-            }
-            
-            textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         }
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+        let cancelAction = UIAlertAction(title: cancelButton.title, style: cancelButton.style, handler: cancelButton.action)
+        let saveAction = UIAlertAction(title: saveButton.title, style: saveButton.style, handler: saveButton.action)
         
-        let saveAction = UIAlertAction(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { [weak alertController] _ in
-            self.handleSaveAction(alertController: alertController)
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(saveAction)
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         
         DispatchQueue.main.async {
-            guard let topVC = UIUtils.findTopViewController() else {
-                print("Failed to find top view controller for presenting alert")
-                return
-            }
-            
-            topVC.present(alertController, animated: true) {
-                alertController.textFields?.first?.becomeFirstResponder()
+            topVC.present(alert, animated: true) {
+                alert.textFields?.first?.becomeFirstResponder()
             }
         }
     }
     
-    private func handleSaveAction(alertController: UIAlertController?) {
-        guard let textField = alertController?.textFields?.first,
-              let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+    private func handleSaveAction() {
+        guard let alertController = currentAlertController,
+              let textField = alertController.textFields?.first,
+              let text = textField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
               !text.isEmpty,
               let speedValue = Float(text),
               speedValue >= PlaybackSpeedConfig.minSpeed,
@@ -199,50 +187,22 @@ class CustomSpeedInputHandler {
 #endif
     }
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text, !text.isEmpty else {
-            textField.textColor = defaultTextColor()
+    private func showInvalidSpeedAlert() {
+        guard let topVC = UIUtils.findTopViewController() else {
             return
         }
-    }
-    
-    private func defaultTextColor() -> UIColor {
-        return PresentationTheme.current.colors.cellTextColor
-    }
-    
-    private func placeholderTextColor() -> UIColor {
-        return PresentationTheme.current.colors.textfieldPlaceholderColor
-    }
-    
-    private func showInvalidSpeedAlert() {
-        let errorAlert = UIAlertController(
-            title: NSLocalizedString("ERROR", comment: ""),
-            message: NSLocalizedString("SETTINGS_INVALID_SPEED_VALUE", comment: "Please enter a valid number between 0.25 and 8.0"),
-            preferredStyle: .alert
-        )
-
-        errorAlert.view.tintColor = PresentationTheme.current.colors.orangeUI
-
-        let titleString = NSLocalizedString("ERROR", comment: "")
-        let attributedTitle = NSAttributedString(string: titleString, attributes: [
-            .foregroundColor: PresentationTheme.current.colors.cellTextColor
-        ])
-        errorAlert.setValue(attributedTitle, forKey: "attributedTitle")
-
-        let messageString = NSLocalizedString("SETTINGS_INVALID_SPEED_VALUE", comment: "Please enter a valid number between 0.25 and 8.0")
-        let attributedMessage = NSAttributedString(string: messageString, attributes: [
-            .foregroundColor: PresentationTheme.current.colors.cellDetailTextColor
-        ])
-        errorAlert.setValue(attributedMessage, forKey: "attributedMessage")
         
-        errorAlert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .default) { _ in
+        let okButton = VLCAlertButton(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .default) { [weak self] _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + PlaybackSpeedConfig.dismissDelay) {
-                self.presentCustomSpeedInput()
+                self?.presentCustomSpeedInput()
             }
-        })
-        
-        DispatchQueue.main.async {
-            UIUtils.findTopViewController()?.present(errorAlert, animated: true)
         }
+        
+        VLCAlertViewController.alertViewManager(
+            title: NSLocalizedString("ERROR", comment: ""),
+            errorMessage: NSLocalizedString("SETTINGS_INVALID_SPEED_VALUE", comment: "Please enter a valid number between 0.25 and 8.0"),
+            viewController: topVC,
+            buttonsAction: [okButton]
+        )
     }
 }
