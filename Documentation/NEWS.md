@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.6.6]
+· Fix login to Dropbox on iOS 17 and later
+· Fix media library layout issue on iPhone 16 Pro Max
+· URL decode the subtitles parameter for x-callback-url
+
+## tvOS [3.6.6]
+· Add searchbar to the subtitles download screen
+· URL decode the subtitles parameter for x-callback-url
+
 ## iOS [3.6.5]
 · Fix login to Google Drive after the app was finally approved again
 · Fix Now Playing CarPlay screen behavior
