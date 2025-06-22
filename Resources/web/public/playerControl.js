@@ -646,13 +646,12 @@ $(function() {
 
     /**
      * Check if a given string is a URL
-     * Regex from https://gist.github.com/searls/1033143
-     * It should accept http(s) , rtsp, etc.
+     * It should accept http(s), rtsp, rtp, etc. We also need to support scheme://source@multicastgroup:port
      * @param {string} str
      * @returns {boolean}
      */
     function isURL(str) {
-        var p = /\b((?:(?:rtsp|https?):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
+        var p = /^(rtp|rtsp|https?):\/\/@?[a-zA-Z0-9.\-]+(?:\:\d+)?(?:\/[^\s]*)?$/i;
         return p.test(str);
     }
     //Display message to the user
