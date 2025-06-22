@@ -189,6 +189,8 @@
 		7D0C20B028C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20AF28C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
 		7D0C20B228C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20B128C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib */; };
 		7D0C20B428C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20B328C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib */; };
+		7D10CF7A2E0842C2000D5502 /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
+		7D10CF7B2E0842C2000D5502 /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
 		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471702B88A45B00AB642B /* VLCSubscription.m */; };
 		7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471742B88A7BA00AB642B /* VLCCharge.m */; };
@@ -600,6 +602,7 @@
 		7D8E12562B5D3F4A00BD81B7 /* VLCDeleteHintTVView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */; };
 		7D8ED53B2AAF10B200AE0D5E /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */; };
 		7D926C0F2F7691A9005FAF2B /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
+		7D926C112F7697E2005FAF2B /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
 		7D9289751877459B009108FD /* VLCFirstStepsWifiSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */; };
 		7D92897A1877467E009108FD /* VLCFirstStepsCloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */; };
 		7D93B75B2D60EE6000F952DE /* UIViewController+findViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */; };
@@ -5443,6 +5446,7 @@
 				7D50C64A2BBD20DF00B9F1A0 /* MediaLibraryService.swift in Sources */,
 				7D50C64B2BBD20DF00B9F1A0 /* VLCExternalDisplayController.m in Sources */,
 				7D50C64C2BBD20DF00B9F1A0 /* ShowEpisodeModel.swift in Sources */,
+				7D10CF7B2E0842C2000D5502 /* VLCPlayerControlWebSocket.m in Sources */,
 				7D50C64D2BBD20DF00B9F1A0 /* MediaViewController.swift in Sources */,
 				D99DC3722D9D357F000F9D45 /* PlaylistHeader.swift in Sources */,
 				7D65F2222D2C4D4B0042A6C2 /* VLCMLMedia+isWatched.m in Sources */,
@@ -5628,6 +5632,7 @@
 				558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */,
 				416443862048419E00CAC646 /* DeviceMotion.swift in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsWifiSharingViewController.m in Sources */,
+				7D10CF7A2E0842C2000D5502 /* VLCPlayerControlWebSocket.m in Sources */,
 				7DBF605C2B5D652900F16BB4 /* VLCFirstStepsDonateViewController.m in Sources */,
 				226C04202C3EADEA003B005E /* FolderCategoryViewController.swift in Sources */,
 				7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */,
@@ -6042,6 +6047,7 @@
 				7DA514E62EF82B63000C9995 /* CustomEqualizerProfiles.swift in Sources */,
 				7DA514E72EF82B63000C9995 /* PlaybackSpeedView.swift in Sources */,
 				7DA514E82EF82B63000C9995 /* PlayingExternallyView.swift in Sources */,
+				7D926C112F7697E2005FAF2B /* VLCPlayerControlWebSocket.m in Sources */,
 				7DA514E92EF82B63000C9995 /* MovieCollectionViewCell.swift in Sources */,
 				7DA514EA2EF82B63000C9995 /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift in Sources */,
 				7DA514EB2EF82B63000C9995 /* AudioPlayerViewController.swift in Sources */,

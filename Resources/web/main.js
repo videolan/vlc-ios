@@ -139,4 +139,43 @@ $(function(){
         $('.icon').addClass('bgz');
     }
 
+    $('form.open-url').on('submit', function(e) {
+        e.preventDefault();
+        var url = $(this).find('input').val();
+        var localesURL = (typeof LOCALES !== 'undefined' && LOCALES.PLAYER_CONTROL) ? LOCALES.PLAYER_CONTROL.URL : {};
+        if (!url) {
+            return displayMessage(localesURL.EMPTY);
+        } else if (!isURL(url)) {
+            return displayMessage(localesURL.NOT_VALID);
+        }
+        displayMessage(localesURL.SENT_SUCCESSFULLY);
+        var socket = new WebSocket('ws://' + location.host);
+        socket.onopen = function() {
+            socket.send(JSON.stringify({ type: 'openURL', url: url }));
+            socket.close();
+        };
+        $(this).find('input').val('');
+    });
+
+    function isURL(str) {
+        var p = /^(rtp|rtsp|https?):\/\/@?[a-zA-Z0-9.\-]+(?:\:\d+)?(?:\/[^\s]*)?$/i;
+        return p.test(str);
+    }
+
+    var TIMEOUT = null;
+    var DELAY = 5000;
+    function displayMessage(message) {
+        if (!message) {
+            return;
+        }
+        $('.display-message').addClass('show');
+        $('.display-message').text(message);
+        if (TIMEOUT) {
+            clearTimeout(TIMEOUT);
+        }
+        TIMEOUT = setTimeout(function() {
+            $('.display-message').removeClass('show');
+        }, DELAY);
+    }
+
 });

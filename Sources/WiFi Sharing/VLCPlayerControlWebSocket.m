@@ -12,6 +12,7 @@
 
 #import "VLCPlayerControlWebSocket.h"
 #import "VLCMetadata.h"
+#import "VLCPlaybackService.h"
 
 @implementation VLCPlayerControlWebSocket
 

@@ -27,10 +27,8 @@
 #import "VLCMetaData.h"
 #import "GCDAsyncSocket.h"
 #import "VLC-Swift.h"
-
-#if TARGET_OS_TV
 #import "VLCPlayerControlWebSocket.h"
-#endif
+
 
 #define TIMEOUT_WRITE_ERROR 30
 #define HTTP_RESPONSE       90
@@ -529,7 +527,6 @@ static NSMutableDictionary *authentifiedHosts;
     return fileResponse;
 }
 
-#if TARGET_OS_TV
 - (NSObject <HTTPResponse> *)_HTTPGETPlaying
 {
     /* JSON response:
@@ -647,7 +644,6 @@ static NSMutableDictionary *authentifiedHosts;
 
     return [[HTTPDataResponse alloc] initWithData:returnData];
 }
-#endif
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
@@ -664,17 +660,18 @@ static NSMutableDictionary *authentifiedHosts;
     if ([path hasPrefix:@"/public/auth.html"]) {
         return [self _httpGETAuthentification];
     }
-#else
+#endif
+#if TARGET_OS_TV
     if ([path hasPrefix:@"/playing"]) {
         return [self _HTTPGETPlaying];
     }
     if ([path hasPrefix:@"/playlist"]) {
         return [self _HTTPGETPlaylist];
     }
+#endif
     if ([path hasPrefix:@"/web_resources.js"]) {
         return [self _HTTPGETwebResources];
     }
-#endif
 
     NSString *filePath = [self filePathForURI:path];
     NSString *documentRoot = [config documentRoot];
@@ -689,12 +686,10 @@ static NSMutableDictionary *authentifiedHosts;
     return [super httpResponseForMethod:method URI:path];
 }
 
-#if TARGET_OS_TV
 - (WebSocket *)webSocketForURI:(NSString *)path
 {
     return [[VLCPlayerControlWebSocket alloc] initWithRequest:request socket:asyncSocket];
 }
-#endif
 
 - (void)prepareForBodyWithSize:(UInt64)contentLength
 {
