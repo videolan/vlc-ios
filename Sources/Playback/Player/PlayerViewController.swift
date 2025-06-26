@@ -99,13 +99,13 @@ class PlayerViewController: UIViewController {
     
     // MARK: - Time Unit Conversion Helpers
 
-    private func MediaDurationInSeconds() -> Float {
+    private func mediaDurationInSeconds() -> Float {
         let durationInMilliseconds = playbackService.mediaDuration
         return Float(durationInMilliseconds) / 1000.0
     }
 
     private func secondsToPosition(_ seconds: Float) -> Float {
-        let duration = MediaDurationInSeconds()
+        let duration = mediaDurationInSeconds()
         guard duration > 0 else { return 0 }
         return seconds / duration
     }
@@ -660,7 +660,7 @@ class PlayerViewController: UIViewController {
             statusMessage = "\(arrow)  \(seekTimeString) (\(currentTimeString))"
         }
         
-        self.statusLabel.showStatusMessage(statusMessage)
+        statusLabel.showStatusMessage(statusMessage)
         if statusLabel.isHidden {
             statusLabel.isHidden = false
         }
@@ -1001,7 +1001,7 @@ class PlayerViewController: UIViewController {
             if recognizer.state == .changed {
                 let baseTimeChangeRate: Float = 0.05
                 
-                let durationInSeconds = MediaDurationInSeconds()
+                let durationInSeconds = mediaDurationInSeconds()
                 let durationFactor = min(1.0, durationInSeconds / 3600.0)
                 let adjustedRate = baseTimeChangeRate * (1.0 + durationFactor)
                 
@@ -1014,9 +1014,8 @@ class PlayerViewController: UIViewController {
                 let clampedPosition = max(0, min(1, newPosition))
                 
                 updateStatusLabelWithSeekInfo(newPosition: clampedPosition, seekTime: accumulatedSeekTime)
-            }
-            else if recognizer.state == .ended || recognizer.state == .cancelled {
-                let durationInSeconds = MediaDurationInSeconds()
+            } else if recognizer.state == .ended || recognizer.state == .cancelled {
+                let durationInSeconds = mediaDurationInSeconds()
                 
                 if durationInSeconds > 0 && abs(accumulatedSeekTime) > 0.1 {
                     let startTimeInSeconds = seekStartPosition * durationInSeconds
@@ -1025,8 +1024,8 @@ class PlayerViewController: UIViewController {
                     let clampedPosition = max(0, min(1, finalPosition))
                     
                     updateStatusLabelWithSeekInfo(newPosition: clampedPosition,
-                                                seekTime: accumulatedSeekTime,
-                                                isFinal: true)
+                                                  seekTime: accumulatedSeekTime,
+                                                  isFinal: true)
                     playbackService.playbackPosition = clampedPosition
                 }
                 
@@ -1111,7 +1110,7 @@ class PlayerViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
         // Empty implementation. Override in subclasses.
     }
