@@ -131,7 +131,12 @@ class CustomSpeedInputHandler {
         }
         
         let currentCustomSpeed = PlaybackSpeedCustomManager.shared.customSpeedValue
-        let textFieldText = currentCustomSpeed > 0 ? String(format: "%.2f", currentCustomSpeed) : nil
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 2
+        let textFieldText = currentCustomSpeed > 0 ? formatter.string(from: NSNumber(value: currentCustomSpeed)) : nil
         
         let alert = UIAlertController(
             title: NSLocalizedString("SETTINGS_CUSTOM_PLAYBACK_SPEED", comment: ""),
@@ -143,7 +148,12 @@ class CustomSpeedInputHandler {
         
         alert.addTextField { textField in
             textField.keyboardType = .decimalPad
-            textField.placeholder = "1.0"
+            
+            let placeholderFormatter = NumberFormatter()
+            placeholderFormatter.numberStyle = .decimal
+            placeholderFormatter.locale = Locale.current
+            let placeholder = placeholderFormatter.string(from: NSNumber(value: 1.0)) ?? "1.0"
+            textField.placeholder = placeholder
             textField.text = textFieldText
             
             #if !os(visionOS)
@@ -164,12 +174,40 @@ class CustomSpeedInputHandler {
         }
     }
     
+    private func parseLocalizedFloat(from text: String) -> Float? {
+        let trimmedText = text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
+        
+        if let number = formatter.number(from: trimmedText) {
+            return number.floatValue
+        }
+        
+        let normalizedText = trimmedText.replacingOccurrences(of: ",", with: ".")
+        if let floatValue = Float(normalizedText) {
+            return floatValue
+        }
+        
+        formatter.locale = Locale(identifier: "en_GB")
+        if let number = formatter.number(from: normalizedText) {
+            return number.floatValue
+        }
+        
+        return nil
+    }
+    
     private func handleSaveAction() {
         guard let alertController = currentAlertController,
               let textField = alertController.textFields?.first,
               let text = textField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
-              !text.isEmpty,
-              let speedValue = Float(text),
+              !text.isEmpty else {
+            showInvalidSpeedAlert()
+            return
+        }
+        
+        guard let speedValue = parseLocalizedFloat(from: text),
               speedValue >= PlaybackSpeedConfig.minSpeed,
               speedValue <= PlaybackSpeedConfig.maxSpeed else {
             showInvalidSpeedAlert()

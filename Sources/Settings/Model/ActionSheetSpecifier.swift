@@ -98,6 +98,7 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
     func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
         AppearanceManager.setupUserInterfaceStyle()
     }
+    
     private func showCustomSpeedInputAlert() {
         customSpeedHandler.presentCustomSpeedInput()
     }
