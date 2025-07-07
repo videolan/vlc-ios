@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IntentPhrases</key>
+	<array>
+		<dict>
+			<key>IntentName</key>
+			<string>INSearchForMediaIntent</string>
+			<key>IntentExamples</key>
+			<array>
+				<string>Search for Jacques Brel in VLC</string>
+			</array>
+		</dict>
+		<dict>
+			<key>IntentName</key>
+			<string>INAddMediaIntent</string>
+			<key>IntentExamples</key>
+			<array>
+				<string>Add media to VLC</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

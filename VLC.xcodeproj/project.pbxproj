@@ -1316,6 +1316,9 @@
 		7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackNavigationController.m; path = "Sources/UI Elements/VLCPlaybackNavigationController.m"; sourceTree = SOURCE_ROOT; };
 		7DA58D632B10E96800E5BA84 /* VLCFavoriteService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCFavoriteService.h; sourceTree = "<group>"; };
 		7DA58D642B10E96800E5BA84 /* VLCFavoriteService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCFavoriteService.m; sourceTree = "<group>"; };
+		7DA9099B2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = eu; path = eu.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7DA9099C2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7DA9099D2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7DB0CB40247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserUPnP.m; sourceTree = "<group>"; };
 		7DB0CB41247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserUPnP.h; sourceTree = "<group>"; };
@@ -3630,6 +3633,7 @@
 				br,
 				th,
 				ka,
+				eu,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -4865,6 +4869,7 @@
 				41873034228F033F00F7D8B7 /* br */,
 				41873030228F017B00F7D8B7 /* th */,
 				7D23F3ED2AA8AA7F001FA694 /* ka */,
+				7DA9099C2E1C6863004BDF30 /* eu */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4922,6 +4927,7 @@
 				7D8ED56C2AAF10EB00AE0D5E /* th */,
 				7D8ED56D2AAF10EB00AE0D5E /* tr */,
 				7D8ED56E2AAF10EC00AE0D5E /* uk */,
+				7DA9099B2E1C6863004BDF30 /* eu */,
 			);
 			name = AppIntentVocabulary.plist;
 			sourceTree = "<group>";
@@ -4980,6 +4986,7 @@
 				41873035228F033F00F7D8B7 /* br */,
 				41873031228F017B00F7D8B7 /* th */,
 				7D23F3EE2AA8AA7F001FA694 /* ka */,
+				7DA9099D2E1C6863004BDF30 /* eu */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
