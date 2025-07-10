@@ -20,6 +20,7 @@ class TabBarCoordinator: NSObject {
     private var mediaLibraryService: MediaLibraryService
 
     private lazy var editToolbar = EditToolbar()
+    private lazy var sideToolBar = EditToolbar()
 
     private lazy var videoNavigationController: UINavigationController = {
         let rootViewController = VideoViewController(mediaLibraryService: mediaLibraryService)
@@ -94,6 +95,7 @@ class TabBarCoordinator: NSObject {
             sideBar.isHidden = false
             sideBar.preferredLayout = .overlap
             sideBar.delegate = self
+            sideBar.bottomBarView?.isHidden = true
         }
     }
 
@@ -164,23 +166,23 @@ class TabBarCoordinator: NSObject {
         editToolbar.isHidden = true
         editToolbar.translatesAutoresizingMaskIntoConstraints = false
 
-        let view: UIView
+        var view: UIView
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
-            tabBarController.bottomBar.addSubview(editToolbar)
-            tabBarController.bottomBar.bringSubviewToFront(editToolbar)
-            view = tabBarController.bottomBar
+            sideToolBar.isHidden = true
+            sideToolBar.translatesAutoresizingMaskIntoConstraints = false
+            tabBarController.sidebar.bottomBarView = sideToolBar
         } else {
             tabBarController.tabBar.addSubview(editToolbar)
             tabBarController.tabBar.bringSubviewToFront(editToolbar)
             view = tabBarController.tabBar
-        }
 
-        NSLayoutConstraint.activate([
-            editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editToolbar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+            NSLayoutConstraint.activate([
+                editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                editToolbar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        }
     }
 
     // MARK: - Helpers
@@ -220,6 +222,7 @@ class TabBarCoordinator: NSObject {
 
         tabBarController.view.backgroundColor = colors.background
         editToolbar.backgroundColor = colors.tabBarColor
+        sideToolBar.backgroundColor = colors.tabBarColor
 
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {

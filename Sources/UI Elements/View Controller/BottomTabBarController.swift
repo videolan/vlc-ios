@@ -21,11 +21,9 @@ class BottomTabBarController: UITabBarController {
     }()
 
     lazy var isBottomBarActive: Bool = {
-//        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
-//           self.responds(to: Selector("setTabBarHidden:animated:")) {
-//            self.perform(Selector("setTabBarHidden:animated:"), with: true, with: true)
-//            return true
-//        }
+        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
+            return false
+        }
 
         return false
     }()
@@ -45,6 +43,7 @@ class BottomTabBarController: UITabBarController {
             return
         }
 
+        bottomBar.isHidden = true
         tabBar.isHidden = true
         bottomBar.items = tabBar.items
         bottomBar.selectedItem = tabBar.selectedItem
@@ -86,7 +85,9 @@ class BottomTabBarController: UITabBarController {
     // MARK: - Helpers
 
     func editToolBar() -> EditToolbar? {
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
+        if #available(iOS 18.0, *),
+           UIDevice.current.userInterfaceIdiom == .pad,
+           !sidebar.isHidden {
             return bottomBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
         }
 

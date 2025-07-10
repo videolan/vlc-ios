@@ -233,6 +233,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private var playbackCache: PlaybackCacheHelper = PlaybackCacheHelper.shared
 
+    private lazy var editToolBar: EditToolbar = {
+        let editToolBar = EditToolbar()
+        editToolBar.isHidden = true
+        editToolBar.translatesAutoresizingMaskIntoConstraints = false
+        return editToolBar
+    }()
+
     // MARK: - Initializers
 
     @available(*, unavailable)
@@ -430,11 +437,24 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             popViewIfNecessary()
         }
 
-        if let tabBarController = tabBarController as? BottomTabBarController,
-           let editToolBar = tabBarController.editToolBar(),
-           isEditing {
-            editToolBar.updateEditToolbar(for: model)
+        guard isEditing else {
+            return
         }
+
+        var toolBar: EditToolbar = editToolBar
+
+        if #available(iOS 18.0, *),
+           UIDevice.current.userInterfaceIdiom == .pad,
+           let tabBarController = tabBarController,
+           let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
+           !tabBarController.sidebar.isHidden {
+            toolBar = sideToolBar
+        } else if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            toolBar = editToolBar
+        }
+
+        toolBar.updateEditToolbar(for: model)
     }
 
     func isEmptyCollectionView() -> Bool {
@@ -450,6 +470,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewDidLoad()
         setupCollectionView()
         setupSearchBar()
+        setupEditToolBar()
         if let model = model as? CollectionModel {
             if model.mediaCollection is VLCMLAlbum {
                 if #available(iOS 13.0, *) {
@@ -606,13 +627,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc func themeDidChange() {
-        collectionView?.backgroundColor = PresentationTheme.current.colors.background
-        searchBar.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+
+        collectionView?.backgroundColor = colors.background
+        searchBar.backgroundColor = colors.background
         if let marqueeLabel = navigationItem.titleView as? VLCMarqueeLabel {
-            marqueeLabel.textColor = PresentationTheme.current.colors.navigationbarTextColor
+            marqueeLabel.textColor = colors.navigationbarTextColor
         }
 
-        continueWatchingButton.tintColor = PresentationTheme.current.colors.background
+        continueWatchingButton.tintColor = colors.background
+        editToolBar.backgroundColor = colors.tabBarColor
     }
 
     private func showGuideOnLaunch() {
@@ -764,14 +788,22 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func displayEditToolbar() {
-        if let tabBarController = tabBarController as? BottomTabBarController {
-            if isEditing {
-                tabBarController.editToolBar()?.delegate = editController
-                tabBarController.displayEditToolbar(with: model)
-            } else {
-                tabBarController.hideEditToolbar()
-            }
+        var toolBar: EditToolbar = editToolBar
+
+        if #available(iOS 18.0, *),
+           UIDevice.current.userInterfaceIdiom == .pad,
+           let tabBarController = tabBarController,
+           let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
+           !tabBarController.sidebar.isHidden {
+            toolBar = sideToolBar
+        } else if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            toolBar = editToolBar
         }
+
+        toolBar.delegate = editController
+        toolBar.updateEditToolbar(for: model)
+        toolBar.isHidden = isEditing ? false : true
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -1713,22 +1745,34 @@ extension MediaCategoryViewController: EditControllerDelegate {
         navigationController?.present(newNavigationController, animated: true, completion: nil)
     }
 
+    func enableEditToolBarActions(_ enable: Bool) {
+        if #available(iOS 18.0, *),
+           UIDevice.current.userInterfaceIdiom == .pad,
+           let tabBarController = tabBarController {
+            if let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
+               !tabBarController.sidebar.isHidden {
+                sideToolBar.enableEditActions(enable)
+            } else {
+                editToolBar.enableEditActions(enable)
+            }
+        } else if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            editToolBar.enableEditActions(enable)
+        }
+    }
+
     func editControllerDidSelectMultipleItem(editContrller: EditController) {
         searchBar.isUserInteractionEnabled = false
         searchBar.alpha = 0.5
-        if let tabBarController = tabBarController as? BottomTabBarController,
-           let editToolBar = tabBarController.editToolBar() {
-            editToolBar.enableEditActions(true)
-        }
+
+        enableEditToolBarActions(true)
     }
 
     func editControllerDidDeSelectMultipleItem() {
         searchBar.isUserInteractionEnabled = true
         searchBar.alpha = 1
-        if let tabBarController = tabBarController as? BottomTabBarController,
-           let editToolBar = tabBarController.editToolBar() {
-            editToolBar.enableEditActions(false)
-        }
+
+        enableEditToolBarActions(false)
     }
 
     func editControllerDidFinishEditing(editController: EditController?) {
@@ -1858,6 +1902,22 @@ private extension MediaCategoryViewController {
         longPressGesture.minimumPressDuration = 0.2
         collectionView?.addGestureRecognizer(longPressGesture)
         collectionView?.contentInsetAdjustmentBehavior = .always
+    }
+
+    func setupEditToolBar() {
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+
+        view.addSubview(editToolBar)
+        editToolBar.bringSubviewToFront(editToolBar)
+
+        NSLayoutConstraint.activate([
+            editToolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editToolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     func constrainOnX(_ location: CGPoint, for width: CGFloat) -> CGPoint {
