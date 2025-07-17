@@ -724,3 +724,5 @@
 
 /* New strings */
 "SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.25 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */
+"PRIMARY_SUBTITLES" = "PRIMARY SUBTITLE";
+"SECONDARY_SUBTITLES" = "SECONDARY SUBTITLE";

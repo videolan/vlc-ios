@@ -91,7 +91,8 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) CGFloat fov; // ]0;180[ (default 80.)
 
 @property (readonly) NSInteger indexOfCurrentAudioTrack;
-@property (readonly) NSInteger indexOfCurrentSubtitleTrack;
+@property (readonly) NSInteger indexOfCurrentPrimaryVideoSubtitleTrack;
+@property (readonly) NSInteger indexOfCurrentSecondaryVideoSubtitleTrack;
 @property (readonly) NSInteger indexOfCurrentTitle;
 @property (readonly, nullable) VLCMediaPlayerTitleDescription *currentTitleDescription;
 @property (readonly) NSInteger indexOfCurrentChapter;
@@ -144,8 +145,11 @@ NS_SWIFT_NAME(PlaybackService)
 - (nullable VLCMediaPlayerChapterDescription *)chapterDescriptionAtIndex:(NSInteger)index;
 - (void)selectAudioTrackAtIndex:(NSInteger)index;
 - (void)disableAudio;
-- (void)selectVideoSubtitleAtIndex:(NSInteger)index;
-- (void)disableSubtitles;
+- (void)selectPrimaryVideoSubtitleAtIndex:(NSInteger)index;
+- (void)selectSecondaryVideoSubtitleAtIndex:(NSInteger)index;
+- (void)disablePrimaryVideoSubtitle;
+- (void)disableSecondaryVideoSubtitle;
+- (void)syncVideoSubtitleState;
 - (void)selectTitleAtIndex:(NSInteger)index;
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;

@@ -131,7 +131,17 @@ class TitleSelectionView: UIView {
         return audioTableView
     }()
 
-    private lazy var subtitleTableView: UITableView = {
+    private lazy var primarySubtitleTableView: UITableView = {
+        let subtitleTableView: UITableView = UITableView(frame: .zero, style: .plain)
+        subtitleTableView.delegate = self
+        subtitleTableView.dataSource = self
+        subtitleTableView.translatesAutoresizingMaskIntoConstraints = false
+        subtitleTableView.contentInsetAdjustmentBehavior = .never
+        subtitleTableView.sectionIndexBackgroundColor = .clear
+        return subtitleTableView
+    }()
+    
+    private lazy var secondarySubtitleTableView: UITableView = {
         let subtitleTableView: UITableView = UITableView(frame: .zero, style: .plain)
         subtitleTableView.delegate = self
         subtitleTableView.dataSource = self
@@ -155,7 +165,8 @@ class TitleSelectionView: UIView {
 
     private lazy var audioTableViewHeightConstraint = audioTableView.heightAnchor.constraint(equalToConstant: audioTableViewHeight)
 
-    private lazy var subtitleTableViewHeightConstraint = subtitleTableView.heightAnchor.constraint(equalToConstant: subtitleTableViewHeight)
+    private lazy var primarySubtitleTableViewHeightConstraint = primarySubtitleTableView.heightAnchor.constraint(equalToConstant: subtitleTableViewHeight)
+    private lazy var secondarySubtitleTableViewHeightConstraint = secondarySubtitleTableView.heightAnchor.constraint(equalToConstant: subtitleTableViewHeight)
 
     // MARK: - Init
 
@@ -179,7 +190,8 @@ class TitleSelectionView: UIView {
             viewConfigured = true
         }
         audioTableView.reloadData()
-        subtitleTableView.reloadData()
+        primarySubtitleTableView.reloadData()
+        secondarySubtitleTableView.reloadData()
     }
 
     @objc func removeView() {
@@ -188,12 +200,15 @@ class TitleSelectionView: UIView {
 
     func updateHeightConstraints() {
         audioTableViewHeightConstraint.constant = audioTableViewHeight
-        subtitleTableViewHeightConstraint.constant = subtitleTableViewHeight
-        subtitleTableView.setNeedsLayout()
+        primarySubtitleTableViewHeightConstraint.constant = subtitleTableViewHeight
+        secondarySubtitleTableViewHeightConstraint.constant = subtitleTableViewHeight
+        primarySubtitleTableView.setNeedsLayout()
+        secondarySubtitleTableView.setNeedsLayout()
         audioTableView.setNeedsLayout()
         mainStackView.setNeedsLayout()
         audioTableView.layoutIfNeeded()
-        subtitleTableView.layoutIfNeeded()
+        primarySubtitleTableView.layoutIfNeeded()
+        secondarySubtitleTableView.layoutIfNeeded()
         mainStackView.layoutIfNeeded()
     }
 }
@@ -204,13 +219,15 @@ private extension TitleSelectionView {
     private func setupStackView() {
         mainStackView.backgroundColor = .clear
         mainStackView.addArrangedSubview(audioTableView)
-        mainStackView.addArrangedSubview(subtitleTableView)
+        mainStackView.addArrangedSubview(primarySubtitleTableView)
+        mainStackView.addArrangedSubview(secondarySubtitleTableView)
     }
 
     private func setupTableViews() {
         if #available(iOS 15, *) {
             audioTableView.sectionHeaderTopPadding = 0
-            subtitleTableView.sectionHeaderTopPadding = 0
+            primarySubtitleTableView.sectionHeaderTopPadding = 0
+            secondarySubtitleTableView.sectionHeaderTopPadding = 0
         }
 
         audioTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: audioTableView.frame.size.width, height: 1))
@@ -220,26 +237,37 @@ private extension TitleSelectionView {
         audioTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         audioTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
 
-        subtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: subtitleTableView.frame.size.width, height: 1))
-        subtitleTableView.delegate = self
-        subtitleTableView.register(TitleSelectionTableViewCell.self,
+        primarySubtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: primarySubtitleTableView.frame.size.width, height: 1))
+        primarySubtitleTableView.delegate = self
+        primarySubtitleTableView.register(TitleSelectionTableViewCell.self,
                                    forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
-        subtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        subtitleTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
+        primarySubtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        primarySubtitleTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
+        
+        secondarySubtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: secondarySubtitleTableView.frame.size.width, height: 1))
+        secondarySubtitleTableView.delegate = self
+        secondarySubtitleTableView.register(TitleSelectionTableViewCell.self,
+                                   forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
+        secondarySubtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        secondarySubtitleTableView.verticalScrollIndicatorInsets.top = TitleSelectionTableViewCell.size
     }
 
     private func setupConstraints() {
         let limitTopConstraint = mainStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor,
                                                                     constant: 150)
 
-        let minSubtitleConstraint = subtitleTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 2)
-        minSubtitleConstraint.priority = .required
+        let minPrimarySubtitleConstraint = primarySubtitleTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 2)
+        minPrimarySubtitleConstraint.priority = .required
+        
+        let minSecondarySubtitleConstraint = secondarySubtitleTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 2)
+        minSecondarySubtitleConstraint.priority = .required
 
         let minAudioConstraint = audioTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 1.5)
         minAudioConstraint.priority = .required
 
         audioTableViewHeightConstraint.priority = .defaultHigh
-        subtitleTableViewHeightConstraint.priority = .defaultHigh
+        primarySubtitleTableViewHeightConstraint.priority = .defaultHigh
+        secondarySubtitleTableViewHeightConstraint.priority = .defaultHigh
         limitTopConstraint.priority = .required
 
         NSLayoutConstraint.activate([
@@ -247,10 +275,12 @@ private extension TitleSelectionView {
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             audioTableViewHeightConstraint,
-            subtitleTableViewHeightConstraint,
+            primarySubtitleTableViewHeightConstraint,
+            secondarySubtitleTableViewHeightConstraint,
             limitTopConstraint,
             minAudioConstraint,
-            minSubtitleConstraint,
+            minPrimarySubtitleConstraint,
+            minSecondarySubtitleConstraint
         ])
     }
 }
@@ -280,12 +310,13 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         var textColor: UIColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
 
         let currentAudioTrackIndex = playbackService.indexOfCurrentAudioTrack
-        let currentSubtitlesTrackIndex = playbackService.indexOfCurrentSubtitleTrack
+        let currentPrimaryVideoSubtitleIndex = playbackService.indexOfCurrentPrimaryVideoSubtitleTrack
+        let currentSecondaryVideoSubtitleIndex = playbackService.indexOfCurrentSecondaryVideoSubtitleTrack
 
         if indexPath.row == 0 {
             cellTitle = NSLocalizedString("DISABLE_LABEL", comment: "")
             if (tableView == audioTableView && currentAudioTrackIndex == -1) ||
-                (tableView == subtitleTableView && currentSubtitlesTrackIndex == -1) {
+                (tableView == primarySubtitleTableView && currentPrimaryVideoSubtitleIndex == -1) || (tableView == secondarySubtitleTableView && currentSecondaryVideoSubtitleIndex == -1) {
                 textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
@@ -296,8 +327,8 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
             }
 
             cellTitle = playbackService.audioTrackName(at: indexPath.row - 1)
-        } else {
-            if currentSubtitlesTrackIndex + 1 == indexPath.row {
+        } else if tableView == primarySubtitleTableView {
+            if currentPrimaryVideoSubtitleIndex + 1 == indexPath.row {
                 textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 cell.checkImageView.alpha = 1
             }
@@ -305,6 +336,15 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
             let count = playbackService.numberOfVideoSubtitlesIndexes
             cellTitle = indexPath.row == count - 1 ? NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO", comment: "") :
                         playbackService.videoSubtitleName(at: indexPath.row - 1)
+        } else if tableView == secondarySubtitleTableView {
+            if currentSecondaryVideoSubtitleIndex + 1 == indexPath.row {
+                textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+                cell.checkImageView.alpha = 1
+            }
+            
+            let count = playbackService.numberOfVideoSubtitlesIndexes
+            cellTitle = indexPath.row == count - 1 ? NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO", comment: "") :
+            playbackService.videoSubtitleName(at: indexPath.row - 1)
         }
 
         cell.contentLabel.text = cellTitle
@@ -329,9 +369,9 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
                 playbackService.selectAudioTrack(at: indexPath.row - 1)
                 delegate?.titleSelectionViewDelegateDidSelectTrack(self)
             }
-        } else {
+        } else if tableView == primarySubtitleTableView {
             if indexPath.row == 0 {
-                playbackService.disableSubtitles()
+                playbackService.disablePrimaryVideoSubtitle()
                 delegate?.titleSelectionViewDelegateDidSelectTrack(self)
             } else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
                 currentCell?.checkImageView.alpha = 0
@@ -340,7 +380,21 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
                 currentCell?.checkImageView.alpha = 0
                 delegate?.titleSelectionViewDelegateDidSelectDownloadSPU(self)
             } else {
-                playbackService.selectVideoSubtitle(at: indexPath.row - 1)
+                playbackService.selectPrimaryVideoSubtitle(at: indexPath.row - 1)
+                delegate?.titleSelectionViewDelegateDidSelectTrack(self)
+            }
+        } else if tableView == secondarySubtitleTableView {
+            if indexPath.row == 0 {
+                playbackService.disableSecondaryVideoSubtitle()
+                delegate?.titleSelectionViewDelegateDidSelectTrack(self)
+            } else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
+                currentCell?.checkImageView.alpha = 0
+                delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
+            } else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
+                currentCell?.checkImageView.alpha = 0
+                delegate?.titleSelectionViewDelegateDidSelectDownloadSPU(self)
+            } else {
+                playbackService.selectSecondaryVideoSubtitle(at: indexPath.row - 1)
                 delegate?.titleSelectionViewDelegateDidSelectTrack(self)
             }
         }
@@ -357,10 +411,17 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView: TitleSelectionTableViewHeaderView = TitleSelectionTableViewHeaderView(
-            title: tableView == audioTableView ? NSLocalizedString("AUDIO", comment: "").capitalized : 
-            NSLocalizedString("SUBTITLES", comment: "").capitalized
-        )
+        let headerTitle: String
+        if tableView == audioTableView {
+            headerTitle = NSLocalizedString("AUDIO", comment: "").capitalized
+        } else if tableView == primarySubtitleTableView {
+            headerTitle = NSLocalizedString("PRIMARY_SUBTITLES", comment: "").capitalized
+        } else if tableView == secondarySubtitleTableView {
+            headerTitle = NSLocalizedString("SECONDARY_SUBTITLES", comment: "").capitalized
+        } else {
+            headerTitle = NSLocalizedString("SUBTITLES", comment: "").capitalized
+        }
+        let headerView: TitleSelectionTableViewHeaderView = TitleSelectionTableViewHeaderView(title: headerTitle)
         
         return headerView
     }

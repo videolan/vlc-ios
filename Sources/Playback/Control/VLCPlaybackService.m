@@ -95,6 +95,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSMutableArray *_shuffledOrder;
 
     BOOL _openInMiniPlayer;
+    NSInteger _primaryVideoSubtitleTrackIndex;
+    NSInteger _secondaryVideoSubtitleTrackIndex;
 }
 
 @property (weak, atomic) id<VLCPictureInPictureWindowControlling> pipController;
@@ -172,6 +174,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
         _mediaList = [[VLCMediaList alloc] init];
 
+        _primaryVideoSubtitleTrackIndex = -1;
+        _secondaryVideoSubtitleTrackIndex = -1;
+        
         _openedLocalURLs = [[NSMutableArray alloc] init];
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
@@ -557,13 +562,18 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
         
         if (disableSubtitles) {
-            [_mediaPlayer deselectAllTextTracks];
+            _primaryVideoSubtitleTrackIndex = -1;
+            _secondaryVideoSubtitleTrackIndex = -1;
+            [self syncVideoSubtitleState];
+            return;
         } else {
-            NSArray *subtitlesTracks = _mediaPlayer.textTracks;
-            if (media.subtitleTrackIndex < subtitlesTracks.count) {
-                VLCMediaPlayerTrack *track = subtitlesTracks[media.subtitleTrackIndex];
-                track.selectedExclusively = YES;
-            }
+            [_mediaPlayer deselectAllTextTracks];
+            [self selectPrimaryVideoSubtitleAtIndex:media.subtitleTrackIndex];
+            
+            NSString *mediaId = [@(media.identifier) stringValue];
+            NSString *secondaryTrackKey = [NSString stringWithFormat:@"secondarySubtitle_%@", mediaId];
+            NSInteger secondaryTrackIndex = [[NSUserDefaults standardUserDefaults] integerForKey:secondaryTrackKey];
+            [self selectSecondaryVideoSubtitleAtIndex:secondaryTrackIndex];
         }
 #endif
     }
@@ -731,15 +741,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     return -1;
 }
 
-- (NSInteger)indexOfCurrentSubtitleTrack
-{
-    NSArray *textTracks = [_mediaPlayer textTracks];
-    for (VLCMediaPlayerTrack *track in textTracks) {
-        if (track.isSelected) {
-            return [textTracks indexOfObject:track];
-        }
-    }
-    return -1;
+- (NSInteger)indexOfCurrentPrimaryVideoSubtitleTrack {
+    return _primaryVideoSubtitleTrackIndex;
+}
+
+- (NSInteger)indexOfCurrentSecondaryVideoSubtitleTrack {
+    return _secondaryVideoSubtitleTrackIndex;
 }
 
 - (VLCMediaPlayerChapterDescription *)currentChapterDescription
@@ -863,14 +870,57 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_mediaPlayer deselectAllAudioTracks];
 }
 
-- (void)selectVideoSubtitleAtIndex:(NSInteger)index
-{
-    [_mediaPlayer selectTrackAtIndex:index type:VLCMediaTrackTypeText];
+- (void)selectPrimaryVideoSubtitleAtIndex:(NSInteger)index {
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    
+    if (index >= 0 && index < textTracks.count) {
+        if (_secondaryVideoSubtitleTrackIndex == index) {
+            _secondaryVideoSubtitleTrackIndex = -1;
+        }
+        
+        _primaryVideoSubtitleTrackIndex = index;
+        [self syncVideoSubtitleState];
+    }
 }
 
-- (void)disableSubtitles
+- (void)selectSecondaryVideoSubtitleAtIndex:(NSInteger)index {
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    
+    if (index >= 0 && index < textTracks.count) {
+        if (_primaryVideoSubtitleTrackIndex == index) {
+            _primaryVideoSubtitleTrackIndex = -1;
+        }
+        _secondaryVideoSubtitleTrackIndex = index;
+        [self syncVideoSubtitleState];
+    }
+}
+
+- (void)syncVideoSubtitleState
 {
     [_mediaPlayer deselectAllTextTracks];
+    NSArray *textTracks = [_mediaPlayer textTracks];
+    
+    if (_primaryVideoSubtitleTrackIndex >= 0 && _primaryVideoSubtitleTrackIndex < textTracks.count) {
+        VLCMediaPlayerTrack *selectedPrimaryTrack = (VLCMediaPlayerTrack *)textTracks[_primaryVideoSubtitleTrackIndex];
+        selectedPrimaryTrack.selected = YES;
+    }
+    
+    if (_secondaryVideoSubtitleTrackIndex >= 0 && _secondaryVideoSubtitleTrackIndex < textTracks.count) {
+        VLCMediaPlayerTrack *selectedSecondaryTrack = (VLCMediaPlayerTrack *)textTracks[_secondaryVideoSubtitleTrackIndex];
+        selectedSecondaryTrack.selected = YES;
+    }
+}
+
+- (void)disablePrimaryVideoSubtitle
+{
+    _primaryVideoSubtitleTrackIndex = -1;
+    [self syncVideoSubtitleState];
+}
+
+- (void)disableSecondaryVideoSubtitle
+{
+    _secondaryVideoSubtitleTrackIndex = -1;
+    [self syncVideoSubtitleState];
 }
 
 - (void)selectTitleAtIndex:(NSInteger)index
@@ -1768,6 +1818,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
         [_mediaPlayer deselectAllTextTracks];
+        _primaryVideoSubtitleTrackIndex = -1;
+        _secondaryVideoSubtitleTrackIndex = -1;
     }
 }
 
