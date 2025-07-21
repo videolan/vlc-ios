@@ -75,33 +75,38 @@ end
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      # Set deployment targets
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-      config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
-      config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = '9.0'
-
       # Read platform of target
       platform = target.platform_name
 
-      # Apply per-platform ARCHS
+      # Apply per-platform Build Settings
       case platform
       when :ios
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
         config.build_settings['ARCHS'] = 'arm64 x86_64'
+        config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone and iPad
       when :tvos
+        config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
         config.build_settings['ARCHS'] = 'arm64 x86_64'
+        config.build_settings['SUPPORTED_PLATFORMS'] = 'appletvos appletvsimulator'
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = '3' # Apple TV
       when :visionos
+        config.build_settings['VISIONOS_DEPLOYMENT_TARGET'] = '1.0'
         config.build_settings['ARCHS'] = 'arm64 x86_64'
+        config.build_settings['SUPPORTED_PLATFORMS'] = 'xros xrsimulator'
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = '7' # visionOS
       when :watchos
+        config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = '9.0'
         # VLCKit only has arm64_32 arm64 for watchOS devices
         config.build_settings['ARCHS'] = 'arm64_32 arm64 x86_64'
         config.build_settings['EXCLUDED_ARCHS[sdk=watchos*]'] = 'armv7k'
+        config.build_settings['SUPPORTED_PLATFORMS'] = 'watchos watchsimulator'
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = '4' # Apple Watch
       end
 
       # Always set SKIP_INSTALL and other global settings
       config.build_settings['SKIP_INSTALL'] = 'YES'
       config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-      config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator appletvos appletvsimulator xros xrsimulator watchos watchsimulator'
-      config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2,3,4,7'
 
       # Patch out sqlite3 linker flag
       xcconfig_path = config.base_configuration_reference.real_path
