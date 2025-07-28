@@ -92,7 +92,7 @@ class VLCPCloudController: VLCCloudStorageController {
                     let vpc = PlaybackService.sharedInstance()
                     let media = VLCMedia(url: fileURL)
                     let medialist = VLCMediaList()
-                    medialist.add(media!)
+                    medialist.add(media)
                     vpc.playMediaList(medialist, firstIndex: 0, subtitlesFilePath: nil)
                 }
             })
