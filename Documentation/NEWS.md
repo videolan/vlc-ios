@@ -29,6 +29,8 @@
     - on lockscreen and when using external controls (like headphones and car controls)
 · Integrate with the pCloud service
 · Frame-by-Frame playback
+· Customize playback speed option
+· Customize seeking options
 
 Known issues:
 · Thumbnailing content is broken
@@ -53,6 +55,7 @@ Known issues:
 · Fix silence for a split second when starting playback
 · Fix PLEX integration
 · Remove S/PDIF option on tvOS as it was discontinued in tvOS 11
+· Fix playback of multicast URLs through the web interface
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
