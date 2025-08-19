@@ -142,7 +142,7 @@
     if (row == [vpc numberOfVideoSubtitlesIndexes] - 1) {
         trackName = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     } else {
-        BOOL isSelected = [vpc indexOfCurrentSubtitleTrack] == row;
+        BOOL isSelected = [vpc indexOfCurrentPrimaryVideoSubtitleTrack] == row;
         trackCell.selectionMarkerVisible = isSelected;
 
         trackName = [vpc videoSubtitleNameAtIndex:row];
@@ -167,7 +167,7 @@
             }
         }
     } else {
-        [vpc selectVideoSubtitleAtIndex:row];
+        [vpc selectPrimaryVideoSubtitleAtIndex:row];
         [collectionView reloadData];
     }
 }

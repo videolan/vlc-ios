@@ -550,7 +550,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
             _mediaPlayer.currentVideoSubTitleIndex = -1;
         } else {
-            [self selectVideoSubtitleAtIndex:media.subtitleTrackIndex];
+            [self selectPrimaryVideoSubtitleAtIndex:media.subtitleTrackIndex];
         }
 #else
         BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
