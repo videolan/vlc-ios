@@ -897,18 +897,18 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)syncVideoSubtitleState
 {
-    [_mediaPlayer deselectAllTextTracks];
     NSArray *textTracks = [_mediaPlayer textTracks];
+    NSMutableArray<VLCMediaPlayerTrack *> *tracksToSelect = [NSMutableArray array];
     
     if (_primaryVideoSubtitleTrackIndex >= 0 && _primaryVideoSubtitleTrackIndex < textTracks.count) {
-        VLCMediaPlayerTrack *selectedPrimaryTrack = (VLCMediaPlayerTrack *)textTracks[_primaryVideoSubtitleTrackIndex];
-        selectedPrimaryTrack.selected = YES;
+        [tracksToSelect addObject:textTracks[_primaryVideoSubtitleTrackIndex]];
     }
     
     if (_secondaryVideoSubtitleTrackIndex >= 0 && _secondaryVideoSubtitleTrackIndex < textTracks.count) {
-        VLCMediaPlayerTrack *selectedSecondaryTrack = (VLCMediaPlayerTrack *)textTracks[_secondaryVideoSubtitleTrackIndex];
-        selectedSecondaryTrack.selected = YES;
+        [tracksToSelect addObject:textTracks[_secondaryVideoSubtitleTrackIndex]];
     }
+    
+    [_mediaPlayer selectTextTracks:tracksToSelect];
 }
 
 - (void)disablePrimaryVideoSubtitle
