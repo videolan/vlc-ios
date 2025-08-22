@@ -498,6 +498,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if (media.isNew)
             return;
 
+        VLCMLMetadata *speedMetadata = [media metadataOfType:VLCMLMetadataTypeSpeed];
+        if (speedMetadata.integer > 0) {
+            [self setPlaybackRate:speedMetadata.integer / 100.0];
+        }
+
 #if LIBVLC_VERSION_MAJOR == 3
         SInt64 audioIndex = media.audioTrackIndex;
         NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;

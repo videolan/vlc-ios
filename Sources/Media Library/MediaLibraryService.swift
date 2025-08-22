@@ -312,6 +312,7 @@ private extension MediaLibraryService {
         mlMedia.subtitleTrackIndex = Int64(player.indexOfCurrentSubtitleTrack)
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
+        mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64(player.playbackRate * 100))
 
         if mlMedia.type() != .audio {
             if let thumbnailURL = mlMedia.thumbnail() {
