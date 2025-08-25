@@ -140,6 +140,11 @@
         NSInteger currentIndex = [mediaList indexOfMedia:mediaPlayer.media];
         VLCMicroMediaLibraryService *microMediaLibrary = [VLCMicroMediaLibraryService sharedInstance];
         NSString *currentTitle = [microMediaLibrary titleForItemAtIndex:currentIndex];
+
+        if (currentTitle == nil) {
+            currentTitle = metadata.title;
+        }
+
         self.title = [currentTitle stringByDeletingPathExtension];
 #else
         if (metadata.nowPlaying != nil) {
