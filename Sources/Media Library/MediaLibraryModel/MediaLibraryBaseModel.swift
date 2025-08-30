@@ -26,7 +26,10 @@ protocol MediaLibraryBaseModel {
     var sortModel: SortModel { get }
 
     var indicatorName: String { get }
+    
+    #if !os(watchOS)
     var cellType: BaseCollectionViewCell.Type { get }
+    #endif
 
     func anyAppend(_ item: VLCMLObject)
     func anyDelete(_ items: [VLCMLObject])
@@ -46,7 +49,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     var medialibrary: MediaLibraryService { get }
 
-    var observable: Observable<MediaLibraryBaseModelObserver> { get }
+    var observable: VLCObservable<MediaLibraryBaseModelObserver> { get }
 
     var indicatorName: String { get }
 
@@ -171,7 +174,12 @@ extension MediaCollectionModel {
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLMediaGroup)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && !(self is VLCMLMediaGroup)) {
+            #if !os(watchOS)
             let isDarktheme = PresentationTheme.current.isDark
+            #elseif os(watchOS)
+            // watchOS only has a dark theme
+            let isDarktheme = true
+            #endif
             if self is VLCMLMediaGroup {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
             } else if self is VLCMLArtist {

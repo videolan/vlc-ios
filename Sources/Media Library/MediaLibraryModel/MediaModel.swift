@@ -9,7 +9,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#if !os(watchOS)
 import CoreSpotlight
+#endif
 
 protocol MediaModel: MLBaseModel where MLType == VLCMLMedia { }
 
@@ -60,7 +62,12 @@ extension VLCMLMedia {
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
+            #if os(watchOS)
+            /// watchOS only doesn't have light mode
+            let isDarktheme = true
+            #else
             let isDarktheme = PresentationTheme.current.isDark
+            #endif
             if subtype() == .albumTrack {
                 image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
             } else {
@@ -88,7 +95,7 @@ extension VLCMLMedia {
 }
 
 // MARK: - CoreSpotlight
-
+#if !os(watchOS)
 extension VLCMLMedia {
     func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet {
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: "public.audiovisual-content")
@@ -178,6 +185,7 @@ extension VLCMLMedia {
         }
     }
 }
+#endif
 
 // MARK: - Search
 extension VLCMLMedia: SearchableMLModel {

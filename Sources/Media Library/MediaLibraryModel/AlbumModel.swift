@@ -14,7 +14,7 @@ class AlbumModel: AudioCollectionModel {
 
     var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber, .insertionDate, .lastPlaybackDate, .playCount])
 
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLAlbum]()

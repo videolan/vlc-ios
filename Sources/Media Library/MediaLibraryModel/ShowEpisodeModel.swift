@@ -14,7 +14,7 @@ class ShowEpisodeModel: MediaModel {
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
 
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
     var fileArrayLock = NSRecursiveLock()

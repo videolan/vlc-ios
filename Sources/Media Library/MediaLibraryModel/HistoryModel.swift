@@ -17,7 +17,7 @@ class HistoryModel: MLBaseModel {
     // Other variables
     typealias MLType = VLCMLMedia
     var sortModel = SortModel([])
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
     var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLMedia]()
     var cellType: BaseCollectionViewCell.Type = MediaCollectionViewCell.self

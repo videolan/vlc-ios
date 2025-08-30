@@ -32,9 +32,12 @@
 {
     self = [super init];
     if (self) {
-        _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
         MaxCacheSize = 0;
-
+#if TARGET_OS_WATCH
+        // On watchOS, we don't have a `UIDevice`, so we set a fixed cache size
+        MaxCacheSize = MAX_CACHE_SIZE_WATCH;
+#else
+        _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
         switch (_currentDeviceIdiom) {
             case UIUserInterfaceIdiomPad:
                 MaxCacheSize = MAX_CACHE_SIZE_IPAD;
@@ -47,7 +50,7 @@
                 MaxCacheSize = MAX_CACHE_SIZE_WATCH;
                 break;
         }
-
+#endif
         _thumbnailCache = [[NSCache alloc] init];
         [_thumbnailCache setCountLimit: MaxCacheSize];
     }

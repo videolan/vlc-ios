@@ -11,13 +11,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class Observable<T: AnyObject> {
+class VLCObservable<T: AnyObject> {
     // Using ObjectIdentifier to avoid duplication and facilitate identification of observing object
-    private var observers = [ObjectIdentifier: Observer<T>]()
+    private var observers = [ObjectIdentifier: VLCObserver<T>]()
 
     func addObserver(_ observer: T) {
         let identifier = ObjectIdentifier(observer)
-        observers[identifier] = Observer(observer)
+        observers[identifier] = VLCObserver(observer)
     }
 
     func removeObserver(_ observer: T) {
@@ -44,7 +44,7 @@ class Observable<T: AnyObject> {
 
 // Since weak is a property assigned to anything that is of class type and not struct
 // you have to explicitly constraint your generic parameter to be of class type
-fileprivate class Observer<T: AnyObject> {
+fileprivate class VLCObserver<T: AnyObject> {
    weak var observer: T?
 
    init(_ observer: T) {

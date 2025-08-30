@@ -10,9 +10,14 @@ import SwiftUI
 
 @main
 struct VLCWatchOSApp: App {
+    private let appCoordinator = VLCAppCoordinator.sharedInstance()
+    @StateObject private var dialogProvider = CustomSwiftUIDialogProvider.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(dialogProvider)
+                .customDialogOverlay()
         }
     }
 }

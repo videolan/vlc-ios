@@ -22,7 +22,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCMetadata.h"
+
+#if !TARGET_OS_WATCH
 #import "VLCPlayerDisplayController.h"
+#endif
+
 #import <stdatomic.h>
 
 #if !TARGET_OS_TV
@@ -47,6 +51,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 #if TARGET_OS_TV
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
+#elif TARGET_OS_WATCH
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate>
 #else
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #endif
@@ -75,9 +81,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSLock *_playbackSessionManagementLock;
 
     void (^_playbackCompletion)(BOOL success);
-
+#if !TARGET_OS_WATCH
     VLCDialogProvider *_dialogProvider;
     VLCCustomDialogRendererHandler *_customDialogHandler;
+#else
+    CustomSwiftUIDialogObjCBridge *_swiftUIDialogProvider;
+#endif
     VLCPlayerDisplayController *_playerDisplayController;
 
     NSMutableArray *_openedLocalURLs;
@@ -112,7 +121,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)dealloc
 {
+#if !TARGET_OS_WATCH
     _dialogProvider = nil;
+#else
+    _swiftUIDialogProvider = nil;
+#endif
 }
 
 - (instancetype)init
@@ -129,6 +142,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                               name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
 
         // appkit because we neeed to know when we go to background in order to stop the video, so that we don't crash
+#if !TARGET_OS_WATCH
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
                               name:UIApplicationWillResignActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
@@ -136,14 +150,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [defaultCenter addObserver:self selector:@selector(applicationWillEnterForeground:)
                               name:UIApplicationWillEnterForegroundNotification object:nil];
 
-        _metadata = [VLCMetaData new];
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
 
         _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
                                 initWithDialogProvider:_dialogProvider];
 
         _dialogProvider.customRenderer = _customDialogHandler;
-
+#else
+        _swiftUIDialogProvider = [CustomSwiftUIDialogObjCBridge new];
+#endif
+        _metadata = [VLCMetaData new];
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
         _shuffledList = nil;
@@ -235,18 +251,21 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     CGRect defaultVoutFrame;
 #if TARGET_OS_VISION
     defaultVoutFrame = [[[[UIApplication sharedApplication] delegate] window] bounds];
-#else
+    
+#elif TARGET_OS_IOS || TARGET_OS_TV
     defaultVoutFrame = [UIScreen mainScreen].bounds;
-#endif
+
     _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
-
+#endif
     /* the chromecast and audio options cannot be set per media, so we need to set it per
      * media player instance however, potentially initialising an additional library instance
      * for this is costly, so this should be done only if needed */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
     BOOL audioTimeStretch = [[userDefaults objectForKey:kVLCSettingStretchAudio] boolValue];
+    
     NSMutableArray *libVLCOptions = [NSMutableArray array];
 #if TARGET_OS_IOS
     BOOL chromecastPassthrough = [[userDefaults objectForKey:kVLCSettingCastingAudioPassthrough] boolValue];
@@ -305,10 +324,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
     [_listPlayer.mediaPlayer.libraryInstance setLoggers:debugLoggers];
 
+#if !TARGET_OS_WATCH
+    /// watchOS doesn't need an adjust filter sincd it doesn't support video playback.
     id<VLCFilter> newFilter = _listPlayer.mediaPlayer.adjustFilter;
     [newFilter applyParametersFrom:_adjustFilter.mediaPlayerAdjustFilter];
     newFilter.enabled = _adjustFilter.mediaPlayerAdjustFilter.isEnabled;
     _adjustFilter = [[VLCPlaybackServiceAdjustFilter alloc] initWithMediaPlayerAdjustFilter:newFilter];
+#endif
     _mediaPlayer = _listPlayer.mediaPlayer;
 #if TARGET_OS_IOS
     _mediaController = [[VLCPictureInPictureMediaController alloc] initWithMediaPlayer:_mediaPlayer];
@@ -385,7 +407,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
     [media parseWithOptions:VLCMediaParseLocal];
     media.delegate = self;
-    [media addOptions:self.mediaOptionsDictionary];
+    // add options to the media
+    if (self.mediaOptionsDictionary) {
+        // if mediaOptionsDictionary is nil, it will not add any options.
+        // this prevents the crash when the mediaOptionsDictionary is nil.
+        [media addOptions:self.mediaOptionsDictionary];
+    }
 
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
 
@@ -934,7 +961,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [self stopPlayback];
             } break;
             case VLCMediaPlayerStateStopping: {
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_WATCH
                 [self savePlaybackState];
 #endif
 
@@ -1179,7 +1206,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_mediaPlayer gotoNextFrame];
 }
 
-#if !TARGET_OS_VISION
+#if !TARGET_OS_VISION && !TARGET_OS_WATCH
 - (UIScreen *)currentScreen
 {
     return [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
@@ -1246,7 +1273,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             _mediaPlayer.videoCropGeometry = NULL;
 #endif
             break;
-#if !TARGET_OS_VISION
+#if !TARGET_OS_VISION && !TARGET_OS_WATCH
         case VLCAspectRatioFillToScreen:
             // Reset aspect ratio only with aspectRatio button since we want to keep
             // the user ratio with double tap.
@@ -1292,6 +1319,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }*/
 }
 
+#if !TARGET_OS_WATCH
 - (void)setVideoOutputView:(UIView *)videoOutputView
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -1318,6 +1346,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
     return _videoOutputViewWrapper;
 }
+
+#endif
 
 #pragma mark - 360 Support
 
@@ -1644,6 +1674,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if (continuePlayback == 1) {
             [self setPlaybackPosition:lastPosition];
         } else if (continuePlayback == 0) {
+            #if TARGET_OS_IOS
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil) message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), libraryMedia.title] preferredStyle:UIAlertControllerStyleAlert];
 
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -1662,6 +1693,14 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             [presentingVC presentViewController:alertController
                                        animated:YES
                                      completion:nil];
+            #elif TARGET_OS_WATCH
+            [_swiftUIDialogProvider showContinuePlaybackDialogWithMediaTitle:libraryMedia.title completion:^(BOOL shouldContinue) {
+                if (shouldContinue) {
+                    [self setPlaybackPosition:lastPosition];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
+            }];
+            #endif
         }
     }
 }
@@ -1745,6 +1784,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
 #if TARGET_OS_IOS
     return (_renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]);
+#elif TARGET_OS_WATCH
+    return NO;
 #else
     return [[UIDevice currentDevice] VLCHasExternalDisplay];
 #endif
@@ -1870,6 +1911,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 #pragma mark - PlayerDisplayController
 
+#if !TARGET_OS_WATCH
 - (void)setPlayerDisplayController:(VLCPlayerDisplayController *)playerDisplayController
 {
     _playerDisplayController = playerDisplayController;
@@ -1880,12 +1922,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_playerDisplayController setEditing:hidden];
     [_playerDisplayController dismissPlaybackView];
 }
+#endif
 
 #pragma mark - VLCMediaListPlayerDelegate
 
 - (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
 {
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_WATCH
     [self _findCachedSubtitlesForMedia:media];
 #endif
 
@@ -1899,6 +1942,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 #pragma mark - VLCDrawable
 
+#if !TARGET_OS_WATCH
 - (void)addSubview:(UIView *)view {
     [_actualVideoOutputView addSubview:view];
 }
@@ -1906,6 +1950,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (CGRect)bounds { 
     return [_actualVideoOutputView bounds];
 }
+#endif
 
 #pragma mark - VLCPictureInPictureDrawable
 

@@ -13,7 +13,7 @@ class MediaGroupViewModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .lastModificationDate, .nbVideo, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
 
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
     let fileArrayQueue: DispatchQueue

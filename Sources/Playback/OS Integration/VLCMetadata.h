@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, nullable) NSNumber *identifier;
 @property(readwrite, assign) BOOL isLiveStream;
 
-#if TARGET_OS_IOS || TARGET_OS_VISION
+#if TARGET_OS_IOS || TARGET_OS_VISION || TARGET_OS_WATCH
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 #else
 - (void)updateMetadataFromMediaPlayer:(VLCMediaPlayer *)mediaPlayer;

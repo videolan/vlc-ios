@@ -25,17 +25,24 @@ NS_ASSUME_NONNULL_BEGIN
 @class VLCMLMedia;
 @class VLCStripeController;
 #endif
+#if TARGET_OS_WATCH
+@class MediaLibraryService;
+@class VLCMLMedia;
+#endif
+
+#if !TARGET_OS_WATCH
 @class VLCFavoriteService;
-
-
 @class VLCHTTPUploaderController;
+#endif
 
 @interface VLCAppCoordinator : NSObject
 
 + (nonnull instancetype)sharedInstance;
 
+#if !TARGET_OS_WATCH
 @property (readonly) VLCHTTPUploaderController *httpUploaderController;
 @property (readonly) VLCFavoriteService *favoriteService;
+#endif
 
 #if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
@@ -46,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain) UITabBarController *tabBarController;
 
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
-
 - (nullable VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
 #endif
 
@@ -58,6 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain) UITabBarController *tabBarController;
 
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+- (nullable VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
+#endif
+
+#if TARGET_OS_WATCH
+@property (readonly) MediaLibraryService *mediaLibraryService;
 
 - (nullable VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
 #endif

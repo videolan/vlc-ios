@@ -10,7 +10,14 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#if !os(watchOS)
 import CoreSpotlight
+#endif
+
+#if os(watchOS)
+import WatchKit
+#endif
+
 import VLCMediaLibraryKit
 import UIKit
 
@@ -144,7 +151,7 @@ class MediaLibraryService: NSObject {
     private var desiredThumbnailWidth = UInt(320)
     private var desiredThumbnailHeight = UInt(200)
 
-    private(set) var observable = Observable<MediaLibraryObserver>()
+    private(set) var observable = VLCObservable<MediaLibraryObserver>()
 
     private(set) lazy var medialib = VLCMediaLibrary()
 
@@ -160,21 +167,33 @@ class MediaLibraryService: NSObject {
         medialib.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
-
+        
+        #if !os(watchOS)
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
-
+        #endif
         #if os(iOS)
         let screenWidth = UIScreen.main.bounds.width
         let screenScale = UIScreen.main.scale
+        #elseif os(watchOS)
+        let screenWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width
+        let screenScale: CGFloat = WKInterfaceDevice.current().screenScale
         #else
         let screenWidth: CGFloat = (UIApplication.shared.delegate?.window??.bounds.size.width)!
         let screenScale: CGFloat = UITraitCollection.current.displayScale
         #endif
+        
+        #if !os(watchOS)
         let cellSizeWidth = MovieCollectionViewCell.cellSizeForWidth(screenWidth).width
         let scaledCellWidth = cellSizeWidth * screenScale
         desiredThumbnailWidth = UInt(scaledCellWidth)
         desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
+        #else
+        // Assume watchOS has a fixed thumbnail size (60% of the screen width or height 1:1.2)
+        let thumbnailSize = screenWidth * 0.6
+        desiredThumbnailWidth = UInt(thumbnailSize)
+        desiredThumbnailHeight = UInt(thumbnailSize / 1.2)
+        #endif
     }
 }
 
@@ -212,7 +231,9 @@ private extension MediaLibraryService {
             let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
                 preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
         }
-
+        
+        // TODO: fahri - verify the documentPath for watchOS later.
+        /// Can't verify now, will verify after fully developing the media library features
         setupMediaDiscovery(at: documentPath)
 
         let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
@@ -270,8 +291,10 @@ private extension MediaLibraryService {
     }
 
     @objc func reindexAllMediaForSpotlight() {
+        #if !os(watchOS)
         media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
         media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
+        #endif
     }
     /// Returns number of *ALL* files(audio and video) present in the medialibrary database
     func numberOfFiles() -> Int {
@@ -489,7 +512,6 @@ extension MediaLibraryService {
 }
 
 // MARK: - VLCMediaFileDiscovererDelegate
-
 extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
     func mediaFileAdded(_ filePath: String!, loading isLoading: Bool) {
         guard !isLoading else {
@@ -508,7 +530,10 @@ extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
 
 extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
+        #if !os(watchOS)
+        // watchOS doesn't support CoreSpotlight yet
         media.forEach { $0.updateCoreSpotlightEntry() }
+        #endif
 
         let videos = media.filter {( $0.type() == .video )}
         let tracks = media.filter {( $0.type() == .audio )}
@@ -528,9 +553,12 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
             }
             media.append(safeMedia)
         }
-
+        
+        #if !os(watchOS)
+        // watchOS doesn't support CoreSpotlight yet
         media.forEach { $0.updateCoreSpotlightEntry() }
-
+        #endif
+        
         let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
         let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
         let videos = media.filter {( $0.type() == .video)}
@@ -548,8 +576,10 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteMediaWithIds mediaIds: [NSNumber]) {
         var stringIds = [String]()
         mediaIds.forEach { stringIds.append("\($0)") }
+        #if !os(watchOS)
+        // watchOS doesn't support CoreSpotlight yet
         CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: stringIds, completionHandler: nil)
-
+        #endif
         observable.notifyObservers {
             $0.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
         }

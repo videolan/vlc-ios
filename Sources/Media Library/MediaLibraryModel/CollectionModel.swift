@@ -21,7 +21,7 @@ class CollectionModel: MLBaseModel {
 
     var medialibrary: MediaLibraryService
 
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLMedia]()

@@ -16,7 +16,7 @@
 #import "VLCPlaybackService.h"
 #import "VLCMicroMediaLibraryService.h"
 
-#if TARGET_OS_IOS || TARGET_OS_VISION
+#if TARGET_OS_IOS || TARGET_OS_VISION || TARGET_OS_WATCH
 #import "VLC-Swift.h"
 #endif
 
@@ -44,7 +44,7 @@
 }
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_VISION
+#if TARGET_OS_IOS || TARGET_OS_VISION || TARGET_OS_WATCH
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
     if (media && !media.isExternalMedia) {
@@ -58,9 +58,13 @@
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
         if (!self.artworkImage) {
+#if TARGET_OS_WATCH
+            self.artworkImage = [UIImage imageNamed:@"song-placeholder-dark"];
+#else
             BOOL isDarktheme = PresentationTheme.current.isDark;
             self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
                                             : [UIImage imageNamed:@"song-placeholder-white"];
+#endif
         }
 
         [self checkIsAudioOnly:mediaPlayer];
@@ -79,8 +83,10 @@
     }
     [self updatePlaybackRate:mediaPlayer];
 
+#if !TARGET_OS_WATCH
     //Down here because we still need to populate the miniplayer
     if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
+#endif
 
     [self populateInfoCenterFromMetadata];
 }

@@ -14,7 +14,7 @@ class GenreModel: AudioCollectionModel {
 
     var sortModel = SortModel([.alpha, .playCount])
 
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLGenre]()

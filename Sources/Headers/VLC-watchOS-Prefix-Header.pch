@@ -1,0 +1,28 @@
+//
+//  VLC-watchOS-Prefix-Header.pch
+//  VLC
+//
+//  Created by Fahri Novaldi on 02/07/25.
+//  Copyright © 2025 VideoLAN. All rights reserved.
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#import <VLCKit/VLCKit.h>
+#import <VLCKit/vlc/libvlc_version.h>
+#import "VLCConstants.h"
+#import "VLCMetadata.h"
+
+#ifndef NDEBUG
+#define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
+#else
+#define APLog(format, ...)
+#endif
+
+#define MEDIA_PLAYBACK_DEBUG 0
+#define MEDIA_DISCOVERY_DEBUG 0
+#define WIFI_SHARING_DEBUG 0
+
