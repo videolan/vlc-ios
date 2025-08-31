@@ -12,17 +12,12 @@
 extension PresentationTheme {
     static func traitCollectionDidChange(from previousTraitCollection: UITraitCollection?, to traitCollection: UITraitCollection) {
         if #available(iOS 13.0, *) {
-            guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else {
-                // Since traitCollectionDidChange is called in, for example rotations, we make sure that
-                // there was a userInterfaceStyle change.
-                return
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
+                    return
+                }
+                PresentationTheme.themeDidUpdate()
             }
-            guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
-                // Theme is specificly set, do not follow systeme theme.
-                return
-            }
-
-            PresentationTheme.themeDidUpdate()
         }
     }
 }
