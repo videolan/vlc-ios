@@ -59,13 +59,21 @@ class AppearanceManager: NSObject {
 
     @objc class func setupUserInterfaceStyle(theme: PresentationTheme = PresentationTheme.current) {
         if #available(iOS 13.0, *) {
-            UIView.animate(withDuration: 0.55, delay: 0,
-                           usingSpringWithDamping: 1,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseIn,
-                           animations: {
-                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
-            })
+            if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeSystem {
+                UIView.animate(withDuration: 0.55, delay: 0,
+                               usingSpringWithDamping: 1,
+                               initialSpringVelocity: 0,
+                               options: .curveEaseIn,
+                               animations: {
+#if os(iOS)
+                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+#else
+                    if let window = UIApplication.shared.delegate?.window {
+                        window?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+                    }
+#endif
+                })
+            }
         }
     }
 
