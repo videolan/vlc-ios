@@ -332,16 +332,11 @@ private extension MediaLibraryService {
         mlMedia.isNew = false
         mlMedia.progress = player.playbackPosition
         mlMedia.audioTrackIndex = Int64(player.indexOfCurrentAudioTrack)
-        mlMedia.subtitleTrackIndex = Int64(player.indexOfCurrentPrimaryVideoSubtitleTrack)
+        mlMedia.primarySubtitleTrackIndex = Int64(player.indexOfCurrentPrimaryVideoSubtitleTrack)
+        mlMedia.secondarySubtitleTrackIndex = Int64(player.indexOfCurrentSecondaryVideoSubtitleTrack)
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
         mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64(player.playbackRate * 100))
-
-        let secondaryTrackIndex = player.indexOfCurrentSecondaryVideoSubtitleTrack
-        let secondaryTrackKey = "secondarySubtitle_\(mlMedia.identifier())"
-        
-        UserDefaults.standard.set(secondaryTrackIndex,
-                                 forKey: secondaryTrackKey)
 
         if mlMedia.type() != .audio {
             if let thumbnailURL = mlMedia.thumbnail() {

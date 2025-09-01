@@ -568,12 +568,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             return;
         } else {
             [_mediaPlayer deselectAllTextTracks];
-            [self selectPrimaryVideoSubtitleAtIndex:media.subtitleTrackIndex];
-            
-            NSString *mediaId = [@(media.identifier) stringValue];
-            NSString *secondaryTrackKey = [NSString stringWithFormat:@"secondarySubtitle_%@", mediaId];
-            NSInteger secondaryTrackIndex = [[NSUserDefaults standardUserDefaults] integerForKey:secondaryTrackKey];
-            [self selectSecondaryVideoSubtitleAtIndex:secondaryTrackIndex];
+            [self selectPrimaryVideoSubtitleAtIndex:media.primarySubtitleTrackIndex];
+            [self selectSecondaryVideoSubtitleAtIndex:media.secondarySubtitleTrackIndex];
         }
 #endif
     }
