@@ -71,9 +71,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     BOOL _isInFillToScreen;
     NSInteger _previousAspectRatio;
 
-    UIView *_videoOutputViewWrapper;
-    UIView *_actualVideoOutputView;
-    UIView *_preBackgroundWrapperView;
+    UIView *_videoOutputViewWrapper API_UNAVAILABLE(watchos);
+    UIView *_actualVideoOutputView API_UNAVAILABLE(watchos);
+    UIView *_preBackgroundWrapperView API_UNAVAILABLE(watchos);
 
     int _majorPositionChangeInProgress;
     BOOL _externalAudioPlaybackDeviceConnected;
@@ -99,9 +99,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSInteger _secondaryVideoSubtitleTrackIndex;
 }
 
+#if !TARGET_OS_WATCH
 @property (weak, atomic) id<VLCPictureInPictureWindowControlling> pipController;
 @property (atomic) BOOL isPipEnabled;
 @property (atomic) id<VLCPictureInPictureMediaControlling> mediaController;
+#endif
 
 @end
 
@@ -958,8 +960,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+#if !TARGET_OS_WATCH
         id<VLCPictureInPictureWindowControlling> pipController = self->_pipController;
         [pipController invalidatePlaybackState];
+#endif
 
         switch (currentState) {
             case VLCMediaPlayerStateBuffering: {
@@ -1857,6 +1861,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
+#if !TARGET_OS_WATCH
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
 #if TARGET_OS_IOS
@@ -1870,10 +1875,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     if ([[_mediaPlayer audioTracks] count] > 0 && [_mediaPlayer isPlaying])
         [self setVideoTrackEnabled:false];
 #endif
+#endif
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
 {
+#if !TARGET_OS_WATCH
     if (_preBackgroundWrapperView) {
         [self setVideoOutputView:_preBackgroundWrapperView];
         _preBackgroundWrapperView = nil;
@@ -1896,6 +1903,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         _shouldResumePlaying = NO;
         [_listPlayer play];
     }
+#endif
 }
 
 #pragma mark - helpers
@@ -2002,6 +2010,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 #pragma mark - VLCPictureInPictureDrawable
 
+#if !TARGET_OS_WATCH
 - (void (^)(id<VLCPictureInPictureWindowControlling>))pictureInPictureReady {
     __weak typeof(self) drawable = self;
     return ^(id<VLCPictureInPictureWindowControlling> pipController){
@@ -2020,5 +2029,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     else
         [self.pipController startPictureInPicture];
 }
+#endif
 
 @end

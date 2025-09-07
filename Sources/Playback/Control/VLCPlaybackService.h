@@ -2,7 +2,7 @@
  * VLCPlaybackService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2023 VLC authors and VideoLAN
+ * Copyright (c) 2013-2025 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -59,7 +59,7 @@ NS_SWIFT_NAME(pictureInPictureStateDidChange(enabled:));
 NS_SWIFT_NAME(PlaybackService)
 @interface VLCPlaybackService : NSObject
 
-@property (nonatomic, strong, nullable) UIView *videoOutputView;
+@property (nonatomic, strong, nullable) UIView *videoOutputView API_UNAVAILABLE(watchos);
 
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, retain) VLCMediaList *shuffledList;
