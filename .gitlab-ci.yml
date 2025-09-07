@@ -4,7 +4,7 @@ stages:
 
 default:
     before_script:
-        - arch -x86_64 pod update
+        - pod update
     tags:
         - macos-xcode15
     interruptible: true
