@@ -246,12 +246,31 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let videoModel = VideoModel(medialibrary: mediaLibraryService)
         videoModel.secondName = model.name
 
-        if model is MediaGroupViewModel {
-            self.model = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? videoModel : model
-            self.secondModel = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? model : videoModel
-        } else {
-            self.model = model
-            self.secondModel = videoModel
+        let wantsFolder = userDefaults.bool(forKey: KVLCFolderViewLayout)
+        let disableGrouping = userDefaults.bool(forKey: kVLCSettingsDisableGrouping)
+
+        var initialModel: MediaLibraryBaseModel = model
+        var initialSecondModel: MediaLibraryBaseModel = videoModel
+
+        if wantsFolder, model is VideoModel || model is MediaGroupViewModel {
+            if let baseFolder = mediaLibraryService.medialib.folder(
+                atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            ) {
+                initialSecondModel = model
+                initialModel = FolderModel(medialibrary: mediaLibraryService,
+                                           isAudio: false,
+                                           folder: baseFolder)
+            }
+        }
+
+        else if model is MediaGroupViewModel, !wantsFolder {
+            if disableGrouping {
+                initialModel = videoModel
+                initialSecondModel = model
+            } else {
+                initialModel = model
+                initialSecondModel = videoModel
+            }
         }
 
 #if os(iOS)
@@ -278,9 +297,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
         navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
-
         self.navigationItem.titleView = navItemTitle
-
     }
 
     @objc private func handleDisableGrouping() {
@@ -1580,12 +1597,32 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         return String(describing: type(of: mediaCollection))
     }
 
-    func handleLayoutChange(gridLayout: Bool) {
+    func handleLayoutChange(gridLayout: Bool, isFolder: Bool) {
         var prefix: String = ""
         var suffix: String = ""
 
         var collectionModelName: String = ""
         var isVideoModel = false
+
+        if isFolder {
+            let baseFolder = mediaLibraryService.medialib.folder(atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)!
+            // Set UserDefaults for folder grid layout based on isAudio flag
+            if let folderModel = model as? FolderModel {
+                if folderModel.isAudio {
+                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO")
+                } else {
+                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO")
+
+                }
+            } else {
+                secondModel = model
+                model = FolderModel(medialibrary: self.mediaLibraryService, isAudio: false, folder: baseFolder)
+            }
+
+        } else {
+            model = secondModel
+        }
+
         if let model = model as? CollectionModel {
             if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
                 isVideoModel = true
@@ -1633,7 +1670,7 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
             collectionView?.collectionViewLayout.invalidateLayout()
             reloadData()
         } else if type == .layoutChange {
-            handleLayoutChange(gridLayout: onSwitchIsOnChange)
+            handleLayoutChange(gridLayout: onSwitchIsOnChange, isFolder: false)
         }
     }
 }

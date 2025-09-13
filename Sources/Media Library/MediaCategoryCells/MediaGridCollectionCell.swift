@@ -115,6 +115,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
                 update(genre: genre)
             } else if let mediaGroup = media as? VLCMLMediaGroup {
                 update(mediaGroup: mediaGroup)
+            } else if let folder = media as? VLCMLFolder {
+                update(folder: folder)
             } else {
                 assertionFailure("MediaGridCollectionCell: media: Needs to be of a supported Type.")
             }
@@ -310,6 +312,13 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         accessibilityLabel = genre.accessibilityText()
         thumbnailView.image = genre.thumbnail()
         descriptionLabel.text = genre.numberOfTracksString()
+    }
+
+    func update(folder: VLCMLFolder) {
+        newLabel.isHidden = true
+        thumbnailView.image = UIImage(named: "folder")
+        titleLabel.isHidden = false
+        titleLabel.text = folder.mrl.lastPathComponent
     }
 
     private func configureShadows() {

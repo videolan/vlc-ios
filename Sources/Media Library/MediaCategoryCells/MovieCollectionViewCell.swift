@@ -76,6 +76,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
                 update(playlist:playlist)
             } else if let mediaGroup = media as? VLCMLMediaGroup {
                 update(mediaGroup: mediaGroup)
+            } else if let folder = media as? VLCMLFolder {
+                update(folder: folder)
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
@@ -240,6 +242,15 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         groupView.isHidden = false
         groupLastPlayedLabel.isHidden = true
+    }
+
+    func update(folder: VLCMLFolder) {
+        titleLabel.text = folder.mrl.lastPathComponent
+        descriptionLabel.isHidden = true
+        newLabel.isHidden = true
+        progressView.isHidden = true
+        thumbnailView.contentMode = .scaleAspectFit
+        thumbnailView.image = UIImage(named: "folder")
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {

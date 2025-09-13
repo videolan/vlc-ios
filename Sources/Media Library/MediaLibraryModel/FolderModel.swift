@@ -23,6 +23,13 @@ class FolderModel: MLBaseModel {
     var cellType: BaseCollectionViewCell.Type = MediaCollectionViewCell.self
     var name: String = "Folder"
     var indicatorName: String = NSLocalizedString("Folder", comment: "")
+    var cellType: BaseCollectionViewCell.Type {
+        if isAudio {
+            return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\("FOLDER_AUDIO")") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+        } else {
+            return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\("FOLDER_VIDEO")") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
+        }
+    }
 
     required init(medialibrary: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder) {
         self.medialibrary = medialibrary

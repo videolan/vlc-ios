@@ -122,6 +122,7 @@
 #define kVLCAudioLibraryHideTrackNumbers @"kVLCAudioLibraryHideTrackNumbers"
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
+#define KVLCFolderViewLayout @"KVLCFolderViewLayout"
 #define kVLCLastPlayedMediaIdentifier @"LastPlayedMediaIdentifier"
 #define kVLCRestoreLastPlayedMedia @"RestoreLastPlayedMedia"
 

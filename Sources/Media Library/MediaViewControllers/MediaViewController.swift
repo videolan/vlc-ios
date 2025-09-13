@@ -380,8 +380,16 @@ extension MediaViewController {
     }
 
     @objc func handleFolders() {
-        let folderVC = FolderCategoryViewController(medialib: mediaLibraryService, folder: mediaLibraryService.medialib.entryPoints()!.first!, isAudio: false)
-        navigationController?.pushViewController(folderVC, animated: true)
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            let isFolder = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
+            mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: !isFolder)
+            if #available(iOS 14.0, *) {
+                UserDefaults.standard.set(!isFolder, forKey: KVLCFolderViewLayout)
+                menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
 
     @objc func handleSelectAll() {
@@ -419,12 +427,15 @@ extension MediaViewController {
         let isGridLayout: Bool = mediaCategoryViewController.model.cellType == MovieCollectionViewCell.self
         || mediaCategoryViewController.model.cellType == MediaGridCollectionCell.self
 
+        let isFolder = (mediaCategoryViewController.model is FolderModel)
+            || UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
+
         let gridAction = UIAction(title: NSLocalizedString("GRID_LAYOUT", comment: ""),
                                   image: UIImage(systemName: "square.grid.2x2"),
                                   state: isGridLayout ? .on : .off,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController?.handleLayoutChange(gridLayout: true)
+            mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: isFolder)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -433,7 +444,7 @@ extension MediaViewController {
                                   state: isGridLayout ? .off : .on,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController?.handleLayoutChange(gridLayout: false)
+            mediaCategoryViewController.handleLayoutChange(gridLayout: false, isFolder: isFolder)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -514,8 +525,12 @@ extension MediaViewController {
 
     @available(iOS 14.0, *)
     func generateFolderMenu() -> UIMenu {
-        let folderAction = UIAction(title: NSLocalizedString("BUTTON_FOLDER", comment: ""),
-                                     image: UIImage(systemName: "folder")) { _ in
+        let isFolderLayout = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
+        let folderAction = UIAction(
+            title: NSLocalizedString("BUTTON_FOLDER", comment: ""),
+            image: UIImage(systemName: "folder"),
+            state: isFolderLayout ? .on : .off
+        ) { _ in
             self.handleFolders()
         }
 
