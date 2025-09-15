@@ -87,8 +87,8 @@
     _playbackService = [VLCPlaybackService sharedInstance];
     _currentOption = VLCPlaybackOptionsTypeNone;
 
-    _increaseDelay = 50.0;
-    _decreaseDelay = -50.0;
+    _increaseDelay = 500.0;
+    _decreaseDelay = -500.0;
     _increaseSpeed = 0.05;
     _decreaseSpeed = -0.05;
 
