@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.6.8]
+· Add pCloud support
+· Fix favorites alert actions
+· Fix automatic color theme update
+
+## tvOS [3.6.8]
+· Fix the current media title display
+· Increase the audio and subtitles delay values
+
 ## iOS [3.6.6]
 · Fix login to Dropbox on iOS 17 and later
 · Fix media library layout issue on iPhone 16 Pro Max
