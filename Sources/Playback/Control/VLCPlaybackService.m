@@ -349,11 +349,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (_itemInMediaListToBePlayedFirst == -1) {
         int count = (int)_mediaList.count;
         if (_shuffleMode && count > 0) {
-                _currentIndex = arc4random_uniform(count - 1);
-                [self shuffleMediaList];
+            _itemInMediaListToBePlayedFirst = arc4random_uniform(count - 1);
+            [self shuffleMediaList];
+        } else {
+            _itemInMediaListToBePlayedFirst = 0;
         }
-
-        _itemInMediaListToBePlayedFirst = 0;
     }
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
