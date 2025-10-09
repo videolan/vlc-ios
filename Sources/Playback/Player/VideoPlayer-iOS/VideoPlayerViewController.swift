@@ -2481,14 +2481,7 @@ extension VideoPlayerViewController {
             commands.forEach {
                 if $0.input == UIKeyCommand.inputRightArrow
                     || $0.input == UIKeyCommand.inputLeftArrow {
-                    ///UIKeyCommand.wantsPriorityOverSystemBehavior is introduced in iOS 15 SDK
-                    ///but we actually still use Xcode 12.4 on CI. This old version only provides
-                    ///SDK for iOS 14.4 max. Hence we use ObjC apis to call the method and still
-                    ///have the ability to build with older Xcode versions.
-                    let selector = NSSelectorFromString("setWantsPriorityOverSystemBehavior:")
-                    if $0.responds(to: selector) {
-                        $0.perform(selector, with: true)
-                    }
+                    $0.wantsPriorityOverSystemBehavior = true
                 }
             }
         }
