@@ -680,6 +680,16 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         commands = [commands arrayByAddingObject:equalKeyCommand];
     }
 
+    if (@available(iOS 15.0, *)) {
+        NSUInteger count = commands.count;
+        for (int index = 0; index < count; index++) {
+            UIKeyCommand *command = commands[index];
+            if (command.input == UIKeyInputLeftArrow || command.input == UIKeyInputRightArrow) {
+                command.wantsPriorityOverSystemBehavior = YES;
+            }
+        }
+    }
+
     return commands;
 }
 
