@@ -178,7 +178,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
         ]
 
         if #available(iOS 11.0, *) {
@@ -196,13 +195,25 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
-        addArrangedSubview(rotateButton)
+        setupRotateButtonIfNeeded()
         addArrangedSubview(queueButton)
         if #available(iOS 11.0, *) {
             addArrangedSubview(deviceButton)
         } else {
             addArrangedSubview(airplayVolumeView)
         }
+    }
+
+    private func setupRotateButtonIfNeeded() {
+        guard UIDevice.current.userInterfaceIdiom == .phone else {
+            return
+        }
+
+        addArrangedSubview(rotateButton)
+
+        NSLayoutConstraint.activate([
+            rotateButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
     }
 
     // MARK: Gesture recognizer
