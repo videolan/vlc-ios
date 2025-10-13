@@ -199,7 +199,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
             deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
 #else
@@ -207,7 +206,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            rotateButton.widthAnchor.constraint(equalTo: heightAnchor),
         ])
 #endif
     }
@@ -218,7 +216,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
-        addArrangedSubview(rotateButton)
+        setupRotateButtonIfNeeded()
         addArrangedSubview(queueButton)
 #if os(iOS)
         addArrangedSubview(deviceButton)
@@ -226,6 +224,18 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 #else
         addArrangedSubview(airplayVolumeView)
 #endif
+    }
+
+    private func setupRotateButtonIfNeeded() {
+        guard UIDevice.current.userInterfaceIdiom == .phone else {
+            return
+        }
+
+        addArrangedSubview(rotateButton)
+
+        NSLayoutConstraint.activate([
+            rotateButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
     }
 
     // MARK: Gesture recognizer
