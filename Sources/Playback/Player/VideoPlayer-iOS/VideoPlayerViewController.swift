@@ -369,6 +369,7 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
         mediaNavigationBar.updateDeviceButton(with: image, color: color)
+        mediaNavigationBar.rotateButton.isHidden = false
 
         if #available(iOS 11.0, *) {
             adaptVideoOutputToNotch()
