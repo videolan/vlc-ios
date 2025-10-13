@@ -13,6 +13,8 @@
 import AVKit
 import MediaPlayer
 
+// MARK: - MediaNavigationBarDelegate
+
 @objc(VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
@@ -23,13 +25,19 @@ protocol MediaNavigationBarDelegate {
     @objc optional func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar)
 }
 
+// MARK: - RendererActionSheetContent
+
 private enum RendererActionSheetContent: Int, CaseIterable {
-    case airplay, chromecast
+    case airplay
+    case chromecast
 }
+
+// MARK: - MediaNavigationBar
 
 @objc(VLCMediaNavigationBar)
 @objcMembers class MediaNavigationBar: UIStackView {
-    // MARK: Instance Variables
+    // MARK: - Instance Variables
+
     weak var delegate: MediaNavigationBarDelegate?
 
     lazy var closePlaybackButton: UIButton = {
@@ -73,14 +81,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         rotateButton.setImage(UIImage(named: "rectangle.landscape.rotate"), for: .normal)
         rotateButton.tintColor = .white
         rotateButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        rotateButton.accessibilityLabel = NSLocalizedString(
-            "ROTATE_BUTTON",
-            comment: "Accessibility label for rotate button on the player"
-        )
-        rotateButton.accessibilityHint = NSLocalizedString(
-            "ROTATE_BUTTON_HINT",
-            comment: "Accessibility hint for rotate button on the player"
-        )
+        rotateButton.accessibilityLabel = NSLocalizedString("ROTATE_BUTTON",
+                                                            comment: "Accessibility label for rotate button on the player")
+        rotateButton.accessibilityHint = NSLocalizedString("ROTATE_BUTTON_HINT",
+                                                           comment: "Accessibility hint for rotate button on the player")
         rotateButton.isHidden = true
         return rotateButton
     }()
@@ -94,7 +98,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return chromeButton
     }()
-
 
     lazy var deviceButton: UIButton = {
         var chromeButton = UIButton(type: .system)
@@ -153,7 +156,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return airplayVolumeView
     }()
 
-    // MARK: Initializers
+    // MARK: - Initializers
+
     required init(coder: NSCoder) {
         fatalError("init(coder: NSCoder) not implemented")
     }
@@ -173,7 +177,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 #endif
 
-    // MARK: Instance Methods
+    // MARK: - Instance Methods
+
     func setMediaTitleLabelText(_ titleText: String?) {
         mediaTitleTextLabel.text = titleText
         mediaTitleTextLabel.accessibilityValue = titleText
@@ -251,7 +256,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         }
     }
 
-    // MARK: Button Actions
+    // MARK: - Button Actions
 
 #if os(iOS)
     func toggleDeviceActionSheet() {
@@ -302,6 +307,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 #endif
 }
+
+// MARK: - ActionSheetDelegate, ActionSheetDataSource
 
 #if os(iOS)
 extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
