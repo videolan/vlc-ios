@@ -1086,7 +1086,8 @@ private extension MediaCategoryViewController {
     private func generatePlayAction(for modelContent: VLCMLObject?, type: EditButtonType) {
         if let media = modelContent as? VLCMLMedia {
             let playbackController = PlaybackService.sharedInstance()
-            playbackController.mediaList.lock()
+            let mediaList = playbackController.mediaList
+            mediaList.lock()
             switch type {
             case .play:
                 playbackController.play(media)
@@ -1103,16 +1104,19 @@ private extension MediaCategoryViewController {
                 assertionFailure("generatePlayAction: cannot be used with other actions")
             }
 
-            playbackController.mediaList.unlock()
+            mediaList.unlock()
         } else if let collection = modelContent as? MediaCollectionModel {
             let playbackController = PlaybackService.sharedInstance()
-            playbackController.mediaList.lock()
+            let mediaList = playbackController.mediaList
+            mediaList.lock()
             let files: [VLCMLMedia]?
+
             if collection is VLCMLAlbum {
                 files = collection.files(with: .trackNumber, desc: false)
             } else {
                 files = collection.files(with: .default, desc: false)
             }
+
             switch type {
             case .play:
                 playbackController.playCollection(files)
@@ -1129,7 +1133,7 @@ private extension MediaCategoryViewController {
                 assertionFailure("generatePlayAction: cannot be used with other actions")
             }
 
-            playbackController.mediaList.unlock()
+            mediaList.unlock()
         }
 
         // handle catching current played playlist or media by queue options from different platlists
