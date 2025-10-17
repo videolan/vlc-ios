@@ -386,6 +386,34 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_OFFSET_DELAY</string>
+			<key>Key</key>
+			<string>kVLCSettingsSubtitlesOffsetDelay</string>
+			<key>DefaultValue</key>
+			<integer>50</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_OFFSET_FIFTY</string>
+				<string>SETTINGS_OFFSET_ONE_HUNDRED</string>
+				<string>SETTINGS_OFFSET_TWO_HUNDRED</string>
+				<string>SETTINGS_OFFSET_THREE_HUNDRED</string>
+				<string>SETTINGS_OFFSET_FOUR_HUNDRED</string>
+				<string>SETTINGS_OFFSET_FIVE_HUNDRED</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>50</integer>
+				<integer>100</integer>
+				<integer>200</integer>
+				<integer>300</integer>
+				<integer>400</integer>
+				<integer>500</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_AUDIO_TITLE</string>
@@ -435,6 +463,34 @@
 			<string>SETTINGS_BACKGROUND_AUDIO</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_AUDIO_OFFSET_DELAY</string>
+			<key>Key</key>
+			<string>kVLCSettingsAudioOffsetDelay</string>
+			<key>DefaultValue</key>
+			<integer>50</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_OFFSET_FIFTY</string>
+				<string>SETTINGS_OFFSET_ONE_HUNDRED</string>
+				<string>SETTINGS_OFFSET_TWO_HUNDRED</string>
+				<string>SETTINGS_OFFSET_THREE_HUNDRED</string>
+				<string>SETTINGS_OFFSET_FOUR_HUNDRED</string>
+				<string>SETTINGS_OFFSET_FIVE_HUNDRED</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>50</integer>
+				<integer>100</integer>
+				<integer>200</integer>
+				<integer>300</integer>
+				<integer>400</integer>
+				<integer>500</integer>
+			</array>
 		</dict>
 		<dict>
 			<key>Type</key>

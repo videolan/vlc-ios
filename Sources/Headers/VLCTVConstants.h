@@ -98,4 +98,8 @@
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 
+#define kVLCSettingsSubtitlesOffsetDelay @"kVLCSettingsSubtitlesOffsetDelay"
+#define kVLCSettingsAudioOffsetDelay @"kVLCSettingsAudioOffsetDelay"
+#define kVLCSettingsOffsetDefaultValue @(50)
+
 #define kVLCSettingReset @"kVLCSettingReset"

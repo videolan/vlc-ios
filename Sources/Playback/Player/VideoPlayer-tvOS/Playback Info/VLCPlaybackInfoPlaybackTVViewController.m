@@ -17,8 +17,10 @@
 @property (nonatomic) VLCPlaybackService *playbackService;
 @property (nonatomic, readwrite) VLCPlaybackOptionsType currentOption;
 
-@property (nonatomic, readonly) CGFloat increaseDelay;
-@property (nonatomic, readonly) CGFloat decreaseDelay;
+@property (nonatomic, readonly) CGFloat increaseAudioDelay;
+@property (nonatomic, readonly) CGFloat decreaseAudioDelay;
+@property (nonatomic, readonly) CGFloat increaseSubtitlesDelay;
+@property (nonatomic, readonly) CGFloat decreaseSubtitlesDelay;
 @property (nonatomic, readonly) CGFloat increaseSpeed;
 @property (nonatomic, readonly) CGFloat decreaseSpeed;
 
@@ -87,13 +89,19 @@
     _playbackService = [VLCPlaybackService sharedInstance];
     _currentOption = VLCPlaybackOptionsTypeNone;
 
-    _increaseDelay = 500.0;
-    _decreaseDelay = -500.0;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    _increaseAudioDelay = [[userDefaults valueForKey:kVLCSettingsAudioOffsetDelay] doubleValue];
+    _decreaseAudioDelay = -[[userDefaults valueForKey:kVLCSettingsAudioOffsetDelay] doubleValue];
+
+    _increaseSubtitlesDelay = [[userDefaults valueForKey:kVLCSettingsSubtitlesOffsetDelay] doubleValue];
+    _decreaseSubtitlesDelay = -[[userDefaults valueForKey:kVLCSettingsSubtitlesOffsetDelay] doubleValue];
+
     _increaseSpeed = 0.05;
     _decreaseSpeed = -0.05;
 
     _defaultDelay = 0.0;
-    _defaultSpeed = [[[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackSpeedDefaultValue] doubleValue];
+    _defaultSpeed = [[userDefaults valueForKey:kVLCSettingPlaybackSpeedDefaultValue] doubleValue];
 
     _titleLabel.textColor = UIColor.VLCLightTextColor;
     _valueLabel.textColor = UIColor.VLCLightTextColor;
@@ -271,26 +279,30 @@
 }
 
 - (IBAction)handleIncreaseDecrease:(UIButton *)sender {
-    CGFloat speedOffset = (sender.tag == 1) ? _increaseSpeed : _decreaseSpeed;
-    CGFloat delayOffset = (sender.tag == 1) ? _increaseDelay : _decreaseDelay;
     CGFloat value = 0.0;
 
     switch (_currentOption) {
-        case VLCPlaybackOptionsTypePlaybackSpeed:
+        case VLCPlaybackOptionsTypePlaybackSpeed: {
+            CGFloat speedOffset = (sender.tag == 1) ? _increaseSpeed : _decreaseSpeed;
             _currentSpeed = [self computeValueWith:_currentSpeed offset:speedOffset lowerBound:MIN_SPEED upperBound:MAX_SPEED];
             _playbackService.playbackRate = _currentSpeed;
             value = _currentSpeed;
             break;
-        case VLCPlaybackOptionsTypeSubtitlesDelay:
-            _currentSubtitlesDelay = [self computeValueWith:_currentSubtitlesDelay offset:delayOffset lowerBound:MIN_DELAY upperBound:MAX_DELAY];
+        }
+        case VLCPlaybackOptionsTypeSubtitlesDelay: {
+            CGFloat subtitlesOffset = (sender.tag == 1) ? _increaseSubtitlesDelay : _decreaseSubtitlesDelay;
+            _currentSubtitlesDelay = [self computeValueWith:_currentSubtitlesDelay offset:subtitlesOffset lowerBound:MIN_DELAY upperBound:MAX_DELAY];
             _playbackService.subtitleDelay = _currentSubtitlesDelay;
             value = _currentSubtitlesDelay;
             break;
-        case VLCPlaybackOptionsTypeAudioDelay:
-            _currentAudioDelay = [self computeValueWith:_currentAudioDelay offset:delayOffset lowerBound:MIN_DELAY upperBound:MAX_DELAY];
+        }
+        case VLCPlaybackOptionsTypeAudioDelay: {
+            CGFloat audioOffset = (sender.tag == 1) ? _increaseAudioDelay : _decreaseAudioDelay;
+            _currentAudioDelay = [self computeValueWith:_currentAudioDelay offset:audioOffset lowerBound:MIN_DELAY upperBound:MAX_DELAY];
             _playbackService.audioDelay = _currentAudioDelay;
             value = _currentAudioDelay;
             break;
+        }
         default:
             break;
     }

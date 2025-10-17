@@ -65,7 +65,9 @@
                                   kVLCSettingDownloadArtwork : @(YES),
                                   kVLCForceSMBV1 : @(YES),
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
-                                  kVLCSettingPlaybackSpeedDefaultValue: @(1.0)};
+                                  kVLCSettingPlaybackSpeedDefaultValue: @(1.0),
+                                  kVLCSettingsAudioOffsetDelay : kVLCSettingsOffsetDefaultValue,
+                                  kVLCSettingsSubtitlesOffsetDelay : kVLCSettingsOffsetDefaultValue};
     [defaults registerDefaults:appDefaults];
 }
 
