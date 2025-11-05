@@ -194,7 +194,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
         setupViews()
         setupLabels()
-        applyCornerRadius()
     }
 
     required init?(coder: NSCoder) {
@@ -417,6 +416,21 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         secondaryControlStackView.isHidden = !display
     }
 
+    func applyCornerRadius() {
+#if os(iOS)
+        var cornerRadius = UIScreen.main.displayCornerRadius
+#else
+        var cornerRadius = 5.0
+#endif
+        overlayView.layer.cornerRadius = cornerRadius
+        backgroundView.layer.cornerRadius = cornerRadius
+    }
+
+    func resetCornerRadius() {
+        overlayView.layer.cornerRadius = 0.0
+        backgroundView.layer.cornerRadius = 0.0
+    }
+
     // MARK: - Private methods
 
     private func setupCommonSliderConstraints(for slider: UIView) {
@@ -594,16 +608,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             progressionViewBottomConstraint,
             progressionViewHeightConstraint
         ])
-    }
-
-    private func applyCornerRadius() {
-#if os(iOS)
-        let cornerRadius = UIScreen.main.displayCornerRadius
-#else
-        let cornerRadius = 5.0
-#endif
-        overlayView.layer.cornerRadius = cornerRadius
-        backgroundView.layer.cornerRadius = cornerRadius
     }
 
     // MARK: - Buttons handlers

@@ -134,6 +134,12 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.shouldDisplaySecondaryStackView(displayShortcutView)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        audioPlayerView.resetCornerRadius()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         playerController.isInterfaceLocked = false
         queueViewController?.hide()
@@ -245,6 +251,18 @@ class AudioPlayerViewController: PlayerViewController {
         }
 
         super.handleDoubleTapGesture(sender)
+    }
+
+    override func applyCornerRadius() {
+        super.applyCornerRadius()
+
+        audioPlayerView.applyCornerRadius()
+    }
+
+    override func resetCornerRadius() {
+        super.resetCornerRadius()
+
+        audioPlayerView.resetCornerRadius()
     }
 
     // MARK: - Private methods

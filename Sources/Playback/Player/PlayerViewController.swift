@@ -629,6 +629,20 @@ class PlayerViewController: UIViewController {
         playbackService.jumpForward(Int32(interval))
     }
 
+    func applyCornerRadius() {
+        var cornerRadius: CGFloat
+#if os(iOS)
+        cornerRadius = UIScreen.main.displayCornerRadius
+#else
+        cornerRadius = 5.0
+#endif
+        view.layer.cornerRadius = cornerRadius
+    }
+
+    func resetCornerRadius() {
+        view.layer.cornerRadius = 0.0
+    }
+
     // MARK: - Private methods
 
     private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
@@ -1158,22 +1172,27 @@ class PlayerViewController: UIViewController {
         case .began:
             // Save the initial center position of the view
             minimizationInitialCenter = view.center
+            applyCornerRadius()
 
         case .changed:
             // Move the view with the pan gesture
-            if let initialCenter = minimizationInitialCenter, translation.y > 0 { // Only allow downward sliding
+            if let initialCenter = minimizationInitialCenter, translation.y > 0 {
+                // Only allow downward sliding
                 view.center = CGPoint(x: view.center.x, y: initialCenter.y + translation.y)
             }
 
         case .ended, .cancelled, .failed:
             // Determine if the view should be dismissed or return to its original position
             if let initialCenter = minimizationInitialCenter {
-                if translation.y > view.bounds.height * 0.1 { // Adjust the threshold as needed
+                if translation.y > view.bounds.height * 0.1 {
+                    // Adjust the threshold as needed
                     minimizePlayer()
                 } else {
                     // Animate the view returning to its original position
                     UIView.animate(withDuration: 0.3) {
                         self.view.center = initialCenter
+                    } completion: { _ in
+                        self.resetCornerRadius()
                     }
                 }
             }
