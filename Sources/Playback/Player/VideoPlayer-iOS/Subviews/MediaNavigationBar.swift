@@ -233,7 +233,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     private func setupRotateButtonIfNeeded() {
-        guard UIDevice.current.userInterfaceIdiom == .phone else {
+        if #available(iOS 16.0, *), UIDevice.current.userInterfaceIdiom == .pad {
             return
         }
 
