@@ -92,10 +92,10 @@ class TabBarCoordinator: NSObject {
         if #available(iOS 18.0, *) {
             tabBarController.mode = .tabSidebar
             let sideBar = tabBarController.sidebar
-            sideBar.isHidden = false
             sideBar.preferredLayout = .overlap
             sideBar.delegate = self
             sideBar.bottomBarView?.isHidden = true
+            tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
         }
     }
 
@@ -127,8 +127,6 @@ class TabBarCoordinator: NSObject {
             controllers.append(settingsNavigationController)
             tabBarController.viewControllers = controllers
         }
-
-        tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
     }
 
     private func updateTabBarIndexIfNeeded() {
@@ -138,7 +136,13 @@ class TabBarCoordinator: NSObject {
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
            !tabBarController.sidebar.isHidden {
             switch tabIndex {
-            case 0, 1:
+            case 0:
+                break
+            case 1:
+                if let audioViewController = audioNavigationController.topViewController as? AudioViewController {
+                    let currentIndex = audioViewController.currentIndex
+                    tabIndex = currentIndex + 1
+                }
                 break
             default:
                 tabIndex += 3
@@ -150,6 +154,10 @@ class TabBarCoordinator: NSObject {
                 tabIndex = 0
                 break
             case 1, 2, 3, 4:
+                if let audioViewController = audioNavigationController.topViewController as? AudioViewController {
+                    audioViewController.currentIndex = tabIndex - 1
+                    audioViewController.reloadPagerTabStripView()
+                }
                 tabIndex = 1
                 break
             default:

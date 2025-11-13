@@ -20,7 +20,7 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     weak var datasource: PagerTabStripDataSource?
 
     private(set) var viewControllers = [UIViewController]()
-    private(set) var currentIndex = 0
+    var currentIndex = 0
     private(set) var preCurrentIndex = 0 // used *only* to store the index to which move when the pager becomes visible
 
     private var pagerTabStripChildViewControllersForScrolling: [UIViewController]?
