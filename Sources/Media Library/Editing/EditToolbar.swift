@@ -17,6 +17,7 @@ protocol EditToolbarDelegate: AnyObject {
     func editToolbarDidRemoveFromMediaGroup(_ editToolbar: EditToolbar)
     func editToolbarDidRename(_ editToolbar: EditToolbar)
     func editToolbarDidShare(_ editToolbar: EditToolbar)
+    func editToolbarEmptySelection(_ editToolbar: EditToolbar) -> Bool
 }
 
 class EditToolbar: UIView {
@@ -87,6 +88,15 @@ class EditToolbar: UIView {
         renameButton.isEnabled = enable
         deleteButton.isEnabled = enable
         shareButton.isEnabled = enable
+    }
+
+    func enableEditActionsIfNeeded() {
+        guard let delegate = delegate else {
+            return
+        }
+
+        let isSelectionEmpty = delegate.editToolbarEmptySelection(self)
+        enableEditActions(!isSelectionEmpty)
     }
 
     func updateEditToolbar(for model: MediaLibraryBaseModel) {

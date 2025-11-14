@@ -318,5 +318,7 @@ extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
     func tabBarController(_ tabBarController: UITabBarController, sidebarVisibilityWillChange sidebar: UITabBarController.Sidebar, animator: any UITabBarController.Sidebar.Animating) {
         setupViewControllers()
         updateTabBarIndexIfNeeded()
+
+        NotificationCenter.default.post(name: NSNotification.Name("sidebarVisibilityChanged"), object: nil)
     }
 }

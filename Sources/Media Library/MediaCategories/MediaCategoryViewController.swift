@@ -524,6 +524,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         reloadData()
         addInitializationCommonObservers()
         configureContinueWatchingButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -804,6 +805,31 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         toolBar.delegate = editController
         toolBar.updateEditToolbar(for: model)
         toolBar.isHidden = isEditing ? false : true
+    }
+
+    @objc private func handleEditToolBar() {
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad,
+              isEditing,
+              let tabBarController = tabBarController,
+              let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar else {
+            return
+        }
+
+        let toolBar: EditToolbar
+        if tabBarController.sidebar.isHidden {
+            sideToolBar.isHidden = true
+            editToolBar.isHidden = false
+            toolBar = editToolBar
+        } else {
+            sideToolBar.isHidden = false
+            editToolBar.isHidden = true
+            toolBar = sideToolBar
+        }
+
+        toolBar.delegate = editController
+        toolBar.updateEditToolbar(for: model)
+        toolBar.enableEditActionsIfNeeded()
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {

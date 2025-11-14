@@ -308,6 +308,10 @@ extension EditController: EditToolbarDelegate {
             }
         })
     }
+
+    func editToolbarEmptySelection(_ editToolbar: EditToolbar) -> Bool {
+        return selectedCellIndexPaths.isEmpty
+    }
 }
 
 // MARK: - UICollectionViewDelegate
