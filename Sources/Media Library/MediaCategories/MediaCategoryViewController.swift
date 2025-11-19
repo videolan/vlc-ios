@@ -443,6 +443,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         var toolBar: EditToolbar = editToolBar
 
+#if os(iOS)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController,
@@ -453,6 +454,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                   let editToolBar = tabBarController.editToolBar() {
             toolBar = editToolBar
         }
+#else
+        if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            toolBar = editToolBar
+        }
+#endif
 
         toolBar.updateEditToolbar(for: model)
     }
@@ -510,6 +517,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             manager.start()
         }
         manager.presentingViewController = self
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
 #endif
         let playbackService = PlaybackService.sharedInstance()
         playbackService.setPlayerHidden(isEditing)
@@ -524,7 +533,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         reloadData()
         addInitializationCommonObservers()
         configureContinueWatchingButton()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -791,6 +799,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private func displayEditToolbar() {
         var toolBar: EditToolbar = editToolBar
 
+#if os(iOS)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController,
@@ -801,12 +810,19 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                   let editToolBar = tabBarController.editToolBar() {
             toolBar = editToolBar
         }
+ #else
+        if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            toolBar = editToolBar
+        }
+#endif
 
         toolBar.delegate = editController
         toolBar.updateEditToolbar(for: model)
         toolBar.isHidden = isEditing ? false : true
     }
 
+#if os(iOS)
     @objc private func handleEditToolBar() {
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad,
@@ -831,6 +847,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         toolBar.updateEditToolbar(for: model)
         toolBar.enableEditActionsIfNeeded()
     }
+#endif
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         var uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
@@ -1772,6 +1789,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
     }
 
     func enableEditToolBarActions(_ enable: Bool) {
+#if os(iOS)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController {
@@ -1785,6 +1803,12 @@ extension MediaCategoryViewController: EditControllerDelegate {
                   let editToolBar = tabBarController.editToolBar() {
             editToolBar.enableEditActions(enable)
         }
+#else
+        if let tabBarController = tabBarController as? BottomTabBarController,
+                  let editToolBar = tabBarController.editToolBar() {
+            editToolBar.enableEditActions(enable)
+        }
+#endif
     }
 
     func editControllerDidSelectMultipleItem(editContrller: EditController) {

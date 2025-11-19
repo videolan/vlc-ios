@@ -515,7 +515,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         needsShow = NO;
     }
 
-    UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+    UIViewController *rootViewController;
+#if TARGET_OS_IOS
+    rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+#else
+    rootViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+#endif
 
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {

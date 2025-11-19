@@ -89,6 +89,7 @@ class TabBarCoordinator: NSObject {
         setupEditToolbar()
         updateTheme()
         tabBarController.title = "VLC  iOS"
+#if os(iOS)
         if #available(iOS 18.0, *) {
             tabBarController.mode = .tabSidebar
             let sideBar = tabBarController.sidebar
@@ -97,11 +98,13 @@ class TabBarCoordinator: NSObject {
             sideBar.bottomBarView?.isHidden = true
             tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
         }
+#endif
     }
 
     private func setupViewControllers() {
         var controllers: [UINavigationController] = [videoNavigationController]
 
+#if os(iOS)
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
            !tabBarController.sidebar.isHidden {
             controllers.append(artistsNavigationController)
@@ -127,8 +130,20 @@ class TabBarCoordinator: NSObject {
             controllers.append(settingsNavigationController)
             tabBarController.viewControllers = controllers
         }
+#else
+        controllers.append(audioNavigationController)
+        controllers.append(playlistsNavigationController)
+
+        if let browseNavigationController = browseNavigationController {
+            controllers.append(browseNavigationController)
+        }
+
+        controllers.append(settingsNavigationController)
+        tabBarController.viewControllers = controllers
+#endif
     }
 
+#if os(iOS)
     private func updateTabBarIndexIfNeeded() {
         let userDefaults = UserDefaults.standard
         var tabIndex: Int = userDefaults.integer(forKey: kVLCTabBarIndex)
@@ -169,6 +184,7 @@ class TabBarCoordinator: NSObject {
         tabBarController.selectedIndex = tabIndex
         userDefaults.set(tabIndex, forKey: kVLCTabBarIndex)
     }
+#endif
 
     func setupEditToolbar() {
         editToolbar.isHidden = true
@@ -178,7 +194,9 @@ class TabBarCoordinator: NSObject {
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
             sideToolBar.isHidden = true
             sideToolBar.translatesAutoresizingMaskIntoConstraints = false
+#if os(iOS)
             tabBarController.sidebar.bottomBarView = sideToolBar
+#endif
         } else {
             tabBarController.tabBar.addSubview(editToolbar)
             tabBarController.tabBar.bringSubviewToFront(editToolbar)
@@ -313,6 +331,7 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
     }
 }
 
+#if os(iOS)
 @available(iOS 18.0, *)
 extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
     func tabBarController(_ tabBarController: UITabBarController, sidebarVisibilityWillChange sidebar: UITabBarController.Sidebar, animator: any UITabBarController.Sidebar.Animating) {
@@ -322,3 +341,4 @@ extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
         NotificationCenter.default.post(name: NSNotification.Name("sidebarVisibilityChanged"), object: nil)
     }
 }
+#endif
