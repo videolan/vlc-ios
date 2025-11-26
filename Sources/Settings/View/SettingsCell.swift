@@ -195,7 +195,10 @@ class SettingsCell: UITableViewCell {
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
 
-            case .forceRescanAlert, .exportMediaLibrary, .displayResetAlert:
+            case .forceRescanAlert,
+                    .exportMediaLibrary,
+                    .exportSettings,
+                    .displayResetAlert:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true

@@ -58,6 +58,7 @@ struct SettingsItem: Equatable {
         case openPrivacySettings
         case forceRescanAlert
         case exportMediaLibrary
+        case exportSettings
         case displayResetAlert
     }
 
@@ -755,12 +756,19 @@ enum Lab {
               action: .exportMediaLibrary)
     }
 
+    static var exportSettings: SettingsItem {
+        .init(title: "SETTINGS_EXPORT_LIST",
+              subtitle: nil,
+              action: .exportSettings)
+    }
+
     static func section(isLabActivated: Bool) -> SettingsSection? {
         guard isLabActivated else { return nil }
 
         return .init(title: "SETTINGS_LAB", items: [
             debugLogging,
             exportLibrary,
+            exportSettings
         ])
     }
 }

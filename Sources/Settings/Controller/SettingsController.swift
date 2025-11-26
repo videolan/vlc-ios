@@ -288,6 +288,41 @@ class SettingsController: UITableViewController {
         mediaLibraryService.exportMediaLibrary()
     }
 
+    private func isJSONCompatible(_ value: Any) -> Bool {
+        switch value {
+        case is String, is NSNumber, is NSNull:
+            return true
+        case let array as [Any]:
+            return array.allSatisfy(isJSONCompatible)
+        case let dict as [String: Any]:
+            return dict.values.allSatisfy(isJSONCompatible)
+        default:
+            return false
+        }
+    }
+
+    private func exportSettings() {
+        var dictionaryRepresentation: [String: Any] = userDefaults.dictionaryRepresentation()
+        dictionaryRepresentation.forEach { (key: String, value: Any) in
+            if !isJSONCompatible(value) {
+                dictionaryRepresentation.removeValue(forKey: key)
+            }
+        }
+
+        do {
+            let data = try JSONSerialization.data(withJSONObject: dictionaryRepresentation, options: [.prettyPrinted, .sortedKeys])
+            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            if let documentsURL = urls.first {
+                let fileURL = documentsURL.appendingPathComponent("Settings.json")
+                try data.write(to: fileURL, options: .atomic)
+            } else {
+                assertionFailure("SettingsController: Failed to get Documents directory.")
+            }
+        } catch {
+            assertionFailure("SettingsController: Failed to serialize export to JSON: \(error)")
+        }
+    }
+
     private func displayResetAlert() {
         let alert = UIAlertController(title: NSLocalizedString("SETTINGS_RESET_TITLE", comment: ""),
                                       message: NSLocalizedString("SETTINGS_RESET_MESSAGE", comment: ""),
@@ -363,6 +398,8 @@ extension SettingsController {
             forceRescanAlert()
         case .exportMediaLibrary:
             exportMediaLibrary()
+        case .exportSettings:
+            exportSettings()
         case .donation:
             showDonation(indexPath: indexPath)
         case .displayResetAlert:
