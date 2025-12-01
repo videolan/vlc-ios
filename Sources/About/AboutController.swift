@@ -170,6 +170,11 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             mailComposerVC.addAttachmentData(generateFeedbackEmailAttachment(),
                                              mimeType: "application/json",
                                              fileName: "details.json")
+            if let settingsData = retrieveSettingsData() {
+                mailComposerVC.addAttachmentData(settingsData,
+                                                 mimeType: "application/json",
+                                                 fileName: "Settings.json")
+            }
             self.present(mailComposerVC, animated: true)
         } else {
             let alert = UIAlertController(title: NSLocalizedString("FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE", comment: ""),
@@ -207,7 +212,22 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             print("Error encoding JSON: \(error.localizedDescription)")
             return Data()
         }
+    }
 
+    func retrieveSettingsData() -> Data? {
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let documentsURL = documentsPath.first else {
+            return nil
+        }
+
+        let fileURL = documentsURL.appendingPathComponent("Settings.json")
+        let data = try? Data(contentsOf: fileURL)
+
+        guard let data = data else {
+            return nil
+        }
+
+        return data
     }
 
     func generateDeviceIdentifier() -> String {
