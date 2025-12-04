@@ -1014,16 +1014,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #if TARGET_OS_IOS || TARGET_OS_WATCH
                 [self savePlaybackState];
 #endif
-
-                NSInteger nextIndex = [self nextMediaIndex:false];
-
-                if (nextIndex > -1) {
-                    if (self->_listPlayer.repeatMode != VLCRepeatCurrentItem) {
-                        [self->_listPlayer playItemAtNumber:@(nextIndex)];
-                    }
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
-                }
             } break;
             case VLCMediaPlayerStateStopped: {
                 [self->_listPlayer.mediaList lock];
