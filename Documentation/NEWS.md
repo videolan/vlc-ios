@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.7.0]
+· update to libvlc 3.0.22 including many security and stability improvements
+· improve user interface behavior on iOS 26
+· fix keyboard control on iPadOS 26
+
+## tvOS [3.7.0]
+· update to libvlc 3.0.22 including many security and stability improvements
+· add option to customize the subtitles delay offset
+
 ## iOS [3.6.8]
 · Add pCloud support
 · Fix favorites alert actions
