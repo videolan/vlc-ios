@@ -31,6 +31,8 @@
 · Frame-by-Frame playback
 · Customize playback speed option
 · Customize seeking options
+· Add option to export settings and include in feedback email
+· Dual subtitles
 
 Known issues:
 · Thumbnailing content is broken
