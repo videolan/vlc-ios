@@ -7,6 +7,7 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Jean-Romain Prévost <jr # 3on.fr>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -65,6 +66,7 @@
 #define kVLCSettingBrightnessGesture @"EnableBrightnessGesture"
 #define kVLCSettingSeekGesture @"EnableSeekGesture"
 #define kVLCSettingCloseGesture @"EnableCloseGesture"
+#define kVLCSettingSnapshotGesture @"EnableSnapshotGesture"
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingContinueAudioPlayback @"ContinueAudioPlayback"

@@ -10,6 +10,7 @@
  *          Diogo Simao Marques <dogo@videolabs.io>
  *          Felix Paul Kühne <fkuehne # videolan.org>
  *          Eshan Singh <eeeshan789@icloud.com>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -403,6 +404,11 @@ enum GestureControlOptions {
                 preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
     }
 
+    static var threeFingerTapSnapshot: SettingsItem {
+        .toggle(title: "SETTINGS_GESTURES_SNAPSHOT",
+                preferenceKey: kVLCSettingSnapshotGesture)
+    }
+
     static var lockScreenSkip: SettingsItem {
         let k = kVLCSettingPlaybackLockscreenSkip
         return .init(title: "SETTINGS_PLAYBACK_LOCKSCREEN_SKIP",
@@ -431,6 +437,7 @@ enum GestureControlOptions {
             isTapSwipeEqual ? nil : forwardSkipLengthSwipe,
             (isTapSwipeEqual || isForwardBackwardEqual) ? nil : backwardSkipLengthSwipe,
             longTouchToSpeedUp,
+            threeFingerTapSnapshot,
             lockScreenSkip,
             externalControlsSkip,
         ].compactMap { $0 })

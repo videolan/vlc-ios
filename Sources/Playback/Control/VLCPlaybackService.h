@@ -9,6 +9,7 @@
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Maxime Chapelet <umxprime # videolabs.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -180,6 +181,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index;
 - (void)togglePictureInPicture;
+- (void)saveSnapshotWithCompletion:(void (^)(BOOL success, NSError *_Nullable error))completion;
 
 #if !TARGET_OS_TV
 - (void)savePlaybackState;

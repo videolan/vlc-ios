@@ -58,6 +58,12 @@
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL" = "Use the same interval to seek forward and backwards";
 "SETTINGS_GESTURES_TAP_SWIPE_EQUAL" = "Use the same interval for tap and swipe gestures";
+"SETTINGS_GESTURES_SNAPSHOT" = "Three finger tap for snapshot";
+
+"SNAPSHOT_SAVED" = "Snapshot Saved";
+"SNAPSHOT_SAVED_TO_CAMERA_ROLL" = "Snapshot saved to Camera Roll";
+"SNAPSHOT_FAILED" = "Snapshot Failed";
+"SNAPSHOT_FAILED_MESSAGE" = "Unable to save snapshot. Please ensure photo library access is granted.";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitles";
 "SETTINGS_SUBTITLES_DISABLE" = "Disable subtitles";

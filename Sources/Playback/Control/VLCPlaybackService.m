@@ -14,6 +14,7 @@
  *          Winston Weinert <winston # ml1 dot net>
  *          Maxime Chapelet <umxprime # videolabs.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -21,6 +22,9 @@
 #import "VLCPlaybackService.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#if !TARGET_OS_WATCH
+#import <Photos/Photos.h>
+#endif
 #import "VLCMetadata.h"
 
 #if !TARGET_OS_WATCH
@@ -2021,4 +2025,65 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 }
 #endif
 
+#if !TARGET_OS_WATCH
+#pragma mark - Snapshot
+
+- (void)saveSnapshotWithCompletion:(void (^)(BOOL success, NSError *_Nullable error))completion {
+    NSString *tempDir = NSTemporaryDirectory();
+    NSString *fileName = [NSString stringWithFormat:@"vlc_snapshot_%@.png", [[NSUUID UUID] UUIDString]];
+    NSString *snapshotPath = [tempDir stringByAppendingPathComponent:fileName];
+
+    [_mediaPlayer saveVideoSnapshotAt:snapshotPath withWidth:0 andHeight:0];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        int maxAttempts = 40;
+        int attempts = 0;
+
+        while (![fileManager fileExistsAtPath:snapshotPath] && attempts < maxAttempts) {
+            [NSThread sleepForTimeInterval:0.05];
+            attempts++;
+        }
+
+        if (![fileManager fileExistsAtPath:snapshotPath]) {
+            if (completion) {
+                NSError *error = [NSError errorWithDomain:@"VLCPlaybackService"
+                                                     code:-1
+                                                 userInfo:@{NSLocalizedDescriptionKey: @"Snapshot file was not created"}];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(NO, error);
+                });
+            }
+            return;
+        }
+
+        UIImage *snapshot = [UIImage imageWithContentsOfFile:snapshotPath];
+        [fileManager removeItemAtPath:snapshotPath error:nil];
+
+        if (!snapshot) {
+            if (completion) {
+                NSError *error = [NSError errorWithDomain:@"VLCPlaybackService"
+                                                     code:-2
+                                                 userInfo:@{NSLocalizedDescriptionKey: @"Failed to load snapshot image"}];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(NO, error);
+                });
+            }
+            return;
+        }
+
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            [PHAssetChangeRequest creationRequestForAssetFromImage:snapshot];
+        } completionHandler:^(BOOL success, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(success, error);
+                }
+            });
+        }];
+    });
+}
+#endif
+
 @end
+

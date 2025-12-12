@@ -14,6 +14,7 @@
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Soomin Lee <TheHungryBu # gmail.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -61,6 +62,7 @@
                                   kVLCSettingBrightnessGesture : @(YES),
                                   kVLCSettingSeekGesture : @(YES),
                                   kVLCSettingCloseGesture : @(YES),
+                                  kVLCSettingSnapshotGesture : @(NO),
                                   kVLCSettingPlaybackLongTouchSpeedUp : @(YES),
                                   kVLCSettingVideoFullscreenPlayback : @(YES),
                                   kVLCSettingContinuePlayback : @(1),
