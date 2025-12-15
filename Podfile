@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 def core_vlc_pods
   use_modular_headers!
-  pod 'VLCKit', '4.0.0a17'
+  pod 'VLCKit', '4.0.0a18'
   pod 'VLCMediaLibraryKit', '0.14.0a3'
 end
 
