@@ -74,12 +74,13 @@ class CollectionViewCellPreviewController: UIViewController {
 
     private var height: CGFloat {
         if !previewElements.isEmpty {
-            return thumbnailHeight
-                + marginHeight
+            let height = thumbnailHeight > 400 ? 400 : thumbnailHeight
+            let previewElementsHeight = marginHeight
                 + titleHeight + separationHeight
                 + subtitleCount * (subtitleHeight + separationHeight)
                 + metadataCount * metadataHeight
                 + marginHeight
+            return height + previewElementsHeight
         }
         return thumbnailHeight
     }
@@ -112,7 +113,8 @@ class CollectionViewCellPreviewController: UIViewController {
             setupBlurredView()
         }
 
-        thumbnailView.frame = CGRect(x: 0, y: 0, width: width, height: thumbnailHeight)
+        let frameHeight = thumbnailHeight > 400 ? 400 : thumbnailHeight
+        thumbnailView.frame = CGRect(x: 0, y: 0, width: width, height: frameHeight)
         view.addSubview(thumbnailView)
 
         preferredContentSize = CGSize(width: width, height: height)
