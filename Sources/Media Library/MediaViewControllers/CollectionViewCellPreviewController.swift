@@ -179,10 +179,10 @@ extension CollectionViewCellPreviewController {
                 infos += infoForVideo(media)
             }
         } else if let collection = modelContent as? MediaCollectionModel {
-            infos.append(PreviewInformation(value: collection.title(), type: .title))
             // Handle single mediaGroups as media
             if let mediaGroup = collection as? VLCMLMediaGroup,
                 !mediaGroup.userInteracted() && mediaGroup.nbTotalMedia() == 1 {
+                infos.append(PreviewInformation(value: collection.title(), type: .title))
                 if let medium = mediaGroup.media(of: .video)?.first {
                     infos += infoForVideo(medium)
                 }
@@ -191,10 +191,13 @@ extension CollectionViewCellPreviewController {
                 var collectionDetails: [String] = [collection.numberOfTracksString()]
                 var releaseYear: String?
                 if let collection = collection as? VLCMLAlbum {
+                    infos.append(PreviewInformation(value: collection.albumName(), type: .title))
                     infos.append(PreviewInformation(value: collection.albumArtistName()))
                     releaseYear = String(collection.releaseYear())
                     let duration = VLCTime(number: NSNumber(value: collection.duration()))
                     collectionDetails.append(String(describing: duration))
+                } else {
+                    infos.append(PreviewInformation(value: collection.title(), type: .title))
                 }
 
                 infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
