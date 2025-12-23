@@ -12,7 +12,7 @@
 class AlbumModel: AudioCollectionModel {
     typealias MLType = VLCMLAlbum
 
-    var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber, .insertionDate, .lastPlaybackDate, .playCount])
+    var sortModel = SortModel([.alpha, .duration, .releaseDate, .insertionDate, .lastPlaybackDate, .playCount])
 
     var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
@@ -163,7 +163,7 @@ extension AlbumModel: MediaLibraryObserver {
 
 extension VLCMLAlbum: MediaCollectionModel {
     func sortModel() -> SortModel? {
-        return SortModel([.alpha, .album, .duration, .releaseDate])
+        return SortModel([.alpha, .trackID, .duration, .releaseDate])
     }
 
     func files(with criteria: VLCMLSortingCriteria,
