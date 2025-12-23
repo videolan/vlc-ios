@@ -165,8 +165,11 @@ extension ArtistModel: MediaLibraryObserver {
 }
 
 extension VLCMLArtist: MediaCollectionModel {
-
     func sortModel() -> SortModel? {
+        if albumsCount() == 1 {
+            return SortModel([.alpha, .trackID, .duration, .releaseDate])
+        }
+
         return SortModel([.alpha, .album, .duration, .releaseDate])
     }
 
