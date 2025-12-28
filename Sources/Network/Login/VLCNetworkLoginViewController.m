@@ -188,6 +188,17 @@
         return;
 
     VLCNetworkServerLoginInformation *login = dataSource.loginInformation;
+
+    if (!login.address || login.address.length == 0) {
+        NSString *title = NSLocalizedString(@"SERVER", nil);
+        NSString *message = NSLocalizedString(@"ENTER_SERVER_ADDRESS", nil);
+        [VLCAlertViewController alertViewManagerWithTitle:title
+                                             errorMessage:message
+                                           viewController:self];
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        return;
+    }
+
     // TODO: move somewere else?
     // Normalize Plex login
     if ([login.protocolIdentifier isEqualToString:@"plex"]) {

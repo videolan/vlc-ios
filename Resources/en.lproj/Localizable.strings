@@ -258,6 +258,7 @@
 
 "SERVER" = "Server";
 "SERVER_PORT" = "Port";
+"ENTER_SERVER_ADDRESS" = "Enter server address";
 "NO_SERVER_FOUND" = "No server found";
 "NO_RECENT_STREAMS" = "No stream was played recently";
 
