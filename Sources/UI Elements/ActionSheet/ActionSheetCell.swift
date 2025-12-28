@@ -281,6 +281,9 @@ class ActionSheetCell: UICollectionViewCell {
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.setContentHuggingPriority(.required, for: .horizontal)
         icon.contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            icon.widthAnchor.constraint(equalToConstant: 24)
+        ])
         return icon
     }()
 
