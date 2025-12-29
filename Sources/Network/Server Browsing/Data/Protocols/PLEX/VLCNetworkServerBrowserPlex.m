@@ -39,6 +39,10 @@
 
 - (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
 {
+    if (!login.username || !login.password) {
+        return nil;
+    }
+
     _plexWebAPI = [[VLCPlexWebAPI alloc] init];
 
     return [self initWithName:login.address
