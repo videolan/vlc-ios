@@ -184,6 +184,8 @@
 
 - (void)saveLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource
 {
+    [self.view endEditing:YES];
+
     if (!self.protocolSelected)
         return;
 
@@ -223,6 +225,8 @@
 
 - (void)connectLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource
 {
+    [self.view endEditing:YES];
+
     if (!self.protocolSelected)
         return;
 
