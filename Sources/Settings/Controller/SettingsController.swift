@@ -143,7 +143,12 @@ class SettingsController: UITableViewController {
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
         }
-        UIApplication.shared.openURL(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
+        } else {
+            UIApplication.shared.openURL(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
+        }
     }
 
     @objc private func themeDidChange() {
