@@ -15,8 +15,7 @@ def shared_pods
   pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => 'ee51009a' # add visionOS support
 end
 
-target 'VLC-iOS' do
-  platform :ios, '12.0'
+def ios_specific_pods
   core_vlc_pods
   shared_pods
   pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
@@ -33,10 +32,20 @@ target 'VLC-iOS' do
 
   # debug
   pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
+end
+
+target 'VLC-iOS' do
+  platform :ios, '12.0'
+  ios_specific_pods
 
   target 'VLC-iOSTests' do
       inherit! :search_paths
   end
+end
+
+target 'VLC-iOS-no-watch' do
+  platform :ios, '12.0'
+  ios_specific_pods
 end
 
 target 'VLC-iOS-Screenshots' do
