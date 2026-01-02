@@ -54,7 +54,7 @@
     self.downloadsTable.hidden = NO;
     self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    _contentViewHeight = [_contentView.heightAnchor constraintEqualToConstant:0];
+    _contentViewHeight = [_contentView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
     _contentViewHeight.active = YES;
     [self updateContentViewHeightConstraint];
 
