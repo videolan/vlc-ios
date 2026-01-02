@@ -112,6 +112,11 @@
     [appDelegate application:sharedApplication didFailToContinueUserActivityWithType:userActivityType error:error];
 }
 
+- (void)windowScene:(UIWindowScene *)windowScene performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL succeeded))completionHandler
+{
+    [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+}
+
 @end
 
 #pragma clang diagnostic pop
