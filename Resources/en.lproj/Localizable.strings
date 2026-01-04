@@ -447,6 +447,8 @@
 
 // MARK: - VideoPlayerControls
 
+"PRIMARY_SUBTITLES" = "PRIMARY SUBTITLE";
+"SECONDARY_SUBTITLES" = "SECONDARY SUBTITLE";
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
@@ -538,6 +540,10 @@
 "CHAPTERS_HINT" = "Select to open the chapters view";
 "BOOKMARKS_HINT" = "Select to open the bookmarks view";
 "INTERFACE_LOCK_HINT" = "Enable the option to lock the user interface";
+"SNAPSHOT_SAVED" = "Snapshot Saved";
+"SNAPSHOT_SAVED_TO_CAMERA_ROLL" = "Snapshot saved to Camera Roll";
+"SNAPSHOT_FAILED" = "Snapshot Failed";
+"SNAPSHOT_FAILED_MESSAGE" = "Unable to save snapshot. Please ensure photo library access is granted.";
 
 // MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
@@ -718,12 +724,3 @@
 
 //MARK: - Last played playlist indicator
 "LAST_PLAYED_PLAYLIST_LABEL_TITLE" = "Last Played";
-
-/* New strings */
-"SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
-"SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE" = "Enter a speed between 0.25 and 8.0";
-
-/* New strings */
-"SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.25 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */
-"PRIMARY_SUBTITLES" = "PRIMARY SUBTITLE";
-"SECONDARY_SUBTITLES" = "SECONDARY SUBTITLE";
