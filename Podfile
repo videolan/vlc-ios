@@ -16,8 +16,7 @@ def shared_pods
 end
 
 def ios_specific_pods
-  core_vlc_pods
-  shared_pods
+  use_modular_headers!
   pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
@@ -36,6 +35,8 @@ end
 
 target 'VLC-iOS' do
   platform :ios, '12.0'
+  core_vlc_pods
+  shared_pods
   ios_specific_pods
 
   target 'VLC-iOSTests' do
@@ -45,6 +46,8 @@ end
 
 target 'VLC-iOS-no-watch' do
   platform :ios, '12.0'
+  core_vlc_pods
+  shared_pods
   ios_specific_pods
 end
 
