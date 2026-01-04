@@ -150,32 +150,14 @@ extension CustomDialogRendererHandler: VLCCustomDialogRendererProtocol {
                    defaultUsername username: String?, askingForStorage: Bool,
                    withReference reference: NSValue) {
 
-        // Due to a keystore issue, we disable the overall SMBv1 dialog logic and direcly show the login
+        if title.contains("SMBv1") {
+            selectedSMBv1 = true
+        }
+
         handleLoginAlert(with: title, message: message,
                          username: username,
                          askingForStorage: false,
                          withReference: reference)
-
-        //  if !title.contains("SMBv1") || selectedSMBv1 {
-        //      handleLoginAlert(with: title, message: message,
-        //                       username: username,
-        //                       askingForStorage: askingForStorage,
-        //                       withReference: reference)
-        //      return
-        //  }
-
-        //  handleSMBv1() {
-        //      [weak self] isSMBv1 in
-        //      if isSMBv1 {
-        //          self?.selectedSMBv1 = true
-        //          self?.handleLoginAlert(with: title, message: message,
-        //                                 username: username,
-        //                                 askingForStorage: askingForStorage,
-        //                                 withReference: reference)
-        //      } else {
-        //          self?.dialogProvider.dismissDialog(withReference: reference)
-        //      }
-        //  }
 }
 
     func showQuestion(withTitle title: String, message: String,
