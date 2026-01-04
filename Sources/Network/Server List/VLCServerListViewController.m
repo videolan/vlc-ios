@@ -134,6 +134,7 @@
     _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _localNetworkTableView.estimatedRowHeight = [VLCNetworkListCell heightOfCell];
+    _localNetworkTableView.scrollEnabled = NO;
 
     [self.navigationController.navigationBar setTranslucent:NO];
 
