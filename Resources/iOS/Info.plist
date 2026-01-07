@@ -312,7 +312,7 @@
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
-		<true/>
+		<false/>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>CPTemplateApplicationSceneSessionRoleApplication</key>
@@ -518,9 +518,9 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-				<string>aa3</string>
-				<string>oma</string>
-				<string>at3</string>
+					<string>aa3</string>
+					<string>oma</string>
+					<string>at3</string>
 				</array>
 				<key>public.mime-type</key>
 				<string>audio/atrac3</string>
