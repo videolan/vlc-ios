@@ -5,6 +5,7 @@
 · improve user interface behavior on iOS 26
 · fix keyboard control on iPadOS 26
 · fix shortcut actions on the app icon on iOS 13 and above
+· fix behavior in multi-window environment on iPadOS 26
 
 ## tvOS [3.7.0]
 · update to libvlc 3.0.23 including many security and stability improvements
