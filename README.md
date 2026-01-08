@@ -87,7 +87,7 @@ If you can't find your problem on the guide, please feel free to [submit an issu
 
 ### Pull request
 
-Pull request are more than welcome! If you do submit one, please make sure to use a descriptive title and description.
+Pull requests are more than welcome! If you do submit one, please make sure to use a descriptive title and description.
 
 ### Commit
 
