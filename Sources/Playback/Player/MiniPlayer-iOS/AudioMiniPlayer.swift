@@ -12,7 +12,11 @@
  *****************************************************************************/
 
 import UIKit
+
+#if os(iOS)
+import Foundation
 import WidgetKit
+#endif
 
 enum MiniPlayerVerticalPosition {
     case bottom
@@ -235,6 +239,7 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         queueViewController.reload()
     }
 
+#if os(iOS)
     func updateWidgetsIfNeeded() {
         guard #available(iOS 14.0, *) else {
             return
@@ -252,6 +257,7 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
             }
         })
     }
+#endif
 }
 
 // MARK: - UI Receivers

@@ -10,7 +10,10 @@
  *****************************************************************************/
 
 import UIKit
+
+#if os(iOS)
 import WidgetKit
+#endif
 
 @objc(VLCAudioPlayerViewControllerDelegate)
 protocol AudioPlayerViewControllerDelegate: AnyObject {
@@ -531,6 +534,7 @@ extension AudioPlayerViewController {
         audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
     }
 
+#if os(iOS)
     func updateWidgetsIfNeeded() {
         guard #available(iOS 14.0, *) else {
             return
@@ -548,6 +552,7 @@ extension AudioPlayerViewController {
             }
         })
     }
+#endif
 }
 
 // MARK: - PlayerControllerDelegate
