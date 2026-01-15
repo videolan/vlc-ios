@@ -162,6 +162,11 @@
 
     [self recoverLastPlayingMedia];
 
+    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
+    if (shortcutItem) {
+        [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+    }
+
     return YES;
 }
 
