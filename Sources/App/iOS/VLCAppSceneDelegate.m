@@ -47,6 +47,11 @@
         [self scene:scene willContinueUserActivityWithType:firstActivity.activityType];
         [self scene:scene continueUserActivity:firstActivity];
     }
+
+    UIApplicationShortcutItem *shortcutItem = connectionOptions.shortcutItem;
+    if (shortcutItem) {
+        [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+    }
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene

@@ -169,6 +169,11 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
 
+    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
+    if (shortcutItem) {
+        [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+    }
+
     return YES;
 }
 
