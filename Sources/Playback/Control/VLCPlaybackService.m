@@ -134,6 +134,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #else
     _swiftUIDialogProvider = nil;
 #endif
+
+    for (NSURL *url in _openedLocalURLs) {
+        [url stopAccessingSecurityScopedResource];
+    }
+    _openedLocalURLs = nil;
 }
 
 - (instancetype)init
@@ -505,15 +510,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         _listPlayer = nil;
     }
 
-    for (NSURL *url in _openedLocalURLs) {
-        [url stopAccessingSecurityScopedResource];
-    }
-    _openedLocalURLs = nil;
-    _openedLocalURLs = [[NSMutableArray alloc] init];
-
     if (!_sessionWillRestart) {
         _mediaList = nil;
         _mediaList = [[VLCMediaList alloc] init];
+        for (NSURL *url in _openedLocalURLs) {
+            [url stopAccessingSecurityScopedResource];
+        }
+        [_openedLocalURLs removeAllObjects];
     }
     _playerIsSetup = NO;
 
