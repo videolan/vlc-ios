@@ -2,7 +2,7 @@
  * VLCPlaybackService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2025 VLC authors and VideoLAN
+ * Copyright (c) 2013-2026 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -139,6 +139,17 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [url stopAccessingSecurityScopedResource];
     }
     _openedLocalURLs = nil;
+
+    @try {
+        [_mediaPlayer removeObserver:self forKeyPath:@"time"];
+    }
+    @catch (NSException *exception) {
+        APLog(@"media player failed to remove time observer");
+    }
+
+    _backgroundDummyPlayer = nil;
+    _mediaPlayer = nil;
+    _listPlayer = nil;
 }
 
 - (instancetype)init
@@ -241,6 +252,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)startPlayback
 {
+    APLog(@"Starting playback");
     if (_playerIsSetup) {
         APLog(@"%s: player is already setup, bailing out", __PRETTY_FUNCTION__);
         return;
@@ -296,11 +308,21 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     if (!audioTimeStretch) {
         [libVLCOptions addObject:[NSString stringWithFormat:@"--no-%@", kVLCSettingStretchAudio]];
     }
-    if (libVLCOptions.count > 0) {
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
-                                                      andDrawable:self];
+
+    if (!_listPlayer) {
+        NSUInteger optionCount = libVLCOptions.count;
+        APLog(@"no list player found, creating with %lu options", optionCount);
+        if (optionCount > 0) {
+            _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
+                                                          andDrawable:self];
+        } else {
+            _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:self];
+        }
+        _mediaPlayer = _listPlayer.mediaPlayer;
+        [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     } else {
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:self];
+        APLog(@"Reusing exising list player %@ with media player %@", _listPlayer, _mediaPlayer);
+        _listPlayer.mediaPlayer.drawable = self;
     }
     _listPlayer.delegate = self;
 
@@ -341,15 +363,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_listPlayer.mediaPlayer.libraryInstance setLoggers:debugLoggers];
 
 #if !TARGET_OS_WATCH
-    /// watchOS doesn't need an adjust filter sincd it doesn't support video playback.
+    /// watchOS doesn't need an adjust filter since it doesn't support video playback.
     id<VLCFilter> newFilter = _listPlayer.mediaPlayer.adjustFilter;
     [newFilter applyParametersFrom:_adjustFilter.mediaPlayerAdjustFilter];
     newFilter.enabled = _adjustFilter.mediaPlayerAdjustFilter.isEnabled;
     _adjustFilter = [[VLCPlaybackServiceAdjustFilter alloc] initWithMediaPlayerAdjustFilter:newFilter];
 #endif
-    _mediaPlayer = _listPlayer.mediaPlayer;
 #if TARGET_OS_IOS
-    _mediaController = [[VLCPictureInPictureMediaController alloc] initWithMediaPlayer:_mediaPlayer];
+    if (!_mediaController) {
+        _mediaController = [[VLCPictureInPictureMediaController alloc] initWithMediaPlayer:_mediaPlayer];
+    }
 #endif
 
     [_mediaPlayer setDelegate:self];
@@ -400,9 +423,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         equalizer = [[VLCAudioEqualizer alloc] init];
         equalizer.preAmplification = preampValue;
     }
-
     _mediaPlayer.equalizer = equalizer;
-    [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
 
 #if TARGET_OS_IOS
     [_mediaPlayer setRendererItem:_renderer];
@@ -456,17 +477,18 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
     _playerIsSetup = YES;
 
+    APLog(@"player is setup");
     [_playbackSessionManagementLock unlock];
 }
 
 - (void)stopPlayback
 {
     BOOL ret = [_playbackSessionManagementLock tryLock];
-    _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
     if (!ret) {
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
+
 #if !TARGET_OS_TV
     // Last played VLCMLMedia before the playback stops
     VLCMLMedia *lastMedia = [VLCMLMedia mediaForPlayingMedia: _mediaPlayer.media];
@@ -474,20 +496,18 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackWillStop object: nil userInfo: @{VLCLastPlaylistPlayedMedia: lastMedia}];
     }
 #endif
-    if (_mediaPlayer) {
-        @try {
-            [_mediaPlayer removeObserver:self forKeyPath:@"time"];
-        }
-        @catch (NSException *exception) {
-            APLog(@"we weren't an observer yet");
-        }
 
-        if (_mediaPlayer.media) {
-            [_mediaPlayer pause];
+    if (_playerIsSetup) {
+        _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
+
+        if (_mediaPlayer) {
+            if (_mediaPlayer.media) {
+                [_mediaPlayer pause];
 #if !TARGET_OS_TV
-            [self savePlaybackState];
+                [self savePlaybackState];
 #endif
-            [_mediaPlayer stop];
+                [_mediaPlayer stop];
+            }
         }
 
         if (_playbackCompletion) {
@@ -504,24 +524,27 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
             _playbackCompletion(!finishedPlaybackWithError);
         }
-
-        _mediaPlayer = nil;
         _shuffledList = nil;
-        _listPlayer = nil;
-    }
 
-    if (!_sessionWillRestart) {
-        _mediaList = nil;
-        _mediaList = [[VLCMediaList alloc] init];
-        for (NSURL *url in _openedLocalURLs) {
-            [url stopAccessingSecurityScopedResource];
+        if (!_sessionWillRestart) {
+            _mediaList = nil;
+            _mediaList = [[VLCMediaList alloc] init];
+
+            for (NSURL *url in _openedLocalURLs) {
+                [url stopAccessingSecurityScopedResource];
+            }
+            [_openedLocalURLs removeAllObjects];
         }
-        [_openedLocalURLs removeAllObjects];
-    }
-    _playerIsSetup = NO;
+        _playerIsSetup = NO;
+        APLog(@"Playback is stopped, session will restart %i", _sessionWillRestart);
 
-    [_playbackSessionManagementLock unlock];
+        [_playbackSessionManagementLock unlock];
+    } else {
+        APLog(@"Playback was already stopped, session will restart %i", _sessionWillRestart);
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
+
     if (_sessionWillRestart) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_sessionWillRestart = NO;
@@ -1030,7 +1053,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 if ([self->_listPlayer.mediaList indexOfMedia:self->_mediaPlayer.media] == listCount - 1
                     && self.repeatMode == VLCDoNotRepeat) {
                     self->_sessionWillRestart = NO;
-                    [self stopPlayback];
                 }
             } break;
             default:
