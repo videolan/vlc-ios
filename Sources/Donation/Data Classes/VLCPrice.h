@@ -2,7 +2,7 @@
  * VLCPrice.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2024, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDictionary:(NSDictionary *)dict forCurrency:(VLCCurrency *)currency;
 
 @property (readonly) NSString *id;
+@property (readonly) BOOL active;
 @property (readonly) NSNumber *amount;
 @property (readonly) BOOL recurring;
 
