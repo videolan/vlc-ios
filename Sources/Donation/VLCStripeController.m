@@ -601,10 +601,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 #pragma clang diagnostic pop
             }
                          failure:^(NSURLSessionTask *task, NSError *error) {
-                APLog(@"Error reloading customer: %@", error.localizedDescription);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
-                });
+                APLog(@"Error reloading customer: %@, deleting...", error.localizedDescription);
+                self->_customerID = nil;
+                self->_uuid = nil;
+                [defaults removeObjectForKey:kVLCDonationAnonymousCustomerID];
             }];
         } else {
 #pragma clang diagnostic push
@@ -612,6 +612,8 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [target performSelector:action];
 #pragma clang diagnostic pop
         }
+    }
+    if (_uuid != nil) {
         return;
     }
 
