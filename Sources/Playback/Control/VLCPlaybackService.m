@@ -105,6 +105,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)dealloc
 {
+    for (NSURL *url in _openedLocalURLs) {
+        [url stopAccessingSecurityScopedResource];
+    }
+    _openedLocalURLs = nil;
+
     @try {
         [_mediaPlayer removeObserver:self forKeyPath:@"time"];
     }
@@ -444,15 +449,14 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         }
         _shuffledList = nil;
 
-        for (NSURL *url in _openedLocalURLs) {
-            [url stopAccessingSecurityScopedResource];
-        }
-        _openedLocalURLs = nil;
-        _openedLocalURLs = [[NSMutableArray alloc] init];
-
         if (!_sessionWillRestart) {
             _mediaList = nil;
             _mediaList = [[VLCMediaList alloc] init];
+
+            for (NSURL *url in _openedLocalURLs) {
+                [url stopAccessingSecurityScopedResource];
+            }
+            [_openedLocalURLs removeAllObjects];
         }
         _playerIsSetup = NO;
         APLog(@"Playback is stopped, session will restart %i", _sessionWillRestart);
