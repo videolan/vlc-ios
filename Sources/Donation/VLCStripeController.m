@@ -2,7 +2,7 @@
  * VLCStripeController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2024, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -565,7 +565,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
         for (NSDictionary *dict in dictList) {
             VLCPrice *price = [[VLCPrice alloc] initWithDictionary:dict
                                                        forCurrency:currency];
-            [priceList addObject:price];
+            if (price.active) {
+                [priceList addObject:price];
+            }
         }
         if ([self.delegate respondsToSelector:@selector(setRecurringPriceList:)]) {
             [self.delegate setRecurringPriceList:priceList];
