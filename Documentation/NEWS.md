@@ -1,5 +1,11 @@
 # Changelog
 
+## iOS [3.7.1]
+· fix playback regression introduced in the last update
+
+## tvOS [3.7.1]
+· fix playback regression introduced in the last update
+
 ## iOS [3.7.0]
 · update to libvlc 3.0.23 including many security and stability improvements
 · improve user interface behavior on iOS 26
