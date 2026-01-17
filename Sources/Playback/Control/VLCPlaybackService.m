@@ -390,7 +390,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
-    [media parseWithOptions:VLCMediaParseLocal];
     media.delegate = self;
     [media addOptions:self.mediaOptionsDictionary];
 
