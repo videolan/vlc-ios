@@ -322,7 +322,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     } else {
         APLog(@"Reusing exising list player %@ with media player %@", _listPlayer, _mediaPlayer);
-        _listPlayer.mediaPlayer.drawable = self;
     }
     _listPlayer.delegate = self;
 
@@ -529,6 +528,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if (!_sessionWillRestart) {
             _mediaList = nil;
             _mediaList = [[VLCMediaList alloc] init];
+            _listPlayer.mediaList = _mediaList;
 
             for (NSURL *url in _openedLocalURLs) {
                 [url stopAccessingSecurityScopedResource];
@@ -537,11 +537,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
         _playerIsSetup = NO;
         APLog(@"Playback is stopped, session will restart %i", _sessionWillRestart);
-
-        [_playbackSessionManagementLock unlock];
-    } else {
-        APLog(@"Playback was already stopped, session will restart %i", _sessionWillRestart);
     }
+    [_playbackSessionManagementLock unlock];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
 
@@ -1012,6 +1009,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             } break;
 
             case VLCMediaPlayerStateOpening: {
+                APLog(@"%s: opening", __func__);
 #if !TARGET_OS_TV
                 [self _recoverLastPlaybackState];
 #endif
@@ -1022,10 +1020,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             } break;
 
             case VLCMediaPlayerStatePlaying: {
+                APLog(@"%s: playing", __func__);
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
             } break;
 
             case VLCMediaPlayerStatePaused: {
+                APLog(@"%s: paused", __func__);
 #if !TARGET_OS_TV
                 [self savePlaybackState];
 #endif
@@ -1033,7 +1033,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             } break;
 
             case VLCMediaPlayerStateError: {
-                APLog(@"Playback failed");
+                APLog(@"%s: playback failed", __func__);
                 dispatch_async(dispatch_get_main_queue(),^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
                 });
@@ -1041,11 +1041,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [self stopPlayback];
             } break;
             case VLCMediaPlayerStateStopping: {
+                APLog(@"%s: stopping", __func__);
 #if TARGET_OS_IOS || TARGET_OS_WATCH
                 [self savePlaybackState];
 #endif
             } break;
             case VLCMediaPlayerStateStopped: {
+                APLog(@"%s: stopped", __func__);
                 [self->_listPlayer.mediaList lock];
                 NSUInteger listCount = self->_listPlayer.mediaList.count;
                 [self->_listPlayer.mediaList unlock];
@@ -1056,6 +1058,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 }
             } break;
             default:
+                APLog(@"%s: unknown state", __func__);
                 break;
         }
 
