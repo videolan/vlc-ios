@@ -821,6 +821,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 
         case VLCMediaPlayerStateOpening: {
+            APLog(@"%s: opening", __func__);
 #if TARGET_OS_IOS
             [self _recoverLastPlaybackState];
 #else
@@ -838,10 +839,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 
         case VLCMediaPlayerStatePlaying: {
+            APLog(@"%s: playing", __func__);
             [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
         } break;
 
         case VLCMediaPlayerStatePaused: {
+            APLog(@"%s: paused", __func__);
 #if TARGET_OS_IOS
             [self savePlaybackState];
 #endif
@@ -849,7 +852,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 
         case VLCMediaPlayerStateError: {
-            APLog(@"Playback failed");
+            APLog(@"%s: playback failed", __func__);
             dispatch_async(dispatch_get_main_queue(),^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
             });
@@ -858,9 +861,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         } break;
 #if LIBVLC_VERSION_MAJOR == 3
         case VLCMediaPlayerStateEnded: {
+            APLog(@"%s: ended", __func__);
 #endif
 #if LIBVLC_VERSION_MAJOR == 4
         case VLCMediaPlayerStateStopping: {
+            APLog(@"%s: stopping", __func__);
 #endif
 #if TARGET_OS_IOS
             [self savePlaybackState];
@@ -876,6 +881,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             }
         } break;
         case VLCMediaPlayerStateStopped: {
+            APLog(@"%s: stopped", __func__);
             [_listPlayer.mediaList lock];
             NSUInteger listCount = _listPlayer.mediaList.count;
             [_listPlayer.mediaList unlock];
@@ -885,7 +891,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                 _sessionWillRestart = NO;
             }
         } break;
+        case VLCMediaPlayerStateESAdded: {
+            APLog(@"%s: ES added", __func__);
+        } break;
         default:
+            APLog(@"%s: unknown state: %li", __func__, currentState);
             break;
     }
 
