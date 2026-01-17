@@ -274,8 +274,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     if (!_listPlayer) {
-        APLog(@"no list player found, creating with %lu options", libVLCOptions.count);
-        if (libVLCOptions.count > 0) {
+        NSUInteger optionCount = libVLCOptions.count;
+        APLog(@"no list player found, creating with %lu options", optionCount);
+        if (optionCount > 0) {
             _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
                                                           andDrawable:_actualVideoOutputView];
         } else {
