@@ -464,6 +464,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if (!_sessionWillRestart) {
             _mediaList = nil;
             _mediaList = [[VLCMediaList alloc] init];
+            _listPlayer.mediaList = _mediaList;
 
             for (NSURL *url in _openedLocalURLs) {
                 [url stopAccessingSecurityScopedResource];
