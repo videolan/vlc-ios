@@ -49,7 +49,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate>
 #endif
 {
+#if TARGET_OS_IOS
     VLCMediaPlayer *_backgroundDummyPlayer;
+#endif
     VLCMediaPlayer *_mediaPlayer;
     VLCMediaListPlayer *_listPlayer;
     BOOL _shouldResumePlaying;
@@ -118,7 +120,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     _dialogProvider = nil;
+#if TARGET_OS_IOS
     _backgroundDummyPlayer = nil;
+#endif
     _mediaPlayer = nil;
     _listPlayer = nil;
 }
@@ -157,10 +161,12 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         _shuffledList = nil;
         _shuffledOrder = [[NSMutableArray alloc] init];
 
+#if TARGET_OS_IOS
         // Initialize a separate media player in order to play silence so that the application can
         // stay alive in background exclusively for Chromecast.
         _backgroundDummyPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[@"--demux=rawaud"]];
         _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
+#endif
 
         _mediaList = [[VLCMediaList alloc] init];
 
@@ -249,19 +255,24 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
      * media player instance however, potentially initialising an additional library instance
      * for this is costly, so this should be done only if needed */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    BOOL audioTimeStretch = [[userDefaults objectForKey:kVLCSettingStretchAudio] boolValue];
+
+    NSMutableArray *libVLCOptions = [NSMutableArray array];
+#if TARGET_OS_IOS
     BOOL chromecastPassthrough = [[userDefaults objectForKey:kVLCSettingCastingAudioPassthrough] boolValue];
     int chromecastQuality = [[userDefaults objectForKey:kVLCSettingCastingConversionQuality] intValue];
-    BOOL audioTimeStretch = [[userDefaults objectForKey:kVLCSettingStretchAudio] boolValue];
-    NSMutableArray *libVLCOptions = [NSMutableArray array];
     if (chromecastPassthrough) {
         [libVLCOptions addObject:[@"--" stringByAppendingString:kVLCSettingCastingAudioPassthrough]];
     }
     if (chromecastQuality != 2) {
         [libVLCOptions addObject:[NSString stringWithFormat:@"--%@=%i", kVLCSettingCastingConversionQuality, chromecastQuality]];
     }
+#endif
     if (!audioTimeStretch) {
         [libVLCOptions addObject:[NSString stringWithFormat:@"--no-%@", kVLCSettingStretchAudio]];
     }
+
     if (!_listPlayer) {
         APLog(@"no list player found, creating with %lu options", libVLCOptions.count);
         if (libVLCOptions.count > 0) {
