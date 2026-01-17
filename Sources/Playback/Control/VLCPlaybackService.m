@@ -473,9 +473,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         }
         _playerIsSetup = NO;
         APLog(@"Playback is stopped, session will restart %i", _sessionWillRestart);
-
-        [_playbackSessionManagementLock unlock];
     }
+    [_playbackSessionManagementLock unlock];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
 
