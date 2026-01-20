@@ -2,6 +2,9 @@
 
 ## iOS [3.7.1]
 · fix playback regression introduced in the last update
+· fix playback of media stored outside the application context
+· fix shortcut actions on the app icon on cold start
+· fix hangs on playback end and when sharing the library on the local network
 
 ## tvOS [3.7.1]
 · fix playback regression introduced in the last update
