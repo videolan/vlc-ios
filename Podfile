@@ -20,7 +20,7 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '6.2.0'
-  pod 'MobileVLCKit', '3.7.1'
+  pod 'MobileVLCKit', '3.6.1b1'
   pod 'VLCMediaLibraryKit', '0.11.0b2'
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
