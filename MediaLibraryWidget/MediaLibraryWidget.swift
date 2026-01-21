@@ -90,7 +90,7 @@ struct MediaLibraryWidgetEntryView: View {
         return VStack {
             Image(uiImage: image ?? UIImage(named: "vlc")!)
                 .resizable()
-                .clipShape(.buttonBorder)
+                .clipShape(.containerRelative)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -110,7 +110,7 @@ struct MediaLibraryWidgetEntryView: View {
             let data = Data(base64Encoded: imageData, options: .ignoreUnknownCharacters)
             Image(uiImage: UIImage(data: data!) ?? UIImage(named: "vlc")!)
                 .resizable()
-                .clipShape(.buttonBorder)
+                .clipShape(.containerRelative)
                 .frame(width: 120, height: 120)
             VStack(alignment: .leading, spacing: 3) {
                 Text("Last played")
