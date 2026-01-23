@@ -139,12 +139,12 @@
                                                                                      localizedSubtitle:nil
                                                                                                   icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Playlist"]
                                                                                               userInfo:nil];
-        UIApplicationShortcutItem *networkItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
-                                                                                  localizedTitle:NSLocalizedString(@"NETWORK",nil)
-                                                                               localizedSubtitle:nil
-                                                                                            icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
-                                                                                        userInfo:nil];
-        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, networkItem];
+        UIApplicationShortcutItem *browseItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
+                                                                                 localizedTitle:NSLocalizedString(@"BROWSE",nil)
+                                                                              localizedSubtitle:nil
+                                                                                           icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
+                                                                                       userInfo:nil];
+        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
     }
 }
 
