@@ -510,6 +510,12 @@
 
 - (void)showViewController:(UIViewController *)viewController
 {
+    if (self.navigationController.topViewController == viewController) {
+        return;
+    }
+    if (![self.navigationController.viewControllers containsObject:self]) {
+        return;
+    }
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
