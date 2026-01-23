@@ -35,7 +35,4 @@
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
 
-@property (nonatomic, readonly, copy) NSString *detailText;
-@property (nonatomic, readonly) UIImage *cellImage;
-
 @end

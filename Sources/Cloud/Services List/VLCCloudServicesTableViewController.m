@@ -50,15 +50,8 @@
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.pcloudTableViewController = [[VLCPCloudViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.documentPickerController = [VLCDocumentPickerController new];
-}
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"CLOUD_SERVICES", @"");
-    }
-    return self;
+    self.title = NSLocalizedString(@"CLOUD_SERVICES", @"");
 }
 
 - (void)themeDidChange
@@ -85,34 +78,9 @@
     });
 }
 
-- (NSString *)detailText
-{
-    int services = [self numberOfAuthorizedServices];
-    if (services == 1) {
-        return NSLocalizedString(@"LOGGED_IN_SERVICE", nil);
-    } else {
-        return [NSString stringWithFormat:NSLocalizedString(@"LOGGED_IN_SERVICES", ""), services];
-    }
-}
-
-- (int)numberOfAuthorizedServices
-{
-    int i = [[VLCDropboxController sharedInstance] isAuthorized] ? 1 : 0;
-    i += [[VLCGoogleDriveController sharedInstance] isAuthorized] ? 1 : 0;
-    i += [[VLCBoxController sharedInstance] isAuthorized] ? 1 : 0;
-    i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
-    i += [[VLCPCloudController pCloudInstance] isAuthorized] ? 1 : 0;
-    return i;
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return PresentationTheme.current.colors.statusBarStyle;
-}
-
-- (UIImage *)cellImage
-{
-    return [UIImage imageNamed:@"iCloudIcon"];
 }
 
 #pragma mark - Table view data source

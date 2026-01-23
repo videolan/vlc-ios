@@ -163,16 +163,6 @@
                                     + _downloadsTable.contentSize.height;
 }
 
-- (NSString *)detailText
-{
-    return NSLocalizedString(@"DOWNLOADVC_DETAILTEXT", nil);
-}
-
-- (UIImage *)cellImage
-{
-    return [UIImage imageNamed:@"Downloads"];
-}
-
 - (IBAction)cancelDownload:(id)sender
 {
     [_downloadController cancelCurrentDownload];

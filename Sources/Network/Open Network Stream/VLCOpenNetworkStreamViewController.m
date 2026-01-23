@@ -35,15 +35,6 @@
     [defaults registerDefaults:appDefaults];
 }
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
-    }
-    return self;
-}
-
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
     [self updatePasteboardTextInURLField];
@@ -127,6 +118,7 @@
     self.openButton.layer.cornerRadius = 4.0;
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
     [self.scanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
+    self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
 
     [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
     [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
@@ -162,16 +154,6 @@
                                               style:UIBarButtonItemStylePlain
                                               target:self
                                               action:@selector(editTableView:)];
-}
-
-- (NSString *)detailText
-{
-    return NSLocalizedString(@"STREAMVC_DETAILTEXT", nil);
-}
-
-- (UIImage *)cellImage
-{
-    return [UIImage imageNamed:@"OpenNetStream"];
 }
 
 - (void)updateForTheme
