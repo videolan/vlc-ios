@@ -124,6 +124,7 @@
 "FAVORITEVC_DETAILTEXT" = "See your favorite folders";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"CLOUDVC_DETAILTEXT" = "Play or download media from online services";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
 "BROWSE" = "Browse";
@@ -147,8 +148,6 @@
 "CLOUD_SERVICES" = "Cloud Services";
 "LOGIN" = "Login";
 "LOGGED_IN" = "Logged in";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
 
 "DROPBOX_DOWNLOAD" = "Download file?";
 "DROPBOX_DL_LONG" = "Would you like to download \"%@\" to your %@?";

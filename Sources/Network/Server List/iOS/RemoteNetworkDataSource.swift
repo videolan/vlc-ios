@@ -45,12 +45,6 @@ protocol RemoteNetworkDataSourceDelegate {
 
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
 class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-    let localVC: UIDocumentPickerViewController
-    let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
-    let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
-    let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
-    let favoriteVC = VLCFavoriteListViewController()
-
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
     // MARK: - DataSource
@@ -75,25 +69,25 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             }
         case .cloud:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
-                networkCell.textLabel?.text = cloudVC.title
-                networkCell.detailTextLabel?.text = cloudVC.detailText
-                networkCell.imageView?.image = cloudVC.cellImage
+                networkCell.textLabel?.text = NSLocalizedString("CLOUD_SERVICES", comment: "")
+                networkCell.detailTextLabel?.text = NSLocalizedString("CLOUDVC_DETAILTEXT", comment: "")
+                networkCell.imageView?.image = UIImage(named: "iCloudIcon")
                 networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.cloud
                 return networkCell
             }
         case .streaming:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
-                networkCell.textLabel?.text = streamingVC.title
-                networkCell.detailTextLabel?.text = streamingVC.detailText
-                networkCell.imageView?.image = streamingVC.cellImage
+                networkCell.textLabel?.text = NSLocalizedString("OPEN_NETWORK", comment: "")
+                networkCell.detailTextLabel?.text = NSLocalizedString("STREAMVC_DETAILTEXT", comment: "")
+                networkCell.imageView?.image = UIImage(named: "OpenNetStream")
                 networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.stream
                 return networkCell
             }
         case .download:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
-                networkCell.textLabel?.text = downloadVC.title
-                networkCell.detailTextLabel?.text = downloadVC.detailText
-                networkCell.imageView?.image = downloadVC.cellImage
+                networkCell.textLabel?.text = NSLocalizedString("DOWNLOAD_FROM_HTTP", comment: "")
+                networkCell.detailTextLabel?.text = NSLocalizedString("DOWNLOADVC_DETAILTEXT", comment: "")
+                networkCell.imageView?.image = UIImage(named: "Downloads")
                 networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.downloads
                 return networkCell
             }
@@ -104,9 +98,9 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             }
         case .favorite:
             if let favoriteCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
-                favoriteCell.textLabel?.text = favoriteVC.title
-                favoriteCell.detailTextLabel?.text = favoriteVC.detailText
-                favoriteCell.imageView?.image = favoriteVC.cellImage
+                favoriteCell.textLabel?.text = NSLocalizedString("FAVORITES", comment: "")
+                favoriteCell.detailTextLabel?.text = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
+                favoriteCell.imageView?.image = UIImage(named: "heart")
                 favoriteCell.accessibilityIdentifier = VLCAccessibilityIdentifier.favorite
                 return favoriteCell
             }
@@ -114,16 +108,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         assertionFailure("Cell is nil, did you forget to register the identifier?")
         return UITableViewCell()
     }
-    // MARK: - INIT
-    
-    override init() {
-          if #available(iOS 14.0, *) {
-              localVC = UIDocumentPickerViewController(forOpeningContentTypes: [.item, .folder], asCopy: false)
-          } else {
-              localVC = UIDocumentPickerViewController(documentTypes: ["public.item", "public.folder"], in: .open)
-          }
-          super.init()
-    }
+
     // MARK: - Delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -150,17 +135,21 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
         switch cellType {
         case .local:
-            return localVC
+            if #available(iOS 14.0, *) {
+                return UIDocumentPickerViewController(forOpeningContentTypes: [.item, .folder], asCopy: false)
+            } else {
+                return UIDocumentPickerViewController(documentTypes: ["public.item", "public.folder"], in: .open)
+            }
         case .cloud:
-            return cloudVC
+            return VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
         case .streaming:
-            return streamingVC
+            return VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
         case .download:
-            return downloadVC
+            return VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
         case .wifi:
             return nil
         case .favorite:
-            return favoriteVC
+            return VLCFavoriteListViewController()
         }
     }
 
