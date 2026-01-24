@@ -1162,7 +1162,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         {
             [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
         }
-        [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
+        if (_currentIndex > 0 && _currentIndex < mediaListLength) {
+            [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
+        }
         for (NSInteger i = 1; i < mediaListLength; i++) {
             NSInteger nElements = mediaListLength - i;
             NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
