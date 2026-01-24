@@ -519,7 +519,6 @@ private extension AudioMiniPlayer {
             if playbackService.isPlaying {
                 artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
                 artworkBlurImageView.image = metadata.artworkImage
-                queueViewController?.reloadBackground(with: metadata.artworkImage)
                 artworkBlurView.isHidden = false
             }
 
@@ -528,7 +527,6 @@ private extension AudioMiniPlayer {
             artworkImageView.image = nil
             artworkBlurImageView.image = nil
             artworkBlurView.isHidden = true
-            queueViewController?.reloadBackground(with: nil)
             playbackService.videoOutputView = artworkImageView
         }
     }
