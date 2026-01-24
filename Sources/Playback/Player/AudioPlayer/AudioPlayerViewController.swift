@@ -267,7 +267,6 @@ class AudioPlayerViewController: PlayerViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
-        qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
         qvc.delegate = nil
     }
 
@@ -405,14 +404,9 @@ extension AudioPlayerViewController {
 
         if let qvc = queueViewController, !isQueueHidden {
             showPlayqueue(from: qvc)
-        } else if isQueueHidden {
-            var isThumbnailViewHidden: Bool = false
-            if playbackService.isPlayingOnExternalScreen() {
-                isThumbnailViewHidden = true
-            }
-
-            audioPlayerView.thumbnailView.isHidden = isThumbnailViewHidden
         }
+
+        audioPlayerView.thumbnailView.isHidden = playbackService.isPlayingOnExternalScreen()
     }
 
     override func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
@@ -464,10 +458,6 @@ extension AudioPlayerViewController {
         if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
             audioPlayerView.updateThumbnailImageView()
             audioPlayerView.setupBackgroundColor()
-
-            if let qvc = queueViewController, !isQueueHidden {
-                qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
-            }
         }
     }
 
@@ -510,12 +500,7 @@ extension AudioPlayerViewController {
         audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: !isQueueHidden)
         updateNavigationBar(with: !isQueueHidden ? nil : metadata.title)
 
-        var isThumbnailViewHidden: Bool = isQueueHidden
-        if playbackService.isPlayingOnExternalScreen() {
-            isThumbnailViewHidden = true
-        }
-
-        audioPlayerView.thumbnailView.isHidden = isThumbnailViewHidden
+        audioPlayerView.thumbnailView.isHidden = playbackService.isPlayingOnExternalScreen()
         audioPlayerView.playqueueView.isHidden = !isQueueHidden
 
         if let qvc = queueViewController, isQueueHidden {

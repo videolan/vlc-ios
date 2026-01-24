@@ -38,7 +38,6 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var queueCollectionView: UICollectionView!
     @IBOutlet weak var topView: UIVisualEffectView!
     @IBOutlet weak var grabberView: UIView!
-    @IBOutlet weak var artworkImageBackgroundView: UIImageView!
     @IBOutlet weak var artworkBlurView: UIVisualEffectView!
     @IBOutlet weak var closeButton: UIButton!
 
@@ -369,20 +368,6 @@ class QueueViewController: UIViewController {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
-
-    func reloadBackground(with image: UIImage?) {
-        guard #available(iOS 13, *) else {
-            return
-        }
-
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            artworkImageBackgroundView.image = image
-            artworkBlurView.isHidden = false
-        } else {
-            artworkImageBackgroundView.image = nil
-            artworkBlurView.isHidden = true
-        }
-    }
 }
 
 // MARK: - Private initializers
@@ -395,7 +380,6 @@ private extension QueueViewController {
             view.backgroundColor = .clear
         } else {
             view.backgroundColor = PresentationTheme.darkTheme.colors.background
-            artworkImageBackgroundView.backgroundColor = PresentationTheme.darkTheme.colors.background
             grabberView.backgroundColor = PresentationTheme.darkTheme.colors.background
         }
 
@@ -405,7 +389,6 @@ private extension QueueViewController {
         topView.alpha = 0.1
         themeDidChange()
         grabberView.layer.cornerRadius = 2.5
-        view.backgroundColor = PresentationTheme.darkTheme.colors.background
 
         closeButton.setTitle("", for: .normal)
         closeButton.tintColor = .white
