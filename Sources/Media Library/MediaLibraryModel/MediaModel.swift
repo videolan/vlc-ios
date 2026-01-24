@@ -101,7 +101,7 @@ extension VLCMLMedia {
         attributeSet.local = 1
         attributeSet.playCount = NSNumber(value: playCount())
         if thumbnailStatus() == .available {
-            let image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
+            let image = VLCThumbnailsCache.minimizedThumbnail(for: thumbnail())
             attributeSet.thumbnailData = image?.jpegData(compressionQuality: 0.9)
         }
         attributeSet.codecs = codecs()
