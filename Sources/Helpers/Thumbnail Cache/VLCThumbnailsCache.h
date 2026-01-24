@@ -2,7 +2,7 @@
  * VLCThumbnailsCache.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
@@ -15,6 +15,7 @@
 @interface VLCThumbnailsCache : NSObject
 
 + (nullable UIImage *)thumbnailForURL:(nullable NSURL *)url;
++ (nullable UIImage *)minimizedThumbnailForURL:(nullable NSURL *)url;
 + (void)invalidateThumbnailForURL:(nullable NSURL *)url;
 
 @end

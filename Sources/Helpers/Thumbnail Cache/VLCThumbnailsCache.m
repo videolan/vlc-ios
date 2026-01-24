@@ -2,7 +2,7 @@
  * VLCThumbnailsCache.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
@@ -80,6 +80,13 @@
     [sharedCache _invalidateThumbnailForURL:url];
 }
 
++ (UIImage *)minimizedThumbnailForURL:(NSURL *)url
+{
+    VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
+    UIImage *thumbnail = [sharedCache _thumbnailForURL:url];
+    return [sharedCache minimisedThumbnail:thumbnail];
+}
+
 - (void)_setThumbnail:(UIImage *)image forURL:(NSURL *)url
 {
     if (image)
@@ -105,6 +112,39 @@
 - (void)_invalidateThumbnailForURL:(NSURL *)url
 {
     [_thumbnailCache removeObjectForKey:url];
+}
+
+- (UIImage *)minimisedThumbnail:(UIImage *)thumbnail
+{
+    CGSize thumbnailSize = thumbnail.size;
+    if (thumbnailSize.width <= 0 || thumbnailSize.height <= 0) {
+        return thumbnail;
+    }
+
+    // those are the minimal dimensions suggested by Apple
+    CGFloat scale = MIN(180 / thumbnailSize.width, 270 / thumbnailSize.height);
+    if (scale >= 1.0) {
+        return thumbnail;
+    }
+
+    CGSize targetSize = CGSizeMake(floor(thumbnailSize.width * scale), floor(thumbnailSize.height * scale));
+
+    UIGraphicsBeginImageContextWithOptions(targetSize, NO, 1.0);
+
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    if (!ctx) {
+        UIGraphicsEndImageContext();
+        return thumbnail;
+    }
+
+    CGContextSetInterpolationQuality(ctx, kCGInterpolationHigh);
+
+    [thumbnail drawInRect:(CGRect){ .origin = CGPointZero, .size = targetSize }];
+
+    UIImage *resized = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return resized ?: thumbnail;
 }
 
 @end
