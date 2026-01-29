@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzP-MG-LJr">
-                    <rect key="frame" x="14" y="628" width="365" height="125"/>
+                    <rect key="frame" x="14" y="594" width="365" height="125"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Donate today" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzi-V0-eZl">
                             <rect key="frame" x="94" y="10.999999999999998" width="106.33333333333331" height="20.333333333333329"/>
@@ -79,8 +79,9 @@
                     <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstItem="Kg4-5N-r77" firstAttribute="top" secondItem="TzP-MG-LJr" secondAttribute="top" constant="14" id="2Ar-77-Xuq"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="450" id="3kW-RJ-bxg"/>
                         <constraint firstItem="jFo-f2-HtM" firstAttribute="leading" secondItem="ji7-UV-dfC" secondAttribute="trailing" constant="20" id="8a4-hx-fLs"/>
-                        <constraint firstAttribute="height" constant="125" id="9xm-Pl-PLP"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="125" id="9xm-Pl-PLP"/>
                         <constraint firstItem="Qcx-jE-MX4" firstAttribute="top" secondItem="Jzi-V0-eZl" secondAttribute="bottom" constant="8" id="D1k-6o-fbX"/>
                         <constraint firstItem="ji7-UV-dfC" firstAttribute="centerX" secondItem="TzP-MG-LJr" secondAttribute="centerX" id="K0l-vh-Kqp"/>
                         <constraint firstItem="Qcx-jE-MX4" firstAttribute="leading" secondItem="Jzi-V0-eZl" secondAttribute="leading" id="OEg-3u-QBZ"/>
@@ -89,6 +90,7 @@
                         <constraint firstItem="ji7-UV-dfC" firstAttribute="centerY" secondItem="JIB-eN-6Dc" secondAttribute="centerY" id="agg-4Y-iEH"/>
                         <constraint firstAttribute="trailing" secondItem="Qcx-jE-MX4" secondAttribute="trailing" constant="14" id="d6i-WV-qpx"/>
                         <constraint firstAttribute="bottom" secondItem="ji7-UV-dfC" secondAttribute="bottom" constant="10" id="dFT-Qn-lxI"/>
+                        <constraint firstItem="ji7-UV-dfC" firstAttribute="top" secondItem="Qcx-jE-MX4" secondAttribute="bottom" constant="7.6666666666666288" id="f3m-cd-qKn"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jzi-V0-eZl" secondAttribute="trailing" constant="8" id="fQ1-Ta-4Rs"/>
                         <constraint firstAttribute="trailing" secondItem="jFo-f2-HtM" secondAttribute="trailing" constant="20" id="nLu-EQ-47W"/>
                         <constraint firstItem="JIB-eN-6Dc" firstAttribute="leading" secondItem="TzP-MG-LJr" secondAttribute="leading" constant="20" id="s1S-YM-GAL"/>
