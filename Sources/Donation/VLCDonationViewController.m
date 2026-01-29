@@ -318,9 +318,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [_activityIndicatorView stopAnimating];
     [self hidePurchaseInterface:NO];
     [_applePayButton removeFromSuperview];
-    _applePayButton = nil;
     [_payPalImageView removeFromSuperview];
-    _payPalImageView = nil;
     _presentingCurrencySelector = NO;
     [self presentViewController:_actionSheet animated:YES completion:nil];
 }
@@ -601,10 +599,25 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _paymentProviders = [NSMutableArray array];
     if (_selectedCurrency.supportsPayPal) {
         [_paymentProviders addObject:@"PayPal"];
+
+        UIImage *paypalLogo = [UIImage imageNamed:@"paypal-color"];
+        _payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
+        _payPalImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _payPalImageView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     // Check if Apple Pay is available
     if ([PKPaymentAuthorizationViewController canMakePayments]) {
         [_paymentProviders addObject:@"Apple Pay"];
+
+        if (@available(iOS 10.2, *)) {
+            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
+        } else {
+            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
+        }
+
+        _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
+        /* This is a fake button, the action is handled by the containing collection view */
+        _applePayButton.userInteractionEnabled = NO;
     }
     /* we need to support credit card authentication via 3D Secure for which we depend on
      * ASWebAuthenticationSession that was introduced in iOS 12 */
@@ -692,15 +705,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     cell.name.text = @"";
 
     if ([paymentProviderName isEqualToString:@"Apple Pay"]) {
-        if (@available(iOS 10.2, *)) {
-            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
-        } else {
-            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
-        }
         [cell addSubview:_applePayButton];
-        _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
-        /* This is a fake button, the action is handled by the containing collection view */
-        _applePayButton.userInteractionEnabled = NO;
 
         NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
         [constraints addObject:[_applePayButton.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
@@ -709,11 +714,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         [constraints addObject:[_applePayButton.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]];
         [cell addConstraints:constraints];
     } else if ([paymentProviderName isEqualToString:@"PayPal"]) {
-        UIImage *paypalLogo = [UIImage imageNamed:@"paypal-color"];
-        _payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
-        _payPalImageView.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:_payPalImageView];
-        _payPalImageView.translatesAutoresizingMaskIntoConstraints = NO;
 
         NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
         [constraints addObject:[_payPalImageView.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
