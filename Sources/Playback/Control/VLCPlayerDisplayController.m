@@ -292,10 +292,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            if ([_playbackController.delegate isKindOfClass:[VLCAudioPlayerViewController class]]) {
-                [self closeAudioPlayer];
-            } else {
-                [self _closeFullscreenPlayback];
+            if (_playbackController.delegate) {
+                if ([_playbackController.delegate isKindOfClass:[VLCAudioPlayerViewController class]]) {
+                    [self closeAudioPlayer];
+                } else {
+                    [self _closeFullscreenPlayback];
+                }
             }
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
