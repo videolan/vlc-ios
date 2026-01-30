@@ -212,7 +212,6 @@
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
                                name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
@@ -318,16 +317,6 @@
     VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
     // Start P Cloud session on init to check whether it is logged in or not as soon as possible
     [controller startSession];
-}
-
-- (void)boxSessionUpdated
-{
-    __weak typeof(self) weakSelf = self;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf->_remoteNetworkTableView reloadData];
-    });
 }
 
 #pragma mark - table view handling
