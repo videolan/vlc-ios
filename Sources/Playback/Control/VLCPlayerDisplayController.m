@@ -71,6 +71,17 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
 
+    [super viewDidLoad];
+}
+
+#pragma mark - properties
+
+- (UIViewController *)videoPlayerViewController
+{
+    if (_videoPlayerViewController) {
+        return _videoPlayerViewController;
+    }
+
     VLCPlayerController *pc = [[VLCPlayerController alloc] init];
     VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
 #if TARGET_OS_IOS
@@ -84,13 +95,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                                   playerController:pc];
 #endif
 
-    [super viewDidLoad];
-}
-
-#pragma mark - properties
-
-- (UIViewController *)videoPlayerViewController
-{
     return _videoPlayerViewController;
 }
 
@@ -120,7 +124,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 #if TARGET_OS_TV
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #else
-        _movieViewController = _videoPlayerViewController;
+        _movieViewController = self.videoPlayerViewController;
         ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
         [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewControllerWithQvc:_queueViewController];
 #endif
@@ -130,7 +134,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         }
     } else {
 #if !TARGET_OS_TV
-        _movieViewController = _videoPlayerViewController;
+        _movieViewController = self.videoPlayerViewController;
 #endif
     }
     return _movieViewController;

@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
 @property (nonatomic, readonly) BOOL canBecomeFirstResponder;
-@property (readonly, nullable) UIViewController *videoPlayerViewController;
+@property (readonly, nonnull) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;
 @property (readwrite, nonatomic) VLCMLMediaType currentMediaType;
 
 - (instancetype)init;
