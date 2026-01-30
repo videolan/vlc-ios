@@ -41,11 +41,6 @@
 
 #import "VLCWiFiUploadTableViewCell.h"
 
-#import "VLCBoxController.h"
-#import <OneDriveSDK.h>
-#import "VLCOneDriveConstants.h"
-#import "VLCDropboxConstants.h"
-
 #import "VLC-Swift.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
@@ -229,8 +224,6 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
-
-    [self configureCloudControllers];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -299,24 +292,6 @@
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)
         loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
-}
-
-- (void)configureCloudControllers
-{
-    VLCBoxController *boxController = [VLCBoxController sharedInstance];
-    // Start Box session on init to check whether it is logged in or not as soon as possible
-    [boxController startSession];
-
-    // Configure Dropbox
-    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
-    [DBClientsManager authorizedClient];
-
-    // Configure OneDrive
-    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
-
-    VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
-    // Start P Cloud session on init to check whether it is logged in or not as soon as possible
-    [controller startSession];
 }
 
 #pragma mark - table view handling

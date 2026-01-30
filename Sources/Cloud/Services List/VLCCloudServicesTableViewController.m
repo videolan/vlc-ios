@@ -21,6 +21,11 @@
 #import "VLCDocumentPickerController.h"
 #import "VLCCloudServiceCell.h"
 
+#import "VLCBoxController.h"
+#import <OneDriveSDK.h>
+#import "VLCOneDriveConstants.h"
+#import "VLCDropboxConstants.h"
+
 #import "VLCGoogleDriveController.h"
 #import "VLC-Swift.h"
 
@@ -43,6 +48,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [self themeDidChange];
+
+    [self configureCloudControllers];
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
@@ -69,6 +76,24 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+}
+
+- (void)configureCloudControllers
+{
+    VLCBoxController *boxController = [VLCBoxController sharedInstance];
+    // Start Box session on init to check whether it is logged in or not as soon as possible
+    [boxController startSession];
+
+    // Configure Dropbox
+    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+    [DBClientsManager authorizedClient];
+
+    // Configure OneDrive
+    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
+
+    VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
+    // Start P Cloud session on init to check whether it is logged in or not as soon as possible
+    [controller startSession];
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification
