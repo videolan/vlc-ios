@@ -72,13 +72,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
 
-    VLCPlayerController *pc = [[VLCPlayerController alloc] init];
-    VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
-    _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
-                                  initWithMediaLibraryService:ac.mediaLibraryService
-                                  rendererDiscovererManager:ac.rendererDiscovererManager
-                                  playerController:pc];
-
     [super viewDidLoad];
 }
 
@@ -86,6 +79,17 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (UIViewController *)videoPlayerViewController
 {
+    if (_videoPlayerViewController) {
+        return _videoPlayerViewController;
+    }
+
+    VLCPlayerController *pc = [[VLCPlayerController alloc] init];
+    VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
+    _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
+                                  initWithMediaLibraryService:ac.mediaLibraryService
+                                  rendererDiscovererManager:ac.rendererDiscovererManager
+                                  playerController:pc];
+
     return _videoPlayerViewController;
 }
 
@@ -113,7 +117,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self initQueueViewController];
         }
 #if TARGET_OS_IOS
-            _movieViewController = _videoPlayerViewController;
+            _movieViewController = self.videoPlayerViewController;
             ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
             [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewControllerWithQvc:_queueViewController];
 #else
@@ -125,7 +129,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         }
     } else {
 #if TARGET_OS_IOS
-        _movieViewController = _videoPlayerViewController;
+        _movieViewController = self.videoPlayerViewController;
 #endif
     }
     return _movieViewController;
