@@ -38,14 +38,14 @@ lint:
 
 ### iOS Builds
 
-iOS 12.x:
+iOS 26.x:
     extends:
         - .job-base
         - .build-base
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
-        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone X,OS=12.4"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone Air,OS=26.2"
 
 iOS 15.x:
     extends:
@@ -54,7 +54,7 @@ iOS 15.x:
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
-        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 11,OS=15.4"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 13,OS=15.4"
 
 ### tvOS Builds
 
