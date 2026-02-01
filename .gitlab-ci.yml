@@ -6,7 +6,7 @@ default:
     before_script:
         - pod update
     tags:
-        - macos-xcode15
+        - macos-xcode26
     interruptible: true
 
 variables:
@@ -63,7 +63,7 @@ tvOS 15.x:
         - .job-base
         - .build-base
     tags:
-        - macos-xcode15
+        - macos-xcode26
     stage: build
     variables:
         BUILD_SCHEME: "VLC-tvOS"
@@ -76,7 +76,7 @@ visionOS 1.x:
         - .job-base
         - .build-base
     tags:
-        - macos-xcode15
+        - macos-xcode26
     stage: build
     variables:
         BUILD_SCHEME: "VLC-visionOS"
