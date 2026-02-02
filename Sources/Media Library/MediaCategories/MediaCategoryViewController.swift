@@ -246,31 +246,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let videoModel = VideoModel(medialibrary: mediaLibraryService)
         videoModel.secondName = model.name
 
-        let wantsFolder = userDefaults.bool(forKey: KVLCFolderViewLayout)
-        let disableGrouping = userDefaults.bool(forKey: kVLCSettingsDisableGrouping)
-
-        var initialModel: MediaLibraryBaseModel = model
-        var initialSecondModel: MediaLibraryBaseModel = videoModel
-
-        if wantsFolder, model is VideoModel || model is MediaGroupViewModel {
-            if let baseFolder = mediaLibraryService.medialib.folder(
-                atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            ) {
-                initialSecondModel = model
-                initialModel = FolderModel(medialibrary: mediaLibraryService,
-                                           isAudio: false,
-                                           folder: baseFolder)
-            }
-        }
-
-        else if model is MediaGroupViewModel, !wantsFolder {
-            if disableGrouping {
-                initialModel = videoModel
-                initialSecondModel = model
-            } else {
-                initialModel = model
-                initialSecondModel = videoModel
-            }
+        if model is MediaGroupViewModel {
+            self.model = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? videoModel : model
+            self.secondModel = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? model : videoModel
+        } else {
+            self.model = model
+            self.secondModel = videoModel
         }
 
 #if os(iOS)

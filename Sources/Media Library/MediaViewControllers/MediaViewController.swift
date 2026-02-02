@@ -435,7 +435,7 @@ extension MediaViewController {
                                   state: isGridLayout ? .on : .off,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: isFolder)
+            mediaCategoryViewController?.handleLayoutChange(gridLayout: true, isFolder: isFolder)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -444,7 +444,7 @@ extension MediaViewController {
                                   state: isGridLayout ? .off : .on,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController.handleLayoutChange(gridLayout: false, isFolder: isFolder)
+            mediaCategoryViewController?.handleLayoutChange(gridLayout: false, isFolder: isFolder)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 

@@ -12,7 +12,7 @@ class FolderModel: MLBaseModel {
     var medialibrary: MediaLibraryService
 
     var sortModel = SortModel([.alpha, .album, .duration, .fileSize, .insertionDate, .lastPlaybackDate, .playCount])
-    var observable = Observable<MediaLibraryBaseModelObserver>()
+    var observable = VLCObservable<MediaLibraryBaseModelObserver>()
     var fileArrayLock = NSRecursiveLock()
     var isAudio: Bool
 
@@ -20,9 +20,8 @@ class FolderModel: MLBaseModel {
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder
 
-    var cellType: BaseCollectionViewCell.Type = MediaCollectionViewCell.self
     var name: String = "Folder"
-    var indicatorName: String = NSLocalizedString("Folder", comment: "")
+    var indicatorName: String = NSLocalizedString("BUTTON_FOLDER", comment: "")
     var cellType: BaseCollectionViewCell.Type {
         if isAudio {
             return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\("FOLDER_AUDIO")") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
@@ -67,8 +66,8 @@ class FolderModel: MLBaseModel {
                 folderMediaFiles.remove(at: index)
             }
         }
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
@@ -84,8 +83,8 @@ class FolderModel: MLBaseModel {
         sortModel.currentSort = criteria
         sortModel.desc = desc
 
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }
@@ -93,14 +92,14 @@ class FolderModel: MLBaseModel {
 extension FolderModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddVideos videos: [VLCMLMedia]) {
         setupData()
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         setupData()
-        observable.observers.forEach() {
-            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 }

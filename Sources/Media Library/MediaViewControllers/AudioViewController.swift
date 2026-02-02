@@ -29,12 +29,14 @@ class AudioViewController: MediaViewController {
         return [
             ArtistCategoryViewController(mediaLibraryService),
             AlbumCategoryViewController(mediaLibraryService),
+            TrackCategoryViewController(mediaLibraryService),
+            GenreCategoryViewController(mediaLibraryService),
             FolderViewController(
                 mediaLibraryService,
                 isAudio: true,
                 folder: mediaLibraryService.medialib.folder(atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)!
             ),
-            GenreCategoryViewController(mediaLibraryService),
+
         ]
     }
 
