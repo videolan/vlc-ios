@@ -64,15 +64,15 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     Add `-n` if you want to use you own VLC repository for VLCKit (See [VLCKit README.md](https://code.videolan.org/videolan/VLCKit/blob/master/README.md)).
 
-3. Replace the MobileVLCKit.framework with the one you just built.
+3. Replace the VLCKit.framework with the one you just built.
 
     Inside your vlc-ios folder, after a `pod update`, do:
 
-    `cd Pods/MobileVLCKit`
+    `cd Pods/VLCKit`
 
-    `rm -rf MobileVLCKit.framework`
+    `rm -rf VLCKit.xcframework`
 
-    `ln -s ${VLCKit}/build/MobileVLCKit.framework`
+    `ln -s ${VLCKit}/build/VLCKit.xcframework`
 
 4. Hit "Build and Run".
 
