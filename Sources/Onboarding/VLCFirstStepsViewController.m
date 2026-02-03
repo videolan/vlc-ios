@@ -93,12 +93,11 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     VLCFirstStepsPage currentPage = VLCFirstStepsPageFirst;
+
     if ([viewController respondsToSelector:@selector(page)]) {
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
     }
-    if (currentPage == VLCFirstStepsPageCount - 1) {
-        return nil;
-    }
+
     NSArray <Class> *pageClasses = VLCFirstStepsBaseViewController.pageClasses;
     NSUInteger afterIndex = (VLCFirstStepsPageCount + currentPage + 1) % VLCFirstStepsPageCount;
     return [[pageClasses[afterIndex] alloc] initWithNibName:nil bundle:nil];
@@ -107,12 +106,11 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     VLCFirstStepsPage currentPage = VLCFirstStepsPageFirst;
+
     if ([viewController respondsToSelector:@selector(page)]) {
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
     }
-    if (currentPage == VLCFirstStepsPageFirst) {
-        return nil;
-    }
+
     NSArray <Class> *pageClasses = VLCFirstStepsBaseViewController.pageClasses;
     NSUInteger beforeIndex = (VLCFirstStepsPageCount + currentPage - 1) % VLCFirstStepsPageCount;
     return [[pageClasses[beforeIndex] alloc] initWithNibName:nil bundle:nil];
