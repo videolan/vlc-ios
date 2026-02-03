@@ -117,18 +117,28 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let vc = viewController(indexPath: indexPath) {
-            if let vc = vc as? UIDocumentPickerViewController {
-                delegate?.showDocumentPickerViewController(vc)
-            } else {
-                delegate?.showViewController(vc)
-            }
-        } else if RemoteNetworkCellType(rawValue: indexPath.row + RemoteNetworkCellType.first) == .wifi {
-            if tableView.cellForRow(at: indexPath)?.selectionStyle == .default {
-                UIPasteboard.general.string = VLCAppCoordinator.sharedInstance().httpUploaderController.addressToCopy()
-                UIAlertController.autoDismissable(title: NSLocalizedString("WEBINTF_TITLE", comment: ""),
-                                                  message: NSLocalizedString("WEBINTF_ADDRESS_COPIED", comment: ""))
-            }
+
+        if let cellType = RemoteNetworkCellType(rawValue: indexPath.row + RemoteNetworkCellType.first), cellType == .local {
+            ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: { [weak self] in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    if let vc = self.viewController(indexPath: indexPath) {
+                        if let vc = vc as? UIDocumentPickerViewController {
+                            self.delegate?.showDocumentPickerViewController(vc)
+                        } else {
+                            self.delegate?.showViewController(vc)
+                        }
+                    } else if RemoteNetworkCellType(rawValue: indexPath.row + RemoteNetworkCellType.first) == .wifi {
+                        if tableView.cellForRow(at: indexPath)?.selectionStyle == .default {
+                            UIPasteboard.general.string = VLCAppCoordinator.sharedInstance().httpUploaderController.addressToCopy()
+                            UIAlertController.autoDismissable(title: NSLocalizedString("WEBINTF_TITLE", comment: ""),
+                                                              message: NSLocalizedString("WEBINTF_ADDRESS_COPIED", comment: ""))
+                        }
+                    }
+                }
+            }, fail: {
+            })
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 

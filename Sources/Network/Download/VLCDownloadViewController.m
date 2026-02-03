@@ -143,10 +143,11 @@
                                                viewController:self];
             return;
         }
-
-        VLCMedia *media = [VLCMedia mediaWithURL:URLtoSave];
-        [_downloadController addVLCMediaToDownloadList:media fileNameOfMedia:lastPathComponent expectedDownloadSize:0];
-        self.urlField.text = @"";
+        [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{            
+            VLCMedia *media = [VLCMedia mediaWithURL:URLtoSave];
+            [self->_downloadController addVLCMediaToDownloadList:media fileNameOfMedia:lastPathComponent expectedDownloadSize:0];
+            self.urlField.text = @"";
+        } fail:nil];
     }
 }
 

@@ -29,6 +29,7 @@ class TabBarCoordinator: NSObject {
         super.init()
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     // MARK: - Setup methods
@@ -155,6 +156,21 @@ class TabBarCoordinator: NSObject {
             assertionFailure("unhandled shortcut")
         }
     }
+    
+    @objc func handleAppDidBecomeActive() {
+        guard let selectedVC = tabBarController.selectedViewController as? UINavigationController,
+              selectedVC.topViewController is SettingsController else {
+            return
+        }
+
+        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+        }, fail: {
+            let previousIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
+            DispatchQueue.main.async {
+                self.tabBarController.selectedIndex = previousIndex == self.tabBarController.selectedIndex ? 0 : previousIndex
+            }
+        })
+    }
 }
 
 // MARK: - UITabBarControllerDelegate
@@ -163,5 +179,18 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
         UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let navController = viewController as? UINavigationController,
+           navController.topViewController is SettingsController {
+            ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+                DispatchQueue.main.async {
+                    tabBarController.selectedViewController = viewController
+                }
+            })
+            return false
+        }
+        return true
     }
 }

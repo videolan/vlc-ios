@@ -324,11 +324,18 @@ enum PrivacyOptions {
                 preferenceKey: kVLCSettingHideLibraryInFilesApp)
     }
 
+    static var parentalControl: SettingsItem {
+        .toggle(title: "SETTINGS_PARENTAL_CONTROL",
+                subtitle: "SETTINGS_PARENTAL_CONTROL_SUBTITLE",
+                preferenceKey: kVLCSettingParentalControl)
+    }
+
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_PRIVACY_TITLE", items: [
             passcodeLock,
             enableBiometrics,
             hideLibraryInFilesApp,
+            parentalControl
         ].compactMap { $0 })
     }
 }

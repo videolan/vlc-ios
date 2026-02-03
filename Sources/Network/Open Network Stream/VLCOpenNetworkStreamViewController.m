@@ -481,16 +481,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    NSURL *playbackURL = [NSURL URLWithString:url];
+    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
+        NSURL *playbackURL = [NSURL URLWithString:url];
 
-    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:url]];
-    VLCMediaList *medialist = [[VLCMediaList alloc] init];
-    [medialist addMedia:media];
-    [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        VLCMedia *media = [VLCMedia mediaWithURL:playbackURL];
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+        [medialist addMedia:media];
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 
-    if (self.scanSubToggleButton.selected) {
-        [VLCOpenNetworkSubtitlesFinder tryToFindSubtitleOnServerForURL:playbackURL];
-    }
+        if (self.scanSubToggleButton.selected) {
+            [VLCOpenNetworkSubtitlesFinder tryToFindSubtitleOnServerForURL:playbackURL];
+        }
+    } fail:nil];
 }
 
 - (void)_saveData

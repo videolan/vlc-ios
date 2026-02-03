@@ -76,37 +76,50 @@ extension EditActions {
 
     func addToPlaylist(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
-        if !mediaLibraryService.playlists().isEmpty {
-            addToCollection(mediaLibraryService.playlists(), for: VLCMLPlaylist.self)
-        } else {
-            addToNewPlaylist()
-        }
+        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+            DispatchQueue.main.async {
+                if !self.mediaLibraryService.playlists().isEmpty {
+                    self.addToCollection(self.mediaLibraryService.playlists(), for: VLCMLPlaylist.self)
+                } else {
+                    self.addToNewPlaylist()
+                }
+            }
+        }, fail: {
+            self.completion?(.fail)
+        })
     }
 
     func addToMediaGroup(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
 
-        var mediaGroupIds = [VLCMLIdentifier]()
-        objects.forEach() { mediaGroupIds.append($0.identifier()) }
-
-        guard var mediaGroups = mediaLibraryService.medialib.mediaGroups() else {
-            assertionFailure("EditActions: addToMediaGroup: Failed to retrieve mediaGroups.")
-            completion?(.fail)
-            return
-        }
-
-        // Filter out visible groups and action originated source media groups
-        mediaGroups = mediaGroups.filter() {
-            if mediaGroupIds.contains($0.identifier()) {
-                // Do not include the current selection
-                return false
-            } else if $0.nbTotalMedia() == 1 && !$0.userInteracted() {
-                // Do not include elements shown as a media
-                return false
+        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+            DispatchQueue.main.async {
+                var mediaGroupIds = [VLCMLIdentifier]()
+                self.objects.forEach { mediaGroupIds.append($0.identifier()) }
+                
+                guard var mediaGroups = self.mediaLibraryService.medialib.mediaGroups() else {
+                    assertionFailure("EditActions: addToMediaGroup: Failed to retrieve mediaGroups.")
+                    self.completion?(.fail)
+                    return
+                }
+                
+                // Filter out visible groups and action originated source media groups
+                mediaGroups = mediaGroups.filter {
+                    if mediaGroupIds.contains($0.identifier()) {
+                        // Do not include the current selection
+                        return false
+                    } else if $0.nbTotalMedia() == 1 && !$0.userInteracted() {
+                        // Do not include elements shown as a media
+                        return false
+                    }
+                    return true
+                }
+                
+                self.addToCollection(mediaGroups, for: VLCMLMediaGroup.self)
             }
-            return true
-        }
-        addToCollection(mediaGroups, for: VLCMLMediaGroup.self)
+        }, fail: {
+            self.completion?(.fail)
+        })
     }
 
     func removeFromMediaGroup(_ completion: ((completionState) -> Void)? = nil) {
@@ -128,18 +141,24 @@ extension EditActions {
             return
         }
 
-        if let mediaGroup = collectionModel.mediaCollection as? VLCMLMediaGroup,
-           mediaGroup.nbTotalMedia() == media.count {
-            guard mediaGroup.destroy() else {
-                assertionFailure("EditActions: removeFromMediaGroup: Failed to destroy mediaGroup.")
-                completion?(.fail)
-                return
+        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+            DispatchQueue.main.async {
+                if let mediaGroup = collectionModel.mediaCollection as? VLCMLMediaGroup,
+                   mediaGroup.nbTotalMedia() == media.count {
+                    guard mediaGroup.destroy() else {
+                        assertionFailure("EditActions: removeFromMediaGroup: Failed to destroy mediaGroup.")
+                        self.completion?(.fail)
+                        return
+                    }
+                } else {
+                    media.forEach { $0.removeFromGroup() }
+                }
+                collectionModel.filterFilesFromDeletion(of: media)
+                self.completion?(.success)
             }
-        } else {
-            media.forEach() { $0.removeFromGroup() }
-        }
-        collectionModel.filterFilesFromDeletion(of: media)
-        completion?(.success)
+        }, fail: {
+            self.completion?(.fail)
+        })
     }
 
     func rename(_ completion: ((completionState) -> Void)? = nil) {
@@ -167,18 +186,21 @@ extension EditActions {
                     self.completion?(.fail)
                     return
                 }
-
-                if let media = mlObject as? VLCMLMedia {
-                    media.updateTitle(text)
-                } else if let playlist = mlObject as? VLCMLPlaylist {
-                    playlist.updateName(text)
-                } else if let mediaGroup = mlObject as? VLCMLMediaGroup,
-                          let mediaGroupViewModel = self.model as? MediaGroupViewModel {
-                    mediaGroupViewModel.rename(mediaGroup, to: text)
-                }
-                self.objects.removeFirst()
-                self.completion?(.inProgress)
-                self.rename(completion)
+                ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
+                    if let media = mlObject as? VLCMLMedia {
+                        media.updateTitle(text)
+                    } else if let playlist = mlObject as? VLCMLPlaylist {
+                        playlist.updateName(text)
+                    } else if let mediaGroup = mlObject as? VLCMLMediaGroup,
+                              let mediaGroupViewModel = self.model as? MediaGroupViewModel {
+                        mediaGroupViewModel.rename(mediaGroup, to: text)
+                    }
+                    self.objects.removeFirst()
+                    self.completion?(.inProgress)
+                    self.rename(completion)
+                }, fail: {
+                    self.completion?(.fail)
+                })
             })
         } else {
             self.completion?(.success)
@@ -204,6 +226,8 @@ extension EditActions {
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
                                           style: .destructive,
                                           action: { [unowned self] action in
+            ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(
+                action: {
                      if let model = model as? FolderModel {
                             model.delete(media: (self.objects as? [VLCMLMedia])!)
                             self.completion?(.success)
@@ -211,7 +235,11 @@ extension EditActions {
                             self.model.anyDelete(self.objects)
                             self.objects.removeAll()
                      }
-                      self.completion?(.success)
+                },
+                fail: {
+                    self.completion?(.fail)
+                }
+            )
         })
 
         VLCAlertViewController.alertViewManager(title: title,

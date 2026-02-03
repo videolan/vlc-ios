@@ -485,6 +485,8 @@ extension SettingsController: SettingsCellDelegate {
             PresentationTheme.themeDidUpdate()
         case kVLCSettingPasscodeOnKey:
             passcodeLockSwitchOn(state: isOn)
+        case kVLCSettingParentalControl:
+            parentalControlSwitchOn(state: isOn)
         case kVLCSettingHideLibraryInFilesApp:
             medialibraryHidingLockSwitchOn(state: isOn)
         case kVLCSettingBackupMediaLibrary:
@@ -537,6 +539,22 @@ extension SettingsController {
             try? KeychainCoordinator.passcodeService.removeSecret()
 
             reloadSettingsSections()
+        }
+    }
+}
+
+extension SettingsController {
+    func parentalControlSwitchOn(state: Bool) {
+        if state {
+            ParentalControlCoordinator.shared.enableParentalControl(completion: { success in
+                UserDefaults.standard.set(success, forKey: kVLCSettingParentalControl)
+                self.reloadSettingsSections()
+            })
+        } else {
+            ParentalControlCoordinator.shared.disableParentalControl {
+                UserDefaults.standard.set(false, forKey: kVLCSettingParentalControl)
+                self.reloadSettingsSections()
+            }
         }
     }
 }

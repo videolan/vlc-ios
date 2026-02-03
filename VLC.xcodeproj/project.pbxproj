@@ -560,6 +560,7 @@
 		7D7FAC032F30C82D00AFD748 /* FolderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C04212C3EAEEC003B005E /* FolderModel.swift */; };
 		7D7FAC042F30C85C00AFD748 /* FolderCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */; };
 		7D7FAC052F30C85C00AFD748 /* FolderCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */; };
+		7D7FAC062F30CD0700AFD748 /* ParentalControlCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049E89D2DF8C166004F4299 /* ParentalControlCoordinator.swift */; };
 		7D84E4C61B41AB2800EA7D1F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D84E4C91B41ABCE00EA7D1F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */; };
 		7D87D1CE24CDD4A800A0DF14 /* VLCConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D87D1CD24CDD4A800A0DF14 /* VLCConfettiView.swift */; };
@@ -1218,6 +1219,8 @@
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */; };
 		E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */; };
+		E049E89E2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049E89D2DF8C166004F4299 /* ParentalControlCoordinator.swift */; };
+		E049E89F2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049E89D2DF8C166004F4299 /* ParentalControlCoordinator.swift */; };
 		E08AD1712304DDE800E023B9 /* MediaPlayerActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 		E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F8980322D399E10061DB2F /* MediaScrubProgressBar.swift */; };
@@ -2077,6 +2080,7 @@
 		DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceProtocol.m; path = "Sources/Network/Login/Data Sources/VLCNetworkLoginDataSourceProtocol.m"; sourceTree = SOURCE_ROOT; };
 		E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
 		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNavigationBar.swift; sourceTree = "<group>"; };
+		E049E89D2DF8C166004F4299 /* ParentalControlCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentalControlCoordinator.swift; sourceTree = "<group>"; };
 		E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerActionSheet.swift; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = "Sources/Cloud/Document Picker/VLCDocumentPickerController.h"; sourceTree = SOURCE_ROOT; };
 		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = "Sources/Cloud/Document Picker/VLCDocumentPickerController.m"; sourceTree = SOURCE_ROOT; };
@@ -2385,6 +2389,7 @@
 			isa = PBXGroup;
 			children = (
 				448BA8472D83115D008CCDFF /* PreferenceSetting.swift */,
+				E049E89D2DF8C166004F4299 /* ParentalControlCoordinator.swift */,
 				419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */,
 				8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */,
 				4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */,
@@ -5182,6 +5187,7 @@
 				7D50C6532BBD20DF00B9F1A0 /* ActionSheetSectionHeader.swift in Sources */,
 				7D50C6542BBD20DF00B9F1A0 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D50C6552BBD20DF00B9F1A0 /* UIImage+Gradient.swift in Sources */,
+				E049E89E2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
 				7D50C6562BBD20DF00B9F1A0 /* QueueViewController.swift in Sources */,
 				7D50C6572BBD20DF00B9F1A0 /* AlbumHeader.swift in Sources */,
 				7D50C6582BBD20DF00B9F1A0 /* URLHandler.swift in Sources */,
@@ -5550,6 +5556,7 @@
 				8DE187832105DB2E00A091D2 /* AudioViewController.swift in Sources */,
 				7DB0CB42247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				7D02C5A52A84F0830046DC5E /* VLCMLMedia+Podcast.m in Sources */,
+				E049E89F2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
 				7DC869E728CB87AB00EE99F8 /* VLCCloudServicesTableViewController.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCNetworkListCell.m in Sources */,
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
@@ -5783,6 +5790,7 @@
 				7DA514FE2EF82B63000C9995 /* VLCDonationPayPalViewController.m in Sources */,
 				7DA514FF2EF82B63000C9995 /* VLCFirstStepsBaseViewController.m in Sources */,
 				7DA515002EF82B63000C9995 /* CollectionViewCellPreviewController.swift in Sources */,
+				7D7FAC062F30CD0700AFD748 /* ParentalControlCoordinator.swift in Sources */,
 				7DA515012EF82B63000C9995 /* VideoFiltersView.swift in Sources */,
 				7DA515022EF82B63000C9995 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				7DA515032EF82B63000C9995 /* VLCPlexWebAPI.m in Sources */,

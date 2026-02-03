@@ -8,9 +8,10 @@
 · Add multi-channel and spatial audio
 · Add Picture-in-Picture playback
 · Add App-Intent to play media (iOS 16.4 and later)
+· Add Parental Control ("Kids Mode") to prevent accidental deletions and modifications
 · Audio player: Add seek backward/forward buttons
 · Add play count metadata to media long press UI
-· Add supports for passcodes with four and six digits
+· Add support for passcodes with four and six digits
 · Cloud services: allow downloads of entire folders and to favorite them
 · Major accessbility improvements for the playback interface
 · Last played item in a playlist is now indicated

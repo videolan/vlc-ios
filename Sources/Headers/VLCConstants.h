@@ -15,6 +15,7 @@
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingPasscodeEnableBiometricAuth @"EnableBiometricAuth"
 #define kVLCSettingHideLibraryInFilesApp @"HideLibraryInFilesApp"
+#define kVLCSettingParentalControl @"ParentalControl"
 #define kVLCThemeDidChangeNotification @"themeDidChangeNotfication"
 #define kVLCSettingAppTheme @"darkMode"
 #define kVLCSettingAppThemeBright 0
