@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
     VLCFirstStepsPageFirst,
     VLCFirstStepsPageiTunesSync = 0,
-    VLCFirstStepsPageWifiSharing,
     VLCFirstStepsPageClouds,
+    VLCFirstStepsPageWifiSharing,
     VLCFirstStepsDonate,
     VLCFirstStepsPageCount
 };
