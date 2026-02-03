@@ -32,7 +32,7 @@ lint:
     extends: .job-base
     stage: lint
     script:
-        - ./Pods/SwiftLint/swiftlint
+        - ./Pods/SwiftLint/swiftlint --config Buildsystem/swiftlint.yml
 
 ## Builds
 
