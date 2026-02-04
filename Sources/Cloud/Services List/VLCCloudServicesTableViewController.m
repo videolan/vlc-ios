@@ -80,20 +80,24 @@
 
 - (void)configureCloudControllers
 {
-    VLCBoxController *boxController = [VLCBoxController sharedInstance];
-    // Start Box session on init to check whether it is logged in or not as soon as possible
-    [boxController startSession];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        VLCBoxController *boxController = [VLCBoxController sharedInstance];
+        // Start Box session on init to check whether it is logged in or not as soon as possible
+        [boxController startSession];
 
-    // Configure Dropbox
-    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+        // Configure Dropbox
+        [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+
+        // Configure OneDrive
+        [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
+
+        VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
+        // Start P Cloud session on init to check whether it is logged in or not as soon as possible
+        [controller startSession];
+    });
+
     [DBClientsManager authorizedClient];
-
-    // Configure OneDrive
-    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
-
-    VLCPCloudController  *controller = [VLCPCloudController pCloudInstance];
-    // Start P Cloud session on init to check whether it is logged in or not as soon as possible
-    [controller startSession];
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification
