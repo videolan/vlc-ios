@@ -1181,6 +1181,15 @@ extension MediaCategoryViewController {
 
         return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        guard let model = model as? CollectionModel,
+              let album = model.mediaCollection as? VLCMLAlbum else {
+            return .zero
+        }
+
+        return AlbumFooter.getFooterSize(with: collectionView.frame.size.width, and: album)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -1234,6 +1243,17 @@ extension MediaCategoryViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            if kind == UICollectionView.elementKindSectionFooter,
+               let collectionModel = model as? CollectionModel,
+               let album = collectionModel.mediaCollection as? VLCMLAlbum,
+               let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumFooter.footerID, for: indexPath) as? AlbumFooter {
+                footer.configure(with: album)
+                return footer
+            }
+            return UICollectionReusableView()
+        }
+
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath)
         guard let header = headerView as? AlbumHeader,
               let collectionModel = model as? CollectionModel,
@@ -1537,6 +1557,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
 private extension MediaCategoryViewController {
     func setupCollectionView() {
         collectionView.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
+        collectionView.register(AlbumFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: AlbumFooter.footerID)
 
         if model.cellType.nibName == mediaGridCellNibIdentifier {
             //GridCells are made programmatically so we register the cell class directly.
