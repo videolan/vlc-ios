@@ -38,6 +38,7 @@ typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
 
 
 + (instancetype)sharedInstance;
+- (void)configureCloudControllers;
 
 - (void)startSession;
 - (void)logout;
