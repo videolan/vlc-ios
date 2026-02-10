@@ -162,7 +162,9 @@ class MediaLibraryService: NSObject {
     @objc var isExcludingFromBackup: Bool = false
     @objc var isHidingLibrary: Bool = false
 
+#if !os(watchOS)
     var currentlyPlayingCollection: CurrentlyPlayingCollectionModel?
+#endif
 
     override init() {
         super.init()
@@ -788,6 +790,7 @@ extension MediaLibraryService {
 
 // MARK: - Currently Playing Collection
 
+#if !os(watchOS)
 extension MediaLibraryService {
     func setCurrentlyPlayingCollection(with model: MediaLibraryBaseModel, for index: Int) {
         guard index != NSNotFound else {
@@ -832,3 +835,4 @@ extension MediaLibraryService {
         }
     }
 }
+#endif
