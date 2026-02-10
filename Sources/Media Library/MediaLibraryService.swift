@@ -411,13 +411,8 @@ private extension MediaLibraryService {
         let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
         let targetPath = documentPath + "/Logs/" + MediaLibraryService.databaseName
 
-        do {
-            try FileManager.default.createDirectory(atPath: targetPath,
-                                                    withIntermediateDirectories: true)
-        } catch let error as NSError {
-            assertionFailure("Failed to create directory: \(error.localizedDescription)")
-        }
-
+        _ = try? FileManager.default.createDirectory(atPath: targetPath,
+                                                     withIntermediateDirectories: true)
         _ = try? FileManager.default.removeItem(atPath: targetPath)
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
