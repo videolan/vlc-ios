@@ -1609,15 +1609,14 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
                     UserDefaults.standard.set(gridLayout, forKey: "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO")
                 } else {
                     UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO")
-
                 }
             } else {
                 secondModel = model
                 model = FolderModel(medialibrary: self.mediaLibraryService, isAudio: false, folder: baseFolder)
             }
-
-        } else {
+        } else if model is FolderModel && secondModel is MediaGroupViewModel {
             model = secondModel
+            secondModel = VideoModel(medialibrary: mediaLibraryService)
         }
 
         if let model = model as? CollectionModel {
