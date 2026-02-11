@@ -1057,6 +1057,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 if ([self->_listPlayer.mediaList indexOfMedia:self->_mediaPlayer.media] == listCount - 1
                     && self.repeatMode == VLCDoNotRepeat) {
                     self->_sessionWillRestart = NO;
+                    [self stopPlayback];
                 }
             } break;
             default:
