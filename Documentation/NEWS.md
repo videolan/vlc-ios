@@ -1,6 +1,12 @@
 # Changelog
 
 ## iOS [3.7.1]
+· add footer view to album collection to show more metadata
+· close playback screen when session ends
+· misc. performance improvements on launch
+· export smaller snapshots to the Spotlight service to decrease the memory impact
+
+## iOS [3.7.1]
 · fix playback regression introduced in the last update
 · fix playback of media stored outside the application context
 · fix shortcut actions on the app icon on cold start
