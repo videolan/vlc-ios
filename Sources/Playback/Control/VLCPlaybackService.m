@@ -436,11 +436,13 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
         if (_mediaPlayer) {
             if (_mediaPlayer.media) {
-                [_mediaPlayer pause];
+                if (_mediaPlayer.state != VLCMediaPlayerStateStopped) {
+                    [_mediaPlayer pause];
 #if TARGET_OS_IOS
-                [self savePlaybackState];
+                    [self savePlaybackState];
 #endif
-                [_mediaPlayer stop];
+                    [_mediaPlayer stop];
+                }
             }
         }
 
