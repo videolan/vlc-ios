@@ -2316,6 +2316,7 @@ extension MediaCategoryViewController {
 
         if !autoPlayNextItem {
             playbackController.play(media)
+            mediaLibraryService.setCurrentlyPlayingCollection(with: model, for: indexPath.row)
             return
         }
 
