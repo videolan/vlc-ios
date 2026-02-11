@@ -45,6 +45,14 @@ class BaseCollectionViewCell: UICollectionViewCell {
     class var interItemPadding: CGFloat {
         return 5
     }
+
+    func scaleUpCell(with duration: CGFloat, and scale: CGFloat) {
+        UIView.animate(withDuration: duration) {
+            self.transform = CGAffineTransform(scaleX: scale, y: scale)
+        } completion: { _ in
+            self.transform = .identity
+        }
+    }
 }
 
 enum DeviceDimensions: CGFloat {

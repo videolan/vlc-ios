@@ -1141,16 +1141,8 @@ extension MediaCategoryViewController {
             return
         }
 
-        if UIAccessibility.isReduceMotionEnabled {
-            cell.alpha = 0.7
-            UIView.animate(withDuration: 0.5) {
-                cell.alpha = 1.0
-            }
-        } else {
-            cell.alpha = 0.5
-            UIView.animate(withDuration: 1) {
-                cell.alpha = 1.0
-            }
+        if let cell = cell as? BaseCollectionViewCell {
+            cell.scaleUpCell(with: 0.75, and: 1.1)
         }
     }
 }
