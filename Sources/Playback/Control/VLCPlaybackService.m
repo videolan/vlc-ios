@@ -891,6 +891,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1
                 && self.repeatMode == VLCDoNotRepeat) {
                 _sessionWillRestart = NO;
+                [self stopPlayback];
             }
         } break;
         case VLCMediaPlayerStateESAdded: {
