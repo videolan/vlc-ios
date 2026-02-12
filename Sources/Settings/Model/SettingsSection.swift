@@ -205,7 +205,7 @@ enum GenericOptions: Int, CaseIterable, SectionType {
         case .rememberPlayerState:
             return nil
         case .restoreLastPlayedMedia:
-            return nil
+            return "SETTINGS_RESTORE_LAST_PLAYED_MEDIA_SUBTITLE"
         }
     }
 
