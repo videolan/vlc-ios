@@ -348,6 +348,11 @@
     VLCMLIdentifier identifier = [defaults integerForKey:kVLCLastPlayedMediaIdentifier];
     VLCMLMedia *media = [[[VLCAppCoordinator sharedInstance] mediaLibraryService] mediaFor:identifier];
 
+    if (media.isExternalMedia) {
+        // Do not recover the last playing media if it is an external one
+        return;
+    }
+
     // If media exists and not watched, recover it.
     if (media && ![media isWatched]) {
         [[VLCPlaybackService sharedInstance] playMedia:media openInMiniPlayer:YES];
