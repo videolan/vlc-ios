@@ -260,6 +260,7 @@ enum GenericOptions {
 
     static var restoreLastPlayedMedia: SettingsItem {
         .toggle(title: "SETTINGS_RESTORE_LAST_PLAYED_MEDIA",
+                subtitle: "SETTINGS_RESTORE_LAST_PLAYED_MEDIA_SUBTITLE",
                 preferenceKey: kVLCRestoreLastPlayedMedia)
     }
 
