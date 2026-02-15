@@ -38,7 +38,6 @@
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="399" height="593"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kLS-IV-Gce">
                             <rect key="frame" x="181" y="371" width="37" height="37"/>

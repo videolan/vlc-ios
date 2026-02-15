@@ -52,10 +52,31 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     self.creditCardNumberLabel.text = NSLocalizedString(@"DONATION_CC_NUM", nil);
     self.creditCardNumberField.delegate = self;
     self.expiryDateLabel.text = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE", nil);
-    self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
     self.expiryDateMonthField.delegate = self;
-    self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
     self.expiryDateYearField.delegate = self;
+
+    if (@available(iOS 13.0, *)) {
+        self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
+        self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
+    } else {
+        self.creditCardNumberField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"0000 0000 0000 0000"
+                                                                                          attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+        self.expiryDateMonthField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil)
+                                                                                          attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+        self.expiryDateYearField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil)
+                                                                                         attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+        self.cvvField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"123"
+                                                                              attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+    }
+
     self.cvvLabel.text = NSLocalizedString(@"DONATION_CC_CVV", nil);
     self.cvvField.delegate = self;
     if (@available(iOS 15.0, *)) {
@@ -113,6 +134,21 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _cvvField.backgroundColor = colors.background;
     _cvvField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _activityIndicator.color = colors.orangeUI;
+
+    if (@available(iOS 13.0, *)) {
+    } else {
+        self.view.backgroundColor = colors.background;
+        self.titleLabel.textColor = colors.cellTextColor;
+        self.descriptionLabel.textColor = colors.cellTextColor;
+        _creditCardNumberLabel.textColor = colors.cellTextColor;
+        _creditCardNumberField.textColor = colors.cellTextColor;
+        _expiryDateLabel.textColor = colors.cellTextColor;
+        _expiryDateMonthField.textColor = colors.cellTextColor;
+        _expiryDateYearField.textColor = colors.cellTextColor;
+        _cvvLabel.textColor = colors.cellTextColor;
+        _cvvField.textColor = colors.cellTextColor;
+        _expiryDateSeparatorLabel.textColor = colors.cellTextColor;
+    }
 }
 
 - (void)hideInputElements:(BOOL)bValue
