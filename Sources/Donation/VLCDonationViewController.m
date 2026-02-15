@@ -228,25 +228,18 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
-    NSDictionary *userInfo = [aNotification userInfo];
+    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
 
-    CGRect keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat overlap = MAX(0.0, CGRectGetMaxY(self.view.bounds) - CGRectGetMinY(keyboardFrame));
 
-    id<UICoordinateSpace> fromCoordinateSpace = [(UIScreen *)aNotification.object coordinateSpace];
-    id<UICoordinateSpace> toCoordinateSpace = self.view;
-    keyboardFrameEnd = [fromCoordinateSpace convertRect:keyboardFrameEnd toCoordinateSpace:toCoordinateSpace];
+    UIEdgeInsets insets = _contentScrollView.contentInset;
+    insets.bottom = overlap;
+    _contentScrollView.contentInset = insets;
+    _contentScrollView.scrollIndicatorInsets = insets;
 
-    if ([aNotification.name isEqualToString: UIKeyboardWillHideNotification]) {
-        _contentScrollView.contentInset = UIEdgeInsetsZero;
-    } else {
-        if (@available(iOS 11.0, *)) {
-            _contentScrollView.contentInset = UIEdgeInsetsMake(0., 0., keyboardFrameEnd.size.height - self.view.safeAreaInsets.bottom, 0.);
-        } else {
-            _contentScrollView.contentInset = UIEdgeInsetsMake(0., 0., keyboardFrameEnd.size.height, 0.);
-        }
-    }
-
-    [_contentScrollView scrollRectToVisible:_previousDonationsButton.frame animated:YES];
+    CGRect target = [_continueButton convertRect:_previousDonationsButton.bounds toView:_contentScrollView];
+    [_contentScrollView scrollRectToVisible:target animated:YES];
 }
 
 - (NSString *)title
