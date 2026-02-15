@@ -35,8 +35,9 @@
     self.coloredBackgroundView.layer.shadowOpacity = .25;
 
     self.titleLabel.text = NSLocalizedString(@"DONATION_NAGSCREEN_TITLE", nil);
+    self.titleLabel.textColor = colors.cellTextColor;
     self.descriptionLabel.text = NSLocalizedString(@"DONATION_NAGSCREEN_SUBTITLE", nil);
-    self.descriptionLabel.textColor = [UIColor lightGrayColor];
+    self.descriptionLabel.textColor = colors.lightTextColor;
 
     NSDictionary *attributes = @{
         NSFontAttributeName: [UIFont systemFontOfSize:18.],
