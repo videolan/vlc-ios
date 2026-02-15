@@ -105,7 +105,14 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
-    _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
+    if (@available(iOS 13.0, *)) {
+        _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
+    } else {
+        _customAmountField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil)
+                                                                                   attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+    }
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
     [_previousDonationsButton setTitle:NSLocalizedString(@"DONATION_INVOICES_RECEIPTS", nil) forState:UIControlStateNormal];
     [_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
@@ -178,6 +185,15 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 - (void)updateColors
 {
     ColorPalette *colors = PresentationTheme.current.colors;
+
+    if (@available(iOS 13.0, *)) {
+    } else {
+        self.view.backgroundColor = colors.background;
+        self.titleLabel.textColor = colors.cellTextColor;
+        self.descriptionLabel.textColor = colors.cellTextColor;
+        _customAmountField.textColor = colors.cellTextColor;
+        _customAmountField.layer.borderColor = colors.textfieldPlaceholderColor.CGColor;
+    }
 
     _blueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:1.0];
     _lightBlueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:.5];
