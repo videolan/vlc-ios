@@ -45,7 +45,22 @@
     self.bankAccountNumberLabel.text = NSLocalizedString(@"DONATION_IBAN", nil);
     self.bankAccountNumberField.delegate = self;
     self.nameLabel.text = NSLocalizedString(@"DONATION_NAME", nil);
-    self.nameField.placeholder = NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil);
+    if (@available(iOS 13.0, *)) {
+        self.nameField.placeholder = NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil);
+    } else {
+        self.nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil)
+                                                                               attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+        self.bankAccountNumberField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"FR00 0000 0000 0000 0000 00"
+                                                                               attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+        self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"donation@videolan.org"
+                                                                               attributes:@{
+            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
+        }];
+    }
     self.emailLabel.text = NSLocalizedString(@"DONATION_EMAIL", nil);
     self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
 
@@ -94,6 +109,19 @@
     _emailField.backgroundColor = colors.background;
     _emailField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _activityIndicator.color = colors.orangeUI;
+
+    if (@available(iOS 13.0, *)) {
+    } else {
+        _titleLabel.textColor = colors.cellTextColor;
+        _descriptionLabel.textColor = colors.cellTextColor;
+        self.view.backgroundColor = colors.background;
+        _bankAccountNumberLabel.textColor = colors.cellTextColor;
+        _nameLabel.textColor = colors.cellTextColor;
+        _emailLabel.textColor = colors.cellTextColor;
+        _bankAccountNumberField.textColor = colors.cellTextColor;
+        _nameField.textColor = colors.cellTextColor;
+        _emailField.textColor = colors.cellTextColor;
+    }
 }
 
 - (void)hideInputElements:(BOOL)bValue
