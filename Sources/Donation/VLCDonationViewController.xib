@@ -47,7 +47,6 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="699"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="320" id="Jjm-4d-Jg6"/>
                             </constraints>
@@ -197,7 +196,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="PDE-wm-Hfp" firstAttribute="centerX" secondItem="Um5-um-WTc" secondAttribute="centerX" id="1eH-mB-HMx"/>
                                 <constraint firstAttribute="width" constant="300" id="4qJ-pP-x5B"/>
@@ -286,7 +284,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="lH1-us-YIW" secondAttribute="trailing" id="618-jR-soM"/>
                                 <constraint firstItem="gy2-pm-AWr" firstAttribute="centerX" secondItem="lH1-us-YIW" secondAttribute="centerX" id="61a-UQ-BF8"/>
