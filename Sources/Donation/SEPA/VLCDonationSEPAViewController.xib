@@ -92,7 +92,6 @@
                                     </connections>
                                 </textField>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="jO3-TY-UgF" firstAttribute="leading" secondItem="k3r-1d-Hii" secondAttribute="leading" id="4uV-7r-Naw"/>
                                 <constraint firstItem="k3r-1d-Hii" firstAttribute="top" secondItem="pcv-v7-fmd" secondAttribute="bottom" constant="50" id="HXk-70-Ea0"/>

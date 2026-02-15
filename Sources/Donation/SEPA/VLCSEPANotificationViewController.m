@@ -23,8 +23,9 @@
     self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
     self.authorizationTextLabel.text = [VLCSEPA authorizationTextForCurrentLocale];
 
+    ColorPalette *colors = PresentationTheme.current.colors;
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_BUTTON_AGREE", nil) forState:UIControlStateNormal];
-    self.continueButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    self.continueButton.backgroundColor = colors.orangeUI;
     [self.continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.continueButton.layer.cornerRadius = 5.;
 
@@ -32,6 +33,14 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(refuseSepa)];
+
+    if (@available(iOS 13.0, *)) {
+    } else {
+        self.titleLabel.textColor = colors.cellTextColor;
+        self.descriptionLabel.textColor = colors.cellTextColor;
+        self.authorizationTextLabel.textColor = colors.cellTextColor;
+        self.view.backgroundColor = colors.background;
+    }
 }
 
 - (void)refuseSepa
