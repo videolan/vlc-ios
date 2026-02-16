@@ -125,6 +125,18 @@ class SettingsController: UITableViewController {
             let navigationBarAppearance = AppearanceManager.navigationbarAppearance
             self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
             self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
+        } else {
+            if #available(iOS 11.0, *) {
+                navigationController?.navigationBar.largeTitleTextAttributes = [
+                    .foregroundColor: PresentationTheme.current.colors.cellTextColor
+                ]
+            } else {
+                navigationController?.navigationBar.titleTextAttributes = [
+                    .foregroundColor: PresentationTheme.current.colors.cellTextColor
+                ]
+            }
+            navigationController?.navigationBar.setNeedsLayout()
+            navigationController?.navigationBar.layoutIfNeeded()
         }
     }
 
