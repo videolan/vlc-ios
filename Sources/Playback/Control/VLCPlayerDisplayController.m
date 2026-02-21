@@ -389,13 +389,38 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)_presentMovieViewControllerAnimated:(BOOL)animated
 {
     UIViewController<VLCPlaybackServiceDelegate> *movieViewController = self.movieViewController;
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *rootViewController = window.rootViewController;
+    UIViewController *presentedController = rootViewController.presentedViewController;
+
+    if (presentedController) {
+        if ([presentedController isKindOfClass:[VLCPlaybackNavigationController class]]) {
+            UIViewController *presentedTopController = ((UINavigationController *)presentedController).topViewController;
+            if (presentedTopController == movieViewController) {
+                return;
+            }
+
+            if (presentedController.isBeingDismissed || presentedController.isBeingPresented) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+                               dispatch_get_main_queue(), ^{
+                    [self _presentMovieViewControllerAnimated:animated];
+                });
+                return;
+            }
+
+            [presentedController dismissViewControllerAnimated:animated completion:^{
+                [self _presentMovieViewControllerAnimated:animated];
+            }];
+        }
+        return;
+    }
+
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationOverFullScreen;
     navCon.modalPresentationCapturesStatusBarAppearance = YES;
     [movieViewController prepareForMediaPlayback:self.playbackController];
 
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-    [window.rootViewController presentViewController:navCon animated:animated completion:^{
+    [rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
 }
@@ -403,14 +428,39 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)_presentAudioViewControllerAnimated:(BOOL)animated
 {
     UIViewController<VLCPlaybackServiceDelegate> *audioPlayerViewController = self.audioPlayerViewController;
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *rootViewController = window.rootViewController;
+    UIViewController *presentedController = rootViewController.presentedViewController;
+
+    if (presentedController) {
+        if ([presentedController isKindOfClass:[VLCPlaybackNavigationController class]]) {
+            UIViewController *presentedTopController = ((UINavigationController *)presentedController).topViewController;
+            if (presentedTopController == audioPlayerViewController) {
+                return;
+            }
+
+            if (presentedController.isBeingDismissed || presentedController.isBeingPresented) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+                               dispatch_get_main_queue(), ^{
+                    [self _presentAudioViewControllerAnimated:animated];
+                });
+                return;
+            }
+
+            [presentedController dismissViewControllerAnimated:animated completion:^{
+                [self _presentAudioViewControllerAnimated:animated];
+            }];
+        }
+        return;
+    }
+
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:audioPlayerViewController];
     navCon.modalPresentationStyle = UIModalPresentationOverFullScreen;
     navCon.modalPresentationCapturesStatusBarAppearance = YES;
     _playbackController.delegate = audioPlayerViewController;
     [audioPlayerViewController prepareForMediaPlayback:self.playbackController];
 
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-    [window.rootViewController presentViewController:navCon animated:animated completion:^{
+    [rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
 }
