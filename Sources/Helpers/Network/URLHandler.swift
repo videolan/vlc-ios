@@ -306,17 +306,21 @@ class FileURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        let subclass = Document(fileURL: url)
-        subclass.open { success in
-            if !success {
-                assertionFailure("FileURLHandler: Couldn't open the file.")
+        let playbackService = PlaybackService.sharedInstance()
+        let isSecurityScopedURL = url.startAccessingSecurityScopedResource()
+        if isSecurityScopedURL {
+            playbackService.openedLocalURLs.add(url)
+        }
+
+        self.play(url: url) { _ in
+            guard isSecurityScopedURL else {
                 return
             }
 
-            self.play(url: url) { _ in
-                subclass.close(completionHandler: nil)
-            }
+            url.stopAccessingSecurityScopedResource()
+            playbackService.openedLocalURLs.remove(url)
         }
+
         return true
     }
 }
