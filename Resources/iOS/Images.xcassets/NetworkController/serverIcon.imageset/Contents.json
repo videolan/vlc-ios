@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ic_server.svg",
+      "filename" : "ic_server.pdf",
       "idiom" : "iphone",
       "scale" : "1x"
     },
@@ -14,7 +14,7 @@
       "scale" : "3x"
     },
     {
-      "filename" : "ic_server 1.svg",
+      "filename" : "ic_server 1.pdf",
       "idiom" : "ipad",
       "scale" : "1x"
     },

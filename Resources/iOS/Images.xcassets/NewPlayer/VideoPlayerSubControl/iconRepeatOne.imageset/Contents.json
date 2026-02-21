@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "repeat_one.svg",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "repeat_one 1.svg",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "repeat_one 2.svg",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "repeat_one.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
@@ -21,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
     "template-rendering-intent" : "template"
   }
 }
