@@ -188,7 +188,14 @@ enum MainOptions {
     }
 
     static func section() -> SettingsSection? {
-        var items = [privacy]
+        var items: [SettingsItem] = []
+
+        #if os(iOS)
+        if #available(iOS 14.0, *) {
+            items.append(privacy)
+        }
+        #endif
+
         #if !os(visionOS)
         // visionOS uses a standard system appearance and doesn't have light/dark mode.
         items.append(appearance)
