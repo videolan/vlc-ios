@@ -88,16 +88,8 @@ class FavoriteListViewController: UIViewController {
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
-        searchBar.backgroundColor = PresentationTheme.current.colors.background
         navigationItem.largeTitleDisplayMode = .never
-
-        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
-            if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = UIColor.white
-                backgroundview.layer.cornerRadius = 10
-                backgroundview.clipsToBounds = true
-            }
-        }
+        applySearchBarTheme()
 
         searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
         view.addSubview(searchBar)
@@ -107,6 +99,39 @@ class FavoriteListViewController: UIViewController {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
         ])
+    }
+
+    private func applySearchBarTheme() {
+        let colors = PresentationTheme.current.colors
+        searchBar.backgroundColor = colors.background
+        searchBar.tintColor = colors.orangeUI
+
+        let textField: UITextField?
+        if #available(iOS 13.0, *) {
+            textField = searchBar.searchTextField
+        } else {
+            textField = searchBar.value(forKey: "searchField") as? UITextField
+        }
+
+        guard let textField = textField else {
+            return
+        }
+
+        textField.textColor = colors.cellTextColor
+        textField.tintColor = colors.orangeUI
+        textField.backgroundColor = colors.cellBackgroundB
+        textField.attributedPlaceholder = NSAttributedString(
+            string: searchBar.placeholder ?? "",
+            attributes: [.foregroundColor: colors.textfieldPlaceholderColor]
+        )
+
+        if let backgroundView = textField.subviews.first {
+            backgroundView.backgroundColor = colors.cellBackgroundB
+            backgroundView.layer.cornerRadius = 10
+            backgroundView.clipsToBounds = true
+        }
+
+        textField.leftView?.tintColor = colors.textfieldPlaceholderColor
     }
 
     private func setupSearchDataSource() {
@@ -170,7 +195,11 @@ class FavoriteListViewController: UIViewController {
     // MARK: - Handlers
 
     @objc func themeDidChange() {
-        self.tableView.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        self.tableView.backgroundColor = colors.background
+        self.tableView.separatorColor = colors.separatorColor
+        applySearchBarTheme()
+        self.navigationItem.rightBarButtonItem?.tintColor = colors.orangeUI
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
