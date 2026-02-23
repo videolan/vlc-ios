@@ -20,6 +20,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     private let webView = WKWebView()
     private let notificationCenter = NotificationCenter.default
     private let feedbackEmail = "ios-support@videolan.org"
+    private var hasLoadedContent = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
@@ -38,11 +39,15 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
     }
 
     // MARK: - UI Setup
@@ -55,13 +60,17 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     }
 
     private func setupUI() {
-        self.view.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        self.view.backgroundColor = colors.background
         self.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         webView.frame = self.view.frame
         webView.clipsToBounds = true
         webView.navigationDelegate = self
-        webView.backgroundColor = .clear
+        webView.backgroundColor = colors.background
         webView.isOpaque = false
+        webView.alpha = 0
+        webView.scrollView.backgroundColor = colors.background
+        webView.scrollView.isOpaque = false
         webView.scrollView.indicatorStyle = .white
         webView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.view.addSubview(webView)
@@ -97,6 +106,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     }
 
     private func loadWebsite() {
+        webView.alpha = 0
         let webTheme = PresentationTheme.current.webEquivalentTheme
         let mainBundle = Bundle.main
         let textColor = webTheme.colors.cellTextColor.toHex ?? "#000000"
@@ -152,8 +162,10 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
     // MARK: - Observer & BarButton Actions
 
     @objc private func themeDidChange() {
-        view.backgroundColor = PresentationTheme.current.colors.background
-        webView.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        view.backgroundColor = colors.background
+        webView.backgroundColor = colors.background
+        webView.scrollView.backgroundColor = colors.background
         loadWebsite()
     }
 
@@ -259,7 +271,16 @@ extension AboutController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.backgroundColor = PresentationTheme.current.colors.background
-        webView.isOpaque = true
+        webView.scrollView.backgroundColor = PresentationTheme.current.colors.background
+        let animations = {
+            webView.alpha = 1
+        }
+        if hasLoadedContent {
+            animations()
+        } else {
+            UIView.animate(withDuration: 0.2, animations: animations)
+            hasLoadedContent = true
+        }
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
