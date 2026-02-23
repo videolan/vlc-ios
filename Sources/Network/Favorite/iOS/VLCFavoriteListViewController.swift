@@ -79,6 +79,8 @@ class VLCFavoriteListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = PresentationTheme.current.colors.background
+        tableView.separatorColor = PresentationTheme.current.colors.separatorColor
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(UINib(nibName: "VLCNetworkListCell", bundle: nil),
                            forCellReuseIdentifier: "LocalNetworkCell")
         tableView.register(FavoriteSectionHeader.self,
