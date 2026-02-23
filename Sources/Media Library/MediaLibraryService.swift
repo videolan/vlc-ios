@@ -147,6 +147,7 @@ class MediaLibraryService: NSObject {
     private var triedToRecoverFromInitializationErrorOnce = false
 
     private var didFinishDiscovery = false
+    private var didStartMediaDiscovery = false
 
     private var desiredThumbnailWidth = UInt(320)
     private var desiredThumbnailHeight = UInt(200)
@@ -200,7 +201,33 @@ class MediaLibraryService: NSObject {
 // MARK: - Private initializers
 
 private extension MediaLibraryService {
+    private func removeMedialibraryArtifacts(databasePath: String,
+                                             thumbnailPath: String,
+                                             medialibraryPath: String) {
+        let artifactPaths = [
+            thumbnailPath,
+            medialibraryPath,
+            databasePath,
+            databasePath + "-shm",
+            databasePath + "-wal",
+            databasePath + "-journal"
+        ]
+
+        for artifactPath in artifactPaths where FileManager.default.fileExists(atPath: artifactPath) {
+            do {
+                try FileManager.default.removeItem(atPath: artifactPath)
+            } catch let error as NSError {
+                APLog("MediaLibraryService: Failed to remove artifact at \(artifactPath): \(error.localizedDescription)")
+            }
+        }
+    }
+
     private func setupMediaDiscovery(at path: String) {
+        guard didStartMediaDiscovery == false else {
+            return
+        }
+        didStartMediaDiscovery = true
+
         let mediaFileDiscoverer = VLCMediaFileDiscoverer.sharedInstance()
         mediaFileDiscoverer?.directoryPath = path
         mediaFileDiscoverer?.addObserver(self)
@@ -260,16 +287,16 @@ private extension MediaLibraryService {
         case .failed:
             if triedToRecoverFromInitializationErrorOnce == false {
                 triedToRecoverFromInitializationErrorOnce = true
-                do {
-                    APLog(String(format: "MediaLibraryService: Failed to setup medialibrary, trying to recover by deleting previous database (%@)", databasePath))
-                    try FileManager.default.removeItem(atPath: databasePath)
-                    setupMediaLibrary()
-                    return
-                } catch let error as NSError {
-                    APLog(String(format: "Failed to delete previous database (%@)", error.localizedDescription))
-                }
+                APLog("MediaLibraryService: Failed to setup medialibrary, trying recovery by clearing cached medialibrary artifacts.")
+                removeMedialibraryArtifacts(databasePath: databasePath,
+                                           thumbnailPath: thumbnailPath,
+                                           medialibraryPath: medialibraryPath)
+                medialib = VLCMediaLibrary()
+                setupMediaLibrary()
+                return
             }
-            preconditionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
+            APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempt.")
+            assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
             medialib.clearDatabase(restorePlaylists: true)
             startMediaLibrary(on: documentPath)
