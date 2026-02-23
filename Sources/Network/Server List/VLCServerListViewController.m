@@ -251,7 +251,6 @@
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_remoteNetworkTableView reloadData];
-        [self->_discoveryController startDiscovery];
     });
 }
 
@@ -260,6 +259,7 @@
     _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
     [super viewDidAppear:animated];
+    [_discoveryController startDiscovery];
 }
 
 - (void)miniPlayerIsShown
