@@ -15,10 +15,15 @@
 
 @implementation UIImage(AverageColor)
 
-CGImageRef resizeCGImage(CGImageRef image) {
+static CGImageRef resizeCGImage(CGImageRef image)
+{
     CGSize targetSize = CGSizeMake(4096., 4096.);
     UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        UIGraphicsEndImageContext();
+        return nil;
+    }
     CGContextDrawImage(context, CGRectMake(0, 0, targetSize.width, targetSize.height), image);
     CGImageRef resizedImage = CGBitmapContextCreateImage(context);
     UIGraphicsEndImageContext();
@@ -27,24 +32,39 @@ CGImageRef resizeCGImage(CGImageRef image) {
 
 - (UIColor *)averageColor
 {
-    UIImage *image = self;
-
-    CGImageRef imageRef = [image CGImage];
+    CGImageRef imageRef = [self CGImage];
+    if (!imageRef) {
+        return PresentationTheme.current.colors.background;
+    }
+    CGImageRef resizedImageRef = nil;
     NSUInteger width = CGImageGetWidth(imageRef);
     NSUInteger height = CGImageGetHeight(imageRef);
 
     if (width > 4096 || height > 4096) {
-        CGImageRef resizedImage = resizeCGImage(imageRef);
-        imageRef = resizedImage;
+        resizedImageRef = resizeCGImage(imageRef);
+        if (resizedImageRef) {
+            imageRef = resizedImageRef;
+            width = CGImageGetWidth(imageRef);
+            height = CGImageGetHeight(imageRef);
+        }
     }
 
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(imageRef);
     if (!colorSpace || CGColorSpaceGetModel(colorSpace) != kCGColorSpaceModelRGB) {
+        if (resizedImageRef) {
+            CGImageRelease(resizedImageRef);
+        }
         return PresentationTheme.current.colors.background;
     }
 
     CGDataProviderRef dataProvider = CGImageGetDataProvider(imageRef);
     CFDataRef imageData = CGDataProviderCopyData(dataProvider);
+    if (!imageData) {
+        if (resizedImageRef) {
+            CGImageRelease(resizedImageRef);
+        }
+        return PresentationTheme.current.colors.background;
+    }
     const UInt8 *pixels = CFDataGetBytePtr(imageData);
 
     NSUInteger totalRed = 0;
@@ -64,6 +84,9 @@ CGImageRef resizeCGImage(CGImageRef image) {
     }
 
     CFRelease(imageData);
+    if (resizedImageRef) {
+        CGImageRelease(resizedImageRef);
+    }
 
     // Calculate the average color
     if (pixelCount > 0) {
