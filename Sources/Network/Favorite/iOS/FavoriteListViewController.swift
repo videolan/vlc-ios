@@ -18,6 +18,10 @@ import UIKit
 class FavoriteListViewController: UIViewController {
     // MARK: - Properties
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
+    }
+
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
