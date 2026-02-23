@@ -35,6 +35,7 @@
     CPListTemplate *_playQueueTemplate;
     CPListSection *_section;
     VLCPlaybackService *_playbackService;
+    BOOL _templateUpdateScheduled;
 }
 
 @end
@@ -67,11 +68,13 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
     _interfaceController = nil;
     [_mediaLibraryObserver unobserveLibrary];
     _mediaLibraryObserver = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[CPNowPlayingTemplate sharedTemplate] removeObserver:_nowPlayingTemplateObserver];
     _nowPlayingTemplateObserver = nil;
     _playQueueTemplate = nil;
     _section = nil;
     _playbackService = nil;
+    _templateUpdateScheduled = NO;
 }
 
 - (CPTabBarTemplate *)generateRootTemplate
@@ -95,7 +98,20 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 
 - (void)templatesNeedUpdate
 {
-    [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
+    if (!_interfaceController || _templateUpdateScheduled) {
+        return;
+    }
+
+    _templateUpdateScheduled = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self->_templateUpdateScheduled = NO;
+
+        if (!self->_interfaceController) {
+            return;
+        }
+
+        [self->_interfaceController setRootTemplate:[self generateRootTemplate] animated:NO];
+    });
 }
 
 - (CPListSection *)createListSection
