@@ -83,8 +83,9 @@
 
         for (VLCMLAlbum *album in albums) {
             artistImage = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
-            if (artistImage)
+            if (artistImage) {
                 break;
+            }
         }
         if (!artistImage) {
             artistImage = [UIImage imageNamed:@"cp-Artist"];
