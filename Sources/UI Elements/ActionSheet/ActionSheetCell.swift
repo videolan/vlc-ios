@@ -295,6 +295,9 @@ class ActionSheetCell: UICollectionViewCell {
         name.textColor = colors.cellTextColor
         name.backgroundColor = colors.background
         name.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        name.lineBreakMode = .byTruncatingTail
+        name.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        name.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
@@ -311,6 +314,8 @@ class ActionSheetCell: UICollectionViewCell {
     @objc lazy private var toggleSwitch: UISwitch = {
         let toggleSwitch = UISwitch()
         toggleSwitch.onTintColor = .orange
+        toggleSwitch.setContentHuggingPriority(.required, for: .horizontal)
+        toggleSwitch.setContentCompressionResistancePriority(.required, for: .horizontal)
         toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
         toggleSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         return toggleSwitch
@@ -459,6 +464,9 @@ class ActionSheetCell: UICollectionViewCell {
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)
         stackView.addArrangedSubview(accessoryView)
+
+        accessoryView.setContentHuggingPriority(.required, for: .horizontal)
+        accessoryView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
         addSubview(stackView)
 
