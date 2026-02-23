@@ -18,6 +18,7 @@
 #import "CPListTemplate+Genres.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "VLCCarPlayPlaylistsController.h"
+#import "VLCCarPlayListLimit.h"
 #import "VLCNowPlayingTemplateObserver.h"
 
 #import "VLC-Swift.h"
@@ -117,10 +118,11 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 - (CPListSection *)createListSection
 {
     VLCMediaList *mediaList = _playbackService.isShuffleMode ? _playbackService.shuffledList : _playbackService.mediaList;
-    NSInteger mediaListCount = mediaList.count;
-    NSMutableArray<CPListItem *> *items = [NSMutableArray new];
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger itemCount = MIN((NSUInteger)mediaList.count, maximumItemCount);
+    NSMutableArray<CPListItem *> *items = [NSMutableArray arrayWithCapacity:itemCount];
 
-    for (NSInteger index = 0; index < mediaListCount; index++) {
+    for (NSUInteger index = 0; index < itemCount; index++) {
         VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:[mediaList mediaAtIndex:index]];
         CPListItem *listItem = [[CPListItem alloc] initWithText:media.title detailText:media.artist.name];
 
@@ -133,12 +135,23 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 - (void)listTemplate:(CPListTemplate *)listTemplate didSelectListItem:(CPListItem *)item completionHandler:(void (^)(void))completionHandler
 {
     VLCMediaList *mediaList = _playbackService.isShuffleMode ? _playbackService.shuffledList : _playbackService.mediaList;
-    NSIndexPath *index = [listTemplate indexPathForItem:item];
-    if (index.row >= mediaList.count) {
+    NSUInteger selectedIndex = NSNotFound;
+    if (@available(iOS 14.0, *)) {
+        NSIndexPath *indexPath = [listTemplate indexPathForItem:item];
+        if (indexPath) {
+            selectedIndex = (NSUInteger)indexPath.row;
+        }
+    } else {
+        selectedIndex = [_section indexOfItem:item];
+    }
+
+    if (selectedIndex == NSNotFound || selectedIndex >= (NSUInteger)mediaList.count) {
+        completionHandler();
         return;
     }
 
-    [_playbackService playItemAtIndex:index.row];
+    [_playbackService playItemAtIndex:selectedIndex];
+    completionHandler();
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_interfaceController popTemplateAnimated:YES];
