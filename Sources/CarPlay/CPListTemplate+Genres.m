@@ -45,8 +45,9 @@
         UIImage *genreImage;
         for (VLCMLArtist *artist in artists) {
             genreImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
-            if (genreImage)
+            if (genreImage) {
                 break;
+            }
         }
         if (!genreImage) {
             genreImage = [UIImage imageNamed:@"cp-Genre"];

@@ -40,7 +40,6 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
         VLCMLMedia *iter = media[i];
         UIImage *artwork = [iter thumbnailImage];
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
-
         CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
                                                      detailText:detailText
                                                           image:artwork];
