@@ -1843,6 +1843,7 @@
 		7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemoteBrowsingCollectionViewController.xib; sourceTree = "<group>"; };
 		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.h"; sourceTree = SOURCE_ROOT; };
 		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.m"; sourceTree = SOURCE_ROOT; };
+		7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayListLimit.h; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7DF90B461BE7A8110059C0E3 /* IASKSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = Pods/InAppSettingsKit/InAppSettingsKit/Models/IASKSettingsReader.h; sourceTree = SOURCE_ROOT; };
@@ -3650,6 +3651,7 @@
 			children = (
 				7DD71F9328FB421300327ACE /* VLCCarPlayArtistsController.h */,
 				7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */,
+				7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */,
 				7DD71F8828FB421300327ACE /* CPListTemplate+Genres.h */,
 				7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */,
 				7DD71F8B28FB421300327ACE /* CPListTemplate+NetworkStreams.h */,

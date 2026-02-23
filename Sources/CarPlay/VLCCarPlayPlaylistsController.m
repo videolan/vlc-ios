@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayPlaylistsController.h"
+#import "VLCCarPlayListLimit.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -34,8 +35,9 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
 - (NSArray *)listOfItemsForPlaylist:(VLCMLPlaylist *)playlist
 {
     NSArray *media = playlist.media;
-    NSUInteger count = media.count;
-    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:media.count];
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(media.count, maximumItemCount);
+    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:count];
     for (NSUInteger i = 0; i < count; i++) {
         VLCMLMedia *iter = media[i];
         UIImage *artwork = [iter thumbnailImage];
@@ -70,7 +72,8 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
     NSArray *playlists = [[VLCAppCoordinator sharedInstance].mediaLibraryService playlistsWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                          desc:NO];
 
-    NSUInteger count = playlists.count;
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(playlists.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {

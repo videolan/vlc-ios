@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayArtistsController.h"
+#import "VLCCarPlayListLimit.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -32,8 +33,11 @@
 - (NSArray *)listForAlbumsForArtist:(VLCMLArtist *)artist
 {
     NSArray *albums = artist.albums;
-    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:albums.count];
-    for (VLCMLAlbum *album in albums) {
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger albumCount = MIN(albums.count, maximumItemCount);
+    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:albumCount];
+    for (NSUInteger index = 0; index < albumCount; index++) {
+        VLCMLAlbum *album = albums[index];
         UIImage *albumCover = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
         if (!albumCover) {
             albumCover = [UIImage imageNamed:@"album-placeholder-dark"];
@@ -71,7 +75,8 @@
                                                                                                      desc:NO
                                                                                                   listAll:!hideFeatArtists];
 
-    NSUInteger count = artists.count;
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(artists.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {
@@ -81,7 +86,9 @@
         NSArray *albums = iter.albums;
         UIImage *artistImage;
 
-        for (VLCMLAlbum *album in albums) {
+        NSUInteger albumCount = MIN(albums.count, (NSUInteger)8);
+        for (NSUInteger index = 0; index < albumCount; index++) {
+            VLCMLAlbum *album = albums[index];
             artistImage = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
             if (artistImage) {
                 break;

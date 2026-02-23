@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "CPListTemplate+NetworkStreams.h"
+#import "VLCCarPlayListLimit.h"
 #import "VLCPlaybackService.h"
 
 #pragma clang diagnostic push
@@ -47,7 +48,8 @@
         recentURLTitles = [defaults objectForKey:kVLCRecentURLTitles];
     }
 
-    NSUInteger count = recentURLs.count;
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(recentURLs.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {

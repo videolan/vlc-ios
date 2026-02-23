@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "CPListTemplate+Genres.h"
+#import "VLCCarPlayListLimit.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -33,7 +34,8 @@
     NSArray *genres = [[VLCAppCoordinator sharedInstance].mediaLibraryService genresWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                    desc:NO];
 
-    NSUInteger count = genres.count;
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(genres.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {
@@ -43,7 +45,9 @@
         NSArray *artists = iter.artists;
 
         UIImage *genreImage;
-        for (VLCMLArtist *artist in artists) {
+        NSUInteger artistCount = MIN(artists.count, (NSUInteger)8);
+        for (NSUInteger index = 0; index < artistCount; index++) {
+            VLCMLArtist *artist = artists[index];
             genreImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
             if (genreImage) {
                 break;
