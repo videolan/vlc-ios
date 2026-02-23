@@ -45,6 +45,7 @@
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
 {
+    BOOL _localNetworkReloadScheduled;
     VLCLocalServerDiscoveryController *_discoveryController;
 
     UIRefreshControl *_refreshControl;
@@ -62,6 +63,8 @@
 @end
 
 @implementation VLCServerListViewController
+
+static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 
 #if TARGET_OS_IOS
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
@@ -494,6 +497,33 @@
     _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
 }
 
+- (void)reloadLocalTableViewIfVisible
+{
+    if (!self.isViewLoaded || self.view.window == nil) {
+        return;
+    }
+
+    [_localNetworkTableView reloadData];
+    [_localNetworkTableView layoutIfNeeded];
+    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+}
+
+- (void)scheduleLocalTableViewReload
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->_localNetworkReloadScheduled) {
+            return;
+        }
+
+        self->_localNetworkReloadScheduled = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kVLCLocalNetworkReloadDebounceInterval * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            self->_localNetworkReloadScheduled = NO;
+            [self reloadLocalTableViewIfVisible];
+        });
+    });
+}
+
 #pragma mark -
 - (void)themeDidChange
 {
@@ -544,8 +574,9 @@
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
 
-    if ([_discoveryController refreshDiscoveredData])
-        [_localNetworkTableView reloadData];
+    if ([_discoveryController refreshDiscoveredData]) {
+        [self scheduleLocalTableViewReload];
+    }
 
     [_refreshControl endRefreshing];
 }
@@ -581,11 +612,7 @@
 
 - (void)discoveryFoundSomethingNew
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self->_localNetworkTableView reloadData];
-        [self->_localNetworkTableView layoutIfNeeded];
-        self->_localNetworkHeight.constant = self->_localNetworkTableView.contentSize.height;
-    });
+    [self scheduleLocalTableViewReload];
 }
 
 -(void)showEmptyMediaListAlert
