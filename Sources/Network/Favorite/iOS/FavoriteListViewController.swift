@@ -70,6 +70,7 @@ class FavoriteListViewController: UIViewController {
         setupTableView()
         setupBarButton()
         setupSearchBar()
+        showEmptyViewIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
