@@ -302,6 +302,22 @@ class SettingsController: UITableViewController {
 }
 
 extension SettingsController {
+    private func mainOptions() -> [MainOptions] {
+        var items: [MainOptions] = []
+
+        if #available(iOS 14.0, *) {
+            items.append(.privacy)
+        }
+
+        items.append(.appearance)
+        return items
+    }
+
+    private func mainOption(at row: Int) -> MainOptions? {
+        let options = mainOptions()
+        guard options.indices.contains(row) else { return nil }
+        return options[row]
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         var numberOfSections = SettingsSection.allCases.count
@@ -316,7 +332,7 @@ extension SettingsController {
         guard let settingsSection = SettingsSection(rawValue: section) else { return 0 }
         switch settingsSection {
         case .main:
-            return MainOptions.allCases.count
+            return mainOptions().count
         case .donation:
             return DonationOptions.allCases.count
         case .generic:
@@ -378,7 +394,7 @@ extension SettingsController {
         }
         switch section {
         case .main:
-            cell.sectionType = MainOptions(rawValue: indexPath.row)
+            cell.sectionType = mainOption(at: indexPath.row)
         case .generic:
             cell.sectionType = GenericOptions(rawValue: indexPath.row)
             if indexPath.row == GenericOptions.automaticallyPlayNextItem.rawValue {
@@ -453,7 +469,7 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let section = SettingsSection(rawValue: indexPath.section) else { return }
-        if section == .main && indexPath.row == 0 {
+        if section == .main && mainOption(at: indexPath.row) == .privacy {
             openPrivacySettings()
             return
         }
@@ -467,7 +483,7 @@ extension SettingsController {
         }
         switch section {
         case .main:
-            let mainSection = MainOptions(rawValue: indexPath.row)
+            let mainSection = mainOption(at: indexPath.row)
             playHaptics(sectionType: mainSection)
             showActionSheet(for: mainSection)
         case .donation:
