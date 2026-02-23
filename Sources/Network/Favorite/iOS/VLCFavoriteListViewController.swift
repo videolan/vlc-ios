@@ -50,6 +50,7 @@ class VLCFavoriteListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupBarButton()
+        showEmptyViewIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
