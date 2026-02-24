@@ -115,7 +115,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
         let image = isShuffleMode ? UIImage(named: "iconShuffleOnLarge") : UIImage(named: "iconShuffleLarge")
 
         shuffleButton.setImage(image, for: .normal)
-        shuffleButton.tintColor = isShuffleMode ? colors.orangeUI : colors.cellTextColor
+        shuffleButton.tintColor = isShuffleMode ? colors.orangeUI : .white
     }
 
     @objc func setupQueueViewController(with view: QueueViewController) {
