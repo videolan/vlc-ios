@@ -519,8 +519,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     if (needsShow) {
         // Init the mini player view if needed
         if (!miniPlaybackView) {
-            UIViewController *rootViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
-
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
             self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithDraggingDelegate:self];
             if (!_queueViewController) {
@@ -532,10 +530,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             _bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
 
             if (@available(iOS 11.0, *)) {
-                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.topAnchor
+                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
                                                                                         constant: 25.0];
-                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.leadingAnchor];
-                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.trailingAnchor];
+                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor];
+                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor];
             } else {
                 _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant: 25.0];
                 _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
