@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCMetadata.h"
+#import <ImageIO/ImageIO.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
 #import "VLCMicroMediaLibraryService.h"
@@ -169,8 +170,9 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
                 if (imageData) {
+                    UIImage *artworkImage = [self downsampledArtworkImageFromData:imageData];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        self.artworkImage = [UIImage imageWithData:imageData];
+                        self.artworkImage = artworkImage;
                         [playbackService recoverDisplayedMetadata];
 #if TARGET_OS_IOS
                         if ([[VLCKeychainCoordinator passcodeService] hasSecret])
@@ -226,6 +228,33 @@
 #endif
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
+}
+
+- (UIImage *)downsampledArtworkImageFromData:(NSData *)imageData
+{
+    const CGFloat maxPixelSize = 1024.f;
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    if (source == NULL) {
+        return nil;
+    }
+
+    NSDictionary *options = @{
+        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
+        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
+        (__bridge NSString *)kCGImageSourceShouldCache: @NO,
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxPixelSize)
+    };
+
+    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    CFRelease(source);
+
+    if (cgImage == NULL) {
+        return nil;
+    }
+
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    return image;
 }
 
 @end
