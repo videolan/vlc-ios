@@ -98,7 +98,11 @@
 
 - (UIImage *)_thumbnailForURL:(NSURL *)url
 {
-    if (url == nil || url.path == nil)
+    if (url == nil || !url.isFileURL)
+        return nil;
+
+    NSString *path = url.path;
+    if (path.length == 0)
         return nil;
 
     UIImage *theImage = [_thumbnailCache objectForKey:url];
@@ -106,7 +110,13 @@
         return theImage;
     }
 
-    theImage = [UIImage imageWithContentsOfFile:url.path];
+    @try {
+        theImage = [UIImage imageWithContentsOfFile:path];
+    } @catch (NSException *exception) {
+        APLog(@"Failed to load thumbnail for path '%@': %@", path, exception);
+        return nil;
+    }
+
     [self _setThumbnail:theImage forURL:url];
 
     return theImage;
