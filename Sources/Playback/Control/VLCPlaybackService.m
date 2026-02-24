@@ -364,8 +364,21 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     if (equalizerEnabled) {
         NSArray *presets = [VLCAudioEqualizer presets];
-        unsigned int profile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
-        equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[profile]];
+        NSInteger profile = [userDefaults integerForKey:kVLCSettingEqualizerProfile];
+        if (presets.count == 0) {
+            APLog(@"%s: no equalizer presets available, using default equalizer", __PRETTY_FUNCTION__);
+            equalizer = [[VLCAudioEqualizer alloc] init];
+        } else {
+            if (profile < 0 || profile >= (NSInteger)presets.count) {
+                APLog(@"%s: invalid equalizer preset index %ld (count=%lu), resetting to 0",
+                      __PRETTY_FUNCTION__,
+                      (long)profile,
+                      (unsigned long)presets.count);
+                profile = 0;
+                [userDefaults setInteger:profile forKey:kVLCSettingEqualizerProfile];
+            }
+            equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[(NSUInteger)profile]];
+        }
     } else {
         float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
         equalizer = [[VLCAudioEqualizer alloc] init];
@@ -1382,9 +1395,21 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     [userDefaults setBool:NO forKey:kVLCSettingEqualizerProfileDisabled];
 
     unsigned int actualProfile = profile - 1;
-    [userDefaults setInteger:actualProfile forKey:kVLCSettingEqualizerProfile];
-
     NSArray *presets = [VLCAudioEqualizer presets];
+    if (presets.count == 0) {
+        APLog(@"%s: no equalizer presets available, using default equalizer", __PRETTY_FUNCTION__);
+        _mediaPlayer.equalizer = [[VLCAudioEqualizer alloc] init];
+        [userDefaults setInteger:0 forKey:kVLCSettingEqualizerProfile];
+        return;
+    }
+    if (actualProfile >= presets.count) {
+        APLog(@"%s: invalid equalizer preset index %u (count=%lu), resetting to 0",
+              __PRETTY_FUNCTION__,
+              actualProfile,
+              (unsigned long)presets.count);
+        actualProfile = 0;
+    }
+    [userDefaults setInteger:actualProfile forKey:kVLCSettingEqualizerProfile];
     VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[actualProfile]];
     _mediaPlayer.equalizer = equalizer;
 }
