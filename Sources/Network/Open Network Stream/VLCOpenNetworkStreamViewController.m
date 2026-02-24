@@ -56,6 +56,7 @@
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
     _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
     [self.historyTableView reloadData];
+    [self updateEditButtonState];
 }
 
 - (void)viewDidLoad
@@ -198,6 +199,7 @@
     self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
     self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
 
+    [self updateEditButtonState];
     [super viewWillAppear:animated];
 }
 
@@ -256,6 +258,7 @@
             [self _saveData];
 
             [self.historyTableView reloadData];
+            [self updateEditButtonState];
         }
     }
     [self.urlField resignFirstResponder];
@@ -415,6 +418,7 @@
 
         [tableView endEditing:NO];
         [tableView reloadData];
+        [self updateEditButtonState];
     }
 }
 
@@ -473,6 +477,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 #pragma mark - internals
+- (void)updateEditButtonState
+{
+    BOOL hasItems = _recentURLs.count > 0;
+    self.navigationItem.rightBarButtonItem.enabled = hasItems;
+    if (!hasItems && self.historyTableView.editing) {
+        [self.historyTableView setEditing:NO animated:YES];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+    }
+}
+
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
     NSURL *playbackURL = [NSURL URLWithString:url];
