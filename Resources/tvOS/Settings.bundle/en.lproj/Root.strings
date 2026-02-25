@@ -158,3 +158,8 @@
 
 "SETTINGS_RESET" = "Reset the settings";
 "SETTINGS_RESET_TITLE" = "Reset";
+"SETTINGS_RESTORE_LAST_PLAYED_MEDIA_SUBTITLE" = "Not applicable to externally stored media";
+"SETTINGS_GESTURES_SNAPSHOT" = "Three finger tap for snapshot";
+"SETTINGS_EXPORT_LIST" = "Export settings";
+"SETTINGS_PARENTAL_CONTROL" = "Parental control";
+"SETTINGS_PARENTAL_CONTROL_SUBTITLE" = "When activated, files cannot be deleted or playlists modified without entering the pin";
