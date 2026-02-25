@@ -1,10 +1,15 @@
 # Changelog
 
-## iOS [3.7.1]
+## iOS [3.7.2]
 · add footer view to album collection to show more metadata
 · close playback screen when session ends
-· misc. performance improvements on launch
+· misc. performance and stability improvements
+· various smaller UI improvements notably on iOS 9 and 12
+· fix crash when enabling CarPlay with very large media libaries
 · export smaller snapshots to the Spotlight service to decrease the memory impact
+
+## tvOS [3.7.2]
+· misc. performance and stability improvements
 
 ## iOS [3.7.1]
 · fix playback regression introduced in the last update
