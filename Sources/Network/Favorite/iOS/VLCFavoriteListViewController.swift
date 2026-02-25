@@ -63,7 +63,10 @@ class VLCFavoriteListViewController: UIViewController {
     }
 
     @objc func themeDidChange() {
-        self.tableView.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        self.tableView.backgroundColor = colors.background
+        self.tableView.separatorColor = colors.separatorColor
+        self.navigationItem.rightBarButtonItem?.tintColor = colors.orangeUI
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
