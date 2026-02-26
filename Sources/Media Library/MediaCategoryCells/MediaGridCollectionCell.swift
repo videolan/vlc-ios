@@ -316,9 +316,25 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     func update(folder: VLCMLFolder) {
         newLabel.isHidden = true
-        thumbnailView.image = UIImage(named: "folder")
         titleLabel.isHidden = false
         titleLabel.text = folder.mrl.lastPathComponent
+
+        if #available(iOS 13.0, *) {
+            let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
+            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfig)
+            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
+        } else {
+            thumbnailView.image = UIImage(named: "folder")
+        }
+
+        thumbnailView.backgroundColor = .clear
+
+        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
+            descriptionLabel.isHidden = false
+            descriptionLabel.text = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
+        } else {
+            descriptionLabel.isHidden = true
+        }
     }
 
     private func configureShadows() {

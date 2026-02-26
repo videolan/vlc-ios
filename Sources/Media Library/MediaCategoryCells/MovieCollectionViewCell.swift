@@ -246,11 +246,27 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     func update(folder: VLCMLFolder) {
         titleLabel.text = folder.mrl.lastPathComponent
-        descriptionLabel.isHidden = true
+
+        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
+            descriptionLabel.isHidden = false
+            descriptionLabel.text = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
+        } else {
+            descriptionLabel.isHidden = true
+        }
+
         newLabel.isHidden = true
         progressView.isHidden = true
         thumbnailView.contentMode = .scaleAspectFit
-        thumbnailView.image = UIImage(named: "folder")
+
+        if #available(iOS 13.0, *) {
+            let config = UIImage.SymbolConfiguration(weight: .thin)
+            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: config)
+            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
+        } else {
+            thumbnailView.image = UIImage(named: "folder")
+        }
+
+        thumbnailView.backgroundColor = .clear
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {

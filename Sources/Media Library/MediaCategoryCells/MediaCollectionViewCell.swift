@@ -413,8 +413,23 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         scrollView.isScrollEnabled = false
         newLabel.isHidden = true
         thumbnailView.layer.cornerRadius = 3
-        thumbnailView.image = UIImage(named: "folder")
-        sizeDescriptionLabel.text = ""
+
+        if #available(iOS 13.0, *) {
+            let symbolConfiguration = UIImage.SymbolConfiguration(weight: .thin)
+            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfiguration)
+            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
+        } else {
+            thumbnailView.image = UIImage(named: "folder")
+        }
+
+        thumbnailView.backgroundColor = .clear
+
+        var descriptionLabel: String = ""
+        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
+            descriptionLabel = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
+        }
+
+        sizeDescriptionLabel.text = descriptionLabel
     }
 
     func update(playlist: VLCMLPlaylist) {

@@ -729,3 +729,4 @@
 "BUTTON_FOLDER_HINT" = "Browse your folders";
 "EMPTY_FOLDER" = "Empty Folder";
 "EMPTY_FOLDER_DES" = "Add audio or video media in this folder";
+"SUBFOLDERS_DESCRIPTION" = "%d subfolders";
