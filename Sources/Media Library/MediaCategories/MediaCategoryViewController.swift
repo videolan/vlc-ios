@@ -462,6 +462,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         addThemeChangeObserver()
+
+        if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
+            model is FolderModel {
+            let isGridLayout: Bool = isFolderInGridLayout()
+            handleLayoutChange(gridLayout: isGridLayout, isFolder: true)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -829,6 +835,22 @@ private extension MediaCategoryViewController {
     @objc func preferredContentSizeChanged(_ notification: Notification) {
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+
+    private func isFolderInGridLayout() -> Bool {
+        var isVideoModel: Bool = false
+        if model is MediaGroupViewModel || model is VideoModel {
+            isVideoModel = true
+        }
+
+        let key: String
+        if isVideoModel {
+            key = "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEOFolder"
+        } else {
+            key = "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIOFolder"
+        }
+
+        return userDefaults.bool(forKey: key)
     }
 }
 
@@ -1606,9 +1628,9 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
             // Set UserDefaults for folder grid layout based on isAudio flag
             if let folderModel = model as? FolderModel {
                 if folderModel.isAudio {
-                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO")
+                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO\(model.name)")
                 } else {
-                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO")
+                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO\(model.name)")
                 }
             } else {
                 secondModel = model
@@ -1629,6 +1651,13 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         }
 
         prefix = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
+        if model is FolderModel || (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) {
+            if isVideoModel {
+                prefix = "\(kVLCAudioLibraryGridLayout)FOLDER_VIDEO"
+            } else {
+                prefix = "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO"
+            }
+        }
         suffix = collectionModelName + model.name
         userDefaults.set(gridLayout, forKey: "\(prefix)\(suffix)")
         setupCollectionView()

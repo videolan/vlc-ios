@@ -24,9 +24,9 @@ class FolderModel: MLBaseModel {
     var indicatorName: String = NSLocalizedString("BUTTON_FOLDER", comment: "")
     var cellType: BaseCollectionViewCell.Type {
         if isAudio {
-            return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\("FOLDER_AUDIO")") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+            return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\("FOLDER_AUDIO")\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
         } else {
-            return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\("FOLDER_VIDEO")") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
+            return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\("FOLDER_VIDEO")\(name)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
         }
     }
 

@@ -427,8 +427,13 @@ extension MediaViewController {
         let isGridLayout: Bool = mediaCategoryViewController.model.cellType == MovieCollectionViewCell.self
         || mediaCategoryViewController.model.cellType == MediaGridCollectionCell.self
 
-        let isFolder = (mediaCategoryViewController.model is FolderModel)
-            || UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
+        var isFolder: Bool = false
+        if mediaCategoryViewController.model is FolderModel {
+            isFolder = true
+        } else if mediaCategoryViewController.model is MediaGroupViewModel &&
+                    UserDefaults.standard.bool(forKey: KVLCFolderViewLayout) {
+            isFolder = true
+        }
 
         let gridAction = UIAction(title: NSLocalizedString("GRID_LAYOUT", comment: ""),
                                   image: UIImage(systemName: "square.grid.2x2"),
