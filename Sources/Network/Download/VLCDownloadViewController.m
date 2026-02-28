@@ -127,6 +127,26 @@
 
 - (IBAction)downloadAction:(id)sender
 {
+    if (self.urlField.text.length == 0 && ![self.urlField isFirstResponder]) {
+        [self.urlField becomeFirstResponder];
+
+        UIView *highlightView = self.urlBorder ?: self.urlField;
+        UIColor *originalColor = highlightView.backgroundColor;
+        UIColor *highlightColor = PresentationTheme.current.colors.orangeUI;
+
+        [UIView animateWithDuration:0.12 animations:^{
+            highlightView.backgroundColor = highlightColor;
+            self.urlField.transform = CGAffineTransformMakeScale(1.02, 1.02);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.20 delay:0.05 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                highlightView.backgroundColor = originalColor;
+                self.urlField.transform = CGAffineTransformIdentity;
+            } completion:nil];
+        }];
+
+        return;
+    }
+
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
         NSString *lastPathComponent = URLtoSave.lastPathComponent;
