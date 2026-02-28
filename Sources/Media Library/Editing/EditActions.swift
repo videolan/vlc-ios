@@ -71,13 +71,13 @@ extension EditActions {
             DispatchQueue.main.async {
                 var mediaGroupIds = [VLCMLIdentifier]()
                 self.objects.forEach { mediaGroupIds.append($0.identifier()) }
-                
+
                 guard var mediaGroups = self.mediaLibraryService.medialib.mediaGroups() else {
                     assertionFailure("EditActions: addToMediaGroup: Failed to retrieve mediaGroups.")
                     self.completion?(.fail)
                     return
                 }
-                
+
                 // Filter out visible groups and action originated source media groups
                 mediaGroups = mediaGroups.filter {
                     if mediaGroupIds.contains($0.identifier()) {
@@ -89,7 +89,7 @@ extension EditActions {
                     }
                     return true
                 }
-                
+
                 self.addToCollection(mediaGroups, for: VLCMLMediaGroup.self)
             }
         }, fail: {
@@ -189,11 +189,17 @@ extension EditActions {
         if objects.count != 1 {
             title = String(format: NSLocalizedString("DELETE_MULTIPLE_TITLE", comment: ""), mediaTitle, objects.count-1)
         }
-        var message = NSLocalizedString("DELETE_MESSAGE", comment: "")
+        var message: String
         if model is PlaylistModel {
-            message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
+            if objects.count > 1 {
+                message = NSLocalizedString("DELETE_MESSAGE_PLAYLISTS", comment: "")
+            } else {
+                message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
+            }
         } else if (model as? CollectionModel)?.mediaCollection is VLCMLPlaylist {
             message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST_CONTENT", comment: "")
+        } else {
+            message = NSLocalizedString("DELETE_MESSAGE", comment: "")
         }
 
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
@@ -571,3 +577,4 @@ extension EditActions: AddToCollectionViewControllerDelegate {
         completion?(.success)
     }
 }
+
