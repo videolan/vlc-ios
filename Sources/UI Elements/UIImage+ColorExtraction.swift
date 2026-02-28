@@ -4,7 +4,7 @@
  *****************************************************************************
  * Copyright (c) 2024 VideoLAN. All rights reserved.
  *
- * Authors: Priyank Shusheet
+ * Authors: priyankshusheet
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
