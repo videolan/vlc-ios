@@ -4,7 +4,7 @@
  *****************************************************************************
  * Copyright (c) 2024 VideoLAN. All rights reserved.
  *
- * Authors: Antigravity AI
+ * Authors: Priyank Shusheet
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
