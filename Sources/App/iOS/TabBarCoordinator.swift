@@ -95,24 +95,24 @@ class TabBarCoordinator: NSObject {
         bottomBar.barTintColor = colors.tabBarColor
         bottomBar.itemPositioning = .fill
 
-#if os(iOS)
         tabBar.isTranslucent = true
-        bottomBar.isTranslucent = false
-#endif
+        bottomBar.isTranslucent = true
 
-        tabBarLayer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBarLayer.shadowRadius = 1.0
-        tabBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
-        tabBarLayer.shadowOpacity = 0.6
-        tabBarLayer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
+        tabBar.applyGlassEffect(theme: .current)
+        bottomBar.applyGlassEffect(theme: .current)
 
-        bottomBarLayer.shadowOffset = CGSize(width: 0, height: 0)
-        bottomBarLayer.shadowRadius = 1.0
-        bottomBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
-        bottomBarLayer.shadowOpacity = 0.6
-        bottomBarLayer.shadowPath = UIBezierPath(rect: bottomBar.bounds).cgPath
+        tabBarLayer.shadowOffset = CGSize(width: 0, height: -2)
+        tabBarLayer.shadowRadius = colors.cardShadowRadius
+        tabBarLayer.shadowColor = colors.cardShadowColor.cgColor
+        tabBarLayer.shadowOpacity = colors.cardShadowOpacity
+        
+        bottomBarLayer.shadowOffset = CGSize(width: 0, height: -2)
+        bottomBarLayer.shadowRadius = colors.cardShadowRadius
+        bottomBarLayer.shadowColor = colors.cardShadowColor.cgColor
+        bottomBarLayer.shadowOpacity = colors.cardShadowOpacity
 
-        editToolbar.backgroundColor = colors.tabBarColor
+        editToolbar.backgroundColor = .clear
+        editToolbar.applyGlassEffect(theme: .current)
 
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
@@ -179,6 +179,13 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
         UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
+        
+        // Modern Tab Transition Animation
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = .fade
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        tabBarController.view.layer.add(transition, forKey: kCATransition)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

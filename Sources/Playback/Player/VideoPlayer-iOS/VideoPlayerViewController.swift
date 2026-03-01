@@ -492,6 +492,19 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(titleSelectionView)
         view.addSubview(longPressPlaybackSpeedView)
 
+        // Apply Premium Styling
+        mediaNavigationBar.applyGlassEffect(theme: .current)
+        mediaNavigationBar.layer.cornerRadius = 20
+        mediaNavigationBar.clipsToBounds = true
+        
+        videoPlayerControls.applyGlassEffect(theme: .current)
+        videoPlayerControls.layer.cornerRadius = 24
+        videoPlayerControls.clipsToBounds = true
+        
+        mediaScrubProgressBar.applyGlassEffect(theme: .current)
+        mediaScrubProgressBar.layer.cornerRadius = 12
+        mediaScrubProgressBar.clipsToBounds = true
+
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
@@ -743,12 +756,12 @@ class VideoPlayerViewController: PlayerViewController {
         NSLayoutConstraint.activate([
             videoPlayerControlsHeightConstraint,
             videoPlayerControls.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                                                         constant: padding),
+                                                         constant: 24),
             videoPlayerControls.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                                                          constant: -padding),
-            videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
-                                                       constant: -2 * minPadding),
-            videoPlayerControlsBottomConstraint
+                                                          constant: -24),
+            videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                       constant: -24),
+            videoPlayerControls.heightAnchor.constraint(equalToConstant: 72)
         ])
     }
 
