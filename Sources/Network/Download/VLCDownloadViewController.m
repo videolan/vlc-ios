@@ -130,6 +130,10 @@
     if (self.urlField.text.length == 0 && ![self.urlField isFirstResponder]) {
         [self.urlField becomeFirstResponder];
 
+        if (UIAccessibilityIsReduceMotionEnabled()) {
+            return;
+        }
+
         UIView *highlightView = self.urlBorder ?: self.urlField;
         UIColor *originalColor = highlightView.backgroundColor;
         UIColor *highlightColor = PresentationTheme.current.colors.orangeUI;
