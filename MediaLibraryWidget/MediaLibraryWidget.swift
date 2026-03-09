@@ -113,7 +113,7 @@ struct MediaLibraryWidgetEntryView: View {
                 .clipShape(.containerRelative)
                 .frame(width: 120, height: 120)
             VStack(alignment: .leading, spacing: 3) {
-                Text("Last played")
+                Text(entry.configuration.configurableTitle)
                     .italic()
                     .font(.system(size: 15))
                     .foregroundStyle(.white)

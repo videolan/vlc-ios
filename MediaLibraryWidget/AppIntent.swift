@@ -16,7 +16,7 @@ struct ConfigurationAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configuration"
     static var description = IntentDescription("This is an example widget.")
 
-    // An example configurable parameter.
-//    @Parameter(title: "Button Title", default: "Continue")
-//    var buttonTitle: String
+
+    @Parameter(title: "Displayed title", default: "Last played")
+    var configurableTitle: String
 }
