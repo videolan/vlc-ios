@@ -168,8 +168,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         thumbnailView.accessibilityIgnoresInvertColors = true
-        clipsToBounds = true
-        layer.cornerRadius = 2
+        clipsToBounds = false
+        applyModernCardStyle()
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
         descriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
@@ -338,13 +338,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     private func configureShadows() {
-        if PresentationTheme.current.colors.isDark {
-            clearShadow()
-        } else {
-            setShadow()
-        }
-
-        applyRadius()
+        applyModernCardStyle(theme: .current)
     }
 
     private func setShadow() {

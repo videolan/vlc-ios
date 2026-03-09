@@ -74,6 +74,31 @@ class VideoPlayerControls: UIView {
 
     weak var delegate: VideoPlayerControlsDelegate?
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupModernStyle()
+    }
+
+    private func setupModernStyle() {
+        self.backgroundColor = .clear
+        self.applyGlassEffect(theme: .current)
+        self.layer.cornerRadius = 24
+        self.clipsToBounds = true
+        
+        let buttons = [subtitleButton, dvdButton, rotationLockButton, repeatButton, 
+                       backwardButton, previousMediaButton, playPauseButton, 
+                       nextMediaButton, forwardButton, aspectRatioButton, 
+                       moreActionsButton, shuffleButton]
+        
+        buttons.forEach { button in
+            button?.tintColor = .white
+            button?.imageView?.contentMode = .scaleAspectFit
+            // Add subtle hover/press state if needed, but for now just ensure they fit the vibe
+        }
+        
+        playPauseButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+    }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

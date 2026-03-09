@@ -16,7 +16,6 @@ import UIKit
 extension Notification.Name {
     static let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
 }
-
 @objcMembers class ColorPalette: NSObject {
 
     let isDark: Bool
@@ -41,6 +40,11 @@ extension Notification.Name {
     let textfieldBorderColor: UIColor
     let textfieldPlaceholderColor: UIColor
     let thumbnailBackgroundColor: UIColor
+    let primaryGradient: [UIColor]
+    let glassEffectStyle: UIBlurEffect.Style
+    let cardShadowColor: UIColor
+    let cardShadowOpacity: Float
+    let cardShadowRadius: CGFloat
 
     init(isDark: Bool,
          name: String,
@@ -63,7 +67,12 @@ extension Notification.Name {
          blurStyle: UIBlurEffect.Style,
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
-         thumbnailBackgroundColor: UIColor) {
+         thumbnailBackgroundColor: UIColor,
+         primaryGradient: [UIColor],
+         glassEffectStyle: UIBlurEffect.Style,
+         cardShadowColor: UIColor,
+         cardShadowOpacity: Float,
+         cardShadowRadius: CGFloat) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -86,6 +95,11 @@ extension Notification.Name {
         self.textfieldBorderColor = textfieldBorderColor
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
+        self.primaryGradient = primaryGradient
+        self.glassEffectStyle = glassEffectStyle
+        self.cardShadowColor = cardShadowColor
+        self.cardShadowOpacity = cardShadowOpacity
+        self.cardShadowRadius = cardShadowRadius
     }
 }
 
@@ -205,7 +219,6 @@ enum PresentationThemeType: Int {
 }
 
 // MARK: - UIColor
-
 @objc extension UIColor {
 
     convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
@@ -262,7 +275,12 @@ let brightPalette = ColorPalette(isDark: false,
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
-                                 thumbnailBackgroundColor: UIColor(0xE6E6E6))
+                                 thumbnailBackgroundColor: UIColor(0xE6E6E6),
+                                 primaryGradient: [UIColor(0xFF8800), UIColor(0xFFBF00)],
+                                 glassEffectStyle: .extraLight,
+                                 cardShadowColor: UIColor(0x000000),
+                                 cardShadowOpacity: 0.1,
+                                 cardShadowRadius: 8)
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -285,7 +303,12 @@ let darkPalette = ColorPalette(isDark: true,
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
-                               thumbnailBackgroundColor: UIColor(0x26282B))
+                               thumbnailBackgroundColor: UIColor(0x26282B),
+                               primaryGradient: [UIColor(0xFF8800), UIColor(0xD57200)],
+                               glassEffectStyle: .dark,
+                               cardShadowColor: UIColor(0x000000),
+                               cardShadowOpacity: 0.3,
+                               cardShadowRadius: 12)
 
 let blackPalette = ColorPalette(isDark: true,
                                 name: "Dark",
@@ -308,7 +331,12 @@ let blackPalette = ColorPalette(isDark: true,
                                 blurStyle: .dark,
                                 textfieldBorderColor: UIColor(0x84929C),
                                 textfieldPlaceholderColor: UIColor(0x737373),
-                                thumbnailBackgroundColor: UIColor(0x1C1E21))
+                                thumbnailBackgroundColor: UIColor(0x1C1E21),
+                                primaryGradient: [UIColor(0xFF8800), UIColor(0xD57200)],
+                                glassEffectStyle: .dark,
+                                cardShadowColor: UIColor(0x000000),
+                                cardShadowOpacity: 0.4,
+                                cardShadowRadius: 12)
 
 #if os(visionOS)
 let visionPalette = ColorPalette(isDark: true,
@@ -332,7 +360,12 @@ let visionPalette = ColorPalette(isDark: true,
                                  blurStyle: .dark,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0x737373),
-                                 thumbnailBackgroundColor: UIColor(0x1C1E21))
+                                 thumbnailBackgroundColor: UIColor(0x1C1E21),
+                                 primaryGradient: [UIColor(0xFF8800), UIColor(0xD57200)],
+                                 glassEffectStyle: .dark,
+                                 cardShadowColor: UIColor(0x000000),
+                                 cardShadowOpacity: 0.4,
+                                 cardShadowRadius: 12)
 #endif
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))

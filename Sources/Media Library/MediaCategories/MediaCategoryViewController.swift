@@ -81,6 +81,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private weak var albumHeader: AlbumHeader?
     private lazy var albumFlowLayout = AlbumHeaderLayout()
 
+    private var heroHeaderView: HeroHeaderView?
+    private let heroHeaderHeight: CGFloat = 350.0
+
     private weak var playlistHeader: PlaylistHeader?
 
     private lazy var navItemTitle: VLCMarqueeLabel = VLCMarqueeLabel()
@@ -468,6 +471,51 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             let isGridLayout: Bool = isFolderInGridLayout()
             handleLayoutChange(gridLayout: isGridLayout, isFolder: true)
         }
+        
+        setupHeroHeader()
+    }
+
+    private func setupHeroHeader() {
+        guard model is MediaGroupViewModel || model is VideoModel else { return }
+        
+        let header = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: heroHeaderHeight))
+        collectionView.addSubview(header)
+        heroHeaderView = header
+        
+        // Adjust content inset to make room for the hero header
+        collectionView.contentInset.top = heroHeaderHeight
+        
+        // Initial configuration with placeholder or first media
+        updateHeroHeaderContent()
+    }
+
+    private func updateHeroHeaderContent() {
+        guard let firstMedia = currentDataSet.first as? VLCMLMedia else { return }
+        
+        // Use a placeholder or real title/thumbnail
+        let title = firstMedia.title ?? "Featured Content"
+        let subtitle = "Start Watching Now"
+        
+        // In a real app, we'd fetch a high-res backdrop. For now, we'll use the thumbnail if available.
+        // For demonstration, we'll configure with what we have.
+        heroHeaderView?.configure(with: nil, title: title, subtitle: subtitle)
+        
+        // Extract and Apply Dynamic Theme
+        if let thumbnail = firstMedia.thumbnail() {
+            let image = UIImage(contentsOfFile: thumbnail.path)
+            heroHeaderView?.configure(with: image, title: title, subtitle: subtitle)
+            applyDynamicTheme(from: image)
+        }
+    }
+
+    private func applyDynamicTheme(from image: UIImage?) {
+        guard let image = image else { return }
+        let colors = image.generateAdaptiveGradient()
+        
+        UIView.animate(withDuration: 0.8) {
+            self.view.backgroundColor = colors.last // Set background to the darker gradient color
+            self.collectionView.backgroundColor = .clear
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -613,6 +661,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         continueWatchingButton.tintColor = PresentationTheme.current.colors.background
+        
+        // Reset dynamic background if hero header is not present
+        if heroHeaderView == nil {
+            view.backgroundColor = PresentationTheme.current.colors.background
+        }
     }
 
     private func showGuideOnLaunch() {
@@ -723,6 +776,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
            model.mediaCollection is VLCMLAlbum {
 
             updateAlbumHeader()
+        }
+        
+        // Parallax effect for Hero Header
+        if let heroHeader = heroHeaderView {
+            let yOffset = scrollView.contentOffset.y + heroHeaderHeight
+            if yOffset < 0 {
+                heroHeader.frame.origin.y = scrollView.contentOffset.y
+                heroHeader.frame.size.height = heroHeaderHeight - yOffset
+            } else {
+                heroHeader.frame.origin.y = scrollView.contentOffset.y * 0.5 - heroHeaderHeight
+            }
         }
     }
 
@@ -1307,7 +1371,9 @@ extension MediaCategoryViewController {
         }
 
         if let media = modelContent as? VLCMLMedia {
-            play(media: media, at: indexPath)
+            let detailVC = MediaDetailViewController(media: media)
+            detailVC.modalPresentationStyle = .pageSheet
+            present(detailVC, animated: true)
             createSpotlightItem(media: media)
         } else if let artist = modelContent as? VLCMLArtist {
             let artistViewController = ArtistViewController(mediaLibraryService: mediaLibraryService, mediaCollection: artist)

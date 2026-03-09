@@ -130,12 +130,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = false
-        if #available(iOS 13.0, *) {
-            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-        }
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.applyGlassEffect(theme: .current)
         #if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
         #endif
@@ -146,6 +142,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         if containerView != nil {
             containerView.backgroundColor = PresentationTheme.current.colors.background
         }
+        navigationController?.navigationBar.applyGlassEffect(theme: .current)
     }
 
     // MARK: - PagerTabStripDataSource

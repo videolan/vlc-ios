@@ -88,8 +88,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         super.awakeFromNib()
         thumbnailView.accessibilityIgnoresInvertColors = true
 
-        clipsToBounds = true
-        layer.cornerRadius = 2
+        clipsToBounds = false // Allow shadows
+        applyModernCardStyle()
 
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
@@ -104,8 +104,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         notificationCenter.addObserver(self, selector: #selector(dynamicFontSizeChange),
                                        name: UIContentSizeCategory.didChangeNotification,
                                        object: nil)
-        selectionOverlay.layer.cornerRadius = itemCornerRadius
-        thumbnailView.layer.cornerRadius = itemCornerRadius
+        selectionOverlay.layer.cornerRadius = 16
+        thumbnailView.layer.cornerRadius = 16
+        thumbnailView.clipsToBounds = true
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
         dynamicFontSizeChange()
         themeDidChange()
@@ -123,21 +124,24 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     @objc fileprivate func themeDidChange() {
         let colors = PresentationTheme.current.colors
-        backgroundColor = colors.background
+        backgroundColor = .clear
+        contentView.backgroundColor = colors.background
+        contentView.applyModernCardStyle(theme: .current)
+        
         titleLabel?.textColor = colors.cellTextColor
         descriptionLabel?.textColor = colors.cellDetailTextColor
         sizeLabel.textColor = colors.cellDetailTextColor
         groupTitleLabel.textColor = colors.cellTextColor
         groupSizeLabel.textColor = colors.cellDetailTextColor
-        titleLabel?.backgroundColor = backgroundColor
-        descriptionLabel?.backgroundColor = backgroundColor
-        sizeLabel.backgroundColor = backgroundColor
-        groupTitleLabel.backgroundColor = backgroundColor
-        groupSizeLabel.backgroundColor = backgroundColor
-        mediaView.backgroundColor = backgroundColor
-        groupView.backgroundColor = backgroundColor
-        newLabel.backgroundColor = backgroundColor
-        groupLastPlayedLabel.backgroundColor = backgroundColor
+        titleLabel?.backgroundColor = .clear
+        descriptionLabel?.backgroundColor = .clear
+        sizeLabel.backgroundColor = .clear
+        groupTitleLabel.backgroundColor = .clear
+        groupSizeLabel.backgroundColor = .clear
+        mediaView.backgroundColor = .clear
+        groupView.backgroundColor = .clear
+        newLabel.backgroundColor = .clear
+        groupLastPlayedLabel.backgroundColor = .clear
         thumbnailsBackground.backgroundColor = colors.thumbnailBackgroundColor
     }
 
