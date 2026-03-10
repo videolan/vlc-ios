@@ -275,17 +275,17 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
            let audiotrackURL = audiotrack.mainFile()?.mrl,
            let currentMediaURL = currentMedia.url,
            currentMediaURL == audiotrackURL {
-            isMediaBeingPlayed = true
+            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume),
+                                                   object: nil, queue: OperationQueue.main, using: {_ in
+                self.animateCurrentlyPlayingState()
+                if let parentCollectionView = self.superview as? UICollectionView {
+                    parentCollectionView.reloadData()
+                }
+            })
 
             // Animate the current played cell
-            if #available(iOS 13.0, *) {
-                NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume),
-                                                       object: nil, queue: OperationQueue.main, using: {_ in
-                    self.animateCurrentlyPlayingState()
-                    if let parentCollectionView = self.superview as? UICollectionView {
-                        parentCollectionView.reloadData()
-                    }
-                })
+            if #available(iOS 13.0, *), playbackService.mediaPlayerState != .stopped {
+                isMediaBeingPlayed = true
                 animateCurrentlyPlayingState()
                 backupThumbnail = audiotrack.thumbnailImage()
             } else {
