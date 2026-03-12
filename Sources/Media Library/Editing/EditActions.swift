@@ -413,6 +413,8 @@ private extension EditActions {
 
     private func addToNewPlaylist() {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
+                                           alertDescription: NSLocalizedString("PLAYLIST_DESCRIPTION",
+                                                                               comment: ""),
                                            placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
                                                                           comment: ""))
         presentTextFieldAlert(with: alertInfo) {
