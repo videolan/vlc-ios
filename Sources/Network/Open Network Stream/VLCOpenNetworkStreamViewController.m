@@ -150,11 +150,13 @@
 
     self.historyTableView.rowHeight = [VLCStreamingHistoryCell heightOfCell];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
-                                              style:UIBarButtonItemStylePlain
-                                              target:self
-                                              action:@selector(editTableView:)];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(editTableView:)];
+
+    self.navigationItem.rightBarButtonItems = @[editButton];
 }
 
 - (void)updateForTheme
@@ -173,7 +175,9 @@
     self.openButton.backgroundColor = colors.orangeUI;
     self.privateToggleButton.tintColor = colors.orangeUI;
     self.scanSubToggleButton.tintColor = colors.orangeUI;
-    [self.historyTableView reloadData];
+    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+        item.tintColor = colors.orangeUI;
+    }
 #if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
 #endif
@@ -200,8 +204,10 @@
     self.scanSubToggleButton.selected = [defaults boolForKey:kVLChttpScanSubtitle];
 
     self.historyTableView.editing = NO;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-    self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+    UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
+    editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+    editButtonItem.style = UIBarButtonItemStylePlain;
+    self.navigationItem.rightBarButtonItems = @[editButtonItem];
 
     [self updateEditButtonState];
     [super viewWillAppear:animated];
@@ -275,13 +281,56 @@
 {
     BOOL editing = self.historyTableView.editing;
     [self.historyTableView setEditing:!editing animated:YES];
+
+    // Find current edit button and construct/reset right buttons
+    UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
+    if (!editButtonItem) { return; }
+
     if (editing) {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+        // Leaving editing: set title back to Edit and remove trash button
+        editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+        editButtonItem.style = UIBarButtonItemStylePlain;
+        self.navigationItem.rightBarButtonItems = @[editButtonItem];
     } else {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_DONE", nil);
-        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyleDone;
+        // Entering editing: set title to Done and add trash button
+        editButtonItem.title = NSLocalizedString(@"BUTTON_DONE", nil);
+        editButtonItem.style = UIBarButtonItemStyleDone;
+
+        UIBarButtonItem *resetButton = [self _resetBarButtonItem];
+
+        self.navigationItem.rightBarButtonItems = @[editButtonItem, resetButton];
     }
+}
+
+- (void)emptyListAction:(id)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"RESET_NETWORK_STREAM_LIST_TITLE", nil)
+                                                                             message:NSLocalizedString(@"RESET_NETWORK_STREAM_LIST_TEXT", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RESET", nil)
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action){
+        @synchronized (self->_recentURLs) {
+            self->_recentURLs = [NSMutableArray array];
+            self->_recentURLTitles = [NSMutableDictionary dictionary];
+            [self _saveData];
+            [self.historyTableView reloadData];
+            [self updateEditButtonState];
+        }
+    }];
+    [alertController addAction:deleteAction];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    [alertController addAction:cancelAction];
+
+    if ([alertController respondsToSelector:@selector(setPreferredAction:)]) {
+        [alertController setPreferredAction:deleteAction];
+    }
+
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - table view cell delegation
@@ -483,14 +532,36 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 #pragma mark - internals
+
+- (UIBarButtonItem *)_resetBarButtonItem
+{
+    UIImage *resetImage = nil;
+    if (@available(iOS 13.0, *)) {
+        resetImage = [UIImage systemImageNamed:@"trash"];
+    }
+    if (!resetImage) {
+        resetImage = [UIImage imageNamed:@"trash"];
+    }
+    UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:resetImage
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(emptyListAction:)];
+    resetButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    return resetButton;
+}
+
 - (void)updateEditButtonState
 {
     BOOL hasItems = _recentURLs.count > 0;
-    self.navigationItem.rightBarButtonItem.enabled = hasItems;
+    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+        item.enabled = hasItems;
+    }
     if (!hasItems && self.historyTableView.editing) {
         [self.historyTableView setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+        UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
+        editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+        editButtonItem.style = UIBarButtonItemStylePlain;
+        self.navigationItem.rightBarButtonItems = @[editButtonItem];
     }
 }
 	
