@@ -40,6 +40,7 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
     UIActivityIndicatorView *_activityIndicator;
     ColorPalette *_colors;
     UILabel *_explainationLabel;
+    CGFloat _lastFooterWidth;
 }
 @end
 
@@ -73,14 +74,26 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
     self.tableView.tableFooterView = _explainationLabel;
 }
 
+- (void)_sizeFooterToFit
+{
+    UIView *footerView = self.tableView.tableFooterView;
+    CGFloat tableWidth = self.tableView.bounds.size.width;
+    _lastFooterWidth = tableWidth;
+
+    CGSize targetSize = CGSizeMake(tableWidth - 40., CGFLOAT_MAX);
+    CGSize textSize = [_explainationLabel sizeThatFits:targetSize];
+    footerView.frame = CGRectMake(0., 0., tableWidth, textSize.height + 40.);
+    self.tableView.tableFooterView = footerView;
+}
+
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-
-    CGRect frame = self.tableView.tableFooterView.frame;
-    frame.size.width = self.tableView.bounds.size.width;
-    frame.size.height = [VLCNetworkListCell heightOfCell] * 3.;
-    self.tableView.tableFooterView.frame = frame;
+    CGFloat currentWidth = self.tableView.bounds.size.width;
+    if (currentWidth != _lastFooterWidth) {
+        [self _sizeFooterToFit];
+    }
+    _activityIndicator.center = self.tableView.center;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -92,6 +105,7 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
 
     [super viewWillAppear:animated];
     _explainationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DONATION_CHARGES_CLEARED_ON_REINSTALL", nil), _stripeController.customerName];
+    [self _sizeFooterToFit];
     _activityIndicator.center = self.tableView.center;
 }
 
