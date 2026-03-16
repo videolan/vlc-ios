@@ -36,6 +36,11 @@
 
 @implementation VLCDonationSEPAViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

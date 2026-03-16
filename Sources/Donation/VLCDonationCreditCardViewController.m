@@ -43,6 +43,11 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 @implementation VLCDonationCreditCardViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

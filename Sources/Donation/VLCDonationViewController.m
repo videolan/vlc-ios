@@ -55,6 +55,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 @implementation VLCDonationViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
