@@ -210,7 +210,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>RestoreLastPlayedMedia</string>
 			<key>Title</key>
