@@ -17,6 +17,11 @@
 
 @implementation VLCSEPANotificationViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.titleLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER", nil);

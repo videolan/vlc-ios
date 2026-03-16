@@ -46,6 +46,11 @@ NSString * const VLCDonationInvoicesViewControllerReuseIdentifier = @"VLCDonatio
 
 @implementation VLCDonationInvoicesViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
