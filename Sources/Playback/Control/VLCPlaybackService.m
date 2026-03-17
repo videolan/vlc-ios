@@ -506,8 +506,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
 
     if (media) {
-        if (media.isNew)
+        if (media.isNew) {
+            [self disableSubtitlesIfNeeded];
             return;
+        }
 
         SInt64 audioIndex = media.audioTrackIndex;
         NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
