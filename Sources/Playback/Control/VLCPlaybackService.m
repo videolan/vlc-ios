@@ -571,8 +571,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
 
     if (media) {
-        if (media.isNew)
+        if (media.isNew) {
+            [self disableSubtitlesIfNeeded];
             return;
+        }
 
         VLCMLMetadata *speedMetadata = [media metadataOfType:VLCMLMetadataTypeSpeed];
         if (speedMetadata.integer > 0) {
