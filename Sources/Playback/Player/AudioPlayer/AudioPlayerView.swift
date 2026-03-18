@@ -116,8 +116,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }()
 
     private lazy var playButton: UIButton = {
-        let playButton = UIButton()
-        playButton.setImage(UIImage(named: "iconPlayLarge"), for: .normal)
+        let playButton = UIButton(type: .system)
+        playButton.setImage(UIImage(named: "iconPlay"), for: .normal)
         playButton.contentMode = .scaleAspectFit
         playButton.imageView?.contentMode = .scaleAspectFit
         playButton.tintColor = .white
@@ -306,7 +306,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     func updatePlayButton(isPlaying: Bool) {
-        let icon: UIImage? = isPlaying ? UIImage(named: "iconPauseLarge") : UIImage(named: "iconPlayLarge")
+        let icon: UIImage? = isPlaying ? UIImage(named: "iconPause") : UIImage(named: "iconPlay")
         playButton.setImage(icon, for: .normal)
     }
 
