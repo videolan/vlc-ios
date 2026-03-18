@@ -1,26 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "ic_server.svg",
-      "idiom" : "iphone",
+      "filename" : "serverIcon.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
+      "filename" : "serverIcon@2x.png",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
+      "filename" : "serverIcon@3x.png",
+      "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "filename" : "ic_server 1.svg",
-      "idiom" : "ipad",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "scale" : "2x"
     }
   ],
   "info" : {
@@ -28,7 +21,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
     "template-rendering-intent" : "template"
   }
 }
