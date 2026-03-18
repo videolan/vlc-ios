@@ -123,10 +123,12 @@
     if (@available(iOS 13.0, *)) {
         // Display the favorite button only if the folder is marked as favorite
         _favoriteButton.hidden = !isFavorite;
+        [_favoriteButton setImage:[UIImage systemImageNamed:isFavorite ? @"heart.fill" : @"heart"]
+                         forState:UIControlStateNormal];
     } else {
         // The contextual menu is not available so the favorite button is always displayed when available.
         _favoriteButton.hidden = !_isFavorable;
-        UIImage *icon = isFavorite ? [UIImage imageNamed:@"heart.fill"] : [UIImage imageNamed:@"heart"];
+        UIImage *icon = isFavorite ? [UIImage imageNamed:@"heart-fill"] : [UIImage imageNamed:@"heart"];
         [_favoriteButton setImage:icon forState:UIControlStateNormal];
     }
 

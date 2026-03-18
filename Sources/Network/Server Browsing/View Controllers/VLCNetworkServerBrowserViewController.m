@@ -307,7 +307,7 @@ API_AVAILABLE(ios(13.0)) {
         NSMutableArray* actions = [[NSMutableArray alloc] init];
 
         NSString *optionTitle = cell.isFavorite ? NSLocalizedString(@"REMOVE_FAVORITE", "") : NSLocalizedString(@"ADD_FAVORITE", "");
-        UIImage *image = cell.isFavorite ? [UIImage imageNamed:@"heart"] : [UIImage imageNamed:@"heart.fill"];
+        UIImage *image = cell.isFavorite ? [UIImage systemImageNamed:@"heart"] : [UIImage systemImageNamed:@"heart.fill"];
 
         [actions addObject:[UIAction actionWithTitle:optionTitle image:image identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
             [self triggerFavoriteForCell:cell];

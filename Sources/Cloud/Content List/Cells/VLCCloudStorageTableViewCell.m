@@ -326,14 +326,14 @@
     if (@available(iOS 13.0, *)) {
         _favouriteButton.hidden = !isFavourite;
         if (isFavourite) {
-            [_favouriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
+            [_favouriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         }
     } else {
         _favouriteButton.hidden = NO;
         if (isFavourite) {
             [_favouriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
         } else {
-            [_favouriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
+            [_favouriteButton setImage:[UIImage imageNamed:@"heart-fill"] forState:UIControlStateNormal];
         }
     }
        

@@ -63,7 +63,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="heart.fill"/>
+                        <state key="normal" image="heart-fill"/>
                         <state key="selected" image="heart.fill" catalog="system"/>
                         <connections>
                             <action selector="triggerFavorite:" destination="3" eventType="touchUpInside" id="QOn-VI-Huo"/>
@@ -134,6 +134,6 @@
     <resources>
         <image name="download" width="24" height="24"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="heart.fill" width="24" height="24"/>
+        <image name="heart-fill" width="24" height="24"/>
     </resources>
 </document>
