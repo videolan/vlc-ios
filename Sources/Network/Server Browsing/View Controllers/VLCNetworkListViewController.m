@@ -60,7 +60,8 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     [super viewDidLoad];
 
     self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    UIColor *backgroundColor = PresentationTheme.current.colors.background;
+    self.view.backgroundColor = backgroundColor;
 
     UINavigationBar *navBar = self.navigationController.navigationBar;
     _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -78,7 +79,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
         // search bar text field background color
         UITextField *searchTextField = [_searchController.searchBar valueForKey:@"searchField"];
         UIView *backgroundView = searchTextField.subviews.firstObject;
-        backgroundView.backgroundColor = UIColor.whiteColor;
+        backgroundView.backgroundColor = backgroundColor;
         backgroundView.layer.cornerRadius = 10;
         backgroundView.clipsToBounds = YES;
 
