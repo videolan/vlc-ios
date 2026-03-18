@@ -221,6 +221,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
         navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
 
+        if #unavailable(iOS 10) {
+            navItemTitle.sizeToFit()
+        }
         self.navigationItem.titleView = navItemTitle
 
     }
