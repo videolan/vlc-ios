@@ -14,31 +14,6 @@
       "filename" : "blank@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "filename" : "blank-1.png",
-      "idiom" : "iphone",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "blank@2x-1.png",
-      "idiom" : "iphone",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "blank@3x-1.png",
-      "idiom" : "iphone",
-      "scale" : "3x"
-    },
-    {
-      "filename" : "blank@2x-2.png",
-      "idiom" : "ipad",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "blank@2x~ipad.png",
-      "idiom" : "ipad",
-      "scale" : "2x"
     }
   ],
   "info" : {
