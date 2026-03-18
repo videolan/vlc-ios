@@ -81,6 +81,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 
+    [self.confettiView.widthAnchor constraintEqualToAnchor:self.contentScrollView.frameLayoutGuide.widthAnchor].active = YES;
+
     if (_embargoedCountry) {
         _titleLabel.text = NSLocalizedString(@"DONATION_WINDOW_TITLE", nil);
         _descriptionLabel.text = NSLocalizedString(@"DONATION_EMBARGOED_COUNTRY", nil);
