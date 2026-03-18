@@ -85,14 +85,12 @@ class BottomTabBarController: UITabBarController {
     // MARK: - Helpers
 
     func editToolBar() -> EditToolbar? {
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            !sidebar.isHidden {
             return bottomBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
         }
-
-        return tabBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
 #endif
 
         return tabBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar

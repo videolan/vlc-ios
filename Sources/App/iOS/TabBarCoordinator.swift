@@ -89,7 +89,7 @@ class TabBarCoordinator: NSObject {
         setupEditToolbar()
         updateTheme()
         tabBarController.title = "VLC  iOS"
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *) {
             tabBarController.mode = .tabSidebar
             let sideBar = tabBarController.sidebar
@@ -104,7 +104,7 @@ class TabBarCoordinator: NSObject {
     private func setupViewControllers() {
         var controllers: [UINavigationController] = [videoNavigationController]
 
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
            !tabBarController.sidebar.isHidden {
             controllers.append(artistsNavigationController)
@@ -143,7 +143,7 @@ class TabBarCoordinator: NSObject {
 #endif
     }
 
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
     private func updateTabBarIndexIfNeeded() {
         let userDefaults = UserDefaults.standard
         var tabIndex: Int = userDefaults.integer(forKey: kVLCTabBarIndex)
@@ -190,17 +190,19 @@ class TabBarCoordinator: NSObject {
         editToolbar.isHidden = true
         editToolbar.translatesAutoresizingMaskIntoConstraints = false
 
-        var view: UIView
+        var useSidebar = false
+#if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
             sideToolBar.isHidden = true
             sideToolBar.translatesAutoresizingMaskIntoConstraints = false
-#if os(iOS)
             tabBarController.sidebar.bottomBarView = sideToolBar
+            useSidebar = true
+        }
 #endif
-        } else {
+        if !useSidebar {
             tabBarController.tabBar.addSubview(editToolbar)
             tabBarController.tabBar.bringSubviewToFront(editToolbar)
-            view = tabBarController.tabBar
+            let view = tabBarController.tabBar
 
             NSLayoutConstraint.activate([
                 editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -331,7 +333,7 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
     }
 }
 
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
 @available(iOS 18.0, *)
 extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
     func tabBarController(_ tabBarController: UITabBarController, sidebarVisibilityWillChange sidebar: UITabBarController.Sidebar, animator: any UITabBarController.Sidebar.Animating) {

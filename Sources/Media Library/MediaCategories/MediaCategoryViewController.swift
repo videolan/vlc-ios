@@ -447,27 +447,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             return
         }
 
-        var toolBar: EditToolbar = editToolBar
-
-#if os(iOS)
-        if #available(iOS 18.0, *),
-           UIDevice.current.userInterfaceIdiom == .pad,
-           let tabBarController = tabBarController,
-           let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
-           !tabBarController.sidebar.isHidden {
-            toolBar = sideToolBar
-        } else if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            toolBar = editToolBar
-        }
-#else
-        if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            toolBar = editToolBar
-        }
-#endif
-
-        toolBar.updateEditToolbar(for: model)
+        activeEditToolbar().updateEditToolbar(for: model)
     }
 
     func isEmptyCollectionView() -> Bool {
@@ -524,7 +504,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         manager.presentingViewController = self
 
+#if compiler(>=6.0)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
+#endif
 #endif
         let playbackService = PlaybackService.sharedInstance()
         playbackService.setPlayerHidden(isEditing)
@@ -813,33 +795,31 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         handleContinueWatchingButtonVisibility()
     }
 
-    private func displayEditToolbar() {
-        var toolBar: EditToolbar = editToolBar
-
-#if os(iOS)
+    private func activeEditToolbar() -> EditToolbar {
+#if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController,
            let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
            !tabBarController.sidebar.isHidden {
-            toolBar = sideToolBar
-        } else if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            toolBar = editToolBar
-        }
- #else
-        if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            toolBar = editToolBar
+            return sideToolBar
         }
 #endif
+        if let tabBarController = tabBarController as? BottomTabBarController,
+           let editToolBar = tabBarController.editToolBar() {
+            return editToolBar
+        }
+        return editToolBar
+    }
 
+    private func displayEditToolbar() {
+        let toolBar = activeEditToolbar()
         toolBar.delegate = editController
         toolBar.updateEditToolbar(for: model)
         toolBar.isHidden = isEditing ? false : true
     }
 
-#if os(iOS)
+#if os(iOS) && compiler(>=6.0)
     @objc private func handleEditToolBar() {
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad,
@@ -2084,26 +2064,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
     }
 
     func enableEditToolBarActions(_ enable: Bool) {
-#if os(iOS)
-        if #available(iOS 18.0, *),
-           UIDevice.current.userInterfaceIdiom == .pad,
-           let tabBarController = tabBarController {
-            if let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
-               !tabBarController.sidebar.isHidden {
-                sideToolBar.enableEditActions(enable)
-            } else {
-                editToolBar.enableEditActions(enable)
-            }
-        } else if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            editToolBar.enableEditActions(enable)
-        }
-#else
-        if let tabBarController = tabBarController as? BottomTabBarController,
-                  let editToolBar = tabBarController.editToolBar() {
-            editToolBar.enableEditActions(enable)
-        }
-#endif
+        activeEditToolbar().enableEditActions(enable)
     }
 
     func editControllerDidSelectMultipleItem(editContrller: EditController) {
