@@ -41,6 +41,7 @@
 "SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 "SETTINGS_RESTORE_LAST_PLAYED_MEDIA" = "Restore last played media on launch";
+"SETTINGS_RESTORE_LAST_PLAYED_MEDIA_SUBTITLE" = "Not applicable to externally stored media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
 "SETTINGS_SKIP_LOOP_FILTER_INFO" = "Skipping the loop filter (aka deblocking) usually has a detrimental effect on quality. However it provides a big speedup for high definition streams.";
@@ -58,6 +59,7 @@
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL" = "Use the same interval to seek forward and backwards";
 "SETTINGS_GESTURES_TAP_SWIPE_EQUAL" = "Use the same interval for tap and swipe gestures";
+"SETTINGS_GESTURES_SNAPSHOT" = "Three finger tap for snapshot";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitles";
 "SETTINGS_SUBTITLES_DISABLE" = "Disable subtitles";
@@ -135,6 +137,7 @@
 "SETTINGS_LAB" = "Lab";
 "SETTINGS_DEBUG_LOG" = "Save debug logs on device";
 "SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_EXPORT_LIST" = "Export settings";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
@@ -172,11 +175,6 @@
 "SETTINGS_RESET" = "Reset the settings";
 "SETTINGS_RESET_TITLE" = "Reset";
 
-"SETTINGS_SUBTITLES_OFFSET_DELAY" = "Subtitles delay offset";
-"SETTINGS_AUDIO_OFFSET_DELAY" = "Audio delay offset";
-"SETTINGS_OFFSET_FIFTY" = "50 ms";
-"SETTINGS_OFFSET_ONE_HUNDRED" = "100 ms";
-"SETTINGS_OFFSET_TWO_HUNDRED" = "200 ms";
-"SETTINGS_OFFSET_THREE_HUNDRED" = "300 ms";
-"SETTINGS_OFFSET_FOUR_HUNDRED" = "400 ms";
-"SETTINGS_OFFSET_FIVE_HUNDRED" = "500 ms";
+"SETTINGS_PARENTAL_CONTROL" = "Parental control";
+"SETTINGS_PARENTAL_CONTROL_SUBTITLE" = "When activated, files cannot be deleted or playlists modified without entering the pin";
+
