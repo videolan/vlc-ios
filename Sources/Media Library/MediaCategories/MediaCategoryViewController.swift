@@ -305,17 +305,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func setupSearchBar() {
+        let backgroundColor = PresentationTheme.current.colors.background
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
-        searchBar.backgroundColor = PresentationTheme.current.colors.background
+        searchBar.backgroundColor = backgroundColor
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = UIColor.white
+                backgroundview.backgroundColor = backgroundColor
                 backgroundview.layer.cornerRadius = 10
                 backgroundview.clipsToBounds = true
             }
