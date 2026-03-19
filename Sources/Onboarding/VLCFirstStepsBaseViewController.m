@@ -170,8 +170,12 @@
 {
     UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
     UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
-    donationNC.modalPresentationStyle = UIModalPresentationPopover;
-    donationNC.popoverPresentationController.sourceView = self.titleLabel;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        donationNC.modalPresentationStyle = UIModalPresentationPopover;
+        donationNC.popoverPresentationController.sourceView = self.titleLabel;
+    } else {
+        donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
     [self presentViewController:donationNC animated:YES completion:nil];
 }
 
