@@ -7,6 +7,7 @@
 · various smaller UI improvements notably on iOS 9 and 12
 · fix crash when enabling CarPlay with very large media libaries
 · export smaller snapshots to the Spotlight service to decrease the memory impact
+· fix opening very large files from within the Files app
 
 ## tvOS [3.7.2]
 · misc. performance and stability improvements
