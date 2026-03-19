@@ -387,11 +387,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         searchBar.backgroundColor = backgroundColor
         navigationItem.largeTitleDisplayMode = .never
-        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
-            if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = backgroundColor
-                backgroundview.layer.cornerRadius = 10
-                backgroundview.clipsToBounds = true
+        if #unavailable(iOS 26) {
+            if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+                if let backgroundview = textfield.subviews.first {
+                    backgroundview.backgroundColor = backgroundColor
+                    backgroundview.layer.cornerRadius = 10
+                    backgroundview.clipsToBounds = true
+                }
             }
         }
 
