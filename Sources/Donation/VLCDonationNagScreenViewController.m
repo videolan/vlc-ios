@@ -67,8 +67,16 @@
     [self dismissViewControllerAnimated:YES completion:^{
         UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
         UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
-        donationNC.modalPresentationStyle = UIModalPresentationPopover;
-        donationNC.popoverPresentationController.sourceView = [[[VLCAppCoordinator sharedInstance] tabBarController] tabBar];
+#if TARGET_OS_IOS
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            donationNC.modalPresentationStyle = UIModalPresentationPopover;
+            donationNC.popoverPresentationController.sourceView = [[[VLCAppCoordinator sharedInstance] tabBarController] tabBar];
+        } else {
+            donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
+        }
+#else
+        donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
+#endif
         [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:donationNC animated:YES completion:nil];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];

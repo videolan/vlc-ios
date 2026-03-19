@@ -205,9 +205,13 @@ class SettingsController: UITableViewController {
 #endif
         let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
         let donationNC = UINavigationController(rootViewController: donationVC)
-        donationNC.modalPresentationStyle = .popover
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            donationNC.modalPresentationStyle = .popover
+            donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        } else {
+            donationNC.modalPresentationStyle = .fullScreen
+        }
         donationNC.modalTransitionStyle = .flipHorizontal
-        donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
         present(donationNC, animated: true, completion: nil)
     }
 
