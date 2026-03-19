@@ -17,6 +17,7 @@
 #endif
 #import "VLCFirstStepsDonateViewController.h"
 #import "VLCFirstStepsWifiSharingViewController.h"
+#import "VLCDonationNavigationController.h"
 #import "VLC-Swift.h"
 
 @implementation VLCFirstStepsBaseViewController
@@ -171,7 +172,7 @@
 - (void)didTapLabelWithGesture:(UIGestureRecognizer *)gesture
 {
     UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
-    UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
+    UINavigationController *donationNC = [[VLCDonationNavigationController alloc] initWithRootViewController:donationVC];
 #if TARGET_OS_IOS
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         donationNC.modalPresentationStyle = UIModalPresentationPopover;

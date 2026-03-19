@@ -204,7 +204,7 @@ class SettingsController: UITableViewController {
         ImpactFeedbackGenerator().selectionChanged()
 #endif
         let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
-        let donationNC = UINavigationController(rootViewController: donationVC)
+        let donationNC = VLCDonationNavigationController(rootViewController: donationVC)
         if UIDevice.current.userInterfaceIdiom == .pad {
             donationNC.modalPresentationStyle = .popover
             donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)

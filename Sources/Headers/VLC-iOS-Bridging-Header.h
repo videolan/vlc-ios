@@ -36,6 +36,7 @@
 #import "UIStackView+Orientation.h"
 #import "VLCFavoriteService.h"
 #import "VLCDonationViewController.h"
+#import "VLCDonationNavigationController.h"
 #import "VLCDonationNagScreenViewController.h"
 #import "VLCNetworkServerLoginInformation.h"
 #import "VLCNetworkServerBrowserPlex.h"
