@@ -12,6 +12,7 @@
 
 #import "VLCDonationNagScreenViewController.h"
 #import "VLCDonationViewController.h"
+#import "VLCDonationNavigationController.h"
 #import "VLC-Swift.h"
 
 @implementation VLCDonationNagScreenViewController
@@ -66,7 +67,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
-        UINavigationController *donationNC = [[UINavigationController alloc] initWithRootViewController:donationVC];
+        UINavigationController *donationNC = [[VLCDonationNavigationController alloc] initWithRootViewController:donationVC];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             donationNC.modalPresentationStyle = UIModalPresentationPopover;
             donationNC.popoverPresentationController.sourceView = [[[VLCAppCoordinator sharedInstance] tabBarController] tabBar];

@@ -491,9 +491,13 @@ extension SettingsController {
                 ImpactFeedbackGenerator().selectionChanged()
             }
             let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
-            let donationNC = UINavigationController(rootViewController: donationVC)
-            donationNC.modalPresentationStyle = .popover
-            donationNC.modalTransitionStyle = .flipHorizontal
+            let donationNC = VLCDonationNavigationController(rootViewController: donationVC)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                donationNC.modalPresentationStyle = .popover
+                donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            } else {
+                donationNC.modalPresentationStyle = .fullScreen
+            }
             donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
             present(donationNC, animated: true, completion: nil)
         case .generic:
