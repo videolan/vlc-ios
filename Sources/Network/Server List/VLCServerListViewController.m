@@ -649,17 +649,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         if (urls.count == 1 && [[urls[0] pathExtension] isEqualToString:@""]) {
             [self getFolderData:urls[0] mediaList:medialist];
         } else {
-            NSSortDescriptor *urlSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString" ascending:YES selector:@selector(localizedStandardCompare:)];
-            NSArray<NSURL *> *sortedArray = [urls sortedArrayUsingDescriptors:@[urlSortDescriptor]];
-            for (NSURL *url in sortedArray) {
-                NSString *pathExtension = [url pathExtension];
-                if (![pathExtension isEqualToString:@""]) {
-                    if (url && [url startAccessingSecurityScopedResource]) {
-                        [medialist addMedia:[VLCMedia mediaWithURL:url]];
-                        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
-                    }
-                }
-            }
+            [self sortMediaListWith:urls mediaList:medialist];
         }
 
         if ([medialist count] > 0) {
@@ -684,10 +674,21 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         return;
     }
 
-    for (NSURL *fileURL in filesInFolder) {
-        if (![fileURL.pathExtension isEqual:@""]) {
-            [list addMedia:[VLCMedia mediaWithURL:fileURL]];
-            [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:fileURL];
+    [self sortMediaListWith:filesInFolder mediaList:list];
+}
+
+- (void)sortMediaListWith:(NSArray<NSURL *> *)mediaURLS mediaList:(VLCMediaList *)medialist
+{
+    NSSortDescriptor *urlSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString" ascending:YES selector:@selector(localizedStandardCompare:)];
+    NSArray<NSURL *> *sortedArray = [mediaURLS sortedArrayUsingDescriptors:@[urlSortDescriptor]];
+
+    for (NSURL *url in sortedArray) {
+        NSString *pathExtension = [url pathExtension];
+        if (![pathExtension isEqualToString:@""]) {
+            if (url && [url startAccessingSecurityScopedResource]) {
+                [medialist addMedia:[VLCMedia mediaWithURL:url]];
+                [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+            }
         }
     }
 }
