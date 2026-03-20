@@ -15,6 +15,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCMovieTVCollectionViewCell.h"
+#import "VLCMediaTVCollectionViewCell.h"
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "VLC-Swift.h"
@@ -133,6 +134,8 @@
      flowLayout.minimumLineSpacing = 80.0;
      [self.cachedMediaCollectionView registerClass:[VLCMovieTVCollectionViewCell class]
                        forCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier];
+     [self.cachedMediaCollectionView registerClass:[VLCMediaTVCollectionViewCell class]
+                       forCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier];
 
      self.reachability = [Reachability reachabilityForLocalWiFi];
 
@@ -270,8 +273,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     VLCMovieTVCollectionViewCell *cell = (VLCMovieTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
-     return cell;
+     if (_isAudio) {
+          return [collectionView dequeueReusableCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier forIndexPath:indexPath];
+     }
+     return [collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -279,16 +284,9 @@
      return 1;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCMovieTVCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
      NSUInteger row = indexPath.row;
-
-     if (_editSelectionActive) {
-          _searchBar.hidden = YES;
-          cell.checkboxImageView.hidden = NO;
-     } else {
-          cell.checkboxImageView.hidden = YES;
-     }
 
      VLCMLMedia *media = nil;
 
@@ -302,7 +300,25 @@
           }
      }
 
-     [cell configureWithMedia:media];
+     if (_isAudio) {
+          VLCMediaTVCollectionViewCell *audioCell = (VLCMediaTVCollectionViewCell *)cell;
+          [audioCell configureWithMedia:media];
+          if (_editSelectionActive) {
+               _searchBar.hidden = YES;
+               audioCell.checkboxImageView.hidden = NO;
+          } else {
+               audioCell.checkboxImageView.hidden = YES;
+          }
+     } else {
+          VLCMovieTVCollectionViewCell *movieCell = (VLCMovieTVCollectionViewCell *)cell;
+          [movieCell configureWithMedia:media];
+          if (_editSelectionActive) {
+               _searchBar.hidden = YES;
+               movieCell.checkboxImageView.hidden = NO;
+          } else {
+               movieCell.checkboxImageView.hidden = YES;
+          }
+     }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -516,6 +532,17 @@
      NSMutableArray<VLCMLMedia *> *mutableMedia = [_searchedMedia mutableCopy];
      [mutableMedia removeAllObjects];
      _searchedMedia = [_searchedMedia copy];
+
+     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
+     if (_isAudio) {
+          flowLayout.itemSize = [VLCMediaTVCollectionViewCell cellSize];
+          flowLayout.minimumInteritemSpacing = 48.0;
+          flowLayout.minimumLineSpacing = 60.0;
+     } else {
+          flowLayout.itemSize = [VLCMovieTVCollectionViewCell cellSize];
+          flowLayout.minimumLineSpacing = 80.0;
+     }
+
      [self.cachedMediaCollectionView reloadData];
 }
 
