@@ -130,6 +130,8 @@ class AddToPlaylistViewController: UIViewController {
 
         playlistAlert.addTextField { textField in
             textField.placeholder = NSLocalizedString("PLAYLIST_PLACEHOLDER", comment: "")
+            textField.textColor = .black
+            textField.keyboardAppearance = .light
         }
 
         let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel, handler: nil)

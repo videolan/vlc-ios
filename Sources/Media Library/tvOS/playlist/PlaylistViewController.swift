@@ -221,11 +221,15 @@ extension PlaylistViewController {
         let alertTitle = "Rename \(currentTitle) to:"
         let renameAlert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
 
-        renameAlert.addTextField { _ in }
+        renameAlert.addTextField { textField in
+            textField.text = currentTitle
+            textField.textColor = .black
+            textField.keyboardAppearance = .light
+        }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel, handler: nil)
 
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+        let confirmAction = UIAlertAction(title: NSLocalizedString("BUTTON_DONE", comment: ""), style: .default) { _ in
             if let textField = renameAlert.textFields?.first,
                let newName = textField.text,
                !newName.isEmpty {

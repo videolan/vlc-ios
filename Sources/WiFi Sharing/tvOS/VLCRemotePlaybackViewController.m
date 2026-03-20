@@ -500,12 +500,15 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      __block NSString *newName = nil;
 
      [renameAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+          textField.text = currentTitle;
+          textField.textColor = [UIColor blackColor];
+          textField.keyboardAppearance = UIKeyboardAppearanceLight;
      }];
 
-     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"style:UIAlertActionStyleCancel
+     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel
                                                           handler:nil];
 
-     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
           UITextField *textField = renameAlert.textFields.firstObject;
           newName = textField.text;
 
