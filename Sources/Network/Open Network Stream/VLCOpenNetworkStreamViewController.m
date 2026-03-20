@@ -596,6 +596,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         NSURL *playbackURL = [NSURL URLWithString:url];
 
         VLCMedia *media = [VLCMedia mediaWithURL:playbackURL];
+
+        NSUInteger i = [self->_recentURLs indexOfObject: url];
+        if (i != NSNotFound) {
+            NSString *renamedTitle = self->_recentURLTitles[[@(i) stringValue]];
+            if (renamedTitle != nil) {
+                media.metaData.title = renamedTitle;
+            }
+        }
+
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
