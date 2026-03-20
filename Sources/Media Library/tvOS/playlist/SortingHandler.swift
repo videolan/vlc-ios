@@ -71,7 +71,7 @@ class SortingHandler: NSObject {
                 case .video, .audio:
                     remotePlaybackView?.cachedMediaCollectionView.reloadData()
                 case .playlist:
-                    playlistView?.playlistView.reloadData()
+                    playlistView?.playlistCollectionView.reloadData()
                 }
             }
             sortAlert.addAction(action)

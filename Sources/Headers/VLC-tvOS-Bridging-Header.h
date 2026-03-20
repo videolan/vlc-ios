@@ -32,5 +32,6 @@
 #import "CAAnimation+VLCWiggle.h"
 #import "VLCDeletionCapableViewController.h"
 #import "VLCThumbnailsCache.h"
+#import "VLCMovieTVCollectionViewCell.h"
 
 #import "NSString+SupportedMedia.h"

@@ -10,10 +10,10 @@ import UIKit
 
 class PlaylistViewController: VLCDeletionCapableViewController {
 
-    @IBOutlet weak var playlistView: UITableView!
-    @IBOutlet weak var searchBar: UITextField!
-    @IBOutlet weak var sortButton: UIButton!
-    @IBOutlet weak var VLCcone: UIImageView!
+    var playlistCollectionView: UICollectionView!
+    var searchBar: UITextField!
+    var sortButton: UIButton!
+    var VLCcone: UIImageView!
 
     var medialibraryService: MediaLibraryService
     var playlistModel: PlaylistModel
@@ -25,16 +25,6 @@ class PlaylistViewController: VLCDeletionCapableViewController {
     var didBeginSearching = false
     var searchedPlaylists = [VLCMLPlaylist]()
 
-    override func viewDidLoad() {
-        playlistView.dataSource = self
-        playlistView.delegate = self
-        playlistView.register(UINib(nibName: "PlaylistTableViewCell", bundle: nil), forCellReuseIdentifier: "playlistCell")
-        medialibObservor = tvOSModelObserver(observerDelegate: self, playlistModel: playlistModel)
-        searchBar.delegate = self
-        medialibObservor?.observeLibrary()
-        super.viewDidLoad()
-    }
-
     init() {
         let appcoordinator = VLCAppCoordinator.sharedInstance()
         medialibraryService = appcoordinator.mediaLibraryService
@@ -45,94 +35,177 @@ class PlaylistViewController: VLCDeletionCapableViewController {
         self.title = playlistModel.indicatorName
     }
 
-    @IBAction func sortPlaylist(_ sender: UIButton) {
-        sortingHandler.constructSortAlert(playlistView:self)
-    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupSearchBar()
+        setupSortButton()
+        setupCollectionView()
+        setupEmptyStateView()
+
+        medialibObservor = tvOSModelObserver(observerDelegate: self, playlistModel: playlistModel)
+        medialibObservor?.observeLibrary()
+    }
+
+    // MARK: - Layout
+
+    private func setupSearchBar() {
+        searchBar = UITextField()
+        searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        searchBar.borderStyle = .roundedRect
+        searchBar.textAlignment = .center
+        searchBar.font = UIFont.preferredFont(forTextStyle: .headline)
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchBar)
+
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.widthAnchor.constraint(equalToConstant: 654),
+            searchBar.heightAnchor.constraint(equalToConstant: 70),
+        ])
+    }
+
+    private func setupSortButton() {
+        sortButton = UIButton(type: .system)
+        sortButton.setImage(UIImage(named: "sort"), for: .normal)
+        sortButton.addTarget(self, action: #selector(sortPlaylist(_:)), for: .primaryActionTriggered)
+        sortButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(sortButton)
+
+        NSLayoutConstraint.activate([
+            sortButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            sortButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            sortButton.heightAnchor.constraint(equalToConstant: 70),
+        ])
+    }
+
+    private func setupCollectionView() {
+        let flowLayout = UICollectionViewFlowLayout()
+        let inset: CGFloat = 50.0
+        flowLayout.sectionInset = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        flowLayout.itemSize = VLCMovieTVCollectionViewCell.cellSize()
+        flowLayout.minimumInteritemSpacing = 48.0
+        flowLayout.minimumLineSpacing = 80.0
+
+        playlistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        playlistCollectionView.dataSource = self
+        playlistCollectionView.delegate = self
+        playlistCollectionView.register(VLCMovieTVCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: VLCMovieTVCollectionViewCellIdentifier)
+        playlistCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(playlistCollectionView)
+
+        NSLayoutConstraint.activate([
+            playlistCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30),
+            playlistCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            playlistCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            playlistCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+        ])
+    }
+
+    private func setupEmptyStateView() {
+        VLCcone = UIImageView(image: UIImage(named: "cone"))
+        VLCcone.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(VLCcone)
+
+        NSLayoutConstraint.activate([
+            VLCcone.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            VLCcone.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+
+    @objc func sortPlaylist(_ sender: UIButton) {
+        sortingHandler.constructSortAlert(playlistView: self)
+    }
+
+    private func playlist(at index: Int) -> VLCMLPlaylist {
+        return didBeginSearching ? searchedPlaylists[index] : playlistModel.files[index]
+    }
 }
-// MARK: - UITableViewDataSource
 
-extension PlaylistViewController: UITableViewDataSource {
+// MARK: - UICollectionViewDataSource
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension PlaylistViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = didBeginSearching ? searchedPlaylists.count : playlistModel.files.count
 
-        self.VLCcone.isHidden = (count >= 1) ? true : false
-        self.searchBar.isHidden = (count >= 1) ? false : true
-        self.sortButton.isHidden = (count >= 1) ? false : true
+        VLCcone.isHidden = count >= 1
+        searchBar.isHidden = count < 1
+        sortButton.isHidden = count < 1
 
         return count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:"playlistCell") as! PlaylistTableViewCell
-        if didBeginSearching {
-            cell.playlist = searchedPlaylists[indexPath.row]
-        } else {
-            cell.playlist = playlistModel.files[indexPath.row]
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMovieTVCollectionViewCellIdentifier, for: indexPath) as! VLCMovieTVCollectionViewCell
+        let playlist = playlist(at: indexPath.row)
+        cell.titleLabel.text = playlist.title()
+        cell.descriptionLabel.text = playlist.numberOfTracksString() + " · " + playlist.durationString()
+        cell.thumbnailView.image = playlist.thumbnailImage()
         return cell
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension PlaylistViewController: UITableViewDelegate {
+extension PlaylistViewController: UICollectionViewDelegate {
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let playlistMediaViewController = PlaylistMediaViewController()
-        let cell = tableView.cellForRow(at: indexPath) as! PlaylistTableViewCell
-        playlistMediaViewController.playlist = cell.playlist!
+        playlistMediaViewController.playlist = playlist(at: indexPath.row)
         present(playlistMediaViewController, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, shouldUpdateFocusIn context: UITableViewFocusUpdateContext) -> Bool {
-        if self.isEditing {
+    func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
+        if isEditing {
             return context.nextFocusedIndexPath == nil
         }
         return true
     }
 
-    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let nextPath = context.nextFocusedIndexPath {
-            self.isEditing = false
-            self.currentlyFocusedIndexPath = nextPath
+            isEditing = false
+            currentlyFocusedIndexPath = nextPath
         }
     }
-    // MARK: - editing
+}
+
+// MARK: - Editing
+
+extension PlaylistViewController {
 
     override var indexPathToDelete: IndexPath? {
-        return self.currentlyFocusedIndexPath
+        return currentlyFocusedIndexPath
     }
 
     override var itemToDelete: String? {
-        if let indexPathToDelete = self.indexPathToDelete {
-            let row = indexPathToDelete.row
-            let playlistTodelete = didBeginSearching ? searchedPlaylists[row] : playlistModel.files[row]
-            return playlistTodelete.name
-        }
-        return ""
+        guard let indexPath = indexPathToDelete else { return "" }
+        return playlist(at: indexPath.row).name
     }
 
     override func deleteFile(atIndex indexPathToDelete: IndexPath?) {
         super.deleteFile(atIndex: indexPathToDelete)
 
-        guard let indexPathToDelete = indexPathToDelete else {
-            return
-        }
+        guard let indexPathToDelete = indexPathToDelete else { return }
 
-        playlistView.performBatchUpdates({
+        playlistCollectionView.performBatchUpdates({
             let row = indexPathToDelete.row
-            let playlistToDelete = didBeginSearching ? searchedPlaylists[row] : playlistModel.files[row]
-            searchedPlaylists.remove(at: row)
+            let playlistToDelete = playlist(at: row)
+            if didBeginSearching {
+                searchedPlaylists.remove(at: row)
+            }
             playlistModel.delete([playlistToDelete])
             didBeginSearching = false
-            self.searchBar.text = ""
-            self.playlistView.reloadData()
+            searchBar.text = ""
+            playlistCollectionView.reloadData()
         }) { finished in
             self.isEditing = false
         }
@@ -141,15 +214,15 @@ extension PlaylistViewController: UITableViewDelegate {
     override func renameFile(atIndex indexPathToRename: IndexPath?) {
         super.renameFile(atIndex: indexPathToRename)
 
-        let mediatoRename = didBeginSearching ? searchedPlaylists[indexPathToRename!.row] : playlistModel.files[indexPathToRename!.row]
+        guard let indexPathToRename = indexPathToRename else { return }
 
-        let currentTitle = mediatoRename.name
+        let mediaToRename = playlist(at: indexPathToRename.row)
+        let currentTitle = mediaToRename.name
 
         let alertTitle = "Rename \(currentTitle) to:"
         let renameAlert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
 
-        renameAlert.addTextField { textField in
-        }
+        renameAlert.addTextField { _ in }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
@@ -157,10 +230,8 @@ extension PlaylistViewController: UITableViewDelegate {
             if let textField = renameAlert.textFields?.first,
                let newName = textField.text,
                !newName.isEmpty {
-                mediatoRename.updateName(newName)
-                Thread.sleep(forTimeInterval: 2)
-                self.didBeginSearching = !self.didBeginSearching
-                self.playlistView.reloadData()
+                mediaToRename.updateName(newName)
+                self.playlistCollectionView.reloadData()
             }
         }
 
@@ -175,7 +246,7 @@ extension PlaylistViewController: UITableViewDelegate {
             super.isEditing = isEditing
 
             if let indexPath = currentlyFocusedIndexPath,
-               let focusedCell = playlistView.cellForRow(at: indexPath) {
+               let focusedCell = playlistCollectionView.cellForItem(at: indexPath) {
                 if isEditing {
                     focusedCell.layer.add(CAAnimation.vlc_wiggleAnimationwithSoftMode(true), forKey: VLCWiggleAnimationKey)
                 } else {
@@ -191,7 +262,7 @@ extension PlaylistViewController: UITableViewDelegate {
 extension PlaylistViewController: MediaLibraryDelegate {
     func refreshCollection() {
         DispatchQueue.main.async {
-            self.playlistView.reloadData()
+            self.playlistCollectionView.reloadData()
         }
     }
 }
@@ -201,26 +272,24 @@ extension PlaylistViewController: MediaLibraryDelegate {
 extension PlaylistViewController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let stringToSearch = textField.text
-        searchedPlaylists.removeAll() // Clear the previous search results
+        searchedPlaylists.removeAll()
         sortButton.isHidden = true
 
-        if textField.text!.isEmpty {
+        if textField.text?.isEmpty ?? true {
             didBeginSearching = false
             sortButton.isHidden = false
-            self.playlistView.reloadData()
+            playlistCollectionView.reloadData()
             return
         }
 
         didBeginSearching = true
 
         for playlist in playlistModel.files {
-            let exists = playlist.contains(stringToSearch!)
-            if exists {
+            if playlist.contains(textField.text!) {
                 searchedPlaylists.append(playlist)
             }
         }
 
-        self.playlistView.reloadData()
+        playlistCollectionView.reloadData()
     }
 }
