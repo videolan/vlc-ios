@@ -83,7 +83,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
      UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
      const CGFloat inset = 50.;
-     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, 10, inset);
+     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, 40, inset);
      flowLayout.itemSize = [VLCMovieTVCollectionViewCell cellSize];
      flowLayout.minimumInteritemSpacing = 48.0;
      flowLayout.minimumLineSpacing = 80.0;

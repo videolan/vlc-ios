@@ -37,7 +37,7 @@ http://192.168.1.1</string>
                     <color key="shadowColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Gw-i36">
-                    <rect key="frame" x="0.0" y="512" width="1920" height="568"/>
+                    <rect key="frame" x="0.0" y="417" width="1920" height="663"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pP2-ie-8Sr">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -50,22 +50,13 @@ http://192.168.1.1</string>
                     </connections>
                 </collectionView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-e2-mIy">
-                    <rect key="frame" x="888.5" y="817" width="143" height="158"/>
+                    <rect key="frame" x="888.5" y="769.5" width="143" height="158"/>
                 </imageView>
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-bA-eu2" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
-                    <rect key="frame" x="750.5" y="287" width="419" height="77"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="Enable Remote Playback"/>
-                    <connections>
-                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tp-OP-T5c">
-                    <rect key="frame" x="1628" y="397.5" width="104" height="81"/>
+                    <rect key="frame" x="1628" y="293" width="104" height="81"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="81" id="iD7-wg-vki"/>
                     </constraints>
@@ -79,7 +70,7 @@ http://192.168.1.1</string>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96d-hs-Fxc">
-                    <rect key="frame" x="1774" y="397.5" width="104" height="81"/>
+                    <rect key="frame" x="1774" y="293" width="104" height="81"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="81" id="ikv-1V-Ley"/>
                     </constraints>
@@ -92,16 +83,15 @@ http://192.168.1.1</string>
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zYp-CG-hFx">
-                    <rect key="frame" x="446" y="414" width="1028" height="48"/>
+                    <rect key="frame" x="1211.5" y="309.5" width="374.5" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="1028" id="9BG-aJ-Fs3"/>
                         <constraint firstAttribute="height" constant="48" id="WUm-MP-Oor"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tfS-RT-SOx">
-                    <rect key="frame" x="42" y="396.5" width="294" height="84"/>
+                    <rect key="frame" x="42" y="292" width="294" height="84"/>
                     <segments>
                         <segment title="First"/>
                         <segment title="Second"/>
@@ -110,28 +100,38 @@ http://192.168.1.1</string>
                         <action selector="toggleContentMode:" destination="-1" eventType="valueChanged" id="Mih-2y-sUy"/>
                     </connections>
                 </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
+                    <rect key="frame" x="750.5" y="295" width="419" height="77"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="Enable Remote Playback"/>
+                    <connections>
+                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerY" secondItem="VjG-Gw-i36" secondAttribute="centerY" constant="100" id="3tr-BA-rpi"/>
+                <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="tfS-RT-SOx" secondAttribute="bottom" constant="42" id="8UJ-xz-sXh"/>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="GCV-oF-eIh"/>
-                <constraint firstItem="4tp-OP-T5c" firstAttribute="centerY" secondItem="zYp-CG-hFx" secondAttribute="centerY" id="MKL-42-he8"/>
-                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="22" id="Qix-Vj-JF1"/>
+                <constraint firstItem="4tp-OP-T5c" firstAttribute="leading" secondItem="zYp-CG-hFx" secondAttribute="trailing" constant="42" id="JcJ-WO-Bii"/>
                 <constraint firstItem="tfS-RT-SOx" firstAttribute="centerY" secondItem="zYp-CG-hFx" secondAttribute="centerY" id="RHD-3M-3fS"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
-                <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="150" id="WRl-kM-uT3"/>
-                <constraint firstItem="zYp-CG-hFx" firstAttribute="top" secondItem="N4Q-4c-bh0" secondAttribute="bottom" constant="50" id="Wk8-Rv-51M"/>
                 <constraint firstAttribute="bottom" secondItem="Hxr-bA-eu2" secondAttribute="bottom" constant="50" id="XV3-Ye-FV9"/>
-                <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="zYp-CG-hFx" secondAttribute="bottom" constant="50" id="d9j-14-883"/>
+                <constraint firstItem="zYp-CG-hFx" firstAttribute="centerY" secondItem="4tp-OP-T5c" secondAttribute="centerY" id="ZUL-aF-m6I"/>
                 <constraint firstItem="96d-hs-Fxc" firstAttribute="leading" secondItem="4tp-OP-T5c" secondAttribute="trailing" constant="42" id="fxw-A0-WSi"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
+                <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="htt-xi-ZUU"/>
                 <constraint firstItem="Hxr-bA-eu2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iND-1n-gnL"/>
                 <constraint firstAttribute="trailing" secondItem="96d-hs-Fxc" secondAttribute="trailing" constant="42" id="jpa-J7-zLM"/>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerY" secondItem="tfS-RT-SOx" secondAttribute="centerY" id="k64-hM-8dE"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l72-n9-cwb"/>
                 <constraint firstAttribute="trailing" secondItem="VjG-Gw-i36" secondAttribute="trailing" id="lJF-jb-gaz"/>
+                <constraint firstItem="zYp-CG-hFx" firstAttribute="leading" secondItem="N4Q-4c-bh0" secondAttribute="trailing" constant="42" id="lZi-8C-iup"/>
                 <constraint firstItem="tfS-RT-SOx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="42" id="ngP-j0-pCe"/>
-                <constraint firstItem="zYp-CG-hFx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uV7-Dc-9mU"/>
                 <constraint firstAttribute="bottom" secondItem="VjG-Gw-i36" secondAttribute="bottom" id="v0P-HU-3wm"/>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="30" id="xah-iq-P6B"/>
                 <constraint firstItem="96d-hs-Fxc" firstAttribute="centerY" secondItem="zYp-CG-hFx" secondAttribute="centerY" id="xd6-zq-ppt"/>
             </constraints>
             <point key="canvasLocation" x="140" y="41"/>
