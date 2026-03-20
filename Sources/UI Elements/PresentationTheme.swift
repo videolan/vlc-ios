@@ -21,7 +21,10 @@ extension Notification.Name {
 
     let isDark: Bool
     let name: String
+
+#if !os(tvOS)
     let statusBarStyle: UIStatusBarStyle
+#endif
     let navigationbarColor: UIColor
     let navigationbarTextColor: UIColor
     let background: UIColor
@@ -37,12 +40,59 @@ extension Notification.Name {
     let tabBarIconColor: UIColor
     let orangeUI: UIColor
     let orangeDarkAccent: UIColor
+#if !os(tvOS)
     let toolBarStyle: UIBarStyle
+#endif
     let blurStyle: UIBlurEffect.Style
     let textfieldBorderColor: UIColor
     let textfieldPlaceholderColor: UIColor
     let thumbnailBackgroundColor: UIColor
 
+#if os(tvOS)
+    init(isDark: Bool,
+         name: String,
+         navigationbarColor: UIColor,
+         navigationbarTextColor: UIColor,
+         background: UIColor,
+         cellBackgroundA: UIColor,
+         cellBackgroundB: UIColor,
+         cellDetailTextColor: UIColor,
+         cellTextColor: UIColor,
+         lightTextColor: UIColor,
+         sectionHeaderTextColor: UIColor,
+         separatorColor: UIColor,
+         mediaCategorySeparatorColor: UIColor,
+         tabBarColor: UIColor,
+         tabBarIconColor: UIColor,
+         orangeUI: UIColor,
+         orangeDarkAccent: UIColor,
+         blurStyle: UIBlurEffect.Style,
+         textfieldBorderColor: UIColor,
+         textfieldPlaceholderColor: UIColor,
+         thumbnailBackgroundColor: UIColor) {
+        self.isDark = isDark
+        self.name = name
+        self.navigationbarColor = navigationbarColor
+        self.navigationbarTextColor = navigationbarTextColor
+        self.background = background
+        self.cellBackgroundA = cellBackgroundA
+        self.cellBackgroundB = cellBackgroundB
+        self.cellDetailTextColor = cellDetailTextColor
+        self.cellTextColor = cellTextColor
+        self.lightTextColor = lightTextColor
+        self.sectionHeaderTextColor = sectionHeaderTextColor
+        self.separatorColor = separatorColor
+        self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
+        self.tabBarColor = tabBarColor
+        self.tabBarIconColor = tabBarIconColor
+        self.orangeUI = orangeUI
+        self.orangeDarkAccent = orangeDarkAccent
+        self.blurStyle = blurStyle
+        self.textfieldBorderColor = textfieldBorderColor
+        self.textfieldPlaceholderColor = textfieldPlaceholderColor
+        self.thumbnailBackgroundColor = thumbnailBackgroundColor
+    }
+#else
     init(isDark: Bool,
          name: String,
          statusBarStyle: UIStatusBarStyle,
@@ -90,14 +140,15 @@ extension Notification.Name {
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
     }
+#endif
 }
 
 // MARK: - Typography
 
 @objcMembers class Typography: NSObject {
-    
+
     let tableHeaderFont: UIFont
-    
+
     init(tableHeaderFont: UIFont) {
         self.tableHeaderFont = tableHeaderFont
     }
@@ -117,7 +168,11 @@ enum PresentationThemeType: Int {
 
     static let brightTheme = PresentationTheme(colors: brightPalette)
     static let darkTheme = PresentationTheme(colors: darkPalette)
+#if os(tvOS)
+    static let blackTheme = PresentationTheme(colors: darkPalette)
+#else
     static let blackTheme = PresentationTheme(colors: blackPalette)
+#endif
 
     #if os(visionOS)
     static let visionTheme = PresentationTheme(colors: visionPalette)
@@ -146,7 +201,9 @@ enum PresentationThemeType: Int {
         return PresentationTheme.respectiveTheme(for: PresentationThemeType(rawValue: themeSettings))
     }() {
         didSet {
+#if !os(tvOS)
             AppearanceManager.setupAppearance(theme: self.current)
+#endif
             NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
         }
     }
@@ -243,6 +300,56 @@ enum PresentationThemeType: Int {
         return toHex()
     }
 }
+
+// MARK: - Color Palettes
+
+#if os(tvOS)
+
+let brightPalette = ColorPalette(isDark: false,
+                                 name: "Default",
+                                 navigationbarColor: UIColor(0xFFFFFF),
+                                 navigationbarTextColor: UIColor(0x000000),
+                                 background: UIColor(0xFFFFFF),
+                                 cellBackgroundA: UIColor(0xFFFFFF),
+                                 cellBackgroundB: UIColor(0xE5E5E3),
+                                 cellDetailTextColor: UIColor(0x919191),
+                                 cellTextColor: UIColor(0x000000),
+                                 lightTextColor: UIColor(0x888888),
+                                 sectionHeaderTextColor: UIColor(0x25292C),
+                                 separatorColor: UIColor(0xF0F2F7),
+                                 mediaCategorySeparatorColor: UIColor(0xECF2F6),
+                                 tabBarColor: UIColor(0xFFFFFF),
+                                 tabBarIconColor: UIColor(0x88949c),
+                                 orangeUI: UIColor(0xFF8800),
+                                 orangeDarkAccent: UIColor(0xFF8800),
+                                 blurStyle: .extraLight,
+                                 textfieldBorderColor: UIColor(0x84929C),
+                                 textfieldPlaceholderColor: UIColor(0xB3B3B3),
+                                 thumbnailBackgroundColor: UIColor(0xE6E6E6))
+
+let darkPalette = ColorPalette(isDark: true,
+                               name: "Dark",
+                               navigationbarColor: UIColor(0x1B1E21),
+                               navigationbarTextColor: UIColor(0xFFFFFF),
+                               background: UIColor(0x1B1E21),
+                               cellBackgroundA: UIColor(0x1B1E21),
+                               cellBackgroundB: UIColor(0x494B4D),
+                               cellDetailTextColor: UIColor(0x919191),
+                               cellTextColor: UIColor(0xFFFFFF),
+                               lightTextColor: UIColor(0xB8B8B8),
+                               sectionHeaderTextColor: UIColor(0x828282),
+                               separatorColor: UIColor(0x25292C),
+                               mediaCategorySeparatorColor: UIColor(0x25292C),
+                               tabBarColor: UIColor(0x25292C),
+                               tabBarIconColor: UIColor(0x88949c),
+                               orangeUI: UIColor(0xFF8800),
+                               orangeDarkAccent: UIColor(0xD57200),
+                               blurStyle: .dark,
+                               textfieldBorderColor: UIColor(0x84929C),
+                               textfieldPlaceholderColor: UIColor(0x737373),
+                               thumbnailBackgroundColor: UIColor(0x26282B))
+
+#else // !os(tvOS)
 
 let brightPalette = ColorPalette(isDark: false,
                                  name: "Default",
@@ -342,8 +449,6 @@ let visionPalette = ColorPalette(isDark: true,
                                  thumbnailBackgroundColor: UIColor(0x1C1E21))
 #endif
 
-let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
-
 // MARK: - UIStatusBarStyle - autoDarkContent
 
 extension UIStatusBarStyle {
@@ -355,3 +460,7 @@ extension UIStatusBarStyle {
         }
     }
 }
+
+#endif // !os(tvOS)
+
+let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
