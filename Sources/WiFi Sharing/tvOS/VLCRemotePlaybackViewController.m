@@ -13,14 +13,12 @@
 #import "VLCRemotePlaybackViewController.h"
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLCRemoteBrowsingTVCell.h"
 #import "VLCMovieTVCollectionViewCell.h"
 #import "VLCMediaTVCollectionViewCell.h"
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "VLC-Swift.h"
 #import "VLCAppCoordinator.h"
-#define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, MediaLibraryDelegate>
 
@@ -273,19 +271,6 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     if (_isAudio) {
-          return [collectionView dequeueReusableCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier forIndexPath:indexPath];
-     }
-     return [collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-     return 1;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
      NSUInteger row = indexPath.row;
 
      VLCMLMedia *media = nil;
@@ -300,25 +285,34 @@
           }
      }
 
+     [_medialibraryservice requestThumbnailFor:media];
+
      if (_isAudio) {
-          VLCMediaTVCollectionViewCell *audioCell = (VLCMediaTVCollectionViewCell *)cell;
-          [audioCell configureWithMedia:media];
+          VLCMediaTVCollectionViewCell *cell = (VLCMediaTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier forIndexPath:indexPath];
+          [cell configureWithMedia:media];
           if (_editSelectionActive) {
                _searchBar.hidden = YES;
-               audioCell.checkboxImageView.hidden = NO;
+               cell.checkboxImageView.hidden = NO;
           } else {
-               audioCell.checkboxImageView.hidden = YES;
+               cell.checkboxImageView.hidden = YES;
           }
-     } else {
-          VLCMovieTVCollectionViewCell *movieCell = (VLCMovieTVCollectionViewCell *)cell;
-          [movieCell configureWithMedia:media];
-          if (_editSelectionActive) {
-               _searchBar.hidden = YES;
-               movieCell.checkboxImageView.hidden = NO;
-          } else {
-               movieCell.checkboxImageView.hidden = YES;
-          }
+          return cell;
      }
+
+     VLCMovieTVCollectionViewCell *cell = (VLCMovieTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
+     [cell configureWithMedia:media];
+     if (_editSelectionActive) {
+          _searchBar.hidden = YES;
+          cell.checkboxImageView.hidden = NO;
+     } else {
+          cell.checkboxImageView.hidden = YES;
+     }
+     return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
