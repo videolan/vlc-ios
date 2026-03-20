@@ -71,6 +71,10 @@
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCPlayerUIShouldHide @"PlayerUIShouldHide"
 #define KVLCContinuePlaybackWhereLeftOff @"continuemediaPlayback"
+#define kVLCSettingShowThumbnails @"ShowThumbnails"
+#define kVLCSettingShowThumbnailsDefaultValue @YES
+#define kVLCSettingShowArtworks @"ShowArtworks"
+#define kVLCSettingShowArtworksDefaultValue @YES
 #define kVLCSettingDownloadArtwork @"download-artwork"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
