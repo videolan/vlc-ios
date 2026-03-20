@@ -72,6 +72,8 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
      [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"VIDEO", nil) forSegmentAtIndex:0];
      [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"AUDIO", nil) forSegmentAtIndex:1];
+     [self.deleteButton setImage:[UIImage systemImageNamed:@"trash"] forState:UIControlStateNormal];
+     self.deleteButton.tintColor = [UIColor redColor];
 
      _searchedMedia = [[NSMutableArray alloc] init];
      _searchBar.delegate = self;
@@ -188,16 +190,41 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
 - (IBAction)toggleEditSelectionMode:(id)sender
 {
-     if(_editSelectionActive) {
-          _editSelectionActive = NO;
-          [self.cachedMediaCollectionView reloadData];
-          [self createPlaylist];
-          return;
+     _editSelectionActive = !_editSelectionActive;
+
+     _sortButton.hidden = _editSelectionActive;
+     _deleteButton.hidden = !_editSelectionActive;
+     _playlistButton.hidden = !_editSelectionActive;
+
+     if (!_editSelectionActive) {
+          [self.cellToMediaMap removeAllObjects];
      }
 
-     _editSelectionActive = YES;
-     _sortButton.hidden = YES;
      [self.cachedMediaCollectionView reloadData];
+}
+
+- (IBAction)addToPlaylist:(id)sender
+{
+     NSMutableArray *playlistMedia = [NSMutableArray array];
+
+     for (id cell in [self.cellToMediaMap keyEnumerator]) {
+          VLCMLMedia *media = [self.cellToMediaMap objectForKey:cell];
+          [playlistMedia addObject:media];
+     }
+
+     [self.cellToMediaMap removeAllObjects];
+
+     _editSelectionActive = NO;
+     _sortButton.hidden = NO;
+     _deleteButton.hidden = YES;
+     _playlistButton.hidden = YES;
+     [self.cachedMediaCollectionView reloadData];
+
+     if (playlistMedia.count != 0) {
+          AddToPlaylistViewController *addtoplaylistController = [[AddToPlaylistViewController alloc] init];
+          addtoplaylistController.mediaToAdd = playlistMedia;
+          [self presentViewController:addtoplaylistController animated:YES completion:nil];
+     }
 }
 
 - (void)toggleHTTPServer:(id)sender
@@ -209,33 +236,58 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void)createPlaylist
-{
-     NSMutableArray *cellsToRemove = [NSMutableArray array];
-     NSMutableArray *playlistMedia = [NSMutableArray array];
-
-     for (VLCMovieTVCollectionViewCell *cell in [self.cellToMediaMap keyEnumerator]) {
-          cell.selectedPreviously = YES;
-          [cell toggleCheckbox];
-          [cellsToRemove addObject:cell];
-          VLCMLMedia *media = [self.cellToMediaMap objectForKey:cell];
-          [playlistMedia addObject:media];
-     }
-
-     for (VLCMovieTVCollectionViewCell *cellToRemove in cellsToRemove) {
-          [self.cellToMediaMap removeObjectForKey:cellToRemove];
-     }
-
-     AddToPlaylistViewController *addtoplaylistController = [[AddToPlaylistViewController alloc] init];
-     if ([playlistMedia count] != 0) {
-          addtoplaylistController.mediaToAdd = playlistMedia;
-          [self presentViewController:addtoplaylistController animated:YES completion:nil];
-     }
-}
-
 - (IBAction)sortMedia:(id)sender
 {
      [_sorthandler constructSortAlertWithRemotePlaybackView: self playlistView: nil];
+}
+
+- (void)deleteSelection:(id)sender
+{
+     NSMutableArray *mediaToDelete = [NSMutableArray array];
+
+     for (id cell in [self.cellToMediaMap keyEnumerator]) {
+          VLCMLMedia *media = [self.cellToMediaMap objectForKey:cell];
+          [mediaToDelete addObject:media];
+     }
+
+     NSUInteger count = mediaToDelete.count;
+     if (count == 0) {
+          return;
+     }
+
+     NSString *title;
+     if (count == 1) {
+          title = [NSString stringWithFormat:NSLocalizedString(@"DELETE_SINGLE_TITLE", nil),
+                   ((VLCMLMedia *)mediaToDelete.firstObject).title];
+     } else {
+          title = [NSString stringWithFormat:NSLocalizedString(@"DELETE_MULTIPLE_TITLE", nil),
+                   ((VLCMLMedia *)mediaToDelete.firstObject).title, (int)(count - 1)];
+     }
+
+     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                    message:NSLocalizedString(@"DELETE_MESSAGE", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+
+     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction * _Nonnull action) {
+          for (VLCMLMedia *media in mediaToDelete) {
+               [media deleteMainFile];
+          }
+
+          [self.cellToMediaMap removeAllObjects];
+          self->_editSelectionActive = NO;
+          self->_sortButton.hidden = NO;
+          self->_deleteButton.hidden = YES;
+          self->_playlistButton.hidden = YES;
+          [self.cachedMediaCollectionView reloadData];
+     }]];
+
+     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                               style:UIAlertActionStyleCancel
+                                             handler:nil]];
+
+     [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - collection view data source
@@ -263,6 +315,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           [cell configureWithMedia:media];
           if (_editSelectionActive) {
                _searchBar.hidden = YES;
+               cell.checkboxImageView.image = [UIImage imageNamed:@"checkboxEmpty"];
                cell.checkboxImageView.hidden = NO;
           } else {
                cell.checkboxImageView.hidden = YES;
@@ -274,6 +327,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      [cell configureWithMedia:media];
      if (_editSelectionActive) {
           _searchBar.hidden = YES;
+          cell.checkboxImageView.image = [UIImage imageNamed:@"checkboxEmpty"];
           cell.checkboxImageView.hidden = NO;
      } else {
           cell.checkboxImageView.hidden = YES;
@@ -496,7 +550,6 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           } else {
                [self.cellToMediaMap removeObjectForKey:selectedCell];
           }
-          _editSelectionButton.imageView.image = [UIImage imageNamed:@"addToPlaylist"];
           return;
      }
 

@@ -13,9 +13,11 @@
                 <outlet property="cachedMediaCollectionView" destination="VjG-Gw-i36" id="ATe-7D-fDz"/>
                 <outlet property="cachedMediaConeImageView" destination="cJM-e2-mIy" id="GQY-uM-1Uo"/>
                 <outlet property="contentSwitchSegmentedControl" destination="tfS-RT-SOx" id="Axb-SV-Gq2"/>
+                <outlet property="deleteButton" destination="Kjj-cM-MKh" id="z7Q-0J-kRU"/>
                 <outlet property="deleteHintView" destination="Hxr-bA-eu2" id="04c-3W-B8K"/>
                 <outlet property="editSelectionButton" destination="96d-hs-Fxc" id="HCH-ea-mlb"/>
                 <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
+                <outlet property="playlistButton" destination="yP1-U8-5i9" id="hZX-Yx-Ir7"/>
                 <outlet property="searchBar" destination="zYp-CG-hFx" id="NDx-cY-z0a"/>
                 <outlet property="sortButton" destination="4tp-OP-T5c" id="Ktw-qW-C7i"/>
                 <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
@@ -109,6 +111,35 @@ http://192.168.1.1</string>
                         <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yP1-U8-5i9">
+                    <rect key="frame" x="1482" y="293" width="104" height="81"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="81" id="S2y-2J-fDV"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal">
+                        <imageReference key="image" image="addToPlaylist" symbolScale="large" renderingMode="original"/>
+                    </state>
+                    <connections>
+                        <action selector="addToPlaylist:" destination="-1" eventType="primaryActionTriggered" id="Dqt-wI-OtY"/>
+                        <action selector="deleteSelection:" destination="-1" eventType="primaryActionTriggered" id="anv-tK-5by"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjj-cM-MKh">
+                    <rect key="frame" x="1628" y="293" width="104" height="81"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="81" id="GAD-KJ-oAl"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal">
+                        <imageReference key="image" image="sort" symbolScale="large" renderingMode="original"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteSelection:" destination="-1" eventType="primaryActionTriggered" id="XLU-tV-XmD"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerY" secondItem="VjG-Gw-i36" secondAttribute="centerY" constant="100" id="3tr-BA-rpi"/>
@@ -119,7 +150,9 @@ http://192.168.1.1</string>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="150" id="WRl-kM-uT3"/>
                 <constraint firstAttribute="bottom" secondItem="Hxr-bA-eu2" secondAttribute="bottom" constant="50" id="XV3-Ye-FV9"/>
+                <constraint firstItem="Kjj-cM-MKh" firstAttribute="centerX" secondItem="4tp-OP-T5c" secondAttribute="centerX" id="XwS-Hz-kWt"/>
                 <constraint firstItem="zYp-CG-hFx" firstAttribute="centerY" secondItem="4tp-OP-T5c" secondAttribute="centerY" id="ZUL-aF-m6I"/>
+                <constraint firstItem="Kjj-cM-MKh" firstAttribute="leading" secondItem="yP1-U8-5i9" secondAttribute="trailing" constant="42" id="e03-cr-4dd"/>
                 <constraint firstItem="96d-hs-Fxc" firstAttribute="leading" secondItem="4tp-OP-T5c" secondAttribute="trailing" constant="42" id="fxw-A0-WSi"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="htt-xi-ZUU"/>
@@ -130,6 +163,8 @@ http://192.168.1.1</string>
                 <constraint firstAttribute="trailing" secondItem="VjG-Gw-i36" secondAttribute="trailing" id="lJF-jb-gaz"/>
                 <constraint firstItem="zYp-CG-hFx" firstAttribute="leading" secondItem="N4Q-4c-bh0" secondAttribute="trailing" constant="42" id="lZi-8C-iup"/>
                 <constraint firstItem="tfS-RT-SOx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="42" id="ngP-j0-pCe"/>
+                <constraint firstItem="Kjj-cM-MKh" firstAttribute="centerY" secondItem="4tp-OP-T5c" secondAttribute="centerY" id="pU9-jN-yXW"/>
+                <constraint firstItem="yP1-U8-5i9" firstAttribute="centerY" secondItem="Kjj-cM-MKh" secondAttribute="centerY" id="uBk-ip-2UL"/>
                 <constraint firstAttribute="bottom" secondItem="VjG-Gw-i36" secondAttribute="bottom" id="v0P-HU-3wm"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="30" id="xah-iq-P6B"/>
                 <constraint firstItem="96d-hs-Fxc" firstAttribute="centerY" secondItem="zYp-CG-hFx" secondAttribute="centerY" id="xd6-zq-ppt"/>
@@ -138,6 +173,7 @@ http://192.168.1.1</string>
         </view>
     </objects>
     <resources>
+        <image name="addToPlaylist" width="24" height="24"/>
         <image name="cone" width="143" height="158"/>
         <image name="edit" width="24" height="24"/>
         <image name="sort" width="24" height="24"/>
