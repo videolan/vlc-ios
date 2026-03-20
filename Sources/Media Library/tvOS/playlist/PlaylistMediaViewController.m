@@ -8,6 +8,7 @@
 
 #import "PlaylistMediaViewController.h"
 #import "VLCRemoteBrowsingTVCell.h"
+#import "VLCMovieTVCollectionViewCell.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "VLCMaskView.h"
 #import "VLC-Swift.h"
@@ -27,8 +28,8 @@
 {
     [super viewDidLoad];
 
-    [self.playlistMediaCollection registerNib:[UINib nibWithNibName:@"VLCRemoteBrowsingTVCell" bundle:nil]
-                   forCellWithReuseIdentifier: @"VLCRemoteBrowsingTVCell"];
+    [self.playlistMediaCollection registerClass:[VLCMovieTVCollectionViewCell class]
+                    forCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier];
     self.playlistMediaCollection.delegate = self;
     self.playlistMediaCollection.dataSource = self;
     self.playlistTitle.text = self.playlist.name;
@@ -43,9 +44,9 @@
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.playlistMediaCollection.collectionViewLayout;
     const CGFloat inset = 50.;
     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
-    flowLayout.itemSize = CGSizeMake(250.0, 300.0);
+    flowLayout.itemSize = [VLCMovieTVCollectionViewCell cellSize];
     flowLayout.minimumInteritemSpacing = 48.0;
-    flowLayout.minimumLineSpacing = 100.0;
+    flowLayout.minimumLineSpacing = 80.0;
 }
 
 - (void)viewDidLayoutSubviews
@@ -77,7 +78,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+    VLCMovieTVCollectionViewCell *cell = (VLCMovieTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
     return cell;
 }
 
@@ -90,18 +91,15 @@
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCRemoteBrowsingTVCell * )cell forItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCMovieTVCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCMLMedia *mediatoPlay;
+    VLCMLMedia *media;
     if (_didBeginSearching) {
-        mediatoPlay = _searchedPlaylistMedia[indexPath.row];
+        media = _searchedPlaylistMedia[indexPath.row];
     } else {
-        mediatoPlay = _playlistMedia[indexPath.row];
+        media = _playlistMedia[indexPath.row];
     }
-    [cell setTitle:mediatoPlay.title];
-    [cell setCachedThumbnail:mediatoPlay];
-    [cell setMediaProgress:mediatoPlay.progress];
-    [cell setMediaisNew:!mediatoPlay.isNew];
+    [cell configureWithMedia:media];
 }
 
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context
