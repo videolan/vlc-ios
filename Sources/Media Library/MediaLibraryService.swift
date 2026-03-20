@@ -149,13 +149,8 @@ class MediaLibraryService: NSObject {
     private var didFinishDiscovery = false
     private var didStartMediaDiscovery = false
 
-#if os(tvOS)
-    private var desiredThumbnailWidth = UInt(404)
-    private var desiredThumbnailHeight = UInt(608)
-#else
     private var desiredThumbnailWidth = UInt(320)
     private var desiredThumbnailHeight = UInt(200)
-#endif
 
     private(set) var observable = VLCObservable<MediaLibraryObserver>()
 
@@ -183,10 +178,7 @@ class MediaLibraryService: NSObject {
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
         #endif
 
-        #if os(iOS)
-        let screenWidth = UIScreen.main.bounds.width
-        let screenScale = UIScreen.main.scale
-        #elseif os(watchOS)
+        #if os(watchOS)
         let screenWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width
         let screenScale: CGFloat = WKInterfaceDevice.current().screenScale
         #elseif os(visionOS)
@@ -197,10 +189,7 @@ class MediaLibraryService: NSObject {
         let screenScale = UIScreen.main.scale
         #endif
 
-        #if os(tvOS)
-        desiredThumbnailWidth = UInt(80)
-        desiredThumbnailHeight = UInt(80 / 1.6)
-        #elseif os(watchOS)
+        #if os(tvOS) || os(watchOS)
         let thumbnailSize = screenWidth * 0.6
         desiredThumbnailWidth = UInt(thumbnailSize)
         desiredThumbnailHeight = UInt(thumbnailSize / 1.2)
