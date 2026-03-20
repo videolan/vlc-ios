@@ -459,23 +459,20 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           return;
      }
 
-     [self.cachedMediaCollectionView performBatchUpdates:^{
-          VLCMLMedia *mediatodestroy;
-          if (_didBeginSearching) {
-               mediatodestroy = _searchedMedia[indexPathToDelete.row];
-               [_searchedMedia removeObjectAtIndex:indexPathToDelete.row];
-               if (_searchedMedia.count == 0) {
-                    _didBeginSearching = NO;
-                    _searchBar.text = @"";
-               }
-          } else {
-               mediatodestroy = (_isAudio ? [_audiomodel getmediaAt:indexPathToDelete.row] : [_videomodel getmediaAt:indexPathToDelete.row]);
+     VLCMLMedia *mediatodestroy;
+     if (_didBeginSearching) {
+          mediatodestroy = _searchedMedia[indexPathToDelete.row];
+          [_searchedMedia removeObjectAtIndex:indexPathToDelete.row];
+          if (_searchedMedia.count == 0) {
+               _didBeginSearching = NO;
+               _searchBar.text = @"";
           }
-          [mediatodestroy deleteMainFile];
-          [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
-     } completion:^(BOOL finished) {
-          self.editing = NO;
-     }];
+     } else {
+          mediatodestroy = (_isAudio ? [_audiomodel getmediaAt:indexPathToDelete.row] : [_videomodel getmediaAt:indexPathToDelete.row]);
+     }
+     [mediatodestroy deleteMainFile];
+     self.editing = NO;
+     [self.cachedMediaCollectionView reloadData];
 }
 
 - (void)renameFileAtIndex:(NSIndexPath *)indexPathToRename
