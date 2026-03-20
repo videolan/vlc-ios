@@ -49,6 +49,8 @@ class PlaylistViewController: VLCDeletionCapableViewController {
 
         medialibObservor = tvOSModelObserver(observerDelegate: self, playlistModel: playlistModel)
         medialibObservor?.observeLibrary()
+
+        navigationController?.navigationBar.isHidden = true
     }
 
     // MARK: - Layout
