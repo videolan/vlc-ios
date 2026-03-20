@@ -196,19 +196,16 @@ extension PlaylistViewController {
 
         guard let indexPathToDelete = indexPathToDelete else { return }
 
-        playlistCollectionView.performBatchUpdates({
-            let row = indexPathToDelete.row
-            let playlistToDelete = playlist(at: row)
-            if didBeginSearching {
-                searchedPlaylists.remove(at: row)
-            }
-            playlistModel.delete([playlistToDelete])
-            didBeginSearching = false
-            searchBar.text = ""
-            playlistCollectionView.reloadData()
-        }) { finished in
-            self.isEditing = false
+        let row = indexPathToDelete.row
+        let playlistToDelete = playlist(at: row)
+        if didBeginSearching {
+            searchedPlaylists.remove(at: row)
         }
+        playlistModel.delete([playlistToDelete])
+        didBeginSearching = false
+        searchBar.text = ""
+        isEditing = false
+        playlistCollectionView.reloadData()
     }
 
     override func renameFile(atIndex indexPathToRename: IndexPath?) {
