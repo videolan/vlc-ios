@@ -293,6 +293,16 @@ private extension MediaLibraryService {
         let medialibraryPath = libraryPath + "/MediaLibrary/Internal"
 
         finalPath = (finalPath as NSString).appendingPathComponent(additionalPathComponent)
+
+#if os(tvOS)
+        // we need to create the folder before we can listen to it
+        do {
+            try FileManager.default.createDirectory(atPath: finalPath,
+                                                    withIntermediateDirectories: true)
+        } catch let error as NSError {
+            assertionFailure("Failed to create directory: \(error.localizedDescription)")
+        }
+#endif
         setupMediaDiscovery(at: finalPath)
 
         _ = try? FileManager.default.removeItem(atPath: thumbnailPath)
