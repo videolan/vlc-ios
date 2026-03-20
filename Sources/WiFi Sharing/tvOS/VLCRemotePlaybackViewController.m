@@ -14,6 +14,7 @@
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemoteBrowsingTVCell.h"
+#import "VLCMovieTVCollectionViewCell.h"
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "VLC-Swift.h"
@@ -35,7 +36,7 @@
 // Editing Properties
 @property (nonatomic) BOOL editSelectionActive;
 @property (nonatomic) UIButton* addtoPlaylist;
-@property (nonatomic, strong) NSMapTable<VLCRemoteBrowsingTVCell *, VLCMLMedia *> *cellToMediaMap;
+@property (nonatomic, strong) NSMapTable<VLCMovieTVCollectionViewCell *, VLCMLMedia *> *cellToMediaMap;
 
 // Searching properties
 @property (nonatomic, assign) BOOL didBeginSearching;
@@ -127,11 +128,11 @@
      UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
      const CGFloat inset = 50.;
      flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
-     flowLayout.itemSize = CGSizeMake(250.0, 300.0);
+     flowLayout.itemSize = [VLCMovieTVCollectionViewCell cellSize];
      flowLayout.minimumInteritemSpacing = 48.0;
-     flowLayout.minimumLineSpacing = 100.0;
-     [self.cachedMediaCollectionView registerNib:[UINib nibWithNibName:@"VLCRemoteBrowsingTVCell" bundle:nil]
-                      forCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier];
+     flowLayout.minimumLineSpacing = 80.0;
+     [self.cachedMediaCollectionView registerClass:[VLCMovieTVCollectionViewCell class]
+                       forCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier];
 
      self.reachability = [Reachability reachabilityForLocalWiFi];
 
@@ -241,15 +242,15 @@
      NSMutableArray *cellsToRemove = [NSMutableArray array];
      NSMutableArray *playlistMedia = [NSMutableArray array];
 
-     for (VLCRemoteBrowsingTVCell *cell in [self.cellToMediaMap keyEnumerator]) {
+     for (VLCMovieTVCollectionViewCell *cell in [self.cellToMediaMap keyEnumerator]) {
           cell.selectedPreviously = YES;
-          [cell setCheckBoxImageView];
+          [cell toggleCheckbox];
           [cellsToRemove addObject:cell];
           VLCMLMedia *media = [self.cellToMediaMap objectForKey:cell];
           [playlistMedia addObject:media];
      }
 
-     for (VLCRemoteBrowsingTVCell *cellToRemove in cellsToRemove) {
+     for (VLCMovieTVCollectionViewCell *cellToRemove in cellsToRemove) {
           [self.cellToMediaMap removeObjectForKey:cellToRemove];
      }
 
@@ -269,7 +270,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+     VLCMovieTVCollectionViewCell *cell = (VLCMovieTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier forIndexPath:indexPath];
      return cell;
 }
 
@@ -278,18 +279,15 @@
      return 1;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCRemoteBrowsingTVCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCMovieTVCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
      NSUInteger row = indexPath.row;
 
-     [cell prepareForReuse];
-     [cell setIsDirectory:NO];
-
      if (_editSelectionActive) {
           _searchBar.hidden = YES;
-          cell.checkBoxImageView.hidden = NO;
+          cell.checkboxImageView.hidden = NO;
      } else {
-          cell.checkBoxImageView.hidden = YES;
+          cell.checkboxImageView.hidden = YES;
      }
 
      VLCMLMedia *media = nil;
@@ -304,17 +302,7 @@
           }
      }
 
-     [cell setCachedThumbnail: media];
-     [cell setTitle:media.title];
-
-     BOOL continuePlaybackWhereLeftOff = [[NSUserDefaults standardUserDefaults] boolForKey:KVLCContinuePlaybackWhereLeftOff];
-     [cell setProgressViewHidden:!continuePlaybackWhereLeftOff];
-     if (continuePlaybackWhereLeftOff) {
-          [cell setMediaProgress:media.progress];
-     }
-
-     [cell setMediaisNew:!media.isNew];
-
+     [cell configureWithMedia:media];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -480,8 +468,8 @@
      }
 
      if (_editSelectionActive) {
-          VLCRemoteBrowsingTVCell *selectedCell = (VLCRemoteBrowsingTVCell *)[collectionView cellForItemAtIndexPath:indexPath];
-          [selectedCell setCheckBoxImageView];
+          VLCMovieTVCollectionViewCell *selectedCell = (VLCMovieTVCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+          [selectedCell toggleCheckbox];
           if (selectedCell.selectedPreviously) {
                [self.cellToMediaMap setObject: collection[indexPath.row] forKey: selectedCell];
           } else {
