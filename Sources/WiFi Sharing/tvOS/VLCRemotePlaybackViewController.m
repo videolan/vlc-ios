@@ -20,6 +20,8 @@
 #import "VLC-Swift.h"
 #import "VLCAppCoordinator.h"
 
+static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
+
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, MediaLibraryDelegate>
 
 @property (strong, nonatomic) Reachability *reachability;
@@ -126,7 +128,7 @@
 
      UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
      const CGFloat inset = 50.;
-     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
+     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, 10, inset);
      flowLayout.itemSize = [VLCMovieTVCollectionViewCell cellSize];
      flowLayout.minimumInteritemSpacing = 48.0;
      flowLayout.minimumLineSpacing = 80.0;
@@ -134,6 +136,22 @@
                        forCellWithReuseIdentifier:VLCMovieTVCollectionViewCellIdentifier];
      [self.cachedMediaCollectionView registerClass:[VLCMediaTVCollectionViewCell class]
                        forCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier];
+     [self.cachedMediaCollectionView registerClass:[UICollectionReusableView class]
+                        forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                               withReuseIdentifier:VLCMediaFooterIdentifier];
+     CGFloat footerWidth = self.view.bounds.size.width - 400.0;
+     CGSize constraintSize = CGSizeMake(footerWidth, CGFLOAT_MAX);
+     CGFloat headlineHeight = [NSLocalizedString(@"CACHED_MEDIA", nil)
+                               boundingRectWithSize:constraintSize
+                               options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]}
+                               context:nil].size.height;
+     CGFloat bodyHeight = [NSLocalizedString(@"CACHED_MEDIA_LONG", nil)
+                           boundingRectWithSize:constraintSize
+                           options:NSStringDrawingUsesLineFragmentOrigin
+                           attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody]}
+                           context:nil].size.height;
+     flowLayout.footerReferenceSize = CGSizeMake(0, ceil(headlineHeight + bodyHeight + 46.0));
 
      self.reachability = [Reachability reachabilityForLocalWiFi];
 
@@ -143,8 +161,6 @@
                                 name:kReachabilityChangedNotification
                               object:nil];
 
-     self.cachedMediaLabel.text = NSLocalizedString(@"CACHED_MEDIA", nil);
-     self.cachedMediaLongLabel.text = NSLocalizedString(@"CACHED_MEDIA_LONG", nil);
 
      /* After day 354 of the year, the usual VLC cone is replaced by another cone
       * wearing a Father Xmas hat.
@@ -313,6 +329,49 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
      return 1;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
+{
+     UICollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                                          withReuseIdentifier:VLCMediaFooterIdentifier
+                                                                                 forIndexPath:indexPath];
+
+     if (footer.subviews.count == 0) {
+          ColorPalette *colors = PresentationTheme.current.colors;
+
+          UILabel *cachedMediaLabel = [[UILabel alloc] init];
+          cachedMediaLabel.text = NSLocalizedString(@"CACHED_MEDIA", nil);
+          cachedMediaLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+          cachedMediaLabel.textColor = colors.cellTextColor;
+          cachedMediaLabel.textAlignment = NSTextAlignmentCenter;
+          cachedMediaLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+          UILabel *cachedMediaLongLabel = [[UILabel alloc] init];
+          cachedMediaLongLabel.text = NSLocalizedString(@"CACHED_MEDIA_LONG", nil);
+          cachedMediaLongLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+          cachedMediaLongLabel.textColor = colors.cellDetailTextColor;
+          cachedMediaLongLabel.textAlignment = NSTextAlignmentCenter;
+          cachedMediaLongLabel.numberOfLines = 0;
+          cachedMediaLongLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+          [footer addSubview:cachedMediaLabel];
+          [footer addSubview:cachedMediaLongLabel];
+
+          [NSLayoutConstraint activateConstraints:@[
+               [cachedMediaLabel.topAnchor constraintEqualToAnchor:footer.topAnchor constant:20.0],
+               [cachedMediaLabel.leadingAnchor constraintEqualToAnchor:footer.leadingAnchor constant:200.0],
+               [cachedMediaLabel.trailingAnchor constraintEqualToAnchor:footer.trailingAnchor constant:-200.0],
+
+               [cachedMediaLongLabel.topAnchor constraintEqualToAnchor:cachedMediaLabel.bottomAnchor constant:6.0],
+               [cachedMediaLongLabel.leadingAnchor constraintEqualToAnchor:footer.leadingAnchor constant:200.0],
+               [cachedMediaLongLabel.trailingAnchor constraintEqualToAnchor:footer.trailingAnchor constant:-200.0],
+          ]];
+     }
+
+     return footer;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
