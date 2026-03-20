@@ -32,7 +32,6 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 @property (nonatomic) BOOL isAudio;
 @property (nonatomic) tvOSModelObserver *modelObserver;
 @property (nonatomic) SortingHandler *sorthandler;
-@property (nonatomic, strong) UITabBarController *mediatabController;
 
 // Editing Properties
 @property (nonatomic) BOOL editSelectionActive;
@@ -71,56 +70,12 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      self.cellToMediaMap = [NSMapTable strongToStrongObjectsMapTable];
      _sorthandler = [[SortingHandler alloc] initWithVideoModel:_videomodel];
 
-     _mediatabController = [[UITabBarController alloc] init];
-
-     // Customize the tab bar appearance if needed
-     _mediatabController.tabBar.barTintColor = [UIColor orangeColor];
-
-     // Set the delegate to handle tab switching events
-     _mediatabController.delegate = self;
+     [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"VIDEO", nil) forSegmentAtIndex:0];
+     [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"AUDIO", nil) forSegmentAtIndex:1];
 
      _searchedMedia = [[NSMutableArray alloc] init];
      _searchBar.delegate = self;
      _didBeginSearching = NO;
-
-     UIViewController *videoViewController = [[UIViewController alloc] init];
-     videoViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Video" image:nil tag:0];
-
-     UIViewController *audioViewController = [[UIViewController alloc] init];
-     audioViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Audio" image:nil tag:1];
-
-     _mediatabController.viewControllers = @[videoViewController, audioViewController];
-     _mediatabController.tabBar.frame = CGRectMake(0, self.view.bounds.size.height - 1000, self.view.bounds.size.width, 50);
-
-     // Set the mediatabController as the child view controller
-     [self addChildViewController:_mediatabController];
-     [self.view addSubview:_mediatabController.view];
-     UIView *containerView = [[UIView alloc] initWithFrame:self.view.bounds];
-     [self.view addSubview:containerView];
-
-     // Add the tab bar controller as a child view controller
-     [self addChildViewController:_mediatabController];
-     [containerView addSubview:_mediatabController.view];
-     [_mediatabController didMoveToParentViewController:self];
-
-     // Set up constraints for the container view
-     containerView.translatesAutoresizingMaskIntoConstraints = NO;
-     NSLayoutConstraint *leadingConstraint = [containerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:100];
-     NSLayoutConstraint *trailingConstraint = [containerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-100];
-     NSLayoutConstraint *topConstraint = [containerView.topAnchor constraintEqualToAnchor:self.view.topAnchor];
-     NSLayoutConstraint *bottomConstraint = [containerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-1000];
-     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_mediatabController.tabBar
-                                                                         attribute:NSLayoutAttributeHeight
-                                                                         relatedBy:NSLayoutRelationEqual
-                                                                            toItem:nil
-                                                                         attribute:NSLayoutAttributeNotAnAttribute
-                                                                        multiplier:1.0
-                                                                          constant:0];
-
-     [NSLayoutConstraint activateConstraints:@[leadingConstraint, trailingConstraint, topConstraint, bottomConstraint, heightConstraint]];
-
-     _mediatabController.view.frame = containerView.bounds;
-     [_mediatabController didMoveToParentViewController:self];
 
      if (@available(tvOS 13.0, *)) {
           self.navigationController.navigationBarHidden = YES;
@@ -566,22 +521,18 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           [self.cachedMediaCollectionView reloadData];
      });
 }
-#pragma mark - tab bar controller delegate
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+- (IBAction)toggleContentMode:(id)sender
 {
-     // Perform custom code when switching between tabs
-
-     NSUInteger selectedIndex = tabBarController.selectedIndex;
-     _isAudio = (selectedIndex == 1);
-     if (_isAudio){
+     _isAudio = (self.contentSwitchSegmentedControl.selectedSegmentIndex == 1);
+     if (_isAudio) {
           _sorthandler = [[SortingHandler alloc] initWithAudioModel:_audiomodel];
      } else {
           _sorthandler = [[SortingHandler alloc] initWithVideoModel:_videomodel];
      }
-     NSMutableArray<VLCMLMedia *> *mutableMedia = [_searchedMedia mutableCopy];
-     [mutableMedia removeAllObjects];
-     _searchedMedia = [_searchedMedia copy];
+
+     _didBeginSearching = NO;
+     _searchBar.text = @"";
+     [_searchedMedia removeAllObjects];
 
      UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
      if (_isAudio) {
@@ -594,14 +545,6 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      }
 
      [self.cachedMediaCollectionView reloadData];
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-     if (_editSelectionActive || _didBeginSearching) {
-          return NO;
-     }
-     return YES;
 }
 
 #pragma mark - search bar delegate

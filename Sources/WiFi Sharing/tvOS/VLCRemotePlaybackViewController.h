@@ -22,8 +22,10 @@
 @property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;
 @property (readwrite, nonatomic, weak) IBOutlet UIImageView *cachedMediaConeImageView;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *sortButton;
+@property (readwrite, nonatomic, weak) IBOutlet UISegmentedControl *contentSwitchSegmentedControl;
 
 - (IBAction)toggleHTTPServer:(id)sender;
 - (IBAction)toggleEditSelectionMode:(id)sender;
+- (IBAction)toggleContentMode:(id)sender;
 
 @end
