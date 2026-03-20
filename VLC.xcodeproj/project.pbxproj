@@ -39,7 +39,6 @@
 		222ED2EE2A6E85BE00A5D135 /* VLCAppCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8A030E2913D45400789583 /* VLCAppCoordinator.m */; };
 		224F3F142A58A00D000BF072 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA8A28C8953800109F28 /* Observable.swift */; };
 		226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226686982A91DED1003114C7 /* AddToPlaylistViewController.swift */; };
-		2266869D2A91DF56003114C7 /* AddToPlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2266869C2A91DF56003114C7 /* AddToPlaylistView.xib */; };
 		2269F98F2A5EA05D002AE016 /* VLCMLMedia+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */; };
 		226C04202C3EADEA003B005E /* FolderCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */; };
 		226C04222C3EAEEC003B005E /* FolderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C04212C3EAEEC003B005E /* FolderModel.swift */; };
@@ -1389,7 +1388,6 @@
 		2227B4E22A8BD2CD00D2BE26 /* PlaylistMediaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistMediaViewController.xib; sourceTree = "<group>"; };
 		222ED2E72A6BDFB600A5D135 /* tvOSModelObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSModelObserver.swift; sourceTree = "<group>"; };
 		226686982A91DED1003114C7 /* AddToPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToPlaylistViewController.swift; sourceTree = "<group>"; };
-		2266869C2A91DF56003114C7 /* AddToPlaylistView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToPlaylistView.xib; sourceTree = "<group>"; };
 		226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCategoryViewController.swift; sourceTree = "<group>"; };
 		226C04212C3EAEEC003B005E /* FolderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModel.swift; sourceTree = "<group>"; };
 		226D57E02B42FE060090AD88 /* FavoriteHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderContentView.swift; sourceTree = "<group>"; };
@@ -3029,7 +3027,6 @@
 		7D3B2EBA2F6D76CF0067C419 /* playlist */ = {
 			isa = PBXGroup;
 			children = (
-				2266869C2A91DF56003114C7 /* AddToPlaylistView.xib */,
 				226686982A91DED1003114C7 /* AddToPlaylistViewController.swift */,
 				22ABF9EA2A77B5CD00F02453 /* SortingHandler.swift */,
 				2227B4CC2A80CE3100D2BE26 /* PlaylistTableViewCell.xib */,
@@ -4499,7 +4496,6 @@
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
 				7DC0B5711C0094370027BFAD /* VLCSettingsViewController.xib in Resources */,
 				2663ACB422497D47000FBB95 /* VLCNetworkLoginTVViewController.xib in Resources */,
-				2266869D2A91DF56003114C7 /* AddToPlaylistView.xib in Resources */,
 				7D405ED81BEA1F56006ED886 /* jquery.iframe-transport.js in Resources */,
 				7D0C20AE28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */,
 				DD3EAC131BE26166003668DA /* VLCRemoteBrowsingTVCell.xib in Resources */,
