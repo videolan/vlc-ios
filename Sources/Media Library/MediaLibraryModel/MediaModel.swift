@@ -59,7 +59,6 @@ extension VLCMLMedia {
 
     @objc func thumbnailImage() -> UIImage? {
         var image = VLCThumbnailsCache.thumbnail(for: thumbnail())
-        #if !os(tvOS)
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
@@ -75,7 +74,6 @@ extension VLCMLMedia {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
             }
         }
-        #endif
         return image
     }
 
