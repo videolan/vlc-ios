@@ -44,8 +44,8 @@ extension VLCPlayerDisplayController: MiniPlayerDraggingDelegate {
     }
 
     func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer, completion: ((Bool) -> Void)?) {
-        bottomConstraint?.isActive = true
         playqueueBottomConstraint?.isActive = false
+        bottomConstraint?.isActive = true
         resetVerticalConstraints()
         view?.setNeedsLayout()
         UIView.animate(withDuration: VLCPlayerDisplayController.animationDuration, animations: {
