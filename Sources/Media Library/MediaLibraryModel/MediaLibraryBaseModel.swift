@@ -148,11 +148,19 @@ extension MLBaseModel {
     }
 }
 
+#if compiler(>=6.0)
+extension VLCMLObject {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.identifier() == rhs.identifier()
+    }
+}
+#else
 extension VLCMLObject {
     static func == (lhs: VLCMLObject, rhs: VLCMLObject) -> Bool {
         return lhs.identifier() == rhs.identifier()
     }
 }
+#endif
 
 extension MediaCollectionModel {
     func files(with criteria: VLCMLSortingCriteria = .default,
