@@ -19,7 +19,6 @@ class TrackModel: NSObject, MediaModel {
     @objc var files = [VLCMLMedia]()
     var fileArrayLock = NSRecursiveLock()
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -47,13 +46,12 @@ class TrackModel: NSObject, MediaModel {
 
     func getMedia() {
         currentPage += 1
-        let offset = (currentPage - 1) * intialPageSize
-        let mediaAtOffset = medialibrary.media(ofType: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(intialPageSize), offset: UInt32(offset))
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = medialibrary.media(ofType: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
             for media in mediaAtOffset {
                     files.append(media)
             }
 
-        print(intialPageSize)
 
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
@@ -81,7 +79,6 @@ extension TrackModel {
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }

@@ -33,7 +33,6 @@ class ArtistModel: AudioCollectionModel {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryHideFeatArtists)")
     }
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -87,8 +86,8 @@ class ArtistModel: AudioCollectionModel {
 
     func getMedia() {
         currentPage += 1
-        let offset = (currentPage - 1) * intialPageSize
-        let mediaAtOffset = hideFeatArtists ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: true, items: UInt32(intialPageSize), offset: UInt32(offset)) : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: false, items: UInt32(intialPageSize), offset: UInt32(offset))
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = hideFeatArtists ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: true, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset)) : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: false, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
             for artist in mediaAtOffset {
                 files.append(artist)
             }
@@ -111,7 +110,6 @@ extension ArtistModel {
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }

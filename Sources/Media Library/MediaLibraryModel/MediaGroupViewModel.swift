@@ -30,7 +30,6 @@ class MediaGroupViewModel: MLBaseModel {
 
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -100,7 +99,6 @@ class MediaGroupViewModel: MLBaseModel {
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }
@@ -146,11 +144,8 @@ class MediaGroupViewModel: MLBaseModel {
 
     func getMedia() {
         currentPage += 1
-        let offset = (currentPage - 1) * intialPageSize
-        print(offset)
-        print(intialPageSize)
-        let mediaAtOffset = medialibrary.medialib.mediaGroups(with: sortModel.currentSort, desc: sortModel.desc, UInt32(intialPageSize), UInt32(offset))
-        print(mediaAtOffset?.count)
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = medialibrary.medialib.mediaGroups(with: sortModel.currentSort, desc: sortModel.desc, UInt32(kVLCDefaultPageSize), UInt32(offset))
         if let mediaGroups = mediaAtOffset {
             for mediaGroup in mediaGroups {
                 for file in files {

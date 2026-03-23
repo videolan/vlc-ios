@@ -199,3 +199,5 @@
 #define kVLCPLEXPort @"plex-port"
 
 #define kVLCCurrentPlayingModel @"CurrentPlayingModel"
+
+#define kVLCDefaultPageSize 500

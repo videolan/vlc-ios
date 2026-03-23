@@ -53,7 +53,6 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     var indicatorName: String { get }
 
     // Pagination
-    var intialPageSize: Int { get set }
     var currentPage: Int { get set }
     var firstTime: Bool { get set }
 

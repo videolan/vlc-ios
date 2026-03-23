@@ -31,7 +31,6 @@ class AlbumModel: AudioCollectionModel {
 
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -68,10 +67,9 @@ class AlbumModel: AudioCollectionModel {
     }
 
     func getMedia() {
-        print("page", intialPageSize)
         currentPage += 1
-        let offset = (currentPage - 1) * intialPageSize
-        let mediaAtOffset = medialibrary.albums(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(intialPageSize), offset: UInt32(offset))
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = medialibrary.albums(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
 
            for  album in mediaAtOffset {
                 files.append(album)
@@ -93,12 +91,10 @@ extension AlbumModel {
         sortModel.currentSort = criteria
         sortModel.desc = desc
         if firstTime {
-            print("Intial Page" , intialPageSize)
             getMedia()
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }

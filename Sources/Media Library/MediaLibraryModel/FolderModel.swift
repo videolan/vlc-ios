@@ -20,7 +20,6 @@ class FolderModel: MLBaseModel {
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder
 
-    var intialPageSize: Int = 0
     var currentPage: Int = 0
     var firstTime: Bool = false
 

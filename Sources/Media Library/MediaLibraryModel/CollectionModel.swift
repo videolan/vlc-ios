@@ -11,7 +11,6 @@
 import Foundation
 
 class CollectionModel: MLBaseModel {
-    var intialPageSize: Int = 0
     var currentPage: Int = 0
     var firstTime: Bool = false
 

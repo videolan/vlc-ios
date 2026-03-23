@@ -32,7 +32,6 @@ class PlaylistModel: NSObject, MLBaseModel {
 
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -104,8 +103,8 @@ class PlaylistModel: NSObject, MLBaseModel {
     func getMedia() {
         currentPage += 1
         var didAppend = false
-        let offset = (currentPage - 1) * intialPageSize
-        let mediaAtOffset = medialibrary.medialib.playlists(with: sortModel.currentSort, desc: sortModel.desc, UInt32(intialPageSize), UInt32(offset))
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = medialibrary.medialib.playlists(with: sortModel.currentSort, desc: sortModel.desc, UInt32(kVLCDefaultPageSize), UInt32(offset))
         if let generes = mediaAtOffset {
             for  genre in  generes {
                 files.append(genre)
@@ -113,9 +112,7 @@ class PlaylistModel: NSObject, MLBaseModel {
             }
         }
         if didAppend {
-            intialPageSize = intialPageSize * 2
         }
-        print(intialPageSize)
 
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
@@ -137,7 +134,6 @@ extension PlaylistModel {
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }

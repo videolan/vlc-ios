@@ -33,7 +33,6 @@ class VideoModel: NSObject, MediaModel {
 
     var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 
-    var intialPageSize = 12
     var currentPage = 0
     var firstTime = true
 
@@ -50,8 +49,8 @@ class VideoModel: NSObject, MediaModel {
     func getMedia() {
         currentPage += 1
         var didAppend = false
-        let offset = (currentPage - 1) * intialPageSize
-        let mediaAtOffset = medialibrary.media(ofType: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(intialPageSize), offset: UInt32(offset))
+        let offset = (currentPage - 1) * kVLCDefaultPageSize
+        let mediaAtOffset = medialibrary.media(ofType: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
             for media in mediaAtOffset {
                     files.append(media)
             }
@@ -80,7 +79,6 @@ extension VideoModel {
             firstTime = false
         } else {
             files.removeAll()
-            intialPageSize = 12
             currentPage = 0
             getMedia()
         }
