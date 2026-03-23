@@ -34,37 +34,25 @@ class AlbumModel: AudioCollectionModel {
     var currentPage = 0
     var hasMorePages = true
     var isLoading = false
-    var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
-        fileArrayLock.lock()
     }
 
     init(medialibrary: MediaLibraryService, artist: VLCMLArtist) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         self.artist = artist
         fileArrayLock.lock()
-        if let albums = artist.albums() {
-            files = albums
-        } else {
-            files = []
-        }
+        defer { fileArrayLock.unlock() }
+        files = artist.albums() ?? []
+        hasMorePages = false
         medialibrary.observable.addObserver(self)
     }
 
     func append(_ item: VLCMLAlbum) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         files.append(item)
     }
 
@@ -73,40 +61,6 @@ class AlbumModel: AudioCollectionModel {
                                    desc: sortModel.desc,
                                    items: UInt32(limit),
                                    offset: UInt32(offset))
-    }
-
-    func getMedia() {
-        currentPage += 1
-        let offset = (currentPage - 1) * kVLCDefaultPageSize
-        let mediaAtOffset = medialibrary.albums(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
-
-           for  album in mediaAtOffset {
-                files.append(album)
-            }
-
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
-    }
-}
-
-// MARK: - Sort
-extension AlbumModel {
-    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        sortModel.currentSort = criteria
-        sortModel.desc = desc
-        if firstTime {
-            getMedia()
-            firstTime = false
-        } else {
-            files.removeAll()
-            currentPage = 0
-            getMedia()
-        }
     }
 }
 
@@ -170,11 +124,9 @@ extension AlbumModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files.removeAll()
+        defer { fileArrayLock.unlock() }
+        resetPagination()
     }
 }
 

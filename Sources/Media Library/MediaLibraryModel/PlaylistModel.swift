@@ -35,24 +35,16 @@ class PlaylistModel: NSObject, MLBaseModel {
     var currentPage = 0
     var hasMorePages = true
     var isLoading = false
-    var firstTime = true
 
     @objc required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         super.init()
         medialibrary.observable.addObserver(self)
-        fileArrayLock.lock()
-        getMedia()
     }
 
     func append(_ item: VLCMLPlaylist) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         for file in files {
             if file.identifier() == item.identifier() {
                 return
@@ -107,45 +99,6 @@ class PlaylistModel: NSObject, MLBaseModel {
                                                desc: sortModel.desc,
                                                UInt32(limit),
                                                UInt32(offset)) ?? []
-    }
-
-    func getMedia() {
-        currentPage += 1
-        var didAppend = false
-        let offset = (currentPage - 1) * kVLCDefaultPageSize
-        let mediaAtOffset = medialibrary.medialib.playlists(with: sortModel.currentSort, desc: sortModel.desc, UInt32(kVLCDefaultPageSize), UInt32(offset))
-        if let generes = mediaAtOffset {
-            for  genre in  generes {
-                files.append(genre)
-                didAppend = true
-            }
-        }
-        if didAppend {
-        }
-
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
-    }
-}
-
-// MARK: - Sort
-extension PlaylistModel {
-    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        sortModel.currentSort = criteria
-        sortModel.desc = desc
-        if firstTime {
-            getMedia()
-            firstTime = false
-        } else {
-            files.removeAll()
-            currentPage = 0
-            getMedia()
-        }
     }
 }
 
@@ -204,11 +157,9 @@ extension PlaylistModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files.removeAll()
+        defer { fileArrayLock.unlock() }
+        resetPagination()
     }
 }
 

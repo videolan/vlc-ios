@@ -36,29 +36,11 @@ class VideoModel: NSObject, MediaModel {
     var currentPage = 0
     var hasMorePages = true
     var isLoading = false
-    var firstTime = true
 
     @objc required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         super.init()
         medialibrary.observable.addObserver(self)
-        fileArrayLock.lock()
-    }
-
-    func getMedia() {
-        currentPage += 1
-        var didAppend = false
-        let offset = (currentPage - 1) * kVLCDefaultPageSize
-        let mediaAtOffset = medialibrary.media(ofType: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
-            for media in mediaAtOffset {
-                    files.append(media)
-            }
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
     }
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLMedia] {
@@ -72,26 +54,6 @@ class VideoModel: NSObject, MediaModel {
     @objc func getMedia(at index: Int) -> VLCMLMedia? {
         guard index >= 0, index < files.count else { return nil }
         return files[index]
-    }
-}
-
-// MARK: - Sort
-
-extension VideoModel {
-    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        sortModel.currentSort = criteria
-        sortModel.desc = desc
-        if firstTime {
-            getMedia()
-            firstTime = false
-        } else {
-            files.removeAll()
-            currentPage = 0
-            getMedia()
-        }
     }
 }
 

@@ -36,30 +36,19 @@ class ArtistModel: AudioCollectionModel {
     var currentPage = 0
     var hasMorePages = true
     var isLoading = false
-    var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
-        fileArrayLock.lock()
     }
 
     func append(_ item: VLCMLArtist) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         files.append(item)
     }
 
     private func addNewArtists(_ artists: [VLCMLArtist]) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
         let newArtists = artists.filter() {
             for artist in files {
                 if artist.identifier() == $0.identifier() {
@@ -88,41 +77,8 @@ class ArtistModel: AudioCollectionModel {
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLArtist] {
         return hideFeatArtists
-            ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc,
-                                   listAll: true, items: UInt32(limit), offset: UInt32(offset))
-            : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc,
-                                   listAll: false, items: UInt32(limit), offset: UInt32(offset))
-    }
-
-    func getMedia() {
-        currentPage += 1
-        let offset = (currentPage - 1) * kVLCDefaultPageSize
-        let mediaAtOffset = hideFeatArtists ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: true, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset)) : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: false, items: UInt32(kVLCDefaultPageSize), offset: UInt32(offset))
-            for artist in mediaAtOffset {
-                files.append(artist)
-            }
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
-    }
-}
-
-// MARK: - Sort
-extension ArtistModel {
-    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        sortModel.currentSort = criteria
-        sortModel.desc = desc
-        if firstTime {
-            getMedia()
-            firstTime = false
-        } else {
-            files.removeAll()
-            currentPage = 0
-            getMedia()
-        }
+            ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: false, items: UInt32(limit), offset: UInt32(offset))
+            : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc, listAll: true, items: UInt32(limit), offset: UInt32(offset))
     }
 }
 
@@ -182,11 +138,9 @@ extension ArtistModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files.removeAll()
+        defer { fileArrayLock.unlock() }
+        resetPagination()
     }
 }
 

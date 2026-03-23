@@ -32,23 +32,15 @@ class GenreModel: AudioCollectionModel {
     var currentPage = 0
     var hasMorePages = true
     var isLoading = false
-    var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
-        fileArrayLock.lock()
-        getMedia()
     }
 
     func append(_ item: VLCMLGenre) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         files.append(item)
     }
 
@@ -57,20 +49,6 @@ class GenreModel: AudioCollectionModel {
                                             desc: sortModel.desc,
                                             UInt32(limit),
                                             UInt32(offset)) ?? []
-    }
-
-    func getMedia() {
-        currentPage += 1
-        let offset = (currentPage - 1) * kVLCDefaultPageSize
-        let mediaAtOffset = medialibrary.medialib.genres(with: sortModel.currentSort, desc: sortModel.desc, UInt32(kVLCDefaultPageSize), UInt32(offset))
-        if let generes = mediaAtOffset {
-            for  genre in  generes {
-                files.append(genre)
-            }
-        }
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
     }
 }
 
@@ -119,31 +97,9 @@ extension GenreModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files.removeAll()
-    }
-}
-
-// MARK: - Sort
-extension GenreModel {
-    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        sortModel.currentSort = criteria
-        sortModel.desc = desc
-        if firstTime {
-            getMedia()
-            firstTime = false
-        } else {
-            files.removeAll()
-            currentPage = 0
-            getMedia()
-        }
+        defer { fileArrayLock.unlock() }
+        resetPagination()
     }
 }
 
