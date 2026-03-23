@@ -407,7 +407,8 @@ extension MediaViewController {
                                   state: isGridLayout ? .on : .off,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController?.handleLayoutChange(gridLayout: true)
+            guard let mediaCategoryViewController = mediaCategoryViewController else { return }
+            mediaCategoryViewController.handleLayoutChange(gridLayout: true)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -416,7 +417,8 @@ extension MediaViewController {
                                   state: isGridLayout ? .off : .on,
                                   handler: {
             [unowned self, weak mediaCategoryViewController] _ in
-            mediaCategoryViewController?.handleLayoutChange(gridLayout: false)
+            guard let mediaCategoryViewController = mediaCategoryViewController else { return }
+            mediaCategoryViewController.handleLayoutChange(gridLayout: false)
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
@@ -448,8 +450,9 @@ extension MediaViewController {
                                   state: currentSort ? .on : .off,
                                   handler: {
                 [unowned self, weak mediaCategoryViewController] _ in
-                mediaCategoryViewController?.executeSortAction(with: criterion,
-                                                              desc: !sortModel.desc)
+                guard let mediaCategoryViewController = mediaCategoryViewController else { return }
+                mediaCategoryViewController.executeSortAction(with: criterion,
+                                                             desc: !sortModel.desc)
                 menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
             })
             sortActions.append(action)
