@@ -20,10 +20,9 @@ class FolderModel: MLBaseModel {
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder
 
-    var currentPage: Int = 0
-    var hasMorePages: Bool = false
-    var isLoading: Bool = false
-    var firstTime: Bool = false
+    var currentPage = 0
+    var hasMorePages = false
+    var isLoading = false
 
     var name: String = "Folder"
     var indicatorName: String = NSLocalizedString("BUTTON_FOLDER", comment: "")
@@ -56,12 +55,12 @@ class FolderModel: MLBaseModel {
         }
     }
 
-    func delete(_ items: [VLCMLFolder]) {
-        // dummy function
-    }
-
     func fetchPage(offset: Int, limit: Int) -> [VLCMLFolder] {
         return []
+    }
+
+    func delete(_ items: [VLCMLFolder]) {
+        // dummy function
     }
 
     func getMedia() {
