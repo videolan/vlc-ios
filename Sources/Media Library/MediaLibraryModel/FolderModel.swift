@@ -21,6 +21,8 @@ class FolderModel: MLBaseModel {
     var currentFolder: VLCMLFolder
 
     var currentPage: Int = 0
+    var hasMorePages: Bool = false
+    var isLoading: Bool = false
     var firstTime: Bool = false
 
     var name: String = "Folder"
@@ -56,6 +58,10 @@ class FolderModel: MLBaseModel {
 
     func delete(_ items: [VLCMLFolder]) {
         // dummy function
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLFolder] {
+        return []
     }
 
     func getMedia() {

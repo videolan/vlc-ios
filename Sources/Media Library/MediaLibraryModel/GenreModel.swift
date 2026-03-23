@@ -30,6 +30,8 @@ class GenreModel: AudioCollectionModel {
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
@@ -48,6 +50,13 @@ class GenreModel: AudioCollectionModel {
         }
         fileArrayLock.lock()
         files.append(item)
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLGenre] {
+        return medialibrary.medialib.genres(with: sortModel.currentSort,
+                                            desc: sortModel.desc,
+                                            UInt32(limit),
+                                            UInt32(offset)) ?? []
     }
 
     func getMedia() {

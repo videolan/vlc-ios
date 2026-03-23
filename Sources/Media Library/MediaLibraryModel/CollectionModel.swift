@@ -12,7 +12,12 @@ import Foundation
 
 class CollectionModel: MLBaseModel {
     var currentPage: Int = 0
-    var firstTime: Bool = false
+    var hasMorePages: Bool = false
+    var isLoading: Bool = false
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLMedia] {
+        return []
+    }
 
     func getMedia() {
         // dummy

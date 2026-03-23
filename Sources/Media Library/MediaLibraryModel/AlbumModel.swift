@@ -32,6 +32,8 @@ class AlbumModel: AudioCollectionModel {
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
@@ -64,6 +66,13 @@ class AlbumModel: AudioCollectionModel {
         }
         fileArrayLock.lock()
         files.append(item)
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLAlbum] {
+        return medialibrary.albums(sortingCriteria: sortModel.currentSort,
+                                   desc: sortModel.desc,
+                                   items: UInt32(limit),
+                                   offset: UInt32(offset))
     }
 
     func getMedia() {

@@ -34,6 +34,8 @@ class ArtistModel: AudioCollectionModel {
     }
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
@@ -82,6 +84,14 @@ class ArtistModel: AudioCollectionModel {
                 }
             }
         }
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLArtist] {
+        return hideFeatArtists
+            ? medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc,
+                                   listAll: true, items: UInt32(limit), offset: UInt32(offset))
+            : medialibrary.artists(sortingCriteria: sortModel.currentSort, desc: sortModel.desc,
+                                   listAll: false, items: UInt32(limit), offset: UInt32(offset))
     }
 
     func getMedia() {

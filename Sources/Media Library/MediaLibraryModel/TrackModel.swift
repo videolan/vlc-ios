@@ -20,6 +20,8 @@ class TrackModel: NSObject, MediaModel {
     var fileArrayLock = NSRecursiveLock()
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     #if !os(tvOS)
@@ -56,6 +58,14 @@ class TrackModel: NSObject, MediaModel {
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLMedia] {
+        return medialibrary.media(ofType: .audio,
+                                  sortingCriteria: sortModel.currentSort,
+                                  desc: sortModel.desc,
+                                  items: UInt32(limit),
+                                  offset: UInt32(offset))
     }
 
     @objc func getMedia(at index: Int) -> VLCMLMedia? {

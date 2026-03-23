@@ -33,6 +33,8 @@ class PlaylistModel: NSObject, MLBaseModel {
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     @objc required init(medialibrary: MediaLibraryService) {
@@ -98,6 +100,13 @@ class PlaylistModel: NSObject, MLBaseModel {
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLPlaylist] {
+        return medialibrary.medialib.playlists(with: sortModel.currentSort,
+                                               desc: sortModel.desc,
+                                               UInt32(limit),
+                                               UInt32(offset)) ?? []
     }
 
     func getMedia() {

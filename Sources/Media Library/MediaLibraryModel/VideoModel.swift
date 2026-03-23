@@ -34,6 +34,8 @@ class VideoModel: NSObject, MediaModel {
     var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     @objc required init(medialibrary: MediaLibraryService) {
@@ -57,6 +59,14 @@ class VideoModel: NSObject, MediaModel {
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLMedia] {
+        return medialibrary.media(ofType: .video,
+                                  sortingCriteria: sortModel.currentSort,
+                                  desc: sortModel.desc,
+                                  items: UInt32(limit),
+                                  offset: UInt32(offset))
     }
 
     @objc func getMedia(at index: Int) -> VLCMLMedia? {

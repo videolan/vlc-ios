@@ -54,7 +54,10 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     // Pagination
     var currentPage: Int { get set }
-    var firstTime: Bool { get set }
+    var hasMorePages: Bool { get set }
+    var isLoading: Bool { get set }
+
+    func fetchPage(offset: Int, limit: Int) -> [MLType]
 
     func append(_ item: MLType)
     func delete(_ items: [MLType])
@@ -84,7 +87,43 @@ extension MLBaseModel {
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        fatalError()
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+        sortModel.currentSort = criteria
+        sortModel.desc = desc
+        resetPagination()
+        getMedia()
+    }
+
+    func getMedia() {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+
+        guard !isLoading, hasMorePages else { return }
+        isLoading = true
+
+        let pageSize = Int(kVLCDefaultPageSize)
+        let offset = currentPage * pageSize
+        let results = fetchPage(offset: offset, limit: pageSize)
+
+        for item in results {
+            if !files.contains(where: { $0.identifier() == item.identifier() }) {
+                files.append(item)
+            }
+        }
+
+        currentPage += 1
+        hasMorePages = results.count >= pageSize
+        isLoading = false
+
+        observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+    }
+
+    func resetPagination() {
+        files.removeAll()
+        currentPage = 0
+        hasMorePages = true
+        isLoading = false
     }
 }
 

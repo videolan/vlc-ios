@@ -31,6 +31,8 @@ class MediaGroupViewModel: MLBaseModel {
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
     var currentPage = 0
+    var hasMorePages = true
+    var isLoading = false
     var firstTime = true
 
     required init(medialibrary: MediaLibraryService) {
@@ -140,6 +142,13 @@ class MediaGroupViewModel: MLBaseModel {
             medialibrary.medialib.deleteMediaGroup(withIdentifier: originMediaGroup.identifier())
         }
         return true
+    }
+
+    func fetchPage(offset: Int, limit: Int) -> [VLCMLMediaGroup] {
+        return medialibrary.medialib.mediaGroups(with: sortModel.currentSort,
+                                                  desc: sortModel.desc,
+                                                  UInt32(limit),
+                                                  UInt32(offset)) ?? []
     }
 
     func getMedia() {
