@@ -201,3 +201,4 @@
 #define kVLCCurrentPlayingModel @"CurrentPlayingModel"
 
 #define kVLCDefaultPageSize 500
+#define kVLCPrefetchDistance 100
