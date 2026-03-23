@@ -280,7 +280,16 @@ static NSString * const kDomain = @"org.videolan.vlc-ios.openSubtitlesDownloader
         }
 
         // Call the handler with subtitle's download url and its file name
-        completionHandler([NSURL URLWithString:jsonData[@"link"]], jsonData[@"file_name"], nil);
+        NSString *link = jsonData[@"link"];
+        NSString *fileName = jsonData[@"file_name"];
+        if (!link || !fileName) {
+            NSError *parseError = [NSError errorWithDomain:@"org.videolan.vlc-ios"
+                                                      code:-1
+                                                  userInfo:@{NSLocalizedDescriptionKey: @"Missing download link or file name in response"}];
+            completionHandler(nil, nil, parseError);
+            return;
+        }
+        completionHandler([NSURL URLWithString:link], fileName, nil);
     }];
     [dataTask resume];
 }
