@@ -286,9 +286,11 @@ extension AboutController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.navigationType == .linkActivated,
            let url = navigationAction.request.url {
-            UIApplication.shared.open(url)
-            decisionHandler(.cancel)
-            return
+            if url.scheme == "http" || url.scheme == "https" {
+                UIApplication.shared.open(url)
+                decisionHandler(.cancel)
+                return
+            }
         }
         decisionHandler(.allow)
     }
