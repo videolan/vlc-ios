@@ -22,7 +22,7 @@ class ParentalControlCoordinator: NSObject {
     // MARK: - Properties
     let keychain = parentalControlService
     var isEnabled: Bool {
-        keychain.hasSecret
+        return UserDefaults.standard.bool(forKey: kVLCSettingParentalControl) && keychain.hasSecret
     }
 
     private let sessionDuration: TimeInterval = 30.0
@@ -92,11 +92,6 @@ class ParentalControlCoordinator: NSObject {
     }
 
     func disableParentalControl(completion: (() -> Void)? = nil) {
-        guard isEnabled else {
-            completion?()
-            return
-        }
-
         try? self.keychain.removeSecret()
         clearTimestamp()
         completion?()
