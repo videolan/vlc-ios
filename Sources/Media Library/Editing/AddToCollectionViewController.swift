@@ -279,6 +279,9 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? MediaCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        cell.disableScrollView()
+
         if collectionModelType is VLCMLMediaGroup.Type
             && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
             cell.thumbnailView.image = UIImage(named: "removeFromMediaGroup")
@@ -293,8 +296,8 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
             assertionFailure("AddToPlaylistViewController: cellForItemAt: IndexPath out of range.")
             return UICollectionViewCell()
         }
+
         cell.media = mlCollection[indexPath.row] as? VLCMLObject
-        cell.disableScrollView()
         return cell
     }
 }
