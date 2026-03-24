@@ -1,10 +1,15 @@
-//
-//  ParentalControlCoordinator.swift
-//  VLC
-//
-//  Created by Arthur Norat on 10/06/25.
-//  Copyright © 2025 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * ParentalControlCoordinator.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2025-2026 VideoLAN. All rights reserved.
+ *
+ * Authors: Arthur Norat <norat.arthur@gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
 import UIKit
 import LocalAuthentication
 
@@ -62,16 +67,15 @@ class ParentalControlCoordinator: NSObject {
                 self?.updateTimestamp()
             }
             completion(success)
-            print("Parental Control authentication \(success ? "succeeded" : "failed")")
+            APLog("Parental Control authentication \(success ? "succeeded" : "failed")")
         }
-
     }
 
     @objc public func authorizeIfParentalControlIsEnabled(action: @escaping @convention(block) () -> Void, fail: (@convention(block) () -> Void)? = nil) {
         if isEnabled {
             authenticate { success in
                 if success {
-                    print("Parental Control authentication succeeded, executing action")
+                    APLog("Parental Control authentication succeeded, executing action")
                     action()
                 } else {
                     fail?()
