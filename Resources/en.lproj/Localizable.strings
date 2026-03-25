@@ -336,6 +336,7 @@
 "ERROR" = "Error";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SORT_NOTIFICATION" = "Using the same option in a row reverses the sorting order";
 "SEARCH" = "Search";
 "VIDEO" = "Video";
 

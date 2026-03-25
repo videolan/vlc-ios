@@ -37,6 +37,7 @@ class SortingHandler: NSObject {
     init(playlistModel: PlaylistModel) {
         mediaModel = playlistModel
         mediaType = .playlist
+        super.init()
     }
 
     @objc func sortMedia(by criterion: VLCMLSortingCriteria, desc: Bool) {
@@ -65,7 +66,7 @@ class SortingHandler: NSObject {
             sortModel = (mediaModel as? PlaylistModel)!.sortModel
         }
 
-        let sortAlert = UIAlertController(title: "Sort Media by:", message: "Using the same option in a row reverses the sorting order", preferredStyle: .actionSheet)
+        let sortAlert = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: NSLocalizedString("SORT_NOTIFICATION", comment: ""), preferredStyle: .actionSheet)
 
         for criterion in sortModel.sortingCriteria {
             let action = UIAlertAction(title: String(describing: criterion), style: .default) { _ in
@@ -81,7 +82,7 @@ class SortingHandler: NSObject {
             sortAlert.addAction(action)
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .destructive)
         sortAlert.addAction(cancelAction)
 
         if mediaType == .video || mediaType == .audio {
