@@ -17,11 +17,11 @@ class PlaylistViewController: VLCDeletionCapableViewController {
     var playlistCollectionView: UICollectionView!
     var searchBar: UITextField!
     var sortButton: UIButton!
-    var VLCcone: UIImageView!
+    var VLCCone: UIImageView!
 
     var medialibraryService: MediaLibraryService
     var playlistModel: PlaylistModel
-    var medialibObservor: TVModelObserver?
+    var medialibObserver: TVModelObserver?
     var currentlyFocusedIndexPath: IndexPath?
     var sortingHandler: SortingHandler
 
@@ -30,8 +30,8 @@ class PlaylistViewController: VLCDeletionCapableViewController {
     var searchedPlaylists = [VLCMLPlaylist]()
 
     init() {
-        let appcoordinator = VLCAppCoordinator.sharedInstance()
-        medialibraryService = appcoordinator.mediaLibraryService
+        let appCoordinator = VLCAppCoordinator.sharedInstance()
+        medialibraryService = appCoordinator.mediaLibraryService
         playlistModel = PlaylistModel(medialibrary: medialibraryService)
         sortingHandler = SortingHandler(playlistModel: playlistModel)
 
@@ -51,8 +51,8 @@ class PlaylistViewController: VLCDeletionCapableViewController {
         setupCollectionView()
         setupEmptyStateView()
 
-        medialibObservor = TVModelObserver(observerDelegate: self, playlistModel: playlistModel)
-        medialibObservor?.observeLibrary()
+        medialibObserver = TVModelObserver(observerDelegate: self, playlistModel: playlistModel)
+        medialibObserver?.observeLibrary()
 
         navigationController?.navigationBar.isHidden = true
     }
@@ -116,13 +116,13 @@ class PlaylistViewController: VLCDeletionCapableViewController {
     }
 
     private func setupEmptyStateView() {
-        VLCcone = UIImageView(image: UIImage(named: "cone"))
-        VLCcone.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(VLCcone)
+        VLCCone = UIImageView(image: UIImage(named: "cone"))
+        VLCCone.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(VLCCone)
 
         NSLayoutConstraint.activate([
-            VLCcone.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            VLCcone.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            VLCCone.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            VLCCone.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 
@@ -142,7 +142,7 @@ extension PlaylistViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = didBeginSearching ? searchedPlaylists.count : playlistModel.files.count
 
-        VLCcone.isHidden = count >= 1
+        VLCCone.isHidden = count >= 1
         searchBar.isHidden = count < 1
         sortButton.isHidden = count < 1
 
@@ -222,7 +222,7 @@ extension PlaylistViewController {
         let mediaToRename = playlist(at: indexPathToRename.row)
         let currentTitle = mediaToRename.name
 
-        let alertTitle = "Rename \(currentTitle) to:"
+        let alertTitle = String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), currentTitle)
         let renameAlert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
 
         renameAlert.addTextField { textField in

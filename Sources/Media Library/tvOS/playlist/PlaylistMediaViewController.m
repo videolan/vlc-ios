@@ -128,9 +128,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCMLMedia *mediatoPlay;
-    mediatoPlay = _didBeginSearching ? _searchedPlaylistMedia[indexPath.row] : _playlistMedia[indexPath.row];
-    [[VLCPlaybackService sharedInstance] playMedia: mediatoPlay];
+    VLCMLMedia *mediaToPlay;
+    mediaToPlay = _didBeginSearching ? _searchedPlaylistMedia[indexPath.row] : _playlistMedia[indexPath.row];
+    [[VLCPlaybackService sharedInstance] playMedia: mediaToPlay];
     VLCFullscreenMovieTVViewController *fullscreenViewController = [[VLCFullscreenMovieTVViewController alloc] init];
     [self presentViewController:fullscreenViewController animated:YES completion:nil];
 }
@@ -149,26 +149,26 @@
 
         return nil;
     }
-    VLCMLMedia *mediatodelete;
+    VLCMLMedia *mediaToDelete;
     if (_didBeginSearching) {
-        mediatodelete = _searchedPlaylistMedia[indexPathToDelete.row];
+        mediaToDelete = _searchedPlaylistMedia[indexPathToDelete.row];
     } else {
-        mediatodelete = _playlistMedia[indexPathToDelete.row];
+        mediaToDelete = _playlistMedia[indexPathToDelete.row];
     }
-    return mediatodelete.title;
+    return mediaToDelete.title;
 }
 
 - (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
 {
     [super deleteFileAtIndex:indexPathToDelete];
-    VLCMLMedia *mediatodestroy;
+    VLCMLMedia *mediaToDestroy;
 
     if (!indexPathToDelete) {
         return;
     }
 
     if (_didBeginSearching) {
-        mediatodestroy = _searchedPlaylistMedia[indexPathToDelete.row];
+        mediaToDestroy = _searchedPlaylistMedia[indexPathToDelete.row];
         [_searchedPlaylistMedia removeObjectAtIndex:indexPathToDelete.row];
         [_playlistMedia removeObjectAtIndex:indexPathToDelete.row];
         if (_searchedPlaylistMedia.count == 0) {
@@ -176,11 +176,11 @@
             _searchMediaBar.text = @"";
         }
     } else {
-        mediatodestroy = _playlistMedia[indexPathToDelete.row];
+        mediaToDestroy = _playlistMedia[indexPathToDelete.row];
     }
 
     [self.playlistMediaCollection performBatchUpdates:^{
-        [mediatodestroy deleteMainFile];
+        [mediaToDestroy deleteMainFile];
         [self.playlistMediaCollection deleteItemsAtIndexPaths:@[indexPathToDelete]];
     } completion:^(BOOL finished) {
         self.editing = NO;
@@ -189,16 +189,16 @@
 
 - (void)renameFileAtIndex:(NSIndexPath *)indexPathToRename
 {
-    VLCMLMedia *mediatoRename;
+    VLCMLMedia *mediaToRename;
 
     if (_didBeginSearching) {
-        mediatoRename = _searchedPlaylistMedia[indexPathToRename.row];
+        mediaToRename = _searchedPlaylistMedia[indexPathToRename.row];
     } else {
-        mediatoRename = _playlistMedia[indexPathToRename.row];
+        mediaToRename = _playlistMedia[indexPathToRename.row];
     }
-    NSString *currentTitle = mediatoRename.title;
+    NSString *currentTitle = mediaToRename.title;
 
-    NSString *alertTitle = [NSString stringWithFormat:@"Rename %@ to:", currentTitle];
+    NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), currentTitle];
     UIAlertController *renameAlert = [UIAlertController alertControllerWithTitle:alertTitle message:nil preferredStyle:UIAlertControllerStyleAlert];
 
     __block NSString *newName = nil;
@@ -206,15 +206,15 @@
     [renameAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
     }];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"style:UIAlertActionStyleCancel
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel
                                                          handler:nil];
 
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *textField = renameAlert.textFields.firstObject;
         newName = textField.text;
 
         if (![newName isEqualToString:@""]) {
-            [mediatoRename updateTitle:newName];
+            [mediaToRename updateTitle:newName];
             self.searchMediaBar.text = @"";
             [self.playlistMediaCollection reloadData];
         }
