@@ -1,10 +1,14 @@
-//
-//  tvOSModelObserver.swift
-//  VLC-tvOS
-//
-//  Created by Eshan Singh on 22/07/23.
-//  Copyright © 2023 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * TVModelObserver.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2023-2026 VideoLAN. All rights reserved.
+ *
+ * Authors: Eshan Singh <eshansingh.dev # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
@@ -12,7 +16,7 @@ import Foundation
     @objc func refreshCollection()
 }
 
-class tvOSModelObserver: NSObject {
+class TVModelObserver: NSObject {
     @objc weak var observerDelegate: MediaLibraryDelegate?
 
     @objc var videoModel: VideoModel? = nil
@@ -32,7 +36,7 @@ class tvOSModelObserver: NSObject {
     }
 }
 
-extension tvOSModelObserver: MediaLibraryBaseModelObserver {
+extension TVModelObserver: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
         observerDelegate?.refreshCollection()
     }

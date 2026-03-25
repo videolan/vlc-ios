@@ -48,7 +48,7 @@ PODS:
   - MarqueeLabel (4.5.0)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
-  - ObjectiveDropboxOfficial (7.4.1)
+  - ObjectiveDropboxOfficial (7.4.2)
   - OBSlider (1.1.1)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
@@ -193,7 +193,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: 078f768fd80e373dbf99c2272ce4a7da3ce98a09
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
-  ObjectiveDropboxOfficial: 8699fa65969a94f8305d8dabf9c9a8dd856ac598
+  ObjectiveDropboxOfficial: 1645cbc5a542831173425b00ed6929d5a07d0a95
   OBSlider: 6b0165a168681fd3810ef5e793e928889e543201
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   PCloudSDKSwift: 1c1c9a93db5e086c4d421d529091f458b4f59923

@@ -17,7 +17,7 @@ class PlaylistViewController: VLCDeletionCapableViewController {
 
     var medialibraryService: MediaLibraryService
     var playlistModel: PlaylistModel
-    var medialibObservor: tvOSModelObserver?
+    var medialibObservor: TVModelObserver?
     var currentlyFocusedIndexPath: IndexPath?
     var sortingHandler: SortingHandler
 
@@ -47,7 +47,7 @@ class PlaylistViewController: VLCDeletionCapableViewController {
         setupCollectionView()
         setupEmptyStateView()
 
-        medialibObservor = tvOSModelObserver(observerDelegate: self, playlistModel: playlistModel)
+        medialibObservor = TVModelObserver(observerDelegate: self, playlistModel: playlistModel)
         medialibObservor?.observeLibrary()
 
         navigationController?.navigationBar.isHidden = true

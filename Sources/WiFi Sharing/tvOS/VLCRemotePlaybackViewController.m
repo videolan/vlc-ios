@@ -30,7 +30,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 @property (strong) VideoModel *videomodel;
 @property (strong) TrackModel *audiomodel;
 @property (nonatomic) BOOL isAudio;
-@property (nonatomic) tvOSModelObserver *modelObserver;
+@property (nonatomic) TVModelObserver *modelObserver;
 @property (nonatomic) SortingHandler *sorthandler;
 
 // Editing Properties
@@ -63,7 +63,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
      _audiomodel = [[TrackModel alloc] initWithMedialibrary:_medialibraryservice];
 
-     _modelObserver = [[tvOSModelObserver alloc] initWithObserverDelegate: self videoModel: _videomodel audioModel: _audiomodel];
+     _modelObserver = [[TVModelObserver alloc] initWithObserverDelegate: self videoModel: _videomodel audioModel: _audiomodel];
 
      [_modelObserver observeLibrary];
 

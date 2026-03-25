@@ -31,7 +31,7 @@
 		2227B4D12A80F01100D2BE26 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2227B4CF2A80F01100D2BE26 /* PlaylistViewController.swift */; };
 		2227B4E32A8BD2CD00D2BE26 /* PlaylistMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2227B4E12A8BD2CD00D2BE26 /* PlaylistMediaViewController.m */; };
 		2227B4E42A8BD2CD00D2BE26 /* PlaylistMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2227B4E22A8BD2CD00D2BE26 /* PlaylistMediaViewController.xib */; };
-		222ED2E82A6BDFB600A5D135 /* tvOSModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222ED2E72A6BDFB600A5D135 /* tvOSModelObserver.swift */; };
+		222ED2E82A6BDFB600A5D135 /* TVModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222ED2E72A6BDFB600A5D135 /* TVModelObserver.swift */; };
 		222ED2EA2A6D6A5100A5D135 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1887521089BB100A091D2 /* VideoModel.swift */; };
 		222ED2EB2A6D6A6200A5D135 /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
 		222ED2EC2A6D6CB700A5D135 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888F210B53E000A091D2 /* TrackModel.swift */; };
@@ -1386,7 +1386,7 @@
 		2227B4E02A8BD2CD00D2BE26 /* PlaylistMediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistMediaViewController.h; sourceTree = "<group>"; };
 		2227B4E12A8BD2CD00D2BE26 /* PlaylistMediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistMediaViewController.m; sourceTree = "<group>"; };
 		2227B4E22A8BD2CD00D2BE26 /* PlaylistMediaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistMediaViewController.xib; sourceTree = "<group>"; };
-		222ED2E72A6BDFB600A5D135 /* tvOSModelObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSModelObserver.swift; sourceTree = "<group>"; };
+		222ED2E72A6BDFB600A5D135 /* TVModelObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVModelObserver.swift; sourceTree = "<group>"; };
 		226686982A91DED1003114C7 /* AddToPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToPlaylistViewController.swift; sourceTree = "<group>"; };
 		226C041F2C3EADEA003B005E /* FolderCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCategoryViewController.swift; sourceTree = "<group>"; };
 		226C04212C3EAEEC003B005E /* FolderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModel.swift; sourceTree = "<group>"; };
@@ -2444,7 +2444,7 @@
 		22B32C192A4D987D00F9FDF0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				222ED2E72A6BDFB600A5D135 /* tvOSModelObserver.swift */,
+				222ED2E72A6BDFB600A5D135 /* TVModelObserver.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5183,7 +5183,7 @@
 				8D96D2F2233A3D4000E3FB44 /* CustomDialogRendererHandler.swift in Sources */,
 				DD3EFF441BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
 				7DC7BA8728C8951C00109F28 /* UIDevice+VLC.swift in Sources */,
-				222ED2E82A6BDFB600A5D135 /* tvOSModelObserver.swift in Sources */,
+				222ED2E82A6BDFB600A5D135 /* TVModelObserver.swift in Sources */,
 				DD3EFF5E1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				2269F98F2A5EA05D002AE016 /* VLCMLMedia+App.m in Sources */,
 				DD8095E01BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m in Sources */,
