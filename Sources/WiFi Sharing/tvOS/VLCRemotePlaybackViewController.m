@@ -26,16 +26,16 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
 @property (strong, nonatomic) Reachability *reachability;
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
-@property (strong) MediaLibraryService *medialibraryservice;
-@property (strong) VideoModel *videomodel;
-@property (strong) TrackModel *audiomodel;
+@property (strong) MediaLibraryService *mediaLibraryService;
+@property (strong) VideoModel *videoModel;
+@property (strong) TrackModel *audioModel;
 @property (nonatomic) BOOL isAudio;
 @property (nonatomic) TVModelObserver *modelObserver;
-@property (nonatomic) SortingHandler *sorthandler;
+@property (nonatomic) SortingHandler *sortHandler;
 
 // Editing Properties
 @property (nonatomic) BOOL editSelectionActive;
-@property (nonatomic) UIButton* addtoPlaylist;
+@property (nonatomic) UIButton* addToPlaylist;
 @property (nonatomic, strong) NSMapTable<VLCMovieTVCollectionViewCell *, VLCMLMedia *> *cellToMediaMap;
 
 // Searching properties
@@ -56,19 +56,19 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      [super viewDidLoad];
 
      // Media Library Service
-     _medialibraryservice = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
+     _mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
 
      // Init the models
-     _videomodel = [[VideoModel alloc] initWithMedialibrary:_medialibraryservice];
+     _videoModel = [[VideoModel alloc] initWithMedialibrary:_mediaLibraryService];
 
-     _audiomodel = [[TrackModel alloc] initWithMedialibrary:_medialibraryservice];
+     _audioModel = [[TrackModel alloc] initWithMedialibrary:_mediaLibraryService];
 
-     _modelObserver = [[TVModelObserver alloc] initWithObserverDelegate: self videoModel: _videomodel audioModel: _audiomodel];
+     _modelObserver = [[TVModelObserver alloc] initWithObserverDelegate: self videoModel: _videoModel audioModel: _audioModel];
 
      [_modelObserver observeLibrary];
 
      self.cellToMediaMap = [NSMapTable strongToStrongObjectsMapTable];
-     _sorthandler = [[SortingHandler alloc] initWithVideoModel:_videomodel];
+     _sortHandler = [[SortingHandler alloc] initWithVideoModel:_videoModel];
 
      [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"VIDEO", nil) forSegmentAtIndex:0];
      [self.contentSwitchSegmentedControl setTitle:NSLocalizedString(@"AUDIO", nil) forSegmentAtIndex:1];
@@ -238,7 +238,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
 - (IBAction)sortMedia:(id)sender
 {
-     [_sorthandler constructSortAlertWithRemotePlaybackView: self playlistView: nil];
+     [_sortHandler constructSortAlertWithRemotePlaybackView: self playlistView: nil];
 }
 
 - (void)deleteSelection:(id)sender
@@ -302,13 +302,13 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           media = _searchedMedia[row];
      } else {
           if (!_isAudio) {
-               media = [_videomodel getmediaAt:row];
+               media = [_videoModel getmediaAt:row];
           } else {
-               media = [_audiomodel getmediaAt:row];
+               media = [_audioModel getmediaAt:row];
           }
      }
 
-     [_medialibraryservice requestThumbnailFor:media];
+     [_mediaLibraryService requestThumbnailFor:media];
 
      if (_isAudio) {
           VLCMediaTVCollectionViewCell *cell = (VLCMediaTVCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCMediaTVCollectionViewCellIdentifier forIndexPath:indexPath];
@@ -390,7 +390,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      if (_didBeginSearching) {
           ret = _searchedMedia.count;
      } else {
-          ret = (_isAudio ? _audiomodel.files.count : _videomodel.files.count);
+          ret = (_isAudio ? _audioModel.files.count : _videoModel.files.count);
      }
 
      self.cachedMediaConeImageView.hidden = ret > 0;
@@ -439,13 +439,13 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           return nil;
      }
 
-     VLCMLMedia *mediatodelete;
+     VLCMLMedia *mediaToDelete;
      if (_didBeginSearching) {
-          mediatodelete = _searchedMedia[indexPathToDelete.row];
+          mediaToDelete = _searchedMedia[indexPathToDelete.row];
      } else {
-          mediatodelete = (_isAudio ? [_audiomodel getmediaAt:indexPathToDelete.row] : [_videomodel getmediaAt:indexPathToDelete.row]);
+          mediaToDelete = (_isAudio ? [_audioModel getmediaAt:indexPathToDelete.row] : [_videoModel getmediaAt:indexPathToDelete.row]);
      }
-     return mediatodelete.title;
+     return mediaToDelete.title;
 }
 
 - (void)setEditing:(BOOL)editing
@@ -468,33 +468,33 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           return;
      }
 
-     VLCMLMedia *mediatodestroy;
+     VLCMLMedia *mediaToDestroy;
      if (_didBeginSearching) {
-          mediatodestroy = _searchedMedia[indexPathToDelete.row];
+          mediaToDestroy = _searchedMedia[indexPathToDelete.row];
           [_searchedMedia removeObjectAtIndex:indexPathToDelete.row];
           if (_searchedMedia.count == 0) {
                _didBeginSearching = NO;
                _searchBar.text = @"";
           }
      } else {
-          mediatodestroy = (_isAudio ? [_audiomodel getmediaAt:indexPathToDelete.row] : [_videomodel getmediaAt:indexPathToDelete.row]);
+          mediaToDestroy = (_isAudio ? [_audioModel getmediaAt:indexPathToDelete.row] : [_videoModel getmediaAt:indexPathToDelete.row]);
      }
-     [mediatodestroy deleteMainFile];
+     [mediaToDestroy deleteMainFile];
      self.editing = NO;
      [self.cachedMediaCollectionView reloadData];
 }
 
 - (void)renameFileAtIndex:(NSIndexPath *)indexPathToRename
 {
-     VLCMLMedia *mediatoRename;
+     VLCMLMedia *mediaToRename;
      if (_didBeginSearching) {
-          mediatoRename = _searchedMedia[indexPathToRename.row];
+          mediaToRename = _searchedMedia[indexPathToRename.row];
      } else {
-          mediatoRename = (_isAudio ? [_audiomodel getmediaAt:indexPathToRename.row] : [_videomodel getmediaAt:indexPathToRename.row]);
+          mediaToRename = (_isAudio ? [_audioModel getmediaAt:indexPathToRename.row] : [_videoModel getmediaAt:indexPathToRename.row]);
      }
-     NSString *currentTitle = mediatoRename.title;
+     NSString *currentTitle = mediaToRename.title;
 
-     NSString *alertTitle = [NSString stringWithFormat:@"Rename %@ to:", currentTitle];
+     NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), currentTitle];
      UIAlertController *renameAlert = [UIAlertController alertControllerWithTitle:alertTitle message:nil preferredStyle:UIAlertControllerStyleAlert];
 
      __block NSString *newName = nil;
@@ -513,7 +513,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           newName = textField.text;
 
           if (![newName isEqualToString:@""]) {
-               [mediatoRename updateTitle:newName];
+               [mediaToRename updateTitle:newName];
                [self.cachedMediaCollectionView reloadData];
           }
      }];
@@ -528,21 +528,21 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     VLCMLMedia *mediatoPlay;
+     VLCMLMedia *mediaToPlay;
      NSArray<VLCMLMedia *> *collection;
 
      if (_didBeginSearching) {
-          mediatoPlay = _searchedMedia[indexPath.row];
-          [[VLCPlaybackService sharedInstance] playMedia:mediatoPlay];
+          mediaToPlay = _searchedMedia[indexPath.row];
+          [[VLCPlaybackService sharedInstance] playMedia:mediaToPlay];
           return;
      }
 
      if (_isAudio) {
-          mediatoPlay = [_audiomodel getmediaAt: indexPath.row];
-          collection = _audiomodel.files;
+          mediaToPlay = [_audioModel getmediaAt: indexPath.row];
+          collection = _audioModel.files;
      } else {
-          mediatoPlay = [_videomodel getmediaAt: indexPath.row];
-          collection = _videomodel.files;
+          mediaToPlay = [_videoModel getmediaAt: indexPath.row];
+          collection = _videoModel.files;
      }
 
      if (_editSelectionActive) {
@@ -559,7 +559,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
           [[VLCPlaybackService sharedInstance] playMediaAtIndex:indexPath.row fromCollection:collection];
      } else {
-          [[VLCPlaybackService sharedInstance] playMedia:mediatoPlay];
+          [[VLCPlaybackService sharedInstance] playMedia:mediaToPlay];
      }
 }
 
@@ -581,9 +581,9 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 {
      _isAudio = (self.contentSwitchSegmentedControl.selectedSegmentIndex == 1);
      if (_isAudio) {
-          _sorthandler = [[SortingHandler alloc] initWithAudioModel:_audiomodel];
+          _sortHandler = [[SortingHandler alloc] initWithAudioModel:_audioModel];
      } else {
-          _sorthandler = [[SortingHandler alloc] initWithVideoModel:_videomodel];
+          _sortHandler = [[SortingHandler alloc] initWithVideoModel:_videoModel];
      }
 
      _didBeginSearching = NO;
@@ -619,7 +619,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           self.sortButton.hidden = YES;
           self.editSelectionButton.hidden = YES;
 
-          NSArray<VLCMLMedia *> *sourceArray = _isAudio ? _audiomodel.files : _videomodel.files;
+          NSArray<VLCMLMedia *> *sourceArray = _isAudio ? _audioModel.files : _videoModel.files;
 
           for (VLCMLMedia *media in sourceArray) {
                if ([media contains:searchString]) {
