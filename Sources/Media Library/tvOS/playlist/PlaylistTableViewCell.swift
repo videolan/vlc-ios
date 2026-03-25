@@ -24,6 +24,7 @@ class PlaylistTableViewCell: UITableViewCell {
         accessoryType = .disclosureIndicator
     }
 
+    // Intentionally empty to suppress the default selection highlight
     override func setSelected(_ selected: Bool, animated: Bool) {
     }
 
