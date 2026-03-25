@@ -110,4 +110,5 @@
 #define kVLCSettingsAudioOffsetDelay @"kVLCSettingsAudioOffsetDelay"
 #define kVLCSettingsOffsetDefaultValue @(50)
 
+#define kVLCSettingMediaLibraryRescan @"kVLCSettingMediaLibraryRescan"
 #define kVLCSettingReset @"kVLCSettingReset"
