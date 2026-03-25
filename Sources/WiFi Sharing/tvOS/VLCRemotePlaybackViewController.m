@@ -302,9 +302,9 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           media = _searchedMedia[row];
      } else {
           if (!_isAudio) {
-               media = [_videoModel getmediaAt:row];
+               media = [_videoModel getMediaAt:row];
           } else {
-               media = [_audioModel getmediaAt:row];
+               media = [_audioModel getMediaAt:row];
           }
      }
 
@@ -443,7 +443,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      if (_didBeginSearching) {
           mediaToDelete = _searchedMedia[indexPathToDelete.row];
      } else {
-          mediaToDelete = (_isAudio ? [_audioModel getmediaAt:indexPathToDelete.row] : [_videoModel getmediaAt:indexPathToDelete.row]);
+          mediaToDelete = (_isAudio ? [_audioModel getMediaAt:indexPathToDelete.row] : [_videoModel getMediaAt:indexPathToDelete.row]);
      }
      return mediaToDelete.title;
 }
@@ -477,7 +477,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
                _searchBar.text = @"";
           }
      } else {
-          mediaToDestroy = (_isAudio ? [_audioModel getmediaAt:indexPathToDelete.row] : [_videoModel getmediaAt:indexPathToDelete.row]);
+          mediaToDestroy = (_isAudio ? [_audioModel getMediaAt:indexPathToDelete.row] : [_videoModel getMediaAt:indexPathToDelete.row]);
      }
      [mediaToDestroy deleteMainFile];
      self.editing = NO;
@@ -490,7 +490,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      if (_didBeginSearching) {
           mediaToRename = _searchedMedia[indexPathToRename.row];
      } else {
-          mediaToRename = (_isAudio ? [_audioModel getmediaAt:indexPathToRename.row] : [_videoModel getmediaAt:indexPathToRename.row]);
+          mediaToRename = (_isAudio ? [_audioModel getMediaAt:indexPathToRename.row] : [_videoModel getMediaAt:indexPathToRename.row]);
      }
      NSString *currentTitle = mediaToRename.title;
 
@@ -538,10 +538,10 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      }
 
      if (_isAudio) {
-          mediaToPlay = [_audioModel getmediaAt: indexPath.row];
+          mediaToPlay = [_audioModel getMediaAt: indexPath.row];
           collection = _audioModel.files;
      } else {
-          mediaToPlay = [_videoModel getmediaAt: indexPath.row];
+          mediaToPlay = [_videoModel getMediaAt: indexPath.row];
           collection = _videoModel.files;
      }
 

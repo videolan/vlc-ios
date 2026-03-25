@@ -42,9 +42,9 @@ class TrackModel: NSObject, MediaModel {
         files = medialibrary.media(ofType: .audio)
     }
 
-    @objc func getmedia(at index: Int) -> VLCMLMedia {
-        let media = files[index]
-        return media
+    @objc func getMedia(at index: Int) -> VLCMLMedia? {
+        guard index >= 0, index < files.count else { return nil }
+        return files[index]
     }
 }
 
