@@ -24,7 +24,7 @@ extern NSString *const VLCRemoteBrowsingTVCellIdentifier;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *favorite;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
-@property (nonatomic, weak) IBOutlet UILabel *medianew;
+@property (nonatomic, weak) IBOutlet UILabel *mediaNewLabel;
 
 @property (nonatomic) BOOL selectedPreviously;
 @property (nonatomic) BOOL downloadArtwork;

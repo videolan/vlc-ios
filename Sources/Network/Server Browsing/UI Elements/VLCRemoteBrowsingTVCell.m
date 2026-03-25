@@ -33,7 +33,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
-    self.medianew.hidden = YES;
+    self.mediaNewLabel.hidden = YES;
     self.checkBoxImageView.hidden = YES;
     _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
     _favorite.hidden = YES;
@@ -107,9 +107,9 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     self.progressView.progress = mediaProgress;
 }
 
--(void)setMediaisNew:(BOOL)mediaisNew
+-(void)setMediaIsNew:(BOOL)mediaIsNew
 {
-    self.medianew.hidden = mediaisNew;
+    self.mediaNewLabel.hidden = mediaIsNew;
 }
 
 -(void)setCheckBoxImageView
@@ -151,7 +151,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 @synthesize isFavorable;
 @synthesize mediaProgress;
 
-@synthesize mediaisNew;
+@synthesize mediaIsNew;
 
 @synthesize progressViewHidden;
 

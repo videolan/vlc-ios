@@ -94,7 +94,7 @@
             <connections>
                 <outlet property="checkBoxImageView" destination="WDU-Ht-4LP" id="pch-yN-DB7"/>
                 <outlet property="favorite" destination="bIV-pt-zuA" id="ewG-y7-KSO"/>
-                <outlet property="medianew" destination="CA8-hB-zq3" id="8Fn-uu-SrU"/>
+                <outlet property="mediaNewLabel" destination="CA8-hB-zq3" id="8Fn-uu-SrU"/>
                 <outlet property="progressView" destination="pqN-nv-I6Z" id="i3w-aC-dh8"/>
                 <outlet property="subtitleLabel" destination="I51-60-pwl" id="QAu-qM-AqE"/>
                 <outlet property="thumbnailImageView" destination="tHQ-sR-zn4" id="Lfb-zG-339"/>

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isFavorable;
 @property (nonatomic) BOOL couldBeAudioOnlyMedia;
 @property (nonatomic) float mediaProgress;
-@property (nonatomic) BOOL  mediaisNew;
+@property (nonatomic) BOOL  mediaIsNew;
 @property (nonatomic) BOOL progressViewHidden;
 
 -(void)setCheckBoxImageView;
