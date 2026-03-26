@@ -773,8 +773,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             /// Those changes are highly recommended in order to prevent a UICollectionView gesture
             /// issue when cells are embedding a UIScrollView
             /// See https://code.videolan.org/umxprime/collection-view-bug
-            collectionView?.allowsSelectionDuringEditing = editing
-            collectionView?.allowsMultipleSelectionDuringEditing = editing
+            collectionView.allowsSelectionDuringEditing = editing
+            collectionView.allowsMultipleSelectionDuringEditing = editing
         }
 
         editController.resetSelections(resetUI: true)
@@ -1618,16 +1618,18 @@ private extension MediaCategoryViewController {
 
 extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
-        // Set collectionView.isEditing to true
-        return true
-    }
+        // Set collectionView.isEditing to true only if the gesture is triggered properly
+        if collectionView.panGestureRecognizer.numberOfTouches == 2 {
+            return true
+        }
 
+        return false
+    }
 
     override func collectionView(_ collectionView: UICollectionView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
         // Put the collection view into editing mode.
         delegate?.setEditingStateChanged(for: self, editing: true)
     }
-
 
     private func selectedItem(at indexPath: IndexPath) {
         let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
@@ -2201,7 +2203,10 @@ private extension MediaCategoryViewController {
             collectionView?.register(cellNib,
                                      forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
         }
-        collectionView.allowsMultipleSelection = true
+
+        if #available(iOS 16.0, *) {
+            collectionView.allowsMultipleSelection = true
+        }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
