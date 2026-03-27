@@ -18,6 +18,7 @@
 #import "VLCNetworkImageView.h"
 #import "VLCMetaData.h"
 #import "VLCActivityManager.h"
+#import "VLC-Swift.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -46,6 +47,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 @property (nonatomic) BOOL playbackUIShouldHide;
 
+@property (nonatomic) GameControllerManager *gameControllerManager;
 // 360 Support
 @property (nonatomic) CGPoint projectionLocation;
 @property (nonatomic) CGFloat yaw;
@@ -92,6 +94,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     self.pitch = 0;
     self.yaw = 0;
 
+     self.gameControllerManager = [[GameControllerManager alloc] init];
+    
     _disabledIdleTimer = NO;
 
     NSMutableSet<UIGestureRecognizer *> *simultaneousGestureRecognizers = [NSMutableSet set];
@@ -146,7 +150,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [simultaneousGestureRecognizers addObject:siriArrowRecognizer];
 
     self.simultaneousGestureRecognizers = simultaneousGestureRecognizers;
-
+    
+    self.gameControllerManager.delegate = self;
     [super viewDidLoad];
 }
 
@@ -200,6 +205,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
     [vpc disableSubtitlesIfNeeded];
+    [self.gameControllerManager startMonitoring];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -413,7 +419,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self showPlaybackControlsIfNeededForUserInteraction];
 
-    [self jumpBackward];
+    [self jumpBackward:1];
 }
 
 - (void)handleIRPressRight
@@ -429,7 +435,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self showPlaybackControlsIfNeededForUserInteraction];
 
-    [self jumpForward];
+    [self jumpForward:1];
 }
 
 - (void)handleRightLongPress:(UILongPressGestureRecognizer *)recognizer
@@ -599,12 +605,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     switch (location) {
         case VLCSiriRemoteTouchLocationLeft:
             if (canJump && self.isSeekable) {
-                [self jumpBackward];
+                [self jumpBackward:1];
             }
             break;
         case VLCSiriRemoteTouchLocationRight:
             if (canJump && self.isSeekable) {
-                [self jumpForward];
+                [self jumpForward:1];
             }
             break;
         default:
@@ -614,12 +620,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 }
 
 #pragma mark -
-- (void)jumpForward
+- (void)jumpForward:(NSInteger)multiplier
 {
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackForwardSkipLength];
+    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackForwardSkipLength] * multiplier;
 
     if (vpc.isPlaying) {
         [self jumpInterval:jumpInterval];
@@ -627,12 +633,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         [self scrubbingJumpInterval:jumpInterval];
     }
 }
-- (void)jumpBackward
+- (void)jumpBackward:(NSInteger)multiplier
 {
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackBackwardSkipLength];
+    NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackBackwardSkipLength] * multiplier;
 
     if (vpc.isPlaying) {
         [self jumpInterval:-jumpInterval];
@@ -1130,5 +1136,61 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
     return [[VLCPlaybackInfoTVTransitioningAnimator alloc] init];
+}
+@end
+
+// Game controllers already have some default behavior built in to tvOS, don't override those controls
+@implementation VLCFullscreenMovieTVViewController (VLCGameControllerManagerDelegate)
+
+- (void)gameControllerManagerDelegateDidScrubBackward:(GameControllerManager * _Nonnull)gameControllerManager {
+}
+
+- (void)gameControllerManagerDelegateDidScrubForward:(GameControllerManager * _Nonnull)gameControllerManager {
+}
+
+- (void)gameControllerManagerDelegateDidTapBackward:(GameControllerManager * _Nonnull)gameControllerManager {
+}
+
+- (void)gameControllerManagerDelegateDidTapBackwardLong:(GameControllerManager * _Nonnull)gameControllerManager {
+    if (self.canJump && self.isSeekable) {
+        [self jumpBackward:3];
+    }
+}
+
+- (void)gameControllerManagerDelegateDidTapClosePlayer:(GameControllerManager * _Nonnull)gameControllerManager {
+}
+
+- (void)gameControllerManagerDelegateDidTapForward:(GameControllerManager * _Nonnull)gameControllerManager {
+
+}
+
+- (void)gameControllerManagerDelegateDidTapForwardLong:(GameControllerManager * _Nonnull)gameControllerManager {
+    if (self.canJump && self.isSeekable) {
+        [self jumpForward:3];
+    }
+}
+
+- (void)gameControllerManagerDelegateDidTapNextMedia:(GameControllerManager * _Nonnull)gameControllerManager {
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    [vpc next];
+}
+
+- (void)gameControllerManagerDelegateDidTapPlayPause:(GameControllerManager * _Nonnull)gameControllerManager {
+}
+
+- (void)gameControllerManagerDelegateDidTapPreviousMedia:(GameControllerManager * _Nonnull)gameControllerManager {
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    [vpc previous];
+}
+
+- (void)gameControllerManagerDelegateDidTapVolume:(GameControllerManager * _Nonnull)gameControllerManager :(float)value {
+}
+
+- (void)gameControllerManagerDelegateDidTogglePlayerQueue:(GameControllerManager * _Nonnull)gameControllerManager {
+
+}
+
+- (void)gameControllerManagerDelegateDidTogglePlayerOptions:(GameControllerManager * _Nonnull)gameControllerManager {
+
 }
 @end

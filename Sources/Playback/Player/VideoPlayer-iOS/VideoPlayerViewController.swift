@@ -327,6 +327,7 @@ class VideoPlayerViewController: PlayerViewController {
                    isBrightnessControlAvailable: true)
 
         self.playerController.delegate = self
+        self.gameControllerManager.delegate = self
         self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
 
         brightnessControlView.delegate = self
@@ -409,6 +410,7 @@ class VideoPlayerViewController: PlayerViewController {
         setupForMediaProjection()
 
         moreOptionsActionSheet.resetOptionsIfNecessary()
+        gameControllerManager.startMonitoring()
     }
 
     override func viewWillLayoutSubviews() {
@@ -455,6 +457,7 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deviceMotion.stopDeviceMotion()
+        gameControllerManager.stopMonitoring()
     }
 
     override func viewDidLoad() {
@@ -1812,5 +1815,123 @@ extension VideoPlayerViewController: ActionSheetCellDelegate {
 extension VideoPlayerViewController: SliderInfoViewDelegate {
     func sliderInfoViewDidReceiveTouch(_ sliderInfoView: SliderInfoView) {
         resetIdleTimer()
+    }
+}
+
+// MARK: GameControllerManagerDelegate
+
+extension VideoPlayerViewController: GameControllerManagerDelegate {
+    
+    func gameControllerManagerDelegateDidTapClosePlayer(_ gameControllerManager: GameControllerManager) {
+        playbackService.stopPlayback()
+    }
+    
+    func gameControllerManagerDelegateDidTapPlayPause(_ gameControllerManager: GameControllerManager) {
+        playbackService.playPause()
+        videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
+    }
+    
+    
+    func gameControllerManagerDelegateDidTapForward(_ gameControllerManager: GameControllerManager) {
+        handleSeek(seekForwardBy, .forward)
+    }
+    
+    func gameControllerManagerDelegateDidTapBackward(_ gameControllerManager: GameControllerManager) {
+        handleSeek(seekBackwardBy, .backward)
+    }
+    
+    func gameControllerManagerDelegateDidTapVolume(_ gameControllerManager: GameControllerManager, _ value: Float) {
+#if os(iOS)
+        var animations : (() -> Void)?
+        volumeBackgroundGradientLayer.isHidden = false
+        volumeControl.fetchDeviceValue()
+        animations = { [brightnessControlView, sideBackgroundGradientView] in
+            brightnessControlView.alpha = 1
+            sideBackgroundGradientView.alpha = 1
+        }
+        
+        if let animations = animations {
+            UIView.animate(withDuration: 0.2, delay: 0,
+                           options: .beginFromCurrentState, animations: animations,
+                           completion: nil)
+        }
+        
+        volumeControl.value = min(max(volumeControl.value + value, 0), 1)
+        volumeControl.applyValueToDevice()
+        volumeControlView.updateIcon(level: volumeControl.value)
+        
+        animations = { [volumeControlView, sideBackgroundGradientView] in
+            volumeControlView.alpha = 0
+            sideBackgroundGradientView.alpha = 0
+        }
+        
+        if let animations = animations {
+            UIView.animate(withDuration: 0.2, delay: 0.5,
+                           options: .beginFromCurrentState, animations: animations, completion: {
+                [brightnessBackgroundGradientLayer,
+                 volumeBackgroundGradientLayer] _ in
+                brightnessBackgroundGradientLayer.isHidden = true
+                volumeBackgroundGradientLayer.isHidden = true
+                self.setControlsHidden(true, animated: true)
+            })
+        }
+#else
+        self.setControlsHidden(true, animated: true)
+#endif
+    }
+    
+    func gameControllerManagerDelegateDidTapForwardLong(_ gameControllerManager: GameControllerManager) {
+        handleSeek(seekForwardBy, .forward, multiplier: 3)
+    }
+    
+    func gameControllerManagerDelegateDidTapBackwardLong(_ gameControllerManager: GameControllerManager) {
+        handleSeek(seekBackwardBy, .backward, multiplier: 3)
+    }
+    
+    func gameControllerManagerDelegateDidTapPreviousMedia(_ gameControllerManager: GameControllerManager) {
+        playbackService.previous()
+    }
+    
+    func gameControllerManagerDelegateDidTapNextMedia(_ gameControllerManager: GameControllerManager) {
+        playbackService.next()
+    }
+    
+    
+    func gameControllerManagerDelegateDidScrubForward(_ gameControllerManager: GameControllerManager) {
+        handleSeek(scrubForwardBy, .forward)
+    }
+    
+    func gameControllerManagerDelegateDidScrubBackward(_ gameControllerManager: GameControllerManager) {
+        handleSeek(scrubBackwardBy, .backward)
+    }
+    
+    private func handleSeek(_ seekValue: Int, _ direction: PlayerSeekState, multiplier: Int = 1) {
+        let seek = seekValue * multiplier
+        let signedSeek = direction == .forward ? seek : -seek
+        
+        totalSeekDuration = previousSeekState != direction ? signedSeek : totalSeekDuration + signedSeek
+        previousSeekState = direction
+        
+        displayAndApplySeekDuration(seek)
+    }
+    
+    func gameControllerManagerDelegateDidTogglePlayerQueue(_ gameControllerManager: GameControllerManager) {
+        if queueViewController?.parent != nil {
+            queueViewController?.dismissPlayqueue()
+        } else {
+            mediaNavigationBarDidToggleQueueView(mediaNavigationBar)
+        }
+    }
+    
+    func gameControllerManagerDelegateDidTogglePlayerOptions(_ gameControllerManager: GameControllerManager) {
+        if self.presentedViewController == nil {
+            present(moreOptionsActionSheet, animated: false) {
+                [unowned self] in
+                self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
+                self.moreOptionsActionSheet.hidePlayer()
+            }
+        } else {
+            self.moreOptionsActionSheet.dismiss(animated: true, completion: nil)
+        }
     }
 }

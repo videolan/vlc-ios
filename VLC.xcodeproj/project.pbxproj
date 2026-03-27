@@ -59,7 +59,10 @@
 		27CE104F2A3C5ECF0061C92B /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CE104E2A3C5ECF0061C92B /* FavoriteListViewController.swift */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
+		3218FC662F75E1C2009B6473 /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
+		322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
 		327B707D31772D5CCE59C0DB /* libPods-VLC-visionOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF40719B8DE63266756110B2 /* libPods-VLC-visionOS.a */; };
+		32B2A2362F65E17600D5EFBC /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
 		35D8C6F16323458B94D0C3C2 /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
 		4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
 		4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
@@ -1405,6 +1408,7 @@
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2D3885594023B9FE0E207420 /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
+		32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
 		32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33AF3A9D1D7AF87AB34E876F /* Pods-VLC-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.release.xcconfig"; path = "Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		3801A64301C18DE263C41EF4 /* Pods-VLC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.debug.xcconfig"; path = "Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2481,6 +2485,14 @@
 				7DF04F4C1961F2B8004A5429 /* web-open.png */,
 			);
 			path = web;
+			sourceTree = "<group>";
+		};
+		32B2A22C2F65E12600D5EFBC /* GameController */ = {
+			isa = PBXGroup;
+			children = (
+				32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */,
+			);
+			path = GameController;
 			sourceTree = "<group>";
 		};
 		4133CADD22CCB0620047A4EC /* Screenshots */ = {
@@ -3902,6 +3914,7 @@
 		8D590F622493836A0078D358 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				32B2A22C2F65E12600D5EFBC /* GameController */,
 				D9F0D6782937592200A97964 /* Player */,
 				7D0C209C28C8A21200CCFFEF /* Control */,
 				7D0C209B28C89FE000CCFFEF /* OS Integration */,
@@ -5248,6 +5261,7 @@
 				7DC7BA7E28C894EC00109F28 /* GRKArrayDiff+UICollectionView.m in Sources */,
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */,
+				322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
@@ -5333,6 +5347,7 @@
 				7D50C5ED2BBD20DF00B9F1A0 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7D50C5EE2BBD20DF00B9F1A0 /* FavoriteSectionHeader.swift in Sources */,
 				7D93B75D2D60EE9800F952DE /* PasscodeField.swift in Sources */,
+				3218FC662F75E1C2009B6473 /* GameControllerManager.swift in Sources */,
 				7D50C5EF2BBD20DF00B9F1A0 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7D50C5F02BBD20DF00B9F1A0 /* CustomDialogRendererHandler.swift in Sources */,
 				7D50C5F22BBD20DF00B9F1A0 /* UIImage+Blur.m in Sources */,
@@ -5371,7 +5386,7 @@
 				7D50C6132BBD20DF00B9F1A0 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				7D50C6142BBD20DF00B9F1A0 /* UIViewController+VLCAlert.h in Sources */,
 				7D50C6152BBD20DF00B9F1A0 /* SettingsSpecifier.swift in Sources */,
-				7D50C6162BBD20DF00B9F1A0 /* BuildFile in Sources */,
+				7D50C6162BBD20DF00B9F1A0 /* (null) in Sources */,
 				7D50C6192BBD20DF00B9F1A0 /* VLCOSOFetcher.m in Sources */,
 				7D50C61A2BBD20DF00B9F1A0 /* ChapterView.swift in Sources */,
 				7D50C61B2BBD20DF00B9F1A0 /* VLCDonationInvoicesViewController.m in Sources */,
@@ -5788,6 +5803,7 @@
 				41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */,
 				DD870E951CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				CAC0AFED20CF8F6F00EDB035 /* VLCAccessibilityIdentifier.swift in Sources */,
+				32B2A2362F65E17600D5EFBC /* GameControllerManager.swift in Sources */,
 				41701546209B36E800802E44 /* VLCPagingViewController.swift in Sources */,
 				7D398DC11CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				7DD71F9728FB421300327ACE /* CPListTemplate+NetworkStreams.m in Sources */,

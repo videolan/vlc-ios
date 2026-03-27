@@ -13,12 +13,6 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-enum PlayerSeekState {
-    case `default`
-    case forward
-    case backward
-}
-
 fileprivate enum PlayerPanType {
     case none
 #if os(iOS)
@@ -83,6 +77,8 @@ class PlayerViewController: UIViewController {
     var queueViewController: QueueViewController?
     var alertController: UIAlertController?
 
+    let gameControllerManager = GameControllerManager()
+    
     // MARK: Seek
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
@@ -93,6 +89,9 @@ class PlayerViewController: UIViewController {
     var forwardBackwardEqual: Bool = true
     var tapSwipeEqual: Bool = true
     var previousSeekState: PlayerSeekState = .default
+    let seekMultiplier: Int = 3
+    let scrubForwardBy: Int = 5
+    let scrubBackwardBy: Int = 5
     private var seekStartPosition: Float = 0
     private var accumulatedSeekTime: Float = 0
     private let seekSensitivity: Float = 0.1
@@ -455,7 +454,6 @@ class PlayerViewController: UIViewController {
         }
 
         view.transform = .identity
-
 #if os(iOS)
         //update the system brightness value before player appears
         self.systemBrightness = UIScreen.main.brightness
@@ -506,6 +504,7 @@ class PlayerViewController: UIViewController {
         // remove the observer when the view disappears to avoid breaking the brightness view value
         // when the player is not shown to save the persisted values
         removePlayerBrightnessObservers()
+
     }
 #endif
 

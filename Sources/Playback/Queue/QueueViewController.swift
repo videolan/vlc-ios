@@ -339,7 +339,7 @@ class QueueViewController: UIViewController {
         })
     }
 
-    @objc private func dismissPlayqueue() {
+    @objc func dismissPlayqueue() {
         if let parent = parent {
             bottomConstraint?.constant = view.frame.height - view.safeAreaInsets.bottom
             UIView.animate(withDuration: animationDuration, animations: {
