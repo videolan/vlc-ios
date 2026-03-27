@@ -112,7 +112,9 @@ class CollectionCategoryViewController: MediaCategoryViewController {
         if let model = model as? CollectionModel,
            let collection = model.mediaCollection as? VLCMLArtist {
             let playbackService = PlaybackService.sharedInstance()
-            playbackService.playCollection(collection.tracks())
+            let sortModel = model.sortModel
+            let tracks = collection.tracks(with: sortModel.currentSort, desc: sortModel.desc)
+            playbackService.playCollection(tracks)
         }
     }
 }
