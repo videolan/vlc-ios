@@ -214,6 +214,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             "network caching level": defaults.integer(forKey: kVLCSettingNetworkCaching),
             "skip loop filter": defaults.integer(forKey: kVLCSettingSkipLoopFilter),
             "RTSP over TCP": defaults.integer(forKey: kVLCSettingNetworkRTSPTCP),
+            "RTSP over HTTP": defaults.integer(forKey: kVLCSettingNetworkRTSPHTTP),
             "Audio time stretching": defaults.integer(forKey: kVLCSettingStretchAudio)
         ]
 

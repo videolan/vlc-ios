@@ -1958,7 +1958,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
               kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding],
-              kVLCSettingNetworkRTSPTCP : [defaults objectForKey:kVLCSettingNetworkRTSPTCP]
+              kVLCSettingNetworkRTSPTCP : [defaults objectForKey:kVLCSettingNetworkRTSPTCP],
+              kVLCSettingNetworkRTSPHTTP : [defaults objectForKey:kVLCSettingNetworkRTSPHTTP]
     };
 }
 

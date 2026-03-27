@@ -69,6 +69,7 @@
                                   kVLCSettingContinueAudioPlayback : @(1),
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCSettingNetworkRTSPTCP : @(NO),
+                                  kVLCSettingNetworkRTSPHTTP : @(NO),
                                   kVLCSettingNetworkSatIPChannelListUrl : @"",
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
                                   kVLCSettingEqualizerProfileDisabled : @(YES),

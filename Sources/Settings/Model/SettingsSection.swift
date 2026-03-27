@@ -738,12 +738,18 @@ enum NetworkOptions {
                 preferenceKey: kVLCSettingNetworkRTSPTCP)
     }
 
+    static var rtsphttp: SettingsItem {
+        .toggle(title: "SETTINGS_RTSP_HTTP",
+                preferenceKey: kVLCSettingNetworkRTSPHTTP)
+    }
+
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_NETWORK", items: [
             networkCachingLevel,
             ipv6SupportForWiFiSharing,
             forceSMBv1,
             rtspctp,
+            rtsphttp,
         ])
     }
 }
