@@ -45,6 +45,28 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
         }
     }
+
+    private var currentDataSetGroupedByTitle: [(key: String, items: [VLCMLMedia])] {
+        let items: [VLCMLMedia] = currentDataSet as? [VLCMLMedia] ?? []
+        let groupedItems: [String: [VLCMLMedia]] = Dictionary(grouping: items) { item in
+            guard let firstLetter = item.title.first?.uppercased() else { return "?" }
+            if firstLetter.isNumber {
+                return "#"
+            }
+            return firstLetter
+        }
+        return groupedItems
+            .map { ($0.key, $0.value.sorted { $0.title < $1.title }) }
+            .sorted { model.sortModel.desc ? $0.key > $1.key : $0.key < $1.key }
+    }
+
+    var isSectionable: Bool = false
+
+    var isSectioned: Bool {
+        return isSectionable && model.sortModel.currentSort == .alpha
+    }
+
+    private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
     private var searchBarConstraint: NSLayoutConstraint?
     private var searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
@@ -1125,6 +1147,16 @@ extension MediaCategoryViewController {
 // MARK: - MediaCategoryViewController - Private Helpers
 
 private extension MediaCategoryViewController {
+
+    private func getObject(at indexPath: IndexPath) -> VLCMLObject? {
+        return isSectioned ? currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row] : currentDataSet.objectAtIndex(index: indexPath.row)
+    }
+
+    private func getFlattenedIndexPath(for item: VLCMLObject) -> IndexPath {
+        let row = currentDataSet.firstIndex { $0 == item }!
+        return IndexPath(row: row, section: 0)
+    }
+
     private func popViewIfNecessary() {
         // Inside a collection without files
         if let collectionModel = model as? CollectionModel, collectionModel.anyfiles.isEmpty {
@@ -1521,7 +1553,7 @@ private extension MediaCategoryViewController {
     @available(iOS 13.0, *)
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let index = indexPath.row
-        let modelContent = currentDataSet.objectAtIndex(index: index)
+        let modelContent = getObject(at: indexPath)
         collectionSelectedIndex = indexPath
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
         var actionList = EditButtonsFactory.buttonList(for: model).filter({
@@ -1638,8 +1670,15 @@ extension MediaCategoryViewController {
     }
 
     private func selectedItem(at indexPath: IndexPath) {
-        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
-        collectionSelectedIndex = indexPath
+        let modelContent = getObject(at: indexPath)
+        var indexPath = indexPath
+        if isSectioned, let modelContent {
+            indexPath = getFlattenedIndexPath(for: modelContent)
+            collectionSelectedIndex = getFlattenedIndexPath(for: modelContent)
+        } else {
+            collectionSelectedIndex = indexPath
+        }
+
         // Reset the play as audio variable
         let playbackService = PlaybackService.sharedInstance()
         playbackService.playAsAudio = false
@@ -1693,7 +1732,7 @@ extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
-        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
+        let modelContent = getObject(at: indexPath)
         if modelContent is VLCMLFolder {
             return nil
         }
@@ -1736,6 +1775,12 @@ extension MediaCategoryViewController {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        if isSectioned
+        {
+            return .init(width: collectionView.frame.size.width, height: 40)
+        }
+
         guard let model = model as? CollectionModel else {
             return .init(width: 0, height: 0)
         }
@@ -1766,8 +1811,12 @@ extension MediaCategoryViewController {
 // MARK: - UICollectionViewDataSource
 
 extension MediaCategoryViewController {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return isSectioned ? currentDataSetGroupedByTitle.count : 1
+    }
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentDataSet.count
+        return isSectioned ? currentDataSetGroupedByTitle[section].items.count : currentDataSet.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -1776,7 +1825,7 @@ extension MediaCategoryViewController {
             return UICollectionViewCell()
         }
 
-        let mediaObject = currentDataSet.objectAtIndex(index: indexPath.row)
+        let mediaObject = getObject(at: indexPath)
 
         guard mediaObject != nil else {
             assertionFailure("MediaCategoryViewController: Failed to fetch media object.")
@@ -1887,6 +1936,11 @@ extension MediaCategoryViewController {
                   let collection = collectionModel.mediaCollection as? VLCMLPlaylist,
                   let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlaylistHeader.headerID, for: indexPath) as? PlaylistHeader {
             return setupPlaylistHeaderReusableView(headerView: header, collection: collection)
+        } else if isSectioned,
+                  let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrackSectionHeader.headerID, for: indexPath) as? TrackSectionHeader {
+            let media = currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row]
+            headerView.update(title: media.title)
+            return headerView
         }
 
         return UICollectionReusableView()
@@ -2213,6 +2267,7 @@ private extension MediaCategoryViewController {
         collectionView.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
         collectionView.register(PlaylistHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlaylistHeader.headerID)
         collectionView.register(AlbumFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: AlbumFooter.footerID)
+        collectionView.register(TrackSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TrackSectionHeader.headerID)
 
         // Register all possible cell types upfront
         collectionView?.register(MediaGridCollectionCell.self,
@@ -2430,14 +2485,15 @@ extension MediaCategoryViewController {
 extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell),
-              let modelContent = currentDataSet.objectAtIndex(index: indexPath.row) else {
+              let modelContent = getObject(at: indexPath) else {
             return
         }
 
         editController.editActions.objects = [modelContent]
         editController.editActions.delete() { [weak self] state in
             if state == .success {
-                self?.searchDataSource.deleteInSearch(index: indexPath.row)
+                guard let flattenedIndexPath = self?.getFlattenedIndexPath(for: modelContent) else { return }
+                self?.searchDataSource.deleteInSearch(index: flattenedIndexPath.row)
 
                 // If the media deleted is in the media list, the play queue should also be updated
                 let playbackService = PlaybackService.sharedInstance()
@@ -2580,5 +2636,11 @@ extension MediaCategoryViewController {
             self.continueWatchingBottomConstraint?.constant = -tabBarHeight
             self.continueWatchingButton.layoutIfNeeded()
         }
+    }
+}
+
+extension String  {
+    var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }

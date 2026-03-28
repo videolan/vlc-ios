@@ -38,6 +38,10 @@ class TrackCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
         let model = TrackModel(medialibrary: mediaLibraryService)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
+        self.isSectionable = true
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.sectionHeadersPinToVisibleBounds = true
+        }
         model.observable.addObserver(self)
     }
 }
