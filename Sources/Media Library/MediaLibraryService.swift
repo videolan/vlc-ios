@@ -781,12 +781,12 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary,
                       unhandledExceptionWithContext context: String,
                       errorMessage: String, clearSuggested: Bool) -> Bool {
+        APLog("MediaLibraryService: unhandled exception in \(context): \(errorMessage)")
         if clearSuggested {
             medialib.clearDatabase(restorePlaylists: true)
             setupMediaLibrary()
-            return true
         }
-        return false
+        return true
     }
 }
 
