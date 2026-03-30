@@ -34,9 +34,9 @@
 · Customize seeking options
 · Add option to export settings and include in feedback email
 · Dual subtitles
+· Browsing the media library uses pagination
 
 Known issues:
-· Thumbnailing content is broken
 · Picture-in-Picture featured is offered on devices where it is actually unsupported
 · Google Drive integration fails to stream
 
