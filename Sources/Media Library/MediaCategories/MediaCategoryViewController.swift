@@ -40,7 +40,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
         }
     }
-    private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
     private var searchBarConstraint: NSLayoutConstraint?
     private var searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
@@ -2199,16 +2198,15 @@ private extension MediaCategoryViewController {
         collectionView.register(PlaylistHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlaylistHeader.headerID)
         collectionView.register(AlbumFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: AlbumFooter.footerID)
 
-        if model.cellType.nibName == mediaGridCellNibIdentifier {
-            //GridCells are made programmatically so we register the cell class directly.
-            collectionView?.register(MediaGridCollectionCell.self,
-                                     forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
-        } else {
-            //MediaCollectionCells are created via xibs so we register the cell via UINib.
-            let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
-            collectionView?.register(cellNib,
-                                     forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
-        }
+        // Register all possible cell types upfront
+        collectionView?.register(MediaGridCollectionCell.self,
+                                 forCellWithReuseIdentifier: MediaGridCollectionCell.defaultReuseIdentifier)
+        let movieCellNib = UINib(nibName: MovieCollectionViewCell.nibName, bundle: nil)
+        collectionView?.register(movieCellNib,
+                                 forCellWithReuseIdentifier: MovieCollectionViewCell.defaultReuseIdentifier)
+        let mediaCellNib = UINib(nibName: MediaCollectionViewCell.nibName, bundle: nil)
+        collectionView?.register(mediaCellNib,
+                                 forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
 
         if #available(iOS 16.0, *) {
             collectionView.allowsMultipleSelection = true
