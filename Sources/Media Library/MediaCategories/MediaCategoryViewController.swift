@@ -46,18 +46,45 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
+    private enum SectionType: Int {
+        case special = 0
+        case latin = 1
+        case nonlatin = 2
+    }
+
+    private func getSectionInfo(for title: String) -> (key: String, type: SectionType) {
+
+        guard let first: Character = title
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .folding(options: .diacriticInsensitive, locale: .current)  // strip accent
+            .uppercased()
+            .first
+        else {
+            return ("#", .special)
+        }
+
+        guard first.isLetter && !first.isEmoji else {
+            return ("#", .special)
+        }
+
+        guard first.isLatin else {
+            return ("\(first)", .nonlatin)
+
+        }
+
+        return ("\(first)", .latin)
+    }
+
     private var currentDataSetGroupedByTitle: [(key: String, items: [VLCMLMedia])] {
         let items: [VLCMLMedia] = currentDataSet as? [VLCMLMedia] ?? []
-        let groupedItems: [String: [VLCMLMedia]] = Dictionary(grouping: items) { item in
-            guard let firstLetter = item.title.first?.uppercased() else { return "?" }
-            if firstLetter.isNumber {
-                return "#"
-            }
-            return firstLetter
-        }
+        let groupedItems: [String: [VLCMLMedia]] = Dictionary(grouping: items) { getSectionInfo(for: $0.title).key }
         return groupedItems
-            .map { ($0.key, $0.value.sorted { $0.title < $1.title }) }
-            .sorted { model.sortModel.desc ? $0.key > $1.key : $0.key < $1.key }
+            .map { ($0.key, $0.value.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }) }
+            .sorted { lhs, rhs in
+                return model.sortModel.desc
+                    ? lhs.key > rhs.key
+                    : lhs.key < rhs.key
+            }
     }
 
     var isSectionable: Bool = false
@@ -1939,7 +1966,7 @@ extension MediaCategoryViewController {
         } else if isSectioned,
                   let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrackSectionHeader.headerID, for: indexPath) as? TrackSectionHeader {
             let media = currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row]
-            headerView.update(title: media.title)
+            headerView.update(sectionTitle: getSectionInfo(for: media.title).key)
             return headerView
         }
 
@@ -2642,5 +2669,39 @@ extension MediaCategoryViewController {
 extension String  {
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+}
+
+// Find out if Character in String is emoji: https://stackoverflow.com/a/39425959/20237973
+extension Character {
+    // A simple emoji is one scalar and presented to the user as an Emoji
+    var isSimpleEmoji: Bool {
+        guard let firstScalar = unicodeScalars.first else { return false }
+        return firstScalar.properties.isEmoji && firstScalar.value > 0x238C
+    }
+
+    // Checks if the scalars will be merged into an emoji
+    var isCombinedIntoEmoji: Bool { unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false }
+
+    var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
+}
+
+extension String {
+    var isSingleEmoji: Bool { count == 1 && containsEmoji }
+
+    var containsEmoji: Bool { contains { $0.isEmoji } }
+
+    var containsOnlyEmoji: Bool { !isEmpty && !contains { !$0.isEmoji } }
+
+    var emojiString: String { emojis.map { String($0) }.reduce("", +) }
+
+    var emojis: [Character] { filter { $0.isEmoji } }
+
+    var emojiScalars: [UnicodeScalar] { filter { $0.isEmoji }.flatMap { $0.unicodeScalars } }
+}
+
+extension Character {
+    var isLatin: Bool {
+        return String(self).range(of: "\\p{Latin}", options: .regularExpression) != nil
     }
 }

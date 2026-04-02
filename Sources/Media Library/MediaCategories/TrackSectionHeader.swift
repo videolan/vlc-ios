@@ -57,13 +57,8 @@ class TrackSectionHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(title: String) {
-        let firstLetter = title.first?.uppercased() ?? "?"
-        if firstLetter.isNumber {
-            titleLabel.text = "#"
-        } else {
-            titleLabel.text = firstLetter
-        }
+    func update(sectionTitle: String) {
+        titleLabel.text = sectionTitle
     }
 
     @objc private func updateTheme() {
