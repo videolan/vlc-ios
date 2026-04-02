@@ -55,7 +55,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         editController.delegate = self
         return editController
     }()
-    private let reloadLock = NSLock()
+
     private var cachedCellSize = CGSize.zero
     private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
@@ -410,14 +410,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc func reloadData() {
-        defer {
-            reloadLock.unlock()
-        }
-
-        /* this function can be called multiple times from different threads in short
-         * intervals, but we may not reload the views without the previous to finish */
-        reloadLock.lock()
-
         guard Thread.isMainThread else {
             DispatchQueue.main.async {
                 self.reloadData()
