@@ -467,12 +467,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         addThemeChangeObserver()
-
-        if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
-            model is FolderModel {
-            let isGridLayout: Bool = isFolderInGridLayout()
-            handleLayoutChange(gridLayout: isGridLayout, isFolder: true)
-        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -512,6 +506,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         reloadData()
         addInitializationCommonObservers()
         configureContinueWatchingButton()
+
+        if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
+            model is FolderModel {
+            let isGridLayout: Bool = isFolderInGridLayout()
+            handleLayoutChange(gridLayout: isGridLayout, isFolder: true)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
