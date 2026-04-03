@@ -56,7 +56,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         guard let first: Character = title
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .folding(options: .diacriticInsensitive, locale: .current)  // strip accent
+            .folding(options: .diacriticInsensitive, locale: .current)
             .uppercased()
             .first
         else {
@@ -342,6 +342,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
         navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         self.navigationItem.titleView = navItemTitle
+        collectionView.tintColor = PresentationTheme.current.colors.orangeUI
     }
 
     @objc private func handleDisableGrouping() {
@@ -1176,7 +1177,7 @@ extension MediaCategoryViewController {
 private extension MediaCategoryViewController {
 
     private func getObject(at indexPath: IndexPath) -> VLCMLObject? {
-        return isSectioned ? currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row] : currentDataSet.objectAtIndex(index: indexPath.row)
+        return isSectioned ? currentDataSetGroupedByTitle.objectAtIndex(index: indexPath.section)?.items.objectAtIndex(index: indexPath.row) : currentDataSet.objectAtIndex(index: indexPath.row)
     }
 
     private func getFlattenedIndexPath(for item: VLCMLObject) -> IndexPath {
@@ -1475,6 +1476,7 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
 
 extension MediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchDataSource.shouldReloadFor(searchString: "")
         reloadData()
         searchDataSource.isSearching = true
         searchBar.setShowsCancelButton(true, animated: true)
@@ -2666,6 +2668,19 @@ extension MediaCategoryViewController {
     }
 }
 
+// MARK: Index section title
+
+extension MediaCategoryViewController {
+    override func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        guard isSectioned else { return nil }
+        return currentDataSetGroupedByTitle.map { $0.key }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
+        return IndexPath(item: 0, section: index)
+    }
+}
+
 extension String  {
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
@@ -2684,20 +2699,6 @@ extension Character {
     var isCombinedIntoEmoji: Bool { unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false }
 
     var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
-}
-
-extension String {
-    var isSingleEmoji: Bool { count == 1 && containsEmoji }
-
-    var containsEmoji: Bool { contains { $0.isEmoji } }
-
-    var containsOnlyEmoji: Bool { !isEmpty && !contains { !$0.isEmoji } }
-
-    var emojiString: String { emojis.map { String($0) }.reduce("", +) }
-
-    var emojis: [Character] { filter { $0.isEmoji } }
-
-    var emojiScalars: [UnicodeScalar] { filter { $0.isEmoji }.flatMap { $0.unicodeScalars } }
 }
 
 extension Character {
