@@ -452,7 +452,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
-    [media parseWithOptions:VLCMediaParseLocal];
+    [media parseWithOptions:VLCMediaParseLocal | VLCMediaParseNetwork];
     media.delegate = self;
     // add options to the media
     if (self.mediaOptionsDictionary) {
@@ -1708,11 +1708,37 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        VLCMediaList *subitems = aMedia.subitems;
+        if (subitems && subitems.count > 0) {
+            [self _expandMediaList:subitems forMedia:aMedia];
+        }
         [self setNeedsMetadataUpdate];
 #if TARGET_OS_IOS
         [self restoreAudioAndSubtitleTrack];
 #endif
     });
+}
+
+- (void)_expandMediaList:(VLCMediaList *)subitems forMedia:(VLCMedia *)parentMedia
+{
+    /* Replace the parent media (e.g. m3u URL) with its parsed sub-items */
+    [_mediaList lock];
+    NSInteger parentIndex = [_mediaList indexOfMedia:parentMedia];
+    if (parentIndex != NSNotFound) {
+        [_mediaList removeMediaAtIndex:parentIndex];
+        for (NSUInteger i = 0; i < subitems.count; i++) {
+            [_mediaList insertMedia:[subitems mediaAtIndex:i] atIndex:parentIndex + i];
+        }
+    }
+    [_mediaList unlock];
+
+    [_listPlayer setMediaList:_mediaList];
+    [_listPlayer playItemAtNumber:@(parentIndex != NSNotFound ? parentIndex : 0)];
+    _currentIndex = parentIndex != NSNotFound ? (int)parentIndex : 0;
+
+    if ([self.delegate respondsToSelector:@selector(reloadPlayQueue)]) {
+        [self.delegate reloadPlayQueue];
+    }
 }
 
 - (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
