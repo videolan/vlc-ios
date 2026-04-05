@@ -2225,12 +2225,13 @@ private extension MediaCategoryViewController {
         }
 
         view.addSubview(editToolBar)
-        editToolBar.bringSubviewToFront(editToolBar)
+        view.bringSubviewToFront(editToolBar)
 
         NSLayoutConstraint.activate([
             editToolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editToolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            editToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            editToolBar.heightAnchor.constraint(equalToConstant: EditToolbar.height)
         ])
     }
 

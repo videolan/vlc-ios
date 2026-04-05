@@ -93,7 +93,7 @@ class BottomTabBarController: UITabBarController {
         }
 #endif
 
-        return tabBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
+        return view.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
     }
 
     func displayEditToolbar(with model: MediaLibraryBaseModel) {
@@ -101,7 +101,7 @@ class BottomTabBarController: UITabBarController {
             return
         }
 
-        bottomBar.bringSubviewToFront(editToolbar)
+        view.bringSubviewToFront(editToolbar)
         editToolbar.updateEditToolbar(for: model)
         editToolbar.isHidden = false
     }

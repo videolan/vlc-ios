@@ -200,15 +200,14 @@ class TabBarCoordinator: NSObject {
         }
 #endif
         if !useSidebar {
-            tabBarController.tabBar.addSubview(editToolbar)
-            tabBarController.tabBar.bringSubviewToFront(editToolbar)
-            let view = tabBarController.tabBar
+            let containerView = tabBarController.view!
+            containerView.addSubview(editToolbar)
 
             NSLayoutConstraint.activate([
-                editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                editToolbar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                editToolbar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                editToolbar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                editToolbar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                editToolbar.topAnchor.constraint(equalTo: tabBarController.tabBar.topAnchor),
             ])
         }
     }
