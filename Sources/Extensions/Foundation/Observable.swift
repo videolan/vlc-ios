@@ -14,13 +14,18 @@
 class VLCObservable<T: AnyObject> {
     // Using ObjectIdentifier to avoid duplication and facilitate identification of observing object
     private var observers = [ObjectIdentifier: VLCObserver<T>]()
+    private let lock = NSRecursiveLock()
 
     func addObserver(_ observer: T) {
+        lock.lock()
+        defer { lock.unlock() }
         let identifier = ObjectIdentifier(observer)
         observers[identifier] = VLCObserver(observer)
     }
 
     func removeObserver(_ observer: T) {
+        lock.lock()
+        defer { lock.unlock() }
         let identifier = ObjectIdentifier(observer)
         observers.removeValue(forKey: identifier)
     }
@@ -28,12 +33,15 @@ class VLCObservable<T: AnyObject> {
     /// Notify observers by executing the provided action upon each.
     /// - Parameter action: the action to execute upon each observer
     func notifyObservers(action: (T) -> Void) {
-        // Copy keys before iterating so we can detect observers that have been
-        // removed as a side effect of calling out to a previous observer.
-        let keys = Array(observers.keys)
+        lock.lock()
+        // Snapshot observers before iterating so we can detect observers that
+        // have been removed as a side effect of calling out to a previous
+        // observer while allowing safe concurrent add/remove.
+        let snapshot = observers
+        lock.unlock()
 
-        for k in keys {
-            guard let observer = observers[k]?.observer else { continue }
+        for (_, wrapper) in snapshot {
+            guard let observer = wrapper.observer else { continue }
             action(observer)
         }
     }
