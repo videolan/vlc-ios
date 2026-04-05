@@ -81,7 +81,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 
-    [self.confettiView.widthAnchor constraintEqualToAnchor:self.contentScrollView.frameLayoutGuide.widthAnchor].active = YES;
+    if (@available(iOS 11.0, *)) {
+        [self.confettiView.widthAnchor constraintEqualToAnchor:self.contentScrollView.frameLayoutGuide.widthAnchor].active = YES;
+    } else {
+        [self.confettiView.widthAnchor constraintEqualToAnchor:self.contentScrollView.widthAnchor].active = YES;
+    }
 
     if (_embargoedCountry) {
         _titleLabel.text = NSLocalizedString(@"DONATION_WINDOW_TITLE", nil);
