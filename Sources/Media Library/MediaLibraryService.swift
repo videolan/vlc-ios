@@ -858,12 +858,16 @@ extension MediaLibraryService {
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .album)
             break
         case let model as MediaGroupViewModel:
+            model.fileArrayLock.lock()
             let mediaGroup = model.files[index]
+            model.fileArrayLock.unlock()
             let info = CurrentlyPlayingCollectionInfo(id: mediaGroup.identifier(), name: mediaGroup.name())
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .mediaGroup(info))
             break
         case let model as PlaylistModel:
+            model.fileArrayLock.lock()
             let playlist = model.files[index]
+            model.fileArrayLock.unlock()
             let info = CurrentlyPlayingCollectionInfo(id: playlist.identifier(), name: playlist.name)
             currentlyPlayingCollection = CurrentlyPlayingCollectionModel(collectionType: .playlist(info))
             break

@@ -33,6 +33,8 @@ class EditController: UIViewController {
     private var isAllSelected: Bool = false
     private var currentDataSet: [VLCMLObject] {
         if let model = model as? FolderModel {
+            model.fileArrayLock.lock()
+            defer { model.fileArrayLock.unlock() }
             return model.folderMediaFiles
         } else {
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
@@ -392,6 +394,8 @@ extension EditController: UICollectionViewDelegate {
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let model = model as? FolderModel {
+            model.fileArrayLock.lock()
+            defer { model.fileArrayLock.unlock() }
             return model.folderMediaFiles.count
         } else {
             return currentDataSet.count
@@ -429,7 +433,9 @@ extension EditController: UICollectionViewDataSource {
                 cell.selectionViewOverlay?.isHidden = !showOverlay
             }
             if let model = model as? FolderModel {
+                model.fileArrayLock.lock()
                 cell.media = model.folderMediaFiles[indexPath.row]
+                model.fileArrayLock.unlock()
             } else {
                 cell.media = currentDataSet[indexPath.row]
             }

@@ -160,12 +160,16 @@ class AddToPlaylistViewController: UIViewController {
 extension AddToPlaylistViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        playlistModel.fileArrayLock.lock()
+        defer { playlistModel.fileArrayLock.unlock() }
         return playlistModel.files.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMovieTVCollectionViewCellIdentifier, for: indexPath) as! VLCMovieTVCollectionViewCell
+        playlistModel.fileArrayLock.lock()
         let playlist = playlistModel.files[indexPath.row]
+        playlistModel.fileArrayLock.unlock()
         cell.titleLabel.text = playlist.title()
         cell.descriptionLabel.text = playlist.numberOfTracksString() + " · " + playlist.durationString()
         cell.thumbnailView.image = playlist.thumbnailImage()
@@ -178,7 +182,9 @@ extension AddToPlaylistViewController: UICollectionViewDataSource {
 extension AddToPlaylistViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        playlistModel.fileArrayLock.lock()
         let playlist = playlistModel.files[indexPath.row]
+        playlistModel.fileArrayLock.unlock()
         for media in mediaToAdd {
             playlist.appendMedia(media)
         }

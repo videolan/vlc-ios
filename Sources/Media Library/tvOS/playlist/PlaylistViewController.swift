@@ -131,7 +131,12 @@ class PlaylistViewController: VLCDeletionCapableViewController {
     }
 
     private func playlist(at index: Int) -> VLCMLPlaylist {
-        return didBeginSearching ? searchedPlaylists[index] : playlistModel.files[index]
+        if didBeginSearching {
+            return searchedPlaylists[index]
+        }
+        playlistModel.fileArrayLock.lock()
+        defer { playlistModel.fileArrayLock.unlock() }
+        return playlistModel.files[index]
     }
 }
 
@@ -140,7 +145,14 @@ class PlaylistViewController: VLCDeletionCapableViewController {
 extension PlaylistViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = didBeginSearching ? searchedPlaylists.count : playlistModel.files.count
+        let count: Int
+        if didBeginSearching {
+            count = searchedPlaylists.count
+        } else {
+            playlistModel.fileArrayLock.lock()
+            count = playlistModel.files.count
+            playlistModel.fileArrayLock.unlock()
+        }
 
         VLCCone.isHidden = count >= 1
         searchBar.isHidden = count < 1
@@ -291,7 +303,10 @@ extension PlaylistViewController: UITextFieldDelegate {
 
         didBeginSearching = true
 
-        for playlist in playlistModel.files {
+        playlistModel.fileArrayLock.lock()
+        let currentFiles = playlistModel.files
+        playlistModel.fileArrayLock.unlock()
+        for playlist in currentFiles {
             if playlist.contains(textField.text!) {
                 searchedPlaylists.append(playlist)
             }

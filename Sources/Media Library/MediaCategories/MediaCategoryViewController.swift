@@ -35,7 +35,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     var searchBar = UISearchBar(frame: .zero)
     private var currentDataSet: [VLCMLObject] {
         if let model = model as? FolderModel {
-            return searchDataSource.isSearching ? searchDataSource.searchData : model.files + model.folderMediaFiles
+            if searchDataSource.isSearching {
+                return searchDataSource.searchData
+            }
+            model.fileArrayLock.lock()
+            defer { model.fileArrayLock.unlock() }
+            return model.files + model.folderMediaFiles
         } else {
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
         }
@@ -2321,8 +2326,10 @@ extension MediaCategoryViewController {
         } else if let model = model as? MediaCollectionModel {
             tracks = model.files() ?? []
         } else if let model = model as? FolderModel {
+            model.fileArrayLock.lock()
             tracks = model.folderMediaFiles
             index = index - model.files.count
+            model.fileArrayLock.unlock()
         } else {
             tracks = currentDataSet as? [VLCMLMedia] ?? []
         }
