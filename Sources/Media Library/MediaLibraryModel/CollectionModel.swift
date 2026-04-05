@@ -133,44 +133,31 @@ class CollectionModel: MLBaseModel {
 extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        if mediaCollection is VLCMLPlaylist {
-            fileArrayLock.lock()
-            files = mediaCollection.files() ?? []
-            observable.notifyObservers {
-                $0.mediaLibraryBaseModelReloadView()
-            }
-
-            sort(by: sortModel.currentSort, desc: sortModel.desc)
+        guard mediaCollection is VLCMLPlaylist else { return }
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+        files = mediaCollection.files(with: sortModel.currentSort, desc: sortModel.desc) ?? []
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
         }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files = mediaCollection.files() ?? []
+        defer { fileArrayLock.unlock() }
+        files = mediaCollection.files(with: sortModel.currentSort, desc: sortModel.desc) ?? []
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
-
-        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files = mediaCollection.files() ?? []
+        defer { fileArrayLock.unlock() }
+        files = mediaCollection.files(with: sortModel.currentSort, desc: sortModel.desc) ?? []
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
-
-        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -179,16 +166,12 @@ extension CollectionModel: MediaLibraryObserver {
         guard success else {
             return
         }
-        defer {
-            fileArrayLock.unlock()
-        }
         fileArrayLock.lock()
-        files = mediaCollection.files() ?? []
+        defer { fileArrayLock.unlock() }
+        files = mediaCollection.files(with: sortModel.currentSort, desc: sortModel.desc) ?? []
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()
         }
-
-        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibraryDidStartRescan() {
