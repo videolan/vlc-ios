@@ -17,6 +17,8 @@ protocol MediaModel: NSObject, MLBaseModel where MLType == VLCMLMedia { }
 
 extension MediaModel {
     func append(_ item: VLCMLMedia) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         if !files.contains(where: { $0 == item }) {
             files.append(item)
         }
@@ -27,6 +29,8 @@ extension MediaModel {
             media.deleteMainFile()
         }
         medialibrary.reload()
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         filterFilesFromDeletion(of: items)
     }
 }

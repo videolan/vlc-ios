@@ -82,6 +82,8 @@ extension VLCMLAlbum: SearchableMLModel {
 
 extension AlbumModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         albums.forEach({ append($0) })
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()

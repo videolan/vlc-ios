@@ -112,6 +112,8 @@ extension VLCMLPlaylist: SearchableMLModel {
 // MARK: - MediaLibraryObserver
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         playlists.forEach({ append($0) })
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()

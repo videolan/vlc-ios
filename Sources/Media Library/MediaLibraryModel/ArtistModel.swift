@@ -93,6 +93,8 @@ extension VLCMLArtist: SearchableMLModel {
 
 extension ArtistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         artists.forEach({ append($0) })
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()

@@ -56,6 +56,8 @@ class GenreModel: AudioCollectionModel {
 
 extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         genres.forEach({ append($0) })
         observable.notifyObservers {
             $0.mediaLibraryBaseModelReloadView()

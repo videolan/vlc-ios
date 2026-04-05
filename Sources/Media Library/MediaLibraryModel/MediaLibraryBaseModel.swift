@@ -69,6 +69,8 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
 extension MLBaseModel {
     var anyfiles: [VLCMLObject] {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         return files
     }
 
@@ -169,7 +171,6 @@ extension MLBaseModel {
     func swapModels(with models: [MLType]) -> [MLType] {
         var newFiles = files
 
-        // FIXME: This should be handled in a thread safe way
         for var model in models {
             for (currentMediaIndex, file) in files.enumerated()
                 where file.identifier() == model.identifier() {

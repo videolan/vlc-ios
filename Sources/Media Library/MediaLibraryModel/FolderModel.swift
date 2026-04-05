@@ -47,6 +47,8 @@ class FolderModel: MLBaseModel {
     }
 
     func setupData() {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         files = currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc)!
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc)!
@@ -74,6 +76,10 @@ class FolderModel: MLBaseModel {
     func delete(media: [VLCMLMedia]) {
         media.forEach { mediaItem in
             mediaItem.deleteMainFile()
+        }
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+        media.forEach { mediaItem in
             if let index = folderMediaFiles.firstIndex(of: mediaItem) {
                 folderMediaFiles.remove(at: index)
             }
@@ -85,6 +91,8 @@ class FolderModel: MLBaseModel {
 
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         files = currentFolder.subfolders(with: criteria, desc: desc)!
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc)!

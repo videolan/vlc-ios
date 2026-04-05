@@ -50,6 +50,8 @@ class TrackModel: NSObject, MediaModel {
     }
 
     @objc func getMedia(at index: Int) -> VLCMLMedia? {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
         guard index >= 0, index < files.count else { return nil }
         return files[index]
     }
