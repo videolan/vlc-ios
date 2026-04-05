@@ -185,7 +185,9 @@ static NSString * const kDomain = @"org.videolan.vlc-ios.openSubtitlesDownloader
         NSMutableArray *subtitles = [NSMutableArray array];
         for (NSDictionary *result in results) {
             OpenSubtitleSearchResult *subtitle = [OpenSubtitleSearchResult resultFromDictionary:result];
-            [subtitles addObject:subtitle];
+            if (subtitle) {
+                [subtitles addObject:subtitle];
+            }
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -447,7 +449,11 @@ static NSString * const kDomain = @"org.videolan.vlc-ios.openSubtitlesDownloader
 
     // Set file id as subtitle id.
     // File id is used to download the subtitle.
-    object.subtitleID = attributes[@"files"][0][@"file_id"];
+    NSArray *files = attributes[@"files"];
+    if (files.count == 0) {
+        return nil;
+    }
+    object.subtitleID = files[0][@"file_id"];
 
     object.subtitleName = attributes[@"release"];
     object.subtitleLanguage = attributes[@"language"];
