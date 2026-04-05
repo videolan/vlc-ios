@@ -144,7 +144,7 @@ extension NSNotification {
 class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
-    private var triedToRecoverFromInitializationErrorOnce = false
+    private var initRecoveryAttempt = 0
 
     private var didFinishDiscovery = false
     private var didStartMediaDiscovery = false
@@ -205,16 +205,11 @@ class MediaLibraryService: NSObject {
 // MARK: - Private initializers
 
 private extension MediaLibraryService {
-    private func removeMedialibraryArtifacts(databasePath: String,
-                                             thumbnailPath: String,
-                                             medialibraryPath: String) {
+    private func removeMedialibraryCachedArtifacts(thumbnailPath: String,
+                                                    medialibraryPath: String) {
         let artifactPaths = [
             thumbnailPath,
-            medialibraryPath,
-            databasePath,
-            databasePath + "-shm",
-            databasePath + "-wal",
-            databasePath + "-journal"
+            medialibraryPath
         ]
 
         for artifactPath in artifactPaths where FileManager.default.fileExists(atPath: artifactPath) {
@@ -222,6 +217,23 @@ private extension MediaLibraryService {
                 try FileManager.default.removeItem(atPath: artifactPath)
             } catch let error as NSError {
                 APLog("MediaLibraryService: Failed to remove artifact at \(artifactPath): \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func removeMedialibraryDatabaseFiles(databasePath: String) {
+        let dbPaths = [
+            databasePath,
+            databasePath + "-shm",
+            databasePath + "-wal",
+            databasePath + "-journal"
+        ]
+
+        for dbPath in dbPaths where FileManager.default.fileExists(atPath: dbPath) {
+            do {
+                try FileManager.default.removeItem(atPath: dbPath)
+            } catch let error as NSError {
+                APLog("MediaLibraryService: Failed to remove database file at \(dbPath): \(error.localizedDescription)")
             }
         }
     }
@@ -312,17 +324,25 @@ private extension MediaLibraryService {
         case .alreadyInitialized:
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
-            if triedToRecoverFromInitializationErrorOnce == false {
-                triedToRecoverFromInitializationErrorOnce = true
-                APLog("MediaLibraryService: Failed to setup medialibrary, trying recovery by clearing cached medialibrary artifacts.")
-                removeMedialibraryArtifacts(databasePath: databasePath,
-                                           thumbnailPath: thumbnailPath,
-                                           medialibraryPath: medialibraryPath)
+            if initRecoveryAttempt == 0 {
+                initRecoveryAttempt = 1
+                APLog("MediaLibraryService: Failed to setup medialibrary, retrying with cleared caches (preserving database and journal files for SQLite auto-recovery).")
+                removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
+                                                  medialibraryPath: medialibraryPath)
+                medialib = VLCMediaLibrary()
+                setupMediaLibrary()
+                return
+            } else if initRecoveryAttempt == 1 {
+                initRecoveryAttempt = 2
+                APLog("MediaLibraryService: Retry with journal recovery failed, clearing all database files.")
+                removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
+                                                  medialibraryPath: medialibraryPath)
+                removeMedialibraryDatabaseFiles(databasePath: databasePath)
                 medialib = VLCMediaLibrary()
                 setupMediaLibrary()
                 return
             }
-            APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempt.")
+            APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
             medialib.clearDatabase(restorePlaylists: true)
