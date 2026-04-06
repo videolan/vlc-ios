@@ -37,8 +37,10 @@
                                                                                        options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                                                                                  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
                                                                             documentAttributes:nil error:nil];
-    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        [aboutContents addAttribute:NSForegroundColorAttributeName value:[UIColor VLCLightTextColor] range:NSMakeRange(0., aboutContents.length)];
+    if (@available(tvOS 13.0, *)) {
+        if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            [aboutContents addAttribute:NSForegroundColorAttributeName value:[UIColor VLCLightTextColor] range:NSMakeRange(0., aboutContents.length)];
+        }
     }
 
     UITextView *textView = self.blablaTextView;
