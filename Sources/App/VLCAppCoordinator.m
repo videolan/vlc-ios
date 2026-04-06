@@ -162,7 +162,7 @@
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             // Adjust the margins and the constraint to the previous tab bar appearance on iPadOS
             _playerDisplayController.view.layoutMargins = UIEdgeInsetsMake(0, 0, tabBarController.bottomBar.frame.size.height, 0);
-            _playerDisplayController.realBottomAnchor = tabBarController.bottomBar.topAnchor;
+            _playerDisplayController.realBottomAnchor = tabBarController.view.safeAreaLayoutGuide.bottomAnchor;
         }
     }
 
