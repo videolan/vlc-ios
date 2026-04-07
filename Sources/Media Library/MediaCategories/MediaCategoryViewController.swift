@@ -1419,7 +1419,6 @@ extension MediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
         searchDataSource.isSearching = true
-        delegate?.enableCategorySwitching(for: self, enable: false)
         searchBar.setShowsCancelButton(true, animated: true)
         // hides continue watching button when searching is active
         handleContinueWatchingButtonVisibility()
