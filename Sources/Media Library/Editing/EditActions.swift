@@ -21,12 +21,6 @@ class EditActions {
     private var completion: ((completionState) -> Void)?
     var objects = [VLCMLObject]()
 
-    private lazy var addToCollectionViewController: AddToCollectionViewController = {
-        var addToCollectionViewController = AddToCollectionViewController()
-        addToCollectionViewController.delegate = self
-        return addToCollectionViewController
-    }()
-
     private lazy var actionStatusLabel: VLCStatusLabel = {
         var label = VLCStatusLabel()
         label.textColor = .white
@@ -47,6 +41,8 @@ class EditActions {
 
 extension EditActions {
     private func addToCollection(_ collection: [MediaCollectionModel], for type: MediaCollectionModel.Type) {
+        let addToCollectionViewController = AddToCollectionViewController()
+        addToCollectionViewController.delegate = self
         addToCollectionViewController.mlCollection = collection
         addToCollectionViewController.updateInterface(for: type)
         let navigationController = UINavigationController(rootViewController: addToCollectionViewController)
