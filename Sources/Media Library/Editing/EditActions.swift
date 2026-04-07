@@ -21,12 +21,6 @@ class EditActions {
     private var completion: ((completionState) -> Void)?
     var objects = [VLCMLObject]()
 
-    private lazy var addToCollectionViewController: AddToCollectionViewController = {
-        var addToCollectionViewController = AddToCollectionViewController()
-        addToCollectionViewController.delegate = self
-        return addToCollectionViewController
-    }()
-
     init(model: MediaLibraryBaseModel, mediaLibraryService: MediaLibraryService) {
         self.rootViewController = UIApplication.shared.keyWindow!.rootViewController!
         self.model = model
@@ -38,6 +32,8 @@ class EditActions {
 
 extension EditActions {
     private func addToCollection(_ collection: [MediaCollectionModel], for type: MediaCollectionModel.Type) {
+        let addToCollectionViewController = AddToCollectionViewController()
+        addToCollectionViewController.delegate = self
         addToCollectionViewController.mlCollection = collection
         addToCollectionViewController.updateInterface(for: type)
         let navigationController = UINavigationController(rootViewController: addToCollectionViewController)
