@@ -120,6 +120,7 @@
 
     return _rendererDiscovererManager;
 }
+#endif
 
 - (void)setExternalWindow:(UIWindow *)externalWindow
 {
@@ -168,7 +169,6 @@
 
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }
-#endif
 
 #if !TARGET_OS_TV
 - (VLCBottomTabBarController*)tabBarController
