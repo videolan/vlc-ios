@@ -111,6 +111,8 @@
     return _httpUploaderController;
 }
 
+#if !TARGET_OS_TV
+
 #if TARGET_OS_IOS
 - (VLCRendererDiscovererManager *)rendererDiscovererManager
 {
@@ -170,7 +172,6 @@
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }
 
-#if !TARGET_OS_TV
 - (VLCBottomTabBarController*)tabBarController
 {
     return _tabBarController;
