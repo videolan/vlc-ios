@@ -42,7 +42,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4O-OM-rZw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                                     <subviews>
-                                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="yZ7-sQ-cbO">
+                                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="yZ7-sQ-cbO">
                                             <rect key="frame" x="20" y="20" width="280" height="31"/>
                                             <color key="backgroundColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>

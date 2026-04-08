@@ -164,7 +164,9 @@
     ColorPalette *colors = PresentationTheme.current.colors;
     self.historyTableView.backgroundColor = colors.background;
     self.view.backgroundColor = colors.background;
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor}];
+    NSMutableParagraphStyle *placeholderParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    placeholderParagraphStyle.alignment = NSTextAlignmentCenter;
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
     self.urlField.backgroundColor = colors.mediaCategorySeparatorColor;
     self.urlField.textColor = colors.cellTextColor;
