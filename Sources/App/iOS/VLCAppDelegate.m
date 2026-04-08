@@ -124,29 +124,27 @@
 - (void)configureShortCutItemsWithApplication:(UIApplication *)application
 {
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
-    if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
-        UIApplicationShortcutItem *localVideoItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalVideo
-                                                                                     localizedTitle:NSLocalizedString(@"VIDEO",nil)
-                                                                                  localizedSubtitle:nil
-                                                                                               icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Video"]
-                                                                                           userInfo:nil];
-        UIApplicationShortcutItem *localAudioItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalAudio
-                                                                                     localizedTitle:NSLocalizedString(@"AUDIO",nil)
-                                                                                  localizedSubtitle:nil
-                                                                                               icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Audio"]
-                                                                                           userInfo:nil];
-        UIApplicationShortcutItem *localplaylistItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutPlaylist
-                                                                                        localizedTitle:NSLocalizedString(@"PLAYLISTS",nil)
-                                                                                     localizedSubtitle:nil
-                                                                                                  icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Playlist"]
-                                                                                              userInfo:nil];
-        UIApplicationShortcutItem *browseItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
-                                                                                 localizedTitle:NSLocalizedString(@"BROWSE",nil)
+    UIApplicationShortcutItem *localVideoItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalVideo
+                                                                                 localizedTitle:NSLocalizedString(@"VIDEO",nil)
                                                                               localizedSubtitle:nil
-                                                                                           icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
+                                                                                           icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Video"]
                                                                                        userInfo:nil];
-        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
-    }
+    UIApplicationShortcutItem *localAudioItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalAudio
+                                                                                 localizedTitle:NSLocalizedString(@"AUDIO",nil)
+                                                                              localizedSubtitle:nil
+                                                                                           icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Audio"]
+                                                                                       userInfo:nil];
+    UIApplicationShortcutItem *localplaylistItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutPlaylist
+                                                                                    localizedTitle:NSLocalizedString(@"PLAYLISTS",nil)
+                                                                                 localizedSubtitle:nil
+                                                                                              icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Playlist"]
+                                                                                          userInfo:nil];
+    UIApplicationShortcutItem *browseItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
+                                                                             localizedTitle:NSLocalizedString(@"BROWSE",nil)
+                                                                          localizedSubtitle:nil
+                                                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
+                                                                                   userInfo:nil];
+    application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
