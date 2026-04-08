@@ -79,7 +79,6 @@
 		413EC987201A329D00BF412F /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortModel.swift */; };
 		413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
-		4144156C20ECE6330078EC37 /* FileServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* FileServerView.swift */; };
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4152F1621FEF19BD00F1908B /* KeychainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */; };
 		41533C9E2113392F00EC3ABA /* URLHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */; };
@@ -395,7 +394,6 @@
 		7D50C6742BBD20DF00B9F1A0 /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
 		7D50C6752BBD20DF00B9F1A0 /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BB183A9938009EE944 /* VLCSlider.m */; };
 		7D50C6762BBD20DF00B9F1A0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BD183A9938009EE944 /* VLCStatusLabel.m */; };
-		7D50C6772BBD20DF00B9F1A0 /* FileServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* FileServerView.swift */; };
 		7D50C6782BBD20DF00B9F1A0 /* PlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */; };
 		7D50C6792BBD20DF00B9F1A0 /* PlayingExternallyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */; };
 		7D50C67A2BBD20DF00B9F1A0 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC28E42136DD41004BCF0F /* MovieCollectionViewCell.swift */; };
@@ -785,7 +783,6 @@
 		7DA514E22EF82B63000C9995 /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BB183A9938009EE944 /* VLCSlider.m */; };
 		7DA514E32EF82B63000C9995 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BD183A9938009EE944 /* VLCStatusLabel.m */; };
 		7DA514E42EF82B63000C9995 /* PictureInPictureMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC3F6B22D230AEF00C15E33 /* PictureInPictureMediaController.swift */; };
-		7DA514E52EF82B63000C9995 /* FileServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* FileServerView.swift */; };
 		7DA514E62EF82B63000C9995 /* CustomEqualizerProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6907C2D083B5D008C6C40 /* CustomEqualizerProfiles.swift */; };
 		7DA514E72EF82B63000C9995 /* PlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */; };
 		7DA514E82EF82B63000C9995 /* PlayingExternallyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */; };
@@ -1430,7 +1427,6 @@
 		413EC986201A329D00BF412F /* SortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = "Sources/Media Library/MediaLibraryModel/SortModel.swift"; sourceTree = SOURCE_ROOT; };
 		413EC98A201B4F2B00BF412F /* PresentationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTheme.swift; sourceTree = "<group>"; };
 		414396C12023316C005E3FAF /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
-		4144156B20ECE6330078EC37 /* FileServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServerView.swift; sourceTree = "<group>"; };
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandlerTests.swift; sourceTree = "<group>"; };
@@ -3464,7 +3460,6 @@
 		7DC869C828CB801400EE99F8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				4144156B20ECE6330078EC37 /* FileServerView.swift */,
 				4195747C206A92ED00393A42 /* RemoteNetworkDataSource.swift */,
 				41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */,
 				6D5EC85E25C46F0400E25783 /* ExternalMediaProviderCell.swift */,
@@ -5486,7 +5481,6 @@
 				7D50C6742BBD20DF00B9F1A0 /* ColorThemeExtension.swift in Sources */,
 				7D50C6752BBD20DF00B9F1A0 /* VLCSlider.m in Sources */,
 				7D50C6762BBD20DF00B9F1A0 /* VLCStatusLabel.m in Sources */,
-				7D50C6772BBD20DF00B9F1A0 /* FileServerView.swift in Sources */,
 				7D50C6782BBD20DF00B9F1A0 /* PlaybackSpeedView.swift in Sources */,
 				7D50C6792BBD20DF00B9F1A0 /* PlayingExternallyView.swift in Sources */,
 				7D50C67A2BBD20DF00B9F1A0 /* MovieCollectionViewCell.swift in Sources */,
@@ -5755,7 +5749,6 @@
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
 				6CC3F6B32D230AEF00C15E33 /* PictureInPictureMediaController.swift in Sources */,
-				4144156C20ECE6330078EC37 /* FileServerView.swift in Sources */,
 				D9D6907D2D083B62008C6C40 /* CustomEqualizerProfiles.swift in Sources */,
 				40C95A07256E929D002DD208 /* PlaybackSpeedView.swift in Sources */,
 				416DACB720B6DB9A001BC75D /* PlayingExternallyView.swift in Sources */,
@@ -6043,7 +6036,6 @@
 				7DA514E22EF82B63000C9995 /* VLCSlider.m in Sources */,
 				7DA514E32EF82B63000C9995 /* VLCStatusLabel.m in Sources */,
 				7DA514E42EF82B63000C9995 /* PictureInPictureMediaController.swift in Sources */,
-				7DA514E52EF82B63000C9995 /* FileServerView.swift in Sources */,
 				7DA514E62EF82B63000C9995 /* CustomEqualizerProfiles.swift in Sources */,
 				7DA514E72EF82B63000C9995 /* PlaybackSpeedView.swift in Sources */,
 				7DA514E82EF82B63000C9995 /* PlayingExternallyView.swift in Sources */,

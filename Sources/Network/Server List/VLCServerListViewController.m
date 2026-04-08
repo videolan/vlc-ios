@@ -43,7 +43,7 @@
 
 #import "VLC-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
 {
     BOOL _localNetworkReloadScheduled;
     VLCLocalServerDiscoveryController *_discoveryController;
@@ -58,11 +58,25 @@
     NSLayoutConstraint* _remoteNetworkHeight;
     MediaLibraryService *_medialibraryService;
     UIDocumentPickerViewController *_documentPicker;
+
+    UIView *_fileServerSeparator;
+    UILabel *_fileServerLabel;
+    UIButton *_fileServerConnectButton;
+
+    BOOL _observingContentSize;
 }
 
 @end
 
 @implementation VLCServerListViewController
+
+- (void)dealloc
+{
+    if (_observingContentSize) {
+        [_remoteNetworkTableView removeObserver:self forKeyPath:@"contentSize"];
+        [_localNetworkTableView removeObserver:self forKeyPath:@"contentSize"];
+    }
+}
 
 static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 
@@ -145,9 +159,19 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _remoteNetworkTableView.rowHeight = UITableViewAutomaticDimension;
     _remoteNetworkTableView.estimatedRowHeight = 80.0;
 
-    VLCFileServerView *fileServerView = [VLCFileServerView new];
-    fileServerView.translatesAutoresizingMaskIntoConstraints = NO;
-    fileServerView.delegate = self;
+    _fileServerSeparator = [[UIView alloc] init];
+    _fileServerSeparator.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _fileServerLabel = [[UILabel alloc] init];
+    _fileServerLabel.text = NSLocalizedString(@"FILE_SERVER", nil);
+    _fileServerLabel.font = PresentationTheme.current.font.tableHeaderFont;
+    _fileServerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _fileServerConnectButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_fileServerConnectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) forState:UIControlStateNormal];
+    _fileServerConnectButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    _fileServerConnectButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_fileServerConnectButton addTarget:self action:@selector(connectToServer) forControlEvents:UIControlEventTouchUpInside];
 
     [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
     [_remoteNetworkTableView registerClass:[VLCRemoteNetworkCell class] forCellReuseIdentifier:VLCRemoteNetworkCell.cellIdentifier];
@@ -169,21 +193,30 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _activityIndicator.hidesWhenStopped = YES;
     [_localNetworkTableView addSubview:_activityIndicator];
 
-    [_scrollView addSubview:_localNetworkTableView];
-    [_scrollView addSubview:fileServerView];
     [_scrollView addSubview:_remoteNetworkTableView];
+    [_scrollView addSubview:_fileServerSeparator];
+    [_scrollView addSubview:_fileServerLabel];
+    [_scrollView addSubview:_fileServerConnectButton];
+    [_scrollView addSubview:_localNetworkTableView];
 
     _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
-    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkTableView.contentSize.height];
+    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:0];
 
+    UILayoutGuide *safeArea = self.view.safeAreaLayoutGuide;
     [NSLayoutConstraint activateConstraints:@[
         [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
         [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
         [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
-        [fileServerView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
-        [fileServerView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [fileServerView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_localNetworkTableView.topAnchor constraintEqualToAnchor:fileServerView.bottomAnchor],
+        [_fileServerSeparator.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
+        [_fileServerSeparator.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+        [_fileServerSeparator.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+        [_fileServerSeparator.heightAnchor constraintEqualToConstant:1],
+        [_fileServerLabel.topAnchor constraintEqualToAnchor:_fileServerSeparator.bottomAnchor constant:15],
+        [_fileServerLabel.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor constant:15],
+        [_fileServerLabel.trailingAnchor constraintLessThanOrEqualToAnchor:_fileServerConnectButton.leadingAnchor],
+        [_fileServerConnectButton.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor constant:-20],
+        [_fileServerConnectButton.firstBaselineAnchor constraintEqualToAnchor:_fileServerLabel.firstBaselineAnchor],
+        [_localNetworkTableView.topAnchor constraintEqualToAnchor:_fileServerLabel.bottomAnchor constant:9],
         [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
         [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
         [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
@@ -201,12 +234,21 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
 }
 
-- (void)viewDidLayoutSubviews
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [super viewDidLayoutSubviews];
-
-    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
-    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+    if (object == _remoteNetworkTableView && [keyPath isEqualToString:@"contentSize"]) {
+        CGFloat newHeight = _remoteNetworkTableView.contentSize.height;
+        if (newHeight > 0 && newHeight != _remoteNetworkHeight.constant) {
+            _remoteNetworkHeight.constant = newHeight;
+        }
+    } else if (object == _localNetworkTableView && [keyPath isEqualToString:@"contentSize"]) {
+        CGFloat newHeight = _localNetworkTableView.contentSize.height;
+        if (newHeight != _localNetworkHeight.constant) {
+            _localNetworkHeight.constant = newHeight;
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)viewDidLoad
@@ -250,17 +292,18 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (!_observingContentSize) {
+        [_remoteNetworkTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+        [_localNetworkTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+        _observingContentSize = YES;
+    }
     VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self->_remoteNetworkTableView reloadData];
-    });
+    [_remoteNetworkTableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
-    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
     [super viewDidAppear:animated];
     [_discoveryController startDiscovery];
 }
@@ -289,9 +332,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 - (void)contentSizeDidChange
 {
     [_localNetworkTableView layoutIfNeeded];
-    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
     [_remoteNetworkTableView layoutIfNeeded];
-    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
 }
 
 - (void)connectToServer
@@ -434,25 +475,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"LocalNetworkCell";
-
-    VLCNetworkListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if (cell == nil) {
-        return UITableViewAutomaticDimension;
-    }
-
-    CGFloat size = 0.0;
-
-    size += cell.titleLabel.font.lineHeight;
-    size += cell.subtitleLabel.font.lineHeight;
-    size += cell.folderTitleLabel.font.lineHeight;
-
-    if (size != 0) {
-        return size + cell.edgePadding + (cell.interItemPadding * 2);
-    } else {
-        return UITableViewAutomaticDimension;
-    }
+    return [VLCNetworkListCell heightOfCell];
 }
 
 - (void)showKeychainLoadError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
@@ -493,8 +516,6 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 - (void)reloadRemoteTableView
 {
     [_remoteNetworkTableView reloadData];
-    [_remoteNetworkTableView layoutIfNeeded];
-    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
 }
 
 - (void)reloadLocalTableViewIfVisible
@@ -504,8 +525,6 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     }
 
     [_localNetworkTableView reloadData];
-    [_localNetworkTableView layoutIfNeeded];
-    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
 - (void)scheduleLocalTableViewReload
@@ -534,6 +553,9 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _localNetworkTableView.separatorColor = colors.background;
     _refreshControl.backgroundColor = colors.background;
     self.navigationController.view.backgroundColor = colors.background;
+    _fileServerSeparator.backgroundColor = colors.separatorColor;
+    _fileServerLabel.textColor = colors.cellTextColor;
+    [_fileServerConnectButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
