@@ -981,6 +981,8 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>com.apple.developer.networking.multicast</key>
 	<true/>
 </dict>

@@ -74,6 +74,8 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>com.apple.developer.networking.multicast</key>
 	<true/>
 </dict>
