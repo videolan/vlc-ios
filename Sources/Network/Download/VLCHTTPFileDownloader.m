@@ -2,7 +2,7 @@
  * VLCHTTPFileDownloader.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -162,6 +162,16 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
 {
+    /* check Content-Disposition header for a server-provided filename */
+    if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)downloadTask.response;
+        NSString *suggestedFilename = [self filenameFromContentDisposition:httpResponse.allHeaderFields[@"Content-Disposition"]];
+        if (suggestedFilename.length > 0) {
+            NSString *directory = [_fileURL.path stringByDeletingLastPathComponent];
+            _fileURL = [NSURL fileURLWithPath:[directory stringByAppendingPathComponent:suggestedFilename]];
+        }
+    }
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:[_fileURL path]]) {
         if (@available(iOS 10.3, *)) {
@@ -171,6 +181,33 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
             [fileManager moveItemAtURL:location toURL:_fileURL error:nil];
         }
     }
+}
+
+- (NSString *)filenameFromContentDisposition:(NSString *)contentDisposition
+{
+    if (!contentDisposition)
+        return nil;
+
+    /* try filename*= (RFC 5987 extended notation) first, then filename= */
+    NSArray<NSString *> *patterns = @[@"filename\\*=(?:UTF-8''|utf-8'')([^;]+)",
+                                      @"filename=\"([^\"]+)\"",
+                                      @"filename=([^;\\s]+)"];
+    for (NSString *pattern in patterns) {
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                              options:NSRegularExpressionCaseInsensitive
+                                                                                error:nil];
+        NSTextCheckingResult *match = [regex firstMatchInString:contentDisposition
+                                                        options:0
+                                                          range:NSMakeRange(0, contentDisposition.length)];
+        if (match && match.numberOfRanges > 1) {
+            NSString *filename = [contentDisposition substringWithRange:[match rangeAtIndex:1]];
+            filename = [filename stringByRemovingPercentEncoding];
+            filename = [filename stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            if (filename.length > 0)
+                return filename;
+        }
+    }
+    return nil;
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
