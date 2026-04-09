@@ -2069,6 +2069,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #if !TARGET_OS_WATCH
 - (void)addSubview:(UIView *)view {
     [_actualVideoOutputView addSubview:view];
+    view.frame = _actualVideoOutputView.bounds;
 }
 
 - (CGRect)bounds { 
