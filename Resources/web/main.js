@@ -110,34 +110,16 @@ $(function(){
         li.addClass('fail');
     }
 
-    function resizeThumbnails() {
-        $('.downloads > div').each(function(index, el) {
-            $(this).height(Math.ceil($(this).width()*0.55));
-        });
-    }
-
-    $(document).ready(function() {
-        resizeThumbnails()
-    });
-
-    $(window).resize(function(event) {
-        resizeThumbnails();
-    });
-
     $('a.folder').click(function(event) {
         $('#overlay').addClass('shown');
         $('#modal ul.downloads').empty();
         $(this).parent().find('.content > div').clone().appendTo('#modal ul.downloads');
-        resizeThumbnails();
     });
 
     $('#overlay').click(function(event) {
         $(this).toggleClass('shown');
     });
 
-    if('backgroundSize' in document.documentElement.style) {
-        $('.icon').addClass('bgz');
-    }
 
     $('form.open-url').on('submit', function(e) {
         e.preventDefault();
