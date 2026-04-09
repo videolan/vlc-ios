@@ -53,6 +53,42 @@ abbr, acronym {
     box-sizing: border-box;
 }
 
+:root {
+    color-scheme: light dark;
+
+    --bg-page: rgb(31,31,31);
+    --bg-card: rgb(42,42,42);
+    --bg-thumb: rgb(60,60,60);
+    --bg-input: #2a2a2a;
+    --text-primary: #fff;
+    --text-secondary: rgb(170,170,170);
+    --text-footer: rgb(120,120,120);
+    --text-shadow: 1px 1px 2px black;
+    --separator: rgba(255,255,255,0.1);
+    --overlay-bg: rgba(0,0,0,0.8);
+    --hover-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    --progress-bar-bg: white;
+    --progress-bar-text: #1F1F1F;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-page: rgb(242,242,247);
+        --bg-card: #fff;
+        --bg-thumb: rgb(220,220,225);
+        --bg-input: rgb(230,230,235);
+        --text-primary: #1c1c1e;
+        --text-secondary: rgb(110,110,115);
+        --text-footer: rgb(140,140,145);
+        --text-shadow: none;
+        --separator: rgba(0,0,0,0.1);
+        --overlay-bg: rgba(0,0,0,0.5);
+        --hover-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        --progress-bar-bg: rgb(50,50,50);
+        --progress-bar-text: #fff;
+    }
+}
+
 html {
     height: 100%;
 }
@@ -60,10 +96,10 @@ html {
 body {
     height: 100%;
     font: 14px/22px "Helvetica Neue","Helvetica", Arial, sans-serif;
-    color: white;
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     position: relative;
-    background-color: rgb(31,31,31);
+    background-color: var(--bg-page);
     background-position: 0 88px;
 }
 
@@ -86,6 +122,7 @@ body {
     font-family: "Raleway", "Helvetica Neue";
     font-size: 36px;
     line-height: 60px;
+    color: white;
 }
 
 .btn {

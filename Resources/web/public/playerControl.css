@@ -3,7 +3,7 @@
     position: relative;
     margin: auto;
     width: 65%;
-    background: #2a2a2a;
+    background: var(--bg-input);
     box-sizing: border-box;
     border-radius: 5px;
     height: 80px;

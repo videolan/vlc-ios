@@ -47,7 +47,7 @@
     margin-right: 33px;
     width: 100px;
     height: 100px;
-    background-color: white;
+    background-color: var(--bg-input);
     border-radius: 10px;
 }
 
@@ -70,7 +70,7 @@
 #loader {
     display: none;
     border: 5px solid transparent;
-    border-top: 5px solid white;
+    border-top: 5px solid var(--text-primary);
     border-radius: 50%;
     width: 100px;
     height: 100px;
