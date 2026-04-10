@@ -132,6 +132,10 @@ You can create one on our [GitLab](https://code.videolan.org/videolan/vlc-ios/is
 
 Before creating an issue or ticket, please double check for duplicates!
 
+Two templates are provided helping you report an issue and request a feature.
+
+Each section of the template should contain at least one meaningful sentence in order to guarantee a proper understanding of the ticket.
+
 ## Code of Conduct
 
 Please read and follow the [VideoLAN CoC](https://wiki.videolan.org/Code_of_Conduct/).
