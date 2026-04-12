@@ -40,7 +40,8 @@
     NSString *_filepath;
     UInt64 _contentLength;
     UInt64 _receivedContent;
-    NSString *_webInterfaceTitle;
+    NSBundle *_languageBundle;
+    BOOL _languageBundleResolved;
 #if TARGET_OS_TV
     NSMutableArray *_receivedFiles;
 #endif
@@ -69,16 +70,96 @@ static NSMutableDictionary *authentifiedHosts;
     self = [super initWithAsyncSocket:newSocket configuration:aConfig];
     if (self) {
         _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
-#if TARGET_OS_TV
-        _webInterfaceTitle = NSLocalizedString(@"WEBINTF_TITLE_ATV", nil);
-#else
-        if (_httpUploaderController.isUsingEthernet)
-            _webInterfaceTitle = NSLocalizedString(@"WEBINTF_ETHERNET", nil);
-        else
-            _webInterfaceTitle = NSLocalizedString(@"WEBINTF_TITLE", nil);
-#endif
     }
     return self;
+}
+
+- (NSString *)localizedWebInterfaceTitle
+{
+#if TARGET_OS_TV
+    return (_languageBundle
+        ? [_languageBundle localizedStringForKey:@"WEBINTF_TITLE_ATV" value:nil table:nil]
+        : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil));
+#else
+    if (_httpUploaderController.isUsingEthernet)
+        return (_languageBundle
+            ? [_languageBundle localizedStringForKey:@"WEBINTF_ETHERNET" value:nil table:nil]
+            : NSLocalizedString(@"WEBINTF_ETHERNET", nil));
+    else
+        return (_languageBundle
+            ? [_languageBundle localizedStringForKey:@"WEBINTF_TITLE" value:nil table:nil]
+            : NSLocalizedString(@"WEBINTF_TITLE", nil));
+#endif
+}
+
+- (NSBundle *)bundleForLocalization:(NSString *)localization
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Localizable"
+                                                     ofType:@"strings"
+                                                inDirectory:nil
+                                            forLocalization:localization];
+    if (path) {
+        NSBundle *bundle = [NSBundle bundleWithPath:path.stringByDeletingLastPathComponent];
+        if (bundle)
+            return bundle;
+    }
+    return nil;
+}
+
+- (void)resolveLanguageBundle
+{
+    if (_languageBundleResolved)
+        return;
+    _languageBundleResolved = YES;
+
+    NSString *acceptLanguage = [request headerField:@"Accept-Language"];
+    if (!acceptLanguage.length) {
+        _languageBundle = nil;
+        return;
+    }
+
+    /* parse Accept-Language header into an ordered list of language tags
+     * example: "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7" */
+    NSMutableArray<NSDictionary *> *entries = [NSMutableArray array];
+    for (NSString *component in [acceptLanguage componentsSeparatedByString:@","]) {
+        NSString *trimmed = [component stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSArray *parts = [trimmed componentsSeparatedByString:@";"];
+        NSString *tag = [parts.firstObject stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        float quality = 1.0;
+        for (NSUInteger i = 1; i < parts.count; i++) {
+            NSString *param = [parts[i] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            if ([param hasPrefix:@"q="]) {
+                quality = [[param substringFromIndex:2] floatValue];
+            }
+        }
+        if (tag.length > 0)
+            [entries addObject:@{@"tag": tag, @"q": @(quality)}];
+    }
+
+    /* sort by quality descending */
+    [entries sortUsingComparator:^NSComparisonResult(NSDictionary *a, NSDictionary *b) {
+        return [b[@"q"] compare:a[@"q"]];
+    }];
+
+    /* find the first matching lproj bundle */
+    for (NSDictionary *entry in entries) {
+        NSString *tag = entry[@"tag"];
+        /* try the full tag first (e.g. "zh-Hans"), then just the language code */
+        NSArray *candidates = @[tag];
+        if ([tag containsString:@"-"]) {
+            candidates = @[tag, [tag componentsSeparatedByString:@"-"].firstObject];
+        }
+        for (NSString *candidate in candidates) {
+            NSBundle *bundle = [self bundleForLocalization:candidate];
+            if (bundle) {
+                _languageBundle = bundle;
+                return;
+            }
+        }
+    }
+
+    /* no matching language found, fall back to the device's preferred locale */
+    _languageBundle = nil;
 }
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
@@ -95,6 +176,8 @@ static NSMutableDictionary *authentifiedHosts;
 - (void)handleAuthenticationFailed
 {
     // Status Code 401 - Unauthorized
+    [self resolveLanguageBundle];
+
     HTTPMessage *response = [[HTTPMessage alloc] initResponseWithStatusCode:401
                                                                 description:nil
                                                                     version:HTTPVersion1_1];
@@ -102,8 +185,10 @@ static NSMutableDictionary *authentifiedHosts;
     NSData *authData = [NSData dataWithContentsOfFile:[self filePathForURI:@"/public/auth.html"]];
     NSString *authContent = [[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding];
     NSDictionary *replacementDict = @{
-        @"WEBINTF_TITLE" : _webInterfaceTitle,
-        @"WEBINTF_AUTH_REQUIRED" : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil)
+        @"WEBINTF_TITLE" : [self localizedWebInterfaceTitle],
+        @"WEBINTF_AUTH_REQUIRED" : (_languageBundle
+            ? [_languageBundle localizedStringForKey:@"WEBINTF_AUTH_REQUIRED" value:nil table:nil]
+            : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil))
     };
 
     for(id key in replacementDict) {
@@ -238,12 +323,16 @@ static NSMutableDictionary *authentifiedHosts;
             break;
         case kVLCWifiAuthentificationFailure:
             result = @"ko";
-            message = NSLocalizedString(@"WEBINTF_AUTH_WRONG_PASSCODE", nil);
+            message = (_languageBundle
+                ? [_languageBundle localizedStringForKey:@"WEBINTF_AUTH_WRONG_PASSCODE" value:nil table:nil]
+                : NSLocalizedString(@"WEBINTF_AUTH_WRONG_PASSCODE", nil));
             remainingAttempts = [NSString stringWithFormat:@"%d", 5 - attempts];
             break;
         case kVLCWifiAuthentificationBanned:
             result = @"ban";
-            message = NSLocalizedString(@"WEBINTF_AUTH_BANNED", nil);
+            message = (_languageBundle
+                ? [_languageBundle localizedStringForKey:@"WEBINTF_AUTH_BANNED" value:nil table:nil]
+                : NSLocalizedString(@"WEBINTF_AUTH_BANNED", nil));
             remainingAttempts = @"";
             break;
         default:
@@ -430,12 +519,22 @@ static NSMutableDictionary *authentifiedHosts;
     } // end of forloop
 
     NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
-                        @"WEBINTF_TITLE" : _webInterfaceTitle,
-                        @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                        @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
-                        @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
-                        @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel],
-                        @"WEBINTF_OPEN_URL" : NSLocalizedString(@"ENTER_URL", nil)};
+                        @"WEBINTF_TITLE" : [self localizedWebInterfaceTitle],
+                        @"WEBINTF_DROPFILES" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DROPFILES" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DROPFILES", nil)),
+                        @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:(_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DROPFILES_LONG" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil)), deviceModel],
+                        @"WEBINTF_DOWNLOADFILES" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DOWNLOADFILES" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil)),
+                        @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat:(_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DOWNLOADFILES_LONG" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil)), deviceModel],
+                        @"WEBINTF_OPEN_URL" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"ENTER_URL" value:nil table:nil]
+                            : NSLocalizedString(@"ENTER_URL", nil))};
 
     HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                        forConnection:self
@@ -514,11 +613,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (NSObject<HTTPResponse> *)_httpGETCSSForPath:(NSString *)path
 {
-#if TARGET_OS_IOS || TARGET_OS_VISION
-    NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : _webInterfaceTitle};
-#else
-    NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil)};
-#endif
+    NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : [self localizedWebInterfaceTitle]};
     HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                                                 forConnection:self
                                                                                     separator:@"%%"
@@ -588,9 +683,15 @@ static NSMutableDictionary *authentifiedHosts;
                                          "}\n" \
                                          "}\n" \
                               "}",
-                              NSLocalizedString(@"WEBINTF_URL_EMPTY", nil),
-                              NSLocalizedString(@"WEBINTF_URL_INVALID", nil),
-                              NSLocalizedString(@"WEBINTF_URL_SENT", nil)];
+                              (_languageBundle
+                                  ? [_languageBundle localizedStringForKey:@"WEBINTF_URL_EMPTY" value:nil table:nil]
+                                  : NSLocalizedString(@"WEBINTF_URL_EMPTY", nil)),
+                              (_languageBundle
+                                  ? [_languageBundle localizedStringForKey:@"WEBINTF_URL_INVALID" value:nil table:nil]
+                                  : NSLocalizedString(@"WEBINTF_URL_INVALID", nil)),
+                              (_languageBundle
+                                  ? [_languageBundle localizedStringForKey:@"WEBINTF_URL_SENT" value:nil table:nil]
+                                  : NSLocalizedString(@"WEBINTF_URL_SENT", nil))];
 
     NSData *returnData = [returnString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     return [[HTTPDataResponse alloc] initWithData:returnData];
@@ -656,6 +757,9 @@ static NSMutableDictionary *authentifiedHosts;
     if ([path hasPrefix:@"/Thumbnail/"]) {
         return [self _httpGETThumbnailForPath:path];
     }
+
+    [self resolveLanguageBundle];
+
 #if TARGET_OS_IOS || TARGET_OS_VISION
     if ([path hasPrefix:@"/public/auth.html"]) {
         return [self _httpGETAuthentification];
