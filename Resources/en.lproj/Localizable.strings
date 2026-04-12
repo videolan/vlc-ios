@@ -96,6 +96,7 @@
 "ALWAYS_STREAM_URL" = "Always play URLs";
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
+"http://myserver.com/file.mkv" = "http://myserver.com/file.mkv";
 
 "MANAGED_SERVERS" = "Managed";
 
@@ -483,6 +484,11 @@
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
 "SELECT_A_MARK" = "Select the A mark";
 "SELECT_A_MARK_HINT" = "Select the A mark of the AB loop";
 "SELECT_B_MARK" = "Select the B mark";
@@ -611,14 +617,6 @@
 "QUEUE_LABEL" = "Queue";
 
 "DISPLAY_AS" = "Display as";
-
-/* New strings */
-"BRIGHTNESS_HINT" = "Vertical brightness control";
-"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
-
-/* New strings */
-"VOLUME_HINT" = "Vertical volume control";
-"VOLUME_SLIDER" = "Slide vertically to change the volume level";
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Playback controls";

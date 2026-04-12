@@ -166,7 +166,8 @@
     self.view.backgroundColor = colors.background;
     NSMutableParagraphStyle *placeholderParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     placeholderParagraphStyle.alignment = NSTextAlignmentCenter;
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"http://myserver.com/file.mkv", nil)
+                                                                                       attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
     self.urlField.backgroundColor = colors.mediaCategorySeparatorColor;
     self.urlField.textColor = colors.cellTextColor;

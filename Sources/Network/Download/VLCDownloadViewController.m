@@ -81,7 +81,8 @@
     ColorPalette *colors = PresentationTheme.current.colors;
     NSMutableParagraphStyle *placeholderParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     placeholderParagraphStyle.alignment = NSTextAlignmentCenter;
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: colors.lightTextColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"http://myserver.com/file.mkv", nil)
+                                                                                       attributes:@{NSForegroundColorAttributeName: colors.lightTextColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
     self.urlField.backgroundColor = colors.background;
     self.urlField.textColor = colors.cellTextColor;
