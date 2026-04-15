@@ -35,6 +35,9 @@
 · Add option to export settings and include in feedback email
 · Dual subtitles
 · Browsing the media library uses pagination
+· Add widget displaying the last played audio content
+· Add gamepad support to control the playback
+· Add the side bar navigation on iPadOS
 
 Known issues:
 · Picture-in-Picture featured is offered on devices where it is actually unsupported
@@ -59,6 +62,7 @@ Known issues:
 · Fix PLEX integration
 · Remove S/PDIF option on tvOS as it was discontinued in tvOS 11
 · Fix playback of multicast URLs through the web interface
+· Add medialibrary support
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
