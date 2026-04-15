@@ -30,6 +30,12 @@ class VLCPCloudViewController: VLCCloudStorageTableViewController {
         let imageView = UIImageView(image: UIImage(named: "pCloud"))
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 40),
+        ])
+
         self.navigationItem.titleView = imageView
 
         cloudStorageLogo.image = UIImage(named: "pCloud")
