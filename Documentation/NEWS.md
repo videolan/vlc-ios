@@ -1,5 +1,9 @@
 # Changelog
 
+## iOS [3.7.3]
+· stability improvements
+· fix expansion of playlists stored on the network
+
 ## iOS [3.7.2]
 · add footer view to album collection to show more metadata
 · close playback screen when session ends
