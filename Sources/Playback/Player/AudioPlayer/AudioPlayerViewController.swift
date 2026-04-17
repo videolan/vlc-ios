@@ -145,7 +145,9 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        playerController.isInterfaceLocked = false
+        if playerController.isInterfaceLocked {
+            setPlayerInterfaceEnabled(true)
+        }
         queueViewController?.hide()
         numberOfGestureSeek = 0
         totalSeekDuration = 0
@@ -351,6 +353,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setControlsEnabled(enabled)
 
         shouldDisableGestures(!enabled)
+        minimizeGestureRecognizer.isEnabled = enabled
 
         playerController.isInterfaceLocked = !enabled
     }

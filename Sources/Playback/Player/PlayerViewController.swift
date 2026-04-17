@@ -1165,6 +1165,8 @@ class PlayerViewController: UIViewController {
     }
 
     @objc private func handleMinimizeGesture(_ gesture: UIPanGestureRecognizer) {
+        guard !playerController.isInterfaceLocked else { return }
+
         let translation = gesture.translation(in: view)
 
         switch gesture.state {
@@ -1269,7 +1271,7 @@ extension PlayerViewController: MediaNavigationBarDelegate {
 
 extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
-        // DISABLE GESTURES
+        minimizeGestureRecognizer.isEnabled = !state
     }
 
     func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier) {

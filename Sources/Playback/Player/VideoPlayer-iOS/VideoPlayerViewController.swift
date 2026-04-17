@@ -447,7 +447,9 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
         // Reset lock interface on end of playback.
-        playerController.isInterfaceLocked = false
+        if playerController.isInterfaceLocked {
+            setPlayerInterfaceEnabled(true)
+        }
 
 #if os(iOS)
         volumeControlView.alpha = 0
@@ -1316,6 +1318,7 @@ class VideoPlayerViewController: PlayerViewController {
         upSwipeRecognizer.isEnabled = enabled
         downSwipeRecognizer.isEnabled = enabled
         panRecognizer.isEnabled = enabled
+        minimizeGestureRecognizer.isEnabled = enabled
 
 #if os(iOS)
         brightnessControlView.isEnabled(enabled)
