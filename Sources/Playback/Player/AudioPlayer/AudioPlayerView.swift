@@ -338,6 +338,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         shuffleButton.isEnabled = enabled
         shuffleButton.alpha = enabled ? 1.0 : 0.5
 
+        backwardButton.isEnabled = enabled
+        backwardButton.alpha = enabled ? 1.0 : 0.5
+
         previousButton.isEnabled = enabled
         previousButton.alpha = enabled ? 1.0 : 0.5
 
@@ -346,6 +349,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         nextButton.isEnabled = enabled
         nextButton.alpha = enabled ? 1.0 : 0.5
+
+        forwardButton.isEnabled = enabled
+        forwardButton.alpha = enabled ? 1.0 : 0.5
 
         repeatButton.isEnabled = enabled
         repeatButton.alpha = enabled ? 1.0 : 0.5
