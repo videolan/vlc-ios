@@ -271,40 +271,38 @@ private extension MediaLibraryService {
 
     private func setupMediaLibrary() {
         var libraryPath: String
-        var finalPath: String
+        var mediaPath: String
 
 #if os(tvOS)
-        let mediaTypeDirectory: FileManager.SearchPathDirectory = .cachesDirectory
-        let additionalPathComponent = kVLCHTTPUploadDirectory
- #else
-        let mediaTypeDirectory: FileManager.SearchPathDirectory = .documentDirectory
-        let additionalPathComponent = ""
+        guard let libraryDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first,
+              let cachePath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else {
+            preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
+        }
+        mediaPath = cachePath + "/" + kVLCHTTPUploadDirectory
+#else
+        guard let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first,
+              let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+            preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
+        }
+        mediaPath = documentPath
 #endif
 
-        guard let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first,
-              let mediaTypePath = NSSearchPathForDirectoriesInDomains(mediaTypeDirectory, .userDomainMask, true).first else {
-                  preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
-        }
-
         libraryPath = libraryDirectory
-        finalPath = mediaTypePath
 
         let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
         let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
         let medialibraryPath = libraryPath + "/MediaLibrary/Internal"
 
-        finalPath = (finalPath as NSString).appendingPathComponent(additionalPathComponent)
-
 #if os(tvOS)
         // we need to create the folder before we can listen to it
         do {
-            try FileManager.default.createDirectory(atPath: finalPath,
+            try FileManager.default.createDirectory(atPath: mediaPath,
                                                     withIntermediateDirectories: true)
         } catch let error as NSError {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 #endif
-        setupMediaDiscovery(at: finalPath)
+        setupMediaDiscovery(at: mediaPath)
 
         _ = try? FileManager.default.removeItem(atPath: thumbnailPath)
 
@@ -320,7 +318,7 @@ private extension MediaLibraryService {
 
         switch medialibraryStatus {
         case .success, .dbReset:
-            startMediaLibrary(on: finalPath)
+            startMediaLibrary(on: mediaPath)
         case .alreadyInitialized:
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
@@ -346,7 +344,7 @@ private extension MediaLibraryService {
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
             medialib.clearDatabase(restorePlaylists: true)
-            startMediaLibrary(on: finalPath)
+            startMediaLibrary(on: mediaPath)
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }
@@ -450,6 +448,7 @@ private extension MediaLibraryService {
     }
 
     func includeInDeviceBackup(_ include: Bool) {
+#if !os(tvOS)
         let exclude = !include
         if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             var documentURL = URL(fileURLWithPath: documentPath)
@@ -468,6 +467,7 @@ private extension MediaLibraryService {
                 mlURL.setExcludedFromBackup(exclude, recursive: true, onlyFirstLevel: true)
             }
         }
+#endif
     }
 
     @objc func hideMediaLibrary(_ hide: Bool) {
