@@ -45,12 +45,15 @@ extension TVModelObserver: MediaLibraryBaseModelObserver {
 
         if let video = videoModel {
             video.observable.addObserver(self)
+            video.getMedia()
         }
         if let audio = audioModel {
             audio.observable.addObserver(self)
+            audio.getMedia()
         }
         if let playlist = playlistModel {
             playlist.observable.addObserver(self)
+            playlist.getMedia()
         }
 
     }
