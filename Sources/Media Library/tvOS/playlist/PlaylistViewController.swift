@@ -181,6 +181,16 @@ extension PlaylistViewController: UICollectionViewDelegate {
         present(playlistMediaViewController, animated: true)
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard !didBeginSearching else { return }
+        playlistModel.fileArrayLock.lock()
+        let totalCount = playlistModel.files.count
+        playlistModel.fileArrayLock.unlock()
+        if totalCount > 0 && indexPath.row >= totalCount - Int(kVLCPrefetchDistance) {
+            playlistModel.getMedia()
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
         if isEditing {
             return context.nextFocusedIndexPath == nil

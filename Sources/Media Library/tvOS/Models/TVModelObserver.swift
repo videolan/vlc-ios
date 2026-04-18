@@ -58,6 +58,14 @@ extension TVModelObserver: MediaLibraryBaseModelObserver {
 
     }
 
+    @objc func loadNextVideoPage() {
+        videoModel?.getMedia()
+    }
+
+    @objc func loadNextAudioPage() {
+        audioModel?.getMedia()
+    }
+
     @objc func unobserveLibrary() {
         if let video = videoModel {
             video.observable.removeObserver(self)

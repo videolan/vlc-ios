@@ -406,6 +406,21 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      return ret;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+     if (_didBeginSearching) {
+          return;
+     }
+     NSInteger totalCount = _isAudio ? _audioModel.files.count : _videoModel.files.count;
+     if (totalCount > 0 && indexPath.row >= totalCount - kVLCPrefetchDistance) {
+          if (_isAudio) {
+               [_modelObserver loadNextAudioPage];
+          } else {
+               [_modelObserver loadNextVideoPage];
+          }
+     }
+}
+
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context
 {
      if (self.editing) {
