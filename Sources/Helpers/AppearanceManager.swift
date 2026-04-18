@@ -15,6 +15,7 @@ import UIKit
 class AppearanceManager: NSObject {
 
     @objc class func setupAppearance(theme: PresentationTheme = PresentationTheme.current) {
+#if !os(tvOS)
         // Change the keyboard for UISearchBar
         UITextField.appearance().keyboardAppearance = theme.isDark ? .dark : .light
         // For the cursor
@@ -50,9 +51,11 @@ class AppearanceManager: NSObject {
 
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI
+#endif
     }
 
     @objc class func setupUserInterfaceStyle(theme: PresentationTheme = PresentationTheme.current) {
+#if !os(tvOS)
         if #available(iOS 13.0, *) {
             if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeSystem {
                 UIView.animate(withDuration: 0.55, delay: 0,
@@ -70,9 +73,10 @@ class AppearanceManager: NSObject {
                 })
             }
         }
+#endif
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, *)
     @objc class func navigationbarAppearance() -> UINavigationBarAppearance {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -82,7 +86,7 @@ class AppearanceManager: NSObject {
         return navBarAppearance
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, *)
     @objc class func navigationBarAlbumAppearance() -> UINavigationBarAppearance {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
@@ -93,6 +97,7 @@ class AppearanceManager: NSObject {
     }
 }
 
+#if !os(tvOS)
 //extensions so that preferredStatusBarStyle is called on all childViewControllers otherwise this is not forwarded
 extension UINavigationController {
     override open var preferredStatusBarStyle: UIStatusBarStyle {
@@ -103,3 +108,4 @@ extension UINavigationController {
         return self.topViewController
     }
 }
+#endif

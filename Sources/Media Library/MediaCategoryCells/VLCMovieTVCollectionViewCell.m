@@ -25,6 +25,7 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     self = [super initWithFrame:frame];
     if (self) {
         [self setupViews];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     }
     return self;
 }
@@ -34,6 +35,7 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     self = [super initWithCoder:coder];
     if (self) {
         [self setupViews];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     }
     return self;
 }
@@ -41,7 +43,6 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
 - (void)setupViews
 {
     CGFloat thumbnailHeight = kCellWidth * kThumbnailAspectRatio;
-    ColorPalette *colors = PresentationTheme.current.colors;
 
     // Thumbnail
     _thumbnailView = [[UIImageView alloc] init];
@@ -70,7 +71,6 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     _mediaIsNewIndicator = [[UILabel alloc] init];
     _mediaIsNewIndicator.text = NSLocalizedString(@"NEW", nil);
     _mediaIsNewIndicator.font = [UIFont systemFontOfSize:18.0 weight:UIFontWeightBold];
-    _mediaIsNewIndicator.textColor = colors.orangeUI;
     _mediaIsNewIndicator.hidden = YES;
     _mediaIsNewIndicator.translatesAutoresizingMaskIntoConstraints = NO;
     [_mediaIsNewIndicator setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -79,7 +79,6 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
 
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont systemFontOfSize:28.0 weight:UIFontWeightSemibold];
-    _titleLabel.textColor = colors.cellTextColor;
     _titleLabel.numberOfLines = 2;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -87,9 +86,10 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
 
     _descriptionLabel = [[UILabel alloc] init];
     _descriptionLabel.font = [UIFont systemFontOfSize:22.0 weight:UIFontWeightRegular];
-    _descriptionLabel.textColor = colors.cellDetailTextColor;
     _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_descriptionLabel];
+
+    [self updateTheme];
 
     _checkboxImageView = [[UIImageView alloc] init];
     _checkboxImageView.hidden = YES;
@@ -138,6 +138,16 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     // thumbnail + progress(4) + padding(6) + title(~64) + padding(2) + description(~26)
     CGFloat totalHeight = thumbnailHeight + 4.0 + 6.0 + 64.0 + 2.0 + 26.0;
     return CGSizeMake(kCellWidth, totalHeight);
+}
+
+#pragma mark - Theme
+
+- (void)updateTheme
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _titleLabel.textColor = colors.cellTextColor;
+    _descriptionLabel.textColor = colors.cellDetailTextColor;
+    _mediaIsNewIndicator.textColor = colors.orangeUI;
 }
 
 #pragma mark - Focus

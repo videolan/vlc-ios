@@ -42,6 +42,9 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 @property (nonatomic, assign) BOOL didBeginSearching;
 @property (nonatomic, strong) NSMutableArray<VLCMLMedia*> *searchedMedia;
 
+@property (nonatomic, weak) UILabel *cachedMediaLabel;
+@property (nonatomic, weak) UILabel *cachedMediaLongLabel;
+
 @end
 
 @implementation VLCRemotePlaybackViewController
@@ -117,6 +120,10 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
                             selector:@selector(reachabilityChanged)
                                 name:kReachabilityChangedNotification
                               object:nil];
+     [notificationCenter addObserver:self
+                            selector:@selector(updateTheme)
+                                name:kVLCThemeDidChangeNotification
+                              object:nil];
 
 
      /* After day 354 of the year, the usual VLC cone is replaced by another cone
@@ -174,6 +181,13 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 - (void)reachabilityChanged
 {
      [self updateHTTPServerAddress];
+}
+
+- (void)updateTheme
+{
+     ColorPalette *colors = PresentationTheme.current.colors;
+     self.cachedMediaLabel.textColor = colors.cellTextColor;
+     self.cachedMediaLongLabel.textColor = colors.cellDetailTextColor;
 }
 
 - (void)updateHTTPServerAddress
@@ -349,22 +363,22 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
                                                                                  forIndexPath:indexPath];
 
      if (footer.subviews.count == 0) {
-          ColorPalette *colors = PresentationTheme.current.colors;
-
           UILabel *cachedMediaLabel = [[UILabel alloc] init];
           cachedMediaLabel.text = NSLocalizedString(@"CACHED_MEDIA", nil);
           cachedMediaLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-          cachedMediaLabel.textColor = colors.cellTextColor;
           cachedMediaLabel.textAlignment = NSTextAlignmentCenter;
           cachedMediaLabel.translatesAutoresizingMaskIntoConstraints = NO;
+          self.cachedMediaLabel = cachedMediaLabel;
 
           UILabel *cachedMediaLongLabel = [[UILabel alloc] init];
           cachedMediaLongLabel.text = NSLocalizedString(@"CACHED_MEDIA_LONG", nil);
           cachedMediaLongLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-          cachedMediaLongLabel.textColor = colors.cellDetailTextColor;
           cachedMediaLongLabel.textAlignment = NSTextAlignmentCenter;
           cachedMediaLongLabel.numberOfLines = 0;
           cachedMediaLongLabel.translatesAutoresizingMaskIntoConstraints = NO;
+          self.cachedMediaLongLabel = cachedMediaLongLabel;
+
+          [self updateTheme];
 
           [footer addSubview:cachedMediaLabel];
           [footer addSubview:cachedMediaLongLabel];

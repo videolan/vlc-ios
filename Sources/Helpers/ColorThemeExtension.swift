@@ -11,11 +11,13 @@
 
 extension PresentationTheme {
     static func traitCollectionDidChange(from previousTraitCollection: UITraitCollection?, to traitCollection: UITraitCollection) {
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+#if !os(tvOS)
                 guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
                     return
                 }
+#endif
                 PresentationTheme.themeDidUpdate()
             }
         }
@@ -36,6 +38,7 @@ extension UITableViewController {
     }
 }
 
+#if os(iOS)
 extension VLCOpenNetworkStreamViewController {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -56,6 +59,7 @@ extension VLCNetworkLoginViewController {
         PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
     }
 }
+#endif
 
 extension UINavigationController {
     open override func viewDidLoad() {
@@ -65,10 +69,12 @@ extension UINavigationController {
     }
 
     @objc func themeDidChange() {
+#if !os(tvOS)
         if #available(iOS 13.0, *) {
             navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
             navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
+#endif
         navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
     }
 }

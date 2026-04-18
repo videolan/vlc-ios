@@ -247,14 +247,14 @@ enum PresentationThemeType: Int {
         if theme == .dark {
             presentationTheme = darkTheme
         } else if theme == .auto {
-#if os(iOS)
-            if #available(iOS 13.0, *) {
+#if os(iOS) || os(tvOS)
+            if #available(iOS 13.0, tvOS 13.0, *) {
                 let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
                 presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
             }
 #else
             presentationTheme = darkTheme
-#endif // os(iOS)
+#endif // os(iOS) || os(tvOS)
         }
         return presentationTheme
 #endif // os(visionOS)

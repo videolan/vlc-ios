@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCFrostedGlasView.h"
+#import "VLC-Swift.h"
 
 @interface VLCFrostedGlasView ()
 {
@@ -51,19 +52,22 @@
 {
     [self setClipsToBounds:YES];
 
-#if TARGET_OS_IOS
-    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    UIBlurEffectStyle blurStyle = PresentationTheme.current.colors.blurStyle;
+    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:blurStyle]];
     _effectView.frame = self.bounds;
     _effectView.clipsToBounds = YES;
     _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:_effectView atIndex:0];
-#else
-    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-    _effectView.frame = self.bounds;
-    _effectView.clipsToBounds = YES;
-    _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self insertSubview:_effectView atIndex:0];
-#endif
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTheme)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
+}
+
+- (void)updateTheme
+{
+    _effectView.effect = [UIBlurEffect effectWithStyle:PresentationTheme.current.colors.blurStyle];
 }
 
 #if TARGET_OS_IOS

@@ -37,6 +37,15 @@ class AddToPlaylistViewController: UIViewController {
         setupCreateButton()
         setupCollectionView()
         setupFocusGuide()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateTheme),
+                                               name: .VLCThemeDidChangeNotification,
+                                               object: nil)
+    }
+
+    @objc private func updateTheme() {
+        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
     // MARK: - Layout
