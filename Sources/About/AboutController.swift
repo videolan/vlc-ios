@@ -200,6 +200,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
 
     func generateFeedbackEmailAttachment() -> Data {
         let bundleShortVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let bundleBuildNumberString = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         let device = UIDevice.current
         let defaults = UserDefaults.standard
         let locale = NSLocale.autoupdatingCurrent
@@ -209,6 +210,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             "OS": "\(device.systemName) - \(device.systemVersion)",
             "Locale": "\(locale.languageCode!) (\(locale.regionCode!))",
             "VLC app version": bundleShortVersionString,
+            "VLC app build number": bundleBuildNumberString,
             "libvlc version": VLCLibrary.shared().changeset,
             "hardware decoding": defaults.integer(forKey: kVLCSettingHardwareDecoding),
             "network caching level": defaults.integer(forKey: kVLCSettingNetworkCaching),

@@ -554,7 +554,7 @@
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
 "FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
 
-"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPadOS";
 "FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
 "FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
