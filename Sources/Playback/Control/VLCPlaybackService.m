@@ -1721,20 +1721,40 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)_expandMediaList:(VLCMediaList *)subitems forMedia:(VLCMedia *)parentMedia
 {
-    /* Replace the parent media (e.g. m3u URL) with its parsed sub-items */
+    NSUInteger subItemsCount = subitems.count;
+    NSMutableArray<VLCMedia *> *uniqueSubitems = [NSMutableArray arrayWithCapacity:subItemsCount];
+    NSMutableSet<NSString *> *seenURLs = [NSMutableSet setWithCapacity:subItemsCount];
+    for (NSUInteger i = 0; i < subItemsCount; i++) {
+        VLCMedia *child = [subitems mediaAtIndex:i];
+        NSString *urlKey = child.url.absoluteString ?: [NSString stringWithFormat:@"<anon-%p>", child];
+        if ([seenURLs containsObject:urlKey])
+            continue;
+        [seenURLs addObject:urlKey];
+        [uniqueSubitems addObject:child];
+    }
+
+    VLCMediaList *newList = [[VLCMediaList alloc] init];
+    NSInteger insertionIndex = NSNotFound;
     [_mediaList lock];
     NSInteger parentIndex = [_mediaList indexOfMedia:parentMedia];
-    if (parentIndex != NSNotFound) {
-        [_mediaList removeMediaAtIndex:parentIndex];
-        for (NSUInteger i = 0; i < subitems.count; i++) {
-            [_mediaList insertMedia:[subitems mediaAtIndex:i] atIndex:parentIndex + i];
+    NSUInteger mediaListCount = _mediaList.count;
+    for (NSUInteger i = 0; i < mediaListCount; i++) {
+        if ((NSInteger)i == parentIndex) {
+            insertionIndex = (NSInteger)newList.count;
+            for (VLCMedia *child in uniqueSubitems) {
+                [newList addMedia:child];
+            }
+        } else {
+            [newList addMedia:[_mediaList mediaAtIndex:i]];
         }
     }
     [_mediaList unlock];
 
+    _mediaList = newList;
     [_listPlayer setMediaList:_mediaList];
-    [_listPlayer playItemAtNumber:@(parentIndex != NSNotFound ? parentIndex : 0)];
-    _currentIndex = parentIndex != NSNotFound ? (int)parentIndex : 0;
+    NSInteger playIndex = insertionIndex != NSNotFound ? insertionIndex : 0;
+    [_listPlayer playItemAtNumber:@(playIndex)];
+    _currentIndex = (int)playIndex;
 
     if ([self.delegate respondsToSelector:@selector(reloadPlayQueue)]) {
         [self.delegate reloadPlayQueue];
