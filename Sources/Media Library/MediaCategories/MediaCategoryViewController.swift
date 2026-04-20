@@ -1578,6 +1578,16 @@ private extension MediaCategoryViewController {
 
         if #available(iOS 16.0, *) {
             collectionView.allowsMultipleSelection = true
+        } else if #available(iOS 14.0, *) {
+            // Do not enable allowsMultipleSelection here: on iOS 14/15 it would
+            // cause single-finger horizontal swipes to trigger
+            // shouldBeginMultipleSelectionInteractionAt. Multi-selection during
+            // editing is toggled via allowsMultipleSelectionDuringEditing in
+            // setEditing(_:animated:) instead.
+        } else {
+            // iOS 13 and below lack allowsMultipleSelectionDuringEditing, so the
+            // global flag is the only way to get multi-selection in edit mode.
+            collectionView.allowsMultipleSelection = true
         }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
