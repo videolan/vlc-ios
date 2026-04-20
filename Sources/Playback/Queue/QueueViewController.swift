@@ -683,11 +683,19 @@ extension QueueViewController: UICollectionViewDataSource {
             assertionFailure("QueueViewController: cellForItemAt: Failed to fetch media url")
             return cell
         }
-        if let media = medialibraryService.fetchMedia(with: safeURL) {
-            cell.media = media
-        } else if let media = medialibraryService.medialib.addExternalMedia(withMrl: safeURL) {
-            cell.media = media
+
+        if let libraryMedia = medialibraryService.fetchMedia(with: safeURL)
+            ?? medialibraryService.medialib.addExternalMedia(withMrl: safeURL) {
+            cell.media = libraryMedia
+
+            /* Prefer the libvlc-parsed title (e.g. from an m3u #EXTINF entry) */
+            if libraryMedia.isExternalMedia() {
+                if let libvlcTitle = media?.metaData.title, !libvlcTitle.isEmpty {
+                    cell.titleLabel.text = libvlcTitle
+                }
+            }
         }
+
         cell.newLabel.isHidden = true
 
         return cell
