@@ -49,4 +49,16 @@
     [self.progressLabel setFrame:CGRectMake(self.progressLabel.frame.origin.x, self.progressLabel.frame.origin.y, size.width, size.height)];
 }
 
+- (CGSize)intrinsicContentSize
+{
+    CGFloat width = 200.0;
+    CGFloat height = 0.0;
+
+    height += _progressBar.intrinsicContentSize.height;
+    height += 8.0;
+    height += _progressLabel.intrinsicContentSize.height;
+
+    return CGSizeMake(width, height);
+}
+
 @end
