@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     UIBarButtonItem *_logoutButton;
     UINavigationController *tempNav;
     NSString *_initialPath;
+    UIButton *_sortButton;
+    UIButton *_numberOfFilesButton;
 }
 
 @end
@@ -74,9 +76,21 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
 
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
-    _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
-                                                          style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
+    _numberOfFilesButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_numberOfFilesButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] forState:UIControlStateNormal];
+    [_numberOfFilesButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
+    _numberOfFilesButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_numberOfFilesButton];
+
+    _sortButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_sortButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0] forState:UIControlStateNormal];
+    [_sortButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
+    [_sortButton addTarget:self action:@selector(sortButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _sortButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _sortBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_sortButton];
+
     _sortBarButtonItem.tintColor = colors.orangeUI;
     _numberOfFilesBarButtonItem.tintColor = colors.orangeUI;
 
@@ -92,6 +106,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _progressView.tintColor = colors.orangeUI;
+    _progressView.translatesAutoresizingMaskIntoConstraints = NO;
 
     sheet = [[VLCActionSheet alloc] init];
     manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
@@ -143,6 +158,10 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     tempNav.toolbarHidden = YES;
     tempNav = nil;
     [super viewWillDisappear:animated];
+
+    if (@available(iOS 26.0, *)) {
+        [self.tabBarController setBottomAccessory:nil animated:YES];
+    }
 }
 
 -(void)handleRefresh
@@ -175,11 +194,11 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [self updateToolbarWithProgress:nil];
     NSUInteger count = self.controller.currentListFiles.count;
     if (count == 0)
-        self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
+        [_numberOfFilesButton setTitle:NSLocalizedString(@"NO_FILES", nil) forState:UIControlStateNormal];
     else if (count != 1)
-        self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
+        [_numberOfFilesButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count] forState:UIControlStateNormal];
     else
-        self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
+        [_numberOfFilesButton setTitle:NSLocalizedString(@"ONE_FILE", nil) forState:UIControlStateNormal];
 }
 
 - (void)updateToolbarWithProgress:(NSNumber *)progress {
@@ -195,22 +214,63 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     }
 }
 
-- (void)updateToolbarWithStyle:(VLCToolbarStyle)style {
-    NSMutableArray *items = [NSMutableArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
-    switch(style) {
+- (void)updateTabBarWithAccessory:(VLCToolbarStyle)style API_AVAILABLE(ios(26.0)) {
+    UIStackView *accessoryViews = [[UIStackView alloc] init];
+    accessoryViews.axis = UILayoutConstraintAxisHorizontal;
+    accessoryViews.alignment = UIStackViewAlignmentCenter;
+    accessoryViews.spacing = 15.0;
+    accessoryViews.translatesAutoresizingMaskIntoConstraints = NO;
+
+    switch (style) {
         case VLCToolbarStyleNone:
             break;
         case VLCToolbarStyleProgress:
-            [items addObjectsFromArray:@[_progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+            [accessoryViews addArrangedSubview:_progressView];
             break;
         case VLCToolbarStyleSortAndNumOfFiles:
-            [items addObjectsFromArray:@[_sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
-            // no break to continue to VLCToolbarStyleNumOfFiles
+            [accessoryViews addArrangedSubview:_sortButton];
+            [accessoryViews addArrangedSubview:_numberOfFilesButton];
+            break;
         case VLCToolbarStyleNumOfFiles:
-            [items addObjectsFromArray:@[_numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+            [accessoryViews addArrangedSubview:_numberOfFilesButton];
             break;
     }
-    [self setToolbarItems:items animated:YES];
+
+    UIView *wrapperView = [[UIView alloc] init];
+    wrapperView.translatesAutoresizingMaskIntoConstraints = NO;
+    [wrapperView addSubview:accessoryViews];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [accessoryViews.leadingAnchor constraintEqualToAnchor:wrapperView.leadingAnchor constant:15.0],
+        [accessoryViews.trailingAnchor constraintEqualToAnchor:wrapperView.trailingAnchor constant:-15.0],
+        [accessoryViews.topAnchor constraintEqualToAnchor:wrapperView.topAnchor constant:8.0],
+        [accessoryViews.bottomAnchor constraintEqualToAnchor:wrapperView.bottomAnchor constant:-8.0],
+    ]];
+
+    UITabAccessory *tabAccessory = [[UITabAccessory alloc] initWithContentView:wrapperView];
+    [self.tabBarController setBottomAccessory:tabAccessory animated:YES];
+}
+
+- (void)updateToolbarWithStyle:(VLCToolbarStyle)style {
+    if (@available(iOS 26.0, *)) {
+        [self updateTabBarWithAccessory:style];
+    } else {
+        NSMutableArray *items = [NSMutableArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+        switch(style) {
+            case VLCToolbarStyleNone:
+                break;
+            case VLCToolbarStyleProgress:
+                [items addObjectsFromArray:@[_progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+                break;
+            case VLCToolbarStyleSortAndNumOfFiles:
+                [items addObjectsFromArray:@[_sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+                // no break to continue to VLCToolbarStyleNumOfFiles
+            case VLCToolbarStyleNumOfFiles:
+                [items addObjectsFromArray:@[_numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+                break;
+        }
+        [self setToolbarItems:items animated:YES];
+    }
  }
 
 - (void)updateRemainingTime:(NSString *)time
