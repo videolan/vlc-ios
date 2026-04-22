@@ -259,7 +259,7 @@ static void *ProgressObserverContext = &ProgressObserverContext;
                                                        style:UIAlertActionStyleCancel
                                                      handler:^(UIAlertAction *alertAction) {
                                                          if (weakSelf.presentingViewController && [itemID isEqualToString:@"root"]) {
-                                                             [weakSelf.presentingViewController.navigationController popViewControllerAnimated:YES];
+                                                             [weakSelf logout];
                                                          }
                                                      }];
 
