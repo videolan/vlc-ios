@@ -46,12 +46,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
-    private enum SectionType: Int {
-        case special = 0
-        case latin = 1
-        case nonlatin = 2
-    }
-
     private func getSectionInfo(for title: String) -> (key: String, type: SectionType) {
 
         guard let first: Character = title
@@ -1805,8 +1799,7 @@ extension MediaCategoryViewController {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-        if isSectioned
-        {
+        if isSectioned {
             return .init(width: collectionView.frame.size.width, height: 40)
         }
 
@@ -2684,25 +2677,5 @@ extension MediaCategoryViewController {
 extension String  {
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
-    }
-}
-
-// Find out if Character in String is emoji: https://stackoverflow.com/a/39425959/20237973
-extension Character {
-    // A simple emoji is one scalar and presented to the user as an Emoji
-    var isSimpleEmoji: Bool {
-        guard let firstScalar = unicodeScalars.first else { return false }
-        return firstScalar.properties.isEmoji && firstScalar.value > 0x238C
-    }
-
-    // Checks if the scalars will be merged into an emoji
-    var isCombinedIntoEmoji: Bool { unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false }
-
-    var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
-}
-
-extension Character {
-    var isLatin: Bool {
-        return String(self).range(of: "\\p{Latin}", options: .regularExpression) != nil
     }
 }

@@ -27,7 +27,6 @@ class TrackSectionHeader: UICollectionReusableView {
         let dividerView = UIView(frame: .zero)
         dividerView.backgroundColor = PresentationTheme.current.colors.separatorColor
         dividerView.translatesAutoresizingMaskIntoConstraints = false
-        dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         return dividerView
     }()
 
@@ -45,7 +44,9 @@ class TrackSectionHeader: UICollectionReusableView {
 
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            dividerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            dividerView.heightAnchor.constraint(equalToConstant: 1)
         ])
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
@@ -65,4 +66,10 @@ class TrackSectionHeader: UICollectionReusableView {
         backgroundColor = PresentationTheme.current.colors.background
         dividerView.backgroundColor = PresentationTheme.current.colors.separatorColor
     }
+}
+
+public enum SectionType: Int {
+    case special = 0
+    case latin = 1
+    case nonlatin = 2
 }
