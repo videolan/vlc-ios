@@ -1733,7 +1733,11 @@ extension MediaCategoryViewController {
 
         if model.mediaCollection is VLCMLAlbum {
             return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
-        } else if model.mediaCollection is VLCMLPlaylist {
+        } else if let playlist = model.mediaCollection as? VLCMLPlaylist {
+            guard playlist.nbMedia() != 0 else {
+                return .init(width: 0, height: 0)
+            }
+
             return PlaylistHeader.getHeaderSize(with: collectionView.frame.size.width)
         } else {
             return .init(width: 0, height: 0)
