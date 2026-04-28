@@ -1524,9 +1524,19 @@ private extension MediaCategoryViewController {
         let modelContent = currentDataSet.objectAtIndex(index: index)
         collectionSelectedIndex = indexPath
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
-        let actionList = EditButtonsFactory.buttonList(for: model).filter({
+        var actionList = EditButtonsFactory.buttonList(for: model).filter({
             return $0 != .addToMediaGroup
         })
+
+        if let mediaCollection = modelContent as? MediaCollectionModel,
+           let files = mediaCollection.files(),
+           files.isEmpty {
+            let actions: [EditButtonType] = [.play, .playNextInQueue, .appendToQueue, .playAsAudio, .addToPlaylist]
+            actionList = actionList.filter {
+                !actions.contains($0)
+            }
+        }
+
         let actions = EditButtonsFactory.generate(buttons: actionList)
 
         return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
