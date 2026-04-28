@@ -224,13 +224,13 @@ extension EditActions {
                                           action: { [unowned self] action in
             ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(
                 action: {
-                     if let model = model as? FolderModel {
-                            model.delete(media: (self.objects as? [VLCMLMedia])!)
-                            self.completion?(.success)
-                     } else {
-                            self.model.anyDelete(self.objects)
-                            self.objects.removeAll()
-                     }
+                    if let model = self.model as? FolderModel {
+                        model.delete(media: (self.objects as? [VLCMLMedia])!)
+                    } else {
+                        self.model.anyDelete(self.objects)
+                        self.objects.removeAll()
+                    }
+                    self.completion?(.success)
                 },
                 fail: {
                     self.completion?(.fail)
