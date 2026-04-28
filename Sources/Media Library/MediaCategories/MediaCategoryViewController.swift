@@ -782,8 +782,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         // When quitting the edit mode, reset all selection state
         if isEditing == false {
-            isAllSelected = false
-            selectAllBarButton.image = UIImage(named: "emptySelectAll")
+            editControllerUpdateIsAllSelected(with: false)
         }
 
         reloadData()
