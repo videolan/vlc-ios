@@ -58,7 +58,7 @@ iOS 15.x:
 
 ### tvOS Builds
 
-tvOS 15.x:
+tvOS 26.2:
     extends:
         - .job-base
         - .build-base
@@ -67,11 +67,11 @@ tvOS 15.x:
     stage: build
     variables:
         BUILD_SCHEME: "VLC-tvOS"
-        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=15.4"
+        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=26.2"
 
 ### visionOS Builds
 
-visionOS 1.x:
+visionOS 26.2:
     extends:
         - .job-base
         - .build-base
@@ -80,14 +80,14 @@ visionOS 1.x:
     stage: build
     variables:
         BUILD_SCHEME: "VLC-visionOS"
-        BUILD_DESTINATION: "platform=xrOS Simulator,name=Apple Vision Pro,OS=1.2"
+        BUILD_DESTINATION: "platform=xrOS Simulator,name=Apple Vision Pro,OS=26.2"
 
 ### watchOS Builds
-watchOS 10.x:
+watchOS 26.2:
     extends:
         - .job-base
         - .build-base
     stage: build
     variables:
         BUILD_SCHEME: "VLC-watchOS"
-        BUILD_DESTINATION: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm),OS=10.5"
+        BUILD_DESTINATION: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm),OS=26.2"
