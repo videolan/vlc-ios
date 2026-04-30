@@ -86,7 +86,7 @@
     self = [super init];
     if (self) {
         _name = dictionary[@"title"];
-        NSInteger fileSize = [dictionary[@"size"] intValue] * 1024 * 1024;
+        NSInteger fileSize = [self getFileSize:dictionary[@"size"]];
         _fileSizeBytes = @(fileSize);
         _duration = dictionary[@"duration"];
         NSString *subtitleURLString = dictionary[@"pathSubtitle"];
@@ -101,6 +101,30 @@
         _thumbnailURL = thumbURLString.length ? [NSURL URLWithString:thumbURLString] : nil;
     }
     return self;
+}
+
+- (NSInteger)getFileSize:(NSString *)stringSize
+{
+    NSArray<NSString *> *sizeComponents = [stringSize componentsSeparatedByString:@" "];
+    if (sizeComponents.count == 0) {
+        return 0;
+    } else if (sizeComponents.count == 1) {
+        return sizeComponents[0].intValue;
+    }
+
+    NSString *size = [sizeComponents[0] stringByReplacingOccurrencesOfString:@"," withString:@"."];
+    NSString *unit = [sizeComponents[1] lowercaseString];
+    NSInteger sizeMultiplier = 1.0;
+
+    if ([unit isEqualToString:@"kb"] || [unit isEqualToString:@"ko"]) {
+        sizeMultiplier = 1000.0;
+    } else if ([unit isEqualToString:@"mb"] || [unit isEqualToString:@"mo"]) {
+        sizeMultiplier = 1000.0 * 1000.0;
+    } else if ([unit isEqualToString:@"gb"] || [unit isEqualToString:@"go"]) {
+        sizeMultiplier = 1000.0 * 1000.0 * 1000.0;
+    }
+
+    return size.doubleValue * sizeMultiplier;
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser
