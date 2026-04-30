@@ -1739,7 +1739,7 @@ extension VideoPlayerViewController: UIDocumentPickerDelegate {
             }
             fileURL.stopAccessingSecurityScopedResource()
 
-            if fileURL.pathExtension.contains("srt") {
+            if fileURL.path.isSupportedSubtitleFormat() {
                 playbackService.addSubtitlesToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
             } else {
                 playbackService.addAudioToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
