@@ -1779,7 +1779,20 @@ extension MediaCategoryViewController {
         } else if let cell = cell as? MediaGridCollectionCell {
             thumbnail = cell.thumbnailView.image
         }
+        let videoMedia: VLCMLMedia?
+        if let media = modelContent as? VLCMLMedia, media.type() == .video {
+            videoMedia = media
+        } else if let group = modelContent as? VLCMLMediaGroup,
+                  let first = group.media(of: .video)?.first {
+            videoMedia = first
+        } else {
+            videoMedia = nil
+        }
+
         let configuration = UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
+            if let videoMedia = videoMedia {
+                return VideoPreviewController(media: videoMedia)
+            }
             guard let thumbnail = thumbnail else {
                 return nil
             }
@@ -1793,13 +1806,14 @@ extension MediaCategoryViewController {
 
     @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        if let indexPath = configuration.identifier as? IndexPath {
-            if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
-                if !(cell.media is VLCMLMedia) {
-                    self.selectedItem(at: indexPath)
-                }
-            }
+        guard let indexPath = configuration.identifier as? IndexPath else { return }
+
+        if let previewVC = animator.previewViewController as? VideoPreviewController,
+           let media = currentDataSet.objectAtIndex(index: indexPath.row) as? VLCMLMedia {
+            media.progress = Float(previewVC.currentPosition)
         }
+
+        selectedItem(at: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
