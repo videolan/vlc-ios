@@ -1791,7 +1791,7 @@ extension MediaCategoryViewController {
 
         let configuration = UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
             if let videoMedia = videoMedia {
-                return VideoPreviewController(media: videoMedia)
+                return VideoPreviewController(media: videoMedia, thumbnail: thumbnail)
             }
             guard let thumbnail = thumbnail else {
                 return nil
