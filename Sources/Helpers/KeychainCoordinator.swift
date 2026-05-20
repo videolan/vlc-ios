@@ -54,7 +54,7 @@ class KeychainCoordinator: NSObject {
         secret == secretFromKeychain
     }
 
-    var secretLength: Int {
+    @objc var secretLength: Int {
         secretFromKeychain?.count ?? 0
     }
 }

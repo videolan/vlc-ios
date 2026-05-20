@@ -184,11 +184,16 @@ static NSMutableDictionary *authentifiedHosts;
 
     NSData *authData = [NSData dataWithContentsOfFile:[self filePathForURI:@"/public/auth.html"]];
     NSString *authContent = [[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding];
+    NSInteger passcodeLength = [[VLCKeychainCoordinator passcodeService] secretLength];
+    if (passcodeLength <= 0) {
+        passcodeLength = 4;
+    }
     NSDictionary *replacementDict = @{
         @"WEBINTF_TITLE" : [self localizedWebInterfaceTitle],
         @"WEBINTF_AUTH_REQUIRED" : (_languageBundle
             ? [_languageBundle localizedStringForKey:@"WEBINTF_AUTH_REQUIRED" value:nil table:nil]
-            : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil))
+            : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil)),
+        @"WEBINTF_PASSCODE_LENGTH" : [NSString stringWithFormat:@"%ld", (long)passcodeLength]
     };
 
     for(id key in replacementDict) {

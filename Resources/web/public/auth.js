@@ -1,4 +1,5 @@
 var is_banned = false;
+var passcode_length = 4;
 
 function show_loader(show) {
     if (show) {
@@ -25,6 +26,7 @@ function show_authentification_failed(json) {
     }
     $("#code").val("");
     show_loader(false);
+    update_field();
 }
 
 function authenticate() {
@@ -49,24 +51,64 @@ function authenticate() {
 }
 
 function update_field() {
-    let bgds = [$(".bgd0"), $(".bgd1"), $(".bgd2"), $(".bgd3")];
-
-    for (var i = 0; i < 4; ++i) {
-        if (i == $("#code").val().length) {
-            bgds[i].addClass("bgd_selected");
+    var entered = $("#code").val().length;
+    for (var i = 0; i < passcode_length; ++i) {
+        var cell = $(".bgd" + i);
+        if (i == entered) {
+            cell.addClass("bgd_selected");
         } else {
-            bgds[i].removeClass("bgd_selected");
+            cell.removeClass("bgd_selected");
         }
     }
 }
 
 function check_passcode_complete() {
     if (!is_banned) {
-        if ($("#code").val().length >= 4) {
+        if ($("#code").val().length >= passcode_length) {
             authenticate();
         }
         update_field();
     }
+}
+
+function build_passcode_cells() {
+    var parsed = parseInt($("#code_bgd").attr("data-length"), 10);
+    if (parsed > 0) {
+        passcode_length = parsed;
+    }
+
+    var container = $("#code_bgd");
+    container.empty();
+    for (var i = 0; i < passcode_length; ++i) {
+        var cell = $("<div></div>").addClass("code_bgd bgd" + i);
+        if (i === 0) {
+            cell.addClass("bgd_selected");
+        }
+        if (i === passcode_length - 1) {
+            cell.addClass("last_bgd");
+        }
+        container.append(cell);
+    }
+
+    // Scale layout for 6-digit passcodes so cells fit alongside the input.
+    var cell_size = passcode_length > 4 ? 70 : 100;
+    var cell_gap = passcode_length > 4 ? 24 : 33;
+    var font_size = passcode_length > 4 ? 70 : 100;
+    var letter_spacing = passcode_length > 4 ? 51 : 75;
+    var padding_left = passcode_length > 4 ? 60 : 80;
+
+    var cells_width = passcode_length * cell_size + (passcode_length - 1) * cell_gap;
+    var input_width = cells_width + padding_left + cell_gap;
+
+    container.css({ "width": cells_width + "px", "height": cell_size + "px",
+                    "margin-top": -cell_size + "px" });
+    $(".code_bgd").css({ "width": cell_size + "px", "height": cell_size + "px",
+                         "margin-right": cell_gap + "px" });
+    $(".last_bgd").css({ "margin-right": "0" });
+    $("#code").css({ "width": input_width + "px", "height": cell_size + "px",
+                     "font-size": font_size + "px",
+                     "letter-spacing": letter_spacing + "px",
+                     "padding-left": padding_left + "px" });
 }
 
 /*
@@ -96,6 +138,7 @@ $(document).on("keydown", function (e) {
  * Monitor form and input when entering passcode with focus on the field
  */
 $(function() {
+  build_passcode_cells();
   $("#code_form").submit(check_passcode_complete);
   $("#code").change(check_passcode_complete);
   $("#code").on("input", check_passcode_complete);
