@@ -317,14 +317,16 @@ div.main.drop {
 }
 
 #overlay {
-    position: absolute;
+    position: fixed;
     display: none;
-    opacity:0;
-    background:var(--overlay-bg);
+    opacity: 0;
+    background: var(--overlay-bg);
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
+    z-index: 1000;
+    overflow-y: auto;
 }
 
 #overlay.shown {
@@ -333,12 +335,15 @@ div.main.drop {
 }
 
 #overlay #modal {
-    position: absolute;
-    background:var(--bg-page);
-    width: 50%;
-    height: 50%;
-    top: 25%;
-    left: 25%;
+    position: relative;
+    background: var(--bg-page);
+    width: 80%;
+    max-width: 1400px;
+    max-height: calc(100% - 80px);
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    overflow-y: auto;
 }
 
 #overlay #modal .downloads {
