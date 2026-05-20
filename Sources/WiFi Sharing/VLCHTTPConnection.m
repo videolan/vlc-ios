@@ -434,8 +434,13 @@ static NSMutableDictionary *authentifiedHosts;
     NSMutableArray *allMedia = [[medialibrary albumsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:false] mutableCopy] ?: [NSMutableArray new];
     // Adding all Playlists
     [allMedia addObjectsFromArray:[medialibrary playlistsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:false]];
-    // Adding all Videos files
-    [allMedia addObjectsFromArray:[medialibrary mediaOfType:VLCMLMediaTypeVideo sortingCriteria:VLCMLSortingCriteriaDefault desc:false]];
+    // Adding all Video Media Groups (mirrors the iOS video view: every video belongs to a group)
+    NSArray *videoGroups = [medialibrary mediaGroupsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:false];
+    for (VLCMLMediaGroup *group in videoGroups) {
+        if ([group mediaOfType:VLCMLMediaTypeVideo].count > 0) {
+            [allMedia addObject:group];
+        }
+    }
 
     //TODO: add all shows
     // Adding all audio files which are not in an Album
@@ -551,6 +556,22 @@ static NSMutableDictionary *authentifiedHosts;
                 [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:track]];
             }
             [mediaInHtml addObject:@"</div></div>"];
+        } else if ([mediaObject isKindOfClass:[VLCMLMediaGroup class]]) {
+            VLCMLMediaGroup *group = (VLCMLMediaGroup *)mediaObject;
+            NSArray *groupVideos = [group mediaOfType:VLCMLMediaTypeVideo];
+            // Mirror MediaGroupViewModel: a non-interacted singleton group is shown as a flat video
+            if (group.nbTotalMedia == 1 && !group.userInteracted && groupVideos.count == 1) {
+                [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:groupVideos.firstObject]];
+            } else {
+                VLCMLIdentifier firstVideoId = groupVideos.firstObject ? [(VLCMLMedia *)groupVideos.firstObject identifier] : 0;
+                [mediaInHtml addObject:[self createHTMLFolderObjectWithMediaId:firstVideoId
+                                                                         name:group.name
+                                                                        count:groupVideos.count]];
+                for (VLCMLMedia *video in groupVideos) {
+                    [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:video]];
+                }
+                [mediaInHtml addObject:@"</div></div>"];
+            }
         }
     } // end of forloop
 
@@ -631,6 +652,22 @@ static NSMutableDictionary *authentifiedHosts;
                                        [track formatSize],
                                        hostName,
                                        [[track mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:characterSet]]];
+            }
+        } else if ([mediaObject isKindOfClass:[VLCMLMediaGroup class]]) {
+            VLCMLMediaGroup *group = (VLCMLMediaGroup *)mediaObject;
+            NSArray *groupVideos = [group mediaOfType:VLCMLMediaTypeVideo];
+            for (VLCMLMedia *video in groupVideos) {
+                NSString *pathSub = [self _checkIfSubtitleWasFound:[video mainFile].mrl.path];
+                if (pathSub)
+                    pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%lld\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>",
+                                       [video.title stringByAddingPercentEncodingWithAllowedCharacters:characterSet],
+                                       hostName,
+                                       video.identifier,
+                                       [video mediaDuration],
+                                       [video formatSize],
+                                       hostName,
+                                       [[video mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:characterSet], pathSub]];
             }
         }
     } // end of forloop

@@ -575,6 +575,15 @@ extension MediaLibraryService {
     }
 }
 
+// MARK: - Media group methods
+
+@objc extension MediaLibraryService {
+    func mediaGroups(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                     desc: Bool = false) -> [VLCMLMediaGroup] {
+        return medialib.mediaGroups(with: sort, desc: desc) ?? []
+    }
+}
+
 // MARK: - Playlist methods
 
 @objc extension MediaLibraryService {
