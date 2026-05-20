@@ -1,18 +1,18 @@
 {
   "images" : [
     {
+      "filename" : "mask-shorter 2.png",
       "idiom" : "tv",
-      "filename" : "Icon-Foreground.png",
       "scale" : "1x"
     },
     {
+      "filename" : "mask-shorter 3.png",
       "idiom" : "tv",
-      "filename" : "Icon-Foreground@2x.png",
       "scale" : "2x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
