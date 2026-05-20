@@ -566,7 +566,14 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
                 }
 
                 customProfiles.profiles.remove(at: index.row)
-                UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+                let userDefaults = UserDefaults.standard
+                userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+
+                // Reset the equalizer
+                self.equalizerPresetSelector(equalizerPresetSelector, didSelectPreset: 0, isCustom: false)
+                userDefaults.setValue(true, forKey: kVLCSettingEqualizerProfileDisabled)
+                userDefaults.setValue(false, forKey: kVLCCustomProfileEnabled)
+
                 self.presetSelectorView?.presetsTableView.reloadData()
             }
         } else {
