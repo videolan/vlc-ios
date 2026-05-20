@@ -497,6 +497,11 @@ static NSMutableDictionary *authentifiedHosts;
     if (mediaId > 0) {
         thumbnailHTML = [NSString stringWithFormat:@"<img src=\"Thumbnail/%lld\" alt=\"\"/>", mediaId];
     }
+    NSString *countKey = count > 1 ? @"TRACKS" : @"TRACK";
+    NSString *countFormat = _languageBundle
+        ? [_languageBundle localizedStringForKey:countKey value:nil table:nil]
+        : NSLocalizedString(countKey, nil);
+    NSString *countString = [NSString stringWithFormat:countFormat, (int)count];
     return [NSString stringWithFormat:
             @"<div> \
             <a href=\"#\" class=\"inner folder\"> \
@@ -506,13 +511,13 @@ static NSMutableDictionary *authentifiedHosts;
             </div> \
             <div class=\"infos\"> \
             <span class=\"first-line\">%@</span> \
-            <span class=\"second-line\">%lu items</span> \
+            <span class=\"second-line\">%@</span> \
             </div> \
             </a> \
             <div class=\"content\">",
             thumbnailHTML,
             [self escapeTags:name],
-            count];
+            countString];
 }
 
 
