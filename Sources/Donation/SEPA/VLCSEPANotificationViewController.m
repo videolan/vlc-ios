@@ -46,6 +46,12 @@
         self.authorizationTextLabel.textColor = colors.cellTextColor;
         self.view.backgroundColor = colors.background;
     }
+
+    if (colors.isDark) {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
+    } else {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-512x512"];
+    }
 }
 
 - (void)refuseSepa

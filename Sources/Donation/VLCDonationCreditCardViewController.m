@@ -154,6 +154,12 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
         _cvvField.textColor = colors.cellTextColor;
         _expiryDateSeparatorLabel.textColor = colors.cellTextColor;
     }
+
+    if (colors.isDark) {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
+    } else {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-512x512"];
+    }
 }
 
 - (void)hideInputElements:(BOOL)bValue

@@ -109,13 +109,20 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         webView.alpha = 0
         let webTheme = PresentationTheme.current.webEquivalentTheme
         let mainBundle = Bundle.main
-        let textColor = webTheme.colors.cellTextColor.toHex ?? "#000000"
-        let backgroundColor = webTheme.colors.background.toHex ?? "#FFFFFF"
+        let colors = webTheme.colors
+        let textColor = colors.cellTextColor.toHex ?? "#000000"
+        let backgroundColor = colors.background.toHex ?? "#FFFFFF"
         guard let bundleShortVersionString = mainBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
             return
         }
         guard let bundleVersion = mainBundle.object(forInfoDictionaryKey: "CFBundleVersion") as? CVarArg else {
             return
+        }
+        var vlciconimagesource :String
+        if colors.isDark {
+            vlciconimagesource = "VLCCone26-dark-512x512.png"
+        } else {
+            vlciconimagesource = "VLCCone26-512x512.png"
         }
         let version = String(format: NSLocalizedString("VERSION_FORMAT", comment: ""),
                              bundleShortVersionString)
@@ -135,6 +142,10 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             vlcLibraryVersion.count
             let searchRange = NSRange(location: 0, length: lengthOfStringToSearch)
 
+            htmlString = htmlString.replacingOccurrences(of: "VLCICONIMAGESOURCE",
+                                                         with: vlciconimagesource,
+                                                         options: .literal,
+                                                         range: searchRange) as NSString
             htmlString = htmlString.replacingOccurrences(of: "VLCFORIOSVERSION",
                                                          with: versionBuildNumberAndCodeName,
                                                          options: .literal,

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,9 +15,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="141-gp-zTI" userLabel="Empty View">
-                    <rect key="frame" x="46.666666666666657" y="268" width="300" height="341"/>
+                    <rect key="frame" x="46.666666666666657" y="280.66666666666669" width="300" height="341.00000000000006"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="115">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="VLCCone26-512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="115">
                             <rect key="frame" x="87.333333333333343" y="0.0" width="125" height="125"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="115" secondAttribute="height" multiplier="1:1" id="CBD-GI-kch"/>
@@ -35,14 +35,14 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="vqV-xO-9Ez">
-                                    <rect key="frame" x="0.0" y="43.666666666666679" width="300" height="103.33333333333331"/>
+                                    <rect key="frame" x="0.0" y="43.666666666666622" width="300" height="103.33333333333331"/>
                                     <string key="text">For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.</string>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                     <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A78-83-MhQ">
-                                    <rect key="frame" x="96" y="157" width="108" height="39"/>
+                                    <rect key="frame" x="96" y="156.99999999999994" width="108" height="39"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <state key="normal" title="Learn More">
                                         <color key="titleColor" red="1" green="0.60783044529999997" blue="0.1420323705" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -69,12 +69,13 @@
             <connections>
                 <outlet property="emptyLibraryLabel" destination="114" id="119"/>
                 <outlet property="emptyLibraryLongDescriptionLabel" destination="vqV-xO-9Ez" id="Grj-83-sAj"/>
+                <outlet property="iconView" destination="115" id="qKk-JP-pfh"/>
                 <outlet property="learnMoreButton" destination="A78-83-MhQ" id="z6i-rn-FZx"/>
             </connections>
             <point key="canvasLocation" x="43" y="153"/>
         </view>
     </objects>
     <resources>
-        <image name="VLCCone512x512.png" width="512" height="512"/>
+        <image name="VLCCone26-512x512.png" width="512" height="512"/>
     </resources>
 </document>

@@ -450,7 +450,7 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 }
 #endif
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)resetIdleTimer
 {
     const int timeInterval = 4;

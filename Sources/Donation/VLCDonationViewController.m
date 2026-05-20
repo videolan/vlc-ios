@@ -229,6 +229,12 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     }
     [_monthlyUpdateButton setTitleColor:whiteColor forState:UIControlStateNormal];
     self.activityIndicatorView.color = colors.orangeUI;
+
+    if (colors.isDark) {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
+    } else {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-512x512"];
+    }
 }
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification

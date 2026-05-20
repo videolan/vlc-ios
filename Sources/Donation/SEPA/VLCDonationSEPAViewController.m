@@ -127,6 +127,12 @@
         _nameField.textColor = colors.cellTextColor;
         _emailField.textColor = colors.cellTextColor;
     }
+
+    if (colors.isDark) {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
+    } else {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-512x512"];
+    }
 }
 
 - (void)hideInputElements:(BOOL)bValue

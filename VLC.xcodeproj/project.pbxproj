@@ -554,7 +554,6 @@
 		7D50C71C2BBD20DF00B9F1A0 /* VideoPlayerControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */; };
 		7D50C71D2BBD20DF00B9F1A0 /* PlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */; };
 		7D50C71E2BBD20DF00B9F1A0 /* MediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */; };
-		7D50C71F2BBD20DF00B9F1A0 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7D50C7202BBD20DF00B9F1A0 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
 		7D50C7212BBD20DF00B9F1A0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */; };
 		7D50C7222BBD20DF00B9F1A0 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
@@ -967,7 +966,6 @@
 		7DA515902EF82B63000C9995 /* VideoPlayerControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */; };
 		7DA515912EF82B63000C9995 /* PlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */; };
 		7DA515922EF82B63000C9995 /* MediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */; };
-		7DA515932EF82B63000C9995 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7DA515942EF82B63000C9995 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
 		7DA515952EF82B63000C9995 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */; };
 		7DA515962EF82B63000C9995 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
@@ -1056,7 +1054,6 @@
 		7DDA30422AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DDE41931BE925820065C53A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Images.xcassets */; };
-		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7DE0A9442F9420D40020980C /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
 		7DE0A9452F94247E0020980C /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
@@ -1952,7 +1949,6 @@
 		7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationCreditCardViewController.m; sourceTree = "<group>"; };
 		7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationCreditCardViewController.xib; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/iOS/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackService.h; path = Sources/Playback/Control/VLCPlaybackService.h; sourceTree = SOURCE_ROOT; };
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackService.m; path = Sources/Playback/Control/VLCPlaybackService.m; sourceTree = SOURCE_ROOT; };
 		7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMediaLibraryObserver.swift; sourceTree = "<group>"; };
@@ -3831,15 +3827,14 @@
 			isa = PBXGroup;
 			children = (
 				7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */,
-				6D4FFE3B2F9C5EED002F4F26 /* VLC26-dev-blue.icon */,
-				6D4FFE362F9C5EE4002F4F26 /* VLC26.icon */,
 				6D9754012F9DBF7A00E07B01 /* VLCCone26-dark-512x512.png */,
 				6D17455F2F9D2816003BE08B /* VLCCone26-512x512.png */,
-				7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */,
 				7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */,
 				7D3784EA183A9A1E009EE944 /* Info.plist */,
 				7D31719C19FEC91F0019357A /* VLC.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
+				6D4FFE3B2F9C5EED002F4F26 /* VLC26-dev-blue.icon */,
+				6D4FFE362F9C5EE4002F4F26 /* VLC26.icon */,
 				7D6B08FB174D773C00A05173 /* Settings.bundle */,
 			);
 			path = iOS;
@@ -4598,7 +4593,6 @@
 				7D50C71C2BBD20DF00B9F1A0 /* VideoPlayerControls.xib in Resources */,
 				7D50C71D2BBD20DF00B9F1A0 /* PlaybackSpeedView.xib in Resources */,
 				7D50C71E2BBD20DF00B9F1A0 /* MediaCollectionViewCell.xib in Resources */,
-				7D50C71F2BBD20DF00B9F1A0 /* VLCCone512x512.png in Resources */,
 				7D50C7202BBD20DF00B9F1A0 /* web-open-fixed.png in Resources */,
 				7D50C7212BBD20DF00B9F1A0 /* Launch Screen.storyboard in Resources */,
 				7D50C7222BBD20DF00B9F1A0 /* VLCCloudServicesTableViewController.xib in Resources */,
@@ -4661,7 +4655,6 @@
 				8DB0D71C24CED2BE00915506 /* VideoPlayerControls.xib in Resources */,
 				40C95A00256E9272002DD208 /* PlaybackSpeedView.xib in Resources */,
 				41884A4E214BE0C800D2C6B4 /* MediaCollectionViewCell.xib in Resources */,
-				7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */,
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7DAF3E94268F536400C47D95 /* Launch Screen.storyboard in Resources */,
 				7DC869E628CB87A700EE99F8 /* VLCCloudServicesTableViewController.xib in Resources */,
@@ -4724,7 +4717,6 @@
 				7DA515902EF82B63000C9995 /* VideoPlayerControls.xib in Resources */,
 				7DA515912EF82B63000C9995 /* PlaybackSpeedView.xib in Resources */,
 				7DA515922EF82B63000C9995 /* MediaCollectionViewCell.xib in Resources */,
-				7DA515932EF82B63000C9995 /* VLCCone512x512.png in Resources */,
 				7DA515942EF82B63000C9995 /* web-open-fixed.png in Resources */,
 				7DA515952EF82B63000C9995 /* Launch Screen.storyboard in Resources */,
 				7DA515962EF82B63000C9995 /* VLCCloudServicesTableViewController.xib in Resources */,
@@ -7279,7 +7271,7 @@
 			baseConfigurationReference = 3801A64301C18DE263C41EF4 /* Pods-VLC-iOS.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "VLC26-dev-blue";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "VLC-iOSDebug.entitlements";
@@ -7328,7 +7320,7 @@
 			baseConfigurationReference = 33AF3A9D1D7AF87AB34E876F /* Pods-VLC-iOS.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -7378,7 +7370,7 @@
 			baseConfigurationReference = DDCB35839BF414690FA0A82C /* Pods-VLC-iOS-no-watch.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "VLC26-dev-blue";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "VLC-iOS-no-watchDebug.entitlements";
@@ -7427,7 +7419,7 @@
 			baseConfigurationReference = 1517FABE4456B88E5D81AE0D /* Pods-VLC-iOS-no-watch.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -7477,7 +7469,7 @@
 			baseConfigurationReference = 1D2A6F31539F0725C551A983 /* Pods-VLC-iOS-no-watch.distribution.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -7574,7 +7566,7 @@
 			baseConfigurationReference = CF575E750ED4153B0715E1D5 /* Pods-VLC-iOS.distribution.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/iOS/VLC.entitlements;
@@ -7622,7 +7614,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 61EC7664E6E2AE8EF097DF0D /* Pods-VLC-watchOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "VLC26-dev-blue";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -7679,7 +7671,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F40EA7912042572686BD2A77 /* Pods-VLC-watchOS.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -7735,7 +7727,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8AF47631AE2502DA4EE253F /* Pods-VLC-watchOS.distribution.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = VLC26;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;

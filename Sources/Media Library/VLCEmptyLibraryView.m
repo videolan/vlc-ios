@@ -47,6 +47,11 @@
     _emptyLibraryLabel.backgroundColor = colors.background;
     _emptyLibraryLongDescriptionLabel.textColor = colors.lightTextColor;
     _emptyLibraryLongDescriptionLabel.backgroundColor = colors.background;
+    if (colors.isDark) {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
+    } else {
+        _iconView.image = [UIImage imageNamed:@"VLCCone26-512x512"];
+    }
 }
 
 - (void)setContentType:(VLCEmptyLibraryViewContentType)contentType

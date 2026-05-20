@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +14,7 @@
                 <outlet property="authorizationTextLabel" destination="OFW-a4-rk1" id="gIL-rs-oJw"/>
                 <outlet property="continueButton" destination="y87-Pd-xGd" id="keE-gS-rj7"/>
                 <outlet property="descriptionLabel" destination="Tjf-kx-D4n" id="Hrz-Yy-aqL"/>
+                <outlet property="iconView" destination="iXP-bK-0Va" id="xTt-kQ-qWO"/>
                 <outlet property="titleLabel" destination="GlX-b5-DcZ" id="O7J-fM-cT4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,9 +25,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
-                    <rect key="frame" x="-3" y="39" width="399" height="779"/>
+                    <rect key="frame" x="-3" y="98" width="399" height="686"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="iXP-bK-0Va">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone26-512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="iXP-bK-0Va">
                             <rect key="frame" x="149.66666666666666" y="20" width="100" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="iXP-bK-0Va" secondAttribute="height" multiplier="8:8" id="8hg-xZ-3Ns"/>
@@ -99,7 +100,7 @@
         </view>
     </objects>
     <resources>
-        <image name="VLCCone512x512.png" width="512" height="512"/>
+        <image name="VLCCone26-512x512.png" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

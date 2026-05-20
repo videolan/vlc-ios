@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *descriptionLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UIImageView *iconView;
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *creditCardNumberLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *expiryDateLabel;
