@@ -22,6 +22,7 @@
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPErrorResponse.h"
+#import "HTTPRedirectResponse.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMetaData.h"
@@ -792,7 +793,11 @@ static NSMutableDictionary *authentifiedHosts;
         return [self _httpGETCSSForPath:path];
     }
 
-    return [super httpResponseForMethod:method URI:path];
+    NSObject<HTTPResponse> *response = [super httpResponseForMethod:method URI:path];
+    if (response == nil) {
+        return [[HTTPRedirectResponse alloc] initWithPath:@"/"];
+    }
+    return response;
 }
 
 - (WebSocket *)webSocketForURI:(NSString *)path
