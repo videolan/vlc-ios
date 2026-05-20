@@ -82,6 +82,8 @@
         [self performSelectorOnMainThread:@selector(_respondToOpenURL:) withObject:receivedDict waitUntilDone:NO];
     } else if ([type isEqualToString:@"volume"]) {
         [self sendMessage:@"VOLUME CONTROL NOT SUPPORTED ON THIS DEVICE"];
+    } else if ([type isEqualToString:@"repeat"]) {
+        [self performSelectorOnMainThread:@selector(_respondToRepeat:) withObject:receivedDict waitUntilDone:NO];
     } else
         [self sendMessage:@"INVALID REQUEST!"];
 }
@@ -126,7 +128,8 @@
                                          @"duration" : @([vpc mediaDuration])};
             returnDict = @{ @"currentTime" : @([vpc playedTime].intValue),
                             @"type" : @"playing",
-                            @"media" : mediaDict };
+                            @"media" : mediaDict,
+                            @"repeatMode" : @(vpc.repeatMode) };
         }
     }
     if (!returnDict) {
@@ -255,6 +258,37 @@
     NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
                                   @"type" : @"seekTo",
                                   @"media" : mediaDict };
+    [self sendDataWithDict:dict];
+}
+
+#pragma mark - repeat
+
+- (void)_respondToRepeat:(NSDictionary *)dictionary
+{
+    /*
+     {
+        "type": "repeat",
+        "repeatMode": 0 // 0 = no repeat, 1 = repeat one, 2 = repeat all
+     }
+     */
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSNumber *modeNumber = dictionary[@"repeatMode"];
+    VLCRepeatMode mode;
+    switch (modeNumber.integerValue) {
+        case VLCRepeatCurrentItem:
+            mode = VLCRepeatCurrentItem;
+            break;
+        case VLCRepeatAllItems:
+            mode = VLCRepeatAllItems;
+            break;
+        default:
+            mode = VLCDoNotRepeat;
+            break;
+    }
+    vpc.repeatMode = mode;
+
+    NSDictionary *dict = @{ @"type" : @"repeat",
+                            @"repeatMode" : @(mode) };
     [self sendDataWithDict:dict];
 }
 

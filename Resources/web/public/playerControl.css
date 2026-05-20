@@ -22,7 +22,7 @@
 }
 
 .player-control .progress {
-    width: 80%;
+    width: calc(80% - 64px);
     height: 8px;
     border-radius: 5px;
     background: #676767;
@@ -147,6 +147,40 @@
     width: 48px;
     margin-right: 16px;
     height: 100%;
+}
+
+.player-control .repeat {
+    position: relative;
+    float: right;
+    width: 32px;
+    height: 32px;
+    margin: 24px 16px 24px 16px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 24px 24px;
+    cursor: pointer;
+    opacity: 0.7;
+    border-radius: 4px;
+    transition: opacity 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.player-control .repeat:hover {
+    opacity: 1;
+    background-color: #4f4f4f;
+}
+
+.player-control .repeat-off {
+    background-image: url('/public/repeat-off.png');
+}
+
+.player-control .repeat-all {
+    background-image: url('/public/repeat-all.png');
+    opacity: 1;
+}
+
+.player-control .repeat-one {
+    background-image: url('/public/repeat-one.png');
+    opacity: 1;
 }
 
 .player-control .volume-holder {

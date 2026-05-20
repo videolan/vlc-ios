@@ -144,6 +144,13 @@ $(function() {
             9: 'very-high',
             10: 'very-high'
         };
+        // 0 = no repeat, 1 = repeat one, 2 = repeat all (matches VLCRepeatMode)
+        this.repeatMode = 0;
+        this.repeatStyleMap = {
+            0: 'repeat-off',
+            1: 'repeat-one',
+            2: 'repeat-all'
+        };
     };
 
     /**
@@ -246,6 +253,32 @@ $(function() {
             self.updateVolume(y);
         });
 
+        this.element.find('.repeat').bind('click', function() {
+            self.cycleRepeat();
+        });
+
+        self.updateRepeatIcon();
+    };
+
+    /**
+     * @method cycleRepeat
+     */
+    PlayerControl.prototype.cycleRepeat = function() {
+        this.repeatMode = (this.repeatMode + 1) % 3;
+        this.updateRepeatIcon();
+        this.socket.sendMessage({
+            type: 'repeat',
+            repeatMode: this.repeatMode
+        });
+    };
+
+    /**
+     * @method updateRepeatIcon
+     */
+    PlayerControl.prototype.updateRepeatIcon = function() {
+        var repeatEl = this.element.find('.repeat');
+        repeatEl.removeClass('repeat-off repeat-one repeat-all');
+        repeatEl.addClass(this.repeatStyleMap[this.repeatMode] || 'repeat-off');
     };
 
     /**
@@ -608,11 +641,19 @@ $(function() {
                 title: message.media.title,
                 id: message.media.id
             });
+            if (typeof message.repeatMode !== 'undefined') {
+                playerControl.repeatMode = message.repeatMode | 0;
+                playerControl.updateRepeatIcon();
+            }
         },
         seekTo: function(message) {
             playerControl.seekTo({
                 currentTime: message.currentTime
             });
+        },
+        repeat: function(message) {
+            playerControl.repeatMode = message.repeatMode | 0;
+            playerControl.updateRepeatIcon();
         }
     };
 
