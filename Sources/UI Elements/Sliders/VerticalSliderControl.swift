@@ -403,6 +403,7 @@ class VerticalSliderControl: UIControl {
             }
 
             panInfo = PanInfo(y: y, percentage: percentage)
+            sendActions(for: .touchDown)
 
         case .changed:
             guard isPanning else {
@@ -411,6 +412,7 @@ class VerticalSliderControl: UIControl {
             }
 
             handlePan(y: y)
+            sendActions(for: .touchDragInside)
 
         case .ended:
             guard isPanning else {
