@@ -69,9 +69,12 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithTitle:NSLocalizedString(@"BUTTON_CONNECT", nil)
-                                              style:UIBarButtonItemStyleDone target:self
+                                              style:UIBarButtonItemStylePlain
+                                              target:self
                                               action:@selector(connectLoginDataSource)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
+
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
