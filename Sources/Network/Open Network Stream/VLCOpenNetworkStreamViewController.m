@@ -150,13 +150,7 @@
 
     self.historyTableView.rowHeight = [VLCStreamingHistoryCell heightOfCell];
 
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
-                                   style:UIBarButtonItemStylePlain
-                                   target:self
-                                   action:@selector(editTableView:)];
-
-    self.navigationItem.rightBarButtonItems = @[editButton];
+    [self _setRightBarButtonItemsEditing:NO];
 }
 
 - (void)updateForTheme
@@ -207,10 +201,7 @@
     self.scanSubToggleButton.selected = [defaults boolForKey:kVLChttpScanSubtitle];
 
     self.historyTableView.editing = NO;
-    UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
-    editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-    editButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.rightBarButtonItems = @[editButtonItem];
+    [self _setRightBarButtonItemsEditing:NO];
 
     [self updateEditButtonState];
     [super viewWillAppear:animated];
@@ -307,27 +298,9 @@
 
 - (void)editTableView:(id)sender
 {
-    BOOL editing = self.historyTableView.editing;
-    [self.historyTableView setEditing:!editing animated:YES];
-
-    // Find current edit button and construct/reset right buttons
-    UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
-    if (!editButtonItem) { return; }
-
-    if (editing) {
-        // Leaving editing: set title back to Edit and remove trash button
-        editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-        editButtonItem.style = UIBarButtonItemStylePlain;
-        self.navigationItem.rightBarButtonItems = @[editButtonItem];
-    } else {
-        // Entering editing: set title to Done and add trash button
-        editButtonItem.title = NSLocalizedString(@"BUTTON_DONE", nil);
-        editButtonItem.style = UIBarButtonItemStyleDone;
-
-        UIBarButtonItem *resetButton = [self _resetBarButtonItem];
-
-        self.navigationItem.rightBarButtonItems = @[editButtonItem, resetButton];
-    }
+    BOOL wasEditing = self.historyTableView.editing;
+    [self.historyTableView setEditing:!wasEditing animated:YES];
+    [self _setRightBarButtonItemsEditing:!wasEditing];
 }
 
 - (void)emptyListAction:(id)sender
@@ -561,35 +534,63 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - internals
 
-- (UIBarButtonItem *)_resetBarButtonItem
+- (void)_setRightBarButtonItemsEditing:(BOOL)editing
 {
-    UIImage *resetImage = nil;
-    if (@available(iOS 13.0, *)) {
-        resetImage = [UIImage systemImageNamed:@"trash"];
+    UIBarButtonItem *first;
+    UIBarButtonItem *second;
+    if (editing) {
+        first = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil)
+                                                 style:UIBarButtonItemStyleDone
+                                                target:self
+                                                action:@selector(editTableView:)];
+
+        UIImage *resetImage = nil;
+        if (@available(iOS 13.0, *)) {
+            resetImage = [UIImage systemImageNamed:@"trash"];
+        }
+        if (!resetImage) {
+            resetImage = [UIImage imageNamed:@"trash"];
+        }
+        second = [[UIBarButtonItem alloc] initWithImage:resetImage
+                                                  style:UIBarButtonItemStylePlain
+                                                 target:self
+                                                 action:@selector(emptyListAction:)];
+        second.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    } else {
+        first = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                                 style:UIBarButtonItemStylePlain
+                                                target:self
+                                                action:@selector(editTableView:)];
+
+        UIImage *shareImage = nil;
+        if (@available(iOS 13.0, *)) {
+            shareImage = [UIImage systemImageNamed:@"square.and.arrow.up"];
+        }
+        if (!shareImage) {
+            shareImage = [UIImage imageNamed:@"share"];
+        }
+        second = [[UIBarButtonItem alloc] initWithImage:shareImage
+                                                  style:UIBarButtonItemStylePlain
+                                                 target:self
+                                                 action:@selector(shareAction:)];
+        second.accessibilityLabel = NSLocalizedString(@"SHARE_LABEL", nil);
     }
-    if (!resetImage) {
-        resetImage = [UIImage imageNamed:@"trash"];
-    }
-    UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithImage:resetImage
-                                                                     style:UIBarButtonItemStylePlain
-                                                                    target:self
-                                                                    action:@selector(emptyListAction:)];
-    resetButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
-    return resetButton;
+    self.navigationItem.rightBarButtonItems = @[first, second];
+}
+
+- (void)shareAction:(id)sender
+{
 }
 
 - (void)updateEditButtonState
 {
     BOOL hasItems = _recentURLs.count > 0;
-    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
-        item.enabled = hasItems;
-    }
     if (!hasItems && self.historyTableView.editing) {
         [self.historyTableView setEditing:NO animated:YES];
-        UIBarButtonItem *editButtonItem = self.navigationItem.rightBarButtonItems.firstObject;
-        editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-        editButtonItem.style = UIBarButtonItemStylePlain;
-        self.navigationItem.rightBarButtonItems = @[editButtonItem];
+        [self _setRightBarButtonItemsEditing:NO];
+    }
+    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+        item.enabled = hasItems;
     }
 }
 	
