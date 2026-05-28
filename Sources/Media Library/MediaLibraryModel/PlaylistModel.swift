@@ -13,7 +13,7 @@
 class PlaylistModel: NSObject, MLBaseModel {
     typealias MLType = VLCMLPlaylist
 
-    var sortModel = SortModel([.alpha, .duration])
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .lastModificationDate])
 
     var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
