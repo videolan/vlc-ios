@@ -120,6 +120,7 @@ final class VideoPreviewController: UIViewController {
 
 extension VideoPreviewController: VLCMediaPlayerDelegate {
     func mediaPlayerStateChanged(_ newState: VLCMediaPlayerState) {
+        mediaPlayer?.audio?.isMuted = true
         guard newState == .playing,
               !hasSeeked,
               let player = mediaPlayer else { return }
