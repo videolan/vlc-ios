@@ -645,7 +645,7 @@
 		7D98194C2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D98194A2FC8B91C0017248D /* VLCMediaList+M3U.m */; };
 		7D98194D2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D98194A2FC8B91C0017248D /* VLCMediaList+M3U.m */; };
 		7D9819462FC8A6480017248D /* VideoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E800D8BC1F35B35D6B7F /* VideoPreviewController.swift */; };
-		7D9819472FC8A6480017248D /* VideoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E800D8BC1F35B35D6B7F /* VideoPreviewController.swift */; };
+		7D9819482FC8B4E90017248D /* VideoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E800D8BC1F35B35D6B7F /* VideoPreviewController.swift */; };
 		7D9BF3112991947400B68FEC /* VLCMLMedia+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */; };
 		7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */; };
 		7DA5143C2EF82B63000C9995 /* VLCNonInteractiveWindowSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */; };
@@ -5536,6 +5536,7 @@
 				7D50C6552BBD20DF00B9F1A0 /* UIImage+Gradient.swift in Sources */,
 				E049E89E2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
 				7D50C6562BBD20DF00B9F1A0 /* QueueViewController.swift in Sources */,
+				7D9819482FC8B4E90017248D /* VideoPreviewController.swift in Sources */,
 				7D50C6572BBD20DF00B9F1A0 /* AlbumHeader.swift in Sources */,
 				7D50C6582BBD20DF00B9F1A0 /* URLHandler.swift in Sources */,
 				7D50C6592BBD20DF00B9F1A0 /* VideoViewController.swift in Sources */,
@@ -6259,7 +6260,6 @@
 				BE4D24852E32C17A00434D7A /* AspectRatio.swift in Sources */,
 				BE4D24972E43C43500434D7A /* NSString+SupportedMedia.m in Sources */,
 				32B7A66E2FA02ED000879A4D /* Character+Utility.swift in Sources */,
-				7D9819472FC8A6480017248D /* VideoPreviewController.swift in Sources */,
 				BE4D24832E32C11400434D7A /* URL+isExcludedFromBackup.swift in Sources */,
 				BE4D247F2E32BA8300434D7A /* VLCMLMedia+App.m in Sources */,
 				BE4D24952E43C28100434D7A /* MediaLibraryBaseModel.swift in Sources */,
