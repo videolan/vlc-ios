@@ -288,6 +288,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 animateCurrentlyPlayingState()
                 backupThumbnail = audiotrack.thumbnailImage()
             } else {
+                isMediaBeingPlayed = false
                 thumbnailView.image = audiotrack.thumbnailImage()
                 backupThumbnail = nil
             }
