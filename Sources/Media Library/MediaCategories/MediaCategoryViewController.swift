@@ -1808,12 +1808,14 @@ extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         guard let indexPath = configuration.identifier as? IndexPath else { return }
 
-        if let previewVC = animator.previewViewController as? VideoPreviewController,
-           let media = currentDataSet.objectAtIndex(index: indexPath.row) as? VLCMLMedia {
-            media.progress = Float(previewVC.currentPosition)
+        if animator.previewViewController is VideoPreviewController {
+            selectedItem(at: indexPath)
+            return
         }
 
-        selectedItem(at: indexPath)
+        if let modelContent = getObject(at: indexPath), !(modelContent is VLCMLMedia) {
+            selectedItem(at: indexPath)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
