@@ -24,5 +24,6 @@
 - (void)downloadFileToDocumentFolder:(BoxFile *)file;
 #endif
 - (void)getFolderInformation;
+- (void)loadThumbnailForFileID:(NSString *)fileID completion:(void (^)(UIImage * _Nullable image))completion;
 
 @end

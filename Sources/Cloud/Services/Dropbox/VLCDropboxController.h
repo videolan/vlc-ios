@@ -26,6 +26,8 @@
 - (void)downloadFolderFiles:(DBFILESFolderMetadata *)folder;
 - (void)streamFile:(DBFILESMetadata *)file currentNavigationController:(UINavigationController *)navigationController;
 
+- (void)loadThumbnailForFile:(DBFILESFileMetadata *)file completion:(void (^)(UIImage * _Nullable image))completion;
+
 - (void)reset;
 
 @end

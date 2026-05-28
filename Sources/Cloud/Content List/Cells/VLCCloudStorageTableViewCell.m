@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors:  Carola Nitz <nitz.carola # googlemail.com>
@@ -13,6 +13,8 @@
 
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCNetworkImageView.h"
+#import "VLCBoxController.h"
+#import "NSString+SupportedMedia.h"
 
 #import "VLC-Swift.h"
 
@@ -185,7 +187,20 @@
             self.downloadButton.hidden = NO;
             self.isFavourable = NO;
             self.favouriteButton.hidden = YES;
-            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+
+            if ([file.name isSupportedAudioMediaFormat]) {
+                self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
+            } else if ([file.name isSupportedMediaFormat]) {
+                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+            } else {
+                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+            }
+
+            [[VLCDropboxController sharedInstance] loadThumbnailForFile:file completion:^(UIImage * _Nullable image) {
+                if (image) {
+                    self->_thumbnailView.image = image;
+                }
+            }];
         }
     }
     else if(_driveFile != nil) {
@@ -254,18 +269,23 @@
             self.downloadButton.hidden = NO;
             self.favouriteButton.hidden = YES;
         }
-        //TODO: correct thumbnails
-//        if (_boxFile.modelID != nil) {
-//            //this request needs a token in the header to work
-//            NSString *thumbnailURLString = [NSString stringWithFormat:@"https://api.box.com/2.0/files/%@/thumbnail.png?min_height=32&min_width=32&max_height=64&max_width=64", _boxFile.modelID];
-//            [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
-//        }
-        //TODO:correct icons
+
         if (isDirectory) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else if ([self.boxFile.name isSupportedAudioMediaFormat]) {
+            self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
+        } else if ([self.boxFile.name isSupportedMediaFormat]) {
+            self.thumbnailView.image = [UIImage imageNamed:@"movie"];
         } else {
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", self.boxFile);
+        }
+
+        if (!isDirectory) {
+            [[VLCBoxController sharedInstance] loadThumbnailForFileID:self.boxFile.modelID completion:^(UIImage * _Nullable image) {
+                if (image) {
+                    self->_thumbnailView.image = image;
+                }
+            }];
         }
     } else if(_oneDriveFile != nil) {
         [self updateOneDriveDisplayedInformation];

@@ -2,7 +2,7 @@
  * VLCDropboxController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -324,6 +324,31 @@
                 [self.delegate currentProgressInformation:(CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite];
         }];
 
+}
+
+- (void)loadThumbnailForFile:(DBFILESFileMetadata *)file completion:(void (^)(UIImage * _Nullable))completion
+{
+    if (!completion) {
+        return;
+    }
+    if (!file.pathLower || !self.client) {
+        completion(nil);
+        return;
+    }
+
+    DBFILESPathOrLink *resource = [[DBFILESPathOrLink alloc] initWithPath:file.pathLower];
+    DBFILESThumbnailSize *size = [[DBFILESThumbnailSize alloc] initWithW128h128];
+
+    [[self.client.filesRoutes getThumbnailV2Data:resource format:nil size:size mode:nil]
+        setResponseBlock:^(DBFILESPreviewResult * _Nullable result,
+                           DBFILESThumbnailV2Error * _Nullable routeError,
+                           DBRequestError * _Nullable networkError,
+                           NSData * _Nullable fileContents) {
+            UIImage *image = fileContents ? [UIImage imageWithData:fileContents] : nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(image);
+            });
+        }];
 }
 
 - (void)loadStreamFrom:(NSString *)path
