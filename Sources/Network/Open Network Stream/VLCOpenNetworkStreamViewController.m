@@ -283,10 +283,14 @@
         NSURL *url = [NSURL URLWithString:urlString];
 
         if (url && url.scheme && url.host) {
-            if ([_recentURLs indexOfObject:urlString] != NSNotFound)
-                [_recentURLs removeObject:urlString];
-
-            [_recentURLs addObject:urlString];
+            NSUInteger oldIndex = [_recentURLs indexOfObject:urlString];
+            if (oldIndex != NSNotFound) {
+                [_recentURLs removeObjectAtIndex:oldIndex];
+                [_recentURLs addObject:urlString];
+                [self _shiftTitleKeysForMoveFrom:oldIndex to:_recentURLs.count - 1];
+            } else {
+                [_recentURLs addObject:urlString];
+            }
             [self _saveData];
 
             [self.historyTableView reloadData];
@@ -468,8 +472,19 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_recentURLs removeObjectAtIndex:indexPath.row];
-        [_recentURLTitles removeObjectForKey:[@(indexPath.row) stringValue]];
+        NSInteger deletedRow = indexPath.row;
+        [_recentURLs removeObjectAtIndex:deletedRow];
+
+        NSMutableDictionary *shiftedTitles = [NSMutableDictionary dictionaryWithCapacity:_recentURLTitles.count];
+        [_recentURLTitles enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *title, BOOL *stop) {
+            NSInteger row = key.integerValue;
+            if (row < deletedRow) {
+                shiftedTitles[key] = title;
+            } else if (row > deletedRow) {
+                shiftedTitles[@(row - 1).stringValue] = title;
+            }
+        }];
+        _recentURLTitles = shiftedTitles;
 
         [self _saveData];
 
@@ -522,15 +537,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     NSString *stringURL = _recentURLs[sourceIndexPath.row];
-    NSString *titleKey = [@(sourceIndexPath.row) stringValue];
-    NSString *title = _recentURLTitles[titleKey];
     [_recentURLs removeObjectAtIndex:sourceIndexPath.row];
     [_recentURLs insertObject:stringURL atIndex:destinationIndexPath.row];
-    if (title) {
-        [_recentURLTitles removeObjectForKey:titleKey];
-        [_recentURLTitles setObject:title forKey:[@(destinationIndexPath.row) stringValue]];
-    }
+    [self _shiftTitleKeysForMoveFrom:sourceIndexPath.row to:destinationIndexPath.row];
     [self _saveData];
+}
+
+- (void)_shiftTitleKeysForMoveFrom:(NSInteger)source to:(NSInteger)destination
+{
+    if (source == destination) return;
+    NSInteger delta = source < destination ? -1 : 1;
+    NSInteger lo = MIN(source, destination);
+    NSInteger hi = MAX(source, destination);
+    NSMutableDictionary *shifted = [NSMutableDictionary dictionaryWithCapacity:_recentURLTitles.count];
+    [_recentURLTitles enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *title, BOOL *stop) {
+        NSInteger row = key.integerValue;
+        if (row == source) {
+            row = destination;
+        } else if (row >= lo && row <= hi) {
+            row += delta;
+        }
+        shifted[@(row).stringValue] = title;
+    }];
+    _recentURLTitles = shifted;
 }
 
 #pragma mark - internals
