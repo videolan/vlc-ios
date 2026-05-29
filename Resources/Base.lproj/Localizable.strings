@@ -71,7 +71,6 @@
 "BUTTON_LOGOUT" = "Logout";
 "BUTTON_CONTINUE" = "Continue";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
-"SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 "UNTITLED_SHOW" = "Untitled Show";

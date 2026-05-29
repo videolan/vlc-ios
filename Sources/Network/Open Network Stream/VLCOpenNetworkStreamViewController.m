@@ -16,7 +16,6 @@
 #import "VLCPlaybackService.h"
 #import "VLCStreamingHistoryCell.h"
 #import "VLC-Swift.h"
-#import "VLCOpenNetworkSubtitlesFinder.h"
 #import "VLCMediaList+M3U.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
@@ -29,9 +28,7 @@
 @property (weak, nonatomic) UIView *urlBorder;
 @property (strong, nonatomic) UIButton *openButton;
 @property (strong, nonatomic) UIButton *privateToggleButton;
-@property (strong, nonatomic) UIButton *scanSubToggleButton;
 @property (strong, nonatomic) UILabel *privateModeLabel;
-@property (strong, nonatomic) UILabel *scanSubModeLabel;
 @property (strong, nonatomic) UITableView *historyTableView;
 @property (strong, nonatomic) UILabel *whatToOpenHelpLabel;
 
@@ -123,18 +120,6 @@
     [root addSubview:privateModeLabel];
     self.privateModeLabel = privateModeLabel;
 
-    UIButton *scanSubToggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    scanSubToggleButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [scanSubToggleButton addTarget:self action:@selector(toggleButtonAction:) forControlEvents:UIControlEventPrimaryActionTriggered];
-    [root addSubview:scanSubToggleButton];
-    self.scanSubToggleButton = scanSubToggleButton;
-
-    UILabel *scanSubModeLabel = [[UILabel alloc] init];
-    scanSubModeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    scanSubModeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
-    [root addSubview:scanSubModeLabel];
-    self.scanSubModeLabel = scanSubModeLabel;
-
     UITableView *historyTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     historyTableView.translatesAutoresizingMaskIntoConstraints = NO;
     historyTableView.alwaysBounceVertical = YES;
@@ -182,16 +167,7 @@
         [privateModeLabel.leadingAnchor constraintEqualToAnchor:privateToggleButton.trailingAnchor constant:4],
         [safe.trailingAnchor constraintGreaterThanOrEqualToAnchor:privateModeLabel.trailingAnchor constant:16],
 
-        [scanSubToggleButton.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:16],
-        [scanSubToggleButton.topAnchor constraintEqualToAnchor:privateToggleButton.bottomAnchor constant:-3],
-        [scanSubToggleButton.widthAnchor constraintEqualToConstant:32],
-        [scanSubToggleButton.heightAnchor constraintEqualToConstant:32],
-
-        [scanSubModeLabel.centerYAnchor constraintEqualToAnchor:scanSubToggleButton.centerYAnchor],
-        [scanSubModeLabel.leadingAnchor constraintEqualToAnchor:scanSubToggleButton.trailingAnchor constant:4],
-        [safe.trailingAnchor constraintGreaterThanOrEqualToAnchor:scanSubModeLabel.trailingAnchor constant:16],
-
-        [historyTableView.topAnchor constraintEqualToAnchor:scanSubToggleButton.bottomAnchor constant:7],
+        [historyTableView.topAnchor constraintEqualToAnchor:privateToggleButton.bottomAnchor constant:7],
         [historyTableView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [historyTableView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [historyTableView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
@@ -257,13 +233,10 @@
     [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
     self.openButton.layer.cornerRadius = 4.0;
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
-    [self.scanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
     self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
 
     [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
     [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
-    [self.scanSubToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
-    [self.scanSubToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
 
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
@@ -306,11 +279,9 @@
     self.urlField.textColor = colors.cellTextColor;
     self.urlBorder.backgroundColor = colors.textfieldBorderColor;
     self.privateModeLabel.textColor = colors.lightTextColor;
-    self.scanSubModeLabel.textColor = colors.lightTextColor;
     self.whatToOpenHelpLabel.textColor = colors.lightTextColor;
     self.openButton.backgroundColor = colors.orangeUI;
     self.privateToggleButton.tintColor = colors.orangeUI;
-    self.scanSubToggleButton.tintColor = colors.orangeUI;
     for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
         item.tintColor = colors.orangeUI;
     }
@@ -337,7 +308,6 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
-    self.scanSubToggleButton.selected = [defaults boolForKey:kVLChttpScanSubtitle];
 
     self.historyTableView.editing = NO;
     [self _setRightBarButtonItemsEditing:NO];
@@ -354,7 +324,6 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:self.privateToggleButton.selected forKey:kVLCPrivateWebStreaming];
-    [defaults setBool:self.scanSubToggleButton.selected forKey:kVLChttpScanSubtitle];
     [self.view endEditing:YES];
 
     /* force update before we leave */
@@ -816,10 +785,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-
-        if (self.scanSubToggleButton.selected) {
-            [VLCOpenNetworkSubtitlesFinder tryToFindSubtitleOnServerForURL:playbackURL];
-        }
     } fail:nil];
 }
 

@@ -71,7 +71,6 @@
 "BUTTON_RESET" = "Reset";
 "BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
-"SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";

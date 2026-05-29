@@ -118,7 +118,6 @@
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"
 #define kVLCPrivateWebStreaming @"private-streaming"
-#define kVLChttpScanSubtitle @"http-scan-subtitle"
 #define kVLCHTTPUploadDirectory @"Upload"
 #define kVLCAudioLibraryGridLayout @"kVLCAudioLibraryGridLayout"
 #define kVLCAudioLibraryHideFeatArtists @"kVLCAudioLibraryHideFeatArtists"
