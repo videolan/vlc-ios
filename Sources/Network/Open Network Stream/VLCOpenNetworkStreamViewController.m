@@ -2,7 +2,7 @@
  * VLCOpenNetworkStreamViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -17,6 +17,7 @@
 #import "VLCStreamingHistoryCell.h"
 #import "VLC-Swift.h"
 #import "VLCOpenNetworkSubtitlesFinder.h"
+#import "VLCMediaList+M3U.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
@@ -580,6 +581,44 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)shareAction:(id)sender
 {
+    if (_recentURLs.count == 0) {
+        return;
+    }
+
+    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+    NSInteger count = _recentURLs.count;
+    for (NSInteger i = 0; i < count; i++) {
+        NSString *urlString = _recentURLs[i];
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (url == nil) {
+            continue;
+        }
+        VLCMedia *media = [VLCMedia mediaWithURL:url];
+        NSString *renamedTitle = _recentURLTitles[@(i).stringValue];
+        if (renamedTitle.length > 0) {
+            media.metaData.title = renamedTitle;
+        }
+        [mediaList addMedia:media];
+    }
+
+    NSString *fileName = [NSLocalizedString(@"RECENT_STREAMS", nil) stringByAppendingPathExtension:@"m3u"];
+    NSURL *tempURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:fileName];
+    // we might have crashed in the past and left a file over, remove it
+    [[NSFileManager defaultManager] removeItemAtURL:tempURL error:nil];
+
+    NSError *error = nil;
+    if (![mediaList writeM3UToURL:tempURL error:&error]) {
+        APLog(@"Failed to write M3U for sharing: %@", error);
+        return;
+    }
+
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[tempURL]
+                                                                             applicationActivities:nil];
+    activityVC.popoverPresentationController.barButtonItem = sender;
+    activityVC.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+        [[NSFileManager defaultManager] removeItemAtURL:tempURL error:nil];
+    };
+    [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (void)updateEditButtonState
