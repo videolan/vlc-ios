@@ -126,9 +126,11 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 }
             } else if RemoteNetworkCellType(rawValue: indexPath.row + RemoteNetworkCellType.first) == .wifi {
                 if tableView.cellForRow(at: indexPath)?.selectionStyle == .default {
-                    UIPasteboard.general.string = VLCAppCoordinator.sharedInstance().httpUploaderController.addressToCopy()
-                    UIAlertController.autoDismissable(title: NSLocalizedString("WEBINTF_TITLE", comment: ""),
-                                                      message: NSLocalizedString("WEBINTF_ADDRESS_COPIED", comment: ""))
+                    if VLCAppCoordinator.sharedInstance().httpUploaderController.isReachable {
+                        UIPasteboard.general.string = VLCAppCoordinator.sharedInstance().httpUploaderController.addressToCopy()
+                        UIAlertController.autoDismissable(title: NSLocalizedString("WEBINTF_TITLE", comment: ""),
+                                                          message: NSLocalizedString("WEBINTF_ADDRESS_COPIED", comment: ""))
+                    }
                 }
             }
         }
