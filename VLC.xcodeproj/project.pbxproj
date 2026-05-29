@@ -558,7 +558,6 @@
 		7D50C7142BBD20DF00B9F1A0 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
 		7D50C7152BBD20DF00B9F1A0 /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
 		7D50C7162BBD20DF00B9F1A0 /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
-		7D50C7172BBD20DF00B9F1A0 /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
 		7D50C7182BBD20DF00B9F1A0 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7D50C7192BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D50C71A2BBD20DF00B9F1A0 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
@@ -617,7 +616,6 @@
 		7D87D1CE24CDD4A800A0DF14 /* VLCConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D87D1CD24CDD4A800A0DF14 /* VLCConfettiView.swift */; };
 		7D8968711BD3058800F4EAAD /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */; };
-		7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
 		7D8986D6278B0C25005396AA /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */; };
 		7D8D00A92B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */; };
 		7D8D00AA2B91E239008F1E75 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7D8D00A82B91E239008F1E75 /* PrivacyInfo.xcprivacy */; };
@@ -973,7 +971,6 @@
 		7DA515882EF82B63000C9995 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
 		7DA515892EF82B63000C9995 /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
 		7DA5158A2EF82B63000C9995 /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
-		7DA5158B2EF82B63000C9995 /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
 		7DA5158C2EF82B63000C9995 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7DA5158D2EF82B63000C9995 /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7DA5158E2EF82B63000C9995 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
@@ -1809,7 +1806,6 @@
 		7D87D1CD24CDD4A800A0DF14 /* VLCConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCConfettiView.swift; sourceTree = "<group>"; };
 		7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Sources/Network/Download/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
-		7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = "Sources/Network/Open Network Stream/VLCOpenNetworkStreamViewController.xib"; sourceTree = SOURCE_ROOT; };
 		7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCThumbnailsCache.h; sourceTree = "<group>"; };
 		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
 		7D8A030D2913D45400789583 /* VLCAppCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAppCoordinator.h; sourceTree = "<group>"; };
@@ -3402,7 +3398,6 @@
 				7D4FBD982B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m */,
 				7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */,
 				7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */,
-				7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */,
 				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
 				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
 				7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */,
@@ -4601,7 +4596,6 @@
 				7D50C7142BBD20DF00B9F1A0 /* AddToCollectionView.xib in Resources */,
 				7D50C7152BBD20DF00B9F1A0 /* SleepTimerView.xib in Resources */,
 				7D50C7162BBD20DF00B9F1A0 /* libMediaVLC.xml in Resources */,
-				7D50C7172BBD20DF00B9F1A0 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7D50C7182BBD20DF00B9F1A0 /* VLCDonationNagScreenViewController.xib in Resources */,
 				7D50C7192BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.xib in Resources */,
 				7D50C71A2BBD20DF00B9F1A0 /* style.css in Resources */,
@@ -4662,7 +4656,6 @@
 				6D1745622F9D2816003BE08B /* VLCCone26-512x512.png in Resources */,
 				6D4FFE3D2F9C5EED002F4F26 /* VLC26-dev-blue.icon in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
-				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7D799BA32B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib in Resources */,
 				7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
@@ -4724,7 +4717,6 @@
 				6D1745612F9D2816003BE08B /* VLCCone26-512x512.png in Resources */,
 				6D4FFE3C2F9C5EED002F4F26 /* VLC26-dev-blue.icon in Resources */,
 				7DA5158A2EF82B63000C9995 /* libMediaVLC.xml in Resources */,
-				7DA5158B2EF82B63000C9995 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7DA5158C2EF82B63000C9995 /* VLCDonationNagScreenViewController.xib in Resources */,
 				7DA5158D2EF82B63000C9995 /* VLCStreamingHistoryCell.xib in Resources */,
 				7DA5158E2EF82B63000C9995 /* style.css in Resources */,

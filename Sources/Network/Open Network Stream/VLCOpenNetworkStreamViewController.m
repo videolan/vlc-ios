@@ -24,6 +24,17 @@
     NSMutableArray *_recentURLs;
     NSMutableDictionary *_recentURLTitles;
 }
+
+@property (strong, nonatomic) UITextField *urlField;
+@property (weak, nonatomic) UIView *urlBorder;
+@property (strong, nonatomic) UIButton *openButton;
+@property (strong, nonatomic) UIButton *privateToggleButton;
+@property (strong, nonatomic) UIButton *scanSubToggleButton;
+@property (strong, nonatomic) UILabel *privateModeLabel;
+@property (strong, nonatomic) UILabel *scanSubModeLabel;
+@property (strong, nonatomic) UITableView *historyTableView;
+@property (strong, nonatomic) UILabel *whatToOpenHelpLabel;
+
 @end
 
 @implementation VLCOpenNetworkStreamViewController
@@ -58,6 +69,133 @@
     _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
     [self.historyTableView reloadData];
     [self updateEditButtonState];
+}
+
+- (void)loadView
+{
+    UIView *root = [[UIView alloc] init];
+    root.backgroundColor = [UIColor clearColor];
+    self.view = root;
+
+    UIView *fieldsContainer = [[UIView alloc] init];
+    fieldsContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    [root addSubview:fieldsContainer];
+
+    UILabel *helpLabel = [[UILabel alloc] init];
+    helpLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    helpLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    helpLabel.textAlignment = NSTextAlignmentCenter;
+    helpLabel.numberOfLines = 0;
+    [fieldsContainer addSubview:helpLabel];
+    self.whatToOpenHelpLabel = helpLabel;
+
+    UITextField *urlField = [[UITextField alloc] init];
+    urlField.translatesAutoresizingMaskIntoConstraints = NO;
+    urlField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    urlField.textAlignment = NSTextAlignmentCenter;
+    urlField.clearButtonMode = UITextFieldViewModeAlways;
+    urlField.autocorrectionType = UITextAutocorrectionTypeNo;
+    urlField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    [fieldsContainer addSubview:urlField];
+    self.urlField = urlField;
+
+    UIView *urlBorder = [[UIView alloc] init];
+    urlBorder.translatesAutoresizingMaskIntoConstraints = NO;
+    [fieldsContainer addSubview:urlBorder];
+    self.urlBorder = urlBorder;
+
+    UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    openButton.translatesAutoresizingMaskIntoConstraints = NO;
+    openButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    [openButton addTarget:self action:@selector(openButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [fieldsContainer addSubview:openButton];
+    self.openButton = openButton;
+
+    UIButton *privateToggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    privateToggleButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [privateToggleButton addTarget:self action:@selector(toggleButtonAction:) forControlEvents:UIControlEventPrimaryActionTriggered];
+    [root addSubview:privateToggleButton];
+    self.privateToggleButton = privateToggleButton;
+
+    UILabel *privateModeLabel = [[UILabel alloc] init];
+    privateModeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    privateModeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
+    [root addSubview:privateModeLabel];
+    self.privateModeLabel = privateModeLabel;
+
+    UIButton *scanSubToggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    scanSubToggleButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [scanSubToggleButton addTarget:self action:@selector(toggleButtonAction:) forControlEvents:UIControlEventPrimaryActionTriggered];
+    [root addSubview:scanSubToggleButton];
+    self.scanSubToggleButton = scanSubToggleButton;
+
+    UILabel *scanSubModeLabel = [[UILabel alloc] init];
+    scanSubModeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    scanSubModeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
+    [root addSubview:scanSubModeLabel];
+    self.scanSubModeLabel = scanSubModeLabel;
+
+    UITableView *historyTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    historyTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    historyTableView.alwaysBounceVertical = YES;
+    historyTableView.showsHorizontalScrollIndicator = NO;
+    historyTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    historyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    historyTableView.dataSource = self;
+    historyTableView.delegate = self;
+    [root addSubview:historyTableView];
+    self.historyTableView = historyTableView;
+
+    UILayoutGuide *safe = root.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [fieldsContainer.topAnchor constraintEqualToAnchor:safe.topAnchor],
+        [fieldsContainer.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [fieldsContainer.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+
+        [helpLabel.topAnchor constraintEqualToAnchor:fieldsContainer.topAnchor constant:10],
+        [helpLabel.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [helpLabel.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        [helpLabel.heightAnchor constraintGreaterThanOrEqualToConstant:38],
+
+        [urlField.topAnchor constraintEqualToAnchor:helpLabel.bottomAnchor constant:10],
+        [urlField.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [urlField.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        [urlField.heightAnchor constraintEqualToConstant:31],
+
+        [urlBorder.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [urlBorder.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        [urlBorder.bottomAnchor constraintEqualToAnchor:urlField.bottomAnchor],
+        [urlBorder.heightAnchor constraintEqualToConstant:2],
+
+        [openButton.topAnchor constraintEqualToAnchor:urlField.bottomAnchor constant:20],
+        [openButton.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [openButton.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        [openButton.bottomAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor constant:-20],
+        [openButton.heightAnchor constraintEqualToConstant:40],
+
+        [privateToggleButton.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:16],
+        [privateToggleButton.topAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor constant:-8],
+        [privateToggleButton.widthAnchor constraintEqualToConstant:32],
+        [privateToggleButton.heightAnchor constraintEqualToConstant:32],
+
+        [privateModeLabel.centerYAnchor constraintEqualToAnchor:privateToggleButton.centerYAnchor],
+        [privateModeLabel.leadingAnchor constraintEqualToAnchor:privateToggleButton.trailingAnchor constant:4],
+        [safe.trailingAnchor constraintGreaterThanOrEqualToAnchor:privateModeLabel.trailingAnchor constant:16],
+
+        [scanSubToggleButton.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:16],
+        [scanSubToggleButton.topAnchor constraintEqualToAnchor:privateToggleButton.bottomAnchor constant:-3],
+        [scanSubToggleButton.widthAnchor constraintEqualToConstant:32],
+        [scanSubToggleButton.heightAnchor constraintEqualToConstant:32],
+
+        [scanSubModeLabel.centerYAnchor constraintEqualToAnchor:scanSubToggleButton.centerYAnchor],
+        [scanSubModeLabel.leadingAnchor constraintEqualToAnchor:scanSubToggleButton.trailingAnchor constant:4],
+        [safe.trailingAnchor constraintGreaterThanOrEqualToAnchor:scanSubModeLabel.trailingAnchor constant:16],
+
+        [historyTableView.topAnchor constraintEqualToAnchor:scanSubToggleButton.bottomAnchor constant:7],
+        [historyTableView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [historyTableView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+        [historyTableView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
+    ]];
 }
 
 - (void)viewDidLoad
@@ -240,12 +378,12 @@
 }
 #endif
 
-- (IBAction)toggleButtonAction:(UIButton *)sender
+- (void)toggleButtonAction:(UIButton *)sender
 {
     sender.selected = !sender.selected;
 }
 
-- (IBAction)openButtonAction:(id)sender
+- (void)openButtonAction:(id)sender
 {
     if (self.urlField.text.length == 0 && ![self.urlField isFirstResponder]) {
         [self.urlField becomeFirstResponder];
@@ -317,13 +455,11 @@
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RESET", nil)
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *action){
-        @synchronized (self->_recentURLs) {
-            self->_recentURLs = [NSMutableArray array];
-            self->_recentURLTitles = [NSMutableDictionary dictionary];
-            [self _saveData];
-            [self.historyTableView reloadData];
-            [self updateEditButtonState];
-        }
+        self->_recentURLs = [NSMutableArray array];
+        self->_recentURLTitles = [NSMutableDictionary dictionary];
+        [self _saveData];
+        [self.historyTableView reloadData];
+        [self updateEditButtonState];
     }];
     [alertController addAction:deleteAction];
 

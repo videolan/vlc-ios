@@ -153,7 +153,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
 #endif
         case .streaming:
-            return VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
+            return VLCOpenNetworkStreamViewController()
         case .download:
             return VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
         case .wifi:
