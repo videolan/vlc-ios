@@ -219,7 +219,7 @@
         [clearButton.trailingAnchor constraintEqualToAnchor:shareButton.leadingAnchor constant:-24],
         [clearButton.widthAnchor constraintGreaterThanOrEqualToConstant:44],
 
-        [historyTableView.topAnchor constraintEqualToAnchor:recentsHeaderLabel.bottomAnchor constant:6],
+        [historyTableView.topAnchor constraintEqualToAnchor:shareButton.bottomAnchor constant:10],
         [historyTableView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [historyTableView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [historyTableView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
@@ -712,6 +712,78 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                               title:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                                                             handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+        completionHandler(YES);
+    }];
+    if (@available(iOS 13.0, *)) {
+        deleteAction.image = [UIImage systemImageNamed:@"trash"];
+    }
+
+    UIContextualAction *renameAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                               title:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                                             handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (cell != nil) {
+            [self renameStreamFromCell:cell];
+        }
+        completionHandler(YES);
+    }];
+    renameAction.backgroundColor = PresentationTheme.current.colors.lightTextColor;
+    if (@available(iOS 13.0, *)) {
+        renameAction.image = [UIImage systemImageNamed:@"pencil"];
+    }
+
+    return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, renameAction]];
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView
+contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+                                    point:(CGPoint)point API_AVAILABLE(ios(13.0))
+{
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                    previewProvider:nil
+                                                     actionProvider:^UIMenu *(NSArray<UIMenuElement *> *suggestedActions) {
+        UIAction *copy = [UIAction actionWithTitle:NSLocalizedString(@"BUTTON_COPY", nil)
+                                              image:[UIImage systemImageNamed:@"doc.on.doc"]
+                                         identifier:nil
+                                            handler:^(__kindof UIAction *action) {
+            [UIPasteboard generalPasteboard].string = self->_recentURLs[indexPath.row];
+        }];
+        UIAction *rename = [UIAction actionWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                image:[UIImage systemImageNamed:@"pencil"]
+                                           identifier:nil
+                                              handler:^(__kindof UIAction *action) {
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (cell != nil) {
+                [self renameStreamFromCell:cell];
+            }
+        }];
+        UIAction *editURL = [UIAction actionWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                                 image:[UIImage systemImageNamed:@"link"]
+                                            identifier:nil
+                                               handler:^(__kindof UIAction *action) {
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (cell != nil) {
+                [self editURLFromCell:cell];
+            }
+        }];
+        UIAction *del = [UIAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                              image:[UIImage systemImageNamed:@"trash"]
+                                         identifier:nil
+                                            handler:^(__kindof UIAction *action) {
+            [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+        }];
+        del.attributes = UIMenuElementAttributesDestructive;
+        return [UIMenu menuWithTitle:@"" children:@[copy, rename, editURL, del]];
+    }];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

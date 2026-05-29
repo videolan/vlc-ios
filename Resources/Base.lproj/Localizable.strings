@@ -67,6 +67,7 @@
 "BUTTON_CONTRIBUTE" = "Contribute";
 "BUTTON_CONNECT" = "Connect";
 "BUTTON_RENAME" = "Rename";
+"BUTTON_COPY" = "Copy";
 "BUTTON_LEARN_MORE" = "Learn More";
 "BUTTON_LOGOUT" = "Logout";
 "BUTTON_CONTINUE" = "Continue";

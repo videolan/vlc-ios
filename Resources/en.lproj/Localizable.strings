@@ -61,6 +61,7 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Delete";
 "BUTTON_RENAME" = "Rename";
+"BUTTON_COPY" = "Copy";
 "BUTTON_OK" = "OK";
 "BUTTON_DISMISS" = "Dismiss";
 "BUTTON_CONTACT" = "Contact us";
