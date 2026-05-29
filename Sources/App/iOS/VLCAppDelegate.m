@@ -23,12 +23,16 @@
 #import "VLC-Swift.h"
 #import "VLCAppSceneDelegate.h"
 #import "VLCMLMedia+isWatched.h"
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface VLCAppDelegate ()
 {
     BOOL _isComingFromHandoff;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
+#if TARGET_OS_IOS || TARGET_OS_WATCH
+    VLCSessionDelegate *sessionDelegate;
+# endif
 }
 
 @end
@@ -91,12 +95,12 @@
                                   kVLCSettingCastingAudioPassthrough : @(NO),
                                   kVLCSettingCastingConversionQuality : @(2),
                                   kVLCForceSMBV1 : @(YES),
-                                  @"kVLCAudioLibraryGridLayoutALBUMS" : @(YES),
-                                  @"kVLCAudioLibraryGridLayoutARTISTS" : @(YES),
-                                  @"kVLCAudioLibraryGridLayoutGENRES" : @(YES),
-                                  @"kVLCVideoLibraryGridLayoutALL_VIDEOS" : @(YES),
-                                  @"kVLCVideoLibraryGridLayoutVIDEO_GROUPS" : @(YES),
-                                  @"kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections" : @(YES),
+                                  kVLCAudioLibraryGridLayoutALBUMS : @(YES),
+                                  kVLCAudioLibraryGridLayoutARTISTS : @(YES),
+                                  kVLCAudioLibraryGridLayoutGENRES : @(YES),
+                                  kVLCVideoLibraryGridLayoutALL_VIDEOS : @(YES),
+                                  kVLCVideoLibraryGridLayoutVIDEO_GROUPS : @(YES),
+                                  kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections : @(YES),
                                   kVLCPlayerShouldRememberState: @(YES),
                                   kVLCPlayerIsShuffleEnabled: kVLCPlayerIsShuffleEnabledDefaultValue,
                                   kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue,
@@ -173,6 +177,14 @@
     if (shortcutItem) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
     }
+
+#if TARGET_OS_IOS || TARGET_OS_WATCH
+    if ([WCSession isSupported]) {
+        sessionDelegate = [[VLCSessionDelegate alloc] init];
+        [WCSession defaultSession].delegate = sessionDelegate;
+        [[WCSession defaultSession] activateSession];
+    }
+#endif
 
     return YES;
 }

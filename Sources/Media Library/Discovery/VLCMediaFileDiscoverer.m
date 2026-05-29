@@ -148,8 +148,9 @@ const float MediaTimerInterval = 2.f;
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"not (self in %@)", foundFiles];
         NSArray *deletedFiles = [_directoryFiles filteredArrayUsingPredicate:filterPredicate];
 
-        for (NSString *fileName in deletedFiles)
+        for (NSString *fileName in deletedFiles) {
             [self notifyFileDeleted:fileName];
+        }
     } else if (_directoryFiles.count < foundFiles.count) { // File was added
         [NSFileManager.defaultManager createFileAtPath:[NSString pathWithComponents:@[_directoryPath, NSLocalizedString(@"MEDIALIBRARY_ADDING_PLACEHOLDER", "")]] contents:nil attributes:nil];
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"not (self in %@)", _directoryFiles];

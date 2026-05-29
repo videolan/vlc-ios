@@ -32,6 +32,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var secondModel: MediaLibraryBaseModel
     private var mediaLibraryService: MediaLibraryService
 
+    #if os(iOS) || os(watchOS)
+    private var watchService = VLCWatchConnectivityService()
+    #endif
+
     var searchBar = UISearchBar(frame: .zero)
     private var currentDataSet: [VLCMLObject] {
         if let model = model as? FolderModel {
@@ -1672,6 +1676,86 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     _ in
                     self.generatePlayAction(for: modelContent, type: .playAsAudio)
+                })
+            case .updateAppContext:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia
+                    else { return }
+
+                    #if os(iOS) || os(watchOS)
+                    // For testing
+                    watchService.updateAppContext(TestDataProvider.timedColor())
+                    #endif
+                })
+            case .sendMessage:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia
+                    else { return }
+
+                    #if os(iOS) || os(watchOS)
+                    // For testing
+                    watchService.sendMessage(TestDataProvider.message())
+                    #endif
+                })
+            case .sendMessageData:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia
+                    else { return }
+                    #if os(iOS) || os(watchOS)
+                    // For testing
+                    watchService.sendMessageData(TestDataProvider.messageData())
+                    #endif
+                })
+            case .transferFile:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia,
+                          let mrl = media.mainFile()?.mrl
+                    else { return }
+
+                    #if os(iOS) || os(watchOS)
+                    print("Transferring file to watch: \(media.title)")
+                    print("File mrl: \(mrl)")
+                    watchService.transferFile(mrl, metadata: TestDataProvider.fileMetaData())
+                    // watchServie.transferFile(TestDataProvider.file(), metadata: TestDataProvider.fileMetaData())
+                    #endif
+                })
+            case .transferUserInfo:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia
+                    else { return }
+
+                    #if os(iOS) || os(watchOS)
+                    // For testing
+                    watchService.transferUserInfo(TestDataProvider.userInfo())
+                    #endif
+                })
+            case .transferComplicationUserInfo:
+                return $0.action({
+                    [weak self] _ in
+                    guard let self,
+                          let modelContent,
+                          let media = modelContent as? VLCMLMedia
+                    else { return }
+
+                    #if os(iOS) || os(watchOS)
+                    // For testing
+                    watchService.transferCurrentComplicationUserInfo(TestDataProvider.currentComplicationInfo())
+                    #endif
                 })
             }
         })

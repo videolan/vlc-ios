@@ -114,6 +114,13 @@
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 
+#define kVLCAudioLibraryGridLayoutALBUMS @"kVLCAudioLibraryGridLayoutALBUMS"
+#define kVLCAudioLibraryGridLayoutARTISTS @"kVLCAudioLibraryGridLayoutARTISTS"
+#define kVLCAudioLibraryGridLayoutGENRES @"kVLCAudioLibraryGridLayoutGENRES"
+#define kVLCVideoLibraryGridLayoutALL_VIDEOS @"kVLCVideoLibraryGridLayoutALL_VIDEOS"
+#define kVLCVideoLibraryGridLayoutVIDEO_GROUPS @"kVLCVideoLibraryGridLayoutVIDEO_GROUPS"
+#define kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections @"kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections"
+
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"

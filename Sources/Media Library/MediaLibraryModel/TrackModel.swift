@@ -23,7 +23,7 @@ class TrackModel: NSObject, MediaModel {
     var hasMorePages = true
     var isLoading = false
 
-    #if !os(tvOS)
+    #if !os(tvOS) && !os(watchOS)
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
     }

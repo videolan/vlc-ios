@@ -20,6 +20,14 @@
     case playNextInQueue
     case appendToQueue
     case playAsAudio
+
+    // For testing, remove later
+    case updateAppContext
+    case sendMessage
+    case sendMessageData
+    case transferFile
+    case transferUserInfo
+    case transferComplicationUserInfo
 }
 
 class EditButton {
@@ -82,6 +90,15 @@ class EditButtonsFactory {
         }
         actionList.append(.delete)
         actionList.append(.share)
+
+        // For testing
+//        actionList.append(.updateAppContext)
+//        actionList.append(.sendMessage)
+//        actionList.append(.sendMessageData)
+        actionList.append(.transferFile)
+//        actionList.append(.transferUserInfo)
+//        actionList.append(.transferComplicationUserInfo)
+
         return actionList
     }
 
@@ -152,6 +169,42 @@ class EditButtonsFactory {
                                                   image: "Audio",
                                                   accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
                                                   accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .updateAppContext:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Update App Context",
+                                              image: "addToPlaylist",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .sendMessage:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Send message",
+                                              image: "MiniPlay",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .sendMessageData:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Send message data",
+                                              image: "addToMediaGroup",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .transferFile:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Transfer File",
+                                              image: "playNextInQueue",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .transferUserInfo:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Transfer User Info",
+                                              image: "share",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .transferComplicationUserInfo:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Transfer Complication User Info",
+                                              image: "delete",
+                                              accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                              accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
             }
         }
         return editButtons
