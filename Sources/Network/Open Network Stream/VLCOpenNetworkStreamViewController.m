@@ -25,12 +25,13 @@
 }
 
 @property (strong, nonatomic) UITextField *urlField;
-@property (weak, nonatomic) UIView *urlBorder;
 @property (strong, nonatomic) UIButton *openButton;
+@property (strong, nonatomic) UIButton *fieldClearButton;
 @property (strong, nonatomic) UIButton *privateToggleButton;
-@property (strong, nonatomic) UILabel *privateModeLabel;
 @property (strong, nonatomic) UITableView *historyTableView;
-@property (strong, nonatomic) UILabel *whatToOpenHelpLabel;
+@property (strong, nonatomic) UILabel *recentsHeaderLabel;
+@property (strong, nonatomic) UIButton *clearButton;
+@property (strong, nonatomic) UIButton *shareButton;
 
 @end
 
@@ -78,47 +79,99 @@
     fieldsContainer.translatesAutoresizingMaskIntoConstraints = NO;
     [root addSubview:fieldsContainer];
 
-    UILabel *helpLabel = [[UILabel alloc] init];
-    helpLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    helpLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    helpLabel.textAlignment = NSTextAlignmentCenter;
-    helpLabel.numberOfLines = 0;
-    [fieldsContainer addSubview:helpLabel];
-    self.whatToOpenHelpLabel = helpLabel;
+    UILayoutGuide *contentGuide = [[UILayoutGuide alloc] init];
+    [fieldsContainer addLayoutGuide:contentGuide];
 
     UITextField *urlField = [[UITextField alloc] init];
     urlField.translatesAutoresizingMaskIntoConstraints = NO;
-    urlField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    urlField.textAlignment = NSTextAlignmentCenter;
-    urlField.clearButtonMode = UITextFieldViewModeAlways;
+    urlField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+    urlField.adjustsFontForContentSizeCategory = YES;
+    urlField.textAlignment = NSTextAlignmentNatural;
+    urlField.clearButtonMode = UITextFieldViewModeNever;
     urlField.autocorrectionType = UITextAutocorrectionTypeNo;
+    urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     urlField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    urlField.layer.cornerRadius = 10.0;
+    urlField.layer.borderWidth = 1.0;
+    [urlField addTarget:self action:@selector(updateFieldAccessories) forControlEvents:UIControlEventEditingChanged | UIControlEventEditingDidBegin | UIControlEventEditingDidEnd];
     [fieldsContainer addSubview:urlField];
     self.urlField = urlField;
 
-    UIView *urlBorder = [[UIView alloc] init];
-    urlBorder.translatesAutoresizingMaskIntoConstraints = NO;
-    [fieldsContainer addSubview:urlBorder];
-    self.urlBorder = urlBorder;
-
-    UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    openButton.translatesAutoresizingMaskIntoConstraints = NO;
-    openButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    [openButton addTarget:self action:@selector(openButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [fieldsContainer addSubview:openButton];
-    self.openButton = openButton;
-
     UIButton *privateToggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    privateToggleButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [privateToggleButton addTarget:self action:@selector(toggleButtonAction:) forControlEvents:UIControlEventPrimaryActionTriggered];
-    [root addSubview:privateToggleButton];
+    if (@available(iOS 13.0, *)) {
+        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightMedium];
+        [privateToggleButton setImage:[UIImage systemImageNamed:@"eye.slash" withConfiguration:cfg] forState:UIControlStateNormal];
+    }
+    privateToggleButton.accessibilityLabel = NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil);
+    [privateToggleButton addTarget:self action:@selector(privatePlaybackToggled:) forControlEvents:UIControlEventTouchUpInside];
+    privateToggleButton.frame = CGRectMake(10, 0, 30, 30);
     self.privateToggleButton = privateToggleButton;
 
-    UILabel *privateModeLabel = [[UILabel alloc] init];
-    privateModeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    privateModeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
-    [root addSubview:privateModeLabel];
-    self.privateModeLabel = privateModeLabel;
+    UIView *leftContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 + 30 + 4, 30)];
+    [leftContainer addSubview:privateToggleButton];
+    urlField.leftView = leftContainer;
+    urlField.leftViewMode = UITextFieldViewModeAlways;
+
+    UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (@available(iOS 13.0, *)) {
+        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
+        [openButton setImage:[UIImage systemImageNamed:@"arrow.right" withConfiguration:cfg] forState:UIControlStateNormal];
+    }
+    [openButton addTarget:self action:@selector(openButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    openButton.frame = CGRectMake(0, 0, 38, 38);
+    openButton.layer.cornerRadius = 8.0;
+    self.openButton = openButton;
+
+    UIButton *fieldClearButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    if (@available(iOS 13.0, *)) {
+        [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
+    }
+    fieldClearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    [fieldClearButton addTarget:self action:@selector(clearURLField) forControlEvents:UIControlEventTouchUpInside];
+    fieldClearButton.frame = CGRectMake(0, 4, 30, 30);
+    fieldClearButton.hidden = YES;
+    self.fieldClearButton = fieldClearButton;
+
+    UIView *openContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 38 + 7, 38)];
+    [openContainer addSubview:fieldClearButton];
+    [openContainer addSubview:openButton];
+    urlField.rightView = openContainer;
+    urlField.rightViewMode = UITextFieldViewModeAlways;
+
+    UILabel *recentsHeaderLabel = [[UILabel alloc] init];
+    recentsHeaderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    UIFontDescriptor *headerDescriptor = [[UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2]
+                                          fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    recentsHeaderLabel.font = [UIFont fontWithDescriptor:headerDescriptor size:0];
+    recentsHeaderLabel.adjustsFontForContentSizeCategory = YES;
+    recentsHeaderLabel.text = NSLocalizedString(@"RECENT_STREAMS", nil);
+    [root addSubview:recentsHeaderLabel];
+    self.recentsHeaderLabel = recentsHeaderLabel;
+
+    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    clearButton.translatesAutoresizingMaskIntoConstraints = NO;
+    if (@available(iOS 13.0, *)) {
+        UIImage *icon = [UIImage systemImageNamed:@"xmark.bin"] ?: [UIImage systemImageNamed:@"trash"];
+        [clearButton setImage:icon forState:UIControlStateNormal];
+    } else {
+        [clearButton setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
+    }
+    clearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    [clearButton addTarget:self action:@selector(emptyListAction:) forControlEvents:UIControlEventTouchUpInside];
+    [root addSubview:clearButton];
+    self.clearButton = clearButton;
+
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    shareButton.translatesAutoresizingMaskIntoConstraints = NO;
+    if (@available(iOS 13.0, *)) {
+        [shareButton setImage:[UIImage systemImageNamed:@"square.and.arrow.up"] forState:UIControlStateNormal];
+    } else {
+        [shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    }
+    shareButton.accessibilityLabel = NSLocalizedString(@"SHARE_LABEL", nil);
+    [shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
+    [root addSubview:shareButton];
+    self.shareButton = shareButton;
 
     UITableView *historyTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     historyTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -132,42 +185,41 @@
     self.historyTableView = historyTableView;
 
     UILayoutGuide *safe = root.safeAreaLayoutGuide;
+
+    NSLayoutConstraint *contentGuidePreferredWidth = [contentGuide.widthAnchor constraintEqualToConstant:480];
+    contentGuidePreferredWidth.priority = UILayoutPriorityDefaultHigh;
+
     [NSLayoutConstraint activateConstraints:@[
         [fieldsContainer.topAnchor constraintEqualToAnchor:safe.topAnchor],
         [fieldsContainer.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [fieldsContainer.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
 
-        [helpLabel.topAnchor constraintEqualToAnchor:fieldsContainer.topAnchor constant:10],
-        [helpLabel.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
-        [helpLabel.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
-        [helpLabel.heightAnchor constraintGreaterThanOrEqualToConstant:38],
+        [contentGuide.centerXAnchor constraintEqualToAnchor:fieldsContainer.centerXAnchor],
+        [contentGuide.leadingAnchor constraintGreaterThanOrEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [contentGuide.trailingAnchor constraintLessThanOrEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        contentGuidePreferredWidth,
 
-        [urlField.topAnchor constraintEqualToAnchor:helpLabel.bottomAnchor constant:10],
-        [urlField.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
-        [urlField.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
-        [urlField.heightAnchor constraintEqualToConstant:31],
+        [urlField.topAnchor constraintEqualToAnchor:fieldsContainer.topAnchor constant:14],
+        [urlField.leadingAnchor constraintEqualToAnchor:contentGuide.leadingAnchor],
+        [urlField.trailingAnchor constraintEqualToAnchor:contentGuide.trailingAnchor],
+        [urlField.heightAnchor constraintGreaterThanOrEqualToConstant:50],
+        [fieldsContainer.bottomAnchor constraintEqualToAnchor:urlField.bottomAnchor constant:14],
 
-        [urlBorder.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
-        [urlBorder.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
-        [urlBorder.bottomAnchor constraintEqualToAnchor:urlField.bottomAnchor],
-        [urlBorder.heightAnchor constraintEqualToConstant:2],
+        [recentsHeaderLabel.topAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor constant:20],
+        [recentsHeaderLabel.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:20],
+        [recentsHeaderLabel.trailingAnchor constraintLessThanOrEqualToAnchor:clearButton.leadingAnchor constant:-8],
 
-        [openButton.topAnchor constraintEqualToAnchor:urlField.bottomAnchor constant:20],
-        [openButton.leadingAnchor constraintEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
-        [openButton.trailingAnchor constraintEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
-        [openButton.bottomAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor constant:-20],
-        [openButton.heightAnchor constraintEqualToConstant:40],
+        [shareButton.lastBaselineAnchor constraintEqualToAnchor:recentsHeaderLabel.lastBaselineAnchor],
+        [shareButton.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor constant:-20],
+        [shareButton.widthAnchor constraintGreaterThanOrEqualToConstant:44],
+        [shareButton.heightAnchor constraintGreaterThanOrEqualToConstant:44],
 
-        [privateToggleButton.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:16],
-        [privateToggleButton.topAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor constant:-8],
-        [privateToggleButton.widthAnchor constraintEqualToConstant:32],
-        [privateToggleButton.heightAnchor constraintEqualToConstant:32],
+        [clearButton.lastBaselineAnchor constraintEqualToAnchor:shareButton.lastBaselineAnchor],
+        [clearButton.heightAnchor constraintEqualToAnchor:shareButton.heightAnchor],
+        [clearButton.trailingAnchor constraintEqualToAnchor:shareButton.leadingAnchor constant:-24],
+        [clearButton.widthAnchor constraintGreaterThanOrEqualToConstant:44],
 
-        [privateModeLabel.centerYAnchor constraintEqualToAnchor:privateToggleButton.centerYAnchor],
-        [privateModeLabel.leadingAnchor constraintEqualToAnchor:privateToggleButton.trailingAnchor constant:4],
-        [safe.trailingAnchor constraintGreaterThanOrEqualToAnchor:privateModeLabel.trailingAnchor constant:16],
-
-        [historyTableView.topAnchor constraintEqualToAnchor:privateToggleButton.bottomAnchor constant:7],
+        [historyTableView.topAnchor constraintEqualToAnchor:recentsHeaderLabel.bottomAnchor constant:6],
         [historyTableView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [historyTableView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [historyTableView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
@@ -228,17 +280,10 @@
                                name:UIApplicationDidBecomeActiveNotification
                              object:[UIApplication sharedApplication]];
 
-    self.whatToOpenHelpLabel.backgroundColor = [UIColor clearColor];
-    [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
+    self.openButton.accessibilityLabel = NSLocalizedString(@"BUTTON_OPEN", nil);
     [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
-    self.openButton.layer.cornerRadius = 4.0;
-    [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
     self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
 
-    [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
-    [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
-
-    [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
     if (@available(iOS 10.0, *)) {
@@ -271,17 +316,20 @@
     self.historyTableView.backgroundColor = colors.background;
     self.view.backgroundColor = colors.background;
     NSMutableParagraphStyle *placeholderParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    placeholderParagraphStyle.alignment = NSTextAlignmentCenter;
+    placeholderParagraphStyle.alignment = NSTextAlignmentNatural;
     NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"http://myserver.com/file.mkv", nil)
                                                                                        attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = colors.mediaCategorySeparatorColor;
+    self.urlField.backgroundColor = colors.cellBackgroundB;
     self.urlField.textColor = colors.cellTextColor;
-    self.urlBorder.backgroundColor = colors.textfieldBorderColor;
-    self.privateModeLabel.textColor = colors.lightTextColor;
-    self.whatToOpenHelpLabel.textColor = colors.lightTextColor;
+    self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    self.recentsHeaderLabel.textColor = colors.lightTextColor;
     self.openButton.backgroundColor = colors.orangeUI;
-    self.privateToggleButton.tintColor = colors.orangeUI;
+    self.openButton.tintColor = [UIColor whiteColor];
+    self.fieldClearButton.tintColor = colors.textfieldPlaceholderColor;
+    [self updatePrivateToggleColor];
+    self.shareButton.tintColor = colors.orangeUI;
+    self.clearButton.tintColor = colors.orangeUI;
     for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
         item.tintColor = colors.orangeUI;
     }
@@ -308,6 +356,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
+    [self updatePrivateToggleColor];
 
     self.historyTableView.editing = NO;
     [self _setRightBarButtonItemsEditing:NO];
@@ -347,9 +396,42 @@
 }
 #endif
 
-- (void)toggleButtonAction:(UIButton *)sender
+- (void)privatePlaybackToggled:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    [self updatePrivateToggleColor];
+}
+
+- (void)updatePrivateToggleColor
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.privateToggleButton.tintColor = self.privateToggleButton.selected ? colors.orangeUI : colors.lightTextColor;
+}
+
+- (void)clearURLField
+{
+    self.urlField.text = @"";
+    [self updateFieldAccessories];
+}
+
+- (void)updateFieldAccessories
+{
+    BOOL showClear = self.urlField.isEditing && self.urlField.text.length > 0;
+    if (showClear == !self.fieldClearButton.hidden) {
+        return;
+    }
+    self.fieldClearButton.hidden = !showClear;
+
+    const CGFloat openSize = 38, clearSize = 30, gap = 6, trailingPad = 7;
+    UIView *container = self.openButton.superview;
+    if (showClear) {
+        self.openButton.frame = CGRectMake(clearSize + gap, 0, openSize, openSize);
+        container.frame = CGRectMake(0, 0, clearSize + gap + openSize + trailingPad, openSize);
+    } else {
+        self.openButton.frame = CGRectMake(0, 0, openSize, openSize);
+        container.frame = CGRectMake(0, 0, openSize + trailingPad, openSize);
+    }
+    self.urlField.rightView = container;
 }
 
 - (void)openButtonAction:(id)sender
@@ -361,19 +443,17 @@
             return;
         }
 
-        UIView *highlightView = self.urlBorder ?: self.urlField;
         ColorPalette *colors = PresentationTheme.current.colors;
-        UIColor *originalColor = colors.mediaCategorySeparatorColor;
-        UIColor *highlightColor = colors.orangeUI;
+        self.urlField.layer.borderColor = colors.orangeUI.CGColor;
 
         [UIView animateWithDuration:0.12 animations:^{
-            highlightView.backgroundColor = highlightColor;
             self.urlField.transform = CGAffineTransformMakeScale(1.02, 1.02);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.20 delay:0.05 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                highlightView.backgroundColor = originalColor;
                 self.urlField.transform = CGAffineTransformIdentity;
-            } completion:nil];
+            } completion:^(BOOL done) {
+                self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+            }];
         }];
 
         return;
@@ -671,46 +751,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)_setRightBarButtonItemsEditing:(BOOL)editing
 {
-    UIBarButtonItem *first;
-    UIBarButtonItem *second;
-    if (editing) {
-        first = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil)
-                                                 style:UIBarButtonItemStyleDone
-                                                target:self
-                                                action:@selector(editTableView:)];
-
-        UIImage *resetImage = nil;
-        if (@available(iOS 13.0, *)) {
-            resetImage = [UIImage systemImageNamed:@"trash"];
-        }
-        if (!resetImage) {
-            resetImage = [UIImage imageNamed:@"trash"];
-        }
-        second = [[UIBarButtonItem alloc] initWithImage:resetImage
-                                                  style:UIBarButtonItemStylePlain
-                                                 target:self
-                                                 action:@selector(emptyListAction:)];
-        second.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
-    } else {
-        first = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
-                                                 style:UIBarButtonItemStylePlain
-                                                target:self
-                                                action:@selector(editTableView:)];
-
-        UIImage *shareImage = nil;
-        if (@available(iOS 13.0, *)) {
-            shareImage = [UIImage systemImageNamed:@"square.and.arrow.up"];
-        }
-        if (!shareImage) {
-            shareImage = [UIImage imageNamed:@"share"];
-        }
-        second = [[UIBarButtonItem alloc] initWithImage:shareImage
-                                                  style:UIBarButtonItemStylePlain
-                                                 target:self
-                                                 action:@selector(shareAction:)];
-        second.accessibilityLabel = NSLocalizedString(@"SHARE_LABEL", nil);
-    }
-    self.navigationItem.rightBarButtonItems = @[first, second];
+    NSString *title = editing ? NSLocalizedString(@"BUTTON_DONE", nil) : NSLocalizedString(@"BUTTON_EDIT", nil);
+    UIBarButtonItemStyle style = editing ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
+    UIBarButtonItem *toggleItem = [[UIBarButtonItem alloc] initWithTitle:title
+                                                                   style:style
+                                                                  target:self
+                                                                  action:@selector(editTableView:)];
+    toggleItem.tintColor = PresentationTheme.current.colors.orangeUI;
+    self.navigationItem.rightBarButtonItems = @[toggleItem];
+    self.shareButton.hidden = editing;
+    self.clearButton.hidden = editing;
 }
 
 - (void)shareAction:(id)sender
@@ -748,7 +798,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[tempURL]
                                                                              applicationActivities:nil];
-    activityVC.popoverPresentationController.barButtonItem = sender;
+    UIView *anchor = self.shareButton;
+    activityVC.popoverPresentationController.sourceView = anchor;
+    activityVC.popoverPresentationController.sourceRect = anchor.bounds;
     activityVC.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
         [[NSFileManager defaultManager] removeItemAtURL:tempURL error:nil];
     };
@@ -765,8 +817,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
         item.enabled = hasItems;
     }
+    self.shareButton.enabled = hasItems;
+    self.clearButton.enabled = hasItems;
 }
-	
+
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
     [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
