@@ -200,12 +200,10 @@ class VideoPlayerViewController: PlayerViewController {
         return artWorkImageView
     }()
 
-    private lazy var coneImageView: UIImageView = {
-        let coneImageView = UIImageView(image: UIImage(named: "ic_cone"))
-        coneImageView.contentMode = .scaleAspectFit
-        coneImageView.translatesAutoresizingMaskIntoConstraints = false
-        coneImageView.alpha = 0.0
-        return coneImageView
+    private lazy var coneLoadingView: PulsingConeView = {
+        let coneLoadingView = PulsingConeView()
+        coneLoadingView.translatesAutoresizingMaskIntoConstraints = false
+        return coneLoadingView
     }()
 
     private var videoOutputView: UIView = {
@@ -499,7 +497,7 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(volumeControlView)
 #endif
         view.addSubview(externalVideoOutputView)
-        view.addSubview(coneImageView)
+        view.addSubview(coneLoadingView)
         view.addSubview(statusLabel)
         view.addSubview(titleSelectionView)
         view.addSubview(longPressPlaybackSpeedView)
@@ -606,7 +604,7 @@ class VideoPlayerViewController: PlayerViewController {
         setupVolumeControlConstraints()
 #endif
         setupStatusLabelConstraints()
-        setupConeImageViewConstraints()
+        setupConeLoadingViewConstraints()
         setupTitleSelectionConstraints()
         setupLongPressPlaybackSpeedConstraints()
     }
@@ -782,45 +780,13 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
-    private func setupConeImageViewConstraints() {
+    private func setupConeLoadingViewConstraints() {
         NSLayoutConstraint.activate([
-            coneImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            coneImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            coneImageView.widthAnchor.constraint(equalToConstant: 80),
-            coneImageView.heightAnchor.constraint(equalToConstant: 80)
+            coneLoadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coneLoadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coneLoadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            coneLoadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    private func startConeAnimation() {
-        if coneImageView.layer.animation(forKey: "pulse") != nil {
-            return
-        }
-        coneImageView.alpha = 1.0
-
-        let scale = CABasicAnimation(keyPath: "transform.scale")
-        scale.fromValue = 0.8
-        scale.toValue = 1.2
-
-        let opacity = CABasicAnimation(keyPath: "opacity")
-        opacity.fromValue = 0.4
-        opacity.toValue = 1.0
-
-        let pulse = CAAnimationGroup()
-        pulse.animations = [scale, opacity]
-        pulse.duration = 0.8
-        pulse.autoreverses = true
-        pulse.repeatCount = .greatestFiniteMagnitude
-        pulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-
-        coneImageView.layer.add(pulse, forKey: "pulse")
-    }
-
-    private func stopConeAnimation() {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        coneImageView.layer.removeAnimation(forKey: "pulse")
-        coneImageView.alpha = 0.0
-        CATransaction.commit()
     }
 
     private func setupLongPressPlaybackSpeedConstraints() {
@@ -1387,9 +1353,9 @@ extension VideoPlayerViewController {
         videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
         if currentState == .buffering {
-            startConeAnimation()
+            coneLoadingView.startAnimating()
         } else {
-            stopConeAnimation()
+            coneLoadingView.stopAnimating()
         }
 
         if currentState == .error {
@@ -1435,7 +1401,7 @@ extension VideoPlayerViewController {
 
     override func playbackPositionUpdated(_ playbackService: PlaybackService) {
         super.playbackPositionUpdated(playbackService)
-        stopConeAnimation()
+        coneLoadingView.stopAnimating()
     }
 
     func playbackServiceDidSwitchAspectRatio(_ aspectRatio: Int) {

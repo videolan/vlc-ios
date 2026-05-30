@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFullscreenMovieTVViewController">
             <connections>
-                <outlet property="coneImageView" destination="UcH-Yc-Sd0" id="9fo-IU-bbs"/>
+                <outlet property="coneLoadingView" destination="UcH-Yc-Sd0" id="9fo-IU-bbs"/>
                 <outlet property="audioAlbumNameLabel" destination="AX0-qH-hQt" id="3oT-RW-4am"/>
                 <outlet property="audioArtistLabel" destination="uF6-s0-ZW1" id="Mgp-XN-P8r"/>
                 <outlet property="audioArtworkImageView" destination="J7W-id-hCi" id="Zvs-aZ-ggK"/>
@@ -121,13 +121,13 @@
                     <color key="shadowColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <size key="shadowOffset" width="0.0" height="2"/>
                 </label>
-                <imageView opaque="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cone" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Yc-Sd0">
-                    <rect key="frame" x="880" y="575.5" width="160" height="160"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Yc-Sd0" customClass="VLCPulsingConeView">
+                    <rect key="frame" x="920" y="583.5" width="80" height="80"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="160" id="cn0-co-wid"/>
-                        <constraint firstAttribute="height" constant="160" id="cn0-co-hgt"/>
+                        <constraint firstAttribute="width" constant="80" id="cn0-co-wid"/>
+                        <constraint firstAttribute="height" constant="80" id="cn0-co-hgt"/>
                     </constraints>
-                </imageView>
+                </view>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-KN-vRr" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="886" width="1920" height="194"/>
                     <subviews>
@@ -185,7 +185,4 @@
             <point key="canvasLocation" x="143" y="41"/>
         </view>
     </objects>
-    <resources>
-        <image name="ic_cone" width="130" height="130"/>
-    </resources>
 </document>

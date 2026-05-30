@@ -184,7 +184,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.playbackUIShouldHide = [defaults boolForKey:kVLCPlayerUIShouldHide];
     if (self.playbackUIShouldHide) {
-        [self stopConeAnimation];
+        [self.coneLoadingView stopAnimating];
         self.bufferingLabel.hidden = YES;
         self.audioArtworkImageView.image = nil;
         self.audioLargeBackgroundImageView.image = nil;
@@ -825,45 +825,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         }
         switch (state) {
             case VLCMediaPlayerStateBuffering:
-                [self startConeAnimation];
+                [self.coneLoadingView startAnimating];
                 break;
             default:
-                [self stopConeAnimation];
+                [self.coneLoadingView stopAnimating];
                 break;
         }
     });
-}
-
-- (void)startConeAnimation {
-    if ([self.coneImageView.layer animationForKey:@"pulse"]) {
-        return;
-    }
-    self.coneImageView.alpha = 1.0;
-
-    CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    scale.fromValue = @0.8;
-    scale.toValue = @1.2;
-
-    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacity.fromValue = @0.4;
-    opacity.toValue = @1.0;
-
-    CAAnimationGroup *pulse = [CAAnimationGroup animation];
-    pulse.animations = @[scale, opacity];
-    pulse.duration = 0.8;
-    pulse.autoreverses = YES;
-    pulse.repeatCount = HUGE_VALF;
-    pulse.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-
-    [self.coneImageView.layer addAnimation:pulse forKey:@"pulse"];
-}
-
-- (void)stopConeAnimation {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    [self.coneImageView.layer removeAnimationForKey:@"pulse"];
-    self.coneImageView.alpha = 0.0;
-    [CATransaction commit];
 }
 
 - (void)disableIdleTimer {

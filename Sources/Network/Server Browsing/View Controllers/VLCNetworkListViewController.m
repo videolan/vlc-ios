@@ -22,7 +22,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     NSMutableArray *_searchData;
     UITapGestureRecognizer *_tapTwiceGestureRecognizer;
-    UIActivityIndicatorView *_activityIndicator;
+    VLCPulsingConeView *_coneLoadingView;
 }
 
 @end
@@ -52,17 +52,10 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
 
-#if TARGET_OS_IOS
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-#else
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-#endif
-    _activityIndicator.center = _tableView.center;
-    _activityIndicator.color = PresentationTheme.current.colors.orangeUI;
-    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    _activityIndicator.hidesWhenStopped = YES;
-    [_activityIndicator startAnimating];
-    [self.view addSubview:_activityIndicator];
+    _coneLoadingView = [[VLCPulsingConeView alloc] initWithFrame:_tableView.bounds];
+    _coneLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [_coneLoadingView startAnimating];
+    [self.view addSubview:_coneLoadingView];
 }
 
 - (void)viewDidLoad
@@ -159,12 +152,12 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
 - (void)startActivityIndicator
 {
-    [_activityIndicator startAnimating];
+    [_coneLoadingView startAnimating];
 }
 
 - (void)stopActivityIndicator
 {
-    [_activityIndicator stopAnimating];
+    [_coneLoadingView stopAnimating];
 }
 
 - (void)addPlayAllAction
@@ -199,7 +192,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath row] == ((NSIndexPath *)[[tableView indexPathsForVisibleRows] lastObject]).row)
-        [_activityIndicator stopAnimating];
+        [_coneLoadingView stopAnimating];
 }
 
 #pragma mark - Search Controller Delegate

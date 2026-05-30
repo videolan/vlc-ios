@@ -15,6 +15,7 @@
 #import "VLCTransportBar.h"
 
 @class VLCNetworkImageView;
+@class VLCPulsingConeView;
 
 @interface VLCFullscreenMovieTVViewController : UIViewController <VLCPlaybackServiceDelegate>
 
@@ -24,7 +25,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet VLCTransportBar *transportBar;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *bufferingLabel;
-@property (readwrite, nonatomic, weak) IBOutlet UIImageView *coneImageView;
+@property (readwrite, nonatomic, weak) IBOutlet VLCPulsingConeView *coneLoadingView;
 @property (readwrite, nonatomic, weak) IBOutlet UIView *dimmingView;
 
 @property (readwrite, nonatomic, weak) IBOutlet UIView *audioView;
