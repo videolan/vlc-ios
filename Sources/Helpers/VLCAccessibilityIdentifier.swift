@@ -20,6 +20,7 @@ import Foundation
     static let playlist = "playlist"
     @objc static let settings = "settings"
     static let local = "local"
+    static let photos = "photos"
     static let cloud = "cloud"
     static let stream = "stream"
     static let downloads = "downloads"

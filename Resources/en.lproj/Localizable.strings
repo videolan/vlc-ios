@@ -146,6 +146,9 @@
 "FILES_APP_CELL_TITLE" = "Local files";
 "FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
+"PHOTO_LIBRARY_CELL_TITLE" = "Photo Library";
+"PHOTO_LIBRARY_CELL_SUBTITLE" = "Import videos from your photo library";
+
 "CLOUD_SERVICES" = "Cloud Services";
 "LOGIN" = "Login";
 "LOGGED_IN" = "Logged in";

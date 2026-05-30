@@ -35,6 +35,7 @@
 #import "UIImage+AverageColor.h"
 #import "UIStackView+Orientation.h"
 #import "VLCFavoriteService.h"
+#import "VLCPhotoLibraryController.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNavigationController.h"
 #import "VLCDonationNagScreenViewController.h"
