@@ -24,7 +24,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet VLCTransportBar *transportBar;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *bufferingLabel;
-@property (readwrite, nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (readwrite, nonatomic, weak) IBOutlet UIImageView *coneImageView;
 @property (readwrite, nonatomic, weak) IBOutlet UIView *dimmingView;
 
 @property (readwrite, nonatomic, weak) IBOutlet UIView *audioView;

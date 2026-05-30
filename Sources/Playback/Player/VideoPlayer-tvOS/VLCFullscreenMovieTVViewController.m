@@ -184,8 +184,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.playbackUIShouldHide = [defaults boolForKey:kVLCPlayerUIShouldHide];
     if (self.playbackUIShouldHide) {
-        self.activityIndicator.alpha = 0.;
-        [self.activityIndicator stopAnimating];
+        [self stopConeAnimation];
         self.bufferingLabel.hidden = YES;
         self.audioArtworkImageView.image = nil;
         self.audioLargeBackgroundImageView.image = nil;
@@ -819,27 +818,52 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
 }
 
-- (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
+- (void)updateBufferingAnimationForState:(VLCMediaPlayerState)state {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.playbackUIShouldHide) {
             return;
         }
-        UIActivityIndicatorView *indicator = self.activityIndicator;
         switch (state) {
             case VLCMediaPlayerStateBuffering:
-                if (!indicator.isAnimating) {
-                    self.activityIndicator.alpha = 1.0;
-                    [self.activityIndicator startAnimating];
-                }
+                [self startConeAnimation];
                 break;
             default:
-                if (indicator.isAnimating) {
-                    [self.activityIndicator stopAnimating];
-                    self.activityIndicator.alpha = 0.0;
-                }
+                [self stopConeAnimation];
                 break;
         }
     });
+}
+
+- (void)startConeAnimation {
+    if ([self.coneImageView.layer animationForKey:@"pulse"]) {
+        return;
+    }
+    self.coneImageView.alpha = 1.0;
+
+    CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scale.fromValue = @0.8;
+    scale.toValue = @1.2;
+
+    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue = @0.4;
+    opacity.toValue = @1.0;
+
+    CAAnimationGroup *pulse = [CAAnimationGroup animation];
+    pulse.animations = @[scale, opacity];
+    pulse.duration = 0.8;
+    pulse.autoreverses = YES;
+    pulse.repeatCount = HUGE_VALF;
+    pulse.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+    [self.coneImageView.layer addAnimation:pulse forKey:@"pulse"];
+}
+
+- (void)stopConeAnimation {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    [self.coneImageView.layer removeAnimationForKey:@"pulse"];
+    self.coneImageView.alpha = 0.0;
+    [CATransaction commit];
 }
 
 - (void)disableIdleTimer {
@@ -958,7 +982,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
              forPlaybackService:(VLCPlaybackService *)playbackService
 {
 
-    [self updateActivityIndicatorForState:currentState];
+    [self updateBufferingAnimationForState:currentState];
 
     if (playbackService.isPlaying) {
         // we sometimes don't set the vout correctly if playback stops and restarts without dismising and redisplaying the VC
@@ -1055,7 +1079,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackPositionUpdated:(VLCPlaybackService *)controller
 {
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
-    [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
+    [self updateBufferingAnimationForState:VLCMediaPlayerStatePlaying];
 
     if (self.bottomOverlayView.alpha != 0.0) {
         [self updateTransportBarPosition];
