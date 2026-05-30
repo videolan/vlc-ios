@@ -43,10 +43,10 @@
 
     // exception handling as writeData:error: is iOS 13+ only
     NSException *caught = nil;
+    [self lock];
     @try {
         [handle writeData:[@"#EXTM3U\n" dataUsingEncoding:NSUTF8StringEncoding]];
 
-        [self lock];
         NSInteger count = self.count;
         for (NSInteger i = 0; i < count; i++) {
             VLCMedia *media = [self mediaAtIndex:i];
@@ -68,10 +68,11 @@
             NSString *entry = [NSString stringWithFormat:@"#EXTINF:-1,%@\n%@\n", sanitizedTitle, url.absoluteString];
             [handle writeData:[entry dataUsingEncoding:NSUTF8StringEncoding]];
         }
-        [self unlock];
     } @catch (NSException *exception) {
         caught = exception;
         success = NO;
+    } @finally {
+        [self unlock];
     }
 
     [handle closeFile];
