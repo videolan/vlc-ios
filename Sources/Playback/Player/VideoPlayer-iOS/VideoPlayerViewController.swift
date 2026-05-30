@@ -200,6 +200,14 @@ class VideoPlayerViewController: PlayerViewController {
         return artWorkImageView
     }()
 
+    private lazy var coneImageView: UIImageView = {
+        let coneImageView = UIImageView(image: UIImage(named: "ic_cone"))
+        coneImageView.contentMode = .scaleAspectFit
+        coneImageView.translatesAutoresizingMaskIntoConstraints = false
+        coneImageView.alpha = 0.0
+        return coneImageView
+    }()
+
     private var videoOutputView: UIView = {
         var videoOutputView = UIView()
         videoOutputView.backgroundColor = .black
@@ -491,6 +499,7 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(volumeControlView)
 #endif
         view.addSubview(externalVideoOutputView)
+        view.addSubview(coneImageView)
         view.addSubview(statusLabel)
         view.addSubview(titleSelectionView)
         view.addSubview(longPressPlaybackSpeedView)
@@ -597,6 +606,7 @@ class VideoPlayerViewController: PlayerViewController {
         setupVolumeControlConstraints()
 #endif
         setupStatusLabelConstraints()
+        setupConeImageViewConstraints()
         setupTitleSelectionConstraints()
         setupLongPressPlaybackSpeedConstraints()
     }
@@ -770,6 +780,47 @@ class VideoPlayerViewController: PlayerViewController {
             statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+
+    private func setupConeImageViewConstraints() {
+        NSLayoutConstraint.activate([
+            coneImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            coneImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            coneImageView.widthAnchor.constraint(equalToConstant: 80),
+            coneImageView.heightAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+
+    private func startConeAnimation() {
+        if coneImageView.layer.animation(forKey: "pulse") != nil {
+            return
+        }
+        coneImageView.alpha = 1.0
+
+        let scale = CABasicAnimation(keyPath: "transform.scale")
+        scale.fromValue = 0.8
+        scale.toValue = 1.2
+
+        let opacity = CABasicAnimation(keyPath: "opacity")
+        opacity.fromValue = 0.4
+        opacity.toValue = 1.0
+
+        let pulse = CAAnimationGroup()
+        pulse.animations = [scale, opacity]
+        pulse.duration = 0.8
+        pulse.autoreverses = true
+        pulse.repeatCount = .greatestFiniteMagnitude
+        pulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+
+        coneImageView.layer.add(pulse, forKey: "pulse")
+    }
+
+    private func stopConeAnimation() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        coneImageView.layer.removeAnimation(forKey: "pulse")
+        coneImageView.alpha = 0.0
+        CATransaction.commit()
     }
 
     private func setupLongPressPlaybackSpeedConstraints() {
@@ -1335,6 +1386,12 @@ extension VideoPlayerViewController {
         videoPlayerControls.updatePlayPauseButton(toState: isPlaying)
         videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
+        if currentState == .buffering {
+            startConeAnimation()
+        } else {
+            stopConeAnimation()
+        }
+
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
@@ -1374,6 +1431,11 @@ extension VideoPlayerViewController {
             supportedInterfaceOrientations = .allButUpsideDown
             videoPlayerControls.rotationLockButton.tintColor = .white
         }
+    }
+
+    override func playbackPositionUpdated(_ playbackService: PlaybackService) {
+        super.playbackPositionUpdated(playbackService)
+        stopConeAnimation()
     }
 
     func playbackServiceDidSwitchAspectRatio(_ aspectRatio: Int) {
