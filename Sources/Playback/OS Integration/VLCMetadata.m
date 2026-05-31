@@ -50,7 +50,10 @@
     if (media && !media.isExternalMedia) {
         self.title = media.title;
         self.artist = media.artist.name;
+        self.genre = media.genre.name;
         self.trackNumber = @(media.trackNumber);
+        self.albumTrackCount = @(media.album.numberOfTracks);
+        self.discNumber = @(media.discNumber);
         self.albumName = media.album.title;
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
@@ -149,7 +152,10 @@
         }
         self.artist = metadata.artist;
         self.albumName = metadata.album;
+        self.genre = metadata.genre;
         self.trackNumber = @(metadata.trackNumber);
+        self.albumTrackCount = @(metadata.trackTotal);
+        self.discNumber = @(metadata.discNumber);
         self.artworkImage = nil;
 
         NSURL *artworkURL = metadata.artworkURL;
@@ -200,6 +206,15 @@
 
     if ([self.trackNumber intValue] > 0)
         currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = self.trackNumber;
+
+    if (self.genre.length > 0)
+        currentlyPlayingTrackInfo[MPMediaItemPropertyGenre] = self.genre;
+
+    if ([self.albumTrackCount intValue] > 0)
+        currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackCount] = self.albumTrackCount;
+
+    if ([self.discNumber intValue] > 0)
+        currentlyPlayingTrackInfo[MPMediaItemPropertyDiscNumber] = self.discNumber;
 
     NSInteger chapterCount = playbackService.numberOfChaptersForCurrentTitle;
     if (chapterCount > 1) {
