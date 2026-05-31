@@ -175,6 +175,7 @@
 - (void)populateInfoCenterFromMetadata
 {
     NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
+    VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
     NSNumber *duration = self.playbackDuration;
     currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = duration;
     if (@available(iOS 10.0, *)) {
@@ -193,6 +194,12 @@
 
     if ([self.trackNumber intValue] > 0)
         currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = self.trackNumber;
+
+    NSInteger chapterCount = playbackService.numberOfChaptersForCurrentTitle;
+    if (chapterCount > 1) {
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyChapterCount] = @(chapterCount);
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyChapterNumber] = @(MAX(0, playbackService.indexOfCurrentChapter));
+    }
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
     if (self.artworkImage) {
