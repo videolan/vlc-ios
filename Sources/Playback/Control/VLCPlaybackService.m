@@ -373,15 +373,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 
     [_mediaPlayer setDelegate:self];
-    id speedValue = [defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue];
-    CGFloat defaultPlaybackSpeed = 1.0;
-
-    if ([speedValue isKindOfClass:[NSString class]] && [speedValue isEqualToString:@"custom"]) {
-        defaultPlaybackSpeed = [defaults floatForKey:@"playback-speed-custom"];
-    } else {
-        defaultPlaybackSpeed = [speedValue floatValue];
-    }
-
+    CGFloat defaultPlaybackSpeed = self.defaultPlaybackRate;
     if (defaultPlaybackSpeed != 0.)
         [_mediaPlayer setRate: defaultPlaybackSpeed];
     int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
@@ -721,6 +713,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
     [_mediaPlayer setRate:playbackRate];
     _metadata.playbackRate = @(_mediaPlayer.rate);
+}
+
+- (CGFloat)defaultPlaybackRate
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    id speedValue = [defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue];
+    if ([speedValue isKindOfClass:[NSString class]] && [speedValue isEqualToString:@"custom"]) {
+        return [defaults floatForKey:@"playback-speed-custom"];
+    }
+    return [speedValue floatValue];
 }
 
 - (void)setAudioDelay:(float)audioDelay

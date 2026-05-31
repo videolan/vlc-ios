@@ -13,6 +13,7 @@
 
 #import "VLCRemoteControlService.h"
 #import "VLCPlaybackService.h"
+#import "VLCMetadata.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @implementation VLCRemoteControlService
@@ -48,6 +49,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(playbackStarted:) name:VLCPlaybackServicePlaybackDidStart object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackStopped:) name:VLCPlaybackServicePlaybackDidStop object:nil];
+        [notificationCenter addObserver:self selector:@selector(metadataChanged:) name:VLCPlaybackServicePlaybackMetadataDidChange object:nil];
     }
     return self;
 }
@@ -88,6 +90,12 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
     for (MPRemoteCommand *command in RemoteCommandCenterCommandsToHandle()) {
         [command addTarget:self action:@selector(remoteCommandEvent:)];
     }
+}
+
+- (void)metadataChanged:(NSNotification *)aNotification
+{
+    BOOL isLiveStream = [VLCPlaybackService sharedInstance].metadata.isLiveStream;
+    [MPRemoteCommandCenter sharedCommandCenter].changePlaybackPositionCommand.enabled = !isLiveStream;
 }
 
 - (void)playbackStopped:(NSNotification *)aNotification

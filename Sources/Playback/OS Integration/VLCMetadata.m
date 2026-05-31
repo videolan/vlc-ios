@@ -119,6 +119,7 @@
 - (void)updatePlaybackRate:(VLCMediaPlayer *)mediaPlayer
 {
     self.playbackDuration = @(mediaPlayer.media.length.intValue / 1000.);
+    self.isLiveStream = self.playbackDuration.intValue <= 0;
     self.playbackRate = @(mediaPlayer.rate);
     VLCTime *elapsedPlaybackTime = mediaPlayer.time;
     if (elapsedPlaybackTime) {
@@ -178,15 +179,20 @@
     VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
     NSNumber *duration = self.playbackDuration;
     currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = duration;
+    BOOL isLiveStream = duration.intValue <= 0;
     if (@available(iOS 10.0, *)) {
-        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
-        self.isLiveStream = duration.intValue <= 0;
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(isLiveStream);
+        self.isLiveStream = isLiveStream;
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackProgress] = self.position;
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyExternalContentIdentifier] = self.identifier;
+        if (isLiveStream)
+            currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyCurrentPlaybackDate] = [NSDate date];
     }
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.elapsedPlaybackTime;
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.playbackRate;
+    CGFloat configuredDefaultRate = playbackService.defaultPlaybackRate;
+    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = @(configuredDefaultRate > 0 ? configuredDefaultRate : 1.0);
 
     currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = self.title;
     currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = self.artist;
