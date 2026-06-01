@@ -331,6 +331,7 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
             ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
                 DispatchQueue.main.async {
                     tabBarController.selectedViewController = viewController
+                    self.tabBarController(tabBarController, didSelect: viewController)
                 }
             })
             return false
