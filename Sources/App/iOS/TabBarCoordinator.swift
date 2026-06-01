@@ -156,7 +156,10 @@ class TabBarCoordinator: NSObject {
             case 1:
                 if let audioViewController = audioNavigationController.topViewController as? AudioViewController {
                     let currentIndex = audioViewController.currentIndex
-                    tabIndex = currentIndex + 1
+                    if currentIndex < audioViewController.viewControllers.count - 1 {
+                        // Do not update the tabIndex if the folders view is selected.
+                        tabIndex = currentIndex + 1
+                    }
                 }
                 break
             default:
