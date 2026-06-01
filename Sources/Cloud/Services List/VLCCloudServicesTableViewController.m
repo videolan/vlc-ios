@@ -30,7 +30,6 @@
 @property (nonatomic) VLCGoogleDriveTableViewController *googleDriveTableViewController;
 @property (nonatomic) VLCBoxTableViewController *boxTableViewController;
 @property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
-@property (nonatomic) VLCDocumentPickerController *documentPickerController;
 @property (nonatomic) VLCPCloudViewController *pcloudTableViewController;
 @end
 
@@ -51,7 +50,6 @@
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.pcloudTableViewController = [[VLCPCloudViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-    self.documentPickerController = [VLCDocumentPickerController new];
 
     self.title = NSLocalizedString(@"CLOUD_SERVICES", @"");
 }
@@ -200,12 +198,14 @@
            // P Cloud
             [self.navigationController pushViewController:self.pcloudTableViewController animated:YES];
             break;
-        case 5:
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
-            else
-                [self.documentPickerController showDocumentMenuViewController:nil];
+        case 5: {
+            // iCloud
+            // with a nil parameter, this method returns the first container listed in the
+            // com.apple.developer.ubiquity-container-identifiers entitlement array
+            NSURL *ubiquityURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+            [[VLCDocumentPickerController new] presentFromViewController:self initialDirectory:ubiquityURL];
             break;
+        }
         default:
             break;
     }

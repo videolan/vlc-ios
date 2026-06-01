@@ -2,122 +2,123 @@
  * VLCDocumentPickerController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tamas Timar <ttimar.vlc # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import "VLCDocumentPickerController.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "VLCMediaFileDiscoverer.h"
+#import "VLCPlaybackService.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-@interface VLCDocumentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate>
-
+@interface VLCDocumentPickerController () <UIDocumentPickerDelegate>
+@property (nonatomic, strong) VLCDocumentPickerController *retainedSelf;
+@property (nonatomic, weak) UIViewController *presentingViewController;
 @end
 
 @implementation VLCDocumentPickerController
 
-#pragma mark - Internal Methods
-
-- (NSArray *)supportedUTIs
+- (UIDocumentPickerViewController *)createPickerViewController
 {
-    NSArray *dict = [[[NSBundle mainBundle] infoDictionary]
-                     objectForKey:@"CFBundleDocumentTypes"];
-
-    NSMutableArray *result = [NSMutableArray array];
-
-    for (NSDictionary *item in dict) {
-        NSArray *contentTypes = [item objectForKey:@"LSItemContentTypes"];
-
-        if (contentTypes != nil) {
-            [result addObjectsFromArray:contentTypes];
-        }
-    }
-    return [result copy];
-}
-
-- (UIViewController *)configuredPickerViewController
-{
-    NSArray *types = [self supportedUTIs];
-    UIDocumentPickerMode mode = UIDocumentPickerModeImport;
-
-    if (@available(iOS 11.2, *)) {
-        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:mode];
-        picker.delegate = self;
-        picker.allowsMultipleSelection = YES;
-
-        return picker;
+    if (@available(iOS 14.0, *)) {
+        return [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:@[UTTypeItem, UTTypeFolder] asCopy:NO];
     } else {
-        UIDocumentMenuViewController *picker = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:types inMode:mode];
-        picker.delegate = self;
-
-        return picker;
+        return [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.item", @"public.folder"] inMode:UIDocumentPickerModeOpen];
     }
 }
 
-- (void)showDocumentMenuViewController:(id)sender
+- (void)presentFromViewController:(UIViewController *)presentingViewController
+                 initialDirectory:(NSURL *)initialDirectoryURL
 {
-    UIViewController *picker = [self configuredPickerViewController];
-
-    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UIPopoverPresentationController *popoverPres = picker.popoverPresentationController;
-
-    if (popoverPres) { // not-nil on iPad
-        UIView *sourceView = nil;
-        if ([sender isKindOfClass:[UIView class]]) {
-            sourceView = sender;
-        } else {
-            sourceView = rootVC.view;
-        }
-
-        popoverPres.sourceView = sourceView;
-        popoverPres.sourceRect = sourceView.bounds;
-        popoverPres.permittedArrowDirections = UIPopoverArrowDirectionLeft;
+    UIDocumentPickerViewController *picker = [self createPickerViewController];
+    picker.delegate = self;
+    picker.allowsMultipleSelection = YES;
+    if (@available(iOS 13.0, *)) {
+        picker.directoryURL = initialDirectoryURL;
     }
 
-    [rootVC presentViewController:picker animated:YES completion:nil];
-}
+    self.presentingViewController = presentingViewController;
+    self.retainedSelf = self;
 
-#pragma mark - UIDocumentMenuDelegate
-
-- (void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker
-{
-    documentPicker.delegate = self;
-
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:documentPicker animated:YES completion:nil];
+    [presentingViewController presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - UIDocumentPickerDelegate
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls NS_AVAILABLE_IOS(11_0);
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
 {
-    for (NSURL *url in urls) {
-        [self documentPicker:controller didPickDocumentAtURL:url];
+    VLCMediaList *medialist = [[VLCMediaList alloc] init];
+
+    if (urls.count == 1 && [[urls.firstObject pathExtension] isEqualToString:@""]) {
+        [self appendFolderContentsAtURL:urls.firstObject toMediaList:medialist];
+    } else {
+        [self appendURLs:urls toMediaList:medialist];
+    }
+
+    if ([medialist count] > 0) {
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+    } else {
+        [self showEmptyMediaListAlert];
+    }
+
+    self.retainedSelf = nil;
+}
+
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
+    self.retainedSelf = nil;
+}
+
+#pragma mark - Private
+
+- (void)appendFolderContentsAtURL:(NSURL *)folderURL toMediaList:(VLCMediaList *)medialist
+{
+    [folderURL startAccessingSecurityScopedResource];
+
+    NSError *error = nil;
+    NSArray<NSURL *> *filesInFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL
+                                                                    includingPropertiesForKeys:@[]
+                                                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                                         error:&error];
+    if (error) {
+        NSLog(@"Error reading directory: %@", error);
+        return;
+    }
+
+    [self appendURLs:filesInFolder toMediaList:medialist];
+}
+
+- (void)appendURLs:(NSArray<NSURL *> *)urls toMediaList:(VLCMediaList *)medialist
+{
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString"
+                                                                    ascending:YES
+                                                                     selector:@selector(localizedStandardCompare:)];
+    NSArray<NSURL *> *sortedURLs = [urls sortedArrayUsingDescriptors:@[sortDescriptor]];
+
+    for (NSURL *url in sortedURLs) {
+        if ([[url pathExtension] isEqualToString:@""]) {
+            continue;
+        }
+        if ([url startAccessingSecurityScopedResource]) {
+            [medialist addMedia:[VLCMedia mediaWithURL:url]];
+            [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+        }
     }
 }
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
+- (void)showEmptyMediaListAlert
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:[url lastPathComponent]];
-
-    NSError *error = nil;
-    [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
-    if (!error) {
-        [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE", nil) message:error.description preferredStyle:UIAlertControllerStyleAlert];
-        UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [rootVC dismissViewControllerAnimated:true completion:nil];
-        }];
-        [alert addAction:okAction];
-        [rootVC presentViewController:alert animated:true completion:nil];
-    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EMPTY_MEDIA_LIST", "")
+                                                                   message:NSLocalizedString(@"EMPTY_MEDIA_LIST_DESCRIPTION", "")
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DISMISS", "")
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [self.presentingViewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end

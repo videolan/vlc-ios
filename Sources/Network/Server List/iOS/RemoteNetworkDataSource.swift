@@ -12,7 +12,6 @@
  *****************************************************************************/
 
 import UIKit
-import MobileCoreServices
 
 enum RemoteNetworkCellType: Int {
     @available(iOS 11.0, *)
@@ -50,7 +49,7 @@ enum RemoteNetworkCellType: Int {
 @objc(VLCRemoteNetworkDataSourceDelegate)
 protocol RemoteNetworkDataSourceDelegate {
     func showViewController(_ viewController: UIViewController)
-    func showDocumentPickerViewController(_ viewController: UIDocumentPickerViewController)
+    func showLocalFilesPicker()
     func reloadRemoteTableView()
 }
 
@@ -148,12 +147,10 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 return
             }
 #endif
-            if let vc = self.viewController(indexPath: indexPath) {
-                if let vc = vc as? UIDocumentPickerViewController {
-                    self.delegate?.showDocumentPickerViewController(vc)
-                } else {
-                    self.delegate?.showViewController(vc)
-                }
+            if cellType == .local {
+                self.delegate?.showLocalFilesPicker()
+            } else if let vc = self.viewController(indexPath: indexPath) {
+                self.delegate?.showViewController(vc)
             } else if cellType == .wifi {
                 if tableView.cellForRow(at: indexPath)?.selectionStyle == .default {
                     if VLCAppCoordinator.sharedInstance().httpUploaderController.isReachable {
@@ -173,11 +170,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
         switch cellType {
         case .local:
-            if #available(iOS 14.0, *) {
-                return UIDocumentPickerViewController(forOpeningContentTypes: [.item, .folder], asCopy: false)
-            } else {
-                return UIDocumentPickerViewController(documentTypes: ["public.item", "public.folder"], in: .open)
-            }
+            return nil
 #if os(iOS)
         case .cloud:
             return VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)

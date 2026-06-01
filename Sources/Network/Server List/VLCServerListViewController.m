@@ -40,10 +40,11 @@
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
 #import "VLCWiFiUploadTableViewCell.h"
+#import "VLCDocumentPickerController.h"
 
 #import "VLC-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
 {
     BOOL _localNetworkReloadScheduled;
     VLCLocalServerDiscoveryController *_discoveryController;
@@ -57,7 +58,6 @@
     NSLayoutConstraint* _localNetworkHeight;
     NSLayoutConstraint* _remoteNetworkHeight;
     MediaLibraryService *_medialibraryService;
-    UIDocumentPickerViewController *_documentPicker;
 
     UIView *_fileServerSeparator;
     UILabel *_fileServerLabel;
@@ -501,16 +501,9 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)showDocumentPickerViewController:(UIDocumentPickerViewController *)viewControllerToPresent
+- (void)showLocalFilesPicker
 {
-    _documentPicker = viewControllerToPresent;
-    _documentPicker.delegate = self;
-
-    if (@available(iOS 11.0, *)) {
-        _documentPicker.allowsMultipleSelection = YES;
-    }
-
-    [self presentViewController:_documentPicker animated:YES completion:nil];
+    [[VLCDocumentPickerController new] presentFromViewController:self initialDirectory:nil];
 }
 
 - (void)reloadRemoteTableView
@@ -635,84 +628,6 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 - (void)discoveryFoundSomethingNew
 {
     [self scheduleLocalTableViewReload];
-}
-
--(void)showEmptyMediaListAlert
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EMPTY_MEDIA_LIST", "")
-                                                                             message:NSLocalizedString(@"EMPTY_MEDIA_LIST_DESCRIPTION", "")
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DISMISS", "") style:UIAlertActionStyleCancel handler:nil];
-
-    [alertController addAction:dismissAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-#pragma mark - UIDocumentPickerDelegate
-
-#if TARGET_OS_IOS
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
-{
-    if (url && [url startAccessingSecurityScopedResource]) {
-        VLCMediaList *medialist = [[VLCMediaList alloc] init];
-        [medialist addMedia:[VLCMedia mediaWithURL:url]];
-        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
-    }
-}
-#endif
-
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls
-{
-    if (urls.count > 0) {
-        VLCMediaList *medialist = [[VLCMediaList alloc] init];
-
-        if (urls.count == 1 && [[urls[0] pathExtension] isEqualToString:@""]) {
-            [self getFolderData:urls[0] mediaList:medialist];
-        } else {
-            [self sortMediaListWith:urls mediaList:medialist];
-        }
-
-        if ([medialist count] > 0) {
-            [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-        } else {
-            [self showEmptyMediaListAlert];
-        }
-    }
-}
-
--(void)getFolderData:(NSURL*)url mediaList:(VLCMediaList*) list
-{
-    NSURL *folderURL = url;
-    NSError *error = nil;
-    [url startAccessingSecurityScopedResource];
-    NSArray<NSURL *> *filesInFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL
-                                                                    includingPropertiesForKeys:@[]
-                                                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                                         error:&error];
-    if (error) {
-        NSLog(@"Error reading directory: %@", error);
-        return;
-    }
-
-    [self sortMediaListWith:filesInFolder mediaList:list];
-}
-
-- (void)sortMediaListWith:(NSArray<NSURL *> *)mediaURLS mediaList:(VLCMediaList *)medialist
-{
-    NSSortDescriptor *urlSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString" ascending:YES selector:@selector(localizedStandardCompare:)];
-    NSArray<NSURL *> *sortedArray = [mediaURLS sortedArrayUsingDescriptors:@[urlSortDescriptor]];
-
-    for (NSURL *url in sortedArray) {
-        NSString *pathExtension = [url pathExtension];
-        if (![pathExtension isEqualToString:@""]) {
-            if (url && [url startAccessingSecurityScopedResource]) {
-                [medialist addMedia:[VLCMedia mediaWithURL:url]];
-                [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
-            }
-        }
-    }
 }
 
 @end
