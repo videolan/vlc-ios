@@ -2071,7 +2071,7 @@
 		CA6FB8222074601900FC9BF2 /* VLC-iOS-Screenshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Screenshots-Bridging-Header.h"; sourceTree = "<group>"; };
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
-		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = Buildsystem/fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = Buildsystem/Fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCEmptyLibraryView.h; sourceTree = "<group>"; };
 		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTestMenu.swift; sourceTree = "<group>"; };
@@ -2545,7 +2545,7 @@
 				41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */,
 			);
 			name = "Unit Testing";
-			path = unit;
+			path = Unit;
 			sourceTree = "<group>";
 		};
 		41884A4C214BE09D00D2C6B4 /* MediaCategoryCells */ = {
@@ -2573,7 +2573,7 @@
 				CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */,
 			);
 			name = "UI Testing";
-			path = ui;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		44C8BBA124AF2B5C003F8940 /* Helpers */ = {
@@ -3211,7 +3211,7 @@
 				41B0BC871F73ED7D0063BA26 /* UI Testing */,
 			);
 			name = Testing;
-			path = Buildsystem/testing;
+			path = Buildsystem/Testing;
 			sourceTree = "<group>";
 		};
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
