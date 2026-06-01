@@ -502,10 +502,16 @@ static NSMutableDictionary *authentifiedHosts;
     if (mediaId > 0) {
         thumbnailHTML = [NSString stringWithFormat:@"<img src=\"Thumbnail/%lld\" alt=\"\"/>", mediaId];
     }
-    NSString *countKey = count > 1 ? @"TRACKS" : @"TRACK";
-    NSString *countFormat = _languageBundle
-        ? [_languageBundle localizedStringForKey:countKey value:nil table:nil]
-        : NSLocalizedString(countKey, nil);
+    NSString *countFormat;
+    if (count > 1) {
+        countFormat = _languageBundle
+            ? [_languageBundle localizedStringForKey:@"TRACKS" value:nil table:nil]
+            : NSLocalizedString(@"TRACKS", nil);
+    } else {
+        countFormat = _languageBundle
+            ? [_languageBundle localizedStringForKey:@"TRACK" value:nil table:nil]
+            : NSLocalizedString(@"TRACK", nil);
+    }
     NSString *countString = [NSString stringWithFormat:countFormat, (int)count];
     return [NSString stringWithFormat:
             @"<div> \
