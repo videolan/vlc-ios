@@ -14,6 +14,7 @@
 
 #import "VLCDownloadViewController.h"
 #import "VLCDownloadController.h"
+#import "VLCActiveDownloadCell.h"
 #import "NSString+SupportedMedia.h"
 #import "VLC-Swift.h"
 
@@ -51,6 +52,7 @@
         self.urlField.textContentType = UITextContentTypeURL;
     }
     self.progressContainer.hidden = YES;
+    self.progressContainer.alpha = 0;
     self.downloadsTable.hidden = NO;
     self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -186,8 +188,9 @@
 
 - (void)updateContentViewHeightConstraint
 {
+    CGFloat progressHeight = _progressContainer.hidden ? 0 : _progressContainer.frame.size.height;
     _contentViewHeight.constant = _downloadFieldContainer.frame.size.height
-                                    + _progressContainer.frame.size.height
+                                    + progressHeight
                                     + _downloadsTable.contentSize.height;
 }
 
@@ -199,45 +202,135 @@
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return _downloadController.numberOfScheduledDownloads;
+        NSInteger n = (NSInteger)_downloadController.numberOfScheduledDownloads;
+        if (_downloadController.hasActiveDownload) {
+            n += 1;
+        }
+        return n;
+    } else if (section == 1) {
+        return _downloadController.numberOfCompletedDownloads;
     }
+    return _downloadController.numberOfFailedDownloads;
+}
 
-    return _downloadController.numberOfCompletedDownloads;
+- (BOOL)_isActiveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath.section == 0
+        && indexPath.row == 0
+        && _downloadController.hasActiveDownload;
+}
+
+- (NSUInteger)_scheduledIndexForRow:(NSInteger)row
+{
+    if (_downloadController.hasActiveDownload) {
+        return (NSUInteger)(row - 1);
+    }
+    return (NSUInteger)row;
+}
+
+- (NSAttributedString *)_prefixedTextWithSymbol:(NSString *)symbol color:(UIColor *)symbolColor text:(NSString *)text textColor:(UIColor *)textColor
+{
+    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:[symbol stringByAppendingString:@" "]
+                                                                               attributes:@{NSForegroundColorAttributeName: symbolColor}];
+    [result appendAttributedString:[[NSAttributedString alloc] initWithString:text attributes:@{NSForegroundColorAttributeName: textColor}]];
+    return result;
+}
+
+- (NSString *)_statsTextForActiveDownload
+{
+    if (!_downloadController.activeDownloadSizeKnown) {
+        NSString *bytes = _downloadController.activeDownloadBytesString;
+        return bytes.length > 0 ? bytes : NSLocalizedString(@"DOWNLOADING", nil);
+    }
+    NSString *bytes = _downloadController.activeDownloadBytesString ?: @"";
+    NSString *speed = _downloadController.activeDownloadSpeedString ?: @"";
+    NSString *time = _downloadController.activeDownloadTimeString ?: @"";
+    return [NSString stringWithFormat:@"%@\n%@ • %@", bytes, speed, time];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ColorPalette *colors = PresentationTheme.current.colors;
+
+    if ([self _isActiveRowAtIndexPath:indexPath]) {
+        static NSString *ActiveCellID = @"ActiveDownloadCell";
+        VLCActiveDownloadCell *activeCell = (VLCActiveDownloadCell *)[tableView dequeueReusableCellWithIdentifier:ActiveCellID];
+        if (activeCell == nil) {
+            activeCell = [[VLCActiveDownloadCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ActiveCellID];
+        }
+        [activeCell applyTheme];
+        activeCell.name = _downloadController.activeDownloadDisplayName ?: @"";
+        activeCell.progressKnown = _downloadController.activeDownloadSizeKnown;
+        activeCell.statsText = [self _statsTextForActiveDownload];
+        if (_downloadController.activeDownloadSizeKnown) {
+            activeCell.progress = _downloadController.activeDownloadPercentage;
+        }
+        return activeCell;
+    }
+
     static NSString *CellIdentifier = @"ScheduledDownloadsCell";
 
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    cell.detailTextLabel.numberOfLines = 1;
 
     NSInteger row = indexPath.row;
     if (indexPath.section == 0) {
-        cell.textLabel.text = [_downloadController displayNameForDownloadAtIndex:row];
-        cell.detailTextLabel.text = [_downloadController urlStringForDownloadAtIndex:row];
-    } else {
-        cell.textLabel.text = [_downloadController displayNameForCompletedDownloadAtIndex:row];
+        NSUInteger scheduledIdx = [self _scheduledIndexForRow:row];
+        cell.textLabel.attributedText = nil;
+        cell.textLabel.text = [_downloadController displayNameForDownloadAtIndex:scheduledIdx];
+        cell.detailTextLabel.text = [_downloadController urlStringForDownloadAtIndex:scheduledIdx];
+        cell.imageView.image = nil;
+        cell.textLabel.textColor = colors.cellTextColor;
+        cell.detailTextLabel.textColor = colors.cellDetailTextColor;
+    } else if (indexPath.section == 1) {
+        NSString *name = [_downloadController displayNameForCompletedDownloadAtIndex:row];
         cell.detailTextLabel.text = [_downloadController metadataForCompletedDownloadAtIndex:row];
+        cell.imageView.image = nil;
+        if (@available(iOS 13.0, *)) {
+            UIImage *check = [UIImage systemImageNamed:@"checkmark.circle.fill"];
+            cell.imageView.image = [check imageWithTintColor:[UIColor systemGreenColor] renderingMode:UIImageRenderingModeAlwaysOriginal];
+            cell.textLabel.attributedText = nil;
+            cell.textLabel.text = name;
+            cell.textLabel.textColor = colors.cellTextColor;
+        } else {
+            cell.textLabel.attributedText = [self _prefixedTextWithSymbol:@"✔" color:[UIColor systemGreenColor] text:(name ?: @"") textColor:colors.cellTextColor];
+        }
+        cell.detailTextLabel.textColor = colors.cellDetailTextColor;
+    } else {
+        NSString *name = [_downloadController displayNameForFailedDownloadAtIndex:row];
+        cell.detailTextLabel.text = [_downloadController errorDescriptionForFailedDownloadAtIndex:row];
+        cell.imageView.image = nil;
+        if (@available(iOS 13.0, *)) {
+            UIImage *warn = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
+            cell.imageView.image = [warn imageWithTintColor:[UIColor systemRedColor] renderingMode:UIImageRenderingModeAlwaysOriginal];
+            cell.textLabel.attributedText = nil;
+            cell.textLabel.text = name;
+            cell.textLabel.textColor = colors.cellTextColor;
+        } else {
+            cell.textLabel.attributedText = [self _prefixedTextWithSymbol:@"⚠" color:[UIColor systemRedColor] text:(name ?: @"") textColor:colors.cellTextColor];
+        }
+        cell.detailTextLabel.textColor = colors.cellDetailTextColor;
+        cell.detailTextLabel.numberOfLines = 2;
+        cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
-
-    ColorPalette *colors = PresentationTheme.current.colors;
-    cell.textLabel.textColor = colors.cellTextColor;
-    cell.detailTextLabel.textColor = colors.cellDetailTextColor;
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self _isActiveRowAtIndexPath:indexPath]) {
+        return 96;
+    }
     return 60;
 }
 
@@ -245,19 +338,24 @@
 {
     if (section == 0) {
         return NSLocalizedString(@"DOWNLOADING", nil);
+    } else if (section == 1) {
+        return NSLocalizedString(@"DOWNLOADS_SECTION_COMPLETED", nil);
     }
-
-    return NSLocalizedString(@"DOWNLOAD_FROM_HTTP", comment:@"");
+    return NSLocalizedString(@"DOWNLOAD_FAILED", nil);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        if (_downloadController.numberOfScheduledDownloads == 0) {
+        if (_downloadController.numberOfScheduledDownloads == 0 && !_downloadController.hasActiveDownload) {
+            return 0.;
+        }
+    } else if (section == 1) {
+        if (_downloadController.numberOfCompletedDownloads == 0) {
             return 0.;
         }
     } else {
-        if (_downloadController.numberOfCompletedDownloads == 0) {
+        if (_downloadController.numberOfFailedDownloads == 0) {
             return 0.;
         }
     }
@@ -273,7 +371,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 || indexPath.section == 2) {
         return YES;
     }
 
@@ -283,7 +381,16 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_downloadController removeScheduledDownloadAtIndex:indexPath.row];
+        if (indexPath.section == 0) {
+            if ([self _isActiveRowAtIndexPath:indexPath]) {
+                [_downloadController cancelCurrentDownload];
+            } else {
+                NSUInteger scheduledIdx = [self _scheduledIndexForRow:indexPath.row];
+                [_downloadController removeScheduledDownloadAtIndex:scheduledIdx];
+            }
+        } else if (indexPath.section == 2) {
+            [_downloadController removeFailedDownloadAtIndex:indexPath.row];
+        }
         [tableView reloadData];
         [self updateContentViewHeightConstraint];
     }
@@ -295,8 +402,35 @@
     if (indexPath.section == 0) {
         return;
     }
+    if (indexPath.section == 2) {
+        NSString *name = [_downloadController displayNameForFailedDownloadAtIndex:indexPath.row];
+        NSString *err = [_downloadController errorDescriptionForFailedDownloadAtIndex:indexPath.row];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:(name.length ? name : NSLocalizedString(@"DOWNLOAD_FAILED", nil))
+                                                                       message:(err.length ? err : NSLocalizedString(@"DOWNLOAD_FAILED", nil))
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
 
     VLCMedia *media = [_downloadController mediaForCompletedDownloadAtIndex:indexPath.row];
+    NSString *mediaPath = media.url.path;
+    // Playing a stale path crashes deep in VLCKit, so warn the user.
+    if (media == nil || mediaPath.length == 0
+        || ![[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
+        NSString *name = [_downloadController displayNameForCompletedDownloadAtIndex:indexPath.row];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:(name.length ? name : NSLocalizedString(@"DOWNLOAD_FROM_HTTP", nil))
+                                                                       message:NSLocalizedString(@"DOWNLOAD_FILE_UNAVAILABLE", nil)
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+
     VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[media]];
     [VLCPlaybackService.sharedInstance playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
 }
@@ -312,21 +446,15 @@
 
 - (void)downloadStartedWithDisplayName:(NSString *)displayName
 {
-    self.currentDownloadLabel.text = displayName;
-    self.progressView.progress = 0.;
-    [self.progressPercent setText:@"0%"];
-    self.activityIndicator.hidden = YES;
-    [self.speedRate setText:@"0 Kb/s"];
-    [self.timeDL setText:@"00:00:00"];
-    self.progressContainer.hidden = NO;
+    // Container is kept hidden; the active download is rendered as an inline cell.
+    self.progressContainer.hidden = YES;
+    [self _updateUI];
 }
 
 - (void)downloadEnded
 {
-    self.progressPercent.hidden = NO;
-    self.activityIndicator.hidden = YES;
-    [self.activityIndicator stopAnimating];
     self.progressContainer.hidden = YES;
+    [self _updateUI];
 }
 
 - (void)downloadFailedWithDescription:(NSString *)description
@@ -341,18 +469,25 @@
                                         speed:(NSString *)speed
                                totalSizeKnown:(BOOL)totalSizeKnown
 {
-    if (!totalSizeKnown) {
-        if (self.activityIndicator.hidden) {
-            self.progressPercent.hidden = YES;
-            self.activityIndicator.hidden = NO;
-            [self.activityIndicator startAnimating];
-        }
-    } else {
-        [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+    if (!_downloadController.hasActiveDownload) {
+        return;
     }
-    [self.timeDL setText:time];
-    [self.speedRate setText:speed];
-    [self.progressView setProgress:percentage animated:YES];
+    // Patch the active cell in place: mutating the table while a swipe-to-cancel
+    // is in flight triggers an invalid-row-count crash.
+    if ([self.downloadsTable numberOfRowsInSection:0] == 0) {
+        return;
+    }
+    NSIndexPath *activeIP = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell = [self.downloadsTable cellForRowAtIndexPath:activeIP];
+    if (![cell isKindOfClass:[VLCActiveDownloadCell class]]) {
+        return;
+    }
+    VLCActiveDownloadCell *activeCell = (VLCActiveDownloadCell *)cell;
+    activeCell.progressKnown = totalSizeKnown;
+    if (totalSizeKnown) {
+        activeCell.progress = percentage;
+    }
+    activeCell.statsText = [self _statsTextForActiveDownload];
 }
 
 - (void)listOfScheduledDownloadsChanged
