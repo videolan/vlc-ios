@@ -202,3 +202,5 @@
 
 #define kVLCDefaultPageSize 500
 #define kVLCPrefetchDistance 100
+
+#define kVLCAudioTabIndex @"kVLCAudioTabIndex"

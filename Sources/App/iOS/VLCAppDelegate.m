@@ -105,7 +105,8 @@
                                   kVLCSettingAlwaysPlayURLs: @(NO),
                                   kVLCRestoreLastPlayedMedia: @(NO),
                                   kVLCSettingPlayerControlDuration: kVLCSettingPlayerControlDurationDefaultValue,
-                                  kVLCSettingPauseWhenShowingControls: @(NO)
+                                  kVLCSettingPauseWhenShowingControls: @(NO),
+                                  kVLCAudioTabIndex: @(0)
     };
     [defaults registerDefaults:appDefaults];
 }

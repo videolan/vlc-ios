@@ -16,6 +16,11 @@ class AudioViewController: MediaViewController {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        currentIndex = UserDefaults.standard.integer(forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
+    }
+
     private func setupUI() {
         title = NSLocalizedString("AUDIO", comment: "")
         tabBarItem = UITabBarItem(

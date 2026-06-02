@@ -44,6 +44,11 @@ class TrackCategoryViewController: MediaCategoryViewController {
         }
         model.observable.addObserver(self)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(2, forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
+    }
 }
 
 class GenreCategoryViewController: MediaCategoryViewController {
@@ -51,6 +56,11 @@ class GenreCategoryViewController: MediaCategoryViewController {
         let model = GenreModel(medialibrary: mediaLibraryService)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(3, forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
     }
 }
 
@@ -60,6 +70,11 @@ class ArtistCategoryViewController: MediaCategoryViewController {
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(0, forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
+    }
 }
 
 class FolderViewController: MediaCategoryViewController {
@@ -68,6 +83,11 @@ class FolderViewController: MediaCategoryViewController {
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(4, forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
+    }
 }
 
 class AlbumCategoryViewController: MediaCategoryViewController {
@@ -75,6 +95,11 @@ class AlbumCategoryViewController: MediaCategoryViewController {
         let model = AlbumModel(medialibrary: mediaLibraryService)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(1, forKey: kVLCAudioTabIndex)
+        super.viewWillAppear(animated)
     }
 }
 
