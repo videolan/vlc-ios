@@ -16,6 +16,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString * const VLCDownloadControllerStateDidChangeNotification;
+
 @class VLCMedia;
 
 @protocol VLCDownloadControllerDelegate <NSObject>
@@ -33,6 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) NSUInteger numberOfScheduledDownloads;
 @property (readonly) NSUInteger numberOfCompletedDownloads;
+@property (readonly) NSUInteger numberOfFailedDownloads;
+@property (readonly) BOOL hasActiveDownload;
+@property (readonly, nullable, copy) NSString *activeDownloadDisplayName;
+@property (readonly) CGFloat activeDownloadPercentage;
+@property (readonly) BOOL activeDownloadSizeKnown;
+@property (readonly, nullable, copy) NSString *activeDownloadSpeedString;
+@property (readonly, nullable, copy) NSString *activeDownloadTimeString;
+/// Formatted "received / total" string (e.g. "342 MB / 1.2 GB"), or just "received" when total is unknown. nil when no active download.
+@property (readonly, nullable, copy) NSString *activeDownloadBytesString;
 @property (readwrite, weak) id<VLCDownloadControllerDelegate> delegate;
 
 + (instancetype)sharedInstance;
@@ -46,6 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)displayNameForCompletedDownloadAtIndex:(NSUInteger)index;
 - (nullable NSString *)metadataForCompletedDownloadAtIndex:(NSUInteger)index;
 - (nullable VLCMedia *)mediaForCompletedDownloadAtIndex:(NSUInteger)index;
+- (nullable NSString *)displayNameForFailedDownloadAtIndex:(NSUInteger)index;
+- (nullable NSString *)errorDescriptionForFailedDownloadAtIndex:(NSUInteger)index;
+- (void)removeFailedDownloadAtIndex:(NSUInteger)index;
 - (void)bringDelegateUpToDate;
 
 @end

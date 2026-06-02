@@ -18,12 +18,17 @@
 #import "VLCActivityManager.h"
 #import <AVFoundation/AVFoundation.h>
 
+NSString * const VLCDownloadControllerStateDidChangeNotification = @"VLCDownloadControllerStateDidChangeNotification";
+
 @interface VLCDownloadController () <VLCMediaFileDownloader>
 {
     NSMutableArray *_currentDownloads;
     NSMutableArray *_downloadedMedia;
     NSMutableArray *_downloadedMediaDates;
+    NSMutableArray<NSDictionary *> *_failedDownloads;
     NSDateFormatter *_dateFormatter;
+    NSByteCountFormatter *_byteCountFormatter;
+    NSDateFormatter *_remainingTimeFormatter;
 
     BOOL _downloadActive;
     NSString *_humanReadableFilename;
@@ -40,6 +45,13 @@
     CGFloat _lastReceived;
 
     AVSpeechSynthesizer *_speechSynthesizer;
+
+    CGFloat _activePercentage;
+    BOOL _activeSizeKnown;
+    NSString *_activeSpeed;
+    NSString *_activeTime;
+    CGFloat _activeExpectedSize;
+    BOOL _cancelInitiatedByUser;
 }
 @end
 
@@ -66,6 +78,7 @@
         _currentDownloads = [[NSMutableArray alloc] init];
         _downloadedMedia = [[NSMutableArray alloc] init];
         _downloadedMediaDates = [[NSMutableArray alloc] init];
+        _failedDownloads = [[NSMutableArray alloc] init];
         _userDefinedFileNameForDownloadItem = [[NSMutableDictionary alloc] init];
         _expectedDownloadSizesForItem = [[NSMutableDictionary alloc] init];
         _mediaDownloader = [[VLCMediaFileDownloader alloc] init];
@@ -76,6 +89,14 @@
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
         _dateFormatter.timeStyle = NSDateFormatterMediumStyle;
+
+        _byteCountFormatter = [[NSByteCountFormatter alloc] init];
+        _byteCountFormatter.countStyle = NSByteCountFormatterCountStyleFile;
+        _byteCountFormatter.allowsNonnumericFormatting = NO;
+
+        _remainingTimeFormatter = [[NSDateFormatter alloc] init];
+        _remainingTimeFormatter.dateFormat = @"HH:mm:ss";
+        _remainingTimeFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     }
     return self;
 }
@@ -111,6 +132,7 @@
 
 - (void)cancelCurrentDownload
 {
+    _cancelInitiatedByUser = YES;
     [_mediaDownloader cancelDownload];
     [_httpDownloader cancelDownload];
 }
@@ -188,6 +210,107 @@
     }
 }
 
+#pragma mark - Failed downloads
+- (NSUInteger)numberOfFailedDownloads
+{
+    return _failedDownloads.count;
+}
+
+- (NSString *)displayNameForFailedDownloadAtIndex:(NSUInteger)index
+{
+    if (index >= _failedDownloads.count) {
+        return nil;
+    }
+    return _failedDownloads[index][@"name"];
+}
+
+- (NSString *)errorDescriptionForFailedDownloadAtIndex:(NSUInteger)index
+{
+    if (index >= _failedDownloads.count) {
+        return nil;
+    }
+    return _failedDownloads[index][@"error"];
+}
+
+- (void)removeFailedDownloadAtIndex:(NSUInteger)index
+{
+    if (index >= _failedDownloads.count) {
+        return;
+    }
+    [_failedDownloads removeObjectAtIndex:index];
+    [self _postStateDidChange];
+}
+
+#pragma mark - Banner-facing state
+- (BOOL)hasActiveDownload
+{
+    return _downloadActive;
+}
+
+- (NSString *)activeDownloadDisplayName
+{
+    return _downloadActive ? _humanReadableFilename : nil;
+}
+
+- (CGFloat)activeDownloadPercentage
+{
+    return _activePercentage;
+}
+
+- (BOOL)activeDownloadSizeKnown
+{
+    return _activeSizeKnown;
+}
+
+- (NSString *)activeDownloadSpeedString
+{
+    return _downloadActive ? _activeSpeed : nil;
+}
+
+- (NSString *)activeDownloadTimeString
+{
+    return _downloadActive ? _activeTime : nil;
+}
+
+- (NSString *)activeDownloadBytesString
+{
+    if (!_downloadActive) {
+        return nil;
+    }
+    NSString *received = [_byteCountFormatter stringFromByteCount:(long long)_totalReceived];
+    if (_activeExpectedSize > 0) {
+        NSString *total = [_byteCountFormatter stringFromByteCount:(long long)_activeExpectedSize];
+        return [NSString stringWithFormat:@"%@ / %@", received, total];
+    }
+    return received;
+}
+
+- (void)_resetActiveDownloadState
+{
+    _startDL = [NSDate timeIntervalSinceReferenceDate];
+    [_lastSpeeds removeAllObjects];
+    _lastReceived = 0;
+    _totalReceived = 0;
+    _lastStatsUpdate = 0;
+    _activePercentage = 0.0;
+    _activeSizeKnown = NO;
+    _activeSpeed = nil;
+    _activeTime = nil;
+    _activeExpectedSize = 0.0;
+    _cancelInitiatedByUser = NO;
+}
+
+- (void)_postStateDidChange
+{
+    if ([NSThread isMainThread]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCDownloadControllerStateDidChangeNotification object:self];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCDownloadControllerStateDidChangeNotification object:self];
+        });
+    }
+}
+
 - (void)bringDelegateUpToDate
 {
     if (_downloadActive) {
@@ -215,6 +338,10 @@
 
     [self fetchExpectedDownloadSizeForMedia:media completionHandler:^(CGFloat expectedDownloadSize) {
         self->_downloadActive = YES; // Allow download regardless of the expected size
+
+        // Single start point common to both downloaders; the HTTP one does not
+        // call mediaFileDownloadStarted:.
+        [self _resetActiveDownloadState];
 
         if ([media.url.scheme isEqualToString:@"http"]) {
             [self->_httpDownloader downloadFileFromVLCMedia:media withName:self->_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
@@ -264,6 +391,7 @@
     if ([_currentDownloads count] == 0) {
         _downloadActive = NO;
         [_delegate listOfScheduledDownloadsChanged];
+        [self _postStateDidChange];
         return;
     }
 
@@ -277,13 +405,19 @@
         [_currentDownloads removeObjectAtIndex:0];
     }
     [_delegate listOfScheduledDownloadsChanged];
+    [self _postStateDidChange];
 }
 
 - (void)_updateDownloadList
 {
     [_delegate listOfScheduledDownloadsChanged];
-    if (_downloadActive == NO)
+    // _triggerNextDownload posts the resulting state; nothing to do here when
+    // a download is already running (queue size is delegate-driven, not banner-driven).
+    if (_downloadActive == NO) {
         [self _triggerNextDownload];
+    } else {
+        [self _postStateDidChange];
+    }
 }
 
 #pragma mark - Download completion announcement
@@ -314,12 +448,8 @@
     [activityManager networkActivityStopped];
     [activityManager networkActivityStarted];
 
-    _startDL = [NSDate timeIntervalSinceReferenceDate];
-    [_lastSpeeds removeAllObjects];
-    _lastReceived = 0;
-    _totalReceived = 0;
-
     [_delegate downloadStartedWithDisplayName:_humanReadableFilename];
+    [self _postStateDidChange];
 
     APLog(@"download started");
 }
@@ -328,14 +458,20 @@
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
     _downloadActive = NO;
+    _activePercentage = 0.0;
+    _activeSizeKnown = NO;
+    _activeExpectedSize = 0.0;
+    // _triggerNextDownload below will post the resulting state.
 
     NSString *storageLocationPath = theDownloader.downloadLocationPath;
-    if (storageLocationPath) {
-        if ([_downloadedMedia indexOfObject:storageLocationPath] == NSNotFound) {
-            [_downloadedMedia addObject:storageLocationPath];
-            [_downloadedMediaDates addObject:[NSDate date]];
-            [self announceDownloadCompletionForFilename:theDownloader.filename];
-        }
+    // downloadLocationPath is the intended destination, set even on failure,
+    // so we probe the filesystem to tell a real success apart from a cancel.
+    if (storageLocationPath
+        && [[NSFileManager defaultManager] fileExistsAtPath:storageLocationPath]
+        && [_downloadedMedia indexOfObject:storageLocationPath] == NSNotFound) {
+        [_downloadedMedia addObject:storageLocationPath];
+        [_downloadedMediaDates addObject:[NSDate date]];
+        [self announceDownloadCompletionForFilename:theDownloader.filename];
     }
 
     [_delegate downloadEnded];
@@ -347,6 +483,20 @@
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description forDownloader:(VLCMediaFileDownloader *)theDownloader
 {
+    if (_cancelInitiatedByUser) {
+        _cancelInitiatedByUser = NO;
+        [self mediaFileDownloadEnded:theDownloader];
+        return;
+    }
+
+    NSString *failedName = _humanReadableFilename;
+    if (!failedName) {
+        failedName = theDownloader.filename ?: @"";
+    }
+    NSString *failedError = description ?: @"";
+    [_failedDownloads addObject:@{@"name": failedName, @"error": failedError}];
+    [self _postStateDidChange];
+
     [_delegate downloadFailedWithDescription:description];
     [self mediaFileDownloadEnded:theDownloader];
 }
@@ -360,10 +510,18 @@
     if (currentTime - _lastStatsUpdate > 0.5 || _lastStatsUpdate <= 0) {
         CGFloat speed = [self getAverageSpeed:_lastReceived / (currentTime - _lastStatsUpdate)];
         percentage = fmin(fmax(percentage, 0.0), 100.0);
+        _activePercentage = percentage;
+        _activeSizeKnown = expectedDownloadSize > 0;
+        _activeExpectedSize = expectedDownloadSize;
+        NSString *timeStr = [self getRemainingTimeString:speed expectedDownloadSize:expectedDownloadSize];
+        NSString *speedStr = [self getSpeedString:speed];
+        _activeSpeed = speedStr;
+        _activeTime = timeStr;
         [_delegate downloadProgressUpdatedWithPercentage:percentage
-                                                    time:[self getRemainingTimeString:speed expectedDownloadSize:expectedDownloadSize]
-                                                   speed:[self getSpeedString:speed]
+                                                    time:timeStr
+                                                   speed:speedStr
                                           totalSizeKnown:expectedDownloadSize > 0];
+        [self _postStateDidChange];
 
         _lastStatsUpdate = currentTime;
         _lastReceived = 0;
@@ -404,11 +562,7 @@
     CGFloat remainingInSeconds = (expectedDownloadSize - _totalReceived)/speed;
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:remainingInSeconds];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-
-    return [formatter stringFromDate:date];
+    return [_remainingTimeFormatter stringFromDate:date];
 }
 
 @end

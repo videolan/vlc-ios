@@ -218,7 +218,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
             if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate downloadFailedWithErrorDescription:error.description
+                    [self.delegate downloadFailedWithErrorDescription:error.localizedDescription
                                                         forDownloader:self];
                 });
             }

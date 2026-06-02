@@ -137,9 +137,12 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
 - (void)_downloadFailed
 {
+    /* remove the partial dump file so observers don't surface it as completed */
+    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_demuxDumpFilePath] error:nil];
+
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:@"libvlc failure" forDownloader:self];
+            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"DOWNLOAD_FAILED", nil) forDownloader:self];
         });
     }
     [self _downloadEnded];
