@@ -152,6 +152,7 @@
 		44E18A532D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E18A542D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
+		511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
 		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
 		55E4CD822C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */; };
 		597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
@@ -1143,6 +1144,7 @@
 		A1CA2EF328240A8D000DB82F /* VLCOpenManagedServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */; };
 		A1CA2EF628240BA0000DB82F /* VLCOpenManagedServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
 		B8AD2615D8862BF269580C2A /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
 		B9C232E5D7C74C2715A73F3B /* libPods-VLC-iOS-no-watch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1CAC6F642AF79AB21163137 /* libPods-VLC-iOS-no-watch.a */; };
 		BBD4BF00B0FE472C1DAF5A94 /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
@@ -1176,6 +1178,7 @@
 		BEB724F42E56143E002A9729 /* CustomSwiftUIDialogBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB724F32E56143E002A9729 /* CustomSwiftUIDialogBridge.swift */; };
 		C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
 		C5A1141A6CBA89AADBFEF706 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		C5EE4D04BBB421B60B95FDFC /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
 		CA314B8FA4151B14A044C367 /* VLCDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B785438BB91E3F75B6B42B1E /* VLCDownloadProgressView.m */; };
 		CA796F0838BA34F46C035233 /* libPods-VLC-iOS-Screenshots.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5D05CA543784EDB43DDFC /* libPods-VLC-iOS-Screenshots.a */; };
 		CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */; };
@@ -1617,6 +1620,7 @@
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
+		7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCDownloadStatusBanner.m; path = Sources/Network/Download/VLCDownloadStatusBanner.m; sourceTree = SOURCE_ROOT; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookmarksView.swift; sourceTree = "<group>"; };
 		7D02C5A32A84F0830046DC5E /* VLCMLMedia+Podcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+Podcast.h"; sourceTree = "<group>"; };
@@ -2048,6 +2052,7 @@
 		91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeExtension.swift; sourceTree = "<group>"; };
 		91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoView.swift; sourceTree = "<group>"; };
 		959E0EC6F8582AD7EFB0F812 /* VLCDonationNavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VLCDonationNavigationController.h; sourceTree = "<group>"; };
+		985F4B9391AAD1131DC14C77 /* VLCDownloadStatusBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCDownloadStatusBanner.h; path = Sources/Network/Download/VLCDownloadStatusBanner.h; sourceTree = SOURCE_ROOT; };
 		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.h"; sourceTree = SOURCE_ROOT; };
 		9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageTableViewController.m; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.m"; sourceTree = SOURCE_ROOT; };
 		9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkLoginViewController.xib; path = Sources/Network/Login/VLCNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -3438,6 +3443,8 @@
 				25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */,
 				1F2E4E43B6FA9C3CC0AF759B /* VLCDownloadProgressView.h */,
 				B785438BB91E3F75B6B42B1E /* VLCDownloadProgressView.m */,
+				985F4B9391AAD1131DC14C77 /* VLCDownloadStatusBanner.h */,
+				7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -5640,6 +5647,7 @@
 				35D8C6F16323458B94D0C3C2 /* VLCDonationNavigationController.m in Sources */,
 				C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */,
 				CA314B8FA4151B14A044C367 /* VLCDownloadProgressView.m in Sources */,
+				511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5932,6 +5940,7 @@
 				9A761A7A538E67D66B525E17 /* VLCDonationNavigationController.m in Sources */,
 				3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */,
 				19F440AB9FB40F252BAF83B5 /* VLCDownloadProgressView.m in Sources */,
+				AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6224,6 +6233,7 @@
 				CE986D43CF974E7A22ED1B1A /* VLCDonationNavigationController.m in Sources */,
 				E38141E0B655FBEE047D9214 /* VLCActiveDownloadCell.m in Sources */,
 				020A4909B475FEF2466A63A0 /* VLCDownloadProgressView.m in Sources */,
+				C5EE4D04BBB421B60B95FDFC /* VLCDownloadStatusBanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
