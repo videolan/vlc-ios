@@ -47,6 +47,7 @@ API_AVAILABLE(ios(14.0))
 
     NSString *typeIdentifier = UTTypeMovie.identifier;
     dispatch_group_t group = dispatch_group_create();
+    __block NSUInteger failureCount = 0;
 
     for (PHPickerResult *result in results) {
         NSItemProvider *itemProvider = result.itemProvider;
@@ -54,8 +55,11 @@ API_AVAILABLE(ios(14.0))
         dispatch_group_enter(group);
         [itemProvider loadFileRepresentationForTypeIdentifier:typeIdentifier
                                             completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
-            if (url != nil) {
-                [self copyMediaAtURL:url];
+            BOOL success = (url != nil) && [self copyMediaAtURL:url];
+            if (!success) {
+                @synchronized (self) {
+                    failureCount++;
+                }
             }
             dispatch_group_leave(group);
         }];
@@ -63,10 +67,13 @@ API_AVAILABLE(ios(14.0))
 
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+        if (failureCount > 0) {
+            [self presentImportFailureAlertForCount:failureCount];
+        }
     });
 }
 
-- (void)copyMediaAtURL:(NSURL *)url
+- (BOOL)copyMediaAtURL:(NSURL *)url
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
@@ -74,7 +81,25 @@ API_AVAILABLE(ios(14.0))
     NSString *filePath = [self availablePathInDirectory:documentsPath forFileName:[url lastPathComponent]];
 
     NSError *error = nil;
-    [fileManager copyItemAtPath:[url path] toPath:filePath error:&error];
+    BOOL success = [fileManager copyItemAtPath:[url path] toPath:filePath error:&error];
+    if (!success) {
+        APLog(@"Failed to copy media from %@ to %@: %@", url, filePath, error);
+    }
+    return success;
+}
+
+- (void)presentImportFailureAlertForCount:(NSUInteger)count
+{
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"PHOTO_LIBRARY_IMPORT_FAILED_MESSAGE", nil), (int)count];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PHOTO_LIBRARY_IMPORT_FAILED", nil)
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                              style:UIAlertActionStyleDefault
+                                            handler:nil]];
+
+    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootVC presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSString *)availablePathInDirectory:(NSString *)directory forFileName:(NSString *)fileName

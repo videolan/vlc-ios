@@ -148,6 +148,8 @@
 
 "PHOTO_LIBRARY_CELL_TITLE" = "Photo Library";
 "PHOTO_LIBRARY_CELL_SUBTITLE" = "Import videos from your photo library";
+"PHOTO_LIBRARY_IMPORT_FAILED" = "Import failed";
+"PHOTO_LIBRARY_IMPORT_FAILED_MESSAGE" = "VLC could not import %d of the selected videos from your photo library.";
 
 "CLOUD_SERVICES" = "Cloud Services";
 "LOGIN" = "Login";
