@@ -19,6 +19,7 @@ struct VLCWatchOSApp: App {
     @WKApplicationDelegateAdaptor var appDelegate: VLCWatchAppDelegate
 //    @Environment(\.isLuminanceReduced) var isLuminanceReduced
 
+    @StateObject var albumsViewModel: AlbumsViewModel
     @StateObject var tracksViewModel: TracksViewModel
     @State private var selection: Command = .updateAppContext
 
@@ -35,22 +36,34 @@ struct VLCWatchOSApp: App {
     init() {
         mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
         playbackService = PlaybackService.sharedInstance()
+        let albumsViewModel = AlbumsViewModel(mediaLibraryService: mediaLibraryService, playbackService: playbackService)
         let tracksViewModel = TracksViewModel(mediaLibraryService: mediaLibraryService, playbackService: playbackService)
+        _albumsViewModel = StateObject(wrappedValue: albumsViewModel)
         _tracksViewModel = StateObject(wrappedValue: tracksViewModel)
     }
 
     var body: some Scene {
         WindowGroup {
             TabView(selection: $selection) {
-                // TODO: Artists Tab
+
+                // TODO: Artists tab
 
                 // TODO: Albums tab
-
-                MediaListView(medias: tracksViewModel.tracks) { media in
-                    tracksViewModel.play(media: media)
+                NavigationStack {
+                    MediaListView<VLCWatchMLAlbum>(items: albumsViewModel.albums) { album in
+                        print("tap album: \(album)")
+                    }
+                    .navigationTitle("Albums")
                 }
 
-                // TODO: Add radio discovery view here
+                NavigationStack {
+                    MediaListView<VLCWatchMLMedia>(items: tracksViewModel.tracks) { media in
+                        tracksViewModel.play(media: media)
+                    }
+                    .navigationTitle("Songs")
+                }
+
+                // TODO: Radio Discovery tab
 
                 // For testing WatchConnectivity APIs
                 ForEach(commands, id: \.self) { command in

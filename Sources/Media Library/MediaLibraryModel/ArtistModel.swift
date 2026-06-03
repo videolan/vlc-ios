@@ -19,9 +19,11 @@ class ArtistModel: AudioCollectionModel {
     var files = [VLCMLArtist]()
     var fileArrayLock = NSRecursiveLock()
 
+    #if !os(watchOS)
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
     }
+    #endif
 
     var medialibrary: MediaLibraryService
 

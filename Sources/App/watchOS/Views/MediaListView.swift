@@ -12,16 +12,23 @@
 
 import SwiftUI
 
-struct MediaListView: View {
+protocol VLCWatchMLCellItem: Identifiable {
+    var id: VLCMLIdentifier { get }
+    var titleText: String { get }
+    var subtitleText: String { get }
+    var thumbnail: URL? { get }
+}
+
+struct MediaListView<T: VLCWatchMLCellItem> : View {
     @EnvironmentObject var contentViewModel: TracksViewModel
-    var medias: [VLCWatchMLMedia]
-    var didTapCell: (VLCWatchMLMedia) -> Void
+    var items: [T]
+    var didTapCell: (T) -> Void
 
     var body: some View {
-        List(medias) { media in
-            MediaCellView(thumbnail: media.thumbnail, title: media.title, subtitle: media.artist?.name ?? "")
+        List(items) { item in
+            MediaCellView(thumbnail: item.thumbnail, title: item.titleText, subtitle: item.subtitleText)
                 .onTapGesture {
-                    didTapCell(media)
+                    didTapCell(item)
                 }
         }
     }
@@ -58,7 +65,3 @@ struct MediaCellView: View {
     }
 
 }
-
-//#Preview {
-//    AlbumListView()
-//}

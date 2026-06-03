@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCWatchMLMedia.swift
+ * VLCWatchMLAlbum.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -12,27 +12,29 @@
 
 import Foundation
 
-// Wrapper around VLCMLMedia to be used in SwiftUI view
-struct VLCWatchMLMedia: Identifiable {
+// Wrapper around VLCMLAlbum to be used in SwiftUI view
+struct VLCWatchMLAlbum {
     let id: VLCMLIdentifier
     let title: String
-    let artist: VLCMLArtist?    // TODO: VLCMLArtist is a class, is this fine to have as field for SwiftUI struct?
+    let artists: [VLCMLArtist]?
     let thumbnail: URL?
+    var albumArtistName: String?
 
-    init(_ media: VLCMLMedia) {
-        self.id = media.identifier()
-        self.title = media.title
-        self.artist = media.artist
-        self.thumbnail = media.thumbnail()
+    init(_ album: VLCMLAlbum) {
+        self.id = album.identifier()
+        self.title = album.title
+        self.artists = album.artists()
+        self.thumbnail = album.artworkMRL()
+        self.albumArtistName = album.albumArtistName()
     }
 }
 
-extension VLCWatchMLMedia: VLCWatchMLCellItem {
+extension VLCWatchMLAlbum: VLCWatchMLCellItem {
     var titleText: String {
         return title
     }
 
     var subtitleText: String {
-        return artist?.artistName() ?? ""
+        return albumArtistName ?? ""
     }
 }

@@ -21,9 +21,11 @@ class AlbumModel: AudioCollectionModel {
 
     private var artist: VLCMLArtist? = nil
 
+    #if !os(watchOS)
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
     }
+    #endif
 
     var medialibrary: MediaLibraryService
 
