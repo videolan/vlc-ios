@@ -10,7 +10,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 import Foundation
 
 class AlbumsViewModel: ObservableObject {
@@ -27,7 +26,6 @@ class AlbumsViewModel: ObservableObject {
         model = AlbumModel(medialibrary: mediaLibraryService)
         
         model.sort(by: .default, desc: true)
-        print("albums: \(model.anyfiles.count)")
         albums = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
             guard let album = obj as? VLCMLAlbum else { return nil }
             _albumsMap[album.identifier()] = album

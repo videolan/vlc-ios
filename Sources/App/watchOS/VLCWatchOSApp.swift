@@ -19,6 +19,7 @@ struct VLCWatchOSApp: App {
     @WKApplicationDelegateAdaptor var appDelegate: VLCWatchAppDelegate
 //    @Environment(\.isLuminanceReduced) var isLuminanceReduced
 
+    @StateObject var artistsViewModel: ArtistsViewModel
     @StateObject var albumsViewModel: AlbumsViewModel
     @StateObject var tracksViewModel: TracksViewModel
     @State private var selection: Command = .updateAppContext
@@ -36,8 +37,10 @@ struct VLCWatchOSApp: App {
     init() {
         mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
         playbackService = PlaybackService.sharedInstance()
+        let artistsViewModel = ArtistsViewModel(mediaLibraryService: mediaLibraryService, playbackService: playbackService)
         let albumsViewModel = AlbumsViewModel(mediaLibraryService: mediaLibraryService, playbackService: playbackService)
         let tracksViewModel = TracksViewModel(mediaLibraryService: mediaLibraryService, playbackService: playbackService)
+        _artistsViewModel = StateObject(wrappedValue: artistsViewModel)
         _albumsViewModel = StateObject(wrappedValue: albumsViewModel)
         _tracksViewModel = StateObject(wrappedValue: tracksViewModel)
     }
@@ -46,9 +49,13 @@ struct VLCWatchOSApp: App {
         WindowGroup {
             TabView(selection: $selection) {
 
-                // TODO: Artists tab
+                NavigationStack {
+                    MediaListView<VLCWatchMLArtist>(items: artistsViewModel.artists) { artist in
+                        print("tap artist: \(artist)")
+                    }
+                    .navigationTitle("Artists")
+                }
 
-                // TODO: Albums tab
                 NavigationStack {
                     MediaListView<VLCWatchMLAlbum>(items: albumsViewModel.albums) { album in
                         print("tap album: \(album)")

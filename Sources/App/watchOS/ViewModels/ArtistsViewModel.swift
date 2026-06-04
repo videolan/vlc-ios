@@ -1,5 +1,5 @@
 /*****************************************************************************
- * TracksViewModel.swift
+ * ArtistsViewModel.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -12,34 +12,28 @@
 
 import Foundation
 
-class TracksViewModel: ObservableObject {
+class ArtistsViewModel: ObservableObject {
     let model: MediaLibraryBaseModel
     let mediaLibraryService: MediaLibraryService
     let playbackService: PlaybackService
 
-    @Published var tracks: [VLCWatchMLMedia] = []
-    var _tracksMap: [VLCMLIdentifier: VLCMLMedia] = [:]
+    @Published var artists: [VLCWatchMLArtist] = []
+    var _artistsMap: [VLCMLIdentifier: VLCMLArtist] = [:]
 
     init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
         self.mediaLibraryService = mediaLibraryService
         self.playbackService = playbackService
-        model = TrackModel(medialibrary: mediaLibraryService)
+        model = ArtistModel(medialibrary: mediaLibraryService)
 
         model.sort(by: .default, desc: true)
-        tracks = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
-            guard let media = obj as? VLCMLMedia else { return nil }
-            _tracksMap[media.identifier()] = media
-            return VLCWatchMLMedia(media)
+        artists = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
+            guard let artist = obj as? VLCMLArtist else { return nil }
+            _artistsMap[artist.identifier()] = artist
+            return VLCWatchMLArtist(artist)
         }
 
-        if let tracks = model.anyfiles as? [VLCMLMedia] {
-            print("Tracks (\(tracks.count)): \(tracks)")
+        if let albums = model.anyfiles as? [VLCMLArtist] {
+            print("Artists (\(albums.count)): \(albums)")
         }
-    }
-
-    func play(media: VLCWatchMLMedia) {
-        guard let mlMedia = _tracksMap[media.id] else { return }
-         playbackService.play(mlMedia)
-        print("Playing media: \(media.title)")
     }
 }
