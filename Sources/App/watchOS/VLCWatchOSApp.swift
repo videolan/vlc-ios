@@ -56,11 +56,22 @@ struct VLCWatchOSApp: App {
                     .navigationTitle("Artists")
                 }
 
-                NavigationStack {
+                NavigationStack(path: $albumsViewModel.path) {
                     MediaListView<VLCWatchMLAlbum>(items: albumsViewModel.albums) { album in
-                        print("tap album: \(album)")
+                        albumsViewModel.path.append(album)
                     }
                     .navigationTitle("Albums")
+                    .navigationDestination(for: VLCWatchMLAlbum.self) { album in
+                        let tracks = album.tracks.map {
+                            var media = VLCWatchMLMedia($0)
+                            media.showTrackNumber = true
+                            return media
+                        }
+                        MediaListView<VLCWatchMLMedia>(items: tracks) { media in
+                            tracksViewModel.play(media: media)
+                        }
+                        .navigationTitle(album.title)
+                    }
                 }
 
                 NavigationStack {
@@ -73,9 +84,9 @@ struct VLCWatchOSApp: App {
                 // TODO: Radio Discovery tab
 
                 // For testing WatchConnectivity APIs
-                ForEach(commands, id: \.self) { command in
-                    CommandView(command: command, selectedTab: $selection).tag(command)
-                }
+//                ForEach(commands, id: \.self) { command in
+//                    CommandView(command: command, selectedTab: $selection).tag(command)
+//                }
             }
             .onReceive(NotificationCenter.default.activationDidCompletePublisher) { notification in
                 activationDidComplete(notification)

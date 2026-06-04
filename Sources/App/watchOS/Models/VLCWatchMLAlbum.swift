@@ -16,16 +16,18 @@ import Foundation
 struct VLCWatchMLAlbum {
     let id: VLCMLIdentifier
     let title: String
-    let artists: [VLCMLArtist]?
+    let artists: [VLCMLArtist]
     let thumbnail: URL?
-    var albumArtistName: String?
+    let albumArtistName: String?
+    let tracks: [VLCMLMedia]
 
     init(_ album: VLCMLAlbum) {
         self.id = album.identifier()
         self.title = album.title
-        self.artists = album.artists()
+        self.artists = album.artists() ?? []
         self.thumbnail = album.artworkMRL()
         self.albumArtistName = album.albumArtistName()
+        self.tracks = album.tracks ?? []
     }
 }
 
@@ -38,3 +40,5 @@ extension VLCWatchMLAlbum: VLCWatchMLCellItem {
         return albumArtistName ?? ""
     }
 }
+
+extension VLCWatchMLAlbum: Hashable { }

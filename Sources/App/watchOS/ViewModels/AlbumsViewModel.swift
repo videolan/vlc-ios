@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import Foundation
+import SwiftUI
 
 class AlbumsViewModel: ObservableObject {
     let model: MediaLibraryBaseModel
@@ -19,6 +20,8 @@ class AlbumsViewModel: ObservableObject {
 
     @Published var albums: [VLCWatchMLAlbum] = []
     var _albumsMap: [VLCMLIdentifier: VLCMLAlbum] = [:]
+
+    @Published var path = NavigationPath()
 
     init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
         self.mediaLibraryService = mediaLibraryService

@@ -18,18 +18,22 @@ struct VLCWatchMLMedia: Identifiable {
     let title: String
     let artist: VLCMLArtist?    // TODO: VLCMLArtist is a class, is this fine to have as field for SwiftUI struct?
     let thumbnail: URL?
+    let trackNumber: Int
+
+    var showTrackNumber: Bool = false
 
     init(_ media: VLCMLMedia) {
         self.id = media.identifier()
         self.title = media.title
         self.artist = media.artist
         self.thumbnail = media.thumbnail()
+        self.trackNumber = Int(media.trackNumber)
     }
 }
 
 extension VLCWatchMLMedia: VLCWatchMLCellItem {
     var titleText: String {
-        return title
+        return showTrackNumber ? "\(trackNumber). \(title)" : title
     }
 
     var subtitleText: String {
