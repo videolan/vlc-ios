@@ -1174,8 +1174,15 @@ private extension MediaCategoryViewController {
         return isSectioned ? currentDataSetGroupedByTitle.objectAtIndex(index: indexPath.section)?.items.objectAtIndex(index: indexPath.row) : currentDataSet.objectAtIndex(index: indexPath.row)
     }
 
-    private func getFlattenedIndexPath(for item: VLCMLObject) -> IndexPath {
-        let row = currentDataSet.firstIndex { $0 == item }!
+    private func getFlattenedIndexPath(for item: VLCMLObject) -> IndexPath? {
+        let row = currentDataSet.firstIndex {
+            $0 == item
+        }
+
+        guard let row = row else {
+            return nil
+        }
+
         return IndexPath(row: row, section: 0)
     }
 
@@ -1695,9 +1702,11 @@ extension MediaCategoryViewController {
     private func selectedItem(at indexPath: IndexPath) {
         let modelContent = getObject(at: indexPath)
         var indexPath = indexPath
-        if isSectioned, let modelContent {
-            indexPath = getFlattenedIndexPath(for: modelContent)
-            collectionSelectedIndex = getFlattenedIndexPath(for: modelContent)
+        if isSectioned,
+           let modelContent,
+           let flattenedIndexPath = getFlattenedIndexPath(for: modelContent) {
+            indexPath = flattenedIndexPath
+            collectionSelectedIndex = flattenedIndexPath
         } else {
             collectionSelectedIndex = indexPath
         }
@@ -2514,7 +2523,9 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
         editController.editActions.objects = [modelContent]
         editController.editActions.delete() { [weak self] state in
             if state == .success {
-                guard let flattenedIndexPath = self?.getFlattenedIndexPath(for: modelContent) else { return }
+                guard let flattenedIndexPath = self?.getFlattenedIndexPath(for: modelContent) else {
+                    return
+                }
                 self?.searchDataSource.deleteInSearch(index: flattenedIndexPath.row)
 
                 // If the media deleted is in the media list, the play queue should also be updated
