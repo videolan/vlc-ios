@@ -132,9 +132,13 @@ NSString * const VLCDownloadControllerStateDidChangeNotification = @"VLCDownload
 
 - (void)cancelCurrentDownload
 {
-    _cancelInitiatedByUser = YES;
-    [_mediaDownloader cancelDownload];
-    [_httpDownloader cancelDownload];
+    if (_httpDownloader.downloadInProgress) {
+        _cancelInitiatedByUser = YES;
+        [_httpDownloader cancelDownload];
+    } else if (_mediaDownloader.downloadInProgress) {
+        _cancelInitiatedByUser = YES;
+        [_mediaDownloader cancelDownload];
+    }
 }
 
 - (NSUInteger)numberOfCompletedDownloads
