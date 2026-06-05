@@ -58,6 +58,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @property (nonatomic, strong, nullable) NSLayoutConstraint *downloadBannerLeadingConstraint;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *downloadBannerTrailingConstraint;
 @property (nonatomic, assign) BOOL downloadBannerHideScheduled;
+@property (nonatomic, weak, nullable) UINavigationController *downloadsNavigationController;
 @end
 #endif
 
@@ -836,18 +837,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     while (top.presentedViewController) {
         top = top.presentedViewController;
     }
+    self.downloadsNavigationController = navCon;
     [top presentViewController:navCon animated:YES completion:nil];
 }
 
 - (void)_dismissDownloadsViewController
 {
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-    UIViewController *root = window.rootViewController;
-    UIViewController *top = root;
-    while (top.presentedViewController) {
-        top = top.presentedViewController;
-    }
-    [top dismissViewControllerAnimated:YES completion:nil];
+    [self.downloadsNavigationController dismissViewControllerAnimated:YES completion:nil];
+    self.downloadsNavigationController = nil;
 }
 
 #endif
