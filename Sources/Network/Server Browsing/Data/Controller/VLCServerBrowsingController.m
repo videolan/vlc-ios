@@ -26,7 +26,8 @@
 #endif
 
 #if DOWNLOAD_SUPPORTED
-#import "VLCDownloadController.h"
+#import "VLCTransferController.h"
+#import "VLCAppCoordinator.h"
 #endif
 
 @interface VLCServerBrowsingController()
@@ -293,17 +294,9 @@
         filename = [filename stringByAppendingPathExtension:extension];
     }
 
-    VLCMedia *media = item.media;
-    if (media) {
-        NSNumber *fileSizeBytes = item.fileSizeBytes;
-        long long unsigned expectedDownloadSize = fileSizeBytes ? fileSizeBytes.unsignedLongLongValue : 0;
-        [[VLCDownloadController sharedInstance] addVLCMediaToDownloadList:media
-                                                          fileNameOfMedia:filename
-                                                     expectedDownloadSize:expectedDownloadSize];
-    } else {
-        [[VLCDownloadController sharedInstance] addURLToDownloadList:item.URL
-                                                     fileNameOfMedia:filename];
-    }
+    VLCMedia *media = item.media ?: [VLCMedia mediaWithURL:item.URL];
+    [[[VLCAppCoordinator sharedInstance] transferController] addVLCMediaToDownloadList:media
+                                                                      fileNameOfMedia:filename];
     if ([item respondsToSelector:@selector(subtitleURL)]) {
         if ([item subtitleURL]) {
             [self getFileSubtitleFromServer:item];

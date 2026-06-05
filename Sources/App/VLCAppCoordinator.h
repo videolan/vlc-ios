@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if !TARGET_OS_WATCH
 @class VLCHTTPUploaderController;
+@class VLCTransferController;
 #endif
 
 @class VideoModel;
@@ -35,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if !TARGET_OS_WATCH
 @property (readonly) VLCHTTPUploaderController *httpUploaderController;
+@property (readonly) VLCTransferController *transferController;
 @property (readonly) VLCFavoriteService *favoriteService;
 #endif
 @property (readonly) MediaLibraryService *mediaLibraryService;

@@ -14,6 +14,7 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import "VLCRemoteControlService.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCTransferController.h"
 #import "VLCFavoriteService.h"
 #import "VLCStripeController.h"
 #import "VLC-Swift.h"
@@ -23,6 +24,7 @@
     MediaLibraryService *_mediaLibraryService;
     VLCFavoriteService *_favoriteService;
     VLCHTTPUploaderController *_httpUploaderController;
+    VLCTransferController *_transferController;
     VLCRemoteControlService *_remoteControlService;
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
@@ -109,6 +111,16 @@
         [self initializeServices];
     }
     return _httpUploaderController;
+}
+
+- (VLCTransferController *)transferController
+{
+    @synchronized (self) {
+        if (!_transferController) {
+            _transferController = [[VLCTransferController alloc] init];
+        }
+    }
+    return _transferController;
 }
 
 #if !TARGET_OS_TV

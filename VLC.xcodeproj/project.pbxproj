@@ -464,7 +464,10 @@
 		7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
 		7D50C6A22BBD20DF00B9F1A0 /* VLCNetworkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECCC1BDECCB800756C83 /* VLCNetworkListViewController.m */; };
 		7D50C6A32BBD20DF00B9F1A0 /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */; };
-		7D50C6A42BBD20DF00B9F1A0 /* VLCDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCDownloadController.m */; };
+		7D50C6A42BBD20DF00B9F1A0 /* VLCTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCTransferController.m */; };
+		7D11E10000000000000B0001 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
+		7D11E10000000000000B0002 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
+		7D11E10000000000000B0003 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
 		7D50C6A52BBD20DF00B9F1A0 /* RemoteNetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */; };
 		7D50C6A62BBD20DF00B9F1A0 /* VLCNetworkLoginDataSourceLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = DD870E941CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m */; };
 		7D50C6A72BBD20DF00B9F1A0 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
@@ -864,7 +867,7 @@
 		7DA515132EF82B63000C9995 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
 		7DA515142EF82B63000C9995 /* VLCNetworkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECCC1BDECCB800756C83 /* VLCNetworkListViewController.m */; };
 		7DA515152EF82B63000C9995 /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */; };
-		7DA515162EF82B63000C9995 /* VLCDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCDownloadController.m */; };
+		7DA515162EF82B63000C9995 /* VLCTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCTransferController.m */; };
 		7DA515172EF82B63000C9995 /* RemoteNetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */; };
 		7DA515182EF82B63000C9995 /* VLCNetworkLoginDataSourceLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = DD870E941CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m */; };
 		7DA515192EF82B63000C9995 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
@@ -1004,7 +1007,7 @@
 		7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */; };
 		7DB40A9D28C77B8900EDACA0 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */; };
 		7DB559BE27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */; };
-		7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCDownloadController.m */; };
+		7DB66CF02520E3B90077481C /* VLCTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCTransferController.m */; };
 		7DBB9D4027FF3BFB00ABCEC7 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
 		7DBB9D4127FF3C5D00ABCEC7 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DBB9D4227FF3C6800ABCEC7 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
@@ -1915,8 +1918,10 @@
 		7DB40A9C28C77B8900EDACA0 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
 		7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFirstStepsBaseViewController.xib; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/iOS/Images.xcassets; sourceTree = SOURCE_ROOT; };
-		7DB66CEE2520E3B90077481C /* VLCDownloadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDownloadController.h; sourceTree = "<group>"; };
-		7DB66CEF2520E3B90077481C /* VLCDownloadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDownloadController.m; sourceTree = "<group>"; };
+		7DB66CEE2520E3B90077481C /* VLCTransferController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCTransferController.h; sourceTree = "<group>"; };
+		7DB66CEF2520E3B90077481C /* VLCTransferController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCTransferController.m; sourceTree = "<group>"; };
+		7D11E10000000000000A0001 /* VLCTransferItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCTransferItem.h; sourceTree = "<group>"; };
+		7D11E10000000000000A0003 /* VLCTransferItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCTransferItem.m; sourceTree = "<group>"; };
 		7DB9CEE22BA8ACCE0086981B /* VLCKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VLCKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppDelegate.h; sourceTree = "<group>"; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppDelegate.m; sourceTree = "<group>"; };
@@ -3444,8 +3449,10 @@
 				7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */,
 				7DB40A9C28C77B8900EDACA0 /* VLCHTTPFileDownloader.h */,
 				7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */,
-				7DB66CEE2520E3B90077481C /* VLCDownloadController.h */,
-				7DB66CEF2520E3B90077481C /* VLCDownloadController.m */,
+				7DB66CEE2520E3B90077481C /* VLCTransferController.h */,
+				7DB66CEF2520E3B90077481C /* VLCTransferController.m */,
+				7D11E10000000000000A0001 /* VLCTransferItem.h */,
+				7D11E10000000000000A0003 /* VLCTransferItem.m */,
 				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
 				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
 				7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */,
@@ -5610,7 +5617,8 @@
 				7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */,
 				7D50C6A22BBD20DF00B9F1A0 /* VLCNetworkListViewController.m in Sources */,
 				7D50C6A32BBD20DF00B9F1A0 /* VLCOpenNetworkStreamViewController.m in Sources */,
-				7D50C6A42BBD20DF00B9F1A0 /* VLCDownloadController.m in Sources */,
+				7D50C6A42BBD20DF00B9F1A0 /* VLCTransferController.m in Sources */,
+				7D11E10000000000000B0001 /* VLCTransferItem.m in Sources */,
 				7D50C6A52BBD20DF00B9F1A0 /* RemoteNetworkCell.swift in Sources */,
 				7D50C6A62BBD20DF00B9F1A0 /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				7D50C6A72BBD20DF00B9F1A0 /* VLCAccessibilityIdentifier.swift in Sources */,
@@ -5891,7 +5899,8 @@
 				222ED2ED2A6E6C8100A5D135 /* VLCAppCoordinator.m in Sources */,
 				7DC869CD28CB81CB00EE99F8 /* VLCNetworkListViewController.m in Sources */,
 				7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */,
-				7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */,
+				7DB66CF02520E3B90077481C /* VLCTransferController.m in Sources */,
+				7D11E10000000000000B0003 /* VLCTransferItem.m in Sources */,
 				41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */,
 				DD870E951CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				CAC0AFED20CF8F6F00EDB035 /* VLCAccessibilityIdentifier.swift in Sources */,
@@ -6188,7 +6197,8 @@
 				7DA515132EF82B63000C9995 /* VLCHTTPUploaderController.m in Sources */,
 				7DA515142EF82B63000C9995 /* VLCNetworkListViewController.m in Sources */,
 				7DA515152EF82B63000C9995 /* VLCOpenNetworkStreamViewController.m in Sources */,
-				7DA515162EF82B63000C9995 /* VLCDownloadController.m in Sources */,
+				7DA515162EF82B63000C9995 /* VLCTransferController.m in Sources */,
+				7D11E10000000000000B0002 /* VLCTransferItem.m in Sources */,
 				7DA515172EF82B63000C9995 /* RemoteNetworkCell.swift in Sources */,
 				7DA515182EF82B63000C9995 /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				7DA515192EF82B63000C9995 /* VLCAccessibilityIdentifier.swift in Sources */,

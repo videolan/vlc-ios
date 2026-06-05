@@ -469,7 +469,10 @@ extension VLCURLHandler {
 
 #if os(iOS)
     func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
-        VLCDownloadController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
+        guard let media = VLCMedia(url: url) else {
+            return
+        }
+        VLCAppCoordinator.sharedInstance().transferController.addVLCMedia(toDownloadList: media, fileNameOfMedia: fileName)
     }
 #else
     func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
