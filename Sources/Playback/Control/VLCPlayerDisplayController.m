@@ -19,7 +19,7 @@
 #import "VLCFullscreenMovieTVViewController.h"
 #else
 #import "UIStackView+Orientation.h"
-#import "VLCDownloadController.h"
+#import "VLCTransferController.h"
 #import "VLCDownloadViewController.h"
 #import "VLCDownloadStatusBanner.h"
 #endif
@@ -74,7 +74,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackServicePlaybackDidStop object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidMoveToNextMedia:) name:VLCPlaybackServicePlaybackDidMoveOnToNextItem object:nil];
 #if !TARGET_OS_TV
-        [notificationCenter addObserver:self selector:@selector(downloadStateDidChange:) name:VLCDownloadControllerStateDidChangeNotification object:nil];
+        [notificationCenter addObserver:self selector:@selector(downloadStateDidChange:) name:VLCTransferControllerStateDidChangeNotification object:nil];
         [notificationCenter addObserver:self selector:@selector(downloadBannerThemeDidChange:) name:kVLCThemeDidChangeNotification object:nil];
 #endif
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
@@ -698,10 +698,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)_updateDownloadBanner
 {
-    VLCDownloadController *dc = [VLCDownloadController sharedInstance];
-    BOOL hasActive = dc.hasActiveDownload;
-    NSUInteger queued = dc.numberOfScheduledDownloads;
-    BOOL shouldShow = hasActive || queued > 0;
+    VLCTransferController *tc = [[VLCAppCoordinator sharedInstance] transferController];
+    NSArray<VLCTransferItem *> *items = tc.inProgressItems;
+    NSUInteger totalCount = items.count;
+    BOOL shouldShow = totalCount > 0;
 
     if (shouldShow) {
         _downloadBannerHideScheduled = NO;
@@ -715,8 +715,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 if (!self->_downloadBannerHideScheduled) {
                     return;
                 }
-                VLCDownloadController *dc2 = [VLCDownloadController sharedInstance];
-                if (dc2.hasActiveDownload || dc2.numberOfScheduledDownloads > 0) {
+                if (tc.inProgressItems.count > 0) {
                     self->_downloadBannerHideScheduled = NO;
                     [self _updateDownloadBanner];
                     return;
@@ -746,28 +745,50 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     [self _ensureDownloadBannerInstalled];
 
+    NSUInteger activeDownloads = 0, activeUploads = 0, queued = 0;
+    long long received = 0, expected = 0;
+    BOOL haveActive = NO, allActiveSizeKnown = YES;
+    for (VLCTransferItem *item in items) {
+        if (!item.active) {
+            queued++;
+            continue;
+        }
+        haveActive = YES;
+        if (item.direction == VLCTransferDirectionUpload) {
+            activeUploads++;
+        } else {
+            activeDownloads++;
+        }
+        if (!item.sizeKnown) {
+            allActiveSizeKnown = NO;
+        }
+        received += item.receivedBytes;
+        expected += item.expectedBytes;
+    }
+
     NSString *title;
-    NSUInteger totalCount = (hasActive ? 1 : 0) + queued;
     if (totalCount > 1) {
-        NSString *activeName = dc.activeDownloadDisplayName ?: @"";
-        title = [NSString stringWithFormat:@"%lu %@ — %@",
-                 (unsigned long)totalCount,
-                 NSLocalizedString(@"DOWNLOADING", nil),
-                 activeName];
-    } else if (hasActive) {
-        title = dc.activeDownloadDisplayName ?: NSLocalizedString(@"DOWNLOADING", nil);
+        NSString *format;
+        if (activeUploads == 0) {
+            format = NSLocalizedString(@"DOWNLOADS_COUNT_FORMAT", nil);
+        } else if (activeDownloads == 0 && queued == 0) {
+            format = NSLocalizedString(@"UPLOADS_COUNT_FORMAT", nil);
+        } else {
+            format = NSLocalizedString(@"TRANSFERS_COUNT_FORMAT", nil);
+        }
+        title = [NSString stringWithFormat:format, (unsigned long)totalCount];
     } else {
-        title = NSLocalizedString(@"DOWNLOADING", nil);
+        title = items.firstObject.displayName ?: NSLocalizedString(@"TRANSFERS_IN_PROGRESS", nil);
     }
     _downloadStatusBanner.title = title;
 
-    BOOL sizeKnown = hasActive && dc.activeDownloadSizeKnown;
-    _downloadStatusBanner.progressKnown = sizeKnown;
-    if (sizeKnown) {
-        _downloadStatusBanner.progress = dc.activeDownloadPercentage;
+    BOOL progressKnown = haveActive && allActiveSizeKnown && expected > 0;
+    _downloadStatusBanner.progressKnown = progressKnown;
+    if (progressKnown) {
+        _downloadStatusBanner.progress = fmin(fmax((CGFloat)received / (CGFloat)expected, 0.0), 1.0);
     }
 
-    _downloadStatusBanner.bytesText = dc.activeDownloadBytesString;
+    _downloadStatusBanner.bytesText = haveActive ? [VLCTransferItem byteProgressStringForReceived:received expected:expected] : nil;
 }
 
 - (void)_ensureDownloadBannerInstalled
