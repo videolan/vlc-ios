@@ -1,10 +1,14 @@
-//
-//  VLCWatchAppDelegate.swift
-//  VLC-watchOS
-//
-//  Created by Timmy Nguyen on 5/13/26.
-//  Copyright © 2026 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCWatchAppDelegate.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2026 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Timmy Nguyen <timmypass21 # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 import WatchKit

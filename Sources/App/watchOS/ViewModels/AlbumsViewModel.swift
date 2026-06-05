@@ -14,12 +14,11 @@ import Foundation
 import SwiftUI
 
 class AlbumsViewModel: AlbumModel, ObservableObject {
-    typealias MLType = VLCMLAlbum
 
     override var files: [VLCMLAlbum] {
         didSet {
             DispatchQueue.main.async {
-                self.albums = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
+                self.albums = self.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
                     guard let album = obj as? VLCMLAlbum else { return nil }
                     return VLCWatchMLAlbum(album)
                 }
@@ -27,22 +26,19 @@ class AlbumsViewModel: AlbumModel, ObservableObject {
         }
     }
 
-    let model: MediaLibraryBaseModel
-
     @Published var albums: [VLCWatchMLAlbum] = []
     @Published var isFirstLoad = true
     @Published var path = NavigationPath()
 
     required init(medialibrary: MediaLibraryService) {
-        self.model = AlbumModel(medialibrary: medialibrary)
         super.init(medialibrary: medialibrary)
         medialibrary.observable.addObserver(self)
     }
 
     func loadAlbums() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.model.sort(by: .default, desc: true)
-            self.files = self.model.anyfiles as? [VLCMLAlbum] ?? []
+            self.sort(by: .default, desc: true)
+            self.files = self.anyfiles as? [VLCMLAlbum] ?? []
         }
         isFirstLoad = false
     }

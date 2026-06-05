@@ -41,17 +41,15 @@ struct MediaCellView: View {
 
     var body: some View {
         HStack {
-            Group {
-                AsyncImage(url: thumbnail) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Rectangle()
-                }
+            AsyncImage(url: thumbnail) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+            } placeholder: {
+                Rectangle()
             }
             .frame(width: 42, height: 42)
-            .cornerRadius(8)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
 
             VStack(alignment: .leading) {
                 Text(title)

@@ -147,12 +147,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
         do {
             try FileManager.default.moveItem(at: file.fileURL, to: destination) // Documents/Inbox -> /Documents
             print("Sucessfully moved file \(filename) to \(documentsDir)")
-            // The system removes WCSessionFile.fileURL once this method returns,
-            // so dispatch to main queue synchronously instead of calling
-            // postNotificationOnMainQueue(name: .dataDidFlow, userInfo: userInfo).
-            DispatchQueue.main.sync {
-                NotificationCenter.default.post(name: .dataDidFlow, object: message)
-            }
+            postNotificationOnMainQueueAsync(name: .dataDidFlow, object: message)
         } catch {
             // TODO: Show some error message to user
             print("Failed to move file \(filename) to \(documentsDir): \(error)")

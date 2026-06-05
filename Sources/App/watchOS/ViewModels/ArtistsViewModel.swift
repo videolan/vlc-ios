@@ -13,12 +13,11 @@
 import Foundation
 
 class ArtistsViewModel: ArtistModel, ObservableObject {
-    typealias MLType = VLCMLArtist
 
     override var files: [VLCMLArtist] {
         didSet {
             DispatchQueue.main.async {
-                self.artists = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
+                self.artists = self.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
                     guard let artist = obj as? VLCMLArtist else { return nil }
                     return VLCWatchMLArtist(artist)
                 }
@@ -26,21 +25,18 @@ class ArtistsViewModel: ArtistModel, ObservableObject {
         }
     }
 
-    let model: MediaLibraryBaseModel
-
     @Published var artists: [VLCWatchMLArtist] = []
     @Published var isFirstLoad = true
 
     required init(medialibrary: MediaLibraryService) {
-        self.model = ArtistModel(medialibrary: medialibrary)
         super.init(medialibrary: medialibrary)
         medialibrary.observable.addObserver(self)
     }
 
     func loadArtists() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.model.sort(by: .default, desc: true)
-            self.files = self.model.anyfiles as? [VLCMLArtist] ?? []
+            self.sort(by: .default, desc: true)
+            self.files = self.anyfiles as? [VLCMLArtist] ?? []
         }
         isFirstLoad = false
     }

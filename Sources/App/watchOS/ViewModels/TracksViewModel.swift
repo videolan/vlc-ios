@@ -17,7 +17,7 @@ class TracksViewModel: TrackModel, ObservableObject {
     override var files: [VLCMLMedia] {
         didSet {
             DispatchQueue.main.async {
-                self.tracks = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
+                self.tracks = self.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
                     guard let media = obj as? VLCMLMedia else { return nil }
                     return VLCWatchMLMedia(media)
                 }
@@ -25,14 +25,12 @@ class TracksViewModel: TrackModel, ObservableObject {
         }
     }
 
-    let model: MediaLibraryBaseModel
     lazy var playbackService = PlaybackService.sharedInstance()
 
     @Published var tracks: [VLCWatchMLMedia] = []
     @Published var isFirstLoad = true
 
     required init(medialibrary: MediaLibraryService) {
-        self.model = TrackModel(medialibrary: medialibrary)
         super.init(medialibrary: medialibrary)
         medialibrary.observable.addObserver(self)
     }
@@ -45,8 +43,8 @@ class TracksViewModel: TrackModel, ObservableObject {
 
     func loadTracks() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.model.sort(by: .default, desc: true)
-            self.files = self.model.anyfiles as? [VLCMLMedia] ?? []
+            self.sort(by: .default, desc: true)
+            self.files = self.anyfiles as? [VLCMLMedia] ?? []
         }
         isFirstLoad = false
     }
