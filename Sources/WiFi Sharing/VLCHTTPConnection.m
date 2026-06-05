@@ -25,6 +25,9 @@
 #import "HTTPRedirectResponse.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPUploaderController.h"
+#if TARGET_OS_IOS || TARGET_OS_VISION
+#import "VLCTransferController.h"
+#endif
 #import "VLCMetaData.h"
 #import "GCDAsyncSocket.h"
 #import "VLC-Swift.h"
@@ -41,6 +44,10 @@
     NSString *_filepath;
     UInt64 _contentLength;
     UInt64 _receivedContent;
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    NSUInteger _uploadToken;
+    BOOL _uploadTracked;
+#endif
     NSBundle *_languageBundle;
     BOOL _languageBundleResolved;
 #if TARGET_OS_TV
@@ -887,6 +894,11 @@ static NSMutableDictionary *authentifiedHosts;
 
     APLog(@"expecting file of size %lli kB", contentLength / 1024);
     _contentLength = contentLength;
+
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    _uploadToken = [[[VLCAppCoordinator sharedInstance] transferController] startUploadWithExpectedSize:(long long)contentLength];
+    _uploadTracked = YES;
+#endif
 }
 
 - (void)processBodyData:(NSData *)postDataChunk
@@ -896,6 +908,12 @@ static NSMutableDictionary *authentifiedHosts;
     [_parser appendData:postDataChunk];
 
     _receivedContent += postDataChunk.length;
+
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    if (_uploadTracked) {
+        [[[VLCAppCoordinator sharedInstance] transferController] updateUpload:_uploadToken receivedBytes:(long long)_receivedContent];
+    }
+#endif
 
 #if WIFI_SHARING_DEBUG || TARGET_OS_TV
     long long percentage = ((_receivedContent * 100) / _contentLength);
@@ -981,6 +999,12 @@ static NSMutableDictionary *authentifiedHosts;
     // make sure to exclude illegal characters
     filename = [self _sanitizeFilePath:filename];
 
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    if (_uploadTracked) {
+        [[[VLCAppCoordinator sharedInstance] transferController] updateUpload:_uploadToken displayName:[filename lastPathComponent]];
+    }
+#endif
+
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *uploadDirPath = [searchPaths.firstObject
@@ -1003,6 +1027,7 @@ static NSMutableDictionary *authentifiedHosts;
                 withIntermediateDirectories:true attributes:nil error:nil]) {
         APLog(@"Could not create directory at path: %@", _filepath);
         [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];
+        [self failTrackedUpload];
         [self handleResourceNotFound];
         [self stop];
     }
@@ -1010,6 +1035,7 @@ static NSMutableDictionary *authentifiedHosts;
     if (![fileManager createFileAtPath:_filepath contents:nil attributes:nil]) {
         APLog(@"Could not create file at path: %@", _filepath);
         [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];
+        [self failTrackedUpload];
         [self handleResourceNotFound];
         [self stop];
     }
@@ -1058,6 +1084,7 @@ static NSMutableDictionary *authentifiedHosts;
             APLog(@"File to write further data because storage is full.");
             [_storeFile closeFile];
             _storeFile = nil;
+            [self failTrackedUpload];
             /* don't block */
             [self performSelector:@selector(stop) withObject:nil afterDelay:0.1];
         }
@@ -1073,17 +1100,40 @@ static NSMutableDictionary *authentifiedHosts;
     _storeFile = nil;
 }
 
+- (void)failTrackedUpload
+{
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    if (_uploadTracked) {
+        [[[VLCAppCoordinator sharedInstance] transferController] failUpload:_uploadToken
+                                         errorDescription:NSLocalizedString(@"DISK_FULL", nil)];
+        _uploadTracked = NO;
+    }
+#endif
+}
+
 - (BOOL)shouldDie
 {
     if (_filepath) {
         if (_filepath.length > 0) {
-            [_httpUploaderController moveFileFrom:_filepath];
+            NSString *finalFilePath = [_httpUploaderController moveFileFrom:_filepath];
 
 #if TARGET_OS_TV
             [_receivedFiles removeObject:_filepath];
 #endif
+#if TARGET_OS_IOS || TARGET_OS_VISION
+            if (_uploadTracked) {
+                [[[VLCAppCoordinator sharedInstance] transferController] finishUpload:_uploadToken filePath:finalFilePath];
+                _uploadTracked = NO;
+            }
+#endif
         }
     }
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    if (_uploadTracked) {
+        [[[VLCAppCoordinator sharedInstance] transferController] cancelUpload:_uploadToken];
+        _uploadTracked = NO;
+    }
+#endif
     return [super shouldDie];
 }
 

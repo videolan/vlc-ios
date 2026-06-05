@@ -358,7 +358,7 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 }
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
-- (void)moveFileOutOfCache:(NSString *)filepath
+- (NSString *)moveFileOutOfCache:(NSString *)filepath
 {
     NSString *fileName = [filepath lastPathComponent];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
@@ -406,16 +406,18 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
         if (error) {
             APLog(@"Deleting media %@ failed (%li)", fileName, (long)error.code);
         }
+        finalFilePath = nil;
     }
 
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
+    return finalFilePath;
 }
 #endif
 
-- (void)moveFileFrom:(NSString *)filepath
+- (NSString *)moveFileFrom:(NSString *)filepath
 {
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
@@ -424,13 +426,15 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     // Check if downloaded file is a playlist in order to parse at the end of the download.
     if ([[filepath lastPathComponent] isSupportedPlaylistFormat]) {
         [_playlistUploadPaths addObject:filepath];
-        return;
+        return filepath;
     }
 
     /* on tvOS, the media remains in the cache folder and will disappear from there
      * while on iOS we have persistent storage, so move it there */
 #if TARGET_OS_IOS || TARGET_OS_VISION
-    [self moveFileOutOfCache:filepath];
+    return [self moveFileOutOfCache:filepath];
+#else
+    return filepath;
 #endif
 }
 

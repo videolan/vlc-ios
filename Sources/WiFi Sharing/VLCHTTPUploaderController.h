@@ -31,7 +31,7 @@
 - (nonnull NSString *)hostname;
 - (nonnull NSString *)hostnamePort;
 
-- (void)moveFileFrom:(nonnull NSString *)filepath;
+- (nullable NSString *)moveFileFrom:(nonnull NSString *)filepath;
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)cleanCache;
