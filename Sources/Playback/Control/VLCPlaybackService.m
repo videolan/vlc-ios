@@ -1772,12 +1772,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)setNeedsMetadataUpdate
 {
-#if TARGET_OS_TV
-    [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
-#else
     VLCMLMedia *media = self->_mediaPlayer.media ? [VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
-#endif
 
     [self recoverDisplayedMetadata];
 }
