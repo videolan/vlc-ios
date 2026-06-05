@@ -42,12 +42,11 @@ struct MediaCellView: View {
     var body: some View {
         HStack {
             Group {
-                if let thumbnailPath = thumbnail?.path(),
-                   let uiImage = UIImage(contentsOfFile: thumbnailPath) {
-                    Image(uiImage: uiImage)
+                AsyncImage(url: thumbnail) { image in
+                    image
                         .resizable()
                         .scaledToFit()
-                } else {
+                } placeholder: {
                     Rectangle()
                 }
             }
