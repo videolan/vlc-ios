@@ -19,9 +19,10 @@ class AlbumsViewModel: ObservableObject {
     let playbackService: PlaybackService
 
     @Published var albums: [VLCWatchMLAlbum] = []
-    var _albumsMap: [VLCMLIdentifier: VLCMLAlbum] = [:]
-
+    @Published var isFirstLoad = true
     @Published var path = NavigationPath()
+
+    private var _albumsMap: [VLCMLIdentifier: VLCMLAlbum] = [:]
 
     init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
         self.mediaLibraryService = mediaLibraryService
@@ -38,5 +39,19 @@ class AlbumsViewModel: ObservableObject {
         if let albums = model.anyfiles as? [VLCMLAlbum] {
             print("Albums (\(albums.count)): \(albums)")
         }
+    }
+
+    func loadAlbums() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.model.sort(by: .default, desc: true)
+            DispatchQueue.main.async {
+                self.albums = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
+                    guard let album = obj as? VLCMLAlbum else { return nil }
+                    self._albumsMap[album.identifier()] = album
+                    return VLCWatchMLAlbum(album)
+                }
+            }
+        }
+        isFirstLoad = false
     }
 }

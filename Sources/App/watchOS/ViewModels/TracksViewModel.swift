@@ -18,28 +18,33 @@ class TracksViewModel: ObservableObject {
     let playbackService: PlaybackService
 
     @Published var tracks: [VLCWatchMLMedia] = []
-    var _tracksMap: [VLCMLIdentifier: VLCMLMedia] = [:]
+    @Published var isFirstLoad = true
+
+    private var _tracksMap: [VLCMLIdentifier: VLCMLMedia] = [:]
 
     init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
         self.mediaLibraryService = mediaLibraryService
         self.playbackService = playbackService
         model = TrackModel(medialibrary: mediaLibraryService)
-
-        model.sort(by: .default, desc: true)
-        tracks = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
-            guard let media = obj as? VLCMLMedia else { return nil }
-            _tracksMap[media.identifier()] = media
-            return VLCWatchMLMedia(media)
-        }
-
-        if let tracks = model.anyfiles as? [VLCMLMedia] {
-            print("Tracks (\(tracks.count)): \(tracks)")
-        }
     }
 
     func play(media: VLCWatchMLMedia) {
         guard let mlMedia = _tracksMap[media.id] else { return }
          playbackService.play(mlMedia)
         print("Playing media: \(media.title)")
+    }
+
+    func loadTracks() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.model.sort(by: .default, desc: true)
+            DispatchQueue.main.async {
+                self.tracks = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
+                    guard let media = obj as? VLCMLMedia else { return nil }
+                    self._tracksMap[media.identifier()] = media
+                    return VLCWatchMLMedia(media)
+                }
+            }
+        }
+        isFirstLoad = false
     }
 }

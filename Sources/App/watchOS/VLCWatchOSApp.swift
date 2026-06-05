@@ -54,6 +54,10 @@ struct VLCWatchOSApp: App {
                         print("tap artist: \(artist)")
                     }
                     .navigationTitle("Artists")
+                    .onAppear {
+                        guard artistsViewModel.isFirstLoad else { return }
+                        artistsViewModel.loadArtists()
+                    }
                 }
 
                 NavigationStack(path: $albumsViewModel.path) {
@@ -61,6 +65,10 @@ struct VLCWatchOSApp: App {
                         albumsViewModel.path.append(album)
                     }
                     .navigationTitle("Albums")
+                    .onAppear {
+                        guard albumsViewModel.isFirstLoad else { return }
+                        albumsViewModel.loadAlbums()
+                    }
                     .navigationDestination(for: VLCWatchMLAlbum.self) { album in
                         let tracks = album.tracks.map {
                             var media = VLCWatchMLMedia($0)
@@ -79,6 +87,10 @@ struct VLCWatchOSApp: App {
                         tracksViewModel.play(media: media)
                     }
                     .navigationTitle("Songs")
+                    .onAppear {
+                        guard tracksViewModel.isFirstLoad else { return }
+                        tracksViewModel.loadTracks()
+                    }
                 }
 
                 // TODO: Radio Discovery tab

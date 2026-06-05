@@ -18,22 +18,27 @@ class ArtistsViewModel: ObservableObject {
     let playbackService: PlaybackService
 
     @Published var artists: [VLCWatchMLArtist] = []
-    var _artistsMap: [VLCMLIdentifier: VLCMLArtist] = [:]
+    @Published var isFirstLoad = true
+
+    private var _artistsMap: [VLCMLIdentifier: VLCMLArtist] = [:]
 
     init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
         self.mediaLibraryService = mediaLibraryService
         self.playbackService = playbackService
         model = ArtistModel(medialibrary: mediaLibraryService)
+    }
 
-        model.sort(by: .default, desc: true)
-        artists = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
-            guard let artist = obj as? VLCMLArtist else { return nil }
-            _artistsMap[artist.identifier()] = artist
-            return VLCWatchMLArtist(artist)
+    func loadArtists() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.model.sort(by: .default, desc: true)
+            DispatchQueue.main.async {
+                self.artists = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
+                    guard let artist = obj as? VLCMLArtist else { return nil }
+                    self._artistsMap[artist.identifier()] = artist
+                    return VLCWatchMLArtist(artist)
+                }
+            }
         }
-
-        if let albums = model.anyfiles as? [VLCMLArtist] {
-            print("Artists (\(albums.count)): \(albums)")
-        }
+        isFirstLoad = false
     }
 }
