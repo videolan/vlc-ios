@@ -47,6 +47,7 @@ class SettingsCell: UITableViewCell {
         let switchControl = UISwitch()
         let colors = PresentationTheme.current.colors
         switchControl.onTintColor = colors.orangeUI
+        switchControl.translatesAutoresizingMaskIntoConstraints = false
         switchControl.addTarget(self,
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
@@ -94,6 +95,12 @@ class SettingsCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+
+    private lazy var stackViewTrailingConstraint = stackView.trailingAnchor.constraint(
+        equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginTrailing)
+
+    private lazy var stackViewToSwitchConstraint = stackView.trailingAnchor.constraint(
+        equalTo: switchControl.leadingAnchor, constant: -Constants.marginLeading)
 
     static func height(for settingsItem: SettingsItem, width: CGFloat) -> CGFloat {
         let w = max(width - (Constants.marginLeading + Constants.marginTrailing), 1)
@@ -161,7 +168,7 @@ class SettingsCell: UITableViewCell {
                 switchControl.isHidden = false
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true
-                accessoryView = switchControl
+                accessoryView = .none
                 accessoryType = .none
                 selectionStyle = .none
 
@@ -206,6 +213,9 @@ class SettingsCell: UITableViewCell {
                 accessoryType = .none
                 selectionStyle = .default
             }
+
+            stackViewToSwitchConstraint.isActive = !switchControl.isHidden
+            stackViewTrailingConstraint.isActive = switchControl.isHidden
 
             if !activityIndicator.isHidden {
                 activityIndicator.startAnimating()
@@ -259,11 +269,14 @@ class SettingsCell: UITableViewCell {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
+        contentView.addSubview(switchControl)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Constants.marginLeading),
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Constants.marginTop),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.marginBottom),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginTrailing),
+            stackViewTrailingConstraint,
+            switchControl.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginLeading),
+            switchControl.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
         ])
 
         contentView.addSubview(activityIndicator)
