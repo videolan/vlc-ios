@@ -13,44 +13,36 @@
 import Foundation
 import SwiftUI
 
-class AlbumsViewModel: ObservableObject {
+class AlbumsViewModel: AlbumModel, ObservableObject {
+    typealias MLType = VLCMLAlbum
+
+    override var files: [VLCMLAlbum] {
+        didSet {
+            DispatchQueue.main.async {
+                self.albums = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
+                    guard let album = obj as? VLCMLAlbum else { return nil }
+                    return VLCWatchMLAlbum(album)
+                }
+            }
+        }
+    }
+
     let model: MediaLibraryBaseModel
-    let mediaLibraryService: MediaLibraryService
-    let playbackService: PlaybackService
 
     @Published var albums: [VLCWatchMLAlbum] = []
     @Published var isFirstLoad = true
     @Published var path = NavigationPath()
 
-    private var _albumsMap: [VLCMLIdentifier: VLCMLAlbum] = [:]
-
-    init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
-        self.mediaLibraryService = mediaLibraryService
-        self.playbackService = playbackService
-        model = AlbumModel(medialibrary: mediaLibraryService)
-        
-        model.sort(by: .default, desc: true)
-        albums = model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
-            guard let album = obj as? VLCMLAlbum else { return nil }
-            _albumsMap[album.identifier()] = album
-            return VLCWatchMLAlbum(album)
-        }
-
-        if let albums = model.anyfiles as? [VLCMLAlbum] {
-            print("Albums (\(albums.count)): \(albums)")
-        }
+    required init(medialibrary: MediaLibraryService) {
+        self.model = AlbumModel(medialibrary: medialibrary)
+        super.init(medialibrary: medialibrary)
+        medialibrary.observable.addObserver(self)
     }
 
     func loadAlbums() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.model.sort(by: .default, desc: true)
-            DispatchQueue.main.async {
-                self.albums = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
-                    guard let album = obj as? VLCMLAlbum else { return nil }
-                    self._albumsMap[album.identifier()] = album
-                    return VLCWatchMLAlbum(album)
-                }
-            }
+            self.files = self.model.anyfiles as? [VLCMLAlbum] ?? []
         }
         isFirstLoad = false
     }

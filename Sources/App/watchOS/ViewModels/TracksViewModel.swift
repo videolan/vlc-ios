@@ -12,38 +12,41 @@
 
 import Foundation
 
-class TracksViewModel: ObservableObject {
+class TracksViewModel: TrackModel, ObservableObject {
+
+    override var files: [VLCMLMedia] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tracks = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
+                    guard let media = obj as? VLCMLMedia else { return nil }
+                    return VLCWatchMLMedia(media)
+                }
+            }
+        }
+    }
+
     let model: MediaLibraryBaseModel
-    let mediaLibraryService: MediaLibraryService
-    let playbackService: PlaybackService
+    lazy var playbackService = PlaybackService.sharedInstance()
 
     @Published var tracks: [VLCWatchMLMedia] = []
     @Published var isFirstLoad = true
 
-    private var _tracksMap: [VLCMLIdentifier: VLCMLMedia] = [:]
-
-    init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
-        self.mediaLibraryService = mediaLibraryService
-        self.playbackService = playbackService
-        model = TrackModel(medialibrary: mediaLibraryService)
+    required init(medialibrary: MediaLibraryService) {
+        self.model = TrackModel(medialibrary: medialibrary)
+        super.init(medialibrary: medialibrary)
+        medialibrary.observable.addObserver(self)
     }
 
     func play(media: VLCWatchMLMedia) {
-        guard let mlMedia = _tracksMap[media.id] else { return }
-         playbackService.play(mlMedia)
+        guard let mlMedia = files.first(where: { $0.identifier() == media.id }) else { return }
+        playbackService.play(mlMedia)
         print("Playing media: \(media.title)")
     }
 
     func loadTracks() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.model.sort(by: .default, desc: true)
-            DispatchQueue.main.async {
-                self.tracks = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLMedia? in
-                    guard let media = obj as? VLCMLMedia else { return nil }
-                    self._tracksMap[media.identifier()] = media
-                    return VLCWatchMLMedia(media)
-                }
-            }
+            self.files = self.model.anyfiles as? [VLCMLMedia] ?? []
         }
         isFirstLoad = false
     }

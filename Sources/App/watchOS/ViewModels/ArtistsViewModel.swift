@@ -12,32 +12,35 @@
 
 import Foundation
 
-class ArtistsViewModel: ObservableObject {
+class ArtistsViewModel: ArtistModel, ObservableObject {
+    typealias MLType = VLCMLArtist
+
+    override var files: [VLCMLArtist] {
+        didSet {
+            DispatchQueue.main.async {
+                self.artists = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
+                    guard let artist = obj as? VLCMLArtist else { return nil }
+                    return VLCWatchMLArtist(artist)
+                }
+            }
+        }
+    }
+
     let model: MediaLibraryBaseModel
-    let mediaLibraryService: MediaLibraryService
-    let playbackService: PlaybackService
 
     @Published var artists: [VLCWatchMLArtist] = []
     @Published var isFirstLoad = true
 
-    private var _artistsMap: [VLCMLIdentifier: VLCMLArtist] = [:]
-
-    init(mediaLibraryService: MediaLibraryService, playbackService: PlaybackService) {
-        self.mediaLibraryService = mediaLibraryService
-        self.playbackService = playbackService
-        model = ArtistModel(medialibrary: mediaLibraryService)
+    required init(medialibrary: MediaLibraryService) {
+        self.model = ArtistModel(medialibrary: medialibrary)
+        super.init(medialibrary: medialibrary)
+        medialibrary.observable.addObserver(self)
     }
 
     func loadArtists() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.model.sort(by: .default, desc: true)
-            DispatchQueue.main.async {
-                self.artists = self.model.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
-                    guard let artist = obj as? VLCMLArtist else { return nil }
-                    self._artistsMap[artist.identifier()] = artist
-                    return VLCWatchMLArtist(artist)
-                }
-            }
+            self.files = self.model.anyfiles as? [VLCMLArtist] ?? []
         }
         isFirstLoad = false
     }
