@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCDownloadViewController.m
+ * VLCTransferViewController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
@@ -12,72 +12,154 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCDownloadViewController.h"
+#import "VLCTransferViewController.h"
 #import "VLCTransferController.h"
 #import "VLCAppCoordinator.h"
 #import "VLCActiveDownloadCell.h"
 #import "NSString+SupportedMedia.h"
 #import "VLC-Swift.h"
 
-@interface VLCDownloadViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface VLCTransferViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    NSLayoutConstraint *_contentViewHeight;
     VLCTransferController *_transferController;
     NSArray<VLCTransferItem *> *_inProgress;
     NSArray<VLCTransferItem *> *_completed;
     NSArray<VLCTransferItem *> *_failed;
     NSDateFormatter *_dateFormatter;
 }
+@property (strong, nonatomic) UITextField *urlField;
+@property (strong, nonatomic) UIButton *downloadButton;
+@property (strong, nonatomic) UIButton *fieldClearButton;
+@property (strong, nonatomic) UITableView *downloadsTable;
 @end
 
-@implementation VLCDownloadViewController
+@implementation VLCTransferViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)loadView
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transferStateDidChange:) name:VLCTransferControllerStateDidChangeNotification object:nil];
-        self.title = NSLocalizedString(@"TRANSFERS", comment:@"");
-        _transferController = [VLCAppCoordinator sharedInstance].transferController;
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
-        _dateFormatter.timeStyle = NSDateFormatterMediumStyle;
-        _inProgress = @[];
-        _completed = @[];
-        _failed = @[];
+    self.view = [[UIView alloc] init];
+
+    UIView *fieldsContainer = [[UIView alloc] init];
+    fieldsContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:fieldsContainer];
+
+    UILayoutGuide *contentGuide = [[UILayoutGuide alloc] init];
+    [fieldsContainer addLayoutGuide:contentGuide];
+
+    UITextField *urlField = [[UITextField alloc] init];
+    urlField.translatesAutoresizingMaskIntoConstraints = NO;
+    urlField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+    urlField.adjustsFontForContentSizeCategory = YES;
+    urlField.textAlignment = NSTextAlignmentNatural;
+    urlField.clearButtonMode = UITextFieldViewModeNever;
+    urlField.autocorrectionType = UITextAutocorrectionTypeNo;
+    urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    urlField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    urlField.keyboardType = UIKeyboardTypeURL;
+    urlField.layer.cornerRadius = 10.0;
+    urlField.layer.borderWidth = 1.0;
+    urlField.delegate = self;
+    urlField.textContentType = UITextContentTypeURL;
+    [urlField addTarget:self action:@selector(updateFieldAccessories) forControlEvents:UIControlEventEditingChanged | UIControlEventEditingDidBegin | UIControlEventEditingDidEnd];
+    [fieldsContainer addSubview:urlField];
+    self.urlField = urlField;
+
+    UIView *leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 14, 30)];
+    urlField.leftView = leftPadding;
+    urlField.leftViewMode = UITextFieldViewModeAlways;
+
+    UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (@available(iOS 13.0, *)) {
+        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
+        [downloadButton setImage:[UIImage systemImageNamed:@"arrow.down.to.line" withConfiguration:cfg] forState:UIControlStateNormal];
+    } else {
+        [downloadButton setImage:[[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     }
-    return self;
+    downloadButton.accessibilityLabel = NSLocalizedString(@"BUTTON_DOWNLOAD", nil);
+    [downloadButton setAccessibilityIdentifier:@"Download"];
+    [downloadButton addTarget:self action:@selector(downloadAction:) forControlEvents:UIControlEventTouchUpInside];
+    downloadButton.frame = CGRectMake(0, 0, 38, 38);
+    downloadButton.layer.cornerRadius = 8.0;
+    self.downloadButton = downloadButton;
+
+    UIButton *fieldClearButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    if (@available(iOS 13.0, *)) {
+        [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
+    }
+    fieldClearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    [fieldClearButton addTarget:self action:@selector(clearURLField) forControlEvents:UIControlEventTouchUpInside];
+    fieldClearButton.frame = CGRectMake(0, 4, 30, 30);
+    fieldClearButton.hidden = YES;
+    self.fieldClearButton = fieldClearButton;
+
+    UIView *rightContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 38 + 7, 38)];
+    [rightContainer addSubview:fieldClearButton];
+    [rightContainer addSubview:downloadButton];
+    urlField.rightView = rightContainer;
+    urlField.rightViewMode = UITextFieldViewModeAlways;
+
+    UITableView *downloadsTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    downloadsTable.translatesAutoresizingMaskIntoConstraints = NO;
+    downloadsTable.alwaysBounceVertical = YES;
+    downloadsTable.showsHorizontalScrollIndicator = NO;
+    downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    downloadsTable.estimatedSectionHeaderHeight = 44;
+    if (@available(iOS 15.0, *)) {
+        downloadsTable.sectionHeaderTopPadding = 0;
+    }
+    downloadsTable.dataSource = self;
+    downloadsTable.delegate = self;
+    [self.view addSubview:downloadsTable];
+    self.downloadsTable = downloadsTable;
+
+    UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
+
+    NSLayoutConstraint *contentGuidePreferredWidth = [contentGuide.widthAnchor constraintEqualToConstant:480];
+    contentGuidePreferredWidth.priority = UILayoutPriorityDefaultHigh;
+
+    [NSLayoutConstraint activateConstraints:@[
+        [fieldsContainer.topAnchor constraintEqualToAnchor:safe.topAnchor],
+        [fieldsContainer.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [fieldsContainer.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+
+        [contentGuide.centerXAnchor constraintEqualToAnchor:fieldsContainer.centerXAnchor],
+        [contentGuide.leadingAnchor constraintGreaterThanOrEqualToAnchor:fieldsContainer.leadingAnchor constant:20],
+        [contentGuide.trailingAnchor constraintLessThanOrEqualToAnchor:fieldsContainer.trailingAnchor constant:-20],
+        contentGuidePreferredWidth,
+
+        [urlField.topAnchor constraintEqualToAnchor:fieldsContainer.topAnchor constant:14],
+        [urlField.leadingAnchor constraintEqualToAnchor:contentGuide.leadingAnchor],
+        [urlField.trailingAnchor constraintEqualToAnchor:contentGuide.trailingAnchor],
+        [urlField.heightAnchor constraintGreaterThanOrEqualToConstant:50],
+        [fieldsContainer.bottomAnchor constraintEqualToAnchor:urlField.bottomAnchor constant:14],
+
+        [downloadsTable.topAnchor constraintEqualToAnchor:fieldsContainer.bottomAnchor],
+        [downloadsTable.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [downloadsTable.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+        [downloadsTable.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
+    ]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
-    [self.downloadButton setAccessibilityIdentifier:@"Download"];
-    self.downloadButton.layer.cornerRadius = 4.0;
-    self.urlField.delegate = self;
-    self.urlField.keyboardType = UIKeyboardTypeURL;
-    if (@available(iOS 10.0, *)) {
-        self.urlField.textContentType = UITextContentTypeURL;
-    }
-    self.progressContainer.hidden = YES;
-    self.progressContainer.alpha = 0;
-    for (NSLayoutConstraint *constraint in self.progressContainer.constraints) {
-        if (constraint.firstItem == self.progressContainer && constraint.secondItem == nil && constraint.firstAttribute == NSLayoutAttributeHeight) {
-            constraint.constant = 0;
-            break;
-        }
-    }
-    self.downloadsTable.hidden = NO;
-    self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _transferController = [VLCAppCoordinator sharedInstance].transferController;
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    _dateFormatter.timeStyle = NSDateFormatterMediumStyle;
+    _inProgress = @[];
+    _completed = @[];
+    _failed = @[];
 
-    _contentViewHeight = [_contentView.heightAnchor constraintGreaterThanOrEqualToConstant:0];
-    _contentViewHeight.active = YES;
-    [self updateContentViewHeightConstraint];
-
+    self.title = NSLocalizedString(@"TRANSFERS", comment:@"");
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(transferStateDidChange:) name:VLCTransferControllerStateDidChangeNotification object:nil];
+
     [self updateForTheme];
 }
 
@@ -94,27 +176,29 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+
 - (void)updateForTheme
 {
     ColorPalette *colors = PresentationTheme.current.colors;
     NSMutableParagraphStyle *placeholderParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    placeholderParagraphStyle.alignment = NSTextAlignmentCenter;
+    placeholderParagraphStyle.alignment = NSTextAlignmentNatural;
     NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"http://myserver.com/file.mkv", nil)
-                                                                                       attributes:@{NSForegroundColorAttributeName: colors.lightTextColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
+                                                                                       attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor, NSParagraphStyleAttributeName: placeholderParagraphStyle}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = colors.background;
+    self.urlField.backgroundColor = colors.cellBackgroundB;
     self.urlField.textColor = colors.cellTextColor;
-    self.urlBorder.backgroundColor = colors.mediaCategorySeparatorColor;
+    self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    self.downloadButton.backgroundColor = colors.orangeUI;
+    self.downloadButton.tintColor = [UIColor whiteColor];
+    [self.downloadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.fieldClearButton.tintColor = colors.textfieldPlaceholderColor;
     self.downloadsTable.backgroundColor = colors.background;
     self.view.backgroundColor = colors.background;
-    self.downloadButton.backgroundColor = colors.orangeUI;
-    self.progressContainer.backgroundColor = colors.background;
-    self.currentDownloadLabel.textColor = colors.cellTextColor;
-    self.progressPercent.textColor = colors.cellDetailTextColor;
-    self.speedRate.textColor = colors.cellDetailTextColor;
-    self.timeDL.textColor = colors.cellDetailTextColor;
-    self.activityIndicator.color = colors.cellDetailTextColor;
-    self.progressView.progressTintColor = colors.orangeUI;
     [self.downloadsTable reloadData];
 #if TARGET_OS_IOS
     [self setNeedsStatusBarAppearanceUpdate];
@@ -128,12 +212,6 @@
 }
 #endif
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.view endEditing:YES];
-}
-
 #pragma mark - UI interaction
 
 #if TARGET_OS_IOS
@@ -146,7 +224,33 @@
 }
 #endif
 
-- (IBAction)downloadAction:(id)sender
+- (void)clearURLField
+{
+    self.urlField.text = @"";
+    [self updateFieldAccessories];
+}
+
+- (void)updateFieldAccessories
+{
+    BOOL showClear = self.urlField.isEditing && self.urlField.text.length > 0;
+    if (showClear == !self.fieldClearButton.hidden) {
+        return;
+    }
+    self.fieldClearButton.hidden = !showClear;
+
+    const CGFloat downloadSize = 38, clearSize = 30, gap = 6, trailingPad = 7;
+    UIView *container = self.downloadButton.superview;
+    if (showClear) {
+        self.downloadButton.frame = CGRectMake(clearSize + gap, 0, downloadSize, downloadSize);
+        container.frame = CGRectMake(0, 0, clearSize + gap + downloadSize + trailingPad, downloadSize);
+    } else {
+        self.downloadButton.frame = CGRectMake(0, 0, downloadSize, downloadSize);
+        container.frame = CGRectMake(0, 0, downloadSize + trailingPad, downloadSize);
+    }
+    self.urlField.rightView = container;
+}
+
+- (void)downloadAction:(id)sender
 {
     if (self.urlField.text.length == 0 && ![self.urlField isFirstResponder]) {
         [self.urlField becomeFirstResponder];
@@ -155,18 +259,17 @@
             return;
         }
 
-        UIView *highlightView = self.urlBorder ?: self.urlField;
-        UIColor *originalColor = highlightView.backgroundColor;
-        UIColor *highlightColor = PresentationTheme.current.colors.orangeUI;
+        ColorPalette *colors = PresentationTheme.current.colors;
+        self.urlField.layer.borderColor = colors.orangeUI.CGColor;
 
         [UIView animateWithDuration:0.12 animations:^{
-            highlightView.backgroundColor = highlightColor;
             self.urlField.transform = CGAffineTransformMakeScale(1.02, 1.02);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.20 delay:0.05 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                highlightView.backgroundColor = originalColor;
                 self.urlField.transform = CGAffineTransformIdentity;
-            } completion:nil];
+            } completion:^(BOOL done) {
+                self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+            }];
         }];
 
         return;
@@ -182,7 +285,7 @@
                                                viewController:self];
             return;
         }
-        if (![scheme isEqualToString:@"http"] & ![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"ftp"]) {
+        if (![scheme isEqualToString:@"http"] && ![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"ftp"]) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
                                                viewController:self];
@@ -192,6 +295,7 @@
             VLCMedia *media = [VLCMedia mediaWithURL:URLtoSave];
             [self->_transferController addVLCMediaToDownloadList:media fileNameOfMedia:lastPathComponent];
             self.urlField.text = @"";
+            [self updateFieldAccessories];
         } fail:nil];
     }
 }
@@ -202,21 +306,6 @@
     _completed = _transferController.completedItems;
     _failed = _transferController.failedItems;
     [self.downloadsTable reloadData];
-    [self updateContentViewHeightConstraint];
-}
-
-- (void)updateContentViewHeightConstraint
-{
-    [_downloadsTable layoutIfNeeded];
-    CGFloat progressHeight = _progressContainer.hidden ? 0 : _progressContainer.frame.size.height;
-    _contentViewHeight.constant = _downloadFieldContainer.frame.size.height
-                                    + progressHeight
-                                    + _downloadsTable.contentSize.height;
-}
-
-- (IBAction)cancelDownload:(id)sender
-{
-    [_transferController cancelCurrentDownload];
 }
 
 #pragma mark - transfer controller updates
@@ -236,28 +325,21 @@
 
     if (structureChanged) {
         [self.downloadsTable reloadData];
-        [self updateContentViewHeightConstraint];
         return;
     }
 
-    // Patch active rows in place: mutating the table while a swipe-to-cancel is
-    // in flight triggers an invalid-row-count crash.
     for (NSInteger row = 0; row < (NSInteger)_inProgress.count; row++) {
         VLCTransferItem *item = _inProgress[row];
         if (!item.active) {
             continue;
         }
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-        UITableViewCell *cell = [self.downloadsTable cellForRowAtIndexPath:indexPath];
-        if (![cell isKindOfClass:[VLCActiveDownloadCell class]]) {
-            continue;
-        }
-        VLCActiveDownloadCell *activeCell = (VLCActiveDownloadCell *)cell;
-        activeCell.progressKnown = item.sizeKnown;
+        VLCActiveDownloadCell *cell = (VLCActiveDownloadCell *)[self.downloadsTable cellForRowAtIndexPath:indexPath];
+        cell.progressKnown = item.sizeKnown;
         if (item.sizeKnown) {
-            activeCell.progress = item.progress;
+            cell.progress = item.progress;
         }
-        activeCell.statsText = item.statsText;
+        cell.statsText = item.statsText;
     }
 }
 
@@ -369,7 +451,7 @@
     return 60;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)_titleForSection:(NSInteger)section
 {
     if (section == 0) {
         return NSLocalizedString(@"TRANSFERS_IN_PROGRESS", nil);
@@ -379,10 +461,39 @@
     return NSLocalizedString(@"TRANSFER_FAILED", nil);
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self tableView:tableView numberOfRowsInSection:section] == 0) {
+        return nil;
+    }
+
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = PresentationTheme.current.colors.background;
+
+    UILabel *label = [[UILabel alloc] init];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    UIFontDescriptor *descriptor = [[UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2]
+                                    fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    label.font = [UIFont fontWithDescriptor:descriptor size:0];
+    label.adjustsFontForContentSizeCategory = YES;
+    label.text = [self _titleForSection:section];
+    label.textColor = PresentationTheme.current.colors.lightTextColor;
+    [header addSubview:label];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [label.leadingAnchor constraintEqualToAnchor:header.leadingAnchor constant:20],
+        [label.trailingAnchor constraintLessThanOrEqualToAnchor:header.trailingAnchor constant:-20],
+        [label.topAnchor constraintEqualToAnchor:header.topAnchor constant:12],
+        [label.bottomAnchor constraintEqualToAnchor:header.bottomAnchor constant:-6],
+    ]];
+
+    return header;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     NSInteger count = [self tableView:tableView numberOfRowsInSection:section];
-    return count == 0 ? 0. : 14.;
+    return count == 0 ? 0. : UITableViewAutomaticDimension;
 }
 
 #pragma mark - table view delegate
@@ -436,7 +547,6 @@
 
     VLCTransferItem *item = _completed[indexPath.row];
     NSString *mediaPath = item.filePath;
-    // Playing a stale path crashes deep in VLCKit, so warn the user.
     if (mediaPath.length == 0 || ![[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:(item.displayName.length ? item.displayName : NSLocalizedString(@"TRANSFERS", nil))
                                                                        message:NSLocalizedString(@"DOWNLOAD_FILE_UNAVAILABLE", nil)

@@ -7,7 +7,7 @@
 #import "VLCAppCoordinator.h"
 #import "VLCConstants.h"
 #import "VLCTransferController.h"
-#import "VLCDownloadViewController.h"
+#import "VLCTransferViewController.h"
 #import "VLCEmptyLibraryView.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCNetworkLoginViewController.h"

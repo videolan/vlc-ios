@@ -20,7 +20,7 @@
 #else
 #import "UIStackView+Orientation.h"
 #import "VLCTransferController.h"
-#import "VLCDownloadViewController.h"
+#import "VLCTransferViewController.h"
 #import "VLCDownloadStatusBanner.h"
 #endif
 
@@ -844,7 +844,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)_presentDownloadsViewController
 {
-    VLCDownloadViewController *dlVC = [[VLCDownloadViewController alloc] initWithNibName:@"VLCDownloadViewController" bundle:nil];
+    VLCTransferViewController *dlVC = [[VLCTransferViewController alloc] init];
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:dlVC];
 
     UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone

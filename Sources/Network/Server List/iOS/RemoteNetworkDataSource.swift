@@ -178,7 +178,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         case .streaming:
             return VLCOpenNetworkStreamViewController()
         case .download:
-            return VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
+            return VLCTransferViewController()
         case .wifi:
             return nil
         case .favorite:

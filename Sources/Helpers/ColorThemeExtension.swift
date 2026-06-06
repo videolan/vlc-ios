@@ -46,7 +46,7 @@ extension VLCOpenNetworkStreamViewController {
     }
 }
 
-extension VLCDownloadViewController {
+extension VLCTransferViewController {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
