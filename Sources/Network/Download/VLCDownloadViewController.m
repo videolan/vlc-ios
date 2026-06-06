@@ -261,15 +261,6 @@
     }
 }
 
-#pragma mark - helpers
-- (NSAttributedString *)_prefixedTextWithSymbol:(NSString *)symbol color:(UIColor *)symbolColor text:(NSString *)text textColor:(UIColor *)textColor
-{
-    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:[symbol stringByAppendingString:@" "]
-                                                                               attributes:@{NSForegroundColorAttributeName: symbolColor}];
-    [result appendAttributedString:[[NSAttributedString alloc] initWithString:text attributes:@{NSForegroundColorAttributeName: textColor}]];
-    return result;
-}
-
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -311,7 +302,6 @@
         }
 
         UITableViewCell *cell = [self _plainCellForTableView:tableView];
-        cell.textLabel.attributedText = nil;
         cell.textLabel.text = item.displayName;
         cell.detailTextLabel.text = item.urlString;
         cell.imageView.image = nil;
@@ -322,40 +312,40 @@
     }
 
     UITableViewCell *cell = [self _plainCellForTableView:tableView];
-    cell.imageView.image = nil;
 
+    NSString *sfSymbolName;
+    NSString *fallbackImageName;
+    UIColor *tintColor;
+    NSString *name;
     if (indexPath.section == 1) {
         VLCTransferItem *item = _completed[row];
-        NSString *name = item.displayName;
+        name = item.displayName;
+        sfSymbolName = @"checkmark.circle.fill";
+        fallbackImageName = @"checkmark";
+        tintColor = [UIColor systemGreenColor];
         cell.detailTextLabel.text = item.date ? [_dateFormatter stringFromDate:item.date] : @"";
         cell.detailTextLabel.numberOfLines = 1;
-        if (@available(iOS 13.0, *)) {
-            UIImage *check = [UIImage systemImageNamed:@"checkmark.circle.fill"];
-            cell.imageView.image = [check imageWithTintColor:[UIColor systemGreenColor] renderingMode:UIImageRenderingModeAlwaysOriginal];
-            cell.textLabel.attributedText = nil;
-            cell.textLabel.text = name;
-            cell.textLabel.textColor = colors.cellTextColor;
-        } else {
-            cell.textLabel.attributedText = [self _prefixedTextWithSymbol:@"✔" color:[UIColor systemGreenColor] text:(name ?: @"") textColor:colors.cellTextColor];
-        }
-        cell.detailTextLabel.textColor = colors.cellDetailTextColor;
     } else {
         VLCTransferItem *item = _failed[row];
-        NSString *name = item.displayName;
+        name = item.displayName;
+        sfSymbolName = @"exclamationmark.triangle.fill";
+        fallbackImageName = @"warning";
+        tintColor = [UIColor systemRedColor];
         cell.detailTextLabel.text = item.errorDescription;
-        if (@available(iOS 13.0, *)) {
-            UIImage *warn = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
-            cell.imageView.image = [warn imageWithTintColor:[UIColor systemRedColor] renderingMode:UIImageRenderingModeAlwaysOriginal];
-            cell.textLabel.attributedText = nil;
-            cell.textLabel.text = name;
-            cell.textLabel.textColor = colors.cellTextColor;
-        } else {
-            cell.textLabel.attributedText = [self _prefixedTextWithSymbol:@"⚠" color:[UIColor systemRedColor] text:(name ?: @"") textColor:colors.cellTextColor];
-        }
-        cell.detailTextLabel.textColor = colors.cellDetailTextColor;
         cell.detailTextLabel.numberOfLines = 2;
         cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
+
+    if (@available(iOS 13.0, *)) {
+        UIImage *symbol = [UIImage systemImageNamed:sfSymbolName];
+        cell.imageView.image = [symbol imageWithTintColor:tintColor renderingMode:UIImageRenderingModeAlwaysOriginal];
+    } else {
+        cell.imageView.image = [[UIImage imageNamed:fallbackImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.tintColor = tintColor;
+    }
+    cell.textLabel.text = name;
+    cell.textLabel.textColor = colors.cellTextColor;
+    cell.detailTextLabel.textColor = colors.cellDetailTextColor;
 
     return cell;
 }
