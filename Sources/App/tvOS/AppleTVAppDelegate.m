@@ -64,6 +64,7 @@
                                   kVLCSettingPlaybackLockscreenSkip : @(NO),
                                   kVLCSettingPlaybackRemoteControlSkip : @(NO),
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
+                                  kVLCSettingPlayUploadsWhileReceiving : kVLCSettingPlayUploadsWhileReceivingDefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,

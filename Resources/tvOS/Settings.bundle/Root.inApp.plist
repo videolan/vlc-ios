@@ -616,6 +616,16 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>PlayUploadsWhileReceiving</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAY_UPLOADS_WHILE_RECEIVING</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
 			<string>rtsp-tcp</string>

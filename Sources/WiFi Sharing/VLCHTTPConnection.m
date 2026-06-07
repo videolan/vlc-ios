@@ -914,7 +914,8 @@ static NSMutableDictionary *authentifiedHosts;
 #endif
 #endif
 #if TARGET_OS_TV
-        if (percentage >= 10) {
+        if (percentage >= 10
+            && [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlayUploadsWhileReceiving]) {
             [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:_filepath waitUntilDone:NO];
         }
 #endif
