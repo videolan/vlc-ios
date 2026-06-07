@@ -998,8 +998,13 @@ static NSMutableDictionary *authentifiedHosts;
 
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+#if TARGET_OS_TV
+    NSString *uploadDirPath = [searchPaths.firstObject
+                               stringByAppendingPathComponent:kVLCHTTPUploadInFlightDirectory];
+#else
     NSString *uploadDirPath = [searchPaths.firstObject
                                stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
+#endif
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     BOOL isDir = YES;

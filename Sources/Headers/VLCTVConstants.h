@@ -104,6 +104,7 @@
 #define kVLCStoredServerList @"kVLCStoredServerList"
 
 #define kVLCHTTPUploadDirectory @"Upload"
+#define kVLCHTTPUploadInFlightDirectory @"In-Flight"
 
 #define kVLCSettingCastingAudioPassthrough @"sout-chromecast-audio-passthrough"
 #define kVLCSettingCastingConversionQuality @"sout-chromecast-conversion-quality"

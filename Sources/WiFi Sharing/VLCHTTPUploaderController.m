@@ -27,10 +27,7 @@
 
 #import "NSString+SupportedMedia.h"
 
-#if TARGET_OS_IOS || TARGET_OS_VISION
 #import "VLC-Swift.h"
-#import "VLCMediaFileDiscoverer.h"
-#endif
 
 NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskName";
 
@@ -64,6 +61,9 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
         [self netReachabilityChanged];
         [self changeHTTPServerState:isHTTPServerOn];
         _playlistUploadPaths = [NSMutableSet set];
+#if TARGET_OS_TV
+        [self cleanInFlightDirectory];
+#endif
     }
 
     return self;
@@ -357,17 +357,14 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     return [NSString stringWithFormat:@"%i", _httpServer.listeningPort];
 }
 
-#if TARGET_OS_IOS || TARGET_OS_VISION
-- (NSString *)moveFileOutOfCache:(NSString *)filepath
+- (NSString *)moveFile:(NSString *)filepath
+         fromDirectory:(NSString *)sourceDirectory
+           toDirectory:(NSString *)destinationDirectory
 {
     NSString *fileName = [filepath lastPathComponent];
-    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *uploadPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
-                            firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
-
-    NSString *finalFilePath = [libraryPath
+    NSString *finalFilePath = [destinationDirectory
                                stringByAppendingString:[filepath
-                                                        stringByReplacingOccurrencesOfString:uploadPath
+                                                        stringByReplacingOccurrencesOfString:sourceDirectory
                                                         withString:@""]];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -390,7 +387,7 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
                                                                       (unsigned long)x,
                                                                       fileExtension]];
 
-            if (![[NSFileManager defaultManager] fileExistsAtPath:potentialFullPath]) {
+            if (![fileManager fileExistsAtPath:potentialFullPath]) {
                 finalFilePath = potentialFullPath;
                 break;
             }
@@ -409,13 +406,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
         finalFilePath = nil;
     }
 
-    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
     return finalFilePath;
 }
-#endif
 
 - (NSString *)moveFileFrom:(NSString *)filepath
 {
@@ -423,19 +418,23 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
 
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+
+#if TARGET_OS_IOS || TARGET_OS_VISION
     // Check if downloaded file is a playlist in order to parse at the end of the download.
     if ([[filepath lastPathComponent] isSupportedPlaylistFormat]) {
         [_playlistUploadPaths addObject:filepath];
         return filepath;
     }
 
-    /* on tvOS, the media remains in the cache folder and will disappear from there
-     * while on iOS we have persistent storage, so move it there */
-#if TARGET_OS_IOS || TARGET_OS_VISION
-    return [self moveFileOutOfCache:filepath];
+    NSString *sourceDirectory = [searchPaths.firstObject stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
+    NSString *destinationDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
 #else
-    return filepath;
+    NSString *sourceDirectory = [searchPaths.firstObject stringByAppendingPathComponent:kVLCHTTPUploadInFlightDirectory];
+    NSString *destinationDirectory = [searchPaths.firstObject stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
 #endif
+
+    return [self moveFile:filepath fromDirectory:sourceDirectory toDirectory:destinationDirectory];
 }
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
@@ -451,6 +450,17 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];
+}
+#endif
+
+#if TARGET_OS_TV
+- (void)cleanInFlightDirectory
+{
+    NSString *inFlightPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+                              stringByAppendingPathComponent:kVLCHTTPUploadInFlightDirectory];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:inFlightPath])
+        [fileManager removeItemAtPath:inFlightPath error:nil];
 }
 #endif
 
@@ -477,8 +487,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 {
     _idleTimer = nil;
 
+    NSString *sourceDirectory = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
+    NSString *destinationDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+
     for (NSString *path in _playlistUploadPaths) {
-        [self moveFileOutOfCache:path];
+        [self moveFile:path fromDirectory:sourceDirectory toDirectory:destinationDirectory];
     }
 
     [_playlistUploadPaths removeAllObjects];
