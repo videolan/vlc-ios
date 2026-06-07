@@ -1121,6 +1121,19 @@ static NSMutableDictionary *authentifiedHosts;
     return [super shouldDie];
 }
 
+- (void)die
+{
+    if (_storeFile) {
+        [_storeFile closeFile];
+        _storeFile = nil;
+    }
+    if (_uploadTracked) {
+        [[[VLCAppCoordinator sharedInstance] transferController] cancelUpload:_uploadToken];
+        _uploadTracked = NO;
+    }
+    [super die];
+}
+
 #pragma mark subtitle
 
 - (NSMutableArray *)_listOfSubtitles
