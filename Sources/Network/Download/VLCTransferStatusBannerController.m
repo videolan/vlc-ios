@@ -162,7 +162,17 @@
     }
     [container addSubview:_banner];
 
-    NSLayoutConstraint *heightConstraint = [_banner.heightAnchor constraintEqualToConstant:68];
+#if TARGET_OS_TV
+    NSLayoutConstraint *heightConstraint = [_banner.heightAnchor constraintEqualToConstant:120.0];
+    heightConstraint.priority = UILayoutPriorityDefaultHigh;
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_banner.centerXAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.centerXAnchor],
+        [_banner.widthAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.widthAnchor multiplier:0.5],
+        heightConstraint,
+    ]];
+#else
+    NSLayoutConstraint *heightConstraint = [_banner.heightAnchor constraintEqualToConstant:68.0];
     heightConstraint.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
@@ -170,6 +180,7 @@
         [_banner.trailingAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.trailingAnchor constant:-12],
         heightConstraint,
     ]];
+#endif
     [self refreshBottomAnchor];
     [container layoutIfNeeded];
 

@@ -65,10 +65,10 @@
 #if TARGET_OS_VISION
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
 #else
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 13.0, tvOS 13.0, *)) {
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     } else {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     }
 #endif
     _spinner.translatesAutoresizingMaskIntoConstraints = NO;
@@ -95,12 +95,12 @@
         [_spinner.centerXAnchor constraintEqualToAnchor:_percentLabel.centerXAnchor],
         [_spinner.centerYAnchor constraintEqualToAnchor:_percentLabel.centerYAnchor],
 
-        [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:_contentInsets.left],
-        [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-_contentInsets.right],
+        [_progressView.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
+        [_progressView.trailingAnchor constraintEqualToAnchor:_percentLabel.trailingAnchor],
         [_progressView.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:6],
 
-        [_subtitleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:_contentInsets.left],
-        [_subtitleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-_contentInsets.right],
+        [_subtitleLabel.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
+        [_subtitleLabel.trailingAnchor constraintEqualToAnchor:_percentLabel.trailingAnchor],
         [_subtitleLabel.topAnchor constraintEqualToAnchor:_progressView.bottomAnchor constant:4],
         _bottomConstraint,
     ]];
@@ -169,6 +169,13 @@
     _titleLabel.font = [UIFont systemFontOfSize:titleSize weight:UIFontWeightMedium];
     _percentLabel.font = [UIFont monospacedDigitSystemFontOfSize:subtitleSize weight:UIFontWeightRegular];
     _subtitleLabel.font = [UIFont monospacedDigitSystemFontOfSize:subtitleSize weight:UIFontWeightRegular];
+}
+
+- (void)setTitleFont:(UIFont *)titleFont subtitleFont:(UIFont *)subtitleFont
+{
+    _titleLabel.font = titleFont;
+    _percentLabel.font = subtitleFont;
+    _subtitleLabel.font = subtitleFont;
 }
 
 - (void)applyTheme

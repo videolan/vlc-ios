@@ -19,6 +19,7 @@
 #import "VLCRemotePlaybackViewController.h"
 #import "VLCAppCoordinator.h"
 #import "VLCRemoteControlService.h"
+#import "VLCTransferStatusBannerController.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -31,6 +32,7 @@
     VLCSettingsViewController *_settingsVC;
     PlaylistViewController *_playlistVC;
     VLCRemoteControlService *_remoteControlService;
+    VLCTransferStatusBannerController *_transferBannerController;
 }
 @end
 
@@ -101,6 +103,8 @@
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_settingsVC]];
     [_mainViewController setViewControllers:viewControllers];
     self.window.rootViewController = _mainViewController;
+
+    _transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:_mainViewController.view delegate:nil];
 
     // Init the HTTP Server and the micro media library
     [VLCAppCoordinator sharedInstance];

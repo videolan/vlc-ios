@@ -61,6 +61,8 @@
     [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Safari/9537.53 VLC for iOS/%@",
 #if TARGET_OS_IOS
                           UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone",
+#elif TARGET_OS_TV
+                          @"Apple TV",
 #else
                           @"vision Pro",
 #endif

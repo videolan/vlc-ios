@@ -29,14 +29,21 @@
         return nil;
     }
 
-    self.layer.cornerRadius = 10.0;
     self.layer.masksToBounds = YES;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
     _progressView = [[VLCDownloadProgressView alloc] init];
-    _progressView.contentInsets = UIEdgeInsetsMake(8, 12, 8, 12);
     _progressView.subtitleNumberOfLines = 1;
+#if TARGET_OS_TV
+    self.layer.cornerRadius = 18.0;
+    _progressView.contentInsets = UIEdgeInsetsMake(20, 32, 20, 32);
+    [_progressView setTitleFont:[UIFont systemFontOfSize:28.0 weight:UIFontWeightSemibold]
+                   subtitleFont:[UIFont systemFontOfSize:22.0 weight:UIFontWeightRegular]];
+#else
+    self.layer.cornerRadius = 10.0;
+    _progressView.contentInsets = UIEdgeInsetsMake(8, 12, 8, 12);
     [_progressView setTitleFontSize:13 subtitleFontSize:11];
+#endif
     [self addSubview:_progressView];
 
     [NSLayoutConstraint activateConstraints:@[

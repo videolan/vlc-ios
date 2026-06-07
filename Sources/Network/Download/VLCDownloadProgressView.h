@@ -29,6 +29,7 @@
 @property (nonatomic, assign) UIEdgeInsets contentInsets;
 
 - (void)setTitleFontSize:(CGFloat)titleSize subtitleFontSize:(CGFloat)subtitleSize;
+- (void)setTitleFont:(nonnull UIFont *)titleFont subtitleFont:(nonnull UIFont *)subtitleFont;
 - (void)applyTheme;
 
 @end
