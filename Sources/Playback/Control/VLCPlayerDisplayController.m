@@ -19,9 +19,8 @@
 #import "VLCFullscreenMovieTVViewController.h"
 #else
 #import "UIStackView+Orientation.h"
-#import "VLCTransferController.h"
 #import "VLCTransferViewController.h"
-#import "VLCDownloadStatusBanner.h"
+#import "VLCTransferStatusBannerController.h"
 #endif
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
@@ -51,16 +50,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *audioPlayerViewController;
 @end
 
-#if !TARGET_OS_TV
-@interface VLCPlayerDisplayController ()
-@property (nonatomic, strong, nullable) VLCDownloadStatusBanner *downloadStatusBanner;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *downloadBannerBottomConstraint;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *downloadBannerLeadingConstraint;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *downloadBannerTrailingConstraint;
-@property (nonatomic, assign) BOOL downloadBannerHideScheduled;
+@interface VLCPlayerDisplayController () <VLCTransferStatusBannerControllerDelegate>
+@property (nonatomic, strong, nullable) VLCTransferStatusBannerController *transferBannerController;
 @property (nonatomic, weak, nullable) UINavigationController *downloadsNavigationController;
 @end
-#endif
 
 @implementation VLCPlayerDisplayController
 
@@ -73,10 +66,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackServicePlaybackDidFail object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackServicePlaybackDidStop object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidMoveToNextMedia:) name:VLCPlaybackServicePlaybackDidMoveOnToNextItem object:nil];
-#if !TARGET_OS_TV
-        [notificationCenter addObserver:self selector:@selector(downloadStateDidChange:) name:VLCTransferControllerStateDidChangeNotification object:nil];
-        [notificationCenter addObserver:self selector:@selector(downloadBannerThemeDidChange:) name:kVLCThemeDidChangeNotification object:nil];
-#endif
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
     }
     return self;
@@ -88,6 +77,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
+
+    self.transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:self.view delegate:self];
 
     [super viewDidLoad];
 }
@@ -583,7 +574,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
         [self addPlayqueueToMiniPlayer];
         miniPlaybackView.visible = YES;
-        [self _updateDownloadBannerBottomAnchor];
+        [self.transferBannerController refreshBottomAnchor];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:VLCPlayerDisplayControllerDisplayMiniPlayer object:self];
     } else if (needsHide) {
@@ -596,7 +587,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
             }
-            [self _updateDownloadBannerBottomAnchor];
+            [self.transferBannerController refreshBottomAnchor];
             [self->_queueViewController hide];
             [self->_queueViewController removeFromParentViewController];
         };
@@ -652,7 +643,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             }
 
 #if !TARGET_OS_TV
-            [self _updateDownloadBannerBottomAnchor];
+            [self.transferBannerController refreshBottomAnchor];
 #endif
             [self resignFirstResponder];
         };
@@ -684,162 +675,21 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 }
 
 #pragma mark - Download status banner
-#if !TARGET_OS_TV
 
-- (void)downloadStateDidChange:(NSNotification *)notification
+- (void)transferStatusBannerWasTapped:(VLCTransferStatusBannerController *)controller
 {
-    [self _updateDownloadBanner];
+    [self _presentDownloadsViewController];
 }
 
-- (void)downloadBannerThemeDidChange:(NSNotification *)notification
+- (NSLayoutYAxisAnchor *)bottomAnchorForTransferStatusBanner:(VLCTransferStatusBannerController *)controller
 {
-    [_downloadStatusBanner applyTheme];
-}
-
-- (void)_updateDownloadBanner
-{
-    VLCTransferController *tc = [[VLCAppCoordinator sharedInstance] transferController];
-    NSArray<VLCTransferItem *> *items = tc.inProgressItems;
-    NSUInteger totalCount = items.count;
-    BOOL shouldShow = totalCount > 0;
-
-    if (shouldShow) {
-        _downloadBannerHideScheduled = NO;
-    }
-
-    if (!shouldShow) {
-        if (_downloadStatusBanner && !_downloadBannerHideScheduled) {
-            _downloadBannerHideScheduled = YES;
-            // Delay hide to absorb queue-empty / next-item-starting transitions and confirm completion visually.
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (!self->_downloadBannerHideScheduled) {
-                    return;
-                }
-                if (tc.inProgressItems.count > 0) {
-                    self->_downloadBannerHideScheduled = NO;
-                    [self _updateDownloadBanner];
-                    return;
-                }
-                VLCDownloadStatusBanner *banner = self->_downloadStatusBanner;
-                if (!banner) {
-                    return;
-                }
-                [UIView animateWithDuration:0.25 animations:^{
-                    banner.alpha = 0.0;
-                } completion:^(BOOL finished) {
-                    if (banner.alpha == 0.0) {
-                        [banner removeFromSuperview];
-                        if (self->_downloadStatusBanner == banner) {
-                            self->_downloadStatusBanner = nil;
-                            self->_downloadBannerBottomConstraint = nil;
-                            self->_downloadBannerLeadingConstraint = nil;
-                            self->_downloadBannerTrailingConstraint = nil;
-                        }
-                    }
-                    self->_downloadBannerHideScheduled = NO;
-                }];
-            });
-        }
-        return;
-    }
-
-    [self _ensureDownloadBannerInstalled];
-
-    NSUInteger activeDownloads = 0, activeUploads = 0, queued = 0;
-    long long received = 0, expected = 0;
-    BOOL haveActive = NO, allActiveSizeKnown = YES;
-    for (VLCTransferItem *item in items) {
-        if (!item.active) {
-            queued++;
-            continue;
-        }
-        haveActive = YES;
-        if (item.direction == VLCTransferDirectionUpload) {
-            activeUploads++;
-        } else {
-            activeDownloads++;
-        }
-        if (!item.sizeKnown) {
-            allActiveSizeKnown = NO;
-        }
-        received += item.receivedBytes;
-        expected += item.expectedBytes;
-    }
-
-    NSString *title;
-    if (totalCount > 1) {
-        NSString *format;
-        if (activeUploads == 0) {
-            format = NSLocalizedString(@"DOWNLOADS_COUNT_FORMAT", nil);
-        } else if (activeDownloads == 0 && queued == 0) {
-            format = NSLocalizedString(@"UPLOADS_COUNT_FORMAT", nil);
-        } else {
-            format = NSLocalizedString(@"TRANSFERS_COUNT_FORMAT", nil);
-        }
-        title = [NSString stringWithFormat:format, (unsigned long)totalCount];
-    } else {
-        title = items.firstObject.displayName ?: NSLocalizedString(@"TRANSFERS_IN_PROGRESS", nil);
-    }
-    _downloadStatusBanner.title = title;
-
-    BOOL progressKnown = haveActive && allActiveSizeKnown && expected > 0;
-    _downloadStatusBanner.progressKnown = progressKnown;
-    if (progressKnown) {
-        _downloadStatusBanner.progress = fmin(fmax((CGFloat)received / (CGFloat)expected, 0.0), 1.0);
-    }
-
-    _downloadStatusBanner.bytesText = haveActive ? [VLCTransferItem byteProgressStringForReceived:received expected:expected] : nil;
-}
-
-- (void)_ensureDownloadBannerInstalled
-{
-    if (_downloadStatusBanner && _downloadStatusBanner.superview == self.view) {
-        return;
-    }
-    if (!_downloadStatusBanner) {
-        VLCDownloadStatusBanner *banner = [[VLCDownloadStatusBanner alloc] init];
-        banner.alpha = 0.0;
-        __weak typeof(self) weakSelf = self;
-        banner.onTap = ^{
-            [weakSelf _presentDownloadsViewController];
-        };
-        _downloadStatusBanner = banner;
-    }
-    [self.view addSubview:_downloadStatusBanner];
-
-    _downloadBannerLeadingConstraint = [_downloadStatusBanner.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:12];
-    _downloadBannerTrailingConstraint = [_downloadStatusBanner.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-12];
-
-    NSLayoutConstraint *heightConstraint = [_downloadStatusBanner.heightAnchor constraintEqualToConstant:68];
-    heightConstraint.priority = UILayoutPriorityDefaultHigh;
-
-    [NSLayoutConstraint activateConstraints:@[
-        _downloadBannerLeadingConstraint,
-        _downloadBannerTrailingConstraint,
-        heightConstraint,
-    ]];
-    [self _updateDownloadBannerBottomAnchor];
-    [self.view layoutIfNeeded];
-    VLCDownloadStatusBanner *banner = _downloadStatusBanner;
-    [UIView animateWithDuration:0.2 animations:^{
-        banner.alpha = 1.0;
-    }];
-}
-
-- (void)_updateDownloadBannerBottomAnchor
-{
-    if (!_downloadStatusBanner) {
-        return;
-    }
-    _downloadBannerBottomConstraint.active = NO;
     if (self.miniPlaybackView && ((id<VLCMiniPlaybackViewInterface>)self.miniPlaybackView).visible) {
-        _downloadBannerBottomConstraint = [_downloadStatusBanner.bottomAnchor constraintEqualToAnchor:self.miniPlaybackView.topAnchor constant:-8];
-    } else if (self.realBottomAnchor) {
-        _downloadBannerBottomConstraint = [_downloadStatusBanner.bottomAnchor constraintEqualToAnchor:self.realBottomAnchor constant:-8];
-    } else {
-        _downloadBannerBottomConstraint = [_downloadStatusBanner.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-8];
+        return self.miniPlaybackView.topAnchor;
     }
-    _downloadBannerBottomConstraint.active = YES;
+    if (self.realBottomAnchor) {
+        return self.realBottomAnchor;
+    }
+    return nil;
 }
 
 - (void)_presentDownloadsViewController
@@ -867,8 +717,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     [self.downloadsNavigationController dismissViewControllerAnimated:YES completion:nil];
     self.downloadsNavigationController = nil;
 }
-
-#endif
 
 #pragma mark - QueueViewController
 #if !TARGET_OS_TV

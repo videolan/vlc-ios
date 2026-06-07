@@ -155,6 +155,7 @@
 		44E18A542D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
+		787681C1AA7C06614AF5C7C3 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
 		55E4CD822C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */; };
 		56FEA5AD2A919B2AAA8E5C8F /* VideoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7E800D8BC1F35B35D6B7F /* VideoPreviewController.swift */; };
@@ -1151,6 +1152,7 @@
 		A1CA2EF628240BA0000DB82F /* VLCOpenManagedServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
+		3F2BAF2F705F02514B9234A7 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		B8AD2615D8862BF269580C2A /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
 		B9C232E5D7C74C2715A73F3B /* libPods-VLC-iOS-no-watch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1CAC6F642AF79AB21163137 /* libPods-VLC-iOS-no-watch.a */; };
 		BBD4BF00B0FE472C1DAF5A94 /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
@@ -1185,6 +1187,7 @@
 		C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
 		C5A1141A6CBA89AADBFEF706 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C5EE4D04BBB421B60B95FDFC /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
+		99AE8BE9D9B3C250C1C559C3 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		CA314B8FA4151B14A044C367 /* VLCDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B785438BB91E3F75B6B42B1E /* VLCDownloadProgressView.m */; };
 		C5A1141A6CBA89AADBFEF706 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		C5A1141A6CBA89AADBFEF706 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -1629,6 +1632,7 @@
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCDownloadStatusBanner.m; path = Sources/Network/Download/VLCDownloadStatusBanner.m; sourceTree = SOURCE_ROOT; };
+		7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCTransferStatusBannerController.m; path = Sources/Network/Download/VLCTransferStatusBannerController.m; sourceTree = SOURCE_ROOT; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookmarksView.swift; sourceTree = "<group>"; };
 		7D02C5A32A84F0830046DC5E /* VLCMLMedia+Podcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+Podcast.h"; sourceTree = "<group>"; };
@@ -2062,6 +2066,7 @@
 		91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoView.swift; sourceTree = "<group>"; };
 		959E0EC6F8582AD7EFB0F812 /* VLCDonationNavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VLCDonationNavigationController.h; sourceTree = "<group>"; };
 		985F4B9391AAD1131DC14C77 /* VLCDownloadStatusBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCDownloadStatusBanner.h; path = Sources/Network/Download/VLCDownloadStatusBanner.h; sourceTree = SOURCE_ROOT; };
+		A9127587A7B0C957EA63B37E /* VLCTransferStatusBannerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTransferStatusBannerController.h; path = Sources/Network/Download/VLCTransferStatusBannerController.h; sourceTree = SOURCE_ROOT; };
 		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.h"; sourceTree = SOURCE_ROOT; };
 		9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageTableViewController.m; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.m"; sourceTree = SOURCE_ROOT; };
 		9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkLoginViewController.xib; path = Sources/Network/Login/VLCNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -3457,6 +3462,8 @@
 				B785438BB91E3F75B6B42B1E /* VLCDownloadProgressView.m */,
 				985F4B9391AAD1131DC14C77 /* VLCDownloadStatusBanner.h */,
 				7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */,
+				A9127587A7B0C957EA63B37E /* VLCTransferStatusBannerController.h */,
+				7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -5660,6 +5667,7 @@
 				C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */,
 				CA314B8FA4151B14A044C367 /* VLCDownloadProgressView.m in Sources */,
 				511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */,
+				787681C1AA7C06614AF5C7C3 /* VLCTransferStatusBannerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5954,6 +5962,7 @@
 				3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */,
 				19F440AB9FB40F252BAF83B5 /* VLCDownloadProgressView.m in Sources */,
 				AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */,
+				3F2BAF2F705F02514B9234A7 /* VLCTransferStatusBannerController.m in Sources */,
 				56FEA5AD2A919B2AAA8E5C8F /* VideoPreviewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6250,6 +6259,7 @@
 				E38141E0B655FBEE047D9214 /* VLCActiveDownloadCell.m in Sources */,
 				020A4909B475FEF2466A63A0 /* VLCDownloadProgressView.m in Sources */,
 				C5EE4D04BBB421B60B95FDFC /* VLCDownloadStatusBanner.m in Sources */,
+				99AE8BE9D9B3C250C1C559C3 /* VLCTransferStatusBannerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

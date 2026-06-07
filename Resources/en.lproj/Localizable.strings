@@ -109,8 +109,6 @@
 "TRANSFERS" = "Transfers";
 "TRANSFERS_IN_PROGRESS" = "In progress";
 "TRANSFER_FAILED" = "Transfer failed";
-"DOWNLOADS_COUNT_FORMAT" = "%lu downloads";
-"UPLOADS_COUNT_FORMAT" = "%lu uploads";
 "TRANSFERS_COUNT_FORMAT" = "%lu transfers";
 "DOWNLOADS_SECTION_COMPLETED" = "Completed";
 "DOWNLOAD_FILE_UNAVAILABLE" = "This file is no longer available. It may have been moved, renamed or deleted.";
