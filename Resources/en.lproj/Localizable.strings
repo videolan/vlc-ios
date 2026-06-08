@@ -15,6 +15,10 @@
 "MEDIA_INFO" = "Media Information";
 "VIDEO_DIMENSIONS" = "Video dimensions";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"RESOLUTION_CLASS_8K" = "8K";
+"RESOLUTION_CLASS_4K" = "4K";
+"RESOLUTION_CLASS_HD" = "HD";
+"RESOLUTION_CLASS_SD" = "SD";
 "FORMAT_AUDIO_TRACKS" = "%i audio tracks";
 "ONE_AUDIO_TRACK" = "One audio track";
 "FORMAT_SPU_TRACKS" = "%i subtitles tracks";

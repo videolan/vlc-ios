@@ -1,8 +1,8 @@
 /*****************************************************************************
  * MediaModel.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -59,6 +59,25 @@ extension VLCMLMedia {
                           firstTrack.width(), firstTrack.height())
         }
         return ""
+    }
+
+    @objc func resolutionClass() -> String? {
+        guard let firstTrack = videoTracks?.first else {
+            return nil
+        }
+        let shortSide = min(firstTrack.width(), firstTrack.height())
+        let longSide = max(firstTrack.width(), firstTrack.height())
+
+        if shortSide >= 4320 || longSide >= 7680 {
+            return NSLocalizedString("RESOLUTION_CLASS_8K", comment: "")
+        } else if shortSide >= 2160 || longSide >= 3840 {
+            return NSLocalizedString("RESOLUTION_CLASS_4K", comment: "")
+        } else if shortSide >= 1080 || longSide >= 1920 {
+            return NSLocalizedString("RESOLUTION_CLASS_HD", comment: "")
+        } else if shortSide >= 540 || longSide >= 960 {
+            return NSLocalizedString("RESOLUTION_CLASS_SD", comment: "")
+        }
+        return nil
     }
 
     @objc func thumbnailImage() -> UIImage? {
