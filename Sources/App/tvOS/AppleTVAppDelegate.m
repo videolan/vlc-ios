@@ -42,7 +42,8 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCSettingContinueAudioInBackgroundKey : @(YES),
+    NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(kVLCSettingAppThemeSystem),
+                                  kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
                                   kVLCSettingDefaultPreampLevel : @(6),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,

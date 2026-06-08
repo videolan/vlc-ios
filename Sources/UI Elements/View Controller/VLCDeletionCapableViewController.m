@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCDeletionCapableViewController.h"
+#import "VLC-Swift.h"
 
 @interface VLCDeletionCapableViewController ()
 @property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
@@ -40,6 +41,17 @@
     playPauseRecognizer.enabled = self.editing;
     self.playPausePressRecognizer = playPauseRecognizer;
     [self.view addGestureRecognizer:playPauseRecognizer];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    if (@available(tvOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            [PresentationTheme themeDidUpdate];
+        }
+    }
 }
 
 - (void)handlePlayPausePress
