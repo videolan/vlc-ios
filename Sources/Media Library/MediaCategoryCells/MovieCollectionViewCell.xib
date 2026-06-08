@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,27 +33,34 @@
                                 <color key="trackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zQ-Mf-dw7" userLabel="Titlelabel">
-                                <rect key="frame" x="0.0" y="198" width="309" height="22.5"/>
+                                <rect key="frame" x="0.0" y="198" width="309" height="20.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dW-NN-qcG" userLabel="resolutionClassLabel">
+                                <rect key="frame" x="8" y="8" width="50" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="500" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oac-dS-Qcd" userLabel="descriptionLabel">
-                                <rect key="frame" x="0.0" y="220.5" width="37.5" height="20"/>
+                                <rect key="frame" x="0.0" y="218.5" width="37.5" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vI-Rw-ybg" userLabel="sizeLabel">
-                                <rect key="frame" x="43.5" y="224" width="30" height="13.5"/>
+                                <rect key="frame" x="43.5" y="221" width="30" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="new" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aby-eq-q1j" userLabel="NewLabel">
-                                <rect key="frame" x="280.5" y="220.5" width="28.5" height="20"/>
+                                <rect key="frame" x="280.5" y="218.5" width="28.5" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -79,6 +86,9 @@
                             <constraint firstItem="X8l-k0-1oc" firstAttribute="top" secondItem="jmi-G0-XOo" secondAttribute="bottom" constant="-2" id="xAe-Nt-pj9"/>
                             <constraint firstAttribute="trailing" secondItem="X8l-k0-1oc" secondAttribute="trailing" id="ybU-Nj-waj"/>
                             <constraint firstItem="Aby-eq-q1j" firstAttribute="centerY" secondItem="oac-dS-Qcd" secondAttribute="centerY" id="z3Y-j7-jSm"/>
+                            <constraint firstItem="2dW-NN-qcG" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="leading" constant="8" id="rcl-Ld-001"/>
+                            <constraint firstItem="2dW-NN-qcG" firstAttribute="top" secondItem="jmi-G0-XOo" secondAttribute="top" constant="8" id="rcl-Tp-002"/>
+                            <constraint firstItem="2dW-NN-qcG" firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="rcl-Wd-003"/>
                         </constraints>
                     </view>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5eL-fF-57J" userLabel="Group View">
@@ -129,19 +139,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIV-SU-9UQ" userLabel="Group Title Label">
-                                <rect key="frame" x="133" y="194.5" width="43.5" height="22.5"/>
+                                <rect key="frame" x="133" y="194.5" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1l-5h-C9o" userLabel="Group Size Label">
-                                <rect key="frame" x="136" y="217" width="37.5" height="20"/>
+                                <rect key="frame" x="136" y="215" width="37.5" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxZ-0x-xKX" userLabel="Group Last Played Label">
-                                <rect key="frame" x="136" y="242" width="37.5" height="18"/>
+                                <rect key="frame" x="136" y="238" width="37.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -229,6 +239,7 @@
                 <outlet property="newLabel" destination="Aby-eq-q1j" id="4rD-oo-gdq"/>
                 <outlet property="numberLabel" destination="vRq-Xx-voS" id="ipJ-kY-HXZ"/>
                 <outlet property="progressView" destination="X8l-k0-1oc" id="mf9-zf-3ya"/>
+                <outlet property="resolutionClassLabel" destination="2dW-NN-qcG" id="YLd-gv-68B"/>
                 <outlet property="secondThumbnail" destination="cIO-qN-iRz" id="fom-c3-yGk"/>
                 <outlet property="selectionOverlay" destination="UTe-u3-NWI" id="h7a-Ck-88y"/>
                 <outlet property="sizeLabel" destination="5vI-Rw-ybg" id="h7H-Hm-pcu"/>

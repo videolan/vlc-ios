@@ -89,6 +89,15 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_descriptionLabel];
 
+    _resolutionClassLabel = [[UILabel alloc] init];
+    _resolutionClassLabel.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightSemibold];
+    _resolutionClassLabel.textAlignment = NSTextAlignmentCenter;
+    _resolutionClassLabel.layer.cornerRadius = 6.0;
+    _resolutionClassLabel.clipsToBounds = YES;
+    _resolutionClassLabel.hidden = YES;
+    _resolutionClassLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [thumbnailContainer addSubview:_resolutionClassLabel];
+
     [self updateTheme];
 
     _checkboxImageView = [[UIImageView alloc] init];
@@ -106,6 +115,11 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
         [_thumbnailView.leadingAnchor constraintEqualToAnchor:thumbnailContainer.leadingAnchor],
         [_thumbnailView.trailingAnchor constraintEqualToAnchor:thumbnailContainer.trailingAnchor],
         [_thumbnailView.bottomAnchor constraintEqualToAnchor:thumbnailContainer.bottomAnchor],
+
+        [_resolutionClassLabel.topAnchor constraintEqualToAnchor:_thumbnailView.topAnchor constant:12.0],
+        [_resolutionClassLabel.leadingAnchor constraintEqualToAnchor:_thumbnailView.leadingAnchor constant:12.0],
+        [_resolutionClassLabel.heightAnchor constraintEqualToConstant:32.0],
+        [_resolutionClassLabel.widthAnchor constraintGreaterThanOrEqualToConstant:56.0],
 
         [_progressView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
         [_progressView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
@@ -148,6 +162,8 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     _titleLabel.textColor = colors.cellTextColor;
     _descriptionLabel.textColor = colors.cellDetailTextColor;
     _mediaIsNewIndicator.textColor = colors.orangeUI;
+    _resolutionClassLabel.textColor = [UIColor whiteColor];
+    _resolutionClassLabel.backgroundColor = colors.transparentDarkBackgroundColor;
 }
 
 #pragma mark - Focus
@@ -177,6 +193,8 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     _progressView.hidden = YES;
     _progressView.progress = 0;
     _mediaIsNewIndicator.hidden = YES;
+    _resolutionClassLabel.text = nil;
+    _resolutionClassLabel.hidden = YES;
     _checkboxImageView.hidden = YES;
     _selectedPreviously = NO;
 }
@@ -198,6 +216,14 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     }
 
     _mediaIsNewIndicator.hidden = !media.isNew;
+
+    NSString *resolutionClass = [media resolutionClass];
+    if (resolutionClass) {
+        _resolutionClassLabel.text = resolutionClass;
+        _resolutionClassLabel.hidden = NO;
+    } else {
+        _resolutionClassLabel.hidden = YES;
+    }
 }
 
 - (void)toggleCheckbox

@@ -22,6 +22,7 @@ extern NSString * const VLCMovieTVCollectionViewCellIdentifier;
 @property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) UILabel *descriptionLabel;
 @property (nonatomic, readonly) UILabel *mediaIsNewIndicator;
+@property (nonatomic, readonly) UILabel *resolutionClassLabel;
 @property (nonatomic, readonly) UIImageView *checkboxImageView;
 
 @property (nonatomic) BOOL selectedPreviously;

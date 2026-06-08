@@ -22,6 +22,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var resolutionClassLabel: UILabel!
 
     @IBOutlet weak var selectionOverlay: UIView!
 
@@ -106,6 +107,12 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
                                        object: nil)
         selectionOverlay.layer.cornerRadius = itemCornerRadius
         thumbnailView.layer.cornerRadius = itemCornerRadius
+
+        resolutionClassLabel.textAlignment = .center
+        resolutionClassLabel.layer.cornerRadius = itemCornerRadius
+        resolutionClassLabel.layer.masksToBounds = true
+        resolutionClassLabel.isHidden = true
+
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
         dynamicFontSizeChange()
         themeDidChange()
@@ -134,6 +141,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         sizeLabel.backgroundColor = backgroundColor
         groupTitleLabel.backgroundColor = backgroundColor
         groupSizeLabel.backgroundColor = backgroundColor
+        resolutionClassLabel.textColor = UIColor.white
+        resolutionClassLabel.backgroundColor = colors.transparentDarkBackgroundColor
         mediaView.backgroundColor = backgroundColor
         groupView.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
@@ -147,6 +156,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         groupTitleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         sizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        resolutionClassLabel.font = UIFont.preferredCustomFont(forTextStyle: .caption1).semibolded
         groupSizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         groupLastPlayedLabel.font = UIFont.preferredCustomFont(forTextStyle: .caption1).bolded
     }
@@ -182,6 +192,12 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         }
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.formatSize()
+        if let resolutionClass = movie.resolutionClass() {
+            resolutionClassLabel.text = resolutionClass
+            resolutionClassLabel.isHidden = false
+        } else {
+            resolutionClassLabel.isHidden = true
+        }
         groupLastPlayedLabel.isHidden = true
 
         progressView.progressViewStyle = .bar
@@ -312,6 +328,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true
+        resolutionClassLabel.text = ""
+        resolutionClassLabel.isHidden = true
         mediaView.isHidden = false
 
         firstThumbnail.image = nil
