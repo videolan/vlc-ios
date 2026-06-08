@@ -13,7 +13,6 @@
 #import "VLCMediaFileDownloader.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCActivityManager.h"
-#import "VLCMediaFileDiscoverer.h"
 #import "VLC-Swift.h"
 
 NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBackgroundTaskName";
@@ -168,7 +167,6 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
 
-    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 #if TARGET_OS_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         // FIXME: Replace notifications by cleaner observers

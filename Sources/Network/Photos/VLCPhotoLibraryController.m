@@ -13,7 +13,6 @@
 #import "VLCPhotoLibraryController.h"
 #import <PhotosUI/PhotosUI.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
-#import "VLCMediaFileDiscoverer.h"
 
 API_AVAILABLE(ios(14.0))
 @interface VLCPhotoLibraryController () <PHPickerViewControllerDelegate>
@@ -66,7 +65,6 @@ API_AVAILABLE(ios(14.0))
     }
 
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         if (failureCount > 0) {
             [self presentImportFailureAlertForCount:failureCount];
         }

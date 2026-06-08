@@ -13,7 +13,6 @@
 
 #import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
-#import "VLCMediaFileDiscoverer.h"
 #import "VLC-Swift.h"
 #import "NSURLSessionConfiguration+default.h"
 
@@ -259,7 +258,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:[_fileURL path]]) {
-        [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 #if TARGET_OS_IOS
         dispatch_async(dispatch_get_main_queue(), ^{
             // FIXME: Replace notifications by cleaner observers

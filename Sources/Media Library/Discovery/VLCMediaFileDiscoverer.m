@@ -24,7 +24,6 @@ const float MediaTimerInterval = 2.f;
     NSArray *_directoryFiles;
     NSMutableDictionary *_addedFilesMapping;
     NSTimer *_addMediaTimer;
-    NSArray *_discoveredFilePath;
 }
 
 @end
@@ -80,15 +79,6 @@ const float MediaTimerInterval = 2.f;
     for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
         if ([delegate respondsToSelector:@selector(mediaFileAdded:loading:)]) {
             [delegate mediaFileAdded:[self filePath:fileName] loading:isLoading];
-        }
-    }
-}
-
-- (void)notifySizeChanged:(NSString *)fileName size:(unsigned long long)size
-{
-    for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
-        if ([delegate respondsToSelector:@selector(mediaFileChanged:size:)]) {
-            [delegate mediaFileChanged:[self filePath:fileName] size:size];
         }
     }
 }
@@ -253,8 +243,6 @@ const float MediaTimerInterval = 2.f;
         if (!updatedSize)
             continue;
 
-        [self notifySizeChanged:fileName size:[updatedSize unsignedLongLongValue]];
-
         if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
             [_addedFilesMapping removeObjectForKey:fileName];
             [self notifyFileAdded:fileName loading:NO];
@@ -271,63 +259,6 @@ const float MediaTimerInterval = 2.f;
 {
     [_addMediaTimer invalidate];
     _addMediaTimer = nil;
-}
-
-#pragma mark - media list management
-
-- (void)updateMediaList
-{
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
-        return;
-    }
-
-    NSString *directoryPath = [self directoryPath];
-    NSMutableArray *foundFiles = [NSMutableArray arrayWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil]];
-    NSMutableArray *filePaths = [NSMutableArray array];
-    while (foundFiles.count) {
-        NSString *fileName = foundFiles.firstObject;
-        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-        [foundFiles removeObject:fileName];
-
-        BOOL isDirectory = NO;
-        BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
-
-        if (exists && !isDirectory) {
-            if (self.filterResultsForPlayability) {
-                if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
-                    [filePaths addObject:filePath];
-                }
-            } else {
-                [filePaths addObject:filePath];
-            }
-        } else if (exists && isDirectory) {
-            // add folders
-            NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
-            for (NSString* file in files) {
-                NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
-                isDirectory = NO;
-                exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
-                //only add folders or files in folders
-                if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
-                    NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
-                    if (![folderpath isEqualToString:@""]) {
-                        folderpath = [folderpath stringByAppendingString:@"/"];
-                    }
-                    NSString *path = [folderpath stringByAppendingString:file];
-                    [foundFiles addObject:path];
-                }
-            }
-        }
-    }
-    if (![_discoveredFilePath isEqualToArray:filePaths]) {
-        _discoveredFilePath = filePaths;
-        for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
-            if ([delegate respondsToSelector:@selector(mediaFilesFoundRequiringAdditionToStorageBackend:)]) {
-                [delegate mediaFilesFoundRequiringAdditionToStorageBackend:[filePaths copy]];
-            }
-        }
-    }
 }
 
 @end

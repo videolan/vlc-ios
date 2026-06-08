@@ -13,7 +13,6 @@
 #import "VLCBoxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackService.h"
-#import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "VLC-Swift.h"
 
@@ -397,7 +396,6 @@
     /* update library now that we got a file */
     APLog(@"BoxFile download was successful");
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
-    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
