@@ -1372,7 +1372,8 @@ extension VideoPlayerViewController {
 
         let media = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia)
         if let media = media, currentState == .opening &&
-            (media.type() == .audio && playbackService.numberOfVideoTracks == 0) {
+            (media.type() == .audio && playbackService.numberOfVideoTracks == 0),
+           presentingViewController != nil {
             // This media is audio only and can be played with the Audio Player.
             delegate?.videoPlayerViewControllerShouldSwitchPlayer(self)
             return
