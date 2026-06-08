@@ -47,6 +47,7 @@ extension Notification.Name {
     let textfieldBorderColor: UIColor
     let textfieldPlaceholderColor: UIColor
     let thumbnailBackgroundColor: UIColor
+    let transparentDarkBackgroundColor: UIColor
 
 #if os(tvOS)
     init(isDark: Bool,
@@ -69,7 +70,8 @@ extension Notification.Name {
          blurStyle: UIBlurEffect.Style,
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
-         thumbnailBackgroundColor: UIColor) {
+         thumbnailBackgroundColor: UIColor,
+         transparentDarkBackgroundColor: UIColor) {
         self.isDark = isDark
         self.name = name
         self.navigationbarColor = navigationbarColor
@@ -91,6 +93,7 @@ extension Notification.Name {
         self.textfieldBorderColor = textfieldBorderColor
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
+        self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
     }
 #else
     init(isDark: Bool,
@@ -115,7 +118,8 @@ extension Notification.Name {
          blurStyle: UIBlurEffect.Style,
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
-         thumbnailBackgroundColor: UIColor) {
+         thumbnailBackgroundColor: UIColor,
+         transparentDarkBackgroundColor: UIColor) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -139,6 +143,7 @@ extension Notification.Name {
         self.textfieldBorderColor = textfieldBorderColor
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
+        self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
     }
 #endif
 }
@@ -325,7 +330,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
-                                 thumbnailBackgroundColor: UIColor(0xE6E6E6))
+                                 thumbnailBackgroundColor: UIColor(0xE6E6E6),
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -347,7 +353,8 @@ let darkPalette = ColorPalette(isDark: true,
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
-                               thumbnailBackgroundColor: UIColor(0x26282B))
+                               thumbnailBackgroundColor: UIColor(0x26282B),
+                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 
 #else // !os(tvOS)
 
@@ -373,7 +380,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
-                                 thumbnailBackgroundColor: UIColor(0xE6E6E6))
+                                 thumbnailBackgroundColor: UIColor(0xE6E6E6),
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -397,7 +405,8 @@ let darkPalette = ColorPalette(isDark: true,
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
-                               thumbnailBackgroundColor: UIColor(0x26282B))
+                               thumbnailBackgroundColor: UIColor(0x26282B),
+                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 
 let blackPalette = ColorPalette(isDark: true,
                                 name: "Dark",
@@ -421,7 +430,8 @@ let blackPalette = ColorPalette(isDark: true,
                                 blurStyle: .dark,
                                 textfieldBorderColor: UIColor(0x84929C),
                                 textfieldPlaceholderColor: UIColor(0x737373),
-                                thumbnailBackgroundColor: UIColor(0x1C1E21))
+                                thumbnailBackgroundColor: UIColor(0x1C1E21),
+                                transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 
 #if os(visionOS)
 let visionPalette = ColorPalette(isDark: true,
@@ -446,7 +456,8 @@ let visionPalette = ColorPalette(isDark: true,
                                  blurStyle: .dark,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0x737373),
-                                 thumbnailBackgroundColor: UIColor(0x1C1E21))
+                                 thumbnailBackgroundColor: UIColor(0x1C1E21),
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
 #endif
 
 // MARK: - UIStatusBarStyle - autoDarkContent
