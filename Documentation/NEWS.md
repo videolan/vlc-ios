@@ -47,7 +47,7 @@ Known issues:
 · Initial release
 
 ## tvOS [4.0.0]
-· VLC now requires tvOS 12 or later
+· VLC now requires tvOS 13 or later
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
 · Add HDR playback
 · Add multi-channel and spatial audio

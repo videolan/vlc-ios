@@ -80,24 +80,6 @@
     [defaults registerDefaults:appDefaults];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Init the HTTP Server and the micro media library
-    [VLCAppCoordinator sharedInstance];
-    _remoteControlService = [[VLCRemoteControlService alloc] init];
-
-    if (@available(tvOS 13.0, *)) {
-        APLog(@"Using Scene flow");
-    } else {
-        APLog(@"Using Traditional flow");
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = [self setupMainViewController];
-        [self.window makeKeyAndVisible];
-    }
-
-    return YES;
-}
-
 - (UIViewController *)setupMainViewController
 {
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
@@ -124,7 +106,6 @@
 
     _transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:_mainViewController.view delegate:nil];
 
-    // Init the HTTP Server and the micro media library
     [VLCAppCoordinator sharedInstance];
     _remoteControlService = [[VLCRemoteControlService alloc] init];
 
@@ -154,12 +135,12 @@
 #pragma mark - UISceneSession lifecycle
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
-                              options:(UISceneConnectionOptions *)options API_AVAILABLE(tvos(13.0))
+                              options:(UISceneConnectionOptions *)options
 {
     return [[UISceneConfiguration alloc] initWithName:@"VLCTVDefaultScene" sessionRole:connectingSceneSession.role];
 }
 
-- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions API_AVAILABLE(tvos(13.0))
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions
 {
 }
 

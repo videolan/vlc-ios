@@ -13,9 +13,6 @@
 #import "VLCAppleTVSceneDelegate.h"
 #import "AppleTVAppDelegate.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation VLCAppleTVSceneDelegate
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session
@@ -55,5 +52,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

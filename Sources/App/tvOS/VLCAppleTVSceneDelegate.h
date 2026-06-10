@@ -12,7 +12,6 @@
 
 #import <UIKit/UIKit.h>
 
-API_AVAILABLE(tvos(13.0))
 @interface VLCAppleTVSceneDelegate : UIResponder <UIWindowSceneDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
