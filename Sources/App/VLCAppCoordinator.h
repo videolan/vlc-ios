@@ -27,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class VLCTransferController;
 #endif
 
-@class VideoModel;
-@class TrackModel;
-
 @interface VLCAppCoordinator : NSObject
 
 + (nonnull instancetype)sharedInstance;
@@ -48,11 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 @property (readonly) VLCStripeController *stripeController;
-#endif
-
-#if TARGET_OS_TV
-@property (readonly) VideoModel *videoModel;
-@property (readonly) TrackModel *trackModel;
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
