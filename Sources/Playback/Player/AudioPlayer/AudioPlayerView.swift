@@ -45,7 +45,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
-        titleLabel.font = .boldSystemFont(ofSize: 17.0)
+        titleLabel.font = .boldSystemFont(ofSize: 20.0)
         titleLabel.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return titleLabel
     }()
@@ -53,9 +53,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var artistLabel: UILabel = {
         let artistLabel = UILabel()
         artistLabel.textAlignment = .center
-        artistLabel.font = .systemFont(ofSize: 16.0)
+        artistLabel.font = .systemFont(ofSize: 18.0)
         artistLabel.accessibilityLabel = NSLocalizedString("ARTIST", comment: "")
         return artistLabel
+    }()
+
+    private lazy var albumLabel: UILabel = {
+        let albumLabel = UILabel()
+        albumLabel.textAlignment = .center
+        albumLabel.font = .systemFont(ofSize: 15.0)
+        albumLabel.accessibilityLabel = NSLocalizedString("ALBUM", comment: "")
+        return albumLabel
     }()
 
     lazy var playqueueView: UIView = UIView()
@@ -166,20 +174,11 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     lazy var progressionView: UIView = UIView()
 
-    private lazy var progressionViewBottomConstant: CGFloat = {
-#if os(iOS)
-        let isSmallerScreen: Bool = UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
-        return isSmallerScreen ? 40 : 60
-#else
-        return 60
-#endif
-    }()
-
-    private lazy var progressionViewBottomConstraint: NSLayoutConstraint = progressionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
-
     private lazy var progressionViewHeightConstraint: NSLayoutConstraint = progressionView.heightAnchor.constraint(equalToConstant: 70)
 
-    private lazy var thumbnailViewTopConstraint: NSLayoutConstraint = thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 35)
+    private lazy var albumLabelHeightConstraint: NSLayoutConstraint = albumLabel.heightAnchor.constraint(equalToConstant: albumLabel.font.lineHeight)
+
+    private lazy var secondaryControlStackViewHeightConstraint: NSLayoutConstraint = secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
 
     private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
 
@@ -254,6 +253,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     func setupLabels() {
         titleLabel.textColor = .white
         artistLabel.textColor = .white
+        albumLabel.textColor = .white
     }
 
     func setupProgressView(with view: MediaScrubProgressBar) {
@@ -292,7 +292,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         ])
     }
 
-    func updateLabels(title: String?, artist: String?, isQueueHidden: Bool) {
+    func updateLabels(title: String?, artist: String?, album: String?, isQueueHidden: Bool) {
         if isQueueHidden {
             titleLabel.isHidden = false
             artistLabel.isHidden = false
@@ -301,9 +301,16 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             titleLabel.accessibilityValue = title
             artistLabel.text = artist
             artistLabel.accessibilityValue = artist
+
+            let hasAlbum: Bool = !(album?.isEmpty ?? true)
+            albumLabel.isHidden = !hasAlbum
+            albumLabel.text = album
+            albumLabel.accessibilityValue = album
+            albumLabelHeightConstraint.constant = hasAlbum ? albumLabel.font.lineHeight : 0
         } else {
             titleLabel.isHidden = true
             artistLabel.isHidden = true
+            albumLabel.isHidden = true
         }
     }
 
@@ -395,8 +402,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         } else {
             NSLayoutConstraint.deactivate(landscapeConstraints)
             NSLayoutConstraint.activate(portraitConstraints)
-            thumbnailViewTopConstraint.constant = 35
-            progressionViewBottomConstraint.constant = -progressionViewBottomConstant
             progressionViewHeightConstraint.constant = 70
         }
 
@@ -413,6 +418,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     func shouldDisplaySecondaryStackView(_ display: Bool) {
         secondaryControlStackView.isHidden = !display
+        secondaryControlStackViewHeightConstraint.constant = display ? 30 : 0
     }
 
     func applyCornerRadius() {
@@ -508,7 +514,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         sharedConstraints.append(thumbnailView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor))
 
         portraitConstraints.append(contentsOf: [
-            thumbnailViewTopConstraint,
+            thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 16),
             thumbnailView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
         ])
 
@@ -524,15 +530,18 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private func setupThumbnailSubviews() {
         let padding: CGFloat = 20.0
-        let thumbnailImageViewEdgesPadding: CGFloat = 40.0
+        let thumbnailImageViewEdgesPadding: CGFloat = 24.0
+        let labelSpacing: CGFloat = 8.0
 
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
+        albumLabel.translatesAutoresizingMaskIntoConstraints = false
 
         thumbnailView.addSubview(thumbnailImageView)
         addSubview(titleLabel)
         addSubview(artistLabel)
+        addSubview(albumLabel)
 
         let thumbnailViewHeightConstraint = thumbnailView.heightAnchor.constraint(equalToConstant: thumbnailImageView.frame.height + titleLabel.font.lineHeight + artistLabel.font.lineHeight)
         thumbnailViewHeightConstraint.priority = .defaultLow
@@ -544,22 +553,34 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let landscapeThumbnailHeightConstraint = thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailView.heightAnchor, constant: -2 * padding)
         landscapeThumbnailHeightConstraint.priority = .defaultHigh
 
+        // Portrait: the artwork is a square that grows up to the full content
+        // width, yielding when the column needs the vertical space.
+        let portraitThumbnailWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor, constant: -2 * thumbnailImageViewEdgesPadding)
+        portraitThumbnailWidthConstraint.priority = .defaultHigh
+
         let landscapeTitleLeading = titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
         let landscapeTitleTrailing = titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
         let landscapeArtistLeading = artistLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
         let landscapeArtistTrailing = artistLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
+        let landscapeAlbumLeading = albumLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
+        let landscapeAlbumTrailing = albumLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
 
         sharedConstraints.append(contentsOf: [
             titleLabel.heightAnchor.constraint(equalToConstant: titleLabel.font.lineHeight),
             artistLabel.heightAnchor.constraint(equalToConstant: artistLabel.font.lineHeight),
-            artistLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            artistLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: labelSpacing),
+            albumLabel.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: labelSpacing),
+            albumLabelHeightConstraint,
             thumbnailViewHeightConstraint
         ])
 
         portraitConstraints.append(contentsOf: [
             thumbnailImageView.topAnchor.constraint(equalTo: thumbnailView.topAnchor, constant: padding),
-            thumbnailImageView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: thumbnailImageViewEdgesPadding),
-            thumbnailImageView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -thumbnailImageViewEdgesPadding),
+            thumbnailImageView.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
+            thumbnailImageView.leadingAnchor.constraint(greaterThanOrEqualTo: thumbnailView.leadingAnchor, constant: thumbnailImageViewEdgesPadding),
+            thumbnailImageView.trailingAnchor.constraint(lessThanOrEqualTo: thumbnailView.trailingAnchor, constant: -thumbnailImageViewEdgesPadding),
+            thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor),
+            portraitThumbnailWidthConstraint,
 
             titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: padding),
             titleLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
@@ -569,7 +590,11 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             artistLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             artistLabel.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: padding),
             artistLabel.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -padding),
-            artistLabel.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -padding),
+
+            albumLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
+            albumLabel.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: padding),
+            albumLabel.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -padding),
+            albumLabel.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -padding),
         ])
 
         landscapeConstraints.append(contentsOf: [
@@ -583,11 +608,14 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
             titleLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
             artistLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
-            artistLabel.bottomAnchor.constraint(equalTo: controlsStackView.topAnchor, constant: -padding),
+            albumLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
+            albumLabel.bottomAnchor.constraint(equalTo: controlsStackView.topAnchor, constant: -padding),
             landscapeTitleLeading,
             landscapeTitleTrailing,
             landscapeArtistLeading,
             landscapeArtistTrailing,
+            landscapeAlbumLeading,
+            landscapeAlbumTrailing,
         ])
     }
 
@@ -622,12 +650,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             controlsStackView.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
             controlsStackView.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
             secondaryControlStackView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: topPadding/4),
-            secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
+            secondaryControlStackViewHeightConstraint
         ])
 
         portraitConstraints.append(contentsOf: [
-            controlsStackView.topAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: topPadding),
+            controlsStackView.topAnchor.constraint(equalTo: progressionView.bottomAnchor, constant: topPadding),
             secondaryControlStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            secondaryControlStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
 
         landscapeConstraints.append(contentsOf: [
@@ -647,6 +676,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         let displaySecondaryStackView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
         secondaryControlStackView.isHidden = !displaySecondaryStackView
+        secondaryControlStackViewHeightConstraint.constant = displaySecondaryStackView ? 30 : 0
     }
 
     private func setupProgressionView() {
@@ -661,21 +691,19 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         addSubview(progressionView)
 
-        sharedConstraints.append(contentsOf: [
-            progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: padding),
-            progressionViewHeightConstraint
-        ])
+        sharedConstraints.append(progressionViewHeightConstraint)
 
         portraitConstraints.append(contentsOf: [
+            progressionView.topAnchor.constraint(greaterThanOrEqualTo: thumbnailView.bottomAnchor, constant: 16),
             progressionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             progressionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
-            progressionViewBottomConstraint,
         ])
 
         let landscapeProgressionBottomConstraint = progressionView.bottomAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.bottomAnchor, constant: -padding)
         landscapeProgressionBottomConstraint.priority = .defaultHigh
 
         landscapeConstraints.append(contentsOf: [
+            progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: padding),
             progressionView.leadingAnchor.constraint(equalTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding),
             progressionView.trailingAnchor.constraint(equalTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding),
             landscapeProgressionBottomConstraint,

@@ -442,7 +442,7 @@ extension AudioPlayerViewController {
         audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
 
         let metadata = playbackService.metadata
-        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: isQueueHidden)
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, album: metadata.albumName, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
 
         if let qvc = queueViewController, !isQueueHidden {
@@ -492,7 +492,7 @@ extension AudioPlayerViewController {
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
-        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: isQueueHidden)
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, album: metadata.albumName, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
 
         if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
@@ -557,7 +557,7 @@ extension AudioPlayerViewController {
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
         let metadata = playbackService.metadata
-        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: !isQueueHidden)
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, album: metadata.albumName, isQueueHidden: !isQueueHidden)
         updateNavigationBar(with: !isQueueHidden ? nil : metadata.title)
 
         audioPlayerView.thumbnailView.isHidden = playbackService.isPlayingOnExternalScreen()
