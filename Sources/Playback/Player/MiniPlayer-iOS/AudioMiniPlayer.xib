@@ -97,7 +97,6 @@
                                     <state key="normal">
                                         <imageReference key="image" image="iconRepeat"/>
                                     </state>
-                                    <variation key="widthClass=compact" hidden="YES"/>
                                     <connections>
                                         <action selector="handelRepeat:" destination="-1" eventType="touchUpInside" id="DLU-Cd-VP0"/>
                                     </connections>
@@ -147,7 +146,6 @@
                                     <state key="normal">
                                         <imageReference key="image" image="shuffle"/>
                                     </state>
-                                    <variation key="widthClass=compact" hidden="YES"/>
                                     <connections>
                                         <action selector="handleShuffle:" destination="-1" eventType="touchUpInside" id="geW-Pb-Qo3"/>
                                     </connections>

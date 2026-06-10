@@ -42,6 +42,7 @@ struct MiniPlayerPosition {
 @objc(VLCAudioMiniPlayer)
 class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     @objc static let height: Float = 72.0
+    private static let extraControlsMinWidth: CGFloat = 500.0
     var visible: Bool = false
     var contentHeight: Float {
         return AudioMiniPlayer.height
@@ -92,6 +93,17 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let hasRoomForExtraControls = bounds.width >= AudioMiniPlayer.extraControlsMinWidth
+        if repeatButton.isHidden == hasRoomForExtraControls {
+            repeatButton.isHidden = !hasRoomForExtraControls
+        }
+        if shuffleButton.isHidden == hasRoomForExtraControls {
+            shuffleButton.isHidden = !hasRoomForExtraControls
+        }
     }
 
     func updatePlayPauseButton() {
