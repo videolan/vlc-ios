@@ -2565,8 +2565,8 @@ extension MediaCategoryViewController {
     }
 
     private func addContinueWatchingButton() {
-        guard let keyWindow = UIApplication.shared.delegate?.window else { return }
-        keyWindow?.addSubview(continueWatchingButton)
+        guard let containerView = tabBarController?.view else { return }
+        containerView.addSubview(continueWatchingButton)
 
         setContinueWatchingButtonConstraints()
         handleContinueWatchingButtonVisibility()
@@ -2600,12 +2600,7 @@ extension MediaCategoryViewController {
     }
 
     private func setContinueWatchingButtonConstraints() {
-        guard let keywindow = UIApplication.shared.delegate?.window else { return }
-        guard var layoutGuide = keywindow?.layoutMarginsGuide else { return }
-
-        if #available(iOS 11.0, *) {
-            layoutGuide = keywindow!.safeAreaLayoutGuide
-        }
+        guard let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
 
         var tabBarHeight: CGFloat = 0.0
         if let tabBarController = tabBarController as? BottomTabBarController,
