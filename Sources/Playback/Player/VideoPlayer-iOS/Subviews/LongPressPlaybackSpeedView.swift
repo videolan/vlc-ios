@@ -24,7 +24,7 @@ class LongPressPlaybackSpeedView: UIView {
 
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
-        formatter.decimalSeparator = "."
+        formatter.locale = Locale.current
 
         return formatter
     }()

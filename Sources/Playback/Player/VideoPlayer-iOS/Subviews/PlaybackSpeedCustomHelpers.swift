@@ -19,6 +19,23 @@ enum PlaybackSpeedConfig {
     static let dismissDelay: TimeInterval = 0.3
 }
 
+@objc class PlaybackSpeedFormatter: NSObject {
+    private static let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
+        formatter.usesGroupingSeparator = false
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+
+    @objc static func string(forSpeed speed: Float) -> String {
+        let value = formatter.string(from: NSNumber(value: speed)) ?? String(format: "%.2f", speed)
+        return value + "x"
+    }
+}
+
 class PlaybackSpeedCustomManager {
     static let shared = PlaybackSpeedCustomManager()
     private let userDefaults = UserDefaults.standard
@@ -73,7 +90,7 @@ enum UIUtils {
             .flatMap { $0.windows }
             .first { $0.isKeyWindow }
         #else
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             keyWindow = UIApplication.shared.connectedScenes
                 .compactMap { $0 as? UIWindowScene }
                 .flatMap { $0.windows }
@@ -82,7 +99,7 @@ enum UIUtils {
             keyWindow = UIApplication.shared.keyWindow
         }
         #endif
-        
+
         guard let window = keyWindow,
               let rootVC = window.rootViewController else {
             return nil
@@ -96,6 +113,7 @@ enum UIUtils {
         return topVC
     }
     
+#if !os(tvOS)
     static func createToolbar() -> UIToolbar {
         let width: CGFloat
         #if os(visionOS)
@@ -105,7 +123,7 @@ enum UIUtils {
         #else
         width = UIScreen.main.bounds.width
         #endif
-        
+
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
         toolBar.barStyle = PresentationTheme.current.colors.toolBarStyle
         toolBar.isTranslucent = true
@@ -114,8 +132,10 @@ enum UIUtils {
         toolBar.items = [flexSpace]
         return toolBar
     }
+#endif
 }
 
+#if !os(tvOS)
 class CustomSpeedInputHandler {
     private weak var currentAlertController: UIAlertController?
     
@@ -244,3 +264,4 @@ class CustomSpeedInputHandler {
         )
     }
 }
+#endif

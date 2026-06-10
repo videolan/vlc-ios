@@ -55,7 +55,7 @@ extension NSObject {
             let value = UserDefaults.standard.object(forKey: preferenceKey)
             if let stringValue = value as? String, stringValue == "custom" {
                 let customSpeed = UserDefaults.standard.float(forKey: "playback-speed-custom")
-                return String(format: "%.2fx", customSpeed)
+                return PlaybackSpeedFormatter.string(forSpeed: customSpeed)
             }
         }
         

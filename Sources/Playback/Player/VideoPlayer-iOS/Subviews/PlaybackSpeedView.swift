@@ -118,7 +118,7 @@ class PlaybackSpeedView: UIView {
             speedSlider.setValue(currentSpeed, animated: true)
             minLabel.text = String(minSpeed)
             maxLabel.text = String(maxSpeed)
-            currentButtonText = String(format: "%.2fx", speedSlider.value)
+            currentButtonText = PlaybackSpeedFormatter.string(forSpeed: speedSlider.value)
             increaseAccessibilityHint = NSLocalizedString("INCREASE_PLAYBACK_SPEED", comment: "")
             decreaseAccessibilityHint = NSLocalizedString("DECREASE_PLAYBACK_SPEED", comment: "")
         } else {
@@ -189,7 +189,7 @@ class PlaybackSpeedView: UIView {
         if selectedIndex == 0 {
             currentSpeed = sender.value
             currentValue = currentSpeed
-            currentButtonText = String(format: "%.2fx", currentValue)
+            currentButtonText = PlaybackSpeedFormatter.string(forSpeed: currentValue)
             vpc.playbackRate = currentValue
             notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {
@@ -246,7 +246,7 @@ class PlaybackSpeedView: UIView {
         if selectedIndex == 0 {
             currentSpeed = defaultSpeed
             vpc.playbackRate = defaultSpeed
-            currentButton.setTitle(String(format: "%.2fx", currentSpeed), for: .normal)
+            currentButton.setTitle(PlaybackSpeedFormatter.string(forSpeed: currentSpeed), for: .normal)
             speedSlider.setValue(currentSpeed, animated: true)
             notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
         } else if selectedIndex == 1 {
@@ -304,7 +304,7 @@ class PlaybackSpeedView: UIView {
         if selectedIndex == 0 {
             currentSpeed = computeValue(currentValue: currentValue, offset: speedOffset, lowerBound: minSpeed, upperBound: maxSpeed)
             currentValue = currentSpeed
-            currentButtonText = String(format: "%.2fx", currentValue)
+            currentButtonText = PlaybackSpeedFormatter.string(forSpeed: currentValue)
             vpc.playbackRate = currentValue
             notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {

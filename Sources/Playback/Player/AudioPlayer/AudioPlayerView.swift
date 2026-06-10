@@ -229,7 +229,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     
     func setupPlaybackSpeed() {
         let defaultPlaybackSpeed = delegate?.audioPlayerViewDelegateGetPlaybackSpeed(self)
-        playbackSpeedButton.setTitle(String(format: "%.2fx", defaultPlaybackSpeed ?? 1.00), for: .normal)
+        playbackSpeedButton.setTitle(PlaybackSpeedFormatter.string(forSpeed: defaultPlaybackSpeed ?? 1.00), for: .normal)
     }
 
     func setupBackgroundColor() {

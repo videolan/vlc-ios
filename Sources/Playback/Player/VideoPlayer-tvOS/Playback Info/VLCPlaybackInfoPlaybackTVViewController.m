@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoPlaybackTVViewController.h"
+#import "VLC-Swift.h"
 
 @interface VLCPlaybackInfoPlaybackTVViewController ()
 @property (nonatomic) VLCPlaybackService *playbackService;
@@ -208,7 +209,7 @@
 
 - (void)updateButtonsText
 {
-    [_playbackSpeedButton setTitle:[NSString stringWithFormat:@"%.2fx", _playbackService.playbackRate] forState:UIControlStateNormal];
+    [_playbackSpeedButton setTitle:[PlaybackSpeedFormatter stringForSpeed:_playbackService.playbackRate] forState:UIControlStateNormal];
     [_subtitlesDelayButton setTitle:[NSString stringWithFormat:@"%.0f ms", _playbackService.subtitleDelay] forState:UIControlStateNormal];
     [_audioDelayButton setTitle:[NSString stringWithFormat:@"%.0f ms", _playbackService.audioDelay] forState:UIControlStateNormal];
 }
@@ -227,7 +228,7 @@
 {
     switch (_currentOption) {
         case VLCPlaybackOptionsTypePlaybackSpeed:
-            [_valueLabel setText:[NSString stringWithFormat:@"%.2fx", value]];
+            [_valueLabel setText:[PlaybackSpeedFormatter stringForSpeed:value]];
             break;
         case VLCPlaybackOptionsTypeSubtitlesDelay:
         case VLCPlaybackOptionsTypeAudioDelay:
