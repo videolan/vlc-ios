@@ -82,7 +82,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Init the HTTP Server and the micro media library
+    [VLCAppCoordinator sharedInstance];
+    _remoteControlService = [[VLCRemoteControlService alloc] init];
+
+    if (@available(tvOS 13.0, *)) {
+        APLog(@"Using Scene flow");
+    } else {
+        APLog(@"Using Traditional flow");
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController = [self setupMainViewController];
+        [self.window makeKeyAndVisible];
+    }
+
+    return YES;
+}
+
+- (UIViewController *)setupMainViewController
+{
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
     _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
@@ -91,20 +108,19 @@
     _playlistVC = [[PlaylistViewController alloc] init];
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
-    
+
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_localNetworkVC]];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC]];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openNetworkVC]];
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_playlistVC]];
-    
+
     if(_openManagedServersVC.hasManagedServers) {
         [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openManagedServersVC]];
     }
-    
+
     [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_settingsVC]];
     [_mainViewController setViewControllers:viewControllers];
-    self.window.rootViewController = _mainViewController;
 
     _transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:_mainViewController.view delegate:nil];
 
@@ -114,7 +130,7 @@
 
     [self.window makeKeyAndVisible];
 
-    return YES;
+    return _mainViewController;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
@@ -133,6 +149,18 @@
 {
     VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
     [fs storeContentSynchronously];
+}
+
+#pragma mark - UISceneSession lifecycle
+
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
+                              options:(UISceneConnectionOptions *)options API_AVAILABLE(tvos(13.0))
+{
+    return [[UISceneConfiguration alloc] initWithName:@"VLCTVDefaultScene" sessionRole:connectingSceneSession.role];
+}
+
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions API_AVAILABLE(tvos(13.0))
+{
 }
 
 @end

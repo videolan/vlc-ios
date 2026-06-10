@@ -1,20 +1,20 @@
 /*****************************************************************************
+ * VLCAppleTVSceneDelegate.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2026 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ * Author: Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
 
-@interface AppleTVAppDelegate : UIResponder <UIApplicationDelegate>
+API_AVAILABLE(tvos(13.0))
+@interface VLCAppleTVSceneDelegate : UIResponder <UIWindowSceneDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-- (UIViewController *)setupMainViewController;
 
 @end
