@@ -182,7 +182,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var thumbnailViewTopConstraint: NSLayoutConstraint = thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 35)
 
     private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
-    private lazy var controlsStackViewMaxSpacing: CGFloat = 50.0
 
     private lazy var thumbnailViewCenterYConstraint: NSLayoutConstraint = {
         let constraint = thumbnailView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
@@ -388,28 +387,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         nextButton.isHidden = enabled
     }
 
-    func updateConstraints(for orientation: UIDeviceOrientation) {
-#if os(iOS)
-        let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
-        let isLandscape: Bool = orientation.isLandscape
-        let spacingMultiplier: CGFloat = isPad ? 2 : 1
-#else
-        let isLandscape: Bool = true
-        let spacingMultiplier: CGFloat = 2
-#endif
-
+    func updateLayout(isLandscape: Bool) {
         if isLandscape {
             NSLayoutConstraint.deactivate(portraitConstraints)
             NSLayoutConstraint.activate(landscapeConstraints)
             progressionViewHeightConstraint.constant = 30
-            controlsStackView.spacing = controlsStackViewMaxSpacing * spacingMultiplier
         } else {
             NSLayoutConstraint.deactivate(landscapeConstraints)
             NSLayoutConstraint.activate(portraitConstraints)
             thumbnailViewTopConstraint.constant = 35
             progressionViewBottomConstraint.constant = -progressionViewBottomConstant
             progressionViewHeightConstraint.constant = 70
-            controlsStackView.spacing = controlsStackViewMinSpacing * spacingMultiplier
         }
 
         setNeedsLayout()
@@ -623,25 +611,27 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.alignment = .fill
             $0.distribution = .equalCentering
-            
+
             addSubview($0)
         }
+
+        controlsStackView.spacing = controlsStackViewMinSpacing
         
         sharedConstraints.append(contentsOf: [
             controlsStackView.heightAnchor.constraint(equalToConstant: 50.0),
+            controlsStackView.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
+            controlsStackView.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
             secondaryControlStackView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: topPadding/4),
             secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
         ])
 
         portraitConstraints.append(contentsOf: [
             controlsStackView.topAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: topPadding),
-            controlsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             secondaryControlStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
 
         landscapeConstraints.append(contentsOf: [
             controlsStackView.centerYAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerYAnchor),
-            controlsStackView.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
             secondaryControlStackView.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
         ])
 

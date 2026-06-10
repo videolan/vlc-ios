@@ -126,13 +126,9 @@ class AudioPlayerViewController: PlayerViewController {
             changeOutputView(to: externalOutputView.displayView)
         }
 
-#if os(iOS)
-        let orientation = getDeviceOrientation()
-        audioPlayerView.updateConstraints(for: orientation)
-        mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
-#else
-        mediaScrubProgressBar.shouldHideScrubLabels = false
-#endif
+        let isLandscape = view.bounds.width > view.bounds.height
+        audioPlayerView.updateLayout(isLandscape: isLandscape)
+        mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
 
         let displayShortcutView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
         audioPlayerView.shouldDisplaySecondaryStackView(displayShortcutView)
@@ -154,13 +150,11 @@ class AudioPlayerViewController: PlayerViewController {
         previousSeekState = .default
     }
 
-#if os(iOS)
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        let orientation = getDeviceOrientation()
-        audioPlayerView.updateConstraints(for: orientation)
-        mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
+        let isLandscape = size.width > size.height
+        audioPlayerView.updateLayout(isLandscape: isLandscape)
+        mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
     }
-#endif
 
     // MARK: Public methods
 
@@ -357,32 +351,6 @@ class AudioPlayerViewController: PlayerViewController {
 
         playerController.isInterfaceLocked = !enabled
     }
-
-#if os(iOS)
-    private func getDeviceOrientation() -> UIDeviceOrientation {
-        // Return the correct device orientation even if it is detected
-        // as flat.
-        let orientation = UIDevice.current.orientation
-
-        if orientation.isFlat {
-            let statusBarOrientation = UIApplication.shared.statusBarOrientation
-            switch statusBarOrientation {
-            case .portrait:
-                return .portrait
-            case .landscapeLeft:
-                return .landscapeLeft
-            case .landscapeRight:
-                return .landscapeRight
-            case .portraitUpsideDown:
-                return .portraitUpsideDown
-            default:
-                return .unknown
-            }
-        }
-
-        return orientation
-    }
-#endif
 
     @objc override func updatePlayerControls() {
         audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
