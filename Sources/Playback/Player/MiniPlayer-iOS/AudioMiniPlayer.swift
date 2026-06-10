@@ -554,7 +554,9 @@ private extension AudioMiniPlayer {
             playbackService.playAsAudio {
             // Only update the artwork image when the media is being played
             if playbackService.isPlaying {
-                artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
+                let placeholder = PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
+                                                                   : UIImage(named: "song-placeholder-white")
+                artworkImageView.image = metadata.artworkImage ?? placeholder
                 artworkBlurImageView.image = metadata.artworkImage
                 artworkBlurView.isHidden = false
             }
