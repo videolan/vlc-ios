@@ -31,14 +31,14 @@ $(function(){
     fileupload.bind('fileuploadprogress', progress);
 
     $(window).bind('beforeunload', function (e) {
-        if (xhrCache.length) {
+        if (Object.keys(xhrCache).length) {
             var confirmationMessage = 'There are transfers in progress, navigating away will abort them.';
             (e || window.event).returnValue = confirmationMessage;     // Gecko + IE
             return confirmationMessage;                                // Webkit, Safari, Chrome etc.
         }
     });
 
-    var xhrCache = [];
+    var xhrCache = {};
     var xhrNb = 0;
     function add (e, data) {
         $('.message').hide();
@@ -80,7 +80,7 @@ $(function(){
 
     function done (e, data) {
         $.each(data.files, function (index, file) {
-            xhrCache.splice(file._ID, 1);
+            delete xhrCache[file._ID];
             $('li[data-file-id=' + file._ID + ']').addClass('done').text(file.name  + ' - 100%');
         });
     }
@@ -95,7 +95,7 @@ $(function(){
     function fail (e, data) {
         console.log('File transfer failed', data.errorThrown, data.textStatus);
         $.each(data.files, function (index, file) {
-            xhrCache.splice(file._ID, 1);
+            delete xhrCache[file._ID];
             $('li[data-file-id=' + file._ID + ']').addClass('fail').text(file.name  + ' - fail');
         });
     }
@@ -106,7 +106,7 @@ $(function(){
         var li = $(e.currentTarget).parent('li');
         var id = li.data('file-id');
         xhrCache[id].abort();
-        xhrCache.splice(id, 1);
+        delete xhrCache[id];
         li.addClass('fail');
     }
 
