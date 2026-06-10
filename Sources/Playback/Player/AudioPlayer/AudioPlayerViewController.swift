@@ -151,9 +151,13 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
         let isLandscape = size.width > size.height
-        audioPlayerView.updateLayout(isLandscape: isLandscape)
-        mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.audioPlayerView.updateLayout(isLandscape: isLandscape)
+            self?.mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
+        })
     }
 
     // MARK: Public methods
