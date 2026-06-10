@@ -57,10 +57,25 @@ class AlbumModel: AudioCollectionModel {
     }
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLAlbum] {
-        return medialibrary.albums(sortingCriteria: sortModel.currentSort,
-                                   desc: sortModel.desc,
-                                   items: UInt32(limit),
-                                   offset: UInt32(offset))
+        var albums: [VLCMLAlbum] = []
+        if let artist = artist {
+            medialibrary.albums(sortingCriteria: sortModel.currentSort,
+                                desc: sortModel.desc,
+                                items: UInt32(limit),
+                                offset: UInt32(offset)).forEach { album in
+                if let albumArtist = album.albumArtist?.artistName(),
+                   albumArtist == artist.artistName() {
+                    albums.append(album)
+                }
+            }
+        } else {
+            albums = medialibrary.albums(sortingCriteria: sortModel.currentSort,
+                                                 desc: sortModel.desc,
+                                                 items: UInt32(limit),
+                                                 offset: UInt32(offset))
+        }
+
+        return albums
     }
 }
 
