@@ -20,10 +20,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerMenuKind) {
     VLCPlayerMenuKindSpeed,
 };
 
+typedef NS_ENUM(NSInteger, VLCPlayerStepperUnit) {
+    VLCPlayerStepperUnitMilliseconds,
+    VLCPlayerStepperUnitRate,
+};
+
 @interface VLCPlayerMenuItem : NSObject
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) BOOL selected;
+@property (nonatomic, nullable) NSNumber *value; // when set, the stepper selects the item matching its value
 
 + (instancetype)itemWithTitle:(NSString *)title selected:(BOOL)selected;
 
@@ -36,7 +42,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerMenuKind) {
 didSelectItemAtIndex:(NSInteger)index;
 @optional
 - (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu
-       didSetDelay:(float)delayMilliseconds;
+       didSetValue:(float)value;
 @end
 
 @interface VLCPlayerPanelViewController : UIViewController
@@ -53,11 +59,15 @@ didSelectItemAtIndex:(NSInteger)index;
 @property (nonatomic) VLCPlayerMenuKind kind;
 @property (nonatomic, weak, nullable) id<VLCPlayerInlineMenuDelegate> delegate;
 
-/* When set, a delay stepper is shown beneath the list. Configure before presenting. */
-@property (nonatomic) BOOL showsDelayControl;
-@property (nonatomic, copy, nullable) NSString *delayTitle;
-@property (nonatomic) float currentDelay; // in milliseconds
-@property (nonatomic) float delayStep;     // in milliseconds
+/* When set, a value stepper is shown beneath the list. Configure before presenting. */
+@property (nonatomic) BOOL showsStepperControl;
+@property (nonatomic, copy, nullable) NSString *stepperTitle;
+@property (nonatomic) float currentValue;
+@property (nonatomic) float stepperStep;
+@property (nonatomic) float minimumValue;
+@property (nonatomic) float maximumValue;
+@property (nonatomic) float defaultValue; // applied by the reset button
+@property (nonatomic) VLCPlayerStepperUnit stepperUnit;
 
 - (instancetype)initWithTitle:(nullable NSString *)title
                         items:(NSArray<VLCPlayerMenuItem *> *)items;

@@ -231,26 +231,42 @@
     VLCPlayerInlineMenuViewController *menu = [[VLCPlayerInlineMenuViewController alloc] initWithTitle:button.accessibilityLabel items:items];
     menu.kind = kind;
     menu.delegate = self;
-    [self configureDelayControlForMenu:menu];
+    [self configureStepperForMenu:menu];
     [menu presentFromButton:button inViewController:self.presenter];
 }
 
-- (void)configureDelayControlForMenu:(VLCPlayerInlineMenuViewController *)menu
+- (void)configureStepperForMenu:(VLCPlayerInlineMenuViewController *)menu
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     switch (menu.kind) {
         case VLCPlayerMenuKindAudio:
-            menu.showsDelayControl = YES;
-            menu.delayTitle = NSLocalizedString(@"AUDIO_DELAY", nil);
-            menu.currentDelay = vpc.audioDelay;
-            menu.delayStep = [[defaults valueForKey:kVLCSettingsAudioOffsetDelay] floatValue];
+            menu.showsStepperControl = YES;
+            menu.stepperTitle = NSLocalizedString(@"AUDIO_DELAY", nil);
+            menu.currentValue = vpc.audioDelay;
+            menu.stepperStep = [[defaults valueForKey:kVLCSettingsAudioOffsetDelay] floatValue];
+            menu.minimumValue = -30000.0;
+            menu.maximumValue = 30000.0;
+            menu.stepperUnit = VLCPlayerStepperUnitMilliseconds;
             break;
         case VLCPlayerMenuKindSubtitles:
-            menu.showsDelayControl = YES;
-            menu.delayTitle = NSLocalizedString(@"SPU_DELAY", nil);
-            menu.currentDelay = vpc.subtitleDelay;
-            menu.delayStep = [[defaults valueForKey:kVLCSettingsSubtitlesOffsetDelay] floatValue];
+            menu.showsStepperControl = YES;
+            menu.stepperTitle = NSLocalizedString(@"SPU_DELAY", nil);
+            menu.currentValue = vpc.subtitleDelay;
+            menu.stepperStep = [[defaults valueForKey:kVLCSettingsSubtitlesOffsetDelay] floatValue];
+            menu.minimumValue = -30000.0;
+            menu.maximumValue = 30000.0;
+            menu.stepperUnit = VLCPlayerStepperUnitMilliseconds;
+            break;
+        case VLCPlayerMenuKindSpeed:
+            menu.showsStepperControl = YES;
+            menu.stepperTitle = NSLocalizedString(@"PLAYBACK_SPEED", nil);
+            menu.currentValue = vpc.playbackRate;
+            menu.stepperStep = 0.05;
+            menu.minimumValue = 0.25;
+            menu.maximumValue = 4.0;
+            menu.defaultValue = vpc.defaultPlaybackRate;
+            menu.stepperUnit = VLCPlayerStepperUnitRate;
             break;
         default:
             break;
@@ -317,7 +333,9 @@
     for (NSNumber *preset in presets) {
         NSString *itemTitle = [NSString stringWithFormat:@"%.2fx", preset.floatValue];
         BOOL selected = fabsf(preset.floatValue - current) < 0.01f;
-        [items addObject:[VLCPlayerMenuItem itemWithTitle:itemTitle selected:selected]];
+        VLCPlayerMenuItem *item = [VLCPlayerMenuItem itemWithTitle:itemTitle selected:selected];
+        item.value = preset;
+        [items addObject:item];
     }
     return items;
 }
@@ -351,15 +369,18 @@
     }
 }
 
-- (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu didSetDelay:(float)delayMilliseconds
+- (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu didSetValue:(float)value
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     switch (menu.kind) {
         case VLCPlayerMenuKindAudio:
-            vpc.audioDelay = delayMilliseconds;
+            vpc.audioDelay = value;
             break;
         case VLCPlayerMenuKindSubtitles:
-            vpc.subtitleDelay = delayMilliseconds;
+            vpc.subtitleDelay = value;
+            break;
+        case VLCPlayerMenuKindSpeed:
+            vpc.playbackRate = value;
             break;
         default:
             break;
