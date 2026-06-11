@@ -1,0 +1,467 @@
+/*****************************************************************************
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2026 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#import "VLCPlayerInlineMenuViewController.h"
+#import "UIColor+Presets.h"
+#import "VLC-Swift.h"
+
+static const CGFloat VLCInlineMenuItemHeight = 64.0;
+static const CGFloat VLCInlineMenuItemSpacing = 4.0;
+static const CGFloat VLCInlineMenuWidth = 620.0;
+static const CGFloat VLCInlineMenuScreenMargin = 80.0;
+static const CGFloat VLCInlineMenuInset = 24.0;
+static const CGFloat VLCInlineMenuTitleHeight = 70.0;
+
+static NSString *const VLCInlineMenuCellIdentifier = @"VLCPlayerInlineMenuCell";
+
+static CGFloat VLCInlineMenuContentWidth(void)
+{
+    return VLCInlineMenuWidth - 2 * VLCInlineMenuInset;
+}
+
+static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
+{
+    if (@available(tvOS 26.0, *)) {
+        return [UIGlassEffect effectWithStyle:UIGlassEffectStyleRegular];
+    }
+    return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+}
+
+@implementation VLCPlayerMenuItem
+
++ (instancetype)itemWithTitle:(NSString *)title selected:(BOOL)selected
+{
+    VLCPlayerMenuItem *item = [[VLCPlayerMenuItem alloc] init];
+    item.title = title;
+    item.selected = selected;
+    return item;
+}
+
+@end
+
+#pragma mark - menu cell
+
+@interface VLCPlayerInlineMenuCell : UICollectionViewCell
+{
+    UILabel *_titleLabel;
+    UIImageView *_checkmarkView;
+    BOOL _itemSelected;
+}
+- (void)configureWithItem:(VLCPlayerMenuItem *)item;
+@end
+
+@implementation VLCPlayerInlineMenuCell
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.contentView.layer.cornerRadius = 12.0;
+        self.contentView.clipsToBounds = YES;
+
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.font = [UIFont systemFontOfSize:29.0];
+        [self.contentView addSubview:_titleLabel];
+
+        UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
+        _checkmarkView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"checkmark" withConfiguration:configuration]];
+        _checkmarkView.translatesAutoresizingMaskIntoConstraints = NO;
+        _checkmarkView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:_checkmarkView];
+
+        [NSLayoutConstraint activateConstraints:@[
+            [_titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:18.0],
+            [_titleLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+            [_checkmarkView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-18.0],
+            [_checkmarkView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+            [_titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:_checkmarkView.leadingAnchor constant:-8.0],
+        ]];
+    }
+    return self;
+}
+
+- (void)configureWithItem:(VLCPlayerMenuItem *)item
+{
+    _itemSelected = item.selected;
+    _titleLabel.text = item.title;
+    _checkmarkView.hidden = !item.selected;
+    [self updateColors];
+}
+
+- (void)updateColors
+{
+    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    if (self.focused) {
+        self.contentView.backgroundColor = UIColor.VLCLightTextColor;
+        _titleLabel.textColor = UIColor.VLCDarkTextColor;
+        _checkmarkView.tintColor = UIColor.VLCDarkTextColor;
+    } else {
+        self.contentView.backgroundColor = UIColor.clearColor;
+        _titleLabel.textColor = _itemSelected ? accent : UIColor.VLCLightTextColor;
+        _checkmarkView.tintColor = accent;
+    }
+}
+
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context
+       withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+    [coordinator addCoordinatedAnimations:^{
+        [self updateColors];
+    } completion:nil];
+}
+
+@end
+
+#pragma mark - focusable card
+
+@interface VLCFocusableCardView : UIView
+@end
+
+@implementation VLCFocusableCardView
+- (BOOL)canBecomeFocused
+{
+    return YES;
+}
+@end
+
+#pragma mark - panel base
+
+@interface VLCPlayerPanelViewController ()
+{
+    NSString *_panelTitle;
+    UIView *_dimmingView;
+    UIVisualEffectView *_panelEffectView;
+    UILabel *_titleLabel;
+    UIView *_contentContainer;
+    CGRect _sourceFrameInWindow;
+    NSLayoutConstraint *_panelLeadingConstraint;
+    NSLayoutConstraint *_panelTopConstraint;
+    NSLayoutConstraint *_panelHeightConstraint;
+}
+@property (nonatomic, readonly) UIView *panelContentView;
+- (void)populatePanelContent;
+- (CGFloat)panelContentHeight;
+- (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments;
+@end
+
+@implementation VLCPlayerPanelViewController
+
+- (instancetype)initWithTitle:(NSString *)title
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _panelTitle = title;
+        self.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+    return self;
+}
+
+- (void)presentFromButton:(UIButton *)button
+         inViewController:(UIViewController *)presenter
+{
+    _sourceFrameInWindow = [button.superview convertRect:button.frame toView:nil];
+    [presenter presentViewController:self animated:YES completion:nil];
+}
+
+- (UIView *)panelContentView
+{
+    return _contentContainer;
+}
+
+- (void)loadView
+{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = UIColor.clearColor;
+    self.view = view;
+
+    _dimmingView = [[UIView alloc] init];
+    _dimmingView.translatesAutoresizingMaskIntoConstraints = NO;
+    _dimmingView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.25];
+    [view addSubview:_dimmingView];
+
+    _panelEffectView = [[UIVisualEffectView alloc] initWithEffect:VLCInlineMenuBackgroundEffect()];
+    _panelEffectView.translatesAutoresizingMaskIntoConstraints = NO;
+    _panelEffectView.layer.cornerRadius = 22.0;
+    _panelEffectView.layer.cornerCurve = kCACornerCurveContinuous;
+    _panelEffectView.clipsToBounds = YES;
+    [view addSubview:_panelEffectView];
+
+    UIView *content = _panelEffectView.contentView;
+
+    _titleLabel = [[UILabel alloc] init];
+    _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _titleLabel.text = _panelTitle;
+    _titleLabel.font = [UIFont boldSystemFontOfSize:32.0];
+    _titleLabel.textColor = UIColor.VLCLightTextColor;
+    [content addSubview:_titleLabel];
+
+    _contentContainer = [[UIView alloc] init];
+    _contentContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    _contentContainer.backgroundColor = UIColor.clearColor;
+    [content addSubview:_contentContainer];
+
+    _panelLeadingConstraint = [_panelEffectView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor];
+    _panelTopConstraint = [_panelEffectView.topAnchor constraintEqualToAnchor:view.topAnchor];
+    _panelHeightConstraint = [_panelEffectView.heightAnchor constraintEqualToConstant:0.0];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_dimmingView.topAnchor constraintEqualToAnchor:view.topAnchor],
+        [_dimmingView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor],
+        [_dimmingView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor],
+        [_dimmingView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor],
+
+        _panelLeadingConstraint,
+        _panelTopConstraint,
+        _panelHeightConstraint,
+        [_panelEffectView.widthAnchor constraintEqualToConstant:VLCInlineMenuWidth],
+
+        [_titleLabel.topAnchor constraintEqualToAnchor:content.topAnchor constant:VLCInlineMenuInset],
+        [_titleLabel.leadingAnchor constraintEqualToAnchor:content.leadingAnchor constant:VLCInlineMenuInset],
+        [_titleLabel.trailingAnchor constraintEqualToAnchor:content.trailingAnchor constant:-VLCInlineMenuInset],
+        [_titleLabel.heightAnchor constraintEqualToConstant:VLCInlineMenuTitleHeight - VLCInlineMenuInset],
+
+        [_contentContainer.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor],
+        [_contentContainer.leadingAnchor constraintEqualToAnchor:content.leadingAnchor constant:VLCInlineMenuInset],
+        [_contentContainer.trailingAnchor constraintEqualToAnchor:content.trailingAnchor constant:-VLCInlineMenuInset],
+        [_contentContainer.bottomAnchor constraintEqualToAnchor:content.bottomAnchor constant:-VLCInlineMenuInset],
+    ]];
+
+    [self populatePanelContent];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(dismissPanel)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeDown];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    const CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
+    const CGFloat anchorY = CGRectGetMinY(_sourceFrameInWindow) - 40.0;
+    const CGFloat maxHeight = anchorY - VLCInlineMenuScreenMargin;
+
+    CGFloat contentHeight = VLCInlineMenuTitleHeight + [self panelContentHeight] + VLCInlineMenuInset;
+    _panelHeightConstraint.constant = MIN(contentHeight, maxHeight);
+    _panelTopConstraint.constant = anchorY - _panelHeightConstraint.constant;
+
+    CGFloat desiredX = CGRectGetMidX(_sourceFrameInWindow) - VLCInlineMenuWidth / 2.0;
+    CGFloat maxX = viewWidth - VLCInlineMenuWidth - VLCInlineMenuScreenMargin;
+    _panelLeadingConstraint.constant = MAX(VLCInlineMenuScreenMargin, MIN(desiredX, maxX));
+}
+
+- (NSArray<id<UIFocusEnvironment>> *)preferredFocusEnvironments
+{
+    return [self panelPreferredFocusEnvironments];
+}
+
+- (void)dismissPanel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+{
+    if (((UIPress *)[presses anyObject]).type == UIPressTypeMenu) {
+        [self dismissPanel];
+        return;
+    }
+    [super pressesBegan:presses withEvent:event];
+}
+
+#pragma mark - subclassing hooks
+
+- (void)populatePanelContent
+{
+}
+
+- (CGFloat)panelContentHeight
+{
+    return 0.0;
+}
+
+- (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
+{
+    return @[];
+}
+
+@end
+
+#pragma mark - menu
+
+@interface VLCPlayerInlineMenuViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+{
+    NSArray<VLCPlayerMenuItem *> *_items;
+    NSInteger _itemCount;
+    NSInteger _selectedIndex;
+    UICollectionView *_collectionView;
+}
+@end
+
+@implementation VLCPlayerInlineMenuViewController
+
+- (instancetype)initWithTitle:(NSString *)title
+                        items:(NSArray<VLCPlayerMenuItem *> *)items
+{
+    self = [super initWithTitle:title];
+    if (self) {
+        _items = items;
+        _itemCount = _items.count;
+        _selectedIndex = NSNotFound;
+        for (NSInteger i = 0; i < _itemCount; i++) {
+            if (_items[i].selected) {
+                _selectedIndex = i;
+                break;
+            }
+        }
+    }
+    return self;
+}
+
+- (void)populatePanelContent
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = VLCInlineMenuItemSpacing;
+    layout.minimumInteritemSpacing = 0.0;
+    layout.itemSize = CGSizeMake(VLCInlineMenuContentWidth(), VLCInlineMenuItemHeight);
+
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    _collectionView.backgroundColor = UIColor.clearColor;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.remembersLastFocusedIndexPath = YES;
+    [_collectionView registerClass:[VLCPlayerInlineMenuCell class]
+        forCellWithReuseIdentifier:VLCInlineMenuCellIdentifier];
+
+    UIView *container = self.panelContentView;
+    [container addSubview:_collectionView];
+    [NSLayoutConstraint activateConstraints:@[
+        [_collectionView.topAnchor constraintEqualToAnchor:container.topAnchor],
+        [_collectionView.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
+        [_collectionView.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
+        [_collectionView.bottomAnchor constraintEqualToAnchor:container.bottomAnchor],
+    ]];
+}
+
+- (CGFloat)panelContentHeight
+{
+    return _itemCount * VLCInlineMenuItemHeight + MAX(0, _itemCount - 1) * VLCInlineMenuItemSpacing;
+}
+
+- (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
+{
+    return @[_collectionView];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _itemCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCPlayerInlineMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCInlineMenuCellIdentifier
+                                                                             forIndexPath:indexPath];
+    [cell configureWithItem:_items[indexPath.row]];
+    return cell;
+}
+
+- (NSIndexPath *)indexPathForPreferredFocusedItemInCollectionView:(UICollectionView *)collectionView
+{
+    if (_selectedIndex == NSNotFound) {
+        return nil;
+    }
+    return [NSIndexPath indexPathForRow:_selectedIndex inSection:0];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger index = indexPath.row;
+    id<VLCPlayerInlineMenuDelegate> delegate = self.delegate;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [delegate inlineMenu:self didSelectItemAtIndex:index];
+    }];
+}
+
+@end
+
+#pragma mark - info
+
+@interface VLCPlayerInfoPanelViewController ()
+{
+    NSString *_infoText;
+    VLCFocusableCardView *_infoCard;
+    UILabel *_infoLabel;
+}
+@end
+
+@implementation VLCPlayerInfoPanelViewController
+
+- (instancetype)initWithTitle:(NSString *)title
+                     infoText:(NSString *)infoText
+{
+    self = [super initWithTitle:title];
+    if (self) {
+        _infoText = infoText;
+    }
+    return self;
+}
+
+- (void)populatePanelContent
+{
+    UIView *container = self.panelContentView;
+
+    _infoCard = [[VLCFocusableCardView alloc] init];
+    _infoCard.translatesAutoresizingMaskIntoConstraints = NO;
+    [container addSubview:_infoCard];
+
+    _infoLabel = [[UILabel alloc] init];
+    _infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _infoLabel.numberOfLines = 0;
+    _infoLabel.font = [UIFont systemFontOfSize:29.0];
+    _infoLabel.textColor = UIColor.VLCLightTextColor;
+    _infoLabel.text = _infoText;
+    [_infoCard addSubview:_infoLabel];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_infoCard.topAnchor constraintEqualToAnchor:container.topAnchor],
+        [_infoCard.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
+        [_infoCard.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
+        [_infoCard.bottomAnchor constraintEqualToAnchor:container.bottomAnchor],
+
+        [_infoLabel.topAnchor constraintEqualToAnchor:_infoCard.topAnchor],
+        [_infoLabel.leadingAnchor constraintEqualToAnchor:_infoCard.leadingAnchor],
+        [_infoLabel.trailingAnchor constraintEqualToAnchor:_infoCard.trailingAnchor],
+    ]];
+}
+
+- (CGFloat)panelContentHeight
+{
+    return [_infoLabel sizeThatFits:CGSizeMake(VLCInlineMenuContentWidth(), CGFLOAT_MAX)].height;
+}
+
+- (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
+{
+    return @[_infoCard];
+}
+
+@end
