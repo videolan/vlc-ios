@@ -17,9 +17,22 @@
 #import "VLC-Swift.h"
 
 @interface VLCControlRowButton : UIButton
+@property (nonatomic, getter=isActive) BOOL active;
 @end
 
 @implementation VLCControlRowButton
+
+- (void)setActive:(BOOL)active
+{
+    _active = active;
+    if (@available(tvOS 26.0, *)) {
+        UIButtonConfiguration *configuration = self.configuration;
+        configuration.baseForegroundColor = active ? PresentationTheme.current.colors.orangeUI : nil;
+        self.configuration = configuration;
+    } else if (!self.focused) {
+        self.tintColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.VLCLightTextColor;
+    }
+}
 
 - (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
 {
@@ -37,7 +50,7 @@
             self.transform = CGAffineTransformMakeScale(1.1, 1.1);
         } else {
             self.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
-            self.tintColor = UIColor.VLCLightTextColor;
+            self.tintColor = self.active ? PresentationTheme.current.colors.orangeUI : UIColor.VLCLightTextColor;
             self.transform = CGAffineTransformIdentity;
         }
     } completion:nil];
@@ -52,6 +65,8 @@
     UIButton *_audioButton;
     UIButton *_chaptersButton;
     UIButton *_speedButton;
+    VLCControlRowButton *_repeatButton;
+    VLCControlRowButton *_shuffleButton;
     UIButton *_infoButton;
 }
 @end
@@ -70,8 +85,10 @@
         _audioButton = [self makeControlButtonWithImageName:@"waveform" accessibilityLabel:NSLocalizedString(@"AUDIO", nil) action:@selector(audioButtonPressed)];
         _chaptersButton = [self makeControlButtonWithImageName:@"list.bullet" accessibilityLabel:NSLocalizedString(@"CHAPTER_SELECTION_TITLE", nil) action:@selector(chaptersButtonPressed)];
         _speedButton = [self makeControlButtonWithImageName:@"gauge" accessibilityLabel:NSLocalizedString(@"PLAYBACK_SPEED", nil) action:@selector(speedButtonPressed)];
+        _repeatButton = [self makeControlButtonWithImageName:@"repeat" accessibilityLabel:NSLocalizedString(@"REPEAT_MODE", nil) action:@selector(repeatButtonPressed)];
+        _shuffleButton = [self makeControlButtonWithImageName:@"shuffle" accessibilityLabel:NSLocalizedString(@"SHUFFLE", nil) action:@selector(shuffleButtonPressed)];
         _infoButton = [self makeControlButtonWithImageName:@"info.circle" accessibilityLabel:NSLocalizedString(@"MEDIA_INFO", nil) action:@selector(infoButtonPressed)];
-        _controlButtons = @[_subtitlesButton, _audioButton, _chaptersButton, _speedButton, _infoButton];
+        _controlButtons = @[_subtitlesButton, _audioButton, _chaptersButton, _speedButton, _repeatButton, _shuffleButton, _infoButton];
 
         for (UIButton *button in _controlButtons) {
             [self addArrangedSubview:button];
@@ -87,34 +104,46 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     _chaptersButton.hidden = [vpc numberOfChaptersForCurrentTitle] <= 1;
     _subtitlesButton.hidden = vpc.metadata.isAudioOnly;
+    [self updateRepeatButton];
+    [self updateShuffleButton];
 }
 
-- (UIButton *)makeControlButtonWithImageName:(NSString *)imageName
-                          accessibilityLabel:(NSString *)label
-                                      action:(SEL)action
+- (VLCControlRowButton *)makeControlButtonWithImageName:(NSString *)imageName
+                                     accessibilityLabel:(NSString *)label
+                                                 action:(SEL)action
 {
     VLCControlRowButton *button = [VLCControlRowButton buttonWithType:UIButtonTypeCustom];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:28.0];
-    UIImage *image = [UIImage systemImageNamed:imageName withConfiguration:configuration];
 
     if (@available(tvOS 26.0, *)) {
         UIButtonConfiguration *glass = [UIButtonConfiguration glassButtonConfiguration];
-        glass.image = image;
         glass.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
         button.configuration = glass;
     } else {
-        [button setImage:image forState:UIControlStateNormal];
         button.tintColor = UIColor.VLCLightTextColor;
         button.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
         button.layer.cornerRadius = 30.0;
         button.clipsToBounds = YES;
     }
 
+    [self applyImageName:imageName toButton:button];
     button.accessibilityLabel = label;
     [button.widthAnchor constraintEqualToConstant:60.0].active = YES;
     [button addTarget:self action:action forControlEvents:UIControlEventPrimaryActionTriggered];
     return button;
+}
+
+- (void)applyImageName:(NSString *)imageName toButton:(UIButton *)button
+{
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:28.0];
+    UIImage *image = [UIImage systemImageNamed:imageName withConfiguration:configuration];
+    if (@available(tvOS 26.0, *)) {
+        UIButtonConfiguration *glass = button.configuration;
+        glass.image = image;
+        button.configuration = glass;
+    } else {
+        [button setImage:image forState:UIControlStateNormal];
+    }
 }
 
 - (NSArray<id<UIFocusEnvironment>> *)preferredFocusEnvironments
@@ -149,6 +178,31 @@
     [self presentMenuOfKind:VLCPlayerMenuKindSpeed fromButton:_speedButton];
 }
 
+- (void)repeatButtonPressed
+{
+    [[VLCPlaybackService sharedInstance] toggleRepeatMode];
+    [self updateRepeatButton];
+}
+
+- (void)shuffleButtonPressed
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    vpc.shuffleMode = !vpc.isShuffleMode;
+    [self updateShuffleButton];
+}
+
+- (void)updateRepeatButton
+{
+    VLCRepeatMode mode = [VLCPlaybackService sharedInstance].repeatMode;
+    [self applyImageName:(mode == VLCRepeatCurrentItem ? @"repeat.1" : @"repeat") toButton:_repeatButton];
+    _repeatButton.active = (mode != VLCDoNotRepeat);
+}
+
+- (void)updateShuffleButton
+{
+    _shuffleButton.active = [VLCPlaybackService sharedInstance].isShuffleMode;
+}
+
 - (void)infoButtonPressed
 {
     VLCPlayerInfoPanelViewController *info = [[VLCPlayerInfoPanelViewController alloc] initWithTitle:_infoButton.accessibilityLabel
@@ -177,7 +231,30 @@
     VLCPlayerInlineMenuViewController *menu = [[VLCPlayerInlineMenuViewController alloc] initWithTitle:button.accessibilityLabel items:items];
     menu.kind = kind;
     menu.delegate = self;
+    [self configureDelayControlForMenu:menu];
     [menu presentFromButton:button inViewController:self.presenter];
+}
+
+- (void)configureDelayControlForMenu:(VLCPlayerInlineMenuViewController *)menu
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    switch (menu.kind) {
+        case VLCPlayerMenuKindAudio:
+            menu.showsDelayControl = YES;
+            menu.delayTitle = NSLocalizedString(@"AUDIO_DELAY", nil);
+            menu.currentDelay = vpc.audioDelay;
+            menu.delayStep = [[defaults valueForKey:kVLCSettingsAudioOffsetDelay] floatValue];
+            break;
+        case VLCPlayerMenuKindSubtitles:
+            menu.showsDelayControl = YES;
+            menu.delayTitle = NSLocalizedString(@"SPU_DELAY", nil);
+            menu.currentDelay = vpc.subtitleDelay;
+            menu.delayStep = [[defaults valueForKey:kVLCSettingsSubtitlesOffsetDelay] floatValue];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - menu contents
@@ -270,6 +347,21 @@
             break;
         case VLCPlayerMenuKindSpeed:
             vpc.playbackRate = [[self class] speedPresets][index].floatValue;
+            break;
+    }
+}
+
+- (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu didSetDelay:(float)delayMilliseconds
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    switch (menu.kind) {
+        case VLCPlayerMenuKindAudio:
+            vpc.audioDelay = delayMilliseconds;
+            break;
+        case VLCPlayerMenuKindSubtitles:
+            vpc.subtitleDelay = delayMilliseconds;
+            break;
+        default:
             break;
     }
 }

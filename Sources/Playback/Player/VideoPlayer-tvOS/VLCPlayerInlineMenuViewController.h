@@ -34,10 +34,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerMenuKind) {
 @protocol VLCPlayerInlineMenuDelegate <NSObject>
 - (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu
 didSelectItemAtIndex:(NSInteger)index;
+@optional
+- (void)inlineMenu:(VLCPlayerInlineMenuViewController *)menu
+       didSetDelay:(float)delayMilliseconds;
 @end
 
-/* A frosted-glass panel anchored above a button. Shared chrome for the
- * concrete panels below. */
 @interface VLCPlayerPanelViewController : UIViewController
 
 - (instancetype)initWithTitle:(nullable NSString *)title;
@@ -52,12 +53,17 @@ didSelectItemAtIndex:(NSInteger)index;
 @property (nonatomic) VLCPlayerMenuKind kind;
 @property (nonatomic, weak, nullable) id<VLCPlayerInlineMenuDelegate> delegate;
 
+/* When set, a delay stepper is shown beneath the list. Configure before presenting. */
+@property (nonatomic) BOOL showsDelayControl;
+@property (nonatomic, copy, nullable) NSString *delayTitle;
+@property (nonatomic) float currentDelay; // in milliseconds
+@property (nonatomic) float delayStep;     // in milliseconds
+
 - (instancetype)initWithTitle:(nullable NSString *)title
                         items:(NSArray<VLCPlayerMenuItem *> *)items;
 
 @end
 
-/* A read-only information card. */
 @interface VLCPlayerInfoPanelViewController : VLCPlayerPanelViewController
 
 - (instancetype)initWithTitle:(nullable NSString *)title

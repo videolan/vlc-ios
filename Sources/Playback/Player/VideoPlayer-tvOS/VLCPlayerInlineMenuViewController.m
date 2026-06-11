@@ -19,6 +19,9 @@ static const CGFloat VLCInlineMenuWidth = 620.0;
 static const CGFloat VLCInlineMenuScreenMargin = 80.0;
 static const CGFloat VLCInlineMenuInset = 24.0;
 static const CGFloat VLCInlineMenuTitleHeight = 70.0;
+static const CGFloat VLCInlineMenuDelayRowHeight = 64.0;
+static const float VLCInlineMenuMinDelay = -30000.0;
+static const float VLCInlineMenuMaxDelay = 30000.0;
 
 static NSString *const VLCInlineMenuCellIdentifier = @"VLCPlayerInlineMenuCell";
 
@@ -132,6 +135,30 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 {
     return YES;
 }
+@end
+
+#pragma mark - delay stepper button
+
+@interface VLCDelayStepperButton : UIButton
+@end
+
+@implementation VLCDelayStepperButton
+
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context
+       withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+    [coordinator addCoordinatedAnimations:^{
+        if (self.focused) {
+            self.backgroundColor = UIColor.VLCLightTextColor;
+            self.tintColor = UIColor.VLCDarkTextColor;
+        } else {
+            self.backgroundColor = UIColor.clearColor;
+            self.tintColor = UIColor.VLCLightTextColor;
+        }
+    } completion:nil];
+}
+
 @end
 
 #pragma mark - panel base
@@ -312,6 +339,8 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     NSInteger _itemCount;
     NSInteger _selectedIndex;
     UICollectionView *_collectionView;
+    float _delay;
+    UILabel *_delayValueLabel;
 }
 @end
 
@@ -353,17 +382,147 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
     UIView *container = self.panelContentView;
     [container addSubview:_collectionView];
-    [NSLayoutConstraint activateConstraints:@[
+
+    NSMutableArray<NSLayoutConstraint *> *constraints = [@[
         [_collectionView.topAnchor constraintEqualToAnchor:container.topAnchor],
         [_collectionView.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
         [_collectionView.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
-        [_collectionView.bottomAnchor constraintEqualToAnchor:container.bottomAnchor],
+    ] mutableCopy];
+
+    if (_showsDelayControl) {
+        _delay = _currentDelay;
+        UIView *delayRow = [self makeDelayRow];
+        [container addSubview:delayRow];
+        [constraints addObjectsFromArray:@[
+            [delayRow.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
+            [delayRow.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
+            [delayRow.bottomAnchor constraintEqualToAnchor:container.bottomAnchor],
+            [delayRow.heightAnchor constraintEqualToConstant:VLCInlineMenuDelayRowHeight],
+            [_collectionView.bottomAnchor constraintEqualToAnchor:delayRow.topAnchor constant:-VLCInlineMenuInset],
+        ]];
+    } else {
+        [constraints addObject:[_collectionView.bottomAnchor constraintEqualToAnchor:container.bottomAnchor]];
+    }
+
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+- (UIView *)makeDelayRow
+{
+    UIView *row = [[UIView alloc] init];
+    row.translatesAutoresizingMaskIntoConstraints = NO;
+
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.font = [UIFont systemFontOfSize:29.0];
+    titleLabel.textColor = UIColor.VLCLightTextColor;
+    titleLabel.text = _delayTitle;
+    [row addSubview:titleLabel];
+
+    _delayValueLabel = [[UILabel alloc] init];
+    _delayValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _delayValueLabel.font = [UIFont systemFontOfSize:29.0];
+    _delayValueLabel.textColor = UIColor.VLCLightTextColor;
+    _delayValueLabel.textAlignment = NSTextAlignmentCenter;
+    [row addSubview:_delayValueLabel];
+
+    UIButton *decreaseButton = [self makeStepperButtonWithImageName:@"minus"
+                                                accessibilityLabel:NSLocalizedString(@"DECREASE_BUTTON", nil)
+                                                            action:@selector(decreaseDelay)];
+    UIButton *increaseButton = [self makeStepperButtonWithImageName:@"plus"
+                                                accessibilityLabel:NSLocalizedString(@"INCREASE_BUTTON", nil)
+                                                            action:@selector(increaseDelay)];
+    UIButton *resetButton = [self makeStepperButtonWithImageName:@"arrow.counterclockwise"
+                                             accessibilityLabel:NSLocalizedString(@"BUTTON_RESET", nil)
+                                                         action:@selector(resetDelay)];
+    [row addSubview:decreaseButton];
+    [row addSubview:increaseButton];
+    [row addSubview:resetButton];
+
+    [self updateDelayValueLabel];
+
+    const CGFloat side = 56.0;
+    [NSLayoutConstraint activateConstraints:@[
+        [titleLabel.leadingAnchor constraintEqualToAnchor:row.leadingAnchor],
+        [titleLabel.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+
+        [resetButton.trailingAnchor constraintEqualToAnchor:row.trailingAnchor],
+        [resetButton.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [resetButton.widthAnchor constraintEqualToConstant:side],
+        [resetButton.heightAnchor constraintEqualToConstant:side],
+
+        [increaseButton.trailingAnchor constraintEqualToAnchor:resetButton.leadingAnchor constant:-16.0],
+        [increaseButton.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [increaseButton.widthAnchor constraintEqualToConstant:side],
+        [increaseButton.heightAnchor constraintEqualToConstant:side],
+
+        [_delayValueLabel.trailingAnchor constraintEqualToAnchor:increaseButton.leadingAnchor constant:-8.0],
+        [_delayValueLabel.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [_delayValueLabel.widthAnchor constraintGreaterThanOrEqualToConstant:140.0],
+
+        [decreaseButton.trailingAnchor constraintEqualToAnchor:_delayValueLabel.leadingAnchor constant:-8.0],
+        [decreaseButton.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [decreaseButton.widthAnchor constraintEqualToConstant:side],
+        [decreaseButton.heightAnchor constraintEqualToConstant:side],
+
+        [titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:decreaseButton.leadingAnchor constant:-16.0],
     ]];
+    return row;
+}
+
+- (UIButton *)makeStepperButtonWithImageName:(NSString *)imageName
+                          accessibilityLabel:(NSString *)label
+                                      action:(SEL)action
+{
+    VLCDelayStepperButton *button = [VLCDelayStepperButton buttonWithType:UIButtonTypeCustom];
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
+    [button setImage:[UIImage systemImageNamed:imageName withConfiguration:configuration] forState:UIControlStateNormal];
+    button.tintColor = UIColor.VLCLightTextColor;
+    button.layer.cornerRadius = 28.0;
+    button.clipsToBounds = YES;
+    button.accessibilityLabel = label;
+    [button addTarget:self action:action forControlEvents:UIControlEventPrimaryActionTriggered];
+    return button;
+}
+
+- (void)increaseDelay
+{
+    [self applyDelay:_delay + _delayStep];
+}
+
+- (void)decreaseDelay
+{
+    [self applyDelay:_delay - _delayStep];
+}
+
+- (void)resetDelay
+{
+    [self applyDelay:0.0];
+}
+
+- (void)applyDelay:(float)delay
+{
+    _delay = MAX(VLCInlineMenuMinDelay, MIN(VLCInlineMenuMaxDelay, delay));
+    [self updateDelayValueLabel];
+    id<VLCPlayerInlineMenuDelegate> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(inlineMenu:didSetDelay:)]) {
+        [delegate inlineMenu:self didSetDelay:_delay];
+    }
+}
+
+- (void)updateDelayValueLabel
+{
+    _delayValueLabel.text = [NSString stringWithFormat:@"%.0f ms", _delay];
 }
 
 - (CGFloat)panelContentHeight
 {
-    return _itemCount * VLCInlineMenuItemHeight + MAX(0, _itemCount - 1) * VLCInlineMenuItemSpacing;
+    CGFloat height = _itemCount * VLCInlineMenuItemHeight + MAX(0, _itemCount - 1) * VLCInlineMenuItemSpacing;
+    if (_showsDelayControl) {
+        height += VLCInlineMenuInset + VLCInlineMenuDelayRowHeight;
+    }
+    return height;
 }
 
 - (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
