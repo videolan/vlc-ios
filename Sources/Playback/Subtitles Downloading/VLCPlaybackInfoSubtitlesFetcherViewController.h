@@ -10,13 +10,8 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "VLCPlaybackInfoPanelTVViewController.h"
 
-#if TARGET_OS_TV
-@interface VLCPlaybackInfoSubtitlesFetcherViewController : VLCPlaybackInfoPanelTVViewController
-#else
 @interface VLCPlaybackInfoSubtitlesFetcherViewController : UIViewController
-#endif
 
 @property (readwrite, weak, nonatomic) IBOutlet UITableView *tableView;
 

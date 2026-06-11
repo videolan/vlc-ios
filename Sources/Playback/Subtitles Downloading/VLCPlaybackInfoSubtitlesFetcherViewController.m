@@ -43,6 +43,7 @@
     [super viewDidLoad];
 
 #if TARGET_OS_TV
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.titleLabel.text = self.title;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self setupTVSearchController];
