@@ -814,20 +814,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (NSInteger)numberOfAudioTracks
 {
-#if TARGET_OS_TV
-    return [[_mediaPlayer audioTracks] count] + 1;
-#else
     return [[_mediaPlayer audioTracks] count] + 2;
-#endif
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
-#if TARGET_OS_TV
-    return [[_mediaPlayer textTracks] count]  + 1;
-#else
-    return [[_mediaPlayer textTracks] count]  + 3;
-#endif
+    return [[_mediaPlayer textTracks] count] + 3;
 }
 
 - (NSInteger)numberOfTitles
@@ -845,20 +837,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSArray *textTracks = [_mediaPlayer textTracks];
     NSInteger count = textTracks.count;
 
-#if TARGET_OS_TV
-    if (index < count) {
-        VLCMediaPlayerTrack *track = textTracks[index];
-        return track.trackName;
-    }
-#else
-
     if (index == count) {
         return NSLocalizedString(@"SELECT_SUBTITLE_FROM_FILES", nil);
     } else if (index < count) {
         VLCMediaPlayerTrack *track = textTracks[index];
         return track.trackName;
     }
-#endif
     return @"";
 }
 
@@ -867,19 +851,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSArray *audioTracks = _mediaPlayer.audioTracks;
     NSInteger count = audioTracks.count;
 
-#if TARGET_OS_TV
-    if (index < count) {
-        VLCMediaPlayerTrack *track = audioTracks[index];
-        return track.trackName;
-    }
-#else
     if (index == count) {
         return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
     } else if (index < count) {
         VLCMediaPlayerTrack *track = audioTracks[index];
         return track.trackName;
     }
-#endif
     return @"";
 }
 
