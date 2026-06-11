@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, VLCPlayerMenuKind) {
     VLCPlayerMenuKindAudio,
     VLCPlayerMenuKindSubtitles,
+    VLCPlayerMenuKindSecondarySubtitles,
     VLCPlayerMenuKindChapters,
     VLCPlayerMenuKindSpeed,
 };

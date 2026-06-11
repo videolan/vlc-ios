@@ -213,9 +213,14 @@
 - (void)presentMenuOfKind:(VLCPlayerMenuKind)kind fromButton:(UIButton *)button
 {
     NSArray<VLCPlayerMenuItem *> *items = nil;
+    NSString *title = button.accessibilityLabel;
     switch (kind) {
         case VLCPlayerMenuKindSubtitles:
             items = [self subtitleMenuItems];
+            break;
+        case VLCPlayerMenuKindSecondarySubtitles:
+            items = [self secondarySubtitleMenuItems];
+            title = NSLocalizedString(@"SECONDARY_SUBTITLE", nil);
             break;
         case VLCPlayerMenuKindAudio:
             items = [self audioMenuItems];
@@ -228,7 +233,7 @@
             break;
     }
 
-    VLCPlayerInlineMenuViewController *menu = [[VLCPlayerInlineMenuViewController alloc] initWithTitle:button.accessibilityLabel items:items];
+    VLCPlayerInlineMenuViewController *menu = [[VLCPlayerInlineMenuViewController alloc] initWithTitle:title items:items];
     menu.kind = kind;
     menu.delegate = self;
     [self configureStepperForMenu:menu];
@@ -293,12 +298,29 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger trackCount = [vpc numberOfVideoSubtitlesIndexes] - 3; // real tracks; +3 are Disable, "from files" and download rows
     NSInteger current = [vpc indexOfCurrentPrimaryVideoSubtitleTrack];
-    NSMutableArray<VLCPlayerMenuItem *> *items = [NSMutableArray arrayWithCapacity:trackCount + 2];
+    NSMutableArray<VLCPlayerMenuItem *> *items = [NSMutableArray arrayWithCapacity:trackCount + 3];
     [items addObject:[VLCPlayerMenuItem itemWithTitle:NSLocalizedString(@"DISABLE_LABEL", nil) selected:(current == -1)]];
     for (NSInteger i = 0; i < trackCount; i++) {
         [items addObject:[VLCPlayerMenuItem itemWithTitle:[vpc videoSubtitleNameAtIndex:i] selected:(i == current)]];
     }
     [items addObject:[VLCPlayerMenuItem itemWithTitle:NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil) selected:NO]];
+    if (trackCount > 0) {
+        BOOL secondaryEnabled = [vpc indexOfCurrentSecondaryVideoSubtitleTrack] != -1;
+        [items addObject:[VLCPlayerMenuItem itemWithTitle:NSLocalizedString(@"SECONDARY_SUBTITLE", nil) selected:secondaryEnabled]];
+    }
+    return items;
+}
+
+- (NSArray<VLCPlayerMenuItem *> *)secondarySubtitleMenuItems
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSInteger trackCount = [vpc numberOfVideoSubtitlesIndexes] - 3;
+    NSInteger current = [vpc indexOfCurrentSecondaryVideoSubtitleTrack];
+    NSMutableArray<VLCPlayerMenuItem *> *items = [NSMutableArray arrayWithCapacity:trackCount + 1];
+    [items addObject:[VLCPlayerMenuItem itemWithTitle:NSLocalizedString(@"DISABLE_LABEL", nil) selected:(current == -1)]];
+    for (NSInteger i = 0; i < trackCount; i++) {
+        [items addObject:[VLCPlayerMenuItem itemWithTitle:[vpc videoSubtitleNameAtIndex:i] selected:(i == current)]];
+    }
     return items;
 }
 
@@ -351,13 +373,24 @@
                 [vpc selectAudioTrackAtIndex:index - 1];
             }
             break;
-        case VLCPlayerMenuKindSubtitles:
+        case VLCPlayerMenuKindSubtitles: {
+            NSInteger trackCount = [vpc numberOfVideoSubtitlesIndexes] - 3;
             if (index == 0) {
                 [vpc disablePrimaryVideoSubtitle];
-            } else if (index == [vpc numberOfVideoSubtitlesIndexes] - 2) {
+            } else if (index <= trackCount) {
+                [vpc selectPrimaryVideoSubtitleAtIndex:index - 1];
+            } else if (index == trackCount + 1) {
                 [self presentSubtitleDownloader];
             } else {
-                [vpc selectPrimaryVideoSubtitleAtIndex:index - 1];
+                [self presentMenuOfKind:VLCPlayerMenuKindSecondarySubtitles fromButton:_subtitlesButton];
+            }
+            break;
+        }
+        case VLCPlayerMenuKindSecondarySubtitles:
+            if (index == 0) {
+                [vpc disableSecondaryVideoSubtitle];
+            } else {
+                [vpc selectSecondaryVideoSubtitleAtIndex:index - 1];
             }
             break;
         case VLCPlayerMenuKindChapters:

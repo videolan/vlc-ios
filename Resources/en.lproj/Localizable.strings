@@ -471,6 +471,7 @@
 
 "PRIMARY_SUBTITLES" = "PRIMARY SUBTITLE";
 "SECONDARY_SUBTITLES" = "SECONDARY SUBTITLE";
+"SECONDARY_SUBTITLE" = "Secondary Subtitle...";
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
