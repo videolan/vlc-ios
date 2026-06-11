@@ -152,7 +152,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
             self.tintColor = UIColor.VLCDarkTextColor;
         } else {
             self.backgroundColor = UIColor.clearColor;
-            self.tintColor = UIColor.VLCLightTextColor;
+            self.tintColor = UIColor.whiteColor;
         }
     } completion:nil];
 }
@@ -468,7 +468,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     button.translatesAutoresizingMaskIntoConstraints = NO;
     UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
     [button setImage:[UIImage systemImageNamed:imageName withConfiguration:configuration] forState:UIControlStateNormal];
-    button.tintColor = UIColor.VLCLightTextColor;
+    button.tintColor = UIColor.whiteColor;
     button.layer.cornerRadius = 28.0;
     button.clipsToBounds = YES;
     button.accessibilityLabel = label;

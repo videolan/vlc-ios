@@ -137,7 +137,7 @@
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="69" id="Cum-M9-lbH"/>
                             </constraints>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CO6-ze-V9M" customClass="VLCTransportBar">

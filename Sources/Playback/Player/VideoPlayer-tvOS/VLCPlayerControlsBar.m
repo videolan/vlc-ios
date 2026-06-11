@@ -27,10 +27,10 @@
     _active = active;
     if (@available(tvOS 26.0, *)) {
         UIButtonConfiguration *configuration = self.configuration;
-        configuration.baseForegroundColor = active ? PresentationTheme.current.colors.orangeUI : nil;
+        configuration.baseForegroundColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
         self.configuration = configuration;
     } else if (!self.focused) {
-        self.tintColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.VLCLightTextColor;
+        self.tintColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
     }
 }
 
@@ -50,7 +50,7 @@
             self.transform = CGAffineTransformMakeScale(1.1, 1.1);
         } else {
             self.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
-            self.tintColor = self.active ? PresentationTheme.current.colors.orangeUI : UIColor.VLCLightTextColor;
+            self.tintColor = self.active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
             self.transform = CGAffineTransformIdentity;
         }
     } completion:nil];
@@ -118,9 +118,10 @@
     if (@available(tvOS 26.0, *)) {
         UIButtonConfiguration *glass = [UIButtonConfiguration glassButtonConfiguration];
         glass.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+        glass.baseForegroundColor = UIColor.whiteColor;
         button.configuration = glass;
     } else {
-        button.tintColor = UIColor.VLCLightTextColor;
+        button.tintColor = UIColor.whiteColor;
         button.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
         button.layer.cornerRadius = 30.0;
         button.clipsToBounds = YES;
