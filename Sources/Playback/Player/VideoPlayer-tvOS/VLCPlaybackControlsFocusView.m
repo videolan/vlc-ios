@@ -14,6 +14,6 @@
 @implementation VLCPlaybackControlsFocusView
 
 - (BOOL)canBecomeFocused {
-    return YES;
+    return !self.preventsFocus;
 }
 @end

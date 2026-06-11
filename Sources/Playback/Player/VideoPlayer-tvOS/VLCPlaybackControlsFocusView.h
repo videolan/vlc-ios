@@ -14,4 +14,8 @@
 
 @interface VLCPlaybackControlsFocusView : UIView
 
+// When YES, the view yields focus so the focusable controls on top of it can
+// be navigated freely.
+@property (nonatomic) BOOL preventsFocus;
+
 @end
