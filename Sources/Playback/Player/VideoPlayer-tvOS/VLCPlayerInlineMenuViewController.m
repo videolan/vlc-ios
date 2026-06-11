@@ -164,7 +164,6 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 @interface VLCPlayerPanelViewController ()
 {
     NSString *_panelTitle;
-    UIView *_dimmingView;
     UIVisualEffectView *_panelEffectView;
     UILabel *_titleLabel;
     UIView *_contentContainer;
@@ -210,11 +209,6 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     view.backgroundColor = UIColor.clearColor;
     self.view = view;
 
-    _dimmingView = [[UIView alloc] init];
-    _dimmingView.translatesAutoresizingMaskIntoConstraints = NO;
-    _dimmingView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.25];
-    [view addSubview:_dimmingView];
-
     _panelEffectView = [[UIVisualEffectView alloc] initWithEffect:VLCInlineMenuBackgroundEffect()];
     _panelEffectView.translatesAutoresizingMaskIntoConstraints = NO;
     _panelEffectView.layer.cornerRadius = 22.0;
@@ -241,11 +235,6 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     _panelHeightConstraint = [_panelEffectView.heightAnchor constraintEqualToConstant:0.0];
 
     [NSLayoutConstraint activateConstraints:@[
-        [_dimmingView.topAnchor constraintEqualToAnchor:view.topAnchor],
-        [_dimmingView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor],
-        [_dimmingView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor],
-        [_dimmingView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor],
-
         _panelLeadingConstraint,
         _panelTopConstraint,
         _panelHeightConstraint,

@@ -973,7 +973,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         [_scrimView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [_scrimView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         [_scrimView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-        [_scrimView.heightAnchor constraintEqualToConstant:480.0],
+        [_scrimView.heightAnchor constraintEqualToConstant:300.0],
     ]];
 }
 
