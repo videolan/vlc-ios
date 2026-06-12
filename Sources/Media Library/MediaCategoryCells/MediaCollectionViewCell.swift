@@ -53,7 +53,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var hasXGoneNegative: Bool = false
 
     private let playbackService: PlaybackService = PlaybackService.sharedInstance()
-    private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    static let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
     var ignoreThemeDidChange: Bool = false
     var isEditing: Bool = false
@@ -127,7 +127,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.labelize = enableMarquee
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 
-        let defaultConstant: CGFloat = getDefaultConstant()
+        let defaultConstant: CGFloat = MediaCollectionViewCell.getDefaultConstant()
         thumbnailWidth.constant = defaultConstant
         thumbnailView.contentMode = .scaleAspectFill
         deleteButtonHeight.constant = defaultConstant
@@ -249,7 +249,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         dragIndicatorImageView.tintColor = colors.cellDetailTextColor
     }
 
-    func getDefaultConstant() -> CGFloat {
+    static func getDefaultConstant() -> CGFloat {
         return isIpad ? 72.0 : 56.0
     }
 

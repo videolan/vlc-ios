@@ -68,6 +68,9 @@
 		3218FCC02F75FC00009B6473 /* TrackSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218FCBE2F75FC00009B6473 /* TrackSectionHeader.swift */; };
 		3218FCC12F75FC00009B6473 /* TrackSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218FCBE2F75FC00009B6473 /* TrackSectionHeader.swift */; };
 		322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
+		324BD7332FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7322FDB8BEA0037F446 /* MoveToRootHeader.swift */; };
+		324BD7342FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7322FDB8BEA0037F446 /* MoveToRootHeader.swift */; };
+		324BD7352FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7322FDB8BEA0037F446 /* MoveToRootHeader.swift */; };
 		327B707D31772D5CCE59C0DB /* libPods-VLC-visionOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF40719B8DE63266756110B2 /* libPods-VLC-visionOS.a */; };
 		32B2A2362F65E17600D5EFBC /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
 		32B7A66B2FA02ED000879A4D /* Character+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7A66A2FA02ED000879A4D /* Character+Utility.swift */; };
@@ -1464,6 +1467,7 @@
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2D3885594023B9FE0E207420 /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
 		3218FCBE2F75FC00009B6473 /* TrackSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSectionHeader.swift; sourceTree = "<group>"; };
+		324BD7322FDB8BEA0037F446 /* MoveToRootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToRootHeader.swift; sourceTree = "<group>"; };
 		32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
 		32B7A66A2FA02ED000879A4D /* Character+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Utility.swift"; sourceTree = "<group>"; };
 		32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3056,6 +3060,7 @@
 				6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */,
 				8DF9669C2113317100D0FCD6 /* EditToolbar.swift */,
 				8DF966B021188BDB00D0FCD6 /* EditController.swift */,
+				324BD7322FDB8BEA0037F446 /* MoveToRootHeader.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -5577,6 +5582,7 @@
 				7D50C65F2BBD20DF00B9F1A0 /* VLCFavoriteService.m in Sources */,
 				7D50C6612BBD20DF00B9F1A0 /* ArtistViewController.swift in Sources */,
 				7D50C6622BBD20DF00B9F1A0 /* CollectionModel.swift in Sources */,
+				324BD7342FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */,
 				7D50C6632BBD20DF00B9F1A0 /* AddBookmarksView.swift in Sources */,
 				7D50C6652BBD20DF00B9F1A0 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D50C6662BBD20DF00B9F1A0 /* VideoPlayerControls.swift in Sources */,
@@ -5721,6 +5727,7 @@
 				0F47AB962C1C42FF004B630F /* LongPressPlaybackSpeedView.swift in Sources */,
 				7DC7BAB328C8958900109F28 /* UIImage+Blur.m in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsCloudViewController.m in Sources */,
+				324BD7332FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */,
 				44D57DD52D320074009D80AA /* VerticalSliderControl.swift in Sources */,
 				DD3EFF391BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
@@ -6017,6 +6024,7 @@
 				7DA514532EF82B63000C9995 /* LongPressPlaybackSpeedView.swift in Sources */,
 				7DA514542EF82B63000C9995 /* UIImage+Blur.m in Sources */,
 				7DA514552EF82B63000C9995 /* VLCFirstStepsCloudViewController.m in Sources */,
+				324BD7352FDB8BEA0037F446 /* MoveToRootHeader.swift in Sources */,
 				7DA514562EF82B63000C9995 /* VerticalSliderControl.swift in Sources */,
 				7DA514572EF82B63000C9995 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7DA514582EF82B63000C9995 /* VLCLocalServerDiscoveryController.m in Sources */,

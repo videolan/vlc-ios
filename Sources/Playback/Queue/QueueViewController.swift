@@ -660,7 +660,7 @@ extension QueueViewController: UICollectionViewDataSource {
 
         var media: VLCMedia?
 
-        cell.thumbnailWidth.constant = cell.getDefaultConstant()
+        cell.thumbnailWidth.constant = MediaCollectionViewCell.getDefaultConstant()
 
         cell.ignoreThemeDidChange = true
         cell.setTheme(to: PresentationTheme.darkTheme)

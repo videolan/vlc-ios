@@ -23,14 +23,10 @@ protocol AddToCollectionViewControllerDelegate: AnyObject {
                                                       addToCollectionViewController: AddToCollectionViewController)
 }
 
-enum AddToCollectionSection: Int, CaseIterable {
-    case moveToRoot = 0
-    case collection
-}
-
 class AddToCollectionViewController: UIViewController {
     @IBOutlet private weak var newCollectionButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
 
     private let sidePadding: CGFloat = 10
     private var collectionModelType: MediaCollectionModel.Type?
@@ -94,8 +90,10 @@ class AddToCollectionViewController: UIViewController {
     func updateInterface(for collectionModelType: MediaCollectionModel.Type) {
         if collectionModelType is VLCMLPlaylist.Type {
             title = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
+            collectionViewTopConstraint.constant = 10
         } else {
             title = NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: "")
+            collectionViewTopConstraint.constant = 0
         }
         self.collectionModelType = collectionModelType
         setupNewCollectionButton(for: collectionModelType)
@@ -207,6 +205,9 @@ private extension AddToCollectionViewController {
         let cellNib = UINib(nibName: MediaCollectionViewCell.nibName, bundle: nil)
         collectionView.register(cellNib,
                                 forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
+        collectionView.register(MoveToRootHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MoveToRootHeader.headerID)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = collectionViewLayout
@@ -228,22 +229,22 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: sidePadding, bottom: 0, right: sidePadding)
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard collectionModelType is VLCMLMediaGroup.Type else { return .zero }
+        return CGSize(width: collectionView.frame.width, height: MediaCollectionViewCell.getDefaultConstant())
+    }
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension AddToCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if  collectionModelType is VLCMLMediaGroup.Type
-                && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
-            delegate?.addToCollectionViewControllerMoveCollections(self)
-            return
-        }
-
         guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: didSelectItemAt: IndexPath out of range.")
             return
         }
+
         delegate?.addToCollectionViewController(self, didSelectCollection: mlCollection[indexPath.row])
     }
 }
@@ -255,26 +256,14 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
     func reloadData() {
         self.collectionView.reloadData()
     }
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // Do not add the moveToRoot action for playlists
-        if collectionModelType is VLCMLPlaylist.Type {
-            return 1
-        }
-        return AddToCollectionSection.allCases.count
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        // No moveToRoot action for playlists
-        if collectionModelType is VLCMLPlaylist.Type {
-            return mlCollection.count
-        }
-
-        if section == AddToCollectionSection.moveToRoot.rawValue {
-            return 1
-        } else {
-            return mlCollection.count
-        }
+        return mlCollection.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -286,16 +275,6 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
 
         cell.disableScrollView()
 
-        if collectionModelType is VLCMLMediaGroup.Type
-            && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
-            cell.thumbnailView.image = UIImage(named: "removeFromMediaGroup")
-            cell.thumbnailView.contentMode = .center
-            cell.titleLabel.text = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT", comment: "")
-            cell.accessibilityLabel = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT_HINT", comment: "")
-            cell.newLabel.isHidden = true
-            return cell
-        }
-
         guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: cellForItemAt: IndexPath out of range.")
             return UICollectionViewCell()
@@ -304,4 +283,24 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
         cell.media = mlCollection[indexPath.row] as? VLCMLObject
         return cell
     }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard collectionModelType is VLCMLMediaGroup.Type,
+              kind == UICollectionView.elementKindSectionHeader,
+              let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MoveToRootHeader.headerID, for: indexPath) as? MoveToRootHeader
+        else {
+            return UICollectionReusableView()
+        }
+
+        header.delegate = self
+        return header
+    }
+}
+
+extension AddToCollectionViewController: MoveToRootHeaderDelegate {
+    func moveToRootHeader(didTapHeader header: MoveToRootHeader) {
+        guard collectionModelType is VLCMLMediaGroup.Type else { return }
+        delegate?.addToCollectionViewControllerMoveCollections(self)
+    }
+
 }
