@@ -638,6 +638,44 @@ private extension MediaLibraryService {
         _ = try? FileManager.default.removeItem(atPath: targetPath)
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
+
+    @objc func getRecentlyPlayedMediaList() -> [VLCMLMedia] {
+        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
+              let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        else {
+            return []
+        }
+
+        let m3uFileName = NSLocalizedString("RECENTLY_PLAYED_MEDIALIST", comment: "").appending(".m3u")
+        let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
+        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return [] }
+
+        var collection: [VLCMLMedia] = []
+
+        if let streamReader = StreamReader(path: m3uFileURL.path) {
+            defer {
+                streamReader.close()
+            }
+
+            let _ = streamReader.nextLine() // skip header line (i.e. #EXTM3U)
+            while streamReader.nextLine() != nil { // skip title
+                guard let mediaURLString = streamReader.nextLine(),
+                      let range = mediaURLString.range(of: "Documents/")
+                else { continue }
+
+                let relativePath = String(mediaURLString[range.upperBound...])
+                let newMediaURLString = documentsURL.absoluteString + relativePath
+                let mediaURL = URL(string: newMediaURLString)
+
+                if let media = fetchMedia(with: mediaURL),
+                   !media.isExternalMedia() {
+                    collection.append(media)
+                }
+            }
+        }
+
+        return collection
+    }
 }
 
 // MARK: - Application notifications

@@ -38,6 +38,7 @@
 #import "VLCMLMedia+isWatched.h"
 
 #import "VLC-Swift.h"
+#import "VLCMediaList+M3U.h"
 
 NSString *const VLCPlaybackServicePlaybackDidStart = @"VLCPlaybackServicePlaybackDidStart";
 NSString *const VLCPlaybackServicePlaybackDidPause = @"VLCPlaybackServicePlaybackDidPause";
@@ -1965,6 +1966,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 #endif
 #endif
+
+    [self saveCurrentMediaList];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
@@ -2033,6 +2036,27 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     } else if (deleteCurrentMedia) {
         _currentIndex -= 1;
         [self next];
+    }
+}
+
+- (void) saveCurrentMediaList {
+    NSString *appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportDir isDirectory:NULL]) {
+        NSError *error = nil;
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:appSupportDir withIntermediateDirectories:YES attributes:nil error:&error]) {
+            NSLog(@"Failed to create App Support directory: %@", error.localizedDescription);
+        }
+    }
+
+    NSString *fileName = [NSLocalizedString(@"RECENTLY_PLAYED_MEDIALIST", nil) stringByAppendingPathExtension:@"m3u"];
+    NSURL *appSupportURL = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
+    NSURL *fileURL = [appSupportURL URLByAppendingPathComponent:fileName];
+    [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+
+    NSError *error = nil;
+    if (![_mediaList writeM3UToURL:fileURL error:&error]) {
+        APLog(@"Failed to write M3U for saving medialist: %@", error);
+        return;
     }
 }
 

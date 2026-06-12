@@ -116,6 +116,12 @@
 		327973462FF79A630007E3EC /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973452FF79A630007E3EC /* ArtistView.swift */; };
 		327973482FF79C860007E3EC /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973472FF79C860007E3EC /* AlbumView.swift */; };
 		3279734A2FF79CFB0007E3EC /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973492FF79CFB0007E3EC /* TrackView.swift */; };
+		324BD7382FDC81DE0037F446 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7372FDC81DE0037F446 /* StreamReader.swift */; };
+		324BD7392FDC81DE0037F446 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7372FDC81DE0037F446 /* StreamReader.swift */; };
+		324BD73A2FDC81DE0037F446 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7372FDC81DE0037F446 /* StreamReader.swift */; };
+		324BD73B2FDC81DE0037F446 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7372FDC81DE0037F446 /* StreamReader.swift */; };
+		324BD73C2FDC82F80037F446 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BD7372FDC81DE0037F446 /* StreamReader.swift */; };
+		327B707D31772D5CCE59C0DB /* libPods-VLC-visionOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF40719B8DE63266756110B2 /* libPods-VLC-visionOS.a */; };
 		3280F8C73001934C00C7162C /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8C63001934C00C7162C /* ArtistDetailView.swift */; };
 		3280F8C93001991100C7162C /* ArtistDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8C83001991100C7162C /* ArtistDetailViewModel.swift */; };
 		3280F8CB3001AF8900C7162C /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8CA3001AF8900C7162C /* AlbumDetailView.swift */; };
@@ -1741,6 +1747,7 @@
 		3280F8CA3001AF8900C7162C /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		3280F8CC3001AFBB00C7162C /* AlbumDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewModel.swift; sourceTree = "<group>"; };
 		3282659D2FECABD600D3A097 /* MLSyncState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSyncState.swift; sourceTree = "<group>"; };
+		324BD7372FDC81DE0037F446 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
 		32B7A66A2FA02ED000879A4D /* Character+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Utility.swift"; sourceTree = "<group>"; };
 		32D467712FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCWatchConnectivityService.swift; sourceTree = "<group>"; };
@@ -3086,6 +3093,7 @@
 				91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */,
 				7D39B6DE3005356700D95829 /* VLCMigrationCursor.h */,
 				7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */,
+				324BD7372FDC81DE0037F446 /* StreamReader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -5659,6 +5667,7 @@
 				1F20BF76F479B8057E474A7E /* VLCDownloadStatusBanner.m in Sources */,
 				D3DB937DC77D3235FF73A1C6 /* VLCDownloadProgressView.m in Sources */,
 				F6DF14A4F0C3B2CBA7DA01E0 /* VLCTransferStatusBannerController.m in Sources */,
+				324BD73B2FDC81DE0037F446 /* StreamReader.swift in Sources */,
 				7DC2A8F22A04D4CB002B6704 /* UIViewController+VLCAlert.m in Sources */,
 				8D96D2F2233A3D4000E3FB44 /* CustomDialogRendererHandler.swift in Sources */,
 				DD3EFF441BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
@@ -6091,6 +6100,7 @@
 				7D50C6D52BBD20DF00B9F1A0 /* VLCCurrency.m in Sources */,
 				35D8C6F16323458B94D0C3C2 /* VLCDonationNavigationController.m in Sources */,
 				C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */,
+				324BD7392FDC81DE0037F446 /* StreamReader.swift in Sources */,
 				CA314B8FA4151B14A044C367 /* VLCDownloadProgressView.m in Sources */,
 				511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */,
 				787681C1AA7C06614AF5C7C3 /* VLCTransferStatusBannerController.m in Sources */,
@@ -6146,6 +6156,7 @@
 				7D0906023006811D0092F985 /* AudioIntents.swift in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				277943252A6176170010D5EA /* FavoriteSectionHeader.swift in Sources */,
+				324BD73A2FDC81DE0037F446 /* StreamReader.swift in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
 				418DFE9F211C93C6005D3652 /* CustomDialogRendererHandler.swift in Sources */,
 				7DD71F9828FB421300327ACE /* VLCCarPlayArtistsController.m in Sources */,
@@ -6504,6 +6515,7 @@
 				7DA5144E2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7D1E8F4E300F8B1F0014A118 /* VLCRadioErrorView.m in Sources */,
 				7DA5144F2EF82B63000C9995 /* FavoriteSectionHeader.swift in Sources */,
+				324BD7382FDC81DE0037F446 /* StreamReader.swift in Sources */,
 				7DA514502EF82B63000C9995 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7DA514512EF82B63000C9995 /* CustomDialogRendererHandler.swift in Sources */,
 				7DA514522EF82B63000C9995 /* VLCCarPlayArtistsController.m in Sources */,
@@ -6844,6 +6856,7 @@
 				32F2644B2FB51D5A0046437D /* MediaListView.swift in Sources */,
 				321B3B5A2FB6C92C007E4E8A /* UserInfoTransfersView.swift in Sources */,
 				32F264472FB50ED10046437D /* VLCWatchAppDelegate.swift in Sources */,
+				324BD73C2FDC82F80037F446 /* StreamReader.swift in Sources */,
 				BE4D24852E32C17A00434D7A /* AspectRatio.swift in Sources */,
 				327973462FF79A630007E3EC /* ArtistView.swift in Sources */,
 				321B3B582FB6C916007E4E8A /* FileTransfersView.swift in Sources */,
