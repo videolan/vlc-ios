@@ -485,11 +485,11 @@
                           media.length.verboseStringValue];
     }
     if (!vpc.metadata.isAudioOnly) {
-        metaDataString = [metaDataString stringByAppendingFormat:@"%@: %@ (%@)\n",
+        metaDataString = [metaDataString stringByAppendingFormat:@"%@: %@\r",
                           NSLocalizedString(@"VIDEO_DIMENSIONS", nil),
                           [NSString stringWithFormat:NSLocalizedString(@"FORMAT_VIDEO_DIMENSIONS", nil),
-                           videoWidth, videoHeight],
-                          videoCodec];
+                           videoWidth, videoHeight]];
+        metaDataString = [metaDataString stringByAppendingFormat:@"%@: %@\n", NSLocalizedString(@"VIDEO_CODEC", nil), videoCodec];
     }
     NSInteger audioTrackCount = [vpc numberOfAudioTracks] - 2; // minus the Disable and "from files" rows
     if (audioTrackCount > 0) {

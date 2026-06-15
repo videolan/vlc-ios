@@ -613,9 +613,8 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     _infoLabel = [[UILabel alloc] init];
     _infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _infoLabel.numberOfLines = 0;
-    _infoLabel.font = [UIFont systemFontOfSize:29.0];
     _infoLabel.textColor = UIColor.VLCLightTextColor;
-    _infoLabel.text = _infoText;
+    _infoLabel.attributedText = [self attributedInfoText];
     [_infoCard addSubview:_infoLabel];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -628,6 +627,18 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
         [_infoLabel.leadingAnchor constraintEqualToAnchor:_infoCard.leadingAnchor],
         [_infoLabel.trailingAnchor constraintEqualToAnchor:_infoCard.trailingAnchor],
     ]];
+}
+
+- (NSAttributedString *)attributedInfoText
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.paragraphSpacing = 18.0;
+    paragraphStyle.lineSpacing = 4.0;
+    return [[NSAttributedString alloc] initWithString:_infoText
+                                           attributes:@{
+        NSFontAttributeName: [UIFont systemFontOfSize:29.0],
+        NSParagraphStyleAttributeName: paragraphStyle,
+    }];
 }
 
 - (CGFloat)panelContentHeight

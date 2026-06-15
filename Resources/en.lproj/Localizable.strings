@@ -15,6 +15,7 @@
 "MEDIA_INFO" = "Media Information";
 "VIDEO_DIMENSIONS" = "Video dimensions";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"VIDEO_CODEC" = "Video Codec";
 "RESOLUTION_CLASS_8K" = "8K";
 "RESOLUTION_CLASS_4K" = "4K";
 "RESOLUTION_CLASS_HD" = "HD";
