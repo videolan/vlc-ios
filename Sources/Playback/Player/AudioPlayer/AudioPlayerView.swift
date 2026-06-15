@@ -373,6 +373,18 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
                                 fallback: isPlaying ? "iconPause" : "iconPlay",
                                 pointSize: 26)
         playButton.setImage(icon, for: .normal)
+        updateArtworkScale(isPlaying: isPlaying)
+    }
+
+    private func updateArtworkScale(isPlaying: Bool) {
+        let targetTransform: CGAffineTransform = isPlaying ? .identity : CGAffineTransform(scaleX: 0.8, y: 0.8)
+        guard thumbnailImageView.transform != targetTransform else { return }
+
+        UIView.animate(withDuration: 0.4, delay: 0,
+                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5,
+                       options: [.beginFromCurrentState, .allowUserInteraction]) {
+            self.thumbnailImageView.transform = targetTransform
+        }
     }
 
     func updateShuffleRepeatState(shuffleEnabled: Bool, repeatMode: VLCRepeatMode) {
