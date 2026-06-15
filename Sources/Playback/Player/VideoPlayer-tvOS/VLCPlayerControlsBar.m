@@ -16,48 +16,6 @@
 #import "UIColor+Presets.h"
 #import "VLC-Swift.h"
 
-@interface VLCControlRowButton : UIButton
-@property (nonatomic, getter=isActive) BOOL active;
-@end
-
-@implementation VLCControlRowButton
-
-- (void)setActive:(BOOL)active
-{
-    _active = active;
-    if (@available(tvOS 26.0, *)) {
-        UIButtonConfiguration *configuration = self.configuration;
-        configuration.baseForegroundColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
-        self.configuration = configuration;
-    } else if (!self.focused) {
-        self.tintColor = active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
-    }
-}
-
-- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
-{
-    [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
-
-    // Glass buttons render their own focus appearance on tvOS 26.
-    if (@available(tvOS 26.0, *)) {
-        return;
-    }
-
-    [coordinator addCoordinatedAnimations:^{
-        if (self.focused) {
-            self.backgroundColor = UIColor.VLCLightTextColor;
-            self.tintColor = UIColor.VLCDarkTextColor;
-            self.transform = CGAffineTransformMakeScale(1.1, 1.1);
-        } else {
-            self.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
-            self.tintColor = self.active ? PresentationTheme.current.colors.orangeUI : UIColor.whiteColor;
-            self.transform = CGAffineTransformIdentity;
-        }
-    } completion:nil];
-}
-
-@end
-
 @interface VLCPlayerControlsBar () <VLCPlayerInlineMenuDelegate>
 {
     NSArray<UIButton *> *_controlButtons;
@@ -65,8 +23,7 @@
     UIButton *_audioButton;
     UIButton *_chaptersButton;
     UIButton *_speedButton;
-    VLCControlRowButton *_repeatButton;
-    VLCControlRowButton *_shuffleButton;
+    UIButton *_queueButton;
     UIButton *_infoButton;
 }
 @end
@@ -85,10 +42,9 @@
         _audioButton = [self makeControlButtonWithImageName:@"waveform" accessibilityLabel:NSLocalizedString(@"AUDIO", nil) action:@selector(audioButtonPressed)];
         _chaptersButton = [self makeControlButtonWithImageName:@"list.bullet" accessibilityLabel:NSLocalizedString(@"CHAPTER_SELECTION_TITLE", nil) action:@selector(chaptersButtonPressed)];
         _speedButton = [self makeControlButtonWithImageName:@"gauge" accessibilityLabel:NSLocalizedString(@"PLAYBACK_SPEED", nil) action:@selector(speedButtonPressed)];
-        _repeatButton = [self makeControlButtonWithImageName:@"repeat" accessibilityLabel:NSLocalizedString(@"REPEAT_MODE", nil) action:@selector(repeatButtonPressed)];
-        _shuffleButton = [self makeControlButtonWithImageName:@"shuffle" accessibilityLabel:NSLocalizedString(@"SHUFFLE", nil) action:@selector(shuffleButtonPressed)];
+        _queueButton = [self makeControlButtonWithImageName:@"list.bullet.rectangle" accessibilityLabel:NSLocalizedString(@"QUEUE_LABEL", nil) action:@selector(queueButtonPressed)];
         _infoButton = [self makeControlButtonWithImageName:@"info.circle" accessibilityLabel:NSLocalizedString(@"MEDIA_INFO", nil) action:@selector(infoButtonPressed)];
-        _controlButtons = @[_subtitlesButton, _audioButton, _chaptersButton, _speedButton, _repeatButton, _shuffleButton, _infoButton];
+        _controlButtons = @[_subtitlesButton, _audioButton, _chaptersButton, _speedButton, _queueButton, _infoButton];
 
         for (UIButton *button in _controlButtons) {
             [self addArrangedSubview:button];
@@ -104,15 +60,13 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     _chaptersButton.hidden = [vpc numberOfChaptersForCurrentTitle] <= 1;
     _subtitlesButton.hidden = vpc.metadata.isAudioOnly;
-    [self updateRepeatButton];
-    [self updateShuffleButton];
 }
 
-- (VLCControlRowButton *)makeControlButtonWithImageName:(NSString *)imageName
-                                     accessibilityLabel:(NSString *)label
-                                                 action:(SEL)action
+- (UIButton *)makeControlButtonWithImageName:(NSString *)imageName
+                          accessibilityLabel:(NSString *)label
+                                      action:(SEL)action
 {
-    VLCControlRowButton *button = [VLCControlRowButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.translatesAutoresizingMaskIntoConstraints = NO;
 
     if (@available(tvOS 26.0, *)) {
@@ -179,29 +133,10 @@
     [self presentMenuOfKind:VLCPlayerMenuKindSpeed fromButton:_speedButton];
 }
 
-- (void)repeatButtonPressed
+- (void)queueButtonPressed
 {
-    [[VLCPlaybackService sharedInstance] toggleRepeatMode];
-    [self updateRepeatButton];
-}
-
-- (void)shuffleButtonPressed
-{
-    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    vpc.shuffleMode = !vpc.isShuffleMode;
-    [self updateShuffleButton];
-}
-
-- (void)updateRepeatButton
-{
-    VLCRepeatMode mode = [VLCPlaybackService sharedInstance].repeatMode;
-    [self applyImageName:(mode == VLCRepeatCurrentItem ? @"repeat.1" : @"repeat") toButton:_repeatButton];
-    _repeatButton.active = (mode != VLCDoNotRepeat);
-}
-
-- (void)updateShuffleButton
-{
-    _shuffleButton.active = [VLCPlaybackService sharedInstance].isShuffleMode;
+    VLCPlayerQueuePanelViewController *queue = [[VLCPlayerQueuePanelViewController alloc] initWithTitle:_queueButton.accessibilityLabel];
+    [queue presentFromButton:_queueButton inViewController:self.presenter];
 }
 
 - (void)infoButtonPressed

@@ -82,4 +82,10 @@ didSelectItemAtIndex:(NSInteger)index;
 
 @end
 
+/* The playback queue: a selectable list of the queued media with shuffle and
+ * repeat toggles in a footer row. Selecting an item plays it. */
+@interface VLCPlayerQueuePanelViewController : VLCPlayerPanelViewController
+
+@end
+
 NS_ASSUME_NONNULL_END

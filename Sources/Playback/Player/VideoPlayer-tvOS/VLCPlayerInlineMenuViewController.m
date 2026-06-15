@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCPlayerInlineMenuViewController.h"
+#import "VLCAppCoordinator.h"
 #import "UIColor+Presets.h"
 #import "VLC-Swift.h"
 
@@ -20,6 +21,7 @@ static const CGFloat VLCInlineMenuScreenMargin = 80.0;
 static const CGFloat VLCInlineMenuInset = 24.0;
 static const CGFloat VLCInlineMenuTitleHeight = 70.0;
 static const CGFloat VLCInlineMenuStepperRowHeight = 64.0;
+static const CGFloat VLCInlineMenuQueueRowHeight = 92.0;
 
 static NSString *const VLCInlineMenuCellIdentifier = @"VLCPlayerInlineMenuCell";
 
@@ -154,6 +156,131 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
             self.backgroundColor = UIColor.clearColor;
             self.tintColor = UIColor.whiteColor;
         }
+    } completion:nil];
+}
+
+@end
+
+#pragma mark - queue toggle button
+
+@interface VLCQueueToggleButton : UIButton
+@property (nonatomic, getter=isActive) BOOL active;
+@end
+
+@implementation VLCQueueToggleButton
+
+- (void)setActive:(BOOL)active
+{
+    _active = active;
+    [self updateColors];
+}
+
+- (void)updateColors
+{
+    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    if (self.focused) {
+        self.backgroundColor = UIColor.VLCLightTextColor;
+        self.tintColor = UIColor.VLCDarkTextColor;
+    } else {
+        self.backgroundColor = UIColor.clearColor;
+        self.tintColor = _active ? accent : UIColor.whiteColor;
+    }
+}
+
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context
+       withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+    [coordinator addCoordinatedAnimations:^{
+        [self updateColors];
+    } completion:nil];
+}
+
+@end
+
+#pragma mark - queue cell
+
+@interface VLCPlayerQueueCell : UICollectionViewCell
+{
+    UILabel *_titleLabel;
+    UILabel *_subtitleLabel;
+    UIImageView *_nowPlayingView;
+    BOOL _current;
+}
+- (void)configureWithTitle:(NSString *)title subtitle:(NSString *)subtitle current:(BOOL)current;
+@end
+
+@implementation VLCPlayerQueueCell
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.contentView.layer.cornerRadius = 12.0;
+        self.contentView.clipsToBounds = YES;
+
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.font = [UIFont systemFontOfSize:29.0];
+        [self.contentView addSubview:_titleLabel];
+
+        _subtitleLabel = [[UILabel alloc] init];
+        _subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _subtitleLabel.font = [UIFont systemFontOfSize:23.0];
+        [self.contentView addSubview:_subtitleLabel];
+
+        UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
+        _nowPlayingView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"speaker.wave.2.fill" withConfiguration:configuration]];
+        _nowPlayingView.translatesAutoresizingMaskIntoConstraints = NO;
+        _nowPlayingView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:_nowPlayingView];
+
+        [NSLayoutConstraint activateConstraints:@[
+            [_titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:18.0],
+            [_titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:16.0],
+            [_subtitleLabel.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
+            [_subtitleLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:4.0],
+            [_nowPlayingView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-18.0],
+            [_nowPlayingView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+            [_titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:_nowPlayingView.leadingAnchor constant:-8.0],
+            [_subtitleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:_nowPlayingView.leadingAnchor constant:-8.0],
+        ]];
+    }
+    return self;
+}
+
+- (void)configureWithTitle:(NSString *)title subtitle:(NSString *)subtitle current:(BOOL)current
+{
+    _current = current;
+    _titleLabel.text = title;
+    _subtitleLabel.text = subtitle;
+    _subtitleLabel.hidden = subtitle.length == 0;
+    _nowPlayingView.hidden = !current;
+    [self updateColors];
+}
+
+- (void)updateColors
+{
+    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    if (self.focused) {
+        self.contentView.backgroundColor = UIColor.VLCLightTextColor;
+        _titleLabel.textColor = UIColor.VLCDarkTextColor;
+        _subtitleLabel.textColor = UIColor.VLCDarkTextColor;
+        _nowPlayingView.tintColor = UIColor.VLCDarkTextColor;
+    } else {
+        self.contentView.backgroundColor = UIColor.clearColor;
+        _titleLabel.textColor = _current ? accent : UIColor.VLCLightTextColor;
+        _subtitleLabel.textColor = [UIColor.VLCLightTextColor colorWithAlphaComponent:0.7];
+        _nowPlayingView.tintColor = accent;
+    }
+}
+
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context
+       withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+    [coordinator addCoordinatedAnimations:^{
+        [self updateColors];
     } completion:nil];
 }
 
@@ -649,6 +776,205 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 - (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
 {
     return @[_infoCard];
+}
+
+@end
+
+#pragma mark - queue
+
+static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
+
+@interface VLCPlayerQueuePanelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+{
+    UICollectionView *_collectionView;
+    VLCQueueToggleButton *_shuffleButton;
+    VLCQueueToggleButton *_repeatButton;
+}
+@end
+
+@implementation VLCPlayerQueuePanelViewController
+
+- (VLCMediaList *)activeList
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    return vpc.isShuffleMode ? vpc.shuffledList : vpc.mediaList;
+}
+
+- (NSInteger)currentIndex
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    return [[self activeList] indexOfMedia:vpc.currentlyPlayingMedia];
+}
+
+- (void)populatePanelContent
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = VLCInlineMenuItemSpacing;
+    layout.minimumInteritemSpacing = 0.0;
+    layout.itemSize = CGSizeMake(VLCInlineMenuContentWidth(), VLCInlineMenuQueueRowHeight);
+
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    _collectionView.backgroundColor = UIColor.clearColor;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.remembersLastFocusedIndexPath = YES;
+    [_collectionView registerClass:[VLCPlayerQueueCell class] forCellWithReuseIdentifier:VLCQueueCellIdentifier];
+
+    UIView *container = self.panelContentView;
+    [container addSubview:_collectionView];
+
+    UIView *footer = [self makeFooterRow];
+    [container addSubview:footer];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_collectionView.topAnchor constraintEqualToAnchor:container.topAnchor],
+        [_collectionView.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
+        [_collectionView.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
+
+        [footer.leadingAnchor constraintEqualToAnchor:container.leadingAnchor],
+        [footer.trailingAnchor constraintEqualToAnchor:container.trailingAnchor],
+        [footer.bottomAnchor constraintEqualToAnchor:container.bottomAnchor],
+        [footer.heightAnchor constraintEqualToConstant:VLCInlineMenuStepperRowHeight],
+        [_collectionView.bottomAnchor constraintEqualToAnchor:footer.topAnchor constant:-VLCInlineMenuInset],
+    ]];
+}
+
+- (UIView *)makeFooterRow
+{
+    UIView *row = [[UIView alloc] init];
+    row.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _shuffleButton = [self makeToggleButtonWithImageName:@"shuffle"
+                                      accessibilityLabel:NSLocalizedString(@"SHUFFLE", nil)
+                                                  action:@selector(toggleShuffle)];
+    _repeatButton = [self makeToggleButtonWithImageName:@"repeat"
+                                     accessibilityLabel:NSLocalizedString(@"REPEAT_MODE", nil)
+                                                 action:@selector(toggleRepeat)];
+    [row addSubview:_shuffleButton];
+    [row addSubview:_repeatButton];
+    [self updateShuffleButton];
+    [self updateRepeatButton];
+
+    const CGFloat side = 56.0;
+    [NSLayoutConstraint activateConstraints:@[
+        [_shuffleButton.leadingAnchor constraintEqualToAnchor:row.leadingAnchor],
+        [_shuffleButton.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [_shuffleButton.widthAnchor constraintEqualToConstant:side],
+        [_shuffleButton.heightAnchor constraintEqualToConstant:side],
+
+        [_repeatButton.leadingAnchor constraintEqualToAnchor:_shuffleButton.trailingAnchor constant:16.0],
+        [_repeatButton.centerYAnchor constraintEqualToAnchor:row.centerYAnchor],
+        [_repeatButton.widthAnchor constraintEqualToConstant:side],
+        [_repeatButton.heightAnchor constraintEqualToConstant:side],
+    ]];
+    return row;
+}
+
+- (VLCQueueToggleButton *)makeToggleButtonWithImageName:(NSString *)imageName
+                                     accessibilityLabel:(NSString *)label
+                                                 action:(SEL)action
+{
+    VLCQueueToggleButton *button = [VLCQueueToggleButton buttonWithType:UIButtonTypeCustom];
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
+    [button setImage:[UIImage systemImageNamed:imageName withConfiguration:configuration] forState:UIControlStateNormal];
+    button.layer.cornerRadius = 28.0;
+    button.clipsToBounds = YES;
+    button.accessibilityLabel = label;
+    [button addTarget:self action:action forControlEvents:UIControlEventPrimaryActionTriggered];
+    return button;
+}
+
+- (void)toggleShuffle
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    vpc.shuffleMode = !vpc.isShuffleMode;
+    [self updateShuffleButton];
+    [_collectionView reloadData];
+    [self setNeedsFocusUpdate];
+}
+
+- (void)toggleRepeat
+{
+    [[VLCPlaybackService sharedInstance] toggleRepeatMode];
+    [self updateRepeatButton];
+}
+
+- (void)updateShuffleButton
+{
+    _shuffleButton.active = [VLCPlaybackService sharedInstance].isShuffleMode;
+}
+
+- (void)updateRepeatButton
+{
+    VLCRepeatMode mode = [VLCPlaybackService sharedInstance].repeatMode;
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:24.0];
+    NSString *imageName = (mode == VLCRepeatCurrentItem) ? @"repeat.1" : @"repeat";
+    [_repeatButton setImage:[UIImage systemImageNamed:imageName withConfiguration:configuration] forState:UIControlStateNormal];
+    _repeatButton.active = (mode != VLCDoNotRepeat);
+}
+
+- (CGFloat)panelContentHeight
+{
+    CGFloat rows = [self activeList].count;
+    CGFloat height = rows * VLCInlineMenuQueueRowHeight + MAX(0, rows - 1) * VLCInlineMenuItemSpacing;
+    return height + VLCInlineMenuInset + VLCInlineMenuStepperRowHeight;
+}
+
+- (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
+{
+    return @[_collectionView];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self activeList].count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCPlayerQueueCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCQueueCellIdentifier
+                                                                        forIndexPath:indexPath];
+    VLCMedia *media = [[self activeList] mediaAtIndex:indexPath.row];
+    VLCMLMedia *mlMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService fetchOrCreateMediaWith:media.url];
+
+    NSString *title = mlMedia.title.length ? mlMedia.title : media.url.lastPathComponent;
+    NSString *subtitle = [self subtitleForMedia:mlMedia];
+    BOOL current = indexPath.row == [self currentIndex];
+    [cell configureWithTitle:title subtitle:subtitle current:current];
+    return cell;
+}
+
+- (NSString *)subtitleForMedia:(VLCMLMedia *)mlMedia
+{
+    if (mlMedia == nil) {
+        return @"";
+    }
+    NSString *artist = mlMedia.artist.name;
+    NSString *duration = [VLCTime timeWithInt:(int)mlMedia.duration].stringValue;
+    if (artist.length && duration.length) {
+        return [NSString stringWithFormat:@"%@ — %@", artist, duration];
+    }
+    return artist.length ? artist : duration;
+}
+
+- (NSIndexPath *)indexPathForPreferredFocusedItemInCollectionView:(UICollectionView *)collectionView
+{
+    NSInteger current = [self currentIndex];
+    if (current == NSNotFound || current < 0) {
+        return nil;
+    }
+    return [NSIndexPath indexPathForRow:current inSection:0];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger index = indexPath.row;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[VLCPlaybackService sharedInstance] playItemAtIndex:index];
+    }];
 }
 
 @end
