@@ -678,9 +678,7 @@ extension QueueViewController: UICollectionViewDataSource {
             assertionFailure("QueueViewController: cellForItemAt: Failed to fetch media url")
             return cell
         }
-        if let media = medialibraryService.fetchMedia(with: safeURL) {
-            cell.media = media
-        } else if let media = medialibraryService.medialib.addExternalMedia(withMrl: safeURL) {
+        if let media = medialibraryService.fetchOrCreateMedia(with: safeURL) {
             cell.media = media
         }
         cell.newLabel.isHidden = true

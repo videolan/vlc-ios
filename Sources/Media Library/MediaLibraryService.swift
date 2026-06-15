@@ -398,6 +398,13 @@ private extension MediaLibraryService {
         return medialib.media(withMrl: mrl)
     }
 
+    @objc func fetchOrCreateMedia(with mrl: URL?) -> VLCMLMedia? {
+        guard let mrl = mrl else {
+            return nil
+        }
+        return medialib.media(withMrl: mrl) ?? medialib.addExternalMedia(withMrl: mrl)
+    }
+
     @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
         return medialib.media(withIdentifier: identifier)
     }
