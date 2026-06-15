@@ -47,6 +47,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     lazy var thumbnailImageView: UIImageView = {
         let thumbnailImageView = UIImageView()
         thumbnailImageView.contentMode = .scaleAspectFit
+        // The artwork size is driven by layout constraints, never by the
+        // bitmap's intrinsic size.
+        thumbnailImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        thumbnailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        thumbnailImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        thumbnailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return thumbnailImageView
     }()
 
@@ -189,6 +195,32 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var secondaryControlStackViewHeightConstraint: NSLayoutConstraint = secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
 
     private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
+
+    private var isPad: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad
+    }
+
+    private var isCompactScreen: Bool {
+#if os(iOS)
+        return UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
+#else
+        return false
+#endif
+    }
+
+    // Portrait keeps a wide, iPad-like border on all regular-sized devices so
+    // the artwork and slider line up with generous margins to the edges.
+    private var portraitContentInset: CGFloat {
+        return isCompactScreen ? 24.0 : 60.0
+    }
+
+    // Landscape margin: wide on iPad, tighter on the narrower iPhone panes.
+    private lazy var horizontalContentInset: CGFloat = {
+        if isPad {
+            return 60.0
+        }
+        return isCompactScreen ? 10.0 : 24.0
+    }()
 
     private lazy var thumbnailViewCenterYConstraint: NSLayoutConstraint = {
         let constraint = thumbnailView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
@@ -575,7 +607,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private func setupThumbnailSubviews() {
         let padding: CGFloat = 20.0
-        let thumbnailImageViewEdgesPadding: CGFloat = 24.0
+        let thumbnailImageViewEdgesPadding: CGFloat = portraitContentInset
         let labelSpacing: CGFloat = 8.0
 
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -588,20 +620,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         addSubview(artistLabel)
         addSubview(albumLabel)
 
-        let thumbnailViewHeightConstraint = thumbnailView.heightAnchor.constraint(equalToConstant: thumbnailImageView.frame.height + titleLabel.font.lineHeight + artistLabel.font.lineHeight)
-        thumbnailViewHeightConstraint.priority = .defaultLow
+        // Landscape: the artwork is a centered square matching the slider's
+        // width. iPad has the room for it, so the match is required there;
+        // iPhone keeps it high-priority so it yields on short panes.
+        let landscapeThumbnailWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: progressionView.widthAnchor)
+        landscapeThumbnailWidthConstraint.priority = isPad ? .required : .defaultHigh
 
-        // Landscape: the artwork fills the left pane as a large centered square,
-        // growing up to the pane's width and height.
-        let landscapeThumbnailWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor, constant: -2 * padding)
-        landscapeThumbnailWidthConstraint.priority = .defaultHigh
-        let landscapeThumbnailHeightConstraint = thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailView.heightAnchor, constant: -2 * padding)
-        landscapeThumbnailHeightConstraint.priority = .defaultHigh
-
-        // Portrait: the artwork is a square that grows up to the full content
-        // width, yielding when the column needs the vertical space.
+        // Portrait: the artwork is a square that fills the content width.
+        // Regular screens have the vertical room, so the size is required;
+        // compact screens keep it high-priority so it yields when too short.
         let portraitThumbnailWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor, constant: -2 * thumbnailImageViewEdgesPadding)
-        portraitThumbnailWidthConstraint.priority = .defaultHigh
+        portraitThumbnailWidthConstraint.priority = isCompactScreen ? .defaultHigh : .required
 
         let landscapeTitleLeading = titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
         let landscapeTitleTrailing = titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
@@ -617,7 +646,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             artistLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: labelSpacing),
             albumLabel.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: labelSpacing),
             albumLabelHeightConstraint,
-            thumbnailViewHeightConstraint
         ])
 
         portraitConstraints.append(contentsOf: [
@@ -650,7 +678,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             thumbnailImageView.topAnchor.constraint(greaterThanOrEqualTo: thumbnailView.topAnchor, constant: padding),
             thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor),
             landscapeThumbnailWidthConstraint,
-            landscapeThumbnailHeightConstraint,
 
             landscapeRightContentLayoutGuide.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             landscapeRightContentLayoutGuide.bottomAnchor.constraint(equalTo: progressionView.bottomAnchor),
@@ -736,13 +763,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupProgressionView() {
-#if os(iOS)
-        let isSmallerScreen: Bool = UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
-        let padding: CGFloat = isSmallerScreen ? 10.0 : 25.0
-#else
-        let padding: CGFloat = 25.0
-#endif
-
         progressionView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(progressionView)
@@ -751,17 +771,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         portraitConstraints.append(contentsOf: [
             progressionView.topAnchor.constraint(greaterThanOrEqualTo: thumbnailView.bottomAnchor, constant: 16),
-            progressionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
-            progressionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            progressionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: portraitContentInset),
+            progressionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -portraitContentInset),
         ])
 
-        let landscapeProgressionBottomConstraint = progressionView.bottomAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.bottomAnchor, constant: -padding)
+        let landscapeProgressionBottomConstraint = progressionView.bottomAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.bottomAnchor, constant: -horizontalContentInset)
         landscapeProgressionBottomConstraint.priority = .defaultHigh
 
         landscapeConstraints.append(contentsOf: [
-            progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: padding),
-            progressionView.leadingAnchor.constraint(equalTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding),
-            progressionView.trailingAnchor.constraint(equalTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding),
+            progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: horizontalContentInset),
+            progressionView.leadingAnchor.constraint(equalTo: landscapeRightLayoutGuide.leadingAnchor, constant: horizontalContentInset),
+            progressionView.trailingAnchor.constraint(equalTo: landscapeRightLayoutGuide.trailingAnchor, constant: -horizontalContentInset),
             landscapeProgressionBottomConstraint,
         ])
     }
