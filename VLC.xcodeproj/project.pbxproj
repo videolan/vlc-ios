@@ -574,7 +574,6 @@
 		7D50C6F52BBD20DF00B9F1A0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
 		7D50C6F62BBD20DF00B9F1A0 /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
 		7D50C6F72BBD20DF00B9F1A0 /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
-		7D50C6F82BBD20DF00B9F1A0 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		7D50C6F92BBD20DF00B9F1A0 /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D50C6FA2BBD20DF00B9F1A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		7D50C6FB2BBD20DF00B9F1A0 /* VLCFirstStepsBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */; };
@@ -985,7 +984,6 @@
 		7DA5156A2EF82B63000C9995 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
 		7DA5156B2EF82B63000C9995 /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
 		7DA5156C2EF82B63000C9995 /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
-		7DA5156D2EF82B63000C9995 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		7DA5156E2EF82B63000C9995 /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7DA5156F2EF82B63000C9995 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		7DA515702EF82B63000C9995 /* VLCFirstStepsBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */; };
@@ -1247,7 +1245,6 @@
 		D923F4232F34CED400A208CA /* AlbumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923F4222F34CED100A208CA /* AlbumFooter.swift */; };
 		D923F4242F34CED400A208CA /* AlbumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923F4222F34CED100A208CA /* AlbumFooter.swift */; };
 		D923F4252F34CED400A208CA /* AlbumFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923F4222F34CED100A208CA /* AlbumFooter.swift */; };
-		D9250B7D291BB3190081F729 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
 		D94D72AF2F3A305A007A5B75 /* CurrentlyPlayingCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */; };
 		D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */; };
@@ -2187,7 +2184,6 @@
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		D91042AE2D356F7F00036D12 /* BottomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarController.swift; sourceTree = "<group>"; };
 		D923F4222F34CED100A208CA /* AlbumFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFooter.swift; sourceTree = "<group>"; };
-		D9250B7C291BB3180081F729 /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
 		D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
 		D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TintColor.swift"; sourceTree = "<group>"; };
@@ -4261,7 +4257,6 @@
 		D93C0B19291BAB5E002311B5 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				D9250B7C291BB3180081F729 /* AudioPlayerView.xib */,
 				D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */,
 				D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */,
 			);
@@ -4734,7 +4729,6 @@
 				7D50C6F52BBD20DF00B9F1A0 /* InfoPlist.strings in Resources */,
 				7D50C6F62BBD20DF00B9F1A0 /* jquery.fileupload.js in Resources */,
 				7D50C6F72BBD20DF00B9F1A0 /* jquery.iframe-transport.js in Resources */,
-				7D50C6F82BBD20DF00B9F1A0 /* AudioPlayerView.xib in Resources */,
 				7D50C6F92BBD20DF00B9F1A0 /* jquery.ui.widget.js in Resources */,
 				7D50C6FA2BBD20DF00B9F1A0 /* Localizable.strings in Resources */,
 				7D50C6FB2BBD20DF00B9F1A0 /* VLCFirstStepsBaseViewController.xib in Resources */,
@@ -4793,7 +4787,6 @@
 				417E68691F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */,
 				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
-				D9250B7D291BB3190081F729 /* AudioPlayerView.xib in Resources */,
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				7DB559BE27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib in Resources */,
@@ -4853,7 +4846,6 @@
 				7DA5156A2EF82B63000C9995 /* InfoPlist.strings in Resources */,
 				7DA5156B2EF82B63000C9995 /* jquery.fileupload.js in Resources */,
 				7DA5156C2EF82B63000C9995 /* jquery.iframe-transport.js in Resources */,
-				7DA5156D2EF82B63000C9995 /* AudioPlayerView.xib in Resources */,
 				7DA5156E2EF82B63000C9995 /* jquery.ui.widget.js in Resources */,
 				7DA5156F2EF82B63000C9995 /* Localizable.strings in Resources */,
 				7DA515702EF82B63000C9995 /* VLCFirstStepsBaseViewController.xib in Resources */,
@@ -7648,7 +7640,7 @@
 					"NO_WATCH=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7701,7 +7693,7 @@
 					"NO_WATCH=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7756,7 +7748,7 @@
 					"NO_WATCH=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
