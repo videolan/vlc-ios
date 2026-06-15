@@ -755,7 +755,7 @@ class PlayerViewController: UIViewController {
         if isHorizontalSwipe && playerController.isSwipeSeekGestureEnabled {
             panType = .seek
         } else if !isHorizontalSwipe {
-            if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled {
+            if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled && isBrightnessControlAvailable {
                 panType = .brightness
             } else if location.x > windowWidth / 2 && playerController.isVolumeGestureEnabled {
                 panType = .volume
