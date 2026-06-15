@@ -47,6 +47,11 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    /* Only paste while we are actually the front-most UI */
+    UIWindow *window = self.viewIfLoaded.window;
+    if (window == nil || window.rootViewController.presentedViewController != nil)
+        return;
+
     [self updatePasteboardTextInURLField];
 }
 
