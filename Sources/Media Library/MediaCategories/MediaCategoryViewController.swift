@@ -1315,9 +1315,15 @@ extension MediaCategoryViewController {
 
         if #available(iOS 14.0, *) {
             let menu = delegate?.generateMenu(for: self)
-            rightBarButtonItems.append(UIBarButtonItem(image:
-                                                        UIImage(systemName: "ellipsis.circle"),
-                                                       menu: menu))
+            if #available(iOS 26.0, *) {
+                rightBarButtonItems.append(UIBarButtonItem(image:
+                                                            UIImage(systemName: "ellipsis"),
+                                                           menu: menu))
+            } else {
+                rightBarButtonItems.append(UIBarButtonItem(image:
+                                                            UIImage(systemName: "ellipsis.circle"),
+                                                           menu: menu))
+            }
         } else {
             rightBarButtonItems.append(editBarButton)
             // Sort is not available for Playlists

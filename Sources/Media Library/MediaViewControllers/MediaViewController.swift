@@ -71,7 +71,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     private lazy var menuButton: UIBarButtonItem = {
         var buttonItem = UIBarButtonItem()
-        buttonItem.image = UIImage(named: "EllipseCircle")
+        if #available(iOS 26.0, *) {
+            buttonItem.image = UIImage(systemName: "ellipsis")
+        } else {
+            buttonItem.image = UIImage(named: "EllipseCircle")
+        }
         buttonItem.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
         buttonItem.accessibilityHint = NSLocalizedString("BUTTON_MENU_HINT", comment: "")
         return buttonItem
