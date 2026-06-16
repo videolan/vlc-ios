@@ -76,6 +76,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let albumLabel = UILabel()
         albumLabel.textAlignment = .center
         albumLabel.font = .systemFont(ofSize: 15.0)
+        albumLabel.numberOfLines = 3
         albumLabel.accessibilityLabel = NSLocalizedString("ALBUM", comment: "")
         return albumLabel
     }()
@@ -190,7 +191,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var progressionViewHeightConstraint: NSLayoutConstraint = progressionView.heightAnchor.constraint(equalToConstant: 70)
 
-    private lazy var albumLabelHeightConstraint: NSLayoutConstraint = albumLabel.heightAnchor.constraint(equalToConstant: albumLabel.font.lineHeight)
+    private lazy var albumLabelHeightConstraint: NSLayoutConstraint = albumLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: albumLabel.font.lineHeight)
 
     private lazy var secondaryControlStackViewHeightConstraint: NSLayoutConstraint = secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
 
@@ -352,11 +353,42 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             albumLabel.isHidden = !hasAlbum
             albumLabel.text = album
             albumLabel.accessibilityValue = album
-            albumLabelHeightConstraint.constant = hasAlbum ? albumLabel.font.lineHeight : 0
+            updateAlbumLabelHeight()
         } else {
             titleLabel.isHidden = true
             artistLabel.isHidden = true
             albumLabel.isHidden = true
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateAlbumLabelHeight()
+    }
+
+    private func updateAlbumLabelHeight() {
+        guard !albumLabel.isHidden, let text = albumLabel.text, !text.isEmpty,
+              let font = albumLabel.font else {
+            if albumLabelHeightConstraint.constant != 0 {
+                albumLabelHeightConstraint.constant = 0
+            }
+            return
+        }
+
+        let width = albumLabel.bounds.width
+        let target: CGFloat
+        if width > 0 {
+            let bounding = (text as NSString).boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
+                                                           options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                                           attributes: [.font: font], context: nil)
+            target = min(ceil(bounding.height), ceil(font.lineHeight * 3))
+        } else {
+            target = font.lineHeight
+        }
+
+        if abs(albumLabelHeightConstraint.constant - target) > 0.5 {
+            albumLabelHeightConstraint.constant = target
+            setNeedsLayout()
         }
     }
 
@@ -644,12 +676,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let portraitThumbnailWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor, constant: -2 * thumbnailImageViewEdgesPadding)
         portraitThumbnailWidthConstraint.priority = isCompactScreen ? .defaultHigh : .required
 
-        let landscapeTitleLeading = titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
-        let landscapeTitleTrailing = titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
-        let landscapeArtistLeading = artistLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
-        let landscapeArtistTrailing = artistLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
-        let landscapeAlbumLeading = albumLabel.leadingAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.leadingAnchor, constant: padding)
-        let landscapeAlbumTrailing = albumLabel.trailingAnchor.constraint(lessThanOrEqualTo: landscapeRightLayoutGuide.trailingAnchor, constant: -padding)
+        let landscapeTitleLeading = titleLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
+        let landscapeTitleTrailing = titleLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor)
+        let landscapeArtistLeading = artistLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
+        let landscapeArtistTrailing = artistLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor)
+        let landscapeAlbumLeading = albumLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
+        let landscapeAlbumTrailing = albumLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor)
         let landscapeAlbumBottom = albumLabel.bottomAnchor.constraint(equalTo: controlsStackView.topAnchor, constant: -padding)
 
         sharedConstraints.append(contentsOf: [
@@ -670,16 +702,16 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
             titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: padding),
             titleLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -padding),
+            titleLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
 
             artistLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
-            artistLabel.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: padding),
-            artistLabel.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -padding),
+            artistLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
+            artistLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
 
             albumLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
-            albumLabel.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: padding),
-            albumLabel.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -padding),
+            albumLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
+            albumLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
             albumLabel.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -padding),
         ])
 
