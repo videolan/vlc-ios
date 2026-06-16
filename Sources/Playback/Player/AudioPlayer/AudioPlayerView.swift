@@ -755,6 +755,14 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             portraitSecondaryControlBottom,
         ])
 
+        if isPad {
+            let controlsWidth = controlsStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.5)
+            portraitConstraints.append(contentsOf: [
+                controlsStackView.centerXAnchor.constraint(equalTo: progressionView.centerXAnchor),
+                controlsWidth,
+            ])
+        }
+
         landscapeConstraints.append(contentsOf: [
             secondaryControlStackView.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
         ])
