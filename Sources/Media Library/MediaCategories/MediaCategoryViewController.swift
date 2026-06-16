@@ -32,7 +32,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var secondModel: MediaLibraryBaseModel
     private var mediaLibraryService: MediaLibraryService
 
-    #if os(iOS) || os(watchOS)
+    #if (os(iOS) || os(watchOS)) && !NO_WATCH
     private var watchService = VLCWatchConnectivityService()
     #endif
 
@@ -1685,7 +1685,7 @@ private extension MediaCategoryViewController {
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.updateAppContext(TestDataProvider.timedColor())
                     #endif
@@ -1698,7 +1698,7 @@ private extension MediaCategoryViewController {
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.sendMessage(TestDataProvider.message())
                     #endif
@@ -1710,7 +1710,7 @@ private extension MediaCategoryViewController {
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.sendMessageData(TestDataProvider.messageData())
                     #endif
@@ -1724,7 +1724,7 @@ private extension MediaCategoryViewController {
                           let mrl = media.mainFile()?.mrl
                     else { return }
 
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     print("Transferring file to watch: \(media.title)")
                     print("File mrl: \(mrl)")
                     watchService.transferFile(mrl, metadata: TestDataProvider.fileMetaData())
@@ -1739,7 +1739,7 @@ private extension MediaCategoryViewController {
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.transferUserInfo(TestDataProvider.userInfo())
                     #endif
@@ -1752,7 +1752,7 @@ private extension MediaCategoryViewController {
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if os(iOS) || os(watchOS)
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.transferCurrentComplicationUserInfo(TestDataProvider.currentComplicationInfo())
                     #endif

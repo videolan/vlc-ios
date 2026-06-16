@@ -30,7 +30,7 @@
     BOOL _isComingFromHandoff;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     VLCSessionDelegate *sessionDelegate;
 # endif
 }
@@ -178,7 +178,7 @@
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
     }
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     if ([WCSession isSupported]) {
         sessionDelegate = [[VLCSessionDelegate alloc] init];
         [WCSession defaultSession].delegate = sessionDelegate;
