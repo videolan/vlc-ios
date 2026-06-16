@@ -398,6 +398,11 @@
 "PLAY_AS_AUDIO" = "Play as audio";
 "PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
+"MARK_AS_PLAYED" = "Mark as Played";
+"MARK_AS_PLAYED_HINT" = "Mark the media as played";
+"MARK_AS_UNPLAYED" = "Mark as Unplayed";
+"MARK_AS_UNPLAYED_HINT" = "Mark the media as unplayed";
+
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
 "PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
 "PLAYLIST_CREATION" = "Create a new playlist";

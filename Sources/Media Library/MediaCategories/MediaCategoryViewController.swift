@@ -1605,6 +1605,21 @@ private extension MediaCategoryViewController {
             }
         }
 
+        // Mark as seen/unseen applies to individual media only (incl. single-video groups)
+        let markableMedia: VLCMLMedia?
+        if let media = modelContent as? VLCMLMedia {
+            markableMedia = media
+        } else if let group = modelContent as? VLCMLMediaGroup,
+                  group.nbTotalMedia() == 1, !group.userInteracted() {
+            markableMedia = group.media(of: .unknown)?.first
+        } else {
+            markableMedia = nil
+        }
+
+        if let markableMedia = markableMedia {
+            actionList.append(markableMedia.isNew ? .markAsSeen : .markAsUnseen)
+        }
+
         let actions = EditButtonsFactory.generate(buttons: actionList)
 
         return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
@@ -1682,6 +1697,32 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     _ in
                     self.generatePlayAction(for: modelContent, type: .playAsAudio)
+                })
+            case .markAsSeen:
+                return $0.action({
+                    [weak self] _ in
+                    if let markableMedia = markableMedia {
+                        self?.editController.editActions.objects = [markableMedia]
+                        self?.editController.editActions.markAsSeen() {
+                            [weak self] state in
+                            if state == .success {
+                                self?.reloadData()
+                            }
+                        }
+                    }
+                })
+            case .markAsUnseen:
+                return $0.action({
+                    [weak self] _ in
+                    if let markableMedia = markableMedia {
+                        self?.editController.editActions.objects = [markableMedia]
+                        self?.editController.editActions.markAsUnseen() {
+                            [weak self] state in
+                            if state == .success {
+                                self?.reloadData()
+                            }
+                        }
+                    }
                 })
             case .updateAppContext:
                 return $0.action({

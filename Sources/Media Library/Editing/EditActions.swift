@@ -230,6 +230,24 @@ extension EditActions {
                                                                 deleteButton])
     }
 
+    func markAsSeen(_ completion: ((completionState) -> Void)? = nil) {
+        for media in objects.compactMap({ $0 as? VLCMLMedia }) {
+            if media.playCount() == 0 {
+                media.setPlayCount(1)
+            }
+            media.isNew = false
+        }
+        completion?(.success)
+    }
+
+    func markAsUnseen(_ completion: ((completionState) -> Void)? = nil) {
+        for media in objects.compactMap({ $0 as? VLCMLMedia }) {
+            media.removeFromHistory()
+            media.isNew = true
+        }
+        completion?(.success)
+    }
+
     func share(origin: UIView, _ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
 #if os(iOS)
