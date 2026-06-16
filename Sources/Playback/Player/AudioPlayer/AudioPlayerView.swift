@@ -40,6 +40,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var overlayView: UIView = UIView()
 
+    private lazy var blurView: UIVisualEffectView = UIVisualEffectView()
+
     lazy var navigationBarView: UIView = UIView()
 
     lazy var thumbnailView: UIView = UIView()
@@ -245,6 +247,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
         setupViews()
         setupLabels()
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -572,8 +576,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         ])
 
         if #available(iOS 26.0, *) {
-            let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
             blurView.translatesAutoresizingMaskIntoConstraints = false
+            themeDidChange()
 
             backgroundView.addSubview(backgroundImageView)
             backgroundView.addSubview(blurView)
@@ -587,6 +591,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
                 blurView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
                 blurView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
             ])
+        }
+    }
+
+    @objc private func themeDidChange() {
+        if #available(iOS 26.0, *) {
+            let style: UIBlurEffect.Style = PresentationTheme.current.isDark ? .systemUltraThinMaterialDark : .systemUltraThinMaterialLight
+            blurView.effect = UIBlurEffect(style: style)
         }
     }
 
