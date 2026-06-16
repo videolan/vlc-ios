@@ -621,7 +621,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 #pragma mark -
 - (void)jumpForward:(NSInteger)multiplier
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackForwardSkipLength] * multiplier;
@@ -634,7 +637,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 }
 - (void)jumpBackward:(NSInteger)multiplier
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger jumpInterval = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackBackwardSkipLength] * multiplier;
@@ -648,7 +654,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)jumpInterval:(NSInteger)interval
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     NSInteger duration = [VLCPlaybackService sharedInstance].mediaDuration;
     if (duration == 0) {
@@ -666,7 +675,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)scrubbingJumpInterval:(NSInteger)interval
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     NSInteger duration = [VLCPlaybackService sharedInstance].mediaDuration;
     if (duration==0) {
@@ -683,7 +695,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)scanForwardNext
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     VLCPlayerScanState nextState = self.scanState;
     switch (self.scanState) {
@@ -703,7 +718,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)scanForwardPrevious
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     VLCPlayerScanState nextState = self.scanState;
     switch (self.scanState) {
@@ -727,8 +745,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     if (_scanState == scanState) {
         return;
     }
-
-    NSAssert(self.isSeekable || scanState == VLCPlayerScanStateNone, @"Tried to seek while media not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     if (_scanState == VLCPlayerScanStateNone) {
         self.scanSavedPlaybackRate = @([VLCPlaybackService sharedInstance].playbackRate);
@@ -790,7 +810,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)startScrubbing
 {
-    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+    if (!self.seekable) {
+        APLog(@"Tried to seek while not media is not seekable.");
+        return;
+    }
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     self.transportBar.scrubbing = YES;
