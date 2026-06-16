@@ -119,6 +119,24 @@ extension MLBaseModel {
         hasMorePages = true
         isLoading = false
     }
+
+    /// Fetches the complete list of items from the media library, independent of how many
+    /// pages are currently loaded for display. Required when handing the collection to
+    /// playback (e.g. shuffle) so the whole library is considered, not just loaded pages.
+    func fetchAllItems() -> [MLType] {
+        let pageSize = Int(kVLCDefaultPageSize)
+        var result = [MLType]()
+        var offset = 0
+        while true {
+            let page = fetchPage(offset: offset, limit: pageSize)
+            result.append(contentsOf: page)
+            if page.count < pageSize {
+                break
+            }
+            offset += pageSize
+        }
+        return result
+    }
 }
 
 protocol SearchableMLModel {

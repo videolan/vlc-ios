@@ -2514,7 +2514,9 @@ extension MediaCategoryViewController {
                    let dataSet = currentDataSet as? [VLCMLMediaGroup] {
                     singleGroup = dataSet
                 } else {
-                    singleGroup = mediaGroupModel.files
+                    // The model is paginated, so its loaded `files` only cover a prefix of the
+                    // library. Fetch all groups so playback (incl. shuffle) considers everything.
+                    singleGroup = mediaGroupModel.fetchAllItems()
                 }
 
                 // Filter single groups
@@ -2538,6 +2540,11 @@ extension MediaCategoryViewController {
             tracks = model.folderMediaFiles
             index = index - model.files.count
             model.fileArrayLock.unlock()
+        } else if !searchDataSource.isSearching, let mediaModel = model as? (any MediaModel) {
+            // The model is paginated, so its loaded `files` only cover a prefix of the
+            // library. Fetch the complete list so playback (incl. shuffle) considers all media.
+            tracks = mediaModel.fetchAllItems()
+            index = tracks.firstIndex(where: { $0.identifier() == media.identifier() }) ?? index
         } else {
             tracks = currentDataSet as? [VLCMLMedia] ?? []
         }
