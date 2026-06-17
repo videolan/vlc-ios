@@ -1491,9 +1491,9 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
     func optionsNavigationBarDisplayAlert(title: String, message: String, button: UIButton) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
 
-        let resetButton = UIAlertAction(title: "Reset", style: .destructive) { _ in
+        let resetButton = UIAlertAction(title: NSLocalizedString("BUTTON_RESET", comment: ""), style: .destructive) { _ in
             self.handleReset(button: button)
         }
 
