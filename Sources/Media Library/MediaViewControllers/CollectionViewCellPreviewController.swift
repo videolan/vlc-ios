@@ -198,6 +198,9 @@ extension CollectionViewCellPreviewController {
                     collectionDetails.append(String(describing: duration))
                 } else {
                     infos.append(PreviewInformation(value: collection.title(), type: .title))
+                    if let artist = collection as? VLCMLArtist, artist.albumsCount() > 0 {
+                        collectionDetails.insert(artist.numberOfAlbumsString(), at: 0)
+                    }
                 }
 
                 infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
