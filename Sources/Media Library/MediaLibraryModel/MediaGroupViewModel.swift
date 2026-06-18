@@ -4,6 +4,7 @@
  * Copyright © 2020 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -208,6 +209,11 @@ extension MediaGroupViewModel: MediaLibraryObserver {
 
 extension VLCMLMediaGroup: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
+        if nbTotalMedia() == 1 && !userInteracted() {
+            if let media = media(of: .video)?.first {
+                return search(searchString, in: media.title)
+            }
+        }
         return search(searchString, in: name())
     }
 }
