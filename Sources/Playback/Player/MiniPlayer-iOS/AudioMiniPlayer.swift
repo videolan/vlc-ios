@@ -586,7 +586,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
         var actions: [UIMenuElement] = []
         let defaultButtonColor: UIColor = PresentationTheme.current.colors.cellTextColor
 
-        if shuffleButton.isHidden {
+        do {
             let shuffleState: UIMenuElement.State = playbackService.isShuffleMode ? .on : .off
             let shuffleIconTint: UIColor = shuffleButton.tintColor
             let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint, renderingMode: .alwaysOriginal)
@@ -599,7 +599,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             )
         }
 
-        if repeatButton.isHidden {
+        do {
             let repeatMode = playbackService.repeatMode
             var repeatActions: [UIMenuElement] = []
 
