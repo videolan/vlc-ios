@@ -258,6 +258,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    /* Only tear playback down when we are actually going away. */
+    if (!self.isBeingDismissed && !self.isMovingFromParentViewController) {
+        [super viewWillDisappear:animated];
+        return;
+    }
+
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     if (vpc.videoOutputView == self.movieView) {
         vpc.videoOutputView = nil;
