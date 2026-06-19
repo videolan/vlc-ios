@@ -204,9 +204,11 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            deviceButton.widthAnchor.constraint(equalTo: heightAnchor),
-            pictureInPictureButton.widthAnchor.constraint(equalTo: heightAnchor)
+            deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
+        if #available(iOS 15.0, *) {
+            pictureInPictureButton.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
+        }
 #else
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
@@ -226,7 +228,9 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(queueButton)
 #if os(iOS)
         addArrangedSubview(deviceButton)
-        addArrangedSubview(pictureInPictureButton)
+        if #available(iOS 15.0, *) {
+            addArrangedSubview(pictureInPictureButton)
+        }
 #else
         addArrangedSubview(airplayVolumeView)
 #endif
