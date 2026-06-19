@@ -73,6 +73,7 @@ class PlaybackSpeedView: UIView {
         resetButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
         optionsSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PresentationTheme.currentExcludingWhite.colors.cellTextColor], for: .normal)
         minLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        shortcutLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
         currentButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
         maxLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
         speedSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
