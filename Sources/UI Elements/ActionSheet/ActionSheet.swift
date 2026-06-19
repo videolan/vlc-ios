@@ -277,7 +277,7 @@ class ActionSheet: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
-    @objc private func updateTheme() {
+    @objc func updateTheme() {
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         headerView.backgroundColor = PresentationTheme.current.colors.background

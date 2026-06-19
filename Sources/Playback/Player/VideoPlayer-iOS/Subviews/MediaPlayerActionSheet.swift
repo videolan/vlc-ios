@@ -257,6 +257,14 @@ class MediaPlayerActionSheet: ActionSheet {
         setTheme()
     }
 
+    override func updateTheme() {
+        setTheme()
+        collectionView.reloadData()
+        if let moreOptions = self as? MediaMoreOptionsActionSheet {
+            moreOptions.updateThemes()
+        }
+    }
+
     // MARK: Initializers
     override init() {
         super.init()
