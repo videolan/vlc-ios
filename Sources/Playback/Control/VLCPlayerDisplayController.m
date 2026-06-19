@@ -290,7 +290,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)closeAudioPlayer
 {
     UIViewController *presentingController = [self _presentingControllerForPlaybackController:self.audioPlayerViewController];
-    [presentingController dismissViewControllerAnimated:[self shouldAnimate] completion:nil];
+    // Dismiss from the level above so any sub-menu presented on top of the player is torn down with it.
+    UIViewController *dismisser = presentingController.presentingViewController ?: presentingController;
+    [dismisser dismissViewControllerAnimated:[self shouldAnimate] completion:nil];
     self.displayMode = VLCPlayerDisplayControllerDisplayModeMiniplayer;
     [self _showHideMiniPlaybackView];
 }
@@ -388,7 +390,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     dispatch_async(dispatch_get_main_queue(), ^{
         BOOL animated = [self shouldAnimate];
         UIViewController *presentingController = [self _presentingControllerForPlaybackController:self.movieViewController];
-        [presentingController dismissViewControllerAnimated:animated completion:^{
+        // Dismiss from the level above so any sub-menu presented on top of the player is torn down with it.
+        UIViewController *dismisser = presentingController.presentingViewController ?: presentingController;
+        [dismisser dismissViewControllerAnimated:animated completion:^{
             [self _updateInterfaceOrientation];
         }];
         [self _showHideMiniPlaybackView];
