@@ -128,6 +128,7 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High latency";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest latency";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi sharing";
+"SETTINGS_PLAY_UPLOADS_WHILE_RECEIVING" = "Play uploads while still being received";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 "SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
