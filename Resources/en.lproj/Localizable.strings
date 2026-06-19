@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Chapters";
 "TITLE" = "Title";
 "CHAPTER" = "Chapter";
-"TRACK_SELECTION" = "Track Selection";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitles";
 "LANGUAGE" = "Language";
@@ -299,7 +298,6 @@
 "ROTATE_BUTTON" = "Rotate"; /* Accessibility label for rotate button on the player */
 "ROTATE_BUTTON_HINT" = "Toggles the video player between landscape and portrait mode."; /* Accessibility hint for rotate button on the player */
 
-"AUDIO_INFO_VC_TITLE" = "Audio Info";
 "ENTER_URL" = "Enter URL to play";
 "HTTP_SERVER_ON" = "Disable Remote Playback";
 "HTTP_SERVER_OFF" = "Enable Remote Playback";
@@ -311,11 +309,7 @@
 "SELECT_AUDIO_FROM_FILES" = "Load External Audio...";
 "SELECT_SUBTITLE_FROM_FILES" = "Load External Subtitles...";
 
-"PLAYBACK" = "Playback";
 "REPEAT_MODE" = "Repeat";
-"REPEAT_DISABLED" = "Disabled";
-"REPEAT_SINGLE" = "Single";
-"REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
 "SHUFFLE_DISABLED" = "Shuffle off";
 
@@ -562,8 +556,6 @@
 "DISPLAY_PLAYBACK_SPEED_SHORTCUT_HINT" = "Enable to display the playback speed shortcut";
 "VIDEO_FILTERS_HINT" = "Select to open the video filters view";
 "PLAYBACK_SPEED_HINT" = "Select to open the playback speed view";
-"SUBTITLES_DELAY_HINT" = "Select to open the subtitles delay view";
-"AUDIO_DELAY_HINT" = "Select to open the audio delay view";
 "SLEEP_TIMER_HINT" = "Select to open the sleep timer view";
 "EQUALIZER_HINT" = "Select to open the equalizer view";
 "CHAPTERS_HINT" = "Select to open the chapters view";
