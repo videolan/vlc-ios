@@ -75,6 +75,7 @@ class BookmarksView: UIView {
         bookmarksTableView.dataSource = self
         bookmarksTableView.register(UITableViewCell.self, forCellReuseIdentifier: bookmarksTableViewCellReuseIdentifier)
         bookmarksTableView.backgroundColor = .clear
+        bookmarksTableView.tableFooterView = UIView()
         setupTableContraints()
     }
 
