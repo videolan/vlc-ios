@@ -588,7 +588,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 
         do {
             let shuffleState: UIMenuElement.State = playbackService.isShuffleMode ? .on : .off
-            let shuffleIconTint: UIColor = shuffleButton.tintColor
+            let shuffleIconTint: UIColor = playbackService.isShuffleMode ? PresentationTheme.current.colors.orangeUI : defaultButtonColor
             let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint, renderingMode: .alwaysOriginal)
             actions.append(
                 UIAction(title: shuffleButton.currentTitle ?? NSLocalizedString("SHUFFLE", comment: ""),
