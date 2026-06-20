@@ -46,6 +46,7 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCMediaList+M3U.h"
 

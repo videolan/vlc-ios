@@ -26,6 +26,7 @@
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 
@@ -108,6 +109,8 @@
         protocol = VLCServerProtocolNFS;
     } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
         protocol = VLCServerProtocolSFTP;
+    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierWebDAV]) {
+        protocol = VLCServerProtocolWebDAV;
     }
     return protocol;
 }
@@ -139,6 +142,11 @@
         case VLCServerProtocolSFTP:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierSFTP;
+            break;
+        }
+        case VLCServerProtocolWebDAV:
+        {
+            protocolIdentifier = VLCNetworkServerProtocolIdentifierWebDAV;
             break;
         }
         default:

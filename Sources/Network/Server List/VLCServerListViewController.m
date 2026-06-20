@@ -36,6 +36,7 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
@@ -648,6 +649,8 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         serverBrowser = [VLCNetworkServerBrowserVLCMedia NFSNetworkServerBrowserWithLogin:loginInformation];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SFTPNetworkServerBrowserWithLogin:loginInformation];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierWebDAV]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia WebDAVNetworkServerBrowserWithLogin:loginInformation];
     } else {
         APLog(@"Unsupported URL Scheme requested %@", identifier);
     }

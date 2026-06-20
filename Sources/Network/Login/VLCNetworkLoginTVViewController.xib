@@ -43,6 +43,7 @@
                                         <segment title="PLEX"/>
                                         <segment title="NFS"/>
                                         <segment title="SFTP"/>
+                                        <segment title="WebDAV"/>
                                     </segments>
                                 </segmentedControl>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKy-NO-Xtu" userLabel="address">

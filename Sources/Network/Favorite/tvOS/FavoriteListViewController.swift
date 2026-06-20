@@ -115,6 +115,8 @@ extension FavoriteListViewController {
                         serverBrowser = VLCNetworkServerBrowserVLCMedia.nfsNetworkServerBrowser(withLogin: login)
                     } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSFTP) {
                         serverBrowser = VLCNetworkServerBrowserVLCMedia.sftpNetworkServerBrowser(withLogin: login)
+                    } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierWebDAV) {
+                        serverBrowser = VLCNetworkServerBrowserVLCMedia.webDAVNetworkServerBrowser(withLogin: login)
                     }
                 } else {
                     if let media = VLCMedia(url: favorite.url) {

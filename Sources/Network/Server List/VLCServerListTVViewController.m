@@ -17,6 +17,7 @@
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserFavorites.h"
@@ -418,6 +419,8 @@
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:login];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SFTPNetworkServerBrowserWithLogin:login];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierWebDAV]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia WebDAVNetworkServerBrowserWithLogin:login];
     }
 
     if (serverBrowser) {

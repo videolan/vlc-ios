@@ -325,6 +325,7 @@
 
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
+"WEBDAV_SHORT" = "WebDAV";
 
 "NFS_LONG" = "Network File System (NFS)";
 "NFS_SHORT" = "NFS";

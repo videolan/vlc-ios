@@ -310,6 +310,10 @@
 		7D389AB42B5BEB8200F9D845 /* VLCCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D389AB32B5BEB8200F9D845 /* VLCCurrency.m */; };
 		7D38BF90249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */; };
 		7D38BF91249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */; };
+		FEEDDA00000000000000B001 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */; };
+		FEEDDA00000000000000B002 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */; };
+		FEEDDA00000000000000B003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */; };
+		FEEDDA00000000000000B004 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */; };
 		7D398DC11CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */; };
 		7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */; };
 		7D3B2EB62F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3B2EB52F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.m */; };
@@ -1827,6 +1831,8 @@
 		7D389AB32B5BEB8200F9D845 /* VLCCurrency.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCurrency.m; sourceTree = "<group>"; };
 		7D38BF8E249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+SFTP.h"; sourceTree = "<group>"; };
 		7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+SFTP.m"; sourceTree = "<group>"; };
+		FEEDDA00000000000000A002 /* VLCNetworkServerBrowserVLCMedia+WebDAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+WebDAV.h"; sourceTree = "<group>"; };
+		FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+WebDAV.m"; sourceTree = "<group>"; };
 		7D398DBF1CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserBonjour.h; sourceTree = "<group>"; };
 		7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserBonjour.m; sourceTree = "<group>"; };
 		7D3B2EB42F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMovieTVCollectionViewCell.h; sourceTree = "<group>"; };
@@ -3760,6 +3766,7 @@
 				7DC869DA28CB85D500EE99F8 /* NFS */,
 				7DC869D928CB85BB00EE99F8 /* FTP */,
 				7DC869D828CB85B500EE99F8 /* SFTP */,
+				FEEDDA00000000000000A001 /* WebDAV */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3820,6 +3827,15 @@
 				7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */,
 			);
 			path = SFTP;
+			sourceTree = "<group>";
+		};
+		FEEDDA00000000000000A001 /* WebDAV */ = {
+			isa = PBXGroup;
+			children = (
+				FEEDDA00000000000000A002 /* VLCNetworkServerBrowserVLCMedia+WebDAV.h */,
+				FEEDDA00000000000000A003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m */,
+			);
+			path = WebDAV;
 			sourceTree = "<group>";
 		};
 		7DC869D928CB85BB00EE99F8 /* FTP */ = {
@@ -5511,6 +5527,7 @@
 				7DE0A9452F94247E0020980C /* AppearanceManager.swift in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D38BF91249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
+				FEEDDA00000000000000B001 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */,
 				7DC7BA9528C8954B00109F28 /* NSString+SupportedMedia.m in Sources */,
 				7D3B2EB62F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
@@ -5669,6 +5686,7 @@
 				7D899D1D2FF2948400B5C8E6 /* TrackSelectorCell.swift in Sources */,
 				7D899D1F2FF2948400B5C8E6 /* RoundedCornerPlayerButton.swift in Sources */,
 				7D899D202FF2948400B5C8E6 /* TrackSelectorViewController.swift in Sources */,
+				FEEDDA00000000000000B002 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */,
 				7D93B7612D60EF5000F952DE /* CustomEqualizerProfiles.swift in Sources */,
 				7D50C6462BBD20DF00B9F1A0 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7D50C6472BBD20DF00B9F1A0 /* ActionSheet.swift in Sources */,
@@ -5940,6 +5958,7 @@
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
 				D923F4232F34CED400A208CA /* AlbumFooter.swift in Sources */,
 				7D38BF90249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
+				FEEDDA00000000000000B003 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */,
 				DD3EFF4D1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				8D437154205808FF00F36458 /* ActionSheet.swift in Sources */,
 				DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
@@ -6246,6 +6265,7 @@
 				7DA514A92EF82B63000C9995 /* EditActions.swift in Sources */,
 				7DA514AA2EF82B63000C9995 /* VLCOpenInActivity.m in Sources */,
 				7DA514AB2EF82B63000C9995 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
+				FEEDDA00000000000000B004 /* VLCNetworkServerBrowserVLCMedia+WebDAV.m in Sources */,
 				D923F4242F34CED400A208CA /* AlbumFooter.swift in Sources */,
 				7DA514AC2EF82B63000C9995 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DA514AD2EF82B63000C9995 /* ActionSheet.swift in Sources */,

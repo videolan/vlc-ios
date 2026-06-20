@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, VLCServerProtocol) {
     VLCServerProtocolPLEX,
     VLCServerProtocolNFS,
     VLCServerProtocolSFTP,
+    VLCServerProtocolWebDAV,
     VLCServerProtocolUndefined,
 };
 @class VLCNetworkLoginDataSourceProtocol;

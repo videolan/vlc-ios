@@ -67,6 +67,7 @@ import UIKit
         segmentedControl.setTitle(NSLocalizedString("PLEX_SHORT", comment: ""), forSegmentAt: 2)
         segmentedControl.setTitle(NSLocalizedString("NFS_SHORT", comment: ""), forSegmentAt: 3)
         segmentedControl.setTitle(NSLocalizedString("SFTP_SHORT", comment: ""), forSegmentAt: 4)
+        segmentedControl.setTitle(NSLocalizedString("WEBDAV_SHORT", comment: ""), forSegmentAt: 5)
     }
 
     func configureAppearance() {
@@ -162,6 +163,9 @@ import UIKit
             break
         case 4:
             protocolIdentifier = VLCNetworkServerProtocolIdentifierSFTP
+            break
+        case 5:
+            protocolIdentifier = VLCNetworkServerProtocolIdentifierWebDAV
         default:
             break
         }
@@ -184,6 +188,9 @@ import UIKit
             break
         case VLCNetworkServerProtocolIdentifierSFTP:
             segmentedControl.selectedSegmentIndex = 4
+            break
+        case VLCNetworkServerProtocolIdentifierWebDAV:
+            segmentedControl.selectedSegmentIndex = 5
             break
         default:
             break
@@ -224,6 +231,8 @@ import UIKit
             serverBrowser = VLCNetworkServerBrowserVLCMedia.nfsNetworkServerBrowser(withLogin: login)
         } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSFTP) {
             serverBrowser = VLCNetworkServerBrowserVLCMedia.sftpNetworkServerBrowser(withLogin: login)
+        } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierWebDAV) {
+            serverBrowser = VLCNetworkServerBrowserVLCMedia.webDAVNetworkServerBrowser(withLogin: login)
         }
 
         if serverBrowser != nil {
