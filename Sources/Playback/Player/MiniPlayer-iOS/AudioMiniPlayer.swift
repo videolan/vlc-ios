@@ -305,9 +305,11 @@ private extension AudioMiniPlayer {
 
         let currentMedia: VLCMedia? = playbackService.currentlyPlayingMedia
         let mlMedia: VLCMLMedia? = VLCMLMedia.init(forPlaying: currentMedia)
+        let isStream: Bool = mlMedia == nil || mlMedia?.isExternalMedia() == true
+        let isAudioMedia: Bool = (mlMedia?.type() == .audio || isStream) && playbackService.numberOfVideoTracks == 0
 
         let selector: Selector
-        if let mlMedia = mlMedia, (mlMedia.type() == .audio && playbackService.numberOfVideoTracks == 0) || playbackService.playAsAudio {
+        if isAudioMedia || playbackService.playAsAudio {
             selector = #selector(VLCPlayerDisplayController.showAudioPlayer)
         } else {
             selector = #selector(VLCPlayerDisplayController.showFullscreenPlayback)

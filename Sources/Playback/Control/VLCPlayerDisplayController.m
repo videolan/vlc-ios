@@ -237,11 +237,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 
     if (_currentMediaType == VLCMLMediaTypeAudio && mediaType == VLCMLMediaTypeVideo) {
-        [self dismissPlaybackView];
-        [self showFullscreenPlayback];
+        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+        [self _swapPlaybackRootTo:self.movieViewController];
     } else if (_currentMediaType == VLCMLMediaTypeVideo && mediaType == VLCMLMediaTypeAudio) {
-        [self dismissPlaybackView];
-        [self showAudioPlayer];
+        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+        [self _swapPlaybackRootTo:self.audioPlayerViewController];
     }
 
     _currentMediaType = mediaType;
@@ -413,17 +413,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 return;
             }
 
-            if (presentedController.isBeingDismissed || presentedController.isBeingPresented) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                               dispatch_get_main_queue(), ^{
-                    [self _presentMovieViewControllerAnimated:animated];
-                });
-                return;
-            }
-
-            [presentedController dismissViewControllerAnimated:animated completion:^{
-                [self _presentMovieViewControllerAnimated:animated];
-            }];
+            [self _swapPlaybackRootTo:movieViewController];
         }
         return;
     }
@@ -452,17 +442,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 return;
             }
 
-            if (presentedController.isBeingDismissed || presentedController.isBeingPresented) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                               dispatch_get_main_queue(), ^{
-                    [self _presentAudioViewControllerAnimated:animated];
-                });
-                return;
-            }
-
-            [presentedController dismissViewControllerAnimated:animated completion:^{
-                [self _presentAudioViewControllerAnimated:animated];
-            }];
+            [self _swapPlaybackRootTo:audioPlayerViewController];
         }
         return;
     }
@@ -476,6 +456,45 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     [rootViewController presentViewController:navCon animated:animated completion:^{
         [self hideMiniPlayerIfNeeded];
     }];
+}
+
+- (void)_swapPlaybackRootTo:(UIViewController<VLCPlaybackServiceDelegate> *)target
+{
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *presented = window.rootViewController.presentedViewController;
+
+    if (![presented isKindOfClass:[VLCPlaybackNavigationController class]]) {
+        if (target == self.audioPlayerViewController) {
+            [self _presentAudioPlayerViewIfNeeded];
+        } else {
+            [self _presentFullscreenPlaybackViewIfNeeded];
+        }
+        return;
+    }
+
+    UINavigationController *navCon = (UINavigationController *)presented;
+    if (navCon.topViewController == target) {
+        return;
+    }
+    if (navCon.isBeingPresented || navCon.isBeingDismissed) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            [self _swapPlaybackRootTo:target];
+        });
+        return;
+    }
+
+    self.playbackController.delegate = target;
+    [target prepareForMediaPlayback:self.playbackController];
+
+    if ([self shouldAnimate]) {
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.3;
+        transition.type = kCATransitionFade;
+        [navCon.view.layer addAnimation:transition forKey:kCATransition];
+    }
+    [navCon setViewControllers:@[target] animated:NO];
+    [self _updateInterfaceOrientation];
 }
 
 #if !TARGET_OS_TV
@@ -767,11 +786,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)videoPlayerViewControllerShouldSwitchPlayer:(VLCVideoPlayerViewController *)videoPlayerViewController
 {
-    UIViewController *presentingController = [self _presentingControllerForPlaybackController:_movieViewController];
-    [presentingController dismissViewControllerAnimated:[self shouldAnimate] completion:^{
-        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
-        [self _presentFullscreenPlaybackViewIfNeeded];
-    }];
+    [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+    [self _swapPlaybackRootTo:self.audioPlayerViewController];
 }
 
 #pragma mark - AudioPlayerViewControllerDelegate
@@ -796,11 +812,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)audioPlayerViewControllerShouldSwitchPlayer:(VLCAudioPlayerViewController *)audioPlayerViewController
 {
-    UIViewController *presentingController = [self _presentingControllerForPlaybackController:_audioPlayerViewController];
-    [presentingController dismissViewControllerAnimated:[self shouldAnimate] completion:^{
-        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
-        [self _presentFullscreenPlaybackViewIfNeeded];
-    }];
+    [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
+    [self _swapPlaybackRootTo:self.movieViewController];
 }
 
 #pragma mark - KeyCommands

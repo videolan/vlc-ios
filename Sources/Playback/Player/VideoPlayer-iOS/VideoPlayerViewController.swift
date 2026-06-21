@@ -1379,6 +1379,16 @@ extension VideoPlayerViewController {
             return
         }
 
+        if media == nil || media?.isExternalMedia() == true,
+           currentState == .playing,
+           playbackService.numberOfVideoTracks == 0,
+           !playbackService.playAsAudio,
+           presentingViewController != nil {
+            // This stream turned out to be audio only and can be played with the Audio Player.
+            delegate?.videoPlayerViewControllerShouldSwitchPlayer(self)
+            return
+        }
+
         if titleSelectionView.isHidden == false {
             titleSelectionView.updateHeightConstraints()
             titleSelectionView.reload()
