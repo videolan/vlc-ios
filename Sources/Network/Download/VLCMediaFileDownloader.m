@@ -106,6 +106,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     [activityManager disableIdleTimer];
 
     _expectedDownloadSize = expectedDownloadSize;
+    _lastFileSize = 0;
 
     _downloadCancelled = NO;
     _downloadInProgress = YES;
