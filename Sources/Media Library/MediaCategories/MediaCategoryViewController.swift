@@ -660,11 +660,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func setNavbarAppearance() {
-        if #available(iOS 13.0, *) {
-            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+        if #unavailable(iOS 26.0) {
+            if #available(iOS 13.0, *) {
+                navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+                navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+            }
+            navigationController?.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         }
-        navigationController?.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
 #if os(iOS)
         setNeedsStatusBarAppearanceUpdate()
 #endif
@@ -783,12 +785,24 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             return
         }
 
-        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
-        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
-            collectionView.contentInset.top = searchBarSize
-        }
-        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
-            collectionView.contentInset.top = 0
+        if #available(iOS 26.0, *) {
+            let topInset = scrollView.safeAreaInsets.top
+            let overscroll = scrollView.contentOffset.y + topInset
+            searchBarConstraint?.constant = topInset - searchBarSize + min(-overscroll, searchBarSize)
+            if overscroll < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+                collectionView.contentInset.top = searchBarSize
+            }
+            if overscroll >= 0 && scrollView.contentInset.top != 0 {
+                collectionView.contentInset.top = 0
+            }
+        } else {
+            searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+            if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+                collectionView.contentInset.top = searchBarSize
+            }
+            if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
+                collectionView.contentInset.top = 0
+            }
         }
 
         if let model = model as? CollectionModel,

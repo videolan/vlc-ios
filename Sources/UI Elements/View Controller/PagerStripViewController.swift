@@ -194,7 +194,13 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         lastSize = containerView.bounds.size
 
         let pagerViewControllers = pagerTabStripChildViewControllersForScrolling ?? viewControllers
-        containerView.contentSize = CGSize(width: containerView.bounds.width * CGFloat(pagerViewControllers.count), height: containerView.contentSize.height)
+        let contentHeight: CGFloat
+        if #available(iOS 26.0, *) {
+            contentHeight = containerView.bounds.height
+        } else {
+            contentHeight = containerView.contentSize.height
+        }
+        containerView.contentSize = CGSize(width: containerView.bounds.width * CGFloat(pagerViewControllers.count), height: contentHeight)
 
         for (index, childController) in pagerViewControllers.enumerated() {
             let pageOffsetForChild = self.pageOffsetForChild(at: index)
