@@ -38,6 +38,17 @@
 · Add widget displaying the last played audio content
 · Add gamepad support to control the playback
 · Add the side bar navigation on iPadOS
+· Adopt iOS 26 liquid glass appearance for navigation bars and UI components
+· Audio player: major redesign
+· Media library: add "Mark as Played" / "Mark as Unplayed" action
+· Media library: song list now shows section index and section headers
+· Media library: video media preview
+· Import videos directly from the Photos library
+· Unify iCloud Drive and Local Files into one browsing section
+· Open Network Streams: redesigned interface
+· Add pulsing cone loading animation in the player during buffering
+· Dropbox and Box: add thumbnail support
+· Web interface: redesigned interface
 
 Known issues:
 · Picture-in-Picture featured is offered on devices where it is actually unsupported
@@ -63,6 +74,13 @@ Known issues:
 · Remove S/PDIF option on tvOS as it was discontinued in tvOS 11
 · Fix playback of multicast URLs through the web interface
 · Add medialibrary support
+· Player: complete redesign matching the system AVPlayer appearance
+· Player: add play queue and playmode (shuffle/repeat) buttons
+· Player: add secondary subtitle track selection
+· Player: add granular playback speed control
+· Player: inline information and pop-up menu panel
+· Wi-Fi sharing: add transfer status banner and option to disable auto-playing uploaded files while receiving
+· Add support for multiple users
 
 ## iOS [3.6.4]
 · Fix another edge-case of silent playback recovery
