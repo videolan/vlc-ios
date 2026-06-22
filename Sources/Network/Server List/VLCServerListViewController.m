@@ -119,10 +119,14 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_scrollView];
 
+    NSLayoutYAxisAnchor *scrollViewTopAnchor = self.view.safeAreaLayoutGuide.topAnchor;
+    if (@available(iOS 26.0, *)) {
+        scrollViewTopAnchor = self.view.topAnchor;
+    }
     [NSLayoutConstraint activateConstraints:@[
         [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
         [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [_scrollView.topAnchor constraintEqualToAnchor:scrollViewTopAnchor],
         [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
@@ -146,7 +150,10 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _localNetworkTableView.estimatedRowHeight = [VLCNetworkListCell heightOfCell];
     _localNetworkTableView.scrollEnabled = NO;
 
-    [self.navigationController.navigationBar setTranslucent:NO];
+    if (@available(iOS 26.0, *)) {
+    } else {
+        [self.navigationController.navigationBar setTranslucent:NO];
+    }
 
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -343,7 +350,10 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     loginViewController.delegate = self;
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-    [navCon.navigationBar setTranslucent:NO];
+    if (@available(iOS 26.0, *)) {
+    } else {
+        [navCon.navigationBar setTranslucent:NO];
+    }
     [self presentViewController:navCon animated:YES completion:nil];
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)
