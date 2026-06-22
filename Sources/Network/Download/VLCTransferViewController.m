@@ -154,7 +154,10 @@
 
     self.title = NSLocalizedString(@"TRANSFERS", comment:@"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    if (@available(iOS 26.0, *)) {
+    } else {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];

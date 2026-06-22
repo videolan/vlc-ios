@@ -288,6 +288,7 @@
     self.openButton.accessibilityLabel = NSLocalizedString(@"BUTTON_OPEN", nil);
     [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
     self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
@@ -295,7 +296,10 @@
         self.urlField.textContentType = UITextContentTypeURL;
     }
 
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    if (@available(iOS 26.0, *)) {
+    } else {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 
     // This will be called every time this VC is opened by the side menu controller
     [self updatePasteboardTextInURLField];
