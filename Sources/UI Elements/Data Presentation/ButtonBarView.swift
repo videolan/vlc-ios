@@ -49,7 +49,13 @@ class ButtonBarView: UICollectionView {
     }
 
     @objc func updateTheme() {
-        backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 26.0, *) {
+            // Hosted inside the navigation bar's glass palette, so it carries no effect of its own.
+            backgroundColor = .clear
+            backgroundView = nil
+        } else {
+            backgroundColor = PresentationTheme.current.colors.background
+        }
         selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
         separatorView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
     }

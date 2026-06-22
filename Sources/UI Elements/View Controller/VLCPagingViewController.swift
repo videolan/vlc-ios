@@ -81,9 +81,17 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
             buttonBarView.heightAnchor.constraint(equalToConstant: buttonbarViewHeight)
         ])
 
+        let containerTopAnchor: NSLayoutYAxisAnchor
+        if #available(iOS 26.0, *) {
+            containerTopAnchor = view.topAnchor
+            view.bringSubviewToFront(buttonBarView)
+        } else {
+            containerTopAnchor = buttonBarView.bottomAnchor
+        }
+
         // make sure that top and bottom are not covered by tabbar and navigationbar
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: containerTopAnchor),
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -106,6 +114,38 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
 
         buttonBarView.delegate = self
         buttonBarView.dataSource = self
+
+        if #available(iOS 26.0, *) {
+            viewControllers.forEach { $0.additionalSafeAreaInsets.top = buttonbarViewHeight }
+            setupNavigationBarBottomPalette()
+        }
+    }
+
+    /* Host the tab strip inside the navigation bar's bottom palette so it shares the bar's
+     * Liquid Glass. The class and selector names are assembled at runtime */
+    @available(iOS 26.0, *)
+    private func setupNavigationBarBottomPalette() {
+        guard viewControllers.count > 1 else { return }
+
+        let className = ("_UINavigationBar" as NSString).appending("Palette")
+        let initSelector = NSSelectorFromString(("initWith" as NSString).appending("ContentView:"))
+        let setSelector = NSSelectorFromString(("_setBottom" as NSString).appending("Palette:"))
+
+        guard let paletteClass = NSClassFromString(className),
+              navigationItem.responds(to: setSelector),
+              let palette = (paletteClass as AnyObject).perform(NSSelectorFromString("alloc")).takeUnretainedValue() as? NSObject,
+              palette.responds(to: initSelector) else {
+            return
+        }
+
+        buttonBarView.removeFromSuperview()
+        buttonBarView.isHidden = false
+        buttonBarView.translatesAutoresizingMaskIntoConstraints = true
+        buttonBarView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: buttonbarViewHeight)
+
+        let initializedPalette = palette.perform(initSelector, with: buttonBarView).takeRetainedValue()
+        navigationItem.perform(setSelector, with: initializedPalette)
+        viewControllers.forEach { $0.additionalSafeAreaInsets.top = 0 }
     }
 
     override func viewWillAppear(_ animated: Bool) {
