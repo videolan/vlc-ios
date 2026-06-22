@@ -260,17 +260,17 @@ class TabBarCoordinator: NSObject {
 
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
-                navController.navigationBar.isTranslucent = false
-                navController.navigationBar.barTintColor = colors.navigationbarColor
                 navController.navigationBar.tintColor = colors.orangeUI
                 navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colors.navigationbarTextColor]
                 navController.navigationBar.prefersLargeTitles = false
-                if #available(iOS 13.0, *) {
-                    navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-                    navController.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-                }
 
                 if #unavailable(iOS 26.0) {
+                    navController.navigationBar.isTranslucent = false
+                    navController.navigationBar.barTintColor = colors.navigationbarColor
+                    if #available(iOS 13.0, *) {
+                        navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+                        navController.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+                    }
                     if #available(iOS 15.0, *) {
                         UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
                         UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()

@@ -25,7 +25,9 @@ class AppearanceManager: NSObject {
         let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.orangeUI]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
 
-        UINavigationBar.appearance().barTintColor = theme.colors.navigationbarColor
+        if #unavailable(iOS 26.0) {
+            UINavigationBar.appearance().barTintColor = theme.colors.navigationbarColor
+        }
         UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).barTintColor = nil
         UINavigationBar.appearance().tintColor = theme.colors.orangeUI
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]

@@ -70,11 +70,13 @@ extension UINavigationController {
 
     @objc func themeDidChange() {
 #if !os(tvOS)
-        if #available(iOS 13.0, *) {
-            navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-            navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+        if #unavailable(iOS 26.0) {
+            if #available(iOS 13.0, *) {
+                navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+                navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+            }
+            navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         }
 #endif
-        navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
     }
 }

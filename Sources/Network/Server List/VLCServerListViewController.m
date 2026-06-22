@@ -549,7 +549,8 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _fileServerSeparator.backgroundColor = colors.separatorColor;
     _fileServerLabel.textColor = colors.cellTextColor;
     [_fileServerConnectButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 26.0, *)) {
+    } else if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
