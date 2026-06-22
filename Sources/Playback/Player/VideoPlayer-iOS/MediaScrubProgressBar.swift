@@ -73,6 +73,23 @@ class MediaScrubProgressBar: UIStackView {
         return remainingTimeButton
     }()
 
+    private lazy var liveLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
+        label.textColor = PresentationTheme.current.colors.orangeUI
+        label.text = NSLocalizedString("PLAYBACK_LIVE_STREAM", comment: "")
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+
+    private lazy var horizontalStack: UIStackView = {
+        let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeButton])
+        horizontalStack.distribution = .equalSpacing
+        horizontalStack.semanticContentAttribute = .forceLeftToRight
+        return horizontalStack
+    }()
+
     private lazy var scrubbingIndicatorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
@@ -260,16 +277,20 @@ class MediaScrubProgressBar: UIStackView {
         let bMarkPosition = CGFloat(bMark.getPosition()) * progressSlider.frame.width
         setupMarkConstraints(for: bMark, at: bMarkPosition)
     }
+
+    func setLiveStream(_ isLive: Bool) {
+        liveLabel.isHidden = !isLive
+        horizontalStack.isHidden = isLive
+        progressSlider.isHidden = isLive
+    }
 }
 
 // MARK: -
 
 private extension MediaScrubProgressBar {
     private func setupViews() {
-        let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeButton])
-        horizontalStack.distribution = .equalSpacing
-        horizontalStack.semanticContentAttribute = .forceLeftToRight
         addArrangedSubview(scrubInfoStackView)
+        addArrangedSubview(liveLabel)
         addArrangedSubview(horizontalStack)
         addArrangedSubview(progressSlider)
         spacing = 5
@@ -282,6 +303,7 @@ private extension MediaScrubProgressBar {
             elapsedTimeLabel,
             remainingTimeButton,
             scrubInfoStackView,
+            liveLabel,
             horizontalStack,
             progressSlider
         ])

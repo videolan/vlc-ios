@@ -448,6 +448,7 @@ extension AudioPlayerViewController {
         let metadata = playbackService.metadata
         audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, album: metadata.albumName, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
+        mediaScrubProgressBar.setLiveStream(metadata.isLiveStream && !playbackService.isSeekable)
 
         if let qvc = queueViewController, !isQueueHidden {
             showPlayqueue(from: qvc)
@@ -498,6 +499,7 @@ extension AudioPlayerViewController {
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
         audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, album: metadata.albumName, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
+        mediaScrubProgressBar.setLiveStream(metadata.isLiveStream && !playbackService.isSeekable)
 
         if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
             audioPlayerView.updateThumbnailImageView()

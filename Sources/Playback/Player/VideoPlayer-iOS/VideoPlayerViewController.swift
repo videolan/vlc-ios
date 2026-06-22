@@ -1337,6 +1337,7 @@ extension VideoPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         mediaNavigationBar.setMediaTitleLabelText("")
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
+        mediaScrubProgressBar.setLiveStream(playbackService.metadata.isLiveStream && !playbackService.isSeekable)
 
         // FIXME: -
         resetIdleTimer()
@@ -1431,6 +1432,7 @@ extension VideoPlayerViewController {
         }
 
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
+        mediaScrubProgressBar.setLiveStream(metadata.isLiveStream && !playbackService.isSeekable)
 
         if playbackService.isPlayingOnExternalScreen() {
 #if os(iOS)

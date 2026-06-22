@@ -226,6 +226,7 @@
 "PLAYBACK_SCRUB_REMAINING_TIME_FORMAT" = "%@ elapsed, %@"; /* 1: elapsed time, 2: remaining time */
 "PLAYBACK_SCRUB_ACCESSIBILITY_TIME_DISPLAY" = "Time Display";
 "PLAYBACK_POSITION" = "Playback Position";
+"PLAYBACK_LIVE_STREAM" = "LIVE";
 "VIDEO_FILTER" = "Video Filters";
 "VIDEO_FILTER_RESET_BUTTON" = "Reset Video Filters";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
