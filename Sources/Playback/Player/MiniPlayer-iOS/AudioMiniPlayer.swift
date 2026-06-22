@@ -48,20 +48,22 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
         return AudioMiniPlayer.height
     }
 
-    @IBOutlet private weak var audioMiniPlayer: UIView!
-    @IBOutlet private weak var artworkImageView: UIImageView!
-    @IBOutlet private weak var artworkBlurImageView: UIImageView!
-    @IBOutlet weak var artworkBlurView: UIVisualEffectView!
-    @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
-    @IBOutlet private weak var artistLabel: VLCMarqueeLabel!
-    @IBOutlet private weak var progressBarView: UIProgressView!
-    @IBOutlet private weak var playPauseButton: UIButton!
-    @IBOutlet private weak var previousButton: UIButton!
-    @IBOutlet private weak var nextButton: UIButton!
-    @IBOutlet private weak var repeatButton: UIButton!
-    @IBOutlet private weak var shuffleButton: UIButton!
-    @IBOutlet private weak var previousNextOverlay: UIView!
-    @IBOutlet private weak var previousNextImage: UIImageView!
+    private let audioMiniPlayer = UIView()
+    private let infoContainer = UIView()
+    private let artworkImageView = UIImageView()
+    private var artworkBlurImageView: UIImageView?
+    private var artworkBlurView: UIVisualEffectView?
+    private let titleLabel = VLCMarqueeLabel(frame: .zero, rate: 30, fadeLength: 20)
+    private let artistLabel = VLCMarqueeLabel(frame: .zero, rate: 30, fadeLength: 20)
+    private let progressBarView = UIProgressView(progressViewStyle: .bar)
+    private let playPauseButton = UIButton(type: .custom)
+    private let previousButton = UIButton(type: .custom)
+    private let nextButton = UIButton(type: .custom)
+    private let repeatButton = UIButton(type: .custom)
+    private let shuffleButton = UIButton(type: .custom)
+    private let controlStack = UIStackView()
+    private let previousNextOverlay = UIView()
+    private let previousNextImage = UIImageView()
 
     private let draggingDelegate: MiniPlayerDraggingDelegate
 
@@ -114,7 +116,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
         switch playbackService.repeatMode {
         case .doNotRepeat:
             repeatButton.setImage(UIImage(named: "iconRepeatLarge"), for: .normal)
-            repeatButton.tintColor = .white
+            repeatButton.tintColor = inactiveControlTintColor
         case .repeatCurrentItem:
             repeatButton.setImage(UIImage(named: "iconRepeatOneOnLarge"), for: .normal)
             repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
@@ -132,7 +134,14 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
         let image = isShuffleMode ? UIImage(named: "iconShuffleOnLarge") : UIImage(named: "iconShuffleLarge")
 
         shuffleButton.setImage(image, for: .normal)
-        shuffleButton.tintColor = isShuffleMode ? colors.orangeUI : .white
+        shuffleButton.tintColor = isShuffleMode ? colors.orangeUI : inactiveControlTintColor
+    }
+
+    private var inactiveControlTintColor: UIColor {
+        if #available(iOS 26.0, *) {
+            return .label
+        }
+        return .white
     }
 
     @objc func setupQueueViewController(with view: QueueViewController) {
@@ -145,37 +154,244 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
 private extension AudioMiniPlayer {
     private func initView() {
-        Bundle.main.loadNibNamed("AudioMiniPlayer", owner: self, options: nil)
-        addSubview(audioMiniPlayer)
+        let modern: Bool
+        if #available(iOS 26.0, *) {
+            modern = true
+        } else {
+            modern = false
+        }
 
+        audioMiniPlayer.translatesAutoresizingMaskIntoConstraints = false
         audioMiniPlayer.clipsToBounds = true
-        audioMiniPlayer.layer.cornerRadius = 4
-        audioMiniPlayer.layer.borderWidth = 0.5
-        audioMiniPlayer.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
-
-        progressBarView.clipsToBounds = true
-
-        artworkImageView.accessibilityIgnoresInvertColors = true
-        artworkBlurImageView.accessibilityIgnoresInvertColors = true
-        artworkImageView.clipsToBounds = true
-        artworkImageView.layer.cornerRadius = 2
-
-        playPauseButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
-        nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
-        previousButton.accessibilityLabel = NSLocalizedString("PREV_BUTTON", comment: "")
+        addSubview(audioMiniPlayer)
         isUserInteractionEnabled = true
+
+        setupBackground(modern: modern)
+        setupControls(modern: modern)
+        setupInfo(modern: modern)
+        setupProgressBar(modern: modern)
+        setupPreviousNextOverlay()
+        setupGestures()
+
+        updatePlayPauseButton()
+        updateRepeatButton()
+        updateShuffleButton()
 
         if #available(iOS 13.0, *) {
             addContextMenu()
         }
     }
 
+    private func setupBackground(modern: Bool) {
+#if !os(visionOS)
+        if #available(iOS 26.0, *) {
+            audioMiniPlayer.backgroundColor = .clear
+
+            let corners = UICornerConfiguration.capsule()
+            audioMiniPlayer.cornerConfiguration = corners
+
+            let glassEffect = UIGlassEffect()
+            glassEffect.isInteractive = true
+            let glassView = UIVisualEffectView(effect: glassEffect)
+            glassView.cornerConfiguration = corners
+            glassView.translatesAutoresizingMaskIntoConstraints = false
+            audioMiniPlayer.addSubview(glassView)
+            pin(glassView, filling: audioMiniPlayer)
+            return
+        }
+#endif
+        audioMiniPlayer.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.173, alpha: 1)
+        audioMiniPlayer.layer.cornerRadius = 4
+        audioMiniPlayer.layer.borderWidth = 0.5
+        audioMiniPlayer.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
+
+        let blurImageView = UIImageView()
+        blurImageView.translatesAutoresizingMaskIntoConstraints = false
+        blurImageView.clipsToBounds = true
+        blurImageView.accessibilityIgnoresInvertColors = true
+        audioMiniPlayer.addSubview(blurImageView)
+
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.isHidden = true
+        audioMiniPlayer.addSubview(blurView)
+
+        pin(blurImageView, filling: audioMiniPlayer)
+        pin(blurView, filling: audioMiniPlayer)
+
+        artworkBlurImageView = blurImageView
+        artworkBlurView = blurView
+    }
+
+    private func setupControls(modern: Bool) {
+        let buttons = [repeatButton, previousButton, playPauseButton, nextButton, shuffleButton]
+        buttons.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.widthAnchor.constraint(equalTo: $0.heightAnchor).isActive = true
+        }
+
+        playPauseButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
+        previousButton.accessibilityLabel = NSLocalizedString("PREV_BUTTON", comment: "")
+
+        repeatButton.addTarget(self, action: #selector(handelRepeat(_:)), for: .touchUpInside)
+        previousButton.addTarget(self, action: #selector(handlePrevious(_:)), for: .touchUpInside)
+        playPauseButton.addTarget(self, action: #selector(handlePlayPause(_:)), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(handleNext(_:)), for: .touchUpInside)
+        shuffleButton.addTarget(self, action: #selector(handleShuffle(_:)), for: .touchUpInside)
+
+        if #available(iOS 26.0, *) {
+            playPauseButton.setImage(UIImage(named: "MiniPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            playPauseButton.setImage(UIImage(named: "MiniPause")?.withRenderingMode(.alwaysTemplate), for: .selected)
+            previousButton.setImage(UIImage(named: "MiniPrev")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            nextButton.setImage(UIImage(named: "MiniNext")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            [previousButton, playPauseButton, nextButton].forEach { $0.tintColor = .label }
+        } else {
+            playPauseButton.setImage(UIImage(named: "MiniPlay"), for: .normal)
+            playPauseButton.setImage(UIImage(named: "MiniPause"), for: .selected)
+            previousButton.setImage(UIImage(named: "MiniPrev"), for: .normal)
+            nextButton.setImage(UIImage(named: "MiniNext"), for: .normal)
+        }
+
+        controlStack.axis = .horizontal
+        controlStack.alignment = .fill
+        controlStack.distribution = .fill
+        controlStack.semanticContentAttribute = .forceLeftToRight
+        controlStack.translatesAutoresizingMaskIntoConstraints = false
+        controlStack.setContentHuggingPriority(.required, for: .horizontal)
+        controlStack.setContentCompressionResistancePriority(.required, for: .horizontal)
+        buttons.forEach { controlStack.addArrangedSubview($0) }
+
+        audioMiniPlayer.addSubview(controlStack)
+        NSLayoutConstraint.activate([
+            audioMiniPlayer.heightAnchor.constraint(equalToConstant: 56),
+            controlStack.trailingAnchor.constraint(equalTo: audioMiniPlayer.trailingAnchor,
+                                                   constant: modern ? -8 : 0),
+            controlStack.topAnchor.constraint(equalTo: audioMiniPlayer.topAnchor),
+            controlStack.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor),
+        ])
+    }
+
+    private func setupInfo(modern: Bool) {
+        artworkImageView.translatesAutoresizingMaskIntoConstraints = false
+        artworkImageView.clipsToBounds = true
+        artworkImageView.accessibilityIgnoresInvertColors = true
+        artworkImageView.layer.cornerRadius = modern ? 8 : 2
+
+        titleLabel.font = .systemFont(ofSize: 14)
+        artistLabel.font = .systemFont(ofSize: 12)
+        if #available(iOS 26.0, *) {
+            titleLabel.textColor = .label
+            artistLabel.textColor = .secondaryLabel
+        } else {
+            titleLabel.textColor = .white
+            artistLabel.textColor = UIColor.white.withAlphaComponent(0.6)
+        }
+        [titleLabel, artistLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        }
+
+        let labelStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel])
+        labelStack.axis = .vertical
+        labelStack.spacing = 4
+        labelStack.alignment = .fill
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+
+        infoContainer.translatesAutoresizingMaskIntoConstraints = false
+        infoContainer.addSubview(artworkImageView)
+        infoContainer.addSubview(labelStack)
+        audioMiniPlayer.addSubview(infoContainer)
+
+        let artInset: CGFloat = modern ? 8 : 0
+        NSLayoutConstraint.activate([
+            infoContainer.leadingAnchor.constraint(equalTo: audioMiniPlayer.leadingAnchor),
+            infoContainer.topAnchor.constraint(equalTo: audioMiniPlayer.topAnchor),
+            infoContainer.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor),
+            infoContainer.trailingAnchor.constraint(equalTo: controlStack.leadingAnchor),
+
+            artworkImageView.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor,
+                                                      constant: modern ? 12 : 0),
+            artworkImageView.centerYAnchor.constraint(equalTo: infoContainer.centerYAnchor),
+            artworkImageView.heightAnchor.constraint(equalToConstant: 56 - 2 * artInset),
+            artworkImageView.widthAnchor.constraint(equalTo: artworkImageView.heightAnchor),
+
+            labelStack.leadingAnchor.constraint(equalTo: artworkImageView.trailingAnchor, constant: 12),
+            labelStack.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor,
+                                                 constant: modern ? -8 : 0),
+            labelStack.centerYAnchor.constraint(equalTo: infoContainer.centerYAnchor),
+        ])
+    }
+
+    private func setupProgressBar(modern: Bool) {
+        progressBarView.translatesAutoresizingMaskIntoConstraints = false
+        progressBarView.clipsToBounds = true
+        progressBarView.progressTintColor = PresentationTheme.current.colors.orangeUI
+        if modern {
+            progressBarView.trackTintColor = .clear
+        } else {
+            progressBarView.backgroundColor = UIColor(red: 0.146, green: 0.161, blue: 0.173, alpha: 1)
+        }
+
+        audioMiniPlayer.addSubview(progressBarView)
+        let inset: CGFloat = modern ? 28 : 0
+        NSLayoutConstraint.activate([
+            progressBarView.leadingAnchor.constraint(equalTo: audioMiniPlayer.leadingAnchor, constant: inset),
+            progressBarView.trailingAnchor.constraint(equalTo: audioMiniPlayer.trailingAnchor, constant: -inset),
+            progressBarView.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor),
+            progressBarView.heightAnchor.constraint(equalToConstant: 2),
+        ])
+    }
+
+    private func setupPreviousNextOverlay() {
+        previousNextOverlay.translatesAutoresizingMaskIntoConstraints = false
+        previousNextOverlay.backgroundColor = .black
+        previousNextOverlay.isHidden = true
+
+        previousNextImage.translatesAutoresizingMaskIntoConstraints = false
+        previousNextImage.clipsToBounds = true
+        previousNextImage.contentMode = .scaleAspectFill
+        previousNextOverlay.addSubview(previousNextImage)
+        audioMiniPlayer.addSubview(previousNextOverlay)
+
+        pin(previousNextOverlay, filling: audioMiniPlayer)
+        NSLayoutConstraint.activate([
+            previousNextImage.centerXAnchor.constraint(equalTo: previousNextOverlay.centerXAnchor),
+            previousNextImage.topAnchor.constraint(equalTo: previousNextOverlay.topAnchor, constant: 3.5),
+            previousNextImage.bottomAnchor.constraint(equalTo: previousNextOverlay.bottomAnchor, constant: -3.5),
+            previousNextImage.widthAnchor.constraint(equalTo: previousNextImage.heightAnchor),
+        ])
+    }
+
+    private func setupGestures() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:)))
+        pan.minimumNumberOfTouches = 1
+        audioMiniPlayer.addGestureRecognizer(pan)
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleFullScreen(_:)))
+        infoContainer.addGestureRecognizer(tap)
+
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressPlayPause(_:)))
+        longPress.minimumPressDuration = 0.5
+        longPress.allowableMovement = 10
+        playPauseButton.addGestureRecognizer(longPress)
+    }
+
     private func setupConstraint() {
-        audioMiniPlayer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             audioMiniPlayer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             audioMiniPlayer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             audioMiniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+        ])
+    }
+
+    private func pin(_ view: UIView, filling container: UIView) {
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            view.topAnchor.constraint(equalTo: container.topAnchor),
+            view.bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
     }
 
@@ -275,30 +491,30 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 // MARK: - UI Receivers
 
 private extension AudioMiniPlayer {
-    @IBAction private func handlePrevious(_ sender: UIButton) {
+    @objc private func handlePrevious(_ sender: UIButton) {
         playbackService.previous()
     }
 
-    @IBAction private func handlePlayPause(_ sender: UIButton) {
+    @objc private func handlePlayPause(_ sender: UIButton) {
         playbackService.playPause()
         updatePlayPauseButton()
     }
 
-    @IBAction private func handleNext(_ sender: UIButton) {
+    @objc private func handleNext(_ sender: UIButton) {
         playbackService.next()
     }
 
-    @IBAction private func handelRepeat(_ sender: UIButton) {
+    @objc private func handelRepeat(_ sender: UIButton) {
         playbackService.toggleRepeatMode()
         updateRepeatButton()
     }
 
-    @IBAction private func handleShuffle(_ sender: UIButton? = nil) {
+    @objc private func handleShuffle(_ sender: UIButton? = nil) {
         playbackService.isShuffleMode = !playbackService.isShuffleMode
         updateShuffleButton()
     }
 
-    @IBAction private func handleFullScreen(_ sender: Any) {
+    @objc private func handleFullScreen(_ sender: Any) {
         if position.vertical == .top {
             dismissPlayqueue(with: nil)
         }
@@ -321,7 +537,7 @@ private extension AudioMiniPlayer {
                                         for: nil)
     }
 
-    @IBAction private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
+    @objc private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
         switch sender.state {
             // case .began:
             // In the case of .began we could a an icon like the old miniplayer
@@ -341,7 +557,7 @@ private extension AudioMiniPlayer {
 extension AudioMiniPlayer {
 
     // MARK: Drag gesture handlers
-    @IBAction func didDrag(_ sender: UIPanGestureRecognizer) {
+    @objc func didDrag(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             dragDidBegin(sender)
@@ -552,6 +768,7 @@ private extension AudioMiniPlayer {
             titleLabel.text = metadata.title
         }
         artistLabel.text = metadata.artist
+        artistLabel.isHidden = artistLabel.text?.isEmpty ?? true
         if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
             playbackService.playAsAudio {
             // Only update the artwork image when the media is being played
@@ -559,15 +776,15 @@ private extension AudioMiniPlayer {
                 let placeholder = PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
                                                                    : UIImage(named: "song-placeholder-white")
                 artworkImageView.image = metadata.artworkImage ?? placeholder
-                artworkBlurImageView.image = metadata.artworkImage
-                artworkBlurView.isHidden = false
+                artworkBlurImageView?.image = metadata.artworkImage
+                artworkBlurView?.isHidden = false
             }
 
             playbackService.videoOutputView = nil
         } else {
             artworkImageView.image = nil
-            artworkBlurImageView.image = nil
-            artworkBlurView.isHidden = true
+            artworkBlurImageView?.image = nil
+            artworkBlurView?.isHidden = true
             playbackService.videoOutputView = artworkImageView
         }
     }

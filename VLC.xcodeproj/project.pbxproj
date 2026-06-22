@@ -584,7 +584,6 @@
 		7D50C7042BBD20DF00B9F1A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D50C7052BBD20DF00B9F1A0 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
 		7D50C7062BBD20DF00B9F1A0 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
-		7D50C7072BBD20DF00B9F1A0 /* AudioMiniPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */; };
 		7D50C7082BBD20DF00B9F1A0 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D50C7092BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */; };
 		7D50C70A2BBD20DF00B9F1A0 /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
@@ -993,7 +992,6 @@
 		7DA515782EF82B63000C9995 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7DA515792EF82B63000C9995 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
 		7DA5157A2EF82B63000C9995 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
-		7DA5157B2EF82B63000C9995 /* AudioMiniPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */; };
 		7DA5157C2EF82B63000C9995 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7DA5157D2EF82B63000C9995 /* VLCSEPANotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */; };
 		7DA5157E2EF82B63000C9995 /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
@@ -1139,7 +1137,6 @@
 		8D15A1F322B0FCE000CFA758 /* QueueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D15A1F222B0FCE000CFA758 /* QueueView.xib */; };
 		8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */; };
 		8D2AD4DA227AEE8E00393833 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
-		8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */; };
 		8D43712D2056AF1600F36458 /* VLCRendererDiscovererManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */; };
 		8D437154205808FF00F36458 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D437153205808FF00F36458 /* ActionSheet.swift */; };
 		8D4F9B472141630000E478BE /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
@@ -2068,7 +2065,6 @@
 		8D15A1F222B0FCE000CFA758 /* QueueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QueueView.xib; sourceTree = "<group>"; };
 		8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCollectionViewController.swift; sourceTree = "<group>"; };
 		8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToCollectionView.xib; sourceTree = "<group>"; };
-		8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMiniPlayer.xib; sourceTree = "<group>"; };
 		8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCRendererDiscovererManager.swift; sourceTree = "<group>"; };
 		8D437153205808FF00F36458 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		8D4F9B462141630000E478BE /* MediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModel.swift; sourceTree = "<group>"; };
@@ -4054,7 +4050,6 @@
 			isa = PBXGroup;
 			children = (
 				8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */,
-				8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */,
 				8D6E1587223BBAF600077DD3 /* MiniPlayer.swift */,
 			);
 			name = "MiniPlayer-iOS";
@@ -4672,7 +4667,6 @@
 				7D50C7042BBD20DF00B9F1A0 /* Settings.bundle in Resources */,
 				7D50C7052BBD20DF00B9F1A0 /* VLCNetworkListCell.xib in Resources */,
 				7D50C7062BBD20DF00B9F1A0 /* web-open.png in Resources */,
-				7D50C7072BBD20DF00B9F1A0 /* AudioMiniPlayer.xib in Resources */,
 				7D50C7082BBD20DF00B9F1A0 /* About Contents.html in Resources */,
 				6D1745602F9D2816003BE08B /* VLCCone26-512x512.png in Resources */,
 				7D50C7092BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.xib in Resources */,
@@ -4729,7 +4723,6 @@
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
 				7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */,
 				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
-				8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 				7D745DCE2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib in Resources */,
 				7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */,
@@ -4788,7 +4781,6 @@
 				7DA515782EF82B63000C9995 /* Settings.bundle in Resources */,
 				7DA515792EF82B63000C9995 /* VLCNetworkListCell.xib in Resources */,
 				7DA5157A2EF82B63000C9995 /* web-open.png in Resources */,
-				7DA5157B2EF82B63000C9995 /* AudioMiniPlayer.xib in Resources */,
 				7DA5157C2EF82B63000C9995 /* About Contents.html in Resources */,
 				7DA5157D2EF82B63000C9995 /* VLCSEPANotificationViewController.xib in Resources */,
 				7DA5157E2EF82B63000C9995 /* VLCDonationViewController.xib in Resources */,
