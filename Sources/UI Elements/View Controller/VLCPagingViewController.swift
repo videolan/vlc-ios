@@ -115,7 +115,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
         buttonBarView.delegate = self
         buttonBarView.dataSource = self
 
-        if #available(iOS 26.0, *) {
+        if #available(iOS 26.0, visionOS 26.0, *) {
             viewControllers.forEach { $0.additionalSafeAreaInsets.top = buttonbarViewHeight }
             setupNavigationBarBottomPalette()
         }
@@ -123,7 +123,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
 
     /* Host the tab strip inside the navigation bar's bottom palette so it shares the bar's
      * Liquid Glass. The class and selector names are assembled at runtime */
-    @available(iOS 26.0, *)
+    @available(iOS 26.0, visionOS 26.0, *)
     private func setupNavigationBarBottomPalette() {
         guard viewControllers.count > 1 else { return }
 
