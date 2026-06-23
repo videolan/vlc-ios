@@ -105,8 +105,9 @@
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize textSize = [self.text sizeWithAttributes:self.font.fontDescriptor.fontAttributes];
-    textSize.width += size.height * 4.; // take extra width into account for our custom drawing
+    CGSize textSize = [self.text sizeWithAttributes:@{NSFontAttributeName: self.font}];
+    textSize.width += textSize.height * 4.; // take extra width into account for our custom drawing
+    textSize.height += _insets.top + _insets.bottom;
     return textSize;
 }
 
