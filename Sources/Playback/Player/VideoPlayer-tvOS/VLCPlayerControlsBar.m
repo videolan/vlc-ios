@@ -20,6 +20,7 @@
 {
     NSArray<UIButton *> *_controlButtons;
     UIButton *_subtitlesButton;
+    UIButton *_aspectRatioButton;
     UIButton *_audioButton;
     UIButton *_chaptersButton;
     UIButton *_speedButton;
@@ -39,12 +40,13 @@
         self.spacing = 20.0;
 
         _subtitlesButton = [self makeControlButtonWithImageName:@"captions.bubble" accessibilityLabel:NSLocalizedString(@"SUBTITLES", nil) action:@selector(subtitlesButtonPressed)];
+        _aspectRatioButton = [self makeControlButtonWithImageName:@"aspectratio" accessibilityLabel:NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil) action:@selector(aspectRatioButtonPressed)];
         _audioButton = [self makeControlButtonWithImageName:@"waveform" accessibilityLabel:NSLocalizedString(@"AUDIO", nil) action:@selector(audioButtonPressed)];
         _chaptersButton = [self makeControlButtonWithImageName:@"list.bullet" accessibilityLabel:NSLocalizedString(@"CHAPTER_SELECTION_TITLE", nil) action:@selector(chaptersButtonPressed)];
         _speedButton = [self makeControlButtonWithImageName:@"gauge" accessibilityLabel:NSLocalizedString(@"PLAYBACK_SPEED", nil) action:@selector(speedButtonPressed)];
         _queueButton = [self makeControlButtonWithImageName:@"list.bullet.rectangle" accessibilityLabel:NSLocalizedString(@"QUEUE_LABEL", nil) action:@selector(queueButtonPressed)];
         _infoButton = [self makeControlButtonWithImageName:@"info.circle" accessibilityLabel:NSLocalizedString(@"MEDIA_INFO", nil) action:@selector(infoButtonPressed)];
-        _controlButtons = @[_subtitlesButton, _audioButton, _chaptersButton, _speedButton, _queueButton, _infoButton];
+        _controlButtons = @[_subtitlesButton, _aspectRatioButton, _audioButton, _chaptersButton, _speedButton, _queueButton, _infoButton];
 
         for (UIButton *button in _controlButtons) {
             [self addArrangedSubview:button];
@@ -116,6 +118,12 @@
 - (void)subtitlesButtonPressed
 {
     [self presentMenuOfKind:VLCPlayerMenuKindSubtitles fromButton:_subtitlesButton];
+}
+
+- (void)aspectRatioButtonPressed
+{
+    VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+    [playbackService switchAspectRatio:NO];
 }
 
 - (void)audioButtonPressed
