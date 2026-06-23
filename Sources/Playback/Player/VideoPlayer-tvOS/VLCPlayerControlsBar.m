@@ -62,6 +62,7 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     _chaptersButton.hidden = [vpc numberOfChaptersForCurrentTitle] <= 1;
     _subtitlesButton.hidden = vpc.metadata.isAudioOnly;
+    _aspectRatioButton.hidden = vpc.metadata.isAudioOnly;
 }
 
 - (UIButton *)makeControlButtonWithImageName:(NSString *)imageName
