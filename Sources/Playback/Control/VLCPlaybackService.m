@@ -1272,7 +1272,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #if !TARGET_OS_VISION && !TARGET_OS_WATCH
 - (UIScreen *)currentScreen
 {
-    return [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
+    BOOL hasExternalDisplay = [[UIDevice currentDevice] VLCHasExternalDisplay];
+    NSArray<UIScreen *> *screens = [UIScreen screens];
+    if (hasExternalDisplay && screens.count > 1) {
+        return screens[1];
+    }
+
+    return  [UIScreen mainScreen];
 }
 
 - (void)switchToFillToScreen
