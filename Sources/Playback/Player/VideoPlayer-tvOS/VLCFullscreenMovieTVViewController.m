@@ -18,6 +18,7 @@
 #import "VLCNetworkImageView.h"
 #import "VLCMetaData.h"
 #import "VLCActivityManager.h"
+#import "VLCStatusLabel.h"
 #import "VLC-Swift.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
@@ -33,6 +34,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     UIView *_scrimView;
     BOOL _controlsRowFocused;
     NSArray<UIGestureRecognizer *> *_transportGestureRecognizers;
+    VLCStatusLabel *_statusLabel;
 }
 
 @property (nonatomic) CADisplayLink *displayLink;
@@ -203,6 +205,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.gameControllerManager.delegate = self;
     [super viewDidLoad];
+
+    _statusLabel = [[VLCStatusLabel alloc] init];
+    [_statusLabel setHidden:YES];
+    [_statusLabel setTextColor:PresentationTheme.current.colors.lightTextColor];
+    [self.view addSubview:_statusLabel];
 }
 
 - (void)didReceiveMemoryWarning
@@ -1163,6 +1170,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [self.audioLargeBackgroundImageView stopAnimating];
         }
     });
+}
+
+- (void)showStatusMessage:(NSString *)statusMessage
+{
+    CGRect frame = _statusLabel.frame;
+    frame.origin.y = CGRectGetMidY(self.view.bounds) - frame.size.height / 2.;
+    _statusLabel.frame = frame;
+    [_statusLabel showStatusMessage:statusMessage];
 }
 
 #pragma mark -
