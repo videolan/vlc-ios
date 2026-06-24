@@ -300,7 +300,16 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     return self.controller.currentListFiles.count;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [UITableViewCell new];
+}
+
 #pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
 
 - (void)goBack
 {
