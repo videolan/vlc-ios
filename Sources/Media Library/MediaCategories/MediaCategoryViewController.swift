@@ -502,16 +502,20 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        setupSearchBar()
         setupEditToolBar()
-        if let model = model as? CollectionModel {
-            if model.mediaCollection is VLCMLAlbum {
-                if #available(iOS 13.0, *) {
-                    self.navigationItem.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
-                    self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
-                }
-                searchBar.removeFromSuperview()
-                updateCollectionViewForAlbum()
+        let isAlbum = (model as? CollectionModel)?.mediaCollection is VLCMLAlbum
+        if isAlbum {
+            if #available(iOS 13.0, *) {
+                self.navigationItem.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
+                self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+            }
+            updateCollectionViewForAlbum()
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setupSearchBar()
+            if isAlbum {
+                self.searchBar.removeFromSuperview()
             }
         }
 
