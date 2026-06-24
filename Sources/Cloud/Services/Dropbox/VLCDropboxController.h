@@ -13,6 +13,8 @@
 #import "VLCCloudStorageController.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface VLCDropboxController : VLCCloudStorageController
 
 @property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
@@ -31,3 +33,5 @@
 - (void)reset;
 
 @end
+
+NS_ASSUME_NONNULL_END

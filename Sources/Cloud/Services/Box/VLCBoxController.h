@@ -16,6 +16,8 @@
 
 #define VLCBoxControllerSessionUpdated @"VLCBoxControllerSessionUpdated"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface VLCBoxController : VLCCloudStorageController
 
 - (void)stopSession;
@@ -27,3 +29,5 @@
 - (void)loadThumbnailForFileID:(NSString *)fileID completion:(void (^)(UIImage * _Nullable image))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END
