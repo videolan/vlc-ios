@@ -97,7 +97,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private let searchBarSize: CGFloat = 50.0
     private let userDefaults = UserDefaults.standard
 #if os(iOS)
-    private var rendererButton: UIButton
+    private lazy var rendererButton: UIButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
 #endif
     private lazy var editController: EditController = {
         let editController = EditController(mediaLibraryService:mediaLibraryService,
@@ -311,32 +311,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.secondModel = videoModel
         }
 
-#if os(iOS)
-        self.rendererButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
-
-        if PlaybackService.sharedInstance().renderer != nil {
-            rendererButton.isSelected = true
-        }
-#endif
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-
-        if let model = model as? CollectionModel,
-           let collection = model.mediaCollection as? VLCMLAlbum {
-            navItemTitle.text = collection.title
-        } else if let collection = model as? CollectionModel {
-            navItemTitle.text = collection.mediaCollection.title()
-        }
-
-        if model is HistoryModel {
-            navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
-        }
-
-        navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
-        navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
-        self.navigationItem.titleView = navItemTitle
-        collectionView.tintColor = PresentationTheme.current.colors.orangeUI
     }
 
     @objc private func handleDisableGrouping() {
@@ -503,6 +480,23 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewDidLoad()
         setupCollectionView()
         setupEditToolBar()
+        if let model = model as? CollectionModel,
+           let collection = model.mediaCollection as? VLCMLAlbum {
+            navItemTitle.text = collection.title
+        } else if let collection = model as? CollectionModel {
+            navItemTitle.text = collection.mediaCollection.title()
+        }
+
+        if model is HistoryModel {
+            navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
+        }
+
+        let colors = PresentationTheme.current.colors
+        navItemTitle.textColor = colors.navigationbarTextColor
+        navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
+        self.navigationItem.titleView = navItemTitle
+        collectionView.tintColor = colors.orangeUI
+
         let isAlbum = (model as? CollectionModel)?.mediaCollection is VLCMLAlbum
         if isAlbum {
             if #available(iOS 13.0, *) {
@@ -517,6 +511,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             if isAlbum {
                 self.searchBar.removeFromSuperview()
             }
+#if os(iOS)
+            if PlaybackService.sharedInstance().renderer != nil {
+                rendererButton.isSelected = true
+            }
+#endif
         }
 
         addThemeChangeObserver()
