@@ -24,7 +24,7 @@ class SortModel: NSObject {
 
 // MARK: - VLCMLSortingCriteria extension
 
-extension VLCMLSortingCriteria: CustomStringConvertible {
+extension VLCMLSortingCriteria: @retroactive CustomStringConvertible {
     init(value: UInt) {
         guard let sortingCriteria = VLCMLSortingCriteria(rawValue: value) else {
             assertionFailure("VLCMLSortingCriteria: Unable to init with the given value: \(value)")
