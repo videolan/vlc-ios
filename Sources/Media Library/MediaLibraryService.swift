@@ -153,7 +153,22 @@ class MediaLibraryService: NSObject {
 
     private(set) var observable = VLCObservable<MediaLibraryObserver>()
 
-    private(set) lazy var medialib = VLCMediaLibrary()
+    private let mediaLibrarySetupLock = NSLock()
+    private var didSetupMediaLibrary = false
+    private lazy var privateMediaLib = VLCMediaLibrary()
+
+    var medialib: VLCMediaLibrary {
+        ensureMediaLibrarySetup()
+        return privateMediaLib
+    }
+
+    private func ensureMediaLibrarySetup() {
+        mediaLibrarySetupLock.lock()
+        defer { mediaLibrarySetupLock.unlock() }
+        guard !didSetupMediaLibrary else { return }
+        didSetupMediaLibrary = true
+        setupMediaLibrary()
+    }
 
     @objc weak var deviceBackupDelegate: MediaLibraryDeviceBackupDelegate?
     @objc weak var hidingDelegate: MediaLibraryHidingDelegate?
@@ -167,8 +182,6 @@ class MediaLibraryService: NSObject {
 
     override init() {
         super.init()
-        setupMediaLibrary()
-        medialib.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
         
@@ -257,15 +270,15 @@ private extension MediaLibraryService {
         hideMediaLibrary(hideML)
 
         if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
-            medialib.forceRescan()
+            privateMediaLib.forceRescan()
             UserDefaults.standard.set(true, forKey: MediaLibraryService.didForceRescan)
         }
 
         FileManager.default.createFile(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_FILES_PLACEHOLDER", comment: ""))", contents: nil, attributes: nil)
         try? FileManager.default.removeItem(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_ADDING_PLACEHOLDER", comment: ""))")
 
-        medialib.reload()
-        medialib.discover(onEntryPoint: "file://" + path)
+        privateMediaLib.reload()
+        privateMediaLib.discover(onEntryPoint: "file://" + path)
     }
 
     private func setupMediaLibrary() {
@@ -312,8 +325,10 @@ private extension MediaLibraryService {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 
-        let medialibraryStatus = medialib.setupMediaLibrary(databasePath: databasePath,
+        let medialibraryStatus = privateMediaLib.setupMediaLibrary(databasePath: databasePath,
                                                             medialibraryPath: medialibraryPath)
+
+        privateMediaLib.delegate = self
 
         switch medialibraryStatus {
         case .success, .dbReset:
@@ -326,7 +341,7 @@ private extension MediaLibraryService {
                 APLog("MediaLibraryService: Failed to setup medialibrary, retrying with cleared caches (preserving database and journal files for SQLite auto-recovery).")
                 removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
                                                   medialibraryPath: medialibraryPath)
-                medialib = VLCMediaLibrary()
+                privateMediaLib = VLCMediaLibrary()
                 setupMediaLibrary()
                 return
             } else if initRecoveryAttempt == 1 {
@@ -335,14 +350,14 @@ private extension MediaLibraryService {
                 removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
                                                   medialibraryPath: medialibraryPath)
                 removeMedialibraryDatabaseFiles(databasePath: databasePath)
-                medialib = VLCMediaLibrary()
+                privateMediaLib = VLCMediaLibrary()
                 setupMediaLibrary()
                 return
             }
             APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
-            medialib.clearDatabase(restorePlaylists: true)
+            privateMediaLib.clearDatabase(restorePlaylists: true)
             startMediaLibrary(on: mediaPath)
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
