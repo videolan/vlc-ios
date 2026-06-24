@@ -14,7 +14,7 @@
 
     @objc(VLCHasExternalDisplay)
     var hasExternalDisplay: Bool {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         if UIScreen.screens.count <= 1 {
             return false
         }
