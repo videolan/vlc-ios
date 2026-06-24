@@ -431,7 +431,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 
     VLCNetworkServerLoginInformation *login;
     if ([service respondsToSelector:@selector(loginInformation)]) {
-        login = [service loginInformation];
+        login = (VLCNetworkServerLoginInformation *)[service loginInformation];
     } else {
         APLog(@"%s: no login information, class %@", __func__, NSStringFromClass([service class]));
     }
