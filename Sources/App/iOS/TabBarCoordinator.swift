@@ -19,8 +19,8 @@ class TabBarCoordinator: NSObject {
     private var tabBarController: BottomTabBarController
     private var mediaLibraryService: MediaLibraryService
 
-    private lazy var editToolbar = EditToolbar()
-    private lazy var sideToolBar = EditToolbar()
+    private var editToolbar: EditToolbar?
+    private var sideToolBar: EditToolbar?
 
     private lazy var videoNavigationController: UINavigationController = {
         let rootViewController = VideoViewController(mediaLibraryService: mediaLibraryService)
