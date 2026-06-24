@@ -116,7 +116,9 @@ NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
         if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
             NSData *data = [[NSData alloc] initWithContentsOfFile:_filePath];
             if (data != nil) {
-                _favoriteContentArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:nil];
+                unarchiver.requiresSecureCoding = NO;
+                _favoriteContentArray = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
             }
         }
 
@@ -158,7 +160,7 @@ NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         @synchronized (self->_favoriteContentArray) {
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray requiringSecureCoding:NO error:nil];
             [data writeToFile:self->_filePath atomically:YES];
         }
     });
@@ -167,7 +169,7 @@ NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
 - (void)storeContentSynchronously
 {
     @synchronized (self->_favoriteContentArray) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray requiringSecureCoding:NO error:nil];
         [data writeToFile:self->_filePath atomically:YES];
     }
 }
