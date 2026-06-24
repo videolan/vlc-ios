@@ -117,7 +117,9 @@
 
 - (void)setupTabBarAppearance
 {
-    [self recoverLastPlayingMedia];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self recoverLastPlayingMedia];
+    });
 
     VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
     void (^setupAppCoordinator)(void) = ^{
