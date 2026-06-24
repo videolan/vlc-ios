@@ -183,6 +183,9 @@
 @implementation VLCNetworkListCell (CellConfigurator)
 
 @dynamic couldBeAudioOnlyMedia;
+@dynamic mediaProgress;
+@dynamic mediaIsNew;
+@dynamic progressViewHidden;
 
 - (void)setThumbnailImage:(UIImage *)thumbnailImage {
     self.icon = thumbnailImage;
@@ -195,6 +198,9 @@
 }
 - (NSURL *)thumbnailURL {
     return self.iconURL;
+}
+
+- (void)setCheckBoxImageView {
 }
 
 @end
