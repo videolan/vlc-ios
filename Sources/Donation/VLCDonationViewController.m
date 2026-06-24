@@ -23,7 +23,7 @@
 #import "VLCDonationSEPAViewController.h"
 #import "VLCSEPA.h"
 
-typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
+typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 
 @interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
 {
@@ -753,7 +753,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     [self.activityIndicatorView stopAnimating];
     _donationSuccess = YES;
     if (_successCompletionHandler) {
-        _successCompletionHandler(PKPaymentAuthorizationStatusSuccess);
+        _successCompletionHandler([[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess errors:nil]);
     } else {
         [self donationReceived];
     }
@@ -764,7 +764,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
     _donationSuccess = NO;
     _donationErrorMessage = errorMessage;
     if (_successCompletionHandler) {
-        _successCompletionHandler(PKPaymentAuthorizationStatusFailure);
+        _successCompletionHandler([[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure errors:nil]);
     } else {
         [self donationFailed];
     }
@@ -821,7 +821,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationStatus);
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
                        didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus))completion
+                                   handler:(void (^)(PKPaymentAuthorizationResult *))completion
 {
     _successCompletionHandler = completion;
     [_stripeController processPayment:payment
