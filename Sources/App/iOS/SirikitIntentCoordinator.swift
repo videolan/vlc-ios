@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import Intents
+@preconcurrency import Intents
+@preconcurrency import VLCMediaLibraryKit
 
 @available(iOS 14.0, *)
 class SirikitIntentCoordinator: NSObject {
@@ -36,22 +37,22 @@ extension SirikitIntentCoordinator: INPlayMediaIntentHandling {
             // playbackService runs UI code, hence run on main thread
             DispatchQueue.main.async {
                 if let isShuffle = intent.playShuffled {
-                    self.playbackService.isShuffleMode = isShuffle
+                    PlaybackService.sharedInstance().isShuffleMode = isShuffle
                 }
                 switch intent.playbackQueueLocation {
                 case .unknown, .now:
-                    self.playbackService.playCollection(media)
+                    PlaybackService.sharedInstance().playCollection(media)
                 case .next:
-                    self.playbackService.playCollectionNextInQueue(media)
+                    PlaybackService.sharedInstance().playCollectionNextInQueue(media)
                 case .later:
-                    self.playbackService.appendCollectionToQueue(media)
+                    PlaybackService.sharedInstance().appendCollectionToQueue(media)
                 @unknown default:
                     fatalError()
                 }
                 if let playbackRate = intent.playbackSpeed {
-                    self.playbackService.playbackRate = Float(playbackRate)
+                    PlaybackService.sharedInstance().playbackRate = Float(playbackRate)
                 }
-                self.playbackService.repeatMode = {
+                PlaybackService.sharedInstance().repeatMode = {
                     switch intent.playbackRepeatMode {
                         case .unknown, .none:
                             return .doNotRepeat
