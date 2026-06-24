@@ -551,10 +551,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
         setNavbarAppearance()
-        loadSort()
-        reloadData()
         addInitializationCommonObservers()
-        configureContinueWatchingButton()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.loadSort()
+            self.reloadData()
+            self.configureContinueWatchingButton()
+        }
 
         if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
             model is FolderModel {
