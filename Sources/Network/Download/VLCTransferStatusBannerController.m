@@ -46,7 +46,6 @@
                                selector:@selector(themeDidChange:)
                                    name:kVLCThemeDidChangeNotification
                                  object:nil];
-        [self _updateBanner];
     }
     return self;
 }
