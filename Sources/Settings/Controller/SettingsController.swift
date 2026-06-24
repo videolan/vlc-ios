@@ -268,10 +268,10 @@ class SettingsController: UITableViewController {
         var numberOfColumns: CGFloat = 1
 
         switch preferenceKey {
-        case MainOptions.appearance.preferenceKey, GenericOptions.automaticallyPlayNextItem.preferenceKey:
+        case kVLCSettingAppTheme, kVLCAutomaticallyPlayNextItem:
             specifierManager.delegate = self
 
-        case GenericOptions.defaultPlaybackSpeed.preferenceKey, SubtitlesOptions.fontColor.preferenceKey:
+        case kVLCSettingPlaybackSpeedDefaultValue, kVLCSettingSubtitlesFontColor:
             numberOfColumns = 2
 
         default:
