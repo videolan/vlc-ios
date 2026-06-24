@@ -171,13 +171,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationWillEnterForeground:)
                               name:UIApplicationWillEnterForegroundNotification object:nil];
-
-        _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
-
-        _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
-                                initWithDialogProvider:_dialogProvider];
-
-        _dialogProvider.customRenderer = _customDialogHandler;
 #else
         _swiftUIDialogProvider = [CustomSwiftUIDialogObjCBridge new];
 #endif
@@ -243,6 +236,19 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     return [_mediaPlayer time];
 }
 
+#if !TARGET_OS_WATCH
+- (void)setupDialogProvider
+{
+    if (_dialogProvider) {
+        return;
+    }
+    _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
+    _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
+                            initWithDialogProvider:_dialogProvider];
+    _dialogProvider.customRenderer = _customDialogHandler;
+}
+#endif
+
 - (void)startPlayback
 {
     APLog(@"Starting playback");
@@ -250,6 +256,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         APLog(@"%s: player is already setup, bailing out", __PRETTY_FUNCTION__);
         return;
     }
+
+#if !TARGET_OS_WATCH
+    [self setupDialogProvider];
+#endif
 
     BOOL ret = [_playbackSessionManagementLock tryLock];
     if (!ret) {
