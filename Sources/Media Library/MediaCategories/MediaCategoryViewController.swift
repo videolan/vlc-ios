@@ -550,10 +550,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
 #endif
 #endif
-        let playbackService = PlaybackService.sharedInstance()
-        playbackService.setPlayerHidden(isEditing)
-        playbackService.playerDisplayController.isMiniPlayerVisible
-        ? miniPlayerIsShown() : miniPlayerIsHidden()
+        PlaybackService.sharedInstance().setPlayerHidden(isEditing)
 
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
@@ -562,6 +559,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         addInitializationCommonObservers()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+            ? self.miniPlayerIsShown() : self.miniPlayerIsHidden()
             self.loadSort()
             self.reloadData()
             self.configureContinueWatchingButton()
