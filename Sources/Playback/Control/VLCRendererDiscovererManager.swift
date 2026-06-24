@@ -57,7 +57,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc func start() {
         // Gather potential renderer discoverers
-        guard let tmpDiscoverersDescription: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
+        guard VLCRendererDiscoverer.list() != nil else {
             print("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
             return
         }
