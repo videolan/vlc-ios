@@ -122,7 +122,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             statusBarFrame = UIApplication.shared.statusBarFrame
         }
 #else
-        statusBarFrame = CGRectMake(0, 0, 500, 100) // view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+        statusBarFrame = CGRect(x: 0, y: 0, width: 500, height: 100) // view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
 #endif
 
         let statusBarView = UIView(frame: statusBarFrame)
@@ -1751,12 +1751,12 @@ private extension MediaCategoryViewController {
             case .updateAppContext:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.updateAppContext(TestDataProvider.timedColor())
                     #endif
@@ -1764,12 +1764,12 @@ private extension MediaCategoryViewController {
             case .sendMessage:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.sendMessage(TestDataProvider.message())
                     #endif
@@ -1777,11 +1777,11 @@ private extension MediaCategoryViewController {
             case .sendMessageData:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.sendMessageData(TestDataProvider.messageData())
                     #endif
@@ -1789,13 +1789,13 @@ private extension MediaCategoryViewController {
             case .transferFile:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia,
                           let mrl = media.mainFile()?.mrl
                     else { return }
 
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     print("Transferring file to watch: \(media.title)")
                     print("File mrl: \(mrl)")
                     watchService.transferFile(mrl, metadata: TestDataProvider.fileMetaData())
@@ -1805,12 +1805,12 @@ private extension MediaCategoryViewController {
             case .transferUserInfo:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.transferUserInfo(TestDataProvider.userInfo())
                     #endif
@@ -1818,12 +1818,12 @@ private extension MediaCategoryViewController {
             case .transferComplicationUserInfo:
                 return $0.action({
                     [weak self] _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia
                     else { return }
 
-                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
                     // For testing
                     watchService.transferCurrentComplicationUserInfo(TestDataProvider.currentComplicationInfo())
                     #endif
@@ -2811,7 +2811,7 @@ extension MediaCategoryViewController {
     }
 }
 
-extension String  {
+extension String {
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }

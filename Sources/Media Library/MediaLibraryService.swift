@@ -401,7 +401,7 @@ private extension MediaLibraryService {
 
     func media(ofType type: VLCMLMediaType,
                sortingCriteria sort: VLCMLSortingCriteria = .alpha,
-               desc: Bool = false , items: UInt32 , offset: UInt32) -> [VLCMLMedia] {
+               desc: Bool = false, items: UInt32, offset: UInt32) -> [VLCMLMedia] {
         return type == .video ? medialib.videoFiles(with: sort, desc: desc, items, offset) ?? []
         : medialib.audioFiles(with: sort, desc: desc, items: items, offset: offset) ?? []
     }
@@ -556,7 +556,7 @@ private extension MediaLibraryService {
     }
 
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
-                 desc: Bool = false, listAll all: Bool = true , items: UInt32 , offset: UInt32) -> [VLCMLArtist] {
+                 desc: Bool = false, listAll all: Bool = true, items: UInt32, offset: UInt32) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: all, items, offset) ?? []
     }
 
@@ -566,8 +566,8 @@ private extension MediaLibraryService {
     }
 
     func albums(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
-                desc: Bool = false, items: UInt32 , offset: UInt32) -> [VLCMLAlbum] {
-        return medialib.albums(with: sort, desc: desc, items , offset) ?? []
+                desc: Bool = false, items: UInt32, offset: UInt32) -> [VLCMLAlbum] {
+        return medialib.albums(with: sort, desc: desc, items, offset) ?? []
     }
 }
 

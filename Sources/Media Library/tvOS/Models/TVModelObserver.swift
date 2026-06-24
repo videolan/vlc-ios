@@ -30,7 +30,7 @@ class TVModelObserver: NSObject {
         self.audioModel = audioModel
     }
 
-    init(observerDelegate: MediaLibraryDelegate , playlistModel: PlaylistModel) {
+    init(observerDelegate: MediaLibraryDelegate, playlistModel: PlaylistModel) {
         self.playlistModel = playlistModel
         self.observerDelegate = observerDelegate
     }

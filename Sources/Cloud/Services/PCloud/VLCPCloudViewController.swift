@@ -15,7 +15,7 @@ import Foundation
 import PCloudSDKSwift
 
 class VLCPCloudViewController: VLCCloudStorageTableViewController {
-    //MARK: - Properties
+    // MARK: - Properties
 
     var pcloudController = VLCPCloudController.pCloudInstance
     var currentFile: Content?
