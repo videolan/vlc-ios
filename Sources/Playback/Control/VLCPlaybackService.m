@@ -187,11 +187,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         _shuffledList = nil;
         _shuffledOrder = [[NSMutableArray alloc] init];
 
-        // Initialize a separate media player in order to play silence so that the application can
-        // stay alive in background exclusively for Chromecast.
-        _backgroundDummyPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[@"--demux=rawaud"]];
-        _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
-
         _mediaList = [[VLCMediaList alloc] init];
 
         _primaryVideoSubtitleTrackIndex = -1;
@@ -1939,6 +1934,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [self setVideoTrackEnabled:false];
 
     if (_renderer) {
+        // A separate media player playing silence keeps the application alive in
+        // background exclusively for Chromecast.
+        if (!_backgroundDummyPlayer) {
+            _backgroundDummyPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[@"--demux=rawaud"]];
+            _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
+        }
         [_backgroundDummyPlayer play];
     }
 #else
