@@ -451,7 +451,7 @@ extension EqualizerView {
             var customProfiles: CustomEqualizerProfiles
 
             if let encodedProfiles = encodedProfiles,
-               let profiles = NSKeyedUnarchiver(forReadingWith: encodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles {
+               let profiles = (try? NSKeyedUnarchiver(forReadingFrom: encodedProfiles))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles {
                 profiles.profiles.append(customProfile)
                 customProfiles = profiles
             } else {
@@ -460,7 +460,7 @@ extension EqualizerView {
 
             let index = customProfiles.profiles.count - 1
             let userDefaults = UserDefaults.standard
-            userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+            userDefaults.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
             userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
             userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
             userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
@@ -506,7 +506,7 @@ extension EqualizerView {
         let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
 
         guard let encodedData = encodedData,
-              let customProfiles = NSKeyedUnarchiver(forReadingWith: encodedData).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+              let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: encodedData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles,
               index < customProfiles.profiles.count else {
             return
         }
@@ -560,14 +560,14 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
             action = UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""), style: .destructive) { _ in
                 let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
                 guard let customEncodedProfiles = customEncodedProfiles,
-                      var customProfiles = NSKeyedUnarchiver(forReadingWith: customEncodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+                      let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: customEncodedProfiles))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles,
                       index.row < customProfiles.profiles.count else {
                     return
                 }
 
                 customProfiles.profiles.remove(at: index.row)
                 let userDefaults = UserDefaults.standard
-                userDefaults.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+                userDefaults.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
 
                 // Reset the equalizer
                 self.equalizerPresetSelector(equalizerPresetSelector, didSelectPreset: 0, isCustom: false)
@@ -585,7 +585,7 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
             action = UIAlertAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""), style: .default) { _ in
                 let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
                 guard let customEncodedProfiles = customEncodedProfiles,
-                      let customProfiles = NSKeyedUnarchiver(forReadingWith: customEncodedProfiles).decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+                      let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: customEncodedProfiles))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles,
                       index.row < customProfiles.profiles.count else {
                     return
                 }
@@ -596,7 +596,7 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
                 }
 
                 customProfiles.profiles[index.row].name = newName
-                UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: customProfiles), forKey: kVLCCustomEqualizerProfiles)
+                UserDefaults.standard.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
                 self.presetSelectorView?.presetsTableView.reloadData()
             }
         }
