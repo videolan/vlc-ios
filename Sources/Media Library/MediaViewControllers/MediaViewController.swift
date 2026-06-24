@@ -123,6 +123,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         setupNavigationBar()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 14.0, *), menuButton.menu == nil,
+           let viewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            menuButton.menu = generateMenu(viewController: viewController)
+        }
+    }
+
     private func setupSortbutton() -> UIButton {
         let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
 
@@ -168,7 +176,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         if #available(iOS 14.0, *) {
             if let viewController = viewController as? MediaCategoryViewController {
-                menuButton.menu = generateMenu(viewController: viewController)
+                menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
             }
         }
         leftBarButtons = isEditing ? [selectAllButton] : leftBarButtonItems(for: viewController)
