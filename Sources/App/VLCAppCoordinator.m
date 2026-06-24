@@ -63,10 +63,10 @@
 {
     self = [super init];
     if (self) {
-        // Init the HTTP Server and clean its cache
-        // FIXME: VLCHTTPUploaderController should perhaps be a service?
         dispatch_async(dispatch_get_main_queue(), ^{
             [VLCLibrary setSharedEventsConfiguration:[VLCEventsLegacyConfiguration new]];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             [self initializeServices];
         });
     }
@@ -94,6 +94,10 @@
 
 - (void)initializeServices
 {
+    if (_httpUploaderController) {
+        return;
+    }
+
     // Init the HTTP Server and clean its cache if on iOS
     _httpUploaderController = [[VLCHTTPUploaderController alloc] init];
     #if TARGET_OS_IOS
