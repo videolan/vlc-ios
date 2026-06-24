@@ -161,7 +161,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                               name:AVAudioSessionRouteChangeNotification object:nil];
 
         [defaultCenter addObserver:self selector:@selector(handleInterruption:)
-                              name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+                              name:AVAudioSessionInterruptionNotification object:nil];
 
         // appkit because we neeed to know when we go to background in order to stop the video, so that we don't crash
 #if !TARGET_OS_WATCH
