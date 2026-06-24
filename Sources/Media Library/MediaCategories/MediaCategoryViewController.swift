@@ -859,6 +859,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func activeEditToolbar() -> EditToolbar {
+        (tabBarController as? BottomTabBarController)?.ensureEditToolbarSetup()
 #if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,

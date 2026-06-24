@@ -84,6 +84,16 @@ class BottomTabBarController: UITabBarController {
 
     // MARK: - Helpers
 
+    var editToolbarSetupHandler: (() -> Void)?
+
+    func ensureEditToolbarSetup() {
+        guard let handler = editToolbarSetupHandler else {
+            return
+        }
+        editToolbarSetupHandler = nil
+        handler()
+    }
+
     func editToolBar() -> EditToolbar? {
 #if os(iOS) && compiler(>=6.0)
         if #available(iOS 18.0, *),
