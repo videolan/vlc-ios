@@ -32,7 +32,11 @@
 @property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UILabel *nothingFoundLabel;
+#if TARGET_OS_TV
 @property (strong, nonatomic) VLCSearchController *searchController;
+#else
+@property (strong, nonatomic) UISearchController *searchController;
+#endif
 @property (nonatomic) BOOL activityCancelled;
 @property (nonatomic) NSNumber *collectionTopContentOffset;
 @end
