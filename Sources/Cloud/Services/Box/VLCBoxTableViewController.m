@@ -17,7 +17,7 @@
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
 
-@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate, NSURLConnectionDataDelegate>
+@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate, NSURLSessionTaskDelegate>
 {
     BoxFile *_selectedFile;
     VLCBoxController *_boxController;
@@ -215,28 +215,29 @@
 
     [urlRequest setValue:[NSString stringWithFormat:@"Bearer %@", [BoxSDK sharedSDK].OAuth2Session.accessToken] forHTTPHeaderField:@"Authorization"];
 
-    NSURLConnection *theTestConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-    [theTestConnection start];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                                                          delegate:self
+                                                     delegateQueue:nil];
+    [[session dataTaskWithRequest:urlRequest] resume];
 }
 
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler
 {
-    if (response != nil) {
-        /* we have 1 redirect from the original URL, so as soon as we'd do that,
-         * we grab the URL and cancel the connection */
-        NSURL *theActualURL = request.URL;
+    /* we have 1 redirect from the original URL, so as soon as we'd do that,
+     * we grab the URL and cancel the connection */
+    NSURL *theActualURL = request.URL;
 
-        [connection cancel];
+    completionHandler(nil);
+    [session invalidateAndCancel];
 
-        /* now ask VLC to stream the URL we were just passed */
-        VLCMedia *media = [_boxController setMediaNameMetadata:[VLCMedia mediaWithURL:theActualURL]
-                                                      withName:_currentFileName];
+    /* now ask VLC to stream the URL we were just passed */
+    dispatch_async(dispatch_get_main_queue(), ^{
+        VLCMedia *media = [self->_boxController setMediaNameMetadata:[VLCMedia mediaWithURL:theActualURL]
+                                                            withName:self->_currentFileName];
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-    }
-
-    return request;
+    });
 }
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
