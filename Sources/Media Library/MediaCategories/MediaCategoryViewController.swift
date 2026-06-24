@@ -532,11 +532,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 #if os(iOS)
         let manager = VLCAppCoordinator.sharedInstance().rendererDiscovererManager
         manager.delegate = self
-        if manager.discoverers.isEmpty {
-            // Either didn't start or stopped before
-            manager.start()
-        }
         manager.presentingViewController = self
+        if manager.discoverers.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard self?.viewIfLoaded?.window != nil, manager.discoverers.isEmpty else {
+                    return
+                }
+                manager.start()
+            }
+        }
 
 #if compiler(>=6.0)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
