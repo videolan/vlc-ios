@@ -53,12 +53,17 @@ class SettingsController: UITableViewController {
         self.mediaLibraryService = mediaLibraryService
         super.init(style: .grouped)
         self.mediaLibraryService.deviceBackupDelegate = self
-        setup()
+        setupTabBarItem()
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -77,12 +82,15 @@ class SettingsController: UITableViewController {
 
     // MARK: - Setup Functions
 
-    private func setupUI() {
+    private func setupTabBarItem() {
         title = NSLocalizedString("Settings", comment: "")
         tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
                                   image: UIImage(named: "Settings"),
                                   selectedImage: UIImage(named: "Settings"))
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
+    }
+
+    private func setupUI() {
         tableView.separatorStyle = .none
         tableView.cellLayoutMarginsFollowReadableWidth = false // Fix for iPad
         tableView.verticalScrollIndicatorInsets = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
