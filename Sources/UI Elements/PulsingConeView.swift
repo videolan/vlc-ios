@@ -20,6 +20,9 @@ class PulsingConeView: UIView {
         return coneImageView
     }()
 
+    private let appearanceDelay: TimeInterval = 1.0
+    private var delayTimer: Timer?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -43,9 +46,18 @@ class PulsingConeView: UIView {
     }
 
     @objc func startAnimating() {
-        if coneImageView.layer.animation(forKey: "pulse") != nil {
+        if delayTimer != nil || coneImageView.layer.animation(forKey: "pulse") != nil {
             return
         }
+        delayTimer = Timer.scheduledTimer(timeInterval: appearanceDelay,
+                                          target: self,
+                                          selector: #selector(beginPulsing),
+                                          userInfo: nil,
+                                          repeats: false)
+    }
+
+    @objc private func beginPulsing() {
+        delayTimer = nil
         alpha = 1.0
 
         let scale = CABasicAnimation(keyPath: "transform.scale")
@@ -67,6 +79,8 @@ class PulsingConeView: UIView {
     }
 
     @objc func stopAnimating() {
+        delayTimer?.invalidate()
+        delayTimer = nil
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         coneImageView.layer.removeAnimation(forKey: "pulse")
