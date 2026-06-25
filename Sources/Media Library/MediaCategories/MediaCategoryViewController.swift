@@ -734,11 +734,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc private func playbackDidStart() {
         if let model = model as? CollectionModel, let playlist = model.mediaCollection as? VLCMLPlaylist, let selectedIndex = collectionSelectedIndex {
-            saveCurrentPlaylistInfo(with: playlist.identifier(), playlistTitle: playlist.title(), media: playlist.media?[selectedIndex.row])
+            let media = (selectedIndex.row < playlist.media?.count ?? 0) ? playlist.media?[selectedIndex.row] : nil
+            saveCurrentPlaylistInfo(with: playlist.identifier(), playlistTitle: playlist.title(), media: media)
             addPlaybackWillStopObserver()
             reloadData()
             userDefaults.set(true, forKey: kVLCIsCurrentlyPlayingPlaylist)
-        } else if let playlists = currentDataSet as? [VLCMLPlaylist], let selectedIndex = collectionSelectedIndex {
+        } else if let playlists = currentDataSet as? [VLCMLPlaylist], let selectedIndex = collectionSelectedIndex, selectedIndex.row < playlists.count {
             let selectedPlaylist = playlists[selectedIndex.row]
             guard let media = PlaybackService.sharedInstance().currentlyPlayingMedia,
                   let mlMedia = VLCMLMedia(forPlaying: media) else { return }
