@@ -12,6 +12,7 @@
 
 #import "VLCAppleTVSceneDelegate.h"
 #import "AppleTVAppDelegate.h"
+#import "VLCTopShelfManager.h"
 
 @implementation VLCAppleTVSceneDelegate
 
@@ -25,6 +26,8 @@
     [window makeKeyAndVisible];
     appDelegate.window = window;
 
+    [[VLCTopShelfManager sharedManager] update];
+
     [self scene:scene openURLContexts:connectionOptions.URLContexts];
 }
 
@@ -37,6 +40,8 @@
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     AppleTVAppDelegate *appDelegate = (AppleTVAppDelegate *)sharedApplication.delegate;
     [appDelegate applicationWillTerminate:sharedApplication];
+
+    [[VLCTopShelfManager sharedManager] update];
 }
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts

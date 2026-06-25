@@ -207,6 +207,14 @@ extension VLCURLHandler {
             VLCCallbackURLHandler(),
             ElseCallbackURLHandler()
         ]
+    #elseif os(tvOS)
+        @objc static let handlers =
+            [
+                VLCTopShelfURLHandler(),
+                XCallbackURLHandler(),
+                VLCCallbackURLHandler(),
+                ElseCallbackURLHandler()
+            ]
     #else
         @objc static let handlers =
             [
@@ -216,6 +224,38 @@ extension VLCURLHandler {
             ]
     #endif
 }
+
+#if os(tvOS)
+// Handles the deep link emitted by the Top Shelf extension: vlc://topshelf?id=<VLCMLIdentifier>.
+// Registered ahead of VLCCallbackURLHandler, which would otherwise claim every vlc:// URL.
+class VLCTopShelfURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+    var subURL: URL?
+    var successCallback: URL?
+    var errorCallback: URL?
+    var fileName: String?
+
+    @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
+        return url.scheme == "vlc" && url.host == "topshelf"
+    }
+
+    @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let idString = components.queryItems?.first(where: { $0.name == "id" })?.value,
+              let identifier = VLCMLIdentifier(idString) else {
+            return false
+        }
+
+        let service = VLCAppCoordinator.sharedInstance().mediaLibraryService
+        guard let media = service.media(for: identifier) else {
+            return false
+        }
+
+        PlaybackService.sharedInstance().play(media)
+        return true
+    }
+}
+#endif
 
 #if os(iOS)
 class DropBoxURLHandler: NSObject, VLCURLHandler {

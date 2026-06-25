@@ -392,9 +392,9 @@ private extension MediaLibraryService {
     ///
     /// - Parameter type: Type of the media
     /// - Returns: Array of VLCMLMedia
-    func media(ofType type: VLCMLMediaType,
-               sortingCriteria sort: VLCMLSortingCriteria = .alpha,
-               desc: Bool = false) -> [VLCMLMedia] {
+    @objc func media(ofType type: VLCMLMediaType,
+                     sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                     desc: Bool = false) -> [VLCMLMedia] {
         return type == .video ? medialib.videoFiles(with: sort, desc: desc) ?? []
                               : medialib.audioFiles(with: sort, desc: desc) ?? []
     }
@@ -422,6 +422,11 @@ private extension MediaLibraryService {
 
     @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
         return medialib.media(withIdentifier: identifier)
+    }
+
+    // Bridge for Obj-C clients: `observable` is a generic type and not visible from Obj-C.
+    @objc func addObserver(_ observer: MediaLibraryObserver) {
+        observable.addObserver(observer)
     }
 
 
