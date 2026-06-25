@@ -1024,9 +1024,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
             case VLCMediaPlayerStatePaused: {
                 APLog(@"%s: paused", __func__);
-#if !TARGET_OS_TV
                 [self savePlaybackState];
-#endif
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
             } break;
 
@@ -1040,9 +1038,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             } break;
             case VLCMediaPlayerStateStopping: {
                 APLog(@"%s: stopping", __func__);
-#if TARGET_OS_IOS || TARGET_OS_WATCH
                 [self savePlaybackState];
-#endif
             } break;
             case VLCMediaPlayerStateStopped: {
                 APLog(@"%s: stopped", __func__);
