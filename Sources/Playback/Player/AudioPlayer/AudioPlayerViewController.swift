@@ -45,6 +45,12 @@ class AudioPlayerViewController: PlayerViewController {
         return audioPlayerView
     }()
 
+    private lazy var coneLoadingView: PulsingConeView = {
+        let coneLoadingView = PulsingConeView()
+        coneLoadingView.translatesAutoresizingMaskIntoConstraints = false
+        return coneLoadingView
+    }()
+
     private lazy var moreOptionsButton: UIButton = {
         let moreOptionsButton = UIButton(type: .custom)
         moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
@@ -86,6 +92,7 @@ class AudioPlayerViewController: PlayerViewController {
         setupOptionsNavigationBar()
         setupSliders()
         setupStatusLabel()
+        setupConeLoadingView()
     }
 #else
     @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
@@ -104,6 +111,7 @@ class AudioPlayerViewController: PlayerViewController {
         setupAudioPlayerViewConstraints()
         setupOptionsNavigationBar()
         setupStatusLabel()
+        setupConeLoadingView()
     }
 #endif
 
@@ -314,6 +322,18 @@ class AudioPlayerViewController: PlayerViewController {
         ])
     }
 
+    private func setupConeLoadingView() {
+        audioPlayerView.addSubview(coneLoadingView)
+        audioPlayerView.bringSubviewToFront(coneLoadingView)
+
+        NSLayoutConstraint.activate([
+            coneLoadingView.centerXAnchor.constraint(equalTo: audioPlayerView.thumbnailImageView.centerXAnchor),
+            coneLoadingView.centerYAnchor.constraint(equalTo: audioPlayerView.thumbnailImageView.centerYAnchor),
+            coneLoadingView.widthAnchor.constraint(equalTo: audioPlayerView.thumbnailImageView.widthAnchor),
+            coneLoadingView.heightAnchor.constraint(equalTo: audioPlayerView.thumbnailImageView.heightAnchor)
+        ])
+    }
+
     private func showPlayqueue(from qvc: QueueViewController) {
         qvc.view.removeFromSuperview()
         qvc.removeFromParent()
@@ -469,6 +489,12 @@ extension AudioPlayerViewController {
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
         audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
+        if currentState == .buffering {
+            coneLoadingView.startAnimating()
+        } else {
+            coneLoadingView.stopAnimating()
+        }
+
         let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
         let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")
         let accessibilityHint: String = isPlaying ? NSLocalizedString("MINIMIZE_HINT", comment: "") : NSLocalizedString("CLOSE_HINT", comment: "")
@@ -494,6 +520,11 @@ extension AudioPlayerViewController {
         }
 
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
+    }
+
+    override func playbackPositionUpdated(_ playbackService: PlaybackService) {
+        super.playbackPositionUpdated(playbackService)
+        coneLoadingView.stopAnimating()
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
