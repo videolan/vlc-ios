@@ -124,7 +124,6 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
-"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choose a file to open:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";
@@ -208,7 +207,7 @@
 "EMPTY_NO_PLAYLISTS" = "Playlists";
 "EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST" = "Empty Playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "EMPTY_HISTORY" = "Empty History";

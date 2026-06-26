@@ -56,7 +56,7 @@
 {
     [super viewDidLoad];
 
-    self.nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
+    self.nothingFoundLabel.text = NSLocalizedString(@"EMPTY_FOLDER", nil);
     [self.nothingFoundLabel sizeToFit];
     self.nothingFoundLabel.hidden = YES;
     self.isAnyCellFocused = NO;
