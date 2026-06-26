@@ -173,7 +173,10 @@ extension VLCMLAlbum {
     }
 
     func albumName() -> String {
-        return isUnknownAlbum() ? NSLocalizedString("UNKNOWN_ALBUM", comment: "") : title
+        if isUnknownAlbum() || title.isEmpty {
+            return NSLocalizedString("UNKNOWN_ALBUM", comment: "")
+        }
+        return title
     }
 
     func albumArtistName() -> String {
