@@ -45,6 +45,8 @@
     _insets = UIEdgeInsetsMake(5, 10, 5, 10);
     self.backgroundColor = [UIColor clearColor];
     self.textAlignment = NSTextAlignmentCenter;
+    self.numberOfLines = 0;
+    self.lineBreakMode = NSLineBreakByWordWrapping;
 }
 
 #pragma mark -
@@ -52,6 +54,11 @@
 - (void)showStatusMessage:(NSString *)message
 {
     self.text = message;
+
+    CGFloat horizontalMargin = 16.;
+    CGFloat availableWidth = CGRectGetWidth([self superview].bounds) - 2 * horizontalMargin - (_insets.left + _insets.right);
+    self.preferredMaxLayoutWidth = availableWidth > 0 ? availableWidth : 0;
+    [self invalidateIntrinsicContentSize];
 
     /* layout and horizontal center in super view */
     [self sizeToFit];
