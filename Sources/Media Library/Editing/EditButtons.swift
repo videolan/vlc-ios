@@ -30,6 +30,7 @@
     case transferFile
     case transferUserInfo
     case transferComplicationUserInfo
+    case transferMetadata
 }
 
 class EditButton {
@@ -107,6 +108,7 @@ class EditButtonsFactory {
 //        actionList.append(.transferFile)
 //        actionList.append(.transferUserInfo)
 //        actionList.append(.transferComplicationUserInfo)
+        actionList.append(.transferMetadata)
 
         return actionList
     }
@@ -226,6 +228,12 @@ class EditButtonsFactory {
                                               image: "delete",
                                               accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
                                               accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
+                case .transferMetadata:
+                editButtons.append(EditButton(identifier: button,
+                                              title: "Transfer Metadata",
+                                              image: "",
+                                              accessibilityLabel: "Transfer Metadata",
+                                              accessibilityHint: "Transfer MetaData hint"))
             }
         }
         return editButtons

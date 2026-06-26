@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import Foundation
+import SwiftUI
 
 // Wrapper around VLCMLAlbum to be used in SwiftUI view
 struct VLCWatchMLAlbum {
@@ -39,6 +40,11 @@ extension VLCWatchMLAlbum: VLCWatchMLCellItem {
     var subtitleText: String {
         return albumArtistName ?? ""
     }
+
+    func placeholderName(for color: ColorScheme) -> String {
+        return color == .light ? "album-placeholder-white" : "album-placeholder-dark"
+    }
 }
 
+// Used for NavigationDestination
 extension VLCWatchMLAlbum: Hashable { }

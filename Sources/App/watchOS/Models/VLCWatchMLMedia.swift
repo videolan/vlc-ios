@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import Foundation
+import SwiftUI
 
 // Wrapper around VLCMLMedia to be used in SwiftUI view
 struct VLCWatchMLMedia: Identifiable {
@@ -33,10 +34,14 @@ struct VLCWatchMLMedia: Identifiable {
 
 extension VLCWatchMLMedia: VLCWatchMLCellItem {
     var titleText: String {
-        return showTrackNumber ? "\(trackNumber). \(title)" : title
+        return showTrackNumber ? "\(trackNumber). \(title)" : "\(title)"
     }
 
     var subtitleText: String {
         return artist?.artistName() ?? ""
+    }
+
+    func placeholderName(for color: ColorScheme) -> String {
+        return color == .light ? "song-placeholder-white" : "song-placeholder-dark"
     }
 }

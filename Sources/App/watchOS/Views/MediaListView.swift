@@ -17,27 +17,34 @@ protocol VLCWatchMLCellItem: Identifiable {
     var titleText: String { get }
     var subtitleText: String { get }
     var thumbnail: URL? { get }
+    func placeholderName(for color: ColorScheme) -> String
 }
 
-struct MediaListView<T: VLCWatchMLCellItem> : View {
-    @EnvironmentObject var contentViewModel: TracksViewModel
+struct MediaListView<T: VLCWatchMLCellItem, Subtitle: View> : View {
+    @Environment(\.colorScheme) var colorScheme
     var items: [T]
+    @ViewBuilder var subtitle: (T) -> Subtitle
     var didTapCell: (T) -> Void
 
     var body: some View {
         List(items) { item in
-            MediaCellView(thumbnail: item.thumbnail, title: item.titleText, subtitle: item.subtitleText)
-                .onTapGesture {
-                    didTapCell(item)
-                }
+            MediaCellView(title: item.titleText,
+                          thumbnail: item.thumbnail,
+                          placeholderImageName: item.placeholderName(for: colorScheme)) {
+                subtitle(item)
+            }
+            .onTapGesture {
+                didTapCell(item)
+            }
         }
     }
 }
 
-struct MediaCellView: View {
-    var thumbnail: URL?
+struct MediaCellView<Subtitle: View>: View {
     var title: String
-    var subtitle: String
+    var thumbnail: URL?
+    var placeholderImageName: String
+    @ViewBuilder var subtitle: () -> Subtitle
 
     var body: some View {
         HStack {
@@ -46,19 +53,18 @@ struct MediaCellView: View {
                     .resizable()
                     .scaledToFit()
             } placeholder: {
-                Rectangle()
+                Image(placeholderImageName)
+                    .resizable()
+                    .scaledToFit()
             }
             .frame(width: 42, height: 42)
             .clipShape(RoundedRectangle(cornerRadius: 8))
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(title)
                     .lineLimit(1)
-                Text(subtitle)
-                    .lineLimit(1)
-                    .foregroundStyle(.secondary)
+                subtitle()
             }
         }
     }
-
 }

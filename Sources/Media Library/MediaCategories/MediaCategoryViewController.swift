@@ -1878,10 +1878,25 @@ private extension MediaCategoryViewController {
                           let mrl = media.mainFile()?.mrl
                     else { return }
 
-                    print("Transferring file to watch: \(media.title)")
-                    print("File mrl: \(mrl)")
-                    watchService.transferFile(mrl, metadata: TestDataProvider.fileMetaData())
-                    // watchServie.transferFile(TestDataProvider.file(), metadata: TestDataProvider.fileMetaData())
+                    let librarySyncId: String
+
+                    if let existingId = UserDefaults.standard.string(forKey: kVLCMediaLibrarySyncID) {
+                        librarySyncId = existingId
+                    } else {
+                        let newId = UUID().uuidString
+                        UserDefaults.standard.set(newId, forKey: kVLCMediaLibrarySyncID)
+                        librarySyncId = newId
+                    }
+
+                    let payload: [String: Any] = [
+                        kVLCWatchMessageType: WatchMessageType.transferAudioFile.rawValue,
+                        kVLCMediaLibrarySyncID: librarySyncId,
+                        kVLCiPhoneMediaID: media.identifier(),
+                        kVLCiPhoneMediaFileName: media.fileName()
+                    ]
+
+                    print("Transferring file to watch: \(media.title) (\(mrl)) with payload \n\(payload)")
+                    watchService.transferFile(mrl, metadata: payload)
                     #endif
                 })
             case .transferUserInfo:
@@ -1908,6 +1923,37 @@ private extension MediaCategoryViewController {
 
                     // For testing
                     watchService.transferCurrentComplicationUserInfo(TestDataProvider.currentComplicationInfo())
+                    #endif
+                })
+            case .transferMetadata:
+                return $0.action({ _ in
+                    #if (os(iOS) || os(watchOS)) && !NO_WATCH
+                    guard let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+                        return
+                    }
+
+                    let databaseURL = libraryDirectory
+                        .appendingPathComponent("MediaLibrary")
+                        .appendingPathComponent(kVLCMediaLibraryDBFileName)
+
+                    if FileManager.default.fileExists(atPath: databaseURL.path) {
+                        let librarySyncId: String
+
+                        if let existingId = UserDefaults.standard.string(forKey: kVLCMediaLibrarySyncID) {
+                            librarySyncId = existingId
+                        } else {
+                            let newId = UUID().uuidString
+                            UserDefaults.standard.set(newId, forKey: kVLCMediaLibrarySyncID)
+                            librarySyncId = newId
+                        }
+
+                        let payload: [String: Any] = [
+                            kVLCWatchMessageType: WatchMessageType.transferiPhoneMediaLibraryDBFile.rawValue,
+                            kVLCMediaLibrarySyncID: librarySyncId
+                        ]
+
+                        self.watchService.transferFile(databaseURL, metadata: payload)
+                    }
                     #endif
                 })
             }

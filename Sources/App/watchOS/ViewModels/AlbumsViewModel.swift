@@ -15,31 +15,41 @@ import SwiftUI
 
 class AlbumsViewModel: AlbumModel, ObservableObject {
 
-    override var files: [VLCMLAlbum] {
-        didSet {
-            DispatchQueue.main.async {
-                self.albums = self.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLAlbum? in
-                    guard let album = obj as? VLCMLAlbum else { return nil }
-                    return VLCWatchMLAlbum(album)
+    @Published var snapshotAlbums: [VLCWatchMLAlbum] = []
+    @Published var isFirstLoad = true
+    @Published var path = NavigationPath()
+
+    var snapshotMediaLibrary: MediaLibraryService?
+
+    required init(medialibrary: MediaLibraryService) {
+        super.init(medialibrary: medialibrary)
+    }
+
+    convenience init(medialibrary: MediaLibraryService, snapshotMediaLibrary: MediaLibraryService) {
+        self.init(medialibrary: medialibrary)
+        self.snapshotMediaLibrary = snapshotMediaLibrary
+    }
+
+    func loadAlbums() {
+        loadSnapshotAlbums()
+        loadAlbumsFromWatch()
+        isFirstLoad = false
+    }
+
+    private func loadSnapshotAlbums() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let albumFiles = self.snapshotMediaLibrary?.medialib.albums() {
+                DispatchQueue.main.async {
+                    self.snapshotAlbums = albumFiles.map { VLCWatchMLAlbum($0) }.sorted { $0.id < $1.id}
                 }
             }
         }
     }
 
-    @Published var albums: [VLCWatchMLAlbum] = []
-    @Published var isFirstLoad = true
-    @Published var path = NavigationPath()
-
-    required init(medialibrary: MediaLibraryService) {
-        super.init(medialibrary: medialibrary)
-        medialibrary.observable.addObserver(self)
-    }
-
-    func loadAlbums() {
+    private func loadAlbumsFromWatch() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.sort(by: .default, desc: true)
             self.files = self.anyfiles as? [VLCMLAlbum] ?? []
         }
-        isFirstLoad = false
     }
 }

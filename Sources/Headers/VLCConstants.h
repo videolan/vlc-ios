@@ -205,3 +205,11 @@
 #define kVLCPrefetchDistance 100
 
 #define kVLCAudioTabIndex @"kVLCAudioTabIndex"
+
+#define kVLCMediaLibrarySyncID @"kVLCMediaLibrarySyncID"
+#define kVLCiPhoneMediaID @"kVLCiPhoneMediaID"
+#define kVLCiPhoneMediaFileName @"kVLCiPhoneMediaFileName"
+#define kVLCWatchMessageType @"kVLCWatchMessageType"
+
+#define kVLCMediaLibraryDBFileName @"medialibrary.db"
+#define kVLCSnapshotMediaLibraryDBFileName @"medialibrary-snapshot.db"

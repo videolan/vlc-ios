@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) VLCFavoriteService *favoriteService;
 #endif
 @property (readonly) MediaLibraryService *mediaLibraryService;
+//#if TARGET_OS_WATCH
+@property (readonly) MediaLibraryService *snapshotMediaLibraryService;
+//#endif
+
 #if !TARGET_OS_WATCH
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
 @property (retain) UITabBarController *tabBarController;

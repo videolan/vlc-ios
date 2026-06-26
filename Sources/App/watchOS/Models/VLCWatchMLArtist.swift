@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import Foundation
+import SwiftUI
 
 // Wrapper around VLCMLArtist to be used in SwiftUI view
 struct VLCWatchMLArtist {
@@ -36,6 +37,10 @@ extension VLCWatchMLArtist: VLCWatchMLCellItem {
 
     var subtitleText: String {
         return albumsCount == 0 ? numberOfTracksString() : String(format: "%@ · %@", numberOfAlbumsString(), numberOfTracksString())
+    }
+
+    func placeholderName(for color: ColorScheme) -> String {
+        return color == .light ? "artist-placeholder-white" : "artist-placeholder-dark"
     }
 
     private func numberOfTracksString() -> String {

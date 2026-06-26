@@ -82,7 +82,8 @@ class VLCWatchConnectivityService {
     // Returns a WCSessionUserInfoTransfer object to monitor the progress or cancel the operation.
     func transferUserInfo(_ userInfo: [String: Any]) {
         var message = VLCWatchMessage(command: .transferUserInfo, phrase: .transferring)
-        message.timedColor = TimedColor(userInfo)
+        message.payload = userInfo
+//        message.timedColor = TimedColor(userInfo)
 
         guard WCSession.default.activationState == .activated else {
             return handleSessionUnactivated(with: message)
@@ -96,7 +97,7 @@ class VLCWatchConnectivityService {
     // Return a WCSessionFileTransfer object to monitor the progress or cancel the operation.
     func transferFile(_ file: URL, metadata: [String: Any]) {
         var message = VLCWatchMessage(command: .transferFile, phrase: .transferring)
-        message.timedColor = TimedColor(metadata)
+//        message.timedColor = TimedColor(metadata)
         message.payload = metadata
 
         guard WCSession.default.activationState == .activated else {

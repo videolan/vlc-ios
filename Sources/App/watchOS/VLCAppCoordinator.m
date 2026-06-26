@@ -16,6 +16,7 @@
 @interface VLCAppCoordinator()
 {
     MediaLibraryService *_mediaLibraryService;
+    MediaLibraryService *_snapshotMediaLibraryService;
 }
 
 @end
@@ -37,9 +38,17 @@
 - (MediaLibraryService *)mediaLibraryService
 {
     if (!_mediaLibraryService) {
-        _mediaLibraryService = [[MediaLibraryService alloc] init];
+        _mediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCMediaLibraryDBFileName];
     }
     return _mediaLibraryService;
+}
+
+- (MediaLibraryService *)snapshotMediaLibraryService
+{
+    if (!_snapshotMediaLibraryService) {
+        _snapshotMediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCSnapshotMediaLibraryDBFileName];
+    }
+    return _snapshotMediaLibraryService;
 }
 
 - (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity

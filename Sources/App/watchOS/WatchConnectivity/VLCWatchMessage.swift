@@ -51,3 +51,8 @@ enum Phrase: String, Codable {
     case finished = "Finished"
     case failed = "Failed"
 }
+
+enum WatchMessageType: String {
+    case transferAudioFile
+    case transferiPhoneMediaLibraryDBFile
+}

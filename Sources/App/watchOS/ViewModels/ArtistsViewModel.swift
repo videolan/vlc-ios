@@ -14,30 +14,40 @@ import Foundation
 
 class ArtistsViewModel: ArtistModel, ObservableObject {
 
-    override var files: [VLCMLArtist] {
-        didSet {
-            DispatchQueue.main.async {
-                self.artists = self.anyfiles.compactMap { (obj: VLCMLObject) -> VLCWatchMLArtist? in
-                    guard let artist = obj as? VLCMLArtist else { return nil }
-                    return VLCWatchMLArtist(artist)
+    @Published var snapshotArtists: [VLCWatchMLArtist] = []
+    @Published var isFirstLoad = true
+
+    var snapshotMediaLibrary: MediaLibraryService?
+
+    required init(medialibrary: MediaLibraryService) {
+        super.init(medialibrary: medialibrary)
+    }
+
+    convenience init(medialibrary: MediaLibraryService, snapshotMediaLibrary: MediaLibraryService) {
+        self.init(medialibrary: medialibrary)
+        self.snapshotMediaLibrary = snapshotMediaLibrary
+    }
+
+    func loadArtists() {
+        loadSnapshotArtists()
+        loadArtistsFromWatch()
+        isFirstLoad = false
+    }
+
+    private func loadSnapshotArtists() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let artistsFiles = self.snapshotMediaLibrary?.medialib.artists(true) {
+                DispatchQueue.main.async {
+                    self.snapshotArtists = artistsFiles.map { VLCWatchMLArtist($0) }.sorted { $0.id < $1.id}
                 }
             }
         }
     }
 
-    @Published var artists: [VLCWatchMLArtist] = []
-    @Published var isFirstLoad = true
-
-    required init(medialibrary: MediaLibraryService) {
-        super.init(medialibrary: medialibrary)
-        medialibrary.observable.addObserver(self)
-    }
-
-    func loadArtists() {
+    private func loadArtistsFromWatch() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.sort(by: .default, desc: true)
             self.files = self.anyfiles as? [VLCMLArtist] ?? []
         }
-        isFirstLoad = false
     }
 }

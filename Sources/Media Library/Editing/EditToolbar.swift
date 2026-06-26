@@ -141,7 +141,7 @@ class EditToolbar: UIView {
                  .markAsSeen,
                  .markAsUnseen:
                 break
-            case .updateAppContext, .sendMessage, .sendMessageData, .transferFile, .transferUserInfo, .transferComplicationUserInfo:
+            case .updateAppContext, .sendMessage, .sendMessageData, .transferFile, .transferUserInfo, .transferComplicationUserInfo, .transferMetadata:
                 break
             }
         }
@@ -177,7 +177,7 @@ class EditToolbar: UIView {
                  .markAsSeen,
                  .markAsUnseen:
                 break
-            case .updateAppContext, .sendMessage, .sendMessageData, .transferFile, .transferUserInfo, .transferComplicationUserInfo:
+            case .updateAppContext, .sendMessage, .sendMessageData, .transferFile, .transferUserInfo, .transferComplicationUserInfo, .transferMetadata:
                 break
             }
         }

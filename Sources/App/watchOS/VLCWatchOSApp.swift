@@ -32,14 +32,17 @@ struct VLCWatchOSApp: App {
                                .transferCurrentComplicationUserInfo]
 
     let mediaLibraryService: MediaLibraryService
+    let snapshotMediaLibraryService: MediaLibraryService
     let playbackService: PlaybackService
 
     init() {
         mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
+        snapshotMediaLibraryService = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService
         playbackService = PlaybackService.sharedInstance()
-        let artistsViewModel = ArtistsViewModel(medialibrary: mediaLibraryService)
-        let albumsViewModel = AlbumsViewModel(medialibrary: mediaLibraryService)
-        let tracksViewModel = TracksViewModel(medialibrary: mediaLibraryService)
+        let artistsViewModel = ArtistsViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
+        let albumsViewModel = AlbumsViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
+        let tracksViewModel = TracksViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
+
         _artistsViewModel = StateObject(wrappedValue: artistsViewModel)
         _albumsViewModel = StateObject(wrappedValue: albumsViewModel)
         _tracksViewModel = StateObject(wrappedValue: tracksViewModel)
@@ -50,7 +53,12 @@ struct VLCWatchOSApp: App {
             TabView(selection: $selection) {
 
                 NavigationStack {
-                    MediaListView<VLCWatchMLArtist>(items: artistsViewModel.artists) { artist in
+                    MediaListView(items: artistsViewModel.snapshotArtists) { artist in
+                        Text(artist.subtitleText)
+                            .lineLimit(1)
+                            .foregroundStyle(.secondary)
+                            .font(.caption)
+                    } didTapCell: { artist in
                         print("tap artist: \(artist)")
                     }
                     .navigationTitle("Artists")
@@ -61,7 +69,12 @@ struct VLCWatchOSApp: App {
                 }
 
                 NavigationStack(path: $albumsViewModel.path) {
-                    MediaListView<VLCWatchMLAlbum>(items: albumsViewModel.albums) { album in
+                    MediaListView(items: albumsViewModel.snapshotAlbums) { album in
+                        Text(album.subtitleText)
+                            .lineLimit(1)
+                            .foregroundStyle(.secondary)
+                            .font(.caption)
+                    } didTapCell: { album in
                         albumsViewModel.path.append(album)
                     }
                     .navigationTitle("Albums")
@@ -70,12 +83,26 @@ struct VLCWatchOSApp: App {
                         albumsViewModel.loadAlbums()
                     }
                     .navigationDestination(for: VLCWatchMLAlbum.self) { album in
-                        let tracks = album.tracks.map {
+                        let medias = album.tracks.map {
                             var media = VLCWatchMLMedia($0)
                             media.showTrackNumber = true
                             return media
                         }
-                        MediaListView<VLCWatchMLMedia>(items: tracks) { media in
+                        MediaListView(items: medias) { media in
+                            HStack(spacing: 2) {
+                                if !isDownloaded(iphoneMediaId: media.id, syncIds: tracksViewModel.mediaSyncIds, downloadedItemIds: tracksViewModel.downloadedMediaIDs) {
+                                    Image("Downloads")
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                }
+                                Text(media.subtitleText)
+                                    .lineLimit(1)
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                            }
+                        } didTapCell: { media in
                             tracksViewModel.play(media: media)
                         }
                         .navigationTitle(album.title)
@@ -83,7 +110,21 @@ struct VLCWatchOSApp: App {
                 }
 
                 NavigationStack {
-                    MediaListView<VLCWatchMLMedia>(items: tracksViewModel.tracks) { media in
+                    MediaListView(items: tracksViewModel.snapshotMedias) { media in
+                        HStack(spacing: 2) {
+                            if !isDownloaded(iphoneMediaId: media.id, syncIds: tracksViewModel.mediaSyncIds, downloadedItemIds: tracksViewModel.downloadedMediaIDs) {
+                                Image("Downloads")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                            }
+                            Text(media.subtitleText)
+                                .lineLimit(1)
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
+                        }
+                    } didTapCell: { media in
                         tracksViewModel.play(media: media)
                     }
                     .navigationTitle("Songs")
@@ -96,9 +137,9 @@ struct VLCWatchOSApp: App {
                 // TODO: Radio Discovery tab
 
                 // For testing WatchConnectivity APIs
-//                ForEach(commands, id: \.self) { command in
-//                    CommandView(command: command, selectedTab: $selection).tag(command)
-//                }
+                //                ForEach(commands, id: \.self) { command in
+                //                    CommandView(command: command, selectedTab: $selection).tag(command)
+                //                }
             }
             .onReceive(NotificationCenter.default.activationDidCompletePublisher) { notification in
                 activationDidComplete(notification)
@@ -121,6 +162,11 @@ struct VLCWatchOSApp: App {
      */
     private func reachabilityDidChange(_ notification: Notification) {
         print("\(#function): isReachable:\(WCSession.default.isReachable)")
+    }
+
+    private func isDownloaded(iphoneMediaId: VLCMLIdentifier, syncIds: [MediaSyncID], downloadedItemIds: Set<VLCMLIdentifier>) -> Bool {
+        guard let watchMediaId = syncIds.first(where: { $0.iphoneMediaId == iphoneMediaId })?.watchMediaId else { return false }
+        return downloadedItemIds.contains(watchMediaId)
     }
 }
 

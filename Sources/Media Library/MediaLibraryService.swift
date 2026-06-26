@@ -142,7 +142,8 @@ extension NSNotification {
 // MARK: -
 
 class MediaLibraryService: NSObject {
-    private static let databaseName: String = "medialibrary.db"
+    let databaseName: String
+
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
     private var initRecoveryAttempt = 0
 
@@ -167,7 +168,7 @@ class MediaLibraryService: NSObject {
         defer { mediaLibrarySetupLock.unlock() }
         guard !didSetupMediaLibrary else { return }
         didSetupMediaLibrary = true
-        setupMediaLibrary()
+        setupMediaLibrary(databaseName: databaseName)
     }
 
     @objc weak var deviceBackupDelegate: MediaLibraryDeviceBackupDelegate?
@@ -180,15 +181,23 @@ class MediaLibraryService: NSObject {
     var currentlyPlayingCollection: CurrentlyPlayingCollectionModel?
 #endif
 
-    override init() {
+    @objc
+    init(databaseName: String) {
+        print("init \(databaseName)")
+        self.databaseName = databaseName
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(reload),
-                                               name: .VLCNewFileAddedNotification, object: nil)
-        
+
+        setupMediaLibrary(databaseName: databaseName)
+        if databaseName == kVLCMediaLibraryDBFileName {
+            medialib.delegate = self
+            NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                                   name: .VLCNewFileAddedNotification, object: nil)
+
         #if !os(watchOS)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
-                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
+                                                   name: UIApplication.willEnterForegroundNotification, object: nil)
         #endif
+        }
 
         #if os(watchOS)
         let screenWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width
@@ -299,7 +308,7 @@ private extension MediaLibraryService {
         privateMediaLib.discover(onEntryPoint: "file://" + path)
     }
 
-    private func setupMediaLibrary() {
+    private func setupMediaLibrary(databaseName: String) {
         var libraryPath: String
         var mediaPath: String
 
@@ -319,7 +328,7 @@ private extension MediaLibraryService {
 
         libraryPath = libraryDirectory
 
-        let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
+        let databasePath = libraryPath + "/MediaLibrary/" + databaseName
         let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
         let medialibraryPath = libraryPath + "/MediaLibrary/Internal"
 
@@ -332,7 +341,9 @@ private extension MediaLibraryService {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 #endif
-        setupMediaDiscovery(at: mediaPath)
+        if databaseName == kVLCMediaLibraryDBFileName {
+            setupMediaDiscovery(at: mediaPath)
+        }
 
         _ = try? FileManager.default.removeItem(atPath: thumbnailPath)
 
@@ -350,7 +361,9 @@ private extension MediaLibraryService {
 
         switch medialibraryStatus {
         case .success, .dbReset:
-            startMediaLibrary(on: mediaPath)
+            if databaseName == kVLCMediaLibraryDBFileName {
+                startMediaLibrary(on: mediaPath)
+            }
         case .alreadyInitialized:
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
@@ -360,7 +373,7 @@ private extension MediaLibraryService {
                 removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
                                                   medialibraryPath: medialibraryPath)
                 privateMediaLib = VLCMediaLibrary()
-                setupMediaLibrary()
+                setupMediaLibrary(databaseName: databaseName)
                 return
             } else if initRecoveryAttempt == 1 {
                 initRecoveryAttempt = 2
@@ -369,7 +382,7 @@ private extension MediaLibraryService {
                                                   medialibraryPath: medialibraryPath)
                 removeMedialibraryDatabaseFiles(databasePath: databasePath)
                 privateMediaLib = VLCMediaLibrary()
-                setupMediaLibrary()
+                setupMediaLibrary(databaseName: databaseName)
                 return
             }
             APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
@@ -538,8 +551,8 @@ private extension MediaLibraryService {
                 preconditionFailure("MediaLibraryService: Unable to find medialibrary.")
         }
 
-        let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
-        let targetPath = documentPath + "/Logs/" + MediaLibraryService.databaseName
+        let databasePath = libraryPath + "/MediaLibrary/" + databaseName
+        let targetPath = documentPath + "/Logs/" + databaseName
 
         _ = try? FileManager.default.createDirectory(atPath: targetPath,
                                                      withIntermediateDirectories: true)
@@ -868,7 +881,7 @@ extension MediaLibraryService {
         APLog("MediaLibraryService: unhandled exception in \(context): \(errorMessage)")
         if clearSuggested {
             medialib.clearDatabase(restorePlaylists: true)
-            setupMediaLibrary()
+            setupMediaLibrary(databaseName: databaseName)
         }
         return true
     }

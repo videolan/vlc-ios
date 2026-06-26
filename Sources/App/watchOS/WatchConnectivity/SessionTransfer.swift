@@ -31,6 +31,7 @@ import WatchConnectivity
 // Provide a unified interface for transfers. The UI uses this interface to manage transfers.
 protocol SessionTransfer {
     var timedColor: TimedColor? { get }
+//    var payload: [String: Any] { get }
     var isTransferring: Bool { get }
     func cancel()
     func cancel(notifying command: Command)
@@ -57,6 +58,7 @@ extension SessionTransfer {
 // Conform SessionTransfer, and provide a timed color.
 extension WCSessionUserInfoTransfer: SessionTransfer {
     var timedColor: TimedColor? { return TimedColor(userInfo) }
+//    var payload: [String: Any] { return userInfo }
 }
 
 // Conform SessionTransfer, and provide a timed color.
@@ -65,4 +67,6 @@ extension WCSessionFileTransfer: SessionTransfer {
         guard let metadata = file.metadata else { return nil }
         return TimedColor(metadata)
     }
+
+//    var payload: [String: Any] { return file.metadata ?? [:] }
 }
