@@ -736,19 +736,3 @@ extension QueueViewController {
         }
     }
 }
-
-// MARK: - VLCMediaListDelegate
-
-extension QueueViewController: VLCMediaListDelegate {
-    func mediaList(_ aMediaList: VLCMediaList, mediaAdded media: VLCMedia, at index: UInt) {
-        DispatchQueue.main.async {
-            self.reload()
-        }
-    }
-
-    func mediaList(_ aMediaList: VLCMediaList, mediaRemovedAt index: UInt) {
-        DispatchQueue.main.async {
-            self.reload()
-        }
-    }
-}
