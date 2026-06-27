@@ -1478,6 +1478,10 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         bMark.isEnabled = true
         mediaScrubProgressBar.shouldHideScrubLabels = false
         abRepeatView?.removeFromSuperview()
+
+        let from = min(aMark.getPosition(), bMark.getPosition())
+        let to = max(aMark.getPosition(), bMark.getPosition())
+        playbackService.setABLoopFromPosition(Double(from), toPosition: Double(to))
     }
 }
 
@@ -1514,6 +1518,8 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
 
     private func resetABRepeatMarks(_ shouldDisplayView: Bool = false) {
         hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
+        playbackService.resetABLoop()
+
         aMark.removeFromSuperview()
         aMark.isEnabled = false
 
@@ -1531,19 +1537,7 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
 
 // MARK: - MediaScrubProgressBarDelegate
 
-extension PlayerViewController: MediaScrubProgressBarDelegate {
-    func mediaScrubProgressBarSetPlaybackPosition(to value: Float) {
-        playbackService.playbackPosition = value
-    }
-
-    func mediaScrubProgressBarGetAMark() -> ABRepeatMarkView {
-        return aMark
-    }
-
-    func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView {
-        return bMark
-    }
-}
+extension PlayerViewController: MediaScrubProgressBarDelegate {}
 
 // MARK: - PopupViewDelegate
 

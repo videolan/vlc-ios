@@ -13,9 +13,6 @@
 @objc(VLCMediaScrubProgressBarDelegate)
 protocol MediaScrubProgressBarDelegate: AnyObject {
     @objc optional func mediaScrubProgressBarShouldResetIdleTimer()
-    func mediaScrubProgressBarSetPlaybackPosition(to value: Float)
-    func mediaScrubProgressBarGetAMark() -> ABRepeatMarkView
-    func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView
 }
 
 @objc(VLCMediaScrubProgressBar)
@@ -182,8 +179,6 @@ class MediaScrubProgressBar: UIStackView {
             progressSlider.value = playbackService.playbackPosition
         }
 
-        updateProgressValueIfNeeded()
-
         elapsedTimeLabel.text = playbackService.playedTime().stringValue
 
         updateCurrentTime()
@@ -345,26 +340,6 @@ private extension MediaScrubProgressBar {
             playbackService.setNeedsMetadataUpdate()
             positionSet = true
         }
-    }
-
-    private func updateProgressValueIfNeeded() {
-        let roundProgress = round(progressSlider.value * 10000) / 10000.0
-
-        guard let aMark = delegate?.mediaScrubProgressBarGetAMark(),
-              let bMark = delegate?.mediaScrubProgressBarGetBMark(),
-              aMark.isEnabled && bMark.isEnabled else {
-            return
-        }
-
-        let minPosition = aMark.getPosition() < bMark.getPosition() ? aMark.getPosition() : bMark.getPosition()
-        let maxPosition = aMark.getPosition() > bMark.getPosition() ? aMark.getPosition() : bMark.getPosition()
-
-        guard roundProgress < minPosition || roundProgress > maxPosition else {
-            return
-        }
-
-        delegate?.mediaScrubProgressBarSetPlaybackPosition(to: minPosition)
-        progressSlider.value = minPosition
     }
 
     private func updateAccessibilityValue() {
