@@ -1356,10 +1356,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 }
 
-- (void)setVideoTrackEnabled:(BOOL)enabled
-{
-}
-
 #if !TARGET_OS_WATCH
 - (void)setVideoOutputView:(UIView *)videoOutputView
 {
@@ -1369,8 +1365,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [self->_actualVideoOutputView removeFromSuperview];
 
             self->_actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
-
-            [self setVideoTrackEnabled:true];
 
             [videoOutputView addSubview:self->_actualVideoOutputView];
             [self->_actualVideoOutputView layoutSubviews];
@@ -1898,9 +1892,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
 #if TARGET_OS_IOS
-    if (!_renderer && _mediaPlayer.audioTracks.count > 0 && [_mediaPlayer isPlaying])
-        [self setVideoTrackEnabled:false];
-
     if (_renderer) {
         // A separate media player playing silence keeps the application alive in
         // background exclusively for Chromecast.
@@ -1910,9 +1901,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
         [_backgroundDummyPlayer play];
     }
-#else
-    if ([[_mediaPlayer audioTracks] count] > 0 && [_mediaPlayer isPlaying])
-        [self setVideoTrackEnabled:false];
 #endif
 #endif
 }
