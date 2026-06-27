@@ -113,23 +113,23 @@
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
 {
-    [media addOptions:self.mediaOptions];
-    NSInteger mediaIndex = self.mutableItems.count;
-    [self.mediaList insertMedia:media atIndex:mediaIndex];
-    [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
-
     dispatch_async(dispatch_get_main_queue(), ^{
+        [media addOptions:self.mediaOptions];
+        NSInteger mediaIndex = self.mutableItems.count;
+        [self.mediaList insertMedia:media atIndex:mediaIndex];
+        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
+
         [self.delegate networkServerBrowserDidUpdate:self];
     });
 }
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
 {
-    VLCMedia *media = [self.mediaListUnfiltered mediaAtIndex:index];
-    NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
-    [self.mediaList removeMediaAtIndex:mediaIndex];
-    [self.mutableItems removeObjectAtIndex:mediaIndex];
     dispatch_async(dispatch_get_main_queue(), ^{
+        VLCMedia *media = [self.mediaListUnfiltered mediaAtIndex:index];
+        NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
+        [self.mediaList removeMediaAtIndex:mediaIndex];
+        [self.mutableItems removeObjectAtIndex:mediaIndex];
         [self.delegate networkServerBrowserDidUpdate:self];
     });
 }

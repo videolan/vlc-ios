@@ -2013,19 +2013,21 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
 #if !TARGET_OS_TV && !TARGET_OS_WATCH
-    [self _findCachedSubtitlesForMedia:media];
+        [self _findCachedSubtitlesForMedia:media];
 #endif
 
-    if ([_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
-        [_delegate playbackService:self nextMedia:media];
-    }
+        if ([self->_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
+            [self->_delegate playbackService:self nextMedia:media];
+        }
 
-    VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
-    _currentIndex = [currentMediaList indexOfMedia:media];
+        VLCMediaList *currentMediaList = self->_shuffleMode ? self->_shuffledList : self->_mediaList;
+        self->_currentIndex = [currentMediaList indexOfMedia:media];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
-                                                        object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
+                                                            object:self];
+    });
 }
 
 #pragma mark - VLCDrawable

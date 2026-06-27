@@ -64,9 +64,6 @@
     self = [super init];
     if (self) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [VLCLibrary setSharedEventsConfiguration:[VLCEventsLegacyConfiguration new]];
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             [self initializeServices];
         });
     }

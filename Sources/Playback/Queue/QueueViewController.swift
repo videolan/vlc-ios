@@ -741,10 +741,14 @@ extension QueueViewController {
 
 extension QueueViewController: VLCMediaListDelegate {
     func mediaList(_ aMediaList: VLCMediaList, mediaAdded media: VLCMedia, at index: UInt) {
-        reload()
+        DispatchQueue.main.async {
+            self.reload()
+        }
     }
 
     func mediaList(_ aMediaList: VLCMediaList, mediaRemovedAt index: UInt) {
-        reload()
+        DispatchQueue.main.async {
+            self.reload()
+        }
     }
 }

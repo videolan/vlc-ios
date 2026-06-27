@@ -113,11 +113,15 @@
 #pragma mark - VLCMediaListDelegate
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
 {
-    [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    });
 }
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
 {
-    [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    });
 }
 
 @end

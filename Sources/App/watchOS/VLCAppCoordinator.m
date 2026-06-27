@@ -34,17 +34,6 @@
     return sharedInstance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [VLCLibrary setSharedEventsConfiguration:[VLCEventsLegacyConfiguration new]];
-        });
-    }
-    return self;
-}
-
 - (MediaLibraryService *)mediaLibraryService
 {
     if (!_mediaLibraryService) {
