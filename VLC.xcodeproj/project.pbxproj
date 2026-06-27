@@ -253,7 +253,6 @@
 		7D0C208428C8993400CCFFEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C208028C898A900CCFFEF /* main.m */; };
 		7D0C208528C8993800CCFFEF /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7D0C208C28C89A9100CCFFEF /* VLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */; };
-		7D0C209528C89C1D00CCFFEF /* VLCMediaThumbnailerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */; };
 		7D0C20AA28C8AA2700CCFFEF /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		7D0C20AB28C8AA3000CCFFEF /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8095DA1BE3C42F0065D8E1 /* VLCBufferingBar.m */; };
 		7D0C20AC28C8AA6400CCFFEF /* VLCNetworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EAC031BE153B4003668DA /* VLCNetworkImageView.m */; };
@@ -1495,7 +1494,6 @@
 		22ABF9EA2A77B5CD00F02453 /* SortingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingHandler.swift; sourceTree = "<group>"; };
 		22DA4ED47A8F4FCEDDF7C9C9 /* Pods-VLC-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCActiveDownloadCell.m; path = Sources/Network/Download/VLCActiveDownloadCell.m; sourceTree = SOURCE_ROOT; };
-		2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMediaThumbnailerCache.swift; sourceTree = "<group>"; };
 		2657F3E8CB0CF35824591E99 /* Pods-VLC-iOSTests.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.distribution.xcconfig"; sourceTree = "<group>"; };
 		2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCNetworkLoginTVViewController.swift; sourceTree = "<group>"; };
 		2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCNetworkLoginTVViewController.xib; sourceTree = "<group>"; };
@@ -3278,7 +3276,6 @@
 		7D8986D7278B0C30005396AA /* Thumbnail Cache */ = {
 			isa = PBXGroup;
 			children = (
-				2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */,
 				7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */,
 				7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */,
 			);
@@ -5460,7 +5457,6 @@
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */,
 				32B7A66D2FA02ED000879A4D /* Character+Utility.swift in Sources */,
-				7D0C209528C89C1D00CCFFEF /* VLCMediaThumbnailerCache.swift in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackService.m in Sources */,
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7D3B2EBD2F6D7D2F0067C419 /* VLCMediaTVCollectionViewCell.m in Sources */,
