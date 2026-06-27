@@ -468,9 +468,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
     _currentAspectRatio = VLCAspectRatioDefault;
     _mediaPlayer.videoAspectRatio = NULL;
-#if LIBVLC_VERSION_MAJOR == 3
-        _mediaPlayer.videoCropGeometry = NULL;
-#endif
 
     if (_pathToExternalSubtitlesFile) {
         /* this could be a path or an absolute string - let's see */
@@ -576,24 +573,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             [self setPlaybackRate:speedMetadata.integer / 100.0];
         }
 
-#if LIBVLC_VERSION_MAJOR == 3
-        SInt64 audioIndex = media.audioTrackIndex;
-        NSArray *audioTrackIndexes = _mediaPlayer.audioTrackIndexes;
-        if (audioIndex >= 0 && audioIndex < audioTrackIndexes.count) {
-            // we can cast this cause we won't have more than 2 million audiotracks
-            int actualAudioIndex = [audioTrackIndexes[audioIndex] intValue];
-            // never restore silence
-            if (actualAudioIndex != -1) {
-                _mediaPlayer.currentAudioTrackIndex = actualAudioIndex;
-            }
-        }
-
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
-            _mediaPlayer.currentVideoSubTitleIndex = -1;
-        } else {
-            [self selectPrimaryVideoSubtitleAtIndex:media.subtitleTrackIndex];
-        }
-#else
         BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
 
         NSArray *audioTracks = _mediaPlayer.audioTracks;
@@ -601,7 +580,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             VLCMediaPlayerTrack *track = audioTracks[media.audioTrackIndex];
             track.selectedExclusively = YES;
         }
-        
+
         if (disableSubtitles) {
             _primaryVideoSubtitleTrackIndex = -1;
             _secondaryVideoSubtitleTrackIndex = -1;
@@ -612,7 +591,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             [self selectPrimaryVideoSubtitleAtIndex:media.primarySubtitleTrackIndex];
             [self selectSecondaryVideoSubtitleAtIndex:media.secondarySubtitleTrackIndex];
         }
-#endif
     }
 }
 
@@ -1352,9 +1330,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoAspectRatio = NULL;
-#if LIBVLC_VERSION_MAJOR == 3
-            _mediaPlayer.videoCropGeometry = NULL;
-#endif
             break;
 #if !TARGET_OS_VISION && !TARGET_OS_WATCH
         case VLCAspectRatioFillToScreen:
@@ -1373,12 +1348,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         case VLCAspectRatioThirtyNineToOne:
             _mediaPlayer.scaleFactor = 0;
             NSString *aspectRatio = [VLCAspectRatioBridge valueFor:_currentAspectRatio];
-#if LIBVLC_VERSION_MAJOR == 3
-            _mediaPlayer.videoCropGeometry = NULL;
-            _mediaPlayer.videoAspectRatio = (char *)[aspectRatio UTF8String];
-#else
             _mediaPlayer.videoAspectRatio = aspectRatio;
-#endif
     }
 
     if ([self.delegate respondsToSelector:@selector(playbackServiceDidSwitchAspectRatio:)]) {
@@ -1388,18 +1358,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)setVideoTrackEnabled:(BOOL)enabled
 {
-    // FIXME: check if this hack is still possible with v4
-/*    if (!enabled)
-        _mediaPlayer.currentVideoTrackIndex = -1;
-    else if (_mediaPlayer.currentVideoTrackIndex == -1) {
-        NSArray *videoTrackIndexes = _mediaPlayer.videoTrackIndexes;
-        for (NSNumber *trackId in videoTrackIndexes) {
-            if ([trackId intValue] != -1) {
-                _mediaPlayer.currentVideoTrackIndex = [trackId intValue];
-                break;
-            }
-        }
-    }*/
 }
 
 #if !TARGET_OS_WATCH
@@ -1476,20 +1434,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (NSInteger)currentMediaProjection
 {
-#if LIBVLC_VERSION_MAJOR == 3
-    VLCMedia *media = [_mediaPlayer media];
-    NSInteger currentVideoTrackIndex = [_mediaPlayer currentVideoTrackIndex];
-
-    if (media && currentVideoTrackIndex >= 0) {
-        NSArray *tracksInfo = media.tracksInformation;
-
-        for (NSDictionary *track in tracksInfo) {
-            if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                return [track[VLCMediaTracksInformationVideoProjection] integerValue];
-            }
-        }
-    }
-#else
     NSArray *videoTracks = _mediaPlayer.videoTracks;
     VLCMediaPlayerTrack *selectedVideoTrack = nil;
     for (VLCMediaPlayerTrack *track in videoTracks) {
@@ -1501,7 +1445,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     if (selectedVideoTrack) {
         return selectedVideoTrack.video.projection;
     }
-#endif
     return -1;
 }
 
@@ -1987,13 +1930,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [_backgroundDummyPlayer stop];
     }
 #endif
-
-    /*
-     // FIXME: fix this hack
-    if (_mediaPlayer.currentVideoTrackIndex == -1) {
-        [self setVideoTrackEnabled:true];
-    }
-     */
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
