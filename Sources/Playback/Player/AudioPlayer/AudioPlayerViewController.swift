@@ -45,12 +45,6 @@ class AudioPlayerViewController: PlayerViewController {
         return audioPlayerView
     }()
 
-    private lazy var coneLoadingView: PulsingConeView = {
-        let coneLoadingView = PulsingConeView()
-        coneLoadingView.translatesAutoresizingMaskIntoConstraints = false
-        return coneLoadingView
-    }()
-
     private lazy var moreOptionsButton: UIButton = {
         let moreOptionsButton = UIButton(type: .custom)
         moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
@@ -489,12 +483,6 @@ extension AudioPlayerViewController {
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
         audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
-        if currentState == .buffering {
-            coneLoadingView.startAnimating()
-        } else {
-            coneLoadingView.stopAnimating()
-        }
-
         let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
         let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")
         let accessibilityHint: String = isPlaying ? NSLocalizedString("MINIMIZE_HINT", comment: "") : NSLocalizedString("CLOSE_HINT", comment: "")
@@ -520,11 +508,6 @@ extension AudioPlayerViewController {
         }
 
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
-    }
-
-    override func playbackPositionUpdated(_ playbackService: PlaybackService) {
-        super.playbackPositionUpdated(playbackService)
-        coneLoadingView.stopAnimating()
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {

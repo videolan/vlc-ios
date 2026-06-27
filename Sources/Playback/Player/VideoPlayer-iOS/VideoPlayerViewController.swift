@@ -190,12 +190,6 @@ class VideoPlayerViewController: PlayerViewController {
         return artWorkImageView
     }()
 
-    private lazy var coneLoadingView: PulsingConeView = {
-        let coneLoadingView = PulsingConeView()
-        coneLoadingView.translatesAutoresizingMaskIntoConstraints = false
-        return coneLoadingView
-    }()
-
     private var videoOutputView: UIView = {
         var videoOutputView = UIView()
         videoOutputView.backgroundColor = .black
@@ -1295,12 +1289,6 @@ extension VideoPlayerViewController {
         videoPlayerControls.updatePlayPauseButton(toState: isPlaying)
         videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
-        if currentState == .buffering {
-            coneLoadingView.startAnimating()
-        } else {
-            coneLoadingView.stopAnimating()
-        }
-
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
@@ -1346,11 +1334,6 @@ extension VideoPlayerViewController {
             supportedInterfaceOrientations = .allButUpsideDown
             videoPlayerControls.rotationLockButton.tintColor = .white
         }
-    }
-
-    override func playbackPositionUpdated(_ playbackService: PlaybackService) {
-        super.playbackPositionUpdated(playbackService)
-        coneLoadingView.stopAnimating()
     }
 
     func playbackServiceDidSwitchAspectRatio(_ aspectRatio: Int) {

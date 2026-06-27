@@ -130,6 +130,12 @@ class PlayerViewController: UIViewController {
         return statusLabel
     }()
 
+    lazy var coneLoadingView: PulsingConeView = {
+        let coneLoadingView = PulsingConeView()
+        coneLoadingView.translatesAutoresizingMaskIntoConstraints = false
+        return coneLoadingView
+    }()
+
     lazy var mediaNavigationBar: MediaNavigationBar = {
 #if os(iOS)
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
@@ -1232,13 +1238,25 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
             applyCustomEqualizerProfileIfNeeded()
 
         case .stopped:
+            coneLoadingView.stopAnimating()
             moreOptionsActionSheet.resetPlaybackSpeed()
             mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
             moreOptionsActionSheet.resetSleepTimer()
             mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
 
+        case .error:
+            coneLoadingView.stopAnimating()
+
         default:
             break
+        }
+    }
+
+    func mediaPlayerBufferingChanged(_ progress: Float, for playbackService: PlaybackService) {
+        if progress < 1.0 {
+            coneLoadingView.startAnimating()
+        } else {
+            coneLoadingView.stopAnimating()
         }
     }
 

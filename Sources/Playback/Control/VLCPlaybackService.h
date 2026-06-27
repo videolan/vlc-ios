@@ -45,6 +45,8 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
              forPlaybackService:(VLCPlaybackService *)playbackService;
+- (void)mediaPlayerBufferingChanged:(float)progress
+                 forPlaybackService:(VLCPlaybackService *)playbackService;
 - (void)prepareForMediaPlayback:(VLCPlaybackService *)playbackService;
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService

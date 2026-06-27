@@ -989,7 +989,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 
         switch (currentState) {
-            case VLCMediaPlayerStateBuffering: {
+            case VLCMediaPlayerStateOpening: {
+                APLog(@"%s: opening", __func__);
+
                 /* attach delegate */
                 self->_mediaPlayer.media.delegate = self;
 
@@ -1002,10 +1004,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [self->_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
                 [self->_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
 #pragma clang diagnostic pop
-            } break;
 
-            case VLCMediaPlayerStateOpening: {
-                APLog(@"%s: opening", __func__);
 #if !TARGET_OS_TV
                 [self _recoverLastPlaybackState];
 #endif
@@ -1069,6 +1068,15 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
 
         [self setNeedsMetadataUpdate];
+    });
+}
+
+- (void)mediaPlayerBufferingChanged:(float)progress
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(mediaPlayerBufferingChanged:forPlaybackService:)]) {
+            [self.delegate mediaPlayerBufferingChanged:progress forPlaybackService:self];
+        }
     });
 }
 

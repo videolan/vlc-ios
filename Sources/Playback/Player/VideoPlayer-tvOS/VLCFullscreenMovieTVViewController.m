@@ -875,18 +875,17 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
 }
 
-- (void)updateBufferingAnimationForState:(VLCMediaPlayerState)state {
+- (void)mediaPlayerBufferingChanged:(float)progress
+                 forPlaybackService:(VLCPlaybackService *)playbackService
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.playbackUIShouldHide) {
             return;
         }
-        switch (state) {
-            case VLCMediaPlayerStateBuffering:
-                [self.coneLoadingView startAnimating];
-                break;
-            default:
-                [self.coneLoadingView stopAnimating];
-                break;
+        if (progress < 1.0) {
+            [self.coneLoadingView startAnimating];
+        } else {
+            [self.coneLoadingView stopAnimating];
         }
     });
 }
@@ -1088,8 +1087,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
              forPlaybackService:(VLCPlaybackService *)playbackService
 {
-
-    [self updateBufferingAnimationForState:currentState];
+    if (currentState == VLCMediaPlayerStateError || currentState == VLCMediaPlayerStateStopped) {
+        [self.coneLoadingView stopAnimating];
+    }
 
     if (playbackService.isPlaying) {
         // we sometimes don't set the vout correctly if playback stops and restarts without dismising and redisplaying the VC
@@ -1193,9 +1193,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)playbackPositionUpdated:(VLCPlaybackService *)controller
 {
-    // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
-    [self updateBufferingAnimationForState:VLCMediaPlayerStatePlaying];
-
     if (self.bottomOverlayView.alpha != 0.0) {
         [self updateTransportBarPosition];
     }
