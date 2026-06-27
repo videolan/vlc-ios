@@ -144,6 +144,9 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)jumpBackward:(int)interval;
 - (void)nextFrame;
 - (void)toggleRepeatMode;
+
+- (void)setABLoopFromPosition:(double)from toPosition:(double)to;
+- (void)resetABLoop;
 - (VLCTime *)remainingTime;
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index;

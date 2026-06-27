@@ -732,6 +732,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     _majorPositionChangeInProgress = 1;
 }
 
+- (void)setABLoopFromPosition:(double)from toPosition:(double)to
+{
+    [_mediaPlayer setABLoopFromPosition:from toPosition:to];
+}
+
+- (void)resetABLoop
+{
+    [_mediaPlayer resetABLoop];
+}
+
 - (void)setSubtitleDelay:(float)subtitleDeleay
 {
     _mediaPlayer.currentVideoSubTitleDelay = 1000.*subtitleDeleay;
