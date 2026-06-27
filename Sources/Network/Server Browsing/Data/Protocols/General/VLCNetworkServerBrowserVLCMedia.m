@@ -39,7 +39,7 @@
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
-        [_rootMedia parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract];
+        [[VLCMediaParser sharedParser] queueMedia:_rootMedia options:VLCMediaParseNetwork|VLCMediaDoInteract];
         _mediaListUnfiltered = [_rootMedia subitems];
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
         [mediaOptionsNoFilter setObject:@" " forKey:@":ignore-filetypes"];
@@ -61,13 +61,13 @@
 
 - (void)dealloc
 {
-    [_rootMedia parseStop];
+    [[VLCMediaParser sharedParser] cancelParsingForMedia:_rootMedia];
 }
 
 - (void)customDialogCompletionHandlerWithStatus:(VLCCustomDialogRendererHandlerCompletionType)status
 {
     if (status == VLCCustomDialogRendererHandlerCompletionTypeStop) {
-        [_rootMedia parseStop];
+        [[VLCMediaParser sharedParser] cancelParsingForMedia:_rootMedia];
     }
 }
 
@@ -92,7 +92,7 @@
 }
 
 - (void)update {
-    int ret = [self.rootMedia parseWithOptions:VLCMediaParseNetwork];
+    int ret = [[VLCMediaParser sharedParser] queueMedia:self.rootMedia options:VLCMediaParseNetwork];
     if (ret == -1) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate networkServerBrowserDidUpdate:self];
