@@ -2,7 +2,7 @@
  * VLCMediaFileDownloader.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2020-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2020-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -205,12 +205,6 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
                 APLog(@"%s: error", __func__);
                 [self _downloadFailed];
                 break;
-#if LIBVLC_VERSION_MAJOR == 3
-            case VLCMediaPlayerStateEnded:
-                APLog(@"%s: ended", __func__);
-                [self _downloadEnded];
-                break;
-#endif
             case VLCMediaPlayerStateStopped:
                 APLog(@"%s: stopped", __func__);
                 if (_downloadCancelled) {
