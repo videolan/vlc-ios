@@ -1465,6 +1465,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         }
 
         abRepeatView.aMarkView.isHidden = false
+        abRepeatView.bMarkView.isHidden = true
         mediaScrubProgressBar.shouldHideScrubLabels = true
     }
 
