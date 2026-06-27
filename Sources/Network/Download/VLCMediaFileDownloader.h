@@ -11,11 +11,12 @@
  *****************************************************************************/
 
 @class VLCMedia;
+@protocol VLCMediaFileDownloaderDelegate;
 
 @interface VLCMediaFileDownloader : NSObject
 
 @property (nonatomic, readonly) BOOL downloadInProgress;
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) id<VLCMediaFileDownloaderDelegate> delegate;
 @property (readonly, copy) NSString *downloadLocationPath;
 @property (readonly, copy) NSString *filename;
 
@@ -24,13 +25,13 @@
 
 @end
 
-@protocol VLCMediaFileDownloader <NSObject>
+@protocol VLCMediaFileDownloaderDelegate <NSObject>
 @required
-- (void)mediaFileDownloadStarted:(VLCMediaFileDownloader *)theDownloader;
-- (void)mediaFileDownloadEnded:(VLCMediaFileDownloader *)theDownloader;
+- (void)mediaFileDownloaderDidStart:(VLCMediaFileDownloader *)downloader;
+- (void)mediaFileDownloaderDidFinish:(VLCMediaFileDownloader *)downloader;
+- (void)mediaFileDownloader:(VLCMediaFileDownloader *)downloader didFailWithDescription:(NSString *)description;
 
 @optional
-- (void)downloadFailedWithErrorDescription:(NSString *)description forDownloader:(VLCMediaFileDownloader *)theDownloader;
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize;
+- (void)mediaFileDownloader:(VLCMediaFileDownloader *)downloader didUpdateReceivedBytes:(int64_t)receivedBytes expectedBytes:(int64_t)expectedBytes;
 
 @end

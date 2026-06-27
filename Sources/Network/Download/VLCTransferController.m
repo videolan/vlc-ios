@@ -21,7 +21,7 @@
 
 NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransferControllerStateDidChangeNotification";
 
-@interface VLCTransferController () <VLCMediaFileDownloader>
+@interface VLCTransferController () <VLCMediaFileDownloaderDelegate>
 {
     NSMutableArray<VLCMedia *> *_currentDownloads;
     NSMutableDictionary *_userDefinedFileNameForDownloadItem;
@@ -217,8 +217,8 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     [_speechSynthesizer speakUtterance:utterance];
 }
 
-#pragma mark - VLCMediaFileDownloader delegate
-- (void)mediaFileDownloadStarted:(VLCMediaFileDownloader *)theDownloader
+#pragma mark - VLCMediaFileDownloaderDelegate
+- (void)mediaFileDownloaderDidStart:(VLCMediaFileDownloader *)downloader
 {
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
@@ -237,27 +237,24 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     return NO;
 }
 
-- (void)mediaFileDownloadEnded:(VLCMediaFileDownloader *)theDownloader
+- (void)mediaFileDownloaderDidFinish:(VLCMediaFileDownloader *)downloader
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
 
-    NSString *storageLocationPath = theDownloader.downloadLocationPath;
-    // downloadLocationPath is the intended destination, set even on failure,
-    // so we probe the filesystem to tell a real success apart from a cancel.
+    NSString *storageLocationPath = downloader.downloadLocationPath;
     if (storageLocationPath
-        && [[NSFileManager defaultManager] fileExistsAtPath:storageLocationPath]
         && ![self _completedContainsDownloadPath:storageLocationPath]
         && _activeDownloadItem) {
         [_activeDownloadItem markCompletedWithFilePath:storageLocationPath];
         [_completed addObject:_activeDownloadItem];
-        [self announceDownloadCompletionForFilename:theDownloader.filename];
+        [self announceDownloadCompletionForFilename:downloader.filename];
     }
 
-    APLog(@"download ended here: %@", storageLocationPath);
+    APLog(@"download finished: %@", storageLocationPath);
     [self _advanceAfterDownload];
 }
 
-- (void)downloadFailedWithErrorDescription:(NSString *)description forDownloader:(VLCMediaFileDownloader *)theDownloader
+- (void)mediaFileDownloader:(VLCMediaFileDownloader *)downloader didFailWithDescription:(NSString *)description
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
 
@@ -282,13 +279,12 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     [self _triggerNextDownload];
 }
 
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+- (void)mediaFileDownloader:(VLCMediaFileDownloader *)downloader didUpdateReceivedBytes:(int64_t)receivedBytes expectedBytes:(int64_t)expectedBytes
 {
     if (!_activeDownloadItem) {
         return;
     }
-    long long received = _activeDownloadItem.receivedBytes + (long long)receivedDataSize;
-    if ([_activeDownloadItem ingestReceivedBytes:received expectedBytes:(long long)expectedDownloadSize]) {
+    if ([_activeDownloadItem ingestReceivedBytes:receivedBytes expectedBytes:expectedBytes]) {
         [self _postStateDidChange];
     }
 }

@@ -152,11 +152,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-    if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
+    if ([self.delegate respondsToSelector:@selector(mediaFileDownloader:didUpdateReceivedBytes:expectedBytes:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate progressUpdatedTo:(float)totalBytesWritten / (float)totalBytesExpectedToWrite
-                            receivedDataSize:bytesWritten
-                        expectedDownloadSize:totalBytesExpectedToWrite];
+            [self.delegate mediaFileDownloader:self
+                        didUpdateReceivedBytes:totalBytesWritten
+                                 expectedBytes:totalBytesExpectedToWrite];
         });
     }
 }
@@ -216,17 +216,11 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     if (error.code != -999) {
         if (error) {
             APLog(@"http file download failed (%li)", (long)error.code);
-
-            if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate downloadFailedWithErrorDescription:error.localizedDescription
-                                                        forDownloader:self];
-                });
-            }
+            [self _failWithDescription:error.localizedDescription];
         } else {
             APLog(@"http file download complete");
+            [self _downloadSucceeded];
         }
-        [self _downloadEnded];
     } else {
         APLog(@"http file download canceled");
     }
@@ -240,36 +234,38 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     if ([fileManager fileExistsAtPath:_fileURL.path])
         [fileManager removeItemAtURL:_fileURL error:nil];
 
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)
-                                                forDownloader:self];
-        });
-    }
-
-    [self _downloadEnded];
+    [self _failWithDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED", nil)];
 }
 
-- (void)_downloadEnded
+- (void)_downloadSucceeded
 {
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
 
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:[_fileURL path]]) {
 #if TARGET_OS_IOS
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // FIXME: Replace notifications by cleaner observers
-            [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
-                                                                object:self];
-        });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // FIXME: Replace notifications by cleaner observers
+        [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
+                                                            object:self];
+    });
 #endif
-    }
 
     _downloadInProgress = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate mediaFileDownloadEnded:self];
+        [self.delegate mediaFileDownloaderDidFinish:self];
+    });
+}
+
+- (void)_failWithDescription:(NSString *)description
+{
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+
+    _downloadInProgress = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate mediaFileDownloader:self didFailWithDescription:description];
     });
 }
 

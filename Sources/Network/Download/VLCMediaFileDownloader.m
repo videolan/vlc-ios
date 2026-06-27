@@ -121,7 +121,7 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
     if (![_fileManager createFileAtPath:_filePath contents:nil attributes:nil]
         || !(_fileHandle = [NSFileHandle fileHandleForWritingAtPath:_filePath])) {
         APLog(@"%s: failed to create download file at %@", __func__, _filePath);
-        [self _downloadFailed];
+        [self _finishWithFailureDescription:NSLocalizedString(@"DOWNLOAD_FAILED", nil)];
         return nil;
     }
 
@@ -137,7 +137,7 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
     _task = [_downloader downloadMedia:media delegate:self];
     if (!_task) {
         APLog(@"%s: failed to queue download for %@", __func__, mediaURL);
-        [self _downloadFailed];
+        [self _finishWithFailureDescription:NSLocalizedString(@"DOWNLOAD_FAILED", nil)];
         return nil;
     }
 
@@ -207,7 +207,7 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
             _terminated = YES;
             [self _closeFile];
             [self reportProgress];
-            [self _downloadEnded];
+            [self _finishSuccessfully];
             break;
 
         case VLCMediaDownloadStatusCancelled:
@@ -216,9 +216,7 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
                 break;
             }
             _terminated = YES;
-            [self _closeFile];
-            [self _downloadCancelled];
-            [self _downloadEnded];
+            [self _finishWithFailureDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED", nil)];
             break;
 
         case VLCMediaDownloadStatusError:
@@ -227,7 +225,7 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
                 break;
             }
             _terminated = YES;
-            [self _downloadFailed];
+            [self _finishWithFailureDescription:NSLocalizedString(@"DOWNLOAD_FAILED", nil)];
             break;
     }
 }
@@ -260,41 +258,23 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
     }
     _didStart = YES;
 
-    [self.delegate mediaFileDownloadStarted:self];
+    [self.delegate mediaFileDownloaderDidStart:self];
 }
 
-- (void)_downloadFailed
-{
-    [self _closeFile];
-
-    /* remove the partial file so observers don't surface it as completed */
-    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_filePath] error:nil];
-
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"DOWNLOAD_FAILED", nil) forDownloader:self];
-        });
-    }
-    [self _downloadEnded];
-}
-
-- (void)_downloadCancelled
-{
-    /* remove partially downloaded content */
-    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_filePath] error:nil];
-
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil) forDownloader:self];
-        });
-    }
-}
-
-- (void)_downloadEnded
+- (void)_cleanup
 {
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
+
+    _downloadInProgress = NO;
+    _task = nil;
+    [self terminateBackgroundTask];
+}
+
+- (void)_finishSuccessfully
+{
+    [self _cleanup];
 
 #if TARGET_OS_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -304,33 +284,40 @@ static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
     });
 #endif
 
-    _downloadInProgress = NO;
-    _task = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate mediaFileDownloadEnded:self];
+        [self.delegate mediaFileDownloaderDidFinish:self];
     });
+}
 
-    [self terminateBackgroundTask];
+- (void)_finishWithFailureDescription:(NSString *)description
+{
+    [self _closeFile];
+
+    /* remove the partial file so observers don't surface it as completed */
+    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_filePath] error:nil];
+
+    [self _cleanup];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate mediaFileDownloader:self didFailWithDescription:description];
+    });
 }
 
 - (void)reportProgress
 {
-    if (![self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
+    if (![self.delegate respondsToSelector:@selector(mediaFileDownloader:didUpdateReceivedBytes:expectedBytes:)]) {
         return;
     }
 
-    unsigned long long position = _receivedBytes;
-    unsigned long long delta = position - _lastReportedBytes;
-    if (delta == 0) {
+    unsigned long long received = _receivedBytes;
+    if (received == _lastReportedBytes) {
         return;
     }
-    _lastReportedBytes = position;
+    _lastReportedBytes = received;
 
-    unsigned long long expected = _expectedDownloadSize;
+    int64_t expected = (int64_t)_expectedDownloadSize;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate progressUpdatedTo:expected > 0 ? (float)position / (float)expected : 0.
-                        receivedDataSize:(CGFloat)delta
-                    expectedDownloadSize:(CGFloat)expected];
+        [self.delegate mediaFileDownloader:self didUpdateReceivedBytes:(int64_t)received expectedBytes:expected];
     });
 }
 
