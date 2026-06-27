@@ -450,7 +450,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
-    [media parseWithOptions:VLCMediaParseLocal | VLCMediaParseNetwork];
     media.delegate = self;
     // add options to the media
     if (self.mediaOptionsDictionary) {
