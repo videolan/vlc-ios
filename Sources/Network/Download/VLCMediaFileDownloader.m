@@ -17,15 +17,23 @@
 
 NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBackgroundTaskName";
 
-@interface VLCMediaFileDownloader () <VLCMediaPlayerDelegate>
+/* throttle progress reporting to keep UI churn down on fast links */
+static const NSTimeInterval VLCMediaFileDownloaderProgressInterval = 0.5;
+
+@interface VLCMediaFileDownloader () <VLCMediaDownloaderDelegate>
 {
-    VLCMediaPlayer *_mediaPlayer;
-    NSString *_demuxDumpFilePath;
-    BOOL _downloadCancelled;
-    NSTimer *_timer;
+    VLCMediaDownloader *_downloader;
+    VLCMediaDownloadTask *_task;
+    NSFileHandle *_fileHandle;
+    NSString *_filePath;
     NSFileManager *_fileManager;
+    BOOL _downloadCancelled;
+    BOOL _didStart;
+    BOOL _terminated;
     unsigned long long _expectedDownloadSize;
-    unsigned long long _lastFileSize;
+    unsigned long long _receivedBytes;
+    unsigned long long _lastReportedBytes;
+    NSTimeInterval _lastReportTime;
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
 @end
@@ -35,17 +43,24 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 - (instancetype)init
 {
     if (self = [super init]) {
-        _mediaPlayer = [[VLCMediaPlayer alloc] init];
-        _mediaPlayer.delegate = self;
+#if MEDIA_DOWNLOAD_DEBUG
+        VLCLibrary *library = [[VLCLibrary alloc] init];
+        VLCConsoleLogger *consoleLogger = [[VLCConsoleLogger alloc] init];
+        consoleLogger.level = kVLCLogLevelDebug;
+        library.loggers = @[consoleLogger];
+        _downloader = [[VLCMediaDownloader alloc] initWithLibrary:library];
+#else
+        _downloader = [[VLCMediaDownloader alloc] init];
+#endif
         _fileManager = [NSFileManager defaultManager];
-        _demuxDumpFilePath = @"";
+        _filePath = @"";
     }
     return self;
 }
 
 - (NSString *)downloadLocationPath
 {
-    return [_demuxDumpFilePath copy];
+    return [_filePath copy];
 }
 
 - (NSString *)createPotentialNameFromName:(NSString *)name
@@ -82,6 +97,11 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 - (NSString *)downloadFileFromVLCMedia:(VLCMedia *)media withName:(NSString *)name expectedDownloadSize:(unsigned long long)expectedDownloadSize
 {
     [self beginBackgroundTask];
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStarted];
+    [activityManager disableIdleTimer];
+
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = [searchPaths firstObject];
 
@@ -95,31 +115,31 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
         downloadFileName = [fileName stringByAppendingPathExtension:extension];
     }
 
-    _demuxDumpFilePath = [libraryPath stringByAppendingPathComponent:downloadFileName];
+    _filePath = [libraryPath stringByAppendingPathComponent:downloadFileName];
     _filename = downloadFileName;
 
-    [media addOptions:@{ @"demuxdump-file" : _demuxDumpFilePath,
-                         @"demux" : @"demuxdump" }];
-
-    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-    [activityManager networkActivityStarted];
-    [activityManager disableIdleTimer];
+    if (![_fileManager createFileAtPath:_filePath contents:nil attributes:nil]
+        || !(_fileHandle = [NSFileHandle fileHandleForWritingAtPath:_filePath])) {
+        APLog(@"%s: failed to create download file at %@", __func__, _filePath);
+        [self _downloadFailed];
+        return nil;
+    }
 
     _expectedDownloadSize = expectedDownloadSize;
-    _lastFileSize = 0;
-
+    _receivedBytes = 0;
+    _lastReportedBytes = 0;
+    _lastReportTime = 0;
     _downloadCancelled = NO;
+    _didStart = NO;
+    _terminated = NO;
     _downloadInProgress = YES;
 
-    _mediaPlayer.media = media;
-
-#if MEDIA_DOWNLOAD_DEBUG
-    VLCConsoleLogger *consoleLogger = [[VLCConsoleLogger alloc] init];
-    consoleLogger.level = kVLCLogLevelDebug;
-    _mediaPlayer.libraryInstance.loggers = @[consoleLogger];
-#endif
-
-    [_mediaPlayer play];
+    _task = [_downloader downloadMedia:media delegate:self];
+    if (!_task) {
+        APLog(@"%s: failed to queue download for %@", __func__, mediaURL);
+        [self _downloadFailed];
+        return nil;
+    }
 
     return [[NSUUID UUID] UUIDString];
 }
@@ -127,18 +147,128 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 - (void)cancelDownload
 {
     _downloadCancelled = YES;
-    [_mediaPlayer stop];
+    [_task cancel];
+}
+
+#pragma mark - VLCMediaDownloaderDelegate
+
+- (NSInteger)mediaDownloadTask:(VLCMediaDownloadTask *)task
+                didReceiveData:(NSData *)data
+                      position:(uint64_t)position
+                         total:(uint64_t)total
+{
+    if (_downloadCancelled) {
+        return VLCMediaDownloadConsumedCancel;
+    }
+
+    @try {
+        [_fileHandle writeData:data];
+    } @catch (NSException *exception) {
+        APLog(@"%s: failed to write %lu bytes: %@", __func__, (unsigned long)data.length, exception.reason);
+        return VLCMediaDownloadConsumedError;
+    }
+
+    _receivedBytes = position;
+    if (total > 0) {
+        _expectedDownloadSize = total;
+    }
+
+    NSTimeInterval now = NSProcessInfo.processInfo.systemUptime;
+    if (now - _lastReportTime >= VLCMediaFileDownloaderProgressInterval) {
+        _lastReportTime = now;
+        [self reportProgress];
+    }
+
+    return data.length;
+}
+
+- (void)mediaDownloadTask:(VLCMediaDownloadTask *)task
+          didUpdateStatus:(VLCMediaDownloadStatus)status
+{
+    switch (status) {
+        case VLCMediaDownloadStatusPending:
+            APLog(@"%s: pending", __func__);
+            break;
+
+        case VLCMediaDownloadStatusRunning:
+            APLog(@"%s: running", __func__);
+            [self _downloadStarted];
+            break;
+
+        case VLCMediaDownloadStatusPaused:
+            APLog(@"%s: paused", __func__);
+            break;
+
+        case VLCMediaDownloadStatusFinished:
+            APLog(@"%s: finished", __func__);
+            if (_terminated) {
+                break;
+            }
+            _terminated = YES;
+            [self _closeFile];
+            [self reportProgress];
+            [self _downloadEnded];
+            break;
+
+        case VLCMediaDownloadStatusCancelled:
+            APLog(@"%s: cancelled", __func__);
+            if (_terminated) {
+                break;
+            }
+            _terminated = YES;
+            [self _closeFile];
+            [self _downloadCancelled];
+            [self _downloadEnded];
+            break;
+
+        case VLCMediaDownloadStatusError:
+            APLog(@"%s: error", __func__);
+            if (_terminated) {
+                break;
+            }
+            _terminated = YES;
+            [self _downloadFailed];
+            break;
+    }
+}
+
+- (void)mediaDownloadTask:(VLCMediaDownloadTask *)task
+       didReceiveSubitems:(VLCMediaList *)subitems
+{
+    APLog(@"%s: media resolved to subitems and cannot be downloaded as a file", __func__);
+    [_task cancel];
+}
+
+- (void)mediaDownloadTask:(VLCMediaDownloadTask *)task
+         didReceiveSlaves:(NSArray<VLCMediaSlave *> *)slaves
+{
+    APLog(@"%s: ignoring %lu slaves", __func__, (unsigned long)slaves.count);
+}
+
+#pragma mark - download lifecycle
+
+- (void)_closeFile
+{
+    [_fileHandle closeFile];
+    _fileHandle = nil;
 }
 
 - (void)_downloadStarted
 {
+    if (_didStart) {
+        return;
+    }
+    _didStart = YES;
+
     [self.delegate mediaFileDownloadStarted:self];
 }
 
 - (void)_downloadFailed
 {
-    /* remove the partial dump file so observers don't surface it as completed */
-    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_demuxDumpFilePath] error:nil];
+    [self _closeFile];
+
+    /* remove the partial file so observers don't surface it as completed */
+    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_filePath] error:nil];
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -151,7 +281,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 - (void)_downloadCancelled
 {
     /* remove partially downloaded content */
-    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_demuxDumpFilePath] error:nil];
+    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_filePath] error:nil];
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -162,8 +292,6 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
 - (void)_downloadEnded
 {
-    [_timer invalidate];
-
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
@@ -177,6 +305,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 #endif
 
     _downloadInProgress = NO;
+    _task = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate mediaFileDownloadEnded:self];
     });
@@ -184,52 +313,25 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     [self terminateBackgroundTask];
 }
 
-- (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
+- (void)reportProgress
 {
-        switch (currentState) {
-            case VLCMediaPlayerStatePlaying:
-                _timer = [NSTimer scheduledTimerWithTimeInterval:1. target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
-                APLog(@"%s: playing", __func__);
-                [self _downloadStarted];
-                break;
-
-            case VLCMediaPlayerStateOpening:
-                APLog(@"%s: opening", __func__);
-                break;
-
-            case VLCMediaPlayerStateBuffering:
-                APLog(@"%s: buffering", __func__);
-                break;
-
-            case VLCMediaPlayerStateError:
-                APLog(@"%s: error", __func__);
-                [self _downloadFailed];
-                break;
-            case VLCMediaPlayerStateStopped:
-                APLog(@"%s: stopped", __func__);
-                if (_downloadCancelled) {
-                    [self _downloadCancelled];
-                }
-                [self _downloadEnded];
-                break;
-            default:
-                APLog(@"%s: state %li not handled", __func__, (long)currentState);
-                break;
-        }
-}
-
-- (void)updatePosition
-{
-    unsigned long long fileSize = _mediaPlayer.media.statistics.readBytes;
-
-    if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate progressUpdatedTo:self->_expectedDownloadSize > 0 ? (float)fileSize / (float)self->_expectedDownloadSize : 0.
-                            receivedDataSize:fileSize - self->_lastFileSize
-                        expectedDownloadSize:self->_expectedDownloadSize];
-            self->_lastFileSize = fileSize;
-        });
+    if (![self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
+        return;
     }
+
+    unsigned long long position = _receivedBytes;
+    unsigned long long delta = position - _lastReportedBytes;
+    if (delta == 0) {
+        return;
+    }
+    _lastReportedBytes = position;
+
+    unsigned long long expected = _expectedDownloadSize;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate progressUpdatedTo:expected > 0 ? (float)position / (float)expected : 0.
+                        receivedDataSize:(CGFloat)delta
+                    expectedDownloadSize:(CGFloat)expected];
+    });
 }
 
 #pragma mark - background task management
