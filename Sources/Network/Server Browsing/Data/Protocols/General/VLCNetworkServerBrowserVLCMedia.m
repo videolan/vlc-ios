@@ -15,7 +15,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLC-Swift.h"
 
-@interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
+@interface VLCNetworkServerBrowserVLCMedia () <VLCMediaDelegate>
 {
     VLCDialogProvider *_dialogProvider;
     VLCCustomDialogRendererHandler *_customDialogHandler;
@@ -41,11 +41,9 @@
         _rootMedia.delegate = self;
         [_rootMedia parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract];
         _mediaListUnfiltered = [_rootMedia subitems];
-        _mediaListUnfiltered.delegate = self;
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
         [mediaOptionsNoFilter setObject:@" " forKey:@":ignore-filetypes"];
         _mediaOptions = [mediaOptionsNoFilter copy];
-        [self _addMediaListRootItemsToList];
 
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
         _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
@@ -73,13 +71,19 @@
     }
 }
 
-- (void)_addMediaListRootItemsToList
+- (void)_rebuildItemList
 {
-    VLCMediaList *rootItems = _rootMedia.subitems;
+    [self.mutableItems removeAllObjects];
+    while (self.mediaList.count > 0) {
+        [self.mediaList removeMediaAtIndex:0];
+    }
+
+    VLCMediaList *rootItems = self.mediaListUnfiltered;
     [rootItems lock];
     NSUInteger count = rootItems.count;
     for (NSUInteger i = 0; i < count; i++) {
         VLCMedia *media = [rootItems mediaAtIndex:i];
+        [media addOptions:self.mediaOptions];
         NSInteger mediaIndex = self.mutableItems.count;
         [self.mediaList insertMedia:media atIndex:mediaIndex];
         [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
@@ -109,31 +113,6 @@
     return _rootMedia.parsedStatus;
 }
 
-#pragma mark - media list delegate
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [media addOptions:self.mediaOptions];
-        NSInteger mediaIndex = self.mutableItems.count;
-        [self.mediaList insertMedia:media atIndex:mediaIndex];
-        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
-
-        [self.delegate networkServerBrowserDidUpdate:self];
-    });
-}
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        VLCMedia *media = [self.mediaListUnfiltered mediaAtIndex:index];
-        NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
-        [self.mediaList removeMediaAtIndex:mediaIndex];
-        [self.mutableItems removeObjectAtIndex:mediaIndex];
-        [self.delegate networkServerBrowserDidUpdate:self];
-    });
-}
-
 #pragma mark - media delegate
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
@@ -143,7 +122,12 @@
             if ([self.delegate respondsToSelector:@selector(networkServerBrowserShouldPopView:)]) {
                 [self.delegate networkServerBrowserShouldPopView:self];
             }
-        } else if (self.mediaList.count != 0) {
+            return;
+        }
+
+        [self _rebuildItemList];
+
+        if (self.mediaList.count != 0) {
             [self.delegate networkServerBrowserDidUpdate:self];
         } else {
             if ([self.delegate respondsToSelector:@selector(networkServerBrowserEndParsing:)]) {
