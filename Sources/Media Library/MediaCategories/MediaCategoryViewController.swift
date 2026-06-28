@@ -635,6 +635,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                                        name: Notification.Name(VLCPlaybackServicePlaybackDidStart), object: nil)
          notificationCenter.addObserver(self, selector: #selector(playbackDidStop),
                                                 name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
+
+        if model is TrackModel || model is CollectionModel {
+            for name in [VLCPlaybackServicePlaybackDidMoveOnToNextItem,
+                         VLCPlaybackServicePlaybackDidResume,
+                         VLCPlaybackServicePlaybackDidPause] {
+                notificationCenter.addObserver(self, selector: #selector(updateNowPlayingIndicators),
+                                               name: Notification.Name(name), object: nil)
+            }
+        }
     }
 
     private func removeInitializationCommonObservers() {
@@ -649,6 +658,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         notificationCenter.removeObserver(self, name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
+
+        if model is TrackModel || model is CollectionModel {
+            for name in [VLCPlaybackServicePlaybackDidMoveOnToNextItem,
+                         VLCPlaybackServicePlaybackDidResume,
+                         VLCPlaybackServicePlaybackDidPause] {
+                notificationCenter.removeObserver(self, name: Notification.Name(name), object: nil)
+            }
+        }
     }
 
     private func addThemeChangeObserver() {
@@ -741,9 +758,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     @objc private func playbackDidStop() {
         //Handles the visibility when stop the playback from a full screen video player
         handleFABButtonVisibility()
+
+        if model is TrackModel || model is CollectionModel {
+            updateNowPlayingIndicators()
+        }
     }
 
     @objc private func playbackDidStart() {
+        if model is TrackModel || model is CollectionModel {
+            updateNowPlayingIndicators()
+        }
+
         if let model = model as? CollectionModel, let playlist = model.mediaCollection as? VLCMLPlaylist, let selectedIndex = collectionSelectedIndex {
             let media = (selectedIndex.row < playlist.media?.count ?? 0) ? playlist.media?[selectedIndex.row] : nil
             saveCurrentPlaylistInfo(with: playlist.identifier(), playlistTitle: playlist.title(), media: media)
@@ -2068,7 +2093,31 @@ extension MediaCategoryViewController {
         mediaCell.media = mediaObject
         mediaCell.isAccessibilityElement = true
 
+        if let mediaCell = mediaCell as? MediaCollectionViewCell,
+           let media = mediaObject as? VLCMLMedia, media.subtype() == .albumTrack {
+            mediaCell.setNowPlaying(isNowPlaying(media))
+        }
+
         return mediaCell
+    }
+
+    private func isNowPlaying(_ media: VLCMLMedia) -> Bool {
+        guard let playingMedia = PlaybackService.sharedInstance().currentlyPlayingLibraryMedia else {
+            return false
+        }
+        return playingMedia.identifier() == media.identifier()
+    }
+
+    @objc private func updateNowPlayingIndicators() {
+        guard let collectionView = collectionView else { return }
+
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? MediaCollectionViewCell,
+                  let media = getObject(at: indexPath) as? VLCMLMedia, media.subtype() == .albumTrack else {
+                continue
+            }
+            cell.setNowPlaying(isNowPlaying(media))
+        }
     }
 
     // Helper function to check if a playlist is the last played playlist

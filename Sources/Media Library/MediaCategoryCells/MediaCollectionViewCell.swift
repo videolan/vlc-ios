@@ -311,6 +311,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func setNowPlaying(_ isNowPlaying: Bool) {
         isMediaBeingPlayed = isNowPlaying && playbackService.mediaPlayerState != .stopped
 
+        let colors = (delegate is QueueViewController) ? PresentationTheme.darkTheme.colors : PresentationTheme.current.colors
+
         if isMediaBeingPlayed && !UIAccessibility.isReduceMotionEnabled {
             animateCurrentlyPlayingState()
         } else {
@@ -319,9 +321,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             thumbnailView.isHidden = false
         }
 
-        if isMediaBeingPlayed {
-            titleLabel.textColor = PresentationTheme.current.colors.orangeUI
-        }
+        titleLabel.textColor = isMediaBeingPlayed ? colors.orangeUI : colors.cellTextColor
         dynamicFontSizeChange()
     }
 
