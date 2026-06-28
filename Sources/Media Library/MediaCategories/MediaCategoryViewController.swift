@@ -263,12 +263,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     private var lastPlaylist: LastPlayedPlaylistModel? {
-        let encodedLastPlaylist = userDefaults.data(forKey: kVLCLastPlayedPlaylist)
-        guard let encodedData = encodedLastPlaylist,
-              let lastPlayed = (try? NSKeyedUnarchiver(forReadingFrom: encodedData))?.decodeObject(forKey: "root") as? LastPlayedPlaylistModel else {
+        guard let encodedData = userDefaults.data(forKey: kVLCLastPlayedPlaylist),
+              let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: encodedData) else {
             return nil
         }
-        return lastPlayed
+        unarchiver.requiresSecureCoding = false
+        return unarchiver.decodeObject(forKey: "root") as? LastPlayedPlaylistModel
     }
 
     // Indicating that the current chosen collection to play is playlist, useful for handling Observer
