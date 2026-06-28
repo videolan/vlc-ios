@@ -48,6 +48,8 @@ class SettingsCell: UITableViewCell {
         let colors = PresentationTheme.current.colors
         switchControl.onTintColor = colors.orangeUI
         switchControl.translatesAutoresizingMaskIntoConstraints = false
+        switchControl.setContentHuggingPriority(.required, for: .horizontal)
+        switchControl.setContentCompressionResistancePriority(.required, for: .horizontal)
         switchControl.addTarget(self,
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
@@ -99,8 +101,12 @@ class SettingsCell: UITableViewCell {
     private lazy var stackViewTrailingConstraint = stackView.trailingAnchor.constraint(
         equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginTrailing)
 
-    private lazy var stackViewToSwitchConstraint = stackView.trailingAnchor.constraint(
-        equalTo: switchControl.leadingAnchor, constant: -Constants.marginLeading)
+    private lazy var stackViewToSwitchConstraint: NSLayoutConstraint = {
+        let constraint = stackView.trailingAnchor.constraint(
+            equalTo: switchControl.leadingAnchor, constant: -Constants.marginLeading)
+        constraint.priority = .required - 1
+        return constraint
+    }()
 
     static func height(for settingsItem: SettingsItem, width: CGFloat) -> CGFloat {
         let w = max(width - (Constants.marginLeading + Constants.marginTrailing), 1)
