@@ -262,11 +262,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         button.backgroundColor = PresentationTheme.current.colors.orangeUI
         button.tintColor = PresentationTheme.current.colors.background
         button.layer.cornerRadius = 30.0
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         button.layer.masksToBounds = false
-        button.layer.shadowRadius = 6.0
-        button.layer.shadowOpacity = 0.5
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        button.layer.shadowRadius = 4.0
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 60, height: 60)).cgPath
         button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
