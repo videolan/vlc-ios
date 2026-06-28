@@ -243,21 +243,31 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var scrolledCellIndex: IndexPath = IndexPath()
     private(set) var isAllSelected: Bool = false
 
-    //Continue watching last played media
-    private var continueWatchingBottomConstraint: NSLayoutConstraint?
+    private enum FABAction {
+        case shuffleAudio
+        case playAllVideo
+    }
 
-    private lazy var continueWatchingButton: UIButton = {
+    private var fabAction: FABAction? {
+        if parent is AudioViewController {
+            return .shuffleAudio
+        } else if parent is VideoViewController {
+            return .playAllVideo
+        }
+        return nil
+    }
+
+    private lazy var fabButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = PresentationTheme.current.colors.orangeUI
         button.tintColor = PresentationTheme.current.colors.background
-        button.setImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.layer.cornerRadius = 30.0
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         button.layer.masksToBounds = false
         button.layer.shadowRadius = 6.0
         button.layer.shadowOpacity = 0.5
-        button.addTarget(self, action: #selector(continueWatchingButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -332,12 +342,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc func miniPlayerIsShown() {
         collectionView.contentInset.bottom = CGFloat(AudioMiniPlayer.height)
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     @objc func miniPlayerIsHidden() {
         collectionView.contentInset.bottom = 0
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     private func updateAlbumHeader() {
@@ -562,7 +572,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             ? self.miniPlayerIsShown() : self.miniPlayerIsHidden()
             self.loadSort()
             self.reloadData()
-            self.configureContinueWatchingButton()
+            self.configureFABButton()
         }
 
         if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
@@ -583,7 +593,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        continueWatchingButton.removeFromSuperview()
+        fabButton.removeFromSuperview()
 
         removeInitializationCommonObservers()
 
@@ -690,7 +700,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             marqueeLabel.textColor = colors.navigationbarTextColor
         }
 
-        continueWatchingButton.tintColor = colors.background
+        fabButton.tintColor = colors.background
         editToolBar.backgroundColor = colors.tabBarColor
     }
 
@@ -729,7 +739,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc private func playbackDidStop() {
         //Handles the visibility when stop the playback from a full screen video player
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     @objc private func playbackDidStart() {
@@ -770,7 +780,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         toSize = size
         collectionView?.collectionViewLayout.invalidateLayout()
-        updateContinueWatchingConstraints()
 
         if let playlistHeader = playlistHeader {
             playlistHeader.updateAfterRotation()
@@ -854,8 +863,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         reloadData()
-        // this will set continue button to be hidden, in editing mode
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     private func activeEditToolbar() -> EditToolbar {
@@ -1512,8 +1520,7 @@ extension MediaCategoryViewController {
         reloadData()
         searchDataSource.isSearching = true
         searchBar.setShowsCancelButton(true, animated: true)
-        // hides continue watching button when searching is active
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -1525,8 +1532,7 @@ extension MediaCategoryViewController {
         searchDataSource.isSearching = false
         delegate?.enableCategorySwitching(for: self, enable: true)
         reloadData()
-        // shows continue watching button when searching is done
-        handleContinueWatchingButtonVisibility()
+        handleFABButtonVisibility()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -2716,86 +2722,63 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
     }
 }
 
-// MARK: - Continue Watching Last Media Button
+// MARK: - Floating Action Button
 
 extension MediaCategoryViewController {
-    private func configureContinueWatchingButton() {
-        if let model = model as? CollectionModel, model.mediaCollection is VLCMLMediaGroup {
-            addContinueWatchingButton()
-        } else if model is MediaGroupViewModel {
-            addContinueWatchingButton()
-        }
+    private func configureFABButton() {
+        guard let action = fabAction else { return }
+        addFABButton(for: action)
     }
 
-    private func addContinueWatchingButton() {
+    private func addFABButton(for action: FABAction) {
         guard let containerView = tabBarController?.view else { return }
-        containerView.addSubview(continueWatchingButton)
 
-        setContinueWatchingButtonConstraints()
-        handleContinueWatchingButtonVisibility()
+        switch action {
+        case .shuffleAudio:
+            fabButton.setImage(UIImage(named: "shuffle")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            fabButton.accessibilityLabel = NSLocalizedString("SHUFFLE", comment: "")
+        case .playAllVideo:
+            fabButton.setImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            fabButton.accessibilityLabel = NSLocalizedString("PLAY_ALL_BUTTON", comment: "")
+        }
+
+        containerView.addSubview(fabButton)
+
+        setFABButtonConstraints()
+        handleFABButtonVisibility()
     }
 
-    @objc private func continueWatchingButtonPressed() {
+    @objc private func fabButtonPressed() {
         let playbackService = PlaybackService.sharedInstance()
-        if let lastMedia = mediaLibraryService.medialib.videoHistory()?.first {
-            playbackService.play(lastMedia)
+        switch fabAction {
+        case .shuffleAudio:
+            guard let tracks = mediaLibraryService.medialib.audioFiles(), !tracks.isEmpty else { return }
+            playbackService.isShuffleMode = true
+            playbackService.playCollection(tracks)
+        case .playAllVideo:
+            guard let videos = mediaLibraryService.medialib.videoFiles(), !videos.isEmpty else { return }
+            playbackService.isShuffleMode = false
+            playbackService.playCollection(videos)
+        case .none:
+            break
         }
     }
 
-    private func handleContinueWatchingButtonVisibility() {
-        continueWatchingButton.isHidden = shouldHideContinueWatchingButton()
+    private func handleFABButtonVisibility() {
+        let isMiniPlayerVisible = PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+        fabButton.isHidden = fabAction == nil || isMiniPlayerVisible || isEditing || searchDataSource.isSearching
     }
 
-    private func shouldHideContinueWatchingButton() -> Bool {
-        if PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible {
-            return true
-        }
-
-        if let historyCount = mediaLibraryService.medialib.videoHistory()?.count, historyCount == 0 {
-            return true
-        }
-
-        if isEditing || searchDataSource.isSearching {
-            return true
-        }
-
-        return false
-    }
-
-    private func setContinueWatchingButtonConstraints() {
-        guard let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
-
-        var tabBarHeight: CGFloat = 0.0
-        if let tabBarController = tabBarController as? BottomTabBarController,
-           let tabBarHeightConstraint = tabBarController.tabBarHeightConstraint {
-            tabBarHeight = tabBarHeightConstraint.constant
-        } else if let tabBarController = tabBarController {
-            tabBarHeight = tabBarController.tabBar.frame.size.height
-        }
-        continueWatchingBottomConstraint = continueWatchingButton.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -tabBarHeight)
+    private func setFABButtonConstraints() {
+        guard let tabBar = tabBarController?.tabBar,
+              let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
 
         NSLayoutConstraint.activate([
-            continueWatchingButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
-            continueWatchingBottomConstraint!,
-            continueWatchingButton.widthAnchor.constraint(equalToConstant: 60),
-            continueWatchingButton.heightAnchor.constraint(equalToConstant: 60)
+            fabButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
+            fabButton.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -15),
+            fabButton.widthAnchor.constraint(equalToConstant: 60),
+            fabButton.heightAnchor.constraint(equalToConstant: 60)
         ])
-    }
-
-    //Helper functions for handling constraints when orientation state is changed
-    private func updateContinueWatchingConstraints() {
-        DispatchQueue.main.async {
-            var tabBarHeight: CGFloat = 0.0
-            if let tabBarController = self.tabBarController as? BottomTabBarController,
-               let tabBarHeightConstraint = tabBarController.tabBarHeightConstraint {
-                tabBarHeight = tabBarHeightConstraint.constant
-            } else if let tabBarController = self.tabBarController {
-                tabBarHeight = tabBarController.tabBar.frame.size.height
-            }
-
-            self.continueWatchingBottomConstraint?.constant = -tabBarHeight
-            self.continueWatchingButton.layoutIfNeeded()
-        }
     }
 }
 
