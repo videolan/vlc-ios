@@ -981,12 +981,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
 #if !TARGET_OS_WATCH
-        id<VLCPictureInPictureWindowControlling> pipController = self->_pipController;
-        [pipController invalidatePlaybackState];
+    if (currentState == VLCMediaPlayerStatePlaying ||
+        currentState == VLCMediaPlayerStatePaused) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->_pipController invalidatePlaybackState];
+        });
+    }
 #endif
 
+    dispatch_async(dispatch_get_main_queue(), ^{
         switch (currentState) {
             case VLCMediaPlayerStateOpening: {
                 APLog(@"%s: opening", __func__);
