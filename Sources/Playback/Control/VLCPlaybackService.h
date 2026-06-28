@@ -2,7 +2,7 @@
  * VLCPlaybackService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2025 VLC authors and VideoLAN
+ * Copyright (c) 2013-2026 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -69,6 +69,7 @@ NS_SWIFT_NAME(PlaybackService)
 /* returns nil if currently playing item is not available,*/
 
 @property (nonatomic, strong, readonly, nullable) VLCMedia *currentlyPlayingMedia;
+@property (nonatomic, strong, readonly, nullable) VLCMLMedia *currentlyPlayingLibraryMedia;
 
 @property (nonatomic, weak) id<VLCPlaybackServiceDelegate> delegate;
 

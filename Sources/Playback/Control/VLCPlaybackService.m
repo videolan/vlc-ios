@@ -94,6 +94,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSMutableArray *_openedLocalURLs;
 
     NSInteger _currentIndex;
+    VLCMLMedia *_currentlyPlayingLibraryMedia;
     NSMutableArray *_shuffledOrder;
 
     BOOL _openInMiniPlayer;
@@ -498,11 +499,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 #if !TARGET_OS_TV
     // Last played VLCMLMedia before the playback stops
-    VLCMLMedia *lastMedia = [VLCMLMedia mediaForPlayingMedia: _mediaPlayer.media];
+    VLCMLMedia *lastMedia = _currentlyPlayingLibraryMedia;
     if (lastMedia) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackWillStop object: nil userInfo: @{VLCLastPlaylistPlayedMedia: lastMedia}];
     }
 #endif
+
+    _currentlyPlayingLibraryMedia = nil;
 
     if (_playerIsSetup) {
         _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
@@ -1686,6 +1689,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     return _mediaPlayer.media;
 }
 
+- (VLCMLMedia *)currentlyPlayingLibraryMedia
+{
+    return _currentlyPlayingLibraryMedia;
+}
+
 #pragma mark - metadata handling
 - (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action
 {
@@ -1757,6 +1765,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)setNeedsMetadataUpdate
 {
     VLCMLMedia *media = self->_mediaPlayer.media ? [VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
+    _currentlyPlayingLibraryMedia = media;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
 
     [self recoverDisplayedMetadata];
