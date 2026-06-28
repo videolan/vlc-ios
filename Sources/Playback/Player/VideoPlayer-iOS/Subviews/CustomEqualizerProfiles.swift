@@ -80,6 +80,14 @@ class CustomEqualizerProfiles: NSObject, NSCoding {
         coder.encode(self.profiles, forKey: "profiles")
     }
 
+    static func unarchive(from data: Data) -> CustomEqualizerProfiles? {
+        guard let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: data) else {
+            return nil
+        }
+        unarchiver.requiresSecureCoding = false
+        return unarchiver.decodeObject(forKey: "root") as? CustomEqualizerProfiles
+    }
+
     func moveUp(index: Int) {
         guard index - 1 >= 0 else {
             return

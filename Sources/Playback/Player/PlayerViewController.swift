@@ -847,7 +847,7 @@ class PlayerViewController: UIViewController {
         let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
 
         guard let encodedData = encodedData,
-              let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: encodedData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles,
+              let customProfiles = CustomEqualizerProfiles.unarchive(from: encodedData),
               profileIndex < customProfiles.profiles.count else {
             return
         }

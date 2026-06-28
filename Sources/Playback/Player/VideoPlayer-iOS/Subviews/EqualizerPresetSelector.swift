@@ -104,7 +104,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
         guard let profilesData = profilesData,
-              let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: profilesData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+              let customProfiles = CustomEqualizerProfiles.unarchive(from: profilesData) else {
             return 1
         }
 
@@ -119,7 +119,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
 
         let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
         guard let profilesData = profilesData,
-              let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: profilesData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+              let customProfiles = CustomEqualizerProfiles.unarchive(from: profilesData) else {
             return 0
         }
 
@@ -139,7 +139,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         } else {
             let profilesData = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
             guard let profilesData = profilesData,
-                  let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: profilesData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+                  let customProfiles = CustomEqualizerProfiles.unarchive(from: profilesData) else {
                 return cell
             }
 
@@ -235,7 +235,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         let userDefaults = UserDefaults.standard
         let profilesData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
         guard let profilesData = profilesData,
-              let customProfiles = (try? NSKeyedUnarchiver(forReadingFrom: profilesData))?.decodeObject(forKey: "root") as? CustomEqualizerProfiles else {
+              let customProfiles = CustomEqualizerProfiles.unarchive(from: profilesData) else {
             return
         }
 
