@@ -1,7 +1,7 @@
 /*****************************************************************************
  * QueueViewController.swift
  *
- * Copyright © 2020 VLC authors and VideoLAN
+ * Copyright © 2020-2026 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Edgar Fouillet <vlc # edgar.fouillet.eu>
@@ -67,6 +67,8 @@ class QueueViewController: UIViewController {
         }
     }
 
+    private var currentlyPlayingMedia: VLCMedia?
+
     private let medialibraryService: MediaLibraryService
 
     private lazy var collectionViewLayout = QueueViewFlowLayout()
@@ -119,6 +121,14 @@ class QueueViewController: UIViewController {
                                   selector: #selector(reload),
                                   name: Notification.Name(VLCPlaybackServiceShuffleModeUpdated),
                                   object: nil)
+        for name in [VLCPlaybackServicePlaybackDidMoveOnToNextItem,
+                     VLCPlaybackServicePlaybackDidResume,
+                     VLCPlaybackServicePlaybackDidPause] {
+            defaultCenter.addObserver(self,
+                                      selector: #selector(reload),
+                                      name: Notification.Name(name),
+                                      object: nil)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -353,6 +363,7 @@ class QueueViewController: UIViewController {
     }
 
     @objc func reload() {
+        currentlyPlayingMedia = playbackService.currentlyPlayingMedia
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
@@ -524,6 +535,7 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
         }
 
         updateCollectionViewCellApparence(cell, isSelected: true)
+        cell.setNowPlaying(true)
         reload()
     }
 
@@ -671,9 +683,6 @@ extension QueueViewController: UICollectionViewDataSource {
         cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
         media = mediaList.media(at: UInt(indexPath.row))
 
-        let isSelected = playbackService.currentlyPlayingMedia == media
-        updateCollectionViewCellApparence(cell, isSelected: isSelected)
-
         guard let safeURL = media?.url else {
             assertionFailure("QueueViewController: cellForItemAt: Failed to fetch media url")
             return cell
@@ -681,6 +690,10 @@ extension QueueViewController: UICollectionViewDataSource {
         if let media = medialibraryService.fetchOrCreateMedia(with: safeURL) {
             cell.media = media
         }
+
+        let isCurrentlyPlaying = media == currentlyPlayingMedia
+        updateCollectionViewCellApparence(cell, isSelected: isCurrentlyPlaying)
+        cell.setNowPlaying(isCurrentlyPlaying)
         cell.newLabel.isHidden = true
 
         return cell
