@@ -35,6 +35,7 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 @class VLCPlaybackServiceAdjustFilter;
 @class VLCMediaPlayerTitleDescription;
 @class VLCMediaPlayerChapterDescription;
+@class VLCMediaPlayerTrack;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
@@ -104,6 +105,8 @@ NS_SWIFT_NAME(PlaybackService)
 @property (readonly) NSInteger numberOfVideoTracks;
 @property (readonly) NSInteger numberOfAudioTracks;
 @property (readonly) NSInteger numberOfVideoSubtitlesIndexes;
+@property (nonatomic, readonly) NSArray<VLCMediaPlayerTrack *> *audioTracks;
+@property (nonatomic, readonly) NSArray<VLCMediaPlayerTrack *> *textTracks;
 @property (readonly) NSInteger numberOfTitles;
 @property (readonly) NSInteger numberOfChaptersForCurrentTitle;
 @property (assign, readonly) BOOL currentMediaHasTrackToChooseFrom;

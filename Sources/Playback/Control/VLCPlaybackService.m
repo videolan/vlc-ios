@@ -830,6 +830,16 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     return [[_mediaPlayer textTracks] count] + 3;
 }
 
+- (NSArray<VLCMediaPlayerTrack *> *)audioTracks
+{
+    return [_mediaPlayer audioTracks];
+}
+
+- (NSArray<VLCMediaPlayerTrack *> *)textTracks
+{
+    return [_mediaPlayer textTracks];
+}
+
 - (NSInteger)numberOfTitles
 {
     return  [_mediaPlayer numberOfTitles];
