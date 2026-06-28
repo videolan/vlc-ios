@@ -149,8 +149,10 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
         default: {
             NSUInteger additionalFieldRow = row-VLCNetworkServerLoginIndexFieldCount;
             NSArray <VLCNetworkServerLoginInformationField *> *additionalFields = self.loginInformation.additionalFields;
-            VLCNetworkServerLoginInformationField *field = additionalFields[additionalFieldRow];
-            field.textValue = string;
+            if (additionalFieldRow < additionalFields.count) {
+                VLCNetworkServerLoginInformationField *field = additionalFields[additionalFieldRow];
+                field.textValue = string;
+            }
         }
             break;
     }
