@@ -15,89 +15,53 @@
 
 @implementation UIImage(AverageColor)
 
-static CGImageRef resizeCGImage(CGImageRef image)
-{
-    CGSize targetSize = CGSizeMake(4096., 4096.);
-    UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (!context) {
-        UIGraphicsEndImageContext();
-        return nil;
-    }
-    CGContextDrawImage(context, CGRectMake(0, 0, targetSize.width, targetSize.height), image);
-    CGImageRef resizedImage = CGBitmapContextCreateImage(context);
-    UIGraphicsEndImageContext();
-    return resizedImage;
-}
-
 - (UIColor *)averageColor
 {
     CGImageRef imageRef = [self CGImage];
     if (!imageRef) {
         return PresentationTheme.current.colors.background;
     }
-    CGImageRef resizedImageRef = nil;
-    NSUInteger width = CGImageGetWidth(imageRef);
-    NSUInteger height = CGImageGetHeight(imageRef);
 
-    if (width > 4096 || height > 4096) {
-        resizedImageRef = resizeCGImage(imageRef);
-        if (resizedImageRef) {
-            imageRef = resizedImageRef;
-            width = CGImageGetWidth(imageRef);
-            height = CGImageGetHeight(imageRef);
-        }
-    }
+    // Render the source image into a small bitmap of a known layout (RGBA8,
+    // premultiplied, no row padding) so we never depend on the format of the
+    // thumbnail handed to us by the media library.
+    const size_t side = 40;
+    const size_t bytesPerPixel = 4;
+    const size_t bytesPerRow = side * bytesPerPixel;
+    UInt8 pixels[side * bytesPerRow];
+    memset(pixels, 0, sizeof(pixels));
 
-    CGColorSpaceRef colorSpace = CGImageGetColorSpace(imageRef);
-    if (!colorSpace || CGColorSpaceGetModel(colorSpace) != kCGColorSpaceModelRGB) {
-        if (resizedImageRef) {
-            CGImageRelease(resizedImageRef);
-        }
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(pixels, side, side, 8, bytesPerRow, colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    if (!context) {
         return PresentationTheme.current.colors.background;
     }
 
-    CGDataProviderRef dataProvider = CGImageGetDataProvider(imageRef);
-    CFDataRef imageData = CGDataProviderCopyData(dataProvider);
-    if (!imageData) {
-        if (resizedImageRef) {
-            CGImageRelease(resizedImageRef);
-        }
-        return PresentationTheme.current.colors.background;
-    }
-    const UInt8 *pixels = CFDataGetBytePtr(imageData);
+    CGContextSetInterpolationQuality(context, kCGInterpolationLow);
+    CGContextDrawImage(context, CGRectMake(0, 0, side, side), imageRef);
+    CGContextRelease(context);
 
     NSUInteger totalRed = 0;
     NSUInteger totalGreen = 0;
     NSUInteger totalBlue = 0;
-    NSUInteger pixelCount = 0;
 
-    // Iterate through the pixels
-    for (NSUInteger x = 0; x < width; x++) {
-        for (NSUInteger y = 0; y < height; y++) {
-            NSUInteger pixelIndex = (width * y + x) * 4; // Each pixel has 4 bytes (RGBA)
-            totalRed += pixels[pixelIndex];
-            totalGreen += pixels[pixelIndex + 1];
-            totalBlue += pixels[pixelIndex + 2];
-            pixelCount++;
+    for (size_t y = 0; y < side; y++) {
+        for (size_t x = 0; x < side; x++) {
+            const UInt8 *pixel = &pixels[y * bytesPerRow + x * bytesPerPixel];
+            totalRed += pixel[0];
+            totalGreen += pixel[1];
+            totalBlue += pixel[2];
         }
     }
 
-    CFRelease(imageData);
-    if (resizedImageRef) {
-        CGImageRelease(resizedImageRef);
-    }
+    const NSUInteger pixelCount = side * side;
+    CGFloat avgRed = (CGFloat)totalRed / pixelCount / 255.0;
+    CGFloat avgGreen = (CGFloat)totalGreen / pixelCount / 255.0;
+    CGFloat avgBlue = (CGFloat)totalBlue / pixelCount / 255.0;
 
-    // Calculate the average color
-    if (pixelCount > 0) {
-        CGFloat avgRed = (CGFloat)totalRed / pixelCount / 255.0;
-        CGFloat avgGreen = (CGFloat)totalGreen / pixelCount / 255.0;
-        CGFloat avgBlue = (CGFloat)totalBlue / pixelCount / 255.0;
-
-        return [UIColor colorWithRed:avgRed green:avgGreen blue:avgBlue alpha:1.0];
-    }
-
-    return PresentationTheme.current.colors.background;
+    return [UIColor colorWithRed:avgRed green:avgGreen blue:avgBlue alpha:1.0];
 }
 
 @end
