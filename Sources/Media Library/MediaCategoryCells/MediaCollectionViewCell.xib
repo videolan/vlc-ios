@@ -41,6 +41,10 @@
                                                     <constraint firstAttribute="width" secondItem="DpW-xo-rll" secondAttribute="height" multiplier="1:1" id="UuK-UK-4Jx"/>
                                                 </constraints>
                                             </imageView>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="anm-V0-iew" userLabel="NowPlayingAnimation">
+                                                <rect key="frame" x="4" y="12" width="56" height="56"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSi-lw-k0S" userLabel="Labels View">
                                                 <rect key="frame" x="69" y="12" width="378" height="56"/>
                                                 <subviews>
@@ -118,6 +122,10 @@
                                             <constraint firstAttribute="bottom" secondItem="f9J-sb-sdM" secondAttribute="bottom" id="kcF-GQ-lua"/>
                                             <constraint firstItem="f9J-sb-sdM" firstAttribute="leading" secondItem="mSi-lw-k0S" secondAttribute="trailing" constant="9" id="uJY-5b-en0"/>
                                             <constraint firstItem="DpW-xo-rll" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="wgE-6k-ZhQ"/>
+                                            <constraint firstItem="anm-V0-iew" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="leading" id="anm-V0-ld0"/>
+                                            <constraint firstItem="anm-V0-iew" firstAttribute="trailing" secondItem="DpW-xo-rll" secondAttribute="trailing" id="anm-V0-tr0"/>
+                                            <constraint firstItem="anm-V0-iew" firstAttribute="top" secondItem="DpW-xo-rll" secondAttribute="top" id="anm-V0-tp0"/>
+                                            <constraint firstItem="anm-V0-iew" firstAttribute="bottom" secondItem="DpW-xo-rll" secondAttribute="bottom" id="anm-V0-bt0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -181,6 +189,7 @@
                 <outlet property="selectionOverlay" destination="vQV-tE-gv0" id="xIe-R7-AjG"/>
                 <outlet property="sizeDescriptionLabel" destination="WKd-DQ-8Uh" id="A2N-xd-f1o"/>
                 <outlet property="sizeDescriptionLabelTrailingConstraint" destination="sOv-PL-A7d" id="WTL-Dy-Fak"/>
+                <outlet property="animationImageView" destination="anm-V0-iew" id="anm-V0-otl"/>
                 <outlet property="thumbnailView" destination="DpW-xo-rll" id="U2i-pe-qCM"/>
                 <outlet property="thumbnailWidth" destination="2pZ-Hq-ltD" id="oMn-5s-92i"/>
                 <outlet property="titleLabel" destination="Zkn-vN-SN4" id="H77-N8-sRM"/>

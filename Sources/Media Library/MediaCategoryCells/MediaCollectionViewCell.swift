@@ -2,7 +2,7 @@
  * MediaCollectionViewCell.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -29,6 +29,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     // MARK: - Properties
 
     @IBOutlet weak var thumbnailView: UIImageView!
+    @IBOutlet weak var animationImageView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var sizeDescriptionLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var newLabel: UILabel!
@@ -58,7 +59,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     var ignoreThemeDidChange: Bool = false
     var isEditing: Bool = false
     var isMediaBeingPlayed: Bool = false
-    var backupThumbnail: UIImage? = nil
     var lastPlayed: Bool = false
     weak var delegate: MediaCollectionViewCellDelegate?
 
@@ -270,6 +270,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             descriptionText += " · " + albumTitle
         }
 
+        thumbnailView.image = audiotrack.thumbnailImage()
+        thumbnailView.isHidden = false
+        animationImageView.isHidden = true
+        animationImageView.stopAnimating()
+
         if let currentMedia = playbackService.currentlyPlayingMedia,
            let audiotrackURL = audiotrack.mainFile()?.mrl,
            let currentMediaURL = currentMedia.url,
@@ -286,17 +291,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             if #available(iOS 13.0, *), playbackService.mediaPlayerState != .stopped {
                 isMediaBeingPlayed = true
                 animateCurrentlyPlayingState()
-                backupThumbnail = audiotrack.thumbnailImage()
             } else {
                 isMediaBeingPlayed = false
-                thumbnailView.image = audiotrack.thumbnailImage()
-                backupThumbnail = nil
             }
         } else {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
             isMediaBeingPlayed = false
-            thumbnailView.image = audiotrack.thumbnailImage()
-            backupThumbnail = nil
         }
 
         let colors: ColorPalette
@@ -340,20 +340,23 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let playingAnimation = generateAnimation(with: "playing-animation-", color: orangeColor)
         let pauseAnimation = generateAnimation(with: "pause-animation-", color: orangeColor)
 
+        thumbnailView.isHidden = true
+        animationImageView.isHidden = false
+
         if playbackService.isPlaying {
-            thumbnailView.animationImages = playingAnimation
-            thumbnailView.animationDuration = 1.2
-            thumbnailView.animationRepeatCount = 0
-            thumbnailView.image = thumbnailView.animationImages?.first
-            thumbnailView.startAnimating()
+            animationImageView.animationImages = playingAnimation
+            animationImageView.animationDuration = 1.2
+            animationImageView.animationRepeatCount = 0
+            animationImageView.image = animationImageView.animationImages?.first
+            animationImageView.startAnimating()
         } else {
-            thumbnailView.stopAnimating()
-            thumbnailView.animationImages = pauseAnimation
-            thumbnailView.animationDuration = 0.8
-            thumbnailView.animationRepeatCount = 1
-            thumbnailView.image = thumbnailView.animationImages?.first
-            thumbnailView.startAnimating()
-            thumbnailView.image = pauseAnimation.last
+            animationImageView.stopAnimating()
+            animationImageView.animationImages = pauseAnimation
+            animationImageView.animationDuration = 0.8
+            animationImageView.animationRepeatCount = 1
+            animationImageView.image = animationImageView.animationImages?.first
+            animationImageView.startAnimating()
+            animationImageView.image = pauseAnimation.last
         }
     }
 
@@ -514,6 +517,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = ""
         sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
+        thumbnailView.isHidden = false
+        animationImageView.stopAnimating()
+        animationImageView.animationImages = nil
+        animationImageView.image = nil
+        animationImageView.isHidden = true
+        isMediaBeingPlayed = false
         checkboxImageView.isHidden = true
         showCheckmark(false)
         selectionOverlay.isHidden = true

@@ -2,7 +2,7 @@
  * MediaCateogoryViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
@@ -1928,20 +1928,9 @@ extension MediaCategoryViewController {
             return nil
         }
         let cell = collectionView.cellForItem(at: indexPath)
-        var thumbnail: UIImage? = nil
-        if let cell = cell as? MovieCollectionViewCell {
-            thumbnail = cell.thumbnailView.image
-        } else if let cell = cell as? MediaCollectionViewCell {
-            let image: UIImage?
-            if cell.isMediaBeingPlayed {
-                image = cell.backupThumbnail
-            } else {
-                image = cell.thumbnailView.image
-            }
-            thumbnail = image
-        } else if let cell = cell as? MediaGridCollectionCell {
-            thumbnail = cell.thumbnailView.image
-        }
+        let thumbnail = (cell as? MovieCollectionViewCell)?.thumbnailView.image
+            ?? (cell as? MediaCollectionViewCell)?.thumbnailView.image
+            ?? (cell as? MediaGridCollectionCell)?.thumbnailView.image
         let videoMedia: VLCMLMedia?
         if let media = modelContent as? VLCMLMedia, media.type() == .video {
             videoMedia = media
