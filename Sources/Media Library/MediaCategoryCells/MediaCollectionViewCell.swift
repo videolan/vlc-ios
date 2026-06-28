@@ -274,30 +274,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.isHidden = false
         animationImageView.isHidden = true
         animationImageView.stopAnimating()
-
-        if let currentMedia = playbackService.currentlyPlayingMedia,
-           let audiotrackURL = audiotrack.mainFile()?.mrl,
-           let currentMediaURL = currentMedia.url,
-           currentMediaURL == audiotrackURL {
-            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume),
-                                                   object: nil, queue: OperationQueue.main, using: {_ in
-                self.animateCurrentlyPlayingState()
-                if let parentCollectionView = self.superview as? UICollectionView {
-                    parentCollectionView.reloadData()
-                }
-            })
-
-            // Animate the current played cell
-            if #available(iOS 13.0, *), playbackService.mediaPlayerState != .stopped {
-                isMediaBeingPlayed = true
-                animateCurrentlyPlayingState()
-            } else {
-                isMediaBeingPlayed = false
-            }
-        } else {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
-            isMediaBeingPlayed = false
-        }
+        isMediaBeingPlayed = false
 
         let colors: ColorPalette
         if delegate is QueueViewController {
@@ -329,6 +306,23 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         updateSizeDescriptionLabelConstraint()
         updateLabelsViewContraint()
+    }
+
+    func setNowPlaying(_ isNowPlaying: Bool) {
+        isMediaBeingPlayed = isNowPlaying && playbackService.mediaPlayerState != .stopped
+
+        if isMediaBeingPlayed && !UIAccessibility.isReduceMotionEnabled {
+            animateCurrentlyPlayingState()
+        } else {
+            animationImageView.stopAnimating()
+            animationImageView.isHidden = true
+            thumbnailView.isHidden = false
+        }
+
+        if isMediaBeingPlayed {
+            titleLabel.textColor = PresentationTheme.current.colors.orangeUI
+        }
+        dynamicFontSizeChange()
     }
 
     func animateCurrentlyPlayingState() {
@@ -507,7 +501,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
         isEditing = false
         lastPlayed = false
         ignoreThemeDidChange = false
