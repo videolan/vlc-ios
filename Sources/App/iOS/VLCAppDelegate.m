@@ -343,13 +343,8 @@
 #pragma mark - Recover last playing media
 
 - (void)savePlayingMediaIdentifier {
-    VLCMedia *currentMedia = [[VLCPlaybackService sharedInstance] currentlyPlayingMedia];
-    VLCMLIdentifier identifier = -1;
-
-    if (currentMedia) {
-        VLCMLMedia *libraryMedia = [VLCMLMedia mediaForPlayingMedia:currentMedia];
-        identifier = libraryMedia.identifier;
-    }
+    VLCMLMedia *libraryMedia = [[VLCPlaybackService sharedInstance] currentlyPlayingLibraryMedia];
+    VLCMLIdentifier identifier = libraryMedia ? libraryMedia.identifier : -1;
 
     [[NSUserDefaults standardUserDefaults] setInteger:identifier forKey:kVLCLastPlayedMediaIdentifier];
 }

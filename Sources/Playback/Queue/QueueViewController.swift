@@ -705,7 +705,7 @@ extension QueueViewController: UICollectionViewDataSource {
 extension QueueViewController {
     func handleRemoveCurrentMediaIfNeeded(_ media: VLCMLMedia?, at index: IndexPath) {
         guard mediaList.count > 1,
-              let currentMedia = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia),
+              let currentMedia = playbackService.currentlyPlayingLibraryMedia,
               let mlMedia = media,
               mlMedia.identifier() == currentMedia.identifier() else {
             performDeleteMediaFromQueue(at: index)

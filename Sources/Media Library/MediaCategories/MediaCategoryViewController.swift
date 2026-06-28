@@ -777,8 +777,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             userDefaults.set(true, forKey: kVLCIsCurrentlyPlayingPlaylist)
         } else if let playlists = currentDataSet as? [VLCMLPlaylist], let selectedIndex = collectionSelectedIndex, selectedIndex.row < playlists.count {
             let selectedPlaylist = playlists[selectedIndex.row]
-            guard let media = PlaybackService.sharedInstance().currentlyPlayingMedia,
-                  let mlMedia = VLCMLMedia(forPlaying: media) else { return }
+            guard let mlMedia = PlaybackService.sharedInstance().currentlyPlayingLibraryMedia else { return }
 
             saveCurrentPlaylistInfo(with: selectedPlaylist.identifier(), playlistTitle: selectedPlaylist.title(), media: mlMedia)
             addPlaybackWillStopObserver()
@@ -787,8 +786,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         } else if isPlaylistCurrentlyPlaying {
             //if the playlist media is already being played and the current model is not Playlist or playlist collection media.
             //This will update the value of last played media, leading to right indication if the app is suddenly closed.
-            guard let media = PlaybackService.sharedInstance().currentlyPlayingMedia,
-                  let mlMedia = VLCMLMedia(forPlaying: media),
+            guard let mlMedia = PlaybackService.sharedInstance().currentlyPlayingLibraryMedia,
                   let lastPlaylist = lastPlaylist else {
                 return
             }

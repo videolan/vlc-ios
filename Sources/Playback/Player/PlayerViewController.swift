@@ -1348,11 +1348,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia? {
-        guard let media = playbackService.currentlyPlayingMedia else {
-            return nil
-        }
-
-        return mediaLibraryService.fetchMedia(with: media.url)
+        return playbackService.currentlyPlayingLibraryMedia
     }
 
     func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float) {

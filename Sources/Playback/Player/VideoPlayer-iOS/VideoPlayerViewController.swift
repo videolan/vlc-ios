@@ -1371,7 +1371,7 @@ extension VideoPlayerViewController {
             resetABRepeat()
         }
 
-        let media = VLCMLMedia(forPlaying: playbackService.currentlyPlayingMedia)
+        let media = playbackService.currentlyPlayingLibraryMedia
         if let media = media, currentState == .opening &&
             (media.type() == .audio && playbackService.numberOfVideoTracks == 0),
            presentingViewController != nil {
