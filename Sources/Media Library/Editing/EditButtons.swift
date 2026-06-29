@@ -104,7 +104,7 @@ class EditButtonsFactory {
 //        actionList.append(.updateAppContext)
 //        actionList.append(.sendMessage)
 //        actionList.append(.sendMessageData)
-        actionList.append(.transferFile)
+//        actionList.append(.transferFile)
 //        actionList.append(.transferUserInfo)
 //        actionList.append(.transferComplicationUserInfo)
 
