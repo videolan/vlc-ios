@@ -2,7 +2,7 @@
  * PresentationTheme.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -40,6 +40,13 @@ extension Notification.Name {
     let tabBarIconColor: UIColor
     let orangeUI: UIColor
     let orangeDarkAccent: UIColor
+    let secondarySubtitleAccent: UIColor
+    let selectionAccent: UIColor
+    let overlayPrimaryTextColor: UIColor
+    let overlaySecondaryTextColor: UIColor
+    let overlayTertiaryTextColor: UIColor
+    let overlayHairlineColor: UIColor
+    let overlayControlFillColor: UIColor
 #if !os(tvOS)
     let toolBarStyle: UIBarStyle
 #endif
@@ -67,6 +74,13 @@ extension Notification.Name {
          tabBarIconColor: UIColor,
          orangeUI: UIColor,
          orangeDarkAccent: UIColor,
+         secondarySubtitleAccent: UIColor,
+         selectionAccent: UIColor,
+         overlayPrimaryTextColor: UIColor,
+         overlaySecondaryTextColor: UIColor,
+         overlayTertiaryTextColor: UIColor,
+         overlayHairlineColor: UIColor,
+         overlayControlFillColor: UIColor,
          blurStyle: UIBlurEffect.Style,
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
@@ -89,6 +103,13 @@ extension Notification.Name {
         self.tabBarIconColor = tabBarIconColor
         self.orangeUI = orangeUI
         self.orangeDarkAccent = orangeDarkAccent
+        self.secondarySubtitleAccent = secondarySubtitleAccent
+        self.selectionAccent = selectionAccent
+        self.overlayPrimaryTextColor = overlayPrimaryTextColor
+        self.overlaySecondaryTextColor = overlaySecondaryTextColor
+        self.overlayTertiaryTextColor = overlayTertiaryTextColor
+        self.overlayHairlineColor = overlayHairlineColor
+        self.overlayControlFillColor = overlayControlFillColor
         self.blurStyle = blurStyle
         self.textfieldBorderColor = textfieldBorderColor
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
@@ -114,6 +135,13 @@ extension Notification.Name {
          tabBarIconColor: UIColor,
          orangeUI: UIColor,
          orangeDarkAccent: UIColor,
+         secondarySubtitleAccent: UIColor,
+         selectionAccent: UIColor,
+         overlayPrimaryTextColor: UIColor,
+         overlaySecondaryTextColor: UIColor,
+         overlayTertiaryTextColor: UIColor,
+         overlayHairlineColor: UIColor,
+         overlayControlFillColor: UIColor,
          toolBarStyle: UIBarStyle,
          blurStyle: UIBlurEffect.Style,
          textfieldBorderColor: UIColor,
@@ -138,6 +166,13 @@ extension Notification.Name {
         self.tabBarIconColor = tabBarIconColor
         self.orangeUI = orangeUI
         self.orangeDarkAccent = orangeDarkAccent
+        self.secondarySubtitleAccent = secondarySubtitleAccent
+        self.selectionAccent = selectionAccent
+        self.overlayPrimaryTextColor = overlayPrimaryTextColor
+        self.overlaySecondaryTextColor = overlaySecondaryTextColor
+        self.overlayTertiaryTextColor = overlayTertiaryTextColor
+        self.overlayHairlineColor = overlayHairlineColor
+        self.overlayControlFillColor = overlayControlFillColor
         self.toolBarStyle = toolBarStyle
         self.blurStyle = blurStyle
         self.textfieldBorderColor = textfieldBorderColor
@@ -327,6 +362,13 @@ let brightPalette = ColorPalette(isDark: false,
                                  tabBarIconColor: UIColor(0x88949c),
                                  orangeUI: UIColor(0xFF8800),
                                  orangeDarkAccent: UIColor(0xFF8800),
+                                 secondarySubtitleAccent: UIColor(0x32C8FF),
+                                 selectionAccent: UIColor(0xFFB70D),
+                                 overlayPrimaryTextColor: UIColor(0x000000),
+                                 overlaySecondaryTextColor: UIColor(0x000000, 0.7),
+                                 overlayTertiaryTextColor: UIColor(0x000000, 0.4),
+                                 overlayHairlineColor: UIColor(0x000000, 0.18),
+                                 overlayControlFillColor: UIColor(0x000000, 0.08),
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
@@ -350,6 +392,13 @@ let darkPalette = ColorPalette(isDark: true,
                                tabBarIconColor: UIColor(0x88949c),
                                orangeUI: UIColor(0xFF8800),
                                orangeDarkAccent: UIColor(0xD57200),
+                               secondarySubtitleAccent: UIColor(0x32C8FF),
+                               selectionAccent: UIColor(0xFFB70D),
+                               overlayPrimaryTextColor: UIColor(0xFFFFFF),
+                               overlaySecondaryTextColor: UIColor(0xFFFFFF, 0.7),
+                               overlayTertiaryTextColor: UIColor(0xFFFFFF, 0.4),
+                               overlayHairlineColor: UIColor(0xFFFFFF, 0.18),
+                               overlayControlFillColor: UIColor(0xFFFFFF, 0.08),
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
@@ -376,6 +425,13 @@ let brightPalette = ColorPalette(isDark: false,
                                  tabBarIconColor: UIColor(0x88949c),
                                  orangeUI: UIColor(0xFF8800),
                                  orangeDarkAccent: UIColor(0xFF8800),
+                                 secondarySubtitleAccent: UIColor(0x32C8FF),
+                                 selectionAccent: UIColor(0xFFB70D),
+                                 overlayPrimaryTextColor: UIColor(0x000000),
+                                 overlaySecondaryTextColor: UIColor(0x000000, 0.7),
+                                 overlayTertiaryTextColor: UIColor(0x000000, 0.4),
+                                 overlayHairlineColor: UIColor(0x000000, 0.18),
+                                 overlayControlFillColor: UIColor(0x000000, 0.08),
                                  toolBarStyle: UIBarStyle.default,
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
@@ -401,6 +457,13 @@ let darkPalette = ColorPalette(isDark: true,
                                tabBarIconColor: UIColor(0x88949c),
                                orangeUI: UIColor(0xFF8800),
                                orangeDarkAccent: UIColor(0xD57200),
+                               secondarySubtitleAccent: UIColor(0x32C8FF),
+                               selectionAccent: UIColor(0xFFB70D),
+                               overlayPrimaryTextColor: UIColor(0xFFFFFF),
+                               overlaySecondaryTextColor: UIColor(0xFFFFFF, 0.7),
+                               overlayTertiaryTextColor: UIColor(0xFFFFFF, 0.4),
+                               overlayHairlineColor: UIColor(0xFFFFFF, 0.18),
+                               overlayControlFillColor: UIColor(0xFFFFFF, 0.08),
                                toolBarStyle: UIBarStyle.black,
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
@@ -426,6 +489,13 @@ let blackPalette = ColorPalette(isDark: true,
                                 tabBarIconColor: UIColor(0x88949c),
                                 orangeUI: UIColor(0xFF8800),
                                 orangeDarkAccent: UIColor(0xD57200),
+                                secondarySubtitleAccent: UIColor(0x32C8FF),
+                                selectionAccent: UIColor(0xFFB70D),
+                                overlayPrimaryTextColor: UIColor(0xFFFFFF),
+                                overlaySecondaryTextColor: UIColor(0xFFFFFF, 0.7),
+                                overlayTertiaryTextColor: UIColor(0xFFFFFF, 0.4),
+                                overlayHairlineColor: UIColor(0xFFFFFF, 0.18),
+                                overlayControlFillColor: UIColor(0xFFFFFF, 0.08),
                                 toolBarStyle: UIBarStyle.black,
                                 blurStyle: .dark,
                                 textfieldBorderColor: UIColor(0x84929C),
@@ -452,6 +522,13 @@ let visionPalette = ColorPalette(isDark: true,
                                  tabBarIconColor: UIColor(0x88949c),
                                  orangeUI: UIColor(0xFF8800),
                                  orangeDarkAccent: UIColor(0xD57200),
+                                 secondarySubtitleAccent: UIColor(0x32C8FF),
+                                 selectionAccent: UIColor(0xFFB70D),
+                                 overlayPrimaryTextColor: UIColor(0xFFFFFF),
+                                 overlaySecondaryTextColor: UIColor(0xFFFFFF, 0.7),
+                                 overlayTertiaryTextColor: UIColor(0xFFFFFF, 0.4),
+                                 overlayHairlineColor: UIColor(0xFFFFFF, 0.18),
+                                 overlayControlFillColor: UIColor(0xFFFFFF, 0.08),
                                  toolBarStyle: UIBarStyle.black,
                                  blurStyle: .dark,
                                  textfieldBorderColor: UIColor(0x84929C),
