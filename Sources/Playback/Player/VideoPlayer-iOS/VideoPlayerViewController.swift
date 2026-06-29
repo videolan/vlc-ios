@@ -144,18 +144,8 @@ class VideoPlayerViewController: PlayerViewController {
         return aspectRatioActionSheet
     }()
 
-    private(set) lazy var titleSelectionView: TitleSelectionView = {
-#if os(iOS)
-        let isLandscape = UIDevice.current.orientation.isLandscape
-        let titleSelectionView = TitleSelectionView(frame: .zero,
-                                                    orientation: isLandscape ? .horizontal : .vertical)
-#else
-        let titleSelectionView = TitleSelectionView(frame: .zero, orientation: .horizontal)
-#endif
-        titleSelectionView.delegate = self
-        titleSelectionView.isHidden = true
-        return titleSelectionView
-    }()
+    // Intent for the next external-file pick: true = audio, false = subtitle, nil = decide by extension.
+    private var externalTrackRequestIsAudio: Bool?
 
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
         let view = LongPressPlaybackSpeedView()
@@ -286,14 +276,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var isGestureActive: Bool = false
 
-    // MARK: - Popup Views
-
-    lazy var trackSelectorPopupView: PopupView = {
-        let trackSelectorPopupView = PopupView()
-        trackSelectorPopupView.delegate = self
-        return trackSelectorPopupView
-    }()
-
     // MARK: - Constraints
 
     private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {
@@ -311,14 +293,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
         equalizerPopupView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10)
-    }()
-
-    private lazy var trackSelectorPopupTopConstraint: NSLayoutConstraint = {
-        trackSelectorPopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
-    }()
-
-    private lazy var trackSelectorPopupBottomConstraint: NSLayoutConstraint = {
-        trackSelectorPopupView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10)
     }()
 
     // MARK: - Init methods
@@ -459,7 +433,6 @@ class VideoPlayerViewController: PlayerViewController {
         numberOfGestureSeek = 0
         totalSeekDuration = 0
         previousSeekState = .default
-        titleSelectionView.isHidden = true
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -501,7 +474,6 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(externalVideoOutputView)
         view.addSubview(coneLoadingView)
         view.addSubview(statusLabel)
-        view.addSubview(titleSelectionView)
         view.addSubview(longPressPlaybackSpeedView)
 
         view.bringSubviewToFront(statusLabel)
@@ -607,7 +579,6 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
         setupStatusLabelConstraints()
         setupConeLoadingViewConstraints()
-        setupTitleSelectionConstraints()
         setupLongPressPlaybackSpeedConstraints()
     }
 
@@ -650,15 +621,6 @@ class VideoPlayerViewController: PlayerViewController {
         queueViewController?.delegate = self
     }
 
-    private func setupTitleSelectionConstraints() {
-        NSLayoutConstraint.activate([
-            titleSelectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleSelectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleSelectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            titleSelectionView.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
-    }
-
     private func setupCommonSliderConstraints(for slider: UIView) {
         let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
         let topConstraint = slider.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor)
@@ -676,14 +638,6 @@ class VideoPlayerViewController: PlayerViewController {
             yConstraint,
         ])
 
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        let isLandscape: Bool = size.width >= view.frame.size.width
-
-        titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
-        titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
 
     // MARK: - Private helpers
@@ -939,10 +893,8 @@ class VideoPlayerViewController: PlayerViewController {
             scrubProgressBarSpacing = 5
         }
         equalizerPopupTopConstraint.constant = popupMargin
-        trackSelectorPopupTopConstraint.constant = popupMargin
         equalizerPopupBottomConstraint.constant = -popupMargin
-        trackSelectorPopupBottomConstraint.constant = -popupMargin
-        if equalizerPopupView.isShown || trackSelectorPopupView.isShown {
+        if equalizerPopupView.isShown {
             videoPlayerControlsHeightConstraint.constant = videoPlayerControlsHeight
             mediaScrubProgressBar.spacing = scrubProgressBarSpacing
             view.layoutSubviews()
@@ -1065,7 +1017,7 @@ class VideoPlayerViewController: PlayerViewController {
     override func setControlsHidden(_ hidden: Bool, animated: Bool) {
         guard !UIAccessibility.isVoiceOverRunning || !hidden else { return }
 
-        if (equalizerPopupView.isShown || trackSelectorPopupView.isShown) && hidden {
+        if equalizerPopupView.isShown && hidden {
             return
         }
         playerController.isControlsHidden = hidden
@@ -1138,19 +1090,9 @@ class VideoPlayerViewController: PlayerViewController {
         leadingConstraint.priority = .required
         trailingConstraint.priority = .required
 
-        let popupViewTopConstraint: NSLayoutConstraint
-        let popupViewBottomConstraint: NSLayoutConstraint
-        if popupView == equalizerPopupView {
-            popupViewTopConstraint = equalizerPopupTopConstraint
-            popupViewBottomConstraint = equalizerPopupBottomConstraint
-        } else {
-            popupViewTopConstraint = trackSelectorPopupTopConstraint
-            popupViewBottomConstraint = trackSelectorPopupBottomConstraint
-        }
-
         NSLayoutConstraint.activate([
-            popupViewTopConstraint,
-            popupViewBottomConstraint,
+            equalizerPopupTopConstraint,
+            equalizerPopupBottomConstraint,
             leadingConstraint,
             trailingConstraint,
             popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -1388,11 +1330,6 @@ extension VideoPlayerViewController {
             // This stream turned out to be audio only and can be played with the Audio Player.
             delegate?.videoPlayerViewControllerShouldSwitchPlayer(self)
             return
-        }
-
-        if titleSelectionView.isHidden == false {
-            titleSelectionView.updateHeightConstraints()
-            titleSelectionView.reload()
         }
 
         if let queueCollectionView = queueViewController?.queueCollectionView {
@@ -1714,25 +1651,34 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
     }
 }
 
-// MARK: - TitleSelectionViewDelegate
+// MARK: - TrackSelectorViewControllerDelegate
 
-extension VideoPlayerViewController: TitleSelectionViewDelegate {
-    func titleSelectionViewDelegateDidSelectFromFiles(_ titleSelectionView: TitleSelectionView) {
-        let vc = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
-        vc.delegate = self
-        present(vc, animated: true)
+extension VideoPlayerViewController: TrackSelectorViewControllerDelegate {
+    func trackSelector(_ controller: TrackSelectorViewController, didRequestLoadExternalFileForAudio audio: Bool) {
+        controller.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.externalTrackRequestIsAudio = audio
+            let picker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+            picker.delegate = self
+            self.present(picker, animated: true)
+        }
     }
 
-    func titleSelectionViewDelegateDidSelectTrack(_ titleSelectionView: TitleSelectionView) {
-        titleSelectionView.isHidden = true
+    func trackSelectorDidRequestDownloadSubtitles(_ controller: TrackSelectorViewController) {
+        controller.dismiss(animated: true) { [weak self] in
+            self?.downloadMoreSPU()
+        }
     }
 
-    func titleSelectionViewDelegateDidSelectDownloadSPU(_ titleSelectionView: TitleSelectionView) {
-        downloadMoreSPU()
-    }
-
-    func shouldHideTitleSelectionView(_ titleSelectionView: TitleSelectionView) {
-        self.titleSelectionView.isHidden = true
+    func trackSelectorDidRequestSpeedAndSync(_ controller: TrackSelectorViewController) {
+        controller.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.present(self.moreOptionsActionSheet, animated: false) {
+                self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
+                self.moreOptionsActionSheet.hidePlayer()
+                self.moreOptionsActionSheet.addView(.playback)
+            }
+        }
     }
 }
 
@@ -1783,14 +1729,20 @@ extension VideoPlayerViewController: UIDocumentPickerDelegate {
             }
             fileURL.stopAccessingSecurityScopedResource()
 
-            if fileURL.path.isSupportedSubtitleFormat() {
-                playbackService.addSubtitlesToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
-            } else {
+            let loadAsAudio = externalTrackRequestIsAudio ?? !fileURL.path.isSupportedSubtitleFormat()
+            externalTrackRequestIsAudio = nil
+            if loadAsAudio {
                 playbackService.addAudioToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
+            } else {
+                playbackService.addSubtitlesToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
             }
         } else {
             return
         }
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        externalTrackRequestIsAudio = nil
     }
 }
 

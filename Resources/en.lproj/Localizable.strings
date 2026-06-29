@@ -61,6 +61,7 @@
 "BUTTON_DONE" = "Done";
 "BUTTON_OPEN" = "Open";
 "BUTTON_CANCEL" = "Cancel";
+"BUTTON_CLOSE" = "Close";
 "BUTTON_SAVE" = "Save";
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Delete";
@@ -306,8 +307,7 @@
 "DOWNLOAD_SUBS_FROM_OSO" = "Download Subtitles...";
 "FOUND_SUBS" = "Found subtitles";
 "NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
-"SELECT_AUDIO_FROM_FILES" = "Load External Audio...";
-"SELECT_SUBTITLE_FROM_FILES" = "Load External Subtitles...";
+"LOAD_EXTERNAL" = "Load External";
 
 "REPEAT_MODE" = "Repeat";
 "SHUFFLE" = "Shuffle";
@@ -464,8 +464,6 @@
 
 // MARK: - VideoPlayerControls
 
-"PRIMARY_SUBTITLES" = "PRIMARY SUBTITLE";
-"SECONDARY_SUBTITLES" = "SECONDARY SUBTITLE";
 "SECONDARY_SUBTITLE" = "Secondary Subtitle...";
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
@@ -709,8 +707,6 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
 
 // MARK: - NEW DELETE STRINGS
 "DELETE_SINGLE_TITLE" = "Delete \"%@\"?";
@@ -744,3 +740,16 @@
 "EMPTY_FOLDER" = "Empty Folder";
 "EMPTY_FOLDER_DES" = "Add audio or video media in this folder";
 "SUBFOLDERS_DESCRIPTION" = "%d subfolders";
+
+"ACCESSIBILITY_SELECTED" = "selected";
+"TRACK_SELECTOR_OFF" = "Off";
+"TRACK_INDEX_FORMAT" = "Track %d";
+"AUDIO_CHANNELS_MONO" = "Mono";
+"AUDIO_CHANNELS_STEREO" = "Stereo";
+"AUDIO_CHANNELS_FORMAT" = "%u channels";
+"SECOND_SUBTITLE" = "Second Subtitle";
+"SYNC" = "Sync";
+"DELAY_FORMAT" = "Delay %@ s";
+"NO_DELAY" = "No delay";
+"SUBTITLE_ASSIGN_PRIMARY" = "Assign primary subtitle";
+"SUBTITLE_ASSIGN_SECONDARY" = "Assign secondary subtitle";

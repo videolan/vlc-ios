@@ -856,7 +856,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSInteger count = textTracks.count;
 
     if (index == count) {
-        return NSLocalizedString(@"SELECT_SUBTITLE_FROM_FILES", nil);
+        return NSLocalizedString(@"LOAD_EXTERNAL", nil);
     } else if (index < count) {
         VLCMediaPlayerTrack *track = textTracks[index];
         return track.trackName;
@@ -870,7 +870,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSInteger count = audioTracks.count;
 
     if (index == count) {
-        return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
+        return NSLocalizedString(@"LOAD_EXTERNAL", nil);
     } else if (index < count) {
         VLCMediaPlayerTrack *track = audioTracks[index];
         return track.trackName;
