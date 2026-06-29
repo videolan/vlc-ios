@@ -2767,7 +2767,7 @@ extension MediaCategoryViewController {
 
     private func handleFABButtonVisibility() {
         let isMiniPlayerVisible = PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
-        fabButton.isHidden = fabAction == nil || isMiniPlayerVisible || isEditing || searchDataSource.isSearching
+        fabButton.isHidden = fabAction == nil || model.anyfiles.isEmpty || isMiniPlayerVisible || isEditing || searchDataSource.isSearching
     }
 
     private func setFABButtonConstraints() {
