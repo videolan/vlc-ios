@@ -231,12 +231,12 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
 - (BOOL)changeHTTPServerState:(BOOL)state
 {
-    /* if (!state) {
+    if (!state) {
         APLog(@"Stopping server");
         [_httpServer stop];
         [self endBackgroundTask];
         return true;
-    }*/
+    }
 
     if (_nameOfUsedNetworkInterface == nil) {
         APLog(@"No interface to listen on, server not started");
