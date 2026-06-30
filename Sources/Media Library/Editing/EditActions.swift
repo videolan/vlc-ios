@@ -254,10 +254,14 @@ extension EditActions {
         UIApplication.shared.beginIgnoringInteractionEvents()
 #endif
 
-        guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: URLs(),
+        let urls = URLs()
+        guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: urls,
                                                                                       presenting: nil,
                                                                                       presenting: rootViewController,
                                                                                       completionHandler: { [unowned self] _ in
+            for url in urls where url.path.hasPrefix(NSTemporaryDirectory()) {
+                try? FileManager.default.removeItem(at: url)
+            }
             self.completion?(.success)
         }
         ) else {
@@ -369,6 +373,10 @@ private extension EditActions {
                 if let file = media.mainFile() {
                     fileURLs.append(file.mrl)
                 }
+            } else if let playlist = object as? VLCMLPlaylist {
+                if let url = exportURL(for: playlist) {
+                    fileURLs.append(url)
+                }
             } else if let mediaCollection = object as? MediaCollectionModel {
                 if let files = mediaCollection.files() {
                     for media in files {
@@ -380,6 +388,40 @@ private extension EditActions {
             }
         }
         return fileURLs
+    }
+
+    private func exportURL(for playlist: VLCMLPlaylist) -> URL? {
+        if playlist.isReadOnly {
+            return playlist.mrl
+        }
+
+        let mediaList = VLCMediaList()
+        for mlMedia in playlist.media ?? [] {
+            guard let mrl = mlMedia.mainFile()?.mrl, let media = VLCMedia(url: mrl) else {
+                continue
+            }
+            media.metaData.title = mlMedia.title
+            mediaList.add(media)
+        }
+
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let illegalCharacters = CharacterSet(charactersIn: "/:").union(.controlCharacters)
+        var fileName = playlist.name.components(separatedBy: illegalCharacters).joined(separator: " ")
+        if fileName.isEmpty {
+            fileName = NSLocalizedString("PLAYLIST", comment: "")
+        }
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent(fileName)
+            .appendingPathExtension("m3u")
+        try? FileManager.default.removeItem(at: tempURL)
+
+        do {
+            try mediaList.writeM3U(to: tempURL, relativeToDirectory: documentsURL)
+        } catch {
+            return nil
+        }
+
+        return tempURL
     }
 
     // MARK: Media Groups

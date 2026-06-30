@@ -47,6 +47,7 @@
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCMediaList+M3U.h"
 
 #if TARGET_OS_IOS
 #import "IASKSettingsReader.h"

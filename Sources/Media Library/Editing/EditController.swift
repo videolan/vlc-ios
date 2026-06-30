@@ -119,10 +119,12 @@ private extension EditController {
 // MARK: - VLCEditToolbarDelegate
 
 extension EditController: EditToolbarDelegate {
-    private func getSelectedObjects() {
+    private func getSelectedObjects(keepPlaylists: Bool = false) {
         let sortedSelectedCells = selectedCellIndexPaths.sorted()
         for index in sortedSelectedCells where index.row < currentDataSet.count {
-            if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
+            if keepPlaylists, let playlist = currentDataSet[index.row] as? VLCMLPlaylist {
+                editActions.objects.append(playlist)
+            } else if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
                 guard let files = mediaCollection.files() else {
                     assertionFailure("EditController: Fail to retrieve tracks.")
                     DispatchQueue.main.async {
@@ -224,7 +226,7 @@ extension EditController: EditToolbarDelegate {
             return
         }
         editActions.objects.removeAll()
-        getSelectedObjects()
+        getSelectedObjects(keepPlaylists: true)
         editActions.share(origin: editToolbar.shareButton, {
             [weak self] state in
             if state == .success || state == .fail {
