@@ -17,6 +17,13 @@
 - (BOOL)writeM3UToURL:(NSURL *)fileURL
                 error:(NSError * _Nullable * _Nullable)error
 {
+    return [self writeM3UToURL:fileURL relativeToDirectory:nil error:error];
+}
+
+- (BOOL)writeM3UToURL:(NSURL *)fileURL
+  relativeToDirectory:(NSURL *)baseDirectory
+                error:(NSError * _Nullable * _Nullable)error
+{
     NSFileManager *fileManager = NSFileManager.defaultManager;
     NSString *destinationPath = fileURL.path;
 
@@ -65,7 +72,20 @@
 
             NSString *sanitizedTitle = [[title componentsSeparatedByCharactersInSet:NSCharacterSet.controlCharacterSet] componentsJoinedByString:@" "];
 
-            NSString *entry = [NSString stringWithFormat:@"#EXTINF:-1,%@\n%@\n", sanitizedTitle, url.absoluteString];
+            NSString *location = url.absoluteString;
+            if (baseDirectory != nil && url.isFileURL) {
+                NSString *basePath = baseDirectory.path;
+                NSString *filePath = url.path;
+                if ([filePath hasPrefix:basePath]) {
+                    NSString *relativePath = [filePath substringFromIndex:basePath.length];
+                    if ([relativePath hasPrefix:@"/"]) {
+                        relativePath = [relativePath substringFromIndex:1];
+                    }
+                    location = relativePath;
+                }
+            }
+
+            NSString *entry = [NSString stringWithFormat:@"#EXTINF:-1,%@\n%@\n", sanitizedTitle, location];
             [handle writeData:[entry dataUsingEncoding:NSUTF8StringEncoding]];
         }
     } @catch (NSException *exception) {

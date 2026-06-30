@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)writeM3UToURL:(NSURL *)fileURL
                 error:(NSError * _Nullable * _Nullable)error;
 
+- (BOOL)writeM3UToURL:(NSURL *)fileURL
+  relativeToDirectory:(nullable NSURL *)baseDirectory
+                error:(NSError * _Nullable * _Nullable)error;
+
 @end
 
 NS_ASSUME_NONNULL_END
