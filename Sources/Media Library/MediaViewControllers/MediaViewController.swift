@@ -85,6 +85,20 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
 
+    private lazy var settingsButton: UIBarButtonItem = {
+        var image: UIImage?
+        if #available(iOS 13.0, *) {
+            image = UIImage(systemName: "gearshape")
+        } else {
+            image = UIImage(named: "Settings")
+        }
+        let settingsButton = UIBarButtonItem(image: image, style: .plain, target: self,
+                                             action: #selector(handleSettings))
+        settingsButton.accessibilityLabel = NSLocalizedString("Settings", comment: "")
+        settingsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
+        return settingsButton
+    }()
+
     private var rightBarButtons: [UIBarButtonItem]?
     private var leftBarButtons: [UIBarButtonItem]?
 
@@ -159,6 +173,15 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
     }
 
+    @objc private func handleSettings() {
+        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: { [weak self] in
+            guard let self = self else { return }
+            let settingsController = SettingsController(mediaLibraryService: self.mediaLibraryService)
+            let settingsNavigationController = UINavigationController(rootViewController: settingsController)
+            self.present(settingsNavigationController, animated: true)
+        })
+    }
+
     // MARK: - PagerTabStripDataSource
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -193,7 +216,15 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             rightBarButtons?.append(playButton)
         }
 
-        mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
+        if !isEditing, navigationController?.viewControllers.count == 1 {
+            var items: [UIBarButtonItem] = [settingsButton]
+            if showButtons, let leftBarButtons = leftBarButtons {
+                items.append(contentsOf: leftBarButtons)
+            }
+            mediaCategoryViewController.navigationItem.leftBarButtonItems = items
+        } else {
+            mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
+        }
         mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
     }
 

@@ -65,11 +65,6 @@ class TabBarCoordinator: NSObject {
         return UINavigationController(rootViewController: rootViewController)
     }()
 
-    private lazy var settingsNavigationController: UINavigationController = {
-        let rootViewController = SettingsController(mediaLibraryService: mediaLibraryService)
-        return UINavigationController(rootViewController: rootViewController)
-    }()
-
     // MARK: - Init
 
     @objc init(tabBarController: BottomTabBarController, mediaLibraryService: MediaLibraryService) {
@@ -78,7 +73,6 @@ class TabBarCoordinator: NSObject {
         super.init()
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAppDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     // MARK: - Setup methods
@@ -118,9 +112,6 @@ class TabBarCoordinator: NSObject {
             if let browseNavigationController = browseNavigationController {
                 controllers.append(browseNavigationController)
             }
-
-            controllers.append(settingsNavigationController)
-            tabBarController.viewControllers = controllers
         } else {
             controllers.append(audioNavigationController)
             controllers.append(playlistsNavigationController)
@@ -128,9 +119,6 @@ class TabBarCoordinator: NSObject {
             if let browseNavigationController = browseNavigationController {
                 controllers.append(browseNavigationController)
             }
-
-            controllers.append(settingsNavigationController)
-            tabBarController.viewControllers = controllers
         }
 #else
         controllers.append(audioNavigationController)
@@ -139,10 +127,11 @@ class TabBarCoordinator: NSObject {
         if let browseNavigationController = browseNavigationController {
             controllers.append(browseNavigationController)
         }
-
-        controllers.append(settingsNavigationController)
-        tabBarController.viewControllers = controllers
 #endif
+
+        // Settings is reachable from a navigation bar button instead of a
+        // dedicated tab.
+        tabBarController.viewControllers = controllers
     }
 
 #if os(iOS) && compiler(>=6.0)
@@ -267,25 +256,11 @@ class TabBarCoordinator: NSObject {
         editToolbar?.backgroundColor = colors.tabBarColor
         sideToolBar?.backgroundColor = colors.tabBarColor
 
-        tabBarController.viewControllers?.forEach {
-            if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
-                navController.navigationBar.tintColor = colors.orangeUI
-                navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colors.navigationbarTextColor]
-                navController.navigationBar.prefersLargeTitles = false
-
-                if #unavailable(iOS 26.0) {
-                    navController.navigationBar.isTranslucent = false
-                    navController.navigationBar.barTintColor = colors.navigationbarColor
-                    if #available(iOS 13.0, *) {
-                        navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-                        navController.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-                    }
-                    if #available(iOS 15.0, *) {
-                        UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
-                        UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()
-                        UINavigationBar.appearance().scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-                    }
-                }
+        if #unavailable(iOS 26.0) {
+            if #available(iOS 15.0, *) {
+                UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
+                UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()
+                UINavigationBar.appearance().scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
             }
         }
     }
@@ -312,21 +287,6 @@ class TabBarCoordinator: NSObject {
             assertionFailure("unhandled shortcut")
         }
     }
-    
-    @objc func handleAppDidBecomeActive() {
-        guard let selectedVC = tabBarController.selectedViewController as? UINavigationController,
-              selectedVC.topViewController is SettingsController else {
-            return
-        }
-
-        ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
-        }, fail: {
-            let previousIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
-            DispatchQueue.main.async {
-                self.tabBarController.selectedIndex = previousIndex == self.tabBarController.selectedIndex ? 0 : previousIndex
-            }
-        })
-    }
 }
 
 // MARK: - UITabBarControllerDelegate
@@ -335,20 +295,6 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
         UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if let navController = viewController as? UINavigationController,
-           navController.topViewController is SettingsController {
-            ParentalControlCoordinator.shared.authorizeIfParentalControlIsEnabled(action: {
-                DispatchQueue.main.async {
-                    tabBarController.selectedViewController = viewController
-                    self.tabBarController(tabBarController, didSelect: viewController)
-                }
-            })
-            return false
-        }
-        return true
     }
 }
 

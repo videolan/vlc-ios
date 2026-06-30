@@ -49,7 +49,7 @@ class SettingsController: UITableViewController {
         return PresentationTheme.current.colors.statusBarStyle
     }
 
-    init(mediaLibraryService: MediaLibraryService) {
+    @objc init(mediaLibraryService: MediaLibraryService) {
         self.mediaLibraryService = mediaLibraryService
         super.init(style: .grouped)
         self.mediaLibraryService.deviceBackupDelegate = self
@@ -147,6 +147,25 @@ class SettingsController: UITableViewController {
                                         action: #selector(showDocumentation))
         docButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.rightBarButtonItem = docButton
+
+        if navigationController?.presentingViewController != nil {
+            let closeItem: UIBarButtonItem.SystemItem
+            if #available(iOS 13.0, *) {
+                closeItem = .close
+            } else {
+                closeItem = .done
+            }
+            let closeButton = UIBarButtonItem(barButtonSystemItem: closeItem,
+                                              target: self,
+                                              action: #selector(dismissSettings))
+            closeButton.tintColor = PresentationTheme.current.colors.orangeUI
+            closeButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done
+            navigationItem.leftBarButtonItems = [closeButton, aboutBarButton]
+        }
+    }
+
+    @objc private func dismissSettings() {
+        dismiss(animated: true)
     }
 
     private func setNavBarAppearance() {
