@@ -2,7 +2,7 @@
  * Prefix header for all source files of the 'vlc-ios' target
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -21,7 +21,6 @@
 #import <VLCKit/vlc/libvlc_version.h>
 
 #import "VLCConstants.h"
-#import "UIColor+Presets.h"
 #import "UIBarButtonItem+Theme.h"
 #import "UIViewController+VLCAlert.h"
 

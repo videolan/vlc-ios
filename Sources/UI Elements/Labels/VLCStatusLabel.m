@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCStatusLabel.h"
+#import "VLC-Swift.h"
 
 @interface VLCStatusLabel ()
 {
@@ -122,7 +123,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    UIColor *drawingColor = [UIColor VLCTransparentDarkBackgroundColor];
+    UIColor *drawingColor = PresentationTheme.current.colors.transparentDarkBackgroundColor;
     [drawingColor setFill];
 
     UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:rect.size.height / 2];

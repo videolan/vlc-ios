@@ -13,7 +13,6 @@
 #import "VLCPlayerInlineMenuViewController.h"
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 #import "VLCMetadata.h"
-#import "UIColor+Presets.h"
 #import "VLC-Swift.h"
 
 @interface VLCPlayerControlsBar () <VLCPlayerInlineMenuDelegate>
@@ -79,7 +78,7 @@
         button.configuration = glass;
     } else {
         button.tintColor = UIColor.whiteColor;
-        button.backgroundColor = UIColor.VLCTransparentDarkBackgroundColor;
+        button.backgroundColor = PresentationTheme.current.colors.transparentDarkBackgroundColor;
         button.layer.cornerRadius = 30.0;
         button.clipsToBounds = YES;
     }

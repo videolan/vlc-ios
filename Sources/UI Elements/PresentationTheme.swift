@@ -32,6 +32,7 @@ extension Notification.Name {
     let cellBackgroundB: UIColor
     let cellDetailTextColor: UIColor
     let cellTextColor: UIColor
+    let cellSelectedTextColor: UIColor
     let lightTextColor: UIColor
     let sectionHeaderTextColor: UIColor
     let separatorColor: UIColor
@@ -66,6 +67,7 @@ extension Notification.Name {
          cellBackgroundB: UIColor,
          cellDetailTextColor: UIColor,
          cellTextColor: UIColor,
+         cellSelectedTextColor: UIColor,
          lightTextColor: UIColor,
          sectionHeaderTextColor: UIColor,
          separatorColor: UIColor,
@@ -95,6 +97,7 @@ extension Notification.Name {
         self.cellBackgroundB = cellBackgroundB
         self.cellDetailTextColor = cellDetailTextColor
         self.cellTextColor = cellTextColor
+        self.cellSelectedTextColor = cellSelectedTextColor
         self.lightTextColor = lightTextColor
         self.sectionHeaderTextColor = sectionHeaderTextColor
         self.separatorColor = separatorColor
@@ -127,6 +130,7 @@ extension Notification.Name {
          cellBackgroundB: UIColor,
          cellDetailTextColor: UIColor,
          cellTextColor: UIColor,
+         cellSelectedTextColor: UIColor,
          lightTextColor: UIColor,
          sectionHeaderTextColor: UIColor,
          separatorColor: UIColor,
@@ -158,6 +162,7 @@ extension Notification.Name {
         self.cellBackgroundB = cellBackgroundB
         self.cellDetailTextColor = cellDetailTextColor
         self.cellTextColor = cellTextColor
+        self.cellSelectedTextColor = cellSelectedTextColor
         self.lightTextColor = lightTextColor
         self.sectionHeaderTextColor = sectionHeaderTextColor
         self.separatorColor = separatorColor
@@ -354,6 +359,7 @@ let brightPalette = ColorPalette(isDark: false,
                                  cellBackgroundB: UIColor(0xE5E5E3),
                                  cellDetailTextColor: UIColor(0x919191),
                                  cellTextColor: UIColor(0x000000),
+                                 cellSelectedTextColor: UIColor(0x474747),
                                  lightTextColor: UIColor(0x888888),
                                  sectionHeaderTextColor: UIColor(0x25292C),
                                  separatorColor: UIColor(0xF0F2F7),
@@ -384,6 +390,7 @@ let darkPalette = ColorPalette(isDark: true,
                                cellBackgroundB: UIColor(0x494B4D),
                                cellDetailTextColor: UIColor(0x919191),
                                cellTextColor: UIColor(0xFFFFFF),
+                               cellSelectedTextColor: UIColor(0x474747),
                                lightTextColor: UIColor(0xB8B8B8),
                                sectionHeaderTextColor: UIColor(0x828282),
                                separatorColor: UIColor(0x25292C),
@@ -417,6 +424,7 @@ let brightPalette = ColorPalette(isDark: false,
                                  cellBackgroundB: UIColor(0xE5E5E3),
                                  cellDetailTextColor: UIColor(0x919191),
                                  cellTextColor: UIColor(0x000000),
+                                 cellSelectedTextColor: UIColor(0x474747),
                                  lightTextColor: UIColor(0x888888),
                                  sectionHeaderTextColor: UIColor(0x25292C),
                                  separatorColor: UIColor(0xF0F2F7),
@@ -449,6 +457,7 @@ let darkPalette = ColorPalette(isDark: true,
                                cellBackgroundB: UIColor(0x494B4D),
                                cellDetailTextColor: UIColor(0x919191),
                                cellTextColor: UIColor(0xFFFFFF),
+                               cellSelectedTextColor: UIColor(0x474747),
                                lightTextColor: UIColor(0xB8B8B8),
                                sectionHeaderTextColor: UIColor(0x828282),
                                separatorColor: UIColor(0x25292C),
@@ -481,6 +490,7 @@ let blackPalette = ColorPalette(isDark: true,
                                 cellBackgroundB: UIColor(0x494B4D),
                                 cellDetailTextColor: UIColor(0x919191),
                                 cellTextColor: UIColor(0xFFFFFF),
+                                cellSelectedTextColor: UIColor(0x474747),
                                 lightTextColor: UIColor(0xB8B8B8),
                                 sectionHeaderTextColor: UIColor(0x828282),
                                 separatorColor: UIColor(0x25292C),
@@ -514,6 +524,7 @@ let visionPalette = ColorPalette(isDark: true,
                                  cellBackgroundB: UIColor(0x494B4D, 0.2),
                                  cellDetailTextColor: .tertiaryLabel,
                                  cellTextColor: .label,
+                                 cellSelectedTextColor: UIColor(0x474747),
                                  lightTextColor: .secondaryLabel,
                                  sectionHeaderTextColor: .secondaryLabel,
                                  separatorColor: .tertiarySystemFill,

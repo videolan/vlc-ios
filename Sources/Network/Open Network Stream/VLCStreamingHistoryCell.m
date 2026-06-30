@@ -70,7 +70,7 @@
 
 - (void)customizeAppearance {
     self.textLabel.textColor = [UIColor whiteColor];
-    self.detailTextLabel.textColor = [UIColor VLCLightTextColor];
+    self.detailTextLabel.textColor = PresentationTheme.darkTheme.colors.lightTextColor;
 }
 
 - (void)renameStream:(id)sender {

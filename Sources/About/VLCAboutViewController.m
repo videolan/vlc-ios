@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCAboutViewController.h"
+#import "VLC-Swift.h"
 
 @interface VLCAboutViewController ()
 {
@@ -39,7 +40,7 @@
                                                                             documentAttributes:nil error:nil];
     if (@available(tvOS 13.0, *)) {
         if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-            [aboutContents addAttribute:NSForegroundColorAttributeName value:[UIColor VLCLightTextColor] range:NSMakeRange(0., aboutContents.length)];
+            [aboutContents addAttribute:NSForegroundColorAttributeName value:PresentationTheme.darkTheme.colors.lightTextColor range:NSMakeRange(0., aboutContents.length)];
         }
     }
 

@@ -374,7 +374,6 @@
 		7D50C6092BBD20DF00B9F1A0 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF0D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m */; };
 		7D50C60A2BBD20DF00B9F1A0 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966B021188BDB00D0FCD6 /* EditController.swift */; };
 		7D50C60B2BBD20DF00B9F1A0 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
-		7D50C60C2BBD20DF00B9F1A0 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */; };
 		7D50C60D2BBD20DF00B9F1A0 /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
 		7D50C60F2BBD20DF00B9F1A0 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */; };
 		7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */; };
@@ -747,7 +746,6 @@
 		7DA5146E2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF0D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m */; };
 		7DA5146F2EF82B63000C9995 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966B021188BDB00D0FCD6 /* EditController.swift */; };
 		7DA514702EF82B63000C9995 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
-		7DA514712EF82B63000C9995 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */; };
 		7DA514722EF82B63000C9995 /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
 		7DA514742EF82B63000C9995 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */; };
 		7DA514752EF82B63000C9995 /* AudioCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */; };
@@ -1084,8 +1082,6 @@
 		7DC7BAB228C8958900109F28 /* CAAnimation+VLCWiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */; };
 		7DC7BAB328C8958900109F28 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */; };
 		7DC7BAB428C8958900109F28 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */; };
-		7DC7BAB528C8958900109F28 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */; };
-		7DC7BAB628C8958900109F28 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */; };
 		7DC7BAB728C8958900109F28 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
 		7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
 		7DC7BABC28C8959F00109F28 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */; };
@@ -2044,10 +2040,8 @@
 		7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+VLCWiggle.m"; sourceTree = "<group>"; };
 		7DC7BAA928C8958800109F28 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
-		7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Presets.m"; sourceTree = "<group>"; };
 		7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
 		7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchorContainer.swift; sourceTree = "<group>"; };
-		7DC7BAAE28C8958900109F28 /* UIColor+Presets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Presets.h"; sourceTree = "<group>"; };
 		7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isHidden.swift"; sourceTree = "<group>"; };
 		7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
 		7DC869C028CB7E0000EE99F8 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCNetworkLoginViewController.h; sourceTree = "<group>"; };
@@ -3507,8 +3501,6 @@
 				7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */,
 				7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */,
 				7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */,
-				7DC7BAAE28C8958900109F28 /* UIColor+Presets.h */,
-				7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */,
 				7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */,
 				7DC186592A0BB0C3009E84E1 /* UIImage+Gradient.swift */,
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
@@ -5515,7 +5507,6 @@
 				7D339B582FED786900D7E95A /* VLCTopShelfManager.m in Sources */,
 				7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */,
 				7DB0CB43247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
-				7DC7BAB628C8958900109F28 /* UIColor+Presets.m in Sources */,
 				7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */,
 				7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */,
 				7D8E12562B5D3F4A00BD81B7 /* VLCDeleteHintTVView.m in Sources */,
@@ -5622,7 +5613,6 @@
 				7D50C6092BBD20DF00B9F1A0 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7D50C60A2BBD20DF00B9F1A0 /* EditController.swift in Sources */,
 				7D50C60B2BBD20DF00B9F1A0 /* AudioMiniPlayer.swift in Sources */,
-				7D50C60C2BBD20DF00B9F1A0 /* UIColor+Presets.m in Sources */,
 				7D50C60D2BBD20DF00B9F1A0 /* MediaModel.swift in Sources */,
 				7D50C60F2BBD20DF00B9F1A0 /* PlaylistModel.swift in Sources */,
 				7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */,
@@ -5894,7 +5884,6 @@
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				8DF966B121188BDB00D0FCD6 /* EditController.swift in Sources */,
 				8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */,
-				7DC7BAB528C8958900109F28 /* UIColor+Presets.m in Sources */,
 				8D4F9B472141630000E478BE /* MediaModel.swift in Sources */,
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */,
@@ -6199,7 +6188,6 @@
 				7DA5146E2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7DA5146F2EF82B63000C9995 /* EditController.swift in Sources */,
 				7DA514702EF82B63000C9995 /* AudioMiniPlayer.swift in Sources */,
-				7DA514712EF82B63000C9995 /* UIColor+Presets.m in Sources */,
 				7DA514722EF82B63000C9995 /* MediaModel.swift in Sources */,
 				7DA514742EF82B63000C9995 /* PlaylistModel.swift in Sources */,
 				7DA514752EF82B63000C9995 /* AudioCollectionModel.swift in Sources */,

@@ -11,7 +11,6 @@
 
 #import "VLCPlayerInlineMenuViewController.h"
 #import "VLCAppCoordinator.h"
-#import "UIColor+Presets.h"
 #import "VLC-Swift.h"
 
 static const CGFloat VLCInlineMenuItemHeight = 64.0;
@@ -102,14 +101,15 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
 - (void)updateColors
 {
-    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    ColorPalette *colors = PresentationTheme.darkTheme.colors;
+    UIColor *accent = colors.orangeUI;
     if (self.focused) {
-        self.contentView.backgroundColor = UIColor.VLCLightTextColor;
-        _titleLabel.textColor = UIColor.VLCDarkTextColor;
-        _checkmarkView.tintColor = UIColor.VLCDarkTextColor;
+        self.contentView.backgroundColor = colors.lightTextColor;
+        _titleLabel.textColor = colors.cellSelectedTextColor;
+        _checkmarkView.tintColor = colors.cellSelectedTextColor;
     } else {
         self.contentView.backgroundColor = UIColor.clearColor;
-        _titleLabel.textColor = _itemSelected ? accent : UIColor.VLCLightTextColor;
+        _titleLabel.textColor = _itemSelected ? accent : colors.lightTextColor;
         _checkmarkView.tintColor = accent;
     }
 }
@@ -150,8 +150,9 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
     [coordinator addCoordinatedAnimations:^{
         if (self.focused) {
-            self.backgroundColor = UIColor.VLCLightTextColor;
-            self.tintColor = UIColor.VLCDarkTextColor;
+            ColorPalette *colors = PresentationTheme.darkTheme.colors;
+            self.backgroundColor = colors.lightTextColor;
+            self.tintColor = colors.cellSelectedTextColor;
         } else {
             self.backgroundColor = UIColor.clearColor;
             self.tintColor = UIColor.whiteColor;
@@ -177,10 +178,11 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
 - (void)updateColors
 {
-    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    ColorPalette *colors = PresentationTheme.darkTheme.colors;
+    UIColor *accent = colors.orangeUI;
     if (self.focused) {
-        self.backgroundColor = UIColor.VLCLightTextColor;
-        self.tintColor = UIColor.VLCDarkTextColor;
+        self.backgroundColor = colors.lightTextColor;
+        self.tintColor = colors.cellSelectedTextColor;
     } else {
         self.backgroundColor = UIColor.clearColor;
         self.tintColor = _active ? accent : UIColor.whiteColor;
@@ -261,16 +263,17 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
 - (void)updateColors
 {
-    UIColor *accent = PresentationTheme.current.colors.orangeUI;
+    ColorPalette *colors = PresentationTheme.darkTheme.colors;
+    UIColor *accent = colors.orangeUI;
     if (self.focused) {
-        self.contentView.backgroundColor = UIColor.VLCLightTextColor;
-        _titleLabel.textColor = UIColor.VLCDarkTextColor;
-        _subtitleLabel.textColor = UIColor.VLCDarkTextColor;
-        _nowPlayingView.tintColor = UIColor.VLCDarkTextColor;
+        self.contentView.backgroundColor = colors.lightTextColor;
+        _titleLabel.textColor = colors.cellSelectedTextColor;
+        _subtitleLabel.textColor = colors.cellSelectedTextColor;
+        _nowPlayingView.tintColor = colors.cellSelectedTextColor;
     } else {
         self.contentView.backgroundColor = UIColor.clearColor;
-        _titleLabel.textColor = _current ? accent : UIColor.VLCLightTextColor;
-        _subtitleLabel.textColor = [UIColor.VLCLightTextColor colorWithAlphaComponent:0.7];
+        _titleLabel.textColor = _current ? accent : colors.lightTextColor;
+        _subtitleLabel.textColor = [colors.lightTextColor colorWithAlphaComponent:0.7];
         _nowPlayingView.tintColor = accent;
     }
 }
@@ -349,7 +352,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.text = _panelTitle;
     _titleLabel.font = [UIFont boldSystemFontOfSize:32.0];
-    _titleLabel.textColor = UIColor.VLCLightTextColor;
+    _titleLabel.textColor = PresentationTheme.darkTheme.colors.lightTextColor;
     [content addSubview:_titleLabel];
 
     _contentContainer = [[UIView alloc] init];
@@ -526,20 +529,21 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
 - (UIView *)makeStepperRow
 {
+    ColorPalette *colors = PresentationTheme.darkTheme.colors;
     UIView *row = [[UIView alloc] init];
     row.translatesAutoresizingMaskIntoConstraints = NO;
 
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.font = [UIFont systemFontOfSize:29.0];
-    titleLabel.textColor = UIColor.VLCLightTextColor;
+    titleLabel.textColor = colors.lightTextColor;
     titleLabel.text = _stepperTitle;
     [row addSubview:titleLabel];
 
     _valueLabel = [[UILabel alloc] init];
     _valueLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _valueLabel.font = [UIFont systemFontOfSize:29.0];
-    _valueLabel.textColor = UIColor.VLCLightTextColor;
+    _valueLabel.textColor = colors.lightTextColor;
     _valueLabel.textAlignment = NSTextAlignmentCenter;
     [row addSubview:_valueLabel];
 
@@ -740,7 +744,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     _infoLabel = [[UILabel alloc] init];
     _infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _infoLabel.numberOfLines = 0;
-    _infoLabel.textColor = UIColor.VLCLightTextColor;
+    _infoLabel.textColor = PresentationTheme.darkTheme.colors.lightTextColor;
     _infoLabel.attributedText = [self attributedInfoText];
     [_infoCard addSubview:_infoLabel];
 

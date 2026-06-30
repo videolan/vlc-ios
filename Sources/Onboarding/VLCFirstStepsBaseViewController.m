@@ -162,7 +162,7 @@
 - (void)setupLabelForDonation:(UILabel *)label
 {
     label.userInteractionEnabled = YES;
-    label.textColor = [UIColor VLCOrangeTintColor];
+    label.textColor = PresentationTheme.current.colors.orangeUI;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self
                                           action:@selector(didTapLabelWithGesture:)];

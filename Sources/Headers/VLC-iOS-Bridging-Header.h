@@ -2,7 +2,6 @@
 #import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCExternalDisplayController.h"
-#import "UIColor+Presets.h"
 #import "VLCAppDelegate.h"
 #import "VLCAppCoordinator.h"
 #import "VLCConstants.h"
