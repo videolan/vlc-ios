@@ -1267,9 +1267,11 @@ private extension MediaCategoryViewController {
         updateBarButtonItems()
     }
 
-    private func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
+    private func objects(from modelContent: VLCMLObject, keepPlaylists: Bool = false) -> [VLCMLObject] {
         if let media = modelContent as? VLCMLMedia {
             return [media]
+        } else if keepPlaylists, let playlist = modelContent as? VLCMLPlaylist {
+            return [playlist]
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
             return mediaCollection.files() ?? [VLCMLObject]()
         }
@@ -1727,7 +1729,7 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
+                        self?.editController.editActions.objects = self?.objects(from: modelContent, keepPlaylists: true) ?? []
                         if let cell = self?.collectionView.cellForItem(at: indexPath) {
                             self?.editController.editActions.share(origin: cell)
                         }
