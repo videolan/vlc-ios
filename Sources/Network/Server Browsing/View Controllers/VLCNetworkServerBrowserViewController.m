@@ -30,6 +30,7 @@
     UIRefreshControl *_refreshControl;
     MediaLibraryService *_medialibraryService;
     VLCFavoriteService *_favoriteService;
+    BOOL _isSearching;
 }
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
@@ -181,7 +182,7 @@
         if (singlePlayback) {
             [self.browsingController streamFileForItem:item];
         } else {
-            NSArray<id<VLCNetworkServerBrowserItem>> *items = (self.searchController.isActive) ? _searchArray : _serverBrowser.items;
+            NSArray<id<VLCNetworkServerBrowserItem>> *items = _isSearching ? _searchArray : _serverBrowser.items;
             NSMutableArray<VLCMedia *> *mediaArray = [[NSMutableArray alloc] init];
             VLCMedia *mediaSelected = items[index].media;
 
@@ -232,7 +233,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.searchController.isActive)
+    if (_isSearching)
         return _searchArray.count;
 
     return self.serverBrowser.items.count;
@@ -245,7 +246,7 @@
         cell = [VLCNetworkListCell cellWithReuseIdentifier:VLCNetworkListCellIdentifier];
 
     id<VLCNetworkServerBrowserItem> item;
-    if (self.searchController.isActive) {
+    if (_isSearching) {
         item = _searchArray[indexPath.row];
     } else {
         item = self.serverBrowser.items[indexPath.row];
@@ -275,7 +276,7 @@
     id<VLCNetworkServerBrowserItem> item;
     NSInteger row = indexPath.row;
     BOOL singlePlayback = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem];
-    if (self.searchController.isActive) {
+    if (_isSearching) {
         if (row < _searchArray.count) {
             item = _searchArray[row];
         }
@@ -325,7 +326,7 @@ API_AVAILABLE(ios(13.0)) {
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     id<VLCNetworkServerBrowserItem> item;
-    if (self.searchController.isActive)
+    if (_isSearching)
         item = _searchArray[[self.tableView indexPathForCell:cell].row];
     else
         item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
@@ -357,12 +358,19 @@ API_AVAILABLE(ios(13.0)) {
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-#pragma mark - Search Research Updater
+#pragma mark - Search Bar Delegate
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)_searchController
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSString *searchString = _searchController.searchBar.text;
-    [self searchForText:searchString];
+    _isSearching = searchText.length > 0;
+    [self searchForText:searchText];
+    [self.tableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    _isSearching = NO;
+    _searchArray = nil;
     [self.tableView reloadData];
 }
 

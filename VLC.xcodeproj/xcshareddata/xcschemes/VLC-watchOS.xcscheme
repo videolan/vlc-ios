@@ -54,6 +54,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE5EAB852DF9D62E007AF88A"
             BuildableName = "VLC-watchOS.app"
+            BlueprintName = "VLC-watchOS"
             ReferencedContainer = "container:VLC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,6 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE5EAB852DF9D62E007AF88A"
             BuildableName = "VLC-watchOS.app"
+            BlueprintName = "VLC-watchOS"
             ReferencedContainer = "container:VLC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
