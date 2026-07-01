@@ -36,11 +36,11 @@
 #define kVLCSettingNetworkSatIPChannelListCustom @"CustomList"
 #define kVLCSettingNetworkSatIPChannelListUrl @"satip-channellist-url"
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
-#define kVLCSettingSkipLoopFilterNone @(0)
-#define kVLCSettingSkipLoopFilterNonRef @(1)
-#define kVLCSettingSkipLoopFilterNonKey @(3)
+#define kVLCSettingSkipLoopFilterNone @"0"
+#define kVLCSettingSkipLoopFilterNonRef @"1"
+#define kVLCSettingSkipLoopFilterNonKey @"3"
 #define kVLCSettingDeinterlace @"deinterlace"
-#define kVLCSettingDeinterlaceDefaultValue @(-1)
+#define kVLCSettingDeinterlaceDefaultValue @"-1"
 #define kVLCSettingHardwareDecoding @"codec"
 #define kVLCSettingHardwareDecodingDefault @""
 #define kVLCSettingSubtitlesFont @"quartztext-font"
