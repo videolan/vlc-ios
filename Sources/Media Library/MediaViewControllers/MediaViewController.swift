@@ -226,6 +226,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
         }
         mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
+
+        if #available(iOS 26.0, visionOS 26.0, *), let page = viewController as? MediaCategoryViewController {
+            let showSearch = (showButtons || page.isSearchActive) && !isEditing
+            mediaCategoryViewController.navigationItem.preferredSearchBarPlacement = .integrated
+            mediaCategoryViewController.navigationItem.searchController = showSearch ? page.searchController : nil
+        }
     }
 
     private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
@@ -382,6 +388,22 @@ extension MediaViewController {
         rightBarButtons = isEditing ? [doneButton] : rightButtons
         navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItems = leftBarButtons
+
+        if !isEditing, navigationController?.viewControllers.count == 1 {
+            var items: [UIBarButtonItem] = [settingsButton]
+            if let leftBarButtons = leftBarButtons {
+                items.append(contentsOf: leftBarButtons)
+            }
+            navigationItem.leftBarButtonItems = items
+        }
+
+        if #available(iOS 26.0, visionOS 26.0, *),
+           let page = viewControllers[currentIndex] as? MediaCategoryViewController,
+           navigationController?.viewControllers.count == 1 {
+            let showSearch = page.isSearchActive || !isEditing
+            navigationItem.preferredSearchBarPlacement = .integrated
+            navigationItem.searchController = showSearch ? page.searchController : nil
+        }
 
         if isEditing == false {
             selectAllButton.image = UIImage(named: "emptySelectAll")

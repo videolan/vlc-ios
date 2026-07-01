@@ -95,6 +95,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var searchBarConstraint: NSLayoutConstraint?
     private var searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
+    lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        return searchController
+    }()
+    var isSearchActive: Bool {
+        return searchDataSource.isSearching
+    }
     private let userDefaults = UserDefaults.standard
 #if os(iOS)
     private lazy var rendererButton: UIButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
@@ -817,6 +828,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            if let model = model as? CollectionModel,
+               model.mediaCollection is VLCMLAlbum {
+                updateAlbumHeader()
+            }
+            return
+        }
         // This ensures that the search bar is always visible like a sticky while searching
         if searchDataSource.isSearching {
             searchBar.endEditing(true)
@@ -1540,7 +1558,13 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
 
 // MARK: - UISearchBarDelegate
 
-extension MediaCategoryViewController {
+extension MediaCategoryViewController: UISearchControllerDelegate {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        if searchDataSource.isSearching {
+            searchBarCancelButtonClicked(searchController.searchBar)
+        }
+    }
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchDataSource.shouldReloadFor(searchString: "")
         reloadData()
