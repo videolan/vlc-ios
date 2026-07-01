@@ -31,20 +31,30 @@ class FavoriteListViewController: UIViewController {
 
     let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService
 
-    // Search properties
-    var searchResults = [VLCFavorite]()
-    var searchDataSource = [VLCFavorite]()
-    var searchBar = UISearchBar(frame: .zero)
+    // MARK: Search
+
+    private var allFavorites = [VLCFavorite]()
+    private var filteredFavorites = [VLCFavorite]()
+    private var isSearching: Bool = false
+    private var searchBar = UISearchBar(frame: .zero)
     private let searchBarSize: CGFloat = 50.0
     private var searchBarConstraint: NSLayoutConstraint?
-    private var isSearching: Bool = false
-    lazy var searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         return searchController
+    }()
+
+    private lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: NSLocalizedString("BUTTON_EDIT", comment: ""),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(toggleEdit))
+        button.tintColor = PresentationTheme.current.colors.orangeUI
+        return button
     }()
 
     private lazy var emptyView: VLCEmptyLibraryView = {
@@ -80,86 +90,64 @@ class FavoriteListViewController: UIViewController {
         super.viewDidLoad()
         setupEmptyView()
         setupTableView()
-        setupBarButton()
-        setupSearchBar()
+        setupSearch()
         showEmptyViewIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.setEditing(false, animated: false)
-        self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_EDIT", comment: "")
-        self.navigationItem.rightBarButtonItem?.style = .plain
-        self.tableView.reloadData()
+        tableView.setEditing(false, animated: false)
+        updateEditButton()
+        rebuildFavoritesList()
+        tableView.reloadData()
         showEmptyViewIfNeeded()
-        setupSearchDataSource()
     }
 
-    private func setupSearchBar() {
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+    // MARK: - Setup
+
+    private func setupSearch() {
         navigationItem.largeTitleDisplayMode = .never
-        applySearchBarTheme()
-
-        searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
-        view.addSubview(searchBar)
-        NSLayoutConstraint.activate([
-            searchBarConstraint!,
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
-        ])
-
-#if os(iOS) || os(visionOS)
         if #available(iOS 26.0, visionOS 26.0, *) {
             navigationItem.preferredSearchBarPlacement = .integrated
+        } else {
+            searchBar.delegate = self
+            searchBar.searchBarStyle = .minimal
+            searchBar.translatesAutoresizingMaskIntoConstraints = false
+            searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+
+            searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+            view.addSubview(searchBar)
+            NSLayoutConstraint.activate([
+                searchBarConstraint!,
+                searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
+            ])
         }
-#endif
+        applySearchBarTheme()
     }
 
     private func applySearchBarTheme() {
-        let colors = PresentationTheme.current.colors
-        searchBar.backgroundColor = colors.background
-        searchBar.tintColor = colors.orangeUI
-
-        let textField: UITextField?
-        if #available(iOS 13.0, *) {
-            textField = searchBar.searchTextField
-        } else {
-            textField = searchBar.value(forKey: "searchField") as? UITextField
-        }
-
-        guard let textField = textField else {
+        if #available(iOS 26.0, visionOS 26.0, *) {
             return
         }
 
-        textField.textColor = colors.cellTextColor
-        textField.tintColor = colors.orangeUI
-        textField.backgroundColor = colors.cellBackgroundB
-        textField.attributedPlaceholder = NSAttributedString(
-            string: searchBar.placeholder ?? "",
-            attributes: [.foregroundColor: colors.textfieldPlaceholderColor]
-        )
-
-        if let backgroundView = textField.subviews.first {
-            backgroundView.backgroundColor = colors.cellBackgroundB
+        let backgroundColor = PresentationTheme.current.colors.background
+        searchBar.backgroundColor = backgroundColor
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField,
+           let backgroundView = textField.subviews.first {
+            backgroundView.backgroundColor = backgroundColor
             backgroundView.layer.cornerRadius = 10
             backgroundView.clipsToBounds = true
         }
-
-        textField.leftView?.tintColor = colors.textfieldPlaceholderColor
     }
 
-    private func setupSearchDataSource() {
-        if !searchDataSource.isEmpty {
-            searchDataSource.removeAll()
-        }
-        for section in 0..<tableView.numberOfSections {
-            for row in 0..<tableView.numberOfRows(inSection: section) {
+    private func rebuildFavoritesList() {
+        allFavorites.removeAll()
+        for section in 0..<favoriteService.numberOfFavoritedServers {
+            for row in 0..<favoriteService.numberOfFavoritesOfServer(at: section) {
                 if let fav = favoriteService.favoriteOfServer(with: section, at: row) {
-                    searchDataSource.append(fav)
+                    allFavorites.append(fav)
                 }
             }
         }
@@ -201,66 +189,46 @@ class FavoriteListViewController: UIViewController {
         ])
     }
 
-    private func setupBarButton() {
-        let editBarButton = UIBarButtonItem(title: NSLocalizedString("BUTTON_EDIT", comment: ""),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(toggleEdit))
-        editBarButton.tintColor = PresentationTheme.current.colors.orangeUI
-        navigationItem.rightBarButtonItem = editBarButton
-    }
-
     // MARK: - Handlers
 
     @objc func themeDidChange() {
         let colors = PresentationTheme.current.colors
-        self.tableView.backgroundColor = colors.background
-        self.tableView.separatorColor = colors.separatorColor
+        tableView.backgroundColor = colors.background
+        tableView.separatorColor = colors.separatorColor
         applySearchBarTheme()
-        self.navigationItem.rightBarButtonItem?.tintColor = colors.orangeUI
+        editButton.tintColor = colors.orangeUI
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
 #if os(iOS)
-        self.setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
 #endif
     }
 
     @objc private func toggleEdit() {
-        let editing = self.tableView.isEditing
-        self.tableView.setEditing(!editing, animated: true)
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        updateEditButton()
+    }
 
-        if editing {
-            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_EDIT", comment: "")
-            self.navigationItem.rightBarButtonItem?.style = .plain
-        } else {
-            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_DONE", comment: "")
-            self.navigationItem.rightBarButtonItem?.style = .done
-        }
+    private func updateEditButton() {
+        let editing = tableView.isEditing
+        editButton.title = editing ? NSLocalizedString("BUTTON_DONE", comment: "")
+                                    : NSLocalizedString("BUTTON_EDIT", comment: "")
+        editButton.style = editing ? .done : .plain
     }
 
     private func showEmptyViewIfNeeded() {
-        if favoriteService.numberOfFavoritedServers == 0 {
-            emptyView.isHidden = false
+        let hasFavorites = favoriteService.numberOfFavoritedServers != 0
+        emptyView.isHidden = hasFavorites
+        tableView.isHidden = !hasFavorites
+        if !hasFavorites {
             tableView.isEditing = false
-            tableView.isHidden = true
-            self.navigationItem.rightBarButtonItem = nil
-#if os(iOS) || os(visionOS)
-            if #available(iOS 26.0, visionOS 26.0, *) {
-                navigationItem.searchController = nil
-            }
-#endif
+        }
+        navigationItem.rightBarButtonItem = hasFavorites ? editButton : nil
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            navigationItem.searchController = hasFavorites ? searchController : nil
         } else {
-            emptyView.isHidden = true
-            tableView.isHidden = false
-            if self.navigationItem.rightBarButtonItem == nil {
-                setupBarButton()
-            }
-#if os(iOS) || os(visionOS)
-            if #available(iOS 26.0, visionOS 26.0, *) {
-                navigationItem.searchController = searchController
-            }
-#endif
+            searchBar.isHidden = !hasFavorites
         }
     }
 
@@ -317,7 +285,7 @@ extension FavoriteListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let favorite = isSearching ? searchResults.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+        if let favorite = isSearching ? filteredFavorites.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
 
 #if os(iOS)
             if favorite.protocolIdentifier == "FILE" {
@@ -353,7 +321,7 @@ extension FavoriteListViewController: UITableViewDelegate {
             }
 
             if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
-                                                                           medialibraryService: VLCAppCoordinator().mediaLibraryService) {
+                                                                           medialibraryService: VLCAppCoordinator.sharedInstance().mediaLibraryService) {
                 self.navigationController?.pushViewController(serverBrowserVC, animated: true)
             }
         }
@@ -362,11 +330,10 @@ extension FavoriteListViewController: UITableViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-#if os(iOS) || os(visionOS)
         if #available(iOS 26.0, visionOS 26.0, *) {
             return
         }
-#endif
+
         // This ensures that the search bar is always visible like a sticky while searching
         if isSearching {
             searchBar.endEditing(true)
@@ -396,12 +363,12 @@ extension FavoriteListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? searchResults.count : favoriteService.numberOfFavoritesOfServer(at: section)
+        return isSearching ? filteredFavorites.count : favoriteService.numberOfFavoritesOfServer(at: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        if let favorite = isSearching ? searchResults[indexPath.row] : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+        if let favorite = isSearching ? filteredFavorites.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
             cell.title = favorite.userVisibleName
             cell.isDirectory = true
             cell.thumbnailImage = UIImage(named: "folder")
@@ -412,10 +379,17 @@ extension FavoriteListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
-            setupSearchDataSource()
-            self.tableView.reloadData()
-            self.showEmptyViewIfNeeded()
+            if isSearching {
+                guard let favorite = filteredFavorites.objectAtIndex(index: indexPath.row) else { return }
+                favoriteService.remove(favorite)
+                filteredFavorites.remove(at: indexPath.row)
+                allFavorites.removeAll { $0 === favorite }
+            } else {
+                favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
+                rebuildFavoritesList()
+            }
+            tableView.reloadData()
+            showEmptyViewIfNeeded()
         }
     }
 }
@@ -441,21 +415,18 @@ extension FavoriteListViewController: UISearchBarDelegate, UISearchControllerDel
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            searchResults = searchDataSource
+            filteredFavorites = allFavorites
         } else {
-            searchResults = searchDataSource.filter { favorite in
+            filteredFavorites = allFavorites.filter { favorite in
                 return favorite.userVisibleName.range(of: searchText, options: .caseInsensitive) != nil
             }
         }
 
-        searchBar.setShowsCancelButton(true, animated: true)
         isSearching = !searchText.isEmpty
         tableView.reloadData()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
-        searchBar.resignFirstResponder()
         searchBar.text = ""
         isSearching = false
         tableView.reloadData()
