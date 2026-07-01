@@ -36,8 +36,8 @@
 #define kVLCSettingTextEncoding @"subsdec-encoding"
 #define kVLCSettingTextEncodingDefaultValue @"Windows-1252"
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
-#define kVLCSettingSkipLoopFilterNone @(0)
-#define kVLCSettingSkipLoopFilterNonRef @(1)
+#define kVLCSettingSkipLoopFilterNone @"0"
+#define kVLCSettingSkipLoopFilterNonRef @"1"
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCSettingSubtitlesFont @"quartztext-font"
 #define kVLCSettingSubtitlesFontDefaultValue @"HelveticaNeue"
@@ -50,7 +50,7 @@
 #define kVLCSettingSubtitlesFilePath @"sub-file"
 #define kVLCSubtitlesCacheFolderName @"cached-subtitles"
 #define kVLCSettingDeinterlace @"deinterlace"
-#define kVLCSettingDeinterlaceDefaultValue @(-1)
+#define kVLCSettingDeinterlaceDefaultValue @"-1"
 #define kVLCSettingHardwareDecoding @"codec"
 #define kVLCSettingHardwareDecodingDefault @""
 #define kVLCSettingRotationLock @"kVLCSettingRotationLock"
