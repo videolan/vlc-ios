@@ -90,6 +90,9 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
         _searchController.obscuresBackgroundDuringPresentation = NO;
         self.navigationItem.hidesSearchBarWhenScrolling = YES;
         self.navigationItem.searchController = _searchController;
+        if (@available(iOS 26.0, visionOS 26.0, *)) {
+            self.navigationItem.preferredSearchBarPlacement = UINavigationItemSearchBarPlacementIntegrated;
+        }
     } else {
         _tableView.tableHeaderView = _searchController.searchBar;
     }
