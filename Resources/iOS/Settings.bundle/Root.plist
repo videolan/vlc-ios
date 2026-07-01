@@ -108,9 +108,19 @@
 			<key>Key</key>
 			<string>AutomaticallyPlayNextItem</string>
 			<key>Title</key>
-			<string>SETTINGS_NETWORK_PLAY_ALL</string>
+			<string>SETTINGS_PLAY_ALL</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAYLIST_PLAY_ALL</string>
+			<key>Key</key>
+			<string>PlaylistPlayNextItem</string>
+			<key>DefaultValue</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -240,33 +250,13 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_VIDEO_TITLE</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>infobuttonvalue</key>
-			<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
-			<key>Title</key>
-			<string>SETTINGS_SKIP_LOOP_FILTER</string>
+			<string>SETTINGS_GESTURES_SNAPSHOT</string>
 			<key>Key</key>
-			<string>avcodec-skiploopfilter</string>
+			<string>EnableSnapshotGesture</string>
 			<key>DefaultValue</key>
-			<integer>1</integer>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>3</integer>
-				<integer>1</integer>
-			</array>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -306,6 +296,36 @@
 			<array>
 				<false/>
 				<true/>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_VIDEO_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
+			<key>Title</key>
+			<string>SETTINGS_SKIP_LOOP_FILTER</string>
+			<key>Key</key>
+			<string>avcodec-skiploopfilter</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>3</integer>
+				<integer>1</integer>
 			</array>
 		</dict>
 		<dict>
@@ -666,28 +686,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_DURATION_FOUR</string>
-				<string>SETTINGS_DURATION_TEN</string>
-				<string>SETTINGS_DURATION_TWENTY</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>4</integer>
-				<integer>10</integer>
-				<integer>20</integer>
-			</array>
-			<key>Title</key>
-			<string>SETTINGS_SUBTITLES_TEXT_ENCODING</string>
-			<key>Key</key>
-			<string>kVLCSettingPlayerControlDuration</string>
-			<key>DefaultValue</key>
-			<integer>4</integer>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_AUDIO_TITLE</string>
@@ -826,6 +824,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_BACKUP_MEDIA_LIBRARY</string>
+			<key>Key</key>
+			<string>BackupMediaLibrary</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_NETWORK</string>
@@ -870,6 +878,16 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>smb-force-v1</string>
+			<key>Title</key>
+			<string>SETTINGS_FORCE_SMBV1</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
 			<string>rtsp-tcp</string>
@@ -889,22 +907,42 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>smb-force-v1</string>
-			<key>Title</key>
-			<string>SETTINGS_FORCE_SMBV1</string>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_ACCESSIBILITY</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST</string>
+			<string>SETTINGS_PLAYER_CONTROL_DURATION</string>
 			<key>Key</key>
-			<string>satip-channellist-url</string>
+			<string>kVLCSettingPlayerControlDuration</string>
+			<key>DefaultValue</key>
+			<string>4</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FOUR</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_TWENTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>4</string>
+				<string>10</string>
+				<string>20</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PAUSE_WHEN_SHOWING_CONTROLS</string>
+			<key>Key</key>
+			<string>kVLCSettingPauseWhenShowingControls</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
