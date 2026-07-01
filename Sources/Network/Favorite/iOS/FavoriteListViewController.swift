@@ -38,6 +38,14 @@ class FavoriteListViewController: UIViewController {
     private let searchBarSize: CGFloat = 50.0
     private var searchBarConstraint: NSLayoutConstraint?
     private var isSearching: Bool = false
+    lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        return searchController
+    }()
 
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
@@ -103,6 +111,12 @@ class FavoriteListViewController: UIViewController {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
         ])
+
+#if os(iOS) || os(visionOS)
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            navigationItem.preferredSearchBarPlacement = .integrated
+        }
+#endif
     }
 
     private func applySearchBarTheme() {
@@ -231,12 +245,22 @@ class FavoriteListViewController: UIViewController {
             tableView.isEditing = false
             tableView.isHidden = true
             self.navigationItem.rightBarButtonItem = nil
+#if os(iOS) || os(visionOS)
+            if #available(iOS 26.0, visionOS 26.0, *) {
+                navigationItem.searchController = nil
+            }
+#endif
         } else {
             emptyView.isHidden = true
             tableView.isHidden = false
             if self.navigationItem.rightBarButtonItem == nil {
                 setupBarButton()
             }
+#if os(iOS) || os(visionOS)
+            if #available(iOS 26.0, visionOS 26.0, *) {
+                navigationItem.searchController = searchController
+            }
+#endif
         }
     }
 
@@ -338,6 +362,11 @@ extension FavoriteListViewController: UITableViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+#if os(iOS) || os(visionOS)
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            return
+        }
+#endif
         // This ensures that the search bar is always visible like a sticky while searching
         if isSearching {
             searchBar.endEditing(true)
@@ -403,7 +432,13 @@ extension FavoriteListViewController: FavoriteSectionHeaderDelegate {
 
 // MARK: - UISearchBarDelegate
 
-extension FavoriteListViewController: UISearchBarDelegate {
+extension FavoriteListViewController: UISearchBarDelegate, UISearchControllerDelegate {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        if isSearching {
+            searchBarCancelButtonClicked(searchController.searchBar)
+        }
+    }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchResults = searchDataSource
