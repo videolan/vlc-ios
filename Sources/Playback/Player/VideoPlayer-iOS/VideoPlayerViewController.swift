@@ -1442,11 +1442,20 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
     }
 
     func playerControllerApplicationBecameActive(_ playerController: PlayerController) {
-        if (delegate?.videoPlayerViewControllerShouldBeDisplayed(self)) != nil {
-            playbackService.recoverDisplayedMetadata()
-            if playbackService.videoOutputView != videoOutputView {
-                playbackService.videoOutputView = videoOutputView
-            }
+        guard delegate?.videoPlayerViewControllerShouldBeDisplayed(self) != nil else { return }
+
+        playbackService.recoverDisplayedMetadata()
+
+        if playbackService.isPlayingOnExternalScreen(),
+           playbackService.renderer == nil,
+           VLCAppCoordinator.sharedInstance().externalWindow != nil {
+            playbackService.videoOutputView = nil
+            playbackService.videoOutputView = videoOutputView
+            return
+        }
+
+        if playbackService.videoOutputView != videoOutputView {
+            playbackService.videoOutputView = videoOutputView
         }
     }
 }
