@@ -914,16 +914,13 @@ class VideoPlayerViewController: PlayerViewController {
             // Hide controls
             setControlsHidden(true, animated: true)
 
-            // Set playback speed
-            if playbackService.playbackRate < 2 {
-                playbackService.playbackRate = 2
-            } else {
-                let playbackSpeed = playbackService.playbackRate + 1
-                playbackService.playbackRate = min(playbackSpeed, 8)
+            var playbackRate: Float = 2.0
+            if playbackService.playbackRate >= 2.0 {
+                playbackRate = min(playbackService.playbackRate + 1, 8)
             }
 
-            // Update view multiplier label
-            longPressPlaybackSpeedView.speedMultiplier = playbackService.playbackRate
+            playbackService.playbackRate = playbackRate
+            longPressPlaybackSpeedView.speedMultiplier = playbackRate
 
 #if os(iOS)
             // Generate selection feedback
