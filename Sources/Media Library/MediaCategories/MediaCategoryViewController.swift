@@ -284,6 +284,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return button
     }()
 
+    private var fabBottomConstraint: NSLayoutConstraint?
+    private var fabAnchorsToContainerBottom: Bool?
+
     private var lastPlaylist: LastPlayedPlaylistModel? {
         guard let encodedData = userDefaults.data(forKey: kVLCLastPlayedPlaylist),
               let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: encodedData) else {
@@ -819,6 +822,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let playlistHeader = playlistHeader {
             playlistHeader.updateAfterRotation()
         }
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.updateFABButtonBottomConstraint()
+        })
     }
 
     // MARK: - Edit
@@ -2833,15 +2840,44 @@ extension MediaCategoryViewController {
     }
 
     private func setFABButtonConstraints() {
-        guard let tabBar = tabBarController?.tabBar,
-              let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
+        guard let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
+
+        fabAnchorsToContainerBottom = nil
 
         NSLayoutConstraint.activate([
             fabButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
-            fabButton.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -15),
-            fabButton.widthAnchor.constraint(equalToConstant: 60),
-            fabButton.heightAnchor.constraint(equalToConstant: 60)
+            fabButton.widthAnchor.constraint(equalToConstant: 55),
+            fabButton.heightAnchor.constraint(equalToConstant: 55)
         ])
+
+        updateFABButtonBottomConstraint()
+    }
+
+    // iPadOS 18+ keeps the tab bar at the top in regular width, but moves it back to
+    // the bottom in compact width, so the anchor has to follow window resizes.
+    private func updateFABButtonBottomConstraint() {
+        guard let tabBar = tabBarController?.tabBar,
+              let containerView = tabBarController?.view else { return }
+
+        let anchorsToContainerBottom: Bool
+#if os(iOS) && compiler(>=6.0)
+        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
+            anchorsToContainerBottom = traitCollection.horizontalSizeClass == .regular
+        } else {
+            anchorsToContainerBottom = false
+        }
+#else
+        anchorsToContainerBottom = false
+#endif
+
+        if fabAnchorsToContainerBottom == anchorsToContainerBottom { return }
+        fabAnchorsToContainerBottom = anchorsToContainerBottom
+
+        let anchor = anchorsToContainerBottom ? containerView.bottomAnchor : tabBar.topAnchor
+        fabBottomConstraint?.isActive = false
+        let bottomConstraint = fabButton.bottomAnchor.constraint(equalTo: anchor, constant: -15)
+        bottomConstraint.isActive = true
+        fabBottomConstraint = bottomConstraint
     }
 }
 
