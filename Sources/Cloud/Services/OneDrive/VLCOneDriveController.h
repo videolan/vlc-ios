@@ -29,6 +29,7 @@
 - (void)loginWithViewController:(UIViewController*)presentingViewController;
 
 - (void)startDownloadingODItem:(ODItem *)item;
+- (void)downloadFolderFiles:(ODItem *)folder;
 
 - (NSString *)configureSubtitleWithFileName:(NSString *)fileName folderItems:(NSArray *)folderItems;
 

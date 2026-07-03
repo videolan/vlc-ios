@@ -395,6 +395,32 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     [self _triggerNextDownload];
 }
 
+- (void)downloadFolderFiles:(ODItem *)folder
+{
+    if (!folder.folder)
+        return;
+
+    ODChildrenCollectionRequest *request = [[[[_oneDriveClient drive] items:folder.id] children] request];
+    [self enqueueFolderChildrenWithRequest:request folderID:folder.id];
+}
+
+- (void)enqueueFolderChildrenWithRequest:(ODChildrenCollectionRequest *)request folderID:(NSString *)folderID
+{
+    __weak typeof(self) weakSelf = self;
+    [request getWithCompletion:^(ODCollection *response, ODChildrenCollectionRequest *nextRequest, NSError *error) {
+        if (error) {
+            [weakSelf handleLoadODItemErrorWithError:error itemID:folderID];
+            return;
+        }
+        for (ODItem *item in response.value) {
+            [weakSelf startDownloadingODItem:item];
+        }
+        if (nextRequest != NULL) {
+            [weakSelf enqueueFolderChildrenWithRequest:nextRequest folderID:folderID];
+        }
+    }];
+}
+
 - (void)downloadODItem:(ODItem *)item
 {
     [self downloadStarted];

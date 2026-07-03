@@ -232,7 +232,6 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     ODItem *selectedItem = _oneDriveController.currentListFiles[indexPath.row];
 
-    /* selected item is a proper file, ask the user if s/he wants to download it */
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
                                                                              message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil),
                                                                                       selectedItem.name,
@@ -242,7 +241,11 @@
     UIAlertAction *downloadAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *alertAction){
-        [self->_oneDriveController startDownloadingODItem:selectedItem];
+        if (selectedItem.folder) {
+            [self->_oneDriveController downloadFolderFiles:selectedItem];
+        } else {
+            [self->_oneDriveController startDownloadingODItem:selectedItem];
+        }
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                            style:UIAlertActionStyleCancel

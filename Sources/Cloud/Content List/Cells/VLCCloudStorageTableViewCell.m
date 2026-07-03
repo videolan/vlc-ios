@@ -84,7 +84,7 @@
 
 - (void)updateOneDriveDisplayAsFolder
 {
-    _downloadButton.hidden = YES;
+    _downloadButton.hidden = NO;
     _folderTitleLabel.text = _oneDriveFile.name;
     _titleLabel.hidden = _subtitleLabel.hidden = YES;
     _folderTitleLabel.hidden = NO;
