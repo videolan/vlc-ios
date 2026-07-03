@@ -12,27 +12,30 @@
 
 import SwiftUI
 
-protocol VLCWatchMLCellItem: Identifiable {
+protocol VLCWatchMLObject: Identifiable {
     var id: VLCMLIdentifier { get }
-    var titleText: String { get }
-    var subtitleText: String { get }
+}
+
+protocol VLCWatchMLCellItem {
     var thumbnail: URL? { get }
     func placeholderName(for color: ColorScheme) -> String
 }
 
-struct MediaListView<T: VLCWatchMLCellItem, Subtitle: View> : View {
-    @Environment(\.colorScheme) var colorScheme
-    var items: [T]
-    @ViewBuilder var subtitle: (T) -> Subtitle
-    var didTapCell: (T) -> Void
+struct MediaListView<Item: VLCWatchMLCellItem & VLCWatchMLObject, Title: View, Subtitle: View>: View {
+    @Environment(\.colorScheme) private var colorScheme
+    let items: [Item]
+    @ViewBuilder let titleView: (Item) -> Title
+    @ViewBuilder let subtitleView: (Item) -> Subtitle
+    let didTapCell: (Item) -> Void
 
     var body: some View {
         List(items) { item in
-            MediaCellView(title: item.titleText,
-                          thumbnail: item.thumbnail,
-                          placeholderImageName: item.placeholderName(for: colorScheme)) {
-                subtitle(item)
-            }
+            MediaCellView(
+                titleView: titleView(item),
+                subtitleView: subtitleView(item),
+                thumbnail: item.thumbnail,
+                placeholderImageName: item.placeholderName(for: colorScheme)
+            )
             .onTapGesture {
                 didTapCell(item)
             }
@@ -40,11 +43,11 @@ struct MediaListView<T: VLCWatchMLCellItem, Subtitle: View> : View {
     }
 }
 
-struct MediaCellView<Subtitle: View>: View {
-    var title: String
-    var thumbnail: URL?
-    var placeholderImageName: String
-    @ViewBuilder var subtitle: () -> Subtitle
+struct MediaCellView<Title: View, Subtitle: View>: View {
+    let titleView: Title
+    let subtitleView: Subtitle
+    let thumbnail: URL?
+    let placeholderImageName: String
 
     var body: some View {
         HStack {
@@ -61,9 +64,8 @@ struct MediaCellView<Subtitle: View>: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
 
             VStack(alignment: .leading, spacing: 0) {
-                Text(title)
-                    .lineLimit(1)
-                subtitle()
+                titleView
+                subtitleView
             }
         }
     }

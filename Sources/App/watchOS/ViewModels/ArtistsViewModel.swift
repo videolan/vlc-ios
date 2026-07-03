@@ -11,11 +11,13 @@
  *****************************************************************************/
 
 import Foundation
+import SwiftUI
 
 class ArtistsViewModel: ArtistModel, ObservableObject {
 
     @Published var snapshotArtists: [VLCWatchMLArtist] = []
     @Published var isFirstLoad = true
+    @Published var path = NavigationPath()
 
     var snapshotMediaLibrary: MediaLibraryService?
 

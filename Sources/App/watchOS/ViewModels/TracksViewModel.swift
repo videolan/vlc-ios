@@ -111,6 +111,11 @@ class TracksViewModel: TrackModel, ObservableObject {
         self.mediaSyncIds = state.mediaSyncIds
         print("TracksViewModel: mediaSyncIds \(mediaSyncIds)")
     }
+
+    func isDownloaded(iphoneMediaId: VLCMLIdentifier) -> Bool {
+        guard let watchMediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == iphoneMediaId })?.watchMediaId else { return false }
+        return downloadedMediaIDs.contains(watchMediaId)
+    }
 }
 
 extension TracksViewModel: MediaLibraryBaseModelObserver {

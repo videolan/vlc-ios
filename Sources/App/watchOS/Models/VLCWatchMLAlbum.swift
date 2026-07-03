@@ -14,7 +14,7 @@ import Foundation
 import SwiftUI
 
 // Wrapper around VLCMLAlbum to be used in SwiftUI view
-struct VLCWatchMLAlbum {
+struct VLCWatchMLAlbum: VLCWatchMLObject {
     let id: VLCMLIdentifier
     let title: String
     let artists: [VLCMLArtist]
@@ -33,14 +33,6 @@ struct VLCWatchMLAlbum {
 }
 
 extension VLCWatchMLAlbum: VLCWatchMLCellItem {
-    var titleText: String {
-        return title
-    }
-
-    var subtitleText: String {
-        return albumArtistName ?? ""
-    }
-
     func placeholderName(for color: ColorScheme) -> String {
         return color == .light ? "album-placeholder-white" : "album-placeholder-dark"
     }
