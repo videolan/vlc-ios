@@ -81,8 +81,9 @@
 
     self.mediaDiscoverer = discoverer;
 #if MEDIA_DISCOVERY_DEBUG
-    self.mediaDiscoverer.libraryInstance.debugLogging = YES;
-    self.mediaDiscoverer.libraryInstance.debugLoggingLevel = 4;
+    VLCConsoleLogger *consoleLogger = [[VLCConsoleLogger alloc] init];
+    consoleLogger.level = kVLCLogLevelDebug;
+    [self.mediaDiscoverer.libraryInstance setLoggers:@[consoleLogger]];
 #endif
     [discoverer startDiscoverer];
     discoverer.delegate = self;
