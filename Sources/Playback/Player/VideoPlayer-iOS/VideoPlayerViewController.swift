@@ -1269,7 +1269,7 @@ class VideoPlayerViewController: PlayerViewController {
 extension VideoPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         mediaNavigationBar.setMediaTitleLabelText("")
-        videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
+        videoPlayerControls.updatePlayPauseButton(toState: playbackService.mediaPlayerState == .playing)
         mediaScrubProgressBar.setLiveStream(playbackService.metadata.isLiveStream && !playbackService.isSeekable)
 
         // FIXME: -
