@@ -2033,8 +2033,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             [self->_delegate playbackService:self nextMedia:media];
         }
 
-        VLCMediaList *currentMediaList = self->_shuffleMode ? self->_shuffledList : self->_mediaList;
-        self->_currentIndex = [currentMediaList indexOfMedia:media];
+        VLCMediaList *currentMediaList = (self->_shuffleMode && self->_shuffledList) ? self->_shuffledList : self->_mediaList;
+        NSUInteger foundIndex = [currentMediaList indexOfMedia:media];
+        if (foundIndex != NSNotFound)
+            self->_currentIndex = (NSInteger)foundIndex;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
                                                             object:self];
