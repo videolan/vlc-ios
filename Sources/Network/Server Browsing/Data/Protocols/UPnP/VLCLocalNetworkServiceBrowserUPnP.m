@@ -2,7 +2,7 @@
  * VLCLocalNetworkServiceBrowserUPnP.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -15,6 +15,7 @@
 #import "VLCNetworkServerLoginInformation.h"
 
 @interface VLCLocalNetworkServiceUPnP ()
+@property (nonatomic) VLCLibrary *libraryInstance;
 + (void)registerLoginInformation;
 @end
 
@@ -32,8 +33,12 @@
 }
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
-    if (media)
-        return [[VLCLocalNetworkServiceUPnP alloc] initWithMediaItem:media serviceName:[self.name uppercaseString]];
+    if (media) {
+        VLCLocalNetworkServiceUPnP *service = [[VLCLocalNetworkServiceUPnP alloc] initWithMediaItem:media
+                                                                                        serviceName:[self.name uppercaseString]];
+        service.libraryInstance = self.mediaDiscoverer.libraryInstance;
+        return service;
+    }
     return nil;
 }
 
@@ -85,6 +90,24 @@ NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"UPNP";
     }
 
     return login;
+}
+
+- (id<VLCNetworkServerBrowser>)serverBrowser
+{
+    VLCMedia *media = self.mediaItem;
+    if (media.mediaType != VLCMediaTypeDirectory)
+        return nil;
+
+    NSDictionary *options = @{};
+    NSString *host = media.metaData.artworkURL.host;
+    if (host) {
+        options = @{ @"satip-host" : host };
+    }
+
+    /* the discovered media belongs to the discoverer's library instance, so it
+     * needs to be parsed by a parser bound to that same instance */
+    VLCMediaParser *parser = self.libraryInstance ? [[VLCMediaParser alloc] initWithLibrary:self.libraryInstance timeout:-1] : nil;
+    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:media options:options mediaParser:parser];
 }
 
 @end

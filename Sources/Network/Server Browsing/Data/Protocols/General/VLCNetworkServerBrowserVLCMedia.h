@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserVLCMedia.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -15,12 +15,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerBrowserVLCMedia : NSObject <VLCNetworkServerBrowser>
-- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options;
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options mediaParser:(nullable VLCMediaParser *)mediaParser NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 - (VLCMediaParsedStatus)retrieveParsedStatus;
 @end
 
 @interface VLCNetworkServerBrowserItemVLCMedia : NSObject <VLCNetworkServerBrowserItem>
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions mediaParser:(nullable VLCMediaParser *)mediaParser;
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 
 @property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;

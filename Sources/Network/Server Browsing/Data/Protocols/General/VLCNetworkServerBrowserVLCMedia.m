@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserVLCMedia.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -19,11 +19,11 @@
 {
     VLCDialogProvider *_dialogProvider;
     VLCCustomDialogRendererHandler *_customDialogHandler;
+    VLCMediaParser *_mediaParser;
 }
 
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
-@property (nonatomic) VLCMediaList *mediaListUnfiltered;
 @property (nonatomic) NSMutableArray<id<VLCNetworkServerBrowserItem>> *mutableItems;
 @property (nonatomic, readonly) NSDictionary *mediaOptions;
 
@@ -31,16 +31,23 @@
 @implementation VLCNetworkServerBrowserVLCMedia
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithMedia:(VLCMedia *)media options:(nonnull NSDictionary *)mediaOptions
+- (instancetype)initWithMedia:(VLCMedia *)media
+                      options:(nonnull NSDictionary *)mediaOptions
+{
+    return [self initWithMedia:media options:mediaOptions mediaParser:nil];
+}
+
+- (instancetype)initWithMedia:(VLCMedia *)media
+                      options:(nonnull NSDictionary *)mediaOptions
+                  mediaParser:(VLCMediaParser *)mediaParser
 {
     self = [super init];
     if (self) {
+        _mediaParser = mediaParser ?: [VLCMediaParser sharedParser];
         _mutableItems = [[NSMutableArray alloc] init];
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
-        [[VLCMediaParser sharedParser] queueMedia:_rootMedia options:VLCMediaParseNetwork|VLCMediaDoInteract];
-        _mediaListUnfiltered = [_rootMedia subitems];
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
         [mediaOptionsNoFilter setObject:@" " forKey:@":ignore-filetypes"];
         _mediaOptions = [mediaOptionsNoFilter copy];
@@ -61,13 +68,13 @@
 
 - (void)dealloc
 {
-    [[VLCMediaParser sharedParser] cancelParsingForMedia:_rootMedia];
+    [_mediaParser cancelParsingForMedia:_rootMedia];
 }
 
 - (void)customDialogCompletionHandlerWithStatus:(VLCCustomDialogRendererHandlerCompletionType)status
 {
     if (status == VLCCustomDialogRendererHandlerCompletionTypeStop) {
-        [[VLCMediaParser sharedParser] cancelParsingForMedia:_rootMedia];
+        [_mediaParser cancelParsingForMedia:_rootMedia];
     }
 }
 
@@ -78,7 +85,7 @@
         [self.mediaList removeMediaAtIndex:0];
     }
 
-    VLCMediaList *rootItems = self.mediaListUnfiltered;
+    VLCMediaList *rootItems = self.rootMedia.subitems;
     [rootItems lock];
     NSUInteger count = rootItems.count;
     for (NSUInteger i = 0; i < count; i++) {
@@ -86,13 +93,16 @@
         [media addOptions:self.mediaOptions];
         NSInteger mediaIndex = self.mutableItems.count;
         [self.mediaList insertMedia:media atIndex:mediaIndex];
-        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
+        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media
+                                                                                           options:self.mediaOptions
+                                                                                       mediaParser:_mediaParser]
+                                atIndex:mediaIndex];
     }
     [rootItems unlock];
 }
 
 - (void)update {
-    int ret = [[VLCMediaParser sharedParser] queueMedia:self.rootMedia options:VLCMediaParseNetwork];
+    int ret = [_mediaParser queueMedia:self.rootMedia options:VLCMediaParse];
     if (ret == -1) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate networkServerBrowserDidUpdate:self];
@@ -115,16 +125,17 @@
 
 #pragma mark - media delegate
 
+- (void)mediaDidChangeSubitems:(VLCMedia *)aMedia
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self _rebuildItemList];
+        [self.delegate networkServerBrowserDidUpdate:self];
+    });
+}
+
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
-            if ([self.delegate respondsToSelector:@selector(networkServerBrowserShouldPopView:)]) {
-                [self.delegate networkServerBrowserShouldPopView:self];
-            }
-            return;
-        }
-
         [self _rebuildItemList];
 
         if (self.mediaList.count != 0) {
@@ -140,16 +151,25 @@
 @end
 
 @interface VLCNetworkServerBrowserItemVLCMedia () <VLCMediaDelegate>
+{
+    VLCMediaParser *_mediaParser;
+}
 @property (nonatomic, readonly) NSDictionary *mediaOptions;
 
 @end
 @implementation VLCNetworkServerBrowserItemVLCMedia
 @synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL, media = _media, downloadable = _downloadable;
 
-- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions
+{
+    return [self initWithMedia:media options:mediaOptions mediaParser:nil];
+}
+
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions mediaParser:(VLCMediaParser *)mediaParser
 {
     self = [super init];
     if (self) {
+        _mediaParser = mediaParser;
         _media = media;
         _container = media.mediaType == VLCMediaTypeDirectory;
         NSString *title = media.metaData.title;
@@ -172,7 +192,9 @@
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
-    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media options:self.mediaOptions];
+    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media
+                                                          options:self.mediaOptions
+                                                      mediaParser:_mediaParser];
 }
 
 - (BOOL)isDownloadable
