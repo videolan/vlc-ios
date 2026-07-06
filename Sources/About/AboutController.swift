@@ -118,11 +118,12 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         guard let bundleVersion = mainBundle.object(forInfoDictionaryKey: "CFBundleVersion") as? CVarArg else {
             return
         }
-        var vlciconimagesource :String
+
+        var vlcIconImageSource: String
         if colors.isDark {
-            vlciconimagesource = "VLCCone26-dark-512x512.png"
+            vlcIconImageSource = "VLCCone26-dark-512x512.png"
         } else {
-            vlciconimagesource = "VLCCone26-512x512.png"
+            vlcIconImageSource = "VLCCone26-512x512.png"
         }
         let version = String(format: NSLocalizedString("VERSION_FORMAT", comment: ""),
                              bundleShortVersionString)
@@ -143,7 +144,7 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
             let searchRange = NSRange(location: 0, length: lengthOfStringToSearch)
 
             htmlString = htmlString.replacingOccurrences(of: "VLCICONIMAGESOURCE",
-                                                         with: vlciconimagesource,
+                                                         with: vlcIconImageSource,
                                                          options: .literal,
                                                          range: searchRange) as NSString
             htmlString = htmlString.replacingOccurrences(of: "VLCFORIOSVERSION",
