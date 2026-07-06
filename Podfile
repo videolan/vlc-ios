@@ -5,7 +5,7 @@ inhibit_all_warnings!
 def core_vlc_pods
   use_modular_headers!
   pod 'VLCKit', '4.0.0a19'
-  pod 'VLCMediaLibraryKit', '0.14.0a4'
+  pod 'VLCMediaLibraryKit', '0.14.0b1'
 end
 
 def shared_pods
@@ -58,7 +58,7 @@ target 'VLC-iOS-Screenshots' do
 end
 
 target 'VLC-tvOS' do
-  platform :tvos, '12.0'
+  platform :tvos, '13.0'
   core_vlc_pods
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
