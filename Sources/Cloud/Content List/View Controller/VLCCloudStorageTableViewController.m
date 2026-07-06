@@ -249,7 +249,10 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     ]];
 
     UITabAccessory *tabAccessory = [[UITabAccessory alloc] initWithContentView:wrapperView];
-    [self.tabBarController setBottomAccessory:tabAccessory animated:YES];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tabBarController setBottomAccessory:tabAccessory animated:YES];
+    });
 }
 
 - (void)updateToolbarWithStyle:(VLCToolbarStyle)style {
