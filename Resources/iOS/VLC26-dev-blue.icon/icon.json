@@ -1,8 +1,5 @@
 {
   "color-space-for-untagged-svg-colors" : "display-p3",
-  "features" : [
-    "refractivity"
-  ],
   "fill-specializations" : [
     {
       "value" : {
