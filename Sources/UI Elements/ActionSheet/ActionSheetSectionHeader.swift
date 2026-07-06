@@ -12,7 +12,7 @@
 class ActionSheetSectionHeader: UIView {
     public var accessoryViewsDelegate: ActionSheetAccessoryViewsDelegate? {
         didSet {
-            addAccessoryViews()
+            updateAccessoryViews()
         }
     }
 
