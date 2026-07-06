@@ -2,5 +2,11 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "frame-size" : {
+      "height" : 512,
+      "width" : 512
+    }
   }
 }

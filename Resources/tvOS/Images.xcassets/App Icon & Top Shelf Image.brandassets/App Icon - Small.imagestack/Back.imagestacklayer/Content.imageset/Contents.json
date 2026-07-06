@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Icon-Background.png",
+      "filename" : "Layer 11.png",
       "idiom" : "tv",
       "scale" : "1x"
     },
     {
-      "filename" : "Icon-Background@2x.png",
+      "filename" : "Layer 11@2x.png",
       "idiom" : "tv",
       "scale" : "2x"
     }

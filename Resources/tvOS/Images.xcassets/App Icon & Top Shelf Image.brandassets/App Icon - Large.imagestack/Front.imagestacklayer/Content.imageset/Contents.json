@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "mask-shorter 2.png",
+      "filename" : "cone base carved.png",
       "idiom" : "tv",
       "scale" : "1x"
     },
     {
+      "filename" : "cone base carved@2x.png",
       "idiom" : "tv",
       "scale" : "2x"
     }

@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Top Shelf Wide.png",
+      "filename" : "tvOS _ Top Shelf copy.png",
       "idiom" : "tv",
       "scale" : "1x"
     },
     {
-      "filename" : "Top Shelf Wide@2x.png",
+      "filename" : "tvOS _ Top Shelf copy@2x.png",
       "idiom" : "tv",
       "scale" : "2x"
     }
