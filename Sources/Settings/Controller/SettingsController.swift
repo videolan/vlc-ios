@@ -2,7 +2,7 @@
  * SettingsController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *          Soomin Lee < bubu@mikan.io >
@@ -15,6 +15,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+import CoreSpotlight
 import LocalAuthentication
 import UIKit
 
@@ -562,6 +563,9 @@ extension SettingsController {
                 // If the user cancels setting the password, the toggle should revert to the unset state.
                 // This ensures the UI reflects the correct state.
                 UserDefaults.standard.set(success, forKey: kVLCSettingPasscodeOnKey)
+                if success {
+                    CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
+                }
                 self.reloadSettingsSections() // To show/hide biometric row
             }
         } else {
@@ -571,6 +575,7 @@ extension SettingsController {
             // passcode will remain open even if the user doesn't set the new passcode.
             // So, this may cause the app being locked.
             try? KeychainCoordinator.passcodeService.removeSecret()
+            mediaLibraryService.reindexAllMediaForSpotlight()
 
             reloadSettingsSections()
         }
