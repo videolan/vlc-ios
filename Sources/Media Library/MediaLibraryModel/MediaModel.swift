@@ -152,7 +152,7 @@ extension VLCMLMedia {
             }
             attributeSet.audioTrackNumber = NSNumber(value:trackNumber)
             if let album = album {
-                attributeSet.artist = album.title
+                attributeSet.album = album.title
             }
         }
 
