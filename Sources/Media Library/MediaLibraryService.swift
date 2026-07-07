@@ -378,8 +378,10 @@ private extension MediaLibraryService {
     #if !os(tvOS)
     @objc func reindexAllMediaForSpotlight() {
         #if !os(watchOS)
-        media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
-        media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
+        CSSearchableIndex.default().deleteAllSearchableItems { _ in
+            self.media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
+            self.media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
+        }
         #endif
     }
     #endif

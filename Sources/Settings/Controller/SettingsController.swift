@@ -269,6 +269,7 @@ class SettingsController: UITableViewController {
         let queue = DispatchQueue.global(qos: .background)
         queue.async {
             self.mediaLibraryService.forceRescan()
+            self.mediaLibraryService.reindexAllMediaForSpotlight()
         }
     }
 
