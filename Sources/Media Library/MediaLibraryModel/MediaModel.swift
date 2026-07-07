@@ -121,10 +121,13 @@ extension VLCMLMedia {
 extension VLCMLMedia {
 #if !os(tvOS) && !os(watchOS)
     func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: "public.audiovisual-content")
+        let contentType = type() == .video ? "public.movie" : "public.audio"
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: contentType)
         attributeSet.title = title
         attributeSet.metadataModificationDate = Date()
-        attributeSet.addedDate = Date()
+        attributeSet.addedDate = insertionDate()
+        attributeSet.contentCreationDate = releaseDate()
+        attributeSet.lastUsedDate = lastPlayedDate()
         attributeSet.duration = NSNumber(value: duration() / 1000)
         attributeSet.streamable = 0
         attributeSet.deliveryType = 0
@@ -136,6 +139,16 @@ extension VLCMLMedia {
         }
         attributeSet.codecs = codecs()
         attributeSet.languages = languages()
+        if let file = mainFile() {
+            attributeSet.path = file.mrl.path
+            attributeSet.contentModificationDate = file.lastModificationDate
+            attributeSet.fileSize = NSNumber(value: Double(file.size()) / (1024 * 1024))
+        }
+        if type() == .video, let video = videoTracks?.first {
+            attributeSet.pixelWidth = NSNumber(value: video.width())
+            attributeSet.pixelHeight = NSNumber(value: video.height())
+            attributeSet.videoBitRate = NSNumber(value: video.bitrate())
+        }
         if let audioTracks = audioTracks {
             for track in audioTracks {
                 attributeSet.audioBitRate = NSNumber(value: track.bitrate())
@@ -146,9 +159,11 @@ extension VLCMLMedia {
         if subtype() == .albumTrack {
             if let genre = genre {
                 attributeSet.genre = genre.name
+                attributeSet.musicalGenre = genre.name
             }
             if let artist = artist {
                 attributeSet.artist = artist.name
+                attributeSet.performers = [artist.name]
             }
             attributeSet.audioTrackNumber = NSNumber(value:trackNumber)
             if let album = album {
