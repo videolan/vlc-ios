@@ -618,12 +618,12 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupCommonSliderConstraints(for slider: UIView) {
         let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
-        let topConstraint = slider.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor)
-        let bottomConstraint = slider.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10)
+        let topConstraint = slider.topAnchor.constraint(greaterThanOrEqualTo: mediaNavigationBar.bottomAnchor, constant: 10)
+        let bottomConstraint = slider.bottomAnchor.constraint(lessThanOrEqualTo: mediaScrubProgressBar.topAnchor, constant: -16)
         let yConstraint = slider.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         heightConstraint.priority = .required
-        topConstraint.priority = .defaultHigh
-        bottomConstraint.priority = .defaultHigh
+        topConstraint.priority = .required
+        bottomConstraint.priority = .required
         yConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
             heightConstraint,
@@ -632,7 +632,6 @@ class VideoPlayerViewController: PlayerViewController {
             slider.widthAnchor.constraint(equalToConstant: 50),
             yConstraint,
         ])
-
     }
 
     // MARK: - Private helpers
