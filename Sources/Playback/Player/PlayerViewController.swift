@@ -1664,6 +1664,11 @@ extension PlayerViewController {
         mediaScrubProgressBar.updateProgressValues()
     }
 
+    @objc func previousFrame() {
+        playbackService.previousFrame()
+        mediaScrubProgressBar.updateProgressValues()
+    }
+
     override var keyCommands: [UIKeyCommand]? {
         let spaceCommand = UIKeyCommand(input: " ", modifierFlags: [], action: #selector(handlePlayPauseGesture))
         spaceCommand.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
@@ -1686,8 +1691,10 @@ extension PlayerViewController {
         let eCommand = UIKeyCommand(input: "e", modifierFlags: [], action: #selector(nextFrame))
         eCommand.discoverabilityTitle = NSLocalizedString("KEY_NEXT_FRAME", comment: "")
 
+        let zCommand = UIKeyCommand(input: "e", modifierFlags: [.shift], action: #selector(previousFrame))
+
         var commands: [UIKeyCommand] = [
-            spaceCommand, returnCommand, leftArrowCommand, rightArrowCommand, leftBracketCommand, rightBracketCommand, eCommand
+            spaceCommand, returnCommand, leftArrowCommand, rightArrowCommand, leftBracketCommand, rightBracketCommand, eCommand, zCommand
         ]
 
         let numberCommands = (0...9).map { number -> UIKeyCommand in
