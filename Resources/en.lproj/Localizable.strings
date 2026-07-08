@@ -739,7 +739,8 @@
 "BUTTON_FOLDER" = "Folders";
 "BUTTON_FOLDER_HINT" = "Browse your folders";
 "EMPTY_FOLDER" = "Empty Folder";
-"EMPTY_FOLDER_DES" = "Add audio or video media in this folder";
+"EMPTY_FOLDER_DES_VIDEO" = "We couldn't find any videos here. This folder may still contain audio files.";
+"EMPTY_FOLDER_DES_AUDIO" = "We couldn't find any audio files here. This folder may still contain videos.";
 "SUBFOLDERS_DESCRIPTION" = "%d subfolders";
 
 "ACCESSIBILITY_SELECTED" = "selected";

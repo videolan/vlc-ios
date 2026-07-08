@@ -235,7 +235,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             emptyView.contentType = .noHistory
         }
 
-        if model is FolderModel {
+        if let folderModel = model as? FolderModel {
+            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path
+            if folderModel.currentFolder.mrl.path != documentsPath {
+                emptyView.folderName = folderModel.currentFolder.name
+            }
+            emptyView.isAudioFolder = folderModel.isAudio
             emptyView.contentType = .emptyFolder
         }
         // Check if it is inside a playlist

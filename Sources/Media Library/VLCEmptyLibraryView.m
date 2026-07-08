@@ -2,7 +2,7 @@
  * VLCEmptyLibraryView.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Mike JS. Choi <mkchoi212 # icloud.com>
@@ -91,8 +91,9 @@
             _learnMoreButton.hidden = YES;
             break;
         case VLCEmptyLibraryViewContentTypeEmptyFolder:
-            title = NSLocalizedString(@"EMPTY_FOLDER", nil);
-            description = NSLocalizedString(@"EMPTY_FOLDER_DES", nil);
+            title = _folderName ? _folderName : NSLocalizedString(@"EMPTY_FOLDER", nil);
+            description = _isAudioFolder ? NSLocalizedString(@"EMPTY_FOLDER_DES_AUDIO", nil)
+                                         : NSLocalizedString(@"EMPTY_FOLDER_DES_VIDEO", nil);
             _learnMoreButton.hidden = YES;
             break;
     }

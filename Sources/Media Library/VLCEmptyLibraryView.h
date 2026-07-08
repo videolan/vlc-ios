@@ -2,7 +2,7 @@
  * VLCEmptyLibraryView.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Mike JS. Choi <mkchoi212 # icloud.com>
@@ -29,6 +29,8 @@ typedef NS_ENUM (NSUInteger, VLCEmptyLibraryViewContentType)
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLongDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *learnMoreButton;
 @property (nonatomic, strong) IBOutlet UIImageView *iconView;
+@property (nonatomic, copy) NSString *folderName;
+@property (nonatomic) BOOL isAudioFolder;
 @property (nonatomic) VLCEmptyLibraryViewContentType contentType;
 
 - (IBAction)learnMore:(id)sender;
