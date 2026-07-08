@@ -145,6 +145,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)jumpForward:(int)interval;
 - (void)jumpBackward:(int)interval;
 - (void)nextFrame;
+- (void)previousFrame;
 - (void)toggleRepeatMode;
 
 - (void)setABLoopFromPosition:(double)from toPosition:(double)to;
