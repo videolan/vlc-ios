@@ -455,6 +455,7 @@ class VideoPlayerViewController: PlayerViewController {
         if playerController.isRememberStateEnabled {
             setupVideoControlsState()
         }
+        mediaScrubProgressBar.delegate = self
 
         view.addSubview(switchControlUtility)
         view.addSubview(optionsNavigationBar)
@@ -1487,7 +1488,7 @@ extension VideoPlayerViewController {
 
 // MARK: - MediaScrubProgressBarDelegate
 
-extension VideoPlayerViewController {
+extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
     func mediaScrubProgressBarShouldResetIdleTimer() {
         resetIdleTimer()
     }

@@ -151,7 +151,6 @@ class PlayerViewController: UIViewController {
 
     lazy var mediaScrubProgressBar: MediaScrubProgressBar = {
         var mediaScrubProgressBar: MediaScrubProgressBar = MediaScrubProgressBar()
-        mediaScrubProgressBar.delegate = self
         return mediaScrubProgressBar
     }()
 
@@ -1553,10 +1552,6 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
         mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
     }
 }
-
-// MARK: - MediaScrubProgressBarDelegate
-
-extension PlayerViewController: MediaScrubProgressBarDelegate {}
 
 // MARK: - PopupViewDelegate
 
