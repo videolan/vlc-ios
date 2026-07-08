@@ -468,14 +468,15 @@
         return;
     }
 
-    if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
+    NSString *urlString = [self.urlField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if ([urlString length] <= 0 || [NSURL URLWithString:urlString] == nil) {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
                                              errorMessage:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                            viewController:self];
         return;
     }
     if (!self.privateToggleButton.selected) {
-        NSString *urlString = self.urlField.text;
         NSURL *url = [NSURL URLWithString:urlString];
 
         if (url && url.scheme && url.host) {
@@ -494,7 +495,7 @@
         }
     }
     [self.urlField resignFirstResponder];
-    [self _openURLStringAndDismiss:self.urlField.text];
+    [self _openURLStringAndDismiss:urlString];
 }
 
 - (void)editTableView:(id)sender

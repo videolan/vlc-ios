@@ -278,8 +278,10 @@
         return;
     }
 
-    if ([self.urlField.text length] > 0) {
-        NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
+    NSString *urlString = [self.urlField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if ([urlString length] > 0) {
+        NSURL *URLtoSave = [NSURL URLWithString:urlString];
         NSString *lastPathComponent = URLtoSave.lastPathComponent;
         NSString *scheme = URLtoSave.scheme;
         if (!([lastPathComponent isSupportedFormat] || [lastPathComponent isSupportedPlaylistFormat]) && ![lastPathComponent.pathExtension isEqualToString:@""]) {

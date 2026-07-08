@@ -164,7 +164,7 @@
 
 - (void)URLEnteredInField:(id)sender
 {
-    NSString *urlString = self.playURLField.text;
+    NSString *urlString = [self.playURLField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSURL *url = [NSURL URLWithString:urlString];
 
     if (url && url.scheme && url.host) {
