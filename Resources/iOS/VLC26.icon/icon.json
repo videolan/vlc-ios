@@ -125,7 +125,7 @@
       },
       "refractivity" : {
         "depth" : 0.5,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 0
       },
       "shadow" : {
@@ -276,7 +276,7 @@
       },
       "refractivity" : {
         "depth" : 0.5,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 0
       },
       "shadow" : {
@@ -377,7 +377,7 @@
       },
       "refractivity" : {
         "depth" : 0.5,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 0
       },
       "shadow" : {

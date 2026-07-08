@@ -79,8 +79,8 @@
               "appearance" : "tinted",
               "value" : {
                 "linear-gradient" : [
-                  "gray:1.00000,0.00000",
-                  "gray:1.00000,1.00000"
+                  "gray:1.00000,1.00000",
+                  "gray:1.00000,0.00000"
                 ],
                 "orientation" : {
                   "start" : {
@@ -153,7 +153,7 @@
       },
       "refractivity" : {
         "depth" : 0.5,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 0
       },
       "shadow" : {
@@ -310,7 +310,7 @@
       },
       "refractivity" : {
         "depth" : 0.5,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 0
       },
       "shadow" : {
@@ -440,7 +440,7 @@
       },
       "refractivity" : {
         "depth" : 0,
-        "enabled" : true,
+        "enabled" : false,
         "strength" : 1
       },
       "shadow" : {
