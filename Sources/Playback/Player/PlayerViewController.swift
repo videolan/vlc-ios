@@ -1669,10 +1669,6 @@ extension PlayerViewController {
     }
 
     @objc func nextFrame() {
-        if playbackService.isPlaying {
-            playbackService.pause()
-        }
-
         playbackService.nextFrame()
         mediaScrubProgressBar.updateProgressValues()
     }
