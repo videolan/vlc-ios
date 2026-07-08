@@ -575,9 +575,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
         }
 
-#if compiler(>=6.0)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditToolBar), name: Notification.Name("sidebarVisibilityChanged"), object: nil)
-#endif
 #endif
         PlaybackService.sharedInstance().setPlayerHidden(isEditing)
 
@@ -922,7 +920,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private func activeEditToolbar() -> EditToolbar {
         (tabBarController as? BottomTabBarController)?.ensureEditToolbarSetup()
-#if os(iOS) && compiler(>=6.0)
+#if os(iOS)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController,
@@ -945,7 +943,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         toolBar.isHidden = isEditing ? false : true
     }
 
-#if os(iOS) && compiler(>=6.0)
+#if os(iOS)
     @objc private func handleEditToolBar() {
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad,
@@ -2866,7 +2864,7 @@ extension MediaCategoryViewController {
               let containerView = tabBarController?.view else { return }
 
         let anchorsToContainerBottom: Bool
-#if os(iOS) && compiler(>=6.0)
+#if os(iOS)
         if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
             anchorsToContainerBottom = traitCollection.horizontalSizeClass == .regular
         } else {

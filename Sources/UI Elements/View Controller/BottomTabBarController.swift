@@ -95,7 +95,7 @@ class BottomTabBarController: UITabBarController {
     }
 
     func editToolBar() -> EditToolbar? {
-#if os(iOS) && compiler(>=6.0)
+#if os(iOS)
         if #available(iOS 18.0, *),
            UIDevice.current.userInterfaceIdiom == .pad,
            !sidebar.isHidden {
