@@ -8,6 +8,7 @@
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Pierre Sagaspe <pierre.sagaspe # me.com>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -174,6 +175,13 @@
             self.urlField.text = [pasteboardValue absoluteString];
         }
     }
+
+    UIMenuItem *pasteAndLoadItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_PASTE_AND_LOAD", nil)
+                                                              action:@selector(pasteAndLoadAction:)];
+    UIMenuController *sharedMenuController = [UIMenuController sharedMenuController];
+    [sharedMenuController setMenuItems:@[pasteAndLoadItem]];
+    [sharedMenuController update];
+
     [self _reloadTransfers];
     [super viewWillAppear:animated];
 }
@@ -241,6 +249,21 @@
         container.frame = CGRectMake(0, 0, downloadSize + trailingPad, downloadSize);
     }
     self.urlField.rightView = container;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (action == @selector(pasteAndLoadAction:))
+        return self.urlField.isFirstResponder && [UIPasteboard generalPasteboard].hasStrings;
+
+    return [super canPerformAction:action withSender:sender];
+}
+
+- (void)pasteAndLoadAction:(id)sender
+{
+    self.urlField.text = [UIPasteboard generalPasteboard].string;
+    [self updateFieldAccessories];
+    [self downloadAction:nil];
 }
 
 - (void)downloadAction:(id)sender

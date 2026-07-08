@@ -60,6 +60,8 @@
 "BUTTON_BACK" = "Back";
 "BUTTON_DONE" = "Done";
 "BUTTON_OPEN" = "Open";
+"BUTTON_PASTE_AND_OPEN" = "Paste and Open";
+"BUTTON_PASTE_AND_LOAD" = "Paste and Load";
 "BUTTON_CANCEL" = "Cancel";
 "BUTTON_CLOSE" = "Close";
 "BUTTON_SAVE" = "Save";
