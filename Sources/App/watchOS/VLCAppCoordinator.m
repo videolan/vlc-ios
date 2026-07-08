@@ -38,7 +38,7 @@
 - (MediaLibraryService *)mediaLibraryService
 {
     if (!_mediaLibraryService) {
-        _mediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCMediaLibraryDBFileName];
+        _mediaLibraryService = [[MediaLibraryService alloc] initWithLibraryType:MLServiceTypeMediaLibrary];
     }
     return _mediaLibraryService;
 }
@@ -46,7 +46,7 @@
 - (MediaLibraryService *)snapshotMediaLibraryService
 {
     if (!_snapshotMediaLibraryService) {
-        _snapshotMediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCSnapshotMediaLibraryDBFileName];
+        _snapshotMediaLibraryService = [[MediaLibraryService alloc] initWithLibraryType:MLServiceTypeSnapshotLibrary];
     }
     return _snapshotMediaLibraryService;
 }

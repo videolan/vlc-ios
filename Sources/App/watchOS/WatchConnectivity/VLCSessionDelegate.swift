@@ -226,7 +226,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 
             print("handleTransferiPhoneMediaLibraryDBFile: Sucessfully moved file \(file.fileURL) to \(destination)")
             postNotificationOnMainQueueAsync(name: .dataDidFlow, object: message)
-            NotificationCenter.default.post(name: .VLCDidReceiveMediaLibraryDBFileNotification, object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: .VLCDidReceiveSnapshotLibraryDBFileNotification, object: nil, userInfo: nil)
         } catch {
             print("handleTransferiPhoneMediaLibraryDBFile: Failed to move file \(file.fileURL) to \(libraryDir): \(error)")
         }
@@ -280,6 +280,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 }
 
 extension Notification.Name {
-    static let VLCMediaSyncIDsUpdatedNotification = Notification.Name("VLCMediaSyncIDsUpdatedNotification")
-    static let VLCDidReceiveMediaLibraryDBFileNotification = Notification.Name("VLCDidReceiveMediaLibraryDBFileNotification")
+    static let VLCMLSyncStateUpdatedNotification = Notification.Name("VLCMLSyncStateUpdatedNotification")
+    static let VLCDidReceiveSnapshotLibraryDBFileNotification = Notification.Name("VLCDidReceiveSnapshotLibraryDBFileNotification")
+    static let VLCDidUpdateSnapshotLibraryDBFileNotification = Notification.Name("VLCDidUpdateSnapshotLibraryDBFileNotification")
 }

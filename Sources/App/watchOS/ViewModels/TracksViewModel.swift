@@ -19,26 +19,25 @@ class TracksViewModel: TrackModel, ObservableObject {
     @Published var isFirstLoad = true
 
     lazy var playbackService = PlaybackService.sharedInstance()
-    var snapshotMediaLibrary: MediaLibraryService? // medialibrary-snapshot.db, used for displaying ml metadata from iphone
 
     required init(medialibrary: MediaLibraryService) {
         super.init(medialibrary: medialibrary)
-    }
-
-    convenience init(medialibrary: MediaLibraryService, snapshotMediaLibrary: MediaLibraryService) {
-        self.init(medialibrary: medialibrary)
-        self.snapshotMediaLibrary = snapshotMediaLibrary
 
         loadMediaSyncIDs()
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleMediaSyncIdsUpdated(_:)),
-                                               name: .VLCMediaSyncIDsUpdatedNotification,
+                                               selector: #selector(handleMLSyncStateUpdated(_:)),
+                                               name: .VLCMLSyncStateUpdatedNotification,
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleDidReceiveMediaLibraryDBFile),
-                                               name: .VLCDidReceiveMediaLibraryDBFileNotification,
+                                               selector: #selector(handleDidReceiveSnapshotLibraryDBFile),
+                                               name: .VLCDidReceiveSnapshotLibraryDBFileNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleDidUpdateSnapshotLibraryDBFile),
+                                               name: .VLCDidUpdateSnapshotLibraryDBFileNotification,
                                                object: nil)
 
         observable.addObserver(self)
@@ -69,18 +68,24 @@ class TracksViewModel: TrackModel, ObservableObject {
         MLSyncManager.shared.didAddTracks(tracks)
     }
 
-    @objc private func handleMediaSyncIdsUpdated(_ notification: Notification) {
-        guard let syncMediaIDs = notification.userInfo?["mediaSyncIDs"] as? [MediaSyncID] else { return }
+    @objc private func handleMLSyncStateUpdated(_ notification: Notification) {
+        guard let state = notification.userInfo?["mlSyncState"] as? MLSyncState else { return }
 
         DispatchQueue.main.async {
-            self.mediaSyncIds = syncMediaIDs
-            print("TracksViewModel: handleMediaSyncIdsUpdated \(syncMediaIDs)")
+            self.mediaSyncIds = state.mediaSyncIds
+            print("TracksViewModel: handleMediaSyncIdsUpdated \(self.mediaSyncIds)")
         }
+
+        loadSnapshotMediaLibrary()
+        loadDownloadedTracksOnWatch()
     }
 
-    @objc private func handleDidReceiveMediaLibraryDBFile() {
-        print("handleDidReceiveMediaLibraryDBFile()")
-        snapshotMediaLibrary = MediaLibraryService(databaseName: kVLCSnapshotMediaLibraryDBFileName)
+    @objc private func handleDidReceiveSnapshotLibraryDBFile() {
+        VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService = MediaLibraryService(libraryType: .snapshotLibrary)
+        NotificationCenter.default.post(name: .VLCDidUpdateSnapshotLibraryDBFileNotification, object: nil)
+    }
+
+    @objc private func handleDidUpdateSnapshotLibraryDBFile() {
         loadSnapshotMediaLibrary()
     }
 
@@ -98,7 +103,7 @@ class TracksViewModel: TrackModel, ObservableObject {
     // Fetches the audio files metadata from medialibrary-snapshot.db
     private func loadSnapshotMediaLibrary() {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let audioFiles = self.snapshotMediaLibrary?.medialib.audioFiles() {
+            if let audioFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.audioFiles() {
                 DispatchQueue.main.async {
                     self.snapshotMedias = audioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
                 }

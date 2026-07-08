@@ -32,16 +32,14 @@ struct VLCWatchOSApp: App {
                                .transferCurrentComplicationUserInfo]
 
     let mediaLibraryService: MediaLibraryService
-    let snapshotMediaLibraryService: MediaLibraryService
     let playbackService: PlaybackService
 
     init() {
         mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
-        snapshotMediaLibraryService = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService
         playbackService = PlaybackService.sharedInstance()
-        let artistsViewModel = ArtistsViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
-        let albumsViewModel = AlbumsViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
-        let tracksViewModel = TracksViewModel(medialibrary: mediaLibraryService, snapshotMediaLibrary: snapshotMediaLibraryService)
+        let artistsViewModel = ArtistsViewModel(medialibrary: mediaLibraryService)
+        let albumsViewModel = AlbumsViewModel(medialibrary: mediaLibraryService)
+        let tracksViewModel = TracksViewModel(medialibrary: mediaLibraryService)
 
         _artistsViewModel = StateObject(wrappedValue: artistsViewModel)
         _albumsViewModel = StateObject(wrappedValue: albumsViewModel)

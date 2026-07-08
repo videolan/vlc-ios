@@ -68,8 +68,8 @@ final class MLSyncManager {
         do {
             let mlSyncStateData = try JSONEncoder().encode(state)
             try mlSyncStateData.write(to: mlSyncStateURL, options: .atomic)
-            NotificationCenter.default.post(name: .VLCMediaSyncIDsUpdatedNotification, object: nil,
-                                            userInfo: ["mediaSyncIDs": state.mediaSyncIds])
+            NotificationCenter.default.post(name: .VLCMLSyncStateUpdatedNotification, object: nil,
+                                            userInfo: ["mlSyncState": state])
             print("MLSyncManager: Successfully saved ml-sync-state.json: \(state)")
         } catch {
             assertionFailure("MLSyncManager: Failed to save syncMediaIds with error: \(error.localizedDescription)")

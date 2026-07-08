@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 @property (readonly) MediaLibraryService *mediaLibraryService;
 //#if TARGET_OS_WATCH
-@property (readonly) MediaLibraryService *snapshotMediaLibraryService;
+@property MediaLibraryService *snapshotMediaLibraryService;
 //#endif
 
 #if !TARGET_OS_WATCH

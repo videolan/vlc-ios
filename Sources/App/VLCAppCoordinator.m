@@ -52,7 +52,7 @@
     dispatch_once(&pred, ^{
         sharedInstance = [VLCAppCoordinator new];
         if (sharedInstance) {
-            sharedInstance->_mediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCMediaLibraryDBFileName];
+            sharedInstance->_mediaLibraryService = [[MediaLibraryService alloc] initWithLibraryType:MLServiceTypeMediaLibrary];
         }
     });
 
@@ -74,7 +74,7 @@
 - (MediaLibraryService *)mediaLibraryService
 {
     if (!_mediaLibraryService) {
-        _mediaLibraryService = [[MediaLibraryService alloc] initWithDatabaseName:kVLCMediaLibraryDBFileName];
+        _mediaLibraryService = [[MediaLibraryService alloc] initWithLibraryType:MLServiceTypeMediaLibrary];
     }
     return _mediaLibraryService;
 }

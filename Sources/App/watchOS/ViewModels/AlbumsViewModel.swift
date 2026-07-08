@@ -19,15 +19,12 @@ class AlbumsViewModel: AlbumModel, ObservableObject {
     @Published var isFirstLoad = true
     @Published var path = NavigationPath()
 
-    var snapshotMediaLibrary: MediaLibraryService?
-
     required init(medialibrary: MediaLibraryService) {
         super.init(medialibrary: medialibrary)
-    }
-
-    convenience init(medialibrary: MediaLibraryService, snapshotMediaLibrary: MediaLibraryService) {
-        self.init(medialibrary: medialibrary)
-        self.snapshotMediaLibrary = snapshotMediaLibrary
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleDidUpdateSnapshotLibraryDBFile),
+                                               name: .VLCDidUpdateSnapshotLibraryDBFileNotification,
+                                               object: nil)
     }
 
     func loadAlbums() {
@@ -36,9 +33,13 @@ class AlbumsViewModel: AlbumModel, ObservableObject {
         isFirstLoad = false
     }
 
+    @objc private func handleDidUpdateSnapshotLibraryDBFile() {
+        loadSnapshotAlbums()
+    }
+
     private func loadSnapshotAlbums() {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let albumFiles = self.snapshotMediaLibrary?.medialib.albums() {
+            if let albumFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.albums() {
                 DispatchQueue.main.async {
                     self.snapshotAlbums = albumFiles.map { VLCWatchMLAlbum($0) }.sorted { $0.id < $1.id}
                 }

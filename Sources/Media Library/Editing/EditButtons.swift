@@ -108,7 +108,7 @@ class EditButtonsFactory {
 //        actionList.append(.transferFile)
 //        actionList.append(.transferUserInfo)
 //        actionList.append(.transferComplicationUserInfo)
-        actionList.append(.transferMetadata)
+//        actionList.append(.transferMetadata)
 
         return actionList
     }
