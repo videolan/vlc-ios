@@ -1508,7 +1508,8 @@ extension MediaCategoryViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
 
         let clearAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CLEAR", comment: ""), style: .destructive) { _ in
-            self.mediaLibraryService.medialib.clearHistory(of: .global)
+            guard let historyModel = self.model as? HistoryModel else { return }
+            self.mediaLibraryService.medialib.clearHistory(by: historyModel.mediaType)
         }
 
         let alertController: UIAlertController = UIAlertController(title: NSLocalizedString("CLEAR_HISTORY_TITLE", comment: ""),
