@@ -18,6 +18,7 @@ fileprivate enum PlayerPanType {
 #if os(iOS)
     case brightness
     case volume
+    case frame
 #endif
     case seek
     case projection
@@ -758,7 +759,11 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
         if isHorizontalSwipe && playerController.isSwipeSeekGestureEnabled {
-            panType = .seek
+            if playbackService.isPlaying {
+                panType = .seek
+            } else {
+                panType = .frame
+            }
         } else if !isHorizontalSwipe {
             if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled && isBrightnessControlAvailable {
                 panType = .brightness
@@ -966,12 +971,12 @@ class PlayerViewController: UIViewController {
                 || (panType == .seek && playerController.isSwipeSeekGestureEnabled)
                 || (panType == .volume && playerController.isVolumeGestureEnabled)
                 || (panType == .brightness && playerController.isBrightnessGestureEnabled)
+                || panType == .frame
         else {
             return
         }
 #else
-        guard panType == .projection
-        else {
+        guard panType == .projection else {
             return
         }
 #endif
@@ -1068,6 +1073,14 @@ class PlayerViewController: UIViewController {
                 brightnessControl.value = min(max(newValue, 0), 1)
                 brightnessControl.applyValueToDevice()
                 brightnessControlView.updateIcon(level: brightnessControl.value)
+            }
+        case .frame:
+            if recognizer.state == .changed || recognizer.state == .ended {
+                if horizontalPanVelocity > 0 {
+                    playbackService.nextFrame()
+                } else {
+                    playbackService.previousFrame()
+                }
             }
 #endif
         case .projection:
