@@ -19,9 +19,7 @@
                     <subviews>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-jn-Qnx">
                             <rect key="frame" x="20" y="24" width="560" height="76"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="75" id="Hf9-Mj-8nt"/>
-                            </constraints>
+
                             <segments>
                                 <segment title="Vitesse de lecture"/>
                                 <segment title="Retard des sous-titres"/>

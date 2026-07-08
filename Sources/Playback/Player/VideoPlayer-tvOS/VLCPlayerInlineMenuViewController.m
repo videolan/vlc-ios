@@ -659,7 +659,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
             _valueLabel.text = [NSString stringWithFormat:@"%.0f ms", _value];
             break;
         case VLCPlayerStepperUnitRate:
-            _valueLabel.text = [NSString stringWithFormat:@"%.2fx", _value];
+            _valueLabel.text = [NSString stringWithFormat:@"%.2f×", _value];
             break;
     }
 }

@@ -297,7 +297,7 @@
     NSArray<NSNumber *> *presets = [[self class] speedPresets];
     NSMutableArray<VLCPlayerMenuItem *> *items = [NSMutableArray arrayWithCapacity:presets.count];
     for (NSNumber *preset in presets) {
-        NSString *itemTitle = [NSString stringWithFormat:@"%.2fx", preset.floatValue];
+        NSString *itemTitle = [NSString stringWithFormat:@"%.2f×", preset.floatValue];
         BOOL selected = fabsf(preset.floatValue - current) < 0.01f;
         VLCPlayerMenuItem *item = [VLCPlayerMenuItem itemWithTitle:itemTitle selected:selected];
         item.value = preset;

@@ -32,7 +32,7 @@ enum PlaybackSpeedConfig {
 
     @objc static func string(forSpeed speed: Float) -> String {
         let value = formatter.string(from: NSNumber(value: speed)) ?? String(format: "%.2f", speed)
-        return value + "x"
+        return value + "×"
     }
 }
 
