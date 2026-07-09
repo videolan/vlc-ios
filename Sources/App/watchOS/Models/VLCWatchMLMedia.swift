@@ -13,6 +13,10 @@
 import Foundation
 import SwiftUI
 
+protocol VLCWatchMLObject: Identifiable {
+    var id: VLCMLIdentifier { get }
+}
+
 // Wrapper around VLCMLMedia to be used in SwiftUI view
 struct VLCWatchMLMedia: VLCWatchMLObject {
     let id: VLCMLIdentifier
@@ -29,9 +33,9 @@ struct VLCWatchMLMedia: VLCWatchMLObject {
         self.trackNumber = Int(media.trackNumber)
     }
 
-    func isDownloaded(_ mediaSyncIds: [MediaSyncID], _ downloadedMediaIDs: Set<VLCMLIdentifier>) -> Bool {
+    func isDownloaded(_ mediaSyncIds: [MediaSyncID]) -> Bool {
         guard let watchMediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == id })?.watchMediaId else { return false }
-        return downloadedMediaIDs.contains(watchMediaId)
+        return mediaSyncIds.downloadedMediaIds.contains(watchMediaId)
     }
 }
 

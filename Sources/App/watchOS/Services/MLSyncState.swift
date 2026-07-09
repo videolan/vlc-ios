@@ -26,3 +26,9 @@ struct MediaSyncID: Codable {
     let iphoneMediaId: VLCMLIdentifier
     var watchMediaId: VLCMLIdentifier
 }
+
+extension Collection where Element == MediaSyncID {
+    var downloadedMediaIds: Set<VLCMLIdentifier> {
+        return Set(self.map { $0.watchMediaId })
+    }
+}

@@ -16,7 +16,6 @@ struct ArtistDetailListView: View {
     let snapshotAlbums: [VLCWatchMLAlbum]
     let snapshotMedias: [VLCWatchMLMedia]
 
-    var downloadedMediaIDs: Set<VLCMLIdentifier>
     var mediaSyncIds: [MediaSyncID]
 
     var didTapAlbum: (VLCWatchMLAlbum) -> Void
@@ -38,7 +37,7 @@ struct ArtistDetailListView: View {
                     TrackCellView(
                         media: media,
                         showTrackNumber: false,
-                        isDownloaded: media.isDownloaded(mediaSyncIds, downloadedMediaIDs)
+                        isDownloaded: media.isDownloaded(mediaSyncIds)
                     )
                     .onTapGesture {
                         didTapMedia(media)

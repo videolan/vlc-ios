@@ -86,6 +86,8 @@
 		32269BA12FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */; };
 		32269BA22FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */; };
 		322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
+		324ACA732FFF25C70002F804 /* MLSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */; };
+		324ACA742FFF25C80002F804 /* MLSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */; };
 		324BD7332FDB8BEA0037F446 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		324BD7342FDB8BEA0037F446 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		324BD7352FDB8BEA0037F446 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -123,7 +125,6 @@
 		32D467722FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D467712FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift */; };
 		32D467732FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D467712FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift */; };
 		32F050152FEBA42100FE4890 /* MLSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F050142FEBA42100FE4890 /* MLSyncManager.swift */; };
-		32F050162FEBA42100FE4890 /* MLSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F050142FEBA42100FE4890 /* MLSyncManager.swift */; };
 		32F2643A2FB4F1650046437D /* VLCSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F264362FB4E7F50046437D /* VLCSessionDelegate.swift */; };
 		32F2643E2FB4FBCB0046437D /* VLCWatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F264382FB4E95C0046437D /* VLCWatchMessage.swift */; };
 		32F264442FB50D8C0046437D /* VLCSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F264362FB4E7F50046437D /* VLCSessionDelegate.swift */; };
@@ -1560,6 +1561,7 @@
 		321B3B592FB6C92C007E4E8A /* UserInfoTransfersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTransfersView.swift; sourceTree = "<group>"; };
 		32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToRootHeader.swift; sourceTree = "<group>"; };
 		323B00FA2FC940590049CE0E /* VLCWatchMLMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCWatchMLMedia.swift; sourceTree = "<group>"; };
+		324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		3278C8C42FB7A230008581AA /* WatchLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLogger.swift; sourceTree = "<group>"; };
 		3278C8C82FB7D129008581AA /* TracksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewModel.swift; sourceTree = "<group>"; };
 		327973302FF5FFEA0007E3EC /* ArtistDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailListView.swift; sourceTree = "<group>"; };
@@ -2728,10 +2730,18 @@
 				323B00FA2FC940590049CE0E /* VLCWatchMLMedia.swift */,
 				3217BE762FCFDBEB006D75BC /* VLCWatchMLAlbum.swift */,
 				32F9AD762FD0FA28003736C1 /* VLCWatchMLArtist.swift */,
-				32F050142FEBA42100FE4890 /* MLSyncManager.swift */,
-				3282659D2FECABD600D3A097 /* MLSyncState.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		324ACA6E2FFEE3D30002F804 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				32F050142FEBA42100FE4890 /* MLSyncManager.swift */,
+				3282659D2FECABD600D3A097 /* MLSyncState.swift */,
+				324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3278C8C72FB7D116008581AA /* ViewModels */ = {
@@ -4371,6 +4381,7 @@
 		BE5EAB362DF75667007AF88A /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
+				324ACA6E2FFEE3D30002F804 /* Services */,
 				323B00FD2FC948320049CE0E /* Models */,
 				323B00F82FC8E2070049CE0E /* Views */,
 				32F264402FB4FC600046437D /* WatchConnectivity */,
@@ -6041,6 +6052,7 @@
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				7DC7BAA428C8955F00109F28 /* UISegmentedControl+CustomLabels.swift in Sources */,
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,
+				324ACA742FFF25C80002F804 /* MLSyncManagerProtocol.swift in Sources */,
 				7D0C208528C8993800CCFFEF /* VLCAppDelegate.m in Sources */,
 				44C8BBAE24AF36F4003F8940 /* SettingsController.swift in Sources */,
 				DD3EAC041BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
@@ -6131,7 +6143,6 @@
 				448BA8482D83116D008CCDFF /* PreferenceSetting.swift in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				1B39FA082C73BBA200F6F960 /* NSURLSessionConfiguration+default.m in Sources */,
-				32F050162FEBA42100FE4890 /* MLSyncManager.swift in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
 				7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */,
 				7D745DD12B88CEBE004B4DCD /* VLCSEPA.m in Sources */,
@@ -6654,6 +6665,7 @@
 				BEB724F12E560D20002A9729 /* View+CustomDialog.swift in Sources */,
 				BE5EABA42DF9D946007AF88A /* VLCWatchOSApp.swift in Sources */,
 				32F9AD772FD0FA28003736C1 /* VLCWatchMLArtist.swift in Sources */,
+				324ACA732FFF25C70002F804 /* MLSyncManagerProtocol.swift in Sources */,
 				327973332FF62DD50007E3EC /* TrackListView.swift in Sources */,
 				327973412FF7976D0007E3EC /* URL+printAllFiles.swift in Sources */,
 			);

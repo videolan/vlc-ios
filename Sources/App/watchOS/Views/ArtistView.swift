@@ -12,7 +12,8 @@
 
 import SwiftUI
 
-struct ArtistView: View {
+struct ArtistView<MLSyncManager>: View where MLSyncManager: ObservableMLSyncManager {
+    @EnvironmentObject var mlSyncManager: MLSyncManager
     @ObservedObject var artistsViewModel: ArtistsViewModel
     @ObservedObject var tracksViewModel: TracksViewModel
 
@@ -28,23 +29,22 @@ struct ArtistView: View {
             }
             .navigationDestination(for: VLCWatchMLArtist.self) { artist in
                 Group {
-                    if artist.albumsCount == 0 {
+                    if artist.albums.isEmpty {
                         TrackListView(snapshotMedias: artist.tracks,
-                                      downloadedMediaIDs: tracksViewModel.downloadedMediaIDs,
-                                      mediaSyncIds: tracksViewModel.mediaSyncIds) { track in
-                            tracksViewModel.play(media: track)
+                                      mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []) { track in
+
                         }
                     } else {
                         ArtistDetailListView(
                             snapshotAlbums: artist.albums,
                             snapshotMedias: artist.tracks,
-                            downloadedMediaIDs: tracksViewModel.downloadedMediaIDs,
-                            mediaSyncIds: tracksViewModel.mediaSyncIds,
+                            mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
                             didTapAlbum: { album in
                                 artistsViewModel.path.append(album)
                             },
                             didTapMedia: { media in
-                                tracksViewModel.play(media: media)
+                                guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
+                                tracksViewModel.play(mediaID: mediaId)
                             }
                         )
                     }
@@ -54,11 +54,11 @@ struct ArtistView: View {
             .navigationDestination(for: VLCWatchMLAlbum.self) { album in
                 let medias = album.tracks.map { VLCWatchMLMedia($0) }
                 TrackListView(snapshotMedias: medias,
-                              downloadedMediaIDs: tracksViewModel.downloadedMediaIDs,
-                              mediaSyncIds: tracksViewModel.mediaSyncIds,
+                              mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
                               showTrackNumber: true
-                ) { track in
-                    tracksViewModel.play(media: track)
+                ) { media in
+                    guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
+                    tracksViewModel.play(mediaID: mediaId)
                 }
                 .navigationTitle(album.title)
             }

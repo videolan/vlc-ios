@@ -12,7 +12,8 @@
 
 import SwiftUI
 
-struct AlbumView: View {
+struct AlbumView<MLSyncManager>: View where MLSyncManager: ObservableMLSyncManager {
+    @EnvironmentObject var mlSyncManager: MLSyncManager
     @ObservedObject var albumsViewModel: AlbumsViewModel
     @ObservedObject var tracksViewModel: TracksViewModel
 
@@ -31,11 +32,11 @@ struct AlbumView: View {
 
                 TrackListView(
                     snapshotMedias: medias,
-                    downloadedMediaIDs: tracksViewModel.downloadedMediaIDs,
-                    mediaSyncIds: tracksViewModel.mediaSyncIds,
+                    mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
                     showTrackNumber: true
                 ) { media in
-                    tracksViewModel.play(media: media)
+                    guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
+                    tracksViewModel.play(mediaID: mediaId)
                 }
                 .navigationTitle(album.title)
             }

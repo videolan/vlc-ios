@@ -12,35 +12,9 @@
 
 import SwiftUI
 
-protocol VLCWatchMLObject: Identifiable {
-    var id: VLCMLIdentifier { get }
-}
-
 protocol VLCWatchMLCellItem {
     var thumbnail: URL? { get }
     func placeholderName(for color: ColorScheme) -> String
-}
-
-struct MediaListView<Item: VLCWatchMLCellItem & VLCWatchMLObject, Title: View, Subtitle: View>: View {
-    @Environment(\.colorScheme) private var colorScheme
-    let items: [Item]
-    @ViewBuilder let titleView: (Item) -> Title
-    @ViewBuilder let subtitleView: (Item) -> Subtitle
-    let didTapCell: (Item) -> Void
-
-    var body: some View {
-        List(items) { item in
-            MediaCellView(
-                titleView: titleView(item),
-                subtitleView: subtitleView(item),
-                thumbnail: item.thumbnail,
-                placeholderImageName: item.placeholderName(for: colorScheme)
-            )
-            .onTapGesture {
-                didTapCell(item)
-            }
-        }
-    }
 }
 
 struct MediaCellView<Title: View, Subtitle: View>: View {
