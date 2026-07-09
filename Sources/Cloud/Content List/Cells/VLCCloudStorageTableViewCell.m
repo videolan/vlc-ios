@@ -305,9 +305,20 @@
 
         if (isDirectory) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else if (self.pcloudFile.isAudioFile) {
+            self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
+        } else if (self.pcloudFile.isVideoFile) {
+            self.thumbnailView.image = [UIImage imageNamed:@"movie"];
         } else {
-            // TO DO : FETCH THUMBNAIL
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+        }
+
+        if (!isDirectory && self.pcloudFile.hasThumbnail && self.pcloudFile.fileID != nil) {
+            [[VLCPCloudController pCloudInstance] thumbnailURLForFileID:self.pcloudFile.fileID completion:^(NSURL * _Nullable url) {
+                if (url) {
+                    [self->_thumbnailView setImageWithURL:url];
+                }
+            }];
         }
     }
 

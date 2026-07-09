@@ -19,6 +19,9 @@ import PCloudSDKSwift
     @objc var parent: NSNumber?
     @objc var name: String?
     @objc var isDirectory: Bool
+    @objc var isAudioFile: Bool = false
+    @objc var isVideoFile: Bool = false
+    @objc var hasThumbnail: Bool = false
 
     init(content: Content) {
         self.content = content
@@ -34,6 +37,9 @@ import PCloudSDKSwift
             self.name = content.fileMetadata?.name
             self.fileSize = content.fileMetadata?.size as? NSNumber
             self.isDirectory = false
+            self.isAudioFile = content.fileMetadata?.isAudio ?? false
+            self.isVideoFile = content.fileMetadata?.isVideo ?? false
+            self.hasThumbnail = content.fileMetadata?.hasThumbnail ?? false
         }
     }
 }

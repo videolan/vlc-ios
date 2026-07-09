@@ -116,6 +116,26 @@ class VLCPCloudController: VLCCloudStorageController {
         }).start()
     }
 
+    @objc func thumbnailURL(forFileID fileID: NSNumber, completion: @escaping (URL?) -> Void) {
+        guard let pCloudInstance = pCloudInstance else {
+            completion(nil)
+            return
+        }
+
+        let thumbnailSize = CGSize(width: 100, height: 100)
+        pCloudInstance.getThumbnailLink(forFile: fileID.uint64Value, thumbnailSize: thumbnailSize)
+            .addCompletionBlock { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let links):
+                        completion(links.first?.address)
+                    case .failure:
+                        completion(nil)
+                    }
+                }
+            }.start()
+    }
+
     func downloadFileToDocumentFolder(file: Content) {
         if self.downloadQueue == nil {
             downloadQueue = []
