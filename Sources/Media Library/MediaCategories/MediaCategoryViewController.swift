@@ -2860,7 +2860,8 @@ extension MediaCategoryViewController {
     // iPadOS 18+ keeps the tab bar at the top in regular width, but moves it back to
     // the bottom in compact width, so the anchor has to follow window resizes.
     private func updateFABButtonBottomConstraint() {
-        guard let tabBar = tabBarController?.tabBar,
+        guard fabButton.superview != nil,
+              let tabBar = tabBarController?.tabBar,
               let containerView = tabBarController?.view else { return }
 
         let anchorsToContainerBottom: Bool
