@@ -274,7 +274,7 @@
 
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
+    if ([filename isSupportedMediaFormat] || [filename isSupportedSubtitleFormat])
         return YES;
 
     return NO;

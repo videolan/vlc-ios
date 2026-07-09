@@ -113,7 +113,6 @@
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
     return [filename isSupportedMediaFormat]
-        || [filename isSupportedAudioMediaFormat]
         || [filename isSupportedSubtitleFormat];
 }
 

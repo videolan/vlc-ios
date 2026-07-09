@@ -12,37 +12,30 @@
  *****************************************************************************/
 
 #import "NSString+SupportedMedia.h"
+#import <VLCMediaLibraryKit/VLCMediaLibrary.h>
 
 @implementation NSString (SupportedMedia)
 
 - (BOOL)isSupportedMediaFormat
 {
-    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
-    return ([self rangeOfString:kSupportedFileExtensions options:options].location != NSNotFound);
-}
-
-- (BOOL)isSupportedAudioMediaFormat
-{
-    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
-    return ([self rangeOfString:kSupportedAudioFileExtensions options:options].location != NSNotFound);
+    return [VLCMediaLibrary isMediaExtensionSupported:self.pathExtension];
 }
 
 - (BOOL)isSupportedSubtitleFormat
 {
-    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
-    return ([self rangeOfString:kSupportedSubtitleFileExtensions options:options].location != NSNotFound);
+    return [VLCMediaLibrary isSubtitleExtensionSupported:self.pathExtension];
 }
 
 - (BOOL)isSupportedPlaylistFormat
 {
-    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
-    return ([self rangeOfString:kSupportedPlaylistFileExtensions options:options].location != NSNotFound);
+    return [VLCMediaLibrary isPlaylistExtensionSupported:self.pathExtension];
 }
 
 - (BOOL)isSupportedFormat
 {
-    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
-    return ([self rangeOfString:kSupportedSubtitleFileExtensions options:options].location != NSNotFound) || ([self rangeOfString:kSupportedAudioFileExtensions options:options].location != NSNotFound) || ([self rangeOfString:kSupportedFileExtensions options:options].location != NSNotFound);
+    NSString *extension = self.pathExtension;
+    return [VLCMediaLibrary isMediaExtensionSupported:extension]
+        || [VLCMediaLibrary isSubtitleExtensionSupported:extension];
 }
 
 @end
