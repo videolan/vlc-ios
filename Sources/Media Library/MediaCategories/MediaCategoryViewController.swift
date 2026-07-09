@@ -2076,6 +2076,10 @@ extension MediaCategoryViewController {
         }
     }
 
+    func showCollection(_ mediaCollection: MediaCollectionModel) {
+        pushCollectionViewController(for: mediaCollection)
+    }
+
     private func pushCollectionViewController(for mediaCollection: MediaCollectionModel) {
         let collectionViewController = CollectionCategoryViewController(mediaLibraryService,
                                                                         mediaCollection: mediaCollection)

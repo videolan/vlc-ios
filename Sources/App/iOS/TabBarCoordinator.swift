@@ -267,9 +267,7 @@ class TabBarCoordinator: NSObject {
     @objc func handleShortcutItem(_ item: UIApplicationShortcutItem) {
         switch item.type {
         case kVLCApplicationShortcutLastPlayed:
-            if let lastMedia = mediaLibraryService.medialib.history(of: .global)?.first {
-                PlaybackService.sharedInstance().play(lastMedia)
-            }
+            handleLastPlayedShortcut()
         case kVLCApplicationShortcutLocalVideo:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
                 vc is VideoViewController
@@ -289,6 +287,57 @@ class TabBarCoordinator: NSObject {
         default:
             assertionFailure("unhandled shortcut")
         }
+    }
+
+    private func handleLastPlayedShortcut() {
+        guard let lastMedia = mediaLibraryService.medialib.history(of: .global)?.first else {
+            return
+        }
+
+        if lastMedia.type() == .audio, let album = lastMedia.album {
+            openAlbum(album)
+        } else {
+            PlaybackService.sharedInstance().play(lastMedia)
+        }
+    }
+
+    private func openAlbum(_ album: VLCMLAlbum) {
+        let navigationController: UINavigationController
+        let mediaViewController: MediaViewController
+
+        if let albumsIndex = tabBarController.viewControllers?.firstIndex(where: {
+            ($0 as? UINavigationController)?.viewControllers.first is AlbumsViewController
+        }),
+           let albumsNavigationController = tabBarController.viewControllers?[albumsIndex] as? UINavigationController,
+           let albumsViewController = albumsNavigationController.viewControllers.first as? AlbumsViewController {
+            tabBarController.selectedIndex = albumsIndex
+            navigationController = albumsNavigationController
+            mediaViewController = albumsViewController
+        } else {
+            guard let audioIndex = tabBarController.viewControllers?.firstIndex(where: {
+                ($0 as? UINavigationController)?.viewControllers.first is AudioViewController
+            }),
+                  let audioNavigationController = tabBarController.viewControllers?[audioIndex] as? UINavigationController,
+                  let audioViewController = audioNavigationController.viewControllers.first as? AudioViewController else {
+                return
+            }
+
+            UserDefaults.standard.set(1, forKey: kVLCAudioTabIndex)
+            audioViewController.currentIndex = 1
+            audioViewController.moveToViewController(at: 1, animated: false)
+            tabBarController.selectedIndex = audioIndex
+            navigationController = audioNavigationController
+            mediaViewController = audioViewController
+        }
+
+        navigationController.popToRootViewController(animated: false)
+        mediaViewController.loadViewIfNeeded()
+        guard let categoryViewController = mediaViewController.viewControllers.first(where: {
+            $0 is AlbumCategoryViewController
+        }) as? MediaCategoryViewController else {
+            return
+        }
+        categoryViewController.showCollection(album)
     }
 }
 

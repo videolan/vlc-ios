@@ -13,6 +13,7 @@
 #import "VLCAppSceneDelegate.h"
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
+#import "VLCConstants.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
@@ -49,8 +50,15 @@
     }
 
     UIApplicationShortcutItem *shortcutItem = connectionOptions.shortcutItem;
-    if (shortcutItem) {
+    if ([shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed]) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+    } else {
+        if ([session.role isEqualToString:UIWindowSceneSessionRoleApplication]) {
+            [appDelegate restoreLastPlayedMediaList];
+        }
+        if (shortcutItem) {
+            [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+        }
     }
 }
 

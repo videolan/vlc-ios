@@ -215,6 +215,7 @@ class MediaLibraryService: NSObject {
     let subscriptionCacher = VLCSubscriptionCacher()
     private let artworkCacher = VLCArtworkCacher()
 #endif
+
     @objc var medialib: VLCMediaLibrary {
         ensureMediaLibrarySetup()
         return privateMediaLib

@@ -33,6 +33,7 @@
     BOOL _isComingFromHandoff;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
+    BOOL _didRequestLastPlayedMediaListRestore;
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     VLCSessionDelegate *sessionDelegate;
 # endif
@@ -152,28 +153,34 @@
                                                                           localizedSubtitle:nil
                                                                                        icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
                                                                                    userInfo:nil];
-    NSMutableArray *shortcutItems = [NSMutableArray arrayWithObjects:localVideoItem, localAudioItem, localplaylistItem, browseItem, nil];
     VLCMLMedia *lastMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib historyOfType:VLCMLHistoryTypeGlobal].firstObject;
     if (lastMedia) {
         UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
                                                                                     localizedTitle:NSLocalizedString(@"LAST_PLAYED", nil)
-                                                                                 localizedSubtitle:lastMedia.title
+                                                                                 localizedSubtitle:lastMedia.album.title ?: lastMedia.title
                                                                                               icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay]
                                                                                           userInfo:nil];
-        [shortcutItems insertObject:lastMediaItem atIndex:0];
+        application.shortcutItems = @[lastMediaItem, localVideoItem, localAudioItem, localplaylistItem, browseItem];
     } else {
-        UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
-                                                                                    localizedTitle:NSLocalizedString(@"LAST_PLAYED", nil)
-                                                                                 localizedSubtitle:NSLocalizedString(@"None", nil)
-                                                                                              icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay]
-                                                                                          userInfo:nil];
-        [shortcutItems insertObject:lastMediaItem atIndex:0];
+        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
     }
-    application.shortcutItems = shortcutItems;
+}
+
+- (void)restoreLastPlayedMediaList
+{
+    if (_didRequestLastPlayedMediaListRestore) {
+        return;
+    }
+    _didRequestLastPlayedMediaListRestore = YES;
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
+    });
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
 #if TARGET_OS_IOS
     if (@available(iOS 13.0, *)) {
         APLog(@"Using Scene flow");
@@ -184,11 +191,10 @@
         [self.window makeKeyAndVisible];
         [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         [self setupTabBarAppearance];
+        if (![shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed]) {
+            [self restoreLastPlayedMediaList];
+        }
     }
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
-    });
 
 #if TARGET_OS_IOS && !NO_WATCH
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -205,7 +211,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
 
-    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
     if (shortcutItem) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
     }
