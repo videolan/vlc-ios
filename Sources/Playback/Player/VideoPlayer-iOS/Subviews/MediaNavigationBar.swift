@@ -1,7 +1,7 @@
 /*****************************************************************************
  * MediaNavigationBar.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright (C) 2019-2026 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon # gmail.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
@@ -191,6 +191,16 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         ])
     }
 
+#if os(iOS)
+    @available(iOS 15.0, *)
+    func addPictureInPictureButton() {
+        addArrangedSubview(pictureInPictureButton)
+        NSLayoutConstraint.activate([
+            pictureInPictureButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
+    }
+#endif
+
     func updateDeviceButton(with image: UIImage?, color: UIColor) {
 #if os(iOS)
         deviceButton.setImage(image, for: .normal)
@@ -206,9 +216,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
             deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
-        if #available(iOS 15.0, *) {
-            pictureInPictureButton.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
-        }
 #else
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
@@ -228,9 +235,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(queueButton)
 #if os(iOS)
         addArrangedSubview(deviceButton)
-        if #available(iOS 15.0, *) {
-            addArrangedSubview(pictureInPictureButton)
-        }
 #else
         addArrangedSubview(airplayVolumeView)
 #endif

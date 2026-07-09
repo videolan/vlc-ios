@@ -2,7 +2,7 @@
  * VideoPlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2020-2022 VLC authors and VideoLAN
+ * Copyright (C) 2020-2026 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *          Maxime Chapelet <umxprime # videolabs.io>
@@ -451,6 +451,11 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupViews() {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
+#if os(iOS)
+        if #available(iOS 15.0, *) {
+            mediaNavigationBar.addPictureInPictureButton()
+        }
+#endif
         videoPlayerButtons()
         if playerController.isRememberStateEnabled {
             setupVideoControlsState()
