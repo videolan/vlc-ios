@@ -96,7 +96,7 @@
 
 - (void)updatePlaybackRate:(VLCMediaPlayer *)mediaPlayer
 {
-    self.playbackDuration = @(mediaPlayer.media.length.intValue / 1000.);
+    self.playbackDuration = @(mediaPlayer.media.length.value.longLongValue / 1000.);
     self.isLiveStream = self.playbackDuration.intValue <= 0;
     self.playbackRate = @(mediaPlayer.rate);
     VLCTime *elapsedPlaybackTime = mediaPlayer.time;
