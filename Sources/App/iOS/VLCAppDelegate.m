@@ -152,7 +152,24 @@
                                                                           localizedSubtitle:nil
                                                                                        icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
                                                                                    userInfo:nil];
-    application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
+    NSMutableArray *shortcutItems = [NSMutableArray arrayWithObjects:localVideoItem, localAudioItem, localplaylistItem, browseItem, nil];
+    VLCMLMedia *lastMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib historyOfType:VLCMLHistoryTypeGlobal].firstObject;
+    if (lastMedia) {
+        UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
+                                                                                    localizedTitle:NSLocalizedString(@"LAST_PLAYED", nil)
+                                                                                 localizedSubtitle:lastMedia.title
+                                                                                              icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay]
+                                                                                          userInfo:nil];
+        [shortcutItems insertObject:lastMediaItem atIndex:0];
+    } else {
+        UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
+                                                                                    localizedTitle:NSLocalizedString(@"LAST_PLAYED", nil)
+                                                                                 localizedSubtitle:NSLocalizedString(@"None", nil)
+                                                                                              icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay]
+                                                                                          userInfo:nil];
+        [shortcutItems insertObject:lastMediaItem atIndex:0];
+    }
+    application.shortcutItems = shortcutItems;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

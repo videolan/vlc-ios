@@ -178,6 +178,7 @@
 #define kVLCUserActivityPlaying @"org.videolan.vlc-ios.playing"
 
 #define kVLCApplicationShortcutLocalVideo @"ApplicationShortcutLocalVideo"
+#define kVLCApplicationShortcutLastPlayed @"ApplicationShortcutLastPlayed"
 #define kVLCApplicationShortcutLocalAudio @"ApplicationShortcutLocalAudio"
 #define kVLCApplicationShortcutNetwork @"ApplicationShortcutNetwork"
 #define kVLCApplicationShortcutPlaylist @"ApplicationShortcutPlaylist"

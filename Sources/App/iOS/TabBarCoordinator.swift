@@ -266,6 +266,10 @@ class TabBarCoordinator: NSObject {
 
     @objc func handleShortcutItem(_ item: UIApplicationShortcutItem) {
         switch item.type {
+        case kVLCApplicationShortcutLastPlayed:
+            if let lastMedia = mediaLibraryService.medialib.history(of: .global)?.first {
+                PlaybackService.sharedInstance().play(lastMedia)
+            }
         case kVLCApplicationShortcutLocalVideo:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
                 vc is VideoViewController

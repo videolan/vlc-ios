@@ -904,4 +904,4 @@
 "RADIO_DATA_LOAD_ERROR" = "There's been an error loading the data";
 "DISCOVER_LABEL" = "Discover";
 "RECENTS" = "Recents";
-
+"LAST_PLAYED" = "Last played";

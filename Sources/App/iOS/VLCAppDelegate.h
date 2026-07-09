@@ -20,5 +20,6 @@
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationLock;
 
 - (void)setupTabBarAppearance;
+- (void)configureShortCutItemsWithApplication:(UIApplication *)application;
 
 @end
