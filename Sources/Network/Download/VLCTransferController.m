@@ -158,9 +158,16 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         self->_activeDownloadItem = [VLCTransferItem downloadItemWithName:humanReadableFilename];
         [self _postStateDidChange];
 
-        if ([media.url.scheme isEqualToString:@"http"]) {
+        NSString *scheme = media.url.scheme.lowercaseString;
+        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+#if MEDIA_DOWNLOAD_DEBUG
+            APLog(@"[DownloadDebug] routing %@ (scheme '%@') to NSURLSession downloader", media.url, media.url.scheme);
+#endif
             [self->_httpDownloader downloadFileFromVLCMedia:media withName:humanReadableFilename expectedDownloadSize:expectedDownloadSize];
         } else {
+#if MEDIA_DOWNLOAD_DEBUG
+            APLog(@"[DownloadDebug] routing %@ (scheme '%@') to libvlc media downloader", media.url, media.url.scheme);
+#endif
             [self->_mediaDownloader downloadFileFromVLCMedia:media withName:humanReadableFilename expectedDownloadSize:expectedDownloadSize];
         }
 
