@@ -123,7 +123,7 @@ extension VLCURLHandler {
 
             let callback = matchCallback(key: key)
 
-            let value = components[1]
+            let value = components.dropFirst().joined(separator: "=")
 
             switch callback {
             case .url:
