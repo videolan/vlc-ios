@@ -94,7 +94,7 @@
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingCastingAudioPassthrough : @(NO),
                                   kVLCSettingCastingConversionQuality : @(2),
-                                  kVLCForceSMBV1 : @(YES),
+                                  kVLCForceSMBV1 : @(NO),
                                   kVLCAudioLibraryGridLayoutALBUMS : @(YES),
                                   kVLCAudioLibraryGridLayoutARTISTS : @(YES),
                                   kVLCAudioLibraryGridLayoutGENRES : @(YES),

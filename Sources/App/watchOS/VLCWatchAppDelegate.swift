@@ -81,7 +81,7 @@ class VLCWatchAppDelegate: NSObject, WKApplicationDelegate {
             kVLCSettingBackupMediaLibrary : false,
             kVLCSettingCastingAudioPassthrough : false,
             kVLCSettingCastingConversionQuality : 2,
-            kVLCForceSMBV1 : true,
+            kVLCForceSMBV1 : false,
             kVLCAudioLibraryGridLayoutALBUMS : true,
             kVLCAudioLibraryGridLayoutARTISTS : true,
             kVLCAudioLibraryGridLayoutGENRES : true,
