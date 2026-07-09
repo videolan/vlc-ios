@@ -7,6 +7,7 @@
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -431,16 +432,31 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     func update(playlist: VLCMLPlaylist) {
-        if lastPlayed {
-            handleLastPlayed()
-        } else {
-            newLabel.isHidden = true
-            dragIndicatorImageView.isHidden = false
-        }
+        newLabel.isHidden = true
+        dragIndicatorImageView.isHidden = false
+
+        let isCurrentlyPlayingPlaylist = UserDefaults.standard.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
+        let shouldDisplayLastPlayedText = lastPlayed && ((!playbackService.isPlaying && playbackService.currentlyPlayingMedia == nil) || !isCurrentlyPlayingPlaylist)
 
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
-        sizeDescriptionLabel.text = playlist.numberOfTracksString() + " · " + playlist.durationString()
+
+        let metadata = playlist.numberOfTracksString() + " · " + playlist.durationString()
+        if shouldDisplayLastPlayedText {
+            let lastPlayedText = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
+            let fullString = "\(lastPlayedText) · \(metadata)"
+
+            let attributedString = NSMutableAttributedString(string: fullString)
+            let lastPlayedRange = (fullString as NSString).range(of: lastPlayedText)
+
+            attributedString.addAttribute(.foregroundColor, value: PresentationTheme.current.colors.orangeUI, range: lastPlayedRange)
+            attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .subheadline).semibolded, range: lastPlayedRange)
+
+            sizeDescriptionLabel.attributedText = attributedString
+        } else {
+            sizeDescriptionLabel.text = metadata
+        }
+
         thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = playlist.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
@@ -651,13 +667,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let isCurrentlyPlayingPlaylist = UserDefaults.standard.bool(forKey: kVLCIsCurrentlyPlayingPlaylist)
         let shouldDisplayLastPlayedLabel = (!playbackService.isPlaying && playbackService.currentlyPlayingMedia == nil) || !isCurrentlyPlayingPlaylist
         newLabel.isHidden = !shouldDisplayLastPlayedLabel
-
-        if media is VLCMLPlaylist {
-            dragIndicatorImageView.isHidden = shouldDisplayLastPlayedLabel
-        } else {
-            dragIndicatorImageView.isHidden = true
-        }
-
+        dragIndicatorImageView.isHidden = true
         newLabel.text = NSLocalizedString("LAST_PLAYED_PLAYLIST_LABEL_TITLE", comment: "")
     }
 
