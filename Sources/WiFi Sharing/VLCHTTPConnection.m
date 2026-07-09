@@ -170,7 +170,7 @@ static NSMutableDictionary *authentifiedHosts;
 - (BOOL)isPasswordProtected:(NSString *)path
 {
     if ([authentifiedHosts objectForKey:[asyncSocket connectedHost]]
-        || [path hasPrefix:@"/public"]
+        || [path hasPrefix:@"/public/"]
         || [path isEqualToString:@"/favicon.ico"]) {
         return NO;
     }
