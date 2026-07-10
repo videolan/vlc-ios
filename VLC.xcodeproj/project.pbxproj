@@ -1102,6 +1102,8 @@
 		7DCD84F1242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
 		7DD3235A30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
 		7DD3235B30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
+		7DD3235E3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */; };
+		7DD3235F3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */; };
 		7DD71F9528FB421300327ACE /* VLCCarPlayPlaylistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */; };
 		7DD71F9728FB421300327ACE /* CPListTemplate+NetworkStreams.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8C28FB421300327ACE /* CPListTemplate+NetworkStreams.m */; };
 		7DD71F9828FB421300327ACE /* VLCCarPlayArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */; };
@@ -2054,6 +2056,8 @@
 		7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7DD3235830013CA100C9A583 /* VLCCarPlayFoldersController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayFoldersController.h; sourceTree = "<group>"; };
 		7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayFoldersController.m; sourceTree = "<group>"; };
+		7DD3235C3001432B00C9A583 /* VLCCarPlayAlbumsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayAlbumsController.h; sourceTree = "<group>"; };
+		7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayAlbumsController.m; sourceTree = "<group>"; };
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DD71F8828FB421300327ACE /* CPListTemplate+Genres.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPListTemplate+Genres.h"; sourceTree = "<group>"; };
 		7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayPlaylistsController.m; sourceTree = "<group>"; };
@@ -4091,6 +4095,8 @@
 				7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */,
 				7DD3235830013CA100C9A583 /* VLCCarPlayFoldersController.h */,
 				7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */,
+				7DD3235C3001432B00C9A583 /* VLCCarPlayAlbumsController.h */,
+				7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */,
 				7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */,
 			);
 			path = CarPlay;
@@ -5931,6 +5937,7 @@
 				DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */,
 				7DC7BAA228C8955F00109F28 /* UIBarButtonItem+Theme.m in Sources */,
 				44C8BBB324AF36F4003F8940 /* SettingsHeaderFooterView.swift in Sources */,
+				7DD3235F3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */,
 				7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */,
@@ -6262,6 +6269,7 @@
 				7DA514A02EF82B63000C9995 /* UIImage+AverageColor.m in Sources */,
 				7DA514A12EF82B63000C9995 /* VLCFirstStepsViewController.m in Sources */,
 				7DA514A22EF82B63000C9995 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
+				7DD3235E3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */,
 				7DA514A32EF82B63000C9995 /* VLCPlaybackService.m in Sources */,
 				32B7A66B2FA02ED000879A4D /* Character+Utility.swift in Sources */,
 				7DA514A42EF82B63000C9995 /* AudioPlayerView.swift in Sources */,
