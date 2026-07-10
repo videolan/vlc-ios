@@ -23,9 +23,9 @@
 + (CPListTemplate *)streamList
 {
     CPListSection *listSection = [[CPListSection alloc] initWithItems:[self listOfNetworkStreams]];
-    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"NETWORK_TITLE", nil)
+    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"STREAMS", nil)
                                                             sections:@[listSection]];
-    template.tabTitle = NSLocalizedString(@"NETWORK", nil);
+    template.tabTitle = NSLocalizedString(@"STREAMS", nil);
     template.tabImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
     return template;
 }
