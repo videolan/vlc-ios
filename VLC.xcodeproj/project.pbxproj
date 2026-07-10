@@ -1106,6 +1106,8 @@
 		7DD3235F3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */; };
 		7DD32362300143D300C9A583 /* VLCCarPlayLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD32361300143D300C9A583 /* VLCCarPlayLibraryController.m */; };
 		7DD32363300143D300C9A583 /* VLCCarPlayLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD32361300143D300C9A583 /* VLCCarPlayLibraryController.m */; };
+		7DD3236630014BF300C9A583 /* UIImage+PaddedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3236530014BF300C9A583 /* UIImage+PaddedImage.m */; };
+		7DD3236730014BF300C9A583 /* UIImage+PaddedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3236530014BF300C9A583 /* UIImage+PaddedImage.m */; };
 		7DD71F9528FB421300327ACE /* VLCCarPlayPlaylistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */; };
 		7DD71F9728FB421300327ACE /* CPListTemplate+NetworkStreams.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8C28FB421300327ACE /* CPListTemplate+NetworkStreams.m */; };
 		7DD71F9828FB421300327ACE /* VLCCarPlayArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */; };
@@ -2062,6 +2064,8 @@
 		7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayAlbumsController.m; sourceTree = "<group>"; };
 		7DD32360300143D300C9A583 /* VLCCarPlayLibraryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayLibraryController.h; sourceTree = "<group>"; };
 		7DD32361300143D300C9A583 /* VLCCarPlayLibraryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayLibraryController.m; sourceTree = "<group>"; };
+		7DD3236430014BF300C9A583 /* UIImage+PaddedImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+PaddedImage.h"; sourceTree = "<group>"; };
+		7DD3236530014BF300C9A583 /* UIImage+PaddedImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PaddedImage.m"; sourceTree = "<group>"; };
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DD71F8828FB421300327ACE /* CPListTemplate+Genres.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPListTemplate+Genres.h"; sourceTree = "<group>"; };
 		7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayPlaylistsController.m; sourceTree = "<group>"; };
@@ -3517,6 +3521,8 @@
 				7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */,
 				7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */,
 				7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */,
+				7DD3236430014BF300C9A583 /* UIImage+PaddedImage.h */,
+				7DD3236530014BF300C9A583 /* UIImage+PaddedImage.m */,
 				7DC186592A0BB0C3009E84E1 /* UIImage+Gradient.swift */,
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
 				7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */,
@@ -6068,6 +6074,7 @@
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
 				7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */,
 				7DBF605B2B5D64FF00F16BB4 /* VLCFirstStepsBaseViewController.m in Sources */,
+				7DD3236630014BF300C9A583 /* UIImage+PaddedImage.m in Sources */,
 				6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */,
 				4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
@@ -6332,6 +6339,7 @@
 				7DA514D02EF82B63000C9995 /* NSURLSessionConfiguration+default.m in Sources */,
 				7DA514D12EF82B63000C9995 /* MediaLibraryBaseModel.swift in Sources */,
 				7DA514D22EF82B63000C9995 /* VLCOneDriveController.m in Sources */,
+				7DD3236730014BF300C9A583 /* UIImage+PaddedImage.m in Sources */,
 				7DA514D32EF82B63000C9995 /* VLCSEPA.m in Sources */,
 				7DA514D42EF82B63000C9995 /* VLCSubtitleItem.m in Sources */,
 				7DA514D52EF82B63000C9995 /* VideoPlayerViewController.swift in Sources */,
