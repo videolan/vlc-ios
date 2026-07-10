@@ -14,11 +14,9 @@
 
 #import <CarPlay/CarPlay.h>
 
-#import "VLCCarPlayArtistsController.h"
-#import "CPListTemplate+Genres.h"
+#import "VLCCarPlayLibraryController.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "VLCCarPlayPlaylistsController.h"
-#import "VLCCarPlayFoldersController.h"
 #import "VLCCarPlayListLimit.h"
 #import "VLCNowPlayingTemplateObserver.h"
 
@@ -32,9 +30,8 @@
     CPInterfaceController *_interfaceController;
     CarPlayMediaLibraryObserver *_mediaLibraryObserver;
     VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
-    VLCCarPlayArtistsController *_artistsController;
+    VLCCarPlayLibraryController *_libraryController;
     VLCCarPlayPlaylistsController *_playlistsController;
-    VLCCarPlayFoldersController *_foldersController;
     CPListTemplate *_playQueueTemplate;
     CPListSection *_section;
     VLCPlaybackService *_playbackService;
@@ -82,26 +79,20 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 
 - (CPTabBarTemplate *)generateRootTemplate
 {
-    if (!_artistsController) {
-        _artistsController = [[VLCCarPlayArtistsController alloc] init];
-        _artistsController.interfaceController = _interfaceController;
+    if (!_libraryController) {
+        _libraryController = [[VLCCarPlayLibraryController alloc] init];
+        _libraryController.interfaceController = _interfaceController;
     }
     if (!_playlistsController) {
         _playlistsController = [[VLCCarPlayPlaylistsController alloc] init];
         _playlistsController.interfaceController = _interfaceController;
     }
-    if (!_foldersController) {
-        _foldersController = [[VLCCarPlayFoldersController alloc] init];
-        _foldersController.interfaceController = _interfaceController;
-    }
 
-    CPListTemplate *artists = [_artistsController artistList];
-    CPListTemplate *genres = [CPListTemplate genreList];
-    CPListTemplate *streams = [CPListTemplate streamList];
+    CPGridTemplate *library = [_libraryController libraryTemplate];
     CPListTemplate *playlists = [_playlistsController playlists];
-    CPListTemplate *folders = [_foldersController folderList];
+    CPListTemplate *streams = [CPListTemplate streamList];
 
-    return [[CPTabBarTemplate alloc] initWithTemplates:@[artists, genres, streams, playlists, folders]];
+    return [[CPTabBarTemplate alloc] initWithTemplates:@[library, playlists, streams]];
 }
 
 - (void)templatesNeedUpdate
