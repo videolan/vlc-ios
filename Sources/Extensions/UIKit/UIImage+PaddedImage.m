@@ -24,9 +24,11 @@
     UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:size];
     UIImage *paddedImage = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
         CGSize symbolSize = symbolImage.size;
-        CGRect drawRect = CGRectMake((size.width - symbolSize.width) / 2.0,
-                                     (size.height - symbolSize.height) / 2.0,
-                                     symbolSize.width, symbolSize.height);
+        CGFloat scale = MIN(1.0, MIN(size.width * 0.8 / symbolSize.width, size.height * 0.8 / symbolSize.height));
+        CGSize scaledSize = CGSizeMake(symbolSize.width * scale, symbolSize.height * scale);
+        CGRect drawRect = CGRectMake((size.width - scaledSize.width) / 2.0,
+                                     (size.height - scaledSize.height) / 2.0,
+                                     scaledSize.width, scaledSize.height);
         [symbolImage drawInRect:drawRect];
     }];
 

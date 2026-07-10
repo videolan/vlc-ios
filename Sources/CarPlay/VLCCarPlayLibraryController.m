@@ -14,6 +14,7 @@
 #import "VLCCarPlayAlbumsController.h"
 #import "CPListTemplate+Genres.h"
 #import "VLCCarPlayFoldersController.h"
+#import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -41,18 +42,23 @@
         _foldersController.interfaceController = self.interfaceController;
     }
 
+    CGSize iconSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        iconSize = [CPListItem maximumImageSize];
+    }
+
     NSArray<CPGridButton *> *buttons = @[
         [self buttonWithTitle:NSLocalizedString(@"ARTISTS", nil)
-                        image:[self gridTileImageForSymbolNamed:@"music.mic"]
+                        image:[UIImage paddedImageForSymbol:@"music.mic" ofSize:iconSize]
                      template:^{ return [self->_artistsController artistList]; }],
         [self buttonWithTitle:NSLocalizedString(@"ALBUMS", nil)
-                        image:[self gridTileImageForSymbolNamed:@"square.stack"]
+                        image:[UIImage paddedImageForSymbol:@"square.stack" ofSize:iconSize]
                      template:^{ return [self->_albumsController albumList]; }],
         [self buttonWithTitle:NSLocalizedString(@"GENRES", nil)
-                        image:[self gridTileImageForSymbolNamed:@"tag"]
+                        image:[UIImage paddedImageForSymbol:@"tag" ofSize:iconSize]
                      template:^{ return [CPListTemplate genreList]; }],
         [self buttonWithTitle:NSLocalizedString(@"FOLDERS", nil)
-                        image:[self gridTileImageForSymbolNamed:@"folder"]
+                        image:[UIImage paddedImageForSymbol:@"folder" ofSize:iconSize]
                      template:^{ return [self->_foldersController folderList]; }],
     ];
 
@@ -72,28 +78,6 @@
                                                handler:^(CPGridButton * _Nonnull button) {
         [self.interfaceController pushTemplate:templateProvider() animated:YES];
     }];
-}
-
-- (UIImage *)gridTileImageForSymbolNamed:(NSString *)symbolName
-{
-    CGSize canvasSize = CGSizeMake(80.0, 80.0);
-    if (@available(iOS 14.0, *)) {
-        canvasSize = [CPListItem maximumImageSize];
-    }
-
-    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:canvasSize.height * 0.55];
-    UIImage *symbol = [UIImage systemImageNamed:symbolName withConfiguration:configuration];
-
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:canvasSize];
-    UIImage *paddedImage = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
-        CGSize symbolSize = symbol.size;
-        CGRect drawRect = CGRectMake((canvasSize.width - symbolSize.width) / 2.0,
-                                     (canvasSize.height - symbolSize.height) / 2.0,
-                                     symbolSize.width, symbolSize.height);
-        [symbol drawInRect:drawRect];
-    }];
-
-    return [paddedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 @end

@@ -11,6 +11,7 @@
 
 #import "VLCCarPlayFoldersController.h"
 #import "VLCCarPlayListLimit.h"
+#import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -20,28 +21,6 @@ NSString *VLCCarPlayFolderMedia = @"VLCCarPlayFolderMedia";
 NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
 
 @implementation VLCCarPlayFoldersController
-
-- (UIImage *)folderIcon
-{
-    CGSize canvasSize = CGSizeMake(80.0, 80.0);
-    if (@available(iOS 14.0, *)) {
-        canvasSize = [CPListItem maximumImageSize];
-    }
-
-    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:canvasSize.height * 0.55];
-    UIImage *symbol = [UIImage systemImageNamed:@"folder" withConfiguration:configuration];
-
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:canvasSize];
-    UIImage *paddedImage = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
-        CGSize symbolSize = symbol.size;
-        CGRect drawRect = CGRectMake((canvasSize.width - symbolSize.width) / 2.0,
-                                     (canvasSize.height - symbolSize.height) / 2.0,
-                                     symbolSize.width, symbolSize.height);
-        [symbol drawInRect:drawRect];
-    }];
-
-    return [paddedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-}
 
 - (CPListTemplate *)folderList
 {
@@ -62,7 +41,12 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
 
     NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
     NSMutableArray *itemList = [NSMutableArray array];
-    UIImage *folderIcon = [self folderIcon];
+
+    CGSize iconSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        iconSize = [CPListItem maximumImageSize];
+    }
+    UIImage *folderIcon = [UIImage paddedImageForSymbol:@"folder" ofSize:iconSize];
 
     NSArray<VLCMLFolder *> *subfolders = [folder subfoldersWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
     for (VLCMLFolder *subfolder in subfolders) {
