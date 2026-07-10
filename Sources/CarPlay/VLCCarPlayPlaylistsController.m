@@ -2,7 +2,7 @@
  * VLCCarPlayPlaylistsController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -40,7 +40,10 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
     NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:count];
     for (NSUInteger i = 0; i < count; i++) {
         VLCMLMedia *iter = media[i];
-        UIImage *artwork = [iter thumbnailImage];
+        UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
+        if (!artwork) {
+            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+        }
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
         CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
                                                      detailText:detailText
