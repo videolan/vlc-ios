@@ -2,7 +2,7 @@
  * CPListTemplate+Artists.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -16,6 +16,9 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
+
+NSString *VLCCarPlayAlbumTracks = @"VLCCarPlayAlbumTracks";
+NSString *VLCCarPlayAlbumTrackIndex = @"VLCCarPlayAlbumTrackIndex";
 
 @implementation VLCCarPlayArtistsController
 
@@ -53,8 +56,55 @@
         listItem.handler = ^(id <CPSelectableListItem> item,
                              dispatch_block_t completionBlock) {
             VLCMLAlbum *album = item.userInfo;
+            if (album.numberOfTracks > 1) {
+                CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfTracksForAlbum:album]];
+                CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:album.title
+                                                                                sections:@[subitemsSection]];
+                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+            } else {
+                VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+                [playbackService playCollection:[album tracks]];
+            }
+            completionBlock();
+        };
+
+        [itemList addObject:listItem];
+    }
+    return itemList;
+}
+
+- (NSArray *)listOfTracksForAlbum:(VLCMLAlbum *)album
+{
+    NSArray *tracks = [album tracksWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
+    BOOL isCollection = album.artists.count > 1;
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSUInteger count = MIN(tracks.count, maximumItemCount);
+    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:count];
+    for (NSUInteger i = 0; i < count; i++) {
+        VLCMLMedia *iter = tracks[i];
+        UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
+        if (!artwork) {
+            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+        }
+        NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
+        if (isCollection) {
+            NSString *artistName = iter.artist.name;
+            if (artistName.length > 0) {
+                detailText = [artistName stringByAppendingFormat:@" · %@", detailText];
+            }
+        }
+        CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
+                                                     detailText:detailText
+                                                          image:artwork];
+        listItem.userInfo = @{ VLCCarPlayAlbumTracks : tracks,
+                               VLCCarPlayAlbumTrackIndex : @(i) };
+        listItem.handler = ^(id <CPSelectableListItem> item,
+                             dispatch_block_t completionBlock) {
+            NSDictionary *userInfo = item.userInfo;
+            NSArray *tracks = userInfo[VLCCarPlayAlbumTracks];
+            NSNumber *index = userInfo[VLCCarPlayAlbumTrackIndex];
             VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
-            [playbackService playCollection:[album tracks]];
+            [playbackService playMediaAtIndex:index.intValue fromCollection:tracks];
             completionBlock();
             if (@available(iOS 14.0, *)) {
                 [self.interfaceController popToRootTemplateAnimated:YES completion:nil];
@@ -112,8 +162,16 @@
                                                                                 sections:@[subitemsSection]];
                 [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
             } else {
-                VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
-                [playbackService playCollection:[artist tracks]];
+                VLCMLAlbum *album = artist.albums.firstObject;
+                if (album != nil) {
+                    CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfTracksForAlbum:album]];
+                    CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:album.title
+                                                                                    sections:@[subitemsSection]];
+                    [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                } else {
+                    VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+                    [playbackService playCollection:[artist tracks]];
+                }
             }
             completionBlock();
         };
