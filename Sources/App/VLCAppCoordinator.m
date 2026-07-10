@@ -200,7 +200,7 @@
     VLCMLIdentifier identifier = 0;
     NSDictionary *userInfo = userActivity.userInfo;
 
-    if (userActivity.activityType == CSSearchableItemActionType) {
+    if ([userActivity.activityType isEqualToString:CSSearchableItemActionType]) {
         identifier = [userInfo[CSSearchableItemActivityIdentifier] integerValue];
     } else {
         identifier = [userInfo[@"playingmedia"] integerValue];
