@@ -91,6 +91,10 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
             artwork = mediaPlaceholder;
         }
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
+        NSString *artistName = iter.artist.name;
+        if (artistName.length > 0) {
+            detailText = [artistName stringByAppendingFormat:@" · %@", detailText];
+        }
         CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
                                                      detailText:detailText
                                                           image:artwork];
