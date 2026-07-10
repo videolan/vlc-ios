@@ -11,6 +11,7 @@
 
 #import "VLCCarPlayAlbumsController.h"
 #import "VLCCarPlayListLimit.h"
+#import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -39,11 +40,21 @@ static NSString *const VLCCarPlayAlbumsTrackIndex = @"VLCCarPlayAlbumsTrackIndex
     NSUInteger count = MIN(albums.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
+    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        placeholderSize = [CPListItem maximumImageSize];
+    }
+    NSString *placeholderSymbol = @"square.stack";
+    if (@available(iOS 16.0, *)) {
+        placeholderSymbol = @"music.note.square.stack";
+    }
+    UIImage *placeholder = [UIImage paddedImageForSymbol:placeholderSymbol ofSize:placeholderSize];
+
     for (NSUInteger index = 0; index < count; index++) {
         VLCMLAlbum *album = albums[index];
         UIImage *albumCover = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
         if (!albumCover) {
-            albumCover = [UIImage imageNamed:@"album-placeholder-dark"];
+            albumCover = placeholder;
         }
 
         NSString *detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
@@ -81,11 +92,18 @@ static NSString *const VLCCarPlayAlbumsTrackIndex = @"VLCCarPlayAlbumsTrackIndex
     NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
     NSUInteger count = MIN(tracks.count, maximumItemCount);
     NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:count];
+
+    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        placeholderSize = [CPListItem maximumImageSize];
+    }
+    UIImage *placeholder = [UIImage paddedImageForSymbol:@"music.note" ofSize:placeholderSize];
+
     for (NSUInteger i = 0; i < count; i++) {
         VLCMLMedia *iter = tracks[i];
         UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
         if (!artwork) {
-            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+            artwork = placeholder;
         }
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
         if (isCollection) {

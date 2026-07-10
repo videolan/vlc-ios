@@ -12,6 +12,7 @@
 
 #import "CPListTemplate+Genres.h"
 #import "VLCCarPlayListLimit.h"
+#import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -25,7 +26,7 @@
     CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"GENRES", nil)
                                                                       sections:@[listSection]];
     template.tabTitle = NSLocalizedString(@"GENRES", nil);
-    template.tabImage = [UIImage imageNamed:@"cp-Genre"];
+    template.tabImage = [UIImage systemImageNamed:@"tag"];
     return template;
 }
 
@@ -37,6 +38,12 @@
     NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
     NSUInteger count = MIN(genres.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
+
+    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        placeholderSize = [CPListItem maximumImageSize];
+    }
+    UIImage *placeholder = [UIImage paddedImageForSymbol:@"tag" ofSize:placeholderSize];
 
     for (NSUInteger x = 0; x < count; x++) {
         CPListItem *listItem;
@@ -54,7 +61,7 @@
             }
         }
         if (!genreImage) {
-            genreImage = [UIImage imageNamed:@"cp-Genre"];
+            genreImage = placeholder;
         }
 
         listItem = [[CPListItem alloc] initWithText:iter.name detailText:iter.numberOfTracksString image:genreImage];

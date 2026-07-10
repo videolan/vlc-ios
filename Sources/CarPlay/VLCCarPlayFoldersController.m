@@ -75,6 +75,8 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
         [itemList addObject:listItem];
     }
 
+    UIImage *mediaPlaceholder = [UIImage paddedImageForSymbol:@"doc" ofSize:iconSize];
+
     NSArray<VLCMLMedia *> *media = [folder mediaOfType:VLCMLMediaTypeAudio
                                        sortingCriteria:VLCMLSortingCriteriaDefault
                                                   desc:NO];
@@ -86,7 +88,7 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
         VLCMLMedia *iter = media[i];
         UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
         if (!artwork) {
-            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+            artwork = mediaPlaceholder;
         }
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
         CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title

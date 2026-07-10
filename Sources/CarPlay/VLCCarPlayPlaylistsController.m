@@ -12,6 +12,7 @@
 
 #import "VLCCarPlayPlaylistsController.h"
 #import "VLCCarPlayListLimit.h"
+#import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -28,7 +29,7 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
     CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"PLAYLISTS", nil)
                                                                             sections:@[listSection]];
     template.tabTitle = NSLocalizedString(@"PLAYLISTS", nil);
-    template.tabImage = [UIImage imageNamed:@"cp-Playlist"];
+    template.tabImage = [UIImage systemImageNamed:@"music.note.list"];
     return template;
 }
 
@@ -38,11 +39,18 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
     NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
     NSUInteger count = MIN(media.count, maximumItemCount);
     NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:count];
+
+    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        placeholderSize = [CPListItem maximumImageSize];
+    }
+    UIImage *placeholder = [UIImage paddedImageForSymbol:@"music.note" ofSize:placeholderSize];
+
     for (NSUInteger i = 0; i < count; i++) {
         VLCMLMedia *iter = media[i];
         UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
         if (!artwork) {
-            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+            artwork = placeholder;
         }
         NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
         CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
@@ -79,13 +87,19 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
     NSUInteger count = MIN(playlists.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
+    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        placeholderSize = [CPListItem maximumImageSize];
+    }
+    UIImage *placeholder = [UIImage paddedImageForSymbol:@"music.note.list" ofSize:placeholderSize];
+
     for (NSUInteger x = 0; x < count; x++) {
         CPListItem *listItem;
 
         VLCMLPlaylist *iter = playlists[x];
         UIImage *artworkImage = iter.thumbnailImage;
         if (!artworkImage) {
-            artworkImage = [UIImage imageNamed:@"cp-Playlist"];
+            artworkImage = placeholder;
         }
 
         NSString *detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),

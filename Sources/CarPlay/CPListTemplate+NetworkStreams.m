@@ -12,6 +12,7 @@
 
 #import "CPListTemplate+NetworkStreams.h"
 #import "VLCCarPlayListLimit.h"
+#import "UIImage+PaddedImage.h"
 #import "VLCPlaybackService.h"
 
 #pragma clang diagnostic push
@@ -25,7 +26,7 @@
     CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"NETWORK_TITLE", nil)
                                                             sections:@[listSection]];
     template.tabTitle = NSLocalizedString(@"NETWORK", nil);
-    template.tabImage = [UIImage imageNamed:@"cp-Stream"];
+    template.tabImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
     return template;
 }
 
@@ -52,6 +53,12 @@
     NSUInteger count = MIN(recentURLs.count, maximumItemCount);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
+    CGSize iconSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        iconSize = [CPListItem maximumImageSize];
+    }
+    UIImage *streamIcon = [UIImage paddedImageForSymbol:@"antenna.radiowaves.left.and.right" ofSize:iconSize];
+
     for (NSUInteger x = 0; x < count; x++) {
         CPListItem *listItem;
 
@@ -61,7 +68,7 @@
 
         listItem = [[CPListItem alloc] initWithText:possibleTitle ?: [content lastPathComponent]
                                          detailText:content
-                                              image:[UIImage imageNamed:@"cp-Stream"]];
+                                              image:streamIcon];
         listItem.userInfo = [NSURL URLWithString:recentURLString];
         listItem.handler = ^(id <CPSelectableListItem> item,
                              dispatch_block_t completionBlock) {
