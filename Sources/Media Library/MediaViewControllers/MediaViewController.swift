@@ -599,14 +599,14 @@ extension MediaViewController {
     func generateFolderMenu() -> UIMenu {
         let isFolderLayout = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
         let folderAction = UIAction(
-            title: NSLocalizedString("BUTTON_FOLDER", comment: ""),
+            title: NSLocalizedString("FOLDERS", comment: ""),
             image: UIImage(systemName: "folder"),
             state: isFolderLayout ? .on : .off
         ) { _ in
             self.handleFolders()
         }
 
-        folderAction.accessibilityLabel = NSLocalizedString("BUTTON_FOLDER", comment: "")
+        folderAction.accessibilityLabel = NSLocalizedString("FOLDERS", comment: "")
         folderAction.accessibilityHint = NSLocalizedString("BUTTON_FOLDER_HINT", comment: "")
 
         return UIMenu(options: .displayInline, children: [folderAction])

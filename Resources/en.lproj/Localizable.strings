@@ -363,6 +363,7 @@
 "SONGS" = "Songs";
 "PLAYLISTS" = "Playlists";
 "PLAYLIST" = "Playlist";
+"FOLDERS" = "Folders";
 "VIDEO_GROUPS" = "Video groups";
 "HISTORY" = "History";
 "MODIFIED_DATE" = "Modified date";
@@ -737,7 +738,6 @@
 "LAST_PLAYED_PLAYLIST_LABEL_TITLE" = "Last Played";
 
 //MARK - something with folders
-"BUTTON_FOLDER" = "Folders";
 "BUTTON_FOLDER_HINT" = "Browse your folders";
 "EMPTY_FOLDER" = "Empty Folder";
 "EMPTY_FOLDER_DES_VIDEO" = "We couldn't find any videos here. This folder may still contain audio files.";

@@ -25,7 +25,7 @@ class FolderModel: MLBaseModel {
     var isLoading = false
 
     var name: String = "Folder"
-    var indicatorName: String = NSLocalizedString("BUTTON_FOLDER", comment: "")
+    var indicatorName: String = NSLocalizedString("FOLDERS", comment: "")
     var cellType: BaseCollectionViewCell.Type {
         if isAudio {
             return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\("FOLDER_AUDIO")\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
