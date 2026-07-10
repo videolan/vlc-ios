@@ -120,10 +120,9 @@ NSString *VLCCarPlayAlbumTrackIndex = @"VLCCarPlayAlbumTrackIndex";
 
 - (NSArray *)listOfArtists
 {
-    BOOL hideFeatArtists = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCAudioLibraryHideFeatArtists];
     NSArray *artists = [[VLCAppCoordinator sharedInstance].mediaLibraryService artistsWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                      desc:NO
-                                                                                                  listAll:!hideFeatArtists];
+                                                                                                  listAll:NO];
 
     NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
     NSUInteger count = MIN(artists.count, maximumItemCount);
