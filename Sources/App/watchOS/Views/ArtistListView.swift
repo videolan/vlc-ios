@@ -14,13 +14,13 @@ import SwiftUI
 
 struct ArtistListView: View {
     let snapshotArtists: [VLCWatchMLArtist]
-    var didTapCell: (VLCWatchMLArtist) -> Void
-    
+    var didTapArtist: (VLCWatchMLArtist) -> Void
+
     var body: some View {
         List(snapshotArtists) { artist in
             ArtistCellView(artist: artist)
                 .onTapGesture {
-                    didTapCell(artist)
+                    didTapArtist(artist)
                 }
         }
     }

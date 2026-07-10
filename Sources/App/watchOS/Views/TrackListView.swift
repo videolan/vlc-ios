@@ -17,7 +17,7 @@ struct TrackListView: View {
     let snapshotMedias: [VLCWatchMLMedia]
     var mediaSyncIds: [MediaSyncID]
     var showTrackNumber: Bool = false
-    var didTapCell: (VLCWatchMLMedia) -> Void
+    var didTapMedia: (VLCWatchMLMedia) -> Void
 
     var body: some View {
         List(snapshotMedias) { media in
@@ -27,7 +27,7 @@ struct TrackListView: View {
                 isDownloaded: media.isDownloaded(mediaSyncIds)
             )
             .onTapGesture {
-                didTapCell(media)
+                didTapMedia(media)
             }
         }
     }

@@ -77,12 +77,23 @@ struct VLCWatchContentView<MLSyncManager>: View where MLSyncManager: ObservableM
 
     var body: some View {
         TabView {
-            ArtistView<MLSyncManager>(artistsViewModel: artistsViewModel, tracksViewModel: tracksViewModel)
-            AlbumView<MLSyncManager>(albumsViewModel: albumsViewModel, tracksViewModel: tracksViewModel)
-            TrackView<MLSyncManager>(tracksViewModel: tracksViewModel)
+            ArtistView(
+                artistsViewModel: artistsViewModel,
+                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+            )
+
+            AlbumView(
+                albumsViewModel: albumsViewModel,
+                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+            )
+
+            TrackView(
+                tracksViewModel: tracksViewModel,
+                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+            )
+
             // TODO: Radio Discovery tab
         }
-        .environmentObject(mlSyncManager)
         .onReceive(NotificationCenter.default.activationDidCompletePublisher) { notification in
             activationDidComplete(notification)
         }

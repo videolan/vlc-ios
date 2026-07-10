@@ -13,19 +13,25 @@
 
 import SwiftUI
 
-struct TrackView<MLSyncManager>: View where MLSyncManager: ObservableMLSyncManager {
-    @EnvironmentObject var mlSyncManager: MLSyncManager
+struct TrackView: View {
     @ObservedObject var tracksViewModel: TracksViewModel
+    var mediaSyncIds: [MediaSyncID]
 
     var body: some View {
         NavigationStack {
             TrackListView(
                 snapshotMedias: tracksViewModel.snapshotMedias,
-                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []) { media in
-                    guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
+                mediaSyncIds: mediaSyncIds,
+                didTapMedia: { media in
+                    guard let mediaId = mediaSyncIds.getMediaId(snapshotMediaId: media.id) else { return }
                     tracksViewModel.play(mediaID: mediaId)
                 }
-                .navigationTitle("Songs")
+            )
+            .navigationTitle("Songs")
+            .onAppear {
+                guard tracksViewModel.isFirstLoad else { return }
+                tracksViewModel.loadData()
+            }
         }
     }
 }

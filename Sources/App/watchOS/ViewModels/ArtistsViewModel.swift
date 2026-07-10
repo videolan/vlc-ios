@@ -14,7 +14,6 @@ import Foundation
 import SwiftUI
 
 class ArtistsViewModel: ArtistModel, ObservableObject {
-
     @Published var snapshotArtists: [VLCWatchMLArtist] = []
     @Published var isFirstLoad = true
     @Published var path = NavigationPath()
@@ -27,9 +26,8 @@ class ArtistsViewModel: ArtistModel, ObservableObject {
                                                object: nil)
     }
 
-    func loadArtists() {
+    func loadData() {
         loadSnapshotArtists()
-        loadArtistsFromWatch()
         isFirstLoad = false
     }
 
@@ -40,17 +38,11 @@ class ArtistsViewModel: ArtistModel, ObservableObject {
     func loadSnapshotArtists() {
         DispatchQueue.global(qos: .userInitiated).async {
             if let artistsFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.artists(true) {
+                let snapshotArtists = artistsFiles.map { VLCWatchMLArtist($0) }.sorted { $0.id < $1.id}
                 DispatchQueue.main.async {
-                    self.snapshotArtists = artistsFiles.map { VLCWatchMLArtist($0) }.sorted { $0.id < $1.id}
+                    self.snapshotArtists = snapshotArtists
                 }
             }
-        }
-    }
-
-    private func loadArtistsFromWatch() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.sort(by: .default, desc: true)
-            self.files = self.anyfiles as? [VLCMLArtist] ?? []
         }
     }
 }

@@ -12,55 +12,37 @@
 
 import SwiftUI
 
-struct ArtistView<MLSyncManager>: View where MLSyncManager: ObservableMLSyncManager {
-    @EnvironmentObject var mlSyncManager: MLSyncManager
+struct ArtistView: View {
     @ObservedObject var artistsViewModel: ArtistsViewModel
-    @ObservedObject var tracksViewModel: TracksViewModel
+    var mediaSyncIds: [MediaSyncID]
 
     var body: some View {
         NavigationStack(path: $artistsViewModel.path) {
-            ArtistListView(snapshotArtists: artistsViewModel.snapshotArtists) { artist in
-                artistsViewModel.path.append(artist)
-            }
+            ArtistListView(
+                snapshotArtists: artistsViewModel.snapshotArtists,
+                didTapArtist: { artist in
+                    artistsViewModel.path.append(artist)
+                }
+            )
             .navigationTitle("Artists")
             .onAppear {
                 guard artistsViewModel.isFirstLoad else { return }
-                artistsViewModel.loadArtists()
+                artistsViewModel.loadData()
             }
             .navigationDestination(for: VLCWatchMLArtist.self) { artist in
-                Group {
-                    if artist.albums.isEmpty {
-                        TrackListView(snapshotMedias: artist.tracks,
-                                      mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []) { track in
-
-                        }
-                    } else {
-                        ArtistDetailListView(
-                            snapshotAlbums: artist.albums,
-                            snapshotMedias: artist.tracks,
-                            mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
-                            didTapAlbum: { album in
-                                artistsViewModel.path.append(album)
-                            },
-                            didTapMedia: { media in
-                                guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
-                                tracksViewModel.play(mediaID: mediaId)
-                            }
-                        )
+                ArtistDetailView(
+                    artist: artist,
+                    mediaSyncIds: mediaSyncIds,
+                    didTapAlbum: { album in
+                        artistsViewModel.path.append(album)
                     }
-                }
-                .navigationTitle(artist.name)
+                )
             }
             .navigationDestination(for: VLCWatchMLAlbum.self) { album in
-                let medias = album.tracks.map { VLCWatchMLMedia($0) }
-                TrackListView(snapshotMedias: medias,
-                              mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
-                              showTrackNumber: true
-                ) { media in
-                    guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
-                    tracksViewModel.play(mediaID: mediaId)
-                }
-                .navigationTitle(album.title)
+                AlbumDetailView(
+                    album: album,
+                    mediaSyncIds: mediaSyncIds
+                )
             }
         }
     }

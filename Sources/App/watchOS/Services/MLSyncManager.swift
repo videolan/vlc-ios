@@ -22,7 +22,7 @@ class VLCMLSyncManager: ObservableMLSyncManager {
     private let lock = NSLock()
 
     init() {
-        print("Using VLCMLSyncManager")
+        print("VLCMLSyncManager: init()")
         loadMLSyncState()
 
         NotificationCenter.default.addObserver(self,
@@ -88,9 +88,9 @@ class VLCMLSyncManager: ObservableMLSyncManager {
         do {
             let mlSyncStateData = try JSONEncoder().encode(state)
             try mlSyncStateData.write(to: mlSyncStateURL, options: .atomic)
-//            DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 self.state = state
-//            }
+            }
             print("VLCMLSyncManager: Successfully saved ml-sync-state.json: \(state)")
         } catch {
             assertionFailure("VLCMLSyncManager: Failed to save syncMediaIds with error: \(error.localizedDescription)")
@@ -142,7 +142,7 @@ class DummyMLSyncManager: ObservableMLSyncManager {
     private let lock = NSLock()
 
     init() {
-        print("Using DummyMLSyncManager")
+        print("DummyMLSyncManager: init()")
         loadMLSyncState()
 
         NotificationCenter.default.addObserver(self,

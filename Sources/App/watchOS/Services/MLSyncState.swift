@@ -32,3 +32,15 @@ extension Collection where Element == MediaSyncID {
         return Set(self.map { $0.watchMediaId })
     }
 }
+
+extension Array where Element == MediaSyncID {
+    func getMediaId(snapshotMediaId: VLCMLIdentifier) -> VLCMLIdentifier? {
+        guard let mediaId = self.first(where: { $0.iphoneMediaId == snapshotMediaId })?.watchMediaId
+        else {
+            print("Failed to get corresponding media id: \(snapshotMediaId)")
+            return nil
+        }
+
+        return mediaId
+    }
+}

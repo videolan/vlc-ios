@@ -25,9 +25,6 @@ class TracksViewModel: TrackModel, ObservableObject {
                                                selector: #selector(handleDidUpdateSnapshotLibraryDBFile),
                                                name: .VLCDidUpdateSnapshotLibraryDBFileNotification,
                                                object: nil)
-
-        // Need to load all tracks immedately to init track model's files field
-        loadTracks()
     }
 
     func play(mediaID: VLCMLIdentifier) {
@@ -41,9 +38,9 @@ class TracksViewModel: TrackModel, ObservableObject {
         print("Playing media: \(media.title)")
     }
 
-    func loadTracks() {
+    func loadData() {
         loadSnapshotMediaLibrary()
-        loadDownloadedTracksOnWatch()
+        loadTracks()
         isFirstLoad = false
     }
 
@@ -58,7 +55,7 @@ class TracksViewModel: TrackModel, ObservableObject {
     }
 
     // Fetches the audio files from medialibrary.db
-    private func loadDownloadedTracksOnWatch() {
+    private func loadTracks() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.sort(by: .default, desc: true)
             self.files = self.anyfiles as? [VLCMLMedia] ?? []
@@ -69,8 +66,9 @@ class TracksViewModel: TrackModel, ObservableObject {
     private func loadSnapshotMediaLibrary() {
         DispatchQueue.global(qos: .userInitiated).async {
             if let audioFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.audioFiles() {
+                let snapshotMedias = audioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
                 DispatchQueue.main.async {
-                    self.snapshotMedias = audioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
+                    self.snapshotMedias = snapshotMedias
                 }
             }
         }

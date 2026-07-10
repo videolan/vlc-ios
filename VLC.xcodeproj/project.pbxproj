@@ -95,7 +95,6 @@
 		3278C8C62FB7A230008581AA /* WatchLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3278C8C42FB7A230008581AA /* WatchLogger.swift */; };
 		3278C8C92FB7D129008581AA /* TracksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3278C8C82FB7D129008581AA /* TracksViewModel.swift */; };
 		3278C8CB2FB7E02B008581AA /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888F210B53E000A091D2 /* TrackModel.swift */; };
-		327973312FF5FFEB0007E3EC /* ArtistDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973302FF5FFEA0007E3EC /* ArtistDetailListView.swift */; };
 		327973332FF62DD50007E3EC /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973322FF62DD50007E3EC /* TrackListView.swift */; };
 		327973352FF62F790007E3EC /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973342FF62F790007E3EC /* AlbumListView.swift */; };
 		327973372FF633290007E3EC /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973362FF633290007E3EC /* ArtistListView.swift */; };
@@ -111,6 +110,10 @@
 		327973482FF79C860007E3EC /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973472FF79C860007E3EC /* AlbumView.swift */; };
 		3279734A2FF79CFB0007E3EC /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327973492FF79CFB0007E3EC /* TrackView.swift */; };
 		327B707D31772D5CCE59C0DB /* libPods-VLC-visionOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF40719B8DE63266756110B2 /* libPods-VLC-visionOS.a */; };
+		3280F8C73001934C00C7162C /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8C63001934C00C7162C /* ArtistDetailView.swift */; };
+		3280F8C93001991100C7162C /* ArtistDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8C83001991100C7162C /* ArtistDetailViewModel.swift */; };
+		3280F8CB3001AF8900C7162C /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8CA3001AF8900C7162C /* AlbumDetailView.swift */; };
+		3280F8CD3001AFBB00C7162C /* AlbumDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280F8CC3001AFBB00C7162C /* AlbumDetailViewModel.swift */; };
 		3282659E2FECABD700D3A097 /* MLSyncState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3282659D2FECABD600D3A097 /* MLSyncState.swift */; };
 		3282659F2FECABD700D3A097 /* MLSyncState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3282659D2FECABD600D3A097 /* MLSyncState.swift */; };
 		328BB88B2FCE692F00E1FE19 /* VLCPlaybackService+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */; };
@@ -1564,7 +1567,6 @@
 		324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		3278C8C42FB7A230008581AA /* WatchLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLogger.swift; sourceTree = "<group>"; };
 		3278C8C82FB7D129008581AA /* TracksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewModel.swift; sourceTree = "<group>"; };
-		327973302FF5FFEA0007E3EC /* ArtistDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailListView.swift; sourceTree = "<group>"; };
 		327973322FF62DD50007E3EC /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
 		327973342FF62F790007E3EC /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		327973362FF633290007E3EC /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
@@ -1575,6 +1577,10 @@
 		327973452FF79A630007E3EC /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
 		327973472FF79C860007E3EC /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		327973492FF79CFB0007E3EC /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
+		3280F8C63001934C00C7162C /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
+		3280F8C83001991100C7162C /* ArtistDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewModel.swift; sourceTree = "<group>"; };
+		3280F8CA3001AF8900C7162C /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
+		3280F8CC3001AFBB00C7162C /* AlbumDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewModel.swift; sourceTree = "<group>"; };
 		3282659D2FECABD600D3A097 /* MLSyncState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSyncState.swift; sourceTree = "<group>"; };
 		32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
 		32B7A66A2FA02ED000879A4D /* Character+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Utility.swift"; sourceTree = "<group>"; };
@@ -2712,7 +2718,6 @@
 			children = (
 				3279733A2FF792A00007E3EC /* Cells */,
 				32F2644A2FB51D5A0046437D /* MediaListView.swift */,
-				327973302FF5FFEA0007E3EC /* ArtistDetailListView.swift */,
 				321B3B4B2FB6B8C0007E4E8A /* Temp */,
 				327973322FF62DD50007E3EC /* TrackListView.swift */,
 				327973342FF62F790007E3EC /* AlbumListView.swift */,
@@ -2720,6 +2725,8 @@
 				327973452FF79A630007E3EC /* ArtistView.swift */,
 				327973472FF79C860007E3EC /* AlbumView.swift */,
 				327973492FF79CFB0007E3EC /* TrackView.swift */,
+				3280F8C63001934C00C7162C /* ArtistDetailView.swift */,
+				3280F8CA3001AF8900C7162C /* AlbumDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2750,6 +2757,8 @@
 				3278C8C82FB7D129008581AA /* TracksViewModel.swift */,
 				3217BE702FCFD024006D75BC /* AlbumsViewModel.swift */,
 				32F9AD792FD0FF19003736C1 /* ArtistsViewModel.swift */,
+				3280F8C83001991100C7162C /* ArtistDetailViewModel.swift */,
+				3280F8CC3001AFBB00C7162C /* AlbumDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -6621,6 +6630,7 @@
 				321B3B582FB6C916007E4E8A /* FileTransfersView.swift in Sources */,
 				328BB88C2FCE7CBF00E1FE19 /* VLCMLMedia+isWatched.m in Sources */,
 				BE4D24972E43C43500434D7A /* NSString+SupportedMedia.m in Sources */,
+				3280F8CB3001AF8900C7162C /* AlbumDetailView.swift in Sources */,
 				32B7A66E2FA02ED000879A4D /* Character+Utility.swift in Sources */,
 				321B3B502FB6B8F9007E4E8A /* TestDataProvider.swift in Sources */,
 				327973392FF790BF0007E3EC /* TrackCellView.swift in Sources */,
@@ -6635,11 +6645,12 @@
 				BE4D24952E43C28100434D7A /* MediaLibraryBaseModel.swift in Sources */,
 				3217BE732FCFD54B006D75BC /* AudioCollectionModel.swift in Sources */,
 				327973352FF62F790007E3EC /* AlbumListView.swift in Sources */,
-				327973312FF5FFEB0007E3EC /* ArtistDetailListView.swift in Sources */,
 				BE4D24902E3BFB9D00434D7A /* VLCMediaFileDiscoverer.m in Sources */,
 				32F9AD7A2FD0FF19003736C1 /* ArtistsViewModel.swift in Sources */,
 				3217BE742FCFD59D006D75BC /* ArtistModel.swift in Sources */,
 				BEB724F42E56143E002A9729 /* CustomSwiftUIDialogBridge.swift in Sources */,
+				3280F8CD3001AFBB00C7162C /* AlbumDetailViewModel.swift in Sources */,
+				3280F8C93001991100C7162C /* ArtistDetailViewModel.swift in Sources */,
 				BE4D24942E43C21300434D7A /* MediaModel.swift in Sources */,
 				BEB724ED2E56032E002A9729 /* CustomSwiftUIDialogProvider.swift in Sources */,
 				32F050152FEBA42100FE4890 /* MLSyncManager.swift in Sources */,
@@ -6663,6 +6674,7 @@
 				3217BE712FCFD024006D75BC /* AlbumsViewModel.swift in Sources */,
 				BEB724E52E550813002A9729 /* VLCAppCoordinator.m in Sources */,
 				BEB724F12E560D20002A9729 /* View+CustomDialog.swift in Sources */,
+				3280F8C73001934C00C7162C /* ArtistDetailView.swift in Sources */,
 				BE5EABA42DF9D946007AF88A /* VLCWatchOSApp.swift in Sources */,
 				32F9AD772FD0FA28003736C1 /* VLCWatchMLArtist.swift in Sources */,
 				324ACA732FFF25C70002F804 /* MLSyncManagerProtocol.swift in Sources */,

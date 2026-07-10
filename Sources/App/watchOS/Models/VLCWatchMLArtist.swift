@@ -20,18 +20,24 @@ struct VLCWatchMLArtist: VLCWatchMLObject {
     let albumsCount: Int
     let tracksCount: Int
     let thumbnail: URL?
-    let albums: [VLCWatchMLAlbum]
-    let tracks: [VLCWatchMLMedia]
 
+    private let _artist: VLCMLArtist
 
     init(_ artist: VLCMLArtist) {
+        self._artist = artist
         self.id = artist.identifier()
         self.name = artist.artistName()
         self.albumsCount = Int(artist.albumsCount())
         self.tracksCount = Int(artist.tracksCount())
         self.thumbnail = artist.artworkMRL()
-        self.albums = (artist.albums() ?? []).map { VLCWatchMLAlbum($0) }
-        self.tracks = (artist.tracks() ?? []).map { VLCWatchMLMedia($0) }
+    }
+
+    func albums() -> [VLCMLAlbum] {
+        return _artist.albums() ?? []
+    }
+
+    func tracks() -> [VLCMLMedia] {
+        return _artist.tracks() ?? []
     }
 }
 

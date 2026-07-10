@@ -12,33 +12,28 @@
 
 import SwiftUI
 
-struct AlbumView<MLSyncManager>: View where MLSyncManager: ObservableMLSyncManager {
-    @EnvironmentObject var mlSyncManager: MLSyncManager
+struct AlbumView: View {
     @ObservedObject var albumsViewModel: AlbumsViewModel
-    @ObservedObject var tracksViewModel: TracksViewModel
+    var mediaSyncIds: [MediaSyncID]
 
     var body: some View {
         NavigationStack(path: $albumsViewModel.path) {
-            AlbumListView(snapshotAlbums: albumsViewModel.snapshotAlbums) { album in
-                albumsViewModel.path.append(album)
-            }
+            AlbumListView(
+                snapshotAlbums: albumsViewModel.snapshotAlbums,
+                didTapAlbum: { album in
+                    albumsViewModel.path.append(album)
+                }
+            )
             .navigationTitle("Albums")
             .onAppear {
                 guard albumsViewModel.isFirstLoad else { return }
-                albumsViewModel.loadAlbums()
+                albumsViewModel.loadData()
             }
             .navigationDestination(for: VLCWatchMLAlbum.self) { album in
-                let medias = album.tracks.map { VLCWatchMLMedia($0) }
-
-                TrackListView(
-                    snapshotMedias: medias,
-                    mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? [],
-                    showTrackNumber: true
-                ) { media in
-                    guard let mediaId = mlSyncManager.getMediaId(snapshotMediaId: media.id) else { return }
-                    tracksViewModel.play(mediaID: mediaId)
-                }
-                .navigationTitle(album.title)
+                AlbumDetailView(
+                    album: album,
+                    mediaSyncIds: mediaSyncIds
+                )
             }
         }
     }
