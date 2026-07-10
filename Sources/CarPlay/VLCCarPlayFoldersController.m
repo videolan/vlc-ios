@@ -1,0 +1,135 @@
+/*****************************************************************************
+ * VLCCarPlayFoldersController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2026 VideoLAN. All rights reserved.
+ *
+ * Author: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#import "VLCCarPlayFoldersController.h"
+#import "VLCCarPlayListLimit.h"
+#import "VLC-Swift.h"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+
+NSString *VLCCarPlayFolderMedia = @"VLCCarPlayFolderMedia";
+NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
+
+@implementation VLCCarPlayFoldersController
+
+- (UIImage *)folderIcon
+{
+    CGSize canvasSize = CGSizeMake(80.0, 80.0);
+    if (@available(iOS 14.0, *)) {
+        canvasSize = [CPListItem maximumImageSize];
+    }
+
+    UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:canvasSize.height * 0.55];
+    UIImage *symbol = [UIImage systemImageNamed:@"folder" withConfiguration:configuration];
+
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:canvasSize];
+    UIImage *paddedImage = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
+        CGSize symbolSize = symbol.size;
+        CGRect drawRect = CGRectMake((canvasSize.width - symbolSize.width) / 2.0,
+                                     (canvasSize.height - symbolSize.height) / 2.0,
+                                     symbolSize.width, symbolSize.height);
+        [symbol drawInRect:drawRect];
+    }];
+
+    return [paddedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
+- (CPListTemplate *)folderList
+{
+    VLCMLFolder *rootFolder = [[VLCAppCoordinator sharedInstance].mediaLibraryService baseFolder];
+    CPListSection *listSection = [[CPListSection alloc] initWithItems:[self listOfItemsForFolder:rootFolder]];
+    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"FOLDERS", nil)
+                                                            sections:@[listSection]];
+    template.tabTitle = NSLocalizedString(@"FOLDERS", nil);
+    template.tabImage = [UIImage systemImageNamed:@"folder"];
+    return template;
+}
+
+- (NSArray *)listOfItemsForFolder:(VLCMLFolder *)folder
+{
+    if (folder == nil) {
+        return @[];
+    }
+
+    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSMutableArray *itemList = [NSMutableArray array];
+    UIImage *folderIcon = [self folderIcon];
+
+    NSArray<VLCMLFolder *> *subfolders = [folder subfoldersWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
+    for (VLCMLFolder *subfolder in subfolders) {
+        if (itemList.count >= maximumItemCount) {
+            break;
+        }
+
+        NSString *detailText = @"";
+        if (subfolder.duration > 0) {
+            detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
+                          subfolder.nbAudio, [VLCTime timeWithNumber:@(subfolder.duration)].stringValue];
+        }
+        CPListItem *listItem = [[CPListItem alloc] initWithText:subfolder.mrl.lastPathComponent
+                                                     detailText:detailText
+                                                          image:folderIcon];
+        listItem.userInfo = subfolder;
+        listItem.handler = ^(id <CPSelectableListItem> item,
+                             dispatch_block_t completionBlock) {
+            VLCMLFolder *subfolder = item.userInfo;
+            CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfItemsForFolder:subfolder]];
+            CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:subfolder.mrl.lastPathComponent
+                                                                            sections:@[subitemsSection]];
+            [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+            completionBlock();
+        };
+        [itemList addObject:listItem];
+    }
+
+    NSArray<VLCMLMedia *> *media = [folder mediaOfType:VLCMLMediaTypeAudio
+                                       sortingCriteria:VLCMLSortingCriteriaDefault
+                                                  desc:NO];
+    for (NSUInteger i = 0; i < media.count; i++) {
+        if (itemList.count >= maximumItemCount) {
+            break;
+        }
+
+        VLCMLMedia *iter = media[i];
+        UIImage *artwork = [VLCThumbnailsCache thumbnailForURL:iter.thumbnail];
+        if (!artwork) {
+            artwork = [UIImage imageNamed:@"album-placeholder-dark"];
+        }
+        NSString *detailText = [VLCTime timeWithNumber:@(iter.duration)].stringValue;
+        CPListItem *listItem = [[CPListItem alloc] initWithText:iter.title
+                                                     detailText:detailText
+                                                          image:artwork];
+        listItem.userInfo = @{ VLCCarPlayFolderMedia : media,
+                               VLCCarPlayFolderMediaIndex : @(i) };
+        listItem.handler = ^(id <CPSelectableListItem> item,
+                             dispatch_block_t completionBlock) {
+            NSDictionary *userInfo = item.userInfo;
+            NSArray *media = userInfo[VLCCarPlayFolderMedia];
+            NSNumber *index = userInfo[VLCCarPlayFolderMediaIndex];
+            VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+            [playbackService playMediaAtIndex:index.intValue fromCollection:media];
+            completionBlock();
+            if (@available(iOS 14.0, *)) {
+                [self.interfaceController popToRootTemplateAnimated:YES completion:nil];
+            } else {
+                [self.interfaceController popToRootTemplateAnimated:YES];
+            }
+        };
+        [itemList addObject:listItem];
+    }
+
+    return itemList;
+}
+
+@end
+
+#pragma clang diagnostic pop

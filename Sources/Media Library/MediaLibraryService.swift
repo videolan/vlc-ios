@@ -627,6 +627,13 @@ extension MediaLibraryService {
                    desc: Bool = false) -> [VLCMLPlaylist] {
         return medialib.playlists(with: sort, desc: desc) ?? []
     }
+
+    func baseFolder() -> VLCMLFolder? {
+        guard let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        return medialib.folder(atMrl: documentURL)
+    }
 }
 
 // MARK: - Genre methods

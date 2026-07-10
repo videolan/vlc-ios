@@ -18,6 +18,7 @@
 #import "CPListTemplate+Genres.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "VLCCarPlayPlaylistsController.h"
+#import "VLCCarPlayFoldersController.h"
 #import "VLCCarPlayListLimit.h"
 #import "VLCNowPlayingTemplateObserver.h"
 
@@ -33,6 +34,7 @@
     VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
     VLCCarPlayArtistsController *_artistsController;
     VLCCarPlayPlaylistsController *_playlistsController;
+    VLCCarPlayFoldersController *_foldersController;
     CPListTemplate *_playQueueTemplate;
     CPListSection *_section;
     VLCPlaybackService *_playbackService;
@@ -88,13 +90,18 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
         _playlistsController = [[VLCCarPlayPlaylistsController alloc] init];
         _playlistsController.interfaceController = _interfaceController;
     }
+    if (!_foldersController) {
+        _foldersController = [[VLCCarPlayFoldersController alloc] init];
+        _foldersController.interfaceController = _interfaceController;
+    }
 
     CPListTemplate *artists = [_artistsController artistList];
     CPListTemplate *genres = [CPListTemplate genreList];
     CPListTemplate *streams = [CPListTemplate streamList];
     CPListTemplate *playlists = [_playlistsController playlists];
+    CPListTemplate *folders = [_foldersController folderList];
 
-    return [[CPTabBarTemplate alloc] initWithTemplates:@[artists, genres, streams, playlists]];
+    return [[CPTabBarTemplate alloc] initWithTemplates:@[artists, genres, streams, playlists, folders]];
 }
 
 - (void)templatesNeedUpdate
