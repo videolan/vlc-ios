@@ -39,13 +39,10 @@
                                                                             target:self
                                                                             action:@selector(refuseSepa)];
 
-    if (@available(iOS 13.0, *)) {
-    } else {
-        self.titleLabel.textColor = colors.cellTextColor;
-        self.descriptionLabel.textColor = colors.cellTextColor;
-        self.authorizationTextLabel.textColor = colors.cellTextColor;
-        self.view.backgroundColor = colors.background;
-    }
+    self.view.backgroundColor = colors.background;
+    self.titleLabel.textColor = colors.cellTextColor;
+    self.descriptionLabel.textColor = colors.cellTextColor;
+    self.authorizationTextLabel.textColor = colors.cellTextColor;
 
     if (colors.isDark) {
         _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];

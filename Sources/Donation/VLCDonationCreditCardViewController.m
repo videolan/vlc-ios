@@ -140,20 +140,17 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     _cvvField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _activityIndicator.color = colors.orangeUI;
 
-    if (@available(iOS 13.0, *)) {
-    } else {
-        self.view.backgroundColor = colors.background;
-        self.titleLabel.textColor = colors.cellTextColor;
-        self.descriptionLabel.textColor = colors.cellTextColor;
-        _creditCardNumberLabel.textColor = colors.cellTextColor;
-        _creditCardNumberField.textColor = colors.cellTextColor;
-        _expiryDateLabel.textColor = colors.cellTextColor;
-        _expiryDateMonthField.textColor = colors.cellTextColor;
-        _expiryDateYearField.textColor = colors.cellTextColor;
-        _cvvLabel.textColor = colors.cellTextColor;
-        _cvvField.textColor = colors.cellTextColor;
-        _expiryDateSeparatorLabel.textColor = colors.cellTextColor;
-    }
+    self.view.backgroundColor = colors.background;
+    self.titleLabel.textColor = colors.cellTextColor;
+    self.descriptionLabel.textColor = colors.cellTextColor;
+    _creditCardNumberLabel.textColor = colors.cellTextColor;
+    _creditCardNumberField.textColor = colors.cellTextColor;
+    _expiryDateLabel.textColor = colors.cellTextColor;
+    _expiryDateMonthField.textColor = colors.cellTextColor;
+    _expiryDateYearField.textColor = colors.cellTextColor;
+    _cvvLabel.textColor = colors.cellTextColor;
+    _cvvField.textColor = colors.cellTextColor;
+    _expiryDateSeparatorLabel.textColor = colors.cellTextColor;
 
     if (colors.isDark) {
         _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];

@@ -189,14 +189,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 {
     ColorPalette *colors = PresentationTheme.current.colors;
 
-    if (@available(iOS 13.0, *)) {
-    } else {
-        self.view.backgroundColor = colors.background;
-        self.titleLabel.textColor = colors.cellTextColor;
-        self.descriptionLabel.textColor = colors.cellTextColor;
-        _customAmountField.textColor = colors.cellTextColor;
-        _customAmountField.layer.borderColor = colors.textfieldPlaceholderColor.CGColor;
-    }
+    self.view.backgroundColor = colors.background;
+    self.titleLabel.textColor = colors.cellTextColor;
+    self.descriptionLabel.textColor = colors.cellTextColor;
+    _customAmountField.textColor = colors.cellTextColor;
+    _customAmountField.layer.borderColor = colors.textfieldPlaceholderColor.CGColor;
 
     _blueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:1.0];
     _lightBlueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:.5];

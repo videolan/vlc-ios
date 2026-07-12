@@ -115,18 +115,15 @@
     _emailField.layer.borderColor = colors.textfieldBorderColor.CGColor;
     _activityIndicator.color = colors.orangeUI;
 
-    if (@available(iOS 13.0, *)) {
-    } else {
-        _titleLabel.textColor = colors.cellTextColor;
-        _descriptionLabel.textColor = colors.cellTextColor;
-        self.view.backgroundColor = colors.background;
-        _bankAccountNumberLabel.textColor = colors.cellTextColor;
-        _nameLabel.textColor = colors.cellTextColor;
-        _emailLabel.textColor = colors.cellTextColor;
-        _bankAccountNumberField.textColor = colors.cellTextColor;
-        _nameField.textColor = colors.cellTextColor;
-        _emailField.textColor = colors.cellTextColor;
-    }
+    self.view.backgroundColor = colors.background;
+    _titleLabel.textColor = colors.cellTextColor;
+    _descriptionLabel.textColor = colors.cellTextColor;
+    _bankAccountNumberLabel.textColor = colors.cellTextColor;
+    _nameLabel.textColor = colors.cellTextColor;
+    _emailLabel.textColor = colors.cellTextColor;
+    _bankAccountNumberField.textColor = colors.cellTextColor;
+    _nameField.textColor = colors.cellTextColor;
+    _emailField.textColor = colors.cellTextColor;
 
     if (colors.isDark) {
         _iconView.image = [UIImage imageNamed:@"VLCCone26-dark-512x512"];
