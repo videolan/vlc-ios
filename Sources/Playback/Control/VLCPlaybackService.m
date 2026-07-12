@@ -2035,6 +2035,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [self _findCachedSubtitlesForMedia:media];
 #endif
 
+        media.delegate = self;
+
         if ([self->_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
             [self->_delegate playbackService:self nextMedia:media];
         }
@@ -2043,6 +2045,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         NSUInteger foundIndex = [currentMediaList indexOfMedia:media];
         if (foundIndex != NSNotFound)
             self->_currentIndex = (NSInteger)foundIndex;
+
+        [self setNeedsMetadataUpdate];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
                                                             object:self];
