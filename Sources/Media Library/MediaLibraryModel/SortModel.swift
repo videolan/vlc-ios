@@ -72,6 +72,8 @@ extension VLCMLSortingCriteria: @retroactive CustomStringConvertible {
             return NSLocalizedString("TRACK_ID", comment: "")
         case .default:
             return NSLocalizedString("CUSTOM", comment: "")
+        case .trackNumberAlbumReleaseYear:
+            return NSLocalizedString("TRACK_NB_RELEASE_YEAR", comment: "")
         @unknown default:
             return NSLocalizedString("DEFAULT", comment: "")
         }

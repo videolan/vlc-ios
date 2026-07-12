@@ -453,6 +453,7 @@
 "LAST_PLAYBACK_DATE" = "Last playback date";
 "TRACK_ID" = "Track ID";
 "CUSTOM" = "Custom";
+"TRACK_NB_RELEASE_YEAR" = "Track Number, Albums by release date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
