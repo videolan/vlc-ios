@@ -74,15 +74,15 @@ class VLCMLSyncManager: ObservableMLSyncManager {
 //        lock.unlock()
     }
 
-    // Save sync state to /Library/MediaLibrary/ml-sync-state.json
+    // Save sync state to /Library/MediaLibrarySnapshot/ml-sync-state.json
     func saveMLSyncState(_ state: MLSyncState) {
-        guard let libraryDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+        guard let snapshotDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
             assertionFailure("VLCMLSyncManager: Failed to get Library directory.")
             return
         }
 
-        let mlSyncStateURL = libraryDir
-            .appendingPathComponent("MediaLibrary")
+        let mlSyncStateURL = snapshotDir
+            .appendingPathComponent("MediaLibrarySnapshot")
             .appendingPathComponent("ml-sync-state.json")
 
         do {
@@ -99,14 +99,14 @@ class VLCMLSyncManager: ObservableMLSyncManager {
 
     func loadMLSyncState() {
 //        lock.lock()
-        // Read from file (/Library/MediaLibrary/ml-sync-state.json)
-        guard let libraryDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+        // Read from file (/Library/MediaLibrarySnapshot/ml-sync-state.json)
+        guard let snapshotDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
             assertionFailure("VLCMLSyncManager: Failed to get Library directory.")
             return
         }
 
-        let mlSyncStateURL = libraryDir
-            .appendingPathComponent("MediaLibrary")
+        let mlSyncStateURL = snapshotDir
+            .appendingPathComponent("MediaLibrarySnapshot")
             .appendingPathComponent("ml-sync-state.json")
 
         guard FileManager.default.fileExists(atPath: mlSyncStateURL.path) else {
@@ -184,19 +184,24 @@ class DummyMLSyncManager: ObservableMLSyncManager {
         let libraryPath = libraryDirectory
 
         let databasePath = libraryPath + "/MediaLibrary/" + kVLCMediaLibraryDBFileName
-        let snapshotPath = libraryPath + "/MediaLibrary/" + kVLCSnapshotMediaLibraryDBFileName
+        let snapshotPath = libraryPath + "/MediaLibrarySnapshot/" + kVLCSnapshotMediaLibraryDBFileName
 
         do {
             if FileManager.default.fileExists(atPath: snapshotPath) {
                 try FileManager.default.removeItem(atPath: snapshotPath)
             }
 
+            try FileManager.default.createDirectory(
+                atPath: libraryPath + "/MediaLibrarySnapshot/",
+                withIntermediateDirectories: true
+            )
+
             try FileManager.default.copyItem(
                 atPath: databasePath,
                 toPath: snapshotPath
             )
         } catch {
-            preconditionFailure("DummyMLSyncManager: Failed to copy \(kVLCMediaLibraryDBFileName).\n\(error.localizedDescription)")
+            preconditionFailure("DummyMLSyncManager: Failed to update snapshot file.\n\(error.localizedDescription)")
         }
     }
 }

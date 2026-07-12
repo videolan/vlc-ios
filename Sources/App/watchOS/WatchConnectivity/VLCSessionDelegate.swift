@@ -208,11 +208,11 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
             preconditionFailure("VLCSessionDelegate: Missing file in payload")
         }
 
-        // Move medialibrary-iphone-snapshot.db file to /Library/MediaLibrary/
+        // Move medialibrary-iphone-snapshot.db file to /Library/MediaLibrarySnapshot/
         guard let libraryDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else { return }
 
         let mediaLibraryDir = libraryDir
-            .appendingPathComponent("MediaLibrary")
+            .appendingPathComponent("MediaLibrarySnapshot")
 
         do {
             try FileManager.default.createDirectory(at: mediaLibraryDir, withIntermediateDirectories: true)
@@ -282,7 +282,6 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 }
 
 extension Notification.Name {
-//    static let VLCMLSyncStateUpdatedNotification = Notification.Name("VLCMLSyncStateUpdatedNotification")
     static let VLCDidReceiveSnapshotLibraryDBFileNotification = Notification.Name("VLCDidReceiveSnapshotLibraryDBFileNotification")
     static let VLCDidUpdateSnapshotLibraryDBFileNotification = Notification.Name("VLCDidUpdateSnapshotLibraryDBFileNotification")
     static let VLCWatchDidAddTracksNotification = Notification.Name("VLCWatchDidAddTracksNotification")

@@ -143,7 +143,7 @@ extension NSNotification {
 
 class MediaLibraryService: NSObject {
 
-    private var libraryType: MLServiceType
+    private var mlServiceType: MLServiceType
 
     @objc enum MLServiceType: Int {
         case mediaLibrary, snapshotLibrary
@@ -197,7 +197,7 @@ class MediaLibraryService: NSObject {
 
     @objc
     init(libraryType: MLServiceType = .mediaLibrary) {
-        self.libraryType = libraryType
+        self.mlServiceType = libraryType
         super.init()
 
         if libraryType == .mediaLibrary {
@@ -339,9 +339,20 @@ private extension MediaLibraryService {
 
         libraryPath = libraryDirectory
 
-        let databasePath = libraryPath + "/MediaLibrary/" + libraryType.databaseName
-        let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
-        let medialibraryPath = libraryPath + "/MediaLibrary/Internal"
+        let databasePath: String
+        let thumbnailPath: String
+        let medialibraryPath: String
+
+        switch mlServiceType {
+        case .mediaLibrary:
+            databasePath = libraryPath + "/MediaLibrary/" + MLServiceType.mediaLibrary.databaseName
+            thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
+            medialibraryPath = libraryPath + "/MediaLibrary/Internal"
+        case .snapshotLibrary:
+            databasePath = libraryPath + "/MediaLibrarySnapshot/" + MLServiceType.snapshotLibrary.databaseName
+            thumbnailPath = libraryPath + "/MediaLibrarySnapshot/Thumbnails"
+            medialibraryPath = libraryPath + "/MediaLibrarySnapshot/Internal"
+        }
 
 #if os(tvOS)
         // we need to create the folder before we can listen to it
@@ -352,7 +363,7 @@ private extension MediaLibraryService {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 #endif
-        if libraryType == .mediaLibrary {
+        if mlServiceType == .mediaLibrary {
             setupMediaDiscovery(at: mediaPath)
         }
 
@@ -366,13 +377,13 @@ private extension MediaLibraryService {
         }
 
         let medialibraryStatus = privateMediaLib.setupMediaLibrary(databasePath: databasePath,
-                                                            medialibraryPath: medialibraryPath)
+                                                               medialibraryPath: medialibraryPath)
 
         privateMediaLib.delegate = self
 
         switch medialibraryStatus {
         case .success, .dbReset:
-            if libraryType == .mediaLibrary {
+            if mlServiceType == .mediaLibrary {
                 startMediaLibrary(on: mediaPath)
             }
         case .alreadyInitialized:
@@ -400,7 +411,9 @@ private extension MediaLibraryService {
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
             privateMediaLib.clearDatabase(restorePlaylists: true)
-            startMediaLibrary(on: mediaPath)
+            if mlServiceType == .mediaLibrary {
+                startMediaLibrary(on: mediaPath)
+            }
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }
@@ -562,8 +575,8 @@ private extension MediaLibraryService {
                 preconditionFailure("MediaLibraryService: Unable to find medialibrary.")
         }
 
-        let databasePath = libraryPath + "/MediaLibrary/" + libraryType.databaseName
-        let targetPath = documentPath + "/Logs/" + libraryType.databaseName
+        let databasePath = libraryPath + "/MediaLibrary/" + kVLCMediaLibraryDBFileName
+        let targetPath = documentPath + "/Logs/" + kVLCMediaLibraryDBFileName
 
         _ = try? FileManager.default.createDirectory(atPath: targetPath,
                                                      withIntermediateDirectories: true)
