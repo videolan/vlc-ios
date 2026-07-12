@@ -144,7 +144,9 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     struct ifaddrs *listOfInterfaces = NULL;
     struct ifaddrs *anInterface = NULL;
     BOOL serverWasRunning = self.isServerRunning;
-    [self changeHTTPServerState:NO];
+    if (serverWasRunning) {
+        [self changeHTTPServerState:NO];
+    }
     _nameOfUsedNetworkInterface = nil;
     NSString *preferredipv4Interface;
     NSString *preferredipv6Interface;
