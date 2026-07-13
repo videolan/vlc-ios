@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSByteCountFormatter *byteCountFormatter;
 @property (nonatomic, nullable) UIImage *folderImage;
 @property (nonatomic, nullable) UIImage *genericFileImage;
+@property (nonatomic, nullable) UIImage *streamImage;
 
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic, weak, nullable, readonly) UIViewController *viewController;
