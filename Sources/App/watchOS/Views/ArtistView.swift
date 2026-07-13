@@ -24,7 +24,7 @@ struct ArtistView: View {
                     artistsViewModel.path.append(artist)
                 }
             )
-            .navigationTitle("Artists")
+            .navigationTitle(NSLocalizedString("ARTISTS", comment: ""))
             .onAppear {
                 guard artistsViewModel.isFirstLoad else { return }
                 artistsViewModel.loadData()

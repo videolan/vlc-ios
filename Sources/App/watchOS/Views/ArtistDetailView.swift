@@ -32,7 +32,7 @@ struct ArtistDetailView: View {
                 )
             } else {
                 List {
-                    Section("Albums") {
+                    Section(NSLocalizedString("ALBUMS", comment: "")) {
                         ForEach(artistDetailViewModel.snapshotAlbums) { album in
                             AlbumCellView(album: album)
                                 .onTapGesture {
@@ -41,7 +41,7 @@ struct ArtistDetailView: View {
                         }
                     }
 
-                    Section("Tracks") {
+                    Section(NSLocalizedString("SONGS", comment: "")) {
                         ForEach(artistDetailViewModel.snapshotMedias) { media in
                             TrackCellView(
                                 media: media,

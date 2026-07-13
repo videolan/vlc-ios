@@ -27,7 +27,7 @@ struct TrackView: View {
                     tracksViewModel.play(mediaID: mediaId)
                 }
             )
-            .navigationTitle("Songs")
+            .navigationTitle(NSLocalizedString("SONGS", comment: ""))
             .onAppear {
                 guard tracksViewModel.isFirstLoad else { return }
                 tracksViewModel.loadData()

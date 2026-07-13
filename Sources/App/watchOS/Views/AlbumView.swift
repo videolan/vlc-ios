@@ -24,7 +24,7 @@ struct AlbumView: View {
                     albumsViewModel.path.append(album)
                 }
             )
-            .navigationTitle("Albums")
+            .navigationTitle(NSLocalizedString("ALBUMS", comment: ""))
             .onAppear {
                 guard albumsViewModel.isFirstLoad else { return }
                 albumsViewModel.loadData()
