@@ -19,4 +19,5 @@
 #import "NSString+SupportedMedia.h"
 
 #import "VLCConstants.h"
+#import "VLCMigrationCursor.h"
 

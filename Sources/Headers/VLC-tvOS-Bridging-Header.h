@@ -17,6 +17,7 @@
 
 #import "VLCPlaybackService+MediaLibrary.h"
 #import "VLCConstants.h"
+#import "VLCMigrationCursor.h"
 #import "VLCServerListTVViewController.h"
 #import "VLCSearchableServerBrowsingTVViewController.h"
 #import "VLCMediaFileDiscoverer.h"

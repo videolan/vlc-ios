@@ -5,6 +5,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCAppCoordinator.h"
 #import "VLCConstants.h"
+#import "VLCMigrationCursor.h"
 #import "VLCTransferController.h"
 #import "VLCTransferViewController.h"
 #import "VLCEmptyLibraryView.h"
