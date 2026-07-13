@@ -238,6 +238,18 @@ NSString *const VLCFavoriteGroupRadio = @"radio";
     [self storeContent];
 }
 
+- (NSArray<VLCFavorite *> *)favoritesInGroupWithIdentifier:(NSString *)identifier
+{
+    @synchronized (_favoriteContentArray) {
+        NSInteger serverIndex = [_serverIdentifierArray indexOfObject:identifier];
+        if (serverIndex == NSNotFound) {
+            return @[];
+        }
+        VLCFavoriteServer *server = _favoriteContentArray[serverIndex];
+        return server.favorites;
+    }
+}
+
 - (VLCFavorite *)favoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex
 {
     VLCFavoriteServer *server;

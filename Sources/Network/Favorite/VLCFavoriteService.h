@@ -39,6 +39,8 @@ FOUNDATION_EXPORT NSString *const VLCFavoriteGroupRadio;
 - (NSString *)nameOfFavoritedServerAtIndex:(NSInteger)index;
 - (void)setName:(NSString *)name ofFavoritedServerAtIndex:(NSInteger)index;
 
+- (NSArray<VLCFavorite *> *)favoritesInGroupWithIdentifier:(NSString *)identifier;
+
 - (BOOL)isFavoriteURL:(NSURL *)url;
 
 - (void)addFavorite:(VLCFavorite *)favorite;
