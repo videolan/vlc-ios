@@ -23,6 +23,7 @@ enum RemoteNetworkCellType: Int {
     case download
     case wifi
     case favorite
+    case radio
 #if os(iOS)
     case photos
 #endif
@@ -117,6 +118,15 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 favoriteCell.accessibilityIdentifier = VLCAccessibilityIdentifier.favorite
                 return favoriteCell
             }
+        case .radio:
+            if let radioCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
+                radioCell.textLabel?.text = NSLocalizedString("RADIO", comment: "")
+                radioCell.detailTextLabel?.text = NSLocalizedString("RADIOVC_DETAILTEXT", comment: "")
+                if #available(iOS 13.0, *) {
+                    radioCell.imageView?.image = UIImage(systemName: "radio")?.withRenderingMode(.alwaysTemplate)
+                }
+                return radioCell
+            }
 #if os(iOS)
         case .photos:
             if #available(iOS 14.0, *),
@@ -183,6 +193,8 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return nil
         case .favorite:
             return FavoriteListViewController()
+        case .radio:
+            return VLCRadioListViewController()
 #if os(iOS)
         case .photos:
             return nil

@@ -1142,6 +1142,12 @@
 		7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */; };
 		7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */; };
 		7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
+		7DF60F84300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */; };
+		7DF60F85300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */; };
+		7DF60F86300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */; };
+		7DF60F8A300501CF003A40B8 /* VLCRadioListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */; };
+		7DF60F8B300501CF003A40B8 /* VLCRadioListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */; };
+		7DF60F8C300501CF003A40B8 /* VLCRadioListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */; };
 		7DF782E32D58C171000049DC /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F60EB082A58802000CC577B /* Intents.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
@@ -2113,6 +2119,10 @@
 		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.h"; sourceTree = SOURCE_ROOT; };
 		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.m"; sourceTree = SOURCE_ROOT; };
 		7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayListLimit.h; sourceTree = "<group>"; };
+		7DF60F81300501AE003A40B8 /* VLCServiceBrowserRadio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCServiceBrowserRadio.h; sourceTree = "<group>"; };
+		7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCServiceBrowserRadio.m; sourceTree = "<group>"; };
+		7DF60F87300501CF003A40B8 /* VLCRadioListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioListViewController.h; sourceTree = "<group>"; };
+		7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioListViewController.m; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7DF90B461BE7A8110059C0E3 /* IASKSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = Pods/InAppSettingsKit/InAppSettingsKit/Models/IASKSettingsReader.h; sourceTree = SOURCE_ROOT; };
@@ -3598,6 +3608,7 @@
 				7DC869BC28CB7C0C00EE99F8 /* Managed Servers */,
 				7DC869BB28CB7B7500EE99F8 /* Download */,
 				7DC869B428CB773800EE99F8 /* Open Network Stream */,
+				7DF60F89300501CF003A40B8 /* Radio */,
 				1EF8AF708B09A52CD96B4DBE /* Photos */,
 			);
 			path = Network;
@@ -3787,6 +3798,7 @@
 				7DC869DF28CB863D00EE99F8 /* Manual Connection */,
 				7DEF111B2B8BA7930068D030 /* Favorites */,
 				7DC869DE28CB862900EE99F8 /* Bonjour */,
+				7DF60F83300501AE003A40B8 /* Radio */,
 				7DC869DD28CB861000EE99F8 /* PLEX */,
 				7DC869DC28CB85FC00EE99F8 /* UPnP */,
 				7DC869DB28CB85ED00EE99F8 /* SMB */,
@@ -4152,6 +4164,24 @@
 				7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */,
 			);
 			path = Favorites;
+			sourceTree = "<group>";
+		};
+		7DF60F83300501AE003A40B8 /* Radio */ = {
+			isa = PBXGroup;
+			children = (
+				7DF60F81300501AE003A40B8 /* VLCServiceBrowserRadio.h */,
+				7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */,
+			);
+			path = Radio;
+			sourceTree = "<group>";
+		};
+		7DF60F89300501CF003A40B8 /* Radio */ = {
+			isa = PBXGroup;
+			children = (
+				7DF60F87300501CF003A40B8 /* VLCRadioListViewController.h */,
+				7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */,
+			);
+			path = Radio;
 			sourceTree = "<group>";
 		};
 		8D144D6122298E5800984C46 /* MiniPlayer-iOS */ = {
@@ -5620,6 +5650,7 @@
 				7D50C5E22BBD20DF00B9F1A0 /* FavoriteHeaderContentView.swift in Sources */,
 				7D50C5E32BBD20DF00B9F1A0 /* (null) in Sources */,
 				7D50C5E52BBD20DF00B9F1A0 /* main.m in Sources */,
+				7DF60F8A300501CF003A40B8 /* VLCRadioListViewController.m in Sources */,
 				7D50C5E62BBD20DF00B9F1A0 /* OptionsNavigationBar.swift in Sources */,
 				7D50C5E72BBD20DF00B9F1A0 /* AboutController.swift in Sources */,
 				7D50C5E82BBD20DF00B9F1A0 /* PagerStripViewController.swift in Sources */,
@@ -5665,6 +5696,7 @@
 				7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */,
 				7D50C6112BBD20DF00B9F1A0 /* VLCFrostedGlasView.m in Sources */,
 				7D50C6122BBD20DF00B9F1A0 /* BaseCollectionViewCell.swift in Sources */,
+				7DF60F86300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
 				7D50C6132BBD20DF00B9F1A0 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				7D50C6142BBD20DF00B9F1A0 /* UIViewController+VLCAlert.h in Sources */,
 				7D50C6152BBD20DF00B9F1A0 /* SettingsSpecifier.swift in Sources */,
@@ -5911,6 +5943,7 @@
 				7DC869CB28CB80B800EE99F8 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				0F856A212C24BF0E005806FE /* UIViewController+findViewController.swift in Sources */,
 				7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */,
+				7DF60F84300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
 				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC7BA7F28C894EC00109F28 /* NSObject+SettingsReader.swift in Sources */,
 				7DC7BA8D28C8953800109F28 /* Observable.swift in Sources */,
@@ -5980,6 +6013,7 @@
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				3278C8C62FB7A230008581AA /* WatchLogger.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,
+				7DF60F8C300501CF003A40B8 /* VLCRadioListViewController.m in Sources */,
 				7D3150A92AA8B8B90068D478 /* UIImage+AverageColor.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
@@ -6288,6 +6322,7 @@
 				7DA514982EF82B63000C9995 /* VLCThumbnailsCache.m in Sources */,
 				7DA514992EF82B63000C9995 /* AddToCollectionViewController.swift in Sources */,
 				7DA5149A2EF82B63000C9995 /* AlbumHeaderFlowLayout.swift in Sources */,
+				7DF60F85300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
 				7DA5149B2EF82B63000C9995 /* VLCMarqueeLabel.swift in Sources */,
 				7DA5149C2EF82B63000C9995 /* VLCDonationCreditCardViewController.m in Sources */,
 				7DA5149D2EF82B63000C9995 /* VLCOpenSubtitlesDownloader.m in Sources */,
@@ -6469,6 +6504,7 @@
 				7DA5153E2EF82B63000C9995 /* UIDevice+VLC.swift in Sources */,
 				7DA5153F2EF82B63000C9995 /* ArtistModel.swift in Sources */,
 				7D9819462FC8A6480017248D /* VideoPreviewController.swift in Sources */,
+				7DF60F8B300501CF003A40B8 /* VLCRadioListViewController.m in Sources */,
 				7DA515402EF82B63000C9995 /* VLCPrice.m in Sources */,
 				7DA515412EF82B63000C9995 /* PasscodeLockController.swift in Sources */,
 				7DA515422EF82B63000C9995 /* VLCOneDriveTableViewController.m in Sources */,

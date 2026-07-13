@@ -132,6 +132,8 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Could not find any applications to open this type of file";
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
+"RADIO" = "Radio";
+"RADIOVC_DETAILTEXT" = "Listen to radio stations from around the world";
 "FAVORITEVC_DETAILTEXT" = "See your favorite folders";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Load files directly to your device";
