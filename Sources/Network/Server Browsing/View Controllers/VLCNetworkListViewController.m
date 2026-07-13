@@ -78,24 +78,20 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchController.searchBar.translucent = navBar.translucent;
     _searchController.searchBar.opaque = navBar.opaque;
     [_searchController.searchBar sizeToFit];
-    if (@available(iOS 11.0 VISIONOS_AVAILABLE, *)) {
-        // search bar text field background color
+
+    if (@available(iOS 26.0, visionOS 26.0, *)) {
+        _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        self.navigationItem.preferredSearchBarPlacement = UINavigationItemSearchBarPlacementIntegrated;
+    } else {
         UITextField *searchTextField = [_searchController.searchBar valueForKey:@"searchField"];
         UIView *backgroundView = searchTextField.subviews.firstObject;
         backgroundView.backgroundColor = backgroundColor;
         backgroundView.layer.cornerRadius = 10;
         backgroundView.clipsToBounds = YES;
-
-        //_searchController.hidesNavigationBarDuringPresentation = NO;
-        _searchController.obscuresBackgroundDuringPresentation = NO;
-        self.navigationItem.hidesSearchBarWhenScrolling = YES;
-        self.navigationItem.searchController = _searchController;
-        if (@available(iOS 26.0, visionOS 26.0, *)) {
-            self.navigationItem.preferredSearchBarPlacement = UINavigationItemSearchBarPlacementIntegrated;
-        }
-    } else {
-        _tableView.tableHeaderView = _searchController.searchBar;
     }
+
+    self.navigationItem.hidesSearchBarWhenScrolling = YES;
+    self.navigationItem.searchController = _searchController;
     self.definesPresentationContext = YES;
 
     [self addPlayAllAction];
