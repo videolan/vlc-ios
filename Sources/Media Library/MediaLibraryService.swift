@@ -262,6 +262,19 @@ private extension MediaLibraryService {
         mediaFileDiscoverer?.startDiscovering()
     }
 
+    private func banLogsFolder() {
+#if os(tvOS)
+        let searchPaths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
+#else
+        let searchPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+#endif
+        guard let basePath = searchPaths.first else {
+            return
+        }
+
+        privateMediaLib.banFolder(withPath: "file://" + basePath + "/Logs")
+    }
+
     private func startMediaLibrary(on path: String) {
         let includeMediaLibrary = UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
         includeInDeviceBackup(includeMediaLibrary)
@@ -272,6 +285,11 @@ private extension MediaLibraryService {
         if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
             privateMediaLib.forceRescan()
             UserDefaults.standard.set(true, forKey: MediaLibraryService.didForceRescan)
+        }
+
+        if VLCMigrationCursor.isStepPending(.banLogsFolder) {
+            banLogsFolder()
+            VLCMigrationCursor.complete(.banLogsFolder)
         }
 
         FileManager.default.createFile(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_FILES_PLACEHOLDER", comment: ""))", contents: nil, attributes: nil)
