@@ -134,6 +134,7 @@
 
 "RADIO" = "Radio";
 "RADIOVC_DETAILTEXT" = "Listen to radio stations from around the world";
+"BITRATE_FORMAT" = "%li kb/s";
 "FAVORITEVC_DETAILTEXT" = "See your favorite folders";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Load files directly to your device";

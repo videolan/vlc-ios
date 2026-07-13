@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+@property (nonatomic, readonly, nullable) NSString *mediaDescription;
 @property (nonatomic, copy, nullable) NSString *favoriteGroupName;
 
 @end

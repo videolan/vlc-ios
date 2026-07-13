@@ -108,12 +108,17 @@
             duration = item.duration;
 
         NSString *subtitle = nil;
-        if (sizeString && duration) {
-            subtitle = [NSString stringWithFormat:@"%@ (%@)",duration, sizeString];
-        } else if (sizeString) {
-            subtitle = sizeString;
-        } else if (duration) {
-            subtitle = duration;
+        if (item.media.mediaType == VLCMediaTypeStream && [item respondsToSelector:@selector(mediaDescription)])
+            subtitle = item.mediaDescription;
+
+        if (subtitle == nil) {
+            if (sizeString && duration) {
+                subtitle = [NSString stringWithFormat:@"%@ (%@)",duration, sizeString];
+            } else if (sizeString) {
+                subtitle = sizeString;
+            } else if (duration) {
+                subtitle = duration;
+            }
         }
         cell.subtitle = subtitle;
 #if !TARGET_OS_TV
