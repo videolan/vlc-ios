@@ -294,6 +294,32 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView cellForRowAtIndexPath:indexPath];
+
+    if (!cell || !cell.isFavorable) {
+        return nil;
+    }
+
+    BOOL isFavorite = cell.isFavorite;
+    NSString *title = isFavorite ? NSLocalizedString(@"REMOVE_FAVORITE", nil) : NSLocalizedString(@"ADD_FAVORITE", nil);
+    UIContextualAction *favoriteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                                 title:title
+                                                                               handler:^(UIContextualAction * _Nonnull action,
+                                                                                         UIView * _Nonnull sourceView,
+                                                                                         void (^ _Nonnull completionHandler)(BOOL)) {
+        [self triggerFavoriteForCell:cell];
+        completionHandler(YES);
+    }];
+    favoriteAction.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    if (@available(iOS 13.0, *)) {
+        favoriteAction.image = [UIImage systemImageNamed:isFavorite ? @"heart.slash" : @"heart.fill"];
+    }
+
+    return [UISwipeActionsConfiguration configurationWithActions:@[favoriteAction]];
+}
+
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point
 API_AVAILABLE(ios(13.0)) {
     VLCNetworkListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
