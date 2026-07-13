@@ -14,7 +14,8 @@ import UIKit
 class PulsingConeView: UIView {
 
     private let coneImageView: UIImageView = {
-        let coneImageView = UIImageView(image: UIImage(named: "ic_cone"))
+        let cone = UIImage(named: "LaunchCone") ?? UIImage(named: "cone")
+        let coneImageView = UIImageView(image: cone?.withRenderingMode(.alwaysTemplate))
         coneImageView.contentMode = .scaleAspectFit
         coneImageView.translatesAutoresizingMaskIntoConstraints = false
         return coneImageView
@@ -58,6 +59,7 @@ class PulsingConeView: UIView {
 
     @objc private func beginPulsing() {
         delayTimer = nil
+        coneImageView.tintColor = PresentationTheme.current.colors.orangeDarkAccent
         alpha = 1.0
 
         let scale = CABasicAnimation(keyPath: "transform.scale")
