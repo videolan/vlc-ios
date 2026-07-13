@@ -121,6 +121,7 @@
             [(VLCNetworkListCell *)cell setTitleLabelCentered:YES];
         }
 #endif
+        cell.isFavorable = item.media.mediaType == VLCMediaTypeStream;
 #if DOWNLOAD_SUPPORTED
         if ([item respondsToSelector:@selector(isDownloadable)])
             cell.isDownloadable = item.isDownloadable;

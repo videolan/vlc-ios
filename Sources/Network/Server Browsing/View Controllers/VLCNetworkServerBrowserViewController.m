@@ -340,7 +340,10 @@ API_AVAILABLE(ios(13.0)) {
 {
     id<VLCNetworkServerBrowserItem> item;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    item = self.serverBrowser.items[indexPath.row];
+    if (_isSearching)
+        item = _searchArray[indexPath.row];
+    else
+        item = self.serverBrowser.items[indexPath.row];
 
     VLCFavorite *favorite = [[VLCFavorite alloc] init];
     favorite.url = item.URL;
