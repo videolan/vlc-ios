@@ -347,6 +347,13 @@ API_AVAILABLE(ios(13.0)) {
 
     VLCFavorite *favorite = [[VLCFavorite alloc] init];
     favorite.url = item.URL;
+    favorite.playable = !item.isContainer;
+    if ([self.serverBrowser respondsToSelector:@selector(favoriteGroupName)]) {
+        favorite.groupName = self.serverBrowser.favoriteGroupName;
+    }
+    if ([item respondsToSelector:@selector(thumbnailURL)]) {
+        favorite.artworkURL = item.thumbnailURL;
+    }
 
     if (!cell.isFavorite) {
         cell.isFavorite = YES;

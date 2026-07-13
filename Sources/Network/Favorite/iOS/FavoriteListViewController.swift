@@ -2,7 +2,7 @@
  * FavoriteListViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Rizky Maulana <mrizky9601@gmail.com>
@@ -287,6 +287,16 @@ extension FavoriteListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let favorite = isSearching ? filteredFavorites.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
 
+            if favorite.playable {
+                tableView.deselectRow(at: indexPath, animated: true)
+                let mediaList = VLCMediaList()
+                if let media = VLCMedia(url: favorite.url) {
+                    mediaList.add(media)
+                    PlaybackService.sharedInstance().playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil)
+                }
+                return
+            }
+
 #if os(iOS)
             if favorite.protocolIdentifier == "FILE" {
                 showCloudFavVC(fav: favorite)
@@ -372,9 +382,18 @@ extension FavoriteListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
         if let favorite = isSearching ? filteredFavorites.objectAtIndex(index: indexPath.row) : favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
             cell.title = favorite.userVisibleName
-            cell.isDirectory = true
-            cell.thumbnailImage = UIImage(named: "folder")
-            cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+            cell.isDirectory = !favorite.playable
+            if favorite.playable {
+                cell.iconURL = favorite.artworkURL
+                if cell.iconURL == nil {
+                    cell.icon = UIImage(named: "LaunchCone")?.withRenderingMode(.alwaysTemplate)
+                    cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
+                }
+                cell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+            } else {
+                cell.thumbnailImage = UIImage(named: "folder")
+                cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+            }
         }
         return cell
     }

@@ -2,7 +2,7 @@
  * VLCFavoriteService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -15,11 +15,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *const VLCFavoriteGroupRadio;
+
 @interface VLCFavorite : NSObject
 
 @property (readwrite, retain) NSString *userVisibleName;
 @property (readwrite, retain) NSURL *url;
+@property (readwrite, retain, nullable) NSString *groupName;
+@property (readwrite, retain, nullable) NSURL *artworkURL;
+@property (readwrite) BOOL playable;
 @property (readonly) NSString *protocolIdentifier;
+@property (readonly, nullable) NSString *groupIdentifier;
 @property (readonly, nullable) VLCNetworkServerLoginInformation *loginInformation;
 
 @end

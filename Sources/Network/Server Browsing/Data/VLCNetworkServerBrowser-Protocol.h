@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)update;
 
+@optional
+@property (nonatomic, readonly, nullable) NSString *favoriteGroupName;
+
 @end
 
 @protocol VLCNetworkServerBrowserDelegate <NSObject>

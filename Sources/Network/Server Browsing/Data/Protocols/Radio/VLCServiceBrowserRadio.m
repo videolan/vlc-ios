@@ -12,6 +12,7 @@
 
 #import "VLCServiceBrowserRadio.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
+#import "VLCFavoriteService.h"
 
 static NSString *const VLCRadioServiceName = @"radio";
 
@@ -41,7 +42,9 @@ static NSString *const VLCRadioServiceName = @"radio";
     if (media.mediaType != VLCMediaTypeDirectory)
         return nil;
 
-    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:media options:@{}];
+    VLCNetworkServerBrowserVLCMedia *browser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:media options:@{}];
+    browser.favoriteGroupName = VLCFavoriteGroupRadio;
+    return browser;
 }
 
 @end

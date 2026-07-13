@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options mediaParser:(nullable VLCMediaParser *)mediaParser NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 - (VLCMediaParsedStatus)retrieveParsedStatus;
+
+@property (nonatomic, copy, nullable) NSString *favoriteGroupName;
 @end
 
 @interface VLCNetworkServerBrowserItemVLCMedia : NSObject <VLCNetworkServerBrowserItem>
@@ -27,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+@property (nonatomic, copy, nullable) NSString *favoriteGroupName;
 
 @end
 

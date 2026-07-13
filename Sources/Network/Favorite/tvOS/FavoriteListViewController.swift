@@ -2,7 +2,7 @@
  * FavoriteListViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2024-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Eshan Singh <eeeshan789@icloud.com>
@@ -88,6 +88,14 @@ extension FavoriteListViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VLCRemoteBrowsingTVCell", for: indexPath) as! VLCRemoteBrowsingTVCell
         if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
             cell.title = favorite.userVisibleName
+            cell.isDirectory = !favorite.playable
+            if favorite.playable {
+                cell.thumbnailURL = favorite.artworkURL
+                if cell.thumbnailURL == nil {
+                    cell.thumbnailImage = UIImage(named: "cone")
+                }
+                return cell
+            }
         }
         cell.isDirectory = true
         cell.thumbnailImage = UIImage(named: "folder")
@@ -96,6 +104,15 @@ extension FavoriteListViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row) {
+
+            if favorite.playable {
+                let mediaList = VLCMediaList()
+                if let media = VLCMedia(url: favorite.url) {
+                    mediaList.add(media)
+                    PlaybackService.sharedInstance().playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil)
+                }
+                return
+            }
 
             var serverBrowser: VLCNetworkServerBrowser? = nil
             let identifier = favorite.protocolIdentifier as NSString

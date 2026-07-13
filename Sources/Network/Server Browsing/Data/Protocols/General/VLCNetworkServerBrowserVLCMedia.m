@@ -93,10 +93,11 @@
         [media addOptions:self.mediaOptions];
         NSInteger mediaIndex = self.mutableItems.count;
         [self.mediaList insertMedia:media atIndex:mediaIndex];
-        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media
-                                                                                           options:self.mediaOptions
-                                                                                       mediaParser:_mediaParser]
-                                atIndex:mediaIndex];
+        VLCNetworkServerBrowserItemVLCMedia *item = [[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media
+                                                                                                       options:self.mediaOptions
+                                                                                                   mediaParser:_mediaParser];
+        item.favoriteGroupName = self.favoriteGroupName;
+        [self.mutableItems insertObject:item atIndex:mediaIndex];
     }
     [rootItems unlock];
 }
@@ -192,9 +193,11 @@
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
-    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media
-                                                          options:self.mediaOptions
-                                                      mediaParser:_mediaParser];
+    VLCNetworkServerBrowserVLCMedia *browser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media
+                                                                                              options:self.mediaOptions
+                                                                                          mediaParser:_mediaParser];
+    browser.favoriteGroupName = self.favoriteGroupName;
+    return browser;
 }
 
 - (BOOL)isDownloadable
@@ -205,6 +208,30 @@
 - (NSURL *)thumbnailURL
 {
     return _media.metaData.artworkURL;
+}
+
+- (NSString *)mediaDescription
+{
+    NSDictionary<NSString *, NSString *> *extra = _media.metaData.extra;
+    if (!extra) {
+        return nil;
+    }
+
+    NSString *codec = extra[@"Codec"];
+    if ([codec caseInsensitiveCompare:@"UNKNOWN"] == NSOrderedSame) {
+        codec = nil;
+    }
+
+    NSString *bitrate = nil;
+    NSInteger bitrateValue = extra[@"Bitrate (kb/s)"].integerValue;
+    if (bitrateValue > 0) {
+        bitrate = [NSString stringWithFormat:NSLocalizedString(@"BITRATE_FORMAT", nil), (long)bitrateValue];
+    }
+
+    if (codec && bitrate) {
+        return [NSString stringWithFormat:@"%@ · %@", codec, bitrate];
+    }
+    return codec ?: bitrate;
 }
 
 @end
