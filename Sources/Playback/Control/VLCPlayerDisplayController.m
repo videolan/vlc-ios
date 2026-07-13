@@ -53,6 +53,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @interface VLCPlayerDisplayController () <VLCTransferStatusBannerControllerDelegate>
 @property (nonatomic, strong, nullable) VLCTransferStatusBannerController *transferBannerController;
 @property (nonatomic, weak, nullable) UINavigationController *downloadsNavigationController;
+@property (nonatomic) BOOL horizontalConstraintsConfigured;
+@property (nonatomic) CGFloat appliedMiniPlayerLeadingConstant;
+@property (nonatomic) CGFloat appliedMiniPlayerTrailingConstant;
 @end
 
 @implementation VLCPlayerDisplayController
@@ -81,6 +84,114 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     self.transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:self.view delegate:self];
 
     [super viewDidLoad];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    if (!self.miniPlaybackView) {
+        return;
+    }
+
+    CGFloat leadingConstant = 0.0;
+    CGFloat trailingConstant = 0.0;
+    [self miniPlayerHorizontalInsetsLeading:&leadingConstant trailing:&trailingConstant];
+
+    if (!self.horizontalConstraintsConfigured
+        || fabs(leadingConstant - self.appliedMiniPlayerLeadingConstant) > 0.5
+        || fabs(trailingConstant - self.appliedMiniPlayerTrailingConstant) > 0.5) {
+        [self updateMiniPlayerHorizontalConstraints];
+    }
+}
+
+- (BOOL)shouldMiniPlayerMatchTabBarWidth
+{
+    if (@available(iOS 26.0, *)) {
+        return self.miniPlayerReferenceTabBar != nil
+            && self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact
+            && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular;
+    }
+    return NO;
+}
+
+- (void)miniPlayerHorizontalInsetsLeading:(CGFloat *)leading trailing:(CGFloat *)trailing
+{
+    CGFloat leadingConstant = 0.0;
+    CGFloat trailingConstant = 0.0;
+
+    if ([self shouldMiniPlayerMatchTabBarWidth]) {
+        UIEdgeInsets pill = [self referenceTabBarPillInsets];
+        if (pill.left > 8.0 && pill.right > 8.0) {
+            leadingConstant = pill.left - 8.0;
+            trailingConstant = 8.0 - pill.right;
+        }
+    }
+
+    if (leading) {
+        *leading = leadingConstant;
+    }
+    if (trailing) {
+        *trailing = trailingConstant;
+    }
+}
+
+- (UIEdgeInsets)referenceTabBarPillInsets
+{
+    UITabBar *tabBar = self.miniPlayerReferenceTabBar;
+    CGFloat width = CGRectGetWidth(tabBar.bounds);
+    if (width <= 0.0) {
+        return UIEdgeInsetsZero;
+    }
+
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    CGFloat widestInsetView = 0.0;
+    [self findPillInView:tabBar relativeToTabBar:tabBar widestInsetView:&widestInsetView insets:&insets];
+    return insets;
+}
+
+- (void)findPillInView:(UIView *)view
+      relativeToTabBar:(UITabBar *)tabBar
+       widestInsetView:(CGFloat *)widestInsetView
+                insets:(UIEdgeInsets *)insets
+{
+    CGFloat tabBarWidth = CGRectGetWidth(tabBar.bounds);
+    for (UIView *subview in view.subviews) {
+        CGRect frame = [subview convertRect:subview.bounds toView:tabBar];
+        CGFloat left = CGRectGetMinX(frame);
+        CGFloat right = tabBarWidth - CGRectGetMaxX(frame);
+        if (left > 0.5 && right > 0.5 && CGRectGetWidth(frame) > *widestInsetView) {
+            *widestInsetView = CGRectGetWidth(frame);
+            *insets = UIEdgeInsetsMake(0.0, left, 0.0, right);
+        }
+        [self findPillInView:subview relativeToTabBar:tabBar widestInsetView:widestInsetView insets:insets];
+    }
+}
+
+- (void)updateMiniPlayerHorizontalConstraints
+{
+    UIView *miniPlaybackView = self.miniPlaybackView;
+    if (!miniPlaybackView) {
+        return;
+    }
+
+    CGFloat leadingConstant = 0.0;
+    CGFloat trailingConstant = 0.0;
+    [self miniPlayerHorizontalInsetsLeading:&leadingConstant trailing:&trailingConstant];
+
+    self.leadingConstraint.active = NO;
+    self.trailingConstraint.active = NO;
+
+    self.leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor
+                                                                            constant:leadingConstant];
+    self.trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor
+                                                                              constant:trailingConstant];
+    self.leadingConstraint.active = YES;
+    self.trailingConstraint.active = YES;
+
+    self.appliedMiniPlayerLeadingConstant = leadingConstant;
+    self.appliedMiniPlayerTrailingConstant = trailingConstant;
+    self.horizontalConstraintsConfigured = YES;
 }
 
 #pragma mark - properties
@@ -561,16 +672,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self.view addSubview:miniPlaybackView];
             _bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
 
-            if (@available(iOS 11.0, *)) {
-                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
-                                                                                        constant: 25.0];
-                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor];
-                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor];
-            } else {
-                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant: 25.0];
-                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
-                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
-            }
+            _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
+                                                                                    constant: 25.0];
 
             NSLayoutConstraint* heightConstraint = [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight];
             heightConstraint.priority = UILayoutPriorityDefaultHigh;
@@ -578,9 +681,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [NSLayoutConstraint activateConstraints:
              @[_bottomConstraint,
                heightConstraint,
-               _leadingConstraint,
-               _trailingConstraint,
                ]];
+            [self updateMiniPlayerHorizontalConstraints];
             [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
             [self.view layoutIfNeeded];
         }

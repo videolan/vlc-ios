@@ -55,8 +55,7 @@ extension VLCPlayerDisplayController: MiniPlayerDraggingDelegate {
     }
 
     func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer) {
-        leadingConstraint?.constant = 0.0
-        trailingConstraint?.constant = 0.0
+        updateMiniPlayerHorizontalConstraints()
         UIView.animate(withDuration: VLCPlayerDisplayController.animationDuration, animations: {
             self.view.layoutIfNeeded()
         })

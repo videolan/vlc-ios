@@ -16,6 +16,7 @@
 @class VLCPlaybackService;
 @class VLCServices;
 @class VLCQueueViewController;
+@class UITabBar;
 
 typedef NS_ENUM(UInt8, VLCMLMediaType);
 
@@ -47,6 +48,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
 @property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realBottomAnchor;
+@property (nonatomic, weak, nullable) UITabBar *miniPlayerReferenceTabBar;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *leadingConstraint;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *trailingConstraint;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *bottomConstraint;
@@ -73,6 +75,8 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 - (void)dismissPlaybackView;
 
 - (void)hintPlayqueueWithDelay:(NSTimeInterval)delay;
+
+- (void)updateMiniPlayerHorizontalConstraints;
 
 @end
 

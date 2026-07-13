@@ -186,6 +186,7 @@ private extension AudioMiniPlayer {
 #if !os(visionOS)
         if #available(iOS 26.0, *) {
             audioMiniPlayer.backgroundColor = .clear
+            audioMiniPlayer.clipsToBounds = false
 
             let corners = UICornerConfiguration.capsule()
             audioMiniPlayer.cornerConfiguration = corners
@@ -336,10 +337,11 @@ private extension AudioMiniPlayer {
 
         audioMiniPlayer.addSubview(progressBarView)
         let inset: CGFloat = modern ? 28 : 0
+        let bottomInset: CGFloat = modern ? -5 : 0
         NSLayoutConstraint.activate([
             progressBarView.leadingAnchor.constraint(equalTo: audioMiniPlayer.leadingAnchor, constant: inset),
             progressBarView.trailingAnchor.constraint(equalTo: audioMiniPlayer.trailingAnchor, constant: -inset),
-            progressBarView.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor),
+            progressBarView.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor, constant: bottomInset),
             progressBarView.heightAnchor.constraint(equalToConstant: 2),
         ])
     }
