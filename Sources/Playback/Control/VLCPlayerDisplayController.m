@@ -25,6 +25,8 @@
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
+static const CGFloat kVLCMiniPlayerMaximumWidthFactor = 2.0 / 3.0;
+
 NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
 NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayControllerHideMiniPlayer";
 
@@ -105,12 +107,16 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 }
 
+- (BOOL)hasBottomTabBarLayout
+{
+    return self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact
+        && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular;
+}
+
 - (BOOL)shouldMiniPlayerMatchTabBarWidth
 {
     if (@available(iOS 26.0, *)) {
-        return self.miniPlayerReferenceTabBar != nil
-            && self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact
-            && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular;
+        return self.miniPlayerReferenceTabBar != nil && [self hasBottomTabBarLayout];
     }
     return NO;
 }
@@ -125,6 +131,13 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         if (pill.left > 8.0 && pill.right > 8.0) {
             leadingConstant = pill.left - 8.0;
             trailingConstant = 8.0 - pill.right;
+        }
+    } else if (![self hasBottomTabBarLayout]) {
+        CGRect safeArea = UIEdgeInsetsInsetRect(self.view.bounds, self.view.safeAreaInsets);
+        CGFloat inset = floor(CGRectGetWidth(safeArea) * (1.0 - kVLCMiniPlayerMaximumWidthFactor) / 2.0);
+        if (inset > 0.0) {
+            leadingConstant = inset;
+            trailingConstant = -inset;
         }
     }
 
