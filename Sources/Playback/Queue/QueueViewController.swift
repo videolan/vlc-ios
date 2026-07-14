@@ -76,7 +76,7 @@ class QueueViewController: UIViewController {
     private var topConstraint: NSLayoutConstraint?
     private var topConstraintConstant: CGFloat {
         if parent is VideoPlayerViewController {
-            return UIDevice.hasNotch ? 75 : 50
+            return view.safeAreaInsets.bottom > 0 ? 75 : 50
         } else {
             return 0
         }
@@ -506,7 +506,8 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding = sidePadding + 5.0
-        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - padding)
+        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - padding,
+                                                        safeAreaInsets: collectionView.safeAreaInsets)
     }
 
     func collectionView(_ collectionView: UICollectionView,

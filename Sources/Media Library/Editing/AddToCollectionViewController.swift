@@ -221,7 +221,8 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return MediaCollectionViewCell.cellSizeForWidth(collectionView.bounds.size.width)
+        return MediaCollectionViewCell.cellSizeForWidth(collectionView.bounds.size.width,
+                                                        safeAreaInsets: collectionView.safeAreaInsets)
     }
 
     func collectionView(_ collectionView: UICollectionView,

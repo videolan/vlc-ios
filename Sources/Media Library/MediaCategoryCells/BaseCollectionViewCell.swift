@@ -30,11 +30,21 @@ class BaseCollectionViewCell: UICollectionViewCell {
     private(set) var secondDescriptionLabelView: UILabel?
     private(set) var descriptionSeparatorLabel: UILabel?
 
+    @available(*, deprecated, message: "use numberOfColumns(for:safeAreaInsets:) instead")
     class func numberOfColumns(for width: CGFloat) -> CGFloat {
+        return numberOfColumns(for: width, safeAreaInsets: UIDevice.keyWindowSafeAreaInsets)
+    }
+
+    class func numberOfColumns(for width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGFloat {
         return CGFloat.zero
     }
 
+    @available(*, deprecated, message: "use cellSizeForWidth(_:safeAreaInsets:) instead")
     class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        return cellSizeForWidth(width, safeAreaInsets: UIDevice.keyWindowSafeAreaInsets)
+    }
+
+    class func cellSizeForWidth(_ width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGSize {
         return CGSize.zero
     }
 

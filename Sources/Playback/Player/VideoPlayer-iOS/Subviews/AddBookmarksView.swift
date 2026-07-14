@@ -95,7 +95,7 @@ class AddBookmarksView: UIView {
         headerStackView.addArrangedSubview(closeButton)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(addButton)
-        headerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        headerStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         headerStackView.isLayoutMarginsRelativeArrangement = true
     }
 

@@ -221,6 +221,10 @@ class MediaLibraryService: NSObject {
         let screenWidth: CGFloat = (UIApplication.shared.delegate?.window??.bounds.size.width)!
         let screenScale: CGFloat = UITraitCollection.current.displayScale
         #else
+        // TODO: Modernization - UIScreen.main assumes a single display and is read here before any
+        // window exists. The desired thumbnail size should be derived from the window the library is
+        // presented in: pass bounds and a UITraitCollection into a setup method invoked from
+        // scene(_:willConnectTo:options:), and re-run it when the scene's trait collection changes.
         let screenWidth = UIScreen.main.bounds.width
         let screenScale = UIScreen.main.scale
         #endif

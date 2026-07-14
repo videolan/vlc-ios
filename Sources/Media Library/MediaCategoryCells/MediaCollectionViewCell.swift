@@ -631,7 +631,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     // MARK: - Class methods
 
-    override class func numberOfColumns(for width: CGFloat) -> CGFloat {
+    override class func numberOfColumns(for width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGFloat {
         if width <= DeviceDimensions.iPhone16ProMaxPortrait.rawValue {
             return 1
         } else if width <= DeviceDimensions.iPadLandscape.rawValue {
@@ -641,8 +641,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
     }
 
-    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat = numberOfColumns(for: width)
+    override class func cellSizeForWidth(_ width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGSize {
+        let numberOfCells: CGFloat = numberOfColumns(for: width, safeAreaInsets: safeAreaInsets)
 
         // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
         //

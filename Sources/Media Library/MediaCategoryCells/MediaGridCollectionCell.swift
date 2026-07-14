@@ -368,10 +368,10 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         backgroundColor = .clear
     }
 
-    override class func numberOfColumns(for width: CGFloat) -> CGFloat {
+    override class func numberOfColumns(for width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGFloat {
         if width <= DeviceDimensions.iPhone16ProMaxPortrait.rawValue {
             return 2
-        } else if width <= DeviceDimensions.iPhoneLandscape.rawValue && !UIDevice.hasNotch {
+        } else if width <= DeviceDimensions.iPhoneLandscape.rawValue && safeAreaInsets.bottom == 0 {
             return 3
         } else if width <= DeviceDimensions.iPadLandscape.rawValue {
             return 4
@@ -380,8 +380,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         }
     }
 
-    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat = numberOfColumns(for: width)
+    override class func cellSizeForWidth(_ width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGSize {
+        let numberOfCells: CGFloat = numberOfColumns(for: width, safeAreaInsets: safeAreaInsets)
         let aspectRatio: CGFloat = 1.0
         let overallWidth = width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding

@@ -2315,7 +2315,7 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
             // In case of nested views, the safe area may not be updated.
             // Getting its parent's safe area gives us the true updated safe area.
             let toWidth = parent?.view.safeAreaLayoutGuide.layoutFrame.width ?? collectionView.safeAreaLayoutGuide.layoutFrame.width
-            cachedCellSize = model.cellType.cellSizeForWidth(toWidth)
+            cachedCellSize = model.cellType.cellSizeForWidth(toWidth, safeAreaInsets: collectionView.safeAreaInsets)
         }
         return cachedCellSize
     }
@@ -2632,7 +2632,7 @@ private extension MediaCategoryViewController {
 
     func constrainOnX(_ location: CGPoint, for width: CGFloat) -> CGPoint {
         var constrainedLocation = location
-        if model.cellType.numberOfColumns(for: width) == 1 {
+        if model.cellType.numberOfColumns(for: width, safeAreaInsets: collectionView.safeAreaInsets) == 1 {
             constrainedLocation.x = width / 2
         }
         return constrainedLocation

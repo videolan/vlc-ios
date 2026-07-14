@@ -59,14 +59,14 @@
 
     UICollectionView *collectionView = self.playlistMediaCollection;
     VLCMaskView *maskView = (VLCMaskView *)collectionView.maskView;
-    maskView.maskEnd = self.topLayoutGuide.length * 0.8;
+    maskView.maskEnd = self.view.safeAreaInsets.top * 0.8;
 
     /*
      Update the position from where the collection view's content should
      start to fade out. The size of the fade increases as the collection
      view scrolls to a maximum of half the navigation bar's height.
      */
-    CGFloat maximumMaskStart = maskView.maskEnd + (self.topLayoutGuide.length * 0.5);
+    CGFloat maximumMaskStart = maskView.maskEnd + (self.view.safeAreaInsets.top * 0.5);
     CGFloat verticalScrollPosition = MAX(0, collectionView.contentOffset.y + collectionView.contentInset.top);
     maskView.maskStart = MIN(maximumMaskStart, maskView.maskEnd + verticalScrollPosition);
 

@@ -36,12 +36,19 @@
         return true
     }
 
-    @objc(VLCDeviceHasSafeArea)
-    static var hasSafeArea: Bool {
+    @available(*, deprecated, message: "read safeAreaInsets from the view's own window instead")
+    static var keyWindowSafeAreaInsets: UIEdgeInsets {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+        return keyWindow?.safeAreaInsets ?? .zero
     }
 
+    @available(*, deprecated, message: "read safeAreaInsets from the view's own window instead")
+    @objc(VLCDeviceHasSafeArea)
+    static var hasSafeArea: Bool {
+        return keyWindowSafeAreaInsets.bottom > 0
+    }
+
+    @available(*, deprecated, message: "read safeAreaInsets from the view's own window instead")
     static var hasNotch: Bool {
         return hasSafeArea
     }
