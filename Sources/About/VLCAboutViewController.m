@@ -39,7 +39,7 @@
                                                                                                  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
                                                                             documentAttributes:nil error:nil];
     if (@available(tvOS 13.0, *)) {
-        if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             [aboutContents addAttribute:NSForegroundColorAttributeName value:PresentationTheme.darkTheme.colors.lightTextColor range:NSMakeRange(0., aboutContents.length)];
         }
     }

@@ -288,7 +288,7 @@
 {
 #if TARGET_OS_TV
     ColorPalette *colors = PresentationTheme.darkTheme.colors;
-    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         self.titleLabel.textColor = colors.lightTextColor;
         self.nothingFoundLabel.textColor = colors.lightTextColor;

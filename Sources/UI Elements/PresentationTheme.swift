@@ -272,7 +272,7 @@ enum PresentationThemeType: Int {
             PresentationThemeType(rawValue: themeSettings))
     }
 
-    static func respectiveTheme(for theme: PresentationThemeType?, excludingBlackTheme: Bool = false) -> PresentationTheme {
+    static func respectiveTheme(for theme: PresentationThemeType?, excludingBlackTheme: Bool = false, traitCollection: UITraitCollection? = nil) -> PresentationTheme {
 #if os(visionOS)
         return .visionTheme
 #else
@@ -294,7 +294,8 @@ enum PresentationThemeType: Int {
         } else if theme == .auto {
 #if os(iOS) || os(tvOS)
             if #available(iOS 13.0, tvOS 13.0, *) {
-                let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                let traits = traitCollection ?? UITraitCollection.current
+                let isSystemDarkTheme = traits.userInterfaceStyle == .dark
                 presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
             }
 #else
