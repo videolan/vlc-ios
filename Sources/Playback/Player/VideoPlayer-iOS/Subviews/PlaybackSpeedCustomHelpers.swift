@@ -115,16 +115,7 @@ enum UIUtils {
     
 #if !os(tvOS)
     static func createToolbar() -> UIToolbar {
-        let width: CGFloat
-        #if os(visionOS)
-        width = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.coordinateSpace.bounds.width ?? 1280
-        #else
-        width = UIScreen.main.bounds.width
-        #endif
-
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
         toolBar.barStyle = PresentationTheme.current.colors.toolBarStyle
         toolBar.isTranslucent = true
         toolBar.sizeToFit()

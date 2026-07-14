@@ -59,12 +59,7 @@ class ActionSheet: UIViewController {
     }()
 
     @objc lazy var collectionView: UICollectionView = {
-#if os(iOS)
-        let frame = UIScreen.main.bounds
-#else
-        let frame = UIApplication.shared.delegate!.window!!.bounds
-#endif
-        let collectionView = UICollectionView(frame: frame,
+        let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -82,12 +77,7 @@ class ActionSheet: UIViewController {
     }()
 
     lazy var collectionWrapperView: UIView = {
-#if os(iOS)
-        let frame = UIScreen.main.bounds
-#else
-        let frame = UIApplication.shared.delegate!.window!!.bounds
-#endif
-        let collectionWrapperView: UIView = UIView(frame: frame)
+        let collectionWrapperView: UIView = UIView(frame: .zero)
         collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         return collectionWrapperView
     }()

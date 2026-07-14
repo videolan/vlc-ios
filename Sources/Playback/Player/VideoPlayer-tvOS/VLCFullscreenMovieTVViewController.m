@@ -509,7 +509,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     CGFloat diffY = newLocationInView.y - self.projectionLocation.y;
     self.projectionLocation = newLocationInView;
 
-    CGSize screenPixelSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    CGSize screenPixelSize = self.view.bounds.size;
 
     CGFloat diffYaw = 85 * -diffX / screenPixelSize.width;
     CGFloat diffPitch = 85 * -diffY / screenPixelSize.width;
