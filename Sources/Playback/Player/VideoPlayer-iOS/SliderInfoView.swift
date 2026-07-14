@@ -121,16 +121,34 @@ class BrightnessControlView: SliderInfoView {
         // Avoid the temptation to put `adjustable` here; the system will add
         // accessibility controls that do not work.
         levelSlider.accessibilityTraits = []
-
-        update(level: Float(UIScreen.main.brightness))
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private var currentScreen: UIScreen? {
+        guard let window = window else {
+            return nil
+        }
+
+        if #available(iOS 13.0, *), let screen = window.windowScene?.screen {
+            return screen
+        }
+
+        return window.screen
+    }
+
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+
+        if let brightness = currentScreen?.brightness {
+            update(level: Float(brightness))
+        }
+    }
+
     @objc func onLuminosityChange() {
-        UIScreen.main.brightness = CGFloat(levelSlider.value)
+        currentScreen?.brightness = CGFloat(levelSlider.value)
         update(level: levelSlider.value)
     }
 

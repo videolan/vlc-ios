@@ -211,10 +211,10 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
     lazy var brightnessControl: SliderGestureControl = {
-        return SliderGestureControl { value in
-            UIScreen.main.brightness = CGFloat(value)
-        } deviceGetter: {
-            return Float(UIScreen.main.brightness)
+        return SliderGestureControl { [weak self] value in
+            self?.playerScreen?.brightness = CGFloat(value)
+        } deviceGetter: { [weak self] in
+            return Float(self?.playerScreen?.brightness ?? 0)
         }
     }()
 
@@ -331,12 +331,7 @@ class PlayerViewController: UIViewController {
     private var systemBrightness: Double?
 
 #if os(iOS)
-    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
-                                         height: UIScreen.main.bounds.height)
-#else
-    private let screenPixelSize: CGSize = {
-        return UIApplication.shared.delegate?.window??.bounds.size
-    }()!
+    private var playerScreen: UIScreen?
 #endif
 
     private let notificationCenter = NotificationCenter.default
@@ -408,7 +403,6 @@ class PlayerViewController: UIViewController {
 
         mediaNavigationBar.chromeCastButton = rendererButton
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
-        systemBrightness = UIScreen.main.brightness
     }
 #else
     init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
@@ -462,7 +456,10 @@ class PlayerViewController: UIViewController {
         view.transform = .identity
 #if os(iOS)
         //update the system brightness value before player appears
-        self.systemBrightness = UIScreen.main.brightness
+        if let screen = screenForCurrentWindow() {
+            playerScreen = screen
+            systemBrightness = screen.brightness
+        }
 
         //update the value of brightness control view
         //In case of remember brightness option is disabled, this will update the brightness bar with current brightness.
@@ -498,14 +495,16 @@ class PlayerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
-            let currentBrightness = UIScreen.main.brightness
+        if playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable,
+           let currentBrightness = playerScreen?.brightness {
             self.brightnessControl.value = Float(currentBrightness) // helper in indicating change in the system brightness
             userDefaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
         }
         //set the value of system brightness after closing the app
         //even if the Player Should Remember Brightness option is disabled
-        animateBrightness(to: systemBrightness!, duration: 0.35)
+        if let systemBrightness = systemBrightness {
+            animateBrightness(to: systemBrightness, duration: 0.35)
+        }
 
         // remove the observer when the view disappears to avoid breaking the brightness view value
         // when the player is not shown to save the persisted values
@@ -637,7 +636,7 @@ class PlayerViewController: UIViewController {
     func applyCornerRadius() {
         var cornerRadius: CGFloat
 #if os(iOS)
-        cornerRadius = UIScreen.main.displayCornerRadius
+        cornerRadius = screenForCurrentWindow()?.displayCornerRadius ?? 0.0
 #else
         cornerRadius = 5.0
 #endif
@@ -794,9 +793,9 @@ class PlayerViewController: UIViewController {
         let diffY = newLocationInView.y - projectionLocation.y
         projectionLocation = newLocationInView
 
-        // ScreenSizePixel width is used twice to get a constant speed on the movement.
-        let diffYaw = fov * -diffX / screenPixelSize.width
-        let diffPitch = fov * -diffY / screenPixelSize.width
+        // View width is used twice to get a constant speed on the movement.
+        let diffYaw = fov * -diffX / view.bounds.width
+        let diffPitch = fov * -diffY / view.bounds.width
 
         applyYaw(yaw: diffYaw, pitch: diffPitch)
     }
@@ -905,17 +904,33 @@ class PlayerViewController: UIViewController {
         )
     }
 
+    private func screenForCurrentWindow() -> UIScreen? {
+        guard let window = view.window else {
+            return nil
+        }
+
+        if #available(iOS 13.0, *), let screen = window.windowScene?.screen {
+            return screen
+        }
+
+        return window.screen
+    }
+
     func animateBrightness(to value: CGFloat, duration: CGFloat = 0.3) {
-        UIScreen.main.animateBrightnessChange(to: value, duration: duration)
+        playerScreen?.animateBrightnessChange(to: value, duration: duration)
     }
 
     @objc func systemBrightnessChanged() {
+        guard let screen = playerScreen, let systemBrightness = self.systemBrightness else {
+            return
+        }
+
         let conversionThreshold: Float = 0.03 // threshold for conversion error value
 
         //incase the control center is opened without any changes in the brightness.
         //except setting the brightness value to the system one by the willResignActiveNotification observer.
         //reseting the value of brightness to the player one.
-        if abs(Float(UIScreen.main.brightness - self.systemBrightness!)) <= conversionThreshold {
+        if abs(Float(screen.brightness - systemBrightness)) <= conversionThreshold {
             animateBrightness(to: CGFloat(self.brightnessControl.value))
         }
 
@@ -924,8 +939,8 @@ class PlayerViewController: UIViewController {
             // If they are different, the value is changed to the control center value.
             // This is important to ensure we do not lose track of the actual system brightness setting
 
-            if abs(Float(UIScreen.main.brightness) - self.brightnessControl.value) > conversionThreshold {
-                let brightness = UIScreen.main.brightness
+            if abs(Float(screen.brightness) - self.brightnessControl.value) > conversionThreshold {
+                let brightness = screen.brightness
                 self.systemBrightness = brightness
                 self.brightnessControl.value = Float(brightness)
                 self.brightnessControlView.updateIcon(level: Float(brightness))
@@ -934,14 +949,22 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func playerWillResignActive() {
-        animateBrightness(to: systemBrightness!)
+        guard let systemBrightness = systemBrightness else {
+            return
+        }
+
+        animateBrightness(to: systemBrightness)
     }
 
     @objc func playerWillEnterForeground() {
         //updates the value of system brightness
         //if the brightness is changed when the player was in the background
-        self.systemBrightness = UIScreen.main.brightness
-        animateBrightness(to: systemBrightness!)
+        guard let brightness = playerScreen?.brightness else {
+            return
+        }
+
+        self.systemBrightness = brightness
+        animateBrightness(to: brightness)
     }
 #endif
 
