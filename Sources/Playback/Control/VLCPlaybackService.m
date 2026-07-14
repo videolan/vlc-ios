@@ -29,6 +29,7 @@
 
 #if !TARGET_OS_WATCH
 #import "VLCPlayerDisplayController.h"
+#import "VLCAppCoordinator.h"
 #endif
 
 #import <stdatomic.h>
@@ -285,6 +286,10 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     defaultVoutFrame = [[[[UIApplication sharedApplication] delegate] window] bounds];
     
 #elif TARGET_OS_IOS || TARGET_OS_TV
+    /* TODO: Modernization - UIScreen.mainScreen assumes a single display and is read before any window
+     * exists. The off-screen vout view only needs a non-degenerate size, so this should take the bounds
+     * of the window the player will be presented in: add a -setupVideoOutputWithBounds: entry point and
+     * call it from the scene once a UIWindowScene is connected. */
     defaultVoutFrame = [UIScreen mainScreen].bounds;
 
     _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
@@ -1289,12 +1294,15 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 }
 
 #if !TARGET_OS_VISION && !TARGET_OS_WATCH
+/* TODO: Modernization - The UIScreen.mainScreen fallback assumes the local player renders on a single,
+ * fixed display. The screen a window renders on can change when it moves between displays, so this
+ * should resolve through the presenting window: -currentScreenForWindow: returning
+ * window.windowScene.screen. Callers (-switchToFillToScreen and friends) need a window threaded in. */
 - (UIScreen *)currentScreen
 {
-    BOOL hasExternalDisplay = [[UIDevice currentDevice] VLCHasExternalDisplay];
-    NSArray<UIScreen *> *screens = [UIScreen screens];
-    if (hasExternalDisplay && screens.count > 1) {
-        return screens[1];
+    UIWindow *externalWindow = [VLCAppCoordinator sharedInstance].externalWindow;
+    if (externalWindow) {
+        return externalWindow.screen;
     }
 
     return  [UIScreen mainScreen];
@@ -1894,12 +1902,15 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (BOOL)isPlayingOnExternalScreen
 {
-#if TARGET_OS_IOS
-    return (_renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]);
-#elif TARGET_OS_WATCH
+#if TARGET_OS_WATCH
     return NO;
 #else
-    return [[UIDevice currentDevice] VLCHasExternalDisplay];
+    BOOL hasExternalWindow = [VLCAppCoordinator sharedInstance].externalWindow != nil;
+#if TARGET_OS_IOS
+    return (_renderer || hasExternalWindow);
+#else
+    return hasExternalWindow;
+#endif
 #endif
 }
 
