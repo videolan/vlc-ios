@@ -31,15 +31,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
-#if os(iOS)
-    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
-                                         height: UIScreen.main.bounds.height)
-#else
-    private let screenPixelSize: CGSize = {
-        return UIApplication.shared.delegate?.window??.bounds.size
-    }()!
-#endif
-
     // MARK: - Private
     /// Stores previous playback speed for long press gesture
     /// to be able to restore playback speed to its previous state after long press ended.
@@ -78,7 +69,7 @@ class VideoPlayerViewController: PlayerViewController {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad && !playerController.isControlsHidden {
             return false
         }
-        if UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait && !playerController.isControlsHidden {
+        if view.bounds.height > view.bounds.width && !playerController.isControlsHidden {
             return false
         }
         return true
@@ -179,15 +170,10 @@ class VideoPlayerViewController: PlayerViewController {
         return backgroundGradientView
     }()
 
-    private var artWorkImageView: UIImageView = {
-#if os(iOS)
-        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
-#else
-        let frame = UIApplication.shared.delegate!.window!!.bounds
-#endif
-        let artWorkImageView = UIImageView(frame: frame)
-        artWorkImageView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
-        return artWorkImageView
+    private var artworkImageView: UIImageView = {
+        let artworkImageView = UIImageView(frame: .zero)
+        artworkImageView.translatesAutoresizingMaskIntoConstraints = false
+        return artworkImageView
     }()
 
     private var videoOutputView: UIView = {
@@ -332,7 +318,7 @@ class VideoPlayerViewController: PlayerViewController {
         // Make sure interface is enabled on
         setPlayerInterfaceEnabled(true)
 
-        artWorkImageView.image = nil
+        artworkImageView.image = nil
         // FIXME: Test userdefault
 #if os(iOS)
         let rendererDiscoverer = rendererDiscovererManager
@@ -482,7 +468,7 @@ class VideoPlayerViewController: PlayerViewController {
 #if os(iOS)
         view.insertSubview(sideBackgroundGradientView, aboveSubview: backgroundGradientView)
 #endif
-        videoOutputView.addSubview(artWorkImageView)
+        videoOutputView.addSubview(artworkImageView)
     }
 
     private func setupAccessibility() {
@@ -568,6 +554,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupConstraints() {
         setupVideoOutputConstraints()
+        setupArtworkConstraints()
         setupSwitchControlUtilityConstraints()
         setupExternalVideoOutputConstraints()
         setupVideoPlayerControlsConstraints()
@@ -668,6 +655,15 @@ class VideoPlayerViewController: PlayerViewController {
             videoOutputViewTrailingConstraint,
             videoOutputView.topAnchor.constraint(equalTo: view.topAnchor),
             videoOutputView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+
+    private func setupArtworkConstraints() {
+        NSLayoutConstraint.activate([
+            artworkImageView.centerXAnchor.constraint(equalTo: videoOutputView.centerXAnchor),
+            artworkImageView.centerYAnchor.constraint(equalTo: videoOutputView.centerYAnchor),
+            artworkImageView.widthAnchor.constraint(equalTo: videoOutputView.widthAnchor, multiplier: 0.6),
+            artworkImageView.heightAnchor.constraint(equalTo: artworkImageView.widthAnchor),
         ])
     }
 
@@ -803,7 +799,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     @objc override func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
         if playbackService.currentMediaIs360Video {
-            let zoom: CGFloat = MediaProjection.FOV.default * -(ZOOM_SENSITIVITY * recognizer.velocity / screenPixelSize.width)
+            let zoom: CGFloat = MediaProjection.FOV.default * -(ZOOM_SENSITIVITY * recognizer.velocity / view.bounds.width)
             if playbackService.updateViewpoint(0, pitch: 0,
                                                roll: 0, fov: zoom, absolute: false) {
                 // Clam FOV between min and max
@@ -1115,10 +1111,7 @@ class VideoPlayerViewController: PlayerViewController {
         // 30.0 represents the exact size of the notch
         let constant: CGFloat = playbackService.currentAspectRatio != AspectRatio.fillToScreen.rawValue ? 30.0 : 0.0
 #if os(iOS)
-        let interfaceOrientation = UIApplication.shared.statusBarOrientation
-
-        if interfaceOrientation == .landscapeLeft
-            || interfaceOrientation == .landscapeRight {
+        if view.bounds.width > view.bounds.height {
             videoOutputViewLeadingConstraint.constant = constant
             videoOutputViewTrailingConstraint.constant = -constant
         } else {
@@ -1376,21 +1369,21 @@ extension VideoPlayerViewController {
             // Only update the artwork image when the media is being played
             if playbackService.isPlaying {
                 let artworkImage = metadata.artworkImage
-                artWorkImageView.image = artworkImage
+                artworkImageView.image = artworkImage
             }
 
             // Only show the artwork when not casting to a device.
 #if os(iOS)
-            artWorkImageView.isHidden = playbackService.renderer != nil ? true : false
+            artworkImageView.isHidden = playbackService.renderer != nil ? true : false
 #else
-            artWorkImageView.isHidden = false
+            artworkImageView.isHidden = false
 #endif
-            artWorkImageView.clipsToBounds = true
-            artWorkImageView.contentMode = .scaleAspectFit
+            artworkImageView.clipsToBounds = true
+            artworkImageView.contentMode = .scaleAspectFit
             playbackService.videoOutputView = nil
         } else {
             playbackService.videoOutputView = videoOutputView
-            artWorkImageView.isHidden = true
+            artworkImageView.isHidden = true
         }
     }
 
@@ -1505,7 +1498,7 @@ extension VideoPlayerViewController {
         super.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
 
 #if os(iOS)
-        let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
+        let mask = getInterfaceOrientationMask(orientation: currentInterfaceOrientation)
 
         supportedInterfaceOrientations = supportedInterfaceOrientations == .allButUpsideDown ? mask : .allButUpsideDown
 #endif
