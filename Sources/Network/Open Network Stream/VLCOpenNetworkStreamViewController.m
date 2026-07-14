@@ -395,15 +395,6 @@
 }
 
 #pragma mark - UI interaction
-#if TARGET_OS_IOS
-- (BOOL)shouldAutorotate
-{
-    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-#endif
 
 - (void)privatePlaybackToggled:(UIButton *)sender
 {

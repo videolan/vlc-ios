@@ -31,19 +31,8 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
 - (void)loadView
 {
-    CGRect initialRect;
-#if TARGET_OS_IOS
-    initialRect = [UIScreen mainScreen].bounds;
-#else
-    initialRect = [[[[UIApplication sharedApplication] delegate] window] bounds];
-#endif
-    _tableView = [[UITableView alloc] initWithFrame:initialRect style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.backgroundColor = PresentationTheme.current.colors.background;
-    CGRect frame = _tableView.bounds;
-    frame.origin.y = -frame.size.height;
-    UIView *topView = [[UIView alloc] initWithFrame:frame];
-    topView.backgroundColor = PresentationTheme.current.colors.background;
-    [_tableView addSubview:topView];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.opaque = YES;
@@ -133,16 +122,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     if (self.isEditing)
         [self setEditing:NO animated:YES];
 }
-
-#if TARGET_OS_IOS
-- (BOOL)shouldAutorotate
-{
-    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-#endif
 
 - (IBAction)playAllAction:(id)sender
 {

@@ -72,16 +72,6 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - interface interaction
-
-- (BOOL)shouldAutorotate
-{
-    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

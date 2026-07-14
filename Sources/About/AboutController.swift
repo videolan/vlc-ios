@@ -26,17 +26,6 @@ class AboutController: UIViewController, MFMailComposeViewControllerDelegate, UI
         return PresentationTheme.current.colors.statusBarStyle
     }
 
-#if os(iOS)
-    override var shouldAutorotate: Bool {
-        let toInterfaceOrientation = UIApplication.shared.statusBarOrientation
-        let currentUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
-        if currentUserInterfaceIdiom == .phone && toInterfaceOrientation == .portraitUpsideDown {
-            return false
-        }
-        return true
-    }
-#endif
-
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }

@@ -134,13 +134,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
     _remoteNetworkDataSourceAndDelegate.delegate = self;
 
-#if TARGET_OS_VISION
-    CGRect screenDimensions = [[[[UIApplication sharedApplication] delegate] window] bounds];
-#else
-    CGRect screenDimensions = [UIScreen mainScreen].bounds;
-#endif
-
-    _localNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
+    _localNetworkTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _localNetworkTableView.delegate = self;
     _localNetworkTableView.dataSource = self;
@@ -156,7 +150,7 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         [self.navigationController.navigationBar setTranslucent:NO];
     }
 
-    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
+    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _remoteNetworkTableView.delegate = _remoteNetworkDataSourceAndDelegate;
     _remoteNetworkTableView.dataSource = _remoteNetworkDataSourceAndDelegate;
@@ -349,16 +343,6 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 {
     _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
-
-#if TARGET_OS_IOS
-- (BOOL)shouldAutorotate
-{
-    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-#endif
 
 - (void)contentSizeDidChange
 {
