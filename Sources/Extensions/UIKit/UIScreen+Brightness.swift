@@ -13,7 +13,7 @@ extension UIScreen {
     func animateBrightnessChange(to value: CGFloat, duration: CGFloat = 1) {
         guard value != brightness else { return }
 
-        var currentBrightness: CGFloat = UIScreen.main.brightness
+        var currentBrightness: CGFloat = brightness
         let isIncreasing: Bool = currentBrightness < value
 
         let tick: CGFloat = 1 / (duration * 1000)
