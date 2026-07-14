@@ -214,32 +214,57 @@ class MediaLibraryService: NSObject {
             #endif
         }
 
-        #if os(watchOS)
-        let screenWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width
-        let screenScale: CGFloat = WKInterfaceDevice.current().screenScale
-        #elseif os(visionOS)
-        let screenWidth: CGFloat = (UIApplication.shared.delegate?.window??.bounds.size.width)!
-        let screenScale: CGFloat = UITraitCollection.current.displayScale
-        #else
-        // TODO: Modernization - UIScreen.main assumes a single display and is read here before any
-        // window exists. The desired thumbnail size should be derived from the window the library is
-        // presented in: pass bounds and a UITraitCollection into a setup method invoked from
-        // scene(_:willConnectTo:options:), and re-run it when the scene's trait collection changes.
-        let screenWidth = UIScreen.main.bounds.width
-        let screenScale = UIScreen.main.scale
-        #endif
-
         #if os(tvOS) || os(watchOS)
-        let thumbnailSize = screenWidth * 0.6
+        #if os(watchOS)
+        let referenceWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width
+        #else
+        let referenceWidth: CGFloat = UIScreen.main.bounds.width
+        #endif
+        let thumbnailSize = referenceWidth * 0.6
         desiredThumbnailWidth = UInt(thumbnailSize)
         desiredThumbnailHeight = UInt(thumbnailSize / 1.2)
         #else
-        let cellSizeWidth = MovieCollectionViewCell.cellSizeForWidth(screenWidth).width
-        let scaledCellWidth = cellSizeWidth * screenScale
+        let displayScale: CGFloat
+#if os(visionOS)
+        displayScale = UITraitCollection.current.displayScale
+#else
+        if #available(iOS 13.0, *) {
+            displayScale = UITraitCollection.current.displayScale
+        } else {
+            displayScale = UIScreen.main.scale
+        }
+#endif
+        let scaledCellWidth = MediaLibraryService.desiredCellWidth * displayScale
         desiredThumbnailWidth = UInt(scaledCellWidth)
         desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
         #endif
     }
+
+#if !os(tvOS) && !os(watchOS)
+    private static var desiredCellWidth: CGFloat {
+        if #available(iOS 26.0, visionOS 1.0, *) {
+            return widestCellWidth
+        }
+
+#if os(visionOS)
+        return widestCellWidth
+#else
+        let screenBounds = UIScreen.main.bounds
+        let portraitWidth = min(screenBounds.width, screenBounds.height)
+        return MovieCollectionViewCell.cellSizeForWidth(portraitWidth, safeAreaInsets: .zero).width
+#endif
+    }
+
+    private static var widestCellWidth: CGFloat {
+        let layoutWidths: [CGFloat] = [DeviceDimensions.iPhone16ProMaxPortrait.rawValue,
+                                       DeviceDimensions.iPhoneLandscape.rawValue,
+                                       DeviceDimensions.iPadLandscape.rawValue]
+        let cellWidths = layoutWidths.map {
+            MovieCollectionViewCell.cellSizeForWidth($0, safeAreaInsets: .zero).width
+        }
+        return cellWidths.max() ?? DeviceDimensions.iPhone4sPortrait.rawValue
+    }
+#endif
 }
 
 // MARK: - Private initializers
