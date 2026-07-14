@@ -74,12 +74,20 @@ class BottomTabBarController: UITabBarController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        if #unavailable(iOS 26.0) {
+            tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
+        }
+
         guard isBottomBarActive else {
             return
         }
 
         let height = bottomBar.intrinsicContentSize.height
         tabBarHeightConstraint?.constant = height
+
+        if #unavailable(iOS 26.0) {
+            bottomBar.layer.shadowPath = UIBezierPath(rect: bottomBar.bounds).cgPath
+        }
     }
 
     // MARK: - Helpers
