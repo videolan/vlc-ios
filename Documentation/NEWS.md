@@ -1,6 +1,26 @@
 # Changelog
 
 ## iOS [4.0.0]
+
+Changes since beta 1:
+· Add a radio station discovery service so users can find and favorite their stations
+· Add swipe-to-favorite while browsing, including for non-downloadable streams
+· CarPlay: browse by album and folder, show artist names and add a Library section
+· Add WebDAV support
+· Disable SMBv1 by default
+· Improve Spotlight search by indexing more media metadata
+· WiFi Sharing: fix the option to disable the server
+· Player: redesigned track selector interface
+· Player: switch to the audio interface for audio-only network streams
+· Player: indicate live streams without a known duration
+· Add Frame-by-Frame playback, forward and backward
+· Mini player: redesigned for the liquid glass appearance
+· Reworked buffering indicator for video and audio playback
+· Export playlists as M3U
+· Playback history: allow clearing individual categories
+
+---
+
 · VLC now requires iOS 12 or later
 · 32bit iOS devices are no longer supported :(
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
@@ -29,7 +49,6 @@
 · Add options to skip forward/back instead of go to next/previous track
     - on lockscreen and when using external controls (like headphones and car controls)
 · Integrate with the pCloud service
-· Frame-by-Frame playback
 · Customize playback speed option
 · Customize seeking options
 · Add option to export settings and include in feedback email
@@ -58,6 +77,16 @@ Known issues:
 · Initial release
 
 ## tvOS [4.0.0]
+
+Changes since beta 1:
+· Add Top Shelf content
+· Resume playback from the last position
+· Player: add an aspect ratio button
+· Add WebDAV support
+· Disable SMBv1 by default
+
+---
+
 · VLC now requires tvOS 13 or later
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
 · Add HDR playback
