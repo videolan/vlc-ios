@@ -1738,7 +1738,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)setNeedsMetadataUpdate
 {
-    VLCMLMedia *media = self->_mediaPlayer.media ? [VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
+    [self setNeedsMetadataUpdateForMedia:self->_mediaPlayer.media];
+}
+
+- (void)setNeedsMetadataUpdateForMedia:(VLCMedia *)playingMedia
+{
+    VLCMLMedia *media = playingMedia ? [VLCMLMedia mediaForPlayingMedia:playingMedia] : nil;
     _currentlyPlayingLibraryMedia = media;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
 
@@ -2046,7 +2051,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if (foundIndex != NSNotFound)
             self->_currentIndex = (NSInteger)foundIndex;
 
-        [self setNeedsMetadataUpdate];
+        [self setNeedsMetadataUpdateForMedia:media];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
                                                             object:self];
