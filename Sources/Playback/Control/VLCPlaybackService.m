@@ -2052,6 +2052,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             self->_currentIndex = (NSInteger)foundIndex;
 
         [self setNeedsMetadataUpdateForMedia:media];
+        self->_currentlyPlayingLibraryMedia.isNew = NO;
         [self->_metadata resetExposedTimingWithDuration:@(self->_currentlyPlayingLibraryMedia.duration / 1000.)];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
