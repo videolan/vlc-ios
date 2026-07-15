@@ -152,6 +152,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (UIEdgeInsets)referenceTabBarPillInsets
 {
     UITabBar *tabBar = self.miniPlayerReferenceTabBar;
+    [tabBar layoutIfNeeded];
+
     CGFloat width = CGRectGetWidth(tabBar.bounds);
     if (width <= 0.0) {
         return UIEdgeInsetsZero;
