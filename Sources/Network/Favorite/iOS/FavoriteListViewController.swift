@@ -386,8 +386,20 @@ extension FavoriteListViewController: UITableViewDataSource {
             if favorite.playable {
                 cell.iconURL = favorite.artworkURL
                 if cell.iconURL == nil {
-                    cell.icon = UIImage(named: "LaunchCone")?.withRenderingMode(.alwaysTemplate)
-                    cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
+                    if #available(iOS 13.0, *) {
+                        if favorite.groupName == VLCFavoriteGroupRadio {
+                            var symbol = "antenna.radiowaves.left.and.right"
+                            if #available(iOS 16.0, *) {
+                                symbol = "radio"
+                            }
+                            cell.icon = UIImage(systemName: symbol)?.withRenderingMode(.alwaysTemplate)
+                        } else {
+                            cell.icon = UIImage(named: "LaunchCone")?.withRenderingMode(.alwaysTemplate)
+                        }
+                    } else {
+                        cell.icon = UIImage(named: "LaunchCone")?.withRenderingMode(.alwaysTemplate)
+                    }
+                    cell.thumbnailView.tintColor = PresentationTheme.current.colors.orangeDarkAccent
                 }
                 cell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
             } else {
