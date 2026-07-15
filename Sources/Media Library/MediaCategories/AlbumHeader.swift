@@ -65,11 +65,9 @@ class AlbumHeader: UICollectionReusableView {
         let buttonSize: CGFloat = 50.0
         playAllButton.tag = 0
         playAllButton.translatesAutoresizingMaskIntoConstraints = false
-        playAllButton.setImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        playAllButton.layer.cornerRadius = 0.5 * buttonSize
-        playAllButton.clipsToBounds = true
-        playAllButton.tintColor = .white
-        playAllButton.backgroundColor = PresentationTheme.current.colors.orangeUI
+        applyGlassStyle(to: playAllButton,
+                        image: UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate),
+                        size: buttonSize)
         playAllButton.addTarget(self, action: #selector(handlePlayAll(sender:)), for: .touchUpInside)
     }
 
@@ -78,12 +76,29 @@ class AlbumHeader: UICollectionReusableView {
         let buttonSize: CGFloat = 50.0
         playShuffleButton.tag = 1
         playShuffleButton.translatesAutoresizingMaskIntoConstraints = false
-        playShuffleButton.setImage(UIImage(named: "shuffle"), for: .normal)
-        playShuffleButton.layer.cornerRadius = 0.5 * buttonSize
-        playShuffleButton.clipsToBounds = true
-        playShuffleButton.tintColor = .white
-        playShuffleButton.backgroundColor = PresentationTheme.current.colors.orangeUI
+        applyGlassStyle(to: playShuffleButton,
+                        image: UIImage(named: "shuffle"),
+                        size: buttonSize)
         playShuffleButton.addTarget(self, action: #selector(handlePlayAllShuffle(sender:)), for: .touchUpInside)
+    }
+
+    private func applyGlassStyle(to button: UIButton, image: UIImage?, size: CGFloat) {
+#if !os(visionOS)
+        if #available(iOS 26.0, *) {
+            var config: UIButton.Configuration = .prominentGlass()
+            config.baseBackgroundColor = PresentationTheme.current.colors.orangeUI
+            config.baseForegroundColor = .white
+            config.image = image
+            config.cornerStyle = .capsule
+            button.configuration = config
+            return
+        }
+#endif
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 0.5 * size
+        button.clipsToBounds = true
+        button.backgroundColor = PresentationTheme.current.colors.orangeUI
     }
 
     private func setupConstraints() {

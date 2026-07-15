@@ -275,6 +275,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private lazy var fabButton: UIButton = {
         let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+#if !os(visionOS)
+        if #available(iOS 26.0, *) {
+            var config: UIButton.Configuration = .prominentGlass()
+            config.baseBackgroundColor = PresentationTheme.current.colors.orangeUI
+            config.baseForegroundColor = .white
+            config.cornerStyle = .capsule
+            button.configuration = config
+            return button
+        }
+#endif
         button.backgroundColor = PresentationTheme.current.colors.orangeUI
         button.tintColor = PresentationTheme.current.colors.background
         button.layer.cornerRadius = 26.5
@@ -283,9 +295,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         button.layer.shadowRadius = 4.0
         button.layer.shadowOpacity = 0.3
-        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 55, height: 55)).cgPath
-        button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 50, height: 50)).cgPath
         return button
     }()
 
@@ -737,7 +747,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             marqueeLabel.textColor = colors.navigationbarTextColor
         }
 
-        fabButton.tintColor = colors.background
+        if #unavailable(iOS 26.0) {
+            fabButton.tintColor = colors.background
+        }
         editToolBar.backgroundColor = colors.tabBarColor
     }
 
@@ -1377,7 +1389,7 @@ extension MediaCategoryViewController {
 
     private func setupSortButton() -> UIButton {
         // Fetch sortButton configuration from MediaVC
-        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         sortButton.setImage(UIImage(named: "sort"), for: .normal)
         sortButton.addTarget(self,
                              action: #selector(handleSort),
@@ -2822,10 +2834,10 @@ extension MediaCategoryViewController {
 
         switch action {
         case .shuffleAudio:
-            fabButton.setImage(UIImage(named: "shuffle")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            setFABButtonImage(UIImage(named: "shuffle")?.withRenderingMode(.alwaysTemplate))
             fabButton.accessibilityLabel = NSLocalizedString("SHUFFLE", comment: "")
         case .playAllVideo:
-            fabButton.setImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            setFABButtonImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate))
             fabButton.accessibilityLabel = NSLocalizedString("PLAY_ALL_BUTTON", comment: "")
         }
 
@@ -2833,6 +2845,18 @@ extension MediaCategoryViewController {
 
         setFABButtonConstraints()
         handleFABButtonVisibility()
+    }
+
+    private func setFABButtonImage(_ image: UIImage?) {
+#if !os(visionOS)
+        if #available(iOS 26.0, *), fabButton.configuration != nil {
+            var config = fabButton.configuration
+            config?.image = image
+            fabButton.configuration = config
+            return
+        }
+#endif
+        fabButton.setImage(image, for: .normal)
     }
 
     @objc private func fabButtonPressed() {
@@ -2863,8 +2887,8 @@ extension MediaCategoryViewController {
 
         NSLayoutConstraint.activate([
             fabButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
-            fabButton.widthAnchor.constraint(equalToConstant: 55),
-            fabButton.heightAnchor.constraint(equalToConstant: 55)
+            fabButton.widthAnchor.constraint(equalToConstant: 44),
+            fabButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
         updateFABButtonBottomConstraint()
