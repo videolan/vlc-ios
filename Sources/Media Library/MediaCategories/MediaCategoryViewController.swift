@@ -1962,17 +1962,28 @@ extension MediaCategoryViewController {
             createSpotlightItem(media: media)
 #endif
         } else if let artist = modelContent as? VLCMLArtist {
-            let artistViewController = ArtistViewController(mediaLibraryService: mediaLibraryService, mediaCollection: artist)
-            navigationController?.pushViewController(artistViewController, animated: true)
+            if artist.albumsCount() == 1,
+               let album = artist.albums()?.first,
+               album.numberOfTracks() == artist.tracksCount() {
+                // Single album and no non-album tracks: skip the artist view
+                pushCollectionViewController(for: album)
+            } else {
+                let artistViewController = ArtistViewController(mediaLibraryService: mediaLibraryService, mediaCollection: artist)
+                navigationController?.pushViewController(artistViewController, animated: true)
+            }
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
-            let collectionViewController = CollectionCategoryViewController(mediaLibraryService,
-                                                                            mediaCollection: mediaCollection)
-
-            collectionViewController.delegate = delegate
-            collectionViewController.navigationItem.rightBarButtonItems = collectionViewController.rightBarButtonItems()
-
-            navigationController?.pushViewController(collectionViewController, animated: true)
+            pushCollectionViewController(for: mediaCollection)
         }
+    }
+
+    private func pushCollectionViewController(for mediaCollection: MediaCollectionModel) {
+        let collectionViewController = CollectionCategoryViewController(mediaLibraryService,
+                                                                        mediaCollection: mediaCollection)
+
+        collectionViewController.delegate = delegate
+        collectionViewController.navigationItem.rightBarButtonItems = collectionViewController.rightBarButtonItems()
+
+        navigationController?.pushViewController(collectionViewController, animated: true)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
