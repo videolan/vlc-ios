@@ -94,6 +94,20 @@
     [self populateInfoCenterFromMetadata];
 }
 
+- (void)resetExposedTimingWithDuration:(NSNumber *)duration
+{
+    self.playbackDuration = duration;
+    self.isLiveStream = duration.intValue <= 0;
+    self.elapsedPlaybackTime = @(0);
+    self.position = @(0);
+
+#if !TARGET_OS_WATCH && !TARGET_OS_TV
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
+#endif
+
+    [self populateInfoCenterFromMetadata];
+}
+
 - (void)updatePlaybackRate:(VLCMediaPlayer *)mediaPlayer
 {
     self.playbackDuration = @(mediaPlayer.media.length.value.longLongValue / 1000.);
