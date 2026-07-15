@@ -155,6 +155,10 @@ class AlbumHeader: UICollectionReusableView {
     }
 
     func updateUserInterfaceStyle(isStatusBarVisible: Bool = false) {
+        if #available(iOS 26.0, *) {
+            return
+        }
+
         guard #available(iOS 13.0, *), !PresentationTheme.current.isDark else {
             return
         }

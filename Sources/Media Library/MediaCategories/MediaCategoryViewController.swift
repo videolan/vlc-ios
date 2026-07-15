@@ -556,7 +556,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
            model.mediaCollection is VLCMLAlbum {
             statusBarView.removeFromSuperview()
             view.addSubview(searchBar)
-            AppearanceManager.setupUserInterfaceStyle(theme: PresentationTheme.current)
+            if #unavailable(iOS 26.0) {
+                AppearanceManager.setupUserInterfaceStyle(theme: PresentationTheme.current)
+            }
         }
     }
 
