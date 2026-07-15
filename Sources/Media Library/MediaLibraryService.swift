@@ -712,11 +712,13 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         let tracks = media.filter {( $0.type() == .audio)}
 
         // Shows and albumtracks are known only after when the medialibrary calls didModifyMedia
-        observable.notifyObservers {
-            $0.medialibrary?(self, didAddShowEpisodes: showEpisodes)
-            $0.medialibrary?(self, didAddAlbumTracks: albumTrack)
-            $0.medialibrary?(self, didModifyVideos: videos)
-            $0.medialibrary?(self, didModifyTracks: tracks)
+        DispatchQueue.main.async {
+            self.observable.notifyObservers {
+                $0.medialibrary?(self, didAddShowEpisodes: showEpisodes)
+                $0.medialibrary?(self, didAddAlbumTracks: albumTrack)
+                $0.medialibrary?(self, didModifyVideos: videos)
+                $0.medialibrary?(self, didModifyTracks: tracks)
+            }
         }
     }
 
