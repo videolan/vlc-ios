@@ -35,6 +35,9 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     NSMutableDictionary<NSNumber *, VLCTransferItem *> *_activeUploads;
     NSUInteger _nextUploadToken;
 
+    NSMutableDictionary<NSNumber *, VLCTransferItem *> *_activeExternalDownloads;
+    NSUInteger _nextExternalDownloadToken;
+
     NSMutableArray<VLCTransferItem *> *_completed;
     NSMutableArray<VLCTransferItem *> *_failed;
 
@@ -52,6 +55,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         _currentDownloads = [[NSMutableArray alloc] init];
         _userDefinedFileNameForDownloadItem = [[NSMutableDictionary alloc] init];
         _activeUploads = [[NSMutableDictionary alloc] init];
+        _activeExternalDownloads = [[NSMutableDictionary alloc] init];
         _completed = [[NSMutableArray alloc] init];
         _failed = [[NSMutableArray alloc] init];
 
@@ -374,12 +378,71 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     }];
 }
 
+#pragma mark - external download source
+- (NSUInteger)startExternalDownloadWithName:(NSString *)name
+{
+    NSUInteger token;
+    @synchronized (self) {
+        token = ++_nextExternalDownloadToken;
+    }
+    [self _runOnMain:^{
+        self->_activeExternalDownloads[@(token)] = [VLCTransferItem downloadItemWithName:name];
+        [self _postStateDidChange];
+    }];
+    return token;
+}
+
+- (void)updateExternalDownload:(NSUInteger)token receivedBytes:(long long)received expectedBytes:(long long)expected
+{
+    [self _runOnMain:^{
+        VLCTransferItem *item = self->_activeExternalDownloads[@(token)];
+        if (!item) {
+            return;
+        }
+        if ([item ingestReceivedBytes:received expectedBytes:expected]) {
+            [self _postStateDidChange];
+        }
+    }];
+}
+
+- (void)finishExternalDownload:(NSUInteger)token filePath:(NSString *)filePath
+{
+    [self _runOnMain:^{
+        VLCTransferItem *item = self->_activeExternalDownloads[@(token)];
+        if (!item) {
+            return;
+        }
+        [self->_activeExternalDownloads removeObjectForKey:@(token)];
+        [item markCompletedWithFilePath:filePath];
+        [self->_completed addObject:item];
+        [self _postStateDidChange];
+    }];
+}
+
+- (void)failExternalDownload:(NSUInteger)token errorDescription:(NSString *)description
+{
+    [self _runOnMain:^{
+        VLCTransferItem *item = self->_activeExternalDownloads[@(token)];
+        if (!item) {
+            return;
+        }
+        [self->_activeExternalDownloads removeObjectForKey:@(token)];
+        [item markFailedWithError:description ?: @""];
+        [self->_failed addObject:item];
+        [self _postStateDidChange];
+    }];
+}
+
 #pragma mark - list state
 - (NSArray<VLCTransferItem *> *)_activeTransferItems
 {
     NSMutableArray<VLCTransferItem *> *items = [NSMutableArray array];
     if (_activeDownloadItem) {
         [items addObject:_activeDownloadItem];
+    }
+    NSArray<NSNumber *> *downloadTokens = [_activeExternalDownloads.allKeys sortedArrayUsingSelector:@selector(compare:)];
+    for (NSNumber *token in downloadTokens) {
+        [items addObject:_activeExternalDownloads[token]];
     }
     NSArray<NSNumber *> *tokens = [_activeUploads.allKeys sortedArrayUsingSelector:@selector(compare:)];
     for (NSNumber *token in tokens) {
@@ -429,6 +492,9 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         }
         [self _postStateDidChange];
     } else if (item.direction == VLCTransferDirectionDownload && item.active) {
+        if ([[_activeExternalDownloads allValues] containsObject:item]) {
+            return;
+        }
         [self cancelCurrentDownload];
     }
 }

@@ -35,6 +35,14 @@ extern NSString * const VLCTransferControllerStateDidChangeNotification;
 - (void)failUpload:(NSUInteger)token errorDescription:(nullable NSString *)description;
 - (void)cancelUpload:(NSUInteger)token;
 
+#pragma mark - External download source (caller-driven, e.g. subscription caching)
+// The caller performs the download itself and reports state by token, so the
+// item appears in the Transfers list. Cancellation is owned by the caller.
+- (NSUInteger)startExternalDownloadWithName:(NSString *)name;
+- (void)updateExternalDownload:(NSUInteger)token receivedBytes:(long long)received expectedBytes:(long long)expected;
+- (void)finishExternalDownload:(NSUInteger)token filePath:(nullable NSString *)filePath;
+- (void)failExternalDownload:(NSUInteger)token errorDescription:(nullable NSString *)description;
+
 #pragma mark - List state (view-controller-facing)
 @property (readonly) NSArray<VLCTransferItem *> *inProgressItems;
 @property (readonly) NSArray<VLCTransferItem *> *completedItems;

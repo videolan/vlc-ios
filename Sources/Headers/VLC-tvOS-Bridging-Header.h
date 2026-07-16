@@ -16,6 +16,7 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 #import "VLCPlaybackService+MediaLibrary.h"
+#import "VLCSubscriptionCacher.h"
 #import "VLCConstants.h"
 #import "VLCMigrationCursor.h"
 #import "VLCServerListTVViewController.h"

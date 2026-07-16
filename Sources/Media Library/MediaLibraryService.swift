@@ -172,7 +172,11 @@ class MediaLibraryService: NSObject {
     private var didSetupMediaLibrary = false
     private lazy var privateMediaLib = VLCMediaLibrary()
 
-    var medialib: VLCMediaLibrary {
+#if !os(watchOS)
+    private let subscriptionCacher = VLCSubscriptionCacher()
+#endif
+
+    @objc var medialib: VLCMediaLibrary {
         ensureMediaLibrarySetup()
         return privateMediaLib
     }
@@ -380,6 +384,9 @@ private extension MediaLibraryService {
                                                                medialibraryPath: medialibraryPath)
 
         privateMediaLib.delegate = self
+#if !os(watchOS)
+        privateMediaLib.cacherDelegate = subscriptionCacher
+#endif
 
         switch medialibraryStatus {
         case .success, .dbReset:
