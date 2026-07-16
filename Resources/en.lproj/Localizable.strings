@@ -732,6 +732,12 @@
 "APPINTENT_AFFINITY_NOT_FAVORITE" = "Not a Favorite";
 "APPINTENT_AFFINITY_UNSET" = "Unset";
 
+// MARK: - Video App Intent Strings
+"APPINTENT_PLAY_VIDEO_TITLE" = "Play Video";
+"APPINTENT_PLAY_VIDEO_DESCRIPTION" = "Play a video from your library.";
+"APPINTENT_PLAY_VIDEO_PARAM" = "Video";
+"APPINTENT_PLAY_VIDEO_PLAY_${video}" = "Play ${video}";
+
 // MARK: - AppShortcut Strings
 "APPSHORTCUT_PLAY_MEDIA_SHORT_TITLE" = "Play Media";
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAY_${applicationName}" = "Play media in ${applicationName}";
@@ -740,6 +746,9 @@
 "APPSHORTCUT_PLAY_AUDIO_SHORT_TITLE" = "Play Audio";
 "APPSHORTCUT_PLAY_AUDIO_PHRASE_PLAY_${applicationName}" = "Play audio in ${applicationName}";
 "APPSHORTCUT_PLAY_AUDIO_PHRASE_SONG_${applicationName}" = "Play a song in ${applicationName}";
+"APPSHORTCUT_PLAY_VIDEO_SHORT_TITLE" = "Play Video";
+"APPSHORTCUT_PLAY_VIDEO_PHRASE_PLAY_${applicationName}" = "Play a video in ${applicationName}";
+"APPSHORTCUT_PLAY_VIDEO_PHRASE_WATCH_${applicationName}" = "Watch a video in ${applicationName}";
 "APPSHORTCUT_ADD_TO_PLAYLIST_SHORT_TITLE" = "Add to Playlist";
 "APPSHORTCUT_ADD_TO_PLAYLIST_PHRASE_${applicationName}" = "Add a song to a playlist in ${applicationName}";
 "APPSHORTCUT_UPDATE_AFFINITY_SHORT_TITLE" = "Favorite";

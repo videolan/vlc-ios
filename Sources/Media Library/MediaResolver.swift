@@ -176,6 +176,17 @@ class MediaResolver {
         return medialib.audioFiles()
     }
 
+    func recommendedVideos() -> [VLCMLMedia]? {
+        if let favorites = medialib.videoFiles(with: .default, desc: false, favoriteOnly: true),
+           !favorites.isEmpty {
+            return favorites
+        }
+        if let history = medialib.videoHistory(), !history.isEmpty {
+            return history
+        }
+        return medialib.videoFiles()
+    }
+
     // MARK: - Private
 
     private func playableMediaFromAggregate(matching query: String) -> [VLCMLMedia]? {
