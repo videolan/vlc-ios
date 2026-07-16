@@ -23,6 +23,7 @@ NSString *VLCFavoritePlayable = @"VLCFavoritePlayable";
 NSString *VLCFavoritesFile = @"Favorites.plist";
 NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
 NSString *const VLCFavoriteGroupRadio = @"radio";
+NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContentDidChange";
 
 @implementation VLCFavorite
 
@@ -178,6 +179,7 @@ NSString *const VLCFavoriteGroupRadio = @"radio";
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray requiringSecureCoding:NO error:nil];
             [data writeToFile:self->_filePath atomically:YES];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCFavoriteServiceContentDidChange object:self];
     });
 }
 

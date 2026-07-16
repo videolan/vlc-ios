@@ -19,6 +19,7 @@
 #import "VLCCarPlayPlaylistsController.h"
 #import "VLCCarPlayListLimit.h"
 #import "VLCNowPlayingTemplateObserver.h"
+#import "VLCFavoriteService.h"
 
 #import "VLC-Swift.h"
 
@@ -57,9 +58,11 @@
     [_nowPlayingTemplateObserver configureNowPlayingTemplate];
 
     _playbackService = [VLCPlaybackService sharedInstance];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayPlayQueueTemplate) name:VLCDisplayPlayQueueCarPlay object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServicePlaybackDidStop object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServiceShuffleModeUpdated object:nil];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(displayPlayQueueTemplate) name:VLCDisplayPlayQueueCarPlay object:nil];
+    [notificationCenter addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServicePlaybackDidStop object:nil];
+    [notificationCenter addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServiceShuffleModeUpdated object:nil];
+    [notificationCenter addObserver:self selector:@selector(templatesNeedUpdate) name:VLCFavoriteServiceContentDidChange object:nil];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
