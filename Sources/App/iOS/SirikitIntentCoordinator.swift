@@ -13,10 +13,12 @@ import Foundation
 @available(iOS 14.0, *)
 class SirikitIntentCoordinator: NSObject {
     private let mediaLibraryService: MediaLibraryService
+    private let resolver: MediaResolver
     private let playbackService = PlaybackService.sharedInstance()
-    
+
     @objc init(mediaLibraryService: MediaLibraryService) {
         self.mediaLibraryService = mediaLibraryService
+        self.resolver = MediaResolver(mediaLibraryService: mediaLibraryService)
         super.init()
     }
 }
@@ -29,51 +31,56 @@ extension SirikitIntentCoordinator: INPlayMediaIntentHandling {
         }
         return [INPlayMediaMediaItemResolutionResult(mediaItemResolutionResult: .unsupported())]
     }
-    
+
     func handle(intent: INPlayMediaIntent) async -> INPlayMediaIntentResponse {
-        if let item = intent.mediaItems?.first, let identifier = item.identifier, let vlcIdentifier = Int64(identifier),
-        let media = getMediaArrayFromIdentifier(identifier: vlcIdentifier, type: item.type) {
-            playbackService.fullscreenSessionRequested = true
-            // playbackService runs UI code, hence run on main thread
-            DispatchQueue.main.async {
-                if let isShuffle = intent.playShuffled {
-                    PlaybackService.sharedInstance().isShuffleMode = isShuffle
-                }
-                switch intent.playbackQueueLocation {
-                case .unknown, .now:
-                    PlaybackService.sharedInstance().playCollection(media)
-                case .next:
-                    PlaybackService.sharedInstance().playCollectionNextInQueue(media)
-                case .later:
-                    PlaybackService.sharedInstance().appendCollectionToQueue(media)
-                @unknown default:
-                    fatalError()
-                }
-                if let playbackRate = intent.playbackSpeed {
-                    PlaybackService.sharedInstance().playbackRate = Float(playbackRate)
-                }
-                PlaybackService.sharedInstance().repeatMode = {
-                    switch intent.playbackRepeatMode {
-                        case .unknown, .none:
-                            return .doNotRepeat
-                        case .all:
-                            return .repeatAllItems
-                        case .one:
-                            return .repeatCurrentItem
-                        @unknown default:
-                            fatalError()
-                    }
-                }()
-            }
-            
-            if media.first?.type() == VLCMLMediaType.video {
-                // Opens application for video content
-                return INPlayMediaIntentResponse(code: .continueInApp, userActivity: nil)
-            }
-            // Successful background playback for audio content
-            return INPlayMediaIntentResponse(code: .success, userActivity: nil)
+        guard let item = intent.mediaItems?.first,
+              let identifier = item.identifier,
+              let vlcIdentifier = VLCMLIdentifier(identifier),
+              let kind = mediaKind(for: item.type),
+              let media = resolver.playableMedia(for: vlcIdentifier, kind: kind),
+              !media.isEmpty else {
+            return INPlayMediaIntentResponse(code: .failure, userActivity: nil)
         }
-        return INPlayMediaIntentResponse(code: .failure, userActivity: nil)
+
+        playbackService.fullscreenSessionRequested = true
+        // playbackService runs UI code, hence run on main thread
+        DispatchQueue.main.async {
+            if let isShuffle = intent.playShuffled {
+                PlaybackService.sharedInstance().isShuffleMode = isShuffle
+            }
+            switch intent.playbackQueueLocation {
+            case .unknown, .now:
+                PlaybackService.sharedInstance().playCollection(media)
+            case .next:
+                PlaybackService.sharedInstance().playCollectionNextInQueue(media)
+            case .later:
+                PlaybackService.sharedInstance().appendCollectionToQueue(media)
+            @unknown default:
+                PlaybackService.sharedInstance().playCollection(media)
+            }
+            if let playbackRate = intent.playbackSpeed {
+                PlaybackService.sharedInstance().playbackRate = Float(playbackRate)
+            }
+            PlaybackService.sharedInstance().repeatMode = {
+                switch intent.playbackRepeatMode {
+                case .unknown, .none:
+                    return .doNotRepeat
+                case .all:
+                    return .repeatAllItems
+                case .one:
+                    return .repeatCurrentItem
+                @unknown default:
+                    return .doNotRepeat
+                }
+            }()
+        }
+
+        if media.first?.type() == VLCMLMediaType.video {
+            // Opens application for video content
+            return INPlayMediaIntentResponse(code: .continueInApp, userActivity: nil)
+        }
+        // Successful background playback for audio content
+        return INPlayMediaIntentResponse(code: .success, userActivity: nil)
     }
 }
 
@@ -86,9 +93,12 @@ extension SirikitIntentCoordinator: INAddMediaIntentHandling {
         }
         return [INAddMediaMediaItemResolutionResult(mediaItemResolutionResult: .unsupported())]
     }
-    
+
     func handle(intent: INAddMediaIntent) async -> INAddMediaIntentResponse {
-        if let playlistName = intent.mediaDestination?.playlistName, let playlist = mediaLibraryService.medialib.searchPlaylists(byName: playlistName, of: .all)?.first, let identifier = intent.mediaItems?.first?.identifier, let vlcIdentifier = Int64(identifier) {
+        if let playlistName = intent.mediaDestination?.playlistName,
+           let playlist = resolver.playlists(matching: playlistName)?.first,
+           let identifier = intent.mediaItems?.first?.identifier,
+           let vlcIdentifier = VLCMLIdentifier(identifier) {
             let appendMediaBool = playlist.appendMedia(withIdentifier: vlcIdentifier)
             let responsesCode: INAddMediaIntentResponseCode = appendMediaBool ? .success : .failure
             return .init(code: responsesCode, userActivity: nil)
@@ -100,120 +110,131 @@ extension SirikitIntentCoordinator: INAddMediaIntentHandling {
 @available(iOS 14.0, *)
 extension SirikitIntentCoordinator: INSearchForMediaIntentHandling {
     func handle(intent: INSearchForMediaIntent) async -> INSearchForMediaIntentResponse {
-        // programmatically search for a particular media using intent.mediaSearch?.mediaName and intent.mediaSearch?.mediaType
-        return .init(code: .failure, userActivity: nil)
+        guard let searchItem = intent.mediaSearch, let mediaItem = getIntentMedia(searchItem: searchItem) else {
+            return .init(code: .failure, userActivity: nil)
+        }
+        let response = INSearchForMediaIntentResponse(code: .success, userActivity: nil)
+        response.mediaItems = [mediaItem]
+        return response
     }
-    
-    
 }
-
 
 @available(iOS 14.0, *)
 private extension SirikitIntentCoordinator {
-    private func getIntentMedia(searchItem: INMediaSearch) -> INMediaItem? {
-        guard let searchText = searchItem.mediaName else {
-            if let randomSong = mediaLibraryService.medialib.audioFiles()?.randomElement() {
-                return .init(identifier: String(randomSong.identifier()), title: randomSong.title, type: .song, artwork: nil, artist: randomSong.artist?.artistName())
-            }
+    private func mediaKind(for type: INMediaItemType) -> MediaKind? {
+        switch type {
+        case .song, .music:
+            return .song
+        case .album:
+            return .album
+        case .artist:
+            return .artist
+        case .genre:
+            return .genre
+        case .playlist, .podcastPlaylist:
+            return .playlist
+        case .movie, .tvShow, .tvShowEpisode, .musicVideo:
+            return .video
+        case .unknown:
+            return .any
+        default:
             return nil
         }
+    }
+
+    private func getIntentMedia(searchItem: INMediaSearch) -> INMediaItem? {
+        guard let searchText = searchItem.mediaName else {
+            guard let recommended = resolver.recommendedAudio()?.randomElement() else {
+                return nil
+            }
+            return mediaItem(for: recommended)
+        }
+
         switch searchItem.mediaType {
         case .album:
-            if let album = mediaLibraryService.medialib.searchAlbums(byPattern: searchText)?.first {
-                return .init(identifier: String(album.identifier()), title: album.title, type: .album, artwork: nil, artist: album.artists()?.first?.artistName())
-            }
+            return resolver.albums(matching: searchText)?.first.map { mediaItem(for: $0) }
         case .artist:
-            if let artist = mediaLibraryService.medialib.searchArtists(byName: searchText, all: true)?.first {
-                return .init(identifier: String(artist.identifier()), title: artist.name, type: .artist, artwork: nil)
-            }
+            return resolver.artists(matching: searchText)?.first.map { mediaItem(for: $0) }
         case .music, .song:
-            if let song = mediaLibraryService.medialib.searchMedia(searchText)?.first {
-                return .init(identifier: String(song.identifier()), title: song.title, type: .song, artwork: nil, artist: song.artist?.artistName())
-            }
+            return resolver.songs(matching: searchText)?.first.map { mediaItem(for: $0) }
         case .genre:
-            if let genre = mediaLibraryService.medialib.searchGenre(byName: searchText)?.first {
-                return .init(identifier: String(genre.identifier()), title: genre.name, type: .genre, artwork: nil)
-            }
+            return resolver.genres(matching: searchText)?.first.map { mediaItem(for: $0) }
         case .playlist, .podcastPlaylist:
-            if let playlist = mediaLibraryService.medialib.searchPlaylists(byName: searchText, of: .all)?.first {
-                return .init(identifier: String(playlist.identifier()), title: playlist.title(), type: .playlist, artwork: nil)
-            }
-        case .unknown:
-            let searchGeneral = mediaLibraryService.medialib.search(searchText)
-            if let playlist = searchGeneral.playlists?.first {
-                return .init(identifier: String(playlist.identifier()), title: playlist.title(), type: .playlist, artwork: nil)
-            } else if let album = searchGeneral.albums?.first {
-                return .init(identifier: String(album.identifier()), title: album.title, type: .album, artwork: nil, artist: album.artists()?.first?.artistName())
-            } else if let artist = searchGeneral.artists?.first {
-                return .init(identifier: String(artist.identifier()), title: artist.name, type: .artist, artwork: nil)
-            } else if let genre = searchGeneral.genres?.first {
-                return .init(identifier: String(genre.identifier()), title: genre.name, type: .genre, artwork: nil)
-            } else if let song = searchGeneral.media?.first {
-                if let group = song.group() {
-                    return .init(identifier: String(group.identifier()), title: group.title(), type: .movie, artwork: nil)
-                }
-                return .init(identifier: String(song.identifier()), title: song.title, type: .song, artwork: nil, artist: song.artist?.artistName())
-            }
-        case .podcastShow, .podcastEpisode, .audioBook:
-            // unsure if supported
-            return nil
+            return resolver.playlists(matching: searchText)?.first.map { mediaItem(for: $0) }
         case .movie, .tvShow, .tvShowEpisode, .musicVideo:
-            if let searchText = searchItem.mediaName, let video = mediaLibraryService.medialib.searchMediaGroups(withPattern: searchText)?.first {
-                return .init(identifier: String(video.identifier()), title: video.title(), type: .movie, artwork: nil)
+            return resolver.videoGroups(matching: searchText)?.first.map { mediaItem(for: $0) }
+        case .unknown:
+            return aggregateMediaItem(matching: searchText)
+        default:
+            return nil
+        }
+    }
+
+    private func aggregateMediaItem(matching searchText: String) -> INMediaItem? {
+        let searchGeneral = mediaLibraryService.medialib.search(searchText)
+
+        if let playlist = searchGeneral.playlists?.first {
+            return mediaItem(for: playlist)
+        }
+        if let album = searchGeneral.albums?.first {
+            return mediaItem(for: album)
+        }
+        if let artist = searchGeneral.artists?.first {
+            return mediaItem(for: artist)
+        }
+        if let genre = searchGeneral.genres?.first {
+            return mediaItem(for: genre)
+        }
+        if let song = searchGeneral.media?.first {
+            if let group = song.group() {
+                return mediaItem(for: group)
             }
-        case .station, .musicStation, .radioStation, .podcastStation, .algorithmicRadioStation, .news:
-            // never supported
-            return nil
-        @unknown default:
-            return nil
+            return mediaItem(for: song)
         }
         return nil
     }
-    
-    private func getMediaArrayFromIdentifier(identifier: VLCMLIdentifier, type: INMediaItemType) -> [VLCMLMedia]? {
-        switch type {
-        case .unknown:
-        fatalError()
-                
-        case .song, .music:
-            if let song = mediaLibraryService.medialib.media(withIdentifier: identifier) {
-                if let album = song.album?.files(with: .trackNumber, desc: false), let songIndex = album.firstIndex(where: { $0.trackNumber == song.trackNumber }) {
-                    return Array(album[songIndex...])
-                    
-                }
-            return [song]
-        }
-                
-        case .album:
-        if let album = mediaLibraryService.medialib.album(withIdentifier: identifier), let files = album.files() {
-            return files
-        }
-                
-        case .artist:
-        if let artist = mediaLibraryService.medialib.artist(withIdentifier: identifier), let files = artist.files() {
-            return files
-        }
-                
-        case .genre:
-        if let genre = mediaLibraryService.medialib.genre(withIdentifier: identifier), let files = genre.files() {
-            return files
-        }
-                
-        case .playlist, .podcastPlaylist:
-        if let playlist = mediaLibraryService.medialib.playlist(withIdentifier: identifier), let files = playlist.files() {
-            return files
-        }
-                
-        case .podcastShow, .podcastEpisode, .musicStation, .audioBook, .podcastStation, .radioStation, .station, .algorithmicRadioStation, .news:
-        fatalError()
-        case .movie, .tvShow, .tvShowEpisode, .musicVideo:
-        if let videos = mediaLibraryService.medialib.mediaGroup(withIdentifier: identifier), let files = videos.files(with: .default, desc: true) {
-            return files
-        }
-                
-        @unknown default:
-            fatalError()
-        }
-        fatalError()
+
+    private func mediaItem(for media: VLCMLMedia) -> INMediaItem {
+        return .init(identifier: String(media.identifier()),
+                     title: media.title,
+                     type: .song,
+                     artwork: nil,
+                     artist: media.artist?.artistName())
+    }
+
+    private func mediaItem(for album: VLCMLAlbum) -> INMediaItem {
+        return .init(identifier: String(album.identifier()),
+                     title: album.title,
+                     type: .album,
+                     artwork: nil,
+                     artist: album.artists()?.first?.artistName())
+    }
+
+    private func mediaItem(for artist: VLCMLArtist) -> INMediaItem {
+        return .init(identifier: String(artist.identifier()),
+                     title: artist.name,
+                     type: .artist,
+                     artwork: nil)
+    }
+
+    private func mediaItem(for genre: VLCMLGenre) -> INMediaItem {
+        return .init(identifier: String(genre.identifier()),
+                     title: genre.name,
+                     type: .genre,
+                     artwork: nil)
+    }
+
+    private func mediaItem(for playlist: VLCMLPlaylist) -> INMediaItem {
+        return .init(identifier: String(playlist.identifier()),
+                     title: playlist.title(),
+                     type: .playlist,
+                     artwork: nil)
+    }
+
+    private func mediaItem(for group: VLCMLMediaGroup) -> INMediaItem {
+        return .init(identifier: String(group.identifier()),
+                     title: group.title(),
+                     type: .movie,
+                     artwork: nil)
     }
 }
