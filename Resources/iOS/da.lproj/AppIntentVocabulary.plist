@@ -17,7 +17,7 @@
         <string>INAddMediaIntent</string>
         <key>IntentExamples</key>
         <array>
-          <string>Tiljøj medie til VLC</string>
+          <string>Tilføj medie til VLC</string>
         </array>
       </dict>
     </array>
