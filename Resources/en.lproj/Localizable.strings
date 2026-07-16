@@ -725,6 +725,12 @@
 "APPINTENT_PLAY_MEDIA_DESCRIPTION" = "Play the selected playlist in the background without opening the app.";
 "APPINTENT_PLAY_MEDIA_PLAY_${mediaName}" = "Play ${mediaName} in the background";
 
+// MARK: - AppShortcut Strings
+"APPSHORTCUT_PLAY_MEDIA_SHORT_TITLE" = "Play Media";
+"APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAY_${applicationName}" = "Play media in ${applicationName}";
+"APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAYLIST_${applicationName}" = "Play a playlist in ${applicationName}";
+"APPSHORTCUT_PLAY_MEDIA_PHRASE_START_${applicationName}" = "Start playback in ${applicationName}";
+
 // MARK: - VerticalSliderControl Strings
 "VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL" = "Vertical slider";
 "VERTICAL_SLIDER_CONTROL_INCREMENT_ACTION" = "Increment";
