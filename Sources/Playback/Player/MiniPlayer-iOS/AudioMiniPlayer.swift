@@ -276,6 +276,7 @@ private extension AudioMiniPlayer {
     private func setupInfo(modern: Bool) {
         artworkImageView.translatesAutoresizingMaskIntoConstraints = false
         artworkImageView.clipsToBounds = true
+        artworkImageView.contentMode = .scaleAspectFit
         artworkImageView.accessibilityIgnoresInvertColors = true
         artworkImageView.layer.cornerRadius = modern ? 8 : 2
 
@@ -877,6 +878,14 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 
     private func addContextMenu() {
         audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
+    }
+}
+
+// MARK: - ZoomTransitionEndpoint
+
+extension AudioMiniPlayer: ZoomTransitionEndpoint {
+    var zoomTransitionArtworkView: UIImageView? {
+        return artworkImageView
     }
 }
 

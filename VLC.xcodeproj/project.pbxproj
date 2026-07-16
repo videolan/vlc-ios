@@ -287,6 +287,9 @@
 		7D11E10000000000000B0001 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
 		7D11E10000000000000B0002 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
 		7D11E10000000000000B0003 /* VLCTransferItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D11E10000000000000A0003 /* VLCTransferItem.m */; };
+		7D1318A830090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1318A730090DC600B9E7E0 /* MiniPlayerZoomTransition.swift */; };
+		7D1318A930090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1318A730090DC600B9E7E0 /* MiniPlayerZoomTransition.swift */; };
+		7D1318AA30090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1318A730090DC600B9E7E0 /* MiniPlayerZoomTransition.swift */; };
 		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471702B88A45B00AB642B /* VLCSubscription.m */; };
 		7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471742B88A7BA00AB642B /* VLCCharge.m */; };
@@ -1794,6 +1797,7 @@
 		7D0C209428C89BDC00CCFFEF /* VLC-tvOS-Prefix-Header.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-tvOS-Prefix-Header.pch"; sourceTree = "<group>"; };
 		7D11E10000000000000A0001 /* VLCTransferItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCTransferItem.h; sourceTree = "<group>"; };
 		7D11E10000000000000A0003 /* VLCTransferItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCTransferItem.m; sourceTree = "<group>"; };
+		7D1318A730090DC600B9E7E0 /* MiniPlayerZoomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerZoomTransition.swift; sourceTree = "<group>"; };
 		7D13293D1BA1F10100BE647E /* VLC-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVAppDelegate.h; sourceTree = "<group>"; };
 		7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVAppDelegate.m; sourceTree = "<group>"; };
@@ -4271,6 +4275,7 @@
 			isa = PBXGroup;
 			children = (
 				8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */,
+				7D1318A730090DC600B9E7E0 /* MiniPlayerZoomTransition.swift */,
 				8D6E1587223BBAF600077DD3 /* MiniPlayer.swift */,
 			);
 			name = "MiniPlayer-iOS";
@@ -5779,6 +5784,7 @@
 				7D50C60B2BBD20DF00B9F1A0 /* AudioMiniPlayer.swift in Sources */,
 				7D50C60D2BBD20DF00B9F1A0 /* MediaModel.swift in Sources */,
 				7D50C60F2BBD20DF00B9F1A0 /* PlaylistModel.swift in Sources */,
+				7D1318AA30090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
 				7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */,
 				7D50C6112BBD20DF00B9F1A0 /* VLCFrostedGlasView.m in Sources */,
 				7D50C6122BBD20DF00B9F1A0 /* BaseCollectionViewCell.swift in Sources */,
@@ -6012,6 +6018,7 @@
 				7D0BE2772FF2B6EE0002D451 /* UIView+Corners.swift in Sources */,
 				41D7DD2720C3060300AD94F6 /* PagerStripViewController.swift in Sources */,
 				7DC7BAB728C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
+				7D1318A930090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
 				413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */,
 				7D98194B2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */,
 				DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */,
@@ -6537,6 +6544,7 @@
 				7DA515012EF82B63000C9995 /* VideoFiltersView.swift in Sources */,
 				7DA515022EF82B63000C9995 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				7DA515032EF82B63000C9995 /* VLCPlexWebAPI.m in Sources */,
+				7D1318A830090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
 				7DA515042EF82B63000C9995 /* VLCDonationNagScreenViewController.m in Sources */,
 				7DA515052EF82B63000C9995 /* ButtonBarView.swift in Sources */,
 				7DA515062EF82B63000C9995 /* MediaPlayerActionSheet.swift in Sources */,

@@ -48,7 +48,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;
 @end
 
-@interface VLCPlayerDisplayController () <VLCAudioPlayerViewControllerDelegate>
+@interface VLCPlayerDisplayController () <VLCAudioPlayerViewControllerDelegate, VLCZoomTransitionDataSource>
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *audioPlayerViewController;
 @end
 
@@ -61,6 +61,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @end
 
 @implementation VLCPlayerDisplayController
+{
+    VLCMiniPlayerZoomTransitioningDelegate *_zoomTransitioningDelegate;
+}
 
 - (instancetype)init
 {
@@ -416,9 +419,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     UIViewController *presentingController = [self _presentingControllerForPlaybackController:self.audioPlayerViewController];
     // Dismiss from the level above so any sub-menu presented on top of the player is torn down with it.
     UIViewController *dismisser = presentingController.presentingViewController ?: presentingController;
-    [dismisser dismissViewControllerAnimated:[self shouldAnimate] completion:nil];
     self.displayMode = VLCPlayerDisplayControllerDisplayModeMiniplayer;
-    [self _showHideMiniPlaybackView];
+    [self _showHideMiniPlaybackViewAnimated:NO];
+    [dismisser dismissViewControllerAnimated:[self shouldAnimate] completion:nil];
 }
 
 #pragma mark - presentation handling
@@ -574,6 +577,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:audioPlayerViewController];
     navCon.modalPresentationStyle = UIModalPresentationOverFullScreen;
     navCon.modalPresentationCapturesStatusBarAppearance = YES;
+
+    if (!_zoomTransitioningDelegate) {
+        _zoomTransitioningDelegate = [[VLCMiniPlayerZoomTransitioningDelegate alloc] initWithDataSource:self];
+    }
+    navCon.transitioningDelegate = _zoomTransitioningDelegate;
+
     _playbackController.delegate = audioPlayerViewController;
     [audioPlayerViewController prepareForMediaPlayback:self.playbackController];
 
@@ -647,13 +656,29 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     return ((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)_miniPlaybackView).visible;
 }
 
+- (id<VLCZoomTransitionEndpoint>)miniPlayerZoomTransitionEndpoint
+{
+    UIView *miniPlaybackView = self.miniPlaybackView;
+    if ([miniPlaybackView conformsToProtocol:@protocol(VLCZoomTransitionEndpoint)]) {
+        return (id<VLCZoomTransitionEndpoint>)miniPlaybackView;
+    }
+    return nil;
+}
+
 - (void)_showHideMiniPlaybackView
+{
+    [self _showHideMiniPlaybackViewAnimated:YES];
+}
+
+- (void)_showHideMiniPlaybackViewAnimated:(BOOL)animated
 {
 #if TARGET_OS_TV
     return;
 #else
     if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(_showHideMiniPlaybackView) withObject:nil waitUntilDone:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _showHideMiniPlaybackViewAnimated:animated];
+        });
         return;
     }
 
@@ -738,8 +763,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     [miniPlaybackView prepareForMediaPlayback:playbackController];
 
     if (needsShow || needsHide) {
-        [UIView animateWithDuration:animationDuration
-                              delay:animationDuration
+        [UIView animateWithDuration:animated ? animationDuration : 0.0
+                              delay:animated ? animationDuration : 0.0
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              self.bottomConstraint.active = NO;

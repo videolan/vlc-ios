@@ -580,6 +580,10 @@ class PlayerViewController: UIViewController {
         // Minimize the player
     }
 
+    var resetsPositionOnMinimize: Bool {
+        return false
+    }
+
     func updateShuffleState() {
         playbackService.isShuffleMode = !playbackService.isShuffleMode
     }
@@ -1228,6 +1232,10 @@ class PlayerViewController: UIViewController {
             if let initialCenter = minimizationInitialCenter {
                 if translation.y > view.bounds.height * 0.1 {
                     // Adjust the threshold as needed
+                    if resetsPositionOnMinimize {
+                        view.center = initialCenter
+                        resetCornerRadius()
+                    }
                     minimizePlayer()
                 } else {
                     // Animate the view returning to its original position

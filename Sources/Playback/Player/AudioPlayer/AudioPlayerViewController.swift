@@ -167,6 +167,10 @@ class AudioPlayerViewController: PlayerViewController {
     override func minimizePlayer() {
         delegate?.audioPlayerViewControllerDidMinimize(self)
     }
+
+    override var resetsPositionOnMinimize: Bool {
+        return true
+    }
     
     @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
         audioPlayerView.setupPlaybackSpeed()
@@ -663,6 +667,14 @@ extension AudioPlayerViewController {
     override func popupViewDidClose(_ popupView: PopupView) {
         super.popupViewDidClose(popupView)
         moreOptionsButton.isEnabled = true
+    }
+}
+
+// MARK: - ZoomTransitionEndpoint
+
+extension AudioPlayerViewController: ZoomTransitionEndpoint {
+    var zoomTransitionArtworkView: UIImageView? {
+        return audioPlayerView.thumbnailImageView
     }
 }
 
