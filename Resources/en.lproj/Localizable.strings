@@ -737,6 +737,13 @@
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAY_${applicationName}" = "Play media in ${applicationName}";
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAYLIST_${applicationName}" = "Play a playlist in ${applicationName}";
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_START_${applicationName}" = "Start playback in ${applicationName}";
+"APPSHORTCUT_PLAY_AUDIO_SHORT_TITLE" = "Play Audio";
+"APPSHORTCUT_PLAY_AUDIO_PHRASE_PLAY_${applicationName}" = "Play audio in ${applicationName}";
+"APPSHORTCUT_PLAY_AUDIO_PHRASE_SONG_${applicationName}" = "Play a song in ${applicationName}";
+"APPSHORTCUT_ADD_TO_PLAYLIST_SHORT_TITLE" = "Add to Playlist";
+"APPSHORTCUT_ADD_TO_PLAYLIST_PHRASE_${applicationName}" = "Add a song to a playlist in ${applicationName}";
+"APPSHORTCUT_UPDATE_AFFINITY_SHORT_TITLE" = "Favorite";
+"APPSHORTCUT_UPDATE_AFFINITY_PHRASE_${applicationName}" = "Favorite audio in ${applicationName}";
 
 // MARK: - VerticalSliderControl Strings
 "VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL" = "Vertical slider";
