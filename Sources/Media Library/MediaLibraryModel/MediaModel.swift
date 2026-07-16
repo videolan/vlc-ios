@@ -10,11 +10,8 @@
  *****************************************************************************/
 
 #if !os(watchOS)
-import CoreSpotlight
-// iOS 27 SDK
-#if canImport(MediaIntents)
 import AppIntents
-#endif
+import CoreSpotlight
 #endif
 
 protocol MediaModel: NSObject, MLBaseModel where MLType == VLCMLMedia { }
@@ -172,6 +169,10 @@ extension VLCMLMedia {
             if let album = album {
                 attributeSet.album = album.title
             }
+        }
+
+        if #available(iOS 18.4, visionOS 2.4, *), type() == .video {
+            attributeSet.associateAppEntity(VideoEntity(media: self), priority: isFavorite() ? 10 : 1)
         }
 
         // iOS 27 SDK

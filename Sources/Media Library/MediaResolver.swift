@@ -74,6 +74,13 @@ class MediaResolver {
         return medialib.media(withIdentifier: identifier)
     }
 
+    func video(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
+        guard let media = medialib.media(withIdentifier: identifier), media.type() == .video else {
+            return nil
+        }
+        return media
+    }
+
     func album(for identifier: VLCMLIdentifier) -> VLCMLAlbum? {
         return medialib.album(withIdentifier: identifier)
     }
