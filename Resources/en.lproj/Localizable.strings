@@ -725,6 +725,13 @@
 "APPINTENT_PLAY_MEDIA_DESCRIPTION" = "Play the selected playlist in the background without opening the app.";
 "APPINTENT_PLAY_MEDIA_PLAY_${mediaName}" = "Play ${mediaName} in the background";
 
+// MARK: - Audio App Intent Strings
+"APPINTENT_ERROR_NO_MEDIA" = "No matching media was found in your library.";
+"APPINTENT_ERROR_PLAYLIST_UPDATE" = "The playlist could not be updated.";
+"APPINTENT_AFFINITY_FAVORITE" = "Favorite";
+"APPINTENT_AFFINITY_NOT_FAVORITE" = "Not a Favorite";
+"APPINTENT_AFFINITY_UNSET" = "Unset";
+
 // MARK: - AppShortcut Strings
 "APPSHORTCUT_PLAY_MEDIA_SHORT_TITLE" = "Play Media";
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAY_${applicationName}" = "Play media in ${applicationName}";

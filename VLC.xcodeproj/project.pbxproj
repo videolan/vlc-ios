@@ -268,9 +268,18 @@
 		7D02C5A52A84F0830046DC5E /* VLCMLMedia+Podcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02C5A42A84F0830046DC5E /* VLCMLMedia+Podcast.m */; };
 		7D04E1CC2AB0B5FB003AD39F /* VLCDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */; };
 		7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
+		7D0906003006811D0092F985 /* AudioEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FE3006811D0092F985 /* AudioEntities.swift */; };
 		7D0906013006811D0092F985 /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FD3006811D0092F985 /* AppShortcuts.swift */; };
+		7D0906023006811D0092F985 /* AudioIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FF3006811D0092F985 /* AudioIntents.swift */; };
+		7D0906033006811D0092F985 /* AudioEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FE3006811D0092F985 /* AudioEntities.swift */; };
 		7D0906043006811D0092F985 /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FD3006811D0092F985 /* AppShortcuts.swift */; };
+		7D0906053006811D0092F985 /* AudioIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FF3006811D0092F985 /* AudioIntents.swift */; };
+		7D0906063006811D0092F985 /* AudioEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FE3006811D0092F985 /* AudioEntities.swift */; };
+		7D50C9022BBD20DF00B9F1A0 /* IntentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */; };
+		7D50C9032BBD20DF00B9F1A0 /* IntentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */; };
+		7D50C9042BBD20DF00B9F1A0 /* IntentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */; };
 		7D0906073006811D0092F985 /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FD3006811D0092F985 /* AppShortcuts.swift */; };
+		7D0906083006811D0092F985 /* AudioIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0905FF3006811D0092F985 /* AudioIntents.swift */; };
 		7D50C9002BBD20DF00B9F1A0 /* PlayMediaIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91562F582CAEBC1500D42986 /* PlayMediaIntent.swift */; };
 		7D09060A300682020092F985 /* MediaResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D090609300682020092F985 /* MediaResolver.swift */; };
 		7D09060B300682020092F985 /* MediaResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D090609300682020092F985 /* MediaResolver.swift */; };
@@ -1790,6 +1799,9 @@
 		7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationViewController.m; sourceTree = "<group>"; };
 		7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationViewController.xib; sourceTree = "<group>"; };
 		7D0905FD3006811D0092F985 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
+		7D0905FE3006811D0092F985 /* AudioEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEntities.swift; sourceTree = "<group>"; };
+		7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentContext.swift; sourceTree = "<group>"; };
+		7D0905FF3006811D0092F985 /* AudioIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIntents.swift; sourceTree = "<group>"; };
 		7D090609300682020092F985 /* MediaResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResolver.swift; sourceTree = "<group>"; };
 		7D0BE2732FF2B6EE0002D451 /* UIView+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Corners.swift"; sourceTree = "<group>"; };
 		7D0C207528C897DA00CCFFEF /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
@@ -4151,6 +4163,9 @@
 				7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */,
 				418B144C20179C74000447AA /* TabBarCoordinator.swift */,
 				7D0905FD3006811D0092F985 /* AppShortcuts.swift */,
+				7D0905FE3006811D0092F985 /* AudioEntities.swift */,
+				7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */,
+				7D0905FF3006811D0092F985 /* AudioIntents.swift */,
 				8F9108342A67AC76007EB0D5 /* SirikitIntentCoordinator.swift */,
 				91562F582CAEBC1500D42986 /* PlayMediaIntent.swift */,
 			);
@@ -5804,7 +5819,10 @@
 				7D50C6142BBD20DF00B9F1A0 /* UIViewController+VLCAlert.h in Sources */,
 				7D50C6152BBD20DF00B9F1A0 /* SettingsSpecifier.swift in Sources */,
 				7D50C6162BBD20DF00B9F1A0 /* (null) in Sources */,
+				7D0906033006811D0092F985 /* AudioEntities.swift in Sources */,
+				7D50C9032BBD20DF00B9F1A0 /* IntentContext.swift in Sources */,
 				7D0906043006811D0092F985 /* AppShortcuts.swift in Sources */,
+				7D0906053006811D0092F985 /* AudioIntents.swift in Sources */,
 				7D50C9002BBD20DF00B9F1A0 /* PlayMediaIntent.swift in Sources */,
 				7D50C6192BBD20DF00B9F1A0 /* VLCOSOFetcher.m in Sources */,
 				7D50C61A2BBD20DF00B9F1A0 /* ChapterView.swift in Sources */,
@@ -6037,7 +6055,10 @@
 				7D98194B2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */,
 				DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */,
 				7DC7BA7B28C894EC00109F28 /* Array+Safety.swift in Sources */,
+				7D0906003006811D0092F985 /* AudioEntities.swift in Sources */,
+				7D50C9022BBD20DF00B9F1A0 /* IntentContext.swift in Sources */,
 				7D0906013006811D0092F985 /* AppShortcuts.swift in Sources */,
+				7D0906023006811D0092F985 /* AudioIntents.swift in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				277943252A6176170010D5EA /* FavoriteSectionHeader.swift in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
@@ -6383,7 +6404,10 @@
 				7DA514612EF82B63000C9995 /* MediaGroupViewModel.swift in Sources */,
 				7DA514622EF82B63000C9995 /* AspectRatio.swift in Sources */,
 				7DA514632EF82B63000C9995 /* UIFont+Styling.swift in Sources */,
+				7D0906063006811D0092F985 /* AudioEntities.swift in Sources */,
+				7D50C9042BBD20DF00B9F1A0 /* IntentContext.swift in Sources */,
 				7D0906073006811D0092F985 /* AppShortcuts.swift in Sources */,
+				7D0906083006811D0092F985 /* AudioIntents.swift in Sources */,
 				7DA514642EF82B63000C9995 /* FileManager+DeleteMediaFolder.swift in Sources */,
 				7DA514652EF82B63000C9995 /* NSString+SupportedMedia.m in Sources */,
 				7DA514662EF82B63000C9995 /* EditToolbar.swift in Sources */,

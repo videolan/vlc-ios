@@ -11,6 +11,10 @@
 
 #if !os(watchOS)
 import CoreSpotlight
+// iOS 27 SDK
+#if canImport(MediaIntents)
+import AppIntents
+#endif
 #endif
 
 protocol MediaModel: NSObject, MLBaseModel where MLType == VLCMLMedia { }
@@ -169,6 +173,13 @@ extension VLCMLMedia {
                 attributeSet.album = album.title
             }
         }
+
+        // iOS 27 SDK
+#if canImport(MediaIntents)
+        if #available(iOS 27, *), type() == .audio {
+            attributeSet.associateAppEntity(SongEntity(media: self), priority: isFavorite() ? 10 : 1)
+        }
+#endif
 
         return attributeSet
     }
