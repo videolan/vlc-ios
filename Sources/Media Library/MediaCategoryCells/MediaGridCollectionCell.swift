@@ -98,6 +98,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let separatorLabel = UILabel()
 
+    private var isFolder = false
+
     override var media: VLCMLObject? {
         didSet {
             if let media = media as? VLCMLMedia {
@@ -314,6 +316,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     func update(folder: VLCMLFolder) {
+        isFolder = true
         newLabel.isHidden = true
         titleLabel.isHidden = false
         titleLabel.text = folder.mrl.lastPathComponent
@@ -334,7 +337,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     private func configureShadows() {
-        if PresentationTheme.current.colors.isDark {
+        if isFolder || PresentationTheme.current.colors.isDark {
             clearShadow()
         } else {
             setShadow()
@@ -405,6 +408,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true
         separatorLabel.isHidden = true
+        isFolder = false
         clearShadow()
     }
 }
