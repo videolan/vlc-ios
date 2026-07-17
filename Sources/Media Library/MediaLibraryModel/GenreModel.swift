@@ -117,9 +117,9 @@ extension VLCMLGenre {
     @objc func numberOfTracksString() -> String {
         let numberOftracks = numberOfTracks()
         if numberOftracks != 1 {
-            return String(format: NSLocalizedString("TRACKS", comment: ""), numberOftracks)
+            return String(format: NSLocalizedString("TRACKS", comment: ""), locale: Locale.current, numberOftracks)
         }
-        return String(format: NSLocalizedString("TRACK", comment: ""), numberOftracks)
+        return String(format: NSLocalizedString("TRACK", comment: ""), locale: Locale.current, numberOftracks)
     }
 
     func accessibilityText() -> String? {

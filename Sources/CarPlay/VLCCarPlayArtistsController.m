@@ -58,7 +58,7 @@ NSString *VLCCarPlayAlbumTrackIndex = @"VLCCarPlayAlbumTrackIndex";
             albumCover = placeholder;
         }
 
-        NSString *detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
+        NSString *detailText = [NSString localizedStringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
                                 album.numberOfTracks, [VLCTime timeWithNumber:@(album.duration)].stringValue];
 
         CPListItem *listItem = [[CPListItem alloc] initWithText:album.title

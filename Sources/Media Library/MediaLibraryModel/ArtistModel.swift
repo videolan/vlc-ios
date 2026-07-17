@@ -171,13 +171,13 @@ extension VLCMLArtist {
     @objc func numberOfTracksString() -> String {
         let tracksCount = tracksCount()
         let tracksString = tracksCount == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
-        return String(format: tracksString, tracksCount)
+        return String(format: tracksString, locale: Locale.current, tracksCount)
     }
 
     @objc func numberOfAlbumsString() -> String {
         let albumCount = albumsCount()
         let albumsString = albumCount == 1 ? NSLocalizedString("NB_ALBUM_FORMAT", comment: "") : NSLocalizedString("NB_ALBUMS_FORMAT", comment: "")
-        return String(format: albumsString, albumCount)
+        return String(format: albumsString, locale: Locale.current, albumCount)
     }
 
     @objc func artistName() -> String {

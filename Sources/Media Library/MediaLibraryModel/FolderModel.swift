@@ -143,14 +143,14 @@ extension VLCMLFolder {
         if subfolderCount == 1 {
             components.append(NSLocalizedString("SUBFOLDER_DESCRIPTION", comment: ""))
         } else if subfolderCount > 1 {
-            components.append(String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolderCount))
+            components.append(String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), locale: Locale.current, subfolderCount))
         }
 
         let mediaCount = nbMedia()
         if mediaCount == 1 {
             components.append(NSLocalizedString("ONE_FILE", comment: ""))
         } else if mediaCount > 1 {
-            components.append(String(format: NSLocalizedString("NUM_OF_FILES", comment: ""), mediaCount))
+            components.append(String(format: NSLocalizedString("NUM_OF_FILES", comment: ""), locale: Locale.current, mediaCount))
         }
 
         return components.joined(separator: ", ")

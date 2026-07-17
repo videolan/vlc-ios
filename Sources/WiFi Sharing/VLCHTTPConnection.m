@@ -515,7 +515,7 @@ static NSMutableDictionary *authentifiedHosts;
             ? [_languageBundle localizedStringForKey:@"TRACK" value:nil table:nil]
             : NSLocalizedString(@"TRACK", nil);
     }
-    NSString *countString = [NSString stringWithFormat:countFormat, (int)count];
+    NSString *countString = [NSString localizedStringWithFormat:countFormat, (int)count];
     return [NSString stringWithFormat:
             @"<div> \
             <a href=\"#\" class=\"inner folder\"> \

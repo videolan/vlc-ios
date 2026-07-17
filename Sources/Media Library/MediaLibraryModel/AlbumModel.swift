@@ -169,7 +169,7 @@ extension VLCMLAlbum {
     func numberOfTracksString() -> String {
         let trackCount = numberOfTracks()
         let tracksString = trackCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
-        return String(format: tracksString, trackCount)
+        return String(format: tracksString, locale: Locale.current, trackCount)
     }
 
     func albumName() -> String {

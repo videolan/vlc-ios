@@ -250,7 +250,7 @@ extension VLCMLMediaGroup {
     func numberOfTracksString() -> String {
         let mediaCount = nbVideo()
         let tracksString = mediaCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
-        return String(format: tracksString, mediaCount)
+        return String(format: tracksString, locale: Locale.current, mediaCount)
     }
 
     func accessibilityText() -> String? {

@@ -106,7 +106,7 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
             artworkImage = placeholder;
         }
 
-        NSString *detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
+        NSString *detailText = [NSString localizedStringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
                                 iter.nbMedia, [VLCTime timeWithNumber:@(iter.duration)].stringValue];
 
         listItem = [[CPListItem alloc] initWithText:iter.name

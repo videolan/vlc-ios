@@ -159,7 +159,7 @@ extension VLCMLPlaylist {
     func numberOfTracksString() -> String {
         let mediaCount = media?.count ?? 0
         let tracksString = mediaCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
-        return String(format: tracksString, mediaCount)
+        return String(format: tracksString, locale: Locale.current, mediaCount)
     }
 
     func durationString() -> String {

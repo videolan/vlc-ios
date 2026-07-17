@@ -56,7 +56,7 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
 
         NSString *detailText = @"";
         if (subfolder.duration > 0) {
-            detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
+            detailText = [NSString localizedStringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
                           subfolder.nbAudio, [VLCTime timeWithNumber:@(subfolder.duration)].stringValue];
         }
         CPListItem *listItem = [[CPListItem alloc] initWithText:subfolder.mrl.lastPathComponent
