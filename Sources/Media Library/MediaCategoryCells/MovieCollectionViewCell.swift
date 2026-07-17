@@ -263,12 +263,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     func update(folder: VLCMLFolder) {
         titleLabel.text = folder.mrl.lastPathComponent
 
-        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
-            descriptionLabel.isHidden = false
-            descriptionLabel.text = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
-        } else {
-            descriptionLabel.isHidden = true
-        }
+        let description = folder.folderDescriptionString()
+        descriptionLabel.isHidden = description.isEmpty
+        descriptionLabel.text = description
 
         newLabel.isHidden = true
         progressView.isHidden = true

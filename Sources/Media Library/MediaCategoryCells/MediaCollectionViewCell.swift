@@ -423,12 +423,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         thumbnailView.backgroundColor = .clear
 
-        var descriptionLabel: String = ""
-        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
-            descriptionLabel = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
-        }
-
-        sizeDescriptionLabel.text = descriptionLabel
+        sizeDescriptionLabel.text = folder.folderDescriptionString()
     }
 
     func update(playlist: VLCMLPlaylist) {

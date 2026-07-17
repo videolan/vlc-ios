@@ -776,7 +776,8 @@
 "EMPTY_FOLDER" = "Empty Folder";
 "EMPTY_FOLDER_DES_VIDEO" = "We couldn't find any videos here. This folder may still contain audio files.";
 "EMPTY_FOLDER_DES_AUDIO" = "We couldn't find any audio files here. This folder may still contain videos.";
-"SUBFOLDERS_DESCRIPTION" = "%d subfolders";
+"SUBFOLDER_DESCRIPTION" = "1 folder";
+"SUBFOLDERS_DESCRIPTION" = "%d folders";
 
 "ACCESSIBILITY_SELECTED" = "selected";
 "TRACK_SELECTOR_OFF" = "Off";

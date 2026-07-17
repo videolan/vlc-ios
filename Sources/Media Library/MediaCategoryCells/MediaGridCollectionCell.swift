@@ -328,12 +328,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
         thumbnailView.backgroundColor = .clear
 
-        if let subfolders = folder.subfolders(with: .default, desc: false), !subfolders.isEmpty {
-            descriptionLabel.isHidden = false
-            descriptionLabel.text = String(format: NSLocalizedString("SUBFOLDERS_DESCRIPTION", comment: ""), subfolders.count)
-        } else {
-            descriptionLabel.isHidden = true
-        }
+        let description = folder.folderDescriptionString()
+        descriptionLabel.isHidden = description.isEmpty
+        descriptionLabel.text = description
     }
 
     private func configureShadows() {
