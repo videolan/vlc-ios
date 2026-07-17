@@ -43,6 +43,7 @@
 - (void)themeDidChange
 {
     ColorPalette *colors = PresentationTheme.current.colors;
+    [_learnMoreButton setTitleColor:colors.orangeDarkAccent forState:UIControlStateHighlighted];
     _emptyLibraryLabel.textColor = colors.cellTextColor;
     _emptyLibraryLabel.backgroundColor = colors.background;
     _emptyLibraryLongDescriptionLabel.textColor = colors.lightTextColor;

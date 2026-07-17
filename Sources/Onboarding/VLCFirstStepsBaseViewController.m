@@ -163,20 +163,44 @@
 {
     label.userInteractionEnabled = YES;
     label.textColor = PresentationTheme.current.colors.orangeUI;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(didTapLabelWithGesture:)];
-    [label addGestureRecognizer:tapGesture];
+    label.highlightedTextColor = PresentationTheme.current.colors.orangeDarkAccent;
+    UILongPressGestureRecognizer *pressGesture = [[UILongPressGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(didPressLabelWithGesture:)];
+    pressGesture.minimumPressDuration = 0.;
+    [label addGestureRecognizer:pressGesture];
 }
 
-- (void)didTapLabelWithGesture:(UIGestureRecognizer *)gesture
+- (void)didPressLabelWithGesture:(UILongPressGestureRecognizer *)gesture
+{
+    UILabel *label = (UILabel *)gesture.view;
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+            label.highlighted = YES;
+            break;
+        case UIGestureRecognizerStateEnded:
+            label.highlighted = NO;
+            if (CGRectContainsPoint(label.bounds, [gesture locationInView:label])) {
+                [self presentDonationFromView:label];
+            }
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            label.highlighted = NO;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)presentDonationFromView:(UIView *)sourceView
 {
     UIViewController *donationVC = [[VLCDonationViewController alloc] initWithNibName:@"VLCDonationViewController" bundle:nil];
     UINavigationController *donationNC = [[VLCDonationNavigationController alloc] initWithRootViewController:donationVC];
 #if TARGET_OS_IOS
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         donationNC.modalPresentationStyle = UIModalPresentationPopover;
-        donationNC.popoverPresentationController.sourceView = self.titleLabel;
+        donationNC.popoverPresentationController.sourceView = sourceView;
     } else {
         donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
     }
