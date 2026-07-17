@@ -444,6 +444,13 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         APLog(@"%s: no login information, class %@", __func__, NSStringFromClass([service class]));
     }
 
+    if (!login) {
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                             errorMessage:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                                           viewController:self];
+        return;
+    }
+
     /* UPnP does not support authentication, so skip this step */
     if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
         VLCNetworkServerBrowserVLCMedia *serverBrowser;

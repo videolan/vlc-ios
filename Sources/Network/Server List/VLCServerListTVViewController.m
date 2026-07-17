@@ -210,7 +210,12 @@
 
     if ([service respondsToSelector:@selector(loginInformation)]) {
         VLCNetworkServerLoginInformation *login = service.loginInformation;
-        if (!login) return;
+        if (!login) {
+            [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                 message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                             buttonTitle:NSLocalizedString(@"BUTTON_OK", nil)];
+            return;
+        }
 
         /* UPnP does not support authentication, so skip this step */
         if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
