@@ -169,6 +169,10 @@ class AlbumHeader: UICollectionReusableView {
         setupConstraints()
     }
 
+    func updateTheme() {
+        backgroundColor = PresentationTheme.current.colors.background
+    }
+
     func updateUserInterfaceStyle(isStatusBarVisible: Bool = false) {
         if #available(iOS 26.0, *) {
             return

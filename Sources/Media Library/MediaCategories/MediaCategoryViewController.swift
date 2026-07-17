@@ -751,6 +751,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             fabButton.tintColor = colors.background
         }
         editToolBar.backgroundColor = colors.tabBarColor
+
+        albumHeader?.updateTheme()
+        updateAlbumHeader()
     }
 
     private func showGuideOnLaunch() {
