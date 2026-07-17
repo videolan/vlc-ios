@@ -237,14 +237,21 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.item != currentIndex && containerView.isScrollEnabled else { return }
 
+        let previousIndex = currentIndex
         buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
         shouldUpdateButtonBarView = false
 
-        let oldCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ButtonBarCellType
+        let oldCell = buttonBarView.cellForItem(at: IndexPath(item: previousIndex, section: 0)) as? ButtonBarCellType
         let newCell = buttonBarView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ButtonBarCellType
 
         if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
             changeCurrentIndexProgressive(oldCell, newCell, 1, true, true)
+        }
+
+        if oldCell == nil {
+            UIView.performWithoutAnimation {
+                buttonBarView.reloadItems(at: [IndexPath(item: previousIndex, section: 0)])
+            }
         }
         moveToViewController(at: indexPath.item)
     }
