@@ -149,7 +149,8 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
             preconditionFailure("VLCSessionDelegate: Missing \(kVLCMediaLibrarySyncID) in payload")
         }
 
-        if let watchLibrarySyncId = mlSyncManager?.state?.librarySyncId {
+        if let watchLibrarySyncId = mlSyncManager?.state.librarySyncId,
+           watchLibrarySyncId != "" {
             // If another iPhone attempts to transfer file to watch, reset library sync ids
             if watchLibrarySyncId != iphoneLibrarySyncId {
                 print("\(kVLCMediaLibrarySyncID) are different")
@@ -158,7 +159,15 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
             }
         } else {
             // watch has not linked to an iphone yet, link them now
-            mlSyncManager?.saveMLSyncState(MLSyncState(librarySyncId: iphoneLibrarySyncId, mediaSyncIds: [], pendingTransfers: [:]))
+            mlSyncManager?.saveMLSyncState(
+                MLSyncState(
+                    librarySyncId: iphoneLibrarySyncId,
+                    mediaSyncIds: [],
+                    albumsSyncIds: [],
+                    artistSyncIds: [],
+                    pendingMediaTransfers: [:]
+                )
+            )
         }
 
         guard let messageTypeString = message.payload[kVLCWatchMessageType] as? String else {
@@ -174,7 +183,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
         case .transferAudioFile:
             handleTransferAudioFile(message: message)
         case .transferiPhoneMediaLibraryDBFile:
-            handleTransferiPhoneMediaLibraryDBFile(message: message)
+            handleTransferSnapshotMediaLibraryDBFile(message: message)
         }
     }
 
@@ -189,9 +198,23 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 
         do {
             try FileManager.default.moveItem(at: file.fileURL, to: destination) // Documents/Inbox -> /Documents
-            if let iphoneMediaId = message.payload[kVLCiPhoneMediaID] as? VLCMLIdentifier,
-               let filename = message.payload[kVLCiPhoneMediaFileName] as? String {
-                mlSyncManager?.didReceiveFile(iphoneMediaId: iphoneMediaId, filename: filename)
+            print("VLCSession delegate handleTransferAudioFile: \(message.payload)")
+            if let iphoneMediaID = message.payload[kVLCiPhoneMediaID] as? VLCMLIdentifier,
+               let filename = message.payload[kVLCiPhoneMediaFileName] as? String,
+               let iphoneAlbumID = message.payload[kVLCiPhoneAlbumID] as? VLCMLIdentifier,
+               let iphoneAlbumName = message.payload[kVLCiPhoneAlbumName] as? String,
+               let iphoneArtistID = message.payload[kVLCiPhoneArtistID] as? VLCMLIdentifier,
+               let iphoneArtistName = message.payload[kVLCiPhoneArtistName] as? String
+            {
+                print("mlSyncManager.didReceiveFile timmy")
+                mlSyncManager?.didReceiveFile(
+                    iphoneMediaId: iphoneMediaID,
+                    filename: filename,
+                    iphoneAlbumID: iphoneAlbumID,
+                    albumName: iphoneAlbumName,
+                    iphoneArtistID: iphoneArtistID,
+                    artistName: iphoneArtistName
+                )
             }
 
             print("handleTransferAudioFile: Sucessfully moved file \(mediaFileName) to \(documentsDir)")
@@ -203,8 +226,8 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
         return
     }
 
-    private func handleTransferiPhoneMediaLibraryDBFile(message: VLCWatchMessage) {
-        guard let file = message.file else {
+    private func handleTransferSnapshotMediaLibraryDBFile(message: VLCWatchMessage) {
+        guard let file = message.file else {    // medialibrary.db
             preconditionFailure("VLCSessionDelegate: Missing file in payload")
         }
 
@@ -218,7 +241,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
             try FileManager.default.createDirectory(at: mediaLibraryDir, withIntermediateDirectories: true)
 
             let destination = mediaLibraryDir
-                .appendingPathComponent(kVLCSnapshotMediaLibraryDBFileName)
+                .appendingPathComponent(kVLCSnapshotMediaLibraryDBFileName) // medialibrary-snapshot.db
 
             if FileManager.default.fileExists(atPath: destination.path) {
                 try FileManager.default.removeItem(at: destination)
@@ -228,7 +251,8 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 
             print("handleTransferiPhoneMediaLibraryDBFile: Sucessfully moved file \(file.fileURL) to \(destination)")
             postNotificationOnMainQueueAsync(name: .dataDidFlow, object: message)
-            NotificationCenter.default.post(name: .VLCDidReceiveSnapshotLibraryDBFileNotification, object: nil, userInfo: nil)
+            VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService = MediaLibraryService(libraryType: .snapshotLibrary)
+            mlSyncManager?.loadMLSyncState()
         } catch {
             print("handleTransferiPhoneMediaLibraryDBFile: Failed to move file \(file.fileURL) to \(libraryDir): \(error)")
         }
@@ -282,8 +306,8 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
 }
 
 extension Notification.Name {
-    static let VLCDidReceiveSnapshotLibraryDBFileNotification = Notification.Name("VLCDidReceiveSnapshotLibraryDBFileNotification")
-    static let VLCDidUpdateSnapshotLibraryDBFileNotification = Notification.Name("VLCDidUpdateSnapshotLibraryDBFileNotification")
+    static let VLCDidUpdateMLSyncStateNotification = Notification.Name("VLCDidUpdateMLSyncStateNotification")
     static let VLCWatchDidAddTracksNotification = Notification.Name("VLCWatchDidAddTracksNotification")
-
+    static let VLCWatchDidAddAlbumsNotification = Notification.Name("VLCWatchDidAddAlbumsNotification")
+    static let VLCWatchDidAddArtistsNotification = Notification.Name("VLCWatchDidAddArtistsNotification")
 }

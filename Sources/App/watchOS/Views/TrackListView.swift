@@ -15,7 +15,7 @@ import SwiftUI
 
 struct TrackListView: View {
     let snapshotMedias: [VLCWatchMLMedia]
-    var mediaSyncIds: [MediaSyncID]
+    var mediaSyncIds: [MLSyncID]
     var showTrackNumber: Bool = false
     var didTapMedia: (VLCWatchMLMedia) -> Void
 
@@ -23,6 +23,7 @@ struct TrackListView: View {
         List(snapshotMedias) { media in
             TrackCellView(
                 media: media,
+                thumbnail: media.thumbnail,
                 showTrackNumber: showTrackNumber,
                 isDownloaded: media.isDownloaded(mediaSyncIds)
             )

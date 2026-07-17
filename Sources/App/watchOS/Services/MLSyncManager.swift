@@ -16,62 +16,102 @@ import Foundation
 protocol ObservableMLSyncManager: MLSyncManagerProtocol, ObservableObject { }
 
 // This class is repsonsible for mangaging the watch to iPhone media id mapping.
-class VLCMLSyncManager: ObservableMLSyncManager {
-    @Published var state: MLSyncState?
+class VLCMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
+    @Published var state = MLSyncState()
 
     private let lock = NSLock()
 
     init() {
         print("VLCMLSyncManager: init()")
         loadMLSyncState()
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didAddTracks(_:)),
-                                               name: .VLCWatchDidAddTracksNotification,
-                                               object: nil)
+        VLCAppCoordinator.sharedInstance().mediaLibraryService.observable.addObserver(self)
     }
 
     // Called when audio file arrives from iPhone
-    func didReceiveFile(iphoneMediaId: VLCMLIdentifier, filename: String) {
-//        lock.lock()
-        print("VLCMLSyncManager: didReceiveFile")
-        guard var state else {
+    func didReceiveFile(iphoneMediaId: VLCMLIdentifier,
+                        filename: String,
+                        iphoneAlbumID: VLCMLIdentifier,
+                        albumName: String,
+                        iphoneArtistID: VLCMLIdentifier,
+                        artistName: String) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !state.librarySyncId.isEmpty else {
             preconditionFailure("VLCMLSyncManager: MLSyncState has not been init")
         }
-        state.pendingTransfers[filename] = iphoneMediaId
-        print("VLCMLSyncManager: saveMLSyncState before")
+        state.pendingMediaTransfers[filename] = iphoneMediaId
+        state.pendingAlbumTransfers[albumName] = iphoneAlbumID
+        state.pendingArtistTransfers[artistName] = iphoneArtistID
         saveMLSyncState(state)
-        print("VLCMLSyncManager: saveMLSyncState after")
-//        lock.unlock()
-        print("VLCMLSyncManager: release")
     }
 
-    // Called when user adds file to /Documents/ and VLC calls didAddTracks() callback
-    @objc func didAddTracks(_ notification: Notification) {
-        guard let tracks: [VLCMLMedia] = notification.userInfo?["tracks"] as? [VLCMLMedia] else { return }
-        print("VLCMLSyncManager: didAddTracks before")
-//        lock.lock()
-        print("VLCMLSyncManager: didAddTracks after")
-        guard var state else {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !state.librarySyncId.isEmpty else {
             preconditionFailure("VLCMLSyncManager: MLSyncState has not been init")
         }
-
         for track in tracks {
-            guard let iphoneMediaId = state.pendingTransfers[track.fileName()] else {
-                preconditionFailure("VLCMLSyncManager: Missing corresponding iPhone media ID for \(track.fileName()).")
+            guard let iphoneMediaId = state.pendingMediaTransfers[track.fileName()] else {
+                preconditionFailure("VLCMLSyncManager: Missing corresponding iPhone media ID for track \(track.fileName()).")
                 continue
             }
             let watchMediaId = track.identifier()
             if let syncMediaIDIndex = state.mediaSyncIds.firstIndex(where: { $0.iphoneMediaId == iphoneMediaId }) {
                 state.mediaSyncIds[syncMediaIDIndex].watchMediaId = watchMediaId
             } else {
-                state.mediaSyncIds.append(MediaSyncID(iphoneMediaId: iphoneMediaId, watchMediaId: watchMediaId))
+                state.mediaSyncIds.append(MLSyncID(iphoneMediaId: iphoneMediaId, watchMediaId: watchMediaId))
             }
-            state.pendingTransfers.removeValue(forKey: track.fileName())
+            state.pendingMediaTransfers.removeValue(forKey: track.fileName())
         }
 
         saveMLSyncState(state)
-//        lock.unlock()
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !state.librarySyncId.isEmpty else {
+            preconditionFailure("VLCMLSyncManager: MLSyncState has not been init")
+        }
+        for album in albums {
+            guard let iphoneMediaId = state.pendingAlbumTransfers[album.title] else {
+                preconditionFailure("VLCMLSyncManager: Missing corresponding iPhone media ID for album \(album.title).")
+                continue
+            }
+            let watchAlbumId = album.identifier()
+            if let syncMediaIDIndex = state.albumsSyncIds.firstIndex(where: { $0.iphoneMediaId == iphoneMediaId }) {
+                state.albumsSyncIds[syncMediaIDIndex].watchMediaId = watchAlbumId
+            } else {
+                state.albumsSyncIds.append(MLSyncID(iphoneMediaId: iphoneMediaId, watchMediaId: watchAlbumId))
+            }
+            state.pendingAlbumTransfers.removeValue(forKey: album.title)
+        }
+
+        saveMLSyncState(state)
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !state.librarySyncId.isEmpty else {
+            preconditionFailure("VLCMLSyncManager: MLSyncState has not been init")
+        }
+        for artist in artists {
+            guard let iphoneMediaId = state.pendingArtistTransfers[artist.artistName()] else {
+                preconditionFailure("VLCMLSyncManager: Missing corresponding iPhone media ID for artist \(artist.artistName()).")
+                continue
+            }
+            let watchArtistId = artist.identifier()
+            if let syncMediaIDIndex = state.artistSyncIds.firstIndex(where: { $0.iphoneMediaId == iphoneMediaId }) {
+                state.artistSyncIds[syncMediaIDIndex].watchMediaId = watchArtistId
+            } else {
+                state.artistSyncIds.append(MLSyncID(iphoneMediaId: iphoneMediaId, watchMediaId: watchArtistId))
+            }
+            state.pendingArtistTransfers.removeValue(forKey: artist.artistName())
+        }
+
+        saveMLSyncState(state)
     }
 
     // Save sync state to /Library/MediaLibrarySnapshot/ml-sync-state.json
@@ -90,6 +130,10 @@ class VLCMLSyncManager: ObservableMLSyncManager {
             try mlSyncStateData.write(to: mlSyncStateURL, options: .atomic)
             DispatchQueue.main.async {
                 self.state = state
+                NotificationCenter.default.post(
+                    name: .VLCDidUpdateMLSyncStateNotification,
+                    object: state
+                )
             }
             print("VLCMLSyncManager: Successfully saved ml-sync-state.json: \(state)")
         } catch {
@@ -98,7 +142,8 @@ class VLCMLSyncManager: ObservableMLSyncManager {
     }
 
     func loadMLSyncState() {
-//        lock.lock()
+        lock.lock()
+
         // Read from file (/Library/MediaLibrarySnapshot/ml-sync-state.json)
         guard let snapshotDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
             assertionFailure("VLCMLSyncManager: Failed to get Library directory.")
@@ -110,6 +155,7 @@ class VLCMLSyncManager: ObservableMLSyncManager {
             .appendingPathComponent("ml-sync-state.json")
 
         guard FileManager.default.fileExists(atPath: mlSyncStateURL.path) else {
+            lock.unlock()
             return
         }
 
@@ -126,58 +172,88 @@ class VLCMLSyncManager: ObservableMLSyncManager {
             print("VLCMLSyncManager: Successfully got state: \(state)")
             DispatchQueue.main.async {
                 self.state = state
+                NotificationCenter.default.post(
+                    name: .VLCDidUpdateMLSyncStateNotification,
+                    object: state
+                )
+                print("loadMLSyncState VLCDidUpdateMLSyncStateNotification: \(state)")
+                self.lock.unlock()
             }
         } catch {
             assertionFailure("VLCMLSyncManager: Failed to decode \(MLSyncState.self): \(error)")
             return
         }
-//        lock.unlock()
     }
 }
 
 // Used for testing on watch simulator, because transferFile(_:) is not supported on simulator, which is used to transfer files from iphone to watch (vice versa)
 // - Place audio files in /Documents directory and it will show on watch simulator
-class DummyMLSyncManager: ObservableMLSyncManager {
-    @Published var state: MLSyncState?
+class DummyMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
+    @Published var state = MLSyncState()
     private let lock = NSLock()
 
     init() {
         print("DummyMLSyncManager: init()")
         loadMLSyncState()
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didAddTracks(_:)),
-                                               name: .VLCWatchDidAddTracksNotification,
-                                               object: nil)
+        VLCAppCoordinator.sharedInstance().mediaLibraryService.observable.addObserver(self)
     }
 
-    func didReceiveFile(iphoneMediaId: VLCMLIdentifier, filename: String) {
-
+    func didReceiveFile(iphoneMediaId: VLCMLIdentifier,
+                        filename: String,
+                        iphoneAlbumID: VLCMLIdentifier,
+                        albumName: String,
+                        iphoneArtistID: VLCMLIdentifier,
+                        artistName: String) {
     }
 
-    @objc func didAddTracks(_ notification: Notification) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
+        loadMLSyncState()
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {
+        loadMLSyncState()
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
         loadMLSyncState()
     }
 
     func saveMLSyncState(_ state: MLSyncState) {
-
     }
 
     func loadMLSyncState() {
         lock.lock()
         let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
-        guard let tracks = mediaLibraryService.medialib.audioFiles() else { return }
-        let mediaSyncIds = tracks.map { MediaSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }
-        DispatchQueue.main.async {
-            self.state = MLSyncState(librarySyncId: "", mediaSyncIds: mediaSyncIds, pendingTransfers: [:])
-        }
-        updateSnapshotDBFile()
+        guard let tracks = mediaLibraryService.medialib.audioFiles(),
+              let albums = mediaLibraryService.medialib.albums(),
+              let artists = mediaLibraryService.medialib.artists(true)
+        else { return }
+
+        let mediaSyncIds = tracks.map { MLSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }
+        let albumSyncIds = albums.map { MLSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }
+        let artistsSyncIds = artists.map { MLSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }
+
+        self.createSnapshotDBFile()
+
         VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService = MediaLibraryService(libraryType: .snapshotLibrary)
-        NotificationCenter.default.post(name: .VLCDidUpdateSnapshotLibraryDBFileNotification, object: nil)
-        lock.unlock()
+
+        DispatchQueue.main.async {
+            let state = MLSyncState(
+                librarySyncId: "",
+                mediaSyncIds: mediaSyncIds,
+                albumsSyncIds: albumSyncIds,
+                artistSyncIds: artistsSyncIds
+            )
+            self.state = state
+            NotificationCenter.default.post(
+                name: .VLCDidUpdateMLSyncStateNotification,
+                object: state
+            )
+            self.lock.unlock()
+        }
     }
 
-    private func updateSnapshotDBFile() {
+    private func createSnapshotDBFile() {
         guard let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
             preconditionFailure("DummyMLSyncManager: Fail to get library path.")
         }

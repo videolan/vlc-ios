@@ -10,23 +10,27 @@ import SwiftUI
 
 struct AlbumDetailView: View {
     @StateObject var albumDetailViewModel: AlbumDetailViewModel
-    var mediaSyncIds: [MediaSyncID]
+    var mlSyncState: MLSyncState
 
-    init(album: VLCWatchMLAlbum, mediaSyncIds: [MediaSyncID]) {
-        self._albumDetailViewModel = StateObject(wrappedValue: AlbumDetailViewModel(album: album))
-        self.mediaSyncIds = mediaSyncIds
+    init(album: VLCWatchMLAlbum, mlSyncState: MLSyncState) {
+        self._albumDetailViewModel = StateObject(wrappedValue: AlbumDetailViewModel(snapshotAlbum: album))
+        self.mlSyncState = mlSyncState
     }
 
     var body: some View {
         TrackListView(
             snapshotMedias: albumDetailViewModel.snapshotMedias,
-            mediaSyncIds: mediaSyncIds,
+            mediaSyncIds: mlSyncState.mediaSyncIds,
             showTrackNumber: true,
             didTapMedia: { media in
-                guard let mediaId = mediaSyncIds.getMediaId(snapshotMediaId: media.id) else { return }
+                guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                 albumDetailViewModel.play(mediaID: mediaId)
             }
         )
-        .navigationTitle(albumDetailViewModel.album.title)
+        .onAppear {
+            guard albumDetailViewModel.isFirstLoad else { return }
+            albumDetailViewModel.loadData(mlSyncState: mlSyncState)
+        }
+        .navigationTitle(albumDetailViewModel.snapshotAlbum.title)
     }
 }

@@ -21,22 +21,21 @@ protocol VLCWatchMLObject: Identifiable {
 struct VLCWatchMLMedia: VLCWatchMLObject {
     let id: VLCMLIdentifier
     let title: String
-    let thumbnail: URL?
+    var thumbnail: URL?
     let trackNumber: Int
 
-    let artist: VLCMLArtist?    // TODO: VLCMLArtist is a class, is this fine to have as field for SwiftUI struct?
+    let artist: VLCMLArtist?
 
     init(_ media: VLCMLMedia) {
         self.id = media.identifier()
         self.title = media.title
-        self.thumbnail = media.thumbnail()
         self.trackNumber = Int(media.trackNumber)
         self.artist = media.artist
     }
 
-    func isDownloaded(_ mediaSyncIds: [MediaSyncID]) -> Bool {
-        guard let watchMediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == id })?.watchMediaId else { return false }
-        return mediaSyncIds.downloadedMediaIds.contains(watchMediaId)
+    func isDownloaded(_ mediaSyncIds: [MLSyncID]) -> Bool {
+        guard let mediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == id })?.watchMediaId else { return false }
+        return mediaSyncIds.downloadedMediaIds.contains(mediaId)
     }
 }
 

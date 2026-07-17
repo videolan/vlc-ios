@@ -15,12 +15,13 @@ import SwiftUI
 struct AlbumCellView: View {
     @Environment(\.colorScheme) private var colorScheme
     let album: VLCWatchMLAlbum
+    let thumbnail: URL?
 
     var body: some View {
         MediaCellView(
             titleView: titleView(album),
             subtitleView: subtitleView(album),
-            thumbnail: album.thumbnail,
+            thumbnail: thumbnail,
             placeholderImageName: album.placeholderName(for: colorScheme)
         )
     }

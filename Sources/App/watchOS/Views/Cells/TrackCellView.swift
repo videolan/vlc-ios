@@ -15,6 +15,7 @@ import SwiftUI
 struct TrackCellView: View {
     @Environment(\.colorScheme) private var colorScheme
     let media: VLCWatchMLMedia
+    let thumbnail: URL?
     let showTrackNumber: Bool
     let isDownloaded: Bool
 
@@ -22,7 +23,7 @@ struct TrackCellView: View {
         MediaCellView(
             titleView: titleView(media),
             subtitleView: subtitleView(media),
-            thumbnail: media.thumbnail,
+            thumbnail: thumbnail,
             placeholderImageName: media.placeholderName(for: colorScheme)
         )
     }

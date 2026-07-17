@@ -17,9 +17,9 @@ import SwiftUI
 struct VLCWatchMLArtist: VLCWatchMLObject {
     let id: VLCMLIdentifier
     let name: String
+    var thumbnail: URL?
     let albumsCount: Int
     let tracksCount: Int
-    let thumbnail: URL?
 
     private let _artist: VLCMLArtist
 
@@ -29,7 +29,6 @@ struct VLCWatchMLArtist: VLCWatchMLObject {
         self.name = artist.artistName()
         self.albumsCount = Int(artist.albumsCount())
         self.tracksCount = Int(artist.tracksCount())
-        self.thumbnail = artist.artworkMRL()
     }
 
     func albums() -> [VLCMLAlbum] {

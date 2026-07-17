@@ -10,23 +10,52 @@ import Foundation
 
 class AlbumDetailViewModel: ObservableObject {
     @Published var snapshotMedias: [VLCWatchMLMedia] = []
+    @Published var isFirstLoad = true
 
-    let album: VLCWatchMLAlbum
+    let snapshotAlbum: VLCWatchMLAlbum
     var tracks: [VLCMLMedia] = []
 
     lazy var playbackService = PlaybackService.sharedInstance()
 
-    init(album: VLCWatchMLAlbum) {
-        self.album = album
-        loadSnapshotMedias()
+    init(snapshotAlbum: VLCWatchMLAlbum) {
+        self.snapshotAlbum = snapshotAlbum
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleDidUpdateMLSyncState),
+                                               name: .VLCDidUpdateMLSyncStateNotification,
+                                               object: nil)
     }
 
-    func loadSnapshotMedias() {
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .VLCDidUpdateMLSyncStateNotification, object: nil)
+    }
+
+    func loadData(mlSyncState: MLSyncState) {
+        loadTracks(mlSyncState: mlSyncState)
+        loadSnapshotTracks(mlSyncState: mlSyncState)
+        isFirstLoad = true
+    }
+
+    @objc func handleDidUpdateMLSyncState(_ notification: Notification) {
+        guard let mlSyncState = notification.object as? MLSyncState else { return }
+        loadSnapshotTracks(mlSyncState: mlSyncState)
+    }
+
+    func loadTracks(mlSyncState: MLSyncState) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.tracks = self.album.tracks()
-            let snapshotMedias = self.tracks.map { VLCWatchMLMedia($0) }
+            guard let albumId = mlSyncState.albumsSyncIds.first(where: { $0.iphoneMediaId == self.snapshotAlbum.id })?.watchMediaId,
+                  let album = VLCAppCoordinator.sharedInstance().mediaLibraryService.medialib.album(withIdentifier: albumId) else {
+                return
+            }
+            self.tracks = album.tracks(with: .default, desc: true) ?? []
+        }
+    }
+
+    func loadSnapshotTracks(mlSyncState: MLSyncState) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let snapshotMedias = self.snapshotAlbum.tracks().map { VLCWatchMLMedia($0) }
             DispatchQueue.main.async {
                 self.snapshotMedias = snapshotMedias
+                self.loadThumbnails(snapshotMedias: snapshotMedias, mediaSyncIds: mlSyncState.mediaSyncIds)
             }
         }
     }
@@ -40,5 +69,14 @@ class AlbumDetailViewModel: ObservableObject {
 
         playbackService.play(media)
         print("Playing media: \(media.title)")
+    }
+
+    private func loadThumbnails(snapshotMedias: [VLCWatchMLMedia], mediaSyncIds: [MLSyncID]) {
+        for i in 0..<snapshotMedias.count {
+            guard let mediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == snapshotMedias[i].id })?.watchMediaId else { continue }
+
+            guard let media = self.tracks.first(where: { $0.identifier() == mediaId }) else { continue }
+            self.snapshotMedias[i].thumbnail = media.thumbnail()
+        }
     }
 }

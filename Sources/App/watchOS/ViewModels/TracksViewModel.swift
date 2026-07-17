@@ -13,7 +13,7 @@
 import Foundation
 
 class TracksViewModel: TrackModel, ObservableObject {
-    @Published var snapshotMedias: [VLCWatchMLMedia] = [] // display metadata from iphone's media library
+    @Published var snapshotMedias: [VLCWatchMLMedia] = []
     @Published var isFirstLoad = true
 
     lazy var playbackService = PlaybackService.sharedInstance()
@@ -22,55 +22,63 @@ class TracksViewModel: TrackModel, ObservableObject {
         super.init(medialibrary: medialibrary)
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleDidUpdateSnapshotLibraryDBFile),
-                                               name: .VLCDidUpdateSnapshotLibraryDBFileNotification,
+                                               selector: #selector(handleDidUpdateMLSyncState),
+                                               name: .VLCDidUpdateMLSyncStateNotification,
                                                object: nil)
     }
 
     func play(mediaID: VLCMLIdentifier) {
         guard let media: VLCMLMedia = files.first(where: { $0.identifier() == mediaID })
         else {
-            print("Media with id not found: \(mediaID)")
+            print("TracksViewModel: mediaID \(mediaID) not found")
             return
         }
 
         playbackService.play(media)
-        print("Playing media: \(media.title)")
+        print("TracksViewModel: Playing track \"\(media.title)\" id: \(mediaID)")
     }
 
-    func loadData() {
-        loadSnapshotMediaLibrary()
-        loadTracks()
+    func loadData(mlSyncIds: [MLSyncID]) {
+        loadTracks(mlSyncIds: mlSyncIds)
         isFirstLoad = false
     }
 
-    override func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
-        print("TracksViewModel: didAddTracks \(tracks)")
-        super.medialibrary(medialibrary, didAddTracks: tracks)
-        NotificationCenter.default.post(name: .VLCWatchDidAddTracksNotification, object: nil, userInfo: ["tracks": tracks])
+    @objc func handleDidUpdateMLSyncState(_ notification: Notification) {
+        print("handleDidUpdateMLSyncState")
+        guard let mlSyncState = notification.object as? MLSyncState else { return }
+        loadSnapshotTracks(mlSyncIds: mlSyncState.mediaSyncIds)
     }
 
-    @objc private func handleDidUpdateSnapshotLibraryDBFile() {
-        loadSnapshotMediaLibrary()
-    }
-
-    // Fetches the audio files from medialibrary.db
-    private func loadTracks() {
+    private func loadTracks(mlSyncIds: [MLSyncID]) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.sort(by: .default, desc: true)
             self.files = self.anyfiles as? [VLCMLMedia] ?? []
+            self.loadSnapshotTracks(mlSyncIds: mlSyncIds)
         }
     }
 
-    // Fetches the audio files metadata from medialibrary-snapshot.db
-    private func loadSnapshotMediaLibrary() {
+    private func loadSnapshotTracks(mlSyncIds: [MLSyncID]) {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let audioFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.audioFiles() {
-                let snapshotMedias = audioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
+            if let snapshotAudioFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.audioFiles() {
+                let snapshotMedias = snapshotAudioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
                 DispatchQueue.main.async {
                     self.snapshotMedias = snapshotMedias
+                    self.loadThumbnails(snapshotMedias: snapshotMedias, mlSyncIds: mlSyncIds)
                 }
             }
+        }
+    }
+
+    private func loadThumbnails(snapshotMedias: [VLCWatchMLMedia], mlSyncIds: [MLSyncID]) {
+        for i in 0..<snapshotMedias.count {
+            guard let mediaId = mlSyncIds.first(where: { $0.iphoneMediaId == snapshotMedias[i].id })?.watchMediaId else {
+                continue
+            }
+
+            guard let media = self.files.first(where: { $0.identifier() == mediaId }) else {
+                continue
+            }
+            self.snapshotMedias[i].thumbnail = media.thumbnail()
         }
     }
 }

@@ -15,7 +15,7 @@ import SwiftUI
 
 struct TrackView: View {
     @ObservedObject var tracksViewModel: TracksViewModel
-    var mediaSyncIds: [MediaSyncID]
+    var mediaSyncIds: [MLSyncID]
 
     var body: some View {
         NavigationStack {
@@ -23,14 +23,14 @@ struct TrackView: View {
                 snapshotMedias: tracksViewModel.snapshotMedias,
                 mediaSyncIds: mediaSyncIds,
                 didTapMedia: { media in
-                    guard let mediaId = mediaSyncIds.getMediaId(snapshotMediaId: media.id) else { return }
+                    guard let mediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                     tracksViewModel.play(mediaID: mediaId)
                 }
             )
             .navigationTitle(NSLocalizedString("SONGS", comment: ""))
             .onAppear {
                 guard tracksViewModel.isFirstLoad else { return }
-                tracksViewModel.loadData()
+                tracksViewModel.loadData(mlSyncIds: mediaSyncIds)
             }
         }
     }

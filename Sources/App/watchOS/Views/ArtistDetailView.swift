@@ -10,23 +10,23 @@ import SwiftUI
 
 struct ArtistDetailView: View {
     @StateObject var artistDetailViewModel: ArtistDetailViewModel
-    var mediaSyncIds: [MediaSyncID]
+    var mlSyncState: MLSyncState
     var didTapAlbum: (VLCWatchMLAlbum) -> Void
 
-    init(artist: VLCWatchMLArtist, mediaSyncIds: [MediaSyncID], didTapAlbum: @escaping (VLCWatchMLAlbum) -> Void) {
-        _artistDetailViewModel = StateObject(wrappedValue: ArtistDetailViewModel(artist: artist))
-        self.mediaSyncIds = mediaSyncIds
+    init(artist: VLCWatchMLArtist, mlSyncState: MLSyncState, didTapAlbum: @escaping (VLCWatchMLAlbum) -> Void) {
+        _artistDetailViewModel = StateObject(wrappedValue: ArtistDetailViewModel(snapshotArtist: artist))
+        self.mlSyncState = mlSyncState
         self.didTapAlbum = didTapAlbum
     }
 
     var body: some View {
         Group {
-            if artistDetailViewModel.artist.albumsCount == 0 {
+            if artistDetailViewModel.snapshotArtist.albumsCount == 0 {
                 TrackListView(
                     snapshotMedias: artistDetailViewModel.snapshotMedias,
-                    mediaSyncIds: mediaSyncIds,
+                    mediaSyncIds: mlSyncState.mediaSyncIds,
                     didTapMedia: { media in
-                        guard let mediaId = mediaSyncIds.getMediaId(snapshotMediaId: media.id) else { return }
+                        guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                         artistDetailViewModel.play(mediaID: mediaId)
                     }
                 )
@@ -34,10 +34,13 @@ struct ArtistDetailView: View {
                 List {
                     Section(NSLocalizedString("ALBUMS", comment: "")) {
                         ForEach(artistDetailViewModel.snapshotAlbums) { album in
-                            AlbumCellView(album: album)
-                                .onTapGesture {
-                                    didTapAlbum(album)
-                                }
+                            AlbumCellView(
+                                album: album,
+                                thumbnail: album.thumbnail
+                            )
+                            .onTapGesture {
+                                didTapAlbum(album)
+                            }
                         }
                     }
 
@@ -45,11 +48,12 @@ struct ArtistDetailView: View {
                         ForEach(artistDetailViewModel.snapshotMedias) { media in
                             TrackCellView(
                                 media: media,
+                                thumbnail: media.thumbnail,
                                 showTrackNumber: false,
-                                isDownloaded: media.isDownloaded(mediaSyncIds)
+                                isDownloaded: media.isDownloaded(mlSyncState.mediaSyncIds)
                             )
                             .onTapGesture {
-                                guard let mediaId = mediaSyncIds.getMediaId(snapshotMediaId: media.id) else { return }
+                                guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                                 artistDetailViewModel.play(mediaID: mediaId)
                             }
                         }
@@ -57,6 +61,10 @@ struct ArtistDetailView: View {
                 }
             }
         }
-        .navigationTitle(artistDetailViewModel.artist.name)
+        .navigationTitle(artistDetailViewModel.snapshotArtist.name)
+        .onAppear {
+            guard artistDetailViewModel.isFirstLoad else { return }
+            artistDetailViewModel.loadData(mlSyncState: mlSyncState)
+        }
     }
 }

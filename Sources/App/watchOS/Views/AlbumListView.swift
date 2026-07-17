@@ -14,14 +14,18 @@ import SwiftUI
 
 struct AlbumListView: View {
     let snapshotAlbums: [VLCWatchMLAlbum]
-    var didTapAlbum: (VLCWatchMLAlbum) -> Void
+    let mediaSyncIds: [MLSyncID]
+    let didTapAlbum: (VLCWatchMLAlbum) -> Void
 
     var body: some View {
         List(snapshotAlbums) { album in
-            AlbumCellView(album: album)
-                .onTapGesture {
-                    didTapAlbum(album)
-                }
+            AlbumCellView(
+                album: album,
+                thumbnail: album.thumbnail
+            )
+            .onTapGesture {
+                didTapAlbum(album)
+            }
         }
     }
 }

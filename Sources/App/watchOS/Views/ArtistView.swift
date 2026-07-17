@@ -14,12 +14,13 @@ import SwiftUI
 
 struct ArtistView: View {
     @ObservedObject var artistsViewModel: ArtistsViewModel
-    var mediaSyncIds: [MediaSyncID]
+    var mlSyncState: MLSyncState
 
     var body: some View {
         NavigationStack(path: $artistsViewModel.path) {
             ArtistListView(
                 snapshotArtists: artistsViewModel.snapshotArtists,
+                mediaSyncIds: mlSyncState.mediaSyncIds,
                 didTapArtist: { artist in
                     artistsViewModel.path.append(artist)
                 }
@@ -27,12 +28,12 @@ struct ArtistView: View {
             .navigationTitle(NSLocalizedString("ARTISTS", comment: ""))
             .onAppear {
                 guard artistsViewModel.isFirstLoad else { return }
-                artistsViewModel.loadData()
+                artistsViewModel.loadData(artistSyncIds: mlSyncState.artistSyncIds)
             }
             .navigationDestination(for: VLCWatchMLArtist.self) { artist in
                 ArtistDetailView(
                     artist: artist,
-                    mediaSyncIds: mediaSyncIds,
+                    mlSyncState: mlSyncState,
                     didTapAlbum: { album in
                         artistsViewModel.path.append(album)
                     }
@@ -41,7 +42,7 @@ struct ArtistView: View {
             .navigationDestination(for: VLCWatchMLAlbum.self) { album in
                 AlbumDetailView(
                     album: album,
-                    mediaSyncIds: mediaSyncIds
+                    mlSyncState: mlSyncState
                 )
             }
         }

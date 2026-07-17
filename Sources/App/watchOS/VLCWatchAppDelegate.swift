@@ -123,16 +123,6 @@ class VLCWatchAppDelegate: NSObject, WKApplicationDelegate {
         //
         WCSession.default.delegate = sessionDelegate
         WCSession.default.activate()
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleDidReceiveSnapshotLibraryDBFile),
-                                               name: .VLCDidReceiveSnapshotLibraryDBFileNotification,
-                                               object: nil)
-    }
-
-    @objc private func handleDidReceiveSnapshotLibraryDBFile() {
-        VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService = MediaLibraryService(libraryType: .snapshotLibrary)
-        NotificationCenter.default.post(name: .VLCDidUpdateSnapshotLibraryDBFileNotification, object: nil)
     }
 
     // Complete the background tasks, and schedule a snapshot refresh.

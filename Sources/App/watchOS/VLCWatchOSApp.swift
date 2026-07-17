@@ -79,17 +79,17 @@ struct VLCWatchContentView<MLSyncManager>: View where MLSyncManager: ObservableM
         TabView {
             ArtistView(
                 artistsViewModel: artistsViewModel,
-                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+                mlSyncState: mlSyncManager.state
             )
 
             AlbumView(
                 albumsViewModel: albumsViewModel,
-                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+                mlSyncState: mlSyncManager.state
             )
 
             TrackView(
                 tracksViewModel: tracksViewModel,
-                mediaSyncIds: mlSyncManager.state?.mediaSyncIds ?? []
+                mediaSyncIds: mlSyncManager.state.mediaSyncIds
             )
 
             // TODO: Radio Discovery tab

@@ -209,6 +209,14 @@
 #define kVLCMediaLibrarySyncID @"kVLCMediaLibrarySyncID"
 #define kVLCiPhoneMediaID @"kVLCiPhoneMediaID"
 #define kVLCiPhoneMediaFileName @"kVLCiPhoneMediaFileName"
+
+#define kVLCiPhoneAlbumID @"kVLCiPhoneAlbumID"
+#define kVLCiPhoneAlbumName @"kVLCiPhoneAlbumName"
+
+#define kVLCiPhoneArtistID @"kVLCiPhoneArtistID"
+#define kVLCiPhoneArtistName @"kVLCiPhoneArtistName"
+
+
 #define kVLCWatchMessageType @"kVLCWatchMessageType"
 
 #define kVLCMediaLibraryDBFileName @"medialibrary.db"

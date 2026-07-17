@@ -13,7 +13,6 @@
 import SwiftUI
 
 protocol VLCWatchMLCellItem {
-    var thumbnail: URL? { get }
     func placeholderName(for color: ColorScheme) -> String
 }
 

@@ -1875,7 +1875,9 @@ private extension MediaCategoryViewController {
                     guard let self,
                           let modelContent,
                           let media = modelContent as? VLCMLMedia,
-                          let mrl = media.mainFile()?.mrl
+                          let mrl = media.mainFile()?.mrl,
+                          let albumTitle = media.album?.title,
+                          let artistName = media.artist?.name
                     else { return }
 
                     let librarySyncId: String
@@ -1892,7 +1894,11 @@ private extension MediaCategoryViewController {
                         kVLCWatchMessageType: WatchMessageType.transferAudioFile.rawValue,
                         kVLCMediaLibrarySyncID: librarySyncId,
                         kVLCiPhoneMediaID: media.identifier(),
-                        kVLCiPhoneMediaFileName: media.fileName()
+                        kVLCiPhoneMediaFileName: media.fileName(),
+                        kVLCiPhoneAlbumID: media.albumId,
+                        kVLCiPhoneAlbumName: albumTitle,
+                        kVLCiPhoneArtistID: media.artistId,
+                        kVLCiPhoneArtistName: artistName
                     ]
 
                     print("Transferring file to watch: \(media.title) (\(mrl)) with payload \n\(payload)")

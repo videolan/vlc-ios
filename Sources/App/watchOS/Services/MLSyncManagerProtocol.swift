@@ -9,10 +9,15 @@
 import Foundation
 
 protocol MLSyncManagerProtocol {
-    var state: MLSyncState? { get set }
+    var state: MLSyncState { get set }
 
-    func didReceiveFile(iphoneMediaId: VLCMLIdentifier, filename: String)
-    func didAddTracks(_ notification: Notification)
+    func didReceiveFile(iphoneMediaId: VLCMLIdentifier,
+                        filename: String,
+                        iphoneAlbumID: VLCMLIdentifier,
+                        albumName: String,
+                        iphoneArtistID: VLCMLIdentifier,
+                        artistName: String)
+//    func didAddTracks(_ notification: Notification)
     func saveMLSyncState(_ state: MLSyncState)
     func loadMLSyncState()
 
@@ -22,7 +27,7 @@ protocol MLSyncManagerProtocol {
 
 extension MLSyncManagerProtocol {
     func getMediaId(snapshotMediaId: VLCMLIdentifier) -> VLCMLIdentifier? {
-        guard let mediaId = state?.mediaSyncIds.first(where: { $0.iphoneMediaId == snapshotMediaId })?.watchMediaId
+        guard let mediaId = state.mediaSyncIds.first(where: { $0.iphoneMediaId == snapshotMediaId })?.watchMediaId
         else {
             print("MLSyncManagerProtocol: Failed to get corresponding media id: \(snapshotMediaId)")
             return nil

@@ -14,14 +14,18 @@ import SwiftUI
 
 struct ArtistListView: View {
     let snapshotArtists: [VLCWatchMLArtist]
+    var mediaSyncIds: [MLSyncID]
     var didTapArtist: (VLCWatchMLArtist) -> Void
 
     var body: some View {
         List(snapshotArtists) { artist in
-            ArtistCellView(artist: artist)
-                .onTapGesture {
-                    didTapArtist(artist)
-                }
+            ArtistCellView(
+                artist: artist,
+                thumbnail: artist.thumbnail
+            )
+            .onTapGesture {
+                didTapArtist(artist)
+            }
         }
     }
 }
