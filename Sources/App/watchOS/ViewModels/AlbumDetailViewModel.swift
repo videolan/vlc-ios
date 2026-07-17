@@ -32,7 +32,7 @@ class AlbumDetailViewModel: ObservableObject {
     func loadData(mlSyncState: MLSyncState) {
         loadTracks(mlSyncState: mlSyncState)
         loadSnapshotTracks(mlSyncState: mlSyncState)
-        isFirstLoad = true
+        isFirstLoad = false
     }
 
     @objc func handleDidUpdateMLSyncState(_ notification: Notification) {

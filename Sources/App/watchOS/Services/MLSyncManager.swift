@@ -15,7 +15,7 @@ import Foundation
 // Need to separate MLSyncManagerProtocol and ObservableObject because ObservableObject is iOS 13.0+
 protocol ObservableMLSyncManager: MLSyncManagerProtocol, ObservableObject { }
 
-// This class is repsonsible for mangaging the watch to iPhone media id mapping.
+// This class is repsonsible for managing the watch to iPhone media id mapping.
 class VLCMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
     @Published var state = MLSyncState()
 
@@ -147,6 +147,7 @@ class VLCMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
         // Read from file (/Library/MediaLibrarySnapshot/ml-sync-state.json)
         guard let snapshotDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
             assertionFailure("VLCMLSyncManager: Failed to get Library directory.")
+            lock.unlock()
             return
         }
 
@@ -164,6 +165,7 @@ class VLCMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
             mediaSyncIdsData = try Data(contentsOf: mlSyncStateURL)
         } catch {
             assertionFailure("VLCMLSyncManager: Failed to get data from \(mlSyncStateURL.path): \(error)")
+            lock.unlock()
             return
         }
 
@@ -181,6 +183,7 @@ class VLCMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
             }
         } catch {
             assertionFailure("VLCMLSyncManager: Failed to decode \(MLSyncState.self): \(error)")
+            lock.unlock()
             return
         }
     }
@@ -227,7 +230,10 @@ class DummyMLSyncManager: ObservableMLSyncManager, MediaLibraryObserver {
         guard let tracks = mediaLibraryService.medialib.audioFiles(),
               let albums = mediaLibraryService.medialib.albums(),
               let artists = mediaLibraryService.medialib.artists(true)
-        else { return }
+        else {
+            lock.unlock()
+            return
+        }
 
         let mediaSyncIds = tracks.map { MLSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }
         let albumSyncIds = albums.map { MLSyncID(iphoneMediaId: $0.identifier(), watchMediaId: $0.identifier()) }

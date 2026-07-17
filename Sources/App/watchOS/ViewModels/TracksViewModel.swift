@@ -44,7 +44,6 @@ class TracksViewModel: TrackModel, ObservableObject {
     }
 
     @objc func handleDidUpdateMLSyncState(_ notification: Notification) {
-        print("handleDidUpdateMLSyncState")
         guard let mlSyncState = notification.object as? MLSyncState else { return }
         loadSnapshotTracks(mlSyncIds: mlSyncState.mediaSyncIds)
     }
@@ -71,13 +70,12 @@ class TracksViewModel: TrackModel, ObservableObject {
 
     private func loadThumbnails(snapshotMedias: [VLCWatchMLMedia], mlSyncIds: [MLSyncID]) {
         for i in 0..<snapshotMedias.count {
-            guard let mediaId = mlSyncIds.first(where: { $0.iphoneMediaId == snapshotMedias[i].id })?.watchMediaId else {
+            guard let mediaId = mlSyncIds.first(where: { $0.iphoneMediaId == snapshotMedias[i].id })?.watchMediaId,
+                  let media = self.files.first(where: { $0.identifier() == mediaId })
+            else {
                 continue
             }
 
-            guard let media = self.files.first(where: { $0.identifier() == mediaId }) else {
-                continue
-            }
             self.snapshotMedias[i].thumbnail = media.thumbnail()
         }
     }

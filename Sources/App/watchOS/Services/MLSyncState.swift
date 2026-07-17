@@ -12,10 +12,17 @@
 
 import Foundation
 
-// Save as ml-sync-state.json
+/**
+ Used to link medialibrary id mappings between iPhone and watch.
+ Store at /Library/MediaLibrarySnapshot/ml-sync-state.json
+
+ This mapping becomes invalid if..
+ - User tries to send file from a different iPhone
+ - iOS app was reinstalled
+ - On iPhone, user force rescans media library
+ **/
 struct MLSyncState: Codable {
-    // Used to link an iPhone to a watch
-    // - This should only change if user tries to send file from a different iPhone or iOS app was reinstalled
+
     var librarySyncId: String = ""
 
     var mediaSyncIds: [MLSyncID] = []

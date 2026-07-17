@@ -32,9 +32,8 @@ class AlbumsViewModel: AlbumModel, ObservableObject {
     }
 
     @objc func handleDidUpdateMLSyncState(_ notification: Notification) {
-        print("handleDidUpdateMLSyncState")
         guard let mlSyncState = notification.object as? MLSyncState else { return }
-        loadSnapshotAlbums(albumSyncIds: mlSyncState.mediaSyncIds)
+        loadSnapshotAlbums(albumSyncIds: mlSyncState.albumsSyncIds)
     }
 
     private func loadAlbums(albumSyncIds: [MLSyncID]) {
@@ -59,9 +58,10 @@ class AlbumsViewModel: AlbumModel, ObservableObject {
 
     private func loadThumbnails(snapshotAlbums: [VLCWatchMLAlbum], albumSyncIds: [MLSyncID]) {
         for i in 0..<snapshotAlbums.count {
-            guard let albumId = albumSyncIds.first(where: { $0.iphoneMediaId == snapshotAlbums[i].id })?.watchMediaId else { continue }
+            guard let albumId = albumSyncIds.first(where: { $0.iphoneMediaId == snapshotAlbums[i].id })?.watchMediaId,
+                  let album = self.files.first(where: { $0.identifier() == albumId })
+            else { continue }
 
-            guard let album = self.files.first(where: { $0.identifier() == albumId }) else { continue }
             self.snapshotAlbums[i].thumbnail = album.artworkMRL()
         }
     }
