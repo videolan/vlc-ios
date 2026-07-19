@@ -25,15 +25,10 @@ class Screenshot: XCTestCase {
             "HOME" : dataPath,
             "CFFIXED_USER_HOME" : dataPath]
         XCUIDevice.shared.orientation = .portrait
-        SDStatusBarManager.sharedInstance().enableOverrides()
         setupSnapshot(app)
         helper = TestHelper(app)
 
         app.launch()
-    }
-
-    override func tearDown() {
-        SDStatusBarManager.sharedInstance().disableOverrides()
     }
 
     func testCaptureAudioTabTracks() {

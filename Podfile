@@ -51,12 +51,6 @@ target 'VLC-iOS-no-watch' do
   ios_specific_pods
 end
 
-target 'VLC-iOS-Screenshots' do
-  platform :ios, '12.0'
-  inherit! :search_paths
-  pod 'SimulatorStatusMagic'
-end
-
 target 'VLC-tvOS' do
   platform :tvos, '13.0'
   core_vlc_pods
