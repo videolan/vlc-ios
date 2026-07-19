@@ -45,7 +45,6 @@ PODS:
   - GTMSessionFetcher/Full (1.7.2):
     - GTMSessionFetcher/Core (= 1.7.2)
   - InAppSettingsKit (2.14)
-  - MarqueeLabel (4.5.0)
   - MetaDataFetcherKit (0.5.1):
     - AFNetworking
   - ObjectiveDropboxOfficial (7.4.2)
@@ -69,9 +68,6 @@ PODS:
     - OneDriveSDK/Common
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
-  - PCloudSDKSwift (3.2.3)
-  - SimulatorStatusMagic (2.7)
-  - SwiftLint (0.50.3)
   - VLCKit (4.0.0a21)
   - VLCMediaLibraryKit (0.14.0b3):
     - VLCKit (>= 4.0.0a20)
@@ -87,14 +83,10 @@ DEPENDENCIES:
   - GRKArrayDiff (from `https://code.videolan.org/fkuehne/GRKArrayDiff.git`)
   - GTMAppAuth (~> 1.0)
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
-  - MarqueeLabel (from `https://code.videolan.org/fkuehne/MarqueeLabel.git`, commit `e289fa32`)
   - MetaDataFetcherKit (~> 0.5.0)
   - ObjectiveDropboxOfficial
   - OBSlider (from `https://code.videolan.org/fkuehne/OBSlider.git`, commit `e60cddfe`)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
-  - PCloudSDKSwift
-  - SimulatorStatusMagic
-  - SwiftLint (~> 0.50.3)
   - VLCKit (= 4.0.0a21)
   - VLCMediaLibraryKit (= 0.14.0b3)
   - XKKeychain (from `https://code.videolan.org/fkuehne/XKKeychain.git`, commit `40abb8f1`)
@@ -109,9 +101,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - MetaDataFetcherKit
     - ObjectiveDropboxOfficial
-    - PCloudSDKSwift
-    - SimulatorStatusMagic
-    - SwiftLint
     - VLCKit
     - VLCMediaLibraryKit
 
@@ -133,9 +122,6 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
-  MarqueeLabel:
-    :commit: e289fa32
-    :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
   OBSlider:
     :commit: e60cddfe
     :git: https://code.videolan.org/fkuehne/OBSlider.git
@@ -165,9 +151,6 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
-  MarqueeLabel:
-    :commit: e289fa32
-    :git: https://code.videolan.org/fkuehne/MarqueeLabel.git
   OBSlider:
     :commit: e60cddfe
     :git: https://code.videolan.org/fkuehne/OBSlider.git
@@ -191,18 +174,14 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
-  MarqueeLabel: 078f768fd80e373dbf99c2272ce4a7da3ce98a09
   MetaDataFetcherKit: bfe763f41e25eef64f40d205f9afdc1080d6df2e
   ObjectiveDropboxOfficial: 1645cbc5a542831173425b00ed6929d5a07d0a95
   OBSlider: 6b0165a168681fd3810ef5e793e928889e543201
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
-  PCloudSDKSwift: 1c1c9a93db5e086c4d421d529091f458b4f59923
-  SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
-  SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   VLCKit: c76f859fcbac931584d4e5df8c0ffb85aeeb122b
   VLCMediaLibraryKit: 264f342a56aeb03399dd44c02786efb4c5538652
   XKKeychain: 160ce5bfeff49e9fef091f7fc2b2fe5a5aa08e08
 
-PODFILE CHECKSUM: 0c30d48f0430db56139af4c6ea60c5ea99cb12b8
+PODFILE CHECKSUM: 9571c069769af05ddf1c12e55b9244a1b1b1c1bc
 
 COCOAPODS: 1.16.2

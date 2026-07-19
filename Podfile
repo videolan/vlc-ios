@@ -24,13 +24,8 @@ def ios_specific_pods
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
-  pod 'MarqueeLabel', :git => 'https://code.videolan.org/fkuehne/MarqueeLabel.git', :commit => 'e289fa32'
   pod 'ObjectiveDropboxOfficial'
-  pod 'PCloudSDKSwift'
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
-
-  # debug
-  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 target 'VLC-iOS' do
@@ -57,9 +52,6 @@ target 'VLC-tvOS' do
   shared_pods
   pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
   pod 'MetaDataFetcherKit', '~>0.5.0'
-
-  # debug
-  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 target 'VLC-visionOS' do
@@ -67,15 +59,11 @@ target 'VLC-visionOS' do
   core_vlc_pods
   shared_pods
   pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
-  pod 'MarqueeLabel', :git => 'https://code.videolan.org/fkuehne/MarqueeLabel.git', :commit => 'e289fa32'
 end
 
 target 'VLC-watchOS' do
   platform :watchos, '9.0'
   core_vlc_pods
-
-  # debug
-  pod 'SwiftLint', '~> 0.50.3', :configurations => ['Debug']
 end
 
 post_install do |installer_representation|
