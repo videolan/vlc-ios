@@ -22,9 +22,16 @@ variables:
             - merge_requests
 
 .build-base:
+    cache:
+        key:
+            files:
+                - VLC.xcworkspace/xcshareddata/swiftpm/Package.resolved
+        paths:
+            - SourcePackages/
     script:
         - xcodebuild -version
-        - xcodebuild -verbose -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -configuration "Debug" clean build -destination "$BUILD_DESTINATION" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        - xcodebuild -resolvePackageDependencies -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -clonedSourcePackagesDirPath SourcePackages
+        - xcodebuild -verbose -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -configuration "Debug" clean build -destination "$BUILD_DESTINATION" -clonedSourcePackagesDirPath SourcePackages -onlyUsePackageVersionsFromResolvedFile CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
 ## Lint
 

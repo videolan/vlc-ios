@@ -23,6 +23,7 @@ Pods
 # Others
 build
 DerivedData
+SourcePackages
 External
 ImportedSources
 !Makefile
