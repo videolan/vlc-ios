@@ -21,7 +21,9 @@
 #import "VLCFavoriteService.h"
 
 #import "VLCNetworkServerBrowser-Protocol.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCServerBrowsingController.h"
+#import "UIBarButtonItem+Theme.h"
 
 #import "VLC-Swift.h"
 
@@ -31,6 +33,7 @@
     MediaLibraryService *_medialibraryService;
     VLCFavoriteService *_favoriteService;
     BOOL _isSearching;
+    UIBarButtonItem *_sortBarButtonItem;
 }
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
@@ -178,6 +181,95 @@
     if ([_serverBrowser.items count] == 0) {
         [self removePlayAllAction];
     }
+}
+
+#pragma mark - sorting
+
+- (VLCNetworkServerBrowserVLCMedia *)sortableBrowser
+{
+    if ([_serverBrowser isKindOfClass:[VLCNetworkServerBrowserVLCMedia class]]) {
+        return (VLCNetworkServerBrowserVLCMedia *)_serverBrowser;
+    }
+    return nil;
+}
+
+- (UIBarButtonItem *)sortBarButtonItem
+{
+    if (@available(iOS 14.0, *)) {
+        if (![self sortableBrowser]) {
+            return nil;
+        }
+        if (!_sortBarButtonItem) {
+            _sortBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.up.arrow.down"]
+                                                                   menu:[self sortMenu]];
+            _sortBarButtonItem.accessibilityLabel = NSLocalizedString(@"SORT", nil);
+        }
+        return _sortBarButtonItem;
+    }
+    return nil;
+}
+
+- (UIMenu *)sortMenu API_AVAILABLE(ios(14.0))
+{
+    NSArray<UIAction *> *actions = @[
+        [self sortActionForCriteria:VLCMediaListSortCriteriaDefault title:NSLocalizedString(@"DEFAULT", nil)],
+        [self sortActionForCriteria:VLCMediaListSortCriteriaName title:NSLocalizedString(@"NAME", nil)],
+        [self sortActionForCriteria:VLCMediaListSortCriteriaModificationDate title:NSLocalizedString(@"MODIFIED_DATE", nil)],
+        [self sortActionForCriteria:VLCMediaListSortCriteriaSize title:NSLocalizedString(@"FILE_SIZE", nil)],
+    ];
+    return [UIMenu menuWithTitle:NSLocalizedString(@"SORT_BY", nil) children:actions];
+}
+
+- (UIAction *)sortActionForCriteria:(VLCMediaListSortCriteria)criteria title:(NSString *)title API_AVAILABLE(ios(14.0))
+{
+    VLCNetworkServerBrowserVLCMedia *browser = [self sortableBrowser];
+    BOOL active = browser.sortCriteria == criteria;
+    UIImage *image = nil;
+    if (active && criteria != VLCMediaListSortCriteriaDefault) {
+        image = [UIImage systemImageNamed:browser.sortAscending ? @"chevron.up" : @"chevron.down"];
+    }
+    __weak typeof(self) weakSelf = self;
+    UIAction *action = [UIAction actionWithTitle:title
+                                           image:image
+                                      identifier:nil
+                                         handler:^(__kindof UIAction * _Nonnull action) {
+        [weakSelf applySortCriteria:criteria];
+    }];
+    action.state = active ? UIMenuElementStateOn : UIMenuElementStateOff;
+    return action;
+}
+
+- (void)applySortCriteria:(VLCMediaListSortCriteria)criteria API_AVAILABLE(ios(14.0))
+{
+    VLCNetworkServerBrowserVLCMedia *browser = [self sortableBrowser];
+    if (!browser) {
+        return;
+    }
+
+    BOOL ascending;
+    if (criteria == browser.sortCriteria && criteria != VLCMediaListSortCriteriaDefault) {
+        ascending = !browser.sortAscending;
+    } else {
+        ascending = (criteria == VLCMediaListSortCriteriaName);
+    }
+    [browser setSortCriteria:criteria ascending:ascending];
+    _sortBarButtonItem.menu = [self sortMenu];
+}
+
+- (void)addPlayAllAction
+{
+    NSMutableArray<UIBarButtonItem *> *rightItems = [NSMutableArray arrayWithObject:[UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
+    UIBarButtonItem *sortButton = [self sortBarButtonItem];
+    if (sortButton) {
+        [rightItems addObject:sortButton];
+    }
+    self.navigationItem.rightBarButtonItems = rightItems;
+}
+
+- (void)removePlayAllAction
+{
+    UIBarButtonItem *sortButton = [self sortBarButtonItem];
+    self.navigationItem.rightBarButtonItems = sortButton ? @[sortButton] : @[];
 }
 
 #pragma mark - server browser item specifics

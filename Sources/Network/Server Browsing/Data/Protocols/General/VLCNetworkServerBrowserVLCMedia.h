@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (VLCMediaParsedStatus)retrieveParsedStatus;
 
+@property (nonatomic, readonly) VLCMediaListSortCriteria sortCriteria;
+@property (nonatomic, readonly) BOOL sortAscending;
+- (void)setSortCriteria:(VLCMediaListSortCriteria)criteria ascending:(BOOL)ascending;
+
 @property (nonatomic, copy, nullable) NSString *favoriteGroupName;
 @end
 

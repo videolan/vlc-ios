@@ -46,6 +46,8 @@
         _mediaParser = mediaParser ?: [VLCMediaParser sharedParser];
         _mutableItems = [[NSMutableArray alloc] init];
         _mediaList = [[VLCMediaList alloc] init];
+        _sortCriteria = VLCMediaListSortCriteriaDefault;
+        _sortAscending = YES;
         _rootMedia = media;
         _rootMedia.delegate = self;
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
@@ -85,11 +87,9 @@
         [self.mediaList removeMediaAtIndex:0];
     }
 
-    VLCMediaList *rootItems = self.rootMedia.subitems;
-    [rootItems lock];
-    NSUInteger count = rootItems.count;
-    for (NSUInteger i = 0; i < count; i++) {
-        VLCMedia *media = [rootItems mediaAtIndex:i];
+    NSArray<VLCMedia *> *sortedMedia = [self.rootMedia.subitems mediaSortedByCriteria:self.sortCriteria
+                                                                            ascending:self.sortAscending];
+    for (VLCMedia *media in sortedMedia) {
         [media addOptions:self.mediaOptions];
         NSInteger mediaIndex = self.mutableItems.count;
         [self.mediaList insertMedia:media atIndex:mediaIndex];
@@ -97,9 +97,16 @@
                                                                                                        options:self.mediaOptions
                                                                                                    mediaParser:_mediaParser];
         item.favoriteGroupName = self.favoriteGroupName;
-        [self.mutableItems insertObject:item atIndex:mediaIndex];
+        [self.mutableItems addObject:item];
     }
-    [rootItems unlock];
+}
+
+- (void)setSortCriteria:(VLCMediaListSortCriteria)criteria ascending:(BOOL)ascending
+{
+    _sortCriteria = criteria;
+    _sortAscending = ascending;
+    [self _rebuildItemList];
+    [self.delegate networkServerBrowserDidUpdate:self];
 }
 
 - (void)update {
