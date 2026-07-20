@@ -2,12 +2,6 @@ source 'https://cdn.cocoapods.org'
 install! 'cocoapods', :deterministic_uuids => false
 inhibit_all_warnings!
 
-def core_vlc_pods
-  use_modular_headers!
-  pod 'VLCKit', '4.0.0a21'
-  pod 'VLCMediaLibraryKit', '0.14.0b3'
-end
-
 def ios_specific_pods
   use_modular_headers!
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
@@ -21,7 +15,6 @@ end
 
 target 'VLC-iOS' do
   platform :ios, '12.0'
-  core_vlc_pods
   ios_specific_pods
 
   target 'VLC-iOSTests' do
@@ -31,23 +24,7 @@ end
 
 target 'VLC-iOS-no-watch' do
   platform :ios, '12.0'
-  core_vlc_pods
   ios_specific_pods
-end
-
-target 'VLC-tvOS' do
-  platform :tvos, '13.0'
-  core_vlc_pods
-end
-
-target 'VLC-visionOS' do
-  platform :visionos, '1.0'
-  core_vlc_pods
-end
-
-target 'VLC-watchOS' do
-  platform :watchos, '9.0'
-  core_vlc_pods
 end
 
 post_install do |installer_representation|
@@ -63,34 +40,11 @@ post_install do |installer_representation|
         config.build_settings['ARCHS'] = 'arm64 x86_64'
         config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
         config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone and iPad
-      when :tvos
-        config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '12.0'
-        config.build_settings['ARCHS'] = 'arm64 x86_64'
-        config.build_settings['SUPPORTED_PLATFORMS'] = 'appletvos appletvsimulator'
-        config.build_settings['TARGETED_DEVICE_FAMILY'] = '3' # Apple TV
-      when :visionos
-        config.build_settings['VISIONOS_DEPLOYMENT_TARGET'] = '1.0'
-        config.build_settings['ARCHS'] = 'arm64 x86_64'
-        config.build_settings['SUPPORTED_PLATFORMS'] = 'xros xrsimulator'
-        config.build_settings['TARGETED_DEVICE_FAMILY'] = '7' # visionOS
-      when :watchos
-        config.build_settings['WATCHOS_DEPLOYMENT_TARGET'] = '9.0'
-        # VLCKit only has arm64_32 arm64 for watchOS devices
-        config.build_settings['ARCHS'] = 'arm64_32 arm64 x86_64'
-        config.build_settings['EXCLUDED_ARCHS[sdk=watchos*]'] = 'armv7k'
-        config.build_settings['SUPPORTED_PLATFORMS'] = 'watchos watchsimulator'
-        config.build_settings['TARGETED_DEVICE_FAMILY'] = '4' # Apple Watch
       end
 
       # Always set SKIP_INSTALL and other global settings
       config.build_settings['SKIP_INSTALL'] = 'YES'
       config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-
-      # Patch out sqlite3 linker flag
-      xcconfig_path = config.base_configuration_reference.real_path
-      xcconfig = File.read(xcconfig_path)
-      new_xcconfig = xcconfig.sub('-l"sqlite3"', '')
-      File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
     end
   end
 end

@@ -47,15 +47,6 @@ PODS:
     - OneDriveSDK/Common
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
-  - VLCKit (4.0.0a21)
-<<<<<<< HEAD
-  - VLCMediaLibraryKit (0.14.0b3):
-    - VLCKit (>= 4.0.0a20)
-  - XKKeychain (1.0.1)
-=======
-  - VLCMediaLibraryKit (0.14.0b1):
-    - VLCKit (>= 4.0.0a10)
->>>>>>> 82fd43d3f (build system: transition XKKeychain, CocoaHTTPServer, AFNetworking, OBSlider and InAppSettingsKit to SPM)
 
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
@@ -65,13 +56,6 @@ DEPENDENCIES:
   - GTMAppAuth (~> 1.0)
   - ObjectiveDropboxOfficial
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
-  - VLCKit (= 4.0.0a21)
-<<<<<<< HEAD
-  - VLCMediaLibraryKit (= 0.14.0b3)
-  - XKKeychain (from `https://code.videolan.org/fkuehne/XKKeychain.git`, commit `40abb8f1`)
-=======
-  - VLCMediaLibraryKit (= 0.14.0b1)
->>>>>>> 82fd43d3f (build system: transition XKKeychain, CocoaHTTPServer, AFNetworking, OBSlider and InAppSettingsKit to SPM)
 
 SPEC REPOS:
   trunk:
@@ -82,8 +66,6 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - ObjectiveDropboxOfficial
-    - VLCKit
-    - VLCMediaLibraryKit
 
 EXTERNAL SOURCES:
   ADAL:
@@ -118,9 +100,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   ObjectiveDropboxOfficial: 1645cbc5a542831173425b00ed6929d5a07d0a95
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
-  VLCKit: c76f859fcbac931584d4e5df8c0ffb85aeeb122b
-  VLCMediaLibraryKit: aaa2034e502d5cdc50350dceeb418222fee8f6f4
 
-PODFILE CHECKSUM: 56d8b0cb92c78457b56082905059df3f94ae2f94
+PODFILE CHECKSUM: 5e06445a00bf36f9743bda11c107744b1ad4fc3c
 
 COCOAPODS: 1.16.2
