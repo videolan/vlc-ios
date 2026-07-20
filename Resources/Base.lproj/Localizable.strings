@@ -184,7 +184,7 @@
 "OFF" = "Off";
 
 "EMPTY_LIBRARY" = "Empty Media Library";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using the \"Files\" tab in Finder or iTunes, Wi-Fi Upload or cloud services.";
 
 "PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
@@ -216,8 +216,8 @@
 
 "FIRST_STEPS_WELCOME" = "Welcome";
 "FIRST_STEPS_WELCOME_DETAIL" = "First steps to Sync and Play Your Media.";
-"FIRST_STEPS_ITUNES" = "iTunes File Sync";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSwitch to the \"Apps\" tab, scroll down and look for VLC.\nTransfer your files.";
+"FIRST_STEPS_ITUNES" = "File Sync";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to use the Finder or iTunes. In the Finder, select the \"Files\" tab and choose VLC to transfer files.";
 "FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Connect your %@ to the same network as your Mac or PC.";
 "FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Switch the toggle in the sidebar, enter the URL to the web browser and upload your files.";
 "FIRST_STEPS_CLOUDS" = "Clouds";
