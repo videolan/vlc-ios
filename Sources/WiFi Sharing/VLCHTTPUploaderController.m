@@ -18,7 +18,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCHTTPConnection.h"
 #import "VLCActivityManager.h"
-#import "HTTPServer.h"
+#import <CocoaHTTPServer/HTTPServer.h>
 #import "Reachability.h"
 
 #import <ifaddrs.h>

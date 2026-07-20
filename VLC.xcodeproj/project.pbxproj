@@ -312,6 +312,13 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
+		7D1E8EFF300E446D0014A118 /* OBSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8EFE300E446D0014A118 /* OBSlider */; };
+		7D1E8F01300E44730014A118 /* OBSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F00300E44730014A118 /* OBSlider */; };
+		7D1E8F04300E45650014A118 /* GRKArrayDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F03300E45650014A118 /* GRKArrayDiff */; };
+		7D1E8F07300E47810014A118 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F06300E47810014A118 /* MarqueeLabel */; };
+		7D1E8F09300E478E0014A118 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F08300E478E0014A118 /* MarqueeLabel */; };
+		7D1E8F0B300E54CB0014A118 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F0A300E54CB0014A118 /* MarqueeLabel */; };
+		7D1E8F0D300E550D0014A118 /* OBSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F0C300E550D0014A118 /* OBSlider */; };
 		7D1E8F2A300E7FC20014A118 /* VLCRadioCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */; };
 		7D1E8F2B300E7FC20014A118 /* VLCRadioCountryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */; };
 		7D1E8F2C300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */; };
@@ -1212,15 +1219,25 @@
 		7DE0A9452F94247E0020980C /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
 		7DE6C1842913EF0200379A78 /* CarPlayMediaLibraryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */; };
+		7DE88F7F300E419700C3F238 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE88F7E300E419700C3F238 /* InAppSettingsKit */; };
 		7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
 		7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */; };
 		7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */; };
 		7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BE81BD68BC9006E1093 /* Settings.bundle */; };
-		7DED9DBC300D1328006CAFFA /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DBB300D1328006CAFFA /* MarqueeLabel */; };
 		7DED9DBF300D1395006CAFFA /* PCloudSDKSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DBE300D1395006CAFFA /* PCloudSDKSwift */; };
-		7DED9DC2300D1645006CAFFA /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC1300D1645006CAFFA /* MarqueeLabel */; };
 		7DED9DC4300D164B006CAFFA /* PCloudSDKSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC3300D164B006CAFFA /* PCloudSDKSwift */; };
-		7DED9DC6300D1655006CAFFA /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC5300D1655006CAFFA /* MarqueeLabel */; };
+		7DED9DC9300D1FBE006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC8300D1FBE006CAFFA /* AFNetworking */; };
+		7DED9DCB300D1FCE006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCA300D1FCE006CAFFA /* AFNetworking */; };
+		7DED9DCD300D1FD5006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCC300D1FD5006CAFFA /* AFNetworking */; };
+		7DED9DD0300D2039006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCF300D2039006CAFFA /* XKKeychain */; };
+		7DED9DD2300D206A006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DD1300D206A006CAFFA /* XKKeychain */; };
+		7DED9DD4300D2075006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DD3300D2075006CAFFA /* XKKeychain */; };
+		7DED9DD6300D207D006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DD5300D207D006CAFFA /* XKKeychain */; };
+		7DED9DE3300D29FA006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE2300D29FA006CAFFA /* CocoaHTTPServer */; };
+		7DED9DE5300D2A03006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE4300D2A03006CAFFA /* CocoaHTTPServer */; };
+		7DED9DE7300D2A0B006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE6300D2A0B006CAFFA /* CocoaHTTPServer */; };
+		7DED9DE9300D2A16006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE8300D2A16006CAFFA /* CocoaHTTPServer */; };
+		7DED9DEC300D2C55006CAFFA /* MetaDataFetcherKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DEB300D2C55006CAFFA /* MetaDataFetcherKit */; };
 		7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
@@ -1240,8 +1257,6 @@
 		7DF782E32D58C171000049DC /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F60EB082A58802000CC577B /* Intents.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
-		7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B471BE7A8110059C0E3 /* IASKSettingsReader.m */; };
-		7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B491BE7A8110059C0E3 /* IASKSpecifier.m */; };
 		7DFCAF8E2B877D6600B63B84 /* VLCPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFCAF8D2B877D6600B63B84 /* VLCPrice.m */; };
 		7DFEED012F40DEAD00000001 /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 		7F561B49C8F670976FEAF10C /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E902177044EBF3EC167EA5FB /* libPods-VLC-iOSTests.a */; };
@@ -2235,7 +2250,6 @@
 		7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFullscreenMovieTVViewController.m; sourceTree = "<group>"; };
 		7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFullscreenMovieTVViewController.xib; sourceTree = "<group>"; };
 		7DEC8BE81BD68BC9006E1093 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		7DED9DC0300D1611006CAFFA /* MarqueeLabel */ = {isa = PBXFileReference; lastKnownFileType = text; name = MarqueeLabel; path = "/Users/fkuehne/Library/Developer/Xcode/DerivedData/VLC-gsdjaacoqzgjinbkeimfkhfweapp/SourcePackages/checkouts/MarqueeLabel"; sourceTree = "<absolute>"; };
 		7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserFavorites.m; sourceTree = "<group>"; };
 		7DEF111D2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserFavorites.h; sourceTree = "<group>"; };
 		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
@@ -2526,7 +2540,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DED9DEC300D2C55006CAFFA /* MetaDataFetcherKit in Frameworks */,
+				7DE88F7F300E419700C3F238 /* InAppSettingsKit in Frameworks */,
+				7D1E8F04300E45650014A118 /* GRKArrayDiff in Frameworks */,
 				A154D8F636FCE456E0A65FE0 /* libPods-VLC-tvOS.a in Frameworks */,
+				7DED9DD4300D2075006CAFFA /* XKKeychain in Frameworks */,
+				7DED9DE7300D2A0B006CAFFA /* CocoaHTTPServer in Frameworks */,
 				1818DE2AEC01B80A2D8496D0 /* libPods-VLC-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2554,17 +2573,21 @@
 				7D50C6E22BBD20DF00B9F1A0 /* CoreText.framework in Frameworks */,
 				7D50C6E32BBD20DF00B9F1A0 /* AVFoundation.framework in Frameworks */,
 				7D50C6E42BBD20DF00B9F1A0 /* MediaPlayer.framework in Frameworks */,
-				7DED9DC6300D1655006CAFFA /* MarqueeLabel in Frameworks */,
 				7D50C6E52BBD20DF00B9F1A0 /* MessageUI.framework in Frameworks */,
 				7D50C6E62BBD20DF00B9F1A0 /* SystemConfiguration.framework in Frameworks */,
 				7D50C6E72BBD20DF00B9F1A0 /* Security.framework in Frameworks */,
+				7DED9DCD300D1FD5006CAFFA /* AFNetworking in Frameworks */,
 				7D50C6E82BBD20DF00B9F1A0 /* CFNetwork.framework in Frameworks */,
 				7D50C6E92BBD20DF00B9F1A0 /* CoreData.framework in Frameworks */,
 				7D50C6EA2BBD20DF00B9F1A0 /* QuartzCore.framework in Frameworks */,
+				7DED9DE9300D2A16006CAFFA /* CocoaHTTPServer in Frameworks */,
+				7DED9DD6300D207D006CAFFA /* XKKeychain in Frameworks */,
 				7D50C6EB2BBD20DF00B9F1A0 /* AudioToolbox.framework in Frameworks */,
+				7D1E8F0D300E550D0014A118 /* OBSlider in Frameworks */,
 				7D50C6EC2BBD20DF00B9F1A0 /* OpenGLES.framework in Frameworks */,
 				7D50C6ED2BBD20DF00B9F1A0 /* UIKit.framework in Frameworks */,
 				7D50C6EE2BBD20DF00B9F1A0 /* Foundation.framework in Frameworks */,
+				7D1E8F0B300E54CB0014A118 /* MarqueeLabel in Frameworks */,
 				7D50C6EF2BBD20DF00B9F1A0 /* CoreGraphics.framework in Frameworks */,
 				327B707D31772D5CCE59C0DB /* libPods-VLC-visionOS.a in Frameworks */,
 				9E9CA54188BE3CB9E0E31CBB /* libPods-VLC-visionOS.a in Frameworks */,
@@ -2586,8 +2609,10 @@
 				8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */,
 				7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */,
 				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
+				7DED9DD0300D2039006CAFFA /* XKKeychain in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
+				7D1E8F07300E47810014A118 /* MarqueeLabel in Frameworks */,
 				7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */,
 				7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */,
 				7DED9DBF300D1395006CAFFA /* PCloudSDKSwift in Frameworks */,
@@ -2598,11 +2623,13 @@
 				CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */,
 				CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */,
 				CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */,
+				7DED9DC9300D1FBE006CAFFA /* AFNetworking in Frameworks */,
 				7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */,
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
-				7DED9DBC300D1328006CAFFA /* MarqueeLabel in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
+				7D1E8F01300E44730014A118 /* OBSlider in Frameworks */,
 				0A83D7D26F3FCA84F5BF9DF2 /* (null) in Frameworks */,
+				7DED9DE3300D29FA006CAFFA /* CocoaHTTPServer in Frameworks */,
 				5D2FF65C2C9E21EBF46A7998 /* libPods-VLC-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2622,20 +2649,24 @@
 				7DA515542EF82B63000C9995 /* PassKit.framework in Frameworks */,
 				7DA515552EF82B63000C9995 /* AssetsLibrary.framework in Frameworks */,
 				7DA515562EF82B63000C9995 /* MobileCoreServices.framework in Frameworks */,
+				7DED9DE5300D2A03006CAFFA /* CocoaHTTPServer in Frameworks */,
 				7DA515572EF82B63000C9995 /* Accelerate.framework in Frameworks */,
 				7DA515582EF82B63000C9995 /* CoreText.framework in Frameworks */,
 				7DA515592EF82B63000C9995 /* AVFoundation.framework in Frameworks */,
 				7DA5155A2EF82B63000C9995 /* MediaPlayer.framework in Frameworks */,
 				7DA5155B2EF82B63000C9995 /* MessageUI.framework in Frameworks */,
+				7D1E8EFF300E446D0014A118 /* OBSlider in Frameworks */,
 				7DA5155C2EF82B63000C9995 /* SystemConfiguration.framework in Frameworks */,
 				7DA5155D2EF82B63000C9995 /* Security.framework in Frameworks */,
 				7DA5155E2EF82B63000C9995 /* CFNetwork.framework in Frameworks */,
+				7DED9DD2300D206A006CAFFA /* XKKeychain in Frameworks */,
 				7DA5155F2EF82B63000C9995 /* CoreData.framework in Frameworks */,
 				7DA515602EF82B63000C9995 /* QuartzCore.framework in Frameworks */,
-				7DED9DC2300D1645006CAFFA /* MarqueeLabel in Frameworks */,
 				7DA515612EF82B63000C9995 /* AudioToolbox.framework in Frameworks */,
 				7DA515622EF82B63000C9995 /* OpenGLES.framework in Frameworks */,
 				7DA515632EF82B63000C9995 /* UIKit.framework in Frameworks */,
+				7DED9DCB300D1FCE006CAFFA /* AFNetworking in Frameworks */,
+				7D1E8F09300E478E0014A118 /* MarqueeLabel in Frameworks */,
 				7DA515642EF82B63000C9995 /* Foundation.framework in Frameworks */,
 				7DA515652EF82B63000C9995 /* CoreGraphics.framework in Frameworks */,
 				B9C232E5D7C74C2715A73F3B /* libPods-VLC-iOS-no-watch.a in Frameworks */,
@@ -3558,7 +3589,6 @@
 				7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */,
 				8F60EB082A58802000CC577B /* Intents.framework */,
 				32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */,
-				7DED9DC0300D1611006CAFFA /* MarqueeLabel */,
 				B0364777B55717C7C7B74269 /* libPods-VLC-tvOS.a */,
 				4630EB3DC8E9E0325FD2D9E3 /* libPods-VLC-visionOS.a */,
 				1E570C9102E506B9CAE13AE6 /* libPods-VLC-watchOS.a */,
@@ -4918,8 +4948,15 @@
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			packageReferences = (
-				7DED9DBA300D1328006CAFFA /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
 				7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */,
+				7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */,
+				7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */,
+				7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */,
+				7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */,
+				7DE88F7D300E413200C3F238 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */,
+				7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */,
+				7D1E8F02300E44960014A118 /* XCRemoteSwiftPackageReference "GRKArrayDiff" */,
+				7D1E8F05300E47810014A118 /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
 			);
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
 			projectDirPath = "";
@@ -5410,7 +5447,6 @@
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPhone_Storyboard.storyboard",
 				"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth/AppAuthCore_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectiveDropboxOfficial/ObjectiveDropboxPrivacyInfo.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -5419,7 +5455,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPhone_Storyboard.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppAuthCore_Privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ObjectiveDropboxPrivacyInfo.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5546,7 +5581,6 @@
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPhone_Storyboard.storyboard",
 				"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth/AppAuthCore_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectiveDropboxOfficial/ObjectiveDropboxPrivacyInfo.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -5555,7 +5589,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPhone_Storyboard.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppAuthCore_Privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ObjectiveDropboxPrivacyInfo.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5697,7 +5730,6 @@
 				2227B4CD2A80CE3100D2BE26 /* PlaylistTableViewCell.swift in Sources */,
 				7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */,
 				7DC869C328CB7E5700EE99F8 /* VLCNetworkLoginTVViewController.swift in Sources */,
-				7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */,
 				7DE0A9442F9420D40020980C /* ColorThemeExtension.swift in Sources */,
 				226D57ED2B4439880090AD88 /* FavoriteListViewController.swift in Sources */,
 				221E71FB2A8F6B5D00797794 /* VLCThumbnailsCache.m in Sources */,
@@ -5707,7 +5739,6 @@
 				7D1E8F57300FA4160014A118 /* VLCRadioCountry.m in Sources */,
 				226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */,
 				322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */,
-				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
@@ -8821,12 +8852,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7DED9DBA300D1328006CAFFA /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
+		7D1E8F02300E44960014A118 /* XCRemoteSwiftPackageReference "GRKArrayDiff" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/GRKArrayDiff.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		7D1E8F05300E47810014A118 /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cbpowell/MarqueeLabel.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.5.3;
+			};
+		};
+		7DE88F7D300E413200C3F238 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/InAppSettingsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.7.1;
+			};
+		};
+		7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/OBSlider.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
 			};
 		};
 		7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */ = {
@@ -8837,33 +8892,150 @@
 				minimumVersion = 3.2.3;
 			};
 		};
+		7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/AFNetworking.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+		7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/XKKeychain.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
+		7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/CocoaHTTPServer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+		7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.videolan.org/fkuehne/MetaDataFetcherKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7DED9DBB300D1328006CAFFA /* MarqueeLabel */ = {
+		7D1E8EFE300E446D0014A118 /* OBSlider */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DBA300D1328006CAFFA /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			package = 7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */;
+			productName = OBSlider;
+		};
+		7D1E8F00300E44730014A118 /* OBSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */;
+			productName = OBSlider;
+		};
+		7D1E8F03300E45650014A118 /* GRKArrayDiff */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D1E8F02300E44960014A118 /* XCRemoteSwiftPackageReference "GRKArrayDiff" */;
+			productName = GRKArrayDiff;
+		};
+		7D1E8F06300E47810014A118 /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D1E8F05300E47810014A118 /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
 			productName = MarqueeLabel;
+		};
+		7D1E8F08300E478E0014A118 /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D1E8F05300E47810014A118 /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			productName = MarqueeLabel;
+		};
+		7D1E8F0A300E54CB0014A118 /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D1E8F05300E47810014A118 /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			productName = MarqueeLabel;
+		};
+		7D1E8F0C300E550D0014A118 /* OBSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */;
+			productName = OBSlider;
+		};
+		7DE88F7E300E419700C3F238 /* InAppSettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE88F7D300E413200C3F238 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */;
+			productName = InAppSettingsKit;
 		};
 		7DED9DBE300D1395006CAFFA /* PCloudSDKSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */;
 			productName = PCloudSDKSwift;
 		};
-		7DED9DC1300D1645006CAFFA /* MarqueeLabel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DBA300D1328006CAFFA /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
-			productName = MarqueeLabel;
-		};
 		7DED9DC3300D164B006CAFFA /* PCloudSDKSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */;
 			productName = PCloudSDKSwift;
 		};
-		7DED9DC5300D1655006CAFFA /* MarqueeLabel */ = {
+		7DED9DC8300D1FBE006CAFFA /* AFNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DBA300D1328006CAFFA /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
-			productName = MarqueeLabel;
+			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
+			productName = AFNetworking;
+		};
+		7DED9DCA300D1FCE006CAFFA /* AFNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
+			productName = AFNetworking;
+		};
+		7DED9DCC300D1FD5006CAFFA /* AFNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
+			productName = AFNetworking;
+		};
+		7DED9DCF300D2039006CAFFA /* XKKeychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */;
+			productName = XKKeychain;
+		};
+		7DED9DD1300D206A006CAFFA /* XKKeychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */;
+			productName = XKKeychain;
+		};
+		7DED9DD3300D2075006CAFFA /* XKKeychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */;
+			productName = XKKeychain;
+		};
+		7DED9DD5300D207D006CAFFA /* XKKeychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */;
+			productName = XKKeychain;
+		};
+		7DED9DE2300D29FA006CAFFA /* CocoaHTTPServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */;
+			productName = CocoaHTTPServer;
+		};
+		7DED9DE4300D2A03006CAFFA /* CocoaHTTPServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */;
+			productName = CocoaHTTPServer;
+		};
+		7DED9DE6300D2A0B006CAFFA /* CocoaHTTPServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */;
+			productName = CocoaHTTPServer;
+		};
+		7DED9DE8300D2A16006CAFFA /* CocoaHTTPServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */;
+			productName = CocoaHTTPServer;
+		};
+		7DED9DEB300D2C55006CAFFA /* MetaDataFetcherKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */;
+			productName = MetaDataFetcherKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -8,17 +8,8 @@ def core_vlc_pods
   pod 'VLCMediaLibraryKit', '0.14.0b3'
 end
 
-def shared_pods
-  use_modular_headers!
-  pod 'XKKeychain', :git => 'https://code.videolan.org/fkuehne/XKKeychain.git', :commit => '40abb8f1'
-  pod 'CocoaHTTPServer', :git => 'https://code.videolan.org/fkuehne/CocoaHTTPServer.git', :commit => '08f9b818'
-  pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => '80323fce' # remove private header
-end
-
 def ios_specific_pods
   use_modular_headers!
-  pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
-  pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '6.2.0'
   pod 'GTMAppAuth', '~> 1.0'
@@ -31,7 +22,6 @@ end
 target 'VLC-iOS' do
   platform :ios, '12.0'
   core_vlc_pods
-  shared_pods
   ios_specific_pods
 
   target 'VLC-iOSTests' do
@@ -42,23 +32,17 @@ end
 target 'VLC-iOS-no-watch' do
   platform :ios, '12.0'
   core_vlc_pods
-  shared_pods
   ios_specific_pods
 end
 
 target 'VLC-tvOS' do
   platform :tvos, '13.0'
   core_vlc_pods
-  shared_pods
-  pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
-  pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 
 target 'VLC-visionOS' do
   platform :visionos, '1.0'
   core_vlc_pods
-  shared_pods
-  pod 'OBSlider', :git => 'https://code.videolan.org/fkuehne/OBSlider.git', :commit => 'e60cddfe'
 end
 
 target 'VLC-watchOS' do

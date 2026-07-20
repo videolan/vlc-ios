@@ -12,7 +12,7 @@
 
 #import "VLCStripeController.h"
 #import <PassKit/PassKit.h>
-#import <AFNetworking/AFNetworking.h>
+#import "AFNetworking.h"
 #import "VLCCurrency.h"
 #import "VLCInvoice.h"
 #import "VLCCharge.h"

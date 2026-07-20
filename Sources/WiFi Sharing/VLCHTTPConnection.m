@@ -15,19 +15,19 @@
 
 #import "VLCActivityManager.h"
 #import "VLCHTTPConnection.h"
-#import "MultipartFormDataParser.h"
-#import "HTTPMessage.h"
-#import "HTTPDataResponse.h"
-#import "HTTPFileResponse.h"
-#import "MultipartMessageHeaderField.h"
-#import "HTTPDynamicFileResponse.h"
-#import "HTTPErrorResponse.h"
-#import "HTTPRedirectResponse.h"
+#import <CocoaHTTPServer/MultipartFormDataParser.h>
+#import <CocoaHTTPServer/HTTPMessage.h>
+#import <CocoaHTTPServer/HTTPDataResponse.h>
+#import <CocoaHTTPServer/HTTPFileResponse.h>
+#import <CocoaHTTPServer/MultipartMessageHeaderField.h>
+#import <CocoaHTTPServer/HTTPDynamicFileResponse.h>
+#import <CocoaHTTPServer/HTTPErrorResponse.h>
+#import <CocoaHTTPServer/HTTPRedirectResponse.h>
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCTransferController.h"
 #import "VLCMetaData.h"
-#import "GCDAsyncSocket.h"
+#import <CocoaHTTPServer/GCDAsyncSocket.h>
 #import "VLC-Swift.h"
 #import "VLCPlayerControlWebSocket.h"
 

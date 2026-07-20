@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "HTTPConnection.h"
+#import <CocoaHTTPServer/HTTPConnection.h>
 
 @interface VLCHTTPConnection : HTTPConnection
 

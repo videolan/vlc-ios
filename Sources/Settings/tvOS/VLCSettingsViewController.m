@@ -11,8 +11,7 @@
 
 #import "VLCSettingsViewController.h"
 #import "VLCAppCoordinator.h"
-#import "IASKSettingsReader.h"
-#import "IASKSpecifier.h"
+@import InAppSettingsKit;
 #import "VLCAboutViewController.h"
 
 #define SettingsReUseIdentifier @"SettingsReUseIdentifier"
@@ -37,7 +36,7 @@
     }
 
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    self.settingsReader = [[IASKSettingsReader alloc] init];
+    self.settingsReader = [[IASKSettingsReader alloc] initWithFile:@"Root"];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
@@ -76,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.settingsReader numberOfRowsForSection:section];
+    return [self.settingsReader numberOfRowsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
