@@ -14,15 +14,17 @@
 #import "VLCRadioCountryListViewController.h"
 #import "VLCRadioCountryService.h"
 #import "VLCRadioCountry.h"
+#import "VLCRadioFavoritesGridCell.h"
+#import "VLCRadioFavoritesListViewController.h"
+#import "VLCRadioStationsViewController.h"
 #import "VLCFavoriteService.h"
 #import "VLCAppCoordinator.h"
 #import "VLCNetworkListCell.h"
-#import "VLCNetworkServerBrowserViewController.h"
 #import "VLCPlaybackService.h"
 
 #import "VLC-Swift.h"
 
-@interface VLCRadioListViewController ()
+@interface VLCRadioListViewController () <VLCRadioFavoritesGridCellDelegate>
 {
     VLCRadioCountryService *_countryService;
     NSArray<VLCFavorite *> *_radioFavorites;
@@ -31,6 +33,11 @@
 
 @implementation VLCRadioListViewController
 
+- (UITableViewStyle)tableViewStyle
+{
+    return UITableViewStyleGrouped;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,6 +45,14 @@
     self.title = NSLocalizedString(@"RADIO", nil);
     [self removePlayAllAction];
     self.navigationItem.searchController = nil;
+
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    if (@available(iOS 15.0, *)) {
+        self.tableView.sectionHeaderTopPadding = 0.0;
+    }
+
+    [self.tableView registerClass:[VLCRadioFavoritesGridCell class]
+           forCellReuseIdentifier:VLCRadioFavoritesGridCell.reuseIdentifier];
 
     _countryService = [[VLCAppCoordinator sharedInstance] radioCountryService];
     _radioFavorites = @[];
@@ -70,6 +85,16 @@
     [_countryService stopCountryDiscovery];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    // the favorites grid height depends on the available width
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self.tableView reloadData];
+    }];
+}
+
 - (void)radioCountriesDidUpdate:(NSNotification *)notification
 {
     [self.tableView reloadData];
@@ -87,6 +112,24 @@
     return self.favoritesSectionVisible ? 1 : 0;
 }
 
+- (NSInteger)visibleFavoriteCap
+{
+    return [VLCRadioFavoritesGridCell visibleFavoriteCapForWidth:self.tableView.bounds.size.width];
+}
+
+- (NSArray<VLCFavorite *> *)visibleFavorites
+{
+    NSInteger cap = [self visibleFavoriteCap];
+    if (_radioFavorites.count <= cap)
+        return _radioFavorites;
+    return [_radioFavorites subarrayWithRange:NSMakeRange(0, cap)];
+}
+
+- (BOOL)hasMoreFavorites
+{
+    return _radioFavorites.count > [self visibleFavoriteCap];
+}
+
 #pragma mark - table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,37 +142,25 @@
     if (section == self.countriesSection) {
         return _countryService.visitedCountries.count + 1;
     }
-    return _radioFavorites.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section != self.countriesSection) {
+        VLCRadioFavoritesGridCell *gridCell =
+            [tableView dequeueReusableCellWithIdentifier:VLCRadioFavoritesGridCell.reuseIdentifier forIndexPath:indexPath];
+        gridCell.delegate = self;
+        [gridCell configureWithFavorites:[self visibleFavorites]];
+        return gridCell;
+    }
+
     VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:VLCNetworkListCellIdentifier];
     if (cell == nil)
         cell = [VLCNetworkListCell cellWithReuseIdentifier:VLCNetworkListCellIdentifier];
 
-    if (indexPath.section == self.countriesSection) {
-        [self configureCountryCell:cell atRow:indexPath.row];
-    } else {
-        [self configureFavoriteCell:cell atRow:indexPath.row];
-    }
-
+    [self configureCountryCell:cell atRow:indexPath.row];
     return cell;
-}
-
-- (void)configureFavoriteCell:(VLCNetworkListCell *)cell atRow:(NSInteger)row
-{
-    VLCFavorite *favorite = _radioFavorites[row];
-
-    [cell setIsDirectory:NO];
-    [cell setTitleLabelCentered:favorite.mediaDescription.length == 0];
-    [cell setTitle:favorite.userVisibleName];
-    [cell setSubtitle:favorite.mediaDescription];
-    if (favorite.artworkURL) {
-        [cell setIconURL:favorite.artworkURL];
-    } else if (@available(iOS 13.0, *)) {
-        [cell setIcon:[UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"]];
-    }
 }
 
 - (void)configureCountryCell:(VLCNetworkListCell *)cell atRow:(NSInteger)row
@@ -149,17 +180,32 @@
             [cell setIcon:[UIImage systemImageNamed:@"globe"]];
         }
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 #pragma mark - table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+    if (indexPath.section != self.countriesSection) {
+        return [VLCRadioFavoritesGridCell heightForFavoriteCount:[self visibleFavorites].count
+                                                           width:tableView.bounds.size.width];
+    }
+    return [VLCNetworkListCell heightOfCell];
+}
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:indexPath];
+
+    if (indexPath.section != self.countriesSection)
+        return;
+
+    VLCNetworkListCell *listCell = (VLCNetworkListCell *)cell;
     ColorPalette *themeColors = PresentationTheme.current.colors;
-    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.thumbnailView.tintColor = themeColors.cellTextColor;
-    cell.subtitleLabel.textColor = themeColors.cellDetailTextColor;
+    listCell.folderTitleLabel.textColor = listCell.titleLabel.textColor = themeColors.cellTextColor;
+    listCell.thumbnailView.tintColor = themeColors.cellTextColor;
+    listCell.subtitleLabel.textColor = themeColors.cellDetailTextColor;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -169,21 +215,23 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSString *title = (section == self.countriesSection) ? NSLocalizedString(@"COUNTRIES", nil)
-                                                         : NSLocalizedString(@"FAVORITES", nil);
-    return [self sectionHeaderViewWithTitle:title];
+    BOOL isCountries = (section == self.countriesSection);
+    NSString *title = isCountries ? NSLocalizedString(@"COUNTRIES", nil)
+                                  : NSLocalizedString(@"FAVORITES", nil);
+    BOOL showsSeeAll = !isCountries && [self hasMoreFavorites];
+    return [self sectionHeaderViewWithTitle:title showsSeeAll:showsSeeAll];
 }
 
-- (UIView *)sectionHeaderViewWithTitle:(NSString *)title
+- (UIView *)sectionHeaderViewWithTitle:(NSString *)title showsSeeAll:(BOOL)showsSeeAll
 {
     ColorPalette *themeColors = PresentationTheme.current.colors;
 
     UIView *header = [[UIView alloc] init];
-    header.backgroundColor = themeColors.background;
+    header.backgroundColor = [UIColor clearColor];
 
     UILabel *label = [[UILabel alloc] init];
     label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+    label.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightSemibold];
     label.textColor = themeColors.cellTextColor;
     label.text = title;
     [header addSubview:label];
@@ -193,7 +241,28 @@
         [label.centerYAnchor constraintEqualToAnchor:header.centerYAnchor]
     ]];
 
+    if (showsSeeAll) {
+        UIButton *seeAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        seeAllButton.translatesAutoresizingMaskIntoConstraints = NO;
+        seeAllButton.tintColor = themeColors.orangeUI;
+        seeAllButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        [seeAllButton setTitle:NSLocalizedString(@"SEE_ALL", nil) forState:UIControlStateNormal];
+        [seeAllButton addTarget:self action:@selector(showAllFavorites) forControlEvents:UIControlEventTouchUpInside];
+        [header addSubview:seeAllButton];
+
+        [NSLayoutConstraint activateConstraints:@[
+            [seeAllButton.trailingAnchor constraintEqualToAnchor:header.safeAreaLayoutGuide.trailingAnchor constant:-20.0],
+            [seeAllButton.centerYAnchor constraintEqualToAnchor:label.centerYAnchor]
+        ]];
+    }
+
     return header;
+}
+
+- (void)showAllFavorites
+{
+    VLCRadioFavoritesListViewController *targetViewController = [[VLCRadioFavoritesListViewController alloc] init];
+    [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -202,17 +271,25 @@
 
     if (indexPath.section == self.countriesSection) {
         [self didSelectCountryAtRow:indexPath.row];
-    } else {
-        [self playFavoriteAtRow:indexPath.row];
     }
 }
 
-- (void)playFavoriteAtRow:(NSInteger)row
+#pragma mark - favorites grid delegate
+
+- (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index
 {
-    VLCFavorite *favorite = _radioFavorites[row];
+    if (index >= _radioFavorites.count)
+        return;
+
+    VLCFavorite *favorite = _radioFavorites[index];
     VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
     if (!media)
         return;
+
+    media.metaData.title = favorite.userVisibleName;
+    if (favorite.artworkURL) {
+        media.metaData.artworkURL = favorite.artworkURL;
+    }
 
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     [mediaList addMedia:media];
@@ -235,9 +312,9 @@
     if (!serverBrowser)
         return;
 
-    VLCNetworkServerBrowserViewController *targetViewController =
-        [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser
-                                                         medialibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
+    VLCRadioStationsViewController *targetViewController =
+        [[VLCRadioStationsViewController alloc] initWithServerBrowser:serverBrowser
+                                                 medialibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
