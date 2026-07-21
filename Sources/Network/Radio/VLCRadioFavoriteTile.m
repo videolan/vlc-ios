@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCRadioFavoriteTile.h"
-#import "VLCRadioArtwork.h"
+#import "VLCPlaceholderArtwork.h"
 #import "VLCNetworkImageView.h"
 
 #import "VLC-Swift.h"
@@ -133,9 +133,9 @@
     _nameLabel.text = name;
     _nameLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 
-    _artworkContainer.backgroundColor = [VLCRadioArtwork backgroundColorForName:name];
-    _initialsLabel.textColor = [VLCRadioArtwork foregroundColorForName:name];
-    _initialsLabel.text = [VLCRadioArtwork initialsForName:name];
+    _artworkContainer.backgroundColor = [VLCPlaceholderArtwork backgroundColorForName:name];
+    _initialsLabel.textColor = [VLCPlaceholderArtwork foregroundColorForName:name];
+    _initialsLabel.text = [VLCPlaceholderArtwork initialsForName:name];
 
     if (artworkURL) {
         _artworkView.hidden = NO;

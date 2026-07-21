@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCRadioArtwork.m
+ * VLCPlaceholderArtwork.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -10,9 +10,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCRadioArtwork.h"
+#import "VLCPlaceholderArtwork.h"
 
-@implementation VLCRadioArtwork
+@implementation VLCPlaceholderArtwork
 
 + (NSString *)initialsForName:(NSString *)name
 {

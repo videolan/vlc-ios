@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCRadioFavoritesListViewController.h"
-#import "VLCRadioArtwork.h"
+#import "VLCPlaceholderArtwork.h"
 #import "VLCFavoriteService.h"
 #import "VLCAppCoordinator.h"
 #import "VLCNetworkListCell.h"
@@ -92,7 +92,7 @@
 
     cell.thumbnailView.layer.cornerRadius = 9.0;
     cell.thumbnailView.clipsToBounds = YES;
-    [cell setIcon:[VLCRadioArtwork placeholderImageForName:favorite.userVisibleName
+    [cell setIcon:[VLCPlaceholderArtwork placeholderImageForName:favorite.userVisibleName
                                                       size:CGSizeMake(44.0, 44.0)
                                               cornerRadius:9.0
                                                   fontSize:13.0]];

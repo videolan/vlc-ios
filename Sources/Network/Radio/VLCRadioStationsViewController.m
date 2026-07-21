@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCRadioStationsViewController.h"
-#import "VLCRadioArtwork.h"
+#import "VLCPlaceholderArtwork.h"
 #import "VLCRadioErrorView.h"
 #import "VLCNetworkListCell.h"
 
@@ -178,7 +178,7 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     }
 
     NSString *name = cell.titleLabel.text.length > 0 ? cell.titleLabel.text : cell.folderTitleLabel.text;
-    cell.thumbnailView.image = [VLCRadioArtwork placeholderImageForName:name
+    cell.thumbnailView.image = [VLCPlaceholderArtwork placeholderImageForName:name
                                                                    size:CGSizeMake(44.0, 44.0)
                                                            cornerRadius:9.0
                                                                fontSize:13.0];

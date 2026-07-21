@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCRadioArtwork.h
+ * VLCPlaceholderArtwork.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCRadioArtwork : NSObject
+@interface VLCPlaceholderArtwork : NSObject
 
 + (NSString *)initialsForName:(nullable NSString *)name;
 + (UIColor *)backgroundColorForName:(nullable NSString *)name;
