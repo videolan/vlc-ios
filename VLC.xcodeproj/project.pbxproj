@@ -340,6 +340,9 @@
 		7D1E8F53300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F52300FA18B0014A118 /* VLCPlaceholderArtwork.m */; };
 		7D1E8F54300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F52300FA18B0014A118 /* VLCPlaceholderArtwork.m */; };
 		7D1E8F55300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F52300FA18B0014A118 /* VLCPlaceholderArtwork.m */; };
+		7D1E8F56300FA3F00014A118 /* VLCRadioCountryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */; };
+		7D1E8F57300FA4160014A118 /* VLCRadioCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */; };
+		7D1E8F58300FA4260014A118 /* VLCServiceBrowserRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */; };
 		7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */; };
 		7D20EA2D2D2A88D6001CE62D /* VLCPCloudContentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */; };
 		7D20EA2E2D2A88D6001CE62D /* VLCPCloudController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */; };
@@ -5751,6 +5754,7 @@
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC7BA7E28C894EC00109F28 /* GRKArrayDiff+UICollectionView.m in Sources */,
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
+				7D1E8F57300FA4160014A118 /* VLCRadioCountry.m in Sources */,
 				226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */,
 				322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
@@ -5786,12 +5790,14 @@
 				7D3B2EB62F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7DA5CE0E2EF9000000000003 /* VLCAppleTVSceneDelegate.m in Sources */,
+				7D1E8F56300FA3F00014A118 /* VLCRadioCountryService.m in Sources */,
 				7D0C20AC28C8AA6400CCFFEF /* VLCNetworkImageView.m in Sources */,
 				7DC869B928CB795400EE99F8 /* VLCMediaFileDiscoverer.m in Sources */,
 				222ED2EB2A6D6A6200A5D135 /* MediaModel.swift in Sources */,
 				6C5B0C9E27A43098005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */,
 				22B32C1E2A4D98F400F9FDF0 /* MediaLibraryBaseModel.swift in Sources */,
 				7DC869B828CB794A00EE99F8 /* VLCDeletionCapableViewController.m in Sources */,
+				7D1E8F58300FA4260014A118 /* VLCServiceBrowserRadio.m in Sources */,
 				2227B4E32A8BD2CD00D2BE26 /* PlaylistMediaViewController.m in Sources */,
 				DD3EAC0A1BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
 				D9B36AF62AF4020000A10C99 /* AspectRatio.swift in Sources */,

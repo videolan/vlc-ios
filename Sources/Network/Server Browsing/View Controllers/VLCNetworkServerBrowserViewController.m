@@ -152,10 +152,12 @@
     if (@available(iOS 26.0, *)) {
         if ([self.serverBrowser respondsToSelector:@selector(favoriteGroupName)] &&
             [self.serverBrowser.favoriteGroupName isEqualToString:VLCFavoriteGroupRadio]) {
+#if TARGET_OS_IOS
             NSUInteger stationCount = self.serverBrowser.items.count;
             self.navigationItem.subtitle = stationCount > 0
                 ? [NSString stringWithFormat:NSLocalizedString(@"STATION_COUNT", nil), (unsigned long)stationCount]
                 : nil;
+#endif
         }
     }
 }
