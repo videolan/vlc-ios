@@ -49,8 +49,6 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     if (@available(iOS 13.0, *)) {
         self.tableView.backgroundColor = [UIColor systemGroupedBackgroundColor];
     }
-
-    [self startTimeout];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,6 +57,8 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+
+    [self startTimeout];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -66,6 +66,8 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     [super viewWillDisappear:animated];
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
+
+    [self cancelTimeout];
 }
 
 #pragma mark - loading timeout
