@@ -189,6 +189,10 @@
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     [mediaList addMedia:media];
     [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+
+    [_favoriteService moveFavoriteToFront:favorite];
+    _favorites = [_favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    [self.tableView reloadData];
 }
 
 @end

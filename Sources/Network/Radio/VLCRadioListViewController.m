@@ -294,6 +294,11 @@
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     [mediaList addMedia:media];
     [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+
+    VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
+    [favoriteService moveFavoriteToFront:favorite];
+    _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    [self.tableView reloadData];
 }
 
 - (void)didSelectCountryAtRow:(NSInteger)row
