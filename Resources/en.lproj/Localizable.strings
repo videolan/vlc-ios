@@ -136,8 +136,10 @@
 "RADIOVC_DETAILTEXT" = "Listen to radio stations from around the world";
 "COUNTRIES" = "Countries";
 "ALL_COUNTRIES" = "All Countries";
+"SEE_ALL" = "See All";
 "STATION_COUNT" = "%lu stations";
 "RADIO_COUNTRIES_LOADING_FAILED" = "Couldn't load the list of countries. Please check your connection and try again.";
+"RADIO_STATIONS_LOADING_FAILED" = "Couldn't load the stations. Please check your connection and try again.";
 "BUTTON_RETRY" = "Retry";
 "BITRATE_FORMAT" = "%li kb/s";
 "FAVORITEVC_DETAILTEXT" = "See your favorite folders";
