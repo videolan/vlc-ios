@@ -134,6 +134,11 @@
 
 "RADIO" = "Radio";
 "RADIOVC_DETAILTEXT" = "Listen to radio stations from around the world";
+"COUNTRIES" = "Countries";
+"ALL_COUNTRIES" = "All Countries";
+"STATION_COUNT" = "%lu stations";
+"RADIO_COUNTRIES_LOADING_FAILED" = "Couldn't load the list of countries. Please check your connection and try again.";
+"BUTTON_RETRY" = "Retry";
 "BITRATE_FORMAT" = "%li kb/s";
 "FAVORITEVC_DETAILTEXT" = "See your favorite folders";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
