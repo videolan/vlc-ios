@@ -13,7 +13,8 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, VLCMigrationStep) {
-    VLCMigrationStepBanLogsFolder = 1
+    VLCMigrationStepBanLogsFolder = 1,
+    VLCMigrationStepReloadRadioCountries = 2
 };
 
 @interface VLCMigrationCursor : NSObject
