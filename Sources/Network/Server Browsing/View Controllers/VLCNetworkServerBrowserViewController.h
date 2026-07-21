@@ -15,8 +15,10 @@
 
 @class MediaLibraryService;
 
-@interface VLCNetworkServerBrowserViewController : VLCNetworkListViewController
+@interface VLCNetworkServerBrowserViewController : VLCNetworkListViewController <VLCNetworkServerBrowserDelegate>
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser
                   medialibraryService:(MediaLibraryService *)medialibraryService;
+
+- (void)update;
 @end

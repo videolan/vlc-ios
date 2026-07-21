@@ -19,6 +19,8 @@ extern NSString *VLCNetworkListCellIdentifier;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchController *searchController;
 
+- (UITableViewStyle)tableViewStyle;
+
 - (void)startActivityIndicator;
 - (void)stopActivityIndicator;
 

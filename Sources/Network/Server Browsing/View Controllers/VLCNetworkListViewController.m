@@ -31,7 +31,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
 - (void)loadView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:[self tableViewStyle]];
     _tableView.backgroundColor = PresentationTheme.current.colors.background;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -121,6 +121,11 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     [super viewWillDisappear:animated];
     if (self.isEditing)
         [self setEditing:NO animated:YES];
+}
+
+- (UITableViewStyle)tableViewStyle
+{
+    return UITableViewStylePlain;
 }
 
 - (IBAction)playAllAction:(id)sender
