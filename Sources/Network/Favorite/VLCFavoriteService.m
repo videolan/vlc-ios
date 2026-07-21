@@ -19,6 +19,7 @@ NSString *VLCFavoriteURL = @"VLCFavoriteURL";
 NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 NSString *VLCFavoriteGroupName = @"VLCFavoriteGroupName";
 NSString *VLCFavoriteArtworkURL = @"VLCFavoriteArtworkURL";
+NSString *VLCFavoriteMediaDescription = @"VLCFavoriteMediaDescription";
 NSString *VLCFavoritePlayable = @"VLCFavoritePlayable";
 NSString *VLCFavoritesFile = @"Favorites.plist";
 NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
@@ -35,6 +36,7 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
         self.url = [coder decodeObjectForKey:VLCFavoriteURL];
         self.groupName = [coder decodeObjectForKey:VLCFavoriteGroupName];
         self.artworkURL = [coder decodeObjectForKey:VLCFavoriteArtworkURL];
+        self.mediaDescription = [coder decodeObjectForKey:VLCFavoriteMediaDescription];
         self.playable = [coder decodeBoolForKey:VLCFavoritePlayable];
     }
     return self;
@@ -46,6 +48,7 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
     [coder encodeObject:self.url forKey:VLCFavoriteURL];
     [coder encodeObject:self.groupName forKey:VLCFavoriteGroupName];
     [coder encodeObject:self.artworkURL forKey:VLCFavoriteArtworkURL];
+    [coder encodeObject:self.mediaDescription forKey:VLCFavoriteMediaDescription];
     [coder encodeBool:self.playable forKey:VLCFavoritePlayable];
 }
 

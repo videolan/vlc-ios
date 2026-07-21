@@ -24,6 +24,7 @@ FOUNDATION_EXPORT NSString *const VLCFavoriteServiceContentDidChange;
 @property (readwrite, retain) NSURL *url;
 @property (readwrite, retain, nullable) NSString *groupName;
 @property (readwrite, retain, nullable) NSURL *artworkURL;
+@property (readwrite, retain, nullable) NSString *mediaDescription;
 @property (readwrite) BOOL playable;
 @property (readonly) NSString *protocolIdentifier;
 @property (readonly, nullable) NSString *groupIdentifier;

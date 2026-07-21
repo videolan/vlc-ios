@@ -149,6 +149,15 @@
     [self.tableView reloadData];
     self.title = self.serverBrowser.title;
 
+    if (@available(iOS 26.0, *)) {
+        if ([self.serverBrowser respondsToSelector:@selector(favoriteGroupName)] &&
+            [self.serverBrowser.favoriteGroupName isEqualToString:VLCFavoriteGroupRadio]) {
+            NSUInteger stationCount = self.serverBrowser.items.count;
+            self.navigationItem.subtitle = stationCount > 0
+                ? [NSString stringWithFormat:NSLocalizedString(@"STATION_COUNT", nil), (unsigned long)stationCount]
+                : nil;
+        }
+    }
 }
 
 - (void)update
@@ -379,6 +388,9 @@ API_AVAILABLE(ios(13.0)) {
     }
     if ([item respondsToSelector:@selector(thumbnailURL)]) {
         favorite.artworkURL = item.thumbnailURL;
+    }
+    if ([item respondsToSelector:@selector(mediaDescription)]) {
+        favorite.mediaDescription = item.mediaDescription;
     }
 
     if (!cell.isFavorite) {
