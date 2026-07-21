@@ -13,9 +13,10 @@
 #import "VLCRadioCountryListViewController.h"
 #import "VLCRadioCountryService.h"
 #import "VLCRadioCountry.h"
+#import "VLCRadioErrorView.h"
 #import "VLCAppCoordinator.h"
 #import "VLCNetworkListCell.h"
-#import "VLCNetworkServerBrowserViewController.h"
+#import "VLCRadioStationsViewController.h"
 
 #import "VLC-Swift.h"
 
@@ -23,6 +24,8 @@
 {
     VLCRadioCountryService *_countryService;
     NSArray<VLCRadioCountry *> *_searchResults;
+    NSArray<NSString *> *_sectionTitles;
+    NSArray<NSArray<VLCRadioCountry *> *> *_sectionedCountries;
     UIView *_errorView;
 }
 @end
@@ -36,6 +39,8 @@
     self.title = NSLocalizedString(@"ALL_COUNTRIES", nil);
     [self removePlayAllAction];
 
+    self.tableView.sectionIndexColor = PresentationTheme.current.colors.orangeUI;
+
     _countryService = [[VLCAppCoordinator sharedInstance] radioCountryService];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -48,6 +53,9 @@
 {
     [super viewWillAppear:animated];
 
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+
     [_countryService startCountryDiscoveryIfNeeded];
     [self updateContentState];
 }
@@ -55,6 +63,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
 
     [_countryService stopCountryDiscovery];
 }
@@ -82,7 +92,48 @@
         [self startActivityIndicator];
     }
 
+    [self rebuildSections];
     [self.tableView reloadData];
+}
+
+- (void)rebuildSections
+{
+    NSArray<VLCRadioCountry *> *sorted = [_countryService.allCountries sortedArrayUsingComparator:^NSComparisonResult(VLCRadioCountry *a, VLCRadioCountry *b) {
+        return [a.localizedName localizedCaseInsensitiveCompare:b.localizedName];
+    }];
+
+    NSMutableArray<NSString *> *titles = [NSMutableArray array];
+    NSMutableArray<NSMutableArray<VLCRadioCountry *> *> *sections = [NSMutableArray array];
+
+    for (VLCRadioCountry *country in sorted) {
+        NSString *initial = [self sectionTitleForName:country.localizedName];
+        if (titles.count == 0 || ![titles.lastObject isEqualToString:initial]) {
+            [titles addObject:initial];
+            [sections addObject:[NSMutableArray array]];
+        }
+        [sections.lastObject addObject:country];
+    }
+
+    _sectionTitles = titles;
+    _sectionedCountries = sections;
+}
+
+- (NSString *)sectionTitleForName:(NSString *)name
+{
+    if (name.length == 0)
+        return @"#";
+
+    NSString *initial = [[name substringToIndex:1] stringByFoldingWithOptions:NSDiacriticInsensitiveSearch
+                                                                        locale:[NSLocale currentLocale]];
+    initial = initial.uppercaseString;
+    if (initial.length == 0)
+        return @"#";
+
+    unichar character = [initial characterAtIndex:0];
+    if (character < 'A' || character > 'Z')
+        return @"#";
+
+    return [initial substringToIndex:1];
 }
 
 - (UIView *)errorView
@@ -90,36 +141,9 @@
     if (_errorView)
         return _errorView;
 
-    ColorPalette *themeColors = PresentationTheme.current.colors;
-
-    UIView *container = [[UIView alloc] init];
-
-    UILabel *label = [[UILabel alloc] init];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.numberOfLines = 0;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = themeColors.cellDetailTextColor;
-    label.font = [UIFont systemFontOfSize:16.0];
-    label.text = NSLocalizedString(@"RADIO_COUNTRIES_LOADING_FAILED", nil);
-    [container addSubview:label];
-
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.tintColor = themeColors.orangeUI;
-    button.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-    [button setTitle:NSLocalizedString(@"BUTTON_RETRY", nil) forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(retryButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [container addSubview:button];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [label.leadingAnchor constraintEqualToAnchor:container.layoutMarginsGuide.leadingAnchor],
-        [label.trailingAnchor constraintEqualToAnchor:container.layoutMarginsGuide.trailingAnchor],
-        [label.centerYAnchor constraintEqualToAnchor:container.centerYAnchor],
-        [button.topAnchor constraintEqualToAnchor:label.bottomAnchor constant:16.0],
-        [button.centerXAnchor constraintEqualToAnchor:container.centerXAnchor]
-    ]];
-
-    _errorView = container;
+    _errorView = [[VLCRadioErrorView alloc] initWithMessage:NSLocalizedString(@"RADIO_COUNTRIES_LOADING_FAILED", nil)
+                                                retryTarget:self
+                                                retryAction:@selector(retryButtonTapped)];
     return _errorView;
 }
 
@@ -136,17 +160,32 @@
     return self.searchController.isActive && self.searchController.searchBar.text.length > 0;
 }
 
-- (VLCRadioCountry *)countryForRow:(NSInteger)row
+- (VLCRadioCountry *)countryForIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray<VLCRadioCountry *> *countries = [self isSearching] ? _searchResults : _countryService.allCountries;
-    return row < countries.count ? countries[row] : nil;
+    if ([self isSearching]) {
+        return indexPath.row < _searchResults.count ? _searchResults[indexPath.row] : nil;
+    }
+
+    if (indexPath.section >= _sectionedCountries.count)
+        return nil;
+
+    NSArray<VLCRadioCountry *> *countries = _sectionedCountries[indexPath.section];
+    return indexPath.row < countries.count ? countries[indexPath.row] : nil;
 }
 
 #pragma mark - table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self isSearching] ? 1 : _sectionTitles.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self isSearching] ? _searchResults.count : _countryService.allCountries.count;
+    if ([self isSearching])
+        return _searchResults.count;
+
+    return section < _sectionedCountries.count ? _sectionedCountries[section].count : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,13 +194,32 @@
     if (cell == nil)
         cell = [VLCNetworkListCell cellWithReuseIdentifier:VLCNetworkListCellIdentifier];
 
-    VLCRadioCountry *country = [self countryForRow:indexPath.row];
+    VLCRadioCountry *country = [self countryForIndexPath:indexPath];
     [cell setIsDirectory:YES];
     [cell setTitle:country.localizedName];
     [cell setIcon:country.flagImage];
     [cell setTitleLabelCentered:YES];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([self isSearching])
+        return nil;
+
+    return section < _sectionTitles.count ? _sectionTitles[section] : nil;
+}
+
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self isSearching] ? nil : _sectionTitles;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return index;
 }
 
 #pragma mark - table view delegate
@@ -179,7 +237,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    VLCRadioCountry *country = [self countryForRow:indexPath.row];
+    VLCRadioCountry *country = [self countryForIndexPath:indexPath];
     if (!country)
         return;
 
@@ -189,9 +247,9 @@
     if (!serverBrowser)
         return;
 
-    VLCNetworkServerBrowserViewController *targetViewController =
-        [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser
-                                                         medialibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
+    VLCRadioStationsViewController *targetViewController =
+        [[VLCRadioStationsViewController alloc] initWithServerBrowser:serverBrowser
+                                                 medialibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
