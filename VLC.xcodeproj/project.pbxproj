@@ -313,6 +313,15 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
+		7D1E8F2A300E7FC20014A118 /* VLCRadioCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */; };
+		7D1E8F2B300E7FC20014A118 /* VLCRadioCountryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */; };
+		7D1E8F2C300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */; };
+		7D1E8F2D300E7FC20014A118 /* VLCRadioCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */; };
+		7D1E8F2E300E7FC20014A118 /* VLCRadioCountryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */; };
+		7D1E8F2F300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */; };
+		7D1E8F30300E7FC20014A118 /* VLCRadioCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */; };
+		7D1E8F31300E7FC20014A118 /* VLCRadioCountryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */; };
+		7D1E8F32300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */; };
 		7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */; };
 		7D20EA2D2D2A88D6001CE62D /* VLCPCloudContentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */; };
 		7D20EA2E2D2A88D6001CE62D /* VLCPCloudController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */; };
@@ -1848,6 +1857,12 @@
 		7D1AB28B179C98DC004CC271 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7D1E8F24300E7FC20014A118 /* VLCRadioCountry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioCountry.h; sourceTree = "<group>"; };
+		7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioCountry.m; sourceTree = "<group>"; };
+		7D1E8F26300E7FC20014A118 /* VLCRadioCountryListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioCountryListViewController.h; sourceTree = "<group>"; };
+		7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioCountryListViewController.m; sourceTree = "<group>"; };
+		7D1E8F28300E7FC20014A118 /* VLCRadioCountryService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioCountryService.h; sourceTree = "<group>"; };
+		7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioCountryService.m; sourceTree = "<group>"; };
 		7D20EA282D2A88D6001CE62D /* VLCPCloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudViewController.swift; sourceTree = "<group>"; };
 		7D20EA292D2A88D6001CE62D /* VLCPCloudContentWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudContentWrapper.swift; sourceTree = "<group>"; };
 		7D20EA2A2D2A88D6001CE62D /* VLCPCloudController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCPCloudController.swift; sourceTree = "<group>"; };
@@ -4303,6 +4318,12 @@
 			children = (
 				7DF60F87300501CF003A40B8 /* VLCRadioListViewController.h */,
 				7DF60F88300501CF003A40B8 /* VLCRadioListViewController.m */,
+				7D1E8F24300E7FC20014A118 /* VLCRadioCountry.h */,
+				7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */,
+				7D1E8F26300E7FC20014A118 /* VLCRadioCountryListViewController.h */,
+				7D1E8F27300E7FC20014A118 /* VLCRadioCountryListViewController.m */,
+				7D1E8F28300E7FC20014A118 /* VLCRadioCountryService.h */,
+				7D1E8F29300E7FC20014A118 /* VLCRadioCountryService.m */,
 			);
 			path = Radio;
 			sourceTree = "<group>";
@@ -5821,6 +5842,9 @@
 				7D50C60D2BBD20DF00B9F1A0 /* MediaModel.swift in Sources */,
 				7D50C60F2BBD20DF00B9F1A0 /* PlaylistModel.swift in Sources */,
 				7D1318AA30090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
+				7D1E8F2D300E7FC20014A118 /* VLCRadioCountry.m in Sources */,
+				7D1E8F2E300E7FC20014A118 /* VLCRadioCountryService.m in Sources */,
+				7D1E8F2F300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */,
 				7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */,
 				7D50C6112BBD20DF00B9F1A0 /* VLCFrostedGlasView.m in Sources */,
 				7D50C6122BBD20DF00B9F1A0 /* BaseCollectionViewCell.swift in Sources */,
@@ -6159,6 +6183,9 @@
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
 				7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */,
 				7D2DE69324D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
+				7D1E8F2A300E7FC20014A118 /* VLCRadioCountry.m in Sources */,
+				7D1E8F2B300E7FC20014A118 /* VLCRadioCountryService.m in Sources */,
+				7D1E8F2C300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */,
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				3278C8C62FB7A230008581AA /* WatchLogger.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,
@@ -6471,6 +6498,9 @@
 				7D926C0F2F7691A9005FAF2B /* GameControllerManager.swift in Sources */,
 				32269BA02FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */,
 				7DA514922EF82B63000C9995 /* VLCPCloudViewController.swift in Sources */,
+				7D1E8F30300E7FC20014A118 /* VLCRadioCountry.m in Sources */,
+				7D1E8F31300E7FC20014A118 /* VLCRadioCountryService.m in Sources */,
+				7D1E8F32300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */,
 				7DA514932EF82B63000C9995 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7D899D292FF2948400B5C8E6 /* TrackSelectorCell.swift in Sources */,
 				7D899D2B2FF2948400B5C8E6 /* RoundedCornerPlayerButton.swift in Sources */,
