@@ -392,6 +392,22 @@
 "PLAYLISTS" = "Playlists";
 "PLAYLIST" = "Playlist";
 "FOLDERS" = "Folders";
+
+// MARK: - Podcasts
+"PODCAST_CONTENT_TITLE" = "Content";
+"PODCAST_CONTINUE_LISTENING" = "Continue Listening";
+"PODCAST_LATEST_EPISODES" = "Latest Episodes";
+"PODCAST_SHOWS" = "Shows";
+"PODCAST_EPISODE_COUNT" = "%d episodes";
+"PODCAST_EPISODE_DOWNLOAD" = "Download episode";
+"PODCAST_EPISODE_DOWNLOADED" = "Episode downloaded";
+"PODCAST_SUBSCRIBE" = "Subscribe";
+"PODCAST_SUBSCRIBED" = "Subscribed";
+"PODCAST_EMPTY_TITLE" = "No Podcasts Yet";
+"PODCAST_EMPTY_DESCRIPTION" = "Subscribe to shows or add one via RSS URL to start listening.";
+"PODCAST_SEARCH_PODCASTS" = "Search Podcasts";
+"PODCAST_ADD_VIA_RSS" = "Add via RSS URL";
+"PODCAST_ADD_BUTTON" = "Add Podcast";
 "VIDEO_GROUPS" = "Video groups";
 "HISTORY" = "History";
 "MEDIA_LIBRARY_LABEL" = "Library";

@@ -19,6 +19,7 @@ import Foundation
     @objc static let localNetwork = "localNetwork"
     @objc static let onAir = "onAir"
     static let playlist = "playlist"
+    static let podcasts = "podcasts"
     @objc static let settings = "settings"
     static let local = "local"
     static let photos = "photos"
