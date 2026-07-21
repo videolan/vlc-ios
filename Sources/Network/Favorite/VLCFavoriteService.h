@@ -47,6 +47,7 @@ FOUNDATION_EXPORT NSString *const VLCFavoriteServiceContentDidChange;
 
 - (void)addFavorite:(VLCFavorite *)favorite;
 - (void)removeFavorite:(VLCFavorite *)favorite;
+- (void)moveFavoriteToFront:(VLCFavorite *)favorite;
 - (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
 
 - (void)storeContentSynchronously;

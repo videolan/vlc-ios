@@ -336,6 +336,35 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
     [self storeContent];
 }
 
+- (void)moveFavoriteToFront:(VLCFavorite *)favorite
+{
+    NSString *identifier = favorite.groupIdentifier;
+    if (!identifier) {
+        return;
+    }
+    @synchronized (_favoriteContentArray) {
+        NSInteger serverIndex = [_serverIdentifierArray indexOfObject:identifier];
+        if (serverIndex == NSNotFound) {
+            return;
+        }
+        VLCFavoriteServer *server = _favoriteContentArray[serverIndex];
+        NSMutableArray *favorites = server.favorites;
+        NSUInteger count = favorites.count;
+        for (NSUInteger index = 0; index < count; index++) {
+            VLCFavorite *iter = favorites[index];
+            if ([iter.url isEqual:favorite.url]) {
+                if (index != 0) {
+                    [favorites removeObjectAtIndex:index];
+                    [favorites insertObject:iter atIndex:0];
+                    [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
+                }
+                break;
+            }
+        }
+    }
+    [self storeContent];
+}
+
 - (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex
 {
     @synchronized (_favoriteContentArray) {
