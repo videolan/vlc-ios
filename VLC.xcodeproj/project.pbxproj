@@ -58,6 +58,7 @@
 		22B32C292A517E3300F9FDF0 /* VLCPlaybackService+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */; };
 		2663ACB422497D47000FBB95 /* VLCNetworkLoginTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
+		271037E80004A616F1EC5EB5 /* PodcastsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */; };
 		277943252A6176170010D5EA /* FavoriteSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277943242A6176170010D5EA /* FavoriteSectionHeader.swift */; };
 		27CE104F2A3C5ECF0061C92B /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CE104E2A3C5ECF0061C92B /* FavoriteListViewController.swift */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
@@ -225,6 +226,7 @@
 		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		485FABD4198EC9400DD4C0F8 /* PodcastDownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A972311D19DEB5FC6EC0B8 /* PodcastDownloadButton.swift */; };
 		48EB579F4D4CB1BBC2C4039A /* PodcastEpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94693E8AF736940EE908E5B9 /* PodcastEpisodeCell.swift */; };
+		4D8578AE799AEA90B188C8F5 /* PodcastsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */; };
 		4F0E1A81C2696D36EB12CB6B /* ShowTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2F86C79424A52ADE38DB5 /* ShowTileCell.swift */; };
 		511E417994AB967114D2BAE3 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
 		558CFFC52C30D69500E47D8E /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
@@ -234,6 +236,7 @@
 		597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		5C819FAC08DAA218BD4660B9 /* PodcastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB7CFF898DD5504AA004CCB /* PodcastModels.swift */; };
 		5D2FF65C2C9E21EBF46A7998 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DF5C43BEEACDF6DB606E06 /* libPods-VLC-iOS.a */; };
+		606F8A2F33CF7029C4EEF9DD /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
 		64EC484CC518E6CE15FA4505 /* ShowTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2F86C79424A52ADE38DB5 /* ShowTileCell.swift */; };
 		65D57BC0111AC816A8E038A9 /* ShowsSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B422429EEF27D7A5391F69 /* ShowsSectionCell.swift */; };
 		6A4FA11D7A38A9B0482B4FF4 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */; };
@@ -1303,6 +1306,7 @@
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		7DFCAF8E2B877D6600B63B84 /* VLCPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFCAF8D2B877D6600B63B84 /* VLCPrice.m */; };
 		7DFEED012F40DEAD00000001 /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
+		7E2BC20C32433F71CC39E015 /* PodcastsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */; };
 		7F561B49C8F670976FEAF10C /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E902177044EBF3EC167EA5FB /* libPods-VLC-iOSTests.a */; };
 		8301D4EA21C26C88713FFFC9 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		841353D5A1FE97FF35143ABE /* PodcastEpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94693E8AF736940EE908E5B9 /* PodcastEpisodeCell.swift */; };
@@ -1364,6 +1368,7 @@
 		A77CC807F4B239D93F4F205F /* ContinueListeningSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
+		B21F024D327A32BA5F2BF59F /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
 		B8AD2615D8862BF269580C2A /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
 		B9C232E5D7C74C2715A73F3B /* libPods-VLC-iOS-no-watch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1CAC6F642AF79AB21163137 /* libPods-VLC-iOS-no-watch.a */; };
 		BBD4BF00B0FE472C1DAF5A94 /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
@@ -1516,6 +1521,7 @@
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 		E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F8980322D399E10061DB2F /* MediaScrubProgressBar.swift */; };
 		E38141E0B655FBEE047D9214 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
+		E77833315D74A3AB4A5C4677 /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
 		EF800D0BE425A4B678AC8BAC /* PodcastSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */; };
 		F6DF14A4F0C3B2CBA7DA01E0 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		F9DA8D55E7D7079672F394D9 /* PodcastProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA342D0C01512D2646834221 /* PodcastProgressBar.swift */; };
@@ -1869,6 +1875,7 @@
 		55B880DE2CE02A8B009C181A /* UIScreen+Brightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Brightness.swift"; sourceTree = "<group>"; };
 		55E4CD812C1CAFF700A0E032 /* CurrentlyPlayingCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingCollectionModel.swift; sourceTree = "<group>"; };
 		597B403E2625E85000C0D81E /* SliderInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderInfoView.swift; sourceTree = "<group>"; };
+		5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastsViewController.swift; sourceTree = "<group>"; };
 		600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastSectionHeaderView.swift; sourceTree = "<group>"; };
 		6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContinueListeningSectionCell.swift; sourceTree = "<group>"; };
 		6B7B338E137A884541BBB779 /* PodcastArtworkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastArtworkView.swift; sourceTree = "<group>"; };
@@ -1890,6 +1897,7 @@
 		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButtons.swift; sourceTree = "<group>"; };
 		6DE63F3E270FD3D1008A011D /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift"; sourceTree = "<group>"; };
+		6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastsEmptyStateView.swift; sourceTree = "<group>"; };
 		79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VLCDonationNavigationController.m; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -2933,6 +2941,8 @@
 				2137B2482A68802F9C11FEEC /* PodcastStore.swift */,
 				597B95B0EE15FDB1E2629BBD /* Views */,
 				A03CE6E64E9D7F418631A425 /* Cells */,
+				5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */,
+				6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */,
 			);
 			name = Podcasts;
 			path = Podcasts;
@@ -6065,6 +6075,8 @@
 				A77CC807F4B239D93F4F205F /* ContinueListeningSectionCell.swift in Sources */,
 				65D57BC0111AC816A8E038A9 /* ShowsSectionCell.swift in Sources */,
 				EF800D0BE425A4B678AC8BAC /* PodcastSectionHeaderView.swift in Sources */,
+				B21F024D327A32BA5F2BF59F /* PodcastsViewController.swift in Sources */,
+				4D8578AE799AEA90B188C8F5 /* PodcastsEmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6418,6 +6430,8 @@
 				41275E3D8FE52628809BEC22 /* ContinueListeningSectionCell.swift in Sources */,
 				DD14EB096F7A374CC6E7B372 /* ShowsSectionCell.swift in Sources */,
 				8C7DABE49F57839FBCFEF67B /* PodcastSectionHeaderView.swift in Sources */,
+				606F8A2F33CF7029C4EEF9DD /* PodcastsViewController.swift in Sources */,
+				7E2BC20C32433F71CC39E015 /* PodcastsEmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6762,6 +6776,8 @@
 				12F6B5D61974AB3F237B4899 /* ContinueListeningSectionCell.swift in Sources */,
 				A0F143D8611C013EA4BDB29B /* ShowsSectionCell.swift in Sources */,
 				9D397C5AFE47AEAD1F162437 /* PodcastSectionHeaderView.swift in Sources */,
+				E77833315D74A3AB4A5C4677 /* PodcastsViewController.swift in Sources */,
+				271037E80004A616F1EC5EB5 /* PodcastsEmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
