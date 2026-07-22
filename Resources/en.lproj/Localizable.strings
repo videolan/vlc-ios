@@ -814,6 +814,9 @@
 "APPSHORTCUT_ADD_TO_PLAYLIST_PHRASE_${applicationName}" = "Add a song to a playlist in ${applicationName}";
 "APPSHORTCUT_UPDATE_AFFINITY_SHORT_TITLE" = "Favorite";
 "APPSHORTCUT_UPDATE_AFFINITY_PHRASE_${applicationName}" = "Favorite audio in ${applicationName}";
+"APPSHORTCUT_PLAY_RADIO_SHORT_TITLE" = "Play Radio";
+"APPSHORTCUT_PLAY_RADIO_PHRASE_PLAY_${applicationName}" = "Play radio in ${applicationName}";
+"APPSHORTCUT_PLAY_RADIO_PHRASE_LISTEN_${applicationName}" = "Listen to radio in ${applicationName}";
 
 // MARK: - VerticalSliderControl Strings
 "VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL" = "Vertical slider";
