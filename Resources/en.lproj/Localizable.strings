@@ -793,6 +793,12 @@
 "APPINTENT_PLAY_VIDEO_PARAM" = "Video";
 "APPINTENT_PLAY_VIDEO_PLAY_${video}" = "Play ${video}";
 
+// MARK: - Radio App Intent Strings
+"APPINTENT_PLAY_RADIO_TITLE" = "Play Radio Station";
+"APPINTENT_PLAY_RADIO_DESCRIPTION" = "Play a radio station in VLC.";
+"APPINTENT_PLAY_RADIO_PLAY_${station}" = "Play ${station}";
+"APPINTENT_PLAY_RADIO_PROMPT" = "Which radio station would you like to play?";
+
 // MARK: - AppShortcut Strings
 "APPSHORTCUT_PLAY_MEDIA_SHORT_TITLE" = "Play Media";
 "APPSHORTCUT_PLAY_MEDIA_PHRASE_PLAY_${applicationName}" = "Play media in ${applicationName}";
