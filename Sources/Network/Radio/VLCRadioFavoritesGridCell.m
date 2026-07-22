@@ -161,4 +161,16 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
     [self.delegate favoritesGridCell:self didRequestRemovalOfFavoriteAtIndex:indexPath.item];
 }
 
+- (NSArray<UIMenuElement *> *)menuElementsForArtworkTile:(VLCArtworkTile *)tile
+{
+    NSIndexPath *indexPath = [_collectionView indexPathForCell:tile];
+    if (!indexPath)
+        return nil;
+
+    if (![self.delegate respondsToSelector:@selector(favoritesGridCell:menuElementsForFavoriteAtIndex:)])
+        return nil;
+
+    return [self.delegate favoritesGridCell:self menuElementsForFavoriteAtIndex:indexPath.item];
+}
+
 @end

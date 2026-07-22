@@ -15,6 +15,7 @@
 #import "VLCRadioCountryService.h"
 #import "VLCRadioCountry.h"
 #import "VLCRadioFavoritesGridCell.h"
+#import "VLCRadioFavoriteMenu.h"
 #import "VLCRadioFavoritesListViewController.h"
 #import "VLCRadioStationsViewController.h"
 #import "VLCFavoriteService.h"
@@ -81,8 +82,7 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
 
-    _radioFavorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
-    [self.tableView reloadData];
+    [self reloadFavorites];
 
     [_countryService startCountryDiscoveryIfNeeded];
 }
@@ -108,6 +108,12 @@
 
 - (void)radioCountriesDidUpdate:(NSNotification *)notification
 {
+    [self.tableView reloadData];
+}
+
+- (void)reloadFavorites
+{
+    _radioFavorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     [self.tableView reloadData];
 }
 
@@ -286,6 +292,19 @@
 }
 
 #pragma mark - favorites grid delegate
+
+- (NSArray<UIMenuElement *> *)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell menuElementsForFavoriteAtIndex:(NSInteger)index
+{
+    if (index >= _radioFavorites.count)
+        return nil;
+
+    __weak typeof(self) weakSelf = self;
+    return [VLCRadioFavoriteMenu alarmActionsForFavorite:_radioFavorites[index]
+                                presentingViewController:self
+                                               didChange:^{
+        [weakSelf reloadFavorites];
+    }];
+}
 
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index
 {

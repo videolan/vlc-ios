@@ -15,6 +15,7 @@
 #import "VLCFavoriteService.h"
 #import "VLCAppCoordinator.h"
 #import "VLCNetworkListCell.h"
+#import "VLCRadioFavoriteMenu.h"
 
 #import "VLC-Swift.h"
 
@@ -138,14 +139,11 @@
 
     if (@available(iOS 14.0, *)) {
         __weak typeof(self) weakSelf = self;
-        UIAction *removeAction = [UIAction actionWithTitle:NSLocalizedString(@"REMOVE_FAVORITE", nil)
-                                                     image:[UIImage systemImageNamed:@"heart.slash"]
-                                                identifier:nil
-                                                   handler:^(__kindof UIAction * _Nonnull action) {
-            [weakSelf removeFavorite:favorite];
+        moreButton.menu = [VLCRadioFavoriteMenu menuForFavorite:favorite
+                                       presentingViewController:self
+                                                      didChange:^{
+            [weakSelf favoritesDidChange];
         }];
-        removeAction.attributes = UIMenuElementAttributesDestructive;
-        moreButton.menu = [UIMenu menuWithTitle:@"" children:@[removeAction]];
         moreButton.showsMenuAsPrimaryAction = YES;
     }
 
@@ -155,6 +153,11 @@
 - (void)removeFavorite:(VLCFavorite *)favorite
 {
     [_favoriteService removeFavorite:favorite];
+    [self favoritesDidChange];
+}
+
+- (void)favoritesDidChange
+{
     _favorites = [_favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     [self.tableView reloadData];
 

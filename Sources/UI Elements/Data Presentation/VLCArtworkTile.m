@@ -242,7 +242,17 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
         [weakSelf.delegate artworkTileDidRequestRemoval:weakSelf];
     }];
     removeAction.attributes = UIMenuElementAttributesDestructive;
-    _moreButton.menu = [UIMenu menuWithTitle:@"" children:@[removeAction]];
+
+    UIDeferredMenuElement *delegateElements =
+        [UIDeferredMenuElement elementWithProvider:^(void (^completion)(NSArray<UIMenuElement *> *)) {
+        if ([weakSelf.delegate respondsToSelector:@selector(menuElementsForArtworkTile:)]) {
+            completion([weakSelf.delegate menuElementsForArtworkTile:weakSelf] ?: @[]);
+        } else {
+            completion(@[]);
+        }
+    }];
+
+    _moreButton.menu = [UIMenu menuWithTitle:@"" children:@[delegateElements, removeAction]];
     _moreButton.showsMenuAsPrimaryAction = YES;
 }
 
