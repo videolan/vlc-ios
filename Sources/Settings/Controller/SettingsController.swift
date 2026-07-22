@@ -139,15 +139,8 @@ class SettingsController: UITableViewController {
                                              target: self,
                                              action: #selector(showAbout))
         aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
-        navigationItem.leftBarButtonItem = aboutBarButton
-        navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
-
-        let docButton = UIBarButtonItem(title: NSLocalizedString("SETTINGS_DOCUMENTATION", comment: ""),
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(showDocumentation))
-        docButton.tintColor = PresentationTheme.current.colors.orangeUI
-        navigationItem.rightBarButtonItem = docButton
+        navigationItem.rightBarButtonItem = aboutBarButton
+        navigationItem.rightBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
 
         if navigationController?.presentingViewController != nil {
             let closeItem: UIBarButtonItem.SystemItem
@@ -161,7 +154,7 @@ class SettingsController: UITableViewController {
                                               action: #selector(dismissSettings))
             closeButton.tintColor = PresentationTheme.current.colors.orangeUI
             closeButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done
-            navigationItem.leftBarButtonItems = [closeButton, aboutBarButton]
+            navigationItem.leftBarButtonItem = closeButton
         }
     }
 
@@ -190,7 +183,7 @@ class SettingsController: UITableViewController {
         present(aboutNavigationController, animated: true)
     }
 
-    @objc private func showDocumentation() {
+    private func showDocumentation() {
 #if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
 #endif
@@ -437,6 +430,8 @@ extension SettingsController {
             exportSettings()
         case .donation:
             showDonation(indexPath: indexPath)
+        case .documentation:
+            showDocumentation()
         case .displayResetAlert:
             displayResetAlert()
         case let .showActionSheet(title, preferenceKey, _):

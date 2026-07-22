@@ -56,6 +56,7 @@ struct SettingsItem: Equatable {
         case toggle(Toggle)
         case showActionSheet(title: String, preferenceKey: String, hasInfo: Bool)
         case donation
+        case documentation
         case openPrivacySettings
         case forceRescanAlert
         case exportMediaLibrary
@@ -173,6 +174,12 @@ enum MainOptions {
               action: .openPrivacySettings)
     }
 
+    static var documentation: SettingsItem {
+        .init(title: "SETTINGS_DOCUMENTATION",
+              subtitle: nil,
+              action: .documentation)
+    }
+
     static var appearance: SettingsItem {
         let k = kVLCSettingAppTheme
         return .init(title: "SETTINGS_DARKTHEME",
@@ -195,6 +202,7 @@ enum MainOptions {
             items.append(privacy)
         }
         #endif
+        items.append(documentation)
 
         #if !os(visionOS)
         // visionOS uses a standard system appearance and doesn't have light/dark mode.

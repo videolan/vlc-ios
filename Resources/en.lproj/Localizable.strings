@@ -596,7 +596,6 @@
 "SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_PLAYLIST_PLAY_ALL_HINT" = "Enable to automatically play the next media in a playlist";
 
-"SETTINGS_DOCUMENTATION" = "Documentation";
 
 // MARK: - Local Network
 

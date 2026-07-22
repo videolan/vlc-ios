@@ -200,6 +200,14 @@ class SettingsCell: UITableViewCell {
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
 
+            case .documentation:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = .none
+                accessoryType = .disclosureIndicator
+                selectionStyle = .default
+
             case .openPrivacySettings:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
