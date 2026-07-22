@@ -759,6 +759,8 @@
 		7D50C9042BBD20DF00B9F1A0 /* IntentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */; };
 		7D50F91430111FBE00005A38 /* PlayRadioStationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F91230111FBE00005A38 /* PlayRadioStationIntent.swift */; };
 		7D50F91530111FBE00005A38 /* PlayRadioStationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F91230111FBE00005A38 /* PlayRadioStationIntent.swift */; };
+		7D50F9183011226800005A38 /* VLCRadioAlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F9163011226800005A38 /* VLCRadioAlarmService.swift */; };
+		7D50F9193011226800005A38 /* VLCRadioAlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F9163011226800005A38 /* VLCRadioAlarmService.swift */; };
 		7D50F920301129F800005A38 /* RadioStationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F91F301129F800005A38 /* RadioStationEntity.swift */; };
 		7D50F921301129F800005A38 /* RadioStationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F91F301129F800005A38 /* RadioStationEntity.swift */; };
 		7D50F922301129F800005A38 /* RadioStationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F91F301129F800005A38 /* RadioStationEntity.swift */; };
@@ -2121,6 +2123,7 @@
 		7D50C72D2BBD20DF00B9F1A0 /* VLC-visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC-visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D50C9012BBD20DF00B9F1A0 /* IntentContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentContext.swift; sourceTree = "<group>"; };
 		7D50F91230111FBE00005A38 /* PlayRadioStationIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRadioStationIntent.swift; sourceTree = "<group>"; };
+		7D50F9163011226800005A38 /* VLCRadioAlarmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCRadioAlarmService.swift; sourceTree = "<group>"; };
 		7D50F91F301129F800005A38 /* RadioStationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioStationEntity.swift; sourceTree = "<group>"; };
 		7D55A8512A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNonInteractiveWindowSceneDelegate.h; sourceTree = "<group>"; };
 		7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNonInteractiveWindowSceneDelegate.m; sourceTree = "<group>"; };
@@ -4542,6 +4545,7 @@
 		7DF60F89300501CF003A40B8 /* Radio */ = {
 			isa = PBXGroup;
 			children = (
+				7D50F9163011226800005A38 /* VLCRadioAlarmService.swift */,
 				7D1E8F24300E7FC20014A118 /* VLCRadioCountry.h */,
 				7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */,
 				7D1E8F26300E7FC20014A118 /* VLCRadioCountryListViewController.h */,
@@ -6228,6 +6232,7 @@
 				7D0C208528C8993800CCFFEF /* VLCAppDelegate.m in Sources */,
 				44C8BBAE24AF36F4003F8940 /* SettingsController.swift in Sources */,
 				DD3EAC041BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
+				7D50F9193011226800005A38 /* VLCRadioAlarmService.swift in Sources */,
 				6D758AAA2577DDAF0016F675 /* EqualizerView.swift in Sources */,
 				7D87D1CE24CDD4A800A0DF14 /* VLCConfettiView.swift in Sources */,
 				E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */,
@@ -6659,6 +6664,7 @@
 				7DA514B02EF82B63000C9995 /* MediaLibraryService.swift in Sources */,
 				7DF246702FCABBA100F38805 /* VLCPhotoLibraryController.m in Sources */,
 				7DA514B12EF82B63000C9995 /* PlayMediaIntent.swift in Sources */,
+				7D50F9183011226800005A38 /* VLCRadioAlarmService.swift in Sources */,
 				7DA514B22EF82B63000C9995 /* VLCExternalDisplayController.m in Sources */,
 				7DA514B32EF82B63000C9995 /* ShowEpisodeModel.swift in Sources */,
 				7DA514B42EF82B63000C9995 /* MediaViewController.swift in Sources */,

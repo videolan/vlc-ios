@@ -308,6 +308,8 @@
 		<string>_ftp._tcp.</string>
 		<string>_smb._tcp.</string>
 	</array>
+	<key>NSAlarmKitUsageDescription</key>
+	<string>In order to wake you up with your favorite radio station we will need access to alarms</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable access to Face ID to unlock VLC</string>
 	<key>NSLocalNetworkUsageDescription</key>
