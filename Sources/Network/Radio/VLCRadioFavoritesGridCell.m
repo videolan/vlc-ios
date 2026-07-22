@@ -130,6 +130,12 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
     tile.delegate = self;
     tile.badge = VLCArtworkTileBadgePlay;
     [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
+
+    if ([self.delegate respondsToSelector:@selector(favoritesGridCell:hasAlarmForFavoriteAtIndex:)]
+        && [self.delegate favoritesGridCell:self hasAlarmForFavoriteAtIndex:indexPath.item]) {
+        tile.accessoryGlyphName = @"alarm.fill";
+    }
+
     return tile;
 }
 

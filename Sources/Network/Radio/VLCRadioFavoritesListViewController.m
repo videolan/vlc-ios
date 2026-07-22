@@ -111,6 +111,7 @@
     }
 
     cell.accessoryView = [self moreButtonForFavorite:favorite];
+    [self applyAlarmIndicatorToCell:cell forFavorite:favorite];
 
     return cell;
 }
@@ -148,6 +149,22 @@
     }
 
     return moreButton;
+}
+
+// every entry here is a favorite, so the heart slot is free to indicate the alarm instead
+- (void)applyAlarmIndicatorToCell:(VLCNetworkListCell *)cell forFavorite:(VLCFavorite *)favorite
+{
+#if !TARGET_OS_VISION
+    if (@available(iOS 26.1, *)) {
+        BOOL hasAlarm = [VLCRadioAlarmService.shared alarmForURL:favorite.url] != nil;
+        cell.favoriteButton.hidden = !hasAlarm;
+        cell.favoriteButton.userInteractionEnabled = NO;
+        cell.favoriteButton.tintColor = PresentationTheme.current.colors.orangeUI;
+        [cell.favoriteButton setImage:[UIImage systemImageNamed:@"alarm.fill"] forState:UIControlStateNormal];
+        return;
+    }
+#endif
+    cell.favoriteButton.hidden = YES;
 }
 
 - (void)removeFavorite:(VLCFavorite *)favorite

@@ -306,6 +306,19 @@
     }];
 }
 
+- (BOOL)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell hasAlarmForFavoriteAtIndex:(NSInteger)index
+{
+    if (index >= _radioFavorites.count)
+        return NO;
+
+#if !TARGET_OS_VISION
+    if (@available(iOS 26.1, *)) {
+        return [VLCRadioAlarmService.shared alarmForURL:_radioFavorites[index].url] != nil;
+    }
+#endif
+    return NO;
+}
+
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index
 {
     if (index >= _radioFavorites.count)

@@ -27,6 +27,7 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     UIVisualEffectView *_playBadge;
     UIView *_pillView;
     UILabel *_pillLabel;
+    UIButton *_accessoryButton;
     UIButton *_moreButton;
     UILabel *_nameLabel;
 }
@@ -100,6 +101,13 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     _pillLabel.textColor = [UIColor whiteColor];
     [_pillView addSubview:_pillLabel];
 
+    _accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _accessoryButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _accessoryButton.userInteractionEnabled = NO;
+    _accessoryButton.hidden = YES;
+    [self applyAccessoryButtonStyle];
+    [_artworkContainer addSubview:_accessoryButton];
+
     _moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _moreButton.translatesAutoresizingMaskIntoConstraints = NO;
     _moreButton.tintColor = [UIColor whiteColor];
@@ -156,6 +164,11 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
         [_pillLabel.topAnchor constraintEqualToAnchor:_pillView.topAnchor constant:2.0],
         [_pillLabel.bottomAnchor constraintEqualToAnchor:_pillView.bottomAnchor constant:-2.0],
 
+        [_accessoryButton.trailingAnchor constraintEqualToAnchor:_artworkContainer.trailingAnchor constant:-10.0],
+        [_accessoryButton.bottomAnchor constraintEqualToAnchor:_artworkContainer.bottomAnchor constant:-10.0],
+        [_accessoryButton.widthAnchor constraintEqualToConstant:30.0],
+        [_accessoryButton.heightAnchor constraintEqualToConstant:30.0],
+
         [_moreButton.trailingAnchor constraintEqualToAnchor:_artworkContainer.trailingAnchor constant:-8.0],
         [_moreButton.topAnchor constraintEqualToAnchor:_artworkContainer.topAnchor constant:8.0],
         [_moreButton.widthAnchor constraintEqualToConstant:34.0],
@@ -166,6 +179,23 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
         [_nameLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-2.0],
         [_nameLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor]
     ]];
+}
+
+- (void)applyAccessoryButtonStyle
+{
+#if !TARGET_OS_VISION
+    if (@available(iOS 26.0, *)) {
+        UIButtonConfiguration *glass = [UIButtonConfiguration glassButtonConfiguration];
+        glass.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+        glass.baseForegroundColor = PresentationTheme.current.colors.orangeUI;
+        _accessoryButton.configuration = glass;
+        return;
+    }
+#endif
+    _accessoryButton.tintColor = PresentationTheme.current.colors.orangeUI;
+    _accessoryButton.backgroundColor = PresentationTheme.current.colors.transparentDarkBackgroundColor;
+    _accessoryButton.layer.cornerRadius = 15.0;
+    _accessoryButton.clipsToBounds = YES;
 }
 
 - (void)layoutSubviews
@@ -207,6 +237,32 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     _pillText = [pillText copy];
     _pillLabel.text = _pillText;
     _pillView.hidden = _pillText.length == 0;
+}
+
+- (void)setAccessoryGlyphName:(NSString *)accessoryGlyphName
+{
+    _accessoryGlyphName = [accessoryGlyphName copy];
+
+    UIImage *image = nil;
+    if (@available(iOS 13.0, *)) {
+        if (_accessoryGlyphName.length > 0) {
+            UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:14.0];
+            image = [UIImage systemImageNamed:_accessoryGlyphName withConfiguration:symbolConfiguration];
+        }
+    }
+
+#if TARGET_OS_VISION
+    [_accessoryButton setImage:image forState:UIControlStateNormal];
+#else
+    if (@available(iOS 26.0, *)) {
+        UIButtonConfiguration *glass = _accessoryButton.configuration;
+        glass.image = image;
+        _accessoryButton.configuration = glass;
+    } else {
+        [_accessoryButton setImage:image forState:UIControlStateNormal];
+    }
+#endif
+    _accessoryButton.hidden = image == nil;
 }
 
 - (void)setDelegate:(id<VLCArtworkTileDelegate>)delegate
@@ -302,6 +358,7 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     _glyphView.image = nil;
     _glyphView.hidden = YES;
     self.pillText = nil;
+    self.accessoryGlyphName = nil;
 }
 
 @end
