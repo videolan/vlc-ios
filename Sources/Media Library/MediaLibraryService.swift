@@ -639,14 +639,14 @@ private extension MediaLibraryService {
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
 
-    @objc func getRecentlyPlayedMediaList() -> [VLCMLMedia] {
+    @objc func getLastPlayedMediaList() -> [VLCMLMedia] {
         guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
               let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         else {
             return []
         }
 
-        let m3uFileName = NSLocalizedString("RECENTLY_PLAYED_MEDIALIST", comment: "").appending(".m3u")
+        let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
         let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
         guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return [] }
 

@@ -30,10 +30,11 @@
     [self playMediaList:list firstIndex:index subtitlesFilePath:nil];
 }
 
-- (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection openInMiniPlayer:(BOOL)openInMiniPlayer
+- (void)configurePlaybackWithMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection openInMiniPlayer:(BOOL)openInMiniPlayer
 {
     _openInMiniPlayer = openInMiniPlayer;
-    [self playMediaAtIndex:index fromCollection:collection];
+    VLCMediaList *mediaList = [self configureMediaListWithMLMedia:collection indexToPlay:(int) index];
+    [self configurePlaybackWithMediaAtIndex:index fromMediaList:mediaList];
 }
 
 - (void)playMedia:(VLCMLMedia *)media

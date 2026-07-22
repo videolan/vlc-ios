@@ -774,15 +774,11 @@ private extension AudioMiniPlayer {
         artistLabel.isHidden = artistLabel.text?.isEmpty ?? true
         if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
             playbackService.playAsAudio {
-            // Only update the artwork image when the media is being played
-            if playbackService.isPlaying || playbackService.mediaPlayerState == .playing {
-                let placeholder = PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
-                                                                   : UIImage(named: "song-placeholder-white")
-                artworkImageView.image = metadata.artworkImage ?? placeholder
-                artworkBlurImageView?.image = metadata.artworkImage
-                artworkBlurView?.isHidden = false
-            }
-
+            let placeholder = PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
+            : UIImage(named: "song-placeholder-white")
+            artworkImageView.image = metadata.artworkImage ?? placeholder
+            artworkBlurImageView?.image = metadata.artworkImage
+            artworkBlurView?.isHidden = false
             playbackService.videoOutputView = nil
         } else {
             artworkImageView.image = nil

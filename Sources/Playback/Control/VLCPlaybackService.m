@@ -235,6 +235,15 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 }
 
+-(void)configurePlaybackWithMediaAtIndex:(NSInteger)index fromMediaList:(VLCMediaList *)mediaList
+{
+    self.mediaList = mediaList;
+    _itemInMediaListToBePlayedFirst = (int)index;
+    _currentIndex = (int)index;
+    [self _setupPlayer];
+    [_listPlayer.mediaPlayer setMedia:[mediaList mediaAtIndex:index]];
+}
+
 - (VLCTime *)playedTime
 {
     return [_mediaPlayer time];
@@ -254,6 +263,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 
 - (void)startPlayback
+{
+    [self _setupPlayer];
+    [self _playNewMedia];
+}
+
+- (void)_setupPlayer
 {
     APLog(@"Starting playback");
     if (_playerIsSetup) {
@@ -398,20 +413,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [_listPlayer setRepeatMode:repeatMode];
     }
 
-    [_playbackSessionManagementLock unlock];
-
-    [self _playNewMedia];
-}
-
-- (void)_playNewMedia
-{
-    BOOL ret = [_playbackSessionManagementLock tryLock];
-    if (!ret) {
-        APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
-        return;
-    }
-
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
 
     VLCAudioEqualizer *equalizer;
@@ -465,10 +466,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [media addOptions:self.mediaOptionsDictionary];
     }
 
-    [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
-
-    _currentIndex = _itemInMediaListToBePlayedFirst;
-
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
@@ -487,6 +484,20 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 
     _playerIsSetup = YES;
+
+    [_playbackSessionManagementLock unlock];
+}
+
+- (void)_playNewMedia
+{
+    BOOL ret = [_playbackSessionManagementLock tryLock];
+    if (!ret) {
+        APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
+        return;
+    }
+
+    [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
+    _currentIndex = _itemInMediaListToBePlayedFirst;
 
     APLog(@"player is setup");
     [_playbackSessionManagementLock unlock];
@@ -1967,7 +1978,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 #endif
 
+#if !TARGET_OS_WATCH
     [self saveCurrentMediaList];
+#endif
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
@@ -2039,6 +2052,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 }
 
+#if !TARGET_OS_WATCH
 - (void) saveCurrentMediaList {
     NSString *appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
     if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportDir isDirectory:NULL]) {
@@ -2048,7 +2062,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
     }
 
-    NSString *fileName = [NSLocalizedString(@"RECENTLY_PLAYED_MEDIALIST", nil) stringByAppendingPathExtension:@"m3u"];
+    NSString *fileName = [NSLocalizedString(@"LAST_PLAYED_MEDIALIST", nil) stringByAppendingPathExtension:@"m3u"];
     NSURL *appSupportURL = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
     NSURL *fileURL = [appSupportURL URLByAppendingPathComponent:fileName];
     [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
@@ -2059,6 +2073,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         return;
     }
 }
+#endif
 
 #pragma mark - Renderer
 

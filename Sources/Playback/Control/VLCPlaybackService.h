@@ -197,6 +197,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 - (void)savePlaybackState;
 
+- (void)configurePlaybackWithMediaAtIndex:(NSInteger)index fromMediaList:(VLCMediaList *)mediaList;
 #if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)restoreAudioAndSubtitleTrack;
 - (BOOL)mediaListContains:(NSURL *)url;

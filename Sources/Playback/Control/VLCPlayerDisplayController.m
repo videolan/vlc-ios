@@ -323,7 +323,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     if ([notification.userInfo[kVLCPlayerOpenInMiniPlayer] isEqual: @YES]) {
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeMiniplayer];
-        [self.playbackController pause];
     }
 
     switch (self.displayMode) {

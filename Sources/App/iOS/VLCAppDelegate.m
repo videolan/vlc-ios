@@ -165,7 +165,7 @@
     }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [self restoreRecentlyPlayedMediaList];
+        [self restoreLastPlayedMediaList];
     });
 
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
@@ -350,23 +350,24 @@
     [[NSUserDefaults standardUserDefaults] setInteger:identifier forKey:kVLCLastPlayedMediaIdentifier];
 }
 
-- (void)restoreRecentlyPlayedMediaList {
+- (void)restoreLastPlayedMediaList {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:kVLCRestoreLastPlayedMedia]) {
         return;
     }
 
     MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
-    NSArray<VLCMLMedia *> *mediaList = [mediaLibraryService getRecentlyPlayedMediaList];
+    NSArray<VLCMLMedia *> *mediaList = [mediaLibraryService getLastPlayedMediaList];
+    NSUInteger mediaCount = mediaList.count;
 
-    if (mediaList.count == 0) {
+    if (mediaCount == 0) {
         return;
     }
 
     VLCMLIdentifier lastPlayedMediaId = [defaults integerForKey:kVLCLastPlayedMediaIdentifier];
     NSInteger lastPlayedMediaIndex = NSNotFound;
 
-    for (int i = 0; i < mediaList.count; i++) {
+    for (NSUInteger i = 0; i < mediaCount; i++) {
         if ([mediaList[i] identifier] == lastPlayedMediaId) {
             lastPlayedMediaIndex = i;
             break;
@@ -374,7 +375,7 @@
     }
 
     lastPlayedMediaIndex = (lastPlayedMediaIndex != NSNotFound) ? lastPlayedMediaIndex : 0;
-    [[VLCPlaybackService sharedInstance] playMediaAtIndex:lastPlayedMediaIndex fromCollection:mediaList openInMiniPlayer:YES];
+    [[VLCPlaybackService sharedInstance] configurePlaybackWithMediaAtIndex:lastPlayedMediaIndex fromCollection:mediaList openInMiniPlayer:YES];
     [defaults setInteger:-1 forKey:kVLCLastPlayedMediaIdentifier];
 }
 
