@@ -128,7 +128,7 @@ extension VLCMLFolder: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
         var matches = false
 
-        matches = matches || search(searchString, in: mrl.lastPathComponent)
+        matches = matches || search(searchString, in: name)
 
         return matches
     }

@@ -319,7 +319,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         isFolder = true
         newLabel.isHidden = true
         titleLabel.isHidden = false
-        titleLabel.text = folder.mrl.lastPathComponent
+        titleLabel.text = folder.name
 
         if #available(iOS 13.0, *) {
             let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)

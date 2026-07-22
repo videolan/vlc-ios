@@ -408,7 +408,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     // Indicating the currentlyPlayingMedia value when choosing actions like "play," "play next in queue," and "append to queue" is necessary because the playbackService.isPlaying value doesn't update immediately.
     // This delay causes the reloadData() call to be ineffective in hiding the last played label.
     func update(folder: VLCMLFolder) {
-        titleLabel.text = folder.mrl.lastPathComponent
+        titleLabel.text = folder.name
         scrollView.isScrollEnabled = false
         newLabel.isHidden = true
         thumbnailView.layer.cornerRadius = 3

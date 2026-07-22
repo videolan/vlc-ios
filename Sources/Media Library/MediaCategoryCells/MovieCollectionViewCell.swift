@@ -261,7 +261,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(folder: VLCMLFolder) {
-        titleLabel.text = folder.mrl.lastPathComponent
+        titleLabel.text = folder.name
 
         let description = folder.folderDescriptionString()
         descriptionLabel.isHidden = description.isEmpty

@@ -19,7 +19,7 @@ class FolderCategoryViewController: MediaViewController {
         self.folder = folder
         self.isAudio = isAudio
         super.init(mediaLibraryService: medialib)
-        title = folder.mrl.lastPathComponent
+        title = folder.name
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
