@@ -1709,6 +1709,10 @@ extension PlayerViewController {
         mediaScrubProgressBar.updateProgressValues()
     }
 
+    @objc func keyEscape() {
+        mediaNavigationBar.handleCloseTap()
+    }
+
     override var keyCommands: [UIKeyCommand]? {
         let spaceCommand = UIKeyCommand(input: " ", modifierFlags: [], action: #selector(handlePlayPauseGesture))
         spaceCommand.discoverabilityTitle = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
@@ -1733,8 +1737,11 @@ extension PlayerViewController {
 
         let zCommand = UIKeyCommand(input: "e", modifierFlags: [.shift], action: #selector(previousFrame))
 
+        let escapeCommand = UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(keyEscape))
+        escapeCommand.discoverabilityTitle = NSLocalizedString("BUTTON_CLOSE", comment: "")
+
         var commands: [UIKeyCommand] = [
-            spaceCommand, returnCommand, leftArrowCommand, rightArrowCommand, leftBracketCommand, rightBracketCommand, eCommand, zCommand
+            spaceCommand, returnCommand, leftArrowCommand, rightArrowCommand, leftBracketCommand, rightBracketCommand, eCommand, zCommand, escapeCommand
         ]
 
         let numberCommands = (0...9).map { number -> UIKeyCommand in

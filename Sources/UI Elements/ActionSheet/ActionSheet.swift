@@ -153,6 +153,16 @@ class ActionSheet: UIViewController {
 
     private var mainStackViewTranslation = CGPoint(x: 0, y: 0)
 
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        let escapeCommand = UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(removeActionSheet))
+        escapeCommand.discoverabilityTitle = NSLocalizedString("BUTTON_CLOSE", comment: "")
+        return [escapeCommand]
+    }
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateCollectionViewContraints()
