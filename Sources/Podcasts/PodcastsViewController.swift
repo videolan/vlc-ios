@@ -21,6 +21,20 @@ class PodcastsViewController: UIViewController {
 
     private let store = PodcastStore.shared
 
+    // MARK: Search
+
+    private var isSearching = false
+    private var filteredEpisodes: [PodcastEpisode] = []
+
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        return searchController
+    }()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
@@ -136,6 +150,11 @@ class PodcastsViewController: UIViewController {
     }
 
     private func updateContentVisibility() {
+        guard !isSearching else {
+            tableView.isHidden = false
+            emptyStateView.isHidden = true
+            return
+        }
         let isEmpty = store.shows.isEmpty
         tableView.isHidden = isEmpty
         emptyStateView.isHidden = !isEmpty
@@ -147,7 +166,41 @@ class PodcastsViewController: UIViewController {
     }
 
     @objc private func didTapSearch() {
-        // TODO: no podcast directory/search API exists yet, only add-by-feed-URL.
+        navigationItem.searchController = searchController
+        searchController.isActive = true
+    }
+
+    private func performSearch(_ searchText: String) {
+        let allEpisodes = store.continueListeningEpisodes + store.latestEpisodes
+        guard !searchText.isEmpty else {
+            filteredEpisodes = allEpisodes
+            return
+        }
+        filteredEpisodes = allEpisodes.filter { episode in
+            if episode.title.range(of: searchText, options: .caseInsensitive) != nil {
+                return true
+            }
+            return store.show(withId: episode.showId)?.name.range(of: searchText, options: .caseInsensitive) != nil
+        }
+    }
+
+    private func endSearch() {
+        isSearching = false
+        filteredEpisodes = []
+        searchController.isActive = false
+        navigationItem.searchController = nil
+        tableView.reloadData()
+        updateContentVisibility()
+    }
+
+    private func configureEpisodeCell(_ cell: PodcastEpisodeCell, for episode: PodcastEpisode) {
+        let show = store.show(withId: episode.showId)
+        cell.configure(episode: episode,
+                       leading: .artwork(name: show?.name ?? "", artworkURL: show?.artworkURL),
+                       showName: show?.name,
+                       onTapLeading: { [weak self] in
+                           self?.openShow(forEpisode: episode)
+                       })
     }
 
     @objc private func didTapAdd() {
@@ -222,10 +275,13 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return visibleSections.count
+        return isSearching ? 1 : visibleSections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return filteredEpisodes.count
+        }
         switch visibleSections[section] {
         case .continueListening, .shows:
             return 1
@@ -239,6 +295,9 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !isSearching else {
+            return nil
+        }
         guard let header = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PodcastSectionHeaderView.reuseIdentifier) as? PodcastSectionHeaderView else {
             return nil
@@ -255,6 +314,15 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if isSearching {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeCell.reuseIdentifier,
+                                                           for: indexPath) as? PodcastEpisodeCell else {
+                return UITableViewCell()
+            }
+            configureEpisodeCell(cell, for: filteredEpisodes[indexPath.row])
+            return cell
+        }
+
         switch visibleSections[indexPath.section] {
         case .continueListening:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ContinueListeningSectionCell.reuseIdentifier,
@@ -284,21 +352,16 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
 
-            let episode = store.latestEpisodes[indexPath.row]
-            let show = store.show(withId: episode.showId)
-            cell.configure(episode: episode,
-                           leading: .artwork(name: show?.name ?? "", artworkURL: show?.artworkURL),
-                           showName: show?.name,
-                           onTapLeading: { [weak self] in
-                               self?.openShow(forEpisode: episode)
-                           })
+            configureEpisodeCell(cell, for: store.latestEpisodes[indexPath.row])
             return cell
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if visibleSections[indexPath.section] == .latestEpisodes {
+        if isSearching {
+            openShow(forEpisode: filteredEpisodes[indexPath.row])
+        } else if visibleSections[indexPath.section] == .latestEpisodes {
             openShow(forEpisode: store.latestEpisodes[indexPath.row])
         }
     }
@@ -308,7 +371,29 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension PodcastsViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
+        if isSearching {
+            performSearch(searchController.searchBar.text ?? "")
+        }
         tableView.reloadData()
         updateContentVisibility()
+    }
+}
+
+// MARK: - UISearchBarDelegate / UISearchControllerDelegate
+
+extension PodcastsViewController: UISearchBarDelegate, UISearchControllerDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        performSearch(searchText)
+        isSearching = !searchText.isEmpty
+        tableView.reloadData()
+        updateContentVisibility()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        endSearch()
+    }
+
+    func didDismissSearchController(_ searchController: UISearchController) {
+        endSearch()
     }
 }
