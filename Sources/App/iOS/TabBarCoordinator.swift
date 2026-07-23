@@ -63,7 +63,7 @@ class TabBarCoordinator: NSObject {
     }()
 
     private lazy var podcastsNavigationController: UINavigationController = {
-        let rootViewController = PodcastsViewController()
+        let rootViewController = PodcastsViewController(mediaLibraryService: mediaLibraryService)
         return UINavigationController(rootViewController: rootViewController)
     }()
 

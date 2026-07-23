@@ -11,61 +11,48 @@
  *****************************************************************************/
 
 import UIKit
+import VLCMediaLibraryKit
 
 final class PodcastStore {
     static let shared = PodcastStore()
 
-    private(set) var shows: [PodcastShow] = [
-        PodcastShow(id: "s1", name: "Lorem Ipsum", publisher: "Dolor Sit", category: "Amet",
-                    episodeCount: 142,
-                    showDescription: "Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-        PodcastShow(id: "s2", name: "Consectetur Adipiscing", publisher: "Elit Sed", category: "Eiusmod",
-                    episodeCount: 88,
-                    showDescription: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip."),
-        PodcastShow(id: "s3", name: "Tempor Incididunt", publisher: "Labore Dolore", category: "Magna",
-                    episodeCount: 210,
-                    showDescription: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat."),
-        PodcastShow(id: "s4", name: "Aliqua Enim", publisher: "Minim Veniam", category: "Quis",
-                    episodeCount: 64,
-                    showDescription: "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt."),
-        PodcastShow(id: "s5", name: "Nostrud Exercitation", publisher: "Ullamco Laboris", category: "Nisi",
-                    episodeCount: 305,
-                    showDescription: "Mollit anim id est laborum sed ut perspiciatis unde omnis iste natus error.")
-    ]
+    private var subscriptionModel: PodcastSubscriptionModel?
 
-    private(set) var episodes: [PodcastEpisode] = [
-        PodcastEpisode(id: "e1", showId: "s1", title: "Sed Do Eiusmod Tempor", date: "Jul 18",
-                        duration: "54 min", progress: 0.42, downloaded: true, continueListening: true),
-        PodcastEpisode(id: "e2", showId: "s3", title: "Ut Labore Et Dolore", date: "Jul 17",
-                        duration: "71 min", progress: 0.18, downloaded: false, continueListening: true),
-        PodcastEpisode(id: "e3", showId: "s5", title: "Magna Aliqua Enim Ad", date: "Jul 19",
-                        duration: "38 min", progress: 0.65, downloaded: true, continueListening: true),
-        PodcastEpisode(id: "e4", showId: "s1", title: "Minim Veniam Quis Nostrud", date: "Jul 15",
-                        duration: "49 min", progress: nil, downloaded: false, continueListening: false),
-        PodcastEpisode(id: "e5", showId: "s2", title: "Exercitation Ullamco Laboris Nisi", date: "Jul 14",
-                        duration: "62 min", progress: nil, downloaded: true, continueListening: false),
-        PodcastEpisode(id: "e6", showId: "s4", title: "Aliquip Ex Ea Commodo", date: "Jul 12",
-                        duration: "44 min", progress: nil, downloaded: false, continueListening: false),
-        PodcastEpisode(id: "e7", showId: "s3", title: "Consequat Duis Aute Irure", date: "Jul 11",
-                        duration: "58 min", progress: nil, downloaded: false, continueListening: false),
-        PodcastEpisode(id: "e8", showId: "s5", title: "Dolor In Reprehenderit", date: "Jul 10",
-                        duration: "33 min", progress: nil, downloaded: true, continueListening: false),
-        PodcastEpisode(id: "e9", showId: "s2", title: "Voluptate Velit Esse Cillum", date: "Jul 9",
-                        duration: "70 min", progress: nil, downloaded: false, continueListening: false)
-    ]
-
-    private var unsubscribedShowIds = Set<String>()
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMd")
+        return formatter
+    }()
 
     private init() {}
 
+    func configure(mediaLibraryService: MediaLibraryService) {
+        guard subscriptionModel == nil else {
+            return
+        }
+        subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
+    }
+
+    func addObserver(_ observer: MediaLibraryBaseModelObserver) {
+        subscriptionModel?.observable.addObserver(observer)
+    }
+
+    func removeObserver(_ observer: MediaLibraryBaseModelObserver) {
+        subscriptionModel?.observable.removeObserver(observer)
+    }
+
     // MARK: - Queries
 
+    var shows: [PodcastShow] {
+        return (subscriptionModel?.subscriptions ?? []).map(PodcastStore.podcastShow)
+    }
+
     var continueListeningEpisodes: [PodcastEpisode] {
-        return episodes.filter { $0.continueListening }
+        return allEpisodes().filter { $0.continueListening }
     }
 
     var latestEpisodes: [PodcastEpisode] {
-        return episodes.filter { !$0.continueListening }
+        return allEpisodes().filter { !$0.continueListening }
     }
 
     func show(withId showId: String) -> PodcastShow? {
@@ -73,27 +60,73 @@ final class PodcastStore {
     }
 
     func episodes(forShowId showId: String) -> [PodcastEpisode] {
-        return episodes.filter { $0.showId == showId }
+        guard let subscription = subscription(withId: showId) else {
+            return []
+        }
+        return episodes(forSubscription: subscription)
     }
 
     func isSubscribed(showId: String) -> Bool {
-        return !unsubscribedShowIds.contains(showId)
+        return subscription(withId: showId) != nil
     }
 
     // MARK: - Mutations
 
-    func toggleDownload(episodeId: String) {
-        guard let index = episodes.firstIndex(where: { $0.id == episodeId }) else {
+    func addSubscription(mrl: URL, completion: @escaping (Bool) -> Void) {
+        guard let subscriptionModel = subscriptionModel else {
+            completion(false)
             return
         }
-        episodes[index].downloaded.toggle()
+        subscriptionModel.addSubscription(mrl: mrl, completion: completion)
     }
 
     func toggleSubscribe(showId: String) {
-        if unsubscribedShowIds.contains(showId) {
-            unsubscribedShowIds.remove(showId)
-        } else {
-            unsubscribedShowIds.insert(showId)
+        guard let subscriptionModel = subscriptionModel else {
+            return
         }
+        if let subscription = subscription(withId: showId) {
+            subscriptionModel.removeSubscription(subscription)
+        }
+    }
+
+    // MARK: - Private helpers
+
+    private func subscription(withId showId: String) -> VLCMLSubscription? {
+        return subscriptionModel?.subscriptions.first { String($0.identifier()) == showId }
+    }
+
+    private func allEpisodes() -> [PodcastEpisode] {
+        guard let subscriptionModel = subscriptionModel else {
+            return []
+        }
+        return subscriptionModel.subscriptions.flatMap(episodes(forSubscription:))
+    }
+
+    private func episodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
+        guard let subscriptionModel = subscriptionModel else {
+            return []
+        }
+        let showId = String(subscription.identifier())
+        return subscriptionModel.media(for: subscription).map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
+    }
+
+    private static func podcastShow(from subscription: VLCMLSubscription) -> PodcastShow {
+        return PodcastShow(id: String(subscription.identifier()),
+                            name: subscription.name,
+                            episodeCount: Int(subscription.nbMedia()),
+                            artworkURL: subscription.artworkMRL)
+    }
+
+    private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
+        let progress = media.progress > 0 ? Double(media.progress) : nil
+        let downloaded = media.files.contains { $0.cacheType() != .uncached }
+        return PodcastEpisode(id: String(media.identifier()),
+                               showId: showId,
+                               title: media.title,
+                               date: dateFormatter.string(from: media.releaseDate()),
+                               duration: VLCTime(number: NSNumber(value: media.duration())).stringValue,
+                               progress: progress,
+                               downloaded: downloaded,
+                               continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1)
     }
 }

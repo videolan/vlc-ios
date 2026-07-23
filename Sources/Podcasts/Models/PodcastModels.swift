@@ -17,10 +17,8 @@ import UIKit
 struct PodcastShow {
     let id: String
     let name: String
-    let publisher: String
-    let category: String
     let episodeCount: Int
-    let showDescription: String
+    let artworkURL: URL?
 }
 
 // MARK: - PodcastEpisode
@@ -32,7 +30,7 @@ struct PodcastEpisode {
     let date: String
     let duration: String
     let progress: Double? // 0 means not started, 1 means finished. `nil` means never played.
-    var downloaded: Bool
+    let downloaded: Bool
     let continueListening: Bool
 
     var hasProgress: Bool {

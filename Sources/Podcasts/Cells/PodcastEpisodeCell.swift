@@ -14,7 +14,7 @@ import UIKit
 
 class PodcastEpisodeCell: UITableViewCell {
     enum Leading {
-        case artwork(name: String)
+        case artwork(name: String, artworkURL: URL?)
         case playButton
     }
 
@@ -58,10 +58,11 @@ class PodcastEpisodeCell: UITableViewCell {
         return bar
     }()
 
+    // Status-only: reflects whether the episode is already cached, since the media library
+    // caches subscription episodes automatically and exposes no manual per-episode trigger.
     private let downloadButton = PodcastDownloadButton()
 
     private var artworkTapTarget: (() -> Void)?
-    private var downloadTapTarget: (() -> Void)?
 
     private lazy var leadingContainer: UIView = {
         let view = UIView()
@@ -101,7 +102,7 @@ class PodcastEpisodeCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapLeading))
         leadingContainer.addGestureRecognizer(tap)
 
-        downloadButton.addTarget(self, action: #selector(didTapDownload), for: .touchUpInside)
+        downloadButton.isUserInteractionEnabled = false
 
         NSLayoutConstraint.activate([
             leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -142,13 +143,12 @@ class PodcastEpisodeCell: UITableViewCell {
     func configure(episode: PodcastEpisode,
                     leading: Leading,
                     showName: String?,
-                    onToggleDownload: @escaping () -> Void,
                     onTapLeading: (() -> Void)? = nil) {
         switch leading {
-        case .artwork(let name):
+        case .artwork(let name, let artworkURL):
             artworkView.isHidden = false
             playButton.isHidden = true
-            artworkView.configure(name: name, cornerRadius: 8, fontSize: 16)
+            artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8, fontSize: 16)
         case .playButton:
             artworkView.isHidden = true
             playButton.isHidden = false
@@ -168,7 +168,6 @@ class PodcastEpisodeCell: UITableViewCell {
         downloadButton.configure(downloaded: episode.downloaded)
 
         artworkTapTarget = onTapLeading
-        downloadTapTarget = onToggleDownload
 
         leadingContainer.isUserInteractionEnabled = onTapLeading != nil
         accessibilityLabel = "\(episode.title), \(episode.date), \(episode.duration)"
@@ -176,10 +175,6 @@ class PodcastEpisodeCell: UITableViewCell {
 
     @objc private func didTapLeading() {
         artworkTapTarget?()
-    }
-
-    @objc private func didTapDownload() {
-        downloadTapTarget?()
     }
 
     @objc private func applyTheme() {
@@ -205,7 +200,6 @@ class PodcastEpisodeCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         artworkTapTarget = nil
-        downloadTapTarget = nil
         progressBar.isHidden = true
     }
 }

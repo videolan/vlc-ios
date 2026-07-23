@@ -408,6 +408,8 @@
 "PODCAST_SEARCH_PODCASTS" = "Search Podcasts";
 "PODCAST_ADD_VIA_RSS" = "Add via RSS URL";
 "PODCAST_ADD_BUTTON" = "Add Podcast";
+"PODCAST_ADD_RSS_PLACEHOLDER" = "https://example.com/feed.xml";
+"PODCAST_ADD_RSS_ERROR" = "Couldn't add this podcast. Check the URL and try again.";
 "VIDEO_GROUPS" = "Video groups";
 "HISTORY" = "History";
 "MEDIA_LIBRARY_LABEL" = "Library";

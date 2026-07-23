@@ -114,7 +114,26 @@ extension NSNotification {
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber])
-    
+
+    // Subscriptions
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didAddSubscriptions subscriptions: [VLCMLSubscription])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didModifySubscriptionsWithIds subscriptionIds: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didDeleteSubscriptionsWithIds subscriptionIds: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didReceiveNewMediaForSubscriptionsWithIds subscriptionIds: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didUpdateCacheForSubscriptionWithId subscriptionId: NSNumber)
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     cacheIdleChanged idle: Bool)
+
     // History
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      historyChangedOfType type: VLCMLHistoryType)
@@ -928,6 +947,50 @@ extension MediaLibraryService {
                       didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
         observable.notifyObservers {
             $0.medialibrary?(self, didDeleteMediaGroupsWithIds: mediaGroupsIds)
+        }
+    }
+}
+
+// MARK: - VLCMediaLibraryDelegate - Subscriptions
+
+extension MediaLibraryService {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd subscriptions: [VLCMLSubscription]) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddSubscriptions: subscriptions)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifySubscriptionsWithIds subscriptionIds: [NSNumber]) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didModifySubscriptionsWithIds: subscriptionIds)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didDeleteSubscriptionsWithIds subscriptionIds: [NSNumber]) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didDeleteSubscriptionsWithIds: subscriptionIds)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didReceiveNewMediaForSubscriptionsWithIds subscriptionIds: [NSNumber]) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didReceiveNewMediaForSubscriptionsWithIds: subscriptionIds)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didUpdateCacheForSubscriptionWithId subscriptionId: NSNumber) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didUpdateCacheForSubscriptionWithId: subscriptionId)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, cacheIdleChanged idle: Bool) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, cacheIdleChanged: idle)
         }
     }
 }

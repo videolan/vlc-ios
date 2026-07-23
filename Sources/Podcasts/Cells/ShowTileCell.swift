@@ -70,7 +70,7 @@ class ShowTileCell: UICollectionViewCell {
     }
 
     func configure(show: PodcastShow) {
-        artworkView.configure(name: show.name, cornerRadius: 14, fontSize: 22)
+        artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 14, fontSize: 22)
         nameLabel.text = show.name
         episodeCountLabel.text = String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), show.episodeCount)
         accessibilityLabel = show.name

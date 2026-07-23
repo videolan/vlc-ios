@@ -21,6 +21,15 @@ class PodcastArtworkView: UIView {
         return label
     }()
 
+    private let remoteArtworkView: VLCNetworkImageView = {
+        let imageView = VLCNetworkImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.isHidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -35,9 +44,15 @@ class PodcastArtworkView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
         addSubview(initialsLabel)
+        addSubview(remoteArtworkView)
         NSLayoutConstraint.activate([
             initialsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            initialsLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            initialsLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            remoteArtworkView.topAnchor.constraint(equalTo: topAnchor),
+            remoteArtworkView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            remoteArtworkView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            remoteArtworkView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
@@ -46,12 +61,22 @@ class PodcastArtworkView: UIView {
         initialsLabel.font = .systemFont(ofSize: fontSize, weight: .heavy)
         backgroundColor = color
         layer.cornerRadius = cornerRadius
+
+        remoteArtworkView.cancelLoading()
+        remoteArtworkView.image = nil
+        remoteArtworkView.isHidden = true
     }
 
-    func configure(name: String, cornerRadius: CGFloat, fontSize: CGFloat) {
+    func configure(name: String, artworkURL: URL? = nil, cornerRadius: CGFloat, fontSize: CGFloat) {
         configure(initials: VLCPlaceholderArtwork.initials(forName: name),
                   color: VLCPlaceholderArtwork.backgroundColor(forName: name),
                   cornerRadius: cornerRadius,
                   fontSize: fontSize)
+
+        if let artworkURL = artworkURL {
+            remoteArtworkView.layer.cornerRadius = cornerRadius
+            remoteArtworkView.isHidden = false
+            remoteArtworkView.setImageWith(artworkURL)
+        }
     }
 }

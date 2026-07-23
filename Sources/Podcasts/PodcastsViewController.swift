@@ -41,23 +41,27 @@ class PodcastsViewController: UIViewController {
     private lazy var emptyStateView: PodcastsEmptyStateView = {
         let view = PodcastsEmptyStateView()
         view.onSearchPodcasts = { [weak self] in
-            // TODO
+            // TODO: no podcast directory/search API exists yet, only add-by-feed-URL.
         }
 
         view.onAddViaRSS = { [weak self] in
-            // TODO
+            self?.presentAddSubscriptionAlert()
         }
         return view
     }()
 
-    init() {
+    init(mediaLibraryService: MediaLibraryService) {
         super.init(nibName: nil, bundle: nil)
+        PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
         setupTabBarItem()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupTabBarItem()
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        store.removeObserver(self)
     }
 
     private func setupTabBarItem() {
@@ -99,6 +103,7 @@ class PodcastsViewController: UIViewController {
                                                 selector: #selector(applyTheme),
                                                 name: .VLCThemeDidChangeNotification,
                                                 object: nil)
+        store.addObserver(self)
         updateContentVisibility()
     }
 
@@ -142,11 +147,50 @@ class PodcastsViewController: UIViewController {
     }
 
     @objc private func didTapSearch() {
-        // TODO
+        // TODO: no podcast directory/search API exists yet, only add-by-feed-URL.
     }
 
     @objc private func didTapAdd() {
-        // TODO
+        presentAddSubscriptionAlert()
+    }
+
+    private func presentAddSubscriptionAlert() {
+        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""),
+                                                 message: nil,
+                                                 preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = NSLocalizedString("PODCAST_ADD_RSS_PLACEHOLDER", comment: "")
+            textField.keyboardType = .URL
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+        let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+                                      style: .default) { [weak self, weak alertController] _ in
+            guard let self = self,
+                  let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  let url = URL(string: text), url.scheme != nil, url.host != nil else {
+                self?.presentAddSubscriptionError()
+                return
+            }
+
+            self.store.addSubscription(mrl: url) { [weak self] success in
+                if !success {
+                    self?.presentAddSubscriptionError()
+                }
+            }
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        present(alertController, animated: true)
+    }
+
+    private func presentAddSubscriptionError() {
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+                                                errorMessage: NSLocalizedString("PODCAST_ADD_RSS_ERROR", comment: ""),
+                                                viewController: self)
     }
 
     private func openShow(_ show: PodcastShow) {
@@ -243,12 +287,8 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
             let episode = store.latestEpisodes[indexPath.row]
             let show = store.show(withId: episode.showId)
             cell.configure(episode: episode,
-                           leading: .artwork(name: show?.name ?? ""),
+                           leading: .artwork(name: show?.name ?? "", artworkURL: show?.artworkURL),
                            showName: show?.name,
-                           onToggleDownload: { [weak self] in
-                               self?.store.toggleDownload(episodeId: episode.id)
-                               tableView.reloadRows(at: [indexPath], with: .none)
-                           },
                            onTapLeading: { [weak self] in
                                self?.openShow(forEpisode: episode)
                            })
@@ -261,5 +301,14 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         if visibleSections[indexPath.section] == .latestEpisodes {
             openShow(forEpisode: store.latestEpisodes[indexPath.row])
         }
+    }
+}
+
+// MARK: - MediaLibraryBaseModelObserver
+
+extension PodcastsViewController: MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView() {
+        tableView.reloadData()
+        updateContentVisibility()
     }
 }

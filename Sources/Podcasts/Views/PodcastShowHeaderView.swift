@@ -29,29 +29,12 @@ class PodcastShowHeaderView: UIView {
         return label
     }()
 
-    private let publisherLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .footnote)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
     private let subscribeButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredCustomFont(forTextStyle: .footnote).semibolded
         button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
-
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .footnote)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
 
     init(show: PodcastShow) {
@@ -69,17 +52,13 @@ class PodcastShowHeaderView: UIView {
 
         addSubview(artworkView)
         addSubview(nameLabel)
-        addSubview(publisherLabel)
         addSubview(subscribeButton)
-        addSubview(descriptionLabel)
 
         subscribeButton.addTarget(self, action: #selector(didTapSubscribe), for: .touchUpInside)
 
-        artworkView.configure(name: show.name, cornerRadius: 20, fontSize: 44)
+        artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 20, fontSize: 44)
 
         nameLabel.text = show.name
-        publisherLabel.text = "\(show.publisher) · \(show.category)"
-        descriptionLabel.text = show.showDescription
 
         NSLayoutConstraint.activate([
             artworkView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -91,19 +70,11 @@ class PodcastShowHeaderView: UIView {
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
 
-            publisherLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
-            publisherLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            publisherLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-
-            subscribeButton.topAnchor.constraint(equalTo: publisherLabel.bottomAnchor, constant: 12),
+            subscribeButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
             subscribeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             subscribeButton.heightAnchor.constraint(equalToConstant: 40),
             subscribeButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
-
-            descriptionLabel.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: 12),
-            descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            subscribeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
 
         applyTheme()
@@ -139,8 +110,6 @@ class PodcastShowHeaderView: UIView {
         let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         nameLabel.textColor = colors.cellTextColor
-        publisherLabel.textColor = colors.cellDetailTextColor
-        descriptionLabel.textColor = colors.cellDetailTextColor
         refreshSubscribeState()
     }
 

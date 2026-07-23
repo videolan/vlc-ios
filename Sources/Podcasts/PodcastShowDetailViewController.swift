@@ -69,11 +69,24 @@ class PodcastShowDetailViewController: UIViewController {
                                                 selector: #selector(applyTheme),
                                                 name: .VLCThemeDidChangeNotification,
                                                 object: nil)
+        store.addObserver(self)
+    }
+
+    deinit {
+        store.removeObserver(self)
     }
 
     @objc private func applyTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
         tableView.backgroundColor = PresentationTheme.current.colors.background
+    }
+}
+
+// MARK: - MediaLibraryBaseModelObserver
+
+extension PodcastShowDetailViewController: MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView() {
+        tableView.reloadData()
     }
 }
 
@@ -134,11 +147,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             let episode = episodes[indexPath.row]
             cell.configure(episode: episode,
                            leading: .playButton,
-                           showName: nil,
-                           onToggleDownload: { [weak self] in
-                               self?.store.toggleDownload(episodeId: episode.id)
-                               tableView.reloadRows(at: [indexPath], with: .none)
-                           })
+                           showName: nil)
             return cell
         }
     }
