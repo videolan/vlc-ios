@@ -4,6 +4,8 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
+"SETTINGS_GENERAL_INFORMATION_TITLE" = "General Information";
+"SETTINGS_ABOUT" = "About";
 "SETTINGS_DONATE" = "Make a Donation to VideoLAN";
 "SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
 

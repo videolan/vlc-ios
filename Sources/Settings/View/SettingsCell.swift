@@ -160,6 +160,7 @@ class SettingsCell: UITableViewCell {
 
             subtitleLabel.text = settingsItem.subtitle
             subtitleLabel.isHidden = settingsItem.subtitle?.isEmpty ?? true
+            accessibilityIdentifier = nil
 
             switch settingsItem.action {
             case .isLoading:
@@ -191,6 +192,15 @@ class SettingsCell: UITableViewCell {
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
+
+            case .about:
+                switchControl.isHidden = true
+                infoButton.isHidden = true
+                activityIndicator.isHidden = true
+                accessoryView = .none
+                accessoryType = .disclosureIndicator
+                selectionStyle = .default
+                accessibilityIdentifier = VLCAccessibilityIdentifier.about
 
             case .donation:
                 switchControl.isHidden = true

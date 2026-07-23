@@ -55,6 +55,7 @@ struct SettingsItem: Equatable {
         case isLoading
         case toggle(Toggle)
         case showActionSheet(title: String, preferenceKey: String, hasInfo: Bool)
+        case about
         case donation
         case documentation
         case openPrivacySettings
@@ -147,8 +148,7 @@ struct SettingsSection: Equatable {
 
     static func sections(isLabActivated: Bool, isBackingUp: Bool, isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> [SettingsSection] {
         [
-            MainOptions.section(),
-            DonationOptions.section(),
+            GeneralInformationOptions.section(),
             GenericOptions.section(),
             PrivacyOptions.section(),
             GestureControlOptions.section(isForwardBackwardEqual: isForwardBackwardEqual, isTapSwipeEqual: isTapSwipeEqual),
@@ -165,19 +165,43 @@ struct SettingsSection: Equatable {
     }
 }
 
-// MARK: - MainOptions
+// MARK: - GeneralInformationOptions
 
-enum MainOptions {
-    static var privacy: SettingsItem {
-        .init(title: "SETTINGS_PRIVACY_TITLE",
-              subtitle: "SETTINGS_PRIVACY_SUBTITLE",
-              action: .openPrivacySettings)
+enum GeneralInformationOptions {
+    static var about: SettingsItem {
+        .init(title: "SETTINGS_ABOUT",
+              subtitle: nil,
+              action: .about)
+    }
+
+    static var donate: SettingsItem {
+        .init(title: "SETTINGS_DONATE",
+              subtitle: "SETTINGS_DONATE_LONG",
+              action: .donation)
     }
 
     static var documentation: SettingsItem {
         .init(title: "SETTINGS_DOCUMENTATION",
               subtitle: nil,
               action: .documentation)
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_GENERAL_INFORMATION_TITLE", items: [
+            about,
+            documentation,
+            donate,
+        ])
+    }
+}
+
+// MARK: - GenericOptions
+
+enum GenericOptions {
+    static var privacy: SettingsItem {
+        .init(title: "SETTINGS_PRIVACY_TITLE",
+              subtitle: "SETTINGS_PRIVACY_SUBTITLE",
+              action: .openPrivacySettings)
     }
 
     static var appearance: SettingsItem {
@@ -194,42 +218,6 @@ enum MainOptions {
                 isEnabled: UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeBright)
     }
 
-    static func section() -> SettingsSection? {
-        var items: [SettingsItem] = []
-
-        #if os(iOS)
-        if #available(iOS 14.0, *) {
-            items.append(privacy)
-        }
-        #endif
-        items.append(documentation)
-
-        #if !os(visionOS)
-        // visionOS uses a standard system appearance and doesn't have light/dark mode.
-        items.append(appearance)
-        items.append(blackTheme)
-        #endif
-        return .init(title: nil, items: items)
-    }
-}
-
-// MARK: - DonationOptions
-
-enum DonationOptions {
-    static var donate: SettingsItem {
-        .init(title: "SETTINGS_DONATE",
-              subtitle: "SETTINGS_DONATE_LONG",
-              action: .donation)
-    }
-
-    static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_DONATE_TITLE", items: [donate])
-    }
-}
-
-// MARK: - GenericOptions
-
-enum GenericOptions {
     static var defaultPlaybackSpeed: SettingsItem {
         let k = kVLCSettingPlaybackSpeedDefaultValue
         return .init(title: "SETTINGS_PLAYBACK_SPEED_DEFAULT",
@@ -286,7 +274,21 @@ enum GenericOptions {
     }
 
     static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_GENERIC_TITLE", items: [
+        var items: [SettingsItem] = []
+
+        #if os(iOS)
+        if #available(iOS 14.0, *) {
+            items.append(privacy)
+        }
+        #endif
+
+        #if !os(visionOS)
+        // visionOS uses a standard system appearance and doesn't have light/dark mode.
+        items.append(appearance)
+        items.append(blackTheme)
+        #endif
+
+        items.append(contentsOf: [
             defaultPlaybackSpeed,
             continueAudioPlayback,
             playVideoInFullScreen,
@@ -297,6 +299,8 @@ enum GenericOptions {
             restoreLastPlayedMedia,
             enableScrollToCurrentlyPlayingMedia
         ])
+
+        return .init(title: "SETTINGS_GENERIC_TITLE", items: items)
     }
 }
 
