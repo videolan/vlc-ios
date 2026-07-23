@@ -242,9 +242,8 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
 
             let episode = store.latestEpisodes[indexPath.row]
             let show = store.show(withId: episode.showId)
-            let color = store.swatchColor(forHue: show?.hue ?? 0)
             cell.configure(episode: episode,
-                           leading: .artwork(initials: show?.initials ?? "", color: color),
+                           leading: .artwork(name: show?.name ?? ""),
                            showName: show?.name,
                            onToggleDownload: { [weak self] in
                                self?.store.toggleDownload(episodeId: episode.id)

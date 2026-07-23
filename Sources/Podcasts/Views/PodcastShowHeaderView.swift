@@ -75,8 +75,7 @@ class PodcastShowHeaderView: UIView {
 
         subscribeButton.addTarget(self, action: #selector(didTapSubscribe), for: .touchUpInside)
 
-        let color = store.swatchColor(forHue: show.hue)
-        artworkView.configure(initials: show.initials, color: color, cornerRadius: 20, fontSize: 44)
+        artworkView.configure(name: show.name, cornerRadius: 20, fontSize: 44)
 
         nameLabel.text = show.name
         publisherLabel.text = "\(show.publisher) · \(show.category)"

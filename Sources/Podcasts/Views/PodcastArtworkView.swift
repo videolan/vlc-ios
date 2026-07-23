@@ -47,4 +47,11 @@ class PodcastArtworkView: UIView {
         backgroundColor = color
         layer.cornerRadius = cornerRadius
     }
+
+    func configure(name: String, cornerRadius: CGFloat, fontSize: CGFloat) {
+        configure(initials: VLCPlaceholderArtwork.initials(forName: name),
+                  color: VLCPlaceholderArtwork.backgroundColor(forName: name),
+                  cornerRadius: cornerRadius,
+                  fontSize: fontSize)
+    }
 }

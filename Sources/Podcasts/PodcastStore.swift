@@ -17,19 +17,19 @@ final class PodcastStore {
 
     private(set) var shows: [PodcastShow] = [
         PodcastShow(id: "s1", name: "Lorem Ipsum", publisher: "Dolor Sit", category: "Amet",
-                    episodeCount: 142, hue: 45, initials: "LI",
+                    episodeCount: 142,
                     showDescription: "Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
         PodcastShow(id: "s2", name: "Consectetur Adipiscing", publisher: "Elit Sed", category: "Eiusmod",
-                    episodeCount: 88, hue: 280, initials: "CA",
+                    episodeCount: 88,
                     showDescription: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip."),
         PodcastShow(id: "s3", name: "Tempor Incididunt", publisher: "Labore Dolore", category: "Magna",
-                    episodeCount: 210, hue: 160, initials: "TI",
+                    episodeCount: 210,
                     showDescription: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat."),
         PodcastShow(id: "s4", name: "Aliqua Enim", publisher: "Minim Veniam", category: "Quis",
-                    episodeCount: 64, hue: 20, initials: "AE",
+                    episodeCount: 64,
                     showDescription: "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt."),
         PodcastShow(id: "s5", name: "Nostrud Exercitation", publisher: "Ullamco Laboris", category: "Nisi",
-                    episodeCount: 305, hue: 220, initials: "NE",
+                    episodeCount: 305,
                     showDescription: "Mollit anim id est laborum sed ut perspiciatis unde omnis iste natus error.")
     ]
 
@@ -95,13 +95,5 @@ final class PodcastStore {
         } else {
             unsubscribedShowIds.insert(showId)
         }
-    }
-
-    // MARK: - Styling
-
-    func swatchColor(forHue hue: CGFloat) -> UIColor {
-        let isDark = PresentationTheme.current.colors.isDark
-        let brightness: CGFloat = isDark ? 0.38 : 0.55
-        return UIColor(hue: hue / 360.0, saturation: 0.45, brightness: brightness, alpha: 1.0)
     }
 }

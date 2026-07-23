@@ -14,7 +14,7 @@ import UIKit
 
 class PodcastEpisodeCell: UITableViewCell {
     enum Leading {
-        case artwork(initials: String, color: UIColor)
+        case artwork(name: String)
         case playButton
     }
 
@@ -145,10 +145,10 @@ class PodcastEpisodeCell: UITableViewCell {
                     onToggleDownload: @escaping () -> Void,
                     onTapLeading: (() -> Void)? = nil) {
         switch leading {
-        case .artwork(let initials, let color):
+        case .artwork(let name):
             artworkView.isHidden = false
             playButton.isHidden = true
-            artworkView.configure(initials: initials, color: color, cornerRadius: 8, fontSize: 16)
+            artworkView.configure(name: name, cornerRadius: 8, fontSize: 16)
         case .playButton:
             artworkView.isHidden = true
             playButton.isHidden = false

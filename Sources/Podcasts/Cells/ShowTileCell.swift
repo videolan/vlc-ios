@@ -70,8 +70,7 @@ class ShowTileCell: UICollectionViewCell {
     }
 
     func configure(show: PodcastShow) {
-        let color = PodcastStore.shared.swatchColor(forHue: show.hue)
-        artworkView.configure(initials: show.initials, color: color, cornerRadius: 14, fontSize: 22)
+        artworkView.configure(name: show.name, cornerRadius: 14, fontSize: 22)
         nameLabel.text = show.name
         episodeCountLabel.text = String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), show.episodeCount)
         accessibilityLabel = show.name

@@ -52,6 +52,7 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCRadioListViewController.h"
 #import "VLCOnAirViewController.h"
+#import "VLCPlaceholderArtwork.h"
 #import "VLCMediaList+M3U.h"
 
 #if TARGET_OS_IOS

@@ -20,8 +20,6 @@ struct PodcastShow {
     let publisher: String
     let category: String
     let episodeCount: Int
-    let hue: CGFloat
-    let initials: String
     let showDescription: String
 }
 
