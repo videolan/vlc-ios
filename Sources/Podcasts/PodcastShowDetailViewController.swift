@@ -147,7 +147,11 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             let episode = episodes[indexPath.row]
             cell.configure(episode: episode,
                            leading: .playButton,
-                           showName: nil)
+                           showName: nil,
+                           onTapLeading: { [weak self] in
+                               guard let self = self else { return }
+                               self.store.play(episodeId: episode.id, showId: self.show.id)
+                           })
             return cell
         }
     }

@@ -89,6 +89,13 @@ final class PodcastStore {
         }
     }
 
+    func play(episodeId: String, showId: String) {
+        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+            return
+        }
+        subscriptionModel.play(episodeId: episodeId, subscription: subscription)
+    }
+
     // MARK: - Private helpers
 
     private func subscription(withId showId: String) -> VLCMLSubscription? {

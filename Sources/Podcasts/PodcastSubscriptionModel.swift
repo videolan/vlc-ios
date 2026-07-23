@@ -54,6 +54,28 @@ final class PodcastSubscriptionModel: NSObject {
         observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
     }
 
+    func play(episodeId: String, subscription: VLCMLSubscription) {
+        let mediaList = media(for: subscription)
+        guard let index = mediaList.firstIndex(where: { String($0.identifier()) == episodeId }) else {
+            return
+        }
+        let media = mediaList[index]
+
+        let playbackService = PlaybackService.sharedInstance()
+        playbackService.fullscreenSessionRequested = media.type() != .audio
+
+        if UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem) {
+            playbackService.playMedia(at: index, fromCollection: mediaList)
+        } else {
+            playbackService.play(media)
+        }
+
+        // Podcasts aren't one of the collection types setCurrentlyPlayingCollection recognizes
+        // (playlist/album/artist/media group); clear it explicitly so Now Playing doesn't offer
+        // a stale "back to <last collection>" link left over from a previous, unrelated screen.
+        medialibrary.currentlyPlayingCollection = nil
+    }
+
     private func refresh() {
         subscriptions = service?.subscriptions() ?? []
     }
