@@ -96,6 +96,20 @@ final class PodcastStore {
         subscriptionModel.play(episodeId: episodeId, subscription: subscription)
     }
 
+    func isDownloading(episodeId: String) -> Bool {
+        return PodcastEpisodeDownloader.shared.isDownloading(episodeId: episodeId)
+    }
+
+    func downloadEpisode(episodeId: String, showId: String, completion: @escaping (Bool) -> Void) {
+        guard let subscriptionModel = subscriptionModel,
+              let subscription = subscription(withId: showId),
+              let media = subscriptionModel.media(for: subscription).first(where: { String($0.identifier()) == episodeId }) else {
+            completion(false)
+            return
+        }
+        PodcastEpisodeDownloader.shared.download(media: media, completion: completion)
+    }
+
     // MARK: - Private helpers
 
     private func subscription(withId showId: String) -> VLCMLSubscription? {
@@ -126,7 +140,11 @@ final class PodcastStore {
 
     private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
         let progress = media.progress > 0 ? Double(media.progress) : nil
-        let downloaded = media.files.contains { $0.cacheType() != .uncached }
+        // A Cache-type file exists whether it was cached automatically by the media library
+        // (cacheType() == .automatic) or manually via PodcastEpisodeDownloader/addExternalMrl(_:
+        // fileType:) - which does NOT set cacheType, only VLCMLFileType. Checking the file type
+        // itself, rather than cacheType(), is what actually covers both paths.
+        let downloaded = media.files.contains { $0.type() == .cache }
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,

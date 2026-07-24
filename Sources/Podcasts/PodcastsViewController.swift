@@ -193,14 +193,28 @@ class PodcastsViewController: UIViewController {
         updateContentVisibility()
     }
 
-    private func configureEpisodeCell(_ cell: PodcastEpisodeCell, for episode: PodcastEpisode) {
+    private func configureEpisodeCell(_ cell: PodcastEpisodeCell, for episode: PodcastEpisode, at indexPath: IndexPath) {
         let show = store.show(withId: episode.showId)
         cell.configure(episode: episode,
                        leading: .artwork(name: show?.name ?? "", artworkURL: show?.artworkURL),
                        showName: show?.name,
+                       downloading: store.isDownloading(episodeId: episode.id),
                        onTapLeading: { [weak self] in
                            self?.openShow(forEpisode: episode)
+                       },
+                       onDownload: { [weak self] in
+                           self?.downloadEpisode(episode, at: indexPath)
                        })
+    }
+
+    private func downloadEpisode(_ episode: PodcastEpisode, at indexPath: IndexPath) {
+        guard !store.isDownloading(episodeId: episode.id) else {
+            return
+        }
+        store.downloadEpisode(episodeId: episode.id, showId: episode.showId) { [weak self] _ in
+            self?.tableView.reloadData()
+        }
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 
     @objc private func didTapAdd() {
@@ -319,7 +333,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
                                                            for: indexPath) as? PodcastEpisodeCell else {
                 return UITableViewCell()
             }
-            configureEpisodeCell(cell, for: filteredEpisodes[indexPath.row])
+            configureEpisodeCell(cell, for: filteredEpisodes[indexPath.row], at: indexPath)
             return cell
         }
 
@@ -352,7 +366,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
 
-            configureEpisodeCell(cell, for: store.latestEpisodes[indexPath.row])
+            configureEpisodeCell(cell, for: store.latestEpisodes[indexPath.row], at: indexPath)
             return cell
         }
     }

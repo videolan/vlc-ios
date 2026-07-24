@@ -401,6 +401,7 @@
 "PODCAST_EPISODE_COUNT" = "%d episodes";
 "PODCAST_EPISODE_DOWNLOAD" = "Download episode";
 "PODCAST_EPISODE_DOWNLOADED" = "Episode downloaded";
+"PODCAST_EPISODE_DOWNLOADING" = "Downloading episode";
 "PODCAST_SUBSCRIBE" = "Subscribe";
 "PODCAST_SUBSCRIBED" = "Subscribed";
 "PODCAST_EMPTY_TITLE" = "No Podcasts Yet";

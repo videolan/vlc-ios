@@ -80,6 +80,16 @@ class PodcastShowDetailViewController: UIViewController {
         view.backgroundColor = PresentationTheme.current.colors.background
         tableView.backgroundColor = PresentationTheme.current.colors.background
     }
+
+    private func downloadEpisode(_ episode: PodcastEpisode, at indexPath: IndexPath) {
+        guard !store.isDownloading(episodeId: episode.id) else {
+            return
+        }
+        store.downloadEpisode(episodeId: episode.id, showId: show.id) { [weak self] _ in
+            self?.tableView.reloadData()
+        }
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
 }
 
 // MARK: - MediaLibraryBaseModelObserver
@@ -148,9 +158,13 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             cell.configure(episode: episode,
                            leading: .playButton,
                            showName: nil,
+                           downloading: store.isDownloading(episodeId: episode.id),
                            onTapLeading: { [weak self] in
                                guard let self = self else { return }
                                self.store.play(episodeId: episode.id, showId: self.show.id)
+                           },
+                           onDownload: { [weak self] in
+                               self?.downloadEpisode(episode, at: indexPath)
                            })
             return cell
         }

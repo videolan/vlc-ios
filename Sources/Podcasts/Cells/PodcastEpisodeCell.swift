@@ -58,11 +58,10 @@ class PodcastEpisodeCell: UITableViewCell {
         return bar
     }()
 
-    // Status-only: reflects whether the episode is already cached, since the media library
-    // caches subscription episodes automatically and exposes no manual per-episode trigger.
     private let downloadButton = PodcastDownloadButton()
 
     private var artworkTapTarget: (() -> Void)?
+    private var downloadTapTarget: (() -> Void)?
 
     private lazy var leadingContainer: UIView = {
         let view = UIView()
@@ -102,7 +101,7 @@ class PodcastEpisodeCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapLeading))
         leadingContainer.addGestureRecognizer(tap)
 
-        downloadButton.isUserInteractionEnabled = false
+        downloadButton.addTarget(self, action: #selector(didTapDownload), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
             leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -143,7 +142,9 @@ class PodcastEpisodeCell: UITableViewCell {
     func configure(episode: PodcastEpisode,
                     leading: Leading,
                     showName: String?,
-                    onTapLeading: (() -> Void)? = nil) {
+                    downloading: Bool = false,
+                    onTapLeading: (() -> Void)? = nil,
+                    onDownload: (() -> Void)? = nil) {
         switch leading {
         case .artwork(let name, let artworkURL):
             artworkView.isHidden = false
@@ -165,9 +166,10 @@ class PodcastEpisodeCell: UITableViewCell {
         detailLabel.text = "\(episode.date) · \(episode.duration)"
         progressBar.isHidden = !episode.hasProgress
         progressBar.progress = episode.progressFraction
-        downloadButton.configure(downloaded: episode.downloaded)
+        downloadButton.configure(downloaded: episode.downloaded, downloading: downloading)
 
         artworkTapTarget = onTapLeading
+        downloadTapTarget = onDownload
 
         leadingContainer.isUserInteractionEnabled = onTapLeading != nil
         accessibilityLabel = "\(episode.title), \(episode.date), \(episode.duration)"
@@ -175,6 +177,10 @@ class PodcastEpisodeCell: UITableViewCell {
 
     @objc private func didTapLeading() {
         artworkTapTarget?()
+    }
+
+    @objc private func didTapDownload() {
+        downloadTapTarget?()
     }
 
     @objc private func applyTheme() {
@@ -200,6 +206,7 @@ class PodcastEpisodeCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         artworkTapTarget = nil
+        downloadTapTarget = nil
         progressBar.isHidden = true
     }
 }
