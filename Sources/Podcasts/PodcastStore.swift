@@ -110,6 +110,24 @@ final class PodcastStore {
         PodcastEpisodeDownloader.shared.download(media: media, completion: completion)
     }
 
+    @discardableResult
+    func deleteDownloadedEpisode(episodeId: String, showId: String) -> Bool {
+        guard let subscriptionModel = subscriptionModel,
+              let subscription = subscription(withId: showId),
+              let media = subscriptionModel.media(for: subscription).first(where: { String($0.identifier()) == episodeId }) else {
+            return false
+        }
+        let cacheFiles = media.files.filter { $0.type() == .cache }
+        guard !cacheFiles.isEmpty else {
+            return false
+        }
+        for cacheFile in cacheFiles {
+            try? FileManager.default.removeItem(at: cacheFile.mrl)
+            cacheFile.delete()
+        }
+        return true
+    }
+
     // MARK: - Private helpers
 
     private func subscription(withId showId: String) -> VLCMLSubscription? {
@@ -140,11 +158,12 @@ final class PodcastStore {
 
     private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
         let progress = media.progress > 0 ? Double(media.progress) : nil
-        // A Cache-type file exists whether it was cached automatically by the media library
-        // (cacheType() == .automatic) or manually via PodcastEpisodeDownloader/addExternalMrl(_:
-        // fileType:) - which does NOT set cacheType, only VLCMLFileType. Checking the file type
-        // itself, rather than cacheType(), is what actually covers both paths.
-        let downloaded = media.files.contains { $0.type() == .cache }
+        // Confirm the file still exists on disk: deleteDownloadedEpisode removes it directly since
+        // VLCMLFile.delete() doesn't reliably clean up externally-added cache files, which can
+        // leave a stale Cache-type File row behind after a manual delete.
+        let downloaded = media.files.contains {
+            $0.type() == .cache && FileManager.default.fileExists(atPath: $0.mrl.path)
+        }
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,

@@ -90,6 +90,20 @@ class PodcastShowDetailViewController: UIViewController {
         }
         tableView.reloadRows(at: [indexPath], with: .none)
     }
+
+    private func confirmDeleteDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
+        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
+                                                 message: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_MESSAGE", comment: ""),
+                                                 preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
+                                                style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: self.show.id)
+            self.tableView.reloadData()
+        })
+        present(alertController, animated: true)
+    }
 }
 
 // MARK: - MediaLibraryBaseModelObserver
@@ -165,6 +179,9 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
                            },
                            onDownload: { [weak self] in
                                self?.downloadEpisode(episode, at: indexPath)
+                           },
+                           onDeleteDownload: { [weak self] in
+                               self?.confirmDeleteDownload(of: episode, at: indexPath)
                            })
             return cell
         }

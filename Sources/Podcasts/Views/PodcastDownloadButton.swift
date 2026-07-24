@@ -68,7 +68,7 @@ class PodcastDownloadButton: UIButton {
             return
         }
         activityIndicator.stopAnimating()
-        isUserInteractionEnabled = !downloaded
+        isUserInteractionEnabled = true
 
         guard #available(iOS 13.0, *) else {
             setTitle(downloaded ? "✓" : "↓", for: .normal)

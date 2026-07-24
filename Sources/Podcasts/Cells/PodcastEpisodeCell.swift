@@ -62,6 +62,7 @@ class PodcastEpisodeCell: UITableViewCell {
 
     private var artworkTapTarget: (() -> Void)?
     private var downloadTapTarget: (() -> Void)?
+    private var deleteDownloadTapTarget: (() -> Void)?
 
     private lazy var leadingContainer: UIView = {
         let view = UIView()
@@ -144,7 +145,8 @@ class PodcastEpisodeCell: UITableViewCell {
                     showName: String?,
                     downloading: Bool = false,
                     onTapLeading: (() -> Void)? = nil,
-                    onDownload: (() -> Void)? = nil) {
+                    onDownload: (() -> Void)? = nil,
+                    onDeleteDownload: (() -> Void)? = nil) {
         switch leading {
         case .artwork(let name, let artworkURL):
             artworkView.isHidden = false
@@ -170,6 +172,7 @@ class PodcastEpisodeCell: UITableViewCell {
 
         artworkTapTarget = onTapLeading
         downloadTapTarget = onDownload
+        deleteDownloadTapTarget = onDeleteDownload
 
         leadingContainer.isUserInteractionEnabled = onTapLeading != nil
         accessibilityLabel = "\(episode.title), \(episode.date), \(episode.duration)"
@@ -180,7 +183,11 @@ class PodcastEpisodeCell: UITableViewCell {
     }
 
     @objc private func didTapDownload() {
-        downloadTapTarget?()
+        if downloadButton.isDownloaded {
+            deleteDownloadTapTarget?()
+        } else {
+            downloadTapTarget?()
+        }
     }
 
     @objc private func applyTheme() {
@@ -207,6 +214,7 @@ class PodcastEpisodeCell: UITableViewCell {
         super.prepareForReuse()
         artworkTapTarget = nil
         downloadTapTarget = nil
+        deleteDownloadTapTarget = nil
         progressBar.isHidden = true
     }
 }

@@ -402,6 +402,8 @@
 "PODCAST_EPISODE_DOWNLOAD" = "Download episode";
 "PODCAST_EPISODE_DOWNLOADED" = "Episode downloaded";
 "PODCAST_EPISODE_DOWNLOADING" = "Downloading episode";
+"PODCAST_DELETE_DOWNLOAD_TITLE" = "Remove Download";
+"PODCAST_DELETE_DOWNLOAD_MESSAGE" = "This will delete the downloaded copy of this episode. You can download it again later.";
 "PODCAST_SUBSCRIBE" = "Subscribe";
 "PODCAST_SUBSCRIBED" = "Subscribed";
 "PODCAST_EMPTY_TITLE" = "No Podcasts Yet";

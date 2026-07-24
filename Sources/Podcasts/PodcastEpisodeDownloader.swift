@@ -77,6 +77,15 @@ private extension PodcastEpisodeDownloader {
             }
 
             let fileManager = FileManager.default
+
+            // addExternalMrl(_:fileType:) always adds a new File row rather than replacing one;
+            // without this, re-downloading an episode (e.g. after deleting it) would accumulate
+            // one Cache-type row per attempt instead of leaving a single, current one.
+            for staleCacheFile in media.files.filter({ $0.type() == .cache }) {
+                try? fileManager.removeItem(at: staleCacheFile.mrl)
+                staleCacheFile.delete()
+            }
+
             try? fileManager.createDirectory(at: destinationURL.deletingLastPathComponent(),
                                               withIntermediateDirectories: true)
             guard fileManager.createFile(atPath: destinationURL.path, contents: nil),
