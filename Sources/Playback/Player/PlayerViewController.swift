@@ -1710,6 +1710,33 @@ extension PlayerViewController {
     }
 
     @objc func keyEscape() {
+        // Close whatever is on top first (options sheet, track selector, ...)
+        // instead of falling through and closing the player underneath it.
+        if let actionSheet = presentedViewController as? ActionSheet {
+            actionSheet.removeActionSheet()
+            return
+        }
+
+        if let presented = presentedViewController {
+            presented.dismiss(animated: true)
+            return
+        }
+
+        guard !equalizerPopupView.isShown else {
+            equalizerPopupView.close()
+            return
+        }
+
+        guard addBookmarksView == nil else {
+            mediaMoreOptionsActionSheetRemoveAddBookmarksView()
+            return
+        }
+
+        guard abRepeatView == nil else {
+            resetABRepeat()
+            return
+        }
+
         mediaNavigationBar.handleCloseTap()
     }
 
