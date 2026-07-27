@@ -2189,6 +2189,30 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #pragma mark - Widgets
 
 #if TARGET_OS_IOS
+- (UIImage *)scaledWidgetArtwork:(UIImage *)artwork
+{
+    const CGFloat maximumSize = 512.;
+    CGSize size = artwork.size;
+    if (size.width <= 0 || size.height <= 0) {
+        return artwork;
+    }
+
+    CGFloat scale = MIN(maximumSize / size.width, maximumSize / size.height);
+    if (scale >= 1.) {
+        return artwork;
+    }
+
+    CGSize targetSize = CGSizeMake(floor(size.width * scale), floor(size.height * scale));
+    UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat defaultFormat];
+    format.scale = 1.;
+    format.opaque = YES;
+
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:targetSize format:format];
+    return [renderer imageWithActions:^(UIGraphicsImageRendererContext *context) {
+        [artwork drawInRect:(CGRect){ .origin = CGPointZero, .size = targetSize }];
+    }];
+}
+
 - (void)saveMediaForWidget
 {
     VLCMedia *currentMedia = self.currentlyPlayingMedia;
@@ -2209,7 +2233,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     NSString *mediaURL = currentMedia.url.lastPathComponent ?: @"";
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSData *imageData = UIImagePNGRepresentation(thumbnailImage);
+        NSData *imageData = UIImageJPEGRepresentation([self scaledWidgetArtwork:thumbnailImage], .8);
         NSString *stringData = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
         if (!stringData) {
