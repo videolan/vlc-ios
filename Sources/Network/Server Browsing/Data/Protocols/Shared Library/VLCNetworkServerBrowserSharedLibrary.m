@@ -142,7 +142,12 @@
 {
     if (!_URL)
         return [VLCMedia mediaAsNodeWithName:self.name];
-    return [VLCMedia mediaWithURL:_URL];
+
+    VLCMedia *media = [VLCMedia mediaWithURL:_URL];
+    if (self.name.length) {
+        media.metaData.title = self.name;
+    }
+    return media;
 }
 
 @end
