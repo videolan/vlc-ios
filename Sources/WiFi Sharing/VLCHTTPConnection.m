@@ -888,7 +888,9 @@ static NSMutableDictionary *authentifiedHosts;
     _parser = [[MultipartFormDataParser alloc] initWithBoundary:boundary formEncoding:NSUTF8StringEncoding];
     _parser.delegate = self;
 
+#if WIFI_SHARING_DEBUG
     APLog(@"expecting file of size %lli kB", contentLength / 1024);
+#endif
     _contentLength = contentLength;
     _receivedContent = 0;
 
@@ -1019,7 +1021,9 @@ static NSMutableDictionary *authentifiedHosts;
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 
+#if WIFI_SHARING_DEBUG
     APLog(@"Saving file to %@", _filepath);
+#endif
     if (![fileManager createDirectoryAtPath:[_filepath stringByDeletingLastPathComponent]
                 withIntermediateDirectories:true attributes:nil error:nil]) {
         APLog(@"Could not create directory at path: %@", _filepath);
@@ -1092,7 +1096,9 @@ static NSMutableDictionary *authentifiedHosts;
 - (void)processEndOfPartWithHeader:(MultipartMessageHeader*)header
 {
     // as the file part is over, we close the file.
+#if WIFI_SHARING_DEBUG
     APLog(@"closing file");
+#endif
     [_storeFile closeFile];
     _storeFile = nil;
 }
