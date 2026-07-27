@@ -44,3 +44,34 @@ struct PodcastEpisode {
         return CGFloat(progress ?? 0)
     }
 }
+
+// MARK: - PodcastAddSubscriptionError
+
+enum PodcastAddSubscriptionError: Error {
+    case emptyInput
+    case invalidURL
+    case unsupportedScheme
+    case networkUnreachable
+    case httpError(statusCode: Int)
+    case notAFeed
+    case unknown
+
+    var localizedMessage: String {
+        switch self {
+        case .emptyInput:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR_EMPTY", comment: "")
+        case .invalidURL:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR_INVALID_URL", comment: "")
+        case .unsupportedScheme:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR_SCHEME", comment: "")
+        case .networkUnreachable:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR_NETWORK", comment: "")
+        case .httpError(let statusCode):
+            return String(format: NSLocalizedString("PODCAST_ADD_RSS_ERROR_HTTP", comment: ""), statusCode)
+        case .notAFeed:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR_NOT_A_FEED", comment: "")
+        case .unknown:
+            return NSLocalizedString("PODCAST_ADD_RSS_ERROR", comment: "")
+        }
+    }
+}

@@ -34,18 +34,49 @@ final class PodcastSubscriptionModel: NSObject {
         return subscription.media() ?? []
     }
 
-    func addSubscription(mrl: URL, completion: @escaping (Bool) -> Void) {
+    func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             let success = self.service?.addSubscription(withMRL: mrl) ?? false
-            DispatchQueue.main.async {
-                if success {
-                    self.refresh()
-                    self.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+            guard success else {
+                self.classifyFailure(for: mrl) { reason in
+                    DispatchQueue.main.async {
+                        completion(.failure(reason))
+                    }
                 }
-                completion(success)
+                return
+            }
+            DispatchQueue.main.async {
+                self.refresh()
+                self.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+                completion(.success(()))
             }
         }
+    }
+
+    private func classifyFailure(for url: URL, completion: @escaping (PodcastAddSubscriptionError) -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 15
+        let task = URLSession.shared.dataTask(with: request) { _, response, error in
+            if error != nil {
+                completion(.networkUnreachable)
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.unknown)
+                return
+            }
+            switch httpResponse.statusCode {
+            case 200..<300:
+                completion(.notAFeed)
+            case 400..<600:
+                completion(.httpError(statusCode: httpResponse.statusCode))
+            default:
+                completion(.unknown)
+            }
+        }
+        task.resume()
     }
 
     func removeSubscription(_ subscription: VLCMLSubscription) {

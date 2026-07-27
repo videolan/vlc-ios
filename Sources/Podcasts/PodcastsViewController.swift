@@ -252,16 +252,25 @@ class PodcastsViewController: UIViewController {
         let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
         let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
                                       style: .default) { [weak self, weak alertController] _ in
-            guard let self = self,
-                  let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-                  let url = URL(string: text), url.scheme != nil, url.host != nil else {
-                self?.presentAddSubscriptionError()
+            guard let self = self else { return }
+
+            let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            guard !text.isEmpty else {
+                self.presentAddSubscriptionError(.emptyInput)
+                return
+            }
+            guard let url = URL(string: text), let scheme = url.scheme, url.host != nil else {
+                self.presentAddSubscriptionError(.invalidURL)
+                return
+            }
+            guard scheme == "http" || scheme == "https" else {
+                self.presentAddSubscriptionError(.unsupportedScheme)
                 return
             }
 
-            self.store.addSubscription(mrl: url) { [weak self] success in
-                if !success {
-                    self?.presentAddSubscriptionError()
+            self.store.addSubscription(mrl: url) { [weak self] result in
+                if case .failure(let reason) = result {
+                    self?.presentAddSubscriptionError(reason)
                 }
             }
         }
@@ -271,9 +280,9 @@ class PodcastsViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-    private func presentAddSubscriptionError() {
+    private func presentAddSubscriptionError(_ reason: PodcastAddSubscriptionError) {
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
-                                                errorMessage: NSLocalizedString("PODCAST_ADD_RSS_ERROR", comment: ""),
+                                                errorMessage: reason.localizedMessage,
                                                 viewController: self)
     }
 

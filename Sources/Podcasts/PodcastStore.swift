@@ -72,9 +72,9 @@ final class PodcastStore {
 
     // MARK: - Mutations
 
-    func addSubscription(mrl: URL, completion: @escaping (Bool) -> Void) {
+    func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
         guard let subscriptionModel = subscriptionModel else {
-            completion(false)
+            completion(.failure(.unknown))
             return
         }
         subscriptionModel.addSubscription(mrl: mrl, completion: completion)

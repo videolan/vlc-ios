@@ -413,6 +413,12 @@
 "PODCAST_ADD_BUTTON" = "Add Podcast";
 "PODCAST_ADD_RSS_PLACEHOLDER" = "https://example.com/feed.xml";
 "PODCAST_ADD_RSS_ERROR" = "Couldn't add this podcast. Check the URL and try again.";
+"PODCAST_ADD_RSS_ERROR_EMPTY" = "Enter a podcast feed URL.";
+"PODCAST_ADD_RSS_ERROR_INVALID_URL" = "That doesn't look like a valid URL.";
+"PODCAST_ADD_RSS_ERROR_SCHEME" = "Only http:// and https:// feed URLs are supported.";
+"PODCAST_ADD_RSS_ERROR_NETWORK" = "Couldn't reach that address. Check your internet connection and the URL.";
+"PODCAST_ADD_RSS_ERROR_HTTP" = "That address returned an error (%d). Double-check the feed URL.";
+"PODCAST_ADD_RSS_ERROR_NOT_A_FEED" = "That URL doesn't look like a podcast feed. Make sure it points directly to the RSS/XML feed, not the podcast's webpage.";
 "VIDEO_GROUPS" = "Video groups";
 "HISTORY" = "History";
 "MEDIA_LIBRARY_LABEL" = "Library";
