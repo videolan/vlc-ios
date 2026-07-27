@@ -342,6 +342,13 @@ class FileURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
+        if InboxManager.isInInbox(url) {
+            let movedURL = InboxManager.moveToDocuments(url) ?? url
+            InboxManager.drainInbox()
+            self.play(url: movedURL, completion: nil)
+            return true
+        }
+
         let playbackService = PlaybackService.sharedInstance()
         let isSecurityScopedURL = url.startAccessingSecurityScopedResource()
         if isSecurityScopedURL {
