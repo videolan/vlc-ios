@@ -18,11 +18,16 @@ class PodcastDownloadButton: UIButton {
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let style: UIActivityIndicatorView.Style
+        #if os(visionOS)
+        // visionOS has no pre-iOS-13 codepath to support, and .gray doesn't exist there at all.
+        style = .medium
+        #else
         if #available(iOS 13.0, *) {
             style = .medium
         } else {
             style = .gray
         }
+        #endif
         let indicator = UIActivityIndicatorView(style: style)
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
