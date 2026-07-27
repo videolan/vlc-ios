@@ -376,6 +376,14 @@ private extension MediaLibraryService {
         FileManager.default.createFile(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_FILES_PLACEHOLDER", comment: ""))", contents: nil, attributes: nil)
         try? FileManager.default.removeItem(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_ADDING_PLACEHOLDER", comment: ""))")
 
+#if os(iOS)
+        if #unavailable(iOS 13.0) {
+            DispatchQueue.global(qos: .userInitiated).async {
+                InboxManager.drainSharedInbox()
+            }
+        }
+#endif
+
         privateMediaLib.reload()
         privateMediaLib.discover(onEntryPoint: "file://" + path)
     }
@@ -679,6 +687,10 @@ private extension MediaLibraryService {
         // Run this on a background queue to not block the main thread and have the app killed on launch for taking too long
         DispatchQueue.global(qos: .userInitiated).async {
             _ = try? FileManager.default.removeItem(atPath: documentPath + "/.Trash")
+
+#if os(iOS)
+            InboxManager.drainSharedInbox()
+#endif
 
             DispatchQueue.main.async {
                 // Reload in order to make sure that there is no old artifacts left

@@ -862,3 +862,6 @@
 "SUBTITLE_ASSIGN_PRIMARY" = "Assign primary subtitle";
 "SUBTITLE_ASSIGN_SECONDARY" = "Assign secondary subtitle";
 "LAST_PLAYED_MEDIALIST" = "Last played medialist";
+"SHARE_EXTENSION_IMPORTING" = "Adding to VLC…";
+"SHARE_EXTENSION_IMPORTED" = "Added to VLC";
+"SHARE_EXTENSION_FAILED" = "Could not add to VLC";

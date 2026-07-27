@@ -21,6 +21,15 @@ class InboxManager {
         return documentsURL?.appendingPathComponent("Inbox", isDirectory: true)
     }
 
+    private static var sharedInboxURL: URL? {
+        guard let groupIdentifier = Bundle.main.object(forInfoDictionaryKey: "MLKitGroupIdentifier") as? String,
+              let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupIdentifier) else {
+            return nil
+        }
+
+        return containerURL.appendingPathComponent("Inbox", isDirectory: true)
+    }
+
     static func isInInbox(_ url: URL) -> Bool {
         guard url.isFileURL, let inboxPath = inboxURL?.resolvingSymlinksInPath().path else {
             return false
@@ -48,24 +57,37 @@ class InboxManager {
     }
 
     static func drainInbox() {
-        guard let inboxURL = inboxURL,
-              let contents = try? FileManager.default.contentsOfDirectory(at: inboxURL,
-                                                                         includingPropertiesForKeys: nil) else {
+        guard let inboxURL = inboxURL else {
             return
         }
 
-        var success = true
-        for item in contents {
-            if moveToDocuments(item) == nil {
-                success = false
-            }
-        }
+        drain(inboxURL)
+    }
 
-        guard success else {
+    static func drainSharedInbox() {
+        guard let sharedInboxURL = sharedInboxURL else {
             return
         }
 
-        try? FileManager.default.removeItem(at: inboxURL)
+        drain(sharedInboxURL)
+    }
+
+    static func drain(_ folderURL: URL) {
+        let fileManager = FileManager.default
+        guard let contents = try? fileManager.contentsOfDirectory(at: folderURL,
+                                                                  includingPropertiesForKeys: nil) else {
+            return
+        }
+
+        /* the share extension writes to a hidden name while a file is still incomplete */
+        for item in contents where !item.lastPathComponent.hasPrefix(".") {
+            moveToDocuments(item)
+        }
+
+        if let remainder = try? fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil),
+           remainder.isEmpty {
+            try? fileManager.removeItem(at: folderURL)
+        }
     }
 
     private static func availableURL(forFileNamed fileName: String, in folderURL: URL) -> URL {
