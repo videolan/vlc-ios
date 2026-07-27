@@ -61,6 +61,7 @@
                        detailText:(nullable NSString *)detailText
                             image:(UIImage *)image
                               URL:(NSURL *)url
+                       artworkURL:(nullable NSURL *)artworkURL
 {
     CPListItem *listItem = [[CPListItem alloc] initWithText:title
                                                  detailText:detailText
@@ -69,6 +70,10 @@
     listItem.handler = ^(id <CPSelectableListItem> item,
                          dispatch_block_t completionBlock) {
         VLCMedia *media = [VLCMedia mediaWithURL:item.userInfo];
+        media.metaData.title = title;
+        if (artworkURL) {
+            media.metaData.artworkURL = artworkURL;
+        }
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
 
@@ -97,11 +102,12 @@
             continue;
         }
 
+        NSURL *artworkURL = favorite.artworkURL;
         CPListItem *listItem = [self listItemWithTitle:favorite.userVisibleName
                                             detailText:favorite.url.host
                                                  image:radioIcon
-                                                   URL:favorite.url];
-        NSURL *artworkURL = favorite.artworkURL;
+                                                   URL:favorite.url
+                                            artworkURL:artworkURL];
         if (artworkURL) {
             if (@available(iOS 14.0, *)) {
                 [self setArtworkFromURL:artworkURL onListItem:listItem];
@@ -178,7 +184,8 @@
         [itemList addObject:[self listItemWithTitle:possibleTitle ?: [content lastPathComponent]
                                          detailText:content
                                               image:streamIcon
-                                                URL:[NSURL URLWithString:recentURLString]]];
+                                                URL:[NSURL URLWithString:recentURLString]
+                                            artworkURL:nil]];
     }
 
     return itemList;
