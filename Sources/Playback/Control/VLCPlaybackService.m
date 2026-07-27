@@ -96,6 +96,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
     NSInteger _currentIndex;
     VLCMLMedia *_currentlyPlayingLibraryMedia;
+    NSURL *_metadataMediaURL;
     NSMutableArray *_shuffledOrder;
 
     BOOL _openInMiniPlayer;
@@ -507,6 +508,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
 
     _currentlyPlayingLibraryMedia = nil;
+    _metadataMediaURL = nil;
 
     if (_playerIsSetup) {
         _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
@@ -1076,7 +1078,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                                 forPlaybackService:self];
         }
 
-        [self setNeedsMetadataUpdate];
+        [self setNeedsPlaybackStateUpdate];
     });
 }
 
@@ -1753,7 +1755,24 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
     VLCMLMedia *media = playingMedia ? [VLCMLMedia mediaForPlayingMedia:playingMedia] : nil;
     _currentlyPlayingLibraryMedia = media;
+    _metadataMediaURL = playingMedia.url;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
+
+    [self recoverDisplayedMetadata];
+}
+
+- (void)setNeedsPlaybackStateUpdate
+{
+    VLCMedia *playingMedia = _mediaPlayer.media;
+    NSURL *playingMediaURL = playingMedia.url;
+
+    if (!playingMedia || _metadata.hasPlaceholderArtwork
+        || (_metadataMediaURL != playingMediaURL && ![_metadataMediaURL isEqual:playingMediaURL])) {
+        [self setNeedsMetadataUpdateForMedia:playingMedia];
+        return;
+    }
+
+    [_metadata updatePlaybackStateFromMediaPlayer:_mediaPlayer];
 
     [self recoverDisplayedMetadata];
 }
