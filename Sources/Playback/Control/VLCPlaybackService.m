@@ -2204,47 +2204,55 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         return;
     }
 
-    NSData *imageData = UIImagePNGRepresentation(thumbnailImage);
-    NSString *stringData = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *albumName = mlMedia.title;
+    NSString *artistName = artist.name ?: @"";
+    NSString *mediaURL = currentMedia.url.lastPathComponent ?: @"";
 
-    if (!stringData) {
-        return;
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSData *imageData = UIImagePNGRepresentation(thumbnailImage);
+        NSString *stringData = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
-    UIColor *averageColor = [thumbnailImage averageColor];
-    CGFloat red, green, blue, alpha;
+        if (!stringData) {
+            return;
+        }
 
-    if (![averageColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        red = green = blue = alpha = 0;
-    }
+        UIColor *averageColor = [thumbnailImage averageColor];
+        CGFloat red, green, blue, alpha;
 
-    NSDictionary *color = @{
-        @"red": @(red),
-        @"green": @(green),
-        @"blue": @(blue),
-        @"alpha": @(alpha)
-    };
+        if (![averageColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+            red = green = blue = alpha = 0;
+        }
 
-    NSDictionary *object = @{
-        @"albumName": mlMedia.title,
-        @"artistName": mlMedia.artist.name ?: @"",
-        @"imageData": stringData,
-        @"mediaURL": currentMedia.url.lastPathComponent ?: @"",
-        @"color": color
-    };
+        NSDictionary *color = @{
+            @"red": @(red),
+            @"green": @(green),
+            @"blue": @(blue),
+            @"alpha": @(alpha)
+        };
 
-    NSError *error = nil;
-    NSData *mediaData = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
+        NSDictionary *object = @{
+            @"albumName": albumName,
+            @"artistName": artistName,
+            @"imageData": stringData,
+            @"mediaURL": mediaURL,
+            @"color": color
+        };
 
-    NSString *groupIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MLKitGroupIdentifier"];
-    if (mediaData && groupIdentifier) {
-        NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:groupIdentifier];
-        [sharedDefaults setObject:mediaData forKey:@"media"];
-    }
+        NSError *error = nil;
+        NSData *mediaData = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
 
-    if ([self.delegate respondsToSelector:@selector(updateWidgetsIfNeeded)]) {
-        [self.delegate updateWidgetsIfNeeded];
-    }
+        NSString *groupIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MLKitGroupIdentifier"];
+        if (mediaData && groupIdentifier) {
+            NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:groupIdentifier];
+            [sharedDefaults setObject:mediaData forKey:@"media"];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(updateWidgetsIfNeeded)]) {
+                [self.delegate updateWidgetsIfNeeded];
+            }
+        });
+    });
 }
 #endif
 @end
