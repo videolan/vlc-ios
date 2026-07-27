@@ -19,6 +19,9 @@
 #import "VLC-Swift.h"
 
 @implementation VLCMetaData
+{
+    NSURL *_artworkURL;
+}
 
 - (instancetype)init
 {
@@ -37,7 +40,15 @@
 }
 - (void)updateMetadataFromMedia:(nullable VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
-    if (media && !media.isExternalMedia) {
+    BOOL isLibraryMedia = media && !media.isExternalMedia;
+    NSURL *artworkURL = isLibraryMedia ? media.thumbnail : mediaPlayer.media.metaData.artworkURL;
+    if (_artworkURL != artworkURL && ![_artworkURL isEqual:artworkURL]) {
+        _artworkURL = artworkURL;
+        self.artworkImage = nil;
+        _hasPlaceholderArtwork = NO;
+    }
+
+    if (isLibraryMedia) {
         self.title = media.title;
         self.artist = media.artist.name;
         self.genre = media.genre.name;
@@ -45,22 +56,17 @@
         self.albumTrackCount = @(media.album.numberOfTracks);
         self.discNumber = @(media.discNumber);
         self.albumName = media.album.title;
-        self.artworkImage = [media thumbnailImage];
+        [self updateArtworkImage:[media artworkImage]];
         self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
         self.identifier = @(media.identifier);
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
-        if (!self.artworkImage) {
-#if TARGET_OS_WATCH
-            self.artworkImage = [UIImage imageNamed:@"song-placeholder-dark"];
-#else
-            BOOL isDarktheme = PresentationTheme.current.isDark;
-            self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
-                                            : [UIImage imageNamed:@"song-placeholder-white"];
-#endif
-        }
-
         [self checkIsAudioOnly:mediaPlayer];
+    }
+
+    if (!self.artworkImage || _hasPlaceholderArtwork) {
+        self.artworkImage = isLibraryMedia ? [media placeholderImage] : [self songPlaceholderImage];
+        _hasPlaceholderArtwork = YES;
     }
 
     self.descriptiveTitle = nil;
@@ -78,6 +84,37 @@
 
 #if !TARGET_OS_WATCH && !TARGET_OS_TV
     //Down here because we still need to populate the miniplayer
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
+#endif
+
+    [self populateInfoCenterFromMetadata];
+}
+
+- (void)updateArtworkImage:(nullable UIImage *)artworkImage
+{
+    if (!artworkImage) {
+        return;
+    }
+
+    self.artworkImage = artworkImage;
+    _hasPlaceholderArtwork = NO;
+}
+
+- (UIImage *)songPlaceholderImage
+{
+#if TARGET_OS_WATCH
+    return [UIImage imageNamed:@"song-placeholder-dark"];
+#else
+    return PresentationTheme.current.isDark ? [UIImage imageNamed:@"song-placeholder-dark"]
+                                            : [UIImage imageNamed:@"song-placeholder-white"];
+#endif
+}
+
+- (void)updatePlaybackStateFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer
+{
+    [self updatePlaybackRate:mediaPlayer];
+
+#if !TARGET_OS_WATCH && !TARGET_OS_TV
     if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
 #endif
 
@@ -145,16 +182,16 @@
         self.trackNumber = @(metadata.trackNumber);
         self.albumTrackCount = @(metadata.trackTotal);
         self.discNumber = @(metadata.discNumber);
-        self.artworkImage = metadata.artwork;
+        [self updateArtworkImage:metadata.artwork];
 
         NSURL *artworkURL = metadata.artworkURL;
-        if (!self.artworkImage && artworkURL) {
+        if ((!self.artworkImage || _hasPlaceholderArtwork) && artworkURL) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
                 if (imageData) {
                     UIImage *artworkImage = [self downsampledArtworkImageFromData:imageData];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        self.artworkImage = artworkImage;
+                        [self updateArtworkImage:artworkImage];
                         [playbackService recoverDisplayedMetadata];
 #if TARGET_OS_IOS
                         if ([[VLCKeychainCoordinator passcodeService] hasSecret])

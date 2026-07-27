@@ -31,8 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, nullable) NSNumber *position;
 @property(readwrite, nullable) NSNumber *identifier;
 @property(readwrite, assign) BOOL isLiveStream;
+@property(readonly, assign) BOOL hasPlaceholderArtwork;
 
 - (void)updateMetadataFromMedia:(nullable VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
+
+- (void)updatePlaybackStateFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 
 - (void)updateExposedTimingFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 
