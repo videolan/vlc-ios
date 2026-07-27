@@ -325,8 +325,18 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     func setupBackgroundColor() {
         if #available(iOS 26.0, *) {
             backgroundImageView.image = thumbnailImageView.image
-        } else {
-            backgroundView.backgroundColor = thumbnailImageView.image?.averageColor()
+            return
+        }
+
+        let image = thumbnailImageView.image
+        DispatchQueue.global(qos: .userInitiated).async {
+            let averageColor = image?.averageColor()
+
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.25) {
+                    self.backgroundView.backgroundColor = averageColor
+                }
+            }
         }
     }
 
