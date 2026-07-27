@@ -890,6 +890,7 @@ static NSMutableDictionary *authentifiedHosts;
 
     APLog(@"expecting file of size %lli kB", contentLength / 1024);
     _contentLength = contentLength;
+    _receivedContent = 0;
 
     _uploadToken = [[[VLCAppCoordinator sharedInstance] transferController] startUploadWithExpectedSize:(long long)contentLength];
     _uploadTracked = YES;
