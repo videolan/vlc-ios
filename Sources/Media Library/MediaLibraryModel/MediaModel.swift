@@ -81,24 +81,31 @@ extension VLCMLMedia {
         return nil
     }
 
-    @objc func thumbnailImage() -> UIImage? {
-        var image = VLCThumbnailsCache.thumbnail(for: thumbnail())
-        if image == nil
-            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
+    @objc func artworkImage() -> UIImage? {
+        if (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
-            #if os(watchOS)
-            /// watchOS only doesn't have light mode
-            let isDarktheme = true
-            #else
-            let isDarktheme = PresentationTheme.current.isDark
-            #endif
-            if subtype() == .albumTrack {
-                image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
-            } else {
-                image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
-            }
+            return nil
         }
-        return image
+
+        return VLCThumbnailsCache.thumbnail(for: thumbnail())
+    }
+
+    @objc func placeholderImage() -> UIImage? {
+        #if os(watchOS)
+        /// watchOS only doesn't have light mode
+        let isDarktheme = true
+        #else
+        let isDarktheme = PresentationTheme.current.isDark
+        #endif
+        if subtype() == .albumTrack {
+            return isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
+        }
+
+        return isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
+    }
+
+    @objc func thumbnailImage() -> UIImage? {
+        return artworkImage() ?? placeholderImage()
     }
 
     func accessibilityText(editing: Bool) -> String? {
