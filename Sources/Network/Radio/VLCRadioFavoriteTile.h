@@ -12,11 +12,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class VLCRadioFavoriteTile;
+
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol VLCRadioFavoriteTileDelegate <NSObject>
+- (void)favoriteTileDidRequestRemoval:(VLCRadioFavoriteTile *)tile;
+@end
 
 @interface VLCRadioFavoriteTile : UICollectionViewCell
 
 @property (class, readonly) NSString *reuseIdentifier;
+@property (nonatomic, weak, nullable) id<VLCRadioFavoriteTileDelegate> delegate;
 
 - (void)configureWithName:(nullable NSString *)name artworkURL:(nullable NSURL *)artworkURL;
 

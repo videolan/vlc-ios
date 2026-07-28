@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol VLCRadioFavoritesGridCellDelegate <NSObject>
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index;
+- (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didRequestRemovalOfFavoriteAtIndex:(NSInteger)index;
 @end
 
 @interface VLCRadioFavoritesGridCell : UITableViewCell

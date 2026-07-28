@@ -21,7 +21,7 @@ static CGFloat const kVLCRadioGridMinTileWidth = 165.0;
 static CGFloat const kVLCRadioGridTopPadding = 0.0;
 static CGFloat const kVLCRadioGridBottomPadding = 4.0;
 
-@interface VLCRadioFavoritesGridCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface VLCRadioFavoritesGridCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, VLCRadioFavoriteTileDelegate>
 @end
 
 @implementation VLCRadioFavoritesGridCell
@@ -127,6 +127,7 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
     VLCRadioFavoriteTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCRadioFavoriteTile.reuseIdentifier
                                                                            forIndexPath:indexPath];
     VLCFavorite *favorite = _favorites[indexPath.item];
+    tile.delegate = self;
     [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
     return tile;
 }
@@ -146,6 +147,17 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.delegate favoritesGridCell:self didSelectFavoriteAtIndex:indexPath.item];
+}
+
+#pragma mark - favorite tile delegate
+
+- (void)favoriteTileDidRequestRemoval:(VLCRadioFavoriteTile *)tile
+{
+    NSIndexPath *indexPath = [_collectionView indexPathForCell:tile];
+    if (!indexPath)
+        return;
+
+    [self.delegate favoritesGridCell:self didRequestRemovalOfFavoriteAtIndex:indexPath.item];
 }
 
 @end

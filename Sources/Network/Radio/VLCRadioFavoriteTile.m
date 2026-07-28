@@ -21,6 +21,7 @@
     UIView *_artworkContainer;
     UILabel *_initialsLabel;
     VLCNetworkImageView *_artworkView;
+    UIButton *_moreButton;
     UILabel *_nameLabel;
 }
 
@@ -72,6 +73,30 @@
     }
     [badge.contentView addSubview:playGlyph];
 
+    _moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _moreButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _moreButton.tintColor = [UIColor whiteColor];
+    _moreButton.hidden = YES;
+    if (@available(iOS 13.0, *)) {
+        UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:26.0];
+        [_moreButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
+        [_moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle.fill"] forState:UIControlStateNormal];
+    }
+    [_artworkContainer addSubview:_moreButton];
+
+    if (@available(iOS 14.0, *)) {
+        __weak typeof(self) weakSelf = self;
+        UIAction *removeAction = [UIAction actionWithTitle:NSLocalizedString(@"REMOVE_FAVORITE", nil)
+                                                     image:[UIImage systemImageNamed:@"heart.slash"]
+                                                identifier:nil
+                                                   handler:^(__kindof UIAction *action) {
+            [weakSelf.delegate favoriteTileDidRequestRemoval:weakSelf];
+        }];
+        removeAction.attributes = UIMenuElementAttributesDestructive;
+        _moreButton.menu = [UIMenu menuWithTitle:@"" children:@[removeAction]];
+        _moreButton.showsMenuAsPrimaryAction = YES;
+    }
+
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _nameLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightSemibold];
@@ -104,6 +129,11 @@
         [playGlyph.widthAnchor constraintEqualToConstant:12.0],
         [playGlyph.heightAnchor constraintEqualToConstant:13.0],
 
+        [_moreButton.trailingAnchor constraintEqualToAnchor:_artworkContainer.trailingAnchor constant:-8.0],
+        [_moreButton.topAnchor constraintEqualToAnchor:_artworkContainer.topAnchor constant:8.0],
+        [_moreButton.widthAnchor constraintEqualToConstant:34.0],
+        [_moreButton.heightAnchor constraintEqualToConstant:34.0],
+
         [_nameLabel.topAnchor constraintEqualToAnchor:_artworkContainer.bottomAnchor constant:8.0],
         [_nameLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:2.0],
         [_nameLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-2.0],
@@ -126,6 +156,14 @@
     self.contentView.layer.shadowOpacity = 0.1;
     self.contentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:_artworkContainer.frame
                                                                    cornerRadius:18.0].CGPath;
+}
+
+- (void)setDelegate:(id<VLCRadioFavoriteTileDelegate>)delegate
+{
+    _delegate = delegate;
+    if (@available(iOS 14.0, *)) {
+        _moreButton.hidden = delegate == nil;
+    }
 }
 
 - (void)configureWithName:(NSString *)name artworkURL:(NSURL *)artworkURL

@@ -289,6 +289,17 @@
     [self.tableView reloadData];
 }
 
+- (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didRequestRemovalOfFavoriteAtIndex:(NSInteger)index
+{
+    if (index >= _radioFavorites.count)
+        return;
+
+    VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
+    [favoriteService removeFavorite:_radioFavorites[index]];
+    _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    [self.tableView reloadData];
+}
+
 - (void)didSelectCountryAtRow:(NSInteger)row
 {
     NSArray<VLCRadioCountry *> *visited = _countryService.visitedCountries;
