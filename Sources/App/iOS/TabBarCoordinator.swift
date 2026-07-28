@@ -57,6 +57,11 @@ class TabBarCoordinator: NSObject {
         return UINavigationController(rootViewController: rootViewController)
     }()
 
+    private lazy var onAirNavigationController: UINavigationController = {
+        let rootViewController = VLCOnAirViewController()
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
     private lazy var browseNavigationController: UINavigationController? = {
         guard let rootViewController = VLCServerListViewController(medialibraryService: mediaLibraryService) else {
             return nil
@@ -108,26 +113,20 @@ class TabBarCoordinator: NSObject {
             controllers.append(tracksNavigationController)
             controllers.append(genresNavigationController)
             controllers.append(playlistsNavigationController)
-
-            if let browseNavigationController = browseNavigationController {
-                controllers.append(browseNavigationController)
-            }
         } else {
             controllers.append(audioNavigationController)
             controllers.append(playlistsNavigationController)
-
-            if let browseNavigationController = browseNavigationController {
-                controllers.append(browseNavigationController)
-            }
         }
 #else
         controllers.append(audioNavigationController)
         controllers.append(playlistsNavigationController)
+#endif
 
         if let browseNavigationController = browseNavigationController {
             controllers.append(browseNavigationController)
         }
-#endif
+
+        controllers.append(onAirNavigationController)
 
         // Settings is reachable from a navigation bar button instead of a
         // dedicated tab.
