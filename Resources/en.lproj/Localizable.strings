@@ -148,6 +148,24 @@
 "CLOUDVC_DETAILTEXT" = "Play or download media from online services";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"ONAIR" = "On Air";
+"ONAIR_ZERO_TITLE" = "Everything you follow, in one place";
+"ONAIR_ZERO_SUBTITLE" = "Start with any of the three. Your favorites stay on this device.";
+"ONAIR_CONTINUE" = "Continue";
+"ONAIR_CONTINUE_PAUSED" = "Paused %@";
+"ONAIR_ADD" = "Add";
+"ONAIR_FIND_STATION" = "Find a station";
+"ONAIR_PODCASTS" = "Podcasts";
+"ONAIR_PODCASTS_EMPTY_TITLE" = "No subscriptions yet";
+"ONAIR_PODCASTS_EMPTY_BODY" = "Search, or paste an RSS feed.";
+"ONAIR_PODCASTS_ZERO_BODY" = "Search the directory, or bring your own feed.";
+"ONAIR_PASTE_RSS" = "Paste RSS";
+"ONAIR_TV" = "TV";
+"ONAIR_TV_EMPTY_TITLE" = "No channels yet";
+"ONAIR_TV_EMPTY_BODY" = "Public channels, or your own M3U.";
+"ONAIR_OPEN_DIRECTORY" = "Open directory";
+"ONAIR_ADD_M3U" = "Add M3U";
+
 "BROWSE" = "Browse";
 "STREAMS" = "Streams";
 "LOCAL_NETWORK" = "Local Network";
