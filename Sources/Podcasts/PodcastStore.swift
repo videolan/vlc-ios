@@ -13,10 +13,17 @@
 import UIKit
 import VLCMediaLibraryKit
 
-final class PodcastStore {
+final class PodcastStore: NSObject {
     static let shared = PodcastStore()
 
     private var subscriptionModel: PodcastSubscriptionModel?
+
+    // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date/
+    // duration and hits disk (FileManager.fileExists) per episode - for a show with thousands of
+    // episodes that's too expensive to redo on every access, so it's cached per show and only
+    // dropped when the underlying data actually changes (see mediaLibraryBaseModelReloadView()
+    // below and the explicit invalidation in downloadEpisode/deleteDownloadedEpisode).
+    private var episodesByShowId: [String: [PodcastEpisode]] = [:]
 
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -24,13 +31,16 @@ final class PodcastStore {
         return formatter
     }()
 
-    private init() {}
+    private override init() {
+        super.init()
+    }
 
     func configure(mediaLibraryService: MediaLibraryService) {
         guard subscriptionModel == nil else {
             return
         }
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
+        subscriptionModel?.observable.addObserver(self)
     }
 
     func addObserver(_ observer: MediaLibraryBaseModelObserver) {
@@ -60,10 +70,15 @@ final class PodcastStore {
     }
 
     func episodes(forShowId showId: String) -> [PodcastEpisode] {
+        if let cached = episodesByShowId[showId] {
+            return cached
+        }
         guard let subscription = subscription(withId: showId) else {
             return []
         }
-        return episodes(forSubscription: subscription)
+        let episodes = episodes(forSubscription: subscription)
+        episodesByShowId[showId] = episodes
+        return episodes
     }
 
     func isSubscribed(showId: String) -> Bool {
@@ -107,7 +122,10 @@ final class PodcastStore {
             completion(false)
             return
         }
-        PodcastEpisodeDownloader.shared.download(media: media, completion: completion)
+        PodcastEpisodeDownloader.shared.download(media: media) { [weak self] success in
+            self?.episodesByShowId[showId] = nil
+            completion(success)
+        }
     }
 
     @discardableResult
@@ -125,6 +143,7 @@ final class PodcastStore {
             try? FileManager.default.removeItem(at: cacheFile.mrl)
             cacheFile.delete()
         }
+        episodesByShowId[showId] = nil
         return true
     }
 
@@ -138,7 +157,7 @@ final class PodcastStore {
         guard let subscriptionModel = subscriptionModel else {
             return []
         }
-        return subscriptionModel.subscriptions.flatMap(episodes(forSubscription:))
+        return subscriptionModel.subscriptions.flatMap { episodes(forShowId: String($0.identifier())) }
     }
 
     private func episodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
@@ -172,5 +191,13 @@ final class PodcastStore {
                                progress: progress,
                                downloaded: downloaded,
                                continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1)
+    }
+}
+
+// MARK: - MediaLibraryBaseModelObserver
+
+extension PodcastStore: MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView() {
+        episodesByShowId.removeAll()
     }
 }
