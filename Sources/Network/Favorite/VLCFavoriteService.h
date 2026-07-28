@@ -25,6 +25,7 @@ FOUNDATION_EXPORT NSString *const VLCFavoriteServiceContentDidChange;
 @property (readwrite, retain, nullable) NSString *groupName;
 @property (readwrite, retain, nullable) NSURL *artworkURL;
 @property (readwrite, retain, nullable) NSString *mediaDescription;
+@property (readwrite, retain, nullable) NSDate *lastPlayedDate;
 @property (readwrite) BOOL playable;
 @property (readonly) NSString *protocolIdentifier;
 @property (readonly, nullable) NSString *groupIdentifier;
@@ -47,8 +48,9 @@ FOUNDATION_EXPORT NSString *const VLCFavoriteServiceContentDidChange;
 
 - (void)addFavorite:(VLCFavorite *)favorite;
 - (void)removeFavorite:(VLCFavorite *)favorite;
-- (void)moveFavoriteToFront:(VLCFavorite *)favorite;
 - (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
+
+- (void)playFavorite:(VLCFavorite *)favorite;
 
 - (void)storeContentSynchronously;
 

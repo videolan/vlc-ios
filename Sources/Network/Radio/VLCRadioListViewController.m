@@ -20,7 +20,6 @@
 #import "VLCFavoriteService.h"
 #import "VLCAppCoordinator.h"
 #import "VLCNetworkListCell.h"
-#import "VLCPlaybackService.h"
 
 #import "VLC-Swift.h"
 
@@ -281,22 +280,8 @@
     if (index >= _radioFavorites.count)
         return;
 
-    VLCFavorite *favorite = _radioFavorites[index];
-    VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
-    if (!media)
-        return;
-
-    media.metaData.title = favorite.userVisibleName;
-    if (favorite.artworkURL) {
-        media.metaData.artworkURL = favorite.artworkURL;
-    }
-
-    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
-    [mediaList addMedia:media];
-    [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
-
     VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
-    [favoriteService moveFavoriteToFront:favorite];
+    [favoriteService playFavorite:_radioFavorites[index]];
     _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     [self.tableView reloadData];
 }

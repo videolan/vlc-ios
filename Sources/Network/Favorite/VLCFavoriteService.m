@@ -12,6 +12,7 @@
 
 #import "VLCFavoriteService.h"
 #import "VLCNetworkServerLoginInformation+Keychain.h"
+#import "VLCPlaybackService.h"
 
 NSString *VLCFavoritesContent = @"VLCFavoritesContent";
 NSString *VLCFavoriteUserVisibleName = @"VLCFavoriteUserVisibleName";
@@ -20,6 +21,7 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 NSString *VLCFavoriteGroupName = @"VLCFavoriteGroupName";
 NSString *VLCFavoriteArtworkURL = @"VLCFavoriteArtworkURL";
 NSString *VLCFavoriteMediaDescription = @"VLCFavoriteMediaDescription";
+NSString *VLCFavoriteLastPlayedDate = @"VLCFavoriteLastPlayedDate";
 NSString *VLCFavoritePlayable = @"VLCFavoritePlayable";
 NSString *VLCFavoritesFile = @"Favorites.plist";
 NSString *VLCTransitionedUPnPFavorites = @"VLCTransitionedUPnPFavorites";
@@ -37,6 +39,7 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
         self.groupName = [coder decodeObjectForKey:VLCFavoriteGroupName];
         self.artworkURL = [coder decodeObjectForKey:VLCFavoriteArtworkURL];
         self.mediaDescription = [coder decodeObjectForKey:VLCFavoriteMediaDescription];
+        self.lastPlayedDate = [coder decodeObjectForKey:VLCFavoriteLastPlayedDate];
         self.playable = [coder decodeBoolForKey:VLCFavoritePlayable];
     }
     return self;
@@ -49,6 +52,7 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
     [coder encodeObject:self.groupName forKey:VLCFavoriteGroupName];
     [coder encodeObject:self.artworkURL forKey:VLCFavoriteArtworkURL];
     [coder encodeObject:self.mediaDescription forKey:VLCFavoriteMediaDescription];
+    [coder encodeObject:self.lastPlayedDate forKey:VLCFavoriteLastPlayedDate];
     [coder encodeBool:self.playable forKey:VLCFavoritePlayable];
 }
 
@@ -336,7 +340,26 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
     [self storeContent];
 }
 
-- (void)moveFavoriteToFront:(VLCFavorite *)favorite
+- (void)playFavorite:(VLCFavorite *)favorite
+{
+    VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
+    if (!media) {
+        return;
+    }
+
+    media.metaData.title = favorite.userVisibleName;
+    if (favorite.artworkURL) {
+        media.metaData.artworkURL = favorite.artworkURL;
+    }
+
+    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+    [mediaList addMedia:media];
+    [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+
+    [self markFavoriteAsPlayed:favorite];
+}
+
+- (void)markFavoriteAsPlayed:(VLCFavorite *)favorite
 {
     NSString *identifier = favorite.groupIdentifier;
     if (!identifier) {
@@ -353,6 +376,7 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
         for (NSUInteger index = 0; index < count; index++) {
             VLCFavorite *iter = favorites[index];
             if ([iter.url isEqual:favorite.url]) {
+                iter.lastPlayedDate = [NSDate date];
                 if (index != 0) {
                     [favorites removeObjectAtIndex:index];
                     [favorites insertObject:iter atIndex:0];
