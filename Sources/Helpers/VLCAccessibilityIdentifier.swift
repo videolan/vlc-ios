@@ -17,6 +17,7 @@ import Foundation
     static let songs = "songs"
     static let artists = "artists"
     @objc static let localNetwork = "localNetwork"
+    @objc static let onAir = "onAir"
     static let playlist = "playlist"
     @objc static let settings = "settings"
     static let local = "local"
