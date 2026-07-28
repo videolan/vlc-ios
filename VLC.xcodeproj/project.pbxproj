@@ -310,6 +310,21 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
+		7D1E44753018CA6C003E1452 /* VLCOnAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */; };
+		7D1E44763018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */; };
+		7D1E44773018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */; };
+		7D1E44783018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446B3018CA6C003E1452 /* VLCOnAirAddTile.m */; };
+		7D1E44793018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446F3018CA6C003E1452 /* VLCOnAirPromptCell.m */; };
+		7D1E447A3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */; };
+		7D1E447B3018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */; };
+		7D1E447C3018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */; };
+		7D1E447D3018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446B3018CA6C003E1452 /* VLCOnAirAddTile.m */; };
+		7D1E447E3018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446F3018CA6C003E1452 /* VLCOnAirPromptCell.m */; };
+		7D1E447F3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */; };
+		7D1E44803018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */; };
+		7D1E44813018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */; };
+		7D1E44823018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446B3018CA6C003E1452 /* VLCOnAirAddTile.m */; };
+		7D1E44833018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446F3018CA6C003E1452 /* VLCOnAirPromptCell.m */; };
 		7D1E8EFF300E446D0014A118 /* OBSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8EFE300E446D0014A118 /* OBSlider */; };
 		7D1E8F01300E44730014A118 /* OBSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F00300E44730014A118 /* OBSlider */; };
 		7D1E8F04300E45650014A118 /* GRKArrayDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1E8F03300E45650014A118 /* GRKArrayDiff */; };
@@ -1892,6 +1907,16 @@
 		7D1AB28B179C98DC004CC271 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7D1E446A3018CA6C003E1452 /* VLCOnAirAddTile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOnAirAddTile.h; sourceTree = "<group>"; };
+		7D1E446B3018CA6C003E1452 /* VLCOnAirAddTile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOnAirAddTile.m; sourceTree = "<group>"; };
+		7D1E446C3018CA6C003E1452 /* VLCOnAirContinueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOnAirContinueCell.h; sourceTree = "<group>"; };
+		7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOnAirContinueCell.m; sourceTree = "<group>"; };
+		7D1E446E3018CA6C003E1452 /* VLCOnAirPromptCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOnAirPromptCell.h; sourceTree = "<group>"; };
+		7D1E446F3018CA6C003E1452 /* VLCOnAirPromptCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOnAirPromptCell.m; sourceTree = "<group>"; };
+		7D1E44703018CA6C003E1452 /* VLCOnAirRailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOnAirRailCell.h; sourceTree = "<group>"; };
+		7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOnAirRailCell.m; sourceTree = "<group>"; };
+		7D1E44723018CA6C003E1452 /* VLCOnAirViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOnAirViewController.h; sourceTree = "<group>"; };
+		7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOnAirViewController.m; sourceTree = "<group>"; };
 		7D1E8F24300E7FC20014A118 /* VLCRadioCountry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioCountry.h; sourceTree = "<group>"; };
 		7D1E8F25300E7FC20014A118 /* VLCRadioCountry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioCountry.m; sourceTree = "<group>"; };
 		7D1E8F26300E7FC20014A118 /* VLCRadioCountryListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioCountryListViewController.h; sourceTree = "<group>"; };
@@ -3415,6 +3440,23 @@
 			path = "Data Classes";
 			sourceTree = "<group>";
 		};
+		7D1E44743018CA6C003E1452 /* OnAir */ = {
+			isa = PBXGroup;
+			children = (
+				7D1E446A3018CA6C003E1452 /* VLCOnAirAddTile.h */,
+				7D1E446B3018CA6C003E1452 /* VLCOnAirAddTile.m */,
+				7D1E446C3018CA6C003E1452 /* VLCOnAirContinueCell.h */,
+				7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */,
+				7D1E446E3018CA6C003E1452 /* VLCOnAirPromptCell.h */,
+				7D1E446F3018CA6C003E1452 /* VLCOnAirPromptCell.m */,
+				7D1E44703018CA6C003E1452 /* VLCOnAirRailCell.h */,
+				7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */,
+				7D1E44723018CA6C003E1452 /* VLCOnAirViewController.h */,
+				7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */,
+			);
+			path = OnAir;
+			sourceTree = "<group>";
+		};
 		7D339B552FED786900D7E95A /* TopShelf */ = {
 			isa = PBXGroup;
 			children = (
@@ -3622,6 +3664,7 @@
 				44C8BBA424AF36F4003F8940 /* Settings */,
 				7D0C207E28C8989400CCFFEF /* App */,
 				7D0C207328C8978000CCFFEF /* About */,
+				7D1E44743018CA6C003E1452 /* OnAir */,
 				7DC869E128CB86ED00EE99F8 /* Cloud */,
 				7DD71F7428FB41D300327ACE /* CarPlay */,
 				7D339B552FED786900D7E95A /* TopShelf */,
@@ -5854,6 +5897,11 @@
 				7D50C6A02BBD20DF00B9F1A0 /* PlaylistViewController.swift in Sources */,
 				7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */,
 				7D50C6A22BBD20DF00B9F1A0 /* VLCNetworkListViewController.m in Sources */,
+				7D1E447A3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */,
+				7D1E447B3018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */,
+				7D1E447C3018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */,
+				7D1E447D3018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */,
+				7D1E447E3018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */,
 				7D50C6A32BBD20DF00B9F1A0 /* VLCOpenNetworkStreamViewController.m in Sources */,
 				7D50C6A42BBD20DF00B9F1A0 /* VLCTransferController.m in Sources */,
 				7D11E10000000000000B0001 /* VLCTransferItem.m in Sources */,
@@ -6013,6 +6061,11 @@
 				7DC7BAA228C8955F00109F28 /* UIBarButtonItem+Theme.m in Sources */,
 				44C8BBB324AF36F4003F8940 /* SettingsHeaderFooterView.swift in Sources */,
 				7DD3235F3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */,
+				7D1E447F3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */,
+				7D1E44803018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */,
+				7D1E44813018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */,
+				7D1E44823018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */,
+				7D1E44833018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */,
 				7D1E8F3C300F7A850014A118 /* VLCRadioFavoriteTile.m in Sources */,
@@ -6369,6 +6422,11 @@
 				7DA5149B2EF82B63000C9995 /* VLCMarqueeLabel.swift in Sources */,
 				7DA5149C2EF82B63000C9995 /* VLCDonationCreditCardViewController.m in Sources */,
 				7DA5149D2EF82B63000C9995 /* VLCOpenSubtitlesDownloader.m in Sources */,
+				7D1E44753018CA6C003E1452 /* VLCOnAirViewController.m in Sources */,
+				7D1E44763018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */,
+				7D1E44773018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */,
+				7D1E44783018CA6C003E1452 /* VLCOnAirAddTile.m in Sources */,
+				7D1E44793018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */,
 				7DA5149E2EF82B63000C9995 /* UIImage+TintColor.swift in Sources */,
 				7DA5149F2EF82B63000C9995 /* UIViewController+VLCAlert.m in Sources */,
 				7DA514A02EF82B63000C9995 /* UIImage+AverageColor.m in Sources */,
