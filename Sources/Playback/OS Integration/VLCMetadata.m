@@ -40,7 +40,12 @@
 }
 - (void)updateMetadataFromMedia:(nullable VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
-    BOOL isLibraryMedia = media && !media.isExternalMedia;
+    // Podcast episodes are imported via their feed's subscription rather than discovered on
+    // disk, so the media library marks them isExternalMedia just like a manually-added network
+    // stream - but unlike a raw stream, they do have real library metadata (title, artwork,
+    // linked show), so they should still take the library-backed branch below.
+    BOOL isSubscriptionMedia = media.nbSubscriptions > 0;
+    BOOL isLibraryMedia = media && (!media.isExternalMedia || isSubscriptionMedia);
     NSURL *artworkURL = isLibraryMedia ? media.thumbnail : mediaPlayer.media.metaData.artworkURL;
     if (_artworkURL != artworkURL && ![_artworkURL isEqual:artworkURL]) {
         _artworkURL = artworkURL;
@@ -59,6 +64,14 @@
         [self updateArtworkImage:[media artworkImage]];
         self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
         self.identifier = @(media.identifier);
+
+        if (self.artist.length == 0 && media.nbSubscriptions > 0) {
+            NSArray<VLCMLSubscription *> *subscriptions =
+                [media linkedSubscriptionsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
+            if (subscriptions.count > 0) {
+                self.artist = subscriptions.firstObject.name;
+            }
+        }
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
         [self checkIsAudioOnly:mediaPlayer];
