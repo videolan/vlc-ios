@@ -45,7 +45,7 @@
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     if (@available(iOS 13.0, *)) {
-        self.tableView.backgroundColor = [UIColor systemGroupedBackgroundColor];
+        self.tableView.backgroundColor = [UIColor secondarySystemBackgroundColor];
     }
 
     _favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];

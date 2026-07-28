@@ -46,6 +46,9 @@
     self.navigationItem.searchController = nil;
 
     self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    if (@available(iOS 13.0, *)) {
+        self.tableView.backgroundColor = [UIColor secondarySystemBackgroundColor];
+    }
     if (@available(iOS 15.0, *)) {
         self.tableView.sectionHeaderTopPadding = 0.0;
     }
