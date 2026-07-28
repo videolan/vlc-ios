@@ -27,6 +27,16 @@ class PodcastShowDetailViewController: UIViewController {
         return store.episodes(forShowId: show.id)
     }
 
+    // Shows can have thousands of episodes (VLCMLSubscription has no paged query, unlike the
+    // audio/video tabs' VLCMediaLibrary calls), so only reveal kVLCDefaultPageSize at a time and
+    // grow the window as the user scrolls near the end, mirroring MediaCategoryViewController's
+    // willDisplay/kVLCPrefetchDistance pattern.
+    private var revealedEpisodeCount = Int(kVLCDefaultPageSize)
+
+    private var visibleEpisodes: [PodcastEpisode] {
+        return Array(episodes.prefix(revealedEpisodeCount))
+    }
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
@@ -126,7 +136,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         case .header:
             return 1
         case .episodes, .none:
-            return episodes.count
+            return visibleEpisodes.count
         }
     }
 
@@ -168,7 +178,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
                 return UITableViewCell()
             }
 
-            let episode = episodes[indexPath.row]
+            let episode = visibleEpisodes[indexPath.row]
             cell.configure(episode: episode,
                            leading: .playButton,
                            showName: nil,
@@ -189,5 +199,17 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard PodcastShowSection(rawValue: indexPath.section) == .episodes else {
+            return
+        }
+        let revealedCount = visibleEpisodes.count
+        guard revealedCount < episodes.count, indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
+            return
+        }
+        revealedEpisodeCount += Int(kVLCDefaultPageSize)
+        tableView.reloadData()
     }
 }

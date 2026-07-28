@@ -21,6 +21,16 @@ class PodcastsViewController: UIViewController {
 
     private let store = PodcastStore.shared
 
+    // The combined "latest episodes" list spans every subscribed show and can be large, so it's
+    // revealed incrementally as the user scrolls near the end, same as episodes(forShowId:) in
+    // PodcastShowDetailViewController and the audio/video tabs' willDisplay/kVLCPrefetchDistance
+    // pattern.
+    private var revealedLatestEpisodesCount = Int(kVLCDefaultPageSize)
+
+    private var visibleLatestEpisodes: [PodcastEpisode] {
+        return Array(store.latestEpisodes.prefix(revealedLatestEpisodesCount))
+    }
+
     // MARK: Search
 
     private var isSearching = false
@@ -326,7 +336,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         case .continueListening, .shows:
             return 1
         case .latestEpisodes:
-            return store.latestEpisodes.count
+            return visibleLatestEpisodes.count
         }
     }
 
@@ -392,7 +402,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
 
-            configureEpisodeCell(cell, for: store.latestEpisodes[indexPath.row], at: indexPath)
+            configureEpisodeCell(cell, for: visibleLatestEpisodes[indexPath.row], at: indexPath)
             return cell
         }
     }
@@ -402,8 +412,20 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         if isSearching {
             openShow(forEpisode: filteredEpisodes[indexPath.row])
         } else if visibleSections[indexPath.section] == .latestEpisodes {
-            openShow(forEpisode: store.latestEpisodes[indexPath.row])
+            openShow(forEpisode: visibleLatestEpisodes[indexPath.row])
         }
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !isSearching, visibleSections[indexPath.section] == .latestEpisodes else {
+            return
+        }
+        let revealedCount = visibleLatestEpisodes.count
+        guard revealedCount < store.latestEpisodes.count, indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
+            return
+        }
+        revealedLatestEpisodesCount += Int(kVLCDefaultPageSize)
+        tableView.reloadData()
     }
 }
 
