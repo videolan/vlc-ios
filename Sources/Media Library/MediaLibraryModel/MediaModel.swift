@@ -91,6 +91,18 @@ extension VLCMLMedia {
     }
 
     @objc func placeholderImage() -> UIImage? {
+        // Podcast episodes have no generated thumbnail of their own and aren't album tracks,
+        // so they'd otherwise fall through to the generic movie placeholder below - use the
+        // same colored-initials placeholder the show list shows for the owning show instead.
+        #if !os(watchOS) && !os(tvOS)
+        if nbSubscriptions() > 0,
+           let show = linkedSubscriptions(with: .default, desc: false)?.first {
+            return VLCPlaceholderArtwork.placeholderImage(forName: show.name,
+                                                           size: CGSize(width: 512, height: 512),
+                                                           cornerRadius: 0,
+                                                           fontSize: 160)
+        }
+        #endif
         #if os(watchOS)
         /// watchOS only doesn't have light mode
         let isDarktheme = true
