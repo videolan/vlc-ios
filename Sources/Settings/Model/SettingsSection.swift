@@ -148,8 +148,9 @@ struct SettingsSection: Equatable {
 
     static func sections(isLabActivated: Bool, isBackingUp: Bool, isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> [SettingsSection] {
         [
-            GeneralInformationOptions.section(),
-            GenericOptions.section(),
+            InformationOptions.section(),
+            AppearanceOptions.section(),
+            PlaybackOptions.section(),
             PrivacyOptions.section(),
             GestureControlOptions.section(isForwardBackwardEqual: isForwardBackwardEqual, isTapSwipeEqual: isTapSwipeEqual),
             VideoOptions.section(),
@@ -165,9 +166,9 @@ struct SettingsSection: Equatable {
     }
 }
 
-// MARK: - GeneralInformationOptions
+// MARK: - InformationOptions
 
-enum GeneralInformationOptions {
+enum InformationOptions {
     static var about: SettingsItem {
         .init(title: "SETTINGS_ABOUT",
               subtitle: nil,
@@ -187,7 +188,7 @@ enum GeneralInformationOptions {
     }
 
     static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_GENERAL_INFORMATION_TITLE", items: [
+        .init(title: "SETTINGS_INFORMATION_TITLE", items: [
             about,
             documentation,
             donate,
@@ -195,15 +196,9 @@ enum GeneralInformationOptions {
     }
 }
 
-// MARK: - GenericOptions
+// MARK: - AppearanceOptions
 
-enum GenericOptions {
-    static var privacy: SettingsItem {
-        .init(title: "SETTINGS_PRIVACY_TITLE",
-              subtitle: "SETTINGS_PRIVACY_SUBTITLE",
-              action: .openPrivacySettings)
-    }
-
+enum AppearanceOptions {
     static var appearance: SettingsItem {
         let k = kVLCSettingAppTheme
         return .init(title: "SETTINGS_DARKTHEME",
@@ -218,6 +213,22 @@ enum GenericOptions {
                 isEnabled: UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeBright)
     }
 
+    static func section() -> SettingsSection? {
+        // visionOS uses a standard system appearance and doesn't have light/dark mode.
+        #if os(visionOS)
+        return nil
+        #else
+        return .init(title: "SETTINGS_APPEARANCE_TITLE", items: [
+            appearance,
+            blackTheme,
+        ])
+        #endif
+    }
+}
+
+// MARK: - PlaybackOptions
+
+enum PlaybackOptions {
     static var defaultPlaybackSpeed: SettingsItem {
         let k = kVLCSettingPlaybackSpeedDefaultValue
         return .init(title: "SETTINGS_PLAYBACK_SPEED_DEFAULT",
@@ -274,21 +285,7 @@ enum GenericOptions {
     }
 
     static func section() -> SettingsSection? {
-        var items: [SettingsItem] = []
-
-        #if os(iOS)
-        if #available(iOS 14.0, *) {
-            items.append(privacy)
-        }
-        #endif
-
-        #if !os(visionOS)
-        // visionOS uses a standard system appearance and doesn't have light/dark mode.
-        items.append(appearance)
-        items.append(blackTheme)
-        #endif
-
-        items.append(contentsOf: [
+        .init(title: "SETTINGS_PLAYBACK_TITLE", items: [
             defaultPlaybackSpeed,
             continueAudioPlayback,
             playVideoInFullScreen,
@@ -299,8 +296,6 @@ enum GenericOptions {
             restoreLastPlayedMedia,
             enableScrollToCurrentlyPlayingMedia
         ])
-
-        return .init(title: "SETTINGS_GENERIC_TITLE", items: items)
     }
 }
 
@@ -357,13 +352,27 @@ enum PrivacyOptions {
                 preferenceKey: kVLCSettingParentalControl)
     }
 
+    static var openPrivacySettings: SettingsItem {
+        .init(title: "SETTINGS_PRIVACY_SUBTITLE",
+              subtitle: nil,
+              action: .openPrivacySettings)
+    }
+
     static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_PRIVACY_TITLE", items: [
+        var items: [SettingsItem?] = [
             passcodeLock,
             enableBiometrics,
             hideLibraryInFilesApp,
-            parentalControl
-        ].compactMap { $0 })
+            parentalControl,
+        ]
+
+        #if os(iOS)
+        if #available(iOS 14.0, *) {
+            items.append(openPrivacySettings)
+        }
+        #endif
+
+        return .init(title: "SETTINGS_PRIVACY_TITLE", items: items.compactMap { $0 })
     }
 }
 
