@@ -12,7 +12,7 @@
 
 #import "VLCOnAirRailCell.h"
 #import "VLCOnAirAddTile.h"
-#import "VLCRadioFavoriteTile.h"
+#import "VLCArtworkTile.h"
 #import "VLCFavoriteService.h"
 
 static CGFloat const kVLCOnAirRailGap = 12.0;
@@ -76,8 +76,8 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
         _collectionView.alwaysBounceHorizontal = YES;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        [_collectionView registerClass:[VLCRadioFavoriteTile class]
-            forCellWithReuseIdentifier:VLCRadioFavoriteTile.reuseIdentifier];
+        [_collectionView registerClass:[VLCArtworkTile class]
+            forCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier];
         [_collectionView registerClass:[VLCOnAirAddTile class]
             forCellWithReuseIdentifier:VLCOnAirAddTile.reuseIdentifier];
         [self.contentView addSubview:_collectionView];
@@ -120,9 +120,10 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
         return addTile;
     }
 
-    VLCRadioFavoriteTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCRadioFavoriteTile.reuseIdentifier
-                                                                          forIndexPath:indexPath];
+    VLCArtworkTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier
+                                                                     forIndexPath:indexPath];
     VLCFavorite *favorite = _favorites[indexPath.item];
+    tile.badge = VLCArtworkTileBadgePlay;
     [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
     return tile;
 }
