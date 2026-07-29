@@ -13,7 +13,7 @@
 import UIKit
 
 extension UIAlertController {
-    static func autoDismissable(title: String, message: String, dismissDelay: Double = 3.0) {
+    @objc static func autoDismissable(title: String, message: String, dismissDelay: Double = 3.0) {
         if let window = UIApplication.shared.delegate?.window {
             if let rootViewController = window?.rootViewController {
                 let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
