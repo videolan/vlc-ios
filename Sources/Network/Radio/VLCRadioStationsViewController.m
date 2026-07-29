@@ -46,9 +46,14 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     [super viewDidLoad];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    if (@available(iOS 13.0, *)) {
-        self.tableView.backgroundColor = [UIColor secondarySystemBackgroundColor];
-    }
+    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+}
+
+- (void)themeDidChange
+{
+    [super themeDidChange];
+
+    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
 }
 
 - (void)viewWillAppear:(BOOL)animated

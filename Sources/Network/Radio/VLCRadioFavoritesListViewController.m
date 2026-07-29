@@ -44,11 +44,20 @@
     self.navigationItem.searchController = nil;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    if (@available(iOS 13.0, *)) {
-        self.tableView.backgroundColor = [UIColor secondarySystemBackgroundColor];
-    }
+    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
 
     _favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
+}
+
+- (void)themeDidChange
+{
+    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated

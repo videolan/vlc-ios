@@ -21,4 +21,6 @@
                   medialibraryService:(MediaLibraryService *)medialibraryService;
 
 - (void)update;
+
+- (void)themeDidChange;
 @end
