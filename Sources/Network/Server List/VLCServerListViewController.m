@@ -624,6 +624,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     VLCBrowseChipCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCBrowseChipCell.reuseIdentifier
                                                                        forIndexPath:indexPath];
+    cell.accessibilityIdentifier = [self accessibilityIdentifierForChip:chip];
     [cell configureWithTitle:[self titleForChip:chip] image:[self imageForChip:chip]];
     return cell;
 }
@@ -924,6 +925,24 @@ referenceSizeForHeaderInSection:(NSInteger)section
             return [UIImage imageNamed:@"OpenNetStream"];
         case VLCBrowseChipDownloads:
             return [UIImage imageNamed:@"Downloads"];
+        case VLCBrowseChipWiFiSharing:
+            return nil;
+    }
+}
+
+- (NSString *)accessibilityIdentifierForChip:(VLCBrowseChip)chip
+{
+    switch (chip) {
+        case VLCBrowseChipLocalFiles:
+            return VLCAccessibilityIdentifier.local;
+        case VLCBrowseChipPhotos:
+            return VLCAccessibilityIdentifier.photos;
+        case VLCBrowseChipCloud:
+            return VLCAccessibilityIdentifier.cloud;
+        case VLCBrowseChipNetworkStream:
+            return VLCAccessibilityIdentifier.stream;
+        case VLCBrowseChipDownloads:
+            return VLCAccessibilityIdentifier.downloads;
         case VLCBrowseChipWiFiSharing:
             return nil;
     }
