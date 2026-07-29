@@ -24,6 +24,7 @@
 @property (nonatomic, readwrite, nullable) MediaLibraryService *medialibrary;
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
+- (nonnull NSArray<NSString *> *)serverAddresses;
 - (nonnull NSString *)httpStatus;
 - (nonnull NSString *)addressToCopy;
 - (BOOL)isServerRunning;

@@ -96,23 +96,33 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     }
 }
 
+- (NSArray<NSString *> *)serverAddresses
+{
+    if (!_httpServer.isRunning) {
+        return @[];
+    }
+
+    NSString *ipAddress = [self currentIPAddress];
+    NSString *hostname = [self hostname];
+    UInt16 port = _httpServer.listeningPort;
+
+    if (port != 80) {
+        return @[[NSString stringWithFormat:@"http://%@:%i", ipAddress, port],
+                 [NSString stringWithFormat:@"http://%@:%i", hostname, port]];
+    }
+
+    return @[[NSString stringWithFormat:@"http://%@", ipAddress],
+             [NSString stringWithFormat:@"http://%@", hostname]];
+}
+
 - (NSString *)httpStatus
 {
-    if (_httpServer.isRunning) {
-        if (_httpServer.listeningPort != 80) {
-            return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i",
-                    [self currentIPAddress],
-                    _httpServer.listeningPort,
-                    [self hostname],
-                    _httpServer.listeningPort];
-        } else {
-            return [NSString stringWithFormat:@"http://%@\nhttp://%@",
-                    [self currentIPAddress],
-                    [self hostname]];
-        }
-    } else {
+    NSArray<NSString *> *addresses = [self serverAddresses];
+    if (addresses.count == 0) {
         return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
     }
+
+    return [addresses componentsJoinedByString:@"\n"];
 }
 
 - (NSString *)addressToCopy
