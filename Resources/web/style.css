@@ -580,3 +580,97 @@ div.main.drop {
 .display-message.show {
     opacity: 1;
 }
+
+/* Bulk Download Controls & Selection Mode */
+.bulk-download-controls {
+    margin-top: 18px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.bulk-download-controls .hidden {
+    display: none !important;
+}
+
+.bulk-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+.bulk-btn.primary {
+    background-color: #ff8800;
+    color: #ffffff;
+}
+
+.bulk-btn.secondary {
+    background-color: var(--bg-card, rgba(255, 255, 255, 0.15));
+    color: var(--text-primary, #ffffff);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.25));
+}
+
+.bulk-btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.bulk-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.bulk-btn:disabled {
+    background-color: #8e8e93 !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.downloads.selectable-mode > div {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.downloads.selectable-mode > div .thumb-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    z-index: 5;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.downloads.selectable-mode > div.selected {
+    outline: 3px solid #ff8800;
+    outline-offset: -3px;
+    border-radius: 5px;
+}
+
+.downloads.selectable-mode > div.selected .thumb-wrapper::after {
+    background-color: #ff8800;
+    border-color: #ff8800;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.downloads.selectable-mode > div:hover .download-overlay {
+    opacity: 0 !important;
+}
+
