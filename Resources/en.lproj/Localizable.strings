@@ -175,6 +175,7 @@
 "BROWSE_NETWORK_STREAM" = "Network stream";
 "BROWSE_DOWNLOADS" = "Downloads";
 "BROWSE_WIFI_SHARING" = "Wi-Fi sharing";
+"BROWSE_ADD_SERVER" = "Add server";
 "STREAMS" = "Streams";
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";

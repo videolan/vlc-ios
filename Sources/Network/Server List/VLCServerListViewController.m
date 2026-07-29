@@ -38,6 +38,7 @@
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
 #import "VLCArtworkTile.h"
+#import "VLCAddTile.h"
 #import "VLCBrowseSectionHeader.h"
 #import "VLCBrowseChipCell.h"
 #import "VLCBrowseSharingCell.h"
@@ -174,6 +175,8 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     [_collectionView registerClass:[VLCArtworkTile class]
         forCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier];
+    [_collectionView registerClass:[VLCAddTile class]
+        forCellWithReuseIdentifier:VLCAddTile.reuseIdentifier];
     [_collectionView registerClass:[VLCBrowseChipCell class]
         forCellWithReuseIdentifier:VLCBrowseChipCell.reuseIdentifier];
     [_collectionView registerClass:[VLCBrowseSharingCell class]
@@ -514,7 +517,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 {
     switch ((VLCBrowseSection)section) {
         case VLCBrowseSectionNetwork:
-            return _discoveredServices.count;
+            return _discoveredServices.count + 1;
         case VLCBrowseSectionFavorites:
             return _manualServers.count + _favoriteFolders.count;
         case VLCBrowseSectionOpen:
@@ -540,6 +543,14 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
 - (UICollectionViewCell *)discoveredCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
+    if ((NSUInteger)indexPath.item >= _discoveredServices.count) {
+        VLCAddTile *addTile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCAddTile.reuseIdentifier
+                                                                        forIndexPath:indexPath];
+        addTile.outlineCornerRadius = kVLCBrowseTileCornerRadius;
+        [addTile configureWithTitle:NSLocalizedString(@"BROWSE_ADD_SERVER", nil)];
+        return addTile;
+    }
+
     VLCArtworkTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier
                                                                      forIndexPath:indexPath];
     id<VLCLocalNetworkService> service = _discoveredServices[indexPath.item];
@@ -712,6 +723,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
 - (void)openDiscoveredServiceAtIndex:(NSUInteger)index
 {
     if (index >= _discoveredServices.count) {
+        [self connectToServer];
         return;
     }
 
