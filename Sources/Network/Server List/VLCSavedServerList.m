@@ -38,7 +38,9 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
         if (ukvServerList) {
             [_serverList addObjectsFromArray:ukvServerList];
         }
+#if !TARGET_OS_TV
         [self migrateServerlistToCloudIfNeeded];
+#endif
     }
     return self;
 }
@@ -48,6 +50,7 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
     return [_serverList copy];
 }
 
+#if !TARGET_OS_TV
 - (void)migrateServerlistToCloudIfNeeded
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -87,6 +90,7 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
     [ukvStore synchronize];
     [defaults setBool:YES forKey:kVLCMigratedToUbiquitousStoredServerList];
 }
+#endif
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
