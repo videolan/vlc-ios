@@ -17,6 +17,7 @@
 #import "VLC-Swift.h"
 
 static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
+static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 @implementation VLCArtworkTile
 {
@@ -239,19 +240,40 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
 - (void)setBadge:(VLCArtworkTileBadge)badge
 {
     _badge = badge;
-    _badgeView.hidden = badge == VLCArtworkTileBadgeNone;
+    [self updateBadge];
+}
 
-    if (badge == VLCArtworkTileBadgeNone) {
+- (void)setBadgeImage:(UIImage *)badgeImage
+{
+    _badgeImage = badgeImage;
+    [self updateBadge];
+}
+
+- (void)updateBadge
+{
+    if (_badgeImage) {
+        _badgeView.hidden = NO;
+        _badgeGlyph.image = [_badgeImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        _badgeGlyphCenterX.constant = 0.0;
+        _badgeGlyphWidth.constant = kVLCArtworkTileBadgeImageSide;
+        _badgeGlyphHeight.constant = kVLCArtworkTileBadgeImageSide;
         return;
     }
 
-    BOOL isPlay = badge == VLCArtworkTileBadgePlay;
+    _badgeView.hidden = _badge == VLCArtworkTileBadgeNone;
+
+    if (_badge == VLCArtworkTileBadgeNone) {
+        return;
+    }
+
+    BOOL isPlay = _badge == VLCArtworkTileBadgePlay;
     _badgeGlyphCenterX.constant = isPlay ? 1.0 : 0.0;
     _badgeGlyphWidth.constant = isPlay ? 12.0 : 15.0;
     _badgeGlyphHeight.constant = 13.0;
+    _badgeGlyph.image = nil;
 
     if (@available(iOS 13.0, *)) {
-        _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:badge]];
+        _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:_badge]];
     }
 }
 
@@ -362,6 +384,7 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     _initialsLabel.text = nil;
     self.pillText = nil;
     self.accessoryGlyphName = nil;
+    self.badgeImage = nil;
     self.badge = VLCArtworkTileBadgeNone;
     self.delegate = nil;
     self.removalActionTitle = nil;
