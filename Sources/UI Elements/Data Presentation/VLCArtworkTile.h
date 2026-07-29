@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, VLCArtworkTileBadge) {
     VLCArtworkTileBadgeNone,
-    VLCArtworkTileBadgePlay
+    VLCArtworkTileBadgePlay,
+    VLCArtworkTileBadgeFolder
 };
 
 @protocol VLCArtworkTileDelegate <NSObject>
@@ -38,9 +39,6 @@ typedef NS_ENUM(NSInteger, VLCArtworkTileBadge) {
 @property (nonatomic, copy, nullable) NSString *removalActionTitle;
 
 - (void)configureWithName:(nullable NSString *)name artworkURL:(nullable NSURL *)artworkURL;
-- (void)configureWithName:(nullable NSString *)name
-                    glyph:(nullable UIImage *)glyph
-                tintColor:(UIColor *)tintColor;
 
 @end
 
