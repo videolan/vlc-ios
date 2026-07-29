@@ -54,6 +54,7 @@
 #if TARGET_OS_IOS
 #import "VLCPhotoLibraryController.h"
 #import "VLCCloudServicesTableViewController.h"
+#import "VLCCloudServiceFactory.h"
 #endif
 
 #import "VLC-Swift.h"
@@ -582,6 +583,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     tile.artworkCornerRadius = kVLCBrowseTileCornerRadius;
     tile.pillText = nil;
+    tile.badgeImage = nil;
     tile.delegate = self;
 
     NSUInteger item = indexPath.item;
@@ -592,6 +594,9 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     } else {
         VLCFavorite *favorite = _favoriteFolders[item - _manualServers.count];
         tile.badge = VLCArtworkTileBadgeFolder;
+#if TARGET_OS_IOS
+        tile.badgeImage = [VLCCloudServiceFactory iconForService:[VLCCloudServiceFactory serviceForURL:favorite.url]];
+#endif
         tile.removalActionTitle = NSLocalizedString(@"REMOVE_FAVORITE", nil);
         [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
     }
@@ -825,6 +830,14 @@ referenceSizeForHeaderInSection:(NSInteger)section
         }
         return;
     }
+
+#if TARGET_OS_IOS
+    UIViewController *cloudBrowser = [VLCCloudServiceFactory browserForURL:favorite.url];
+    if (cloudBrowser) {
+        [self pushViewController:cloudBrowser];
+        return;
+    }
+#endif
 
     VLCNetworkServerLoginInformation *login = favorite.loginInformation;
     id<VLCNetworkServerBrowser> browser = nil;
