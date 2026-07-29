@@ -219,6 +219,23 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     [self setNeedsLayout];
 }
 
+- (NSString *)symbolNameForBadge:(VLCArtworkTileBadge)badge
+{
+    switch (badge) {
+        case VLCArtworkTileBadgePlay:
+            return @"play.fill";
+        case VLCArtworkTileBadgeFolder:
+            return @"folder.fill";
+        case VLCArtworkTileBadgeServer:
+            if (@available(iOS 14.0, *)) {
+                return @"server.rack";
+            }
+            return @"network";
+        case VLCArtworkTileBadgeNone:
+            return nil;
+    }
+}
+
 - (void)setBadge:(VLCArtworkTileBadge)badge
 {
     _badge = badge;
@@ -231,10 +248,10 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     BOOL isPlay = badge == VLCArtworkTileBadgePlay;
     _badgeGlyphCenterX.constant = isPlay ? 1.0 : 0.0;
     _badgeGlyphWidth.constant = isPlay ? 12.0 : 15.0;
-    _badgeGlyphHeight.constant = isPlay ? 13.0 : 13.0;
+    _badgeGlyphHeight.constant = 13.0;
 
     if (@available(iOS 13.0, *)) {
-        _badgeGlyph.image = [UIImage systemImageNamed:isPlay ? @"play.fill" : @"folder.fill"];
+        _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:badge]];
     }
 }
 
