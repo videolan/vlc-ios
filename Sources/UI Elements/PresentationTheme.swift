@@ -56,6 +56,9 @@ extension Notification.Name {
     let textfieldPlaceholderColor: UIColor
     let thumbnailBackgroundColor: UIColor
     let transparentDarkBackgroundColor: UIColor
+    let pageBackground: UIColor
+    let cardBackground: UIColor
+    let accentTint: UIColor
 
 #if os(tvOS)
     init(isDark: Bool,
@@ -87,7 +90,10 @@ extension Notification.Name {
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
          thumbnailBackgroundColor: UIColor,
-         transparentDarkBackgroundColor: UIColor) {
+         transparentDarkBackgroundColor: UIColor,
+         pageBackground: UIColor,
+         cardBackground: UIColor,
+         accentTint: UIColor) {
         self.isDark = isDark
         self.name = name
         self.navigationbarColor = navigationbarColor
@@ -118,6 +124,9 @@ extension Notification.Name {
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
         self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
+        self.pageBackground = pageBackground
+        self.cardBackground = cardBackground
+        self.accentTint = accentTint
     }
 #else
     init(isDark: Bool,
@@ -151,7 +160,10 @@ extension Notification.Name {
          textfieldBorderColor: UIColor,
          textfieldPlaceholderColor: UIColor,
          thumbnailBackgroundColor: UIColor,
-         transparentDarkBackgroundColor: UIColor) {
+         transparentDarkBackgroundColor: UIColor,
+         pageBackground: UIColor,
+         cardBackground: UIColor,
+         accentTint: UIColor) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -184,6 +196,9 @@ extension Notification.Name {
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
         self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
+        self.pageBackground = pageBackground
+        self.cardBackground = cardBackground
+        self.accentTint = accentTint
     }
 #endif
 }
@@ -380,7 +395,10 @@ let brightPalette = ColorPalette(isDark: false,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
                                  thumbnailBackgroundColor: UIColor(0xE6E6E6),
-                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                                 pageBackground: UIColor(0xF2F2F4),
+                                 cardBackground: UIColor(0xFFFFFF),
+                                 accentTint: UIColor(0xFF8800, 0.13))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -411,7 +429,10 @@ let darkPalette = ColorPalette(isDark: true,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
                                thumbnailBackgroundColor: UIColor(0x26282B),
-                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                               pageBackground: UIColor(0x121417),
+                               cardBackground: UIColor(0x1B1E21),
+                               accentTint: UIColor(0xFF8800, 0.22))
 
 #else // !os(tvOS)
 
@@ -446,7 +467,10 @@ let brightPalette = ColorPalette(isDark: false,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
                                  thumbnailBackgroundColor: UIColor(0xE6E6E6),
-                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                                 pageBackground: UIColor(0xF2F2F4),
+                                 cardBackground: UIColor(0xFFFFFF),
+                                 accentTint: UIColor(0xFF8800, 0.13))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -479,7 +503,10 @@ let darkPalette = ColorPalette(isDark: true,
                                textfieldBorderColor: UIColor(0x84929C),
                                textfieldPlaceholderColor: UIColor(0x737373),
                                thumbnailBackgroundColor: UIColor(0x26282B),
-                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                               transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                               pageBackground: UIColor(0x121417),
+                               cardBackground: UIColor(0x1B1E21),
+                               accentTint: UIColor(0xFF8800, 0.22))
 
 let blackPalette = ColorPalette(isDark: true,
                                 name: "Dark",
@@ -512,7 +539,10 @@ let blackPalette = ColorPalette(isDark: true,
                                 textfieldBorderColor: UIColor(0x84929C),
                                 textfieldPlaceholderColor: UIColor(0x737373),
                                 thumbnailBackgroundColor: UIColor(0x1C1E21),
-                                transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                                transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                                pageBackground: UIColor(0x000000),
+                                cardBackground: UIColor(0x1B1E21),
+                                accentTint: UIColor(0xFF8800, 0.22))
 
 #if os(visionOS)
 let visionPalette = ColorPalette(isDark: true,
@@ -546,7 +576,10 @@ let visionPalette = ColorPalette(isDark: true,
                                  textfieldBorderColor: UIColor(0x84929C),
                                  textfieldPlaceholderColor: UIColor(0x737373),
                                  thumbnailBackgroundColor: UIColor(0x1C1E21),
-                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5))
+                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
+                                 pageBackground: .clear,
+                                 cardBackground: UIColor(0x494B4D, 0.2),
+                                 accentTint: UIColor(0xFF8800, 0.22))
 #endif
 
 // MARK: - UIStatusBarStyle - autoDarkContent
