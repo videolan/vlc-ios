@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCOnAirAddTile.h
+ * VLCAddTile.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -14,11 +14,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCOnAirAddTile : UICollectionViewCell
+@interface VLCAddTile : UICollectionViewCell
 
 @property (class, readonly) NSString *reuseIdentifier;
+@property (nonatomic) CGFloat outlineCornerRadius;
 
-- (void)updateTheme;
+- (void)configureWithTitle:(nullable NSString *)title;
 
 @end
 

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCOnAirAddTile.m
+ * VLCAddTile.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -10,20 +10,22 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCOnAirAddTile.h"
+#import "VLCAddTile.h"
 
 #import "VLC-Swift.h"
 
-static CGFloat const kVLCOnAirAddTileCornerRadius = 18.0;
-static CGFloat const kVLCOnAirAddTileLineWidth = 1.5;
+static CGFloat const kVLCAddTileDefaultCornerRadius = 18.0;
+static CGFloat const kVLCAddTileLineWidth = 1.5;
 
-@interface VLCOnAirDashedBorderView : UIView
+@interface VLCDashedBorderView : UIView
+
+@property (nonatomic) CGFloat cornerRadius;
 
 - (void)setStrokeColor:(UIColor *)strokeColor;
 
 @end
 
-@implementation VLCOnAirDashedBorderView
+@implementation VLCDashedBorderView
 
 + (Class)layerClass
 {
@@ -34,12 +36,24 @@ static CGFloat const kVLCOnAirAddTileLineWidth = 1.5;
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _cornerRadius = kVLCAddTileDefaultCornerRadius;
+
         CAShapeLayer *shapeLayer = (CAShapeLayer *)self.layer;
         shapeLayer.fillColor = [UIColor clearColor].CGColor;
-        shapeLayer.lineWidth = kVLCOnAirAddTileLineWidth;
+        shapeLayer.lineWidth = kVLCAddTileLineWidth;
         shapeLayer.lineDashPattern = @[@6, @5];
     }
     return self;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    if (_cornerRadius == cornerRadius) {
+        return;
+    }
+
+    _cornerRadius = cornerRadius;
+    [self setNeedsLayout];
 }
 
 - (void)setStrokeColor:(UIColor *)strokeColor
@@ -51,38 +65,38 @@ static CGFloat const kVLCOnAirAddTileLineWidth = 1.5;
 {
     [super layoutSubviews];
 
-    CGRect insetBounds = CGRectInset(self.bounds, kVLCOnAirAddTileLineWidth / 2.0, kVLCOnAirAddTileLineWidth / 2.0);
+    CGRect insetBounds = CGRectInset(self.bounds, kVLCAddTileLineWidth / 2.0, kVLCAddTileLineWidth / 2.0);
     ((CAShapeLayer *)self.layer).path = [UIBezierPath bezierPathWithRoundedRect:insetBounds
-                                                                  cornerRadius:kVLCOnAirAddTileCornerRadius].CGPath;
+                                                                  cornerRadius:_cornerRadius].CGPath;
 }
 
 @end
 
-@implementation VLCOnAirAddTile
+@implementation VLCAddTile
 {
-    VLCOnAirDashedBorderView *_outlineContainer;
+    VLCDashedBorderView *_outlineContainer;
     UILabel *_plusLabel;
     UILabel *_nameLabel;
 }
 
 + (NSString *)reuseIdentifier
 {
-    return @"VLCOnAirAddTile";
+    return @"VLCAddTile";
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _outlineCornerRadius = kVLCAddTileDefaultCornerRadius;
         [self setupViews];
-        [self updateTheme];
     }
     return self;
 }
 
 - (void)setupViews
 {
-    _outlineContainer = [[VLCOnAirDashedBorderView alloc] init];
+    _outlineContainer = [[VLCDashedBorderView alloc] init];
     _outlineContainer.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_outlineContainer];
 
@@ -99,7 +113,8 @@ static CGFloat const kVLCOnAirAddTileLineWidth = 1.5;
     _nameLabel.numberOfLines = 1;
     _nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.text = NSLocalizedString(@"ONAIR_ADD", nil);
+    _nameLabel.adjustsFontSizeToFitWidth = YES;
+    _nameLabel.minimumScaleFactor = 0.8;
     [self.contentView addSubview:_nameLabel];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -118,12 +133,24 @@ static CGFloat const kVLCOnAirAddTileLineWidth = 1.5;
     ]];
 }
 
-- (void)updateTheme
+- (void)setOutlineCornerRadius:(CGFloat)outlineCornerRadius
+{
+    _outlineCornerRadius = outlineCornerRadius;
+    _outlineContainer.cornerRadius = outlineCornerRadius;
+}
+
+- (void)configureWithTitle:(NSString *)title
 {
     ColorPalette *themeColors = PresentationTheme.current.colors;
+
     [_outlineContainer setStrokeColor:themeColors.cellDetailTextColor];
     _plusLabel.textColor = themeColors.cellDetailTextColor;
     _nameLabel.textColor = themeColors.cellDetailTextColor;
+    _nameLabel.text = title;
+
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitButton;
+    self.accessibilityLabel = title;
 }
 
 @end

@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCOnAirRailCell.h"
-#import "VLCOnAirAddTile.h"
+#import "VLCAddTile.h"
 #import "VLCArtworkTile.h"
 #import "VLCFavoriteService.h"
 
@@ -78,8 +78,8 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
         _collectionView.delegate = self;
         [_collectionView registerClass:[VLCArtworkTile class]
             forCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier];
-        [_collectionView registerClass:[VLCOnAirAddTile class]
-            forCellWithReuseIdentifier:VLCOnAirAddTile.reuseIdentifier];
+        [_collectionView registerClass:[VLCAddTile class]
+            forCellWithReuseIdentifier:VLCAddTile.reuseIdentifier];
         [self.contentView addSubview:_collectionView];
 
         [NSLayoutConstraint activateConstraints:@[
@@ -114,9 +114,9 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ((NSUInteger)indexPath.item >= _favoriteCount) {
-        VLCOnAirAddTile *addTile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCOnAirAddTile.reuseIdentifier
-                                                                            forIndexPath:indexPath];
-        [addTile updateTheme];
+        VLCAddTile *addTile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCAddTile.reuseIdentifier
+                                                                       forIndexPath:indexPath];
+        [addTile configureWithTitle:NSLocalizedString(@"ONAIR_ADD", nil)];
         return addTile;
     }
 
