@@ -145,13 +145,9 @@ static CGFloat const kVLCOnAirPromptButtonHeight = 38.0;
     ColorPalette *themeColors = PresentationTheme.current.colors;
     UIColor *accent = themeColors.orangeUI;
 
-    if (@available(iOS 13.0, *)) {
-        _cardView.backgroundColor = UIColor.tertiarySystemBackgroundColor;
-    } else {
-        _cardView.backgroundColor = themeColors.cellBackgroundA;
-    }
+    _cardView.backgroundColor = themeColors.cardBackground;
 
-    _glyphWell.backgroundColor = [accent colorWithAlphaComponent:0.13];
+    _glyphWell.backgroundColor = themeColors.accentTint;
     _glyphView.image = [glyph imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _glyphView.tintColor = accent;
 

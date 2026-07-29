@@ -172,11 +172,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
     ColorPalette *themeColors = PresentationTheme.current.colors;
     UIColor *accent = themeColors.orangeUI;
 
-    if (@available(iOS 13.0, *)) {
-        _cardView.backgroundColor = UIColor.tertiarySystemBackgroundColor;
-    } else {
-        _cardView.backgroundColor = themeColors.cellBackgroundA;
-    }
+    _cardView.backgroundColor = themeColors.cardBackground;
 
     _artworkView.image = [VLCPlaceholderArtwork placeholderImageForName:name
                                                                    size:CGSizeMake(kVLCOnAirContinueArtworkSide, kVLCOnAirContinueArtworkSide)

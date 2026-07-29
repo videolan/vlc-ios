@@ -677,11 +677,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (void)updateTheme
 {
-    if (@available(iOS 13.0, *)) {
-        _tableView.backgroundColor = UIColor.secondarySystemBackgroundColor;
-    } else {
-        _tableView.backgroundColor = PresentationTheme.current.colors.background;
-    }
+    _tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
 
     [self updateTableHeaderView];
     [_tableView reloadData];
