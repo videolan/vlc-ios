@@ -359,6 +359,9 @@ static CGFloat const kVLCArtworkTileDefaultCornerRadius = 18.0;
     _glyphView.hidden = YES;
     self.pillText = nil;
     self.accessoryGlyphName = nil;
+    self.badge = VLCArtworkTileBadgeNone;
+    self.delegate = nil;
+    self.removalActionTitle = nil;
 }
 
 @end
