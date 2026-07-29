@@ -51,6 +51,10 @@
     return self.mediaItem.metaData.artworkURL;
 }
 
+- (NSString *)connectionProtocol {
+    return self.mediaItem.url.scheme.uppercaseString;
+}
+
 - (VLCNetworkServerLoginInformation *)loginInformation {
     VLCMedia *media = self.mediaItem;
     if (media.mediaType != VLCMediaTypeDirectory) {
