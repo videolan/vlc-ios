@@ -17,6 +17,7 @@
 #import "VLCTransferController.h"
 #import "VLCFavoriteService.h"
 #import "VLCRadioCountryService.h"
+#import "VLCSavedServerList.h"
 #import "VLCStripeController.h"
 #import "VLC-Swift.h"
 
@@ -25,6 +26,7 @@
     MediaLibraryService *_mediaLibraryService;
     VLCFavoriteService *_favoriteService;
     VLCRadioCountryService *_radioCountryService;
+    VLCSavedServerList *_savedServerList;
     VLCHTTPUploaderController *_httpUploaderController;
     VLCTransferController *_transferController;
     VLCRemoteControlService *_remoteControlService;
@@ -97,6 +99,15 @@
     }
 
     return _radioCountryService;
+}
+
+- (VLCSavedServerList *)savedServerList
+{
+    if (!_savedServerList) {
+        _savedServerList = [[VLCSavedServerList alloc] init];
+    }
+
+    return _savedServerList;
 }
 
 - (void)initializeServices
