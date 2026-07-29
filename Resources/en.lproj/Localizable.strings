@@ -110,7 +110,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
 
-"DOWNLOAD_FROM_HTTP" = "Transfers";
 "TRANSFERS" = "Transfers";
 "TRANSFERS_IN_PROGRESS" = "In progress";
 "TRANSFER_FAILED" = "Transfer failed";
@@ -148,10 +147,6 @@
 "RADIO_ALARM_FAILED" = "The alarm could not be set. Please try again.";
 "BUTTON_RETRY" = "Retry";
 "BITRATE_FORMAT" = "%li kb/s";
-"FAVORITEVC_DETAILTEXT" = "See your favorite folders";
-"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
-"DOWNLOADVC_DETAILTEXT" = "Load files directly to your device";
-"CLOUDVC_DETAILTEXT" = "Play or download media from online services";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
 "ONAIR" = "On Air";
@@ -173,10 +168,16 @@
 "ONAIR_ADD_M3U" = "Add M3U";
 
 "BROWSE" = "Browse";
+"BROWSE_SECTION_NETWORK" = "On your network";
+"BROWSE_SECTION_OPEN" = "Open…";
+"BROWSE_PHOTOS" = "Photos";
+"BROWSE_CLOUD" = "Cloud";
+"BROWSE_NETWORK_STREAM" = "Network stream";
+"BROWSE_DOWNLOADS" = "Downloads";
+"BROWSE_WIFI_SHARING" = "Wi-Fi sharing";
 "STREAMS" = "Streams";
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
-"FILE_SERVER" = "File Servers";
 "USER_LABEL" = "User";
 "PASSWORD_LABEL" = "Password";
 "DISABLE_LABEL" = "Disable";
@@ -188,10 +189,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Please check your server address and credentials";
 
 "FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
-"PHOTO_LIBRARY_CELL_TITLE" = "Photo Library";
-"PHOTO_LIBRARY_CELL_SUBTITLE" = "Import videos from your photo library";
 "PHOTO_LIBRARY_IMPORT_FAILED" = "Import failed";
 "PHOTO_LIBRARY_IMPORT_FAILED_MESSAGE" = "VLC could not import %d of the selected videos from your photo library.";
 
@@ -367,6 +365,7 @@
 
 "NFS_LONG" = "Network File System (NFS)";
 "NFS_SHORT" = "NFS";
+"SHARED_VLC_IOS_LIBRARY_SHORT" = "VLC";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";

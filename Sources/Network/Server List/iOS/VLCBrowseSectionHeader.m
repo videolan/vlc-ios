@@ -58,7 +58,7 @@ static CGFloat const kVLCBrowseHeaderButtonSide = 44.0;
     _addButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _addButton.translatesAutoresizingMaskIntoConstraints = NO;
     _addButton.hidden = YES;
-    [_addButton roundCornersWithRadius:kVLCBrowseHeaderButtonSide / 2.0];
+    _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     if (@available(iOS 13.0, *)) {
         UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:20.0
                                                                                                          weight:UIImageSymbolWeightSemibold];
@@ -94,7 +94,6 @@ static CGFloat const kVLCBrowseHeaderButtonSide = 44.0;
     _titleLabel.textColor = themeColors.cellTextColor;
 
     _addButton.hidden = !showsAddButton;
-    _addButton.backgroundColor = themeColors.accentTint;
     _addButton.tintColor = themeColors.orangeUI;
     [_addButton setTitleColor:themeColors.orangeUI forState:UIControlStateNormal];
 }

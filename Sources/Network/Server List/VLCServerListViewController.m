@@ -2,7 +2,7 @@
  * VLCServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -21,65 +21,259 @@
 #import "VLCLocalServerDiscoveryController.h"
 
 #import "VLCPlaybackService.h"
-#import "VLCNetworkListCell.h"
+#import "VLCPlayerDisplayController.h"
 #import "VLCNetworkLoginViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
+#import "VLCNetworkServerBrowserFactory.h"
 
 #import "VLCNetworkServerLoginInformation+Keychain.h"
 
 #import "VLCNetworkServerBrowserVLCMedia.h"
-#import "VLCNetworkServerBrowserPlex.h"
 
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
-#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
-#import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
-#import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
-#import "VLCWiFiUploadTableViewCell.h"
+#import "VLCArtworkTile.h"
+#import "VLCBrowseSectionHeader.h"
+#import "VLCBrowseChipCell.h"
+#import "VLCBrowseSharingCell.h"
+#import "VLCBrowseSharingBandCell.h"
+
+#import "VLCAppCoordinator.h"
+#import "VLCFavoriteService.h"
+#import "VLCSavedServerList.h"
+#import "VLCHTTPUploaderController.h"
 #import "VLCDocumentPickerController.h"
+#import "VLCTransferViewController.h"
+#import "VLCOpenNetworkStreamViewController.h"
+#if TARGET_OS_IOS
+#import "VLCPhotoLibraryController.h"
+#import "VLCCloudServicesTableViewController.h"
+#endif
 
 #import "VLC-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
-{
-    BOOL _localNetworkReloadScheduled;
-    VLCLocalServerDiscoveryController *_discoveryController;
+typedef NS_ENUM(NSInteger, VLCBrowseSection) {
+    VLCBrowseSectionNetwork,
+    VLCBrowseSectionFavorites,
+    VLCBrowseSectionOpen,
+    VLCBrowseSectionCount
+};
 
-    UIRefreshControl *_refreshControl;
-    UIActivityIndicatorView *_activityIndicator;
-    UITableView *_localNetworkTableView;
-    UITableView *_remoteNetworkTableView;
-    UIScrollView *_scrollView;
-    VLCRemoteNetworkDataSourceAndDelegate *_remoteNetworkDataSourceAndDelegate;
-    NSLayoutConstraint* _localNetworkHeight;
-    NSLayoutConstraint* _remoteNetworkHeight;
-    MediaLibraryService *_medialibraryService;
+typedef NS_ENUM(NSInteger, VLCBrowseChip) {
+    VLCBrowseChipLocalFiles,
+    VLCBrowseChipPhotos,
+    VLCBrowseChipCloud,
+    VLCBrowseChipNetworkStream,
+    VLCBrowseChipDownloads,
+    VLCBrowseChipWiFiSharing
+};
 
-    UIView *_fileServerSeparator;
-    UILabel *_fileServerLabel;
-    UIButton *_fileServerConnectButton;
+static NSTimeInterval const kVLCBrowseReloadDebounceInterval = 0.1;
 
-    BOOL _observingContentSize;
-}
+static CGFloat const kVLCBrowseGutter = 20.0;
+static CGFloat const kVLCBrowseTileGap = 9.0;
+static CGFloat const kVLCBrowseChipGap = 7.0;
+static CGFloat const kVLCBrowseMinTileWidth = 105.0;
+static CGFloat const kVLCBrowseMinChipWidth = 163.0;
+static NSInteger const kVLCBrowseChipColumnsCompact = 2;
+static NSInteger const kVLCBrowseChipColumnsRegular = 4;
+static CGFloat const kVLCBrowseCaptionArea = 28.0;
+static CGFloat const kVLCBrowseChipHeight = 44.0;
+static CGFloat const kVLCBrowseTileCornerRadius = 14.0;
+static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
+@interface VLCServerListViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,
+                                           VLCLocalServerDiscoveryControllerDelegate,
+                                           VLCNetworkLoginViewControllerDelegate,
+                                           VLCBrowseSectionHeaderDelegate,
+                                           VLCBrowseSharingCellDelegate,
+                                           VLCArtworkTileDelegate>
 @end
 
 @implementation VLCServerListViewController
-
-- (void)dealloc
 {
-    if (_observingContentSize) {
-        [_remoteNetworkTableView removeObserver:self forKeyPath:@"contentSize"];
-        [_localNetworkTableView removeObserver:self forKeyPath:@"contentSize"];
-    }
+    UICollectionView *_collectionView;
+    UIRefreshControl *_refreshControl;
+
+    VLCLocalServerDiscoveryController *_discoveryController;
+    NSArray<Class> *_browserClasses;
+    NSArray<id<VLCLocalNetworkService>> *_discoveredServices;
+    NSArray<NSString *> *_discoveredPills;
+    BOOL _reloadScheduled;
+
+    NSArray<NSString *> *_manualServers;
+    NSArray<VLCFavorite *> *_favoriteFolders;
+    NSArray<NSNumber *> *_chips;
+    BOOL _sharingExpanded;
+
+    MediaLibraryService *_medialibraryService;
+    VLCFavoriteService *_favoriteService;
+    VLCSavedServerList *_savedServerList;
+    VLCHTTPUploaderController *_httpUploaderController;
+    NSObject *_photoLibraryController;
 }
 
-static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
+- (instancetype)initWithMedialibraryService:(MediaLibraryService *)medialibraryService
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _medialibraryService = medialibraryService;
+        _discoveredServices = @[];
+        _discoveredPills = @[];
+        _manualServers = @[];
+        _favoriteFolders = @[];
+        _chips = [self availableChips];
+        [self setupUI];
+    }
+    return self;
+}
+
+- (void)setupUI
+{
+    self.title = NSLocalizedString(@"BROWSE", nil);
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"BROWSE", nil)
+                                                    image:[UIImage imageNamed:@"Network"]
+                                            selectedImage:[UIImage imageNamed:@"Network"]];
+    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
+}
+
+- (NSArray<NSNumber *> *)availableChips
+{
+    NSMutableArray<NSNumber *> *chips = [NSMutableArray array];
+
+    [chips addObject:@(VLCBrowseChipLocalFiles)];
+#if TARGET_OS_IOS
+    if (@available(iOS 14.0, *)) {
+        [chips addObject:@(VLCBrowseChipPhotos)];
+    }
+    [chips addObject:@(VLCBrowseChipCloud)];
+#endif
+    [chips addObject:@(VLCBrowseChipNetworkStream)];
+    [chips addObject:@(VLCBrowseChipDownloads)];
+    [chips addObject:@(VLCBrowseChipWiFiSharing)];
+
+    return chips;
+}
+
+#pragma mark - view lifecycle
+
+- (void)loadView
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionHeadersPinToVisibleBounds = NO;
+
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.alwaysBounceVertical = YES;
+
+    [_collectionView registerClass:[VLCArtworkTile class]
+        forCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier];
+    [_collectionView registerClass:[VLCBrowseChipCell class]
+        forCellWithReuseIdentifier:VLCBrowseChipCell.reuseIdentifier];
+    [_collectionView registerClass:[VLCBrowseSharingCell class]
+        forCellWithReuseIdentifier:VLCBrowseSharingCell.reuseIdentifier];
+    [_collectionView registerClass:[VLCBrowseSharingBandCell class]
+        forCellWithReuseIdentifier:VLCBrowseSharingBandCell.reuseIdentifier];
+    [_collectionView registerClass:[VLCBrowseSectionHeader class]
+        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+               withReuseIdentifier:VLCBrowseSectionHeader.reuseIdentifier];
+
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    _collectionView.refreshControl = _refreshControl;
+
+    self.view = _collectionView;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    _favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
+    _savedServerList = [[VLCAppCoordinator sharedInstance] savedServerList];
+    _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
+
+    UIImage *settingsImage;
+    if (@available(iOS 13.0, *)) {
+        settingsImage = [UIImage systemImageNamed:@"gearshape"];
+    } else {
+        settingsImage = [UIImage imageNamed:@"Settings"];
+    }
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsImage
+                                                                      style:UIBarButtonItemStylePlain
+                                                                     target:self
+                                                                     action:@selector(showSettings)];
+    settingsButton.accessibilityLabel = NSLocalizedString(@"Settings", nil);
+    settingsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
+    self.navigationItem.leftBarButtonItem = settingsButton;
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
+    [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCSavedServerListDidChange object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown) name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden) name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
+
+    _browserClasses = @[
+        [VLCLocalNetworkServiceBrowserUPnP class],
+        [VLCLocalNetworkServiceBrowserPlex class],
+        [VLCLocalNetworkServiceBrowserHTTP class],
+        [VLCLocalNetworkServiceBrowserDSM class],
+        [VLCLocalNetworkServiceBrowserBonjour class],
+        [VLCLocalNetworkServiceBrowserNFS class],
+    ];
+
+    _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:_browserClasses];
+    _discoveryController.delegate = self;
+
+    [self themeDidChange];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+
+    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
+    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
+
+    _sharingExpanded = _httpUploaderController.isReachable && _httpUploaderController.isServerRunning;
+    [self rebuildFavorites];
+    [_collectionView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_discoveryController startDiscovery];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_discoveryController stopDiscovery];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    /* the number of chip columns changes with the width, so the sharing chip and its band
+     * need to re-evaluate whether they still form one shape */
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self->_collectionView.collectionViewLayout invalidateLayout];
+        [self->_collectionView reloadData];
+    }];
+}
 
 #if TARGET_OS_IOS
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
@@ -100,329 +294,433 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
+}
 #endif
 
-- (instancetype)initWithMedialibraryService:(MediaLibraryService *)medialibraryService
+#pragma mark - content
+
+- (NSString *)pillTitleForBrowserClass:(Class)browserClass
 {
-    self = [super initWithNibName:nil bundle:nil];
-    if (self) {
-        _medialibraryService = medialibraryService;
-        [self setupUI];
+    if (browserClass == [VLCLocalNetworkServiceBrowserUPnP class]) {
+        return NSLocalizedString(@"UPNP_SHORT", nil);
     }
-    return self;
-}
-
-- (void)loadView
-{
-    [super loadView];
-
-    _scrollView = [[UIScrollView alloc] init];
-    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_scrollView];
-
-    NSLayoutYAxisAnchor *scrollViewTopAnchor = self.view.safeAreaLayoutGuide.topAnchor;
-    if (@available(iOS 26.0, *)) {
-        scrollViewTopAnchor = self.view.topAnchor;
+    if (browserClass == [VLCLocalNetworkServiceBrowserPlex class]) {
+        return NSLocalizedString(@"PLEX_SHORT", nil);
     }
-    [NSLayoutConstraint activateConstraints:@[
-        [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_scrollView.topAnchor constraintEqualToAnchor:scrollViewTopAnchor],
-        [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-    ]];
-
-    _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
-    _remoteNetworkDataSourceAndDelegate.delegate = self;
-
-    _localNetworkTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _localNetworkTableView.delegate = self;
-    _localNetworkTableView.dataSource = self;
-    _localNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
-    _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _localNetworkTableView.estimatedRowHeight = [VLCNetworkListCell heightOfCell];
-    _localNetworkTableView.scrollEnabled = NO;
-
-    if (@available(iOS 26.0, *)) {
-    } else {
-        [self.navigationController.navigationBar setTranslucent:NO];
+    if (browserClass == [VLCLocalNetworkServiceBrowserHTTP class]) {
+        return NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY_SHORT", nil);
+    }
+    if (browserClass == [VLCLocalNetworkServiceBrowserDSM class]) {
+        return NSLocalizedString(@"SMB_CIFS_FILE_SERVERS_SHORT", nil);
+    }
+    if (browserClass == [VLCLocalNetworkServiceBrowserNFS class]) {
+        return NSLocalizedString(@"NFS_SHORT", nil);
     }
 
-    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _remoteNetworkTableView.delegate = _remoteNetworkDataSourceAndDelegate;
-    _remoteNetworkTableView.dataSource = _remoteNetworkDataSourceAndDelegate;
-    _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _remoteNetworkTableView.bounces = NO;
-    _remoteNetworkTableView.scrollEnabled = NO;
-    _remoteNetworkTableView.rowHeight = UITableViewAutomaticDimension;
-    _remoteNetworkTableView.estimatedRowHeight = 80.0;
-
-    _fileServerSeparator = [[UIView alloc] init];
-    _fileServerSeparator.translatesAutoresizingMaskIntoConstraints = NO;
-
-    _fileServerLabel = [[UILabel alloc] init];
-    _fileServerLabel.text = NSLocalizedString(@"FILE_SERVER", nil);
-    _fileServerLabel.font = PresentationTheme.current.font.tableHeaderFont;
-    _fileServerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-
-    _fileServerConnectButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_fileServerConnectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) forState:UIControlStateNormal];
-    _fileServerConnectButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    _fileServerConnectButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_fileServerConnectButton addTarget:self action:@selector(connectToServer) forControlEvents:UIControlEventTouchUpInside];
-
-    [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
-    [_remoteNetworkTableView registerClass:[VLCRemoteNetworkCell class] forCellReuseIdentifier:VLCRemoteNetworkCell.cellIdentifier];
-    [_remoteNetworkTableView registerClass:[VLCExternalMediaProviderCell class] forCellReuseIdentifier:VLCExternalMediaProviderCell.cellIdentifier];
-
-    _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.tintColor = [UIColor whiteColor];
-    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [_localNetworkTableView addSubview:_refreshControl];
-
-#if TARGET_OS_VISION
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    _activityIndicator.color = [UIColor whiteColor];
-#else
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-#endif
-    _activityIndicator.center = _localNetworkTableView.center;
-    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    _activityIndicator.hidesWhenStopped = YES;
-    [_localNetworkTableView addSubview:_activityIndicator];
-
-    [_scrollView addSubview:_remoteNetworkTableView];
-    [_scrollView addSubview:_fileServerSeparator];
-    [_scrollView addSubview:_fileServerLabel];
-    [_scrollView addSubview:_fileServerConnectButton];
-    [_scrollView addSubview:_localNetworkTableView];
-
-    _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
-    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:0];
-
-    UILayoutGuide *safeArea = self.view.safeAreaLayoutGuide;
-    [NSLayoutConstraint activateConstraints:@[
-        [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
-        [_fileServerSeparator.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
-        [_fileServerSeparator.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [_fileServerSeparator.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_fileServerSeparator.heightAnchor constraintEqualToConstant:1],
-        [_fileServerLabel.topAnchor constraintEqualToAnchor:_fileServerSeparator.bottomAnchor constant:15],
-        [_fileServerLabel.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor constant:15],
-        [_fileServerLabel.trailingAnchor constraintLessThanOrEqualToAnchor:_fileServerConnectButton.leadingAnchor],
-        [_fileServerConnectButton.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor constant:-20],
-        [_fileServerConnectButton.firstBaselineAnchor constraintEqualToAnchor:_fileServerLabel.firstBaselineAnchor],
-        [_localNetworkTableView.topAnchor constraintEqualToAnchor:_fileServerLabel.bottomAnchor constant:9],
-        [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
-        _localNetworkHeight,
-        _remoteNetworkHeight
-    ]];
+    return nil;
 }
 
-- (void)setupUI
+- (NSString *)pillTitleForConnectionProtocol:(NSString *)connectionProtocol
 {
-    self.title = NSLocalizedString(@"BROWSE", nil);
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"BROWSE", nil)
-                                                    image: [UIImage imageNamed:@"Network"]
-                                            selectedImage: [UIImage imageNamed:@"Network"]];
-    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
+    if (connectionProtocol.length == 0) {
+        return nil;
+    }
+
+    NSString *identifier = connectionProtocol.uppercaseString;
+
+    if ([identifier isEqualToString:@"SMB"]) {
+        return NSLocalizedString(@"SMB_CIFS_FILE_SERVERS_SHORT", nil);
+    }
+    if ([identifier isEqualToString:@"NFS"]) {
+        return NSLocalizedString(@"NFS_SHORT", nil);
+    }
+    if ([identifier isEqualToString:@"FTP"]) {
+        return NSLocalizedString(@"FTP_SHORT", nil);
+    }
+    if ([identifier isEqualToString:@"SFTP"]) {
+        return NSLocalizedString(@"SFTP_SHORT", nil);
+    }
+    if ([identifier isEqualToString:@"DAV"] || [identifier isEqualToString:@"DAVS"]) {
+        return NSLocalizedString(@"WEBDAV_SHORT", nil);
+    }
+    if ([identifier isEqualToString:@"UPNP"]) {
+        return NSLocalizedString(@"UPNP_SHORT", nil);
+    }
+
+    return identifier;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)rebuildDiscoveredServices
 {
-    if (object == _remoteNetworkTableView && [keyPath isEqualToString:@"contentSize"]) {
-        CGFloat newHeight = _remoteNetworkTableView.contentSize.height;
-        if (newHeight > 0 && newHeight != _remoteNetworkHeight.constant) {
-            _remoteNetworkHeight.constant = newHeight;
+    NSMutableArray<id<VLCLocalNetworkService>> *services = [NSMutableArray array];
+    NSMutableArray<NSString *> *pills = [NSMutableArray array];
+    NSUInteger sectionCount = _discoveryController.numberOfSections;
+
+    for (NSUInteger section = 0; section < sectionCount; section++) {
+        NSString *browserPill = section < _browserClasses.count ? [self pillTitleForBrowserClass:_browserClasses[section]] : nil;
+        NSUInteger itemCount = [_discoveryController numberOfItemsInSection:section];
+        for (NSUInteger item = 0; item < itemCount; item++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:item inSection:section];
+            id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
+            if (!service) {
+                continue;
+            }
+
+            /* browsers that speak a single protocol name it themselves, Bonjour finds many */
+            NSString *pill = browserPill;
+            if (!pill && [service respondsToSelector:@selector(connectionProtocol)]) {
+                pill = [self pillTitleForConnectionProtocol:service.connectionProtocol];
+            }
+
+            [services addObject:service];
+            [pills addObject:pill ?: @""];
         }
-    } else if (object == _localNetworkTableView && [keyPath isEqualToString:@"contentSize"]) {
-        CGFloat newHeight = _localNetworkTableView.contentSize.height;
-        if (newHeight != _localNetworkHeight.constant) {
-            _localNetworkHeight.constant = newHeight;
+    }
+
+    _discoveredServices = services;
+    _discoveredPills = pills;
+}
+
+- (void)rebuildFavorites
+{
+    _manualServers = _savedServerList.serverIdentifiers;
+
+    NSMutableArray<VLCFavorite *> *folders = [NSMutableArray array];
+    NSInteger serverCount = _favoriteService.numberOfFavoritedServers;
+
+    for (NSInteger server = 0; server < serverCount; server++) {
+        NSInteger favoriteCount = [_favoriteService numberOfFavoritesOfServerAtIndex:server];
+        for (NSInteger index = 0; index < favoriteCount; index++) {
+            VLCFavorite *favorite = [_favoriteService favoriteOfServerWithIndex:server atIndex:index];
+            if (!favorite || [favorite.groupIdentifier isEqualToString:VLCFavoriteGroupRadio]) {
+                continue;
+            }
+            [folders addObject:favorite];
         }
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+
+    _favoriteFolders = folders;
+}
+
+- (void)favoritesDidChange
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self rebuildFavorites];
+        [self->_collectionView reloadSections:[NSIndexSet indexSetWithIndex:VLCBrowseSectionFavorites]];
+    });
+}
+
+- (void)discoveryFoundSomethingNew
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->_reloadScheduled) {
+            return;
+        }
+
+        self->_reloadScheduled = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kVLCBrowseReloadDebounceInterval * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            self->_reloadScheduled = NO;
+            [self reloadDiscoveredSectionIfVisible];
+        });
+    });
+}
+
+- (void)reloadDiscoveredSectionIfVisible
+{
+    if (!self.isViewLoaded || self.view.window == nil) {
+        return;
+    }
+
+    [self rebuildDiscoveredServices];
+    [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:VLCBrowseSectionNetwork]];
+}
+
+- (void)handleRefresh
+{
+    if ([_discoveryController refreshDiscoveredData]) {
+        [self reloadDiscoveredSectionIfVisible];
+    }
+
+    [_refreshControl endRefreshing];
+}
+
+#pragma mark - layout metrics
+
+- (CGFloat)availableWidth
+{
+    UIEdgeInsets insets = _collectionView.adjustedContentInset;
+    return CGRectGetWidth(_collectionView.bounds) - insets.left - insets.right - 2 * kVLCBrowseGutter;
+}
+
+- (NSInteger)tileColumns
+{
+    CGFloat available = [self availableWidth];
+    NSInteger columns = (NSInteger)floor((available + kVLCBrowseTileGap) / (kVLCBrowseMinTileWidth + kVLCBrowseTileGap));
+    return MAX(3, columns);
+}
+
+- (CGFloat)tileWidth
+{
+    NSInteger columns = [self tileColumns];
+    return floor(([self availableWidth] - kVLCBrowseTileGap * (columns - 1)) / columns);
+}
+
+/* the column count follows the size classes rather than the current width, so the chips widen with
+ * the window instead of reflowing into a different arrangement. Only a regular height keeps the wide
+ * count, which excludes the large phones reporting a regular width in landscape. A window too narrow
+ * for the class still falls back to fewer columns. */
+- (NSInteger)chipColumns
+{
+    UITraitCollection *traits = self.traitCollection;
+    BOOL isWide = traits.horizontalSizeClass == UIUserInterfaceSizeClassRegular
+                  && traits.verticalSizeClass == UIUserInterfaceSizeClassRegular;
+    NSInteger columns = isWide ? kVLCBrowseChipColumnsRegular : kVLCBrowseChipColumnsCompact;
+    CGFloat available = [self availableWidth];
+    NSInteger fitting = (NSInteger)floor((available + kVLCBrowseChipGap) / (kVLCBrowseMinChipWidth + kVLCBrowseChipGap));
+
+    return MAX(kVLCBrowseChipColumnsCompact, MIN(columns, fitting));
+}
+
+- (CGFloat)chipWidth
+{
+    NSInteger columns = [self chipColumns];
+    return floor(([self availableWidth] - kVLCBrowseChipGap * (columns - 1)) / columns);
+}
+
+/* the L shape only reads as one shape when the sharing chip sits in the trailing column */
+- (BOOL)sharingChipIsTrailing
+{
+    NSInteger columns = [self chipColumns];
+    return ((NSInteger)_chips.count - 1) % columns == columns - 1;
+}
+
+- (NSArray<NSString *> *)sharingAddresses
+{
+    return [_httpUploaderController serverAddresses];
+}
+
+#pragma mark - collection view data source
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return VLCBrowseSectionCount;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    switch ((VLCBrowseSection)section) {
+        case VLCBrowseSectionNetwork:
+            return _discoveredServices.count;
+        case VLCBrowseSectionFavorites:
+            return _manualServers.count + _favoriteFolders.count;
+        case VLCBrowseSectionOpen:
+            return _chips.count + (_sharingExpanded ? 1 : 0);
+        default:
+            return 0;
     }
 }
 
-- (void)viewDidLoad
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super viewDidLoad];
-
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    switch ((VLCBrowseSection)indexPath.section) {
+        case VLCBrowseSectionNetwork:
+            return [self discoveredCellForCollectionView:collectionView indexPath:indexPath];
+        case VLCBrowseSectionFavorites:
+            return [self favoriteCellForCollectionView:collectionView indexPath:indexPath];
+        case VLCBrowseSectionOpen:
+            return [self openCellForCollectionView:collectionView indexPath:indexPath];
+        default:
+            return [[UICollectionViewCell alloc] init];
     }
-
-    UIImage *settingsImage;
-    if (@available(iOS 13.0, *)) {
-        settingsImage = [UIImage systemImageNamed:@"gearshape"];
-    } else {
-        settingsImage = [UIImage imageNamed:@"Settings"];
-    }
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsImage
-                                                                      style:UIBarButtonItemStylePlain
-                                                                     target:self
-                                                                     action:@selector(showSettings)];
-    settingsButton.accessibilityLabel = NSLocalizedString(@"Settings", nil);
-    settingsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
-    self.navigationItem.leftBarButtonItem = settingsButton;
-
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
-                               name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
-                               name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
-
-    [self themeDidChange];
-    NSArray *browserClasses = @[
-        [VLCLocalNetworkServiceBrowserUPnP class],
-        [VLCLocalNetworkServiceBrowserPlex class],
-        [VLCLocalNetworkServiceBrowserHTTP class],
-        [VLCLocalNetworkServiceBrowserDSM class],
-        [VLCLocalNetworkServiceBrowserBonjour class],
-        [VLCLocalNetworkServiceBrowserNFS class],
-    ];
-
-    _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
-    _discoveryController.delegate = self;
 }
 
-- (void)showSettings
+- (UICollectionViewCell *)discoveredCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
 {
-    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
-        SettingsController *settingsController = [[SettingsController alloc] initWithMediaLibraryService:self->_medialibraryService];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-        [self presentViewController:navigationController animated:YES completion:nil];
-    } fail:nil];
-}
+    VLCArtworkTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier
+                                                                     forIndexPath:indexPath];
+    id<VLCLocalNetworkService> service = _discoveredServices[indexPath.item];
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [_activityIndicator stopAnimating];
+    tile.artworkCornerRadius = kVLCBrowseTileCornerRadius;
+    tile.badge = VLCArtworkTileBadgeNone;
+    tile.delegate = nil;
+    tile.pillText = _discoveredPills[indexPath.item];
 
-    [_discoveryController stopDiscovery];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (!_observingContentSize) {
-        [_remoteNetworkTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-        [_localNetworkTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-        _observingContentSize = YES;
-    }
-    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
-    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
-    [_remoteNetworkTableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [_discoveryController startDiscovery];
-}
-
-- (void)miniPlayerIsShown
-{
-    _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0,
-                                                           VLCAudioMiniPlayer.height, 0);
-}
-
-- (void)miniPlayerIsHidden
-{
-    _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-}
-
-- (void)contentSizeDidChange
-{
-    [_localNetworkTableView layoutIfNeeded];
-    [_remoteNetworkTableView layoutIfNeeded];
-}
-
-- (void)connectToServer
-{
-    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-
-    loginViewController.loginInformation = [[VLCNetworkServerLoginInformation alloc] init];;
-    loginViewController.delegate = self;
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-    if (@available(iOS 26.0, *)) {
-    } else {
-        [navCon.navigationBar setTranslucent:NO];
-    }
-    [self presentViewController:navCon animated:YES completion:nil];
-
-    if (loginViewController.navigationItem.leftBarButtonItem == nil)
-        loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
-}
-
-#pragma mark - table view handling
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return _discoveryController.numberOfSections;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [_discoveryController numberOfItemsInSection:section];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ColorPalette *themeColors = PresentationTheme.current.colors;
-    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.thumbnailView.tintColor = themeColors.cellTextColor;
-    cell.subtitleLabel.textColor = themeColors.cellDetailTextColor;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"LocalNetworkCell";
-
-    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
-
-    id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
-
-    [cell setIsDirectory:YES];
+    /* never touch service.icon here, it downloads synchronously for VLCMedia backed services */
+    NSURL *iconURL = nil;
     if ([service respondsToSelector:@selector(iconURL)]) {
-        [cell setIconURL:service.iconURL];
+        iconURL = service.iconURL;
     }
-    if (cell.iconURL == nil)
-        [cell setIcon:service.icon];
-    [cell setTitle:service.title];
-    [cell setTitleLabelCentered:NO];
-    [cell setSubtitle:service.serviceName];
+    [tile configureWithName:service.title artworkURL:iconURL];
 
+    return tile;
+}
+
+- (UICollectionViewCell *)favoriteCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
+{
+    VLCArtworkTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier
+                                                                     forIndexPath:indexPath];
+
+    tile.artworkCornerRadius = kVLCBrowseTileCornerRadius;
+    tile.pillText = nil;
+    tile.delegate = self;
+
+    NSUInteger item = indexPath.item;
+    if (item < _manualServers.count) {
+        tile.badge = VLCArtworkTileBadgeServer;
+        tile.removalActionTitle = NSLocalizedString(@"BUTTON_DELETE", nil);
+        [tile configureWithName:[self titleForManualServerAtIndex:item] artworkURL:nil];
+    } else {
+        VLCFavorite *favorite = _favoriteFolders[item - _manualServers.count];
+        tile.badge = VLCArtworkTileBadgeFolder;
+        tile.removalActionTitle = NSLocalizedString(@"REMOVE_FAVORITE", nil);
+        [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
+    }
+
+    return tile;
+}
+
+- (UICollectionViewCell *)openCellForCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath
+{
+    if ((NSUInteger)indexPath.item >= _chips.count) {
+        VLCBrowseSharingBandCell *band = [collectionView dequeueReusableCellWithReuseIdentifier:VLCBrowseSharingBandCell.reuseIdentifier
+                                                                                  forIndexPath:indexPath];
+        [band configureWithAddresses:[self sharingAddresses] joinedToChip:[self sharingChipIsTrailing]];
+        return band;
+    }
+
+    VLCBrowseChip chip = (VLCBrowseChip)_chips[indexPath.item].integerValue;
+    if (chip == VLCBrowseChipWiFiSharing) {
+        VLCBrowseSharingCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCBrowseSharingCell.reuseIdentifier
+                                                                              forIndexPath:indexPath];
+        cell.delegate = self;
+        [cell configureJoinedToBand:_sharingExpanded && [self sharingChipIsTrailing]];
+        return cell;
+    }
+
+    VLCBrowseChipCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCBrowseChipCell.reuseIdentifier
+                                                                       forIndexPath:indexPath];
+    [cell configureWithTitle:[self titleForChip:chip] image:[self imageForChip:chip]];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    VLCBrowseSectionHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                                       withReuseIdentifier:VLCBrowseSectionHeader.reuseIdentifier
+                                                                              forIndexPath:indexPath];
+    header.delegate = self;
+    [header configureWithTitle:[self titleForSection:(VLCBrowseSection)indexPath.section]
+                showsAddButton:indexPath.section == VLCBrowseSectionNetwork];
+    return header;
+}
 
-    id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
+#pragma mark - collection view layout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch ((VLCBrowseSection)indexPath.section) {
+        case VLCBrowseSectionNetwork:
+        case VLCBrowseSectionFavorites: {
+            CGFloat width = [self tileWidth];
+            return CGSizeMake(width, width + kVLCBrowseCaptionArea);
+        }
+        case VLCBrowseSectionOpen: {
+            if ((NSUInteger)indexPath.item >= _chips.count) {
+                CGFloat height = [VLCBrowseSharingBandCell heightForAddressCount:[self sharingAddresses].count
+                                                                    joinedToChip:[self sharingChipIsTrailing]];
+                return CGSizeMake([self availableWidth], height);
+            }
+            return CGSizeMake([self chipWidth], kVLCBrowseChipHeight);
+        }
+        default:
+            return CGSizeZero;
+    }
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                        layout:(UICollectionViewLayout *)collectionViewLayout
+        insetForSectionAtIndex:(NSInteger)section
+{
+    if ([self collectionView:collectionView numberOfItemsInSection:section] == 0) {
+        return UIEdgeInsetsZero;
+    }
+
+    return UIEdgeInsetsMake(0.0, kVLCBrowseGutter, kVLCBrowseSectionSpacing, kVLCBrowseGutter);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                   layout:(UICollectionViewLayout *)collectionViewLayout
+minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return section == VLCBrowseSectionOpen ? kVLCBrowseChipGap : kVLCBrowseTileGap;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                   layout:(UICollectionViewLayout *)collectionViewLayout
+minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return section == VLCBrowseSectionOpen ? kVLCBrowseChipGap : kVLCBrowseTileGap;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+referenceSizeForHeaderInSection:(NSInteger)section
+{
+    if ([self collectionView:collectionView numberOfItemsInSection:section] == 0) {
+        return CGSizeZero;
+    }
+
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds), VLCBrowseSectionHeader.height);
+}
+
+#pragma mark - collection view delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
+        [self handleSelectionAtIndexPath:indexPath];
+    } fail:nil];
+}
+
+- (void)handleSelectionAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch ((VLCBrowseSection)indexPath.section) {
+        case VLCBrowseSectionNetwork:
+            [self openDiscoveredServiceAtIndex:indexPath.item];
+            break;
+        case VLCBrowseSectionFavorites:
+            [self openFavoriteAtIndex:indexPath.item];
+            break;
+        case VLCBrowseSectionOpen:
+            [self openChipAtIndexPath:indexPath];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - discovered servers
+
+- (void)openDiscoveredServiceAtIndex:(NSUInteger)index
+{
+    if (index >= _discoveredServices.count) {
+        return;
+    }
+
+    id<VLCLocalNetworkService> service = _discoveredServices[index];
 
     if ([service respondsToSelector:@selector(serverBrowser)]) {
         id<VLCNetworkServerBrowser> serverBrowser = [service serverBrowser];
         if (serverBrowser) {
-            VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
-                                                         initWithServerBrowser:serverBrowser
-                                                         medialibraryService:_medialibraryService];
-            [self.navigationController pushViewController:vc animated:YES];
+            [self pushBrowser:serverBrowser];
             return;
         }
     }
@@ -437,11 +735,9 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
         }
     }
 
-    VLCNetworkServerLoginInformation *login;
+    VLCNetworkServerLoginInformation *login = nil;
     if ([service respondsToSelector:@selector(loginInformation)]) {
         login = (VLCNetworkServerLoginInformation *)[service loginInformation];
-    } else {
-        APLog(@"%s: no login information, class %@", __func__, NSStringFromClass([service class]));
     }
 
     if (!login) {
@@ -453,139 +749,285 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
 
     /* UPnP does not support authentication, so skip this step */
     if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
-        VLCNetworkServerBrowserVLCMedia *serverBrowser;
-        if (login.rootMedia != nil) {
-            serverBrowser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:login.rootMedia options:login.options];
-        } else {
-            serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
-        }
-        VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
-                                                     initWithServerBrowser:serverBrowser
-                                                     medialibraryService:_medialibraryService];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self pushBrowser:[VLCNetworkServerBrowserFactory browserForLogin:login]];
         return;
     }
 
     NSError *error = nil;
     if (![login loadLoginInformationFromKeychainWithError:&error]) {
-        [self showKeychainLoadError:error forLogin:login];
+        [self showKeychainLoadError:error];
         return;
     }
 
-    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-
-    loginViewController.loginInformation = login;
-    loginViewController.delegate = self;
-#if TARGET_OS_IOS
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-#endif
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-        navCon.navigationBarHidden = NO;
-        navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:navCon animated:YES completion:nil];
-
-        if (loginViewController.navigationItem.leftBarButtonItem == nil) {
-            loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                                                    initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                    style:UIBarButtonItemStylePlain
-                                                                    target:self
-                                                                    action:@selector(_dismissLogin)];
-        }
-#if TARGET_OS_IOS
-    } else {
-        [self.navigationController pushViewController:loginViewController animated:YES];
-    }
-#endif
+    [self presentLoginViewControllerWithLogin:login];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-    return [VLCNetworkListCell heightOfCell];
-}
+#pragma mark - favorites
 
-- (void)showKeychainLoadError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
+- (NSString *)titleForManualServerAtIndex:(NSUInteger)index
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
-                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull action) {
-        [self connectToServer];
-    }]];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)showViewController:(UIViewController *)viewController
-{
-    if (self.navigationController.topViewController == viewController) {
-        return;
-    }
-    if (![self.navigationController.viewControllers containsObject:self]) {
-        return;
-    }
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)showLocalFilesPicker
-{
-    [[VLCDocumentPickerController new] presentFromViewController:self initialDirectory:nil];
-}
-
-- (void)reloadRemoteTableView
-{
-    [_remoteNetworkTableView reloadData];
-}
-
-- (void)reloadLocalTableViewIfVisible
-{
-    if (!self.isViewLoaded || self.view.window == nil) {
-        return;
+    NSURL *url = [NSURL URLWithString:_manualServers[index]];
+    if (!url.host) {
+        return _manualServers[index];
     }
 
-    [_localNetworkTableView reloadData];
+    if (url.path.length > 0) {
+        return [NSString stringWithFormat:@"%@%@", url.host, url.path];
+    }
+
+    return url.host;
 }
 
-- (void)scheduleLocalTableViewReload
+- (void)openFavoriteAtIndex:(NSUInteger)index
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->_localNetworkReloadScheduled) {
+    if (index < _manualServers.count) {
+        NSError *error = nil;
+        VLCNetworkServerLoginInformation *login = [_savedServerList loginAtIndex:index error:&error];
+        if (!login) {
+            [self showKeychainLoadError:error];
             return;
         }
 
-        self->_localNetworkReloadScheduled = YES;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kVLCLocalNetworkReloadDebounceInterval * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(), ^{
-            self->_localNetworkReloadScheduled = NO;
-            [self reloadLocalTableViewIfVisible];
-        });
-    });
-}
-
-#pragma mark -
-- (void)themeDidChange
-{
-    ColorPalette *colors = PresentationTheme.current.colors;
-    _localNetworkTableView.backgroundColor = colors.background;
-    _remoteNetworkTableView.backgroundColor = colors.background;
-    _scrollView.backgroundColor = colors.background;
-    _localNetworkTableView.separatorColor = colors.background;
-    _refreshControl.backgroundColor = colors.background;
-    self.navigationController.view.backgroundColor = colors.background;
-    _fileServerSeparator.backgroundColor = colors.separatorColor;
-    _fileServerLabel.textColor = colors.cellTextColor;
-    [_fileServerConnectButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
-    if (@available(iOS 26.0, *)) {
-    } else if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
+        [self pushBrowser:[VLCNetworkServerBrowserFactory browserForLogin:login]];
+        return;
     }
-#if TARGET_OS_IOS
-    [self setNeedsStatusBarAppearanceUpdate];
-#endif
+
+    NSUInteger folderIndex = index - _manualServers.count;
+    if (folderIndex >= _favoriteFolders.count) {
+        return;
+    }
+
+    VLCFavorite *favorite = _favoriteFolders[folderIndex];
+
+    if (favorite.playable) {
+        VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+        VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
+        if (media) {
+            [mediaList addMedia:media];
+            [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+        }
+        return;
+    }
+
+    VLCNetworkServerLoginInformation *login = favorite.loginInformation;
+    id<VLCNetworkServerBrowser> browser = nil;
+
+    if ([favorite.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
+        browser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithURL:favorite.url options:@{}];
+    } else if (login) {
+        browser = [VLCNetworkServerBrowserFactory browserForLogin:login];
+    } else {
+        VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
+        if (media) {
+            browser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:media options:@{}];
+        }
+    }
+
+    [self pushBrowser:browser];
 }
 
-- (void)_dismissLogin
+- (void)artworkTileDidRequestRemoval:(VLCArtworkTile *)tile
+{
+    NSIndexPath *indexPath = [_collectionView indexPathForCell:tile];
+    if (!indexPath || indexPath.section != VLCBrowseSectionFavorites) {
+        return;
+    }
+
+    NSUInteger item = indexPath.item;
+    if (item < _manualServers.count) {
+        [_savedServerList removeServerAtIndex:item error:nil];
+    } else {
+        [_favoriteService removeFavorite:_favoriteFolders[item - _manualServers.count]];
+    }
+
+    [self rebuildFavorites];
+    [_collectionView reloadSections:[NSIndexSet indexSetWithIndex:VLCBrowseSectionFavorites]];
+}
+
+#pragma mark - open something
+
+- (NSString *)titleForSection:(VLCBrowseSection)section
+{
+    switch (section) {
+        case VLCBrowseSectionNetwork:
+            return NSLocalizedString(@"BROWSE_SECTION_NETWORK", nil);
+        case VLCBrowseSectionFavorites:
+            return NSLocalizedString(@"FAVORITES", nil);
+        case VLCBrowseSectionOpen:
+            return NSLocalizedString(@"BROWSE_SECTION_OPEN", nil);
+        default:
+            return nil;
+    }
+}
+
+- (NSString *)titleForChip:(VLCBrowseChip)chip
+{
+    switch (chip) {
+        case VLCBrowseChipLocalFiles:
+            return NSLocalizedString(@"FILES_APP_CELL_TITLE", nil);
+        case VLCBrowseChipPhotos:
+            return NSLocalizedString(@"BROWSE_PHOTOS", nil);
+        case VLCBrowseChipCloud:
+            return NSLocalizedString(@"BROWSE_CLOUD", nil);
+        case VLCBrowseChipNetworkStream:
+            return NSLocalizedString(@"BROWSE_NETWORK_STREAM", nil);
+        case VLCBrowseChipDownloads:
+            return NSLocalizedString(@"BROWSE_DOWNLOADS", nil);
+        case VLCBrowseChipWiFiSharing:
+            return NSLocalizedString(@"BROWSE_WIFI_SHARING", nil);
+    }
+}
+
+- (UIImage *)imageForChip:(VLCBrowseChip)chip
+{
+    switch (chip) {
+        case VLCBrowseChipLocalFiles:
+            return [UIImage imageNamed:@"homeLocalFiles"];
+        case VLCBrowseChipPhotos:
+            if (@available(iOS 13.0, *)) {
+                return [UIImage systemImageNamed:@"photo.on.rectangle"];
+            }
+            return nil;
+        case VLCBrowseChipCloud:
+            return [UIImage imageNamed:@"iCloudIcon"];
+        case VLCBrowseChipNetworkStream:
+            return [UIImage imageNamed:@"OpenNetStream"];
+        case VLCBrowseChipDownloads:
+            return [UIImage imageNamed:@"Downloads"];
+        case VLCBrowseChipWiFiSharing:
+            return nil;
+    }
+}
+
+- (void)openChipAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ((NSUInteger)indexPath.item >= _chips.count) {
+        return;
+    }
+
+    VLCBrowseChip chip = (VLCBrowseChip)_chips[indexPath.item].integerValue;
+
+    switch (chip) {
+        case VLCBrowseChipLocalFiles:
+            [[VLCDocumentPickerController new] presentFromViewController:self initialDirectory:nil];
+            break;
+#if TARGET_OS_IOS
+        case VLCBrowseChipPhotos:
+            if (@available(iOS 14.0, *)) {
+                VLCPhotoLibraryController *controller = [[VLCPhotoLibraryController alloc] init];
+                _photoLibraryController = controller;
+                [controller showPhotoLibraryPicker:[_collectionView cellForItemAtIndexPath:indexPath]];
+            }
+            break;
+        case VLCBrowseChipCloud:
+            [self pushViewController:[[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController"
+                                                                                           bundle:[NSBundle mainBundle]]];
+            break;
+#endif
+        case VLCBrowseChipNetworkStream:
+            [self pushViewController:[[VLCOpenNetworkStreamViewController alloc] init]];
+            break;
+        case VLCBrowseChipDownloads:
+            [self pushViewController:[[VLCTransferViewController alloc] init]];
+            break;
+        case VLCBrowseChipWiFiSharing: {
+            VLCBrowseSharingCell *cell = (VLCBrowseSharingCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+            [cell toggleSharing];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)sharingCellDidChangeState:(VLCBrowseSharingCell *)cell
+{
+    BOOL expanded = cell.isSharingEnabled;
+    if (expanded == _sharingExpanded) {
+        return;
+    }
+
+    _sharingExpanded = expanded;
+
+    /* the chip keeps its position and only changes its corners, so the L reads as one growing shape */
+    [cell configureJoinedToBand:expanded && [self sharingChipIsTrailing]];
+
+    NSIndexPath *bandIndexPath = [NSIndexPath indexPathForItem:_chips.count inSection:VLCBrowseSectionOpen];
+    [_collectionView performBatchUpdates:^{
+        if (expanded) {
+            [self->_collectionView insertItemsAtIndexPaths:@[bandIndexPath]];
+        } else {
+            [self->_collectionView deleteItemsAtIndexPaths:@[bandIndexPath]];
+        }
+    } completion:^(BOOL finished) {
+        if (expanded) {
+            [self->_collectionView scrollToItemAtIndexPath:bandIndexPath
+                                          atScrollPosition:UICollectionViewScrollPositionBottom
+                                                  animated:YES];
+        }
+    }];
+}
+
+#pragma mark - navigation
+
+- (void)pushViewController:(UIViewController *)viewController
+{
+    if (!viewController || self.navigationController.topViewController == viewController) {
+        return;
+    }
+
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)pushBrowser:(id<VLCNetworkServerBrowser>)browser
+{
+    if (!browser) {
+        return;
+    }
+
+    VLCNetworkServerBrowserViewController *controller =
+        [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:browser
+                                                        medialibraryService:_medialibraryService];
+    [self pushViewController:controller];
+}
+
+- (void)sectionHeaderDidTriggerAction:(VLCBrowseSectionHeader *)header
+{
+    [self connectToServer];
+}
+
+- (void)connectToServer
+{
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    [self presentLoginViewControllerWithLogin:login];
+}
+
+- (void)presentLoginViewControllerWithLogin:(VLCNetworkServerLoginInformation *)login
+{
+    VLCNetworkLoginViewController *loginViewController =
+        [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+    loginViewController.loginInformation = login;
+    loginViewController.delegate = self;
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+    if (@available(iOS 26.0, *)) {
+    } else {
+        [navigationController.navigationBar setTranslucent:NO];
+    }
+
+    if (loginViewController.navigationItem.leftBarButtonItem == nil) {
+        loginViewController.navigationItem.leftBarButtonItem =
+            [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                             style:UIBarButtonItemStylePlain
+                                            target:self
+                                            action:@selector(dismissLogin)];
+    }
+
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)dismissLogin
 {
     if ([self.navigationController presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -594,69 +1036,69 @@ static const NSTimeInterval kVLCLocalNetworkReloadDebounceInterval = 0.1;
     }
 }
 
+- (void)loginWithLoginViewController:(VLCNetworkLoginViewController *)loginViewController
+                           loginInfo:(VLCNetworkServerLoginInformation *)loginInformation
+{
+    [self pushBrowser:[VLCNetworkServerBrowserFactory browserForLogin:loginInformation]];
+}
+
+- (void)showKeychainLoadError:(NSError *)error
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                            message:error.localizedFailureReason
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action) {
+        [self connectToServer];
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)showSettings
+{
+    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
+        SettingsController *settingsController = [[SettingsController alloc] initWithMediaLibraryService:self->_medialibraryService];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
+        [self presentViewController:navigationController animated:YES completion:nil];
+    } fail:nil];
+}
+
+#pragma mark - appearance
+
+- (void)themeDidChange
+{
+    _collectionView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.pageBackground;
+
+    if (@available(iOS 26.0, *)) {
+    } else if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
+    }
+
+    [_collectionView reloadData];
+
 #if TARGET_OS_IOS
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return PresentationTheme.current.colors.statusBarStyle;
-}
+    [self setNeedsStatusBarAppearanceUpdate];
 #endif
-
-#pragma mark - Refresh
-
-- (void)handleRefresh
-{
-    //set the title while refreshing
-    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
-    //set the date and time of refreshing
-    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
-    [formattedDate setDateStyle:NSDateFormatterMediumStyle];
-    [formattedDate setTimeStyle:NSDateFormatterShortStyle];
-    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
-    //end the refreshing
-
-    if ([_discoveryController refreshDiscoveredData]) {
-        [self scheduleLocalTableViewReload];
-    }
-
-    [_refreshControl endRefreshing];
 }
 
-#pragma mark - VLCNetworkLoginViewControllerDelegate
-
-- (void)loginWithLoginViewController:(VLCNetworkLoginViewController *)loginViewController loginInfo:(VLCNetworkServerLoginInformation *)loginInformation
+- (void)contentSizeDidChange
 {
-    id<VLCNetworkServerBrowser> serverBrowser = nil;
-    NSString *identifier = loginInformation.protocolIdentifier;
-
-    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
-        serverBrowser = [VLCNetworkServerBrowserVLCMedia FTPNetworkServerBrowserWithLogin:loginInformation];
-    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
-        serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:loginInformation];
-    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
-        serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:loginInformation];
-    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierNFS]) {
-        serverBrowser = [VLCNetworkServerBrowserVLCMedia NFSNetworkServerBrowserWithLogin:loginInformation];
-    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
-        serverBrowser = [VLCNetworkServerBrowserVLCMedia SFTPNetworkServerBrowserWithLogin:loginInformation];
-    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierWebDAV]) {
-        serverBrowser = [VLCNetworkServerBrowserVLCMedia WebDAVNetworkServerBrowserWithLogin:loginInformation];
-    } else {
-        APLog(@"Unsupported URL Scheme requested %@", identifier);
-    }
-
-    if (serverBrowser) {
-        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc]
-                                                                       initWithServerBrowser:serverBrowser
-                                                                       medialibraryService:_medialibraryService];
-        [self.navigationController pushViewController:targetViewController animated:YES];
-    }
+    [_collectionView.collectionViewLayout invalidateLayout];
+    [_collectionView reloadData];
 }
 
-- (void)discoveryFoundSomethingNew
+- (void)miniPlayerIsShown
 {
-    [self scheduleLocalTableViewReload];
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 0, VLCAudioMiniPlayer.height, 0);
+}
+
+- (void)miniPlayerIsHidden
+{
+    _collectionView.contentInset = UIEdgeInsetsZero;
 }
 
 @end
