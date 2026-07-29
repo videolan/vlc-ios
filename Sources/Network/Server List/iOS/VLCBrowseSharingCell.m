@@ -25,7 +25,6 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 14.0;
     UILabel *_titleLabel;
     Reachability *_reachability;
     VLCHTTPUploaderController *_httpUploaderController;
-    NSUserActivity *_userActivity;
 }
 
 + (NSString *)reuseIdentifier
@@ -44,7 +43,7 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 14.0;
         [self setupViews];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(updateState)
+                                                 selector:@selector(reachabilityDidChange)
                                                      name:kReachabilityChangedNotification
                                                    object:nil];
     }
@@ -118,8 +117,12 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 14.0;
     self.isAccessibilityElement = YES;
     self.accessibilityTraits = UIAccessibilityTraitButton;
     self.accessibilityLabel = _titleLabel.text;
+}
 
-    _serverSwitch.on ? [self startHandoff] : [self stopHandoff];
+- (void)reachabilityDidChange
+{
+    [self updateState];
+    [self.delegate sharingCellDidChangeState:self];
 }
 
 - (void)toggleSharing
@@ -134,27 +137,6 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 14.0;
 
     [self updateState];
     [self.delegate sharingCellDidChangeState:self];
-}
-
-- (void)startHandoff
-{
-    NSString *address = [_httpUploaderController addressToCopy];
-    if (address.length == 0) {
-        return;
-    }
-
-    _userActivity = [[NSUserActivity alloc] initWithActivityType:[[NSBundle mainBundle] bundleIdentifier]];
-    _userActivity.webpageURL = [NSURL URLWithString:address];
-    _userActivity.eligibleForSearch = YES;
-    _userActivity.eligibleForPublicIndexing = YES;
-    _userActivity.eligibleForHandoff = YES;
-    [_userActivity becomeCurrent];
-}
-
-- (void)stopHandoff
-{
-    [_userActivity invalidate];
-    _userActivity = nil;
 }
 
 @end

@@ -111,6 +111,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     NSArray<VLCFavorite *> *_favoriteFolders;
     NSArray<NSNumber *> *_chips;
     BOOL _sharingExpanded;
+    NSUserActivity *_sharingActivity;
 
     MediaLibraryService *_medialibraryService;
     VLCFavoriteService *_favoriteService;
@@ -250,6 +251,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
 
     _sharingExpanded = _httpUploaderController.isReachable && _httpUploaderController.isServerRunning;
+    [self updateSharingHandoff];
     [self rebuildFavorites];
     [_collectionView reloadData];
 }
@@ -264,6 +266,9 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 {
     [super viewWillDisappear:animated];
     [_discoveryController stopDiscovery];
+
+    [_sharingActivity invalidate];
+    _sharingActivity = nil;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -954,6 +959,8 @@ referenceSizeForHeaderInSection:(NSInteger)section
 
 - (void)sharingCellDidChangeState:(VLCBrowseSharingCell *)cell
 {
+    [self updateSharingHandoff];
+
     BOOL expanded = cell.isSharingEnabled;
     if (expanded == _sharingExpanded) {
         return;
@@ -978,6 +985,31 @@ referenceSizeForHeaderInSection:(NSInteger)section
                                                   animated:YES];
         }
     }];
+}
+
+- (void)updateSharingHandoff
+{
+    BOOL running = _httpUploaderController.isReachable && _httpUploaderController.isServerRunning;
+    NSURL *address = running ? [NSURL URLWithString:[_httpUploaderController addressToCopy]] : nil;
+
+    if (!address) {
+        [_sharingActivity invalidate];
+        _sharingActivity = nil;
+        return;
+    }
+
+    if ([_sharingActivity.webpageURL isEqual:address]) {
+        return;
+    }
+
+    [_sharingActivity invalidate];
+
+    _sharingActivity = [[NSUserActivity alloc] initWithActivityType:[[NSBundle mainBundle] bundleIdentifier]];
+    _sharingActivity.webpageURL = address;
+    _sharingActivity.eligibleForSearch = YES;
+    _sharingActivity.eligibleForPublicIndexing = YES;
+    _sharingActivity.eligibleForHandoff = YES;
+    [_sharingActivity becomeCurrent];
 }
 
 #pragma mark - navigation
