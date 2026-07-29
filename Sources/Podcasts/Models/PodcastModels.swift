@@ -28,7 +28,9 @@ struct PodcastEpisode {
     let showId: String
     let title: String
     let date: String
+    let releaseDate: Date
     let duration: String
+    let durationValue: Int64
     let progress: Double? // 0 means not started, 1 means finished. `nil` means never played.
     let downloaded: Bool
     let continueListening: Bool

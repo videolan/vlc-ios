@@ -183,11 +183,14 @@ final class PodcastStore: NSObject {
         let downloaded = media.files.contains {
             $0.type() == .cache && FileManager.default.fileExists(atPath: $0.mrl.path)
         }
+        let releaseDate = media.releaseDate()
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,
-                               date: dateFormatter.string(from: media.releaseDate()),
+                               date: dateFormatter.string(from: releaseDate),
+                               releaseDate: releaseDate,
                                duration: VLCTime(number: NSNumber(value: media.duration())).stringValue,
+                               durationValue: media.duration(),
                                progress: progress,
                                downloaded: downloaded,
                                continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1)

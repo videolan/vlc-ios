@@ -398,6 +398,7 @@
 "PODCAST_CONTINUE_LISTENING" = "Continue Listening";
 "PODCAST_LATEST_EPISODES" = "Latest Episodes";
 "PODCAST_SHOWS" = "Shows";
+"PODCAST_SORT_EPISODES_HINT" = "Sort the episodes in this show";
 "PODCAST_EPISODE_COUNT" = "%d episodes";
 "PODCAST_EPISODE_DOWNLOAD" = "Download episode";
 "PODCAST_EPISODE_DOWNLOADED" = "Episode downloaded";

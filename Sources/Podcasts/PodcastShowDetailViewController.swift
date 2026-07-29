@@ -12,6 +12,23 @@
 
 import UIKit
 
+private enum PodcastEpisodeSortCriteria: Int, CaseIterable {
+    case releaseDate
+    case title
+    case duration
+
+    var title: String {
+        switch self {
+        case .releaseDate:
+            return NSLocalizedString("RELEASE_DATE", comment: "")
+        case .title:
+            return NSLocalizedString("TITLE", comment: "")
+        case .duration:
+            return NSLocalizedString("DURATION", comment: "")
+        }
+    }
+}
+
 class PodcastShowDetailViewController: UIViewController {
     private enum PodcastShowSection: Int, CaseIterable {
         case header
@@ -23,8 +40,21 @@ class PodcastShowDetailViewController: UIViewController {
 
     private weak var headerView: PodcastShowHeaderView?
 
+    private var sortCriteria: PodcastEpisodeSortCriteria
+    private var sortDescending: Bool
+
     private var episodes: [PodcastEpisode] {
-        return store.episodes(forShowId: show.id)
+        let episodes = store.episodes(forShowId: show.id)
+        let sorted: [PodcastEpisode]
+        switch sortCriteria {
+        case .releaseDate:
+            sorted = episodes.sorted { $0.releaseDate < $1.releaseDate }
+        case .title:
+            sorted = episodes.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
+        case .duration:
+            sorted = episodes.sorted { $0.durationValue < $1.durationValue }
+        }
+        return sortDescending ? sorted.reversed() : sorted
     }
 
     // Shows can have thousands of episodes (VLCMLSubscription has no paged query, unlike the
@@ -54,6 +84,18 @@ class PodcastShowDetailViewController: UIViewController {
 
     init(show: PodcastShow) {
         self.show = show
+        let userDefaults = UserDefaults.standard
+        if let rawCriteria = userDefaults.object(forKey: "\(kVLCSortDefault)podcastEpisodes") as? Int,
+           let criteria = PodcastEpisodeSortCriteria(rawValue: rawCriteria) {
+            self.sortCriteria = criteria
+        } else {
+            self.sortCriteria = .releaseDate
+        }
+        if userDefaults.object(forKey: "\(kVLCSortDescendingDefault)podcastEpisodes") != nil {
+            self.sortDescending = userDefaults.bool(forKey: "\(kVLCSortDescendingDefault)podcastEpisodes")
+        } else {
+            self.sortDescending = true
+        }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -80,6 +122,64 @@ class PodcastShowDetailViewController: UIViewController {
                                                 name: .VLCThemeDidChangeNotification,
                                                 object: nil)
         store.addObserver(self)
+        setupSortButton()
+    }
+
+    private func setupSortButton() {
+        guard #available(iOS 14.0, *) else {
+            return
+        }
+        let sortButton = UIBarButtonItem()
+        if #available(iOS 26.0, *) {
+            sortButton.image = UIImage(systemName: "ellipsis")
+        } else {
+            sortButton.image = UIImage(named: "EllipseCircle")
+        }
+        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
+        sortButton.accessibilityHint = NSLocalizedString("PODCAST_SORT_EPISODES_HINT", comment: "")
+        sortButton.menu = generateSortMenu(for: sortButton)
+        navigationItem.rightBarButtonItem = sortButton
+    }
+
+    @available(iOS 14.0, *)
+    private func generateSortMenu(for sortButton: UIBarButtonItem) -> UIMenu {
+        var sortActions: [UIMenuElement] = []
+        for criterion in PodcastEpisodeSortCriteria.allCases {
+            let isCurrentSort = criterion == sortCriteria
+            let chevronImageName = sortDescending ? "chevron.down" : "chevron.up"
+            let actionImage = isCurrentSort ? UIImage(systemName: chevronImageName) : nil
+
+            let action = UIAction(title: criterion.title,
+                                  image: actionImage,
+                                  state: isCurrentSort ? .on : .off,
+                                  handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.executeSortAction(with: criterion, desc: !self.sortDescending)
+                sortButton.menu = self.generateSortMenu(for: sortButton)
+            })
+            sortActions.append(action)
+        }
+
+        if #available(iOS 15.0, *) {
+            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
+                          image: UIImage(named: "sort"),
+                          options: .singleSelection,
+                          children: sortActions)
+        } else {
+            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""), options: .displayInline, children: sortActions)
+        }
+    }
+
+    private func executeSortAction(with criteria: PodcastEpisodeSortCriteria, desc: Bool) {
+        sortCriteria = criteria
+        sortDescending = desc
+        revealedEpisodeCount = Int(kVLCDefaultPageSize)
+
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(criteria.rawValue, forKey: "\(kVLCSortDefault)podcastEpisodes")
+        userDefaults.set(desc, forKey: "\(kVLCSortDescendingDefault)podcastEpisodes")
+
+        tableView.reloadData()
     }
 
     deinit {
