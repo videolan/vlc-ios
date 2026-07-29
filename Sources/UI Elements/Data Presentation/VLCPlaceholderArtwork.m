@@ -14,6 +14,17 @@
 
 @implementation VLCPlaceholderArtwork
 
++ (NSString *)leadingCharacters:(NSUInteger)count ofString:(NSString *)string
+{
+    NSRange range = NSMakeRange(0, 0);
+    while (count > 0 && NSMaxRange(range) < string.length) {
+        range.length += [string rangeOfComposedCharacterSequenceAtIndex:NSMaxRange(range)].length;
+        count--;
+    }
+
+    return [string substringWithRange:range];
+}
+
 + (NSString *)initialsForName:(NSString *)name
 {
     NSString *trimmed = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -21,19 +32,22 @@
         return @"?";
 
     NSCharacterSet *wordSeparators = [NSCharacterSet characterSetWithCharactersInString:@" -_|/·•"];
-    NSArray<NSString *> *components = [trimmed componentsSeparatedByCharactersInSet:wordSeparators];
-
-    NSMutableString *initials = [NSMutableString stringWithCapacity:2];
-    for (NSString *word in components) {
-        if (word.length == 0)
-            continue;
-        [initials appendString:[[word substringToIndex:1] uppercaseString]];
-        if (initials.length == 2)
-            break;
+    NSMutableArray<NSString *> *words = [NSMutableArray array];
+    for (NSString *component in [trimmed componentsSeparatedByCharactersInSet:wordSeparators]) {
+        if (component.length > 0)
+            [words addObject:component.uppercaseString];
     }
 
-    if (initials.length == 0)
-        [initials appendString:[[trimmed substringToIndex:1] uppercaseString]];
+    if (words.count == 0)
+        return [self leadingCharacters:1 ofString:trimmed.uppercaseString];
+
+    if (words.count == 1)
+        return [self leadingCharacters:2 ofString:words.firstObject];
+
+    NSMutableString *initials = [NSMutableString stringWithCapacity:2];
+    for (NSUInteger index = 0; index < MIN(words.count, 2); index++) {
+        [initials appendString:[self leadingCharacters:1 ofString:words[index]]];
+    }
 
     return initials;
 }
