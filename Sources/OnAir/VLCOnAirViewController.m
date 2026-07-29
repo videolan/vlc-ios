@@ -137,8 +137,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 {
     [super viewWillAppear:animated];
 
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 
     VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
