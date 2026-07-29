@@ -20,6 +20,11 @@ extension UIView {
         }
     }
 
+    @objc func roundCorners(radius: CGFloat, maskedCorners: CACornerMask) {
+        roundCorners(radius: radius)
+        layer.maskedCorners = maskedCorners
+    }
+
     // Neutral rounded chrome for floating controls over the player (footer buttons, sync row).
     func styleAsNeutralOverlayControl(cornerRadius: CGFloat) {
         let colors = PresentationTheme.currentExcludingWhite.colors
