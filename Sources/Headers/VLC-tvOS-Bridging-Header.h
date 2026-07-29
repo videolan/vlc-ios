@@ -24,6 +24,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "VLCFavoriteService.h"
+#import "VLCSavedServerList.h"
 #import "VLCAppCoordinator.h"
 #import "VLCRemoteBrowsingTVCell.h"
 

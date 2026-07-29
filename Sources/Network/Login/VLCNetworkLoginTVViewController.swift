@@ -28,27 +28,20 @@ import UIKit
     @IBOutlet weak var nothingFoundView: UIView!
     @IBOutlet weak var nothingFoundLabel: UILabel!
 
-    var serverList: NSMutableArray!
-    
+    private var savedServerList: VLCSavedServerList!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureAppearance()
 
-        serverList = NSMutableArray.init()
+        savedServerList = VLCAppCoordinator.sharedInstance().savedServerList
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ubiquitousKeyValueStoreDidChange),
-                                               name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
-                                               object: NSUbiquitousKeyValueStore.default)
+                                               selector: #selector(savedServerListDidChange),
+                                               name: NSNotification.Name(VLCSavedServerListDidChange),
+                                               object: nil)
 
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
-
-        let ukvStore = NSUbiquitousKeyValueStore.default
-        ukvStore.synchronize()
-        let ukvServerList = ukvStore.array(forKey: kVLCStoredServerList)
-        if ukvServerList != nil {
-            serverList.addObjects(from: ukvServerList!)
-        }
 
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         longPressGestureRecognizer.minimumPressDuration = 1
@@ -98,16 +91,7 @@ import UIKit
         nothingFoundLabel.text = NSLocalizedString("NO_SAVING_DATA", comment: "")
     }
 
-    @objc func ubiquitousKeyValueStoreDidChange(notification: NSNotification) {
-        if !Thread.isMainThread {
-            self.performSelector(onMainThread: #selector(ubiquitousKeyValueStoreDidChange), with: notification, waitUntilDone: false)
-            return
-        }
-        guard let storedServerList = NSUbiquitousKeyValueStore.default.array(forKey: kVLCStoredServerList)
-        else {
-            return
-        }
-        serverList?.setArray(storedServerList)
+    @objc func savedServerListDidChange() {
         tableView.reloadData()
     }
 
@@ -242,29 +226,18 @@ import UIKit
     }
 
     func deleteItem(_ row: NSInteger) {
-        let serviceString = serverList[row]
         do {
-            try XKKeychainGenericPasswordItem.removeItems(forService: serviceString as? String)
+            try savedServerList.removeServer(at: UInt(row))
         } catch let error as NSError {
-            print("Failed to delete login with error: \(error)")
-            return
+            APLog("Failed to delete login with error: \(error)")
         }
-        serverList.remove(serviceString)
-        let ukvStore = NSUbiquitousKeyValueStore.default
-        ukvStore.set(serverList, forKey: kVLCStoredServerList)
-        ukvStore.synchronize()
-        tableView.reloadData()
     }
 
     // MARK: - UITableView Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let serverListCount = serverList.count
-        if serverListCount > 0 {
-            nothingFoundView.isHidden = true
-        } else {
-            nothingFoundView.isHidden = false
-        }
-        return serverList.count
+        let serverListCount = savedServerList.serverIdentifiers.count
+        nothingFoundView.isHidden = serverListCount > 0
+        return serverListCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -273,8 +246,9 @@ import UIKit
             cell = UITableViewCell.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "LoginSavedTableViewCell")
         }
 
+        let serviceString = savedServerList.serverIdentifiers[indexPath.row]
+
         guard let cell = cell,
-              let serviceString = serverList[indexPath.row] as? String,
               let service = URL.init(string: serviceString),
               var serviceHost = service.host,
               let serviceScheme = service.scheme else {
@@ -302,11 +276,12 @@ import UIKit
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let login = VLCNetworkServerLoginInformation.init(keychainIdentifier: serverList?[indexPath.row] as! String)
+
+        let login: VLCNetworkServerLoginInformation
         do {
-            try login.loadFromKeychain()
-        } catch {
-            print("Failed to load login from key chain")
+            login = try savedServerList.login(at: UInt(indexPath.row))
+        } catch let error as NSError {
+            APLog("Failed to load login from key chain with error: \(error)")
             return
         }
 
@@ -336,7 +311,7 @@ import UIKit
         if protocolSection != nil {
             let login = serverLoginInformation(protocolSection: protocolSection!)
             do {
-                try login.saveToKeychain()
+                try savedServerList.addLogin(login)
                 serverField.text = nil
                 portField.text = nil
                 usernameField.text = nil
@@ -346,16 +321,8 @@ import UIKit
                 buttonConnect.isEnabled = false
             } catch let error as NSError {
                 // TODO : add vclalertview ?
-                print("Failed to save login with error: \(error)")
+                APLog("Failed to save login with error: \(error)")
             }
-
-            let serviceIdentifier = login.keychainServiceIdentifier
-            serverList.add(serviceIdentifier)
-            let ukvStore = NSUbiquitousKeyValueStore.default
-            ukvStore.set(serverList, forKey: kVLCStoredServerList)
-            ukvStore.synchronize()
-
-            tableView.reloadData()
             //showBrowserWithLogin(login)
         }
     }
