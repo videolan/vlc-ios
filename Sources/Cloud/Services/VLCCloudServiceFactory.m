@@ -26,11 +26,11 @@ static NSString *const kVLCCloudStorageNibName = @"VLCCloudStorageTableViewContr
 
 + (VLCCloudService)serviceForURL:(NSURL *)url
 {
-    if ([url.scheme caseInsensitiveCompare:kVLCCloudServiceScheme] != NSOrderedSame) {
+    NSString *host = url.host;
+
+    if (!host || [url.scheme caseInsensitiveCompare:kVLCCloudServiceScheme] != NSOrderedSame) {
         return VLCCloudServiceNone;
     }
-
-    NSString *host = url.host;
 
     if ([host caseInsensitiveCompare:@"DropBox"] == NSOrderedSame) {
         return VLCCloudServiceDropbox;
