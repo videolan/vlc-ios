@@ -478,6 +478,8 @@
 		7D4BE513301A4F7C00277F3E /* VLCAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BE512301A4F7C00277F3E /* VLCAddTile.m */; };
 		7D4BE514301A4F7C00277F3E /* VLCAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BE512301A4F7C00277F3E /* VLCAddTile.m */; };
 		7D4BE515301A4F7C00277F3E /* VLCAddTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BE512301A4F7C00277F3E /* VLCAddTile.m */; };
+		7D4BE51C301A561D00277F3E /* VLCCloudServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BE51B301A561D00277F3E /* VLCCloudServiceFactory.m */; };
+		7D4BE51D301A561D00277F3E /* VLCCloudServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4BE51B301A561D00277F3E /* VLCCloudServiceFactory.m */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D50C5DA2BBD20DF00B9F1A0 /* VLCNonInteractiveWindowSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */; };
 		7D50C5DB2BBD20DF00B9F1A0 /* VLCDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */; };
@@ -2128,6 +2130,8 @@
 		7D4BE50D301A3FA600277F3E /* VLCBrowseSharingBandCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCBrowseSharingBandCell.m; sourceTree = "<group>"; };
 		7D4BE511301A4F7C00277F3E /* VLCAddTile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAddTile.h; sourceTree = "<group>"; };
 		7D4BE512301A4F7C00277F3E /* VLCAddTile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCAddTile.m; sourceTree = "<group>"; };
+		7D4BE51A301A561D00277F3E /* VLCCloudServiceFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCloudServiceFactory.h; sourceTree = "<group>"; };
+		7D4BE51B301A561D00277F3E /* VLCCloudServiceFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCloudServiceFactory.m; sourceTree = "<group>"; };
 		7D4BE733175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D4C484417ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4DF2171B55209200739326 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
@@ -4368,6 +4372,8 @@
 				7DC869F328CB8A3200EE99F8 /* Google Drive */,
 				7DC869F228CB8A1A00EE99F8 /* Box */,
 				D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */,
+				7D4BE51A301A561D00277F3E /* VLCCloudServiceFactory.h */,
+				7D4BE51B301A561D00277F3E /* VLCCloudServiceFactory.m */,
 				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
 				4184AA141A5492070063DF5A /* VLCCloudStorageController.m */,
 			);
@@ -6287,6 +6293,7 @@
 				7D1E8F2B300E7FC20014A118 /* VLCRadioCountryService.m in Sources */,
 				7D1E8F2C300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */,
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
+				7D4BE51D301A561D00277F3E /* VLCCloudServiceFactory.m in Sources */,
 				3278C8C62FB7A230008581AA /* WatchLogger.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,
 				7DF60F8C300501CF003A40B8 /* VLCRadioListViewController.m in Sources */,
@@ -6661,6 +6668,7 @@
 				7DA514A32EF82B63000C9995 /* VLCPlaybackService.m in Sources */,
 				32B7A66B2FA02ED000879A4D /* Character+Utility.swift in Sources */,
 				7DA514A42EF82B63000C9995 /* AudioPlayerView.swift in Sources */,
+				7D4BE51C301A561D00277F3E /* VLCCloudServiceFactory.m in Sources */,
 				7DA514A52EF82B63000C9995 /* KeychainCoordinator.swift in Sources */,
 				7DA514A62EF82B63000C9995 /* CPListTemplate+Genres.m in Sources */,
 				7DA514A72EF82B63000C9995 /* MediaCollectionViewCell.swift in Sources */,
