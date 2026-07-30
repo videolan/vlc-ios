@@ -881,7 +881,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
 {
     switch (section) {
         case VLCBrowseSectionNetwork:
-            return NSLocalizedString(@"BROWSE_SECTION_NETWORK", nil);
+            return NSLocalizedString(@"LOCAL_NETWORK", nil);
         case VLCBrowseSectionFavorites:
             return NSLocalizedString(@"FAVORITES", nil);
         case VLCBrowseSectionOpen:
