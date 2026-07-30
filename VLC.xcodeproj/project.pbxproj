@@ -170,6 +170,7 @@
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4152F1621FEF19BD00F1908B /* KeychainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */; };
 		41533C9E2113392F00EC3ABA /* URLHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */; };
+		D921F2C300E91C4065FADF52 /* GoogleDriveShortcutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BD85C99AD3F91C426A7412 /* GoogleDriveShortcutTests.m */; };
 		416443862048419E00CAC646 /* DeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416443852048419E00CAC646 /* DeviceMotion.swift */; };
 		416DACB720B6DB9A001BC75D /* PlayingExternallyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */; };
 		4170152C209A1D3600802E44 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4170152B209A1D3600802E44 /* MediaViewController.swift */; };
@@ -417,6 +418,7 @@
 		7D30F3D7183AB2F100FFC021 /* VLCNetworkListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3D2183AB2F100FFC021 /* VLCNetworkListCell.m */; };
 		7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */; };
 		7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
+		9524E4737C0C5E179DEA2539 /* GTLRDrive_File+VLCShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C4CB8C0C2D9862FB5E36A /* GTLRDrive_File+VLCShortcut.m */; };
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
 		7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		7D3150A92AA8B8B90068D478 /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */; };
@@ -1100,6 +1102,7 @@
 		7DA515432EF82B63000C9995 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */; };
 		7DA515442EF82B63000C9995 /* NSURLSession+sharedMPTCPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DEE8C2C63D52000E414B4 /* NSURLSession+sharedMPTCPSession.m */; };
 		7DA515452EF82B63000C9995 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
+		EB055E2072D22B33DFDF61BC /* GTLRDrive_File+VLCShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C4CB8C0C2D9862FB5E36A /* GTLRDrive_File+VLCShortcut.m */; };
 		7DA515462EF82B63000C9995 /* VLCAppSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37196328F1F0B800C5A9F2 /* VLCAppSceneDelegate.m */; };
 		7DA515472EF82B63000C9995 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
 		7DA515482EF82B63000C9995 /* VLCPlayerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */; };
@@ -1773,6 +1776,7 @@
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandlerTests.swift; sourceTree = "<group>"; };
+		C7BD85C99AD3F91C426A7412 /* GoogleDriveShortcutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleDriveShortcutTests.m; sourceTree = "<group>"; };
 		41533CA1211343D100EC3ABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Testing/Unit/Info.plist; sourceTree = "<group>"; };
 		416443852048419E00CAC646 /* DeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotion.swift; sourceTree = "<group>"; };
 		416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingExternallyView.swift; sourceTree = "<group>"; };
@@ -2043,6 +2047,8 @@
 		7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveConstants.h; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveConstants.h"; sourceTree = SOURCE_ROOT; };
 		7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveController.h; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveController.h"; sourceTree = SOURCE_ROOT; };
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveController.m"; sourceTree = SOURCE_ROOT; };
+		3391068D1B33C94A31E94765 /* GTLRDrive_File+VLCShortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTLRDrive_File+VLCShortcut.h"; path = "Sources/Cloud/Services/Google Drive/GTLRDrive_File+VLCShortcut.h"; sourceTree = SOURCE_ROOT; };
+		2B5C4CB8C0C2D9862FB5E36A /* GTLRDrive_File+VLCShortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTLRDrive_File+VLCShortcut.m"; path = "Sources/Cloud/Services/Google Drive/GTLRDrive_File+VLCShortcut.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveTableViewController.h"; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveTableViewController.m"; sourceTree = SOURCE_ROOT; };
 		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/Network/Download/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
@@ -3036,6 +3042,7 @@
 				448BA84A2D832D30008CCDFF /* PreferenceSettingTests.swift */,
 				41533CA1211343D100EC3ABA /* Info.plist */,
 				41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */,
+				C7BD85C99AD3F91C426A7412 /* GoogleDriveShortcutTests.m */,
 			);
 			name = "Unit Testing";
 			path = Unit;
@@ -4363,6 +4370,8 @@
 				7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */,
 				7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */,
 				7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */,
+				3391068D1B33C94A31E94765 /* GTLRDrive_File+VLCShortcut.h */,
+				2B5C4CB8C0C2D9862FB5E36A /* GTLRDrive_File+VLCShortcut.m */,
 				7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */,
 				7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */,
 			);
@@ -5629,6 +5638,7 @@
 				1B39FA112C73BBA900F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */,
 				1B39FA0B2C73BBA300F6F960 /* NSURLSessionConfiguration+default.m in Sources */,
 				41533C9E2113392F00EC3ABA /* URLHandlerTests.swift in Sources */,
+				D921F2C300E91C4065FADF52 /* GoogleDriveShortcutTests.m in Sources */,
 				448BA84B2D832D30008CCDFF /* PreferenceSettingTests.swift in Sources */,
 				122104AB9E934534667761A7 /* VLCDonationNavigationController.m in Sources */,
 			);
@@ -6443,6 +6453,7 @@
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				1B39FA0E2C73BBA800F6F960 /* NSURLSession+sharedMPTCPSession.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
+				9524E4737C0C5E179DEA2539 /* GTLRDrive_File+VLCShortcut.m in Sources */,
 				7D37196428F1F0B800C5A9F2 /* VLCAppSceneDelegate.m in Sources */,
 				417D7F601F7BA26200DDF36A /* VLCRemoteControlService.m in Sources */,
 				DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */,
@@ -6795,6 +6806,7 @@
 				7DA515432EF82B63000C9995 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7DA515442EF82B63000C9995 /* NSURLSession+sharedMPTCPSession.m in Sources */,
 				7DA515452EF82B63000C9995 /* VLCGoogleDriveController.m in Sources */,
+				EB055E2072D22B33DFDF61BC /* GTLRDrive_File+VLCShortcut.m in Sources */,
 				7DA515462EF82B63000C9995 /* VLCAppSceneDelegate.m in Sources */,
 				7DA515472EF82B63000C9995 /* VLCRemoteControlService.m in Sources */,
 				7DA515482EF82B63000C9995 /* VLCPlayerDisplayController.m in Sources */,

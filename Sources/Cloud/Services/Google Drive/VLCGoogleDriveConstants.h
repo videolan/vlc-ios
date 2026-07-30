@@ -14,3 +14,6 @@
 #define kVLCGoogleRedirectURI @""
 #define kVLCGoogleDriveClientSecret @""
 #define kVLCGoogleDrivePrivateKey @""
+
+#define kVLCGoogleDriveFolderMimeType @"application/vnd.google-apps.folder"
+#define kVLCGoogleDriveShortcutMimeType @"application/vnd.google-apps.shortcut"
