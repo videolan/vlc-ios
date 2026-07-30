@@ -65,7 +65,9 @@
 {
     self.driveService = [GTLRDriveService new];
     [self applyCurrentUserAuthorizer];
-    _driveService.shouldFetchNextPages = YES;
+
+    /* paging is driven from hasMoreFiles and the scroll position */
+    _driveService.shouldFetchNextPages = NO;
 }
 
 - (void)applyCurrentUserAuthorizer
@@ -147,12 +149,17 @@
 
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
-    if (self.isAuthorized) {
-        //we entered a different folder so discard all current files
-        if (![path isEqualToString:_folderId])
-            _currentFileList = nil;
-        [self listFilesWithID:path: NO];
+    if (!self.isAuthorized) {
+        return;
     }
+
+    /* a different folder invalidates the cached listing and the page cursor */
+    if (![path isEqualToString:_folderId]) {
+        _currentFileList = nil;
+        _nextPageToken = nil;
+    }
+
+    [self listFilesWithID:path isDownloadingFolder:NO];
 }
 
 - (BOOL)hasMoreFiles
@@ -171,7 +178,11 @@
                 currentPath = [currentPath stringByAppendingString:@"/"];
             }
             currentPath = [currentPath stringByAppendingString:file.vlc_targetIdentifier];
-            [self listFilesWithID: currentPath : YES];
+
+            /* this starts a listing of its own, unrelated to what is on screen */
+            _nextPageToken = nil;
+            _folderFileList = nil;
+            [self listFilesWithID:currentPath isDownloadingFolder:YES];
         }
     } else {
         [self queueDownloads: file];
@@ -191,27 +202,26 @@
     [self _triggerNextDownload];
 }
 
-- (void)listFilesWithID:(NSString *)folderId : (BOOL)isDownloadingFolder
+- (void)listFilesWithID:(NSString *)folderId isDownloadingFolder:(BOOL)isDownloadingFolder
 {
     _fileList = nil;
     _folderId = folderId;
-    GTLRDriveQuery_FilesList *query;
-    NSString *parentName = @"root";
 
-    query = [GTLRDriveQuery_FilesList query];
+    GTLRDriveQuery_FilesList *query = [GTLRDriveQuery_FilesList query];
     query.pageToken = _nextPageToken;
     query.fields = @"nextPageToken,files(*)";
-    
+
+    /* without both flags the API omits everything stored on a shared drive */
+    query.includeItemsFromAllDrives = YES;
+    query.supportsAllDrives = YES;
+
     //Set orderBy parameter based on sortBy
     if (self.sortBy == VLCCloudSortingCriteriaName)
         query.orderBy = @"folder,name,modifiedTime desc";
     else
         query.orderBy = @"modifiedTime desc,folder,name";
 
-    if (![_folderId isEqualToString:@""]) {
-        parentName = [_folderId lastPathComponent];
-    }
-    query.q = [NSString stringWithFormat:@"'%@' in parents", parentName];
+    query.q = [self queryStringForFolderID:folderId];
 
     _fileListTicket = [self.driveService executeQuery:query
                           completionHandler:^(GTLRServiceTicket *ticket,
@@ -228,11 +238,25 @@
                           }];
 }
 
+- (NSString *)queryStringForFolderID:(NSString *)folderId
+{
+    NSString *parent = folderId.length > 0 ? folderId.lastPathComponent : @"root";
+    return [NSString stringWithFormat:@"'%@' in parents and trashed = false", parent];
+}
+
+- (NSString *)mediaURLStringForFile:(GTLRDrive_File *)file
+{
+    /* the media endpoint refuses anything living on a shared drive unless the
+     * request opts in, exactly like the listing queries do */
+    return [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media&supportsAllDrives=true",
+            file.vlc_targetIdentifier];
+}
+
 - (void)streamFile:(GTLRDrive_File *)file
 {
     GTMAuthSession *authSession = (GTMAuthSession *)self.driveService.authorizer;
     NSString *token = authSession.authState.lastTokenResponse.accessToken;
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.vlc_targetIdentifier];
+    NSString *urlString = [self mediaURLStringForFile:file];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [self setMediaNameMetadata:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]
@@ -287,10 +311,6 @@
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
     for (GTLRDrive_File *iter in _fileList.files) {
-        if (iter.trashed.boolValue) {
-            continue;
-        }
-
         BOOL isDirectory = iter.vlc_isDirectory;
 
         if (isDownloadingFolder) {
@@ -300,36 +320,40 @@
             [listOfGoodFilesAndFolders addObject:iter];
         }
     }
+
+    /* a further page extends the listing rather than replacing it */
+    NSArray<GTLRDrive_File *> *accumulated = isDownloadingFolder ? _folderFileList : _currentFileList;
+    accumulated = accumulated ? [accumulated arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders]
+                              : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+
     if (isDownloadingFolder) {
-        _folderFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
-        if ([_folderFileList count] <= 10 && [self hasMoreFiles]) {
-            [self listFilesWithID: _folderId : isDownloadingFolder];
-            return;
-        }
-        
+        _folderFileList = accumulated;
+    } else {
+        _currentFileList = accumulated;
+    }
+
+    if (accumulated.count < kVLCGoogleDriveMinimumItemsPerBatch && [self hasMoreFiles]) {
+        [self listFilesWithID:_folderId isDownloadingFolder:isDownloadingFolder];
+        return;
+    }
+
+    if (isDownloadingFolder) {
         for (GTLRDrive_File *file in _folderFileList) {
             [self queueDownloads:file];
         }
-        
-    } else {
-        _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
-        
-        if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
-            [self listFilesWithID: _folderId : isDownloadingFolder];
-            return;
-        }
-        
-        if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-            [self.delegate mediaListUpdated];
+        _folderFileList = nil;
+        return;
     }
-    
+
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+        [self.delegate mediaListUpdated];
+
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
 }
 
 - (void)loadFile:(GTLRDrive_File*)file intoPath:(NSString*)destinationPath
 {
-    NSString *exportURLStr =  [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media",
-                           file.vlc_targetIdentifier];
+    NSString *exportURLStr = [self mediaURLStringForFile:file];
 
     if ([exportURLStr length] > 0) {
         GTMSessionFetcher *fetcher = [self.driveService.fetcherService fetcherWithURLString:exportURLStr];

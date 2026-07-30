@@ -17,3 +17,7 @@
 
 #define kVLCGoogleDriveFolderMimeType @"application/vnd.google-apps.folder"
 #define kVLCGoogleDriveShortcutMimeType @"application/vnd.google-apps.shortcut"
+
+/* a page can be filtered down to nothing, so keep paging until at least this
+ * many items are worth showing */
+#define kVLCGoogleDriveMinimumItemsPerBatch 10
