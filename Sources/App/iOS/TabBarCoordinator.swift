@@ -62,11 +62,6 @@ class TabBarCoordinator: NSObject {
         return UINavigationController(rootViewController: rootViewController)
     }()
 
-    private lazy var podcastsNavigationController: UINavigationController = {
-        let rootViewController = PodcastsViewController(mediaLibraryService: mediaLibraryService)
-        return UINavigationController(rootViewController: rootViewController)
-    }()
-
     private lazy var browseNavigationController: UINavigationController? = {
         guard let rootViewController = VLCServerListViewController(medialibraryService: mediaLibraryService) else {
             return nil
@@ -118,16 +113,13 @@ class TabBarCoordinator: NSObject {
             controllers.append(tracksNavigationController)
             controllers.append(genresNavigationController)
             controllers.append(playlistsNavigationController)
-            controllers.append(podcastsNavigationController)
         } else {
             controllers.append(audioNavigationController)
             controllers.append(playlistsNavigationController)
-            controllers.append(podcastsNavigationController)
         }
 #else
         controllers.append(audioNavigationController)
         controllers.append(playlistsNavigationController)
-        controllers.append(podcastsNavigationController)
 #endif
 
         if let browseNavigationController = browseNavigationController {

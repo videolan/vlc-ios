@@ -87,6 +87,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
        forCellReuseIdentifier:VLCOnAirRailCell.reuseIdentifier];
     [_tableView registerClass:[VLCOnAirPromptCell class]
        forCellReuseIdentifier:VLCOnAirPromptCell.reuseIdentifier];
+    [PodcastsOnAirBridge registerShowsCellWith:_tableView];
 
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -129,6 +130,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidPause object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidStop object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidFail object:nil];
+
+    [PodcastsOnAirBridge configureWithMediaLibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
 
     [self updateTheme];
 }
@@ -366,7 +369,13 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (BOOL)sectionHasRail:(VLCOnAirSection)section
 {
-    return section == VLCOnAirSectionRadio && _radioFavorites.count > 0;
+    if (section == VLCOnAirSectionRadio) {
+        return _radioFavorites.count > 0;
+    }
+    if (section == VLCOnAirSectionPodcasts) {
+        return PodcastsOnAirBridge.numberOfShows > 0;
+    }
+    return NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -384,13 +393,23 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
         return cell;
     }
 
-    if ([self sectionHasRail:section]) {
+    if (section == VLCOnAirSectionRadio && [self sectionHasRail:section]) {
         VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
                                                                  forIndexPath:indexPath];
         cell.delegate = self;
         [cell configureWithFavorites:_radioFavorites
                         showsAddTile:YES
                       referenceWidth:CGRectGetWidth(tableView.bounds)];
+        return cell;
+    }
+
+    if (section == VLCOnAirSectionPodcasts && [self sectionHasRail:section]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PodcastsOnAirBridge.showsCellReuseIdentifier
+                                                                 forIndexPath:indexPath];
+        __weak typeof(self) weakSelf = self;
+        [PodcastsOnAirBridge configureShowsCell:cell onSelectShowId:^(NSString *showId) {
+            [weakSelf showPodcastShowWithId:showId];
+        }];
         return cell;
     }
 
@@ -481,7 +500,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
-    if ([self sectionHasRail:section]) {
+    if (section == VLCOnAirSectionRadio && [self sectionHasRail:section]) {
         return [VLCOnAirRailCell heightForWidth:CGRectGetWidth(tableView.bounds)];
     }
 
@@ -640,12 +659,23 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (void)showPodcasts
 {
-    APLog(@"On Air: no podcast directory available yet");
+    MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
+    UIViewController *podcastsViewController = [PodcastsOnAirBridge makePodcastsViewControllerWithMediaLibraryService:mediaLibraryService];
+    [self.navigationController pushViewController:podcastsViewController animated:YES];
 }
 
 - (void)showPodcastFeedEntry
 {
-    APLog(@"On Air: no podcast feed subscription available yet");
+    [self showPodcasts];
+}
+
+- (void)showPodcastShowWithId:(NSString *)showId
+{
+    UIViewController *detailViewController = [PodcastsOnAirBridge makeShowDetailViewControllerForShowId:showId];
+    if (!detailViewController) {
+        return;
+    }
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 - (void)showTVDirectory
