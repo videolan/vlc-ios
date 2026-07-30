@@ -202,6 +202,8 @@
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "SUCCESS";
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "An error occured while downloading";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ERROR";
+"GDRIVE_MY_DRIVE" = "My Drive";
+"GDRIVE_SHARED_WITH_ME" = "Shared with me";
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
