@@ -43,8 +43,10 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     UITableView *_tableView;
     NSArray<VLCFavorite *> *_radioFavorites;
     VLCFavorite *_resumeFavorite;
-    BOOL _zeroState;
     BOOL _resumeSuppressed;
+    BOOL _radioIsEmpty;
+    BOOL _podcastsIsEmpty;
+    BOOL _tvIsEmpty;
 }
 
 - (instancetype)init
@@ -222,17 +224,39 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     _radioFavorites = [[[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio] copy];
     [self updateResumeItem];
 
-    _zeroState = (_radioFavorites.count == 0);
+    _radioIsEmpty = (_radioFavorites.count == 0);
+    _podcastsIsEmpty = (PodcastsOnAirBridge.numberOfShows == 0);
+    // No TV channel data source exists yet, so this section is always empty for now.
+    _tvIsEmpty = YES;
+}
+
+- (BOOL)isSectionEmpty:(VLCOnAirSection)section
+{
+    switch (section) {
+        case VLCOnAirSectionRadio:
+            return _radioIsEmpty;
+        case VLCOnAirSectionPodcasts:
+            return _podcastsIsEmpty;
+        case VLCOnAirSectionTV:
+            return _tvIsEmpty;
+        default:
+            return YES;
+    }
+}
+
+- (BOOL)isZeroState
+{
+    return _radioIsEmpty && _podcastsIsEmpty && _tvIsEmpty;
 }
 
 - (void)updateResumeSectionAnimated
 {
     BOOL wasVisible = (_resumeFavorite != nil);
-    BOOL wasZeroState = _zeroState;
+    BOOL wasZeroState = [self isZeroState];
 
     [self reloadFavorites];
 
-    if (wasVisible == (_resumeFavorite != nil) || wasZeroState != _zeroState) {
+    if (wasVisible == (_resumeFavorite != nil) || wasZeroState != [self isZeroState]) {
         [self updateTableHeaderView];
         [_tableView reloadData];
         return;
@@ -288,7 +312,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (void)updateTableHeaderView
 {
-    if (!_zeroState) {
+    if (![self isZeroState]) {
         _tableView.tableHeaderView = nil;
         return;
     }
@@ -432,17 +456,19 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
             body = NSLocalizedString(@"RADIOVC_DETAILTEXT", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_FIND_STATION", nil);
             break;
-        case VLCOnAirSectionPodcasts:
-            if (!_zeroState) {
+        case VLCOnAirSectionPodcasts: {
+            BOOL zeroState = [self isZeroState];
+            if (!zeroState) {
                 title = NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_TITLE", nil);
             }
-            body = _zeroState ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
-                              : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
+            body = zeroState ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
+                             : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
             primaryTitle = NSLocalizedString(@"SEARCH", nil);
             secondaryTitle = NSLocalizedString(@"ONAIR_PASTE_RSS", nil);
             break;
+        }
         case VLCOnAirSectionTV:
-            if (!_zeroState) {
+            if (![self isZeroState]) {
                 title = NSLocalizedString(@"ONAIR_TV_EMPTY_TITLE", nil);
             }
             body = NSLocalizedString(@"ONAIR_TV_EMPTY_BODY", nil);
@@ -509,7 +535,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (_zeroState || [self sectionAtIndex:section] == VLCOnAirSectionContinue) {
+    VLCOnAirSection onAirSection = [self sectionAtIndex:section];
+    if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
         return CGFLOAT_MIN;
     }
 
@@ -523,11 +550,12 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_zeroState || [self sectionAtIndex:section] == VLCOnAirSectionContinue) {
+    VLCOnAirSection onAirSection = [self sectionAtIndex:section];
+    if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
         return nil;
     }
 
-    return [self sectionHeaderViewWithTitle:[self titleForSection:[self sectionAtIndex:section]]
+    return [self sectionHeaderViewWithTitle:[self titleForSection:onAirSection]
                                         tag:section];
 }
 
