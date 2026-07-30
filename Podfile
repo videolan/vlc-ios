@@ -4,9 +4,9 @@ inhibit_all_warnings!
 
 def ios_specific_pods
   use_modular_headers!
-  pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
-  pod 'GoogleSignIn', '6.2.0'
-  pod 'GTMAppAuth', '~> 1.0'
+  pod 'GoogleAPIClientForREST/Drive', '~> 4.2'
+  pod 'GoogleSignIn', '~> 9.2'
+  pod 'GTMAppAuth', '~> 5.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
   pod 'ObjectiveDropboxOfficial'

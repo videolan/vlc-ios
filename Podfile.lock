@@ -1,32 +1,46 @@
 PODS:
   - ADAL (1.2.10)
-  - AppAuth (1.7.6):
-    - AppAuth/Core (= 1.7.6)
-    - AppAuth/ExternalUserAgent (= 1.7.6)
-  - AppAuth/Core (1.7.6)
-  - AppAuth/ExternalUserAgent (1.7.6):
+  - AppAuth (2.1.0):
+    - AppAuth/Core (= 2.1.0)
+    - AppAuth/ExternalUserAgent (= 2.1.0)
+  - AppAuth/Core (2.1.0)
+  - AppAuth/ExternalUserAgent (2.1.0):
     - AppAuth/Core
+  - AppCheckCore (11.3.1):
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
+    - PromisesSwift (~> 2.4)
+    - RecaptchaInterop (~> 101.0)
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
-  - GoogleAPIClientForREST/Core (1.2.1):
-    - GTMSessionFetcher (>= 1.1.7)
-  - GoogleAPIClientForREST/Drive (1.2.1):
+  - GoogleAPIClientForREST/Core (4.2.0):
+    - GTMSessionFetcher/Full (< 5.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Drive (4.2.0):
     - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher (>= 1.1.7)
-  - GoogleSignIn (6.2.0):
-    - AppAuth (~> 1.5)
-    - GTMAppAuth (< 2.0, >= 1.3.0)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GTMAppAuth (1.3.1):
-    - AppAuth/Core (~> 1.6)
-    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
-  - GTMSessionFetcher (1.7.2):
-    - GTMSessionFetcher/Full (= 1.7.2)
-  - GTMSessionFetcher/Core (1.7.2)
-  - GTMSessionFetcher/Full (1.7.2):
-    - GTMSessionFetcher/Core (= 1.7.2)
+    - GTMSessionFetcher/Full (< 5.0, >= 1.6.1)
+  - GoogleSignIn (9.2.0):
+    - AppAuth (~> 2.1)
+    - AppCheckCore (~> 11.0)
+    - GTMAppAuth (~> 5.0)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GoogleUtilities/Environment (8.1.2):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.2)
+  - GoogleUtilities/UserDefaults (8.1.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GTMAppAuth (5.0.0):
+    - AppAuth/Core (~> 2.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher/Core (3.5.0)
+  - GTMSessionFetcher/Full (3.5.0):
+    - GTMSessionFetcher/Core
   - ObjectiveDropboxOfficial (7.4.2)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
@@ -47,25 +61,34 @@ PODS:
     - OneDriveSDK/Common
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
+  - PromisesObjC (2.4.1)
+  - PromisesSwift (2.4.1):
+    - PromisesObjC (= 2.4.1)
+  - RecaptchaInterop (101.0.0)
 
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
   - box-ios-sdk-v2 (from `https://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
-  - GoogleAPIClientForREST/Drive (~> 1.2.1)
-  - GoogleSignIn (= 6.2.0)
-  - GTMAppAuth (~> 1.0)
+  - GoogleAPIClientForREST/Drive (~> 4.2)
+  - GoogleSignIn (~> 9.2)
+  - GTMAppAuth (~> 5.0)
   - ObjectiveDropboxOfficial
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
 
 SPEC REPOS:
   trunk:
     - AppAuth
+    - AppCheckCore
     - Base32
     - GoogleAPIClientForREST
     - GoogleSignIn
+    - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
     - ObjectiveDropboxOfficial
+    - PromisesObjC
+    - PromisesSwift
+    - RecaptchaInterop
 
 EXTERNAL SOURCES:
   ADAL:
@@ -91,16 +114,21 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
-  AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
+  AppAuth: ef4da5a3fc2e10b90c09a0a94a9baeaedc0341d5
+  AppCheckCore: e215d35177a9cf469927863e69c13e220df32a8b
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
-  GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
-  GoogleSignIn: cdb27fee152cde4efd4bb814cfb4ad595fe1ff03
-  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  GoogleAPIClientForREST: 4503b3d1f2f36caea7145bdba50e46ec6afb21b2
+  GoogleSignIn: e449a40a92e9f2eea56e98b5214d13725dc5a00a
+  GoogleUtilities: 766ace00c6b10d8148408f329d10c4f051931850
+  GTMAppAuth: 217a876b249c3c585a54fd6f73e6b58c4f5c4238
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   ObjectiveDropboxOfficial: 1645cbc5a542831173425b00ed6929d5a07d0a95
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
+  PromisesObjC: 752c3227f599e3467650e47ea36f433eeb10c273
+  PromisesSwift: 217dea0fd5d2ad65222a109c48698add13cc1c5b
+  RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
 
-PODFILE CHECKSUM: 5e06445a00bf36f9743bda11c107744b1ad4fc3c
+PODFILE CHECKSUM: 3ed7c6b0127af3a85e40429c622e21dc878c7522
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0
