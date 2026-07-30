@@ -14,7 +14,7 @@
 #import "VLCDropboxController.h"
 #import <BoxSDK/BoxSDK.h>
 #if TARGET_OS_IOS
-#import "GTLRDrive.h"
+#import <GoogleAPIClientForREST/GTLRDrive.h>
 #import <OneDriveSDK/OneDriveSDK.h>
 #endif
 

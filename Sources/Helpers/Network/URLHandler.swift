@@ -13,6 +13,9 @@
 
 import Foundation
 import UIKit
+#if os(iOS)
+import GoogleSignIn
+#endif
 
 enum VLCXCallbackType {
     case url
@@ -309,19 +312,13 @@ class GoogleURLHandler: NSObject, VLCURLHandler {
 
     var fileName: String?
 
-
-    @objc var currentGoogleAuthorizationFlow: OIDExternalUserAgentSession?
-
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        return url.scheme == "com.googleusercontent.apps.CLIENT"
+        // the scheme is the reversed client ID, which is injected at build time
+        return url.scheme?.hasPrefix("com.googleusercontent.apps") == true
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        if currentGoogleAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) == true {
-            currentGoogleAuthorizationFlow = nil
-            return true
-        }
-        return false
+        return GIDSignIn.sharedInstance.handle(url)
     }
 }
 

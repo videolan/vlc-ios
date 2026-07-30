@@ -19,21 +19,20 @@ class GoogleSignInAuthenticator: NSObject {
     }
 
     @objc class func signIn(_ signIn: GIDSignIn, presentingView: VLCGoogleDriveTableViewController) {
-        let configuration = GIDConfiguration(clientID: kVLCGoogleDriveClientID)
+        signIn.configuration = GIDConfiguration(clientID: kVLCGoogleDriveClientID)
 
-        signIn.signIn(with: configuration,
-                      presenting: presentingView,
+        signIn.signIn(withPresenting: presentingView,
                       hint: nil,
-                      additionalScopes: [kGTLRAuthScopeDriveReadonly]) { user, error in
-            if error != nil {
+                      additionalScopes: [kGTLRAuthScopeDriveReadonly]) { signInResult, error in
+            guard error == nil, let result = signInResult else {
                 return
             }
 
-            if let user = user,
-               let grantedScopes = user.grantedScopes,
-               grantedScopes.contains(kGTLRAuthScopeDriveReadonly) {
-                presentingView.setAuthorizerAndUpdate()
+            guard result.user.grantedScopes?.contains(kGTLRAuthScopeDriveReadonly) == true else {
+                return
             }
+
+            presentingView.setAuthorizerAndUpdate()
         }
     }
 }

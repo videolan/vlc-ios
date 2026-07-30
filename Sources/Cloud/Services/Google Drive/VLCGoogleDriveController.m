@@ -16,13 +16,13 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
-#import <XKKeychain/XKKeychain.h>
 
-#import <GTMAppAuth/GTMAppAuth.h>
+#import <AppAuth/AppAuth.h>
 #import <GTMSessionFetcher/GTMSessionFetcherService.h>
-#import <GoogleSignIn/GIDSignIn.h>
+#import <GoogleSignIn/GoogleSignIn.h>
+@import GTMAppAuth;
 
-@interface VLCGoogleDriveController ()
+@interface VLCGoogleDriveController () <GTMAuthSessionDelegate>
 {
     GTLRDrive_FileList *_fileList;
     GTLRServiceTicket *_fileListTicket;
@@ -62,10 +62,41 @@
 
 - (void)startSession
 {
-    [self restoreFromSharedCredentials];
     self.driveService = [GTLRDriveService new];
-    self.driveService.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];
+    [self applyCurrentUserAuthorizer];
     _driveService.shouldFetchNextPages = YES;
+}
+
+- (void)applyCurrentUserAuthorizer
+{
+    id<GTMFetcherAuthorizationProtocol> authorizer = GIDSignIn.sharedInstance.currentUser.fetcherAuthorizer;
+
+    /* GoogleSignIn installs a delegate that hands the raw token response back
+     * on refresh, where the values are not all strings. GTMAppAuth bridges
+     * that to a Swift [String: String] and traps, so answer for it instead. */
+    if ([authorizer isKindOfClass:[GTMAuthSession class]]) {
+        ((GTMAuthSession *)authorizer).delegate = self;
+    }
+
+    self.driveService.authorizer = authorizer;
+}
+
+#pragma mark - GTMAuthSessionDelegate
+
+- (NSDictionary<NSString *, NSString *> *)additionalTokenRefreshParametersForAuthSession:(GTMAuthSession *)authSession
+{
+    NSDictionary *parameters = authSession.authState.lastTokenResponse.additionalParameters;
+    NSMutableDictionary<NSString *, NSString *> *stringParameters = [NSMutableDictionary dictionaryWithCapacity:parameters.count];
+
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
+        if ([value isKindOfClass:[NSString class]]) {
+            stringParameters[key] = value;
+        } else if ([value isKindOfClass:[NSNumber class]]) {
+            stringParameters[key] = [value stringValue];
+        }
+    }];
+
+    return stringParameters;
 }
 
 - (void)stopSession
@@ -78,11 +109,9 @@
 - (void)logout
 {
     self.driveService.authorizer = nil;
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore setString:nil forKey:kVLCStoreGDriveCredentials];
-    [ubiquitousStore synchronize];
-    [self stopSession];
     [GIDSignIn.sharedInstance signOut];
+    [self stopSession];
+
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
@@ -93,42 +122,7 @@
         [self startSession];
     }
 
-    BOOL ret = [GIDSignIn.sharedInstance hasPreviousSignIn];
-
-    if (ret) {
-        [self shareCredentials];
-    }
-    return ret;
-}
-
-- (void)shareCredentials
-{
-    /* share our credentials */
-    XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:kKeychainItemName account:@"OAuth" error:nil]; // kGTMOAuth2AccountName
-    NSString *credentials = item.secret.stringValue;
-    if (credentials == nil)
-        return;
-
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore setString:credentials forKey:kVLCStoreGDriveCredentials];
-    [ubiquitousStore synchronize];
-}
-
-- (BOOL)restoreFromSharedCredentials
-{
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore synchronize];
-    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreGDriveCredentials];
-    if (!credentials)
-        return NO;
-
-    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
-    keychainItem.service = kKeychainItemName;
-    keychainItem.account = @"OAuth"; // kGTMOAuth2AccountName
-    keychainItem.secret.stringValue = credentials;
-    [keychainItem saveWithError:nil];
-
-    return YES;
+    return GIDSignIn.sharedInstance.hasPreviousSignIn;
 }
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
@@ -236,7 +230,8 @@
 
 - (void)streamFile:(GTLRDrive_File *)file
 {
-    NSString *token = [((GTMAppAuthFetcherAuthorization *)self.driveService.authorizer).authState.lastTokenResponse accessToken];
+    GTMAuthSession *authSession = (GTMAuthSession *)self.driveService.authorizer;
+    NSString *token = authSession.authState.lastTokenResponse.accessToken;
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.identifier];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];

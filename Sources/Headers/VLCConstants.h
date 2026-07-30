@@ -163,7 +163,6 @@
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 #define kVLCStoreOneDriveCredentials @"kVLCStoreOneDriveCredentials"
 #define kVLCStoreBoxCredentials @"kVLCStoreBoxCredentials"
-#define kVLCStoreGDriveCredentials @"kVLCStoreGDriveCredentials"
 
 #define kVLCUserActivityPlaying @"org.videolan.vlc-ios.playing"
 

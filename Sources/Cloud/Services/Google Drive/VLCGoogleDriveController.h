@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "GTLRDrive.h"
+#import <GoogleAPIClientForREST/GTLRDrive.h>
 #import "VLCCloudStorageController.h"
 #import "VLCGoogleDriveConstants.h"
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) GTLRDriveService *driveService;
 
 - (void)stopSession;
+- (void)applyCurrentUserAuthorizer;
 - (void)streamFile:(GTLRDrive_File *)file;
 - (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file : (NSString *) currentPath;
 - (BOOL)hasMoreFiles;

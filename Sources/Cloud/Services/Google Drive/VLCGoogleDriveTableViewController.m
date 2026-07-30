@@ -18,8 +18,6 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLC-Swift.h"
 
-#import <AppAuth/AppAuth.h>
-#import <GTMAppAuth/GTMAppAuth.h>
 @import GoogleSignIn;
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
@@ -57,8 +55,8 @@
 {
     [super viewWillAppear:animated];
 
-    [GIDSignIn.sharedInstance restorePreviousSignInWithCallback:^(GIDGoogleUser * _Nullable user,
-                                                                  NSError * _Nullable error) {
+    [GIDSignIn.sharedInstance restorePreviousSignInWithCompletion:^(GIDGoogleUser * _Nullable user,
+                                                                    NSError * _Nullable error) {
       if (error) {
           // No previous session could be loaded
           [self updateViewAfterSessionChange];
@@ -168,7 +166,7 @@
 
 - (void)setAuthorizerAndUpdate
 {
-    self->_googleDriveController.driveService.authorizer = [[GIDSignIn sharedInstance].currentUser.authentication fetcherAuthorizer];
+    [self->_googleDriveController applyCurrentUserAuthorizer];
     [self updateViewAfterSessionChange];
     [self requestInformationForCurrentPath];
 }

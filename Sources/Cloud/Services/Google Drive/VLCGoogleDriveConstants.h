@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #define kVLCGoogleDriveClientID @""
-#define kKeychainItemName @"vlc-ios"
 #define kVLCGoogleRedirectURI @""
 #define kVLCGoogleDriveClientSecret @""
 #define kVLCGoogleDrivePrivateKey @""

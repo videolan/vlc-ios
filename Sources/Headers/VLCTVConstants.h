@@ -16,7 +16,6 @@
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 #define kVLCStoreOneDriveCredentials @"kVLCStoreOneDriveCredentials"
 #define kVLCStoreBoxCredentials @"kVLCStoreBoxCredentials"
-#define kVLCStoreGDriveCredentials @"kVLCStoreGDriveCredentials"
 
 #define kSupportedProtocolSchemes @"(rtsp|mms|mmsh|udp|rtp|rtmp|sftp|ftp|smb)$"
 

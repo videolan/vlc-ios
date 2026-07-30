@@ -56,7 +56,6 @@
 #import "VLCMediaList+M3U.h"
 
 #if TARGET_OS_IOS
-#import <AppAuth/AppAuth.h>
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCGoogleDriveConstants.h"
