@@ -450,6 +450,8 @@
         // Fetcher logging can include comments.
         [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.name];
         _startDL = [NSDate timeIntervalSinceReferenceDate];
+        _averageSpeed = 0.;
+        _lastStatsUpdate = 0.;
         fetcher.downloadProgressBlock = ^(int64_t bytesWritten,
                                           int64_t totalBytesWritten,
                                           int64_t totalBytesExpectedToWrite) {
@@ -480,7 +482,15 @@
 {
     CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
     CGFloat smoothingFactor = 0.005;
-    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+
+    /* the average has to start from a real sample: it is an instance variable,
+     * so it begins at zero rather than NaN and would otherwise creep up from a
+     * standstill and report hours of remaining time on a fast connection */
+    if (_averageSpeed <= 0. || isnan(_averageSpeed)) {
+        _averageSpeed = lastSpeed;
+    } else {
+        _averageSpeed = smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+    }
 
     CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize) / _averageSpeed;
 
