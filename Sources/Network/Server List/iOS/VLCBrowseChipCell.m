@@ -14,9 +14,9 @@
 
 #import "VLC-Swift.h"
 
-static CGFloat const kVLCBrowseChipCornerRadius = 14.0;
+static CGFloat const kVLCBrowseChipCornerRadius = 9.0;
 static CGFloat const kVLCBrowseChipWellSide = 30.0;
-static CGFloat const kVLCBrowseChipWellRadius = 9.0;
+static CGFloat const kVLCBrowseChipWellRadius = 4.0;
 static CGFloat const kVLCBrowseChipGlyphSide = 19.0;
 
 @implementation VLCBrowseChipCell

@@ -86,7 +86,7 @@ static NSInteger const kVLCBrowseChipColumnsCompact = 2;
 static NSInteger const kVLCBrowseChipColumnsRegular = 4;
 static CGFloat const kVLCBrowseCaptionArea = 28.0;
 static CGFloat const kVLCBrowseChipHeight = 44.0;
-static CGFloat const kVLCBrowseTileCornerRadius = 14.0;
+static CGFloat const kVLCBrowseTileCornerRadius = 9.0;
 static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
 @interface VLCServerListViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,

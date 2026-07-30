@@ -14,11 +14,11 @@
 
 #import "VLC-Swift.h"
 
-static CGFloat const kVLCBrowseBandCornerRadius = 14.0;
+static CGFloat const kVLCBrowseBandCornerRadius = 9.0;
 static CGFloat const kVLCBrowseBandPadding = 8.0;
 static CGFloat const kVLCBrowseBandRowHeight = 34.0;
 static CGFloat const kVLCBrowseBandRowGap = 6.0;
-static CGFloat const kVLCBrowseBandRowRadius = 10.0;
+static CGFloat const kVLCBrowseBandRowRadius = 7.0;
 static CGFloat const kVLCBrowseBandChipOverlap = 7.0;
 static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
 
