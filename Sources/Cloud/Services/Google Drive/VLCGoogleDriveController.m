@@ -159,12 +159,79 @@
         _nextPageToken = nil;
     }
 
+    if (path.length == 0) {
+        _folderId = path;
+        [self listRootLocations];
+        return;
+    }
+
     [self listFilesWithID:path isDownloadingFolder:NO];
 }
 
 - (BOOL)hasMoreFiles
 {
+    /* the root is synthesised and always complete */
+    if (_folderId.length == 0) {
+        return NO;
+    }
+
     return _nextPageToken != nil;
+}
+
+#pragma mark - root locations
+
+- (GTLRDrive_File *)pseudoFolderWithIdentifier:(NSString *)identifier name:(NSString *)name
+{
+    return [GTLRDrive_File objectWithJSON:@{ @"id"       : identifier,
+                                             @"name"     : name,
+                                             @"mimeType" : kVLCGoogleDriveFolderMimeType }];
+}
+
+- (void)buildRootLocationsWithSharedDrives:(NSArray<GTLRDrive_Drive *> *)sharedDrives
+{
+    NSMutableArray<GTLRDrive_File *> *locations = [NSMutableArray array];
+
+    [locations addObject:[self pseudoFolderWithIdentifier:kVLCGoogleDriveMyDrivePath
+                                                    name:NSLocalizedString(@"GDRIVE_MY_DRIVE", nil)]];
+    [locations addObject:[self pseudoFolderWithIdentifier:kVLCGoogleDriveSharedWithMePath
+                                                    name:NSLocalizedString(@"GDRIVE_SHARED_WITH_ME", nil)]];
+
+    for (GTLRDrive_Drive *drive in sharedDrives) {
+        if (drive.identifier.length == 0) {
+            continue;
+        }
+
+        [locations addObject:[self pseudoFolderWithIdentifier:drive.identifier
+                                                        name:drive.name ?: drive.identifier]];
+    }
+
+    _currentFileList = [NSArray arrayWithArray:locations];
+
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+        [self.delegate mediaListUpdated];
+}
+
+- (void)listRootLocations
+{
+    GTLRDriveQuery_DrivesList *query = [GTLRDriveQuery_DrivesList query];
+    query.pageSize = kVLCGoogleDriveSharedDrivePageSize;
+    query.fields = @"drives(id,name)";
+
+    _fileListTicket = [self.driveService executeQuery:query
+                          completionHandler:^(GTLRServiceTicket *ticket,
+                                              GTLRDrive_DriveList *driveList,
+                                              NSError *error) {
+                              self->_fileListTicket = nil;
+
+                              /* accounts without Workspace own no shared drives
+                               * and may even be refused the call, so this must
+                               * never surface as an error */
+                              if (error != nil) {
+                                  APLog(@"could not list shared drives: %li", (long)error.code);
+                              }
+
+                              [self buildRootLocationsWithSharedDrives:error != nil ? nil : driveList.drives];
+                          }];
 }
 
 - (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file : (NSString *) currentPath
@@ -240,7 +307,12 @@
 
 - (NSString *)queryStringForFolderID:(NSString *)folderId
 {
-    NSString *parent = folderId.length > 0 ? folderId.lastPathComponent : @"root";
+    if ([folderId isEqualToString:kVLCGoogleDriveSharedWithMePath]) {
+        return @"sharedWithMe and trashed = false";
+    }
+
+    NSString *parent = folderId.length > 0 ? folderId.lastPathComponent
+                                           : kVLCGoogleDriveMyDrivePath;
     return [NSString stringWithFormat:@"'%@' in parents and trashed = false", parent];
 }
 

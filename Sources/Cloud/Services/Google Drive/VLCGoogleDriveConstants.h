@@ -21,3 +21,9 @@
 /* a page can be filtered down to nothing, so keep paging until at least this
  * many items are worth showing */
 #define kVLCGoogleDriveMinimumItemsPerBatch 10
+
+/* "root" is Drive's own alias for the My Drive root folder; real identifiers
+ * are long opaque strings and cannot collide with either sentinel */
+#define kVLCGoogleDriveMyDrivePath @"root"
+#define kVLCGoogleDriveSharedWithMePath @"sharedWithMe"
+#define kVLCGoogleDriveSharedDrivePageSize 100
