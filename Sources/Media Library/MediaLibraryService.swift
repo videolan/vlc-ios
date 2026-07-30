@@ -257,6 +257,8 @@ class MediaLibraryService: NSObject {
         desiredThumbnailWidth = UInt(scaledCellWidth)
         desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
         #endif
+
+        VLCMediaParser.shared().delegate = self
     }
 
 #if !os(tvOS) && !os(watchOS)
@@ -639,42 +641,19 @@ private extension MediaLibraryService {
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
 
-    @objc func getLastPlayedMediaList() -> [VLCMLMedia] {
-        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
-              let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        else {
-            return []
-        }
+    func restoreLastPlayedMediaList() {
+        guard UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia) else { return }
+
+        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        else { return }
 
         let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
         let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
-        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return [] }
+        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return }
 
-        var collection: [VLCMLMedia] = []
-
-        if let streamReader = StreamReader(path: m3uFileURL.path) {
-            defer {
-                streamReader.close()
-            }
-
-            let _ = streamReader.nextLine() // skip header line (i.e. #EXTM3U)
-            while streamReader.nextLine() != nil { // skip title
-                guard let mediaURLString = streamReader.nextLine(),
-                      let range = mediaURLString.range(of: "Documents/")
-                else { continue }
-
-                let relativePath = String(mediaURLString[range.upperBound...])
-                let newMediaURLString = documentsURL.absoluteString + relativePath
-                let mediaURL = URL(string: newMediaURLString)
-
-                if let media = fetchMedia(with: mediaURL),
-                   !media.isExternalMedia() {
-                    collection.append(media)
-                }
-            }
+        if let media = VLCMedia(url: m3uFileURL) {
+            VLCMediaParser.shared().queue(media)
         }
-
-        return collection
     }
 }
 
@@ -1118,3 +1097,38 @@ extension MediaLibraryService {
     }
 }
 #endif
+
+extension MediaLibraryService: VLCMediaParserDelegate {
+    func mediaFinishedParsing(_ media: VLCMedia, with status: VLCMediaParsedStatus) {
+        guard status == .done,
+              let mediaList = media.subitems
+        else { return }
+
+        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else { return }
+
+        let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
+        let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
+        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return }
+
+        let defaults = UserDefaults.standard
+        let mediaCount = mediaList.count
+
+        guard mediaCount > 0 else { return }
+
+        let lastPlayedMediaId = defaults.integer(forKey: kVLCLastPlayedMediaIdentifier)
+        var collection: [VLCMLMedia] = []
+
+        for i in 0..<mediaCount {
+            guard let media = mediaList.media(at: UInt(i)),
+                  let mlMedia = fetchMedia(with: media.url),
+                  !mlMedia.isExternalMedia()
+            else { continue }
+
+            collection.append(mlMedia)
+        }
+
+        let lastPlayedMediaIndex = collection.firstIndex { $0.identifier() == lastPlayedMediaId } ?? 0
+        PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex, fromCollection: collection, openInMiniPlayer: true)
+        defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
+    }
+}

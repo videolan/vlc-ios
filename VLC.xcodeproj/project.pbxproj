@@ -93,11 +93,6 @@
 		32269BA12FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */; };
 		32269BA22FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */; };
 		322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2A2352F65E17300D5EFBC /* GameControllerManager.swift */; };
-		323F38313018665300709EF1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F38303018665300709EF1 /* StreamReader.swift */; };
-		323F38323018665300709EF1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F38303018665300709EF1 /* StreamReader.swift */; };
-		323F38333018665300709EF1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F38303018665300709EF1 /* StreamReader.swift */; };
-		323F38343018667100709EF1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F38303018665300709EF1 /* StreamReader.swift */; };
-		323F38353018667100709EF1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F38303018665300709EF1 /* StreamReader.swift */; };
 		324ACA732FFF25C70002F804 /* MLSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */; };
 		324ACA742FFF25C80002F804 /* MLSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */; };
 		324BD7332FDB8BEA0037F446 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
@@ -1728,7 +1723,6 @@
 		321B3B592FB6C92C007E4E8A /* UserInfoTransfersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTransfersView.swift; sourceTree = "<group>"; };
 		32269B9F2FEE347B00C80FFF /* MoveToRootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToRootHeader.swift; sourceTree = "<group>"; };
 		323B00FA2FC940590049CE0E /* VLCWatchMLMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCWatchMLMedia.swift; sourceTree = "<group>"; };
-		323F38303018665300709EF1 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		324ACA722FFF25C70002F804 /* MLSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		3278C8C42FB7A230008581AA /* WatchLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLogger.swift; sourceTree = "<group>"; };
 		3278C8C82FB7D129008581AA /* TracksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewModel.swift; sourceTree = "<group>"; };
@@ -3092,7 +3086,6 @@
 				91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */,
 				7D39B6DE3005356700D95829 /* VLCMigrationCursor.h */,
 				7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */,
-				323F38303018665300709EF1 /* StreamReader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -5735,7 +5728,6 @@
 				7D1E8F57300FA4160014A118 /* VLCRadioCountry.m in Sources */,
 				226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */,
 				322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */,
-				323F38343018667100709EF1 /* StreamReader.swift in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
@@ -6078,7 +6070,6 @@
 				7D50C6C02BBD20DF00B9F1A0 /* MiniPlayer.swift in Sources */,
 				7D1E8F41300F7A850014A118 /* VLCRadioFavoritesGridCell.m in Sources */,
 				7D50C6C12BBD20DF00B9F1A0 /* PlayerViewController.swift in Sources */,
-				323F38333018665300709EF1 /* StreamReader.swift in Sources */,
 				7D50C6C22BBD20DF00B9F1A0 /* AppearanceManager.swift in Sources */,
 				7D50C6C32BBD20DF00B9F1A0 /* PlayerInfoView.swift in Sources */,
 				7D50C6C42BBD20DF00B9F1A0 /* TrackModel.swift in Sources */,
@@ -6314,7 +6305,6 @@
 				8DB0D71924CED15C00915506 /* VideoPlayerControls.swift in Sources */,
 				448BA8482D83116D008CCDFF /* PreferenceSetting.swift in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
-				323F38313018665300709EF1 /* StreamReader.swift in Sources */,
 				1B39FA082C73BBA200F6F960 /* NSURLSessionConfiguration+default.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
 				7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */,
@@ -6686,7 +6676,6 @@
 				7DA514D72EF82B63000C9995 /* PlaylistHeader.swift in Sources */,
 				7DA514D82EF82B63000C9995 /* VLCHTTPFileDownloader.m in Sources */,
 				7DA514D92EF82B63000C9995 /* VLCLinearProgressIndicator.m in Sources */,
-				323F38323018665300709EF1 /* StreamReader.swift in Sources */,
 				7DA514DA2EF82B63000C9995 /* VLCBoxTableViewController.m in Sources */,
 				7DA514DB2EF82B63000C9995 /* VLCPlexParser.m in Sources */,
 				7DA514DC2EF82B63000C9995 /* HistoryModel.swift in Sources */,
@@ -6894,7 +6883,6 @@
 				3278C8CB2FB7E02B008581AA /* TrackModel.swift in Sources */,
 				321B3B4D2FB6B8D0007E4E8A /* TimedColor.swift in Sources */,
 				3217BE772FCFDBEB006D75BC /* VLCWatchMLAlbum.swift in Sources */,
-				323F38353018667100709EF1 /* StreamReader.swift in Sources */,
 				328BB88D2FCE7CFF00E1FE19 /* VLCMLMedia+Podcast.m in Sources */,
 				BE4D24812E32C0E400434D7A /* Observable.swift in Sources */,
 				321B3B562FB6BCFB007E4E8A /* SessionTransfer.swift in Sources */,

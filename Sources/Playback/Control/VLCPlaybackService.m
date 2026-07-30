@@ -2053,6 +2053,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 }
 
 #if !TARGET_OS_WATCH
+
+- (void)saveCurrentlyPlayingMediaIdentifier {
+    VLCMLIdentifier identifier = _currentlyPlayingLibraryMedia ? _currentlyPlayingLibraryMedia.identifier : -1;
+    [[NSUserDefaults standardUserDefaults] setInteger:identifier forKey:kVLCLastPlayedMediaIdentifier];
+}
+
 - (void) saveCurrentMediaList {
     NSString *appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
     if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportDir isDirectory:NULL]) {
@@ -2068,7 +2074,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
 
     NSError *error = nil;
-    if (![_mediaList writeM3UToURL:fileURL error:&error]) {
+    if (![_mediaList writeM3UToURL:fileURL relativeToDirectory:appSupportURL error:&error]) {
         APLog(@"Failed to write M3U for saving medialist: %@", error);
         return;
     }
