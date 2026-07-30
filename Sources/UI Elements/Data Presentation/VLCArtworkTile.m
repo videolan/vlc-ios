@@ -90,6 +90,8 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _pillView = [[UIView alloc] init];
     _pillView.translatesAutoresizingMaskIntoConstraints = NO;
     _pillView.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    _pillView.layer.borderWidth = 2.0;
+    _pillView.layer.borderColor = PresentationTheme.current.colors.orangeDarkAccent.CGColor;
     [_pillView roundCornersWithRadius:9.0];
     _pillView.hidden = YES;
     [_artworkContainer addSubview:_pillView];
