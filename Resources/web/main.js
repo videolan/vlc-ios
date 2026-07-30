@@ -111,6 +111,7 @@ $(function(){
     }
 
     $('a.folder').click(function(event) {
+        if (isSelectMode) return;
         $('#overlay').addClass('shown');
         $('#modal ul.downloads').empty();
         $(this).parent().find('.content > div').clone().appendTo('#modal ul.downloads');
@@ -119,6 +120,88 @@ $(function(){
     $('#overlay').click(function(event) {
         $(this).toggleClass('shown');
     });
+
+    /* Bulk & Toolbar Download Logic */
+    var DOWNLOAD_DELAY_MS = 300;
+    var isSelectMode = false;
+
+    function getDownloadableUrls(container) {
+        var urls = [];
+        container.find('a.inner[href^="download/"]').each(function() {
+            var href = $(this).attr('href');
+            if (href && href !== '#') {
+                urls.push(href);
+            }
+        });
+        return urls;
+    }
+
+    function triggerSequentialDownloads(urls) {
+        if (!urls || urls.length === 0) return;
+        urls.forEach(function(url, index) {
+            setTimeout(function() {
+                var link = document.createElement('a');
+                link.href = url;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, index * DOWNLOAD_DELAY_MS);
+        });
+    }
+
+    function updateToolbarState() {
+        var totalDownloadableFiles = getDownloadableUrls($('.downloads')).length;
+        $('.download-all-btn').prop('disabled', totalDownloadableFiles === 0);
+
+        var selectedCount = $('.downloads > div.selected').length;
+        var bulkBtn = $('.bulk-download-btn');
+        bulkBtn.text('Download Selected (' + selectedCount + ')');
+        bulkBtn.prop('disabled', selectedCount === 0);
+
+        if (isSelectMode) {
+            $('.select-toggle-btn').addClass('active').text('Cancel');
+            $('.downloads').addClass('selectable-mode');
+            bulkBtn.removeClass('hidden');
+        } else {
+            $('.select-toggle-btn').removeClass('active').text('Select');
+            $('.downloads').removeClass('selectable-mode');
+            $('.downloads > div').removeClass('selected');
+            bulkBtn.addClass('hidden');
+        }
+    }
+
+    $('.select-toggle-btn').click(function() {
+        isSelectMode = !isSelectMode;
+        updateToolbarState();
+    });
+
+    $('.download-all-btn').click(function() {
+        var allUrls = getDownloadableUrls($('.downloads'));
+        triggerSequentialDownloads(allUrls);
+    });
+
+    $('.bulk-download-btn').click(function() {
+        if (!isSelectMode) return;
+        var selectedUrls = getDownloadableUrls($('.downloads > div.selected'));
+        triggerSequentialDownloads(selectedUrls);
+    });
+
+    $('.downloads').on('click', '> div', function(e) {
+        if (!isSelectMode) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        $(this).toggleClass('selected');
+        updateToolbarState();
+    });
+
+    // Initialize toolbar button states on page load
+    updateToolbarState();
+
 
 
     $('form.open-url').on('submit', function(e) {
