@@ -15,6 +15,7 @@
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCAppDelegate.h"
 #import "VLCGoogleDriveController.h"
+#import "GTLRDrive_File+VLCShortcut.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLC-Swift.h"
 
@@ -102,10 +103,7 @@
     NSInteger row = indexPath.row;
     if (row < listOfFiles.count) {
         cell.driveFile = listOfFiles[row];
-        if ([cell.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"])
-            [cell setIsDownloadable: YES];
-        else
-            [cell setIsDownloadable:YES];
+        [cell setIsDownloadable:YES];
     }
     cell.delegate = self;
 
@@ -122,13 +120,13 @@
         return;
 
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
-    if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+    if (!_selectedFile.vlc_isDirectory) {
         [_googleDriveController streamFile:_selectedFile];
     } else {
         /* dive into subdirectory */
         if (![self.currentPath isEqualToString:@""])
             self.currentPath = [self.currentPath stringByAppendingString:@"/"];
-        self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.identifier];
+        self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.vlc_targetIdentifier];
         [self requestInformationForCurrentPath];
     }
 }
@@ -146,8 +144,7 @@
         }],
         [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
                                       action:^(UIAlertAction *action) {
-            if ([self->_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
-                NSLog(@"Iden: %@", self->_selectedFile.identifier);
+            if (self->_selectedFile.vlc_isDirectory) {
                 [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile :self.currentPath];
             } else {
                 [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile :@""];
@@ -193,7 +190,7 @@
 
     VLCFavorite *fav = [[VLCFavorite alloc] init];
     fav.userVisibleName = fileAtIndex.name;
-    fav.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://Drive/%@", fileAtIndex.identifier]];
+    fav.url = [NSURL URLWithString:[NSString stringWithFormat:@"file://Drive/%@", fileAtIndex.vlc_targetIdentifier]];
 
     if (cell.isFavourite) {
         [service addFavorite:fav];

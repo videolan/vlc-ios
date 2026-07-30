@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #import "VLCGoogleDriveController.h"
+#import "GTLRDrive_File+VLCShortcut.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
@@ -164,14 +165,13 @@
     if (file == nil)
         return;
 
-    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+    if (file.vlc_isDirectory) {
         if (currentPath != nil) {
             if (![currentPath isEqualToString:@""]) {
                 currentPath = [currentPath stringByAppendingString:@"/"];
             }
-            currentPath = [currentPath stringByAppendingString:file.identifier];
+            currentPath = [currentPath stringByAppendingString:file.vlc_targetIdentifier];
             [self listFilesWithID: currentPath : YES];
-            NSLog(@"current path %@", currentPath);
         }
     } else {
         [self queueDownloads: file];
@@ -232,7 +232,7 @@
 {
     GTMAuthSession *authSession = (GTMAuthSession *)self.driveService.authorizer;
     NSString *token = authSession.authState.lastTokenResponse.accessToken;
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.identifier];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.vlc_targetIdentifier];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [self setMediaNameMetadata:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]
@@ -257,7 +257,10 @@
 - (void)_reallyDownloadFileToDocumentFolder:(GTLRDrive_File *)file
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.originalFilename];
+
+    /* shortcuts carry no original filename */
+    NSString *fileName = file.originalFilename.length > 0 ? file.originalFilename : file.name;
+    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", fileName];
 
     [self loadFile:file intoPath:filePath];
 
@@ -267,12 +270,16 @@
     _downloadInProgress = YES;
 }
 
-- (BOOL)_supportedFileExtension:(NSString *)filename
+- (BOOL)_isSupportedMediaFile:(GTLRDrive_File *)file
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedSubtitleFormat])
+    if ([file.name isSupportedMediaFormat] || [file.name isSupportedSubtitleFormat]) {
         return YES;
+    }
 
-    return NO;
+    /* shortcuts and uploads without an extension carry no usable name, so fall
+     * back to what Drive reports the content to be */
+    NSString *mimeType = file.vlc_effectiveMimeType;
+    return [mimeType hasPrefix:@"video/"] || [mimeType hasPrefix:@"audio/"];
 }
 
 - (void)_listOfGoodFilesAndFolders : (BOOL)isDownloadingFolder
@@ -284,15 +291,13 @@
             continue;
         }
 
-        BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
-        BOOL supportedFile = [self _supportedFileExtension:iter.name];
+        BOOL isDirectory = iter.vlc_isDirectory;
 
-        if (isDownloadingFolder)  {
-            if (supportedFile)
+        if (isDownloadingFolder) {
+            if (!isDirectory && [self _isSupportedMediaFile:iter])
                 [listOfGoodFilesAndFolders addObject:iter];
-        } else {
-            if (isDirectory || supportedFile)
-                [listOfGoodFilesAndFolders addObject:iter];
+        } else if (isDirectory || [self _isSupportedMediaFile:iter]) {
+            [listOfGoodFilesAndFolders addObject:iter];
         }
     }
     if (isDownloadingFolder) {
@@ -324,7 +329,7 @@
 - (void)loadFile:(GTLRDrive_File*)file intoPath:(NSString*)destinationPath
 {
     NSString *exportURLStr =  [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media",
-                           file.identifier];
+                           file.vlc_targetIdentifier];
 
     if ([exportURLStr length] > 0) {
         GTMSessionFetcher *fetcher = [self.driveService.fetcherService fetcherWithURLString:exportURLStr];

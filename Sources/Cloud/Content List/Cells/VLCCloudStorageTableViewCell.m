@@ -15,8 +15,18 @@
 #import "VLCNetworkImageView.h"
 #import "VLCBoxController.h"
 #import "NSString+SupportedMedia.h"
+#import "GTLRDrive_File+VLCShortcut.h"
 
 #import "VLC-Swift.h"
+
+@interface VLCCloudStorageTableViewCell ()
+{
+    UIImageView *_shortcutBadgeView;
+}
+
+- (void)showShortcutBadge:(BOOL)show;
+
+@end
 
 @implementation VLCCloudStorageTableViewCell
 
@@ -163,6 +173,9 @@
 
 - (void)_updatedDisplayedInformation
 {
+    /* cells are reused across providers, so never inherit a badge */
+    [self showShortcutBadge:NO];
+
     if (_dropboxFile != nil) {
         if ([_dropboxFile isKindOfClass:[DBFILESFolderMetadata class]]) {
             self.folderTitleLabel.text = self.dropboxFile.name;
@@ -198,7 +211,9 @@
         }
     }
     else if(_driveFile != nil) {
-        BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
+        BOOL isDirectory = self.driveFile.vlc_isDirectory;
+        [self showShortcutBadge:self.driveFile.vlc_isShortcut];
+
         if (isDirectory) {
             self.folderTitleLabel.text = self.driveFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
@@ -207,7 +222,7 @@
             
             VLCFavoriteService *service =  [VLCAppCoordinator sharedInstance].favoriteService;
             
-            NSString *selectedFilePath = _driveFile.identifier;
+            NSString *selectedFilePath = _driveFile.vlc_targetIdentifier;
             NSString *urlString = [NSString stringWithFormat:@"file://Drive/%@", selectedFilePath];
             NSURL *url = [NSURL URLWithString:urlString];
             
@@ -342,6 +357,39 @@
     self.downloadButton.hidden = !isDownloadable;
 }
 
+- (void)setupShortcutBadgeView
+{
+    if (@available(iOS 13.0, *)) {
+        UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"arrowshape.turn.up.right.fill"]];
+        badge.translatesAutoresizingMaskIntoConstraints = NO;
+        badge.contentMode = UIViewContentModeScaleAspectFit;
+        badge.tintColor = [UIColor whiteColor];
+        badge.layer.shadowOpacity = 0.8;
+        badge.layer.shadowRadius = 2.;
+        badge.layer.shadowOffset = CGSizeZero;
+
+        [self.contentView addSubview:badge];
+
+        [NSLayoutConstraint activateConstraints:@[
+            [badge.trailingAnchor constraintEqualToAnchor:self.thumbnailView.trailingAnchor constant:-2.],
+            [badge.bottomAnchor constraintEqualToAnchor:self.thumbnailView.bottomAnchor constant:-2.],
+            [badge.widthAnchor constraintEqualToConstant:14.],
+            [badge.heightAnchor constraintEqualToConstant:14.]
+        ]];
+
+        _shortcutBadgeView = badge;
+    }
+}
+
+- (void)showShortcutBadge:(BOOL)show
+{
+    if (show && _shortcutBadgeView == nil) {
+        [self setupShortcutBadgeView];
+    }
+
+    _shortcutBadgeView.hidden = !show;
+}
+
 - (void)setIsFavourite:(BOOL)isFavourite
 {
     if (@available(iOS 13.0, *)) {
@@ -364,6 +412,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     _thumbnailView.image = nil;
+    _shortcutBadgeView.hidden = YES;
 }
 
 - (void)updateAppearanceForColorScheme
