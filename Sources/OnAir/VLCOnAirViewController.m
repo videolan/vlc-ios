@@ -463,8 +463,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
             }
             body = zeroState ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
                              : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
-            primaryTitle = NSLocalizedString(@"SEARCH", nil);
-            secondaryTitle = NSLocalizedString(@"ONAIR_PASTE_RSS", nil);
+            primaryTitle = NSLocalizedString(@"ONAIR_PASTE_RSS", nil);
             break;
         }
         case VLCOnAirSectionTV:
@@ -637,7 +636,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
             [self showRadio];
             break;
         case VLCOnAirSectionPodcasts:
-            index == 0 ? [self showPodcasts] : [self showPodcastFeedEntry];
+            [self showPodcasts];
             break;
         case VLCOnAirSectionTV:
             index == 0 ? [self showTVDirectory] : [self showAddM3U];
@@ -690,11 +689,6 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
     UIViewController *podcastsViewController = [PodcastsOnAirBridge makePodcastsViewControllerWithMediaLibraryService:mediaLibraryService];
     [self.navigationController pushViewController:podcastsViewController animated:YES];
-}
-
-- (void)showPodcastFeedEntry
-{
-    [self showPodcasts];
 }
 
 - (void)showPodcastShowWithId:(NSString *)showId

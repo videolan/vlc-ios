@@ -157,8 +157,8 @@
 "ONAIR_FIND_STATION" = "Find a station";
 "ONAIR_PODCASTS" = "Podcasts";
 "ONAIR_PODCASTS_EMPTY_TITLE" = "No subscriptions yet";
-"ONAIR_PODCASTS_EMPTY_BODY" = "Search, or paste an RSS feed.";
-"ONAIR_PODCASTS_ZERO_BODY" = "Search the directory, or bring your own feed.";
+"ONAIR_PODCASTS_EMPTY_BODY" = "Paste an RSS feed to subscribe.";
+"ONAIR_PODCASTS_ZERO_BODY" = "Bring your own feed to get started.";
 "ONAIR_PASTE_RSS" = "Paste RSS";
 "ONAIR_TV" = "TV";
 "ONAIR_TV_EMPTY_TITLE" = "No channels yet";
@@ -408,8 +408,7 @@
 "PODCAST_SUBSCRIBE" = "Subscribe";
 "PODCAST_SUBSCRIBED" = "Subscribed";
 "PODCAST_EMPTY_TITLE" = "No Podcasts Yet";
-"PODCAST_EMPTY_DESCRIPTION" = "Subscribe to shows or add one via RSS URL to start listening.";
-"PODCAST_SEARCH_PODCASTS" = "Search Podcasts";
+"PODCAST_EMPTY_DESCRIPTION" = "Add a show via its RSS feed URL to start listening.";
 "PODCAST_ADD_VIA_RSS" = "Add via RSS URL";
 "PODCAST_ADD_BUTTON" = "Add Podcast";
 "PODCAST_ADD_RSS_PLACEHOLDER" = "https://example.com/feed.xml";

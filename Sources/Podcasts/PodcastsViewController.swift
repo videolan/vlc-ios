@@ -64,10 +64,6 @@ class PodcastsViewController: UIViewController {
 
     private lazy var emptyStateView: PodcastsEmptyStateView = {
         let view = PodcastsEmptyStateView()
-        view.onSearchPodcasts = { [weak self] in
-            // TODO: no podcast directory/search API exists yet, only add-by-feed-URL.
-        }
-
         view.onAddViaRSS = { [weak self] in
             self?.presentAddSubscriptionAlert()
         }

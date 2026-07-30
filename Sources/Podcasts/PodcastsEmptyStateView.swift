@@ -13,7 +13,6 @@
 import UIKit
 
 class PodcastsEmptyStateView: UIView {
-    var onSearchPodcasts: (() -> Void)?
     var onAddViaRSS: (() -> Void)?
 
     private let iconBackground: UIView = {
@@ -48,21 +47,11 @@ class PodcastsEmptyStateView: UIView {
         return label
     }()
 
-    private let searchButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("PODCAST_SEARCH_PODCASTS", comment: ""), for: .normal)
-        button.titleLabel?.font = .preferredCustomFont(forTextStyle: .subheadline).semibolded
-        button.layer.cornerRadius = 12
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     private let addRSSButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""), for: .normal)
         button.titleLabel?.font = .preferredCustomFont(forTextStyle: .subheadline).semibolded
         button.layer.cornerRadius = 12
-        button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -84,10 +73,8 @@ class PodcastsEmptyStateView: UIView {
         addSubview(iconBackground)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
-        addSubview(searchButton)
         addSubview(addRSSButton)
 
-        searchButton.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
         addRSSButton.addTarget(self, action: #selector(didTapAddRSS), for: .touchUpInside)
 
         if #available(iOS 13.0, *) {
@@ -112,12 +99,7 @@ class PodcastsEmptyStateView: UIView {
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
-            searchButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
-            searchButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            searchButton.heightAnchor.constraint(equalToConstant: 46),
-
-            addRSSButton.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 10),
+            addRSSButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
             addRSSButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             addRSSButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             addRSSButton.heightAnchor.constraint(equalToConstant: 46),
@@ -139,16 +121,8 @@ class PodcastsEmptyStateView: UIView {
         titleLabel.textColor = colors.cellTextColor
         descriptionLabel.textColor = colors.cellDetailTextColor
 
-        searchButton.backgroundColor = colors.orangeUI
-        searchButton.setTitleColor(colors.background, for: .normal)
-
-        addRSSButton.backgroundColor = .clear
-        addRSSButton.setTitleColor(colors.cellTextColor, for: .normal)
-        addRSSButton.layer.borderColor = colors.separatorColor.cgColor
-    }
-
-    @objc private func didTapSearch() {
-        onSearchPodcasts?()
+        addRSSButton.backgroundColor = colors.orangeUI
+        addRSSButton.setTitleColor(colors.background, for: .normal)
     }
 
     @objc private func didTapAddRSS() {
