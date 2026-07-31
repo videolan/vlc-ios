@@ -133,7 +133,7 @@ extension PodcastSubscriptionModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
-                      didUpdateCacheForSubscriptionWithId subscriptionId: NSNumber) {
+                      didUpdateCacheForSubscriptionWithId subscriptionId: VLCMLIdentifier) {
         notifyOnMain()
     }
 

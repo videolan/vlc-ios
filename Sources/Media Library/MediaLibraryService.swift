@@ -129,7 +129,7 @@ extension NSNotification {
                                      didReceiveNewMediaForSubscriptionsWithIds subscriptionIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didUpdateCacheForSubscriptionWithId subscriptionId: NSNumber)
+                                     didUpdateCacheForSubscriptionWithId subscriptionId: VLCMLIdentifier)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      cacheIdleChanged idle: Bool)
@@ -999,7 +999,7 @@ extension MediaLibraryService {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
-                      didUpdateCacheForSubscriptionWithId subscriptionId: NSNumber) {
+                      didUpdateCacheForSubscriptionWithId subscriptionId: VLCMLIdentifier) {
         observable.notifyObservers {
             $0.medialibrary?(self, didUpdateCacheForSubscriptionWithId: subscriptionId)
         }
