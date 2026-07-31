@@ -134,6 +134,13 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      cacheIdleChanged idle: Bool)
 
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didStartCachingMediaWithId mediaId: VLCMLIdentifier)
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didFinishCachingMediaWithId mediaId: VLCMLIdentifier,
+                                     cached: Bool)
+
     // History
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      historyChangedOfType type: VLCMLHistoryType)
@@ -1008,6 +1015,20 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, cacheIdleChanged idle: Bool) {
         observable.notifyObservers {
             $0.medialibrary?(self, cacheIdleChanged: idle)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didStartCachingMediaWithId mediaId: VLCMLIdentifier) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didStartCachingMediaWithId: mediaId)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier, cached: Bool) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, didFinishCachingMediaWithId: mediaId, cached: cached)
         }
     }
 }
