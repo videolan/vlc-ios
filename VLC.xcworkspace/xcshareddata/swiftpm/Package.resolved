@@ -1,5 +1,5 @@
 {
-  "originHash" : "3f47ff979802481b0e4d8001196256578c3e99d62aa236df953d0933d862a2c5",
+  "originHash" : "14fcd49fa9c2b998baf9d4fc5fa426c5bafc9551944b67312ec9fa591a748747",
   "pins" : [
     {
       "identity" : "afnetworking",
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://code.videolan.org/videolan/VLCMediaLibraryKit.git",
       "state" : {
-        "revision" : "f62db9d544fcda1e4ec72862aeaf1f161d236597",
-        "version" : "0.14.0-b4"
+        "revision" : "00a2adca1c9179574e7a8e7a33653039306e382d",
+        "version" : "0.14.0-b5"
       }
     },
     {
