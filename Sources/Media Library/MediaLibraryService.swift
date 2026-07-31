@@ -1116,7 +1116,7 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         guard mediaCount > 0 else { return }
 
         let lastPlayedMediaId = defaults.integer(forKey: kVLCLastPlayedMediaIdentifier)
-        var collection: [VLCMLMedia] = []
+        var lastPlayedMediaIndex = 0
 
         for i in 0..<mediaCount {
             guard let media = mediaList.media(at: UInt(i)),
@@ -1124,11 +1124,13 @@ extension MediaLibraryService: VLCMediaParserDelegate {
                   !mlMedia.isExternalMedia()
             else { continue }
 
-            collection.append(mlMedia)
+            if mlMedia.identifier() == lastPlayedMediaId {
+                lastPlayedMediaIndex = i
+                break
+            }
         }
 
-        let lastPlayedMediaIndex = collection.firstIndex { $0.identifier() == lastPlayedMediaId } ?? 0
-        PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex, fromCollection: collection, openInMiniPlayer: true)
+        PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex, fromCollection: mediaList, openInMiniPlayer: true)
         defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
     }
 }
