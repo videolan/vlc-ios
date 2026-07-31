@@ -313,6 +313,8 @@
 "WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
 "WEBINTF_DOWNLOADFILES" = "Download Files";
 "WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
+"WEBINTF_DOWNLOAD_ALL" = "Download All";
+"WEBINTF_DOWNLOAD_SELECTED" = "Download Selected (%@)";
 "WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Remote Playback";
 "WEBINTF_URL_SENT" = "URL sent successfully.";

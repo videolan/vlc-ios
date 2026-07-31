@@ -156,15 +156,20 @@ $(function(){
 
         var selectedCount = $('.downloads > div.selected').length;
         var bulkBtn = $('.bulk-download-btn');
-        bulkBtn.text('Download Selected (' + selectedCount + ')');
+        var selectedTemplate = bulkBtn.attr('data-label-download-selected') || 'Download Selected (%@)';
+        bulkBtn.text(selectedTemplate.replace('%@', selectedCount).replace('%s', selectedCount));
         bulkBtn.prop('disabled', selectedCount === 0);
 
+        var selectBtn = $('.select-toggle-btn');
+        var selectText = selectBtn.attr('data-label-select') || 'Select';
+        var cancelText = selectBtn.attr('data-label-cancel') || 'Cancel';
+
         if (isSelectMode) {
-            $('.select-toggle-btn').addClass('active').text('Cancel');
+            selectBtn.addClass('active').text(cancelText);
             $('.downloads').addClass('selectable-mode');
             bulkBtn.removeClass('hidden');
         } else {
-            $('.select-toggle-btn').removeClass('active').text('Select');
+            selectBtn.removeClass('active').text(selectText);
             $('.downloads').removeClass('selectable-mode');
             $('.downloads > div').removeClass('selected');
             bulkBtn.addClass('hidden');

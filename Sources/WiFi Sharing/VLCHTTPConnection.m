@@ -600,7 +600,22 @@ static NSMutableDictionary *authentifiedHosts;
                             : NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil)), deviceModel],
                         @"WEBINTF_OPEN_URL" : (_languageBundle
                             ? [_languageBundle localizedStringForKey:@"ENTER_URL" value:nil table:nil]
-                            : NSLocalizedString(@"ENTER_URL", nil))};
+                            : NSLocalizedString(@"ENTER_URL", nil)),
+                        @"WEBINTF_DOWNLOAD_ALL" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DOWNLOAD_ALL" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DOWNLOAD_ALL", nil)),
+                        @"WEBINTF_DOWNLOAD_SELECTED" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DOWNLOAD_SELECTED" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DOWNLOAD_SELECTED", nil)),
+                        @"WEBINTF_DOWNLOAD_SELECTED_ZERO" : [NSString stringWithFormat:(_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"WEBINTF_DOWNLOAD_SELECTED" value:nil table:nil]
+                            : NSLocalizedString(@"WEBINTF_DOWNLOAD_SELECTED", nil)), @"0"],
+                        @"BUTTON_SELECT" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"BUTTON_SELECT" value:nil table:nil]
+                            : NSLocalizedString(@"BUTTON_SELECT", nil)),
+                        @"BUTTON_CANCEL" : (_languageBundle
+                            ? [_languageBundle localizedStringForKey:@"BUTTON_CANCEL" value:nil table:nil]
+                            : NSLocalizedString(@"BUTTON_CANCEL", nil))};
 
     HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                        forConnection:self
