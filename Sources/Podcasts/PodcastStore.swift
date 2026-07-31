@@ -17,12 +17,14 @@ final class PodcastStore: NSObject {
     static let shared = PodcastStore()
 
     private var subscriptionModel: PodcastSubscriptionModel?
+    private var mediaLibraryService: MediaLibraryService?
 
-    // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date/
-    // duration and hits disk (FileManager.fileExists) per episode - for a show with thousands of
-    // episodes that's too expensive to redo on every access, so it's cached per show and only
-    // dropped when the underlying data actually changes (see mediaLibraryBaseModelReloadView()
-    // below and the explicit invalidation in downloadEpisode/deleteDownloadedEpisode).
+    private var pendingCacheMediaIds: Set<VLCMLIdentifier> = []
+
+    // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
+    // duration - for a show with thousands of episodes that's too expensive to redo on every
+    // access, so it's cached per show and only dropped when the underlying data actually
+    // changes (see mediaLibraryBaseModelReloadView() and the cache task callbacks below).
     private var episodesByShowId: [String: [PodcastEpisode]] = [:]
 
     private static let dateFormatter: DateFormatter = {
@@ -39,8 +41,10 @@ final class PodcastStore: NSObject {
         guard subscriptionModel == nil else {
             return
         }
+        self.mediaLibraryService = mediaLibraryService
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
         subscriptionModel?.observable.addObserver(self)
+        mediaLibraryService.observable.addObserver(self)
     }
 
     func addObserver(_ observer: MediaLibraryBaseModelObserver) {
@@ -112,38 +116,29 @@ final class PodcastStore: NSObject {
     }
 
     func isDownloading(episodeId: String) -> Bool {
-        return PodcastEpisodeDownloader.shared.isDownloading(episodeId: episodeId)
+        guard let mediaId = VLCMLIdentifier(episodeId) else {
+            return false
+        }
+        return pendingCacheMediaIds.contains(mediaId)
     }
 
-    func downloadEpisode(episodeId: String, showId: String, completion: @escaping (Bool) -> Void) {
-        guard let subscriptionModel = subscriptionModel,
-              let subscription = subscription(withId: showId),
-              let media = subscriptionModel.media(for: subscription).first(where: { String($0.identifier()) == episodeId }) else {
-            completion(false)
-            return
+    @discardableResult
+    func downloadEpisode(episodeId: String, showId: String) -> Bool {
+        guard let media = media(forEpisodeId: episodeId, showId: showId),
+              mediaLibraryService?.medialib.cacheMedia(media) == true else {
+            return false
         }
-        PodcastEpisodeDownloader.shared.download(media: media) { [weak self] success in
-            self?.episodesByShowId[showId] = nil
-            completion(success)
-        }
+        pendingCacheMediaIds.insert(media.identifier())
+        return true
     }
 
     @discardableResult
     func deleteDownloadedEpisode(episodeId: String, showId: String) -> Bool {
-        guard let subscriptionModel = subscriptionModel,
-              let subscription = subscription(withId: showId),
-              let media = subscriptionModel.media(for: subscription).first(where: { String($0.identifier()) == episodeId }) else {
+        guard let media = media(forEpisodeId: episodeId, showId: showId),
+              mediaLibraryService?.medialib.removeCachedMedia(media) == true else {
             return false
         }
-        let cacheFiles = media.files.filter { $0.type() == .cache }
-        guard !cacheFiles.isEmpty else {
-            return false
-        }
-        for cacheFile in cacheFiles {
-            try? FileManager.default.removeItem(at: cacheFile.mrl)
-            cacheFile.delete()
-        }
-        episodesByShowId[showId] = nil
+        pendingCacheMediaIds.insert(media.identifier())
         return true
     }
 
@@ -151,6 +146,13 @@ final class PodcastStore: NSObject {
 
     private func subscription(withId showId: String) -> VLCMLSubscription? {
         return subscriptionModel?.subscriptions.first { String($0.identifier()) == showId }
+    }
+
+    private func media(forEpisodeId episodeId: String, showId: String) -> VLCMLMedia? {
+        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+            return nil
+        }
+        return subscriptionModel.media(for: subscription).first { String($0.identifier()) == episodeId }
     }
 
     private func allEpisodes() -> [PodcastEpisode] {
@@ -177,12 +179,7 @@ final class PodcastStore: NSObject {
 
     private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
         let progress = media.progress > 0 ? Double(media.progress) : nil
-        // Confirm the file still exists on disk: deleteDownloadedEpisode removes it directly since
-        // VLCMLFile.delete() doesn't reliably clean up externally-added cache files, which can
-        // leave a stale Cache-type File row behind after a manual delete.
-        let downloaded = media.files.contains {
-            $0.type() == .cache && FileManager.default.fileExists(atPath: $0.mrl.path)
-        }
+        let downloaded = media.files.contains { $0.type() == .cache }
         let releaseDate = media.releaseDate()
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
@@ -202,5 +199,32 @@ final class PodcastStore: NSObject {
 extension PodcastStore: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
         episodesByShowId.removeAll()
+    }
+}
+
+// MARK: - MediaLibraryObserver
+
+extension PodcastStore: MediaLibraryObserver {
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didStartCachingMediaWithId mediaId: VLCMLIdentifier) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.pendingCacheMediaIds.insert(mediaId)
+            self.notifyReload()
+        }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier, cached: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.pendingCacheMediaIds.remove(mediaId)
+            self.episodesByShowId.removeAll()
+            self.notifyReload()
+        }
+    }
+
+    private func notifyReload() {
+        subscriptionModel?.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
     }
 }

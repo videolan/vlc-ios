@@ -195,9 +195,7 @@ class PodcastShowDetailViewController: UIViewController {
         guard !store.isDownloading(episodeId: episode.id) else {
             return
         }
-        store.downloadEpisode(episodeId: episode.id, showId: show.id) { [weak self] _ in
-            self?.tableView.reloadData()
-        }
+        store.downloadEpisode(episodeId: episode.id, showId: show.id)
         tableView.reloadRows(at: [indexPath], with: .none)
     }
 
@@ -210,7 +208,7 @@ class PodcastShowDetailViewController: UIViewController {
                                                 style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: self.show.id)
-            self.tableView.reloadData()
+            self.tableView.reloadRows(at: [indexPath], with: .none)
         })
         present(alertController, animated: true)
     }

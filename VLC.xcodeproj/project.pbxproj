@@ -1421,7 +1421,6 @@
 		BEB724F12E560D20002A9729 /* View+CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB724F02E560D20002A9729 /* View+CustomDialog.swift */; };
 		BEB724F42E56143E002A9729 /* CustomSwiftUIDialogBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB724F32E56143E002A9729 /* CustomSwiftUIDialogBridge.swift */; };
 		C0E3AC34D884E1FB7E0E8D43 /* PodcastShowHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE07279E4864DC0BE2422FB /* PodcastShowHeaderCell.swift */; };
-		C2C33056DFEC1A48DEDC0FBE /* PodcastEpisodeDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7B1597C7432CFF4B13515B /* PodcastEpisodeDownloader.swift */; };
 		C59641D3A254963E44AA4E72 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
 		C5EE4D04BBB421B60B95FDFC /* VLCDownloadStatusBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B814635952B041103B96B5A /* VLCDownloadStatusBanner.m */; };
 		CA163E3756AE2AC6CF46357F /* PodcastsOnAirBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE4A4D0AB4A647A29E01384 /* PodcastsOnAirBridge.swift */; };
@@ -1546,13 +1545,11 @@
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 		E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F8980322D399E10061DB2F /* MediaScrubProgressBar.swift */; };
 		E38141E0B655FBEE047D9214 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
-		E6263DDF6C47642486230E46 /* PodcastEpisodeDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7B1597C7432CFF4B13515B /* PodcastEpisodeDownloader.swift */; };
 		E77833315D74A3AB4A5C4677 /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
 		EF800D0BE425A4B678AC8BAC /* PodcastSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */; };
 		F0A852EB34AE38CC3F3C8CF7 /* PodcastShowHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE07279E4864DC0BE2422FB /* PodcastShowHeaderCell.swift */; };
 		F6DF14A4F0C3B2CBA7DA01E0 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		F9DA8D55E7D7079672F394D9 /* PodcastProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA342D0C01512D2646834221 /* PodcastProgressBar.swift */; };
-		FC5D1559C5F9F4F6EB76D3D6 /* PodcastEpisodeDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7B1597C7432CFF4B13515B /* PodcastEpisodeDownloader.swift */; };
 		FEC04E0000000000000000F2 /* PulsingConeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC04E0000000000000000F1 /* PulsingConeView.swift */; };
 		FEC04E0000000000000000F3 /* PulsingConeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC04E0000000000000000F1 /* PulsingConeView.swift */; };
 		FEC04E0000000000000000F4 /* PulsingConeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC04E0000000000000000F1 /* PulsingConeView.swift */; };
@@ -1678,7 +1675,6 @@
 
 /* Begin PBXFileReference section */
 		09DF5C43BEEACDF6DB606E06 /* libPods-VLC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B7B1597C7432CFF4B13515B /* PodcastEpisodeDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeDownloader.swift; sourceTree = "<group>"; };
 		0F007EAF2C2B46440042A95F /* VLCMLMedia+isWatched.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+isWatched.h"; sourceTree = "<group>"; };
 		0F007EB02C2B46440042A95F /* VLCMLMedia+isWatched.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "VLCMLMedia+isWatched.m"; sourceTree = "<group>"; };
 		0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressPlaybackSpeedView.swift; sourceTree = "<group>"; };
@@ -2984,7 +2980,6 @@
 				6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */,
 				281D3E055E08E6B041594BB7 /* PodcastShowDetailViewController.swift */,
 				4048CFB0F054C0A7A6FAB1E9 /* PodcastSubscriptionModel.swift */,
-				0B7B1597C7432CFF4B13515B /* PodcastEpisodeDownloader.swift */,
 				9CE4A4D0AB4A647A29E01384 /* PodcastsOnAirBridge.swift */,
 			);
 			path = Podcasts;
@@ -6143,7 +6138,6 @@
 				C0E3AC34D884E1FB7E0E8D43 /* PodcastShowHeaderCell.swift in Sources */,
 				AB55D6531B36F36C8871D96D /* PodcastShowDetailViewController.swift in Sources */,
 				19E4F280427F2717879EC1AF /* PodcastSubscriptionModel.swift in Sources */,
-				E6263DDF6C47642486230E46 /* PodcastEpisodeDownloader.swift in Sources */,
 				CA163E3756AE2AC6CF46357F /* PodcastsOnAirBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6509,7 +6503,6 @@
 				F0A852EB34AE38CC3F3C8CF7 /* PodcastShowHeaderCell.swift in Sources */,
 				DCD52D89ABD4E1074798F63F /* PodcastShowDetailViewController.swift in Sources */,
 				4AEF03CFE0C0B9517270CD51 /* PodcastSubscriptionModel.swift in Sources */,
-				FC5D1559C5F9F4F6EB76D3D6 /* PodcastEpisodeDownloader.swift in Sources */,
 				2D0954DF9338D5EC16CAE61D /* PodcastsOnAirBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6866,7 +6859,6 @@
 				B1FD686BB90E25A76E8ABE3B /* PodcastShowHeaderCell.swift in Sources */,
 				2F4202D243FC63C7969F4291 /* PodcastShowDetailViewController.swift in Sources */,
 				2FB4B678625D8B07E45C7ECE /* PodcastSubscriptionModel.swift in Sources */,
-				C2C33056DFEC1A48DEDC0FBE /* PodcastEpisodeDownloader.swift in Sources */,
 				CE5FB1E6E26914921956FCDA /* PodcastsOnAirBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
