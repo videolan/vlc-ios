@@ -112,7 +112,7 @@ def strings_from_folder(folder_path, extensions=None, exclude=None):
     if extensions == None:
         extensions = frozenset(['m', 'mm', 'swift'])
     if exclude == None: 
-        exclude = frozenset(['ImportedSources', 'Pods', 'SourcePackages'])
+        exclude = frozenset(['Pods', 'SourcePackages'])
     logging.debug('Scanning for source files in %s', folder_path)
 
     for dir_path, dir_names, file_names in os.walk(folder_path):
