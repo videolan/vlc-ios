@@ -59,9 +59,13 @@ final class VideoPreviewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        mediaPlayer?.delegate = nil
-        mediaPlayer?.stop()
+        guard let player = mediaPlayer else { return }
         mediaPlayer = nil
+        player.delegate = nil
+        player.drawable = nil
+        DispatchQueue.global(qos: .userInitiated).async {
+            player.stop()
+        }
     }
 
     private func embedInfoPreview() {
