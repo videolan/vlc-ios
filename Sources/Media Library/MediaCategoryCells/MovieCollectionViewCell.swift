@@ -305,7 +305,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         let overallWidth = width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
-        let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
+        let cellWidth = max(floor(overallCellWidthWithoutPadding / numberOfCells), 1)
 
         let titleHeight = UIFont.preferredFont(forTextStyle: .headline).lineHeight
         let newHeight = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded.lineHeight

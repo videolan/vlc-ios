@@ -646,7 +646,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         let overallWidth = (numberOfCells == 1) ? width - edgePadding : width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
-        let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
+        let cellWidth = max(floor(overallCellWidthWithoutPadding / numberOfCells), 1)
 
         let titleHeight = UIFont.preferredFont(forTextStyle: .title3).lineHeight
         let subtitleHeight = UIFont.preferredFont(forTextStyle: .subheadline).lineHeight
