@@ -198,13 +198,13 @@ class VideoPlayerViewController: PlayerViewController {
     /// present the player controls.
     ///
     /// Without this, Switch Control uses Point mode, which is cumbersome.
-    private var switchControlUtility: UIControl = {
+    private lazy var switchControlUtility: UIControl = {
         var switchControlUtility = UIControl()
         switchControlUtility.backgroundColor = .clear
         switchControlUtility.translatesAutoresizingMaskIntoConstraints = false
         switchControlUtility.isUserInteractionEnabled = true
         switchControlUtility.isAccessibilityElement = true
-        switchControlUtility.addTarget(VideoPlayerViewController.self,
+        switchControlUtility.addTarget(self,
                                        action: #selector(handleTapOnVideo),
                                        for: .touchUpInside)
 
