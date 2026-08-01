@@ -466,12 +466,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [media addOptions:self.mediaOptionsDictionary];
     }
 
-    if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
-        [self.delegate prepareForMediaPlayback:self];
-
-    _currentAspectRatio = VLCAspectRatioDefault;
-    _mediaPlayer.videoAspectRatio = NULL;
-
     if (_pathToExternalSubtitlesFile) {
         /* this could be a path or an absolute string - let's see */
         NSURL *subtitleURL = [NSURL URLWithString:_pathToExternalSubtitlesFile];
@@ -479,9 +473,15 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             subtitleURL = [NSURL fileURLWithPath:_pathToExternalSubtitlesFile];
         }
         if (subtitleURL) {
-            [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+            [media addOptions:@{ kVLCSettingSubtitlesFilePath : subtitleURL.absoluteString }];
         }
     }
+
+    if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+        [self.delegate prepareForMediaPlayback:self];
+
+    _currentAspectRatio = VLCAspectRatioDefault;
+    _mediaPlayer.videoAspectRatio = NULL;
 
     _playerIsSetup = YES;
 
