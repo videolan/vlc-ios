@@ -334,13 +334,7 @@
         return;
     }
 
-    /* VLCKit only reads its http-token option once VLC has decided it holds
-     * credentials for the URL, so the address needs user info for the token to
-     * be sent at all. The bearer token takes precedence over these
-     * placeholders, which therefore never leave the device. */
-    NSString *urlString = [NSString stringWithFormat:
-                           @"https://drive:vlc@www.googleapis.com/drive/v3/files/%@?alt=media&supportsAllDrives=true",
-                           file.vlc_targetIdentifier];
+    NSString *urlString = [self mediaURLStringForFile:file];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [self setMediaNameMetadata:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]
