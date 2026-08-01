@@ -88,18 +88,7 @@
 
 - (NSDictionary<NSString *, NSString *> *)additionalTokenRefreshParametersForAuthSession:(GTMAuthSession *)authSession
 {
-    NSDictionary *parameters = authSession.authState.lastTokenResponse.additionalParameters;
-    NSMutableDictionary<NSString *, NSString *> *stringParameters = [NSMutableDictionary dictionaryWithCapacity:parameters.count];
-
-    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
-        if ([value isKindOfClass:[NSString class]]) {
-            stringParameters[key] = value;
-        } else if ([value isKindOfClass:[NSNumber class]]) {
-            stringParameters[key] = [value stringValue];
-        }
-    }];
-
-    return stringParameters;
+    return @{};
 }
 
 - (void)stopSession
