@@ -363,7 +363,7 @@
         UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"arrowshape.turn.up.right.fill"]];
         badge.translatesAutoresizingMaskIntoConstraints = NO;
         badge.contentMode = UIViewContentModeScaleAspectFit;
-        badge.tintColor = [UIColor whiteColor];
+        badge.tintColor = PresentationTheme.current.colors.orangeUI;
         badge.layer.shadowOpacity = 0.8;
         badge.layer.shadowRadius = 2.;
         badge.layer.shadowOffset = CGSizeZero;
