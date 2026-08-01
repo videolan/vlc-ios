@@ -359,9 +359,40 @@
 
 - (void)_reallyDownloadFileToDocumentFolder:(GTLRDrive_File *)file
 {
+    if (!file.vlc_isShortcut) {
+        [self _startDownloadOfFile:file];
+        return;
+    }
+
+    /* a shortcut describes the link, not the file behind it, so it carries
+     * neither the name nor the size the download reports progress against */
+    _downloadInProgress = YES;
+
+    GTLRDriveQuery_FilesGet *query = [GTLRDriveQuery_FilesGet queryWithFileId:file.vlc_targetIdentifier];
+    query.supportsAllDrives = YES;
+    query.fields = @"id,name,originalFilename,size,mimeType";
+
+    [self.driveService executeQuery:query
+                  completionHandler:^(GTLRServiceTicket *ticket,
+                                      GTLRDrive_File *target,
+                                      NSError *error) {
+                      if (error != nil) {
+                          self->_downloadInProgress = NO;
+                          [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE", nil)
+                                  message:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE", nil)];
+                          [self _triggerNextDownload];
+                          return;
+                      }
+
+                      [self _startDownloadOfFile:target];
+                  }];
+}
+
+- (void)_startDownloadOfFile:(GTLRDrive_File *)file
+{
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-    /* shortcuts carry no original filename */
+    /* only uploads keep the name they had before they reached Drive */
     NSString *fileName = file.originalFilename.length > 0 ? file.originalFilename : file.name;
     NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", fileName];
 
