@@ -142,11 +142,12 @@
         return;
     }
 
-    /* a different folder invalidates the cached listing and the page cursor */
-    if (![path isEqualToString:_folderId]) {
-        _currentFileList = nil;
-        _nextPageToken = nil;
-    }
+    /* every listing request starts over: refreshing, re-sorting and returning
+     * to the browser all ask for the folder that is already on screen, and
+     * appending to it would grow the list without bound. Further pages come
+     * from requestNextPage as the user scrolls. */
+    _currentFileList = nil;
+    _nextPageToken = nil;
 
     if (path.length == 0) {
         _folderId = path;
@@ -155,6 +156,15 @@
     }
 
     [self listFilesWithID:path isDownloadingFolder:NO];
+}
+
+- (void)requestNextPage
+{
+    if (!self.isAuthorized || ![self hasMoreFiles]) {
+        return;
+    }
+
+    [self listFilesWithID:_folderId isDownloadingFolder:NO];
 }
 
 - (BOOL)hasMoreFiles

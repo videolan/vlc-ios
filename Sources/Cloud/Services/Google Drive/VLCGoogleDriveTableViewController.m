@@ -74,7 +74,8 @@
 
     if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
         if (_googleDriveController.hasMoreFiles && !self.activityIndicator.isAnimating) {
-            [self requestInformationForCurrentPath];
+            [self.activityIndicator startAnimating];
+            [_googleDriveController requestNextPage];
         }
     }
 }
