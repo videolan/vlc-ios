@@ -309,9 +309,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
      * call it from the scene once a UIWindowScene is connected. */
     defaultVoutFrame = [UIScreen mainScreen].bounds;
 
-    _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
-    _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _actualVideoOutputView.autoresizesSubviews = YES;
+    if (!_actualVideoOutputView) {
+        _actualVideoOutputView = [[UIView alloc] initWithFrame:defaultVoutFrame];
+        _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _actualVideoOutputView.autoresizesSubviews = YES;
+    }
 #endif
     /* the chromecast and audio options cannot be set per media, so we need to set it per
      * media player instance however, potentially initialising an additional library instance
