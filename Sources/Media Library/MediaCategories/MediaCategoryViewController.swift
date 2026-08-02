@@ -2804,9 +2804,9 @@ extension MediaCategoryViewController {
     }
 }
 
-// MARK: - MediaCollectionViewCellDelegate
+// MARK: - MediaCollectionViewCellEnqueueDelegate
 
-extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
+extension MediaCategoryViewController: MediaCollectionViewCellEnqueueDelegate {
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell),
               let modelContent = getObject(at: indexPath) else {
@@ -2832,6 +2832,15 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
                 playbackService.removeMediaFromMediaList(at: UInt(indexPath.row))
             }
         }
+    }
+
+    func mediaCollectionViewCellHandleEnqueue(of cell: MediaCollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              let modelContent = getObject(at: indexPath) else {
+            return
+        }
+
+        generatePlayAction(for: modelContent, type: .appendToQueue)
     }
 
     func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell) {

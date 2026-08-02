@@ -24,6 +24,10 @@ protocol MediaCollectionViewCellDelegate: AnyObject {
     func mediaCollectionViewCellGetModel() -> MediaLibraryBaseModel?
 }
 
+protocol MediaCollectionViewCellEnqueueDelegate: MediaCollectionViewCellDelegate {
+    func mediaCollectionViewCellHandleEnqueue(of cell: MediaCollectionViewCell)
+}
+
 // MARK: -
 class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
@@ -36,6 +40,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet private(set) weak var newLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet private(set) weak var deleteButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var enqueueButton: UIButton!
+    @IBOutlet private(set) weak var enqueueButtonWidth: NSLayoutConstraint!
     @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -55,7 +61,16 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var hasXGoneNegative: Bool = false
 
     private let playbackService: PlaybackService = PlaybackService.sharedInstance()
+    private static let enqueueButtonDefaultWidth: CGFloat = 80.0
     static let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+
+    private var swipeActionsWidth: CGFloat {
+        return deleteButton.frame.width + enqueueButtonWidth.constant
+    }
+
+    private var enqueueDelegate: MediaCollectionViewCellEnqueueDelegate? {
+        return delegate as? MediaCollectionViewCellEnqueueDelegate
+    }
 
     var ignoreThemeDidChange: Bool = false
     var isEditing: Bool = false
@@ -86,6 +101,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
+
+            updateSwipeActions()
         }
     }
 
@@ -141,6 +158,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
         deleteButton.layer.cornerRadius = 5.0
         deleteButton.backgroundColor = .systemRed
+        enqueueButton.setTitle(NSLocalizedString("ENQUEUE_LABEL", comment: ""), for: .normal)
+        enqueueButton.accessibilityLabel = NSLocalizedString("ENQUEUE_LABEL", comment: "")
+        enqueueButton.accessibilityHint = NSLocalizedString("APPEND_TO_QUEUE_HINT", comment: "")
+        enqueueButton.layer.cornerRadius = 5.0
+        enqueueButton.backgroundColor = PresentationTheme.current.colors.orangeUI
+        hideEnqueueButton()
 
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(themeDidChange),
@@ -195,7 +218,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             isDeleteDisplayed = false
         } else if !vibrationTriggered {
             // The user wants to display the delete button
-            x = deleteButton.frame.width
+            x = swipeActionsWidth
             isDeleteDisplayed = true
             delegate?.mediaCollectionViewCellSetScrolledCellIndex(of: self)
         } else {
@@ -224,7 +247,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             maxXOffset = scrollView.contentOffset.x
         }
 
-        if scrollView.contentOffset.x >= deleteButton.frame.size.width + 30 {
+        if scrollView.contentOffset.x >= swipeActionsWidth + 30 {
 #if os(iOS)
             let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
             impactFeedbackGenerator.prepare()
@@ -533,6 +556,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
         enableScrollView()
+        hideEnqueueButton()
     }
 
     // MARK: - Private methods
@@ -558,6 +582,20 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         if sender.state == .ended {
             delegate?.mediaCollectionViewCellMediaTapped(in: self)
         }
+    }
+
+    private func updateSwipeActions() {
+        if scrollView.isScrollEnabled && enqueueDelegate != nil {
+            enqueueButton.isHidden = false
+            enqueueButtonWidth.constant = MediaCollectionViewCell.enqueueButtonDefaultWidth
+        } else {
+            hideEnqueueButton()
+        }
+    }
+
+    private func hideEnqueueButton() {
+        enqueueButton.isHidden = true
+        enqueueButtonWidth.constant = 0.0
     }
 
     private func checkScrollView() {
@@ -621,6 +659,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     @IBAction func deleteButtonPressed(_ sender: Any) {
         delegate?.mediaCollectionViewCellHandleDelete(of: self)
+        resetScrollView()
+    }
+
+    @IBAction func enqueueButtonPressed(_ sender: Any) {
+        enqueueDelegate?.mediaCollectionViewCellHandleEnqueue(of: self)
         resetScrollView()
     }
 

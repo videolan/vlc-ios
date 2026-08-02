@@ -148,8 +148,20 @@
                             <constraint firstAttribute="trailing" secondItem="w5P-i7-T78" secondAttribute="trailing" id="mXG-Wa-I1w"/>
                         </constraints>
                     </scrollView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-dT-h2f">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qb1-Ke-8fA">
                         <rect key="frame" x="480" y="12" width="80" height="56"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="Qw2-Le-9gB"/>
+                        </constraints>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="enqueueButtonPressed:" destination="OaX-w0-CLr" eventType="touchUpInside" id="Qa8-Rk-5mH"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-dT-h2f">
+                        <rect key="frame" x="560" y="12" width="80" height="56"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="56" id="336-fj-EUN"/>
                             <constraint firstAttribute="width" constant="80" id="Olv-rl-Aap"/>
@@ -167,7 +179,10 @@
             <constraints>
                 <constraint firstItem="D61-Eo-fsB" firstAttribute="top" secondItem="OaX-w0-CLr" secondAttribute="top" id="8uG-vX-2jB"/>
                 <constraint firstAttribute="bottom" secondItem="D61-Eo-fsB" secondAttribute="bottom" id="CNc-hg-HNZ"/>
-                <constraint firstItem="6Ey-dT-h2f" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="trailing" id="HJo-9A-Lc0"/>
+                <constraint firstItem="6Ey-dT-h2f" firstAttribute="leading" secondItem="Qb1-Ke-8fA" secondAttribute="trailing" id="HJo-9A-Lc0"/>
+                <constraint firstItem="Qb1-Ke-8fA" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="trailing" id="Qc3-Mf-0hC"/>
+                <constraint firstItem="Qb1-Ke-8fA" firstAttribute="centerY" secondItem="6Ey-dT-h2f" secondAttribute="centerY" id="Qc4-Ng-1iD"/>
+                <constraint firstItem="Qb1-Ke-8fA" firstAttribute="height" secondItem="6Ey-dT-h2f" secondAttribute="height" id="Qc5-Oh-2jE"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="D61-Eo-fsB" secondAttribute="centerY" id="OtS-pq-ndi"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="Xwf-o3-Qba"/>
                 <constraint firstItem="L0K-f1-QjV" firstAttribute="leading" secondItem="Uhx-qs-Aow" secondAttribute="leading" id="drL-F5-v28"/>
@@ -181,6 +196,8 @@
                 <outlet property="deleteButton" destination="6Ey-dT-h2f" id="NOC-o2-rvy"/>
                 <outlet property="deleteButtonHeight" destination="336-fj-EUN" id="PEB-jP-nqV"/>
                 <outlet property="dragIndicatorImageView" destination="f9J-sb-sdM" id="t3G-VX-68j"/>
+                <outlet property="enqueueButton" destination="Qb1-Ke-8fA" id="Qo6-Pi-3kF"/>
+                <outlet property="enqueueButtonWidth" destination="Qw2-Le-9gB" id="Qo7-Qj-4lG"/>
                 <outlet property="labelsViewTrailingConstraint" destination="uJY-5b-en0" id="HFJ-WP-rh2"/>
                 <outlet property="newLabel" destination="Klo-Bq-5nI" id="8jr-y0-SoR"/>
                 <outlet property="scrollContentView" destination="bhw-Aa-3Q7" id="7zP-ye-wWO"/>
