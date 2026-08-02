@@ -395,6 +395,18 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     return playbackController;
 }
 
+- (UIViewController *)_presentedPlaybackController
+{
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *presentedController = window.rootViewController.presentedViewController;
+
+    if (![presentedController isKindOfClass:[VLCPlaybackNavigationController class]]) {
+        return nil;
+    }
+
+    return ((UINavigationController *)presentedController).topViewController;
+}
+
 - (BOOL)_isPlaybackControllerPresentedOrTransitioning:(UIViewController *)playbackController
 {
     UIViewController *presentingController = [self _presentingControllerForPlaybackController:playbackController];
@@ -447,7 +459,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            if ([_playbackController.delegate isKindOfClass:[VLCAudioPlayerViewController class]]) {
+            if ([[self _presentedPlaybackController] isKindOfClass:[VLCAudioPlayerViewController class]]) {
                 [self closeAudioPlayer];
             } else {
                 [self _closeFullscreenPlayback];
