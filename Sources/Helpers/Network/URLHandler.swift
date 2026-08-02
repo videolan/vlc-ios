@@ -139,10 +139,10 @@ extension VLCURLHandler {
                 fileName = value.removingPercentEncoding
                 break
             case .xSuccess:
-                successCallback = URL(string: value)
+                successCallback = URL(string: value.removingPercentEncoding ?? value)
                 break
             case .xError:
-                errorCallback = URL(string: value)
+                errorCallback = URL(string: value.removingPercentEncoding ?? value)
                 break
             default:
                 assertionFailure("VLCURLHandler: Invalid match of callback.")
