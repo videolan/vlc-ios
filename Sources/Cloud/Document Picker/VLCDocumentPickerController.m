@@ -89,17 +89,15 @@
         return;
     }
 
-    [self appendURLs:filesInFolder toMediaList:medialist];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"lastPathComponent"
+                                                                    ascending:YES
+                                                                     selector:@selector(localizedStandardCompare:)];
+    [self appendURLs:[filesInFolder sortedArrayUsingDescriptors:@[sortDescriptor]] toMediaList:medialist];
 }
 
 - (void)appendURLs:(NSArray<NSURL *> *)urls toMediaList:(VLCMediaList *)medialist
 {
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString"
-                                                                    ascending:YES
-                                                                     selector:@selector(localizedStandardCompare:)];
-    NSArray<NSURL *> *sortedURLs = [urls sortedArrayUsingDescriptors:@[sortDescriptor]];
-
-    for (NSURL *url in sortedURLs) {
+    for (NSURL *url in urls) {
         if ([[url pathExtension] isEqualToString:@""]) {
             continue;
         }
