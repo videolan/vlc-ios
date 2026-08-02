@@ -104,6 +104,41 @@ class EditController: UIViewController {
 // MARK: - Helpers
 
 private extension EditController {
+    private func moveSelectedItems(of playlist: VLCMLPlaylist, draggedFrom source: IndexPath, to destination: IndexPath) {
+        let itemCount = currentDataSet.count
+        let selectedRows = selectedCellIndexPaths.map({ $0.row }).sorted()
+        guard let lastSelectedRow = selectedRows.last, lastSelectedRow < itemCount else {
+            return
+        }
+
+        let selection = Set(selectedRows)
+        let remainingRows = (0..<itemCount).filter({ !selection.contains($0) })
+        let rowsWithoutDragged = (0..<itemCount).filter({ $0 != source.row })
+
+        var insertionIndex = remainingRows.count
+        if destination.row < rowsWithoutDragged.count {
+            let anchor = rowsWithoutDragged[destination.row]
+            insertionIndex = remainingRows.firstIndex(where: { $0 >= anchor }) ?? remainingRows.count
+        }
+
+        var newOrder = remainingRows
+        newOrder.insert(contentsOf: selectedRows, at: insertionIndex)
+
+        var currentOrder = Array(0..<itemCount)
+        for (position, row) in newOrder.enumerated() where currentOrder[position] != row {
+            guard let currentPosition = currentOrder.firstIndex(of: row) else {
+                continue
+            }
+            playlist.moveMedia(fromPosition: UInt32(currentPosition), toDestination: UInt32(position))
+            currentOrder.remove(at: currentPosition)
+            currentOrder.insert(row, at: position)
+        }
+
+        selectedCellIndexPaths = Set(selectedRows.indices.map({
+            IndexPath(row: insertionIndex + $0, section: source.section)
+        }))
+    }
+
     private func getTitle(for count: Int) -> String {
         var title = "\(count) "
         if count == 1 {
@@ -400,6 +435,12 @@ extension EditController: UICollectionViewDataSource {
             assertionFailure("can Move should've been false")
             return
         }
+
+        if selectedCellIndexPaths.contains(sourceIndexPath) {
+            moveSelectedItems(of: playlist, draggedFrom: sourceIndexPath, to: destinationIndexPath)
+            return
+        }
+
         playlist.moveMedia(fromPosition: UInt32(sourceIndexPath.row), toDestination: UInt32(destinationIndexPath.row))
     }
 
