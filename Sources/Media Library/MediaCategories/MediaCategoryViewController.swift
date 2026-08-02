@@ -2269,6 +2269,7 @@ extension MediaCategoryViewController {
     private func setupPlaylistHeaderReusableView(headerView: PlaylistHeader, collection: VLCMLPlaylist) -> UICollectionReusableView {
         headerView.updateImage(with: collection.thumbnail())
         headerView.updateTitle(with: collection.title())
+        headerView.updateSubtitle(with: collection.subtitleString())
         headerView.collection = collection
         headerView.sortModel = model.sortModel
         playlistHeader = headerView

@@ -35,6 +35,16 @@ class PlaylistHeader: UICollectionReusableView {
         return titleLabel
     }()
 
+    private lazy var subtitleLabel: UILabel = {
+        let subtitleLabel = UILabel()
+        subtitleLabel.numberOfLines = 1
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return subtitleLabel
+    }()
+
     private lazy var buttonStackView: UIStackView = {
         let buttonStackView = UIStackView()
         buttonStackView.backgroundColor = PresentationTheme.current.colors.background
@@ -84,6 +94,7 @@ class PlaylistHeader: UICollectionReusableView {
 
         addSubview(imageView)
         addSubview(titleLabel)
+        addSubview(subtitleLabel)
         addSubview(buttonStackView)
 
         buttonStackView.addArrangedSubview(playAllButton)
@@ -128,8 +139,13 @@ class PlaylistHeader: UICollectionReusableView {
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
             titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
 
+            subtitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+
             buttonStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            buttonStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            buttonStackView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 15),
             buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             buttonStackView.heightAnchor.constraint(equalToConstant: buttonSize),
 
@@ -157,9 +173,13 @@ class PlaylistHeader: UICollectionReusableView {
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 50),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -80),
 
+            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+
             buttonStackView.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
             buttonStackView.heightAnchor.constraint(equalToConstant: buttonSize),
-            buttonStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            buttonStackView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
             buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
 
             playAllButton.heightAnchor.constraint(equalToConstant: buttonSize),
@@ -170,6 +190,7 @@ class PlaylistHeader: UICollectionReusableView {
     private func updateConstraintsAfterRotation() {
         addSubview(imageView)
         addSubview(titleLabel)
+        addSubview(subtitleLabel)
         addSubview(buttonStackView)
 
         buttonStackView.addArrangedSubview(playAllButton)
@@ -204,9 +225,9 @@ class PlaylistHeader: UICollectionReusableView {
     static func getHeaderSize(with width: CGFloat) -> CGSize {
 #if os(iOS)
         let isLandscape: Bool = UIDevice.current.orientation.isLandscape
-        let headerHeight: CGFloat = isLandscape ? 250.0 : 370.0
+        let headerHeight: CGFloat = isLandscape ? 275.0 : 395.0
 #else
-        let headerHeight: CGFloat = 350.0
+        let headerHeight: CGFloat = 375.0
 #endif
         return CGSize(width: width, height: headerHeight)
     }
@@ -223,11 +244,16 @@ class PlaylistHeader: UICollectionReusableView {
         titleLabel.text = title
     }
 
+    func updateSubtitle(with subtitle: String) {
+        subtitleLabel.text = subtitle
+    }
+
     func updateAfterRotation() {
         playAllButton.removeFromSuperview()
         playShuffleButton.removeFromSuperview()
         imageView.removeFromSuperview()
         titleLabel.removeFromSuperview()
+        subtitleLabel.removeFromSuperview()
         buttonStackView.removeFromSuperview()
 
         if let playAllButtonWidthConstraint = playAllButtonWidthConstraint,
@@ -255,6 +281,7 @@ class PlaylistHeader: UICollectionReusableView {
         let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         titleLabel.textColor = colors.cellTextColor
+        subtitleLabel.textColor = colors.cellDetailTextColor
         buttonStackView.backgroundColor = colors.background
     }
 }
