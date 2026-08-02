@@ -327,8 +327,19 @@
         return;
     }
 
-    [_recentURLs removeObjectAtIndex:indexPathToDelete.row];
-    [_recentURLTitles removeObjectForKey:[@(indexPathToDelete.row) stringValue]];
+    NSInteger deletedRow = indexPathToDelete.row;
+    [_recentURLs removeObjectAtIndex:deletedRow];
+
+    NSMutableDictionary *shiftedTitles = [NSMutableDictionary dictionaryWithCapacity:_recentURLTitles.count];
+    [_recentURLTitles enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *title, BOOL *stop) {
+        NSInteger row = key.integerValue;
+        if (row < deletedRow) {
+            shiftedTitles[key] = title;
+        } else if (row > deletedRow) {
+            shiftedTitles[@(row - 1).stringValue] = title;
+        }
+    }];
+    _recentURLTitles = shiftedTitles;
 
     if ([self ubiquitousKeyStoreAvailable]) {
         NSUbiquitousKeyValueStore *keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
