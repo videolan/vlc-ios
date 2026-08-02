@@ -80,6 +80,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     UIView *_preBackgroundWrapperView API_UNAVAILABLE(watchos);
 
     int _majorPositionChangeInProgress;
+    float _positionToRestore;
     BOOL _externalAudioPlaybackDeviceConnected;
 
     NSLock *_playbackSessionManagementLock;
@@ -617,6 +618,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self _restorePendingPlaybackPositionIfNeeded];
+
         if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)]) {
             [self.delegate playbackPositionUpdated:self];
             if (self->_metadata.isLiveStream && [self mediaDuration] > 0) {
@@ -1081,6 +1084,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 APLog(@"%s: unknown state", __func__);
                 break;
         }
+
+        [self _restorePendingPlaybackPositionIfNeeded];
 
         self->_mediaPlayerState = currentState;
 
@@ -1791,8 +1796,32 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [self recoverDisplayedMetadata];
 }
 
+- (void)_restorePlaybackPosition:(float)position
+{
+    if (_mediaPlayer.isSeekable) {
+        _positionToRestore = .0;
+        [self setPlaybackPosition:position];
+        APLog(@"restored playback position to %.4f", position);
+        return;
+    }
+
+    _positionToRestore = position;
+    APLog(@"media is not seekable yet, deferring playback position restore to %.4f", position);
+}
+
+- (void)_restorePendingPlaybackPositionIfNeeded
+{
+    if (_positionToRestore <= .0 || !_mediaPlayer.isSeekable) {
+        return;
+    }
+
+    [self _restorePlaybackPosition:_positionToRestore];
+}
+
 - (void)_recoverLastPlaybackState
 {
+    _positionToRestore = .0;
+
     VLCMedia *media = _mediaPlayer.media;
     VLCMLMedia *libraryMedia = [VLCMLMedia mediaForPlayingMedia:media];
     if (!libraryMedia) return;
@@ -1824,7 +1853,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
 
         if (continuePlayback == 1) {
-            [self setPlaybackPosition:lastPosition];
+            [self _restorePlaybackPosition:lastPosition];
         } else if (continuePlayback == 0) {
             #if TARGET_OS_IOS
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil) message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), libraryMedia.title] preferredStyle:UIAlertControllerStyleAlert];
@@ -1833,7 +1862,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
             }];
             UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self setPlaybackPosition:lastPosition];
+                [self _restorePlaybackPosition:lastPosition];
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
             }];
 
@@ -1848,7 +1877,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             #elif TARGET_OS_WATCH
             [_swiftUIDialogProvider showContinuePlaybackDialogWithMediaTitle:libraryMedia.title completion:^(BOOL shouldContinue) {
                 if (shouldContinue) {
-                    [self setPlaybackPosition:lastPosition];
+                    [self _restorePlaybackPosition:lastPosition];
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
             }];
