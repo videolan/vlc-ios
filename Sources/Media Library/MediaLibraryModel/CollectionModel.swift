@@ -62,6 +62,7 @@ class CollectionModel: MLBaseModel {
         }
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
+        self.name += String(describing: type(of: mediaCollection))
 
         self.sortModel = mediaCollection.sortModel() ?? self.sortModel
 
