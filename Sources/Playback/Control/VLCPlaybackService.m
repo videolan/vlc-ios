@@ -568,13 +568,13 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
     [_playbackSessionManagementLock unlock];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
-
     if (_sessionWillRestart) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_sessionWillRestart = NO;
             [self startPlayback];
         });
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
     }
 }
 
