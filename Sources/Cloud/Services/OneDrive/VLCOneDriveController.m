@@ -196,7 +196,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 }
 
 - (void)loadODItemsContinueWithRequest:(ODChildrenCollectionRequest *)request
+                                itemID:(NSString *)itemID
                                 result:(NSMutableArray *)result
+                     completionHandler:(void (^)(void))completionHandler
 {
     __weak typeof(self) weakSelf = self;
     [request getWithCompletion:^(ODCollection *response,
@@ -204,12 +206,16 @@ static void *ProgressObserverContext = &ProgressObserverContext;
         if (!error) {
             [result addObjectsFromArray:response.value];
             if (nextRequest != NULL) {
-                [weakSelf loadODItemsContinueWithRequest:nextRequest result:result];
+                [weakSelf loadODItemsContinueWithRequest:nextRequest
+                                                  itemID:itemID
+                                                  result:result
+                                       completionHandler:completionHandler];
             } else {
-                [weakSelf sendMediaListUpdateWithContent:result completionHandler:NULL];
+                [weakSelf sendMediaListUpdateWithContent:result
+                                       completionHandler:completionHandler];
             }
         } else {
-            [weakSelf handleLoadODItemErrorWithError:error itemID:@"root"];
+            [weakSelf handleLoadODItemErrorWithError:error itemID:itemID];
         }
     }];
 }
@@ -227,10 +233,14 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
     [request getWithCompletion:^(ODCollection *response, ODChildrenCollectionRequest *nextRequest, NSError *error) {
         if (!error) {
+            [requestContent addObjectsFromArray:response.value];
             if (nextRequest != NULL) {
-                [weakSelf loadODItemsContinueWithRequest:nextRequest result:requestContent];
+                [weakSelf loadODItemsContinueWithRequest:nextRequest
+                                                  itemID:itemID
+                                                  result:requestContent
+                                       completionHandler:completionHandler];
             } else {
-                [weakSelf sendMediaListUpdateWithContent:response.value
+                [weakSelf sendMediaListUpdateWithContent:requestContent
                                        completionHandler:completionHandler];
             }
         } else {
