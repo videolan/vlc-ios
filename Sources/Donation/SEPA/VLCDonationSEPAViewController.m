@@ -16,6 +16,8 @@
 #import "VLCPrice.h"
 #import "VLC-Swift.h"
 #import "VLCSEPANotificationViewController.h"
+#import "UIScrollView+VLCKeyboardAdjustment.h"
+#import "UITextField+VLCKeyboardDismissal.h"
 
 @interface VLCDonationSEPAViewController () <VLCStripeControllerDelegate, UITextFieldDelegate>
 {
@@ -77,6 +79,10 @@
         self.continueButton.role = UIButtonRolePrimary;
     }
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_DONATE_BUTTON", nil) forState:UIControlStateNormal];
+
+    [_bankAccountNumberField addKeyboardDismissAccessory];
+    [_nameField addKeyboardDismissAccessory];
+    [_emailField addKeyboardDismissAccessory];
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
 
@@ -145,20 +151,7 @@
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
-#if TARGET_OS_IOS
-    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
-
-    CGFloat overlap = MAX(0.0, CGRectGetMaxY(self.view.bounds) - CGRectGetMinY(keyboardFrame));
-
-    UIEdgeInsets insets = _contentScrollView.contentInset;
-    insets.bottom = overlap;
-    _contentScrollView.contentInset = insets;
-    _contentScrollView.scrollIndicatorInsets = insets;
-
-    CGRect target = [_continueButton convertRect:_continueButton.bounds toView:_contentScrollView];
-    [_contentScrollView scrollRectToVisible:target animated:YES];
-#endif
+    [_contentScrollView adjustForKeyboardNotification:aNotification revealingView:_continueButton];
 }
 
 - (NSString *)title

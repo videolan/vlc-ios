@@ -32,7 +32,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
                     <rect key="frame" x="-3" y="98" width="399" height="686"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
@@ -163,7 +163,7 @@
                         <constraint firstItem="IsQ-jd-kJH" firstAttribute="top" secondItem="tnd-n5-E84" secondAttribute="bottom" constant="5" id="Uu3-FI-dz5"/>
                         <constraint firstItem="Tjf-kx-D4n" firstAttribute="leading" secondItem="IsQ-jd-kJH" secondAttribute="leading" id="Viy-sr-od0"/>
                         <constraint firstItem="TPh-dt-Iw0" firstAttribute="centerX" secondItem="kLS-IV-Gce" secondAttribute="centerX" id="Xtb-eD-Wyn"/>
-                        <constraint firstAttribute="bottom" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="334" id="YKp-tv-AnC"/>
+                        <constraint firstAttribute="bottom" secondItem="i5H-0V-aTr" secondAttribute="bottom" constant="20" id="YKp-tv-AnC"/>
                         <constraint firstItem="Tjf-kx-D4n" firstAttribute="top" secondItem="GlX-b5-DcZ" secondAttribute="bottom" constant="17" id="aPo-jv-fWH"/>
                         <constraint firstItem="pcv-v7-fmd" firstAttribute="leading" secondItem="IsQ-jd-kJH" secondAttribute="leading" id="aY3-yd-QjH"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="17" id="dot-6E-9ez"/>

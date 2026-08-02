@@ -15,6 +15,8 @@
 #import "VLCCurrency.h"
 #import "VLCPrice.h"
 #import "VLC-Swift.h"
+#import "UIScrollView+VLCKeyboardAdjustment.h"
+#import "UITextField+VLCKeyboardDismissal.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
@@ -101,6 +103,11 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     }
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_DONATE_BUTTON", nil) forState:UIControlStateNormal];
 
+    [_creditCardNumberField addKeyboardDismissAccessory];
+    [_expiryDateMonthField addKeyboardDismissAccessory];
+    [_expiryDateYearField addKeyboardDismissAccessory];
+    [_cvvField addKeyboardDismissAccessory];
+
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
 
     [self updateColors];
@@ -180,20 +187,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
-#if TARGET_OS_IOS
-    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
-
-    CGFloat overlap = MAX(0.0, CGRectGetMaxY(self.view.bounds) - CGRectGetMinY(keyboardFrame));
-
-    UIEdgeInsets insets = _contentScrollView.contentInset;
-    insets.bottom = overlap;
-    _contentScrollView.contentInset = insets;
-    _contentScrollView.scrollIndicatorInsets = insets;
-
-    CGRect target = [_continueButton convertRect:_continueButton.bounds toView:_contentScrollView];
-    [_contentScrollView scrollRectToVisible:target animated:YES];
-#endif
+    [_contentScrollView adjustForKeyboardNotification:aNotification revealingView:_continueButton];
 }
 
 - (NSString *)title

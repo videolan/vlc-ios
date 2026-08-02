@@ -22,6 +22,8 @@
 #import "VLCDonationInvoicesViewController.h"
 #import "VLCDonationSEPAViewController.h"
 #import "VLCSEPA.h"
+#import "UIScrollView+VLCKeyboardAdjustment.h"
+#import "UITextField+VLCKeyboardDismissal.h"
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 
@@ -120,6 +122,8 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
             NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
         }];
     }
+    [_customAmountField addKeyboardDismissAccessory];
+
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
     [_previousDonationsButton setTitle:NSLocalizedString(@"DONATION_INVOICES_RECEIPTS", nil) forState:UIControlStateNormal];
     [_monthlyUpdateButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
@@ -236,20 +240,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 
 - (void)adjustForKeyboard:(NSNotification *)aNotification
 {
-#if TARGET_OS_IOS
-    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
-
-    CGFloat overlap = MAX(0.0, CGRectGetMaxY(self.view.bounds) - CGRectGetMinY(keyboardFrame));
-
-    UIEdgeInsets insets = _contentScrollView.contentInset;
-    insets.bottom = overlap;
-    _contentScrollView.contentInset = insets;
-    _contentScrollView.scrollIndicatorInsets = insets;
-
-    CGRect target = [_continueButton convertRect:_previousDonationsButton.bounds toView:_contentScrollView];
-    [_contentScrollView scrollRectToVisible:target animated:YES];
-#endif
+    [_contentScrollView adjustForKeyboardNotification:aNotification revealingView:_continueButton];
 }
 
 - (NSString *)title

@@ -43,7 +43,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
                     <rect key="frame" x="-3" y="98" width="399" height="686"/>
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPh-dt-Iw0" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
@@ -341,7 +341,7 @@
                         <constraint firstItem="NW6-uU-xWw" firstAttribute="top" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="20" id="QSI-DE-kSs"/>
                         <constraint firstAttribute="trailing" secondItem="TPh-dt-Iw0" secondAttribute="trailing" id="TdC-Uo-yM4"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="centerX" secondItem="iXP-bK-0Va" secondAttribute="centerX" id="Ua5-W3-WV9"/>
-                        <constraint firstAttribute="bottom" secondItem="Tjf-kx-D4n" secondAttribute="bottom" constant="440" id="YKp-tv-AnC"/>
+                        <constraint firstAttribute="bottom" secondItem="y87-Pd-xGd" secondAttribute="bottom" constant="20" id="YKp-tv-AnC"/>
                         <constraint firstItem="Tjf-kx-D4n" firstAttribute="top" secondItem="GlX-b5-DcZ" secondAttribute="bottom" constant="17" id="aPo-jv-fWH"/>
                         <constraint firstItem="y87-Pd-xGd" firstAttribute="leading" secondItem="Um5-um-WTc" secondAttribute="leading" id="cmr-UE-jQv"/>
                         <constraint firstItem="GlX-b5-DcZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="5" id="dot-6E-9ez"/>
