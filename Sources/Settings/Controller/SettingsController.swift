@@ -62,6 +62,10 @@ class SettingsController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        SettingsSpecifierCache.purge()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()

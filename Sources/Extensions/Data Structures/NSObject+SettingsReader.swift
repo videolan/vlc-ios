@@ -11,6 +11,49 @@
 
 import Foundation
 
+enum SettingsSpecifierCache {
+    private static var specifiersByKey: [String: NSDictionary]?
+
+    static func specifier(for preferenceKey: String) -> NSDictionary? {
+        if specifiersByKey == nil {
+            specifiersByKey = load()
+        }
+        return specifiersByKey?[preferenceKey]
+    }
+
+    static func titlesAndValues(for preferenceKey: String) -> (titles: [String], values: NSArray)? {
+        guard let prefSpecification = specifier(for: preferenceKey),
+            let titles = prefSpecification["Titles"] as? [String],
+            let values = prefSpecification["Values"] as? NSArray else {
+            return nil
+        }
+        return (titles, values)
+    }
+
+    static func purge() {
+        specifiersByKey = nil
+    }
+
+    private static func load() -> [String: NSDictionary] {
+        let (resource, withExtension, subdirectory) = ("Root", "inApp.plist", "Settings.bundle")
+        let preferenceSpecifiers = "PreferenceSpecifiers"
+
+        guard let settingsURL = Bundle.main.url(forResource: resource, withExtension: withExtension, subdirectory: subdirectory),
+            let settings = NSDictionary(contentsOf: settingsURL),
+            let preferences = settings[preferenceSpecifiers] as? [NSDictionary] else {
+            return [:]
+        }
+
+        var specifiers = [String: NSDictionary](minimumCapacity: preferences.count)
+        for prefSpecification in preferences {
+            if let key = prefSpecification["Key"] as? String {
+                specifiers[key] = prefSpecification
+            }
+        }
+        return specifiers
+    }
+}
+
 extension NSObject {
     func getSettingsBundle() -> Bundle? {
         if let settingsBundlePath = Bundle.main.path(forResource: "Settings", ofType: "bundle") {
@@ -20,34 +63,22 @@ extension NSObject {
     }
 
     func getSettingsSpecifier(for preferenceKey: String) -> SettingSpecifier? {
-        var settingsSpecifierDict: SettingSpecifier?
-        let (resource, withExtension, subdirectory) = ("Root", "inApp.plist", "Settings.bundle")
-        let preferenceSpecifiers = "PreferenceSpecifiers"
+        guard let prefSpecification = SettingsSpecifierCache.specifier(for: preferenceKey) else {
+            return nil
+        }
 
-        if let settingsURL = Bundle.main.url(forResource: resource, withExtension: withExtension, subdirectory: subdirectory),
-            let settings = NSDictionary(contentsOf: settingsURL),
-            let preferences = settings[preferenceSpecifiers] as? [NSDictionary] {
-            for prefSpecification in preferences {
-                if prefSpecification["Key"] as? String == preferenceKey {
-                    let title = prefSpecification["Title"] as? String ?? ""
-                    let infobuttonvalue = prefSpecification["infobuttonvalue"] as? String ?? ""
-                    let defaultValue = prefSpecification["DefaultValue"]
-                    var specifier = [Specifier]()
-                    if let titles = prefSpecification["Titles"] as? [String], let values = prefSpecification["Values"] as? NSArray {
-                        for (itemTitle, value) in zip(titles, values) {
-                            let newSpecifier = Specifier(itemTitle: itemTitle, value: value)
-                            specifier.append(newSpecifier)
-                        }
-                    }
-                    let newSpecifierObject = SettingSpecifier(title: title, preferenceKey: preferenceKey, infobuttonvalue: infobuttonvalue, defaultValue: defaultValue, specifier: specifier)
-                    settingsSpecifierDict = newSpecifierObject
-                }
-                else {
-                    continue
-                }
+        let title = prefSpecification["Title"] as? String ?? ""
+        let infobuttonvalue = prefSpecification["infobuttonvalue"] as? String ?? ""
+        let defaultValue = prefSpecification["DefaultValue"]
+        var specifier = [Specifier]()
+
+        if let (titles, values) = SettingsSpecifierCache.titlesAndValues(for: preferenceKey) {
+            for (itemTitle, value) in zip(titles, values) {
+                specifier.append(Specifier(itemTitle: itemTitle, value: value))
             }
         }
-        return settingsSpecifierDict
+
+        return SettingSpecifier(title: title, preferenceKey: preferenceKey, infobuttonvalue: infobuttonvalue, defaultValue: defaultValue, specifier: specifier)
     }
 
     func getSubtitle(for preferenceKey: String) -> String? {
@@ -58,52 +89,31 @@ extension NSObject {
                 return PlaybackSpeedFormatter.string(forSpeed: customSpeed)
             }
         }
-        
-        guard let userDefaultValue = UserDefaults.standard.value(forKey: preferenceKey) else { return nil }
-        let (forResource, withExtension, subdirectory) = ("Root", "inApp.plist", "Settings.bundle")
-        let preferenceSpecifiers = "PreferenceSpecifiers"
-        let userDefaultAsString = String(describing: userDefaultValue)
 
-        if let settingsURL = Bundle.main.url(forResource: forResource, withExtension: withExtension, subdirectory: subdirectory),
-            let settings = NSDictionary(contentsOf: settingsURL),
-            let preferences = settings[preferenceSpecifiers] as? [NSDictionary] {
-            for prefSpecification in preferences {
-                if prefSpecification["Key"] as? String == preferenceKey {
-                    if let titles = prefSpecification["Titles"] as? [String], let values = prefSpecification["Values"] as? NSArray {
-                        for (title, value) in zip(titles, values) {
-                            if String(describing: value) == userDefaultAsString {
-                                return title
-                            }
-                        }
-                    }
-                }
+        guard let userDefaultValue = UserDefaults.standard.value(forKey: preferenceKey),
+            let (titles, values) = SettingsSpecifierCache.titlesAndValues(for: preferenceKey) else {
+            return nil
+        }
+
+        let userDefaultAsString = String(describing: userDefaultValue)
+        for (title, value) in zip(titles, values) {
+            if String(describing: value) == userDefaultAsString {
+                return title
             }
         }
         return nil
     }
 
     func getSelectedItem(for preferenceKey: String) -> Int? {
-        guard let userDefaultValue = UserDefaults.standard.value(forKey: preferenceKey) else { return nil }
-        let (forResource, withExtension, subdirectory) = ("Root", "inApp.plist", "Settings.bundle")
-        let preferenceSpecifiers = "PreferenceSpecifiers"
+        guard let userDefaultValue = UserDefaults.standard.value(forKey: preferenceKey),
+            let (titles, values) = SettingsSpecifierCache.titlesAndValues(for: preferenceKey) else {
+            return nil
+        }
+
         let userDefaultAsString = String(describing: userDefaultValue)
-        var count = 0
-
-        if let settingsURL = Bundle.main.url(forResource: forResource, withExtension: withExtension, subdirectory: subdirectory),
-            let settings = NSDictionary(contentsOf: settingsURL),
-            let preferences = settings[preferenceSpecifiers] as? [NSDictionary] {
-            for prefSpecification in preferences {
-                if prefSpecification["Key"] as? String == preferenceKey {
-                    if let titles = prefSpecification["Titles"] as? [String], let values = prefSpecification["Values"] as? NSArray {
-                        for (_, value) in zip(titles, values) {
-                            if String(describing: value) == userDefaultAsString {
-                                return count
-                            }
-                            count += 1
-                        }
-
-                    }
-                }
+        for (index, (_, value)) in zip(titles, values).enumerated() {
+            if String(describing: value) == userDefaultAsString {
+                return index
             }
         }
         return nil
