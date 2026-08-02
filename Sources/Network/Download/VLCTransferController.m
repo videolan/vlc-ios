@@ -153,8 +153,10 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     NSString *humanReadableFilename = [_userDefinedFileNameForDownloadItem objectForKey:mediaURL];
     if (!humanReadableFilename) {
         humanReadableFilename = [mediaURL lastPathComponent];
-    } else {
-        humanReadableFilename = [humanReadableFilename stringByRemovingPercentEncoding];
+    }
+    NSString *decodedFilename = [humanReadableFilename stringByRemovingPercentEncoding];
+    if (decodedFilename) {
+        humanReadableFilename = decodedFilename;
     }
 
     [self fetchExpectedDownloadSizeForMedia:media completionHandler:^(CGFloat expectedDownloadSize) {
