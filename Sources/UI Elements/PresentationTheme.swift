@@ -336,6 +336,17 @@ enum PresentationThemeType: Int {
         self.init(red: r, green: g, blue: b, alpha: alpha)
     }
 
+    func desaturated(_ scale: CGFloat) -> UIColor {
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+        guard getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) else {
+            return self
+        }
+        return UIColor(hue: hue, saturation: saturation * scale, brightness: brightness, alpha: alpha)
+    }
+
     private func toHex(alpha: Bool = false) -> String? {
         guard let components = cgColor.components, components.count >= 3 else {
             assertionFailure()

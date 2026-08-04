@@ -450,6 +450,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     NSString *body;
     NSString *primaryTitle;
     NSString *secondaryTitle;
+    BOOL actionsAvailable = YES;
 
     switch (section) {
         case VLCOnAirSectionRadio:
@@ -473,6 +474,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
             body = NSLocalizedString(@"ONAIR_TV_EMPTY_BODY", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_OPEN_DIRECTORY", nil);
             secondaryTitle = NSLocalizedString(@"ONAIR_ADD_M3U", nil);
+            actionsAvailable = NO;
             break;
         default:
             break;
@@ -482,7 +484,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
                        title:title
                         body:body
                 primaryTitle:primaryTitle
-              secondaryTitle:secondaryTitle];
+              secondaryTitle:secondaryTitle
+            actionsAvailable:actionsAvailable];
 }
 
 - (NSString *)titleForSection:(VLCOnAirSection)section

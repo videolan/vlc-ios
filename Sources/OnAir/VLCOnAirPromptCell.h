@@ -31,7 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
                      title:(NSString *)title
                       body:(NSString *)body
               primaryTitle:(NSString *)primaryTitle
-            secondaryTitle:(nullable NSString *)secondaryTitle;
+            secondaryTitle:(nullable NSString *)secondaryTitle
+          actionsAvailable:(BOOL)actionsAvailable;
 
 @end
 
