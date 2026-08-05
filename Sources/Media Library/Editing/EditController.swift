@@ -31,7 +31,7 @@ class EditController: UIViewController {
         if let model = model as? FolderModel {
             model.fileArrayLock.lock()
             defer { model.fileArrayLock.unlock() }
-            return model.folderMediaFiles
+            return model.files + model.folderMediaFiles
         } else {
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
         }
@@ -159,6 +159,8 @@ extension EditController: EditToolbarDelegate {
         for index in sortedSelectedCells where index.row < currentDataSet.count {
             if keepPlaylists, let playlist = currentDataSet[index.row] as? VLCMLPlaylist {
                 editActions.objects.append(playlist)
+            } else if let folder = currentDataSet[index.row] as? VLCMLFolder {
+                editActions.objects += folder.allMedia()
             } else if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
                 guard let files = mediaCollection.files() else {
                     assertionFailure("EditController: Fail to retrieve tracks.")
@@ -378,13 +380,7 @@ extension EditController: UICollectionViewDelegate {
 
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let model = model as? FolderModel {
-            model.fileArrayLock.lock()
-            defer { model.fileArrayLock.unlock() }
-            return model.folderMediaFiles.count
-        } else {
-            return currentDataSet.count
-        }
+        return currentDataSet.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -417,13 +413,7 @@ extension EditController: UICollectionViewDataSource {
             if cell.isSelected {
                 cell.selectionViewOverlay?.isHidden = !showOverlay
             }
-            if let model = model as? FolderModel {
-                model.fileArrayLock.lock()
-                cell.media = model.folderMediaFiles[indexPath.row]
-                model.fileArrayLock.unlock()
-            } else {
-                cell.media = currentDataSet[indexPath.row]
-            }
+            cell.media = currentDataSet[indexPath.row]
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")

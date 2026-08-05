@@ -183,6 +183,16 @@ extension VLCMLFolder: SearchableMLModel {
 }
 
 extension VLCMLFolder {
+    func allMedia() -> [VLCMLMedia] {
+        var media = self.media(of: .unknown, sortingCriteria: .default, desc: false) ?? []
+
+        for subfolder in subfolders(with: .default, desc: false) ?? [] {
+            media += subfolder.allMedia()
+        }
+
+        return media
+    }
+
     func folderDescriptionString() -> String {
         var components = [String]()
 
