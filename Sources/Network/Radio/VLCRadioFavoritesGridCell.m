@@ -44,11 +44,6 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
     return MAX(2, columns);
 }
 
-+ (NSInteger)visibleFavoriteCapForWidth:(CGFloat)width
-{
-    return [self columnsForWidth:width] * 2;
-}
-
 + (CGFloat)tileWidthForWidth:(CGFloat)width columns:(NSInteger)columns
 {
     CGFloat available = width - 2 * kVLCRadioGridSideMargin;
