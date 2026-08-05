@@ -102,6 +102,27 @@ class VLCRadioAlarmService: NSObject {
         return nil
     }
 
+    @objc func urlsWithAlarms(forFavorites favorites: [VLCFavorite],
+                              completion: @escaping (Set<URL>) -> Void) {
+#if canImport(AlarmKit)
+        if #available(iOS 26.1, *) {
+            let urls = favorites.map { $0.url }
+            DispatchQueue.global(qos: .userInitiated).async {
+                var matches: Set<URL> = []
+                if let alarms = try? AlarmManager.shared.alarms, !alarms.isEmpty {
+                    let identifiers = Set(alarms.map { $0.id })
+                    matches = Set(urls.filter { identifiers.contains(VLCRadioAlarmService.identifier(for: $0)) })
+                }
+                DispatchQueue.main.async {
+                    completion(matches)
+                }
+            }
+            return
+        }
+#endif
+        completion([])
+    }
+
     @objc func localizedAlarmDescription(forURL url: URL) -> String? {
         guard let info = alarm(forURL: url) else {
             return nil

@@ -21,9 +21,9 @@
 
 @implementation VLCRadioFavoriteMenu
 
-+ (UIMenu *)menuForFavorite:(VLCFavorite *)favorite
-   presentingViewController:(UIViewController *)presenter
-                  didChange:(void (^)(void))didChange
++ (NSArray<UIMenuElement *> *)menuElementsForFavorite:(VLCFavorite *)favorite
+                             presentingViewController:(UIViewController *)presenter
+                                            didChange:(void (^)(void))didChange
 {
     NSMutableArray<UIMenuElement *> *actions = [[self alarmActionsForFavorite:favorite
                                                     presentingViewController:presenter
@@ -39,7 +39,21 @@
     removeAction.attributes = UIMenuElementAttributesDestructive;
     [actions addObject:removeAction];
 
-    return [UIMenu menuWithTitle:@"" children:actions];
+    return actions;
+}
+
++ (UIMenu *)menuForFavorite:(VLCFavorite *)favorite
+   presentingViewController:(UIViewController *)presenter
+                  didChange:(void (^)(void))didChange
+{
+    UIDeferredMenuElement *elements =
+        [UIDeferredMenuElement elementWithProvider:^(void (^completion)(NSArray<UIMenuElement *> *)) {
+        completion([self menuElementsForFavorite:favorite
+                        presentingViewController:presenter
+                                       didChange:didChange]);
+    }];
+
+    return [UIMenu menuWithTitle:@"" children:@[elements]];
 }
 
 + (NSArray<UIMenuElement *> *)alarmActionsForFavorite:(VLCFavorite *)favorite

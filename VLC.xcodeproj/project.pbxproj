@@ -1282,6 +1282,7 @@
 		7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
 		7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */; };
 		7DDA30422AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */; };
+		7DDC5235302470E80010D6E6 /* VLCRadioAlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50F9163011226800005A38 /* VLCRadioAlarmService.swift */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DDE41931BE925820065C53A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Images.xcassets */; };
 		7DE0A9442F9420D40020980C /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
@@ -6002,6 +6003,7 @@
 				7D50C5FF2BBD20DF00B9F1A0 /* UIFont+Styling.swift in Sources */,
 				7D50C6002BBD20DF00B9F1A0 /* FileManager+DeleteMediaFolder.swift in Sources */,
 				7D50C6012BBD20DF00B9F1A0 /* NSString+SupportedMedia.m in Sources */,
+				7DDC5235302470E80010D6E6 /* VLCRadioAlarmService.swift in Sources */,
 				7D50C6022BBD20DF00B9F1A0 /* EditToolbar.swift in Sources */,
 				7D50C6042BBD20DF00B9F1A0 /* UIAlertController+autoDismissable.swift in Sources */,
 				7D50C6052BBD20DF00B9F1A0 /* DeviceMotion.swift in Sources */,

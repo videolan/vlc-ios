@@ -27,6 +27,7 @@
 {
     VLCRadioCountryService *_countryService;
     NSArray<VLCFavorite *> *_radioFavorites;
+    NSSet<NSURL *> *_favoritesWithAlarms;
 }
 @end
 
@@ -113,7 +114,20 @@
 - (void)reloadFavorites
 {
     _radioFavorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    [self reloadAlarmState];
     [self.tableView reloadData];
+}
+
+- (void)reloadAlarmState
+{
+    [VLCRadioAlarmService.shared urlsWithAlarmsForFavorites:_radioFavorites
+                                                completion:^(NSSet<NSURL *> *urls) {
+        if (urls.count == 0 && self->_favoritesWithAlarms.count == 0)
+            return;
+
+        self->_favoritesWithAlarms = urls;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - section layout
@@ -269,12 +283,7 @@
     if (index >= _radioFavorites.count)
         return NO;
 
-#if !TARGET_OS_VISION
-    if (@available(iOS 26.1, *)) {
-        return [VLCRadioAlarmService.shared alarmForURL:_radioFavorites[index].url] != nil;
-    }
-#endif
-    return NO;
+    return [_favoritesWithAlarms containsObject:_radioFavorites[index].url];
 }
 
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index
