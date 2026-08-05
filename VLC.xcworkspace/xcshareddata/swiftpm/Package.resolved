@@ -1,5 +1,5 @@
 {
-  "originHash" : "14fcd49fa9c2b998baf9d4fc5fa426c5bafc9551944b67312ec9fa591a748747",
+  "originHash" : "3f47ff979802481b0e4d8001196256578c3e99d62aa236df953d0933d862a2c5",
   "pins" : [
     {
       "identity" : "afnetworking",
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://code.videolan.org/videolan/VLCKit.git",
       "state" : {
-        "revision" : "5d3535a664e7815765a5cee40d9b22527d7299cc",
-        "version" : "4.0.0-a22"
+        "revision" : "e3774eb25c62c902e9066ba267e6416d82e83382",
+        "version" : "4.0.0-a23"
       }
     },
     {
