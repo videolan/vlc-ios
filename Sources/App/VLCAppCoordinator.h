@@ -14,7 +14,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MediaLibraryService;
+#if TARGET_OS_IOS
 @class VLCRendererDiscovererManager;
+#endif
 @class VLCFavoriteService;
 @class VLCRadioService;
 @class VLCSavedServerList;
@@ -47,8 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property MediaLibraryService *snapshotMediaLibraryService;
 //#endif
 
-#if !TARGET_OS_WATCH
+#if TARGET_OS_IOS
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+#endif
+#if !TARGET_OS_WATCH
 @property (retain) VLCBottomTabBarController *tabBarController;
 @property (nullable) UIWindow *externalWindow;
 #endif
