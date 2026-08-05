@@ -27,8 +27,8 @@ class PodcastsViewController: UIViewController {
     // pattern.
     private var revealedLatestEpisodesCount = Int(kVLCDefaultPageSize)
 
-    private var visibleLatestEpisodes: [PodcastEpisode] {
-        return Array(store.latestEpisodes.prefix(revealedLatestEpisodesCount))
+    private var visibleLatestEpisodes: ArraySlice<PodcastEpisode> {
+        return store.latestEpisodes.prefix(revealedLatestEpisodesCount)
     }
 
     // MARK: Search
@@ -161,6 +161,7 @@ class PodcastsViewController: UIViewController {
             emptyStateView.isHidden = true
             return
         }
+
         let isEmpty = store.shows.isEmpty
         tableView.isHidden = isEmpty
         emptyStateView.isHidden = !isEmpty
@@ -312,6 +313,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
             sections.append(.continueListening)
         }
         sections.append(.latestEpisodes)
+
         if !store.shows.isEmpty {
             sections.append(.shows)
         }
@@ -414,10 +416,14 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         guard !isSearching, visibleSections[indexPath.section] == .latestEpisodes else {
             return
         }
+
         let revealedCount = visibleLatestEpisodes.count
-        guard revealedCount < store.latestEpisodes.count, indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
+
+        guard revealedCount < store.latestEpisodes.count,
+              indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
             return
         }
+
         revealedLatestEpisodesCount += Int(kVLCDefaultPageSize)
         tableView.reloadData()
     }

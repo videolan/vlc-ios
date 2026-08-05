@@ -24,8 +24,14 @@ final class PodcastStore: NSObject {
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
     // access, so it's cached per show and only dropped when the underlying data actually
-    // changes (see mediaLibraryBaseModelReloadView() and the cache task callbacks below).
+    // changes (see invalidateCaches()).
     private var episodesByShowId: [String: [PodcastEpisode]] = [:]
+
+    private var cachedAllEpisodes: [PodcastEpisode]?
+    private var cachedContinueListeningEpisodes: [PodcastEpisode]?
+    private var cachedLatestEpisodes: [PodcastEpisode]?
+    private var cachedShows: [PodcastShow]?
+    private var cachedShowsById: [String: PodcastShow] = [:]
 
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -58,19 +64,32 @@ final class PodcastStore: NSObject {
     // MARK: - Queries
 
     var shows: [PodcastShow] {
-        return (subscriptionModel?.subscriptions ?? []).map(PodcastStore.podcastShow)
+        return rebuildShowsCacheIfNeeded()
     }
 
     var continueListeningEpisodes: [PodcastEpisode] {
-        return allEpisodes().filter { $0.continueListening }
+        if let cachedContinueListeningEpisodes = cachedContinueListeningEpisodes {
+            return cachedContinueListeningEpisodes
+        }
+
+        let episodes = allEpisodes().filter { $0.continueListening }
+        cachedContinueListeningEpisodes = episodes
+        return episodes
     }
 
     var latestEpisodes: [PodcastEpisode] {
-        return allEpisodes().filter { !$0.continueListening }
+        if let cachedLatestEpisodes = cachedLatestEpisodes {
+            return cachedLatestEpisodes
+        }
+
+        let episodes = allEpisodes().filter { !$0.continueListening }
+        cachedLatestEpisodes = episodes
+        return episodes
     }
 
     func show(withId showId: String) -> PodcastShow? {
-        return shows.first { $0.id == showId }
+        rebuildShowsCacheIfNeeded()
+        return cachedShowsById[showId]
     }
 
     func episodes(forShowId showId: String) -> [PodcastEpisode] {
@@ -156,10 +175,38 @@ final class PodcastStore: NSObject {
     }
 
     private func allEpisodes() -> [PodcastEpisode] {
+        if let cachedAllEpisodes = cachedAllEpisodes {
+            return cachedAllEpisodes
+        }
+
         guard let subscriptionModel = subscriptionModel else {
             return []
         }
-        return subscriptionModel.subscriptions.flatMap { episodes(forShowId: String($0.identifier())) }
+
+        let result = subscriptionModel.subscriptions.flatMap { episodes(forShowId: String($0.identifier())) }
+        cachedAllEpisodes = result
+        return result
+    }
+
+    @discardableResult
+    private func rebuildShowsCacheIfNeeded() -> [PodcastShow] {
+        if let cachedShows = cachedShows {
+            return cachedShows
+        }
+
+        let shows = (subscriptionModel?.subscriptions ?? []).map(PodcastStore.podcastShow)
+        cachedShows = shows
+        cachedShowsById = Dictionary(uniqueKeysWithValues: shows.map { ($0.id, $0) })
+        return shows
+    }
+
+    private func invalidateCaches() {
+        episodesByShowId.removeAll()
+        cachedAllEpisodes = nil
+        cachedContinueListeningEpisodes = nil
+        cachedLatestEpisodes = nil
+        cachedShows = nil
+        cachedShowsById.removeAll()
     }
 
     private func episodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
@@ -198,7 +245,7 @@ final class PodcastStore: NSObject {
 
 extension PodcastStore: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
-        episodesByShowId.removeAll()
+        invalidateCaches()
     }
 }
 
@@ -219,7 +266,7 @@ extension PodcastStore: MediaLibraryObserver {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.pendingCacheMediaIds.remove(mediaId)
-            self.episodesByShowId.removeAll()
+            self.invalidateCaches()
             self.notifyReload()
         }
     }
