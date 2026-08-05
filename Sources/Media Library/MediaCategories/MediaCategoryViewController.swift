@@ -273,6 +273,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return nil
     }
 
+    private static let fabButtonSize: CGFloat = 44
+
     private lazy var fabButton: UIButton = {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
@@ -289,13 +291,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 #endif
         button.backgroundColor = PresentationTheme.current.colors.orangeUI
         button.tintColor = PresentationTheme.current.colors.background
-        button.layer.cornerRadius = 26.5
+        button.layer.cornerRadius = MediaCategoryViewController.fabButtonSize / 2
         button.layer.masksToBounds = false
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         button.layer.shadowRadius = 4.0
         button.layer.shadowOpacity = 0.3
-        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 50, height: 50)).cgPath
+        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0,
+                                                              width: MediaCategoryViewController.fabButtonSize,
+                                                              height: MediaCategoryViewController.fabButtonSize)).cgPath
         return button
     }()
 
@@ -2952,8 +2956,8 @@ extension MediaCategoryViewController {
 
         NSLayoutConstraint.activate([
             fabButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
-            fabButton.widthAnchor.constraint(equalToConstant: 44),
-            fabButton.heightAnchor.constraint(equalToConstant: 44)
+            fabButton.widthAnchor.constraint(equalToConstant: MediaCategoryViewController.fabButtonSize),
+            fabButton.heightAnchor.constraint(equalToConstant: MediaCategoryViewController.fabButtonSize)
         ])
 
         updateFABButtonBottomConstraint()
