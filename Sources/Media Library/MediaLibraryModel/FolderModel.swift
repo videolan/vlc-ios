@@ -49,11 +49,11 @@ class FolderModel: MLBaseModel {
     func setupData() {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
-        files = currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc)!
+        files = currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? []
         if self.isAudio {
-            folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc)!
+            folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
         } else {
-            folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc)!
+            folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
         }
     }
 
@@ -140,11 +140,11 @@ class FolderModel: MLBaseModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
-        files = currentFolder.subfolders(with: criteria, desc: desc)!
+        files = currentFolder.subfolders(with: criteria, desc: desc) ?? []
         if self.isAudio {
-            folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc)!
+            folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
         } else {
-            folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: criteria, desc: desc)!
+            folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: criteria, desc: desc) ?? []
         }
 
         sortModel.currentSort = criteria
@@ -158,18 +158,23 @@ class FolderModel: MLBaseModel {
 // No notification for folders, so latest folders are only updated instantly in UI, if the folder is not empty, and a media file is also added.
 extension FolderModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddVideos videos: [VLCMLMedia]) {
-        setupData()
-        observable.notifyObservers() {
-            $0.mediaLibraryBaseModelReloadView()
-        }
+        reloadContents()
     }
     func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
-        setupData()
-        observable.notifyObservers() {
-            $0.mediaLibraryBaseModelReloadView()
-        }
+        reloadContents()
     }
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
+        reloadContents()
+    }
+
+    private func reloadContents() {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async {
+                self.reloadContents()
+            }
+            return
+        }
+
         setupData()
         observable.notifyObservers() {
             $0.mediaLibraryBaseModelReloadView()
