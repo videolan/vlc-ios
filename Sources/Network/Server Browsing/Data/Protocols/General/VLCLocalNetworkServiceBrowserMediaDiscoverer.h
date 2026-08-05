@@ -13,7 +13,7 @@
 
 #import "VLCLocalNetworkServiceBrowser-Protocol.h"
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer : NSObject <VLCLocalNetworkServiceBrowser>
-@property (nonatomic, readonly) VLCMediaDiscoverer* mediaDiscoverer;
+@property (readonly) VLCMediaDiscoverer* mediaDiscoverer;
 
 - (instancetype)initWithName:(NSString *)name serviceServiceName:(NSString *)serviceName NS_DESIGNATED_INITIALIZER;
 @end
