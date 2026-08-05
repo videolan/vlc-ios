@@ -198,6 +198,10 @@ class MediaLibraryService: NSObject {
     private var didSetupMediaLibrary = false
     private lazy var privateMediaLib = VLCMediaLibrary()
 
+    /// the shared parser has a single delegate, so the restoration playlist needs to be told apart
+    /// from everything else queued on it, network browsing in particular
+    private var lastPlayedMediaList: VLCMedia?
+
 #if !os(watchOS)
     private let subscriptionCacher = VLCSubscriptionCacher()
 #endif
@@ -667,6 +671,7 @@ private extension MediaLibraryService {
         guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return }
 
         if let media = VLCMedia(url: m3uFileURL) {
+            lastPlayedMediaList = media
             VLCMediaParser.shared().queue(media)
         }
     }
@@ -1133,15 +1138,15 @@ extension MediaLibraryService {
 
 extension MediaLibraryService: VLCMediaParserDelegate {
     func mediaFinishedParsing(_ media: VLCMedia, with status: VLCMediaParsedStatus) {
+        guard let queuedMediaList = lastPlayedMediaList,
+              media === queuedMediaList || media.url == queuedMediaList.url
+        else { return }
+
+        lastPlayedMediaList = nil
+
         guard status == .done,
               let mediaList = media.subitems
         else { return }
-
-        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else { return }
-
-        let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
-        let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
-        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return }
 
         let defaults = UserDefaults.standard
         let mediaCount = mediaList.count
