@@ -600,6 +600,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupCollectionView() //Fixes crash that is caused due to layout change
         setNavbarAppearance()
         addInitializationCommonObservers()
+
+        if let folderModel = model as? FolderModel {
+            folderModel.setupData()
+        }
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
@@ -1299,6 +1304,12 @@ private extension MediaCategoryViewController {
             if !(collectionModel.mediaCollection is VLCMLPlaylist) {
                 navigationController?.popViewController(animated: true)
             }
+        }
+
+        // Inside a folder that has been removed from the disk
+        if let folderModel = model as? FolderModel,
+           !FileManager.default.fileExists(atPath: folderModel.currentFolder.mrl.path) {
+            navigationController?.popViewController(animated: true)
         }
     }
 

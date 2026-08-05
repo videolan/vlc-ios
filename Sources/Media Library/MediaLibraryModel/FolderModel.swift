@@ -163,6 +163,12 @@ extension FolderModel: MediaLibraryObserver {
             $0.mediaLibraryBaseModelReloadView()
         }
     }
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
+        setupData()
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
+        }
+    }
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         setupData()
         observable.notifyObservers() {
