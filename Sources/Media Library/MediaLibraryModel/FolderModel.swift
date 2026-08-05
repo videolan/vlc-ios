@@ -62,7 +62,30 @@ class FolderModel: MLBaseModel {
     }
 
     func delete(_ items: [VLCMLFolder]) {
-        // dummy function
+        var parentDirectories = Set<URL>()
+
+        for folder in items {
+            let url = URL(fileURLWithPath: folder.mrl.path)
+            parentDirectories.insert(url.deletingLastPathComponent())
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch let error as NSError {
+                APLog("FolderModel: Failed to delete \(url.path): \(error.localizedDescription)")
+            }
+        }
+
+        removeEmptiedDirectories(parentDirectories)
+
+        let deletedIdentifiers = Set(items.map { $0.identifier() })
+        fileArrayLock.lock()
+        files.removeAll { deletedIdentifiers.contains($0.identifier()) }
+        fileArrayLock.unlock()
+
+        medialibrary.reload()
+
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func getMedia() {
@@ -74,21 +97,45 @@ class FolderModel: MLBaseModel {
     }
 
     func delete(media: [VLCMLMedia]) {
-        media.forEach { mediaItem in
-            mediaItem.deleteMainFile()
-        }
-        fileArrayLock.lock()
-        defer { fileArrayLock.unlock() }
-        media.forEach { mediaItem in
-            if let index = folderMediaFiles.firstIndex(of: mediaItem) {
-                folderMediaFiles.remove(at: index)
+        var parentDirectories = Set<URL>()
+
+        for mediaItem in media {
+            guard let file = mediaItem.mainFile(), !file.isExternal(), !file.isNetwork() else {
+                continue
+            }
+
+            let url = URL(fileURLWithPath: file.mrl.path)
+            parentDirectories.insert(url.deletingLastPathComponent())
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch let error as NSError {
+                APLog("FolderModel: Failed to delete \(url.path): \(error.localizedDescription)")
             }
         }
+
+        removeEmptiedDirectories(parentDirectories)
+
+        let deletedIdentifiers = Set(media.map { $0.identifier() })
+        fileArrayLock.lock()
+        folderMediaFiles.removeAll { deletedIdentifiers.contains($0.identifier()) }
+        fileArrayLock.unlock()
+
+        medialibrary.reload()
+
         observable.notifyObservers() {
             $0.mediaLibraryBaseModelReloadView()
         }
     }
 
+    private func removeEmptiedDirectories(_ directories: Set<URL>) {
+        for directory in directories {
+            do {
+                try FileManager.default.deleteMediaFolder(name: directory.lastPathComponent, at: directory)
+            } catch let error as NSError {
+                APLog("FolderModel: Failed to remove the emptied directory \(directory.path): \(error.localizedDescription)")
+            }
+        }
+    }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         fileArrayLock.lock()
