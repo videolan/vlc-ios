@@ -279,11 +279,12 @@ extension EditController: EditToolbarDelegate {
         }
         
         editActions.objects.removeAll()
-        
-        for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
+
+        for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 })
+        where !(currentDataSet[indexPath.row] is VLCMLFolder) {
             editActions.objects.append(currentDataSet[indexPath.row])
         }
-        
+
         editActions.rename({
             [weak self] state in
             if state == .success || state == .fail {

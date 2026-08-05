@@ -377,6 +377,7 @@
 "DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
 "DELETE_MESSAGE_PLAYLISTS" = "Are you sure to delete the selected playlists?\nAssociated media files won't be deleted.";
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_FOLDER" = "Are you sure to delete the selection?\nEvery media file inside the selected folders will be deleted from the disk, too.";
 
 // MARK: - Drag and Drop
 
