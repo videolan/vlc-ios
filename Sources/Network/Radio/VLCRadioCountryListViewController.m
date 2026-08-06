@@ -201,7 +201,24 @@
     [cell setTitleLabelCentered:YES];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
+    if (country && !country.flagImage)
+        [self prepareFlagForCountry:country atIndexPath:indexPath];
+
     return cell;
+}
+
+- (void)prepareFlagForCountry:(VLCRadioCountry *)country atIndexPath:(NSIndexPath *)indexPath
+{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [country prepareFlagImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self countryForIndexPath:indexPath] != country)
+                return;
+
+            VLCNetworkListCell *cell = (VLCNetworkListCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            [cell setIcon:country.flagImage];
+        });
+    });
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

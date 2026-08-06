@@ -57,6 +57,8 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
             [self persist];
         }
         [VLCMigrationCursor completeStep:VLCMigrationStepReloadRadioCountries];
+
+        [self prepareVisitedCountryFlags];
     }
     return self;
 }
@@ -130,6 +132,26 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
             [_visitedCountries removeLastObject];
     }
     [self persist];
+    [self prepareVisitedCountryFlags];
+}
+
+- (void)prepareVisitedCountryFlags
+{
+    NSArray<VLCRadioCountry *> *visited;
+    @synchronized (self) {
+        visited = [_visitedCountries copy];
+    }
+    if (visited.count == 0)
+        return;
+
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        for (VLCRadioCountry *country in visited) {
+            [country prepareFlagImage];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCRadioCountriesDidUpdateNotification object:self];
+        });
+    });
 }
 
 #pragma mark - discovery

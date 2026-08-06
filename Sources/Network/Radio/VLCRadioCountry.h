@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString *localizedName;
 @property (readonly, nullable) UIImage *flagImage;
 
+- (void)prepareFlagImage;
+
 - (nullable id<VLCNetworkServerBrowser>)makeServerBrowser;
 
 @end
