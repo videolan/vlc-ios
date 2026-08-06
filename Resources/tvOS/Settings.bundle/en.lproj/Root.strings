@@ -4,8 +4,12 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
+"SETTINGS_INFORMATION_TITLE" = "Information";
+"SETTINGS_ABOUT" = "About VLC";
 "SETTINGS_DONATE" = "Make a Donation to VideoLAN";
 "SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
+
+"SETTINGS_DOCUMENTATION" = "Documentation";
 
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
@@ -16,12 +20,13 @@
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Theme";
+"SETTINGS_APPEARANCE_TITLE" = "Appearance";
 "SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
-"SETTINGS_GENERIC_TITLE" = "Generic";
+"SETTINGS_PLAYBACK_TITLE" = "Playback";
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
