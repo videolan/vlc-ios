@@ -63,6 +63,7 @@ struct SettingsItem: Equatable {
         case exportMediaLibrary
         case exportSettings
         case displayResetAlert
+        case syncMediaLibraryAlert
     }
 
     final class Toggle: Equatable {
@@ -161,6 +162,7 @@ struct SettingsSection: Equatable {
             NetworkOptions.section(),
             Accessibility.section(),
             Lab.section(isLabActivated: isLabActivated),
+            WatchOS.section(),
             Reset.section(),
         ].compactMap { $0 }
     }
@@ -825,6 +827,33 @@ enum Lab {
             debugLogging,
             exportLibrary,
             exportSettings
+        ])
+    }
+}
+
+// MARK: - watchOS
+
+enum WatchOS {
+    static var mediaLibrarySync: SettingsItem {
+        let k = kVLCSettingSyncMediaLibrary
+        return .init(title: "SETTINGS_SYNC_MEDIA_LIBRARY",
+                     subtitle: Localizer.getSubtitle(for: k),
+                     action: .syncMediaLibraryAlert,
+                     isTitleEmphasized: true
+        )
+    }
+
+    static var mediaLibraryAutoSync: SettingsItem {
+        let k = kVLCSettingAutomaticallySyncMediaLibrary
+        return .init(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY",
+                     subtitle: Localizer.getSubtitle(for: k),
+                     action: .showActionSheet(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY", preferenceKey: k, hasInfo: true))
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_WATCHOS_TITLE", items: [
+            mediaLibrarySync,
+            mediaLibraryAutoSync
         ])
     }
 }

@@ -14,7 +14,7 @@ import Foundation
 import WatchConnectivity
 
 
-class VLCWatchConnectivityService {
+@objc class VLCWatchConnectivityService: NSObject {
 
     // Update the app context if the session is activated, and update UI with the command status.
     func updateAppContext(_ context: [String: Any]) {
@@ -149,5 +149,64 @@ class VLCWatchConnectivityService {
         mutableMessage.phrase = .failed
         mutableMessage.errorMessage = "WCSession is not activated yet!"
         postNotificationOnMainQueueAsync(name: .dataDidFlow, object: mutableMessage)
+    }
+
+    func transferMediaLibraryFile() {
+#if (os(iOS)) && !NO_WATCH
+        guard let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+            return
+        }
+
+        let databaseURL = libraryDirectory
+            .appendingPathComponent("MediaLibrary")
+            .appendingPathComponent(kVLCMediaLibraryDBFileName)
+
+        if FileManager.default.fileExists(atPath: databaseURL.path) {
+            let librarySyncId: String
+
+            if let existingId = UserDefaults.standard.string(forKey: kVLCMediaLibrarySyncID) {
+                librarySyncId = existingId
+            } else {
+                let newId = UUID().uuidString
+                UserDefaults.standard.set(newId, forKey: kVLCMediaLibrarySyncID)
+                librarySyncId = newId
+            }
+
+            let payload: [String: Any] = [
+                kVLCWatchMessageType: WatchMessageType.transferiPhoneMediaLibraryDBFile.rawValue,
+                kVLCMediaLibrarySyncID: librarySyncId
+            ]
+
+            self.transferFile(databaseURL, metadata: payload)
+        }
+#endif
+    }
+
+    @objc func transferMediaLibraryFileIfNeeded() {
+        let defaults = UserDefaults.standard
+        let lastUpdated = defaults.double(forKey: kVLCSettingAutomaticallySyncMediaLibraryLastUpdated)
+        let frequency = defaults.integer(forKey: kVLCSettingAutomaticallySyncMediaLibrary)
+
+        guard frequency != kVLCSettingAutomaticallySyncMediaLibraryNever else { return }
+
+        let offset: TimeInterval
+        let oneDay: TimeInterval = 60 * 60 * 24
+
+        if frequency == kVLCSettingAutomaticallySyncMediaLibrary24HR {
+            offset = oneDay
+        } else if frequency == kVLCSettingAutomaticallySyncMediaLibrary3D {
+            offset = oneDay * 3
+        } else if frequency == kVLCSettingAutomaticallySyncMediaLibrary7D {
+            offset = oneDay * 7
+        } else {
+            offset = 0
+        }
+
+        let now = Date().timeIntervalSince1970
+        let due = lastUpdated + offset
+
+        if due <= now {
+            transferMediaLibraryFile()
+        }
     }
 }

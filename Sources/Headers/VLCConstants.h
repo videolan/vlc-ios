@@ -111,6 +111,14 @@
 #define kVLCSettingPlayerControlDurationDefaultValue @(4)
 #define kVLCSettingPauseWhenShowingControls @"kVLCSettingPauseWhenShowingControls"
 #define kVLCSettingEnableScrollToCurrentlyPlayingMedia @"kVLCSettingEnableScrollToCurrentlyPlayingMedia"
+#define kVLCSettingSyncMediaLibrary @"kVLCSettingSyncMediaLibrary"
+#define kVLCSettingAutomaticallySyncMediaLibrary @"kVLCSettingAutomaticallySyncMediaLibrary"
+#define kVLCSettingAutomaticallySyncMediaLibraryNever -1
+#define kVLCSettingAutomaticallySyncMediaLibrary24HR 0
+#define kVLCSettingAutomaticallySyncMediaLibrary3D 1
+#define kVLCSettingAutomaticallySyncMediaLibrary7D 2
+#define kVLCSettingAutomaticallySyncMediaLibraryLastUpdated @"kVLCSettingAutomaticallySyncMediaLibraryLastUpdated"
+#define kVLCSettingWatchOSDownloads @"kVLCSettingWatchOSDownloads"
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 

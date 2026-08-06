@@ -186,3 +186,12 @@
 "SETTINGS_PARENTAL_CONTROL" = "Parental control";
 "SETTINGS_PARENTAL_CONTROL_SUBTITLE" = "When activated, files cannot be deleted or playlists modified without entering the pin";
 
+"SETTINGS_WATCHOS_TITLE" = "watchOS";
+"SETTINGS_SYNC_MEDIA_LIBRARY" = "Sync media library to Apple Watch";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY" = "Automatically sync media library";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_NEVER" = "Never";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_24_HR" = "Every 24 hours";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_3_D" = "Every 3 days";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_7_D" = "Every 7 days";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_INFO" = "This periodically sends a snapshot of the iPhone's current media library metadata to the Apple Watch for display. It does not download the individual audio files themselves.";
+"SETTINGS_WATCHOS_DOWNLOADS" = "Downloads";

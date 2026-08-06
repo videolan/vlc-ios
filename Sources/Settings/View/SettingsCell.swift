@@ -237,7 +237,8 @@ class SettingsCell: UITableViewCell {
             case .forceRescanAlert,
                     .exportMediaLibrary,
                     .exportSettings,
-                    .displayResetAlert:
+                    .displayResetAlert,
+                    .syncMediaLibraryAlert:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true
