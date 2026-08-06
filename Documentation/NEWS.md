@@ -2,22 +2,41 @@
 
 ## iOS [4.0.0]
 
-Changes since beta 1:
-· Add a radio station discovery service so users can find and favorite their stations
-· Add swipe-to-favorite while browsing, including for non-downloadable streams
-· CarPlay: browse by album and folder, show artist names and add a Library section
-· Add WebDAV support
-· Disable SMBv1 by default
-· Improve Spotlight search by indexing more media metadata
-· WiFi Sharing: fix the option to disable the server
-· Player: redesigned track selector interface
-· Player: switch to the audio interface for audio-only network streams
-· Player: indicate live streams without a known duration
-· Add Frame-by-Frame playback, forward and backward
-· Mini player: redesigned for the liquid glass appearance
-· Reworked buffering indicator for video and audio playback
-· Export playlists as M3U
-· Playback history: allow clearing individual categories
+Known issues:
+· Picture-in-Picture featured is offered on devices where it is actually unsupported
+· Files stored in Google Drive fail to stream, download them instead
+· multiple UI rendering issues on iOS 12
+· Chromecast fails to connect and render
+
+New features since beta 2:
+· Add an On Air tab bundling radio and podcasts
+· Add podcast support: subscribe through RSS, browse shows and episodes, download, play and search
+· Radio: redesigned discovery with a country browser, a favorites grid and recently visited countries
+· Radio: schedule an alarm to wake up with a station (iOS 26.1 and later)
+· Add a share extension to receive files from apps such as Voice Memos or Telegram
+· Browse: redesigned interface using artwork tiles for servers, cloud services and favorites
+· Google Drive: browse My Drive, Shared with me and shared drives, follow shortcuts
+· Wi-Fi Sharing: add download all or a selection of files at once
+· Network browsing: sort by name, date or size
+· Expose playback to Siri and Spotlight through App Shortcuts, including radio stations and videos
+· Adopt the iOS 27 audio intents for songs, albums, artists, playlists and genres
+· Media library: enqueue to the play queue with a swipe
+· Media library: sort albums by artist and remember the sort criteria per collection
+· Playlists: reorder multiple tracks at once and show the number of tracks and the total duration
+· Restore the last played media list on the next launch
+· Player: close the topmost panel or the player itself using the Escape key
+
+Bug fixes since beta 2:
+· WebDAV: fix connections to encrypted servers such as nextcloud
+· Player: fix black screens after lockin/unlocking the device or backgrounding the app 
+· OneDrive: fix directory listings with thousands of items
+· Player: fix video being slightly cut off on newer iPhones
+· Player: fix restoring the playback position on slow-starting media
+· Fix the file extension of downloads from non-compliant UPnP servers
+· x-callback-url: fix URL decoding and playback of external subtitles
+· Fix a full-screen flash of the audio player while its artwork was reloading
+· CarPlay: reload when the favorites change
+· Numerous fixes to the web interface, the on-boarding, theme switching and the mini player
 
 ---
 
@@ -33,14 +52,18 @@ Changes since beta 1:
 · Add play count metadata to media long press UI
 · Add support for passcodes with four and six digits
 · Cloud services: allow downloads of entire folders and to favorite them
+· Add swipe-to-favorite while browsing, including for non-downloadable streams
 · Major accessbility improvements for the playback interface
 · Last played item in a playlist is now indicated
 · Add more sorting options for playlists and improve appearance
+· Export playlists as M3U
 · Improve brightness restoration and handling
 · Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
 · New support for the RIST, AMT and Gopher protocols
+· Add WebDAV support
+· Disable SMBv1 by default
 · Remove support for the real player dialect of RTSP
 · Improve proxy configuration handling
 · Fix silence for a split second when starting playback
@@ -49,6 +72,7 @@ Changes since beta 1:
 · Add options to skip forward/back instead of go to next/previous track
     - on lockscreen and when using external controls (like headphones and car controls)
 · Integrate with the pCloud service
+· Add Frame-by-Frame playback, forward and backward
 · Customize playback speed option
 · Customize seeking options
 · Add option to export settings and include in feedback email
@@ -59,6 +83,8 @@ Changes since beta 1:
 · Add the side bar navigation on iPadOS
 · Adopt iOS 26 liquid glass appearance for navigation bars and UI components
 · Audio player: major redesign
+· Player: redesigned track selector interface
+· Player: switch to the audio interface for audio-only network streams
 · Media library: add "Mark as Played" / "Mark as Unplayed" action
 · Media library: song list now shows section index and section headers
 · Media library: video media preview
@@ -68,22 +94,26 @@ Changes since beta 1:
 · Add pulsing cone loading animation in the player during buffering
 · Dropbox and Box: add thumbnail support
 · Web interface: redesigned interface
-
-Known issues:
-· Picture-in-Picture featured is offered on devices where it is actually unsupported
-· Google Drive integration fails to stream
+· Add a radio station discovery service so users can find and favorite their stations
+· CarPlay: browse by album and folder, show artist names and add a Library section
+· Improve Spotlight search by indexing more media metadata
 
 ## visionOS [4.0.0]
 · Initial release
 
 ## tvOS [4.0.0]
 
-Changes since beta 1:
-· Add Top Shelf content
-· Resume playback from the last position
-· Player: add an aspect ratio button
-· Add WebDAV support
-· Disable SMBv1 by default
+New features since beta 2:
+· Wi-Fi Sharing: add download all or a selection of files at once
+· Network browsing: sort by name, date or size
+· Shared libraries: show the media name instead of its URL during playback
+
+Bug fixes since beta 2:
+· WebDAV: fix connections to encrypted servers such as nextcloud
+· Player: fix black screens after backgrounding the app 
+· Open Network Stream: keep custom titles aligned with their URLs when deleting an entry
+· Fix the file extension of downloads from non-compliant UPnP servers
+· Report network login failures instead of leaving the browser empty
 
 ---
 
@@ -96,6 +126,8 @@ Changes since beta 1:
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
 · New support for the RIST, AMT and Gopher protocols
+· Add WebDAV support
+· Disable SMBv1 by default
 · Remove support for the real player dialect of RTSP
 · Improve proxy configuration handling
 · Fix silence for a split second when starting playback
@@ -103,10 +135,13 @@ Changes since beta 1:
 · Remove S/PDIF option on tvOS as it was discontinued in tvOS 11
 · Fix playback of multicast URLs through the web interface
 · Add medialibrary support
+· Add Top Shelf content
+· Resume playback from the last position
 · Player: complete redesign matching the system AVPlayer appearance
 · Player: add play queue and playmode (shuffle/repeat) buttons
 · Player: add secondary subtitle track selection
 · Player: add granular playback speed control
+· Player: add an aspect ratio button
 · Player: inline information and pop-up menu panel
 · Wi-Fi sharing: add transfer status banner and option to disable auto-playing uploaded files while receiving
 · Add support for multiple users
