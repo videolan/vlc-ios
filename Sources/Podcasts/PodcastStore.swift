@@ -37,7 +37,7 @@ final class PodcastStore: NSObject {
 
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("MMMd")
+        formatter.setLocalizedDateFormatFromTemplate("yMMMd")
         return formatter
     }()
 
