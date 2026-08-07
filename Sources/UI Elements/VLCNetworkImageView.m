@@ -14,7 +14,6 @@
 #endif
 
 #import "VLCNetworkImageView.h"
-#import "NSURLSession+sharedMPTCPSession.h"
 
 @implementation VLCNetworkImageView
 

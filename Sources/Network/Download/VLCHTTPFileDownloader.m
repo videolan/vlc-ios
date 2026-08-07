@@ -14,7 +14,6 @@
 #import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
 #import "VLC-Swift.h"
-#import "NSURLSessionConfiguration+default.h"
 
 @interface VLCHTTPFileDownloader () <NSURLSessionDelegate>
 {
@@ -35,7 +34,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultMPTCPConfiguration]
+        _urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                     delegate:self
                                                delegateQueue:nil];
         _downloadsAccessQueue = dispatch_queue_create("VLCHTTPFileDownloader.downloadsQueue", DISPATCH_QUEUE_SERIAL);

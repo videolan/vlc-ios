@@ -58,7 +58,6 @@ Bug fixes since beta 2:
 · Add more sorting options for playlists and improve appearance
 · Export playlists as M3U
 · Improve brightness restoration and handling
-· Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
 · New support for the RIST, AMT and Gopher protocols
@@ -122,7 +121,6 @@ Bug fixes since beta 2:
 · Add HDR playback
 · Add multi-channel and spatial audio
 · Add play count metadata to media long press UI
-· Add Multipath TCP (MPTCP) support
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
 · New support for the RIST, AMT and Gopher protocols
