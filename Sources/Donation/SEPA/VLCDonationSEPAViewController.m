@@ -212,6 +212,7 @@
 
 - (IBAction)continueButtonAction:(id)sender
 {
+    [self.view endEditing:YES];
     [self hideInputElements:YES];
     [self.activityIndicator startAnimating];
 
@@ -236,14 +237,12 @@
                                                                                                        comment: "")
                                                                              message:NSLocalizedString(@"PURCHASE_SUCESS_DESCRIPTION",
                                                                                                        comment: "")
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action){
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];
-    alertController.popoverPresentationController.sourceView = self.confettiView;
-
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -254,14 +253,12 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED",
                                                                                                        comment: "")
                                                                              message:errorMessage
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
         [self hideInputElements:NO];
     }]];
-    alertController.popoverPresentationController.sourceView = self.confettiView;
-
     [self presentViewController:alertController animated:YES completion:nil];
 }
 

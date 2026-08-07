@@ -1185,6 +1185,9 @@
 		7DA5159A2EF82B63000C9995 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DA58D652B10E96800E5BA84 /* VLCFavoriteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA58D642B10E96800E5BA84 /* VLCFavoriteService.m */; };
 		7DA5CE0E2EF9000000000003 /* VLCAppleTVSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA5CE0E2EF9000000000002 /* VLCAppleTVSceneDelegate.m */; };
+		7DA9A0B23025DE1700513322 /* VLCHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */; };
+		7DA9A0B33025DE1700513322 /* VLCHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */; };
+		7DA9A0B43025DE1700513322 /* VLCHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */; };
 		7DAEFFC42D62445800C9D114 /* UIScreen+Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B880DE2CE02A8B009C181A /* UIScreen+Brightness.swift */; };
 		7DAF3E94268F536400C47D95 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */; };
 		7DB0CB42247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB0CB40247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m */; };
@@ -1296,9 +1299,6 @@
 		7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BE81BD68BC9006E1093 /* Settings.bundle */; };
 		7DED9DBF300D1395006CAFFA /* PCloudSDKSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DBE300D1395006CAFFA /* PCloudSDKSwift */; };
 		7DED9DC4300D164B006CAFFA /* PCloudSDKSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC3300D164B006CAFFA /* PCloudSDKSwift */; };
-		7DED9DC9300D1FBE006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DC8300D1FBE006CAFFA /* AFNetworking */; };
-		7DED9DCB300D1FCE006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCA300D1FCE006CAFFA /* AFNetworking */; };
-		7DED9DCD300D1FD5006CAFFA /* AFNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCC300D1FD5006CAFFA /* AFNetworking */; };
 		7DED9DD0300D2039006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DCF300D2039006CAFFA /* XKKeychain */; };
 		7DED9DD2300D206A006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DD1300D206A006CAFFA /* XKKeychain */; };
 		7DED9DD4300D2075006CAFFA /* XKKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DD3300D2075006CAFFA /* XKKeychain */; };
@@ -2304,6 +2304,9 @@
 		7DA9099B2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = eu; path = eu.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		7DA9099C2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7DA9099D2E1C6863004BDF30 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DA9A0AF3025DE1700513322 /* VLCHTTPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCHTTPClient.h; sourceTree = "<group>"; };
+		7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPClient.m; sourceTree = "<group>"; };
+		7DA9A0B63025DF9B00513322 /* VLCStripeConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCStripeConstants.h; sourceTree = "<group>"; };
 		7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7DB0CB40247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserUPnP.m; sourceTree = "<group>"; };
 		7DB0CB41247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserUPnP.h; sourceTree = "<group>"; };
@@ -2739,7 +2742,6 @@
 				7D50C6E52BBD20DF00B9F1A0 /* MessageUI.framework in Frameworks */,
 				7D50C6E62BBD20DF00B9F1A0 /* SystemConfiguration.framework in Frameworks */,
 				7D50C6E72BBD20DF00B9F1A0 /* Security.framework in Frameworks */,
-				7DED9DCD300D1FD5006CAFFA /* AFNetworking in Frameworks */,
 				7D50C6E82BBD20DF00B9F1A0 /* CFNetwork.framework in Frameworks */,
 				7D50C6E92BBD20DF00B9F1A0 /* CoreData.framework in Frameworks */,
 				7D50C6EA2BBD20DF00B9F1A0 /* QuartzCore.framework in Frameworks */,
@@ -2786,7 +2788,6 @@
 				CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */,
 				CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */,
 				CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */,
-				7DED9DC9300D1FBE006CAFFA /* AFNetworking in Frameworks */,
 				7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */,
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
@@ -2829,7 +2830,6 @@
 				7DA515612EF82B63000C9995 /* AudioToolbox.framework in Frameworks */,
 				7DA515622EF82B63000C9995 /* OpenGLES.framework in Frameworks */,
 				7DA515632EF82B63000C9995 /* UIKit.framework in Frameworks */,
-				7DED9DCB300D1FCE006CAFFA /* AFNetworking in Frameworks */,
 				7D1E8F09300E478E0014A118 /* MarqueeLabel in Frameworks */,
 				7DA515642EF82B63000C9995 /* Foundation.framework in Frameworks */,
 				7DA515652EF82B63000C9995 /* CoreGraphics.framework in Frameworks */,
@@ -3224,6 +3224,7 @@
 				7D715D522B852A92005873FE /* VLCDonationInvoicesViewController.h */,
 				7D715D532B852A92005873FE /* VLCDonationInvoicesViewController.m */,
 				7D1471722B88A49000AB642B /* Data Classes */,
+				7DA9A0B63025DF9B00513322 /* VLCStripeConstants.h */,
 				7D2BC90F2B5A67AB00C6770B /* VLCStripeController.h */,
 				7D2BC9102B5A67AB00C6770B /* VLCStripeController.m */,
 				7D799B9F2B8394F100FF93F2 /* VLCDonationNagScreenViewController.h */,
@@ -3817,6 +3818,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7DA9A0B13025DE1700513322 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				7DA9A0AF3025DE1700513322 /* VLCHTTPClient.h */,
+				7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
 		7DB40AA028C7B49700EDACA0 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
@@ -4001,6 +4011,7 @@
 			isa = PBXGroup;
 			children = (
 				27CE104D2A3C5E820061C92B /* Favorite */,
+				7DA9A0B13025DE1700513322 /* HTTP */,
 				7DC869C928CB806600EE99F8 /* Server Browsing */,
 				7DC869C528CB7EE500EE99F8 /* Server List */,
 				7DC869BE28CB7C7600EE99F8 /* Login */,
@@ -5216,7 +5227,6 @@
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			packageReferences = (
 				7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */,
-				7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */,
 				7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */,
 				7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */,
 				7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */,
@@ -6035,6 +6045,7 @@
 				7D50C6192BBD20DF00B9F1A0 /* VLCOSOFetcher.m in Sources */,
 				7D50C61A2BBD20DF00B9F1A0 /* ChapterView.swift in Sources */,
 				7D50C61B2BBD20DF00B9F1A0 /* VLCDonationInvoicesViewController.m in Sources */,
+				7DA9A0B23025DE1700513322 /* VLCHTTPClient.m in Sources */,
 				7D50C61C2BBD20DF00B9F1A0 /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				7D50C61D2BBD20DF00B9F1A0 /* UISegmentedControl+CustomLabels.swift in Sources */,
 				7D50C61F2BBD20DF00B9F1A0 /* VLCAppDelegate.m in Sources */,
@@ -6610,6 +6621,7 @@
 				DD3EFF431BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
 				7D389AB42B5BEB8200F9D845 /* VLCCurrency.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
+				7DA9A0B33025DE1700513322 /* VLCHTTPClient.m in Sources */,
 				9A761A7A538E67D66B525E17 /* VLCDonationNavigationController.m in Sources */,
 				3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */,
 				19F440AB9FB40F252BAF83B5 /* VLCDownloadProgressView.m in Sources */,
@@ -6974,6 +6986,7 @@
 				99AE8BE9D9B3C250C1C559C3 /* VLCTransferStatusBannerController.m in Sources */,
 				7D1E8F44300F7A8A0014A118 /* VLCRadioStationsViewController.m in Sources */,
 				6BC4F13121F22A7A1F3388F6 /* PodcastModels.swift in Sources */,
+				7DA9A0B43025DE1700513322 /* VLCHTTPClient.m in Sources */,
 				91CE0FA1F310D5D76407766D /* PodcastStore.swift in Sources */,
 				8C6AE9C5071B71B8F8362924 /* PodcastArtworkView.swift in Sources */,
 				29BED48E52559741394CAE9E /* PodcastProgressBar.swift in Sources */,
@@ -9298,14 +9311,6 @@
 				minimumVersion = 3.2.3;
 			};
 		};
-		7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://code.videolan.org/fkuehne/AFNetworking.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.1;
-			};
-		};
 		7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://code.videolan.org/fkuehne/XKKeychain.git";
@@ -9432,21 +9437,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */;
 			productName = PCloudSDKSwift;
-		};
-		7DED9DC8300D1FBE006CAFFA /* AFNetworking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
-			productName = AFNetworking;
-		};
-		7DED9DCA300D1FCE006CAFFA /* AFNetworking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
-			productName = AFNetworking;
-		};
-		7DED9DCC300D1FD5006CAFFA /* AFNetworking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DC7300D1FBE006CAFFA /* XCRemoteSwiftPackageReference "AFNetworking" */;
-			productName = AFNetworking;
 		};
 		7DED9DCF300D2039006CAFFA /* XKKeychain */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -12,7 +12,8 @@
 
 #import "VLCStripeController.h"
 #import <PassKit/PassKit.h>
-#import "AFNetworking.h"
+#import "VLCStripeConstants.h"
+#import "VLCHTTPClient.h"
 #import "VLCCurrency.h"
 #import "VLCInvoice.h"
 #import "VLCCharge.h"
@@ -20,10 +21,6 @@
 #import "VLCSubscription.h"
 #import "VLCDonationInvoicesViewController.h"
 #import "VLCDonationViewController.h"
-
-const NSString *publishableStripeAPIKey = @"";
-const NSString *secretStripeAPIKey = @"";
-NSString *callbackURLString = @"vlcpay://3ds";
 
 @interface VLCStripeController()
 {
@@ -39,7 +36,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
     NSString *_paymentMethod;
 
-    AFHTTPSessionManager *_sessionManager;
+    VLCHTTPClient *_client;
 }
 @end
 
@@ -49,14 +46,9 @@ NSString *callbackURLString = @"vlcpay://3ds";
 {
     self = [super init];
     if (self) {
-        _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.stripe.com/v1/"]];
+        _client = [[VLCHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.stripe.com/v1/"]];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [_sessionManager invalidateSessionCancelingTasks:YES resetSession:YES];
 }
 
 - (BOOL)currentLocaleIsEmbargoed
@@ -182,14 +174,13 @@ NSString *callbackURLString = @"vlcpay://3ds";
     _recurring = recurring;
     _tokenID = nil;
 
-    [_sessionManager POST:@"payment_methods"
-               parameters:@{ @"type" : @"sepa_debit",
-                             @"[sepa_debit][iban]" : accountNumber,
-                             @"[billing_details][name]" : name,
-                             @"[billing_details][email]" : email }
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"payment_methods"
+       parameters:@{ @"type" : @"sepa_debit",
+                     @"[sepa_debit][iban]" : accountNumber,
+                     @"[billing_details][name]" : name,
+                     @"[billing_details][email]" : email }
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"SEPA payment method created");
         self->_paymentMethod = jsonResponse[@"id"];
         if (self->_recurring) {
@@ -198,7 +189,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [self confirmPaymentIntent];
         }
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Error creating sepa payment method: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -210,13 +201,13 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (NSDictionary *)publishableKeyHeaders
 {
-    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", publishableStripeAPIKey],
+    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", kVLCStripePublishableAPIKey],
               @"Content-Type" : @"application/x-www-form-urlencoded" };
 }
 
 - (NSDictionary *)secretKeyHeaders
 {
-    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", secretStripeAPIKey],
+    return @{ @"Authorization" : [NSString stringWithFormat:@"Bearer %@", kVLCStripeSecretAPIKey],
               @"Content-Type" : @"application/x-www-form-urlencoded" };
 }
 
@@ -224,11 +215,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)createStripeTokenWithParameters:(NSDictionary *)parameters
 {
-    [_sessionManager POST:@"tokens"
-               parameters:parameters
-                  headers:[self publishableKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"tokens"
+       parameters:parameters
+          headers:[self publishableKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         self->_tokenID = jsonResponse[@"id"];
         if (self->_tokenID) {
             APLog(@"Stripe token created successfully");
@@ -245,7 +235,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             });
         }
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Error creating Stripe token: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -261,7 +251,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     mutDict[@"confirm"] = @"true";
     mutDict[@"amount"] = _amount;
     mutDict[@"currency"] = _currency.isoCode;
-    mutDict[@"return_url"] = callbackURLString;
+    mutDict[@"return_url"] = kVLCStripeCallbackURL;
     mutDict[@"customer"] = _customerID;
 
     if (_tokenID == nil) {
@@ -270,17 +260,16 @@ NSString *callbackURLString = @"vlcpay://3ds";
         mutDict[@"mandate_data[customer_acceptance"] = @{ @"type" : @"online",
                                                           @"accepted_at" : [NSNumber numberWithLongLong:(long long)[[NSDate date] timeIntervalSince1970]],
                                                           @"online" : @{ @"ip_address" : @"0.0.0.0",
-                                                                         @"user_agent" : [_sessionManager.requestSerializer valueForHTTPHeaderField:@"User-Agent"]}};
+                                                                         @"user_agent" : _client.userAgent}};
     } else {
         mutDict[@"payment_method_types"] = @[@"card"];
         mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
     }
 
-    [_sessionManager POST:@"payment_intents"
-               parameters:mutDict
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"payment_intents"
+       parameters:mutDict
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         NSDictionary *nextAction = jsonResponse[@"next_action"];
         self->_paymentMethod = jsonResponse[@"payment_method"];
         if (nextAction == (NSDictionary*) [NSNull null]) {
@@ -297,14 +286,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
             if (redirectURL != nil) {
                 if ([self.delegate respondsToSelector:@selector(show3DS:withCallbackURL:)]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:callbackURLString]];
+                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:kVLCStripeCallbackURL]];
                     });
                     return;
                 }
             }
         }
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Payment intent confirmation failed: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -314,18 +303,17 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)continueWithPaymentIntent:(NSString *)paymentIntent
 {
-    [_sessionManager POST:[NSString stringWithFormat:@"payment_intents/%@", paymentIntent]
-               parameters:nil
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:[NSString stringWithFormat:@"payment_intents/%@", paymentIntent]
+       parameters:nil
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Successfully confirmed payment intent after additional action");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self donationSuccessful];
             [self.delegate stripeProcessingSucceeded];
         });
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Failed to confirm payment intent after additional action: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -340,7 +328,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     mutDict[@"confirm"] = @"true";
     mutDict[@"usage"] = @"off_session";
-    mutDict[@"return_url"] = callbackURLString;
+    mutDict[@"return_url"] = kVLCStripeCallbackURL;
     mutDict[@"customer"] = _customerID;
 
     if (_tokenID == nil) {
@@ -349,17 +337,16 @@ NSString *callbackURLString = @"vlcpay://3ds";
         mutDict[@"mandate_data[customer_acceptance"] = @{ @"type" : @"online",
                                                           @"accepted_at" : [NSNumber numberWithLongLong:(long long)[[NSDate date] timeIntervalSince1970]],
                                                           @"online" : @{ @"ip_address" : @"0.0.0.0",
-                                                                         @"user_agent" : [_sessionManager.requestSerializer valueForHTTPHeaderField:@"User-Agent"]}};
+                                                                         @"user_agent" : _client.userAgent}};
     } else {
         mutDict[@"payment_method_types"] = @[@"card"];
         mutDict[@"payment_method_data"] = @{ @"type" : @"card", @"card[token]" : _tokenID };
     }
 
-    [_sessionManager POST:@"setup_intents"
-               parameters:mutDict
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"setup_intents"
+       parameters:mutDict
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Created Setup Intent");
         NSDictionary *nextAction = jsonResponse[@"next_action"];
         if (nextAction == (NSDictionary*) [NSNull null]) {
@@ -374,14 +361,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
             if (redirectURL != nil) {
                 if ([self.delegate respondsToSelector:@selector(show3DS:withCallbackURL:)]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:callbackURLString]];
+                        [self.delegate show3DS:(NSURL *)redirectURL withCallbackURL:[NSURL URLWithString:kVLCStripeCallbackURL]];
                     });
                     return;
                 }
             }
         }
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -391,16 +378,15 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)continueWithSetupIntent:(NSString *)setupIntent
 {
-    [_sessionManager POST:[NSString stringWithFormat:@"setup_intents/%@", setupIntent]
-               parameters:nil
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:[NSString stringWithFormat:@"setup_intents/%@", setupIntent]
+       parameters:nil
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Setup intent was approved after further action");
         self->_paymentMethod = jsonResponse[@"payment_method"];
         [self attachPaymentMethodToCustomer];
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Failed to confirm setup intent after additional action: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -412,15 +398,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)attachPaymentMethodToCustomer
 {
-    [_sessionManager POST:[NSString stringWithFormat:@"payment_methods/%@/attach", _paymentMethod]
-               parameters:@{@"customer" : _customerID}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:[NSString stringWithFormat:@"payment_methods/%@/attach", _paymentMethod]
+       parameters:@{@"customer" : _customerID}
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"payment method attached");
         [self makePaymentMethodDefaultForCustomer];
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -430,15 +415,14 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)makePaymentMethodDefaultForCustomer
 {
-    [_sessionManager POST:[NSString stringWithFormat:@"customers/%@", _customerID]
-               parameters:@{@"invoice_settings" : @{@"default_payment_method" : _paymentMethod}}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:[NSString stringWithFormat:@"customers/%@", _customerID]
+       parameters:@{@"invoice_settings" : @{@"default_payment_method" : _paymentMethod}}
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Set as default payment method");
         [self addSubscription];
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -450,19 +434,18 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)addSubscription
 {
-    [_sessionManager POST:@"subscriptions"
-               parameters:@{@"customer" : _customerID,
-                            @"items[0][price]" : _price.id}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"subscriptions"
+       parameters:@{@"customer" : _customerID,
+                    @"items[0][price]" : _price.id}
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Subscription added");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingSucceeded];
             [self activeSubscription:YES];
         });
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -481,10 +464,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
         }
         return;
     }
-    [_sessionManager GET:[NSString stringWithFormat:@"subscriptions?customer=%@", _customerID]
-              parameters:nil
-                 headers:[self secretKeyHeaders]
-                progress:nil success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client GET:@"subscriptions"
+      parameters:@{@"customer" : _customerID}
+         headers:[self secretKeyHeaders]
+         success:^(NSDictionary *jsonResponse) {
         NSArray *searchResultList = jsonResponse[@"data"];
         NSUInteger resultCount = searchResultList.count;
         APLog(@"Found %li subscriptions", resultCount);
@@ -498,7 +481,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [self.delegate setCurrentSubscription:sub];
         }
     }
-                 failure:^(NSURLSessionTask *task, NSError *error) {
+         failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -509,19 +492,18 @@ NSString *callbackURLString = @"vlcpay://3ds";
 - (void)updateSubscription:(VLCSubscription *)sub toPrice:(VLCPrice *)price
 {
     _price = price;
-    [_sessionManager POST:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
-               parameters:@{@"items[0][id]" : sub.subscriptionitemid,
-                            @"items[0][price]" : _price.id}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
+       parameters:@{@"items[0][id]" : sub.subscriptionitemid,
+                    @"items[0][price]" : _price.id}
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         APLog(@"Subscription updated");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingSucceeded];
             [self activeSubscription:YES];
         });
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -531,17 +513,17 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)cancelSubscription:(VLCSubscription *)sub
 {
-    [_sessionManager DELETE:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
-                 parameters:nil
-                    headers:[self secretKeyHeaders]
-                    success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client DELETE:[NSString stringWithFormat:@"subscriptions/%@", sub.subscriptionid]
+         parameters:nil
+            headers:[self secretKeyHeaders]
+            success:^(NSDictionary *jsonResponse) {
         APLog(@"Subscription cancelled");
         if ([self.delegate respondsToSelector:@selector(setCurrentSubscription:)]) {
             [self.delegate setCurrentSubscription:nil];
             [self activeSubscription:NO];
         }
     }
-                    failure:^(NSURLSessionTask *task, NSError *error) {
+            failure:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
         });
@@ -553,12 +535,12 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)requestAvailablePricesInCurrency:(VLCCurrency *)currency
 {
-    [_sessionManager GET:@"prices"
-              parameters:@{@"currency" : currency.isoCode,
-                           @"type" : @"recurring",
-                           @"expand[]" : @"data.currency_options"}
-                 headers:[self secretKeyHeaders]
-                progress:nil success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client GET:@"prices"
+      parameters:@{@"currency" : currency.isoCode,
+                   @"type" : @"recurring",
+                   @"expand[]" : @"data.currency_options"}
+         headers:[self secretKeyHeaders]
+         success:^(NSDictionary *jsonResponse) {
         NSArray *dictList = jsonResponse[@"data"];
         NSUInteger priceCount = dictList.count;
         NSMutableArray *priceList = [NSMutableArray arrayWithCapacity:priceCount];
@@ -573,7 +555,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
             [self.delegate setRecurringPriceList:priceList];
         }
     }
-                 failure:^(NSURLSessionTask *task, NSError *error) {
+         failure:^(NSError *error) {
         APLog(@"Error retrieving recurring pricelist: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -590,11 +572,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
     if (_customerID != nil && _customerID.length > 0) {
         if (!self->_uuid) {
-            [_sessionManager GET:[NSString stringWithFormat:@"customers/%@", _customerID]
-                      parameters:nil
-                         headers:[self secretKeyHeaders]
-                        progress:nil
-                         success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+            [_client GET:[NSString stringWithFormat:@"customers/%@", _customerID]
+              parameters:nil
+                 headers:[self secretKeyHeaders]
+                 success:^(NSDictionary *jsonResponse) {
                 APLog(@"Reloaded customer");
                 self->_uuid = jsonResponse[@"name"];
 #pragma clang diagnostic push
@@ -602,7 +583,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
                 [target performSelector:action];
 #pragma clang diagnostic pop
             }
-                         failure:^(NSURLSessionTask *task, NSError *error) {
+                 failure:^(NSError *error) {
                 APLog(@"Error reloading customer: %@, deleting...", error.localizedDescription);
                 self->_customerID = nil;
                 self->_uuid = nil;
@@ -620,13 +601,12 @@ NSString *callbackURLString = @"vlcpay://3ds";
     }
 
     _uuid = [[NSUUID UUID] UUIDString];
-    [_sessionManager POST:@"customers"
-               parameters:@{@"name" : _uuid,
-                            @"description" : _uuid,
-                            @"preferred_locales" : @[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]}
-                  headers:[self secretKeyHeaders]
-                 progress:nil
-                  success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client POST:@"customers"
+       parameters:@{@"name" : _uuid,
+                    @"description" : _uuid,
+                    @"preferred_locales" : @[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]}
+          headers:[self secretKeyHeaders]
+          success:^(NSDictionary *jsonResponse) {
         self->_customerID = jsonResponse[@"id"];
         [defaults setObject:self->_customerID forKey:kVLCDonationAnonymousCustomerID];
         APLog(@"Created customer");
@@ -635,7 +615,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         [target performSelector:action];
 #pragma clang diagnostic pop
     }
-                  failure:^(NSURLSessionTask *task, NSError *error) {
+          failure:^(NSError *error) {
         APLog(@"Error creating customer: %@", error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -650,11 +630,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)requestInvoices
 {
-    [_sessionManager GET:@"invoices"
-              parameters:@{@"customer" : _customerID}
-                 headers:[self secretKeyHeaders]
-                progress:nil
-                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client GET:@"invoices"
+      parameters:@{@"customer" : _customerID}
+         headers:[self secretKeyHeaders]
+         success:^(NSDictionary *jsonResponse) {
         NSArray *data = jsonResponse[@"data"];
         NSUInteger dataCount = data.count;
         APLog(@"Found %li invoices", dataCount);
@@ -666,7 +645,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         if ([self.delegate respondsToSelector:@selector(setInvoices:)]) {
             [self.delegate setInvoices:invoices];
         }
-    } failure:^(NSURLSessionTask *task, NSError *error){
+    } failure:^(NSError *error){
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
@@ -676,11 +655,10 @@ NSString *callbackURLString = @"vlcpay://3ds";
 
 - (void)requestCharges
 {
-    [_sessionManager GET:@"charges"
-              parameters:@{@"customer" : _customerID}
-                 headers:[self secretKeyHeaders]
-                progress:nil
-                 success:^(NSURLSessionTask *task, NSDictionary *jsonResponse) {
+    [_client GET:@"charges"
+      parameters:@{@"customer" : _customerID}
+         headers:[self secretKeyHeaders]
+         success:^(NSDictionary *jsonResponse) {
         NSArray *data = jsonResponse[@"data"];
         NSUInteger dataCount = data.count;
         APLog(@"Found %li charges", dataCount);
@@ -694,7 +672,7 @@ NSString *callbackURLString = @"vlcpay://3ds";
         if ([self.delegate respondsToSelector:@selector(setCharges:)]) {
             [self.delegate setCharges:charges];
         }
-    } failure:^(NSURLSessionTask *task, NSError *error){
+    } failure:^(NSError *error){
         APLog(@"%s: %@", __func__, error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate stripeProcessingFailedWithError:error.localizedDescription];
