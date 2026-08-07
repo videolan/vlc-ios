@@ -49,7 +49,7 @@ class CollectionViewCellPreviewController: UIViewController {
     private var ratio: CGFloat = 0
 
     private var rowSeparator: String {
-        let languageCode = NSLocale.autoupdatingCurrent.languageCode!
+        let languageCode = NSLocale.autoupdatingCurrent.languageCode ?? "en"
         if languageCode.starts(with: "fr") {
             return " : "
         }
