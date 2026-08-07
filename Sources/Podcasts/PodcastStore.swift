@@ -33,6 +33,8 @@ final class PodcastStore: NSObject {
     private var cachedShows: [PodcastShow]?
     private var cachedShowsById: [String: PodcastShow] = [:]
 
+    private static let latestEpisodesPerShow = 3
+
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.setLocalizedDateFormatFromTemplate("MMMd")
@@ -82,9 +84,21 @@ final class PodcastStore: NSObject {
             return cachedLatestEpisodes
         }
 
-        let episodes = allEpisodes().filter { !$0.continueListening }
-        cachedLatestEpisodes = episodes
-        return episodes
+        guard let subscriptionModel = subscriptionModel else {
+            return []
+        }
+
+        var result: [PodcastEpisode] = []
+        for subscription in subscriptionModel.subscriptions {
+            let showEpisodes: [PodcastEpisode] = episodes(forShowId: String(subscription.identifier()))
+            var unplayed: [PodcastEpisode] = showEpisodes.filter { !$0.continueListening }
+            unplayed.sort { $0.releaseDate > $1.releaseDate }
+            result.append(contentsOf: unplayed.prefix(PodcastStore.latestEpisodesPerShow))
+        }
+        result.sort { $0.releaseDate > $1.releaseDate }
+
+        cachedLatestEpisodes = result
+        return result
     }
 
     func show(withId showId: String) -> PodcastShow? {

@@ -21,10 +21,6 @@ class PodcastsViewController: UIViewController {
 
     private let store = PodcastStore.shared
 
-    // The combined "latest episodes" list spans every subscribed show and can be large, so it's
-    // revealed incrementally as the user scrolls near the end, same as episodes(forShowId:) in
-    // PodcastShowDetailViewController and the audio/video tabs' willDisplay/kVLCPrefetchDistance
-    // pattern.
     private var revealedLatestEpisodesCount = Int(kVLCDefaultPageSize)
 
     private var visibleLatestEpisodes: ArraySlice<PodcastEpisode> {
