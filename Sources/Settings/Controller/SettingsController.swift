@@ -32,9 +32,6 @@ class SettingsController: UITableViewController {
     private let actionSheet = ActionSheet()
     private let specifierManager = ActionSheetSpecifier()
     private var mediaLibraryService: MediaLibraryService
-#if (os(iOS) || os(watchOS)) && !NO_WATCH
-    private var watchService = VLCWatchConnectivityService()
-#endif
     private var settingsBundle = Bundle()
     private var isBackingUp = false
     private let isLabActivated: Bool = true
@@ -289,7 +286,7 @@ class SettingsController: UITableViewController {
                                       style: .cancel,
                                       handler: nil))
         alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_SYNC", comment: ""),
-                                      style: .destructive,
+                                      style: .default,
                                       handler: { _ in
 #if os(iOS)
                                           ImpactFeedbackGenerator().selectionChanged()

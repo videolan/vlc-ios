@@ -111,7 +111,6 @@
                                   kVLCSettingPlayerControlDuration: kVLCSettingPlayerControlDurationDefaultValue,
                                   kVLCSettingPauseWhenShowingControls: @(NO),
                                   kVLCSettingAutomaticallySyncMediaLibrary : @(-1),
-                                  kVLCSettingAutomaticallySyncMediaLibraryLastUpdated: @([[NSDate date] timeIntervalSince1970]),
                                   kVLCAudioTabIndex: @(0),
     };
     [defaults registerDefaults:appDefaults];
@@ -170,7 +169,7 @@
         [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
     });
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS && !NO_WATCH
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         VLCWatchConnectivityService *watchService = [[VLCWatchConnectivityService alloc] init];
         [watchService transferMediaLibraryFileIfNeeded];

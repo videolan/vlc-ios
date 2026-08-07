@@ -184,10 +184,15 @@ import WatchConnectivity
 
     @objc func transferMediaLibraryFileIfNeeded() {
         let defaults = UserDefaults.standard
-        let lastUpdated = defaults.double(forKey: kVLCSettingAutomaticallySyncMediaLibraryLastUpdated)
+        let lastUpdated = defaults.object(forKey: kVLCSettingAutomaticallySyncMediaLibraryLastUpdated) as? Date
         let frequency = defaults.integer(forKey: kVLCSettingAutomaticallySyncMediaLibrary)
 
         guard frequency != kVLCSettingAutomaticallySyncMediaLibraryNever else { return }
+
+        guard let lastUpdated else {
+            transferMediaLibraryFile()
+            return
+        }
 
         let offset: TimeInterval
         let oneDay: TimeInterval = 60 * 60 * 24
@@ -202,8 +207,8 @@ import WatchConnectivity
             offset = 0
         }
 
-        let now = Date().timeIntervalSince1970
-        let due = lastUpdated + offset
+        let now = Date()
+        let due = lastUpdated.addingTimeInterval(offset)
 
         if due <= now {
             transferMediaLibraryFile()
