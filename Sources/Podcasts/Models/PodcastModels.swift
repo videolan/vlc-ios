@@ -27,6 +27,7 @@ struct PodcastEpisode {
     let id: String
     let showId: String
     let title: String
+    let artworkURL: URL?
     let date: String
     let releaseDate: Date
     let duration: String

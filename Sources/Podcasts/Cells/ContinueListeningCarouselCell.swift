@@ -80,7 +80,10 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
     }
 
     func configure(episode: PodcastEpisode, show: PodcastShow?) {
-        artworkView.configure(name: show?.name ?? "", artworkURL: show?.artworkURL, cornerRadius: 12, fontSize: 30)
+        artworkView.configure(name: show?.name ?? "",
+                              artworkURL: episode.artworkURL ?? show?.artworkURL,
+                              cornerRadius: 12,
+                              fontSize: 30)
         progressBar.progress = episode.progressFraction
         titleLabel.text = episode.title
         showNameLabel.text = show?.name

@@ -245,6 +245,7 @@ final class PodcastStore: NSObject {
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,
+                               artworkURL: media.thumbnail(),
                                date: dateFormatter.string(from: releaseDate),
                                releaseDate: releaseDate,
                                duration: VLCTime(number: NSNumber(value: media.duration())).stringValue,
