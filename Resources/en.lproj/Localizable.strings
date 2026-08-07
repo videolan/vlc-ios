@@ -413,7 +413,6 @@
 "FOLDERS" = "Folders";
 
 // MARK: - Podcasts
-"PODCAST_CONTENT_TITLE" = "Content";
 "PODCAST_CONTINUE_LISTENING" = "Continue Listening";
 "PODCAST_LATEST_EPISODES" = "Latest Episodes";
 "PODCAST_SHOWS" = "Shows";

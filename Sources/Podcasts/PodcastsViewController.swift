@@ -85,13 +85,13 @@ class PodcastsViewController: UIViewController {
     }
 
     private func setupTabBarItem() {
-        title = NSLocalizedString("PODCAST_CONTENT_TITLE", comment: "")
+        title = NSLocalizedString("ONAIR_PODCASTS", comment: "")
         if #available(iOS 13.0, *) {
-            tabBarItem = UITabBarItem(title: NSLocalizedString("PODCAST_CONTENT_TITLE", comment: ""),
+            tabBarItem = UITabBarItem(title: title,
                                        image: UIImage(systemName: "mic"),
                                        selectedImage: UIImage(systemName: "mic.fill"))
         } else {
-            tabBarItem = UITabBarItem(title: NSLocalizedString("PODCAST_CONTENT_TITLE", comment: ""),
+            tabBarItem = UITabBarItem(title: title,
                                        image: nil, selectedImage: nil)
         }
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.podcasts
