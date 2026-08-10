@@ -15,7 +15,7 @@
 @interface VLCThumbnailsCache : NSObject
 
 + (nullable UIImage *)thumbnailForURL:(nullable NSURL *)url;
-+ (nullable UIImage *)minimizedThumbnailForURL:(nullable NSURL *)url;
++ (nullable UIImage *)thumbnailForURL:(nullable NSURL *)url maxPixelSize:(CGFloat)maxPixelSize;
 + (void)invalidateThumbnailForURL:(nullable NSURL *)url;
 
 @end

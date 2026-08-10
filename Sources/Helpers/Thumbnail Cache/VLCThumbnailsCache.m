@@ -15,19 +15,24 @@
 
 #import "VLCThumbnailsCache.h"
 
+#import <ImageIO/ImageIO.h>
+
 @interface VLCThumbnailsCache() {
     NSInteger MaxCacheSize;
     NSCache *_thumbnailCache;
     NSInteger _currentDeviceIdiom;
+    NSMutableSet<NSNumber *> *_knownMaxPixelSizes;
+    NSLock *_knownMaxPixelSizesLock;
 }
 @end
 
 @implementation VLCThumbnailsCache
 
-#define MAX_CACHE_SIZE_IPHONE 24  // three times the number of items shown on iPhone 11 Pro
-#define MAX_CACHE_SIZE_IPAD   45  // three times the number of items shown on regular sized iPad
-#define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
-#define MAX_CACHE_SIZE_tvOS   50
+#define MAX_CACHE_SIZE_IPHONE (16 * 1024 * 1024)
+#define MAX_CACHE_SIZE_IPAD   (24 * 1024 * 1024)
+#define MAX_CACHE_SIZE_WATCH  (8 * 1024 * 1024)
+#define MAX_CACHE_SIZE_tvOS   (64 * 1024 * 1024)
+#define DEFAULT_MAX_PIXEL_SIZE 1024.f
 
 - (instancetype)init
 {
@@ -48,13 +53,16 @@
                 break;
             case UIUserInterfaceIdiomTV:
                 MaxCacheSize = MAX_CACHE_SIZE_tvOS;
+                break;
             default:
                 MaxCacheSize = MAX_CACHE_SIZE_WATCH;
                 break;
         }
 #endif
         _thumbnailCache = [[NSCache alloc] init];
-        [_thumbnailCache setCountLimit: MaxCacheSize];
+        [_thumbnailCache setTotalCostLimit: MaxCacheSize];
+        _knownMaxPixelSizes = [NSMutableSet set];
+        _knownMaxPixelSizesLock = [[NSLock alloc] init];
     }
     return self;
 }
@@ -72,8 +80,13 @@
 
 + (UIImage *)thumbnailForURL:(NSURL *)url
 {
+    return [VLCThumbnailsCache thumbnailForURL:url maxPixelSize:DEFAULT_MAX_PIXEL_SIZE];
+}
+
++ (UIImage *)thumbnailForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
+{
     VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
-    return [sharedCache _thumbnailForURL:url];
+    return [sharedCache _thumbnailForURL:url maxPixelSize:maxPixelSize];
 }
 
 + (void)invalidateThumbnailForURL:(nullable NSURL *)url
@@ -85,20 +98,12 @@
     [sharedCache _invalidateThumbnailForURL:url];
 }
 
-+ (UIImage *)minimizedThumbnailForURL:(NSURL *)url
+- (NSString *)cacheKeyForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
 {
-    VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
-    UIImage *thumbnail = [sharedCache _thumbnailForURL:url];
-    return [sharedCache minimisedThumbnail:thumbnail];
+    return [NSString stringWithFormat:@"%@|%.0f", url.path, maxPixelSize];
 }
 
-- (void)_setThumbnail:(UIImage *)image forURL:(NSURL *)url
-{
-    if (image)
-        [_thumbnailCache setObject:image forKey:url];
-}
-
-- (UIImage *)_thumbnailForURL:(NSURL *)url
+- (UIImage *)_thumbnailForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
 {
     if (url == nil || !url.isFileURL)
         return nil;
@@ -107,59 +112,75 @@
     if (path.length == 0)
         return nil;
 
-    UIImage *theImage = [_thumbnailCache objectForKey:url];
+    NSString *key = [self cacheKeyForURL:url maxPixelSize:maxPixelSize];
+    UIImage *theImage = [_thumbnailCache objectForKey:key];
     if (theImage) {
         return theImage;
     }
 
-    @try {
-        theImage = [UIImage imageWithContentsOfFile:path];
-    } @catch (NSException *exception) {
-        APLog(@"Failed to load thumbnail for path '%@': %@", path, exception);
+    theImage = [self downsampledImageAtPath:path maxPixelSize:maxPixelSize];
+    if (!theImage) {
         return nil;
     }
 
-    [self _setThumbnail:theImage forURL:url];
+    [_knownMaxPixelSizesLock lock];
+    [_knownMaxPixelSizes addObject:@(maxPixelSize)];
+    [_knownMaxPixelSizesLock unlock];
+
+    [_thumbnailCache setObject:theImage forKey:key cost:[self costForImage:theImage]];
 
     return theImage;
 }
 
-- (void)_invalidateThumbnailForURL:(NSURL *)url
+- (UIImage *)downsampledImageAtPath:(NSString *)path maxPixelSize:(CGFloat)maxPixelSize
 {
-    [_thumbnailCache removeObjectForKey:url];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    if (source == NULL) {
+        APLog(@"Failed to read thumbnail at path '%@'", path);
+        return nil;
+    }
+
+    NSDictionary *options = @{
+        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
+        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
+        (__bridge NSString *)kCGImageSourceShouldCacheImmediately: @YES,
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxPixelSize)
+    };
+
+    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    CFRelease(source);
+
+    if (cgImage == NULL) {
+        APLog(@"Failed to decode thumbnail at path '%@'", path);
+        return nil;
+    }
+
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+
+    return image;
 }
 
-- (UIImage *)minimisedThumbnail:(UIImage *)thumbnail
+- (NSUInteger)costForImage:(UIImage *)image
 {
-    CGSize thumbnailSize = thumbnail.size;
-    if (thumbnailSize.width <= 0 || thumbnailSize.height <= 0) {
-        return thumbnail;
+    CGImageRef cgImage = image.CGImage;
+    if (cgImage == NULL) {
+        return 0;
     }
+    return CGImageGetBytesPerRow(cgImage) * CGImageGetHeight(cgImage);
+}
 
-    // those are the minimal dimensions suggested by Apple
-    CGFloat scale = MIN(180 / thumbnailSize.width, 270 / thumbnailSize.height);
-    if (scale >= 1.0) {
-        return thumbnail;
+- (void)_invalidateThumbnailForURL:(NSURL *)url
+{
+    [_knownMaxPixelSizesLock lock];
+    NSArray<NSNumber *> *maxPixelSizes = _knownMaxPixelSizes.allObjects;
+    [_knownMaxPixelSizesLock unlock];
+
+    for (NSNumber *maxPixelSize in maxPixelSizes) {
+        [_thumbnailCache removeObjectForKey:[self cacheKeyForURL:url
+                                                    maxPixelSize:maxPixelSize.doubleValue]];
     }
-
-    CGSize targetSize = CGSizeMake(floor(thumbnailSize.width * scale), floor(thumbnailSize.height * scale));
-
-    UIGraphicsBeginImageContextWithOptions(targetSize, NO, 1.0);
-
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    if (!ctx) {
-        UIGraphicsEndImageContext();
-        return thumbnail;
-    }
-
-    CGContextSetInterpolationQuality(ctx, kCGInterpolationHigh);
-
-    [thumbnail drawInRect:(CGRect){ .origin = CGPointZero, .size = targetSize }];
-
-    UIImage *resized = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return resized ?: thumbnail;
 }
 
 @end
