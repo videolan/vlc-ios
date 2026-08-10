@@ -124,10 +124,6 @@ final class PodcastStore: NSObject {
         return episodes
     }
 
-    func isSubscribed(showId: String) -> Bool {
-        return subscription(withId: showId) != nil
-    }
-
     // MARK: - Mutations
 
     func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
@@ -138,13 +134,28 @@ final class PodcastStore: NSObject {
         subscriptionModel.addSubscription(mrl: mrl, completion: completion)
     }
 
-    func toggleSubscribe(showId: String) {
-        guard let subscriptionModel = subscriptionModel else {
+    func unsubscribe(showId: String) {
+        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
         }
-        if let subscription = subscription(withId: showId) {
-            subscriptionModel.removeSubscription(subscription)
+        subscriptionModel.removeSubscription(subscription)
+    }
+
+    func markAllEpisodes(ofShowId showId: String, played: Bool) {
+        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+            return
         }
+
+        for media in subscriptionModel.media(for: subscription) {
+            media.removeFromHistory()
+            media.isNew = !played
+            if played {
+                media.setPlayCount(1)
+            }
+        }
+
+        invalidateCaches()
+        notifyReload()
     }
 
     func play(episodeId: String, showId: String) {
@@ -152,6 +163,23 @@ final class PodcastStore: NSObject {
             return
         }
         subscriptionModel.play(episodeId: episodeId, subscription: subscription)
+    }
+
+    var nowPlayingEpisodeId: String? {
+        let playbackService = PlaybackService.sharedInstance()
+        guard let currentMedia = playbackService.currentlyPlayingMedia,
+              let media = VLCMLMedia(forPlaying: currentMedia) else {
+            return nil
+        }
+        return String(media.identifier())
+    }
+
+    var isPlaying: Bool {
+        return PlaybackService.sharedInstance().isPlaying
+    }
+
+    func togglePlayPause() {
+        PlaybackService.sharedInstance().playPause()
     }
 
     func requestArtwork(for episode: PodcastEpisode) {

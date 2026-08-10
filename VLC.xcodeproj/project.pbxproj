@@ -1329,6 +1329,9 @@
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
 		7DF04F501961F2B8004A5429 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
+		7DF0C8CA3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF0C8C93026684B00326B65 /* PodcastEpisodeRowCell.swift */; };
+		7DF0C8CB3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF0C8C93026684B00326B65 /* PodcastEpisodeRowCell.swift */; };
+		7DF0C8CC3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF0C8C93026684B00326B65 /* PodcastEpisodeRowCell.swift */; };
 		7DF246702FCABBA100F38805 /* VLCPhotoLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF2466F2FCABBA100F38805 /* VLCPhotoLibraryController.m */; };
 		7DF246712FCABBA100F38805 /* VLCPhotoLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF2466F2FCABBA100F38805 /* VLCPhotoLibraryController.m */; };
 		7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */; };
@@ -2452,6 +2455,7 @@
 		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web/web-download.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4C1961F2B8004A5429 /* web-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open.png"; path = "Resources/web/web-open.png"; sourceTree = SOURCE_ROOT; };
+		7DF0C8C93026684B00326B65 /* PodcastEpisodeRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeRowCell.swift; sourceTree = "<group>"; };
 		7DF2466E2FCABBA100F38805 /* VLCPhotoLibraryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCPhotoLibraryController.h; sourceTree = "<group>"; };
 		7DF2466F2FCABBA100F38805 /* VLCPhotoLibraryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCPhotoLibraryController.m; sourceTree = "<group>"; };
 		7DF383AA1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemoteBrowsingCollectionViewController.h; sourceTree = "<group>"; };
@@ -4831,6 +4835,7 @@
 			isa = PBXGroup;
 			children = (
 				94693E8AF736940EE908E5B9 /* PodcastEpisodeCell.swift */,
+				7DF0C8C93026684B00326B65 /* PodcastEpisodeRowCell.swift */,
 				B55E7A769F0FA52EDC5ACE1D /* ContinueListeningCarouselCell.swift */,
 				B7C2F86C79424A52ADE38DB5 /* ShowTileCell.swift */,
 				6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */,
@@ -6274,6 +6279,7 @@
 				7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */,
 				7D50C6A22BBD20DF00B9F1A0 /* VLCNetworkListViewController.m in Sources */,
 				7D1E447A3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */,
+				7DF0C8CC3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */,
 				7D1E447B3018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */,
 				7D1E447C3018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */,
 				7D1E447E3018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */,
@@ -6420,6 +6426,7 @@
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				8DF966B121188BDB00D0FCD6 /* EditController.swift in Sources */,
 				8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */,
+				7DF0C8CB3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */,
 				8D4F9B472141630000E478BE /* MediaModel.swift in Sources */,
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */,
@@ -6892,6 +6899,7 @@
 				7DA514BD2EF82B63000C9995 /* AlbumHeader.swift in Sources */,
 				7D4BE50B301A3ED900277F3E /* VLCBrowseSharingCell.m in Sources */,
 				7DA514BE2EF82B63000C9995 /* URLHandler.swift in Sources */,
+				7DF0C8CA3026684B00326B65 /* PodcastEpisodeRowCell.swift in Sources */,
 				7DA514BF2EF82B63000C9995 /* VideoViewController.swift in Sources */,
 				7DA514C02EF82B63000C9995 /* PopupView.swift in Sources */,
 				FEC04E0000000000000000F4 /* PulsingConeView.swift in Sources */,

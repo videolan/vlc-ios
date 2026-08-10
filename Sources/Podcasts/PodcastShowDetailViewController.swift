@@ -45,12 +45,24 @@ class PodcastShowDetailViewController: UIViewController {
 
     private var cachedEpisodes: [PodcastEpisode]?
 
+    private var playingEpisodeId: String?
+
+    private var searchQuery = ""
+
+    private var isSearching: Bool {
+        return !searchQuery.isEmpty
+    }
+
     private var episodes: [PodcastEpisode] {
         if let cachedEpisodes = cachedEpisodes {
             return cachedEpisodes
         }
 
-        let episodes = store.episodes(forShowId: show.id)
+        var episodes = store.episodes(forShowId: show.id)
+        if isSearching {
+            episodes = episodes.filter { matchesSearchQuery($0) }
+        }
+
         let sorted: [PodcastEpisode]
         switch sortCriteria {
         case .releaseDate:
@@ -66,6 +78,16 @@ class PodcastShowDetailViewController: UIViewController {
         return result
     }
 
+    private func matchesSearchQuery(_ episode: PodcastEpisode) -> Bool {
+        if episode.title.localizedStandardContains(searchQuery) {
+            return true
+        }
+        guard let notes = episode.notesHTML else {
+            return false
+        }
+        return notes.localizedStandardContains(searchQuery)
+    }
+
     // Shows can have thousands of episodes (VLCMLSubscription has no paged query, unlike the
     // audio/video tabs' VLCMediaLibrary calls), so only reveal kVLCDefaultPageSize at a time and
     // grow the window as the user scrolls near the end, mirroring MediaCategoryViewController's
@@ -76,19 +98,37 @@ class PodcastShowDetailViewController: UIViewController {
         return episodes.prefix(revealedEpisodeCount)
     }
 
+    private var isNavigationTitleVisible = false
+    private var headerTitleBottomOffset: CGFloat?
+
+    private var episodeRowHeight = PodcastEpisodeRowCell.height
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 76
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.estimatedSectionFooterHeight = 0
         tableView.register(PodcastShowHeaderCell.self, forCellReuseIdentifier: PodcastShowHeaderCell.reuseIdentifier)
-        tableView.register(PodcastEpisodeCell.self, forCellReuseIdentifier: PodcastEpisodeCell.reuseIdentifier)
+        tableView.register(PodcastEpisodeRowCell.self, forCellReuseIdentifier: PodcastEpisodeRowCell.reuseIdentifier)
         tableView.register(PodcastSectionHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: PodcastSectionHeaderView.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            searchController.searchBar.searchBarStyle = .minimal
+        }
+        return searchController
     }()
 
     init(show: PodcastShow) {
@@ -126,32 +166,207 @@ class PodcastShowDetailViewController: UIViewController {
         ])
 
         applyTheme()
-        NotificationCenter.default.addObserver(self,
-                                                selector: #selector(applyTheme),
-                                                name: .VLCThemeDidChangeNotification,
-                                                object: nil)
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applyTheme),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(contentSizeCategoryDidChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStart),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidPause),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidResume),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStop),
+                                       object: nil)
+
         store.addObserver(self)
-        setupSortButton()
+        store.prefetchArtwork(forShowId: show.id)
+        refreshPlayingEpisodeId()
+        setupNavigationBarButtons()
+        setupSearchController()
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("EPISODES", comment: ""),
+                                                           style: .plain,
+                                                           target: nil,
+                                                           action: nil)
     }
 
-    private func setupSortButton() {
-        guard #available(iOS 14.0, *) else {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateNavigationTitleVisibility()
+    }
+
+    private func updateNavigationTitleVisibility() {
+        if let headerView = headerView, headerView.titleFrame.height > 0 {
+            headerTitleBottomOffset = headerView.titleFrame.maxY
+        }
+
+        guard let headerTitleBottomOffset = headerTitleBottomOffset else {
             return
         }
-        let sortButton = UIBarButtonItem()
-        if #available(iOS 26.0, *) {
-            sortButton.image = UIImage(systemName: "ellipsis")
-        } else {
-            sortButton.image = UIImage(named: "EllipseCircle")
+
+        let headerIndexPath = IndexPath(row: 0, section: PodcastShowSection.header.rawValue)
+        let titleBottom = tableView.rectForRow(at: headerIndexPath).minY + headerTitleBottomOffset
+        let navigationBarBottom = tableView.contentOffset.y + tableView.adjustedContentInset.top
+
+        let shouldBeVisible = isSearching || titleBottom <= navigationBarBottom
+        guard shouldBeVisible != isNavigationTitleVisible else {
+            return
         }
-        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
-        sortButton.accessibilityHint = NSLocalizedString("PODCAST_SORT_EPISODES_HINT", comment: "")
-        sortButton.menu = generateSortMenu(for: sortButton)
-        navigationItem.rightBarButtonItem = sortButton
+        isNavigationTitleVisible = shouldBeVisible
+
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.type = .fade
+        navigationController?.navigationBar.layer.add(transition, forKey: nil)
+        title = shouldBeVisible ? show.name : nil
+    }
+
+    @objc private func contentSizeCategoryDidChange() {
+        episodeRowHeight = PodcastEpisodeRowCell.height
+        tableView.reloadData()
+    }
+
+    @objc private func playbackStateDidChange() {
+        let previousEpisodeId = playingEpisodeId
+        refreshPlayingEpisodeId()
+        guard previousEpisodeId != playingEpisodeId else {
+            return
+        }
+        tableView.reloadSections(IndexSet(integer: PodcastShowSection.episodes.rawValue), with: .none)
+    }
+
+    private func setupNavigationBarButtons() {
+        let overflowButton = UIBarButtonItem()
+        if #available(iOS 26.0, *) {
+            overflowButton.image = UIImage(systemName: "ellipsis")
+        } else {
+            overflowButton.image = UIImage(named: "EllipseCircle")
+        }
+        overflowButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
+        if #available(iOS 14.0, *) {
+            overflowButton.menu = generateOverflowMenu()
+        } else {
+            overflowButton.target = self
+            overflowButton.action = #selector(showOverflowActionSheet)
+        }
+        var rightBarButtonItems = [overflowButton]
+
+        if #unavailable(iOS 26) {
+            let searchImage: UIImage?
+            if #available(iOS 13.0, *) {
+                searchImage = UIImage(systemName: "magnifyingglass")
+            } else {
+                searchImage = nil
+            }
+
+            let searchButton = UIBarButtonItem(image: searchImage, style: .plain, target: self,
+                                               action: #selector(didTapSearch))
+            searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
+            rightBarButtonItems.insert(searchButton, at: 0)
+        }
+
+        navigationItem.rightBarButtonItems = rightBarButtonItems
+    }
+
+    // iOS 26 keeps the search field in the title bar itself; older systems reveal it from the
+    // search button, mirroring the podcasts overview.
+    private func setupSearchController() {
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            navigationItem.preferredSearchBarPlacement = .integrated
+            navigationItem.hidesSearchBarWhenScrolling = true
+            navigationItem.searchController = searchController
+        }
+        definesPresentationContext = true
+    }
+
+    @objc private func didTapSearch() {
+        navigationItem.searchController = searchController
+        DispatchQueue.main.async { [weak self] in
+            self?.searchController.isActive = true
+        }
+    }
+
+    private var overflowActions: [(title: String, imageName: String, destructive: Bool, handler: () -> Void)] {
+        var actions: [(String, String, Bool, () -> Void)] = [
+            (NSLocalizedString("PODCAST_MARK_ALL_AS_PLAYED", comment: ""), "checkmark.circle", false,
+             { [weak self] in self?.markAllEpisodesAsPlayed() })
+        ]
+
+        if show.websiteURL != nil {
+            actions.append((NSLocalizedString("PODCAST_OPEN_WEBSITE", comment: ""), "safari", false,
+                            { [weak self] in self?.openWebsite() }))
+        }
+
+        actions.append((NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""), "xmark.circle", true,
+                        { [weak self] in self?.confirmUnsubscribe() }))
+        return actions
     }
 
     @available(iOS 14.0, *)
-    private func generateSortMenu(for sortButton: UIBarButtonItem) -> UIMenu {
+    private func generateOverflowMenu() -> UIMenu {
+        let actions = overflowActions.map { action in
+            UIAction(title: action.title,
+                     image: UIImage(systemName: action.imageName),
+                     attributes: action.destructive ? .destructive : []) { _ in action.handler() }
+        }
+        return UIMenu(title: "", children: actions)
+    }
+
+    @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: show.name, message: nil, preferredStyle: .actionSheet)
+        for action in overflowActions {
+            alertController.addAction(UIAlertAction(title: action.title,
+                                                    style: action.destructive ? .destructive : .default) { _ in
+                action.handler()
+            })
+        }
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+        alertController.popoverPresentationController?.barButtonItem = sender
+        present(alertController, animated: true)
+    }
+
+    private func markAllEpisodesAsPlayed() {
+        store.markAllEpisodes(ofShowId: show.id, played: true)
+    }
+
+    private func openWebsite() {
+        guard let websiteURL = show.websiteURL else {
+            return
+        }
+        UIApplication.shared.open(websiteURL)
+    }
+
+    private func confirmUnsubscribe() {
+        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
+                                                 message: NSLocalizedString("PODCAST_UNSUBSCRIBE_MESSAGE", comment: ""),
+                                                 preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
+                                                style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.store.unsubscribe(showId: self.show.id)
+            self.navigationController?.popViewController(animated: true)
+        })
+        present(alertController, animated: true)
+    }
+
+    @available(iOS 14.0, *)
+    private func generateSortMenu() -> UIMenu {
         var sortActions: [UIMenuElement] = []
         for criterion in PodcastEpisodeSortCriteria.allCases {
             let isCurrentSort = criterion == sortCriteria
@@ -164,7 +379,6 @@ class PodcastShowDetailViewController: UIViewController {
                                   handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.executeSortAction(with: criterion, desc: !self.sortDescending)
-                sortButton.menu = self.generateSortMenu(for: sortButton)
             })
             sortActions.append(action)
         }
@@ -197,8 +411,31 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     @objc private func applyTheme() {
-        view.backgroundColor = PresentationTheme.current.colors.background
-        tableView.backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        view.backgroundColor = colors.background
+        tableView.backgroundColor = colors.background
+        searchController.searchBar.backgroundColor = colors.background
+
+        if #unavailable(iOS 26) {
+            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField,
+               let backgroundView = textField.subviews.first {
+                backgroundView.backgroundColor = colors.background
+                backgroundView.layer.cornerRadius = 10
+                backgroundView.clipsToBounds = true
+            }
+        }
+    }
+
+    private func refreshPlayingEpisodeId() {
+        playingEpisodeId = store.isPlaying ? store.nowPlayingEpisodeId : nil
+    }
+
+    private func togglePlayback(of episode: PodcastEpisode) {
+        if store.nowPlayingEpisodeId == episode.id {
+            store.togglePlayPause()
+        } else {
+            store.play(episodeId: episode.id, showId: show.id)
+        }
     }
 
     private func downloadEpisode(_ episode: PodcastEpisode, at indexPath: IndexPath) {
@@ -224,11 +461,77 @@ class PodcastShowDetailViewController: UIViewController {
     }
 }
 
+// MARK: - PodcastEpisodeRowCellDelegate
+
+extension PodcastShowDetailViewController: PodcastEpisodeRowCellDelegate {
+    private func episode(for cell: PodcastEpisodeRowCell) -> (PodcastEpisode, IndexPath)? {
+        guard let indexPath = tableView.indexPath(for: cell),
+              PodcastShowSection(rawValue: indexPath.section) == .episodes,
+              indexPath.row < visibleEpisodes.count else {
+            return nil
+        }
+        return (visibleEpisodes[indexPath.row], indexPath)
+    }
+
+    func podcastEpisodeRowCellDidTapPlay(_ cell: PodcastEpisodeRowCell) {
+        guard let (episode, _) = episode(for: cell) else {
+            return
+        }
+        togglePlayback(of: episode)
+    }
+
+    func podcastEpisodeRowCellDidTapDownload(_ cell: PodcastEpisodeRowCell) {
+        guard let (episode, indexPath) = episode(for: cell) else {
+            return
+        }
+        downloadEpisode(episode, at: indexPath)
+    }
+
+    func podcastEpisodeRowCellDidTapDeleteDownload(_ cell: PodcastEpisodeRowCell) {
+        guard let (episode, indexPath) = episode(for: cell) else {
+            return
+        }
+        confirmDeleteDownload(of: episode, at: indexPath)
+    }
+}
+
+// MARK: - UISearchResultsUpdating / UISearchControllerDelegate
+
+extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        applySearchQuery(searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
+    }
+
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if #unavailable(iOS 26) {
+            navigationItem.searchController = nil
+        }
+        applySearchQuery("")
+    }
+
+    private func applySearchQuery(_ query: String) {
+        guard query != searchQuery else {
+            return
+        }
+
+        searchQuery = query
+        revealedEpisodeCount = Int(kVLCDefaultPageSize)
+        cachedEpisodes = nil
+        tableView.reloadData()
+        updateNavigationTitleVisibility()
+    }
+}
+
 // MARK: - MediaLibraryBaseModelObserver
 
 extension PodcastShowDetailViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
         cachedEpisodes = nil
+        refreshPlayingEpisodeId()
         tableView.reloadData()
     }
 }
@@ -243,7 +546,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch PodcastShowSection(rawValue: section) {
         case .header:
-            return 1
+            return isSearching ? 0 : 1
         case .episodes, .none:
             return visibleEpisodes.count
         }
@@ -259,12 +562,29 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             return nil
         }
 
-        header.configure(title: NSLocalizedString("EPISODES", comment: ""))
+        let title = NSLocalizedString("EPISODES", comment: "")
+        if #available(iOS 14.0, *) {
+            header.configure(title: title, sortTitle: sortCriteria.title, sortMenu: generateSortMenu())
+        } else {
+            header.configure(title: title)
+        }
         return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return PodcastShowSection(rawValue: indexPath.section) == .header ? 320 : episodeRowHeight
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return PodcastShowSection(rawValue: section) == .episodes ? UITableView.automaticDimension : .leastNormalMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -279,32 +599,30 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             headerView = cell.configure(show: show)
             return cell
         case .episodes, .none:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeCell.reuseIdentifier,
-                                                           for: indexPath) as? PodcastEpisodeCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeRowCell.reuseIdentifier,
+                                                           for: indexPath) as? PodcastEpisodeRowCell else {
                 return UITableViewCell()
             }
 
             let episode = visibleEpisodes[indexPath.row]
+            store.requestArtwork(for: episode)
             cell.configure(episode: episode,
-                           leading: .playButton,
-                           showName: nil,
-                           downloading: store.isDownloading(episodeId: episode.id),
-                           onTapLeading: { [weak self] in
-                               guard let self = self else { return }
-                               self.store.play(episodeId: episode.id, showId: self.show.id)
-                           },
-                           onDownload: { [weak self] in
-                               self?.downloadEpisode(episode, at: indexPath)
-                           },
-                           onDeleteDownload: { [weak self] in
-                               self?.confirmDeleteDownload(of: episode, at: indexPath)
-                           })
+                           showName: show.name,
+                           showArtworkURL: show.artworkURL,
+                           isPlaying: episode.id == playingEpisodeId,
+                           downloading: store.isDownloading(episodeId: episode.id))
+            cell.showsSeparator = indexPath.row > 0
+            cell.delegate = self
             return cell
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateNavigationTitleVisibility()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
