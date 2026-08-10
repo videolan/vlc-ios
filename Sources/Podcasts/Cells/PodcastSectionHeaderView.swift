@@ -32,16 +32,34 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
         setupUI()
     }
 
+    private let sortButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .preferredCustomFont(forTextStyle: .subheadline)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.isHidden = true
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     private func setupUI() {
         let background = UIView()
         backgroundView = background
 
         contentView.addSubview(titleLabel)
+        contentView.addSubview(sortButton)
+
+        let bottomConstraint = titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
+        bottomConstraint.priority = .init(999)
+
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: sortButton.leadingAnchor, constant: -8),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
+            bottomConstraint,
+
+            sortButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            sortButton.lastBaselineAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor)
         ])
 
         applyTheme()
@@ -53,11 +71,25 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
 
     func configure(title: String) {
         titleLabel.text = title
+        sortButton.isHidden = true
+    }
+
+    @available(iOS 14.0, *)
+    func configure(title: String, sortTitle: String, sortMenu: UIMenu) {
+        titleLabel.text = title
+        sortButton.isHidden = false
+        sortButton.setTitle(sortTitle, for: .normal)
+        sortButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        sortButton.semanticContentAttribute = .forceRightToLeft
+        sortButton.accessibilityHint = NSLocalizedString("PODCAST_SORT_EPISODES_HINT", comment: "")
+        sortButton.showsMenuAsPrimaryAction = true
+        sortButton.menu = sortMenu
     }
 
     @objc private func applyTheme() {
         let colors = PresentationTheme.current.colors
         backgroundView?.backgroundColor = colors.background
         titleLabel.textColor = colors.cellTextColor
+        sortButton.tintColor = colors.orangeUI
     }
 }
