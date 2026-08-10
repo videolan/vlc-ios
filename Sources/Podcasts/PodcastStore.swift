@@ -306,13 +306,17 @@ final class PodcastStore: NSObject {
         return PodcastShow(id: String(subscription.identifier()),
                             name: subscription.name,
                             episodeCount: Int(subscription.nbMedia()),
-                            artworkURL: subscription.artworkMRL)
+                            artworkURL: subscription.artworkMRL,
+                            websiteURL: subscription.website,
+                            author: subscription.author)
     }
 
     private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
         let progress = media.progress > 0 ? Double(media.progress) : nil
         let downloaded = media.files.contains { $0.type() == .cache }
         let releaseDate = media.releaseDate()
+        let subscriptionEpisode = media.subscriptionEpisode
+        let notesHTML = subscriptionEpisode?.showNotes ?? media.shortSummary
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,
@@ -323,7 +327,10 @@ final class PodcastStore: NSObject {
                                durationValue: media.duration(),
                                progress: progress,
                                downloaded: downloaded,
-                               continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1)
+                               continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1,
+                               playCount: media.playCount(),
+                               author: subscriptionEpisode?.author,
+                               notesHTML: notesHTML)
     }
 }
 
