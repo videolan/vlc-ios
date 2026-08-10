@@ -13,6 +13,22 @@
 import UIKit
 
 class PodcastDownloadButton: UIButton {
+    private static let downloadImage: UIImage? = {
+        guard #available(iOS 13.0, *) else {
+            return nil
+        }
+        return UIImage(systemName: "arrow.down.circle",
+                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+    }()
+
+    private static let downloadedImage: UIImage? = {
+        guard #available(iOS 13.0, *) else {
+            return nil
+        }
+        return UIImage(systemName: "checkmark.circle.fill",
+                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+    }()
+
     private(set) var isDownloaded = false
     private(set) var isDownloading = false
 
@@ -80,12 +96,11 @@ class PodcastDownloadButton: UIButton {
             return
         }
 
-        let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
         if downloaded {
-            setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config), for: .normal)
+            setImage(PodcastDownloadButton.downloadedImage, for: .normal)
             tintColor = colors.orangeUI
         } else {
-            setImage(UIImage(systemName: "arrow.down.circle", withConfiguration: config), for: .normal)
+            setImage(PodcastDownloadButton.downloadImage, for: .normal)
             tintColor = colors.cellDetailTextColor
         }
         accessibilityLabel = downloaded
