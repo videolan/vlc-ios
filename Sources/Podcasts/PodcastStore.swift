@@ -158,6 +158,19 @@ final class PodcastStore: NSObject {
         notifyReload()
     }
 
+    func markEpisodeAsPlayed(episodeId: String, showId: String) {
+        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+            return
+        }
+
+        media.removeFromHistory()
+        media.isNew = false
+        media.setPlayCount(1)
+
+        invalidateCaches()
+        notifyReload()
+    }
+
     func play(episodeId: String, showId: String) {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return

@@ -619,6 +619,13 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        guard PodcastShowSection(rawValue: indexPath.section) == .episodes else {
+            return
+        }
+        let episode = visibleEpisodes[indexPath.row]
+        let detailViewController = PodcastEpisodeDetailViewController(episode: episode, show: show)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
