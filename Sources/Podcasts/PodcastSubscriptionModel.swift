@@ -107,7 +107,7 @@ final class PodcastSubscriptionModel: NSObject {
         medialibrary.currentlyPlayingCollection = nil
     }
 
-    private func refresh() {
+    func refresh() {
         subscriptions = service?.subscriptions() ?? []
     }
 }

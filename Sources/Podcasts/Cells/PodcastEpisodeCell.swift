@@ -147,6 +147,8 @@ class PodcastEpisodeCell: UITableViewCell {
                     onTapLeading: (() -> Void)? = nil,
                     onDownload: (() -> Void)? = nil,
                     onDeleteDownload: (() -> Void)? = nil) {
+        PodcastStore.shared.requestArtwork(for: episode)
+
         switch leading {
         case .artwork(let name, let artworkURL):
             artworkView.isHidden = false

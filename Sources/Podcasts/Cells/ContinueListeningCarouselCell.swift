@@ -80,6 +80,10 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
     }
 
     func configure(episode: PodcastEpisode, show: PodcastShow?) {
+        PodcastStore.shared.requestArtwork(for: episode)
+        if let show = show {
+            PodcastStore.shared.requestArtwork(for: show)
+        }
         artworkView.configure(name: show?.name ?? "",
                               artworkURL: episode.artworkURL ?? show?.artworkURL,
                               cornerRadius: 12,

@@ -70,6 +70,7 @@ class ShowTileCell: UICollectionViewCell {
     }
 
     func configure(show: PodcastShow) {
+        PodcastStore.shared.requestArtwork(for: show)
         artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 9, fontSize: 22)
         nameLabel.text = show.name
         episodeCountLabel.text = String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), show.episodeCount)

@@ -20,6 +20,11 @@ final class PodcastStore: NSObject {
     private var mediaLibraryService: MediaLibraryService?
 
     private var pendingCacheMediaIds: Set<VLCMLIdentifier> = []
+    private var requestedArtworkEpisodeIds: Set<String> = []
+    private var requestedArtworkShowIds: Set<String> = []
+    private var pendingArtworkEpisodeIds: Set<String> = []
+    private var artworkFlushScheduled = false
+    private var artworkReloadScheduled = false
 
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
@@ -34,6 +39,7 @@ final class PodcastStore: NSObject {
     private var cachedShowsById: [String: PodcastShow] = [:]
 
     private static let latestEpisodesPerShow = 3
+    private static let prefetchedArtworkEpisodes = 10
 
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -148,6 +154,67 @@ final class PodcastStore: NSObject {
         subscriptionModel.play(episodeId: episodeId, subscription: subscription)
     }
 
+    func requestArtwork(for episode: PodcastEpisode) {
+        guard episode.artworkURL?.isFileURL != true,
+              requestedArtworkEpisodeIds.insert(episode.id).inserted else {
+            return
+        }
+        pendingArtworkEpisodeIds.insert(episode.id)
+        scheduleArtworkFlush()
+    }
+
+    func prefetchArtwork(forShowId showId: String) {
+        if let show = show(withId: showId) {
+            requestArtwork(for: show)
+        }
+        let latest = episodes(forShowId: showId).sorted { $0.releaseDate > $1.releaseDate }
+        for episode in latest.prefix(PodcastStore.prefetchedArtworkEpisodes) {
+            requestArtwork(for: episode)
+        }
+    }
+
+    private func scheduleArtworkFlush() {
+        guard !artworkFlushScheduled else {
+            return
+        }
+        artworkFlushScheduled = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.artworkFlushScheduled = false
+            self.flushArtworkRequests()
+        }
+    }
+
+    private func flushArtworkRequests() {
+        let pending = pendingArtworkEpisodeIds
+        pendingArtworkEpisodeIds.removeAll()
+
+        guard let mediaLibraryService = mediaLibraryService else {
+            return
+        }
+        for episodeId in pending {
+            guard let identifier = VLCMLIdentifier(episodeId),
+                  let media = mediaLibraryService.media(for: identifier) else {
+                continue
+            }
+            media.requestThumbnail(of: .thumbnail, desiredWidth: 0, desiredHeight: 0, atPosition: 0)
+        }
+    }
+
+    func requestArtwork(for show: PodcastShow) {
+        guard show.artworkURL?.isFileURL != true,
+              requestedArtworkShowIds.insert(show.id).inserted else {
+            return
+        }
+        guard let subscription = subscription(withId: show.id) else {
+            APLog("podcast artwork: no subscription found for show \(show.id)")
+            return
+        }
+        if subscription.requestArtwork() == false {
+            APLog("podcast artwork: failed to queue show \(show.id)")
+        }
+    }
+
     func isDownloading(episodeId: String) -> Bool {
         guard let mediaId = VLCMLIdentifier(episodeId) else {
             return false
@@ -216,11 +283,15 @@ final class PodcastStore: NSObject {
 
     private func invalidateCaches() {
         episodesByShowId.removeAll()
+        invalidateDerivedEpisodeCaches()
+        cachedShows = nil
+        cachedShowsById.removeAll()
+    }
+
+    private func invalidateDerivedEpisodeCaches() {
         cachedAllEpisodes = nil
         cachedContinueListeningEpisodes = nil
         cachedLatestEpisodes = nil
-        cachedShows = nil
-        cachedShowsById.removeAll()
     }
 
     private func episodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
@@ -288,6 +359,63 @@ extension PodcastStore: MediaLibraryObserver {
                 APLog("podcast cache: media \(mediaId) ended with status \(status.rawValue)")
             }
             self.invalidateCaches()
+            self.notifyReload()
+        }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, thumbnailReady media: VLCMLMedia,
+                      type: VLCMLThumbnailSizeType, success: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let episodeId = String(media.identifier())
+            // This fires for every thumbnail in the library, so leave the ones we never asked for
+            // alone instead of scanning each cached show for them.
+            guard self.requestedArtworkEpisodeIds.contains(episodeId) else {
+                return
+            }
+            guard success else {
+                self.requestedArtworkEpisodeIds.remove(episodeId)
+                APLog("podcast artwork: episode \(episodeId) failed")
+                return
+            }
+            for (showId, episodes) in self.episodesByShowId {
+                guard let index = episodes.firstIndex(where: { $0.id == episodeId }) else {
+                    continue
+                }
+                self.episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media,
+                                                                                    showId: showId)
+                self.invalidateDerivedEpisodeCaches()
+                self.scheduleArtworkReload()
+                return
+            }
+        }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      artworkReadyForSubscriptionWithId subscriptionId: VLCMLIdentifier, success: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let showId = String(subscriptionId)
+            guard success else {
+                self.requestedArtworkShowIds.remove(showId)
+                APLog("podcast artwork: show \(showId) failed")
+                return
+            }
+            self.subscriptionModel?.refresh()
+            self.cachedShows = nil
+            self.cachedShowsById.removeAll()
+            self.scheduleArtworkReload()
+        }
+    }
+
+    private func scheduleArtworkReload() {
+        guard !artworkReloadScheduled else {
+            return
+        }
+        artworkReloadScheduled = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.artworkReloadScheduled = false
             self.notifyReload()
         }
     }
