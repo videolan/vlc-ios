@@ -275,11 +275,8 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
                 return UITableViewCell()
             }
 
-            headerView = cell.configure(show: show) { [weak self] in
-                guard let self = self else { return }
-                self.store.toggleSubscribe(showId: self.show.id)
-                self.headerView?.refreshSubscribeState()
-            }
+            store.requestArtwork(for: show)
+            headerView = cell.configure(show: show)
             return cell
         case .episodes, .none:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeCell.reuseIdentifier,

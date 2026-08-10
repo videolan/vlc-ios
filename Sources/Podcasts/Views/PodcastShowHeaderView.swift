@@ -13,10 +13,7 @@
 import UIKit
 
 class PodcastShowHeaderView: UIView {
-    var onToggleSubscribe: (() -> Void)?
-
     private let show: PodcastShow
-    private let store = PodcastStore.shared
 
     private let artworkView = PodcastArtworkView()
 
@@ -29,13 +26,19 @@ class PodcastShowHeaderView: UIView {
         return label
     }()
 
-    private let subscribeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = .preferredCustomFont(forTextStyle: .footnote).semibolded
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private let authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredCustomFont(forTextStyle: .subheadline)
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
+
+    var titleFrame: CGRect {
+        return nameLabel.frame
+    }
 
     init(show: PodcastShow) {
         self.show = show
@@ -52,68 +55,48 @@ class PodcastShowHeaderView: UIView {
 
         addSubview(artworkView)
         addSubview(nameLabel)
-        addSubview(subscribeButton)
-
-        subscribeButton.addTarget(self, action: #selector(didTapSubscribe), for: .touchUpInside)
 
         artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 20, fontSize: 44)
 
         nameLabel.text = show.name
 
-        NSLayoutConstraint.activate([
-            artworkView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+        var constraints = [
+            artworkView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             artworkView.centerXAnchor.constraint(equalTo: centerXAnchor),
             artworkView.widthAnchor.constraint(equalToConstant: 140),
             artworkView.heightAnchor.constraint(equalToConstant: 140),
 
             nameLabel.topAnchor.constraint(equalTo: artworkView.bottomAnchor, constant: 14),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
+        ]
 
-            subscribeButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
-            subscribeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            subscribeButton.heightAnchor.constraint(equalToConstant: 40),
-            subscribeButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
-            subscribeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
-        ])
+        if let author = show.author, !author.isEmpty {
+            addSubview(authorLabel)
+            authorLabel.text = author
+            constraints += [
+                authorLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+                authorLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+                authorLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+                authorLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
+            ]
+        } else {
+            constraints.append(nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4))
+        }
+
+        NSLayoutConstraint.activate(constraints)
 
         applyTheme()
         NotificationCenter.default.addObserver(self,
                                                 selector: #selector(applyTheme),
                                                 name: .VLCThemeDidChangeNotification,
                                                 object: nil)
-        refreshSubscribeState()
-    }
-
-    func refreshSubscribeState() {
-        let isSubscribed = store.isSubscribed(showId: show.id)
-        let colors = PresentationTheme.current.colors
-
-        let title = isSubscribed
-            ? NSLocalizedString("PODCAST_SUBSCRIBED", comment: "")
-            : NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
-        subscribeButton.setTitle(title, for: .normal)
-
-        if isSubscribed {
-            subscribeButton.backgroundColor = .clear
-            subscribeButton.setTitleColor(colors.cellTextColor, for: .normal)
-            subscribeButton.layer.borderWidth = 1
-            subscribeButton.layer.borderColor = colors.separatorColor.cgColor
-        } else {
-            subscribeButton.backgroundColor = colors.orangeUI
-            subscribeButton.setTitleColor(colors.cellTextColor, for: .normal)
-            subscribeButton.layer.borderWidth = 0
-        }
     }
 
     @objc private func applyTheme() {
         let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         nameLabel.textColor = colors.cellTextColor
-        refreshSubscribeState()
-    }
-
-    @objc private func didTapSubscribe() {
-        onToggleSubscribe?()
+        authorLabel.textColor = colors.cellDetailTextColor
     }
 }

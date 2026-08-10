@@ -29,12 +29,10 @@ class PodcastShowHeaderCell: UITableViewCell {
         selectionStyle = .none
     }
 
-    @discardableResult
-    func configure(show: PodcastShow, onToggleSubscribe: @escaping () -> Void) -> PodcastShowHeaderView {
+    func configure(show: PodcastShow) -> PodcastShowHeaderView {
         headerView?.removeFromSuperview()
 
         let headerView = PodcastShowHeaderView(show: show)
-        headerView.onToggleSubscribe = onToggleSubscribe
         contentView.addSubview(headerView)
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
