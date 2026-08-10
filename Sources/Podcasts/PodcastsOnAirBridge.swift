@@ -12,6 +12,14 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let VLCPodcastsContentDidChange = Notification.Name("VLCPodcastsContentDidChange")
+}
+
+extension NSNotification {
+    @objc static let VLCPodcastsContentDidChange = Notification.Name.VLCPodcastsContentDidChange
+}
+
 @objc final class PodcastsOnAirBridge: NSObject {
     @objc static let showsCellReuseIdentifier = "OnAirPodcastShowsCell"
 

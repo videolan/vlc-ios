@@ -123,6 +123,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [notificationCenter addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
     [notificationCenter addObserver:self selector:@selector(reloadContent) name:VLCRadioRecentStreamsDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(podcastsDidChange) name:NSNotification.VLCPodcastsContentDidChange object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown) name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden) name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidStart) name:VLCPlaybackServicePlaybackDidStart object:nil];
@@ -168,6 +169,14 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 }
 
 #pragma mark - content
+
+- (void)podcastsDidChange
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->_podcastsIsEmpty = (PodcastsOnAirBridge.numberOfShows == 0);
+        [self->_tableView reloadData];
+    });
+}
 
 - (void)favoritesDidChange
 {

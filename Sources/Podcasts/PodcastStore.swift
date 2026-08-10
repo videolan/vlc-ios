@@ -470,5 +470,6 @@ extension PodcastStore: MediaLibraryObserver {
 
     private func notifyReload() {
         subscriptionModel?.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+        NotificationCenter.default.post(name: .VLCPodcastsContentDidChange, object: nil)
     }
 }
