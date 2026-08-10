@@ -132,6 +132,10 @@ extension NSNotification {
                                      didUpdateCacheForSubscriptionWithId subscriptionId: VLCMLIdentifier)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     artworkReadyForSubscriptionWithId subscriptionId: VLCMLIdentifier,
+                                     success: Bool)
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      cacheIdleChanged idle: Bool)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
@@ -206,6 +210,7 @@ class MediaLibraryService: NSObject {
 
 #if !os(watchOS)
     private let subscriptionCacher = VLCSubscriptionCacher()
+    private let artworkCacher = VLCArtworkCacher()
 #endif
 
     @objc var medialib: VLCMediaLibrary {
@@ -457,6 +462,7 @@ private extension MediaLibraryService {
         privateMediaLib.delegate = self
 #if !os(watchOS)
         privateMediaLib.cacherDelegate = subscriptionCacher
+        privateMediaLib.artworkCacherDelegate = artworkCacher
 #endif
 
         switch medialibraryStatus {
@@ -1033,6 +1039,14 @@ extension MediaLibraryService {
                       didUpdateCacheForSubscriptionWithId subscriptionId: VLCMLIdentifier) {
         observable.notifyObservers {
             $0.medialibrary?(self, didUpdateCacheForSubscriptionWithId: subscriptionId)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      artworkReadyForSubscriptionWithId subscriptionId: VLCMLIdentifier,
+                      withSuccess success: Bool) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, artworkReadyForSubscriptionWithId: subscriptionId, success: success)
         }
     }
 

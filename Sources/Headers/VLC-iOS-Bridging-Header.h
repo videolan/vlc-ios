@@ -8,6 +8,7 @@
 #import "VLCMigrationCursor.h"
 #import "VLCTransferController.h"
 #import "VLCSubscriptionCacher.h"
+#import "VLCArtworkCacher.h"
 #import "VLCTransferViewController.h"
 #import "VLCEmptyLibraryView.h"
 #import "VLCOpenNetworkStreamViewController.h"
