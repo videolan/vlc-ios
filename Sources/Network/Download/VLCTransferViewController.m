@@ -163,6 +163,9 @@
     [notificationCenter addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(transferStateDidChange:) name:VLCTransferControllerStateDidChangeNotification object:nil];
 
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
+    [_transferController observeOutstandingWatchTransfers];
+#endif
     [self updateForTheme];
 }
 
@@ -502,7 +505,7 @@
 {
     if (indexPath.section == 0) {
         VLCTransferItem *item = _inProgress[indexPath.row];
-        return !(item.active && item.direction == VLCTransferDirectionUpload);
+        return !(item.active && item.direction == VLCTransferDirectionUpload && item.type == VLCTransferTypeStandard);
     }
     return indexPath.section == 2;
 }

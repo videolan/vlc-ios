@@ -23,7 +23,9 @@
 #import "VLC-Swift.h"
 #import "VLCAppSceneDelegate.h"
 #import "VLCMLMedia+isWatched.h"
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
 #import <WatchConnectivity/WatchConnectivity.h>
+#endif
 
 @interface VLCAppDelegate ()
 {

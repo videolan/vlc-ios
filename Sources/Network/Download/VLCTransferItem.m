@@ -20,6 +20,7 @@
 }
 
 @property (readwrite) VLCTransferDirection direction;
+@property (readwrite) VLCTransferType type;
 @property (readwrite) BOOL active;
 @property (readwrite) BOOL sizeKnown;
 @property (readwrite) CGFloat progress;
@@ -74,6 +75,7 @@
 {
     VLCTransferItem *item = [[VLCTransferItem alloc] init];
     item.direction = VLCTransferDirectionDownload;
+    item.type = VLCTransferTypeStandard;
     item.displayName = name ?: @"";
     item.active = YES;
     return item;
@@ -83,6 +85,7 @@
 {
     VLCTransferItem *item = [[VLCTransferItem alloc] init];
     item.direction = VLCTransferDirectionDownload;
+    item.type = VLCTransferTypeStandard;
     item.displayName = name ?: @"";
     item.active = NO;
     item.urlString = urlString;
@@ -93,10 +96,25 @@
 {
     VLCTransferItem *item = [[VLCTransferItem alloc] init];
     item.direction = VLCTransferDirectionUpload;
+    item.type = VLCTransferTypeStandard;
     item.displayName = @"";
     item.active = YES;
     item.expectedBytes = expectedSize;
     item.sizeKnown = expectedSize > 0;
+    return item;
+}
+
++ (instancetype)watchTransferItemWithName:(NSString *)name urlString:(NSString *)urlString transferredBytes:(long long)transferredBytes expectedSize:(long long)expectedSize
+{
+    VLCTransferItem *item = [[VLCTransferItem alloc] init];
+    item.direction = VLCTransferDirectionUpload;
+    item.type = VLCTransferTypeWatch;
+    item.displayName = name ?: @"";
+    item.active = YES;
+    item.receivedBytes = transferredBytes;
+    item.expectedBytes = expectedSize;
+    item.sizeKnown = expectedSize > 0;
+    item.urlString = urlString;
     return item;
 }
 

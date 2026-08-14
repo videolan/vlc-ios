@@ -1916,7 +1916,8 @@ private extension MediaCategoryViewController {
                         kVLCiPhoneAlbumID: media.albumId,
                         kVLCiPhoneAlbumName: albumTitle,
                         kVLCiPhoneArtistID: media.artistId,
-                        kVLCiPhoneArtistName: artistName
+                        kVLCiPhoneArtistName: artistName,
+                        kVLCiPhoneMediaFileSize: media.mainFile()?.size() ?? 0
                     ]
 
                     print("Transferring file to watch: \(media.title) (\(mrl)) with payload \n\(payload)")

@@ -64,6 +64,7 @@ struct SettingsItem: Equatable {
         case exportSettings
         case displayResetAlert
         case syncMediaLibraryAlert
+        case transfers
     }
 
     final class Toggle: Equatable {
@@ -836,7 +837,7 @@ enum Lab {
 enum WatchOS {
     static var mediaLibrarySync: SettingsItem {
         let k = kVLCSettingSyncMediaLibrary
-        return .init(title: "SETTINGS_SYNC_MEDIA_LIBRARY",
+        return .init(title: "SETTINGS_SYNC_MEDIA_LIBRARY_TITLE",
                      subtitle: Localizer.getSubtitle(for: k),
                      action: .syncMediaLibraryAlert,
                      isTitleEmphasized: true
@@ -845,15 +846,22 @@ enum WatchOS {
 
     static var mediaLibraryAutoSync: SettingsItem {
         let k = kVLCSettingAutomaticallySyncMediaLibrary
-        return .init(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY",
+        return .init(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_TITLE",
                      subtitle: Localizer.getSubtitle(for: k),
-                     action: .showActionSheet(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY", preferenceKey: k, hasInfo: true))
+                     action: .showActionSheet(title: "SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_TITLE", preferenceKey: k, hasInfo: true))
+    }
+
+    static var transfers: SettingsItem {
+        .init(title: "SETTINGS_WATCHOS_TRANSFERS_TITLE",
+              subtitle: "SETTINGS_WATCHOS_TRANSFERS_SUBTITLE",
+              action: .transfers)
     }
 
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_WATCHOS_TITLE", items: [
             mediaLibrarySync,
-            mediaLibraryAutoSync
+            mediaLibraryAutoSync,
+            transfers
         ])
     }
 }

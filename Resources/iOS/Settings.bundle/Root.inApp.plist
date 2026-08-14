@@ -1134,7 +1134,7 @@
 			<key>Key</key>
 			<string>kVLCSettingSyncMediaLibrary</string>
 			<key>Title</key>
-			<string>SETTINGS_SYNC_MEDIA_LIBRARY</string>
+			<string>SETTINGS_SYNC_MEDIA_LIBRARY_TITLE</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -19,9 +19,15 @@ typedef NS_ENUM(NSInteger, VLCTransferDirection) {
     VLCTransferDirectionUpload,
 };
 
+typedef NS_ENUM(NSInteger, VLCTransferType) {
+    VLCTransferTypeStandard,
+    VLCTransferTypeWatch,
+};
+
 @interface VLCTransferItem : NSObject
 
 @property (readonly) VLCTransferDirection direction;
+@property (readonly) VLCTransferType type;
 @property (readwrite, copy) NSString *displayName;
 @property (readonly) BOOL active;
 @property (readonly) BOOL sizeKnown;
@@ -37,6 +43,7 @@ typedef NS_ENUM(NSInteger, VLCTransferDirection) {
 + (instancetype)downloadItemWithName:(NSString *)name;
 + (instancetype)queuedDownloadItemWithName:(NSString *)name urlString:(NSString *)urlString;
 + (instancetype)uploadItemWithExpectedSize:(long long)expectedSize;
++ (instancetype)watchTransferItemWithName:(NSString *)name urlString:(NSString *)urlString transferredBytes:(long long)transferredBytes expectedSize:(long long)expectedSize;
 
 + (NSString *)byteProgressStringForReceived:(long long)received expected:(long long)expected;
 

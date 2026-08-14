@@ -300,6 +300,15 @@ class SettingsController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    private func showTransfers() {
+#if os(iOS)
+        ImpactFeedbackGenerator().selectionChanged()
+#endif
+
+        let transferViewController = UINavigationController(rootViewController: VLCTransferViewController())
+        present(transferViewController, animated: true)
+    }
+
     private func forceRescanLibrary() {
         let queue = DispatchQueue.global(qos: .background)
         queue.async {
@@ -481,6 +490,8 @@ extension SettingsController {
             showActionSheet(title: title, preferenceKey: preferenceKey)
         case .syncMediaLibraryAlert:
             syncMediaLibraryAlert()
+        case .transfers:
+            showTransfers()
         }
     }
 

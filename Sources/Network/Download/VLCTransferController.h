@@ -14,7 +14,9 @@
 
 #import <Foundation/Foundation.h>
 #import "VLCTransferItem.h"
-
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
+#import <WatchConnectivity/WatchConnectivity.h>
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const VLCTransferControllerStateDidChangeNotification;
@@ -42,6 +44,14 @@ extern NSString * const VLCTransferControllerStateDidChangeNotification;
 - (void)updateExternalDownload:(NSUInteger)token receivedBytes:(long long)received expectedBytes:(long long)expected;
 - (void)finishExternalDownload:(NSUInteger)token filePath:(nullable NSString *)filePath;
 - (void)failExternalDownload:(NSUInteger)token errorDescription:(nullable NSString *)description;
+
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
+#pragma mark - watchOS source
+- (void)observeOutstandingWatchTransfers;
+- (void)updateWatchTransfer:(WCSessionFileTransfer *)fileTransfer receivedBytes:(long long)received expectedBytes:(long long)expected;
+- (void)finishWatchTransfer:(WCSessionFileTransfer *)fileTransfer filePath:(NSString *)filePath;
+- (void)failWatchTransfer:(WCSessionFileTransfer *)fileTransfer errorDescription:(NSString *)description;
+#endif
 
 #pragma mark - List state (view-controller-facing)
 @property (readonly) NSArray<VLCTransferItem *> *inProgressItems;

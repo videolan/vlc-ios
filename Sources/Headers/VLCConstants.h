@@ -216,6 +216,7 @@
 #define kVLCMediaLibrarySyncID @"kVLCMediaLibrarySyncID"
 #define kVLCiPhoneMediaID @"kVLCiPhoneMediaID"
 #define kVLCiPhoneMediaFileName @"kVLCiPhoneMediaFileName"
+#define kVLCiPhoneMediaFileSize @"kVLCiPhoneMediaFileSize"
 
 #define kVLCiPhoneAlbumID @"kVLCiPhoneAlbumID"
 #define kVLCiPhoneAlbumName @"kVLCiPhoneAlbumName"
