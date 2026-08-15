@@ -869,3 +869,14 @@
 "SHARE_EXTENSION_IMPORTING" = "Adding to VLC…";
 "SHARE_EXTENSION_IMPORTED" = "Added to VLC";
 "SHARE_EXTENSION_FAILED" = "Could not add to VLC";
+
+// MARK: - Player WatchOS
+"TRACKS_WO_COUNTER" = "Tracks";
+
+// MARK: - Radio Stations WatchOS
+"STATION_LOAD_ERROR" = "There's been an error loading the station. Please try again.";
+"RADIO_GENERIC_ERROR" = "Something went wrong";
+"RADIO_DATA_LOAD_ERROR" = "There's been an error loading the data";
+"DISCOVER_LABEL" = "Discover";
+"RECENTS" = "Recents";
+
