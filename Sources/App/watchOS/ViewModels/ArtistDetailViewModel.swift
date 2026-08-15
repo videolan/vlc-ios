@@ -17,8 +17,6 @@ class ArtistDetailViewModel: ObservableObject {
     var albums: [VLCMLAlbum] = []
     var tracks: [VLCMLMedia] = []
 
-    lazy var playbackService = PlaybackService.sharedInstance()
-
     init(snapshotArtist: VLCWatchMLArtist) {
         self.snapshotArtist = snapshotArtist
     }
@@ -65,7 +63,7 @@ class ArtistDetailViewModel: ObservableObject {
 
     private func loadTracks(artist: VLCMLArtist?, mlSyncState: MLSyncState) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.tracks = artist?.tracks() ?? []
+            self.tracks = artist?.tracks(with: .default, desc: false) ?? []
             self.loadSnapshotTracks(mediaSyncIds: mlSyncState.mediaSyncIds)
         }
     }
@@ -73,7 +71,7 @@ class ArtistDetailViewModel: ObservableObject {
     private func loadSnapshotTracks(mediaSyncIds: [MLSyncID]) {
         DispatchQueue.global(qos: .userInitiated).async {
             let snapshotMediaFiles = self.snapshotArtist.tracks()
-            let snapshotMedias = snapshotMediaFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
+            let snapshotMedias = snapshotMediaFiles.map { VLCWatchMLMedia($0) }
             DispatchQueue.main.async {
                 self.snapshotMedias = snapshotMedias
                 self.loadThumbnails(snapshotMedias: snapshotMedias, mediaSyncIds: mediaSyncIds)
@@ -90,14 +88,14 @@ class ArtistDetailViewModel: ObservableObject {
     }
 
     func play(mediaID: VLCMLIdentifier) {
-        guard let media: VLCMLMedia = self.tracks.first(where: { $0.identifier() == mediaID })
+        let queue = self.tracks
+        guard let index = queue.firstIndex(where: { $0.identifier() == mediaID })
         else {
-            print("Media with id not found: \(mediaID)")
+            APLog("Media with id not found: \(mediaID)")
             return
         }
-
-        playbackService.play(media)
-        print("Playing media: \(media.title)")
+        
+        ControlPlayerViewController.shared.playQueue(queue, startingAt: index)
     }
 
     private func loadThumbnails(snapshotAlbums: [VLCWatchMLAlbum], albumSyncIds: [MLSyncID]) {

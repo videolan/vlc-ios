@@ -15,8 +15,6 @@ class AlbumDetailViewModel: ObservableObject {
     let snapshotAlbum: VLCWatchMLAlbum
     var tracks: [VLCMLMedia] = []
 
-    lazy var playbackService = PlaybackService.sharedInstance()
-
     init(snapshotAlbum: VLCWatchMLAlbum) {
         self.snapshotAlbum = snapshotAlbum
         NotificationCenter.default.addObserver(self,
@@ -46,7 +44,7 @@ class AlbumDetailViewModel: ObservableObject {
                   let album = VLCAppCoordinator.sharedInstance().mediaLibraryService.medialib.album(withIdentifier: albumId) else {
                 return
             }
-            self.tracks = album.tracks(with: .default, desc: true) ?? []
+            self.tracks = album.tracks(with: .default, desc: false) ?? []
         }
     }
 
@@ -61,14 +59,13 @@ class AlbumDetailViewModel: ObservableObject {
     }
 
     func play(mediaID: VLCMLIdentifier) {
-        guard let media: VLCMLMedia = self.tracks.first(where: { $0.identifier() == mediaID })
+        guard let index = self.tracks.firstIndex(where: { $0.identifier() == mediaID })
         else {
-            print("Media with id not found: \(mediaID)")
+            APLog("Media with id not found: \(mediaID)")
             return
         }
-
-        playbackService.play(media)
-        print("Playing media: \(media.title)")
+        
+        ControlPlayerViewController.shared.playQueue(self.tracks, startingAt: index)
     }
 
     private func loadThumbnails(snapshotMedias: [VLCWatchMLMedia], mediaSyncIds: [MLSyncID]) {

@@ -16,8 +16,6 @@ class TracksViewModel: TrackModel, ObservableObject {
     @Published var snapshotMedias: [VLCWatchMLMedia] = []
     @Published var isFirstLoad = true
 
-    lazy var playbackService = PlaybackService.sharedInstance()
-
     required init(medialibrary: MediaLibraryService) {
         super.init(medialibrary: medialibrary)
 
@@ -28,14 +26,14 @@ class TracksViewModel: TrackModel, ObservableObject {
     }
 
     func play(mediaID: VLCMLIdentifier) {
-        guard let media: VLCMLMedia = files.first(where: { $0.identifier() == mediaID })
+        let queue = files.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        guard let index = queue.firstIndex(where: { $0.identifier() == mediaID })
         else {
-            print("TracksViewModel: mediaID \(mediaID) not found")
+            APLog("TracksViewModel: mediaID \(mediaID) not found")
             return
         }
-
-        playbackService.play(media)
-        print("TracksViewModel: Playing track \"\(media.title)\" id: \(mediaID)")
+        
+        ControlPlayerViewController.shared.playQueue(queue, startingAt: index)
     }
 
     func loadData(mlSyncIds: [MLSyncID]) {
@@ -59,7 +57,8 @@ class TracksViewModel: TrackModel, ObservableObject {
     private func loadSnapshotTracks(mlSyncIds: [MLSyncID]) {
         DispatchQueue.global(qos: .userInitiated).async {
             if let snapshotAudioFiles = VLCAppCoordinator.sharedInstance().snapshotMediaLibraryService.medialib.audioFiles() {
-                let snapshotMedias = snapshotAudioFiles.map { VLCWatchMLMedia($0) }.sorted { $0.id < $1.id}
+                let snapshotMedias = snapshotAudioFiles.map { VLCWatchMLMedia($0) } //.sorted { $0.id < $1.id}
+                    .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending } // I have added a sort to display the albums alphabetically
                 DispatchQueue.main.async {
                     self.snapshotMedias = snapshotMedias
                     self.loadThumbnails(snapshotMedias: snapshotMedias, mlSyncIds: mlSyncIds)
