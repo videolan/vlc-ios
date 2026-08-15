@@ -16,22 +16,22 @@ import SwiftUI
 struct TrackView: View {
     @ObservedObject var tracksViewModel: TracksViewModel
     var mediaSyncIds: [MLSyncID]
+    @EnvironmentObject var router: WatchNavigationRouter
 
     var body: some View {
-        NavigationStack {
-            TrackListView(
-                snapshotMedias: tracksViewModel.snapshotMedias,
-                mediaSyncIds: mediaSyncIds,
-                didTapMedia: { media in
-                    guard let mediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
-                    tracksViewModel.play(mediaID: mediaId)
-                }
-            )
-            .navigationTitle(NSLocalizedString("SONGS", comment: ""))
-            .onAppear {
-                guard tracksViewModel.isFirstLoad else { return }
-                tracksViewModel.loadData(mlSyncIds: mediaSyncIds)
+        TrackListView(
+            snapshotMedias: tracksViewModel.snapshotMedias,
+            mediaSyncIds: mediaSyncIds,
+            didTapMedia: { media in
+                guard let mediaId = mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
+                tracksViewModel.play(mediaID: mediaId)
+                router.path.append(media)
             }
+        )
+        .navigationTitle(NSLocalizedString("TRACKS_WO_COUNTER", comment: ""))
+        .onAppear {
+            guard tracksViewModel.isFirstLoad else { return }
+            tracksViewModel.loadData(mlSyncIds: mediaSyncIds)
         }
     }
 }

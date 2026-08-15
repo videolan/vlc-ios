@@ -16,7 +16,6 @@ import SwiftUI
 class ArtistsViewModel: ArtistModel, ObservableObject {
     @Published var snapshotArtists: [VLCWatchMLArtist] = []
     @Published var isFirstLoad = true
-    @Published var path = NavigationPath()
 
     required init(medialibrary: MediaLibraryService) {
         super.init(medialibrary: medialibrary)

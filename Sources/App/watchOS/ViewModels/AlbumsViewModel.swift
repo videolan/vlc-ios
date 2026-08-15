@@ -16,7 +16,6 @@ import SwiftUI
 class AlbumsViewModel: AlbumModel, ObservableObject {
     @Published var snapshotAlbums: [VLCWatchMLAlbum] = []
     @Published var isFirstLoad = true
-    @Published var path = NavigationPath()
 
     required init(medialibrary: MediaLibraryService) {
         super.init(medialibrary: medialibrary)

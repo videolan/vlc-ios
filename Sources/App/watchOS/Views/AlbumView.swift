@@ -15,27 +15,20 @@ import SwiftUI
 struct AlbumView: View {
     @ObservedObject var albumsViewModel: AlbumsViewModel
     let mlSyncState: MLSyncState
+    @EnvironmentObject var router: WatchNavigationRouter
 
     var body: some View {
-        NavigationStack(path: $albumsViewModel.path) {
-            AlbumListView(
-                snapshotAlbums: albumsViewModel.snapshotAlbums,
-                mediaSyncIds: mlSyncState.albumsSyncIds,
-                didTapAlbum: { album in
-                    albumsViewModel.path.append(album)
-                }
-            )
-            .navigationTitle(NSLocalizedString("ALBUMS", comment: ""))
-            .onAppear {
-                guard albumsViewModel.isFirstLoad else { return }
-                albumsViewModel.loadData(albumSyncIds: mlSyncState.albumsSyncIds)
+        AlbumListView(
+            snapshotAlbums: albumsViewModel.snapshotAlbums,
+            mediaSyncIds: mlSyncState.albumsSyncIds,
+            didTapAlbum: { album in
+                router.path.append(album)
             }
-            .navigationDestination(for: VLCWatchMLAlbum.self) { album in
-                AlbumDetailView(
-                    album: album,
-                    mlSyncState: mlSyncState
-                )
-            }
+        )
+        .navigationTitle(NSLocalizedString("ALBUMS", comment: ""))
+        .onAppear {
+            guard albumsViewModel.isFirstLoad else { return }
+            albumsViewModel.loadData(albumSyncIds: mlSyncState.albumsSyncIds)
         }
     }
 }

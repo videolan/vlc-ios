@@ -12,6 +12,7 @@ struct ArtistDetailView: View {
     @StateObject var artistDetailViewModel: ArtistDetailViewModel
     var mlSyncState: MLSyncState
     var didTapAlbum: (VLCWatchMLAlbum) -> Void
+    @EnvironmentObject var router: WatchNavigationRouter
 
     init(artist: VLCWatchMLArtist, mlSyncState: MLSyncState, didTapAlbum: @escaping (VLCWatchMLAlbum) -> Void) {
         _artistDetailViewModel = StateObject(wrappedValue: ArtistDetailViewModel(snapshotArtist: artist))
@@ -28,6 +29,7 @@ struct ArtistDetailView: View {
                     didTapMedia: { media in
                         guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                         artistDetailViewModel.play(mediaID: mediaId)
+                        router.path.append(media)
                     }
                 )
             } else {
@@ -44,18 +46,17 @@ struct ArtistDetailView: View {
                         }
                     }
 
-                    Section(NSLocalizedString("SONGS", comment: "")) {
+                    Section(NSLocalizedString("TRACKS_WO_COUNTER", comment: "")) {
                         ForEach(artistDetailViewModel.snapshotMedias) { media in
-                            TrackCellView(
-                                media: media,
-                                thumbnail: media.thumbnail,
-                                showTrackNumber: false,
-                                isDownloaded: media.isDownloaded(mlSyncState.mediaSyncIds)
-                            )
-                            .onTapGesture {
-                                guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
-                                artistDetailViewModel.play(mediaID: mediaId)
-                            }
+                            TrackCellView(media: media, thumbnail: media.thumbnail,
+                                          showTrackNumber: false,
+                                          isDownloaded: media.isDownloaded(mlSyncState.mediaSyncIds))
+                                .onTapGesture {
+                                    guard let mediaId = mlSyncState.mediaSyncIds
+                                            .first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
+                                    artistDetailViewModel.play(mediaID: mediaId)
+                                    router.path.append(media)
+                                }
                         }
                     }
                 }

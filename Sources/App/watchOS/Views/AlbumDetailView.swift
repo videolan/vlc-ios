@@ -11,6 +11,7 @@ import SwiftUI
 struct AlbumDetailView: View {
     @StateObject var albumDetailViewModel: AlbumDetailViewModel
     var mlSyncState: MLSyncState
+    @EnvironmentObject var router: WatchNavigationRouter
 
     init(album: VLCWatchMLAlbum, mlSyncState: MLSyncState) {
         self._albumDetailViewModel = StateObject(wrappedValue: AlbumDetailViewModel(snapshotAlbum: album))
@@ -25,6 +26,7 @@ struct AlbumDetailView: View {
             didTapMedia: { media in
                 guard let mediaId = mlSyncState.mediaSyncIds.first(where: { $0.iphoneMediaId == media.id })?.watchMediaId else { return }
                 albumDetailViewModel.play(mediaID: mediaId)
+                router.path.append(media)
             }
         )
         .onAppear {

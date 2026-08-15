@@ -15,36 +15,20 @@ import SwiftUI
 struct ArtistView: View {
     @ObservedObject var artistsViewModel: ArtistsViewModel
     var mlSyncState: MLSyncState
+    @EnvironmentObject var router: WatchNavigationRouter
 
     var body: some View {
-        NavigationStack(path: $artistsViewModel.path) {
-            ArtistListView(
-                snapshotArtists: artistsViewModel.snapshotArtists,
-                mediaSyncIds: mlSyncState.mediaSyncIds,
-                didTapArtist: { artist in
-                    artistsViewModel.path.append(artist)
-                }
-            )
-            .navigationTitle(NSLocalizedString("ARTISTS", comment: ""))
-            .onAppear {
-                guard artistsViewModel.isFirstLoad else { return }
-                artistsViewModel.loadData(artistSyncIds: mlSyncState.artistSyncIds)
+        ArtistListView(
+            snapshotArtists: artistsViewModel.snapshotArtists,
+            mediaSyncIds: mlSyncState.mediaSyncIds,
+            didTapArtist: { artist in
+                router.path.append(artist)
             }
-            .navigationDestination(for: VLCWatchMLArtist.self) { artist in
-                ArtistDetailView(
-                    artist: artist,
-                    mlSyncState: mlSyncState,
-                    didTapAlbum: { album in
-                        artistsViewModel.path.append(album)
-                    }
-                )
-            }
-            .navigationDestination(for: VLCWatchMLAlbum.self) { album in
-                AlbumDetailView(
-                    album: album,
-                    mlSyncState: mlSyncState
-                )
-            }
+        )
+        .navigationTitle(NSLocalizedString("ARTISTS", comment: ""))
+        .onAppear {
+            guard artistsViewModel.isFirstLoad else { return }
+            artistsViewModel.loadData(artistSyncIds: mlSyncState.artistSyncIds)
         }
     }
 }
