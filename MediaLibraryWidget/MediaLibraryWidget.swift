@@ -5,6 +5,7 @@
  * $Id$
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
+ *          Neo Salmon <neos_dev@outlook.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -63,10 +64,7 @@ struct MediaLibraryWidgetEntryView: View {
     private static let urlScheme: String = "ml-widget:///"
 
     var body: some View {
-        ZStack {
-            ContainerRelativeShape()
-                .fill(entry.backgroundColor())
-                .ignoresSafeArea(.all)
+        Group {
             switch widgetFamily {
             case .systemSmall:
                 createSmallStack()
