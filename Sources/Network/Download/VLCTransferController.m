@@ -43,6 +43,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     NSMapTable<WCSessionFileTransfer *, VLCTransferItem *> *_activeWatchTransfers;
+    NSMutableArray<WCSessionFileTransfer *> *_observedWatchTransfers;
 #endif
     NSMutableArray<VLCTransferItem *> *_completed;
     NSMutableArray<VLCTransferItem *> *_failed;
@@ -64,6 +65,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         _activeExternalDownloads = [[NSMutableDictionary alloc] init];
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
         _activeWatchTransfers = [[NSMapTable alloc] init];
+        _observedWatchTransfers = [[NSMutableArray alloc] init];
 #endif
         _completed = [[NSMutableArray alloc] init];
         _failed = [[NSMutableArray alloc] init];
@@ -82,6 +84,14 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         block();
     } else {
         dispatch_async(dispatch_get_main_queue(), block);
+    }
+}
+
+-(void)dealloc {
+    for (WCSessionFileTransfer *fileTransfer in _observedWatchTransfers) {
+        [fileTransfer.progress removeObserver:self
+                                forKeyPath:@"fractionCompleted"
+                                   context:(__bridge void *)fileTransfer];
     }
 }
 
@@ -539,6 +549,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
                             forKeyPath:@"fractionCompleted"
                                options:NSKeyValueObservingOptionNew
                                context:(__bridge void *)fileTransfer];
+    [_observedWatchTransfers addObject:fileTransfer];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
