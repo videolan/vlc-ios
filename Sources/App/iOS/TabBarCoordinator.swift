@@ -97,9 +97,9 @@ class TabBarCoordinator: NSObject {
             sideBar.preferredLayout = .overlap
             sideBar.delegate = self
             sideBar.bottomBarView?.isHidden = true
-            tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
         }
 #endif
+        tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
     }
 
     private func setupViewControllers() {
