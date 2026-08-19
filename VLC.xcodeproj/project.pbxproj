@@ -236,6 +236,8 @@
 		606F8A2F33CF7029C4EEF9DD /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
 		64EC484CC518E6CE15FA4505 /* ShowTileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2F86C79424A52ADE38DB5 /* ShowTileCell.swift */; };
 		65D57BC0111AC816A8E038A9 /* ShowsSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B422429EEF27D7A5391F69 /* ShowsSectionCell.swift */; };
+		68C67167302D1C2F008D6F2D /* Image+WidgetAccentedRenderingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67166302D1C10008D6F2D /* Image+WidgetAccentedRenderingMode.swift */; };
+		68C6716B302D27ED008D6F2D /* MediaLibraryWidgetBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6716A302D27E3008D6F2D /* MediaLibraryWidgetBackgroundView.swift */; };
 		6A4FA11D7A38A9B0482B4FF4 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */; };
 		6AB8A942568658B91D9D78C1 /* ContinueListeningCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55E7A769F0FA52EDC5ACE1D /* ContinueListeningCarouselCell.swift */; };
 		6B73853D37525487E311855E /* PodcastStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2137B2482A68802F9C11FEEC /* PodcastStore.swift */; };
@@ -1939,6 +1941,8 @@
 		5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastsViewController.swift; sourceTree = "<group>"; };
 		600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastSectionHeaderView.swift; sourceTree = "<group>"; };
 		6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContinueListeningSectionCell.swift; sourceTree = "<group>"; };
+		68C67166302D1C10008D6F2D /* Image+WidgetAccentedRenderingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+WidgetAccentedRenderingMode.swift"; sourceTree = "<group>"; };
+		68C6716A302D27E3008D6F2D /* MediaLibraryWidgetBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryWidgetBackgroundView.swift; sourceTree = "<group>"; };
 		6B7B338E137A884541BBB779 /* PodcastArtworkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastArtworkView.swift; sourceTree = "<group>"; };
 		6C5B0C9C27A43098005AE25B /* PlaybackServiceAdjustFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaybackServiceAdjustFilter.swift; path = Sources/Playback/Control/PlaybackServiceAdjustFilter.swift; sourceTree = SOURCE_ROOT; };
 		6CC3F6B22D230AEF00C15E33 /* PictureInPictureMediaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureInPictureMediaController.swift; sourceTree = "<group>"; };
@@ -4845,6 +4849,8 @@
 		D976F08F2BDFA436000B737E /* MediaLibraryWidget */ = {
 			isa = PBXGroup;
 			children = (
+				68C6716A302D27E3008D6F2D /* MediaLibraryWidgetBackgroundView.swift */,
+				68C67166302D1C10008D6F2D /* Image+WidgetAccentedRenderingMode.swift */,
 				D976F0902BDFA436000B737E /* MediaLibraryWidgetBundle.swift */,
 				D976F0942BDFA436000B737E /* MediaLibraryWidget.swift */,
 				D976F0962BDFA436000B737E /* AppIntent.swift */,
@@ -7093,8 +7099,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D976F0912BDFA436000B737E /* MediaLibraryWidgetBundle.swift in Sources */,
+				68C6716B302D27ED008D6F2D /* MediaLibraryWidgetBackgroundView.swift in Sources */,
 				D976F0972BDFA436000B737E /* AppIntent.swift in Sources */,
 				D97244F52F1558E700473C4B /* MLWidgetBridge.swift in Sources */,
+				68C67167302D1C2F008D6F2D /* Image+WidgetAccentedRenderingMode.swift in Sources */,
 				D976F0952BDFA436000B737E /* MediaLibraryWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

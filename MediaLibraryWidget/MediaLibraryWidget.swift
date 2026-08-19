@@ -88,6 +88,7 @@ struct MediaLibraryWidgetEntryView: View {
         return VStack {
             Image(uiImage: image ?? UIImage(named: "vlc")!)
                 .resizable()
+                .fullColorWidgetAccentedRenderingMode()
                 .clipShape(.containerRelative)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -108,6 +109,7 @@ struct MediaLibraryWidgetEntryView: View {
             let data = Data(base64Encoded: imageData, options: .ignoreUnknownCharacters)
             Image(uiImage: UIImage(data: data!) ?? UIImage(named: "vlc")!)
                 .resizable()
+                .fullColorWidgetAccentedRenderingMode()
                 .clipShape(.containerRelative)
                 .frame(width: 120, height: 120)
             VStack(alignment: .leading, spacing: 3) {
@@ -137,7 +139,9 @@ struct MediaLibraryWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             MediaLibraryWidgetEntryView(entry: entry)
-                .containerBackground(entry.backgroundColor(), for: .widget)
+                .containerBackground(for: .widget) {
+                    MediaLibraryWidgetBackgroundView(entry: entry)
+                }
         }
         .configurationDisplayName("VLC")
         .description("Display your recent tracks")
