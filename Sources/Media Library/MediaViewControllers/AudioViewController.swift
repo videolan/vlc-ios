@@ -39,7 +39,7 @@ class AudioViewController: MediaViewController {
             FolderViewController(
                 mediaLibraryService,
                 isAudio: true,
-                folder: mediaLibraryService.medialib.folder(atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)!
+                folder: mediaLibraryService.baseFolder()
             ),
 
         ]

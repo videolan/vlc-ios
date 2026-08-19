@@ -18,7 +18,7 @@ class FolderModel: MLBaseModel {
 
     var files = [VLCMLFolder]()
     var folderMediaFiles = [VLCMLMedia]()
-    var currentFolder: VLCMLFolder
+    var currentFolder: VLCMLFolder?
 
     var currentPage = 0
     var hasMorePages = false
@@ -34,7 +34,7 @@ class FolderModel: MLBaseModel {
         }
     }
 
-    required init(medialibrary: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder) {
+    required init(medialibrary: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder?) {
         self.medialibrary = medialibrary
         self.isAudio = isAudio
         self.currentFolder = folder
@@ -49,6 +49,17 @@ class FolderModel: MLBaseModel {
     func setupData() {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
+
+        if currentFolder == nil {
+            currentFolder = medialibrary.baseFolder()
+        }
+
+        guard let currentFolder = currentFolder else {
+            files = []
+            folderMediaFiles = []
+            return
+        }
+
         files = currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? []
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
@@ -140,11 +151,16 @@ class FolderModel: MLBaseModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
-        files = currentFolder.subfolders(with: criteria, desc: desc) ?? []
-        if self.isAudio {
-            folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
+        if let currentFolder = currentFolder {
+            files = currentFolder.subfolders(with: criteria, desc: desc) ?? []
+            if self.isAudio {
+                folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
+            } else {
+                folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: criteria, desc: desc) ?? []
+            }
         } else {
-            folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: criteria, desc: desc) ?? []
+            files = []
+            folderMediaFiles = []
         }
 
         sortModel.currentSort = criteria

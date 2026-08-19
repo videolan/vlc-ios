@@ -237,8 +237,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         if let folderModel = model as? FolderModel {
             let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path
-            if folderModel.currentFolder.mrl.path != documentsPath {
-                emptyView.folderName = folderModel.currentFolder.name
+            if let currentFolder = folderModel.currentFolder,
+               currentFolder.mrl.path != documentsPath {
+                emptyView.folderName = currentFolder.name
             }
             emptyView.isAudioFolder = folderModel.isAudio
             emptyView.contentType = .emptyFolder
@@ -1308,7 +1309,8 @@ private extension MediaCategoryViewController {
 
         // Inside a folder that has been removed from the disk
         if let folderModel = model as? FolderModel,
-           !FileManager.default.fileExists(atPath: folderModel.currentFolder.mrl.path) {
+           let currentFolder = folderModel.currentFolder,
+           !FileManager.default.fileExists(atPath: currentFolder.mrl.path) {
             navigationController?.popViewController(animated: true)
         }
     }
@@ -2427,7 +2429,6 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         var isVideoModel = false
 
         if isFolder {
-            let baseFolder = mediaLibraryService.medialib.folder(atMrl: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)!
             // Set UserDefaults for folder grid layout based on isAudio flag
             if let folderModel = model as? FolderModel {
                 if folderModel.isAudio {
@@ -2437,7 +2438,8 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
                 }
             } else {
                 secondModel = model
-                model = FolderModel(medialibrary: self.mediaLibraryService, isAudio: false, folder: baseFolder)
+                model = FolderModel(medialibrary: self.mediaLibraryService, isAudio: false,
+                                    folder: mediaLibraryService.baseFolder())
             }
         } else if model is FolderModel && secondModel is MediaGroupViewModel {
             model = secondModel

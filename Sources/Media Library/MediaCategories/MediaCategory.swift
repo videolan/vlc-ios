@@ -78,7 +78,7 @@ class ArtistCategoryViewController: MediaCategoryViewController {
 }
 
 class FolderViewController: MediaCategoryViewController {
-    init(_ mediaLibraryService: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder) {
+    init(_ mediaLibraryService: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder?) {
         let model = FolderModel(medialibrary: mediaLibraryService, isAudio: isAudio, folder: folder)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
