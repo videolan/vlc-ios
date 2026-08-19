@@ -891,7 +891,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
         case VLCBrowseChipNetworkStream:
             return NSLocalizedString(@"BROWSE_NETWORK_STREAM", nil);
         case VLCBrowseChipDownloads:
-            return NSLocalizedString(@"BROWSE_DOWNLOADS", nil);
+            return NSLocalizedString(@"TRANSFERS", nil);
         case VLCBrowseChipWiFiSharing:
             return NSLocalizedString(@"BROWSE_WIFI_SHARING", nil);
     }
