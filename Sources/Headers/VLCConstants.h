@@ -229,3 +229,5 @@
 
 #define kVLCMediaLibraryDBFileName @"medialibrary.db"
 #define kVLCSnapshotMediaLibraryDBFileName @"medialibrary-snapshot.db"
+
+#define kVLCFileTransferDidStartNotification @"kVLCFileTransferDidStartNotification"

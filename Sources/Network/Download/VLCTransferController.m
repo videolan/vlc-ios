@@ -74,6 +74,13 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         _mediaDownloader.delegate = self;
         _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
         _httpDownloader.delegate = self;
+
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleFileTransferDidStart:)
+                                                     name:kVLCFileTransferDidStartNotification
+                                                   object:nil];
+#endif
     }
     return self;
 }
@@ -88,11 +95,13 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 }
 
 -(void)dealloc {
+#if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     for (WCSessionFileTransfer *fileTransfer in _observedWatchTransfers) {
         [fileTransfer.progress removeObserver:self
                                 forKeyPath:@"fractionCompleted"
                                    context:(__bridge void *)fileTransfer];
     }
+#endif
 }
 
 - (void)_postStateDidChange
@@ -455,13 +464,12 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 }
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
 #pragma mark - watch source
-- (WCSessionFileTransfer *)addWatchTransferWithName:(NSString *)name fileTransfer:(WCSessionFileTransfer *)fileTransfer urlString:(NSString *)urlString transferredBytes:(long long)transferredBytes expectedSize:(long long)expectedSize
+- (void)addWatchTransferWithName:(NSString *)name fileTransfer:(WCSessionFileTransfer *)fileTransfer urlString:(NSString *)urlString transferredBytes:(long long)transferredBytes expectedSize:(long long)expectedSize
 {
     [self _runOnMain:^{
         [self->_activeWatchTransfers setObject:[VLCTransferItem watchTransferItemWithName:name urlString:urlString transferredBytes:transferredBytes expectedSize:expectedSize] forKey:fileTransfer];
         [self _postStateDidChange];
     }];
-    return fileTransfer;
 }
 
 - (void)updateWatchTransfer:(WCSessionFileTransfer *)fileTransfer receivedBytes:(long long)received expectedBytes:(long long)expected
@@ -502,23 +510,26 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         [item markFailedWithError:description ?: @""];
         [self->_failed addObject:item];
         [self _postStateDidChange];
+        [fileTransfer.progress removeObserver:self
+                                forKeyPath:@"fractionCompleted"
+                                   context:(__bridge void *)fileTransfer];
     }];
 }
 
 - (void)cancelWatchTransfer:(VLCTransferItem *)item
 {
     [self _runOnMain:^{
-        WCSessionFileTransfer *transferFileToCancel = NULL;
-        for (WCSessionFileTransfer *transferFile in self->_activeWatchTransfers) {
-            if (transferFile.file.fileURL.absoluteString == item.urlString) {
-                transferFileToCancel = transferFile;
+        for (WCSessionFileTransfer *fileTransfer in self->_activeWatchTransfers) {
+            if ([fileTransfer.file.fileURL.absoluteString isEqualToString:item.urlString]) {
+                [fileTransfer cancel];
+                [self->_activeWatchTransfers removeObjectForKey:fileTransfer];
+                [self _postStateDidChange];
+                [self->_failed addObject:item];
+                [fileTransfer.progress removeObserver:self
+                                        forKeyPath:@"fractionCompleted"
+                                           context:(__bridge void *)fileTransfer];
                 break;
             }
-        }
-        if ([self->_activeWatchTransfers objectForKey:transferFileToCancel]) {
-            [transferFileToCancel cancel];
-            [self->_activeWatchTransfers removeObjectForKey:transferFileToCancel];
-            [self _postStateDidChange];
         }
     }];
 }
@@ -526,24 +537,42 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 
 - (void)observeOutstandingWatchTransfers
 {
+    if (![WCSession isSupported]) {
+        return;
+    }
+
     WCSession *session = [WCSession defaultSession];
 
-    for (WCSessionFileTransfer *transfer in session.outstandingFileTransfers) {
-        if ([_activeWatchTransfers objectForKey:transfer] != NULL) {
-            continue;
-        }
-
-        NSString *fileName = transfer.file.metadata[kVLCiPhoneMediaFileName];
-        long long fileSize = [transfer.file.metadata[kVLCiPhoneMediaFileSize] longLongValue];
-        double progress = transfer.progress.fractionCompleted;
-        long long transferredBytes = fileSize * progress;
-
-        [self addWatchTransferWithName:fileName fileTransfer:transfer urlString:transfer.file.fileURL.absoluteString transferredBytes: transferredBytes expectedSize:fileSize];
-        [self observeWatchTransferProgress: transfer];
+    for (WCSessionFileTransfer *fileTransfer in session.outstandingFileTransfers) {
+        [self observeWatchFileTransfer: fileTransfer];
     }
 }
 
-- (void)observeWatchTransferProgress:(WCSessionFileTransfer *)fileTransfer
+- (void) handleFileTransferDidStart:(NSNotification *)notification
+{
+    WCSessionFileTransfer *fileTransfer = notification.object;
+    if (fileTransfer == nil) {
+        return;
+    }
+    [self observeWatchFileTransfer: fileTransfer];
+}
+
+- (void) observeWatchFileTransfer:(WCSessionFileTransfer *)fileTransfer
+{
+    if ([_activeWatchTransfers objectForKey:fileTransfer]) {
+        return;
+    }
+
+    NSString *fileName = fileTransfer.file.metadata[kVLCiPhoneMediaFileName];
+    long long fileSize = [fileTransfer.file.metadata[kVLCiPhoneMediaFileSize] longLongValue];
+    double progress = fileTransfer.progress.fractionCompleted;
+    long long transferredBytes = fileSize * progress;
+
+    [self addWatchTransferWithName:fileName fileTransfer:fileTransfer urlString:fileTransfer.file.fileURL.absoluteString transferredBytes: transferredBytes expectedSize:fileSize];
+    [self observeWatchFileTransferProgress: fileTransfer];
+}
+
+- (void)observeWatchFileTransferProgress:(WCSessionFileTransfer *)fileTransfer
 {
     [fileTransfer.progress addObserver:self
                             forKeyPath:@"fractionCompleted"
@@ -555,17 +584,9 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"fractionCompleted"]) {
         WCSessionFileTransfer *fileTransfer = (__bridge WCSessionFileTransfer *)context;
-
         long long fileSize = [fileTransfer.file.metadata[kVLCiPhoneMediaFileSize] longLongValue];
-        double progress = fileTransfer.progress.fractionCompleted;
-        long long transferredBytes = fileSize * progress;
-
-        VLCTransferItem *item = [_activeWatchTransfers objectForKey:fileTransfer];
-        [item ingestReceivedBytes:transferredBytes expectedBytes:fileSize];
-
-        [self _runOnMain:^{
-            [self _postStateDidChange];
-        }];
+        long long transferredBytes = fileSize * [change[NSKeyValueChangeNewKey] doubleValue];
+        [self updateWatchTransfer:fileTransfer receivedBytes:transferredBytes expectedBytes:fileSize];
         return;
     }
 

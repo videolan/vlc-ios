@@ -19,6 +19,7 @@ extension Notification.Name {
     static let dataDidFlow = Notification.Name("DataDidFlow")
     static let activationDidComplete = Notification.Name("ActivationDidComplete")
     static let reachabilityDidChange = Notification.Name("ReachabilityDidChange")
+    static let fileTransferDidStart = Notification.Name(kVLCFileTransferDidStartNotification)
 }
 
 @objcMembers
@@ -281,7 +282,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
         postNotificationOnMainQueueAsync(name: .dataDidFlow, object: message)
 
         #if os(iOS)
-        VLCAppCoordinator.sharedInstance().transferController.finishWatch(fileTransfer, filePath: fileTransfer.file.fileURL.absoluteString)
+        VLCAppCoordinator.sharedInstance().transferController.finishWatch(fileTransfer, filePath: fileTransfer.file.fileURL.path)
         #endif
 
         UserDefaults.standard.set(Date(), forKey: kVLCSettingAutomaticallySyncMediaLibraryLastUpdated)

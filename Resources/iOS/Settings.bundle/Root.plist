@@ -964,7 +964,7 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY</string>
+			<string>SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_TITLE</string>
 			<key>Key</key>
 			<string>kVLCSettingAutomaticallySyncMediaLibrary</string>
 			<key>DefaultValue</key>

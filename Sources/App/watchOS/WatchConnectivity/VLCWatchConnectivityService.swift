@@ -104,8 +104,12 @@ import WatchConnectivity
             return handleSessionUnactivated(with: message)
         }
 
-        message.fileTransfer = WCSession.default.transferFile(file, metadata: metadata)
+        let fileTransfer = WCSession.default.transferFile(file, metadata: metadata)
+        message.fileTransfer = fileTransfer
         postNotificationOnMainQueueAsync(name: .dataDidFlow, object: message)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .fileTransferDidStart, object: fileTransfer)
+        }
     }
 
     // Transfer a piece of user info for current complications if the session is activated,
