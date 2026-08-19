@@ -986,24 +986,25 @@ referenceSizeForHeaderInSection:(NSInteger)section
         return;
     }
 
-    _sharingExpanded = expanded;
-
     /* the chip keeps its position and only changes its corners, so the L reads as one growing shape */
     [cell configureJoinedToBand:expanded && [self sharingChipIsTrailing]];
 
     NSIndexPath *bandIndexPath = [NSIndexPath indexPathForItem:_chips.count inSection:VLCBrowseSectionOpen];
     [_collectionView performBatchUpdates:^{
+        self->_sharingExpanded = expanded;
         if (expanded) {
             [self->_collectionView insertItemsAtIndexPaths:@[bandIndexPath]];
         } else {
             [self->_collectionView deleteItemsAtIndexPaths:@[bandIndexPath]];
         }
     } completion:^(BOOL finished) {
-        if (expanded) {
-            [self->_collectionView scrollToItemAtIndexPath:bandIndexPath
-                                          atScrollPosition:UICollectionViewScrollPositionBottom
-                                                  animated:YES];
+        if (!expanded || bandIndexPath.item >= [self->_collectionView numberOfItemsInSection:VLCBrowseSectionOpen]) {
+            return;
         }
+
+        [self->_collectionView scrollToItemAtIndexPath:bandIndexPath
+                                      atScrollPosition:UICollectionViewScrollPositionBottom
+                                              animated:YES];
     }];
 }
 
