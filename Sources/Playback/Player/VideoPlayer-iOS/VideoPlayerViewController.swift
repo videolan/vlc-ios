@@ -254,8 +254,6 @@ class VideoPlayerViewController: PlayerViewController {
         return recognizer
     }()
 
-    private var isGestureActive: Bool = false
-
     // MARK: - Constraints
 
     private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {

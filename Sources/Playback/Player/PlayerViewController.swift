@@ -312,7 +312,7 @@ class PlayerViewController: UIViewController {
 
     private let isBrightnessControlAvailable: Bool
 
-    private var isGestureActive: Bool = false
+    private(set) var isGestureActive: Bool = false
 
     private var currentPanType: PlayerPanType = .none
 
@@ -1113,7 +1113,7 @@ class PlayerViewController: UIViewController {
             break
         }
 
-        if recognizer.state == .ended {
+        if recognizer.state == .ended || recognizer.state == .cancelled || recognizer.state == .failed {
             var animations : (() -> Void)?
 
 #if os(iOS)
@@ -1153,6 +1153,8 @@ class PlayerViewController: UIViewController {
                     self.isGestureActive = false
                     self.setControlsHidden(true, animated: true)
                 })
+            } else {
+                isGestureActive = false
             }
 #else
             self.isGestureActive = false
