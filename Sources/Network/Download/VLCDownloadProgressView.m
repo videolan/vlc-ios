@@ -20,6 +20,7 @@
     UILabel *_subtitleLabel;
     UIProgressView *_progressView;
     UIActivityIndicatorView *_spinner;
+    NSNumberFormatter *_percentFormatter;
 
     NSLayoutConstraint *_leadingConstraint;
     NSLayoutConstraint *_trailingConstraint;
@@ -46,6 +47,10 @@
     _titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightMedium];
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [self addSubview:_titleLabel];
+
+    _percentFormatter = [[NSNumberFormatter alloc] init];
+    _percentFormatter.numberStyle = NSNumberFormatterPercentStyle;
+    _percentFormatter.maximumFractionDigits = 0;
 
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -133,7 +138,7 @@
     BOOL animated = progress >= _progress;
     _progress = progress;
     [_progressView setProgress:progress animated:animated];
-    _percentLabel.text = [NSString stringWithFormat:@"%.0f%%", progress * 100.0];
+    _percentLabel.text = [_percentFormatter stringFromNumber:@(progress)];
 }
 
 - (void)setProgressKnown:(BOOL)progressKnown
