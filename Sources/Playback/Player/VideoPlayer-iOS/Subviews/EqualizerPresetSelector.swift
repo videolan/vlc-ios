@@ -61,7 +61,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         preampSlider.translatesAutoresizingMaskIntoConstraints = false
         preampSlider.addTarget(self, action: #selector(preampSliderDidChangeValue), for: .valueChanged)
 
-        preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
+        preampValueLabel.text = EqualizerValueFormatter.stringWithUnit(forDecibels: preampSlider.value)
         preampValueLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         preampValueLabel.setContentHuggingPriority(.required, for: .horizontal)
         preampValueLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -222,13 +222,13 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     // MARK: - Slider event
     @objc func preampSliderDidChangeValue(sender: UISlider) {
         delegate?.equalizerPresetSelector(self, didSetPreamp: sender.value)
-        preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
+        preampValueLabel.text = EqualizerValueFormatter.stringWithUnit(forDecibels: preampSlider.value)
     }
 
     // MARK: - Public
     func setPreampSliderValue(_ value: Float) {
         preampSlider.value = value
-        preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
+        preampValueLabel.text = EqualizerValueFormatter.stringWithUnit(forDecibels: preampSlider.value)
     }
 
     func moveProfile(_ moveIdentifier: MoveEventIdentifier, at index: IndexPath) {

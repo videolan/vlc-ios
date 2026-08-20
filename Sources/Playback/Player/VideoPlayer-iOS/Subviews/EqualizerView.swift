@@ -11,6 +11,24 @@
 
 import UIKit
 
+class EqualizerValueFormatter {
+    private static let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = false
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+
+    static func string(forDecibels decibels: Float) -> String {
+        return formatter.string(from: NSNumber(value: decibels)) ?? String(format: "%.2f", decibels)
+    }
+
+    static func stringWithUnit(forDecibels decibels: Float) -> String {
+        return string(forDecibels: decibels) + "dB"
+    }
+}
+
 @objc class EqualizerView: UIView {
 
     // MARK: - EqualizerFrequency structure
@@ -53,7 +71,7 @@ import UIKit
         }
 
         private func setupCurrentValueLabel() {
-            currentValueLabel.text = "0dB"
+            currentValueLabel.text = EqualizerValueFormatter.string(forDecibels: 0)
             currentValueLabel.textAlignment = .center
             currentValueLabel.font = .systemFont(ofSize: 11, weight: .bold)
             currentValueLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -363,7 +381,7 @@ import UIKit
 
             for (i, eqFrequency) in eqFrequencies.enumerated() {
                 eqFrequency.slider.setValue(Float(delegate.amplification(ofBand: UInt32(i))), animated: false)
-                eqFrequency.currentValueLabel.text = "\(Double(Int(eqFrequency.slider.value * 100)) / 100)"
+                eqFrequency.currentValueLabel.text = EqualizerValueFormatter.string(forDecibels: eqFrequency.slider.value)
             }
         }
     }
@@ -405,11 +423,11 @@ extension EqualizerView {
 
         if snapBandsSwitch.isOn {
             for eqFrequency in eqFrequencies {
-                eqFrequency.currentValueLabel.text = "\(Double(Int(eqFrequency.slider.value * 100)) / 100)"
+                eqFrequency.currentValueLabel.text = EqualizerValueFormatter.string(forDecibels: eqFrequency.slider.value)
             }
         } else {
             if let currentValueLabel = eqFrequencies.objectAtIndex(index: index)?.currentValueLabel {
-                currentValueLabel.text = "\(Double(Int(sender.value * 100)) / 100)"
+                currentValueLabel.text = EqualizerValueFormatter.string(forDecibels: sender.value)
             }
         }
     }
