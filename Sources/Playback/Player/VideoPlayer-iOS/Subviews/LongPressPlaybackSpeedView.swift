@@ -29,13 +29,15 @@ class LongPressPlaybackSpeedView: UIView {
         return formatter
     }()
 
+    private static func text(forSpeed speed: Float) -> String {
+        let formatted = numberFormatter.string(from: NSNumber(value: speed)) ?? String(speed)
+
+        return String(format: NSLocalizedString("PLAYBACK_SPEED_FORMAT", comment: ""), formatted)
+    }
+
     var speedMultiplier: Float = 2 {
         didSet {
-            // Format the fraction
-            let formatted = Self.numberFormatter.string(from: NSNumber(value: speedMultiplier))
-
-            // Update multiplier label text
-            multiplierLabel.text = "\(formatted ?? String(speedMultiplier))x"
+            multiplierLabel.text = Self.text(forSpeed: speedMultiplier)
         }
     }
 
@@ -43,7 +45,6 @@ class LongPressPlaybackSpeedView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.text = "2x"
         label.font = .preferredFont(forTextStyle: .subheadline).bolded
 
         return label
@@ -71,6 +72,8 @@ class LongPressPlaybackSpeedView: UIView {
     func setupView() {
         let playSymbolView1 = playSymbolView
         let playSymbolView2 = playSymbolView
+
+        multiplierLabel.text = Self.text(forSpeed: speedMultiplier)
 
         self.addSubview(multiplierLabel)
         self.addSubview(playSymbolView1)

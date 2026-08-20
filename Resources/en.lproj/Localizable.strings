@@ -49,6 +49,7 @@
 "DEFAULT" = "Default";
 "FILL_TO_SCREEN" = "Crop to fill screen";
 "PLAYBACK_SPEED" = "Playback speed";
+"PLAYBACK_SPEED_FORMAT" = "%@×";
 "SPU_DELAY" = "Subtitles delay";
 "AUDIO_DELAY" = "Audio delay";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
