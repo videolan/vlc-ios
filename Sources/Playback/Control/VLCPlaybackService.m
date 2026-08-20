@@ -751,7 +751,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)setPlaybackPosition:(float)position
 {
-    _mediaPlayer.position = position;
+    if (isnan(position)) {
+        return;
+    }
+
+    _mediaPlayer.position = MIN(MAX(position, .0f), 1.f);
     _majorPositionChangeInProgress = 1;
 }
 
