@@ -454,29 +454,26 @@ class PlayerViewController: UIViewController {
         }
 
         view.transform = .identity
-#if os(iOS)
-        //update the system brightness value before player appears
-        if let screen = screenForCurrentWindow() {
-            playerScreen = screen
-            systemBrightness = screen.brightness
-        }
-
-        //update the value of brightness control view
-        //In case of remember brightness option is disabled, this will update the brightness bar with current brightness.
-        if !playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
-            brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
-        }
-#endif
     }
 
 #if os(iOS)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if playerController.isRememberBrightnessEnabled && isBrightnessControlAvailable {
-            if let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
+        // The window is only attached once the presentation finished, so the
+        // screen cannot be resolved any earlier than this.
+        if let screen = screenForCurrentWindow() {
+            playerScreen = screen
+            systemBrightness = screen.brightness
+        }
+
+        if isBrightnessControlAvailable {
+            if playerController.isRememberBrightnessEnabled,
+               let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
                 animateBrightness(to: brightness)
-                self.brightnessControl.value = Float(brightness)
+                brightnessControl.value = Float(brightness)
+            } else {
+                brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
             }
         }
 
