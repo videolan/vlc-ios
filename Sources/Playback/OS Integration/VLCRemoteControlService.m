@@ -168,9 +168,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
     if (@available(iOS 9.1, *)) {
         if (event.command == cc.changePlaybackPositionCommand) {
             MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
-            NSInteger duration = vps.mediaDuration / 1000;
+            NSInteger duration = vps.mediaDuration;
             if (duration > 0) {
-                vps.playbackPosition = positionEvent.positionTime / duration;
+                vps.playbackPosition = positionEvent.positionTime * 1000. / duration;
                 return MPRemoteCommandHandlerStatusSuccess;
             }
             return MPRemoteCommandHandlerStatusCommandFailed;
