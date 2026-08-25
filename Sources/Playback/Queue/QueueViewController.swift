@@ -6,6 +6,7 @@
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Edgar Fouillet <vlc # edgar.fouillet.eu>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Pratik Ray <raypratik365@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -52,6 +53,9 @@ class QueueViewController: UIViewController {
     private let sidePadding: CGFloat = 10
     private let topPadding: CGFloat = 8
     private let bottomPadding: CGFloat = 8
+    private let liquidGlassSpacing: CGFloat = 8
+    private let liquidGlassCornerRadius: CGFloat = 24
+    private let legacyCornerRadius: CGFloat = 4
 
     private let darkOverlayAlpha: CGFloat = 0.6
 
@@ -87,6 +91,18 @@ class QueueViewController: UIViewController {
 
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
+    private var usesLiquidGlassAppearance: Bool {
+#if os(visionOS)
+        return true
+#elseif os(iOS)
+        if #available(iOS 26.0, *) {
+            return true
+        }
+        return false
+#else
+        return false
+#endif
+    }
 
     private let animationDuration = 0.2
 
@@ -149,27 +165,35 @@ class QueueViewController: UIViewController {
     }
 
     override func didMove(toParent parent: UIViewController?) {
+        let playerDisplayController = parent as? VLCPlayerDisplayController
+
         if let parent = parent {
             parent.view.addSubview(darkOverlayView)
+
+            let overlayBottomAnchor = playerDisplayController?.realBottomAnchor ?? parent.view.bottomAnchor
             darkOverlayViewConstraints = [
                 darkOverlayView.topAnchor.constraint(equalTo: parent.view.topAnchor),
                 darkOverlayView.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
                 darkOverlayView.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor),
-                darkOverlayView.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
+                darkOverlayView.bottomAnchor.constraint(equalTo: overlayBottomAnchor)
             ]
 
             if let heightConstraint = heightConstraint {
                 view.removeConstraint(heightConstraint)
             }
 
-            var miniPlayerView: AudioMiniPlayer? = nil
-            if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
+            var miniPlayerView: AudioMiniPlayer?
+            if let playerDisplayController,
+               let miniPlaybackView = playerDisplayController.miniPlaybackView as? AudioMiniPlayer {
                 grabberView.isHidden = true
                 closeButton.isHidden = true
-                parent.view.bringSubviewToFront(miniPlaybackView)
+                playerDisplayController.view.bringSubviewToFront(miniPlaybackView)
                 topConstraint = view.topAnchor.constraint(equalTo: miniPlaybackView.bottomAnchor)
                 heightConstraint = nil
-                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
+                let bottomAnchor = playerDisplayController.realBottomAnchor
+                    ?? playerDisplayController.view.safeAreaLayoutGuide.bottomAnchor
+                let bottomInset = usesLiquidGlassAppearance ? -liquidGlassSpacing : 0
+                bottomConstraint = view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomInset)
                 miniPlayerView = miniPlaybackView
             } else {
                 grabberView.isHidden = false
@@ -196,21 +220,13 @@ class QueueViewController: UIViewController {
 
             parent.view.addSubview(view)
 
-            let leadingAnchor: NSLayoutXAxisAnchor
-            let trailingAnchor: NSLayoutXAxisAnchor
-            let safeArea: UILayoutGuide
-            if let miniPlayerView = miniPlayerView {
-                safeArea = miniPlayerView.safeAreaLayoutGuide
-            } else {
-                safeArea = parent.view.safeAreaLayoutGuide
-            }
-
-            leadingAnchor = safeArea.leadingAnchor
-            trailingAnchor = safeArea.trailingAnchor
+            let safeArea = miniPlayerView?.safeAreaLayoutGuide ?? parent.view.safeAreaLayoutGuide
+            let horizontalInset = usesLiquidGlassAppearance ? liquidGlassSpacing : 0
+            configureAppearance()
 
             constraints = [
-                view.leadingAnchor.constraint(equalTo: leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: trailingAnchor)
+                view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: horizontalInset),
+                view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -horizontalInset)
             ]
 
             if let topConstraint = topConstraint {
@@ -406,7 +422,7 @@ private extension QueueViewController {
 
     private func initQueueCollectionView() {
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = legacyCornerRadius
         queueCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let cellNib = UINib(nibName: MediaCollectionViewCell.nibName, bundle: nil)
         queueCollectionView.register(cellNib,
@@ -416,6 +432,39 @@ private extension QueueViewController {
         queueCollectionView.addGestureRecognizer(longPressGesture)
         queueCollectionView.collectionViewLayout = collectionViewLayout
         queueCollectionView.backgroundColor = .clear
+    }
+
+    private func configureAppearance() {
+#if os(iOS)
+        if #available(iOS 26.0, *), usesLiquidGlassAppearance {
+            let corners = UICornerConfiguration.uniformCorners(radius: .fixed(liquidGlassCornerRadius))
+            let glassEffect = UIGlassEffect(style: .regular)
+            glassEffect.isInteractive = false
+
+            artworkBlurView.effect = glassEffect
+            artworkBlurView.cornerConfiguration = corners
+            queueCollectionView.cornerConfiguration = corners
+            view.cornerConfiguration = corners
+            view.layer.cornerRadius = 0
+            view.layer.masksToBounds = false
+            return
+        }
+#endif
+
+        artworkBlurView.effect = UIBlurEffect(style: .dark)
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = legacyCornerRadius
+        queueCollectionView.layer.cornerRadius = 0
+
+#if os(iOS)
+        if #available(iOS 26.0, *) {
+            let viewCorners = UICornerConfiguration.uniformCorners(radius: .fixed(legacyCornerRadius))
+            let squareCorners = UICornerConfiguration.uniformCorners(radius: .fixed(0))
+            artworkBlurView.cornerConfiguration = viewCorners
+            view.cornerConfiguration = viewCorners
+            queueCollectionView.cornerConfiguration = squareCorners
+        }
+#endif
     }
 }
 
@@ -428,17 +477,23 @@ private extension QueueViewController {
 #endif
     }
 
-    private func updateCollectionViewCellApparence(_ cell: MediaCollectionViewCell, isSelected: Bool) {
-        var textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        var tintColor = PresentationTheme.darkTheme.colors.cellDetailTextColor
-
-        if isSelected {
-            textColor = PresentationTheme.current.colors.orangeUI
-            tintColor = PresentationTheme.current.colors.orangeUI
+    private func updateCollectionViewCellAppearance(_ cell: MediaCollectionViewCell, isSelected: Bool) {
+        let colors = PresentationTheme.darkTheme.colors
+        let textColor: UIColor
+        let detailTextColor: UIColor
+        if #available(iOS 13.0, *), usesLiquidGlassAppearance {
+            textColor = .label
+            detailTextColor = .secondaryLabel
+        } else {
+            textColor = colors.cellTextColor
+            detailTextColor = colors.cellDetailTextColor
         }
+        let accentColor = PresentationTheme.current.colors.orangeUI
 
-        cell.tintColor = tintColor
-        cell.titleLabel.textColor = textColor
+        cell.tintColor = isSelected ? accentColor : detailTextColor
+        cell.titleLabel.textColor = isSelected ? accentColor : textColor
+        cell.sizeDescriptionLabel.textColor = detailTextColor
+        cell.dragIndicatorImageView.tintColor = detailTextColor
 
         if #available(iOS 13, *) {
             cell.titleLabel.backgroundColor = .clear
@@ -535,7 +590,7 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             return
         }
 
-        updateCollectionViewCellApparence(cell, isSelected: true)
+        updateCollectionViewCellAppearance(cell, isSelected: true)
         cell.setNowPlaying(true)
         reload()
     }
@@ -676,7 +731,7 @@ extension QueueViewController: UICollectionViewDataSource {
         cell.thumbnailWidth.constant = MediaCollectionViewCell.getDefaultConstant()
 
         cell.ignoreThemeDidChange = true
-        cell.setTheme(to: PresentationTheme.darkTheme)
+        cell.setTheme(to: usesLiquidGlassAppearance ? PresentationTheme.current : PresentationTheme.darkTheme)
         cell.backgroundColor = .clear
         cell.scrollContentView.backgroundColor = .clear
 
@@ -693,7 +748,7 @@ extension QueueViewController: UICollectionViewDataSource {
         }
 
         let isCurrentlyPlaying = media == currentlyPlayingMedia
-        updateCollectionViewCellApparence(cell, isSelected: isCurrentlyPlaying)
+        updateCollectionViewCellAppearance(cell, isSelected: isCurrentlyPlaying)
         cell.setNowPlaying(isCurrentlyPlaying)
         cell.newLabel.isHidden = true
 
