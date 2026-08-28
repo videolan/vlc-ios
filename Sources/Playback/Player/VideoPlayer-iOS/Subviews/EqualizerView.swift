@@ -488,7 +488,7 @@ extension EqualizerView {
             self.hideEqualizerIconIfNeeded()
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
 
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
