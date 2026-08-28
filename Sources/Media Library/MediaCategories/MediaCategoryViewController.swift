@@ -146,6 +146,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     private weak var albumHeader: AlbumHeader?
+    private var isAlbumArtworkBehindStatusBar: Bool = false
     private lazy var albumFlowLayout = AlbumHeaderLayout()
 
     private weak var playlistHeader: PlaylistHeader?
@@ -259,6 +260,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isAlbumArtworkBehindStatusBar {
+            return .lightContent
+        }
+
         return PresentationTheme.current.colors.statusBarStyle
     }
 
@@ -416,7 +421,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
 
             navigationItem.titleView?.isHidden = hideNavigationItemTitle
-            albumHeader.updateUserInterfaceStyle(isStatusBarVisible: !hideNavigationItemTitle)
+
+            if isAlbumArtworkBehindStatusBar != hideNavigationItemTitle {
+                isAlbumArtworkBehindStatusBar = hideNavigationItemTitle
+#if os(iOS)
+                setNeedsStatusBarAppearanceUpdate()
+#endif
+            }
         }
     }
 
@@ -576,9 +587,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
            model.mediaCollection is VLCMLAlbum {
             statusBarView.removeFromSuperview()
             view.addSubview(searchBar)
-            if #unavailable(iOS 26.0) {
-                AppearanceManager.setupUserInterfaceStyle(theme: PresentationTheme.current)
-            }
         }
     }
 

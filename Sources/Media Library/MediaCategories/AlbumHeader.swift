@@ -35,7 +35,6 @@ class AlbumHeader: UICollectionReusableView {
         setupPlayAllButton()
         setupShuffleButton()
         setupConstraints()
-        updateUserInterfaceStyle()
     }
 
     required init?(coder: NSCoder) {
@@ -171,19 +170,6 @@ class AlbumHeader: UICollectionReusableView {
 
     func updateTheme() {
         backgroundColor = PresentationTheme.current.colors.background
-    }
-
-    func updateUserInterfaceStyle(isStatusBarVisible: Bool = false) {
-        if #available(iOS 26.0, *) {
-            return
-        }
-
-        guard #available(iOS 13.0, *), !PresentationTheme.current.isDark else {
-            return
-        }
-
-        let currentTheme = !isStatusBarVisible ? PresentationTheme.darkTheme : PresentationTheme.current
-        AppearanceManager.setupUserInterfaceStyle(theme: currentTheme)
     }
 
     // MARK: - Actions
