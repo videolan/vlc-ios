@@ -1445,6 +1445,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             } else if action == .rename {
                 alertController.addTextField(configurationHandler: { field in
                     field.text = message
+                    field.placeholder = NSLocalizedString("BOOKMARK_PLACEHOLDER", comment: "")
                     field.returnKeyType = .done
                 })
 

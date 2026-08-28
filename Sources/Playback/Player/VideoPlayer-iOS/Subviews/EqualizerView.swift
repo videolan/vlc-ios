@@ -452,6 +452,7 @@ extension EqualizerView {
         alertController.addTextField { textField in
             textField.translatesAutoresizingMaskIntoConstraints = false
             textField.text = NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
+            textField.placeholder = NSLocalizedString("CUSTOM_EQUALIZER_PROFILE_PLACEHOLDER", comment: "")
         }
 
         let saveAction = UIAlertAction(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { _ in
@@ -598,6 +599,7 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
             alertController.addTextField { textField in
                 textField.translatesAutoresizingMaskIntoConstraints = false
                 textField.text = self.presetSelectorView?.presetsTableView.cellForRow(at: index)?.textLabel?.text
+                textField.placeholder = NSLocalizedString("CUSTOM_EQUALIZER_PROFILE_PLACEHOLDER", comment: "")
             }
 
             action = UIAlertAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""), style: .default) { _ in

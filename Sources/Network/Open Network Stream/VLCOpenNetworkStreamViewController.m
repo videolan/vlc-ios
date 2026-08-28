@@ -550,6 +550,7 @@
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.text = streamName;
+        textField.placeholder = NSLocalizedString(@"NETWORK_STREAM_PLACEHOLDER", nil);
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
                                                           object:textField
                                                            queue:[NSOperationQueue mainQueue]
@@ -593,6 +594,7 @@
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.text = urlString;
+        textField.placeholder = NSLocalizedString(@"NETWORK_STREAM_URL_PLACEHOLDER", nil);
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
                                                           object:textField
                                                            queue:[NSOperationQueue mainQueue]
