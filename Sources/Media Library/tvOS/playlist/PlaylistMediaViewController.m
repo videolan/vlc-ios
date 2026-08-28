@@ -204,6 +204,7 @@
     __block NSString *newName = nil;
 
     [renameAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedString(@"MEDIA_PLACEHOLDER", nil);
     }];
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel

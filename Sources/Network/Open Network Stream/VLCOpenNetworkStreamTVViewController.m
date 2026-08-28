@@ -376,6 +376,7 @@
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.text = title;
+        textField.placeholder = NSLocalizedString(@"NETWORK_STREAM_PLACEHOLDER", nil);
 
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
                                                           object:textField

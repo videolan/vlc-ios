@@ -249,6 +249,7 @@ extension PlaylistViewController {
 
         renameAlert.addTextField { textField in
             textField.text = currentTitle
+            textField.placeholder = NSLocalizedString("PLAYLIST_PLACEHOLDER", comment: "")
             textField.textColor = .black
             textField.keyboardAppearance = .light
         }
