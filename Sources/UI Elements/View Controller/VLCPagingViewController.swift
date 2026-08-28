@@ -291,15 +291,20 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
         fatalError("You must override this method to set up ButtonBarView cell accordingly")
     }
 
+    func minimumCellWidth(for indicatorInfo: IndicatorInfo?) -> CGFloat {
+        return 70.0
+    }
+
     private func calculateWidths() -> [CGFloat] {
         let flowLayout = buttonBarView.collectionViewLayout as! UICollectionViewFlowLayout // swiftlint:disable:this force_cast
         let numberOfCells = viewControllers.count
 
         var minimumCellWidths = [CGFloat]()
         var collectionViewContentWidth: CGFloat = 0
-        let indicatorWidth: CGFloat = 70.0
 
-        viewControllers.forEach { _ in
+        viewControllers.forEach {
+            let indicatorInfo = ($0 as? IndicatorInfoProvider)?.indicatorInfo(for: self)
+            let indicatorWidth = minimumCellWidth(for: indicatorInfo)
             minimumCellWidths.append(indicatorWidth)
             collectionViewContentWidth += indicatorWidth
         }

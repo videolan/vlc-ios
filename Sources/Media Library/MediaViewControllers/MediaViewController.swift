@@ -15,6 +15,11 @@ import Foundation
 
 class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
+    private let tabTitleMargin: CGFloat = 8.0
+    private var tabTitleFont: UIFont {
+        return UIFont.preferredCustomFont(forTextStyle: .headline).bolded
+    }
+
     var mediaLibraryService: MediaLibraryService
     #if os(iOS)
     private lazy var rendererButton: UIButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
@@ -260,8 +265,19 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.adjustsFontSizeToFitWidth = true
         cell.iconLabel.text = indicatorInfo.title
-        cell.iconLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
+        cell.iconLabel.font = tabTitleFont
         cell.accessibilityIdentifier = indicatorInfo.accessibilityIdentifier
+    }
+
+    override func minimumCellWidth(for indicatorInfo: IndicatorInfo?) -> CGFloat {
+        let defaultWidth: CGFloat = super.minimumCellWidth(for: indicatorInfo)
+
+        guard let title = indicatorInfo?.title else {
+            return defaultWidth
+        }
+
+        let titleWidth = (title as NSString).size(withAttributes: [.font: tabTitleFont]).width
+        return max(defaultWidth, ceil(titleWidth) + 2 * tabTitleMargin)
     }
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
