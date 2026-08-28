@@ -597,7 +597,9 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     if ((NSUInteger)indexPath.item >= _chips.count) {
         VLCBrowseSharingBandCell *band = [collectionView dequeueReusableCellWithReuseIdentifier:VLCBrowseSharingBandCell.reuseIdentifier
                                                                                   forIndexPath:indexPath];
-        [band configureWithAddresses:[self sharingAddresses] joinedToChip:[self sharingChipIsTrailing]];
+        [band configureWithAddresses:[self sharingAddresses]
+                        joinedToChip:[self sharingChipIsTrailing]
+                           chipWidth:[self chipWidth]];
         return band;
     }
 
@@ -644,8 +646,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
         }
         case VLCBrowseSectionOpen: {
             if ((NSUInteger)indexPath.item >= _chips.count) {
-                CGFloat height = [VLCBrowseSharingBandCell heightForAddressCount:[self sharingAddresses].count
-                                                                    joinedToChip:[self sharingChipIsTrailing]];
+                CGFloat height = [VLCBrowseSharingBandCell heightForAddressCount:[self sharingAddresses].count];
                 return CGSizeMake([self availableWidth], height);
             }
             return CGSizeMake([self chipWidth], kVLCBrowseChipHeight);

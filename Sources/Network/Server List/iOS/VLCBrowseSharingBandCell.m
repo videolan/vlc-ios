@@ -25,7 +25,8 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
 @implementation VLCBrowseSharingBandCell
 {
     UIView *_bandView;
-    NSLayoutConstraint *_bandTopConstraint;
+    UIView *_chipRiserView;
+    NSLayoutConstraint *_chipRiserWidthConstraint;
     NSArray<NSString *> *_addresses;
     NSMutableArray<UIControl *> *_rowViews;
 }
@@ -35,15 +36,14 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
     return @"VLCBrowseSharingBandCell";
 }
 
-+ (CGFloat)heightForAddressCount:(NSInteger)count joinedToChip:(BOOL)joined
++ (CGFloat)heightForAddressCount:(NSInteger)count
 {
     if (count <= 0) {
         return 0.0;
     }
 
-    CGFloat bandHeight = 2 * kVLCBrowseBandPadding + count * kVLCBrowseBandRowHeight
-                         + (count - 1) * kVLCBrowseBandRowGap;
-    return joined ? bandHeight - kVLCBrowseBandChipOverlap : bandHeight;
+    return 2 * kVLCBrowseBandPadding + count * kVLCBrowseBandRowHeight
+           + (count - 1) * kVLCBrowseBandRowGap;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -65,25 +65,38 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
     _bandView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_bandView];
 
-    _bandTopConstraint = [_bandView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor];
+    _chipRiserView = [[UIView alloc] init];
+    _chipRiserView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_chipRiserView];
+
+    _chipRiserWidthConstraint = [_chipRiserView.widthAnchor constraintEqualToConstant:0.0];
 
     [NSLayoutConstraint activateConstraints:@[
-        _bandTopConstraint,
+        [_bandView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
         [_bandView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
         [_bandView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-        [_bandView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor]
+        [_bandView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+
+        _chipRiserWidthConstraint,
+        [_chipRiserView.trailingAnchor constraintEqualToAnchor:_bandView.trailingAnchor],
+        [_chipRiserView.bottomAnchor constraintEqualToAnchor:_bandView.topAnchor],
+        [_chipRiserView.heightAnchor constraintEqualToConstant:kVLCBrowseBandChipOverlap]
     ]];
 }
 
-- (void)configureWithAddresses:(NSArray<NSString *> *)addresses joinedToChip:(BOOL)joined
+- (void)configureWithAddresses:(NSArray<NSString *> *)addresses
+                  joinedToChip:(BOOL)joined
+                     chipWidth:(CGFloat)chipWidth
 {
     ColorPalette *themeColors = PresentationTheme.current.colors;
 
     _addresses = [addresses copy];
     _bandView.backgroundColor = themeColors.accentTint;
-    _bandTopConstraint.constant = joined ? -kVLCBrowseBandChipOverlap : 0.0;
+    _chipRiserView.backgroundColor = themeColors.accentTint;
+    _chipRiserView.hidden = !joined;
+    _chipRiserWidthConstraint.constant = joined ? chipWidth : 0.0;
 
-    /* the top right corner joins the sharing chip above, so it stays square */
+    /* the riser bridges the gap up to the sharing chip, so that corner stays square */
     CACornerMask maskedCorners = joined ? kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner
                                         : kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner |
                                           kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;

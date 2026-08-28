@@ -18,9 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, readonly) NSString *reuseIdentifier;
 
-+ (CGFloat)heightForAddressCount:(NSInteger)count joinedToChip:(BOOL)joined;
++ (CGFloat)heightForAddressCount:(NSInteger)count;
 
-- (void)configureWithAddresses:(NSArray<NSString *> *)addresses joinedToChip:(BOOL)joined;
+- (void)configureWithAddresses:(NSArray<NSString *> *)addresses
+                  joinedToChip:(BOOL)joined
+                     chipWidth:(CGFloat)chipWidth;
 
 @end
 
