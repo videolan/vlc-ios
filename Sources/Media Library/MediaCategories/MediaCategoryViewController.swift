@@ -88,7 +88,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     var isSectionable: Bool = false
 
     var isSectioned: Bool {
-        return isSectionable && model.sortModel.currentSort == .alpha
+        guard isSectionable else {
+            return false
+        }
+
+        let currentSort = model.sortModel.currentSort
+        return currentSort == .alpha || currentSort == .default
     }
 
     private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
