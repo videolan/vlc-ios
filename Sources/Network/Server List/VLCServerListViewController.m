@@ -174,6 +174,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     _collectionView.alwaysBounceVertical = YES;
+    _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
 
     [_collectionView registerClass:[VLCArtworkTile class]
         forCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier];
