@@ -279,6 +279,10 @@
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
+
+#if TARGET_OS_IOS
+    [self.window.rootViewController setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
