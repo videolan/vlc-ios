@@ -67,7 +67,8 @@ class SleepTimerView: UIView {
             let minutes = (remaining / 60) % 60
             let seconds = remaining % 60
 
-            return String(format: "Remaining time: %0.2d:%0.2d:%0.2d\n", hours, minutes, seconds)
+            let time = String(format: "%0.2d:%0.2d:%0.2d", hours, minutes, seconds)
+            return String(format: NSLocalizedString("REMAINING_TIME", comment: ""), time) + "\n"
         } else {
             return ""
         }
