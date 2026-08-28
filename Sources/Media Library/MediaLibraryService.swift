@@ -210,6 +210,7 @@ class MediaLibraryService: NSObject {
     /// the shared parser has a single delegate, so the restoration playlist needs to be told apart
     /// from everything else queued on it, network browsing in particular
     private var lastPlayedMediaList: VLCMedia?
+    private var lastPlayedMediaListOpenInMiniPlayer = true
 
 #if !os(watchOS)
     let subscriptionCacher = VLCSubscriptionCacher()
@@ -687,20 +688,34 @@ private extension MediaLibraryService {
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
 
-    func restoreLastPlayedMediaList() {
-        guard UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia) else { return }
+}
+
+// MARK: - Last played media list restoration
+
+extension MediaLibraryService {
+    @objc func restoreLastPlayedMediaList() {
+        restoreLastPlayedMediaList(bypassingSettingCheck: false, openInMiniPlayer: true)
+    }
+
+    @discardableResult
+    func restoreLastPlayedMediaList(bypassingSettingCheck: Bool, openInMiniPlayer: Bool) -> Bool {
+        guard bypassingSettingCheck || UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia) else {
+            return false
+        }
 
         guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-        else { return }
+        else { return false }
 
         let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
         let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
-        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return }
+        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return false }
 
         if let media = VLCMedia(url: m3uFileURL) {
             lastPlayedMediaList = media
+            lastPlayedMediaListOpenInMiniPlayer = openInMiniPlayer
             VLCMediaParser.shared().queue(media)
         }
+        return true
     }
 }
 
@@ -1188,6 +1203,7 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         else { return }
 
         lastPlayedMediaList = nil
+        let openInMiniPlayer = lastPlayedMediaListOpenInMiniPlayer
 
         guard status == .done,
               let mediaList = media.subitems
@@ -1221,7 +1237,9 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         else { return }
 
         DispatchQueue.main.async {
-            PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex, fromCollection: mediaList, openInMiniPlayer: true)
+            PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex,
+                                                                        fromCollection: mediaList,
+                                                                        openInMiniPlayer: openInMiniPlayer)
             defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
         }
     }

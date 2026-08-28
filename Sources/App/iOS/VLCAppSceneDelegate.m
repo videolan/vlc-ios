@@ -89,7 +89,6 @@
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
     [appDelegate applicationWillTerminate:sharedApplication];
-    [appDelegate configureShortCutItemsWithApplication:sharedApplication];
 }
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts

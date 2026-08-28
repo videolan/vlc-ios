@@ -153,6 +153,12 @@
                                                                           localizedSubtitle:nil
                                                                                        icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
                                                                                    userInfo:nil];
+    NSArray<UIApplicationShortcutItem *> *defaultShortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
+        application.shortcutItems = defaultShortcutItems;
+        return;
+    }
+
     VLCMLMedia *lastMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib historyOfType:VLCMLHistoryTypeGlobal].firstObject;
     if (lastMedia) {
         UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
@@ -162,7 +168,7 @@
                                                                                           userInfo:nil];
         application.shortcutItems = @[lastMediaItem, localVideoItem, localAudioItem, localplaylistItem, browseItem];
     } else {
-        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
+        application.shortcutItems = defaultShortcutItems;
     }
 }
 

@@ -290,13 +290,22 @@ class TabBarCoordinator: NSObject {
     }
 
     private func handleLastPlayedShortcut() {
+        guard !KeychainCoordinator.passcodeService.hasSecret else {
+            return
+        }
+
+        let hasLastPlayedMediaList = mediaLibraryService.restoreLastPlayedMediaList(bypassingSettingCheck: true,
+                                                                                    openInMiniPlayer: false)
+
         guard let lastMedia = mediaLibraryService.medialib.history(of: .global)?.first else {
             return
         }
 
         if lastMedia.type() == .audio, let album = lastMedia.album {
             openAlbum(album)
-        } else {
+        }
+
+        if !hasLastPlayedMediaList {
             PlaybackService.sharedInstance().play(lastMedia)
         }
     }
@@ -322,9 +331,6 @@ class TabBarCoordinator: NSObject {
                 return
             }
 
-            UserDefaults.standard.set(1, forKey: kVLCAudioTabIndex)
-            audioViewController.currentIndex = 1
-            audioViewController.moveToViewController(at: 1, animated: false)
             tabBarController.selectedIndex = audioIndex
             navigationController = audioNavigationController
             mediaViewController = audioViewController
@@ -337,7 +343,7 @@ class TabBarCoordinator: NSObject {
         }) as? MediaCategoryViewController else {
             return
         }
-        categoryViewController.showCollection(album)
+        categoryViewController.pushCollectionViewController(for: album)
     }
 }
 
