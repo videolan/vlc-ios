@@ -200,6 +200,8 @@ extension EditActions {
             message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST_CONTENT", comment: "")
         } else if objects.contains(where: { $0 is VLCMLFolder }) {
             message = NSLocalizedString("DELETE_MESSAGE_FOLDER", comment: "")
+        } else if model is HistoryModel {
+            message = NSLocalizedString("DELETE_MESSAGE_HISTORY", comment: "")
         } else {
             message = NSLocalizedString("DELETE_MESSAGE", comment: "")
         }
