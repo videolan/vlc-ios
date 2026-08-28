@@ -72,6 +72,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         return delegate as? MediaCollectionViewCellEnqueueDelegate
     }
 
+    private var isEmptyCollection: Bool {
+        if let playlist = media as? VLCMLPlaylist {
+            return playlist.nbMedia() == 0
+        }
+
+        return false
+    }
+
     var ignoreThemeDidChange: Bool = false
     var isEditing: Bool = false
     var isMediaBeingPlayed: Bool = false
@@ -585,7 +593,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     private func updateSwipeActions() {
-        if scrollView.isScrollEnabled && enqueueDelegate != nil {
+        if scrollView.isScrollEnabled && enqueueDelegate != nil && !isEmptyCollection {
             enqueueButton.isHidden = false
             enqueueButtonWidth.constant = MediaCollectionViewCell.enqueueButtonDefaultWidth
         } else {
