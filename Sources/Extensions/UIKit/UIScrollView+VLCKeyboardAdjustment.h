@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (VLCKeyboardAdjustment)
 
+- (void)adjustBottomInsetForKeyboardNotification:(NSNotification *)aNotification baseInset:(CGFloat)baseInset;
 - (void)adjustForKeyboardNotification:(NSNotification *)aNotification revealingView:(UIView *)view;
 
 @end

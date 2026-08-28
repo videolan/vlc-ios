@@ -14,11 +14,28 @@
 
 @implementation UIScrollView (VLCKeyboardAdjustment)
 
-- (void)adjustForKeyboardNotification:(NSNotification *)aNotification revealingView:(UIView *)view
+- (CGFloat)keyboardOverlapForNotification:(NSNotification *)aNotification
 {
     CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect ownFrame = [self convertRect:self.bounds toView:nil];
-    CGFloat overlap = MAX(0., CGRectGetMaxY(ownFrame) - CGRectGetMinY(keyboardFrame));
+    return MAX(0., CGRectGetMaxY(ownFrame) - CGRectGetMinY(keyboardFrame));
+}
+
+- (void)adjustBottomInsetForKeyboardNotification:(NSNotification *)aNotification baseInset:(CGFloat)baseInset
+{
+    CGFloat overlap = MAX(baseInset, [self keyboardOverlapForNotification:aNotification]);
+    /* the safe area is already part of the adjusted inset, so it must not be added twice */
+    CGFloat automaticInset = self.adjustedContentInset.bottom - self.contentInset.bottom;
+
+    UIEdgeInsets insets = self.contentInset;
+    insets.bottom = MAX(0., overlap - automaticInset);
+    self.contentInset = insets;
+    self.verticalScrollIndicatorInsets = insets;
+}
+
+- (void)adjustForKeyboardNotification:(NSNotification *)aNotification revealingView:(UIView *)view
+{
+    CGFloat overlap = [self keyboardOverlapForNotification:aNotification];
 
     UIEdgeInsets insets = self.contentInset;
     insets.bottom = overlap;

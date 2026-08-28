@@ -13,6 +13,7 @@
 
 #import "VLCNetworkListViewController.h"
 #import "VLCNetworkListCell.h"
+#import "UIScrollView+VLCKeyboardAdjustment.h"
 
 #import "VLC-Swift.h"
 
@@ -87,6 +88,16 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillChangeFrameNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(adjustForKeyboard:)
+                               name:UIKeyboardWillHideNotification
+                             object:nil];
 }
 
 #if TARGET_OS_IOS
@@ -94,16 +105,35 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     [super viewDidAppear:animated];
 
-    // ensure that the last row is not cut-off on iPad by the tab bar
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.tabBarController) {
+    CGFloat baseBottomInset = [self baseBottomInset];
+    if (baseBottomInset > 0.) {
         UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-        contentInsets.bottom += self.tabBarController.tabBar.frame.size.height;
+        contentInsets.bottom = baseBottomInset;
 
         self.tableView.contentInset = contentInsets;
-        self.tableView.scrollIndicatorInsets = contentInsets;
+        self.tableView.verticalScrollIndicatorInsets = contentInsets;
     }
 }
 #endif
+
+- (CGFloat)baseBottomInset
+{
+    // ensure that the last row is not cut-off on iPad by the tab bar
+    if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad && self.tabBarController) {
+        return self.tabBarController.tabBar.frame.size.height;
+    }
+
+    return 0.;
+}
+
+- (void)adjustForKeyboard:(NSNotification *)aNotification
+{
+    if (!self.viewIfLoaded.window) {
+        return;
+    }
+
+    [self.tableView adjustBottomInsetForKeyboardNotification:aNotification baseInset:[self baseBottomInset]];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
