@@ -2144,7 +2144,7 @@ extension MediaCategoryViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
         if isSectioned {
-            return .init(width: collectionView.frame.size.width, height: 40)
+            return .init(width: collectionView.safeAreaLayoutGuide.layoutFrame.width, height: 40)
         }
 
         guard let model = model as? CollectionModel else {
@@ -2347,10 +2347,9 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
             //so we need the frame.size width. For rotation on iOS 11 this approach doesn't work because at the time when this is called
             //we don't have yet the updated safeare layout frame. This is addressed by relayouting from viewSafeAreaInsetsDidChange
 
-            // In case of nested views, the safe area may not be updated.
-            // Getting its parent's safe area gives us the true updated safe area.
-            let toWidth = parent?.view.safeAreaLayoutGuide.layoutFrame.width ?? collectionView.safeAreaLayoutGuide.layoutFrame.width
-            cachedCellSize = model.cellType.cellSizeForWidth(toWidth, safeAreaInsets: collectionView.safeAreaInsets)
+            let toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
+            let safeAreaInsets = collectionView.window?.safeAreaInsets ?? collectionView.safeAreaInsets
+            cachedCellSize = model.cellType.cellSizeForWidth(toWidth, safeAreaInsets: safeAreaInsets)
         }
         return cachedCellSize
     }

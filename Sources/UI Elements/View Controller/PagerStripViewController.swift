@@ -107,6 +107,7 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateIfNeeded()
+        updateChildSafeAreaInsets()
     }
 
     override var shouldAutomaticallyForwardAppearanceMethods: Bool {
@@ -152,6 +153,24 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     func updateIfNeeded() {
         if isViewLoaded && !lastSize.equalTo(containerView.bounds.size) {
             updateContent()
+        }
+    }
+
+    /* Manually framed inside a paging scroll view, a child keeps whatever horizontal safe area it
+     * inherited before the rotation until something nudges it, so top up what it is missing. */
+    private func updateChildSafeAreaInsets() {
+        for childController in viewControllers where childController.isViewLoaded {
+            let additional = childController.additionalSafeAreaInsets
+            let inherited = childController.view.safeAreaInsets
+            let left = max(view.safeAreaInsets.left - (inherited.left - additional.left), 0)
+            let right = max(view.safeAreaInsets.right - (inherited.right - additional.right), 0)
+
+            guard additional.left != left || additional.right != right else {
+                continue
+            }
+
+            childController.additionalSafeAreaInsets.left = left
+            childController.additionalSafeAreaInsets.right = right
         }
     }
 
@@ -227,6 +246,8 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
+
+        updateChildSafeAreaInsets()
 
         let oldCurrentIndex = currentIndex
         let virtualPage = virtualPageFor(contentOffset: containerView.contentOffset.x)
