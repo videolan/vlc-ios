@@ -54,7 +54,6 @@
     urlField.clearButtonMode = UITextFieldViewModeNever;
     urlField.autocorrectionType = UITextAutocorrectionTypeNo;
     urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    urlField.keyboardAppearance = UIKeyboardAppearanceAlert;
     urlField.keyboardType = UIKeyboardTypeURL;
     urlField.layer.cornerRadius = 10.0;
     urlField.layer.borderWidth = 1.0;
@@ -196,6 +195,7 @@
     self.urlField.backgroundColor = colors.cellBackgroundB;
     self.urlField.textColor = colors.cellTextColor;
     self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    self.urlField.keyboardAppearance = colors.isDark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight;
     self.downloadButton.backgroundColor = colors.orangeUI;
     self.downloadButton.tintColor = [UIColor whiteColor];
     [self.downloadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -95,7 +95,6 @@
     urlField.clearButtonMode = UITextFieldViewModeNever;
     urlField.autocorrectionType = UITextAutocorrectionTypeNo;
     urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    urlField.keyboardAppearance = UIKeyboardAppearanceAlert;
     urlField.layer.cornerRadius = 10.0;
     urlField.layer.borderWidth = 1.0;
     [urlField addTarget:self action:@selector(updateFieldAccessories) forControlEvents:UIControlEventEditingChanged | UIControlEventEditingDidBegin | UIControlEventEditingDidEnd];
@@ -332,6 +331,7 @@
     self.urlField.backgroundColor = colors.cellBackgroundB;
     self.urlField.textColor = colors.cellTextColor;
     self.urlField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+    self.urlField.keyboardAppearance = colors.isDark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight;
     self.recentsHeaderLabel.textColor = colors.lightTextColor;
     self.openButton.backgroundColor = colors.orangeUI;
     self.openButton.tintColor = [UIColor whiteColor];
