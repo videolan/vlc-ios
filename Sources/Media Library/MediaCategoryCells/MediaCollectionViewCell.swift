@@ -392,7 +392,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = album.accessibilityText(editing: false)
         sizeDescriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
-        scrollView.isScrollEnabled = false
+        scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
     }
 
@@ -406,7 +406,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = numberOfAlbums == 0 ? artist.numberOfTracksString() :
         String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
         thumbnailView.image = artist.thumbnail()
-        scrollView.isScrollEnabled = false
+        scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
     }
 
