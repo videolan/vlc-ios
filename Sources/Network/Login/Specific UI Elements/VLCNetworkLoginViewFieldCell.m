@@ -23,6 +23,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
         [self themeDidChange];
         [self setupSubviews];
@@ -66,20 +67,21 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     textField.text = nil;
     textField.secureTextEntry = NO;
     self.placeholderString = nil;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    if (selected) {
-        [self.textField becomeFirstResponder];
-    }
+    [self updateFieldBackgroundColor];
 }
 
 - (void)themeDidChange
 {
-    self.backgroundColor = PresentationTheme.current.colors.background;
-    self.textField.textColor = PresentationTheme.current.colors.cellTextColor;
-    _darkView.backgroundColor = PresentationTheme.current.colors.background;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.backgroundColor = colors.background;
+    self.textField.textColor = colors.cellTextColor;
+    [self updateFieldBackgroundColor];
+}
+
+- (void)updateFieldBackgroundColor
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _darkView.backgroundColor = _textField.editing ? colors.cellBackgroundB : colors.background;
 }
 
 #pragma mark - Properties
@@ -107,8 +109,14 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     return NO;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self updateFieldBackgroundColor];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [self updateFieldBackgroundColor];
     [self.delegate loginViewFieldCellDidEndEditing:self];
 }
 
@@ -117,7 +125,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     UITouch *touch = [touches anyObject];
 
     if ([touch tapCount] == 1) {
-        [self setSelected:YES animated:YES];
+        [_textField becomeFirstResponder];
     } else if ([touch tapCount] == 2 && [_textField becomeFirstResponder]) {
 #if TARGET_OS_IOS
         UIMenuController *menu = [UIMenuController sharedMenuController];
