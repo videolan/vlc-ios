@@ -126,11 +126,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         actionSheet.delegate = self
         actionSheet.dataSource = self
         actionSheet.modalPresentationStyle = .custom
-        actionSheet.collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        actionSheet.collectionView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        actionSheet.headerView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        actionSheet.headerView.title.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
-        actionSheet.headerView.title.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        actionSheet.excludesWhiteTheme = true
         return actionSheet
     }()
 #endif
@@ -379,6 +375,8 @@ extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
         default:
             break
         }
+
+        cell.isMediaPlayerActionSheetCell = true
 
         let colors: ColorPalette = PresentationTheme.currentExcludingWhite.colors
         cell.backgroundColor = colors.background

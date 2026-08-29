@@ -95,6 +95,8 @@ class VLCRendererDiscovererManager: NSObject {
         if getAllRenderers().count == 1, let rendererItem = getAllRenderers().first {
             actionSheet.action?(rendererItem)
         } else {
+            actionSheet.excludesWhiteTheme = presentingViewController is PlayerViewController
+            actionSheet.updateTheme()
             presentingViewController.present(actionSheet, animated: false, completion: nil)
         }
     }
@@ -191,14 +193,15 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     }
 
     fileprivate func updateCollectionViewCellApparence(cell: ActionSheetCell, highlighted: Bool) {
+        let colors = actionSheet.themeColors
         var image = UIImage(named: "renderer")
-        var textColor = PresentationTheme.current.colors.cellTextColor
-        var tintColor = PresentationTheme.current.colors.cellDetailTextColor
+        var textColor = colors.cellTextColor
+        var tintColor = colors.cellDetailTextColor
 
         if highlighted {
             image = UIImage(named: "rendererFull")
-            textColor = PresentationTheme.current.colors.orangeUI
-            tintColor = PresentationTheme.current.colors.orangeUI
+            textColor = colors.orangeUI
+            tintColor = colors.orangeUI
         }
 
         cell.tintColor = tintColor
@@ -254,6 +257,8 @@ extension VLCRendererDiscovererManager: ActionSheetDataSource {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
             return UICollectionViewCell()
         }
+        cell.isMediaPlayerActionSheetCell = actionSheet.excludesWhiteTheme
+
         let renderers = getAllRenderers()
         if indexPath.row < renderers.count {
             cell.name.text = renderers[indexPath.row].name

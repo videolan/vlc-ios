@@ -39,6 +39,13 @@ class ActionSheet: UIViewController {
     @objc weak var dataSource: ActionSheetDataSource?
     @objc weak var delegate: ActionSheetDelegate?
 
+    @objc var excludesWhiteTheme: Bool = false
+
+    var themeColors: ColorPalette {
+        return excludesWhiteTheme ? PresentationTheme.currentExcludingWhite.colors
+                                  : PresentationTheme.current.colors
+    }
+
     var action: ((_ item: Any) -> Void)?
 
     lazy var backgroundView: UIView = {
@@ -63,7 +70,7 @@ class ActionSheet: UIViewController {
                                               collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = PresentationTheme.current.colors.background
+        collectionView.backgroundColor = themeColors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -78,15 +85,16 @@ class ActionSheet: UIViewController {
 
     lazy var collectionWrapperView: UIView = {
         let collectionWrapperView: UIView = UIView(frame: .zero)
-        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
+        collectionWrapperView.backgroundColor = themeColors.background
         return collectionWrapperView
     }()
 
     private(set) lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
-        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        headerView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.title.textColor = themeColors.cellTextColor
+        headerView.title.backgroundColor = themeColors.background
+        headerView.backgroundColor = themeColors.background
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
@@ -268,11 +276,12 @@ class ActionSheet: UIViewController {
     }
 
     @objc func updateTheme() {
-        collectionView.backgroundColor = PresentationTheme.current.colors.background
-        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
-        headerView.backgroundColor = PresentationTheme.current.colors.background
-        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        headerView.title.backgroundColor = PresentationTheme.current.colors.background
+        let colors = themeColors
+        collectionView.backgroundColor = colors.background
+        collectionWrapperView.backgroundColor = colors.background
+        headerView.backgroundColor = colors.background
+        headerView.title.textColor = colors.cellTextColor
+        headerView.title.backgroundColor = colors.background
         collectionView.layoutIfNeeded()
     }
     
