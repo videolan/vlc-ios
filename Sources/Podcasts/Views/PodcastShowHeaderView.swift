@@ -101,7 +101,7 @@ class PodcastShowHeaderView: UIView {
             subscribeButton.layer.borderColor = colors.separatorColor.cgColor
         } else {
             subscribeButton.backgroundColor = colors.orangeUI
-            subscribeButton.setTitleColor(colors.background, for: .normal)
+            subscribeButton.setTitleColor(colors.cellTextColor, for: .normal)
             subscribeButton.layer.borderWidth = 0
         }
     }
