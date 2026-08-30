@@ -199,24 +199,7 @@ class SettingsCell: UITableViewCell {
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
 
-            case .about:
-                switchControl.isHidden = true
-                infoButton.isHidden = true
-                activityIndicator.isHidden = true
-                accessoryView = .none
-                accessoryType = .disclosureIndicator
-                selectionStyle = .default
-                accessibilityIdentifier = VLCAccessibilityIdentifier.about
-
-            case .donation:
-                switchControl.isHidden = true
-                infoButton.isHidden = true
-                activityIndicator.isHidden = true
-                accessoryView = .none
-                accessoryType = .disclosureIndicator
-                selectionStyle = .default
-
-            case .documentation, .openPrivacySettings:
+            case .openPrivacySettings:
                 switchControl.isHidden = true
                 infoButton.isHidden = true
                 activityIndicator.isHidden = true

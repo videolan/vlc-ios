@@ -4,13 +4,6 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_INFORMATION_TITLE" = "Information";
-"SETTINGS_ABOUT" = "About VLC";
-"SETTINGS_DONATE" = "Make a Donation to VideoLAN";
-"SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
-
-"SETTINGS_DOCUMENTATION" = "Documentation";
-
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "Automatic";

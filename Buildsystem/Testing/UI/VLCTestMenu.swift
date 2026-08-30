@@ -75,8 +75,9 @@ class VLCTestMenu: XCTestCase {
     }
 
     func testNavigationToAbout() {
-        helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)
-        app.cells[VLCAccessibilityIdentifier.about].tap()
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
+        app.navigationBars.buttons[VLCAccessibilityIdentifier.settings].tap()
+        app.buttons[VLCAccessibilityIdentifier.about].tap()
         XCTAssertNotNil(app.navigationBars.buttons[VLCAccessibilityIdentifier.done])
     }
 }

@@ -102,19 +102,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 {
     [super viewDidLoad];
 
-    UIImage *settingsImage;
-    if (@available(iOS 13.0, *)) {
-        settingsImage = [UIImage systemImageNamed:@"gearshape"];
-    } else {
-        settingsImage = [UIImage imageNamed:@"Settings"];
-    }
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsImage
-                                                                      style:UIBarButtonItemStylePlain
-                                                                     target:self
-                                                                     action:@selector(showSettings)];
-    settingsButton.accessibilityLabel = NSLocalizedString(@"Settings", nil);
-    settingsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
-    self.navigationItem.leftBarButtonItem = settingsButton;
+    self.navigationItem.leftBarButtonItem = [[VLCAppMenuBarButtonItem alloc] initWithPresenter:self];
 
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                   target:self
@@ -716,16 +704,6 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (void)showSearch
 {
     APLog(@"On Air: no cross-category search available yet");
-}
-
-- (void)showSettings
-{
-    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
-        MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
-        SettingsController *settingsController = [[SettingsController alloc] initWithMediaLibraryService:mediaLibraryService];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-        [self presentViewController:navigationController animated:YES completion:nil];
-    } fail:nil];
 }
 
 #pragma mark - appearance

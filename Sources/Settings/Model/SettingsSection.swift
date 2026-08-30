@@ -55,9 +55,6 @@ struct SettingsItem: Equatable {
         case isLoading
         case toggle(Toggle)
         case showActionSheet(title: String, preferenceKey: String, hasInfo: Bool)
-        case about
-        case donation
-        case documentation
         case openPrivacySettings
         case forceRescanAlert
         case exportMediaLibrary
@@ -150,7 +147,6 @@ struct SettingsSection: Equatable {
 
     static func sections(isLabActivated: Bool, isBackingUp: Bool, isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> [SettingsSection] {
         [
-            InformationOptions.section(),
             AppearanceOptions.section(),
             PlaybackOptions.section(),
             PrivacyOptions.section(),
@@ -166,36 +162,6 @@ struct SettingsSection: Equatable {
             WatchOS.section(),
             Reset.section(),
         ].compactMap { $0 }
-    }
-}
-
-// MARK: - InformationOptions
-
-enum InformationOptions {
-    static var about: SettingsItem {
-        .init(title: "SETTINGS_ABOUT",
-              subtitle: nil,
-              action: .about)
-    }
-
-    static var donate: SettingsItem {
-        .init(title: "SETTINGS_DONATE",
-              subtitle: "SETTINGS_DONATE_LONG",
-              action: .donation)
-    }
-
-    static var documentation: SettingsItem {
-        .init(title: "SETTINGS_DOCUMENTATION",
-              subtitle: nil,
-              action: .documentation)
-    }
-
-    static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_INFORMATION_TITLE", items: [
-            about,
-            documentation,
-            donate,
-        ])
     }
 }
 

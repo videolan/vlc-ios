@@ -88,7 +88,7 @@ class SettingsController: UITableViewController {
     // MARK: - Setup Functions
 
     private func setupTabBarItem() {
-        title = NSLocalizedString("SETTINGS_INFO_TITLE", comment: "")
+        title = NSLocalizedString("Settings", comment: "")
         tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
                                   image: UIImage(named: "Settings"),
                                   selectedImage: UIImage(named: "Settings"))
@@ -170,22 +170,6 @@ class SettingsController: UITableViewController {
 
     // MARK: - Observer & BarButton Actions
 
-    private func showAbout() {
-#if os(iOS)
-        ImpactFeedbackGenerator().selectionChanged()
-#endif
-        let aboutController = AboutController()
-        let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
-        present(aboutNavigationController, animated: true)
-    }
-
-    private func showDocumentation() {
-#if os(iOS)
-        ImpactFeedbackGenerator().selectionChanged()
-#endif
-        UIApplication.shared.open(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
-    }
-
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
         setNavBarAppearance()
@@ -217,22 +201,6 @@ class SettingsController: UITableViewController {
     }
 
     // MARK: - Helper Functions
-
-    private func showDonation(indexPath: IndexPath) {
-#if os(iOS)
-        ImpactFeedbackGenerator().selectionChanged()
-#endif
-        let donationVC = VLCDonationViewController(nibName: "VLCDonationViewController", bundle: nil)
-        let donationNC = VLCDonationNavigationController(rootViewController: donationVC)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            donationNC.modalPresentationStyle = .popover
-            donationNC.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-        } else {
-            donationNC.modalPresentationStyle = .fullScreen
-        }
-        donationNC.modalTransitionStyle = .flipHorizontal
-        present(donationNC, animated: true, completion: nil)
-    }
 
     private func forceRescanAlert() {
 #if os(iOS)
@@ -478,12 +446,6 @@ extension SettingsController {
             exportMediaLibrary()
         case .exportSettings:
             exportSettings()
-        case .about:
-            showAbout()
-        case .donation:
-            showDonation(indexPath: indexPath)
-        case .documentation:
-            showDocumentation()
         case .displayResetAlert:
             displayResetAlert()
         case let .showActionSheet(title, preferenceKey, _):

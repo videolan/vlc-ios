@@ -204,19 +204,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     _savedServerList = [[VLCAppCoordinator sharedInstance] savedServerList];
     _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
 
-    UIImage *settingsImage;
-    if (@available(iOS 13.0, *)) {
-        settingsImage = [UIImage systemImageNamed:@"gearshape"];
-    } else {
-        settingsImage = [UIImage imageNamed:@"Settings"];
-    }
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsImage
-                                                                      style:UIBarButtonItemStylePlain
-                                                                     target:self
-                                                                     action:@selector(showSettings)];
-    settingsButton.accessibilityLabel = NSLocalizedString(@"Settings", nil);
-    settingsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
-    self.navigationItem.leftBarButtonItem = settingsButton;
+    self.navigationItem.leftBarButtonItem = [[VLCAppMenuBarButtonItem alloc] initWithPresenter:self];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
@@ -1129,15 +1117,6 @@ referenceSizeForHeaderInSection:(NSInteger)section
         [self connectToServer];
     }]];
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)showSettings
-{
-    [[ParentalControlCoordinator sharedInstance] authorizeIfParentalControlIsEnabledWithAction:^{
-        SettingsController *settingsController = [[SettingsController alloc] initWithMediaLibraryService:self->_medialibraryService];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-        [self presentViewController:navigationController animated:YES completion:nil];
-    } fail:nil];
 }
 
 #pragma mark - appearance

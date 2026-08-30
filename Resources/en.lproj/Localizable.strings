@@ -384,7 +384,10 @@
 
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
-"SETTINGS_INFO_TITLE" = "Settings & Info";
+"SETTINGS_ABOUT" = "About VLC";
+"SETTINGS_DOCUMENTATION" = "Documentation";
+"SETTINGS_DONATE" = "Donate to VideoLAN";
+"SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
 
 "ERROR" = "Error";
 "SORT" = "Sort";
