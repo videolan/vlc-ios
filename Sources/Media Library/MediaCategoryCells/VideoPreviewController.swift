@@ -128,7 +128,7 @@ extension VideoPreviewController: VLCMediaPlayerDelegate {
             self.mediaPlayer?.audio?.isMuted = true
             guard newState == .playing,
                   !self.hasSeeked,
-                  self.savedProgress > 0,
+                  self.savedProgress > 0, self.savedProgress < 1,
                   let player = self.mediaPlayer else {
                 return
             }
