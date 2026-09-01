@@ -200,10 +200,11 @@ class PodcastsViewController: UIViewController {
     private func configureEpisodeCell(_ cell: PodcastEpisodeCell, for episode: PodcastEpisode, at indexPath: IndexPath) {
         let show = store.show(withId: episode.showId)
         cell.configure(episode: episode,
-                       leading: .artwork(name: show?.name ?? "", artworkURL: episode.artworkURL ?? show?.artworkURL),
+                       name: show?.name ?? "",
+                       artworkURL: episode.artworkURL ?? show?.artworkURL,
                        showName: show?.name,
                        downloading: store.isDownloading(episodeId: episode.id),
-                       onTapLeading: { [weak self] in
+                       onTapArtwork: { [weak self] in
                            self?.openShow(forEpisode: episode)
                        },
                        onDownload: { [weak self] in

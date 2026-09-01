@@ -13,22 +13,9 @@
 import UIKit
 
 class PodcastEpisodeCell: UITableViewCell {
-    enum Leading {
-        case artwork(name: String, artworkURL: URL?)
-        case playButton
-    }
-
     static let reuseIdentifier = "PodcastEpisodeCell"
 
     private let artworkView = PodcastArtworkView()
-
-    private let playButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isUserInteractionEnabled = false
-        // TODO: - Add action
-        return button
-    }()
 
     private let showNameLabel: UILabel = {
         let label = UILabel()
@@ -64,12 +51,6 @@ class PodcastEpisodeCell: UITableViewCell {
     private var downloadTapTarget: (() -> Void)?
     private var deleteDownloadTapTarget: (() -> Void)?
 
-    private lazy var leadingContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private lazy var textStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [showNameLabel, titleLabel, detailLabel, progressBar])
         stack.axis = .vertical
@@ -92,35 +73,22 @@ class PodcastEpisodeCell: UITableViewCell {
     private func setupUI() {
         selectionStyle = .none
 
-        leadingContainer.addSubview(artworkView)
-        leadingContainer.addSubview(playButton)
-
-        contentView.addSubview(leadingContainer)
+        contentView.addSubview(artworkView)
         contentView.addSubview(textStack)
         contentView.addSubview(downloadButton)
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapLeading))
-        leadingContainer.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapArtwork))
+        artworkView.addGestureRecognizer(tap)
 
         downloadButton.addTarget(self, action: #selector(didTapDownload), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            leadingContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            leadingContainer.widthAnchor.constraint(equalToConstant: 56),
-            leadingContainer.heightAnchor.constraint(equalToConstant: 56),
+            artworkView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            artworkView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            artworkView.widthAnchor.constraint(equalToConstant: 56),
+            artworkView.heightAnchor.constraint(equalToConstant: 56),
 
-            artworkView.leadingAnchor.constraint(equalTo: leadingContainer.leadingAnchor),
-            artworkView.trailingAnchor.constraint(equalTo: leadingContainer.trailingAnchor),
-            artworkView.topAnchor.constraint(equalTo: leadingContainer.topAnchor),
-            artworkView.bottomAnchor.constraint(equalTo: leadingContainer.bottomAnchor),
-
-            playButton.centerXAnchor.constraint(equalTo: leadingContainer.centerXAnchor),
-            playButton.centerYAnchor.constraint(equalTo: leadingContainer.centerYAnchor),
-            playButton.widthAnchor.constraint(equalToConstant: 40),
-            playButton.heightAnchor.constraint(equalToConstant: 40),
-
-            textStack.leadingAnchor.constraint(equalTo: leadingContainer.trailingAnchor, constant: 12),
+            textStack.leadingAnchor.constraint(equalTo: artworkView.trailingAnchor, constant: 12),
             textStack.trailingAnchor.constraint(equalTo: downloadButton.leadingAnchor, constant: -8),
             textStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             textStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
@@ -141,23 +109,16 @@ class PodcastEpisodeCell: UITableViewCell {
     }
 
     func configure(episode: PodcastEpisode,
-                    leading: Leading,
+                    name: String,
+                    artworkURL: URL?,
                     showName: String?,
                     downloading: Bool = false,
-                    onTapLeading: (() -> Void)? = nil,
+                    onTapArtwork: (() -> Void)? = nil,
                     onDownload: (() -> Void)? = nil,
                     onDeleteDownload: (() -> Void)? = nil) {
         PodcastStore.shared.requestArtwork(for: episode)
 
-        switch leading {
-        case .artwork(let name, let artworkURL):
-            artworkView.isHidden = false
-            playButton.isHidden = true
-            artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8, fontSize: 16)
-        case .playButton:
-            artworkView.isHidden = true
-            playButton.isHidden = false
-        }
+        artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8, fontSize: 16)
 
         if let showName = showName {
             showNameLabel.isHidden = false
@@ -174,11 +135,11 @@ class PodcastEpisodeCell: UITableViewCell {
         progressBar.progress = episode.progressFraction
         downloadButton.configure(downloaded: episode.downloaded, downloading: downloading)
 
-        artworkTapTarget = onTapLeading
+        artworkTapTarget = onTapArtwork
         downloadTapTarget = onDownload
         deleteDownloadTapTarget = onDeleteDownload
 
-        leadingContainer.isUserInteractionEnabled = onTapLeading != nil
+        artworkView.isUserInteractionEnabled = onTapArtwork != nil
         if hasDuration {
             accessibilityLabel = "\(episode.title), \(episode.date), \(episode.duration)"
         } else {
@@ -186,7 +147,7 @@ class PodcastEpisodeCell: UITableViewCell {
         }
     }
 
-    @objc private func didTapLeading() {
+    @objc private func didTapArtwork() {
         artworkTapTarget?()
     }
 
@@ -205,14 +166,6 @@ class PodcastEpisodeCell: UITableViewCell {
         titleLabel.textColor = colors.cellTextColor
         showNameLabel.textColor = colors.cellDetailTextColor
         detailLabel.textColor = colors.cellDetailTextColor
-
-        playButton.tintColor = colors.orangeUI
-        if #available(iOS 13.0, *) {
-            let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .regular)
-            playButton.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
-        } else {
-            playButton.setImage(UIImage(named: "iconPlay"), for: .normal)
-        }
     }
 
     override func prepareForReuse() {
