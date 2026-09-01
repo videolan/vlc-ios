@@ -12,7 +12,7 @@
 
 #import "VLCRadioListViewController.h"
 #import "VLCRadioCountryListViewController.h"
-#import "VLCRadioCountryService.h"
+#import "VLCRadioService.h"
 #import "VLCRadioCountry.h"
 #import "VLCRadioFavoritesGridCell.h"
 #import "VLCRadioFavoriteMenu.h"
@@ -25,7 +25,7 @@
 
 @interface VLCRadioListViewController () <VLCRadioFavoritesGridCellDelegate>
 {
-    VLCRadioCountryService *_countryService;
+    VLCRadioService *_radioService;
     NSArray<VLCFavorite *> *_radioFavorites;
     NSSet<NSURL *> *_favoritesWithAlarms;
 }
@@ -55,7 +55,7 @@
     [self.tableView registerClass:[VLCRadioFavoritesGridCell class]
            forCellReuseIdentifier:VLCRadioFavoritesGridCell.reuseIdentifier];
 
-    _countryService = [[VLCAppCoordinator sharedInstance] radioCountryService];
+    _radioService = [[VLCAppCoordinator sharedInstance] radioService];
     _radioFavorites = @[];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -84,7 +84,7 @@
 
     [self reloadFavorites];
 
-    [_countryService startCountryDiscoveryIfNeeded];
+    [_radioService startCountryDiscoveryIfNeeded];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -93,7 +93,7 @@
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
 
-    [_countryService stopCountryDiscovery];
+    [_radioService stopCountryDiscovery];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -152,7 +152,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == self.countriesSection) {
-        return _countryService.visitedCountries.count + 1;
+        return _radioService.visitedCountries.count + 1;
     }
     return 1;
 }
@@ -179,7 +179,7 @@
 {
     [cell setIsDirectory:YES];
 
-    NSArray<VLCRadioCountry *> *visited = _countryService.visitedCountries;
+    NSArray<VLCRadioCountry *> *visited = _radioService.visitedCountries;
     if (row < visited.count) {
         VLCRadioCountry *country = visited[row];
         [cell setTitle:country.localizedName];
@@ -310,7 +310,7 @@
 
 - (void)didSelectCountryAtRow:(NSInteger)row
 {
-    NSArray<VLCRadioCountry *> *visited = _countryService.visitedCountries;
+    NSArray<VLCRadioCountry *> *visited = _radioService.visitedCountries;
     if (row >= visited.count) {
         VLCRadioCountryListViewController *targetViewController = [[VLCRadioCountryListViewController alloc] init];
         [self.navigationController pushViewController:targetViewController animated:YES];
@@ -318,7 +318,7 @@
     }
 
     VLCRadioCountry *country = visited[row];
-    [_countryService markCountryVisited:country];
+    [_radioService markCountryVisited:country];
 
     id<VLCNetworkServerBrowser> serverBrowser = [country makeServerBrowser];
     if (!serverBrowser)

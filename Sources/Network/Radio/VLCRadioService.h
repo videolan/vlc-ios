@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCRadioCountryService.h
+ * VLCRadioService.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSString *const VLCRadioCountriesDidUpdateNotification;
 
-@interface VLCRadioCountryService : NSObject
+@interface VLCRadioService : NSObject
 
 @property (readonly) NSArray<VLCRadioCountry *> *allCountries;
 @property (readonly) NSArray<VLCRadioCountry *> *visitedCountries;

@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCRadioCountryListViewController.h"
-#import "VLCRadioCountryService.h"
+#import "VLCRadioService.h"
 #import "VLCRadioCountry.h"
 #import "VLCRadioErrorView.h"
 #import "VLCAppCoordinator.h"
@@ -22,7 +22,7 @@
 
 @interface VLCRadioCountryListViewController ()
 {
-    VLCRadioCountryService *_countryService;
+    VLCRadioService *_radioService;
     NSArray<VLCRadioCountry *> *_searchResults;
     NSArray<NSString *> *_sectionTitles;
     NSArray<NSArray<VLCRadioCountry *> *> *_sectionedCountries;
@@ -41,7 +41,7 @@
 
     self.tableView.sectionIndexColor = PresentationTheme.current.colors.orangeUI;
 
-    _countryService = [[VLCAppCoordinator sharedInstance] radioCountryService];
+    _radioService = [[VLCAppCoordinator sharedInstance] radioService];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(radioCountriesDidUpdate:)
@@ -56,7 +56,7 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
 
-    [_countryService startCountryDiscoveryIfNeeded];
+    [_radioService startCountryDiscoveryIfNeeded];
     [self updateContentState];
 }
 
@@ -66,7 +66,7 @@
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
 
-    [_countryService stopCountryDiscovery];
+    [_radioService stopCountryDiscovery];
 }
 
 - (void)radioCountriesDidUpdate:(NSNotification *)notification
@@ -81,10 +81,10 @@
 
 - (void)updateContentState
 {
-    if (_countryService.allCountries.count > 0) {
+    if (_radioService.allCountries.count > 0) {
         [self stopActivityIndicator];
         self.tableView.backgroundView = nil;
-    } else if (_countryService.discoveryFailed) {
+    } else if (_radioService.discoveryFailed) {
         [self stopActivityIndicator];
         self.tableView.backgroundView = self.errorView;
     } else {
@@ -98,7 +98,7 @@
 
 - (void)rebuildSections
 {
-    NSArray<VLCRadioCountry *> *sorted = [_countryService.allCountries sortedArrayUsingComparator:^NSComparisonResult(VLCRadioCountry *a, VLCRadioCountry *b) {
+    NSArray<VLCRadioCountry *> *sorted = [_radioService.allCountries sortedArrayUsingComparator:^NSComparisonResult(VLCRadioCountry *a, VLCRadioCountry *b) {
         return [a.localizedName localizedCaseInsensitiveCompare:b.localizedName];
     }];
 
@@ -149,7 +149,7 @@
 
 - (void)retryButtonTapped
 {
-    [_countryService retryCountryDiscovery];
+    [_radioService retryCountryDiscovery];
     [self updateContentState];
 }
 
@@ -258,7 +258,7 @@
     if (!country)
         return;
 
-    [_countryService markCountryVisited:country];
+    [_radioService markCountryVisited:country];
 
     id<VLCNetworkServerBrowser> serverBrowser = [country makeServerBrowser];
     if (!serverBrowser)
@@ -275,7 +275,7 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     NSString *searchString = searchController.searchBar.text;
-    NSArray<VLCRadioCountry *> *countries = _countryService.allCountries;
+    NSArray<VLCRadioCountry *> *countries = _radioService.allCountries;
     NSMutableArray<VLCRadioCountry *> *results = [NSMutableArray arrayWithCapacity:countries.count];
 
     for (VLCRadioCountry *country in countries) {

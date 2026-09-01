@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCRadioCountryService.m
+ * VLCRadioService.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCRadioCountryService.h"
+#import "VLCRadioService.h"
 #import "VLCRadioCountry.h"
 #import "VLCServiceBrowserRadio.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
@@ -27,7 +27,7 @@ static NSInteger const kVLCRadioCountriesCacheVersion = 1;
 static NSUInteger const kVLCRadioVisitedCountriesCap = 8;
 static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 
-@interface VLCRadioCountryService () <VLCLocalNetworkServiceBrowserDelegate>
+@interface VLCRadioService () <VLCLocalNetworkServiceBrowserDelegate>
 {
     NSArray<VLCRadioCountry *> *_allCountries;
     NSMutableArray<VLCRadioCountry *> *_visitedCountries;
@@ -40,7 +40,7 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 }
 @end
 
-@implementation VLCRadioCountryService
+@implementation VLCRadioService
 
 - (instancetype)init
 {

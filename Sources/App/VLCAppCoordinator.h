@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MediaLibraryService;
 @class VLCRendererDiscovererManager;
 @class VLCFavoriteService;
-@class VLCRadioCountryService;
+@class VLCRadioService;
 @class VLCSavedServerList;
 @class VLCMLMedia;
 
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) VLCHTTPUploaderController *httpUploaderController;
 @property (readonly) VLCTransferController *transferController;
 @property (readonly) VLCFavoriteService *favoriteService;
-@property (readonly) VLCRadioCountryService *radioCountryService;
+@property (readonly) VLCRadioService *radioService;
 @property (readonly) VLCSavedServerList *savedServerList;
 #endif
 @property (readonly) MediaLibraryService *mediaLibraryService;
