@@ -97,6 +97,7 @@ class PodcastsViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+        definesPresentationContext = true
 
         setupNavigationBarButtons()
 
