@@ -18,6 +18,7 @@
 
 static CGFloat const kVLCOnAirContinuePadding = 12.0;
 static CGFloat const kVLCOnAirContinueSideMargin = 20.0;
+static CGFloat const kVLCOnAirContinueTopMargin = 16.0;
 static CGFloat const kVLCOnAirContinueArtworkSide = 62.0;
 static CGFloat const kVLCOnAirContinueArtworkRadius = 12.0;
 static CGFloat const kVLCOnAirContinuePlaySide = 44.0;
@@ -123,7 +124,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
                                                                                    constant:kVLCOnAirContinuePadding];
 
     [NSLayoutConstraint activateConstraints:@[
-        [_cardView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+        [_cardView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kVLCOnAirContinueTopMargin],
         [_cardView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
         [_cardView.leadingAnchor constraintEqualToAnchor:self.contentView.safeAreaLayoutGuide.leadingAnchor constant:kVLCOnAirContinueSideMargin],
         [_cardView.trailingAnchor constraintEqualToAnchor:self.contentView.safeAreaLayoutGuide.trailingAnchor constant:-kVLCOnAirContinueSideMargin],
