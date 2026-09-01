@@ -58,6 +58,12 @@ class PodcastsViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+
     private lazy var emptyStateView: PodcastsEmptyStateView = {
         let view = PodcastsEmptyStateView()
         view.onAddViaRSS = { [weak self] in
@@ -115,11 +121,18 @@ class PodcastsViewController: UIViewController {
             emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
 
+        tableView.refreshControl = refreshControl
+
         applyTheme()
-        NotificationCenter.default.addObserver(self,
-                                                selector: #selector(applyTheme),
-                                                name: .VLCThemeDidChangeNotification,
-                                                object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applyTheme),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(refreshDidEnd),
+                                       name: .VLCPodcastsRefreshDidEnd,
+                                       object: nil)
         store.addObserver(self)
         updateContentVisibility()
     }
@@ -128,6 +141,16 @@ class PodcastsViewController: UIViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
         updateContentVisibility()
+    }
+
+    @objc private func handleRefresh() {
+        if !store.refreshAllSubscriptions() {
+            refreshControl.endRefreshing()
+        }
+    }
+
+    @objc private func refreshDidEnd() {
+        refreshControl.endRefreshing()
     }
 
     private func setupNavigationBarButtons() {
