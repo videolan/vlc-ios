@@ -259,18 +259,23 @@ class PodcastEpisodeDetailViewController: UIViewController {
         overflowButton.menu = generateOverflowMenu()
     }
 
-    private var overflowActions: [(title: String, imageName: String, handler: () -> Void)] {
-        var actions: [(String, String, () -> Void)] = [
-            (NSLocalizedString("MARK_AS_PLAYED", comment: ""), "checkmark.circle",
+    private var overflowActions: [(title: String, imageName: String, enabled: Bool,
+                                   destructive: Bool, handler: () -> Void)] {
+        var actions: [(String, String, Bool, Bool, () -> Void)] = [
+            (NSLocalizedString("MARK_AS_PLAYED", comment: ""), "checkmark.circle", true, false,
              { [weak self] in self?.markAsPlayed() }),
-            (NSLocalizedString("SHARE_LABEL", comment: ""), "square.and.arrow.up", {})
+            (NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""), "text.append", true, false,
+             { [weak self] in self?.appendToQueue() }),
+            (NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""), "arrow.down.doc", episode.downloaded, false,
+             { [weak self] in self?.shareDownload() }),
+            (NSLocalizedString("PODCAST_OPEN_LINK", comment: ""), "safari", false, false, {})
         ]
 
         if episode.downloaded {
-            actions.append((NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""), "trash",
+            actions.append((NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""), "trash", true, true,
                             { [weak self] in self?.confirmDeleteDownload() }))
         } else {
-            actions.append((NSLocalizedString("PODCAST_EPISODE_DOWNLOAD", comment: ""), "arrow.down.circle",
+            actions.append((NSLocalizedString("PODCAST_EPISODE_DOWNLOAD", comment: ""), "arrow.down.circle", true, false,
                             { [weak self] in self?.download() }))
         }
         return actions
@@ -279,10 +284,14 @@ class PodcastEpisodeDetailViewController: UIViewController {
     @available(iOS 14.0, *)
     private func generateOverflowMenu() -> UIMenu {
         let color = PresentationTheme.current.colors.cellTextColor
-        let actions = overflowActions.map { action in
-            UIAction(title: action.title,
-                     image: UIImage(systemName: action.imageName)?.withTintColor(color,
-                                                                                 renderingMode: .alwaysOriginal)) { _ in
+        let actions = overflowActions.map { action -> UIAction in
+            var attributes: UIMenuElement.Attributes = action.enabled ? [] : .disabled
+            if action.destructive {
+                attributes.insert(.destructive)
+            }
+            let image = action.destructive ? UIImage(systemName: action.imageName)
+                : UIImage(systemName: action.imageName)?.withTintColor(color, renderingMode: .alwaysOriginal)
+            return UIAction(title: action.title, image: image, attributes: attributes) { _ in
                 action.handler()
             }
         }
@@ -292,9 +301,12 @@ class PodcastEpisodeDetailViewController: UIViewController {
     @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: episode.title, message: nil, preferredStyle: .actionSheet)
         for action in overflowActions {
-            alertController.addAction(UIAlertAction(title: action.title, style: .default) { _ in
+            let alertAction = UIAlertAction(title: action.title,
+                                            style: action.destructive ? .destructive : .default) { _ in
                 action.handler()
-            })
+            }
+            alertAction.isEnabled = action.enabled
+            alertController.addAction(alertAction)
         }
         alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
         alertController.popoverPresentationController?.barButtonItem = sender
@@ -410,9 +422,49 @@ class PodcastEpisodeDetailViewController: UIViewController {
         refresh()
     }
 
+    private func appendToQueue() {
+        store.appendEpisodeToQueue(episodeId: episodeId, showId: show.id)
+    }
+
     private func download() {
         store.downloadEpisode(episodeId: episodeId, showId: show.id)
         refresh()
+    }
+
+    private func shareDownload() {
+        guard let fileURL = store.downloadedFileURL(episodeId: episodeId, showId: show.id) else {
+            return
+        }
+
+        let stagedURL = namedCopy(of: fileURL)
+        let activityViewController = UIActivityViewController(activityItems: [stagedURL ?? fileURL],
+                                                              applicationActivities: nil)
+        activityViewController.popoverPresentationController?.barButtonItem = overflowButton
+        activityViewController.completionWithItemsHandler = { _, _, _, _ in
+            guard let stagedURL = stagedURL else {
+                return
+            }
+            try? FileManager.default.removeItem(at: stagedURL.deletingLastPathComponent())
+        }
+        present(activityViewController, animated: true)
+    }
+
+    private func namedCopy(of fileURL: URL) -> URL? {
+        let fileManager = FileManager.default
+        let directory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("PodcastShare")
+        let fileExtension = URL(string: fileURL.lastPathComponent)?.pathExtension ?? fileURL.pathExtension
+        let destination = directory.appendingPathComponent("\(show.name) - \(episode.title)")
+            .appendingPathExtension(fileExtension)
+
+        do {
+            try? fileManager.removeItem(at: directory)
+            try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
+            try fileManager.linkItem(at: fileURL, to: destination)
+        } catch {
+            APLog("podcast share: failed to stage \(fileURL.lastPathComponent): \(error.localizedDescription)")
+            return nil
+        }
+        return destination
     }
 
     private func confirmDeleteDownload() {

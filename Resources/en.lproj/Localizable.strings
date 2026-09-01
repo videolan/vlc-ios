@@ -419,6 +419,8 @@
 "PODCAST_SORT_EPISODES_HINT" = "Sort the episodes in this show";
 "PODCAST_MARK_ALL_AS_PLAYED" = "Mark All as Played";
 "PODCAST_TIME_LEFT" = "%@ left";
+"PODCAST_EXPORT_MEDIA_FILE" = "Export Media File";
+"PODCAST_OPEN_LINK" = "Open Link…";
 "PODCAST_EPISODE_COUNT" = "%d episodes";
 "PODCAST_EPISODE_DOWNLOAD" = "Download episode";
 "PODCAST_EPISODE_DOWNLOADED" = "Episode downloaded";

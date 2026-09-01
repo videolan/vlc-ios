@@ -222,6 +222,13 @@ final class PodcastStore: NSObject {
         PlaybackService.sharedInstance().playPause()
     }
 
+    func appendEpisodeToQueue(episodeId: String, showId: String) {
+        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+            return
+        }
+        PlaybackService.sharedInstance().appendMediaToQueue(media)
+    }
+
     func requestArtwork(for episode: PodcastEpisode) {
         guard episode.artworkURL?.isFileURL != true,
               requestedArtworkEpisodeIds.insert(episode.id).inserted else {
@@ -288,6 +295,13 @@ final class PodcastStore: NSObject {
             return false
         }
         return pendingCacheMediaIds.contains(mediaId)
+    }
+
+    func downloadedFileURL(episodeId: String, showId: String) -> URL? {
+        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+            return nil
+        }
+        return media.files.first { $0.type() == .cache }?.mrl
     }
 
     @discardableResult
