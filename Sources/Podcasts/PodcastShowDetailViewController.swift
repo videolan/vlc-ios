@@ -82,7 +82,7 @@ class PodcastShowDetailViewController: UIViewController {
         if episode.title.localizedStandardContains(searchQuery) {
             return true
         }
-        guard let notes = episode.notesHTML else {
+        guard let notes = episode.notes else {
             return false
         }
         return notes.localizedStandardContains(searchQuery)
