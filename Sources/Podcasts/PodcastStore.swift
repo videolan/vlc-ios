@@ -62,6 +62,7 @@ final class PodcastStore: NSObject {
         let notificationCenter = NotificationCenter.default
         for name in [VLCPlaybackServicePlaybackDidStart,
                      VLCPlaybackServicePlaybackDidPause,
+                     VLCPlaybackServicePlaybackDidResume,
                      VLCPlaybackServicePlaybackDidStop] {
             notificationCenter.addObserver(self,
                                            selector: #selector(playbackStateDidChange),
