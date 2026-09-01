@@ -16,7 +16,6 @@ class PodcastArtworkView: UIView {
     private let initialsLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = UIColor.white.withAlphaComponent(0.85)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,7 +30,8 @@ class PodcastArtworkView: UIView {
     }()
 
     private var artworkURL: URL?
-    private var requestedArtworkKey: String?
+    private var requestedArtworkURL: URL?
+    private var requestedArtworkPixelSize = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,14 +59,17 @@ class PodcastArtworkView: UIView {
         ])
     }
 
-    func configure(initials: String, color: UIColor, cornerRadius: CGFloat, fontSize: CGFloat) {
+    func configure(initials: String, color: UIColor, textColor: UIColor,
+                   cornerRadius: CGFloat, fontSize: CGFloat) {
         initialsLabel.text = initials
+        initialsLabel.textColor = textColor
         initialsLabel.font = .systemFont(ofSize: fontSize, weight: .medium)
         backgroundColor = color
         layer.cornerRadius = cornerRadius
 
         artworkURL = nil
-        requestedArtworkKey = nil
+        requestedArtworkURL = nil
+        requestedArtworkPixelSize = 0
         artworkView.image = nil
         artworkView.isHidden = true
     }
@@ -74,6 +77,7 @@ class PodcastArtworkView: UIView {
     func configure(name: String, artworkURL: URL? = nil, cornerRadius: CGFloat, fontSize: CGFloat) {
         configure(initials: VLCPlaceholderArtwork.initials(forName: name),
                   color: VLCPlaceholderArtwork.backgroundColor(forName: name),
+                  textColor: VLCPlaceholderArtwork.foregroundColor(forName: name),
                   cornerRadius: cornerRadius,
                   fontSize: fontSize)
 
@@ -102,11 +106,12 @@ class PodcastArtworkView: UIView {
             return
         }
 
-        let key = "\(artworkURL.path)|\(Int(maxPixelSize))"
-        guard key != requestedArtworkKey else {
+        let pixelSize = Int(maxPixelSize)
+        guard artworkURL != requestedArtworkURL || pixelSize != requestedArtworkPixelSize else {
             return
         }
-        requestedArtworkKey = key
+        requestedArtworkURL = artworkURL
+        requestedArtworkPixelSize = pixelSize
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let image = VLCThumbnailsCache.thumbnail(for: artworkURL, maxPixelSize: maxPixelSize)
@@ -114,7 +119,8 @@ class PodcastArtworkView: UIView {
                 APLog("podcast artwork: failed to load \(artworkURL.path)")
             }
             DispatchQueue.main.async {
-                guard let self = self, self.requestedArtworkKey == key, let image = image else {
+                guard let self = self, self.requestedArtworkURL == artworkURL,
+                      self.requestedArtworkPixelSize == pixelSize, let image = image else {
                     return
                 }
                 self.artworkView.image = image

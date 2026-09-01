@@ -45,7 +45,7 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        artworkView.configure(initials: "", color: .clear, cornerRadius: 12, fontSize: 30)
+        artworkView.configure(initials: "", color: .clear, textColor: .clear, cornerRadius: 12, fontSize: 30)
         artworkView.addSubview(progressBar)
 
         contentView.addSubview(artworkView)
