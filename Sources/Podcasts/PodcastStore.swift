@@ -32,7 +32,6 @@ final class PodcastStore: NSObject {
     // changes (see invalidateCaches()).
     private var episodesByShowId: [String: [PodcastEpisode]] = [:]
 
-    private var cachedAllEpisodes: [PodcastEpisode]?
     private var cachedContinueListeningEpisodes: [PodcastEpisode]?
     private var cachedLatestEpisodes: [PodcastEpisode]?
     private var cachedShows: [PodcastShow]?
@@ -78,7 +77,7 @@ final class PodcastStore: NSObject {
 
         for (showId, episodes) in episodesByShowId {
             guard let index = episodes.firstIndex(where: { $0.id == episodeId }),
-                  let media = media(forEpisodeId: episodeId, showId: showId) else {
+                  let media = media(forEpisodeId: episodeId) else {
                 continue
             }
             episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media, showId: showId)
@@ -107,9 +106,10 @@ final class PodcastStore: NSObject {
             return cachedContinueListeningEpisodes
         }
 
-        let episodes = allEpisodes().filter { $0.continueListening }
-        cachedContinueListeningEpisodes = episodes
-        return episodes
+        let all = (subscriptionModel?.subscriptions ?? []).flatMap { episodes(forShowId: String($0.identifier())) }
+        let unfinished = all.filter { $0.continueListening }
+        cachedContinueListeningEpisodes = unfinished
+        return unfinished
     }
 
     var latestEpisodes: [PodcastEpisode] {
@@ -186,7 +186,7 @@ final class PodcastStore: NSObject {
     }
 
     func markEpisodeAsPlayed(episodeId: String, showId: String) {
-        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+        guard let media = media(forEpisodeId: episodeId) else {
             return
         }
 
@@ -223,7 +223,7 @@ final class PodcastStore: NSObject {
     }
 
     func appendEpisodeToQueue(episodeId: String, showId: String) {
-        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+        guard let media = media(forEpisodeId: episodeId) else {
             return
         }
         PlaybackService.sharedInstance().appendMediaToQueue(media)
@@ -298,7 +298,7 @@ final class PodcastStore: NSObject {
     }
 
     func downloadedFileURL(episodeId: String, showId: String) -> URL? {
-        guard let media = media(forEpisodeId: episodeId, showId: showId) else {
+        guard let media = media(forEpisodeId: episodeId) else {
             return nil
         }
         return media.files.first { $0.type() == .cache }?.mrl
@@ -306,7 +306,7 @@ final class PodcastStore: NSObject {
 
     @discardableResult
     func downloadEpisode(episodeId: String, showId: String) -> Bool {
-        guard let media = media(forEpisodeId: episodeId, showId: showId),
+        guard let media = media(forEpisodeId: episodeId),
               mediaLibraryService?.medialib.cacheMedia(media) == true else {
             return false
         }
@@ -316,7 +316,7 @@ final class PodcastStore: NSObject {
 
     @discardableResult
     func deleteDownloadedEpisode(episodeId: String, showId: String) -> Bool {
-        guard let media = media(forEpisodeId: episodeId, showId: showId),
+        guard let media = media(forEpisodeId: episodeId),
               mediaLibraryService?.medialib.removeCachedMedia(media) == true else {
             return false
         }
@@ -330,25 +330,11 @@ final class PodcastStore: NSObject {
         return subscriptionModel?.subscriptions.first { String($0.identifier()) == showId }
     }
 
-    private func media(forEpisodeId episodeId: String, showId: String) -> VLCMLMedia? {
-        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+    private func media(forEpisodeId episodeId: String) -> VLCMLMedia? {
+        guard let mediaId = VLCMLIdentifier(episodeId) else {
             return nil
         }
-        return subscriptionModel.media(for: subscription).first { String($0.identifier()) == episodeId }
-    }
-
-    private func allEpisodes() -> [PodcastEpisode] {
-        if let cachedAllEpisodes = cachedAllEpisodes {
-            return cachedAllEpisodes
-        }
-
-        guard let subscriptionModel = subscriptionModel else {
-            return []
-        }
-
-        let result = subscriptionModel.subscriptions.flatMap { episodes(forShowId: String($0.identifier())) }
-        cachedAllEpisodes = result
-        return result
+        return mediaLibraryService?.media(for: mediaId)
     }
 
     @discardableResult
@@ -371,7 +357,6 @@ final class PodcastStore: NSObject {
     }
 
     private func invalidateDerivedEpisodeCaches() {
-        cachedAllEpisodes = nil
         cachedContinueListeningEpisodes = nil
         cachedLatestEpisodes = nil
     }
@@ -409,7 +394,6 @@ final class PodcastStore: NSObject {
                                durationValue: media.duration(),
                                progress: progress,
                                downloaded: downloaded,
-                               continueListening: (progress ?? 0) > 0 && (progress ?? 0) < 1,
                                playCount: media.playCount(),
                                author: subscriptionEpisode?.author,
                                notesHTML: notesHTML)

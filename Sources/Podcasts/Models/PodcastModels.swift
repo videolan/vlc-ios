@@ -58,7 +58,6 @@ struct PodcastEpisode {
     let durationValue: Int64
     let progress: Double? // 0 means not started, 1 means finished. `nil` means never played.
     let downloaded: Bool
-    let continueListening: Bool
     let playCount: UInt32
     let author: String?
     let notes: String?
@@ -76,7 +75,6 @@ struct PodcastEpisode {
          durationValue: Int64,
          progress: Double?,
          downloaded: Bool,
-         continueListening: Bool,
          playCount: UInt32,
          author: String?,
          notesHTML: String?) {
@@ -90,7 +88,6 @@ struct PodcastEpisode {
         self.durationValue = durationValue
         self.progress = progress
         self.downloaded = downloaded
-        self.continueListening = continueListening
         self.playCount = playCount
         self.author = author
         self.notesHTML = notesHTML
@@ -103,6 +100,10 @@ struct PodcastEpisode {
         } else {
             self.remainingText = nil
         }
+    }
+
+    var continueListening: Bool {
+        return hasProgress
     }
 
     var hasProgress: Bool {
