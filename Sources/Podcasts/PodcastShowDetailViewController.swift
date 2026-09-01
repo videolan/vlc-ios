@@ -119,6 +119,12 @@ class PodcastShowDetailViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -192,6 +198,12 @@ class PodcastShowDetailViewController: UIViewController {
                                        selector: #selector(playbackStateDidChange),
                                        name: Notification.Name(VLCPlaybackServicePlaybackDidStop),
                                        object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(refreshDidEnd),
+                                       name: .VLCPodcastsRefreshDidEnd,
+                                       object: nil)
+
+        tableView.refreshControl = refreshControl
 
         store.addObserver(self)
         store.prefetchArtwork(forShowId: show.id)
@@ -248,6 +260,16 @@ class PodcastShowDetailViewController: UIViewController {
             return
         }
         tableView.reloadSections(IndexSet(integer: PodcastShowSection.episodes.rawValue), with: .none)
+    }
+
+    @objc private func handleRefresh() {
+        if !store.refreshSubscription(showId: show.id) {
+            refreshControl.endRefreshing()
+        }
+    }
+
+    @objc private func refreshDidEnd() {
+        refreshControl.endRefreshing()
     }
 
     private func setupNavigationBarButtons() {
