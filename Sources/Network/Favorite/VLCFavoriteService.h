@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT NSString *const VLCFavoriteGroupRadio;
 FOUNDATION_EXPORT NSString *const VLCFavoriteServiceContentDidChange;
 
-@interface VLCFavorite : NSObject
+@interface VLCFavorite : NSObject <NSCopying>
 
 @property (readwrite, retain) NSString *userVisibleName;
 @property (readwrite, retain) NSURL *url;

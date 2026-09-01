@@ -181,12 +181,7 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
     if (!stream.url)
         return;
 
-    VLCFavorite *entry = [[VLCFavorite alloc] init];
-    entry.userVisibleName = stream.userVisibleName;
-    entry.url = stream.url;
-    entry.groupName = stream.groupName;
-    entry.artworkURL = stream.artworkURL;
-    entry.mediaDescription = stream.mediaDescription;
+    VLCFavorite *entry = [stream copy];
     entry.lastPlayedDate = [NSDate date];
     entry.playable = YES;
 
