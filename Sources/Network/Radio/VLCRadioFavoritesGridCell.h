@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, readonly) NSString *reuseIdentifier;
 @property (nonatomic, weak) id<VLCRadioFavoritesGridCellDelegate> delegate;
+@property (nonatomic, copy, nullable) NSString *removalActionTitle;
+@property (nonatomic, copy, nullable) NSString *removalActionGlyphName;
 
 - (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites;
 

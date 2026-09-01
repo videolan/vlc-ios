@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger, VLCArtworkTileBadge) {
 @property (nonatomic, copy, nullable) NSString *pillText;
 @property (nonatomic, copy, nullable) NSString *accessoryGlyphName;
 @property (nonatomic, copy, nullable) NSString *removalActionTitle;
+@property (nonatomic, copy, nullable) NSString *removalActionGlyphName;
 
 - (void)configureWithName:(nullable NSString *)name artworkURL:(nullable NSURL *)artworkURL;
 

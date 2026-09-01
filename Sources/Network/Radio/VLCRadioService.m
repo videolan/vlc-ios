@@ -12,25 +12,30 @@
 
 #import "VLCRadioService.h"
 #import "VLCRadioCountry.h"
+#import "VLCFavoriteService.h"
 #import "VLCServiceBrowserRadio.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
 #import "VLCMigrationCursor.h"
 
 NSString *const VLCRadioCountriesDidUpdateNotification = @"VLCRadioCountriesDidUpdateNotification";
+NSString *const VLCRadioRecentStreamsDidChangeNotification = @"VLCRadioRecentStreamsDidChangeNotification";
 
-static NSString *const VLCRadioCountriesFile = @"RadioCountries.plist";
-static NSString *const VLCRadioCountriesVersionKey = @"version";
-static NSString *const VLCRadioCountriesListKey = @"countries";
-static NSString *const VLCRadioCountriesVisitedKey = @"visited";
+static NSString *const VLCRadioFile = @"Radio.plist";
+static NSString *const VLCRadioVersionKey = @"version";
+static NSString *const VLCRadioCountriesKey = @"countries";
+static NSString *const VLCRadioVisitedCountriesKey = @"visited";
+static NSString *const VLCRadioRecentStreamsKey = @"recent";
 
-static NSInteger const kVLCRadioCountriesCacheVersion = 1;
+static NSInteger const kVLCRadioCacheVersion = 1;
 static NSUInteger const kVLCRadioVisitedCountriesCap = 8;
+static NSUInteger const kVLCRadioRecentStreamsCap = 10;
 static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 
 @interface VLCRadioService () <VLCLocalNetworkServiceBrowserDelegate>
 {
     NSArray<VLCRadioCountry *> *_allCountries;
     NSMutableArray<VLCRadioCountry *> *_visitedCountries;
+    NSMutableArray<VLCFavorite *> *_recentStreams;
     NSString *_filePath;
     VLCServiceBrowserRadio *_discoveryBrowser;
     NSTimer *_timeoutTimer;
@@ -48,7 +53,7 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
     if (self) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *cacheFolder = [paths firstObject];
-        _filePath = [cacheFolder stringByAppendingPathComponent:VLCRadioCountriesFile];
+        _filePath = [cacheFolder stringByAppendingPathComponent:VLCRadioFile];
 
         [self loadContent];
 
@@ -67,6 +72,7 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 {
     _allCountries = @[];
     _visitedCountries = [NSMutableArray array];
+    _recentStreams = [NSMutableArray arrayWithCapacity:kVLCRadioRecentStreamsCap];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:_filePath])
         return;
@@ -81,23 +87,28 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
     if (![content isKindOfClass:[NSDictionary class]])
         return;
 
-    NSInteger storedVersion = [content[VLCRadioCountriesVersionKey] integerValue];
-    if (storedVersion >= kVLCRadioCountriesCacheVersion) {
-        NSArray *countries = content[VLCRadioCountriesListKey];
+    NSInteger storedVersion = [content[VLCRadioVersionKey] integerValue];
+    if (storedVersion >= kVLCRadioCacheVersion) {
+        NSArray *countries = content[VLCRadioCountriesKey];
         if ([countries isKindOfClass:[NSArray class]])
             _allCountries = countries;
     }
 
-    NSArray *visited = content[VLCRadioCountriesVisitedKey];
+    NSArray *visited = content[VLCRadioVisitedCountriesKey];
     if ([visited isKindOfClass:[NSArray class]])
         _visitedCountries = [NSMutableArray arrayWithArray:visited];
+
+    NSArray *recent = content[VLCRadioRecentStreamsKey];
+    if ([recent isKindOfClass:[NSArray class]])
+        [_recentStreams addObjectsFromArray:recent];
 }
 
 - (void)persist
 {
-    NSDictionary *content = @{ VLCRadioCountriesVersionKey: @(kVLCRadioCountriesCacheVersion),
-                               VLCRadioCountriesListKey: _allCountries,
-                               VLCRadioCountriesVisitedKey: _visitedCountries };
+    NSDictionary *content = @{ VLCRadioVersionKey: @(kVLCRadioCacheVersion),
+                               VLCRadioCountriesKey: _allCountries,
+                               VLCRadioVisitedCountriesKey: _visitedCountries,
+                               VLCRadioRecentStreamsKey: _recentStreams };
     dispatch_async(dispatch_get_main_queue(), ^{
         @synchronized (self) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:content requiringSecureCoding:NO error:nil];
@@ -151,6 +162,67 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:VLCRadioCountriesDidUpdateNotification object:self];
         });
+    });
+}
+
+#pragma mark - recent streams
+
+- (NSUInteger)indexOfRecentStreamWithURL:(NSURL *)url
+{
+    for (NSUInteger i = 0; i < _recentStreams.count; i++) {
+        if ([_recentStreams[i].url isEqual:url])
+            return i;
+    }
+    return NSNotFound;
+}
+
+- (void)markStreamPlayed:(VLCFavorite *)stream
+{
+    if (!stream.url)
+        return;
+
+    VLCFavorite *entry = [[VLCFavorite alloc] init];
+    entry.userVisibleName = stream.userVisibleName;
+    entry.url = stream.url;
+    entry.groupName = stream.groupName;
+    entry.artworkURL = stream.artworkURL;
+    entry.mediaDescription = stream.mediaDescription;
+    entry.lastPlayedDate = [NSDate date];
+    entry.playable = YES;
+
+    @synchronized (self) {
+        NSUInteger existingIndex = [self indexOfRecentStreamWithURL:entry.url];
+        if (existingIndex != NSNotFound)
+            [_recentStreams removeObjectAtIndex:existingIndex];
+
+        [_recentStreams insertObject:entry atIndex:0];
+
+        while (_recentStreams.count > kVLCRadioRecentStreamsCap)
+            [_recentStreams removeLastObject];
+    }
+
+    [self persist];
+    [self postRecentStreamsDidChange];
+}
+
+- (void)removeRecentStream:(VLCFavorite *)stream
+{
+    @synchronized (self) {
+        NSUInteger index = [self indexOfRecentStreamWithURL:stream.url];
+        if (index == NSNotFound)
+            return;
+
+        [_recentStreams removeObjectAtIndex:index];
+    }
+
+    [self persist];
+    [self postRecentStreamsDidChange];
+}
+
+- (void)postRecentStreamsDidChange
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCRadioRecentStreamsDidChangeNotification object:self];
     });
 }
 

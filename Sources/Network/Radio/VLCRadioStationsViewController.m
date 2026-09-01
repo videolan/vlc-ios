@@ -13,7 +13,10 @@
 #import "VLCRadioStationsViewController.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCRadioErrorView.h"
+#import "VLCRadioService.h"
 #import "VLCNetworkListCell.h"
+#import "VLCFavoriteService.h"
+#import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
 
@@ -86,7 +89,24 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
+    if (!item.isContainer)
+        [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:[self recentEntryForItem:item]];
+
     [super didSelectItem:item index:index singlePlayback:YES];
+}
+
+- (VLCFavorite *)recentEntryForItem:(id<VLCNetworkServerBrowserItem>)item
+{
+    VLCFavorite *entry = [[VLCFavorite alloc] init];
+    entry.userVisibleName = item.name;
+    entry.url = item.URL;
+    entry.groupName = VLCFavoriteGroupRadio;
+    if ([item respondsToSelector:@selector(thumbnailURL)])
+        entry.artworkURL = item.thumbnailURL;
+    if ([item respondsToSelector:@selector(mediaDescription)])
+        entry.mediaDescription = item.mediaDescription;
+
+    return entry;
 }
 
 #pragma mark - loading timeout

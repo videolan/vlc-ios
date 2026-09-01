@@ -27,6 +27,7 @@
 {
     VLCRadioService *_radioService;
     NSArray<VLCFavorite *> *_radioFavorites;
+    NSArray<VLCFavorite *> *_recentStreams;
     NSSet<NSURL *> *_favoritesWithAlarms;
 }
 @end
@@ -57,11 +58,16 @@
 
     _radioService = [[VLCAppCoordinator sharedInstance] radioService];
     _radioFavorites = @[];
+    _recentStreams = @[];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
                            selector:@selector(radioCountriesDidUpdate:)
                                name:VLCRadioCountriesDidUpdateNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(recentStreamsDidChange)
+                               name:VLCRadioRecentStreamsDidChangeNotification
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(themeDidChange)
@@ -82,6 +88,7 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
 
+    _recentStreams = _radioService.recentStreams;
     [self reloadFavorites];
 
     [_radioService startCountryDiscoveryIfNeeded];
@@ -111,6 +118,12 @@
     [self.tableView reloadData];
 }
 
+- (void)recentStreamsDidChange
+{
+    _recentStreams = _radioService.recentStreams;
+    [self.tableView reloadData];
+}
+
 - (void)reloadFavorites
 {
     _radioFavorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
@@ -137,16 +150,42 @@
     return _radioFavorites.count > 0;
 }
 
+- (BOOL)recentsSectionVisible
+{
+    return _recentStreams.count > 0;
+}
+
+- (NSInteger)recentsSection
+{
+    return self.recentsSectionVisible ? (self.favoritesSectionVisible ? 1 : 0) : NSNotFound;
+}
+
 - (NSInteger)countriesSection
 {
-    return self.favoritesSectionVisible ? 1 : 0;
+    return (self.favoritesSectionVisible ? 1 : 0) + (self.recentsSectionVisible ? 1 : 0);
+}
+
+- (NSArray<VLCFavorite *> *)streamsInSection:(NSInteger)section
+{
+    return section == self.recentsSection ? _recentStreams : _radioFavorites;
+}
+
+- (BOOL)gridCellShowsRecents:(VLCRadioFavoritesGridCell *)cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    return indexPath != nil && indexPath.section == self.recentsSection;
+}
+
+- (NSArray<VLCFavorite *> *)streamsForGridCell:(VLCRadioFavoritesGridCell *)cell
+{
+    return [self gridCellShowsRecents:cell] ? _recentStreams : _radioFavorites;
 }
 
 #pragma mark - table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.favoritesSectionVisible ? 2 : 1;
+    return self.countriesSection + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -160,10 +199,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section != self.countriesSection) {
+        BOOL isRecents = indexPath.section == self.recentsSection;
         VLCRadioFavoritesGridCell *gridCell =
             [tableView dequeueReusableCellWithIdentifier:VLCRadioFavoritesGridCell.reuseIdentifier forIndexPath:indexPath];
         gridCell.delegate = self;
-        [gridCell configureWithFavorites:_radioFavorites];
+        gridCell.removalActionTitle = isRecents ? NSLocalizedString(@"REMOVE_FROM_RECENT_STREAMS", nil) : nil;
+        gridCell.removalActionGlyphName = isRecents ? @"xmark.circle" : nil;
+        [gridCell configureWithFavorites:[self streamsInSection:indexPath.section]];
         return gridCell;
     }
 
@@ -200,7 +242,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section != self.countriesSection) {
-        return [VLCRadioFavoritesGridCell heightForFavoriteCount:_radioFavorites.count
+        return [VLCRadioFavoritesGridCell heightForFavoriteCount:[self streamsInSection:indexPath.section].count
                                                            width:tableView.bounds.size.width];
     }
     return [VLCNetworkListCell heightOfCell];
@@ -227,8 +269,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSString *title = (section == self.countriesSection) ? NSLocalizedString(@"COUNTRIES", nil)
-                                                         : NSLocalizedString(@"FAVORITES", nil);
+    NSString *title;
+    if (section == self.countriesSection) {
+        title = NSLocalizedString(@"COUNTRIES", nil);
+    } else if (section == self.recentsSection) {
+        title = NSLocalizedString(@"RECENT_STREAMS", nil);
+    } else {
+        title = NSLocalizedString(@"FAVORITES", nil);
+    }
     return [self sectionHeaderViewWithTitle:title];
 }
 
@@ -267,7 +315,7 @@
 
 - (NSArray<UIMenuElement *> *)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell menuElementsForFavoriteAtIndex:(NSInteger)index
 {
-    if (index >= _radioFavorites.count)
+    if ([self gridCellShowsRecents:cell] || index >= _radioFavorites.count)
         return nil;
 
     __weak typeof(self) weakSelf = self;
@@ -280,7 +328,7 @@
 
 - (BOOL)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell hasAlarmForFavoriteAtIndex:(NSInteger)index
 {
-    if (index >= _radioFavorites.count)
+    if ([self gridCellShowsRecents:cell] || index >= _radioFavorites.count)
         return NO;
 
     return [_favoritesWithAlarms containsObject:_radioFavorites[index].url];
@@ -288,22 +336,32 @@
 
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didSelectFavoriteAtIndex:(NSInteger)index
 {
-    if (index >= _radioFavorites.count)
+    NSArray<VLCFavorite *> *streams = [self streamsForGridCell:cell];
+    if (index >= streams.count)
         return;
 
+    VLCFavorite *stream = streams[index];
     VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
-    [favoriteService playFavorite:_radioFavorites[index]];
+    [favoriteService playFavorite:stream];
+    [_radioService markStreamPlayed:stream];
+
     _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     [self.tableView reloadData];
 }
 
 - (void)favoritesGridCell:(VLCRadioFavoritesGridCell *)cell didRequestRemovalOfFavoriteAtIndex:(NSInteger)index
 {
-    if (index >= _radioFavorites.count)
+    NSArray<VLCFavorite *> *streams = [self streamsForGridCell:cell];
+    if (index >= streams.count)
         return;
 
+    if ([self gridCellShowsRecents:cell]) {
+        [_radioService removeRecentStream:streams[index]];
+        return;
+    }
+
     VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
-    [favoriteService removeFavorite:_radioFavorites[index]];
+    [favoriteService removeFavorite:streams[index]];
     _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     [self.tableView reloadData];
 }

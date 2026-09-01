@@ -97,6 +97,7 @@
 "OPEN_NETWORK" = "Open Network Stream";
 "NETWORK_TITLE" = "Network Stream";
 "RECENT_STREAMS" = "Recent Streams";
+"REMOVE_FROM_RECENT_STREAMS" = "Remove from Recent Streams";
 "HTTP_UPLOAD_SERVER_OFF" = "Inactive Server";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";

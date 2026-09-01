@@ -124,6 +124,8 @@ static CGFloat const kVLCRadioGridBottomPadding = 4.0;
     VLCFavorite *favorite = _favorites[indexPath.item];
     tile.delegate = self;
     tile.badge = VLCArtworkTileBadgePlay;
+    tile.removalActionTitle = self.removalActionTitle;
+    tile.removalActionGlyphName = self.removalActionGlyphName;
     [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
 
     if ([self.delegate respondsToSelector:@selector(favoritesGridCell:hasAlarmForFavoriteAtIndex:)]
