@@ -550,7 +550,12 @@ private extension MediaLibraryService {
         guard let mrl = mrl else {
             return nil
         }
-        return medialib.media(withMrl: mrl) ?? medialib.addExternalMedia(withMrl: mrl)
+        return medialib.media(withMrl: mrl) ?? addUnknownMedia(with: mrl)
+    }
+
+    private func addUnknownMedia(with mrl: URL) -> VLCMLMedia? {
+        return mrl.isFileURL ? medialib.addExternalMedia(withMrl: mrl)
+                             : medialib.addStream(withMrl: mrl)
     }
 
     @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
@@ -601,7 +606,7 @@ private extension MediaLibraryService {
 
         if mlMedia == nil {
             // Add media unknown to the medialibrary.
-            mlMedia = medialib.addExternalMedia(withMrl: mrl)
+            mlMedia = addUnknownMedia(with: mrl)
         }
         saveMetaData(of: mlMedia, from: player)
     }
