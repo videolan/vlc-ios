@@ -31,9 +31,12 @@ static NSCache *sharedImageCache = nil;
     return sharedImageCache;
 }
 
-- (UIImage *)cacheImageForURL:(NSURL *)url {
-    UIImage *image = [[self.class sharedImageCache] objectForKey:url];
-    return image;
++ (UIImage *)cachedImageForURL:(NSURL *)url {
+    if (url == nil) {
+        return nil;
+    }
+
+    return [[self sharedImageCache] objectForKey:url];
 }
 
 - (void)cancelLoading {
@@ -47,7 +50,7 @@ static NSCache *sharedImageCache = nil;
     }
 
     [self cancelLoading];
-    UIImage *cachedImage = [self cacheImageForURL:url];
+    UIImage *cachedImage = [self.class cachedImageForURL:url];
     if (cachedImage) {
         self.image = cachedImage;
     } else {
