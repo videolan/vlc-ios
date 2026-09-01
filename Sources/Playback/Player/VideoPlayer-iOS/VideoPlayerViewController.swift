@@ -1207,6 +1207,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
+        mediaNavigationBar.favoriteButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
 #if os(iOS)
         mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
@@ -1261,6 +1262,7 @@ class VideoPlayerViewController: PlayerViewController {
 extension VideoPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         mediaNavigationBar.setMediaTitleLabelText("")
+        updateFavoriteButton()
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.mediaPlayerState == .playing)
         mediaScrubProgressBar.setLiveStream(playbackService.metadata.isLiveStream && !playbackService.isSeekable)
 
@@ -1341,6 +1343,7 @@ extension VideoPlayerViewController {
         }
 
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
+        updateFavoriteButton()
         mediaScrubProgressBar.setLiveStream(metadata.isLiveStream && !playbackService.isSeekable)
 
         if playbackService.isPlayingOnExternalScreen() {

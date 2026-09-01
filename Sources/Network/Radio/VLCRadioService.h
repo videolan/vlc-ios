@@ -36,6 +36,7 @@ FOUNDATION_EXPORT NSString *const VLCRadioRecentStreamsDidChangeNotification;
 
 - (void)markStreamPlayed:(VLCFavorite *)stream;
 - (void)removeRecentStream:(VLCFavorite *)stream;
+- (nullable VLCFavorite *)recentStreamForURL:(NSURL *)url;
 
 @end
 

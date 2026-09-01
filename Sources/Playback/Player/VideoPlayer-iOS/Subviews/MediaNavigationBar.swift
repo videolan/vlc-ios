@@ -20,6 +20,7 @@ protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidTapPictureInPicture(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
+    @objc optional func mediaNavigationBarDidToggleFavorite(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar)
@@ -64,6 +65,15 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return label
+    }()
+
+    lazy var favoriteButton: UIButton = {
+        var favoriteButton = UIButton(type: .system)
+        favoriteButton.addTarget(self, action: #selector(toggleFavorite), for: .touchDown)
+        favoriteButton.tintColor = .white
+        favoriteButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        favoriteButton.isHidden = true
+        return favoriteButton
     }()
 
     lazy var queueButton: UIButton = {
@@ -209,6 +219,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
+            favoriteButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
             deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
@@ -216,6 +227,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
+            favoriteButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor),
         ])
 #endif
@@ -228,6 +240,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
         setupRotateButtonIfNeeded()
+        addArrangedSubview(favoriteButton)
         addArrangedSubview(queueButton)
 #if os(iOS)
         addArrangedSubview(deviceButton)
@@ -283,6 +296,28 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     func toggleQueueView() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidToggleQueueView?(self)
+    }
+
+    func toggleFavorite() {
+        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
+        delegate?.mediaNavigationBarDidToggleFavorite?(self)
+    }
+
+    func updateFavoriteButton(isFavoritable: Bool, isFavorite: Bool) {
+        favoriteButton.isHidden = !isFavoritable
+
+        guard isFavoritable else {
+            return
+        }
+
+        if #available(iOS 13.0, *) {
+            favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: isFavorite ? "heart-fill" : "heart"), for: .normal)
+        }
+
+        favoriteButton.accessibilityLabel = isFavorite ? NSLocalizedString("REMOVE_FAVORITE", comment: "")
+                                                       : NSLocalizedString("ADD_FAVORITE", comment: "")
     }
 
     func toggleOrientation() {

@@ -51,6 +51,7 @@
 #import "VLCNetworkServerBrowserVLCMedia+WebDAV.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCRadioListViewController.h"
+#import "VLCRadioService.h"
 #import "VLCOnAirViewController.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCMediaList+M3U.h"

@@ -214,6 +214,14 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
     [self postRecentStreamsDidChange];
 }
 
+- (VLCFavorite *)recentStreamForURL:(NSURL *)url
+{
+    @synchronized (self) {
+        NSUInteger index = [self indexOfRecentStreamWithURL:url];
+        return index == NSNotFound ? nil : [_recentStreams[index] copy];
+    }
+}
+
 - (void)postRecentStreamsDidChange
 {
     dispatch_async(dispatch_get_main_queue(), ^{

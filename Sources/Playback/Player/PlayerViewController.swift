@@ -1325,6 +1325,40 @@ extension PlayerViewController: MediaNavigationBarDelegate {
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {
         playbackService.stopPlayback()
     }
+
+    func mediaNavigationBarDidToggleFavorite(_ mediaNavigationBar: MediaNavigationBar) {
+        guard let stream = favoritableStream() else {
+            return
+        }
+
+        let favoriteService = VLCAppCoordinator.sharedInstance().favoriteService
+        if favoriteService.isFavoriteURL(stream.url) {
+            favoriteService.remove(stream)
+        } else {
+            favoriteService.add(stream)
+        }
+
+        updateFavoriteButton()
+    }
+
+    func updateFavoriteButton() {
+        guard let stream = favoritableStream() else {
+            mediaNavigationBar.updateFavoriteButton(isFavoritable: false, isFavorite: false)
+            return
+        }
+
+        let isFavorite = VLCAppCoordinator.sharedInstance().favoriteService.isFavoriteURL(stream.url)
+        mediaNavigationBar.updateFavoriteButton(isFavoritable: true, isFavorite: isFavorite)
+    }
+
+    // a radio station is added to the recent streams when it starts, so the radio service knows every station that can play
+    private func favoritableStream() -> VLCFavorite? {
+        guard let url = playbackService.currentlyPlayingMedia?.url else {
+            return nil
+        }
+
+        return VLCAppCoordinator.sharedInstance().radioService.recentStream(for: url)
+    }
 }
 
 // MARK: - MediaMoreOptionsActionSheetDelegate

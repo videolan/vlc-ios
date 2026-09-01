@@ -353,10 +353,12 @@ class AudioPlayerViewController: PlayerViewController {
 
     private func updateNavigationBar(with title: String?) {
         mediaNavigationBar.setMediaTitleLabelText(title)
+        updateFavoriteButton()
     }
 
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
+        mediaNavigationBar.favoriteButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
 #if os(iOS)
         mediaNavigationBar.deviceButton.isEnabled = enabled
