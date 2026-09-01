@@ -61,7 +61,7 @@ class PodcastArtworkView: UIView {
 
     func configure(initials: String, color: UIColor, cornerRadius: CGFloat, fontSize: CGFloat) {
         initialsLabel.text = initials
-        initialsLabel.font = .systemFont(ofSize: fontSize, weight: .heavy)
+        initialsLabel.font = .systemFont(ofSize: fontSize, weight: .medium)
         backgroundColor = color
         layer.cornerRadius = cornerRadius
 
