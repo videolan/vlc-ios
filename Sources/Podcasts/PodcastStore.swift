@@ -59,6 +59,33 @@ final class PodcastStore: NSObject {
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
         subscriptionModel?.observable.addObserver(self)
         mediaLibraryService.observable.addObserver(self)
+
+        let notificationCenter = NotificationCenter.default
+        for name in [VLCPlaybackServicePlaybackDidStart,
+                     VLCPlaybackServicePlaybackDidPause,
+                     VLCPlaybackServicePlaybackDidStop] {
+            notificationCenter.addObserver(self,
+                                           selector: #selector(playbackStateDidChange),
+                                           name: Notification.Name(name),
+                                           object: nil)
+        }
+    }
+
+    @objc private func playbackStateDidChange() {
+        guard let episodeId = nowPlayingEpisodeId else {
+            return
+        }
+
+        for (showId, episodes) in episodesByShowId {
+            guard let index = episodes.firstIndex(where: { $0.id == episodeId }),
+                  let media = media(forEpisodeId: episodeId, showId: showId) else {
+                continue
+            }
+            episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media, showId: showId)
+            invalidateDerivedEpisodeCaches()
+            notifyReload()
+            return
+        }
     }
 
     func addObserver(_ observer: MediaLibraryBaseModelObserver) {
