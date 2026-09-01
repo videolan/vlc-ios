@@ -15,6 +15,7 @@
 #import "UIImage+PaddedImage.h"
 #import "VLCPlaybackService.h"
 #import "VLCFavoriteService.h"
+#import "VLCRadioService.h"
 #import "VLCAppCoordinator.h"
 
 #pragma clang diagnostic push
@@ -24,15 +25,36 @@
 
 + (CPListTemplate *)streamList
 {
-    NSUInteger remainingItemCount = VLCCarPlayMaximumItemCountLimit();
-    NSMutableArray<CPListSection *> *sections = [[NSMutableArray alloc] initWithCapacity:2];
+    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"STREAMS", nil)
+                                                            sections:[self streamSections]];
+    template.tabTitle = NSLocalizedString(@"STREAMS", nil);
+    template.tabImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
+    return template;
+}
 
-    NSArray *radioStations = [self listOfFavoritedRadioStationsWithLimit:remainingItemCount];
++ (NSArray<CPListSection *> *)streamSections
+{
+    NSUInteger remainingItemCount = VLCCarPlayMaximumItemCountLimit();
+    NSMutableArray<CPListSection *> *sections = [[NSMutableArray alloc] initWithCapacity:3];
+
+    VLCFavoriteService *favoriteService = [VLCAppCoordinator sharedInstance].favoriteService;
+    NSArray *radioStations = [self listOfRadioStations:[favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio]
+                                             withLimit:remainingItemCount];
     if (radioStations.count > 0) {
         [sections addObject:[[CPListSection alloc] initWithItems:radioStations
                                                           header:NSLocalizedString(@"RADIO", nil)
                                                sectionIndexTitle:nil]];
         remainingItemCount -= radioStations.count;
+    }
+
+    VLCRadioService *radioService = [VLCAppCoordinator sharedInstance].radioService;
+    NSArray *recentStations = [self listOfRadioStations:radioService.recentStreams
+                                              withLimit:remainingItemCount];
+    if (recentStations.count > 0) {
+        [sections addObject:[[CPListSection alloc] initWithItems:recentStations
+                                                          header:NSLocalizedString(@"RECENTS", nil)
+                                               sectionIndexTitle:nil]];
+        remainingItemCount -= recentStations.count;
     }
 
     NSArray *recentStreams = [self listOfNetworkStreamsWithLimit:remainingItemCount];
@@ -42,11 +64,7 @@
                                                sectionIndexTitle:nil]];
     }
 
-    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"STREAMS", nil)
-                                                            sections:sections];
-    template.tabTitle = NSLocalizedString(@"STREAMS", nil);
-    template.tabImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
-    return template;
+    return sections;
 }
 
 + (CGSize)listItemIconSize
@@ -62,6 +80,7 @@
                             image:(UIImage *)image
                               URL:(NSURL *)url
                        artworkURL:(nullable NSURL *)artworkURL
+                     radioStation:(nullable VLCFavorite *)station
 {
     CPListItem *listItem = [[CPListItem alloc] initWithText:title
                                                  detailText:detailText
@@ -78,16 +97,17 @@
         [medialist addMedia:media];
 
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        if (station) {
+            [[VLCAppCoordinator sharedInstance].radioService markStreamPlayed:station];
+        }
         completionBlock();
     };
     return listItem;
 }
 
-+ (NSArray *)listOfFavoritedRadioStationsWithLimit:(NSUInteger)limit
++ (NSArray *)listOfRadioStations:(NSArray<VLCFavorite *> *)stations withLimit:(NSUInteger)limit
 {
-    VLCFavoriteService *favoriteService = [VLCAppCoordinator sharedInstance].favoriteService;
-    NSArray<VLCFavorite *> *favorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
-    NSUInteger count = MIN(favorites.count, limit);
+    NSUInteger count = MIN(stations.count, limit);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     NSString *symbol = @"antenna.radiowaves.left.and.right";
@@ -97,7 +117,7 @@
     UIImage *radioIcon = [UIImage paddedImageForSymbol:symbol ofSize:[self listItemIconSize]];
 
     for (NSUInteger x = 0; x < count; x++) {
-        VLCFavorite *favorite = favorites[x];
+        VLCFavorite *favorite = stations[x];
         if (!favorite.playable) {
             continue;
         }
@@ -107,7 +127,8 @@
                                             detailText:favorite.url.host
                                                  image:radioIcon
                                                    URL:favorite.url
-                                            artworkURL:artworkURL];
+                                            artworkURL:artworkURL
+                                          radioStation:favorite];
         if (artworkURL) {
             if (@available(iOS 14.0, *)) {
                 [self setArtworkFromURL:artworkURL onListItem:listItem];
@@ -185,7 +206,8 @@
                                          detailText:content
                                               image:streamIcon
                                                 URL:[NSURL URLWithString:recentURLString]
-                                            artworkURL:nil]];
+                                            artworkURL:nil
+                                          radioStation:nil]];
     }
 
     return itemList;

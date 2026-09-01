@@ -2,7 +2,7 @@
  * VLCCarPlaySceneDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -20,6 +20,7 @@
 #import "VLCCarPlayListLimit.h"
 #import "VLCNowPlayingTemplateObserver.h"
 #import "VLCFavoriteService.h"
+#import "VLCRadioService.h"
 
 #import "VLC-Swift.h"
 
@@ -33,6 +34,7 @@
     VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
     VLCCarPlayLibraryController *_libraryController;
     VLCCarPlayPlaylistsController *_playlistsController;
+    CPListTemplate *_streamListTemplate;
     CPListTemplate *_playQueueTemplate;
     CPListSection *_section;
     VLCPlaybackService *_playbackService;
@@ -63,6 +65,7 @@
     [notificationCenter addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServicePlaybackDidStop object:nil];
     [notificationCenter addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServiceShuffleModeUpdated object:nil];
     [notificationCenter addObserver:self selector:@selector(templatesNeedUpdate) name:VLCFavoriteServiceContentDidChange object:nil];
+    [notificationCenter addObserver:self selector:@selector(recentRadioStationsDidChange) name:VLCRadioRecentStreamsDidChangeNotification object:nil];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
@@ -74,6 +77,7 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[CPNowPlayingTemplate sharedTemplate] removeObserver:_nowPlayingTemplateObserver];
     _nowPlayingTemplateObserver = nil;
+    _streamListTemplate = nil;
     _playQueueTemplate = nil;
     _section = nil;
     _playbackService = nil;
@@ -93,9 +97,21 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 
     CPGridTemplate *library = [_libraryController libraryTemplate];
     CPListTemplate *playlists = [_playlistsController playlists];
-    CPListTemplate *streams = [CPListTemplate streamList];
+    _streamListTemplate = [CPListTemplate streamList];
 
-    return [[CPTabBarTemplate alloc] initWithTemplates:@[library, playlists, streams]];
+    return [[CPTabBarTemplate alloc] initWithTemplates:@[library, playlists, _streamListTemplate]];
+}
+
+- (void)recentRadioStationsDidChange
+{
+    if (@available(iOS 14.0, *)) {
+        if (_streamListTemplate) {
+            [_streamListTemplate updateSections:[CPListTemplate streamSections]];
+            return;
+        }
+    }
+
+    [self templatesNeedUpdate];
 }
 
 - (void)templatesNeedUpdate

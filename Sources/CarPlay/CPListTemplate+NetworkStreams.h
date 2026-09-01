@@ -2,7 +2,7 @@
  * CPListTemplate+NetworkStreams.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CPListTemplate (NetworkStreams)
 
 + (CPListTemplate *)streamList;
++ (NSArray<CPListSection *> *)streamSections;
 
 @end
 
