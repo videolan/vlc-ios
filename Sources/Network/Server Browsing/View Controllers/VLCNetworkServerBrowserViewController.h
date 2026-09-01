@@ -22,5 +22,7 @@
 
 - (void)update;
 
+- (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback;
+
 - (void)themeDidChange;
 @end

@@ -82,6 +82,13 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     [self cancelTimeout];
 }
 
+#pragma mark - server browser item specifics
+
+- (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
+{
+    [super didSelectItem:item index:index singlePlayback:YES];
+}
+
 #pragma mark - loading timeout
 
 - (BOOL)hasStations
