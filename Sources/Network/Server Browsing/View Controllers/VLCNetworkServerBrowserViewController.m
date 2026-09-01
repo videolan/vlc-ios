@@ -76,10 +76,6 @@
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
-                               name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
-                               name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
 
     self.title = self.serverBrowser.title;
     [self update];
@@ -88,8 +84,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
-    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
     [self updateUI];
 }
 
@@ -104,17 +98,6 @@
         [self stopActivityIndicator];
         [self removePlayAllAction];
     }
-}
-
-- (void)miniPlayerIsShown
-{
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0,
-                                                   VLCAudioMiniPlayer.height, 0);
-}
-
-- (void)miniPlayerIsHidden
-{
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser
