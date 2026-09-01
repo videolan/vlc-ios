@@ -18,7 +18,7 @@ class PodcastDownloadButton: UIButton {
             return nil
         }
         return UIImage(systemName: "arrow.down.circle",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
     }()
 
     private static let downloadedImage: UIImage? = {
@@ -26,7 +26,7 @@ class PodcastDownloadButton: UIButton {
             return nil
         }
         return UIImage(systemName: "checkmark.circle.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
     }()
 
     private(set) var isDownloaded = false

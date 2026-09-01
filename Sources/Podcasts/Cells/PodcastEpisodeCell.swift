@@ -209,7 +209,7 @@ class PodcastEpisodeCell: UITableViewCell {
         playButton.backgroundColor = colors.orangeUI
         playButton.layer.cornerRadius = 20
         if #available(iOS 13.0, *) {
-            let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold)
+            let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
             playButton.setImage(UIImage(systemName: "play.fill", withConfiguration: config), for: .normal)
             playButton.tintColor = colors.background
         } else {
