@@ -14,6 +14,7 @@ import UIKit
 
 extension Notification.Name {
     static let VLCPodcastsContentDidChange = Notification.Name("VLCPodcastsContentDidChange")
+    static let VLCPodcastsRefreshDidEnd = Notification.Name("VLCPodcastsRefreshDidEnd")
 }
 
 extension NSNotification {

@@ -26,6 +26,10 @@ final class PodcastStore: NSObject {
     private var artworkFlushScheduled = false
     private var artworkReloadScheduled = false
 
+    private var refreshInFlight = false
+    private var refreshSawBusy = false
+    private var refreshTimeout: DispatchWorkItem?
+
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
     // access, so it's cached per show and only dropped when the underlying data actually
@@ -39,6 +43,9 @@ final class PodcastStore: NSObject {
 
     private static let latestEpisodesPerShow = 3
     private static let prefetchedArtworkEpisodes = 10
+    private static let subscriptionRefreshInterval: TimeInterval = 30 * 60
+    private static let subscriptionRefreshTimeout: TimeInterval = 30
+    private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
 
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -69,6 +76,12 @@ final class PodcastStore: NSObject {
                                            name: Notification.Name(name),
                                            object: nil)
         }
+        notificationCenter.addObserver(self,
+                                       selector: #selector(refreshAllSubscriptionsIfNeeded),
+                                       name: UIApplication.willEnterForegroundNotification,
+                                       object: nil)
+
+        refreshAllSubscriptionsIfNeeded()
     }
 
     @objc private func playbackStateDidChange() {
@@ -160,6 +173,68 @@ final class PodcastStore: NSObject {
             return
         }
         subscriptionModel.addSubscription(mrl: mrl, completion: completion)
+    }
+
+    @discardableResult
+    func refreshAllSubscriptions() -> Bool {
+        guard let mediaLibraryService = mediaLibraryService, !shows.isEmpty else {
+            return false
+        }
+
+        if mediaLibraryService.medialib.refreshAllSubscriptions() == false {
+            APLog("podcast refresh: not every subscription could be queued")
+        }
+        UserDefaults.standard.set(Date().timeIntervalSinceReferenceDate,
+                                  forKey: PodcastStore.lastSubscriptionRefreshKey)
+        beginRefresh()
+        return true
+    }
+
+    @discardableResult
+    func refreshSubscription(showId: String) -> Bool {
+        guard let subscription = subscription(withId: showId) else {
+            return false
+        }
+        guard subscription.refresh() else {
+            APLog("podcast refresh: failed to queue show \(showId)")
+            return false
+        }
+        beginRefresh()
+        return true
+    }
+
+    @objc private func refreshAllSubscriptionsIfNeeded() {
+        let last = UserDefaults.standard.double(forKey: PodcastStore.lastSubscriptionRefreshKey)
+        guard Date().timeIntervalSinceReferenceDate - last >= PodcastStore.subscriptionRefreshInterval else {
+            return
+        }
+        refreshAllSubscriptions()
+    }
+
+    // A refresh task has no completion callback, so this ends on the parser going busy and idle
+    // again. Waiting for that edge keeps an unrelated task settling from ending the refresh early.
+    private func beginRefresh() {
+        refreshTimeout?.cancel()
+        refreshInFlight = true
+        refreshSawBusy = false
+
+        let timeout = DispatchWorkItem { [weak self] in
+            self?.endRefresh()
+        }
+        refreshTimeout = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + PodcastStore.subscriptionRefreshTimeout,
+                                      execute: timeout)
+    }
+
+    private func endRefresh() {
+        guard refreshInFlight else {
+            return
+        }
+        refreshTimeout?.cancel()
+        refreshTimeout = nil
+        refreshInFlight = false
+        refreshSawBusy = false
+        NotificationCenter.default.post(name: .VLCPodcastsRefreshDidEnd, object: nil)
     }
 
     func unsubscribe(showId: String) {
@@ -434,6 +509,22 @@ extension PodcastStore: MediaLibraryObserver {
             }
             self.invalidateCaches()
             self.notifyReload()
+        }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, backgroundTasksIdleChanged idle: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.refreshInFlight else {
+                return
+            }
+            guard idle else {
+                self.refreshSawBusy = true
+                return
+            }
+            guard self.refreshSawBusy else {
+                return
+            }
+            self.endRefresh()
         }
     }
 
