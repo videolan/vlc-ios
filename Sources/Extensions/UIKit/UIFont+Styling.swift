@@ -22,9 +22,10 @@ extension UIFont {
 
     /// Returns a semi-bold version of `self`
     public var semibolded: UIFont {
-        let newDescriptor = fontDescriptor.withSymbolicTraits(.traitBold)
-        newDescriptor!.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
-        return UIFont(descriptor: newDescriptor!, size: 0)
+        let newDescriptor = fontDescriptor.addingAttributes([
+            .traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]
+        ])
+        return UIFont(descriptor: newDescriptor, size: 0)
     }
 
     /// Returns a scaled version of `self`
