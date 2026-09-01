@@ -19,12 +19,14 @@
 #import "VLCPlaybackService.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCRadioListViewController.h"
+#import "VLCRadioService.h"
 
 #import "VLC-Swift.h"
 
 typedef NS_ENUM(NSInteger, VLCOnAirSection) {
     VLCOnAirSectionContinue,
     VLCOnAirSectionRadio,
+    VLCOnAirSectionRadioRecent,
     VLCOnAirSectionPodcasts,
     VLCOnAirSectionTV,
     VLCOnAirSectionCount
@@ -32,6 +34,7 @@ typedef NS_ENUM(NSInteger, VLCOnAirSection) {
 
 static CGFloat const kVLCOnAirSideMargin = 20.0;
 static CGFloat const kVLCOnAirHeaderHeight = 44.0;
+static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 @interface VLCOnAirViewController () <UITableViewDataSource, UITableViewDelegate,
                                       VLCOnAirRailCellDelegate, VLCOnAirPromptCellDelegate,
@@ -42,6 +45,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 {
     UITableView *_tableView;
     NSArray<VLCFavorite *> *_radioFavorites;
+    NSArray<VLCFavorite *> *_recentStreams;
+    NSArray<NSNumber *> *_visibleSections;
     VLCFavorite *_resumeFavorite;
     BOOL _resumeSuppressed;
     BOOL _radioIsEmpty;
@@ -67,6 +72,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
         self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.onAir;
 
         _radioFavorites = @[];
+        _recentStreams = @[];
+        _visibleSections = @[];
     }
     return self;
 }
@@ -113,6 +120,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
+    [notificationCenter addObserver:self selector:@selector(reloadContent) name:VLCRadioRecentStreamsDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown) name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden) name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidStart) name:VLCPlaybackServicePlaybackDidStart object:nil];
@@ -210,12 +218,32 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (void)reloadFavorites
 {
     _radioFavorites = [[[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio] copy];
+    _recentStreams = [[[VLCAppCoordinator sharedInstance] radioService] recentStreams];
     [self updateResumeItem];
 
     _radioIsEmpty = (_radioFavorites.count == 0);
     _podcastsIsEmpty = (PodcastsOnAirBridge.numberOfShows == 0);
     // No TV channel data source exists yet, so this section is always empty for now.
     _tvIsEmpty = YES;
+
+    [self rebuildVisibleSections];
+}
+
+- (void)rebuildVisibleSections
+{
+    NSMutableArray<NSNumber *> *sections = [NSMutableArray arrayWithCapacity:VLCOnAirSectionCount];
+
+    if (_resumeFavorite) {
+        [sections addObject:@(VLCOnAirSectionContinue)];
+    }
+    [sections addObject:@(VLCOnAirSectionRadio)];
+    if (_recentStreams.count > 0) {
+        [sections addObject:@(VLCOnAirSectionRadioRecent)];
+    }
+    [sections addObject:@(VLCOnAirSectionPodcasts)];
+    [sections addObject:@(VLCOnAirSectionTV)];
+
+    _visibleSections = sections;
 }
 
 - (BOOL)isSectionEmpty:(VLCOnAirSection)section
@@ -223,6 +251,8 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     switch (section) {
         case VLCOnAirSectionRadio:
             return _radioIsEmpty;
+        case VLCOnAirSectionRadioRecent:
+            return _recentStreams.count == 0;
         case VLCOnAirSectionPodcasts:
             return _podcastsIsEmpty;
         case VLCOnAirSectionTV:
@@ -234,24 +264,33 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (BOOL)isZeroState
 {
-    return _radioIsEmpty && _podcastsIsEmpty && _tvIsEmpty;
+    return _radioIsEmpty && _recentStreams.count == 0 && _podcastsIsEmpty && _tvIsEmpty;
 }
 
 - (void)updateResumeSectionAnimated
 {
     BOOL wasVisible = (_resumeFavorite != nil);
     BOOL wasZeroState = [self isZeroState];
+    BOOL wasShowingRecents = (_recentStreams.count > 0);
+    NSArray<NSNumber *> *previousSections = _visibleSections;
 
     [self reloadFavorites];
 
-    if (wasVisible == (_resumeFavorite != nil) || wasZeroState != [self isZeroState]) {
+    if (wasVisible == (_resumeFavorite != nil) || wasZeroState != [self isZeroState]
+        || wasShowingRecents != (_recentStreams.count > 0)) {
         [self updateTableHeaderView];
         [_tableView reloadData];
         return;
     }
 
+    // the batch update flushes a pending layout before it runs, so the table view needs to see
+    // the previous sections until then
+    NSArray<NSNumber *> *updatedSections = _visibleSections;
+    _visibleSections = previousSections;
+
     NSIndexSet *resumeSection = [NSIndexSet indexSetWithIndex:0];
     [_tableView performBatchUpdates:^{
+        self->_visibleSections = updatedSections;
         if (wasVisible) {
             [self->_tableView deleteSections:resumeSection withRowAnimation:UITableViewRowAnimationFade];
         } else {
@@ -366,7 +405,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _resumeFavorite ? VLCOnAirSectionCount : VLCOnAirSectionCount - 1;
+    return _visibleSections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -376,13 +415,20 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 - (VLCOnAirSection)sectionAtIndex:(NSInteger)index
 {
-    return (VLCOnAirSection)(_resumeFavorite ? index : index + 1);
+    if (index < 0 || index >= (NSInteger)_visibleSections.count) {
+        return VLCOnAirSectionCount;
+    }
+
+    return (VLCOnAirSection)_visibleSections[index].integerValue;
 }
 
 - (BOOL)sectionHasRail:(VLCOnAirSection)section
 {
     if (section == VLCOnAirSectionRadio) {
         return _radioFavorites.count > 0;
+    }
+    if (section == VLCOnAirSectionRadioRecent) {
+        return _recentStreams.count > 0;
     }
     if (section == VLCOnAirSectionPodcasts) {
         return PodcastsOnAirBridge.numberOfShows > 0;
@@ -411,6 +457,16 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
         cell.delegate = self;
         [cell configureWithFavorites:_radioFavorites
                         showsAddTile:YES
+                      referenceWidth:CGRectGetWidth(tableView.bounds)];
+        return cell;
+    }
+
+    if (section == VLCOnAirSectionRadioRecent && [self sectionHasRail:section]) {
+        VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
+                                                                 forIndexPath:indexPath];
+        cell.delegate = self;
+        [cell configureWithFavorites:_recentStreams
+                        showsAddTile:NO
                       referenceWidth:CGRectGetWidth(tableView.bounds)];
         return cell;
     }
@@ -516,7 +572,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
-    if (section == VLCOnAirSectionRadio && [self sectionHasRail:section]) {
+    if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
         return [VLCOnAirRailCell heightForWidth:CGRectGetWidth(tableView.bounds)];
     }
 
@@ -526,6 +582,9 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     VLCOnAirSection onAirSection = [self sectionAtIndex:section];
+    if (onAirSection == VLCOnAirSectionRadioRecent) {
+        return kVLCOnAirRailSpacing;
+    }
     if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
         return CGFLOAT_MIN;
     }
@@ -541,6 +600,11 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     VLCOnAirSection onAirSection = [self sectionAtIndex:section];
+    if (onAirSection == VLCOnAirSectionRadioRecent) {
+        UIView *spacer = [[UIView alloc] init];
+        spacer.backgroundColor = [UIColor clearColor];
+        return spacer;
+    }
     if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
         return nil;
     }
@@ -596,13 +660,24 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
 
 #pragma mark - cell delegates
 
+- (NSArray<VLCFavorite *> *)itemsForRailCell:(VLCOnAirRailCell *)cell
+{
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    if (indexPath && [self sectionAtIndex:indexPath.section] == VLCOnAirSectionRadioRecent) {
+        return _recentStreams;
+    }
+
+    return _radioFavorites;
+}
+
 - (void)railCell:(VLCOnAirRailCell *)cell didSelectItemAtIndex:(NSInteger)index
 {
-    if (index >= (NSInteger)_radioFavorites.count) {
+    NSArray<VLCFavorite *> *items = [self itemsForRailCell:cell];
+    if (index >= (NSInteger)items.count) {
         return;
     }
 
-    [self playFavorite:_radioFavorites[index]];
+    [self playFavorite:items[index]];
 }
 
 - (void)railCellDidSelectAddTile:(VLCOnAirRailCell *)cell
@@ -663,6 +738,7 @@ static CGFloat const kVLCOnAirHeaderHeight = 44.0;
     }
 
     [[[VLCAppCoordinator sharedInstance] favoriteService] playFavorite:favorite];
+    [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:favorite];
 
     _resumeSuppressed = YES;
     [self updateResumeSectionAnimated];
