@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configureWithGlyph:(nullable UIImage *)glyph
                      title:(NSString *)title
-                      body:(NSString *)body
               primaryTitle:(NSString *)primaryTitle
             secondaryTitle:(nullable NSString *)secondaryTitle
           actionsAvailable:(BOOL)actionsAvailable;

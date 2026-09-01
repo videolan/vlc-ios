@@ -160,12 +160,10 @@
 "ONAIR_ADD" = "Add";
 "ONAIR_FIND_STATION" = "Find a station";
 "ONAIR_PODCASTS" = "Podcasts";
-"ONAIR_PODCASTS_EMPTY_TITLE" = "No subscriptions yet";
 "ONAIR_PODCASTS_EMPTY_BODY" = "Paste an RSS feed to subscribe.";
 "ONAIR_PODCASTS_ZERO_BODY" = "Bring your own feed to get started.";
 "ONAIR_PASTE_RSS" = "Paste RSS";
 "ONAIR_TV" = "TV";
-"ONAIR_TV_EMPTY_TITLE" = "No channels yet";
 "ONAIR_TV_EMPTY_BODY" = "Public channels, or your own M3U.";
 "ONAIR_OPEN_DIRECTORY" = "Open directory";
 "ONAIR_ADD_M3U" = "Add M3U";

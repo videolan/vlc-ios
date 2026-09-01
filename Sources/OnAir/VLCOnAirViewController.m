@@ -490,32 +490,23 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)configurePromptCell:(VLCOnAirPromptCell *)cell forSection:(VLCOnAirSection)section
 {
-    NSString *title = [self titleForSection:section];
-    NSString *body;
+    NSString *title;
     NSString *primaryTitle;
     NSString *secondaryTitle;
     BOOL actionsAvailable = YES;
 
     switch (section) {
         case VLCOnAirSectionRadio:
-            body = NSLocalizedString(@"RADIOVC_DETAILTEXT", nil);
+            title = NSLocalizedString(@"RADIOVC_DETAILTEXT", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_FIND_STATION", nil);
             break;
-        case VLCOnAirSectionPodcasts: {
-            BOOL zeroState = [self isZeroState];
-            if (!zeroState) {
-                title = NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_TITLE", nil);
-            }
-            body = zeroState ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
-                             : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
+        case VLCOnAirSectionPodcasts:
+            title = [self isZeroState] ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
+                                       : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_PASTE_RSS", nil);
             break;
-        }
         case VLCOnAirSectionTV:
-            if (![self isZeroState]) {
-                title = NSLocalizedString(@"ONAIR_TV_EMPTY_TITLE", nil);
-            }
-            body = NSLocalizedString(@"ONAIR_TV_EMPTY_BODY", nil);
+            title = NSLocalizedString(@"ONAIR_TV_EMPTY_BODY", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_OPEN_DIRECTORY", nil);
             secondaryTitle = NSLocalizedString(@"ONAIR_ADD_M3U", nil);
             actionsAvailable = NO;
@@ -526,7 +517,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
     [cell configureWithGlyph:[self glyphForSection:section]
                        title:title
-                        body:body
                 primaryTitle:primaryTitle
               secondaryTitle:secondaryTitle
             actionsAvailable:actionsAvailable];

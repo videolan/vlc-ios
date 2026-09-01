@@ -29,7 +29,6 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
     UIView *_glyphWell;
     UIImageView *_glyphView;
     UILabel *_titleLabel;
-    UILabel *_bodyLabel;
     UIButton *_primaryButton;
     UIButton *_secondaryButton;
 }
@@ -79,15 +78,9 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
+    _titleLabel.font = [UIFont systemFontOfSize:15.0];
     _titleLabel.numberOfLines = 0;
     [_contentLayer addSubview:_titleLabel];
-
-    _bodyLabel = [[UILabel alloc] init];
-    _bodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _bodyLabel.font = [UIFont systemFontOfSize:14.0];
-    _bodyLabel.numberOfLines = 0;
-    [_contentLayer addSubview:_bodyLabel];
 
     _primaryButton = [self buttonWithTag:0];
     _secondaryButton = [self buttonWithTag:1];
@@ -126,11 +119,7 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
         [_titleLabel.leadingAnchor constraintEqualToAnchor:_glyphWell.trailingAnchor constant:14.0],
         [_titleLabel.trailingAnchor constraintEqualToAnchor:_contentLayer.trailingAnchor constant:-kVLCOnAirPromptPadding],
 
-        [_bodyLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:2.0],
-        [_bodyLabel.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
-        [_bodyLabel.trailingAnchor constraintEqualToAnchor:_titleLabel.trailingAnchor],
-
-        [_primaryButton.topAnchor constraintEqualToAnchor:_bodyLabel.bottomAnchor constant:12.0],
+        [_primaryButton.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:12.0],
         [_primaryButton.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
         [_primaryButton.heightAnchor constraintEqualToConstant:kVLCOnAirPromptButtonHeight],
         [_primaryButton.bottomAnchor constraintEqualToAnchor:_contentLayer.bottomAnchor constant:-kVLCOnAirPromptPadding],
@@ -159,7 +148,6 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
 - (void)configureWithGlyph:(UIImage *)glyph
                      title:(NSString *)title
-                      body:(NSString *)body
               primaryTitle:(NSString *)primaryTitle
             secondaryTitle:(NSString *)secondaryTitle
           actionsAvailable:(BOOL)actionsAvailable
@@ -181,9 +169,6 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
     _titleLabel.text = title;
     _titleLabel.textColor = themeColors.cellTextColor;
-
-    _bodyLabel.text = body;
-    _bodyLabel.textColor = themeColors.cellDetailTextColor;
 
     [_primaryButton setTitle:primaryTitle forState:UIControlStateNormal];
     _primaryButton.enabled = actionsAvailable;
