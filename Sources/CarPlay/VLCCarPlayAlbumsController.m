@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayAlbumsController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayListLimit.h"
 #import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
@@ -71,7 +72,7 @@ static NSString *const VLCCarPlayAlbumsTrackIndex = @"VLCCarPlayAlbumsTrackIndex
                 CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfTracksForAlbum:album]];
                 CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:album.title
                                                                                 sections:@[subitemsSection]];
-                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
             } else {
                 VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
                 [playbackService playCollection:[album tracks]];

@@ -1291,6 +1291,8 @@
 		7DCFE6863017FEF200803FD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		7DCFE6873017FFC600803FD0 /* VLC-ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DCFE6743017FE7500803FD0 /* VLC-ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7DCFE68F301804D700803FD0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DCFE68E301804D700803FD0 /* Images.xcassets */; };
+		7DCFF884304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
+		7DCFF885304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
 		7DD3235A30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
 		7DD3235B30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
 		7DD3235E3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */; };
@@ -2432,6 +2434,8 @@
 		7DCFE6683017FE1100803FD0 /* VLCShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCShareViewController.m; sourceTree = "<group>"; };
 		7DCFE6743017FE7500803FD0 /* VLC-ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "VLC-ShareExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCFE68E301804D700803FD0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7DCFF882304758CE009244CA /* CPInterfaceController+VLCTemplateStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPInterfaceController+VLCTemplateStack.h"; sourceTree = "<group>"; };
+		7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CPInterfaceController+VLCTemplateStack.m"; sourceTree = "<group>"; };
 		7DD3235830013CA100C9A583 /* VLCCarPlayFoldersController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayFoldersController.h; sourceTree = "<group>"; };
 		7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayFoldersController.m; sourceTree = "<group>"; };
 		7DD3235C3001432B00C9A583 /* VLCCarPlayAlbumsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayAlbumsController.h; sourceTree = "<group>"; };
@@ -4652,6 +4656,8 @@
 		7DD71F7428FB41D300327ACE /* CarPlay */ = {
 			isa = PBXGroup;
 			children = (
+				7DCFF882304758CE009244CA /* CPInterfaceController+VLCTemplateStack.h */,
+				7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */,
 				7DD71F9328FB421300327ACE /* VLCCarPlayArtistsController.h */,
 				7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */,
 				7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */,
@@ -6569,6 +6575,7 @@
 				7D9416013008E42500C6171B /* VideoEntities.swift in Sources */,
 				6D0B038825E7CBF90013DEF4 /* PopupView.swift in Sources */,
 				FEC04E0000000000000000F3 /* PulsingConeView.swift in Sources */,
+				7DCFF884304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */,
 				41FCD2F820B565B600660AAB /* VLCAlertViewController.swift in Sources */,
 				7D4BE4FA301A3DC800277F3E /* VLCNetworkServerBrowserFactory.m in Sources */,
 				CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */,
@@ -7106,6 +7113,7 @@
 				99AE8BE9D9B3C250C1C559C3 /* VLCTransferStatusBannerController.m in Sources */,
 				7D1E8F44300F7A8A0014A118 /* VLCRadioStationsViewController.m in Sources */,
 				6BC4F13121F22A7A1F3388F6 /* PodcastModels.swift in Sources */,
+				7DCFF885304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */,
 				7DA9A0B43025DE1700513322 /* VLCHTTPClient.m in Sources */,
 				91CE0FA1F310D5D76407766D /* PodcastStore.swift in Sources */,
 				8C6AE9C5071B71B8F8362924 /* PodcastArtworkView.swift in Sources */,

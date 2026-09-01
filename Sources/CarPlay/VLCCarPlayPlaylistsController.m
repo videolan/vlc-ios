@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayPlaylistsController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayListLimit.h"
 #import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
@@ -122,7 +123,7 @@ NSString *VLCCarPlayPlaylistIndex = @"VLCCarPlayPlaylistIndex";
                 CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfItemsForPlaylist:playlist]];
                 CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:playlist.name
                                                                                 sections:@[subitemsSection]];
-                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
             } else {
                 VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
                 [playbackService playCollection:[playlist media]];

@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayFoldersController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayListLimit.h"
 #import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
@@ -69,7 +70,7 @@ NSString *VLCCarPlayFolderMediaIndex = @"VLCCarPlayFolderMediaIndex";
             CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfItemsForFolder:subfolder]];
             CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:subfolder.name
                                                                             sections:@[subitemsSection]];
-            [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+            [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
             completionBlock();
         };
         [itemList addObject:listItem];

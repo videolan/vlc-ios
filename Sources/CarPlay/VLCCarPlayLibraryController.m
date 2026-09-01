@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayLibraryController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayArtistsController.h"
 #import "VLCCarPlayAlbumsController.h"
 #import "CPListTemplate+Genres.h"
@@ -76,7 +77,7 @@
     return [[CPGridButton alloc] initWithTitleVariants:@[title]
                                                  image:image
                                                handler:^(CPGridButton * _Nonnull button) {
-        [self.interfaceController pushTemplate:templateProvider() animated:YES];
+        [self.interfaceController pushTemplateWithinDepthLimit:templateProvider() animated:YES];
     }];
 }
 

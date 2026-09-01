@@ -15,6 +15,7 @@
 #import <CarPlay/CarPlay.h>
 
 #import "VLCCarPlayLibraryController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "VLCCarPlayPlaylistsController.h"
 #import "VLCCarPlayListLimit.h"
@@ -183,7 +184,7 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
         _playQueueTemplate.delegate = self;
     }
 
-    [_interfaceController pushTemplate:_playQueueTemplate animated:YES];
+    [_interfaceController pushTemplateWithinDepthLimit:_playQueueTemplate animated:YES];
 }
 
 - (void)resetPlayQueueTemplate

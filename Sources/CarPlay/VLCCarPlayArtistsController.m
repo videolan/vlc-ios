@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCCarPlayArtistsController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayListLimit.h"
 #import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
@@ -72,7 +73,7 @@ NSString *VLCCarPlayAlbumTrackIndex = @"VLCCarPlayAlbumTrackIndex";
                 CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfTracksForAlbum:album]];
                 CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:album.title
                                                                                 sections:@[subitemsSection]];
-                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
             } else {
                 VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
                 [playbackService playCollection:[album tracks]];
@@ -184,14 +185,14 @@ NSString *VLCCarPlayAlbumTrackIndex = @"VLCCarPlayAlbumTrackIndex";
                 CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listForAlbumsForArtist:artist]];
                 CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:artist.name
                                                                                 sections:@[subitemsSection]];
-                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
             } else {
                 VLCMLAlbum *album = artist.albums.firstObject;
                 if (album != nil) {
                     CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listOfTracksForAlbum:album]];
                     CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:album.title
                                                                                     sections:@[subitemsSection]];
-                    [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+                    [self.interfaceController pushTemplateWithinDepthLimit:subitemsTemplate animated:YES];
                 } else {
                     VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
                     [playbackService playCollection:[artist tracks]];
