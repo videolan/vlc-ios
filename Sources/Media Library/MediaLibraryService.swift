@@ -139,6 +139,9 @@ extension NSNotification {
                                      cacheIdleChanged idle: Bool)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     backgroundTasksIdleChanged idle: Bool)
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didStartCachingMediaWithId mediaId: VLCMLIdentifier,
                                      operation: VLCMLCacheOperation)
 
@@ -1053,6 +1056,12 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, cacheIdleChanged idle: Bool) {
         observable.notifyObservers {
             $0.medialibrary?(self, cacheIdleChanged: idle)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didChangeIdleBackgroundTasksWithSuccess success: Bool) {
+        observable.notifyObservers {
+            $0.medialibrary?(self, backgroundTasksIdleChanged: success)
         }
     }
 
