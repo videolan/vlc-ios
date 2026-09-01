@@ -256,61 +256,35 @@ class PodcastEpisodeDetailViewController: UIViewController {
         guard #available(iOS 14.0, *) else {
             return
         }
-        overflowButton.menu = generateOverflowMenu()
+        overflowButton.menu = overflowActions.menu()
     }
 
-    private var overflowActions: [(title: String, imageName: String, enabled: Bool,
-                                   destructive: Bool, handler: () -> Void)] {
-        var actions: [(String, String, Bool, Bool, () -> Void)] = [
-            (NSLocalizedString("MARK_AS_PLAYED", comment: ""), "checkmark.circle", true, false,
-             { [weak self] in self?.markAsPlayed() }),
-            (NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""), "text.append", true, false,
-             { [weak self] in self?.appendToQueue() }),
-            (NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""), "arrow.down.doc", episode.downloaded, false,
-             { [weak self] in self?.shareDownload() }),
-            (NSLocalizedString("PODCAST_OPEN_LINK", comment: ""), "safari", false, false, {})
+    private var overflowActions: [PodcastMenuAction] {
+        var actions = [
+            PodcastMenuAction(title: NSLocalizedString("MARK_AS_PLAYED", comment: ""),
+                              imageName: "checkmark.circle") { [weak self] in self?.markAsPlayed() },
+            PodcastMenuAction(title: NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""),
+                              imageName: "text.append") { [weak self] in self?.appendToQueue() },
+            PodcastMenuAction(title: NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""),
+                              imageName: "arrow.down.doc",
+                              isEnabled: episode.downloaded) { [weak self] in self?.shareDownload() },
+            PodcastMenuAction(title: NSLocalizedString("PODCAST_OPEN_LINK", comment: ""),
+                              imageName: "safari", isEnabled: false) {}
         ]
 
         if episode.downloaded {
-            actions.append((NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""), "trash", true, true,
-                            { [weak self] in self?.confirmDeleteDownload() }))
+            actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
+                                             imageName: "trash",
+                                             isDestructive: true) { [weak self] in self?.confirmDeleteDownload() })
         } else {
-            actions.append((NSLocalizedString("PODCAST_EPISODE_DOWNLOAD", comment: ""), "arrow.down.circle", true, false,
-                            { [weak self] in self?.download() }))
+            actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_EPISODE_DOWNLOAD", comment: ""),
+                                             imageName: "arrow.down.circle") { [weak self] in self?.download() })
         }
         return actions
     }
 
-    @available(iOS 14.0, *)
-    private func generateOverflowMenu() -> UIMenu {
-        let color = PresentationTheme.current.colors.cellTextColor
-        let actions = overflowActions.map { action -> UIAction in
-            var attributes: UIMenuElement.Attributes = action.enabled ? [] : .disabled
-            if action.destructive {
-                attributes.insert(.destructive)
-            }
-            let image = action.destructive ? UIImage(systemName: action.imageName)
-                : UIImage(systemName: action.imageName)?.withTintColor(color, renderingMode: .alwaysOriginal)
-            return UIAction(title: action.title, image: image, attributes: attributes) { _ in
-                action.handler()
-            }
-        }
-        return UIMenu(title: "", children: actions)
-    }
-
     @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: episode.title, message: nil, preferredStyle: .actionSheet)
-        for action in overflowActions {
-            let alertAction = UIAlertAction(title: action.title,
-                                            style: action.destructive ? .destructive : .default) { _ in
-                action.handler()
-            }
-            alertAction.isEnabled = action.enabled
-            alertController.addAction(alertAction)
-        }
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.popoverPresentationController?.barButtonItem = sender
-        present(alertController, animated: true)
+        overflowActions.presentActionSheet(title: episode.title, from: sender, in: self)
     }
 
     private func updateNotes() {
@@ -468,17 +442,11 @@ class PodcastEpisodeDetailViewController: UIViewController {
     }
 
     private func confirmDeleteDownload() {
-        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
-                                                message: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_MESSAGE", comment: ""),
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
-                                                style: .destructive) { [weak self] _ in
+        confirmPodcastDownloadDeletion { [weak self] in
             guard let self = self else { return }
             self.store.deleteDownloadedEpisode(episodeId: self.episodeId, showId: self.show.id)
             self.refresh()
-        })
-        present(alertController, animated: true)
+        }
     }
 
     @objc private func applyTheme() {

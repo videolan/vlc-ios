@@ -259,7 +259,7 @@ class PodcastShowDetailViewController: UIViewController {
         }
         overflowButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
         if #available(iOS 14.0, *) {
-            overflowButton.menu = generateOverflowMenu()
+            overflowButton.menu = overflowActions.menu()
         } else {
             overflowButton.target = self
             overflowButton.action = #selector(showOverflowActionSheet)
@@ -301,43 +301,25 @@ class PodcastShowDetailViewController: UIViewController {
         }
     }
 
-    private var overflowActions: [(title: String, imageName: String, destructive: Bool, handler: () -> Void)] {
-        var actions: [(String, String, Bool, () -> Void)] = [
-            (NSLocalizedString("PODCAST_MARK_ALL_AS_PLAYED", comment: ""), "checkmark.circle", false,
-             { [weak self] in self?.markAllEpisodesAsPlayed() })
+    private var overflowActions: [PodcastMenuAction] {
+        var actions = [
+            PodcastMenuAction(title: NSLocalizedString("PODCAST_MARK_ALL_AS_PLAYED", comment: ""),
+                              imageName: "checkmark.circle") { [weak self] in self?.markAllEpisodesAsPlayed() }
         ]
 
         if show.websiteURL != nil {
-            actions.append((NSLocalizedString("PODCAST_OPEN_WEBSITE", comment: ""), "safari", false,
-                            { [weak self] in self?.openWebsite() }))
+            actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_OPEN_WEBSITE", comment: ""),
+                                             imageName: "safari") { [weak self] in self?.openWebsite() })
         }
 
-        actions.append((NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""), "xmark.circle", true,
-                        { [weak self] in self?.confirmUnsubscribe() }))
+        actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
+                                         imageName: "xmark.circle",
+                                         isDestructive: true) { [weak self] in self?.confirmUnsubscribe() })
         return actions
     }
 
-    @available(iOS 14.0, *)
-    private func generateOverflowMenu() -> UIMenu {
-        let actions = overflowActions.map { action in
-            UIAction(title: action.title,
-                     image: UIImage(systemName: action.imageName),
-                     attributes: action.destructive ? .destructive : []) { _ in action.handler() }
-        }
-        return UIMenu(title: "", children: actions)
-    }
-
     @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: show.name, message: nil, preferredStyle: .actionSheet)
-        for action in overflowActions {
-            alertController.addAction(UIAlertAction(title: action.title,
-                                                    style: action.destructive ? .destructive : .default) { _ in
-                action.handler()
-            })
-        }
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.popoverPresentationController?.barButtonItem = sender
-        present(alertController, animated: true)
+        overflowActions.presentActionSheet(title: show.name, from: sender, in: self)
     }
 
     private func markAllEpisodesAsPlayed() {
@@ -352,17 +334,18 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     private func confirmUnsubscribe() {
-        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
-                                                 message: NSLocalizedString("PODCAST_UNSUBSCRIBE_MESSAGE", comment: ""),
-                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
-                                                style: .destructive) { [weak self] _ in
+        let cancel = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+        let unsubscribe = VLCAlertButton(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
+                                         style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.store.unsubscribe(showId: self.show.id)
             self.navigationController?.popViewController(animated: true)
-        })
-        present(alertController, animated: true)
+        }
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
+                                                errorMessage: NSLocalizedString("PODCAST_UNSUBSCRIBE_MESSAGE",
+                                                                                comment: ""),
+                                                viewController: self,
+                                                buttonsAction: [cancel, unsubscribe])
     }
 
     @available(iOS 14.0, *)
@@ -447,17 +430,11 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     private func confirmDeleteDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
-        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
-                                                 message: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_MESSAGE", comment: ""),
-                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
-                                                style: .destructive) { [weak self] _ in
+        confirmPodcastDownloadDeletion { [weak self] in
             guard let self = self else { return }
             self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: self.show.id)
             self.tableView.reloadRows(at: [indexPath], with: .none)
-        })
-        present(alertController, animated: true)
+        }
     }
 }
 

@@ -223,17 +223,11 @@ class PodcastsViewController: UIViewController {
     }
 
     private func confirmDeleteDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
-        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
-                                                 message: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_MESSAGE", comment: ""),
-                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
-                                                style: .destructive) { [weak self] _ in
+        confirmPodcastDownloadDeletion { [weak self] in
             guard let self = self else { return }
             self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: episode.showId)
             self.tableView.reloadRows(at: [indexPath], with: .none)
-        })
-        present(alertController, animated: true)
+        }
     }
 
     @objc private func didTapAdd() {

@@ -1208,6 +1208,9 @@
 		7DB748923046DE010073F784 /* VLCRadioService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB748903046DE010073F784 /* VLCRadioService.m */; };
 		7DB748933046DE010073F784 /* VLCRadioService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB748903046DE010073F784 /* VLCRadioService.m */; };
 		7DB748943046E0A20073F784 /* VLCRadioService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB748903046DE010073F784 /* VLCRadioService.m */; };
+		7DB74896304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
+		7DB74897304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
+		7DB74898304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
 		7DB88E09302A3F3400795DF9 /* LiquidGlassStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB88E08302A3F3400795DF9 /* LiquidGlassStyleExtension.swift */; };
 		7DBB9D4027FF3BFB00ABCEC7 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
 		7DBB9D4127FF3C5D00ABCEC7 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
@@ -2357,6 +2360,7 @@
 		7DB66CEF2520E3B90077481C /* VLCTransferController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCTransferController.m; sourceTree = "<group>"; };
 		7DB7488F3046DE010073F784 /* VLCRadioService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioService.h; sourceTree = "<group>"; };
 		7DB748903046DE010073F784 /* VLCRadioService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioService.m; sourceTree = "<group>"; };
+		7DB74895304743180073F784 /* PodcastMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastMenuAction.swift; sourceTree = "<group>"; };
 		7DB88E08302A3F3400795DF9 /* LiquidGlassStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassStyleExtension.swift; sourceTree = "<group>"; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppDelegate.h; sourceTree = "<group>"; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppDelegate.m; sourceTree = "<group>"; };
@@ -3053,6 +3057,7 @@
 				5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */,
 				6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */,
 				7DF0C8CD3026687000326B65 /* PodcastEpisodeDetailViewController.swift */,
+				7DB74895304743180073F784 /* PodcastMenuAction.swift */,
 				281D3E055E08E6B041594BB7 /* PodcastShowDetailViewController.swift */,
 				4048CFB0F054C0A7A6FAB1E9 /* PodcastSubscriptionModel.swift */,
 				9CE4A4D0AB4A647A29E01384 /* PodcastsOnAirBridge.swift */,
@@ -6320,6 +6325,7 @@
 				7D50C6C02BBD20DF00B9F1A0 /* MiniPlayer.swift in Sources */,
 				7D1E8F41300F7A850014A118 /* VLCRadioFavoritesGridCell.m in Sources */,
 				7D50C6C12BBD20DF00B9F1A0 /* PlayerViewController.swift in Sources */,
+				7DB74898304743180073F784 /* PodcastMenuAction.swift in Sources */,
 				7D50C6C22BBD20DF00B9F1A0 /* AppearanceManager.swift in Sources */,
 				7D50C6C32BBD20DF00B9F1A0 /* PlayerInfoView.swift in Sources */,
 				7D50C6C42BBD20DF00B9F1A0 /* TrackModel.swift in Sources */,
@@ -6443,6 +6449,7 @@
 				7DC7BAA028C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */,
 				44C8BBB024AF36F4003F8940 /* SettingsSpecifier.swift in Sources */,
+				7DB74897304743180073F784 /* PodcastMenuAction.swift in Sources */,
 				7DE6C1842913EF0200379A78 /* CarPlayMediaLibraryObserver.swift in Sources */,
 				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				7D4BE509301A3ED900277F3E /* VLCBrowseSharingCell.m in Sources */,
@@ -6952,6 +6959,7 @@
 				7DA514E02EF82B63000C9995 /* ColorThemeExtension.swift in Sources */,
 				7DA514E12EF82B63000C9995 /* UIAccessibilityCustomAction+Util.swift in Sources */,
 				7DA514E22EF82B63000C9995 /* VLCSlider.m in Sources */,
+				7DB74896304743180073F784 /* PodcastMenuAction.swift in Sources */,
 				7DA514E32EF82B63000C9995 /* VLCStatusLabel.m in Sources */,
 				7DA514E42EF82B63000C9995 /* PictureInPictureMediaController.swift in Sources */,
 				7DA514E62EF82B63000C9995 /* CustomEqualizerProfiles.swift in Sources */,
