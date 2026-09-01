@@ -17,6 +17,8 @@
 #import "VLCNetworkListCell.h"
 #import "VLCFavoriteService.h"
 #import "VLCPlaybackService.h"
+#import "VLCMetadata.h"
+#import "VLCNetworkImageView.h"
 #import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
@@ -91,8 +93,13 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
     if (!item.isContainer) {
-        [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:[self recentEntryForItem:item]];
-        VLCPlaybackService.sharedInstance.expectsAudioOnlyContent = YES;
+        VLCFavorite *entry = [self recentEntryForItem:item];
+        [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:entry];
+
+        VLCPlaybackService *playbackService = VLCPlaybackService.sharedInstance;
+        playbackService.expectsAudioOnlyContent = YES;
+        [playbackService.metadata prepareArtworkImage:[VLCNetworkImageView cachedImageForURL:entry.artworkURL]
+                                               forURL:entry.artworkURL];
     }
 
     [super didSelectItem:item index:index singlePlayback:YES];
@@ -212,8 +219,7 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     cell.thumbnailView.clipsToBounds = YES;
     cell.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
 
-    NSURL *iconURL = cell.iconURL;
-    UIImage *cachedArtwork = iconURL ? [[VLCNetworkImageView sharedImageCache] objectForKey:iconURL] : nil;
+    UIImage *cachedArtwork = [VLCNetworkImageView cachedImageForURL:cell.iconURL];
     if (cachedArtwork) {
         cell.thumbnailView.image = cachedArtwork;
         return;

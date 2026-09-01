@@ -103,6 +103,16 @@
     [self populateInfoCenterFromMetadata];
 }
 
+- (void)prepareArtworkImage:(nullable UIImage *)artworkImage forURL:(nullable NSURL *)artworkURL
+{
+    if (!artworkImage || !artworkURL) {
+        return;
+    }
+
+    _artworkURL = artworkURL;
+    [self updateArtworkImage:artworkImage];
+}
+
 - (void)updateArtworkImage:(nullable UIImage *)artworkImage
 {
     if (!artworkImage) {

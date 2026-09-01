@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, assign) BOOL isLiveStream;
 @property(readonly, assign) BOOL hasPlaceholderArtwork;
 
+- (void)prepareArtworkImage:(nullable UIImage *)artworkImage forURL:(nullable NSURL *)artworkURL;
+
 - (void)updateMetadataFromMedia:(nullable VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 
 - (void)updatePlaybackStateFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer;

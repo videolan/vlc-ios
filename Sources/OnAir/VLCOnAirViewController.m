@@ -17,6 +17,8 @@
 #import "VLCAppCoordinator.h"
 #import "VLCFavoriteService.h"
 #import "VLCPlaybackService.h"
+#import "VLCMetadata.h"
+#import "VLCNetworkImageView.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCRadioListViewController.h"
 #import "VLCRadioService.h"
@@ -733,6 +735,9 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     if (!favorite) {
         return;
     }
+
+    [VLCPlaybackService.sharedInstance.metadata prepareArtworkImage:[VLCNetworkImageView cachedImageForURL:favorite.artworkURL]
+                                                             forURL:favorite.artworkURL];
 
     [[[VLCAppCoordinator sharedInstance] favoriteService] playFavorite:favorite];
     [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:favorite];
