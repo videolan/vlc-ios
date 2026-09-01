@@ -16,6 +16,7 @@
 #import "VLCRadioService.h"
 #import "VLCNetworkListCell.h"
 #import "VLCFavoriteService.h"
+#import "VLCPlaybackService.h"
 #import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
@@ -89,8 +90,10 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
-    if (!item.isContainer)
+    if (!item.isContainer) {
         [[[VLCAppCoordinator sharedInstance] radioService] markStreamPlayed:[self recentEntryForItem:item]];
+        VLCPlaybackService.sharedInstance.expectsAudioOnlyContent = YES;
+    }
 
     [super didSelectItem:item index:index singlePlayback:YES];
 }

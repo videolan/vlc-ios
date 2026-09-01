@@ -367,7 +367,10 @@ NSString *const VLCFavoriteServiceContentDidChange = @"VLCFavoriteServiceContent
 
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     [mediaList addMedia:media];
-    [[VLCPlaybackService sharedInstance] playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+
+    VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+    playbackService.expectsAudioOnlyContent = [favorite.groupIdentifier isEqualToString:VLCFavoriteGroupRadio];
+    [playbackService playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
 
     [self markFavoriteAsPlayed:favorite];
 }

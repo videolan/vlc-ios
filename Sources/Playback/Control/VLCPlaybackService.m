@@ -1041,9 +1041,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
                 [self setNeedsMetadataUpdate];
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
-                    kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer)
+                    kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer),
+                    kVLCPlayerExpectsAudioOnlyContent: @(self.expectsAudioOnlyContent)
                 }];
                 self->_openInMiniPlayer = NO;
+                self.expectsAudioOnlyContent = NO;
             } break;
 
             case VLCMediaPlayerStatePlaying: {

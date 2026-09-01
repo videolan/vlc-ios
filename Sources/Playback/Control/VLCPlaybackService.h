@@ -84,6 +84,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, readonly) BOOL playerIsSetup;
 @property (nonatomic, readwrite) BOOL playAsAudio;
+@property (nonatomic, readwrite) BOOL expectsAudioOnlyContent;
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
 @property (nonatomic, assign, getter=isShuffleMode) BOOL shuffleMode;
 @property (nonatomic, readwrite) float playbackRate; // default = 1.0

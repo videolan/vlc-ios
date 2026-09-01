@@ -144,6 +144,7 @@
 #define kVLCRestoreLastPlayedMedia @"RestoreLastPlayedMedia"
 
 #define kVLCPlayerOpenInMiniPlayer @"OpenInMiniPlayer"
+#define kVLCPlayerExpectsAudioOnlyContent @"ExpectsAudioOnlyContent"
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
 #define kVLCPlayerShouldRememberBrightness @"PlayerShouldRememberBrightness"
 #define KVLCPlayerBrightness @"playerbrightness"

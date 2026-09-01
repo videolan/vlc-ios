@@ -81,6 +81,7 @@
 #define kVLCLastPlayedMediaIdentifier @"LastPlayedMediaIdentifier"
 
 #define kVLCPlayerOpenInMiniPlayer @"OpenInMiniPlayer"
+#define kVLCPlayerExpectsAudioOnlyContent @"ExpectsAudioOnlyContent"
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
 #define kVLCPlayerIsShuffleEnabled @"PlayerIsShuffleEnabled"
 #define kVLCPlayerIsShuffleEnabledDefaultValue @NO

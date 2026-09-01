@@ -311,6 +311,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     BOOL enforceFullscreen = [[defaults objectForKey:kVLCSettingVideoFullscreenPlayback] boolValue];
 
     VLCMLMedia *media = _playbackController.currentlyPlayingLibraryMedia;
+    BOOL expectsAudioOnlyContent = [notification.userInfo[kVLCPlayerExpectsAudioOnlyContent] isEqual:@YES];
 
     _currentMediaType = [media type];
     _playbackController.fullscreenSessionRequested = _currentMediaType != VLCMLMediaTypeAudio;
@@ -327,7 +328,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            if ((media.type == VLCMLMediaTypeAudio || _playbackController.playAsAudio) &&
+            if ((media.type == VLCMLMediaTypeAudio || _playbackController.playAsAudio || expectsAudioOnlyContent) &&
                 _playbackController.numberOfVideoTracks == 0) {
                 [self _presentAudioPlayerViewIfNeeded];
             } else {
