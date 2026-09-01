@@ -18,9 +18,10 @@
 static CGFloat const kVLCOnAirRailGap = 12.0;
 static CGFloat const kVLCOnAirRailSideMargin = 20.0;
 static CGFloat const kVLCOnAirRailNameArea = 28.0;
-static CGFloat const kVLCOnAirRailCompactTileSide = 96.0;
-static CGFloat const kVLCOnAirRailRegularTileSide = 140.0;
+static CGFloat const kVLCOnAirRailCompactTileSide = 72.0;
+static CGFloat const kVLCOnAirRailRegularTileSide = 108.0;
 static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
+static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
 
 @interface VLCOnAirRailCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @end
@@ -116,6 +117,7 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
     if ((NSUInteger)indexPath.item >= _favoriteCount) {
         VLCAddTile *addTile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCAddTile.reuseIdentifier
                                                                        forIndexPath:indexPath];
+        addTile.outlineCornerRadius = kVLCOnAirRailTileCornerRadius;
         [addTile configureWithTitle:NSLocalizedString(@"ONAIR_ADD", nil)];
         return addTile;
     }
@@ -123,6 +125,7 @@ static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
     VLCArtworkTile *tile = [collectionView dequeueReusableCellWithReuseIdentifier:VLCArtworkTile.reuseIdentifier
                                                                      forIndexPath:indexPath];
     VLCFavorite *favorite = _favorites[indexPath.item];
+    tile.artworkCornerRadius = kVLCOnAirRailTileCornerRadius;
     tile.badge = VLCArtworkTileBadgePlay;
     [tile configureWithName:favorite.userVisibleName artworkURL:favorite.artworkURL];
     return tile;

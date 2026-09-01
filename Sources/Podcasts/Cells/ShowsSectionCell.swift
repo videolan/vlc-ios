@@ -15,8 +15,8 @@ import UIKit
 class ShowsSectionCell: UITableViewCell {
     static let reuseIdentifier = "ShowsSectionCell"
 
-    private static let itemWidth: CGFloat = 96
-    private static let itemHeight: CGFloat = 96 + 6 + 16 + 15
+    private static let itemWidth: CGFloat = 72
+    private static let itemHeight: CGFloat = 72 + 6 + 16 + 15
 
     var shows: [PodcastShow] = [] {
         didSet {
