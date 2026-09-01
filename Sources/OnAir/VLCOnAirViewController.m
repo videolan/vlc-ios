@@ -246,22 +246,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     _visibleSections = sections;
 }
 
-- (BOOL)isSectionEmpty:(VLCOnAirSection)section
-{
-    switch (section) {
-        case VLCOnAirSectionRadio:
-            return _radioIsEmpty;
-        case VLCOnAirSectionRadioRecent:
-            return _recentStreams.count == 0;
-        case VLCOnAirSectionPodcasts:
-            return _podcastsIsEmpty;
-        case VLCOnAirSectionTV:
-            return _tvIsEmpty;
-        default:
-            return YES;
-    }
-}
-
 - (BOOL)isZeroState
 {
     return _radioIsEmpty && _recentStreams.count == 0 && _podcastsIsEmpty && _tvIsEmpty;
@@ -575,7 +559,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     if (onAirSection == VLCOnAirSectionRadioRecent) {
         return kVLCOnAirRailSpacing;
     }
-    if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
+    if (![self sectionHasHeader:onAirSection]) {
         return CGFLOAT_MIN;
     }
 
@@ -595,15 +579,28 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         spacer.backgroundColor = [UIColor clearColor];
         return spacer;
     }
-    if (onAirSection == VLCOnAirSectionContinue || [self isSectionEmpty:onAirSection]) {
+    if (![self sectionHasHeader:onAirSection]) {
         return nil;
     }
 
     return [self sectionHeaderViewWithTitle:[self titleForSection:onAirSection]
-                                        tag:section];
+                                        tag:section
+                                showsSeeAll:[self sectionHasRail:onAirSection]];
 }
 
-- (UIView *)sectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag
+- (BOOL)sectionHasHeader:(VLCOnAirSection)section
+{
+    switch (section) {
+        case VLCOnAirSectionRadio:
+        case VLCOnAirSectionPodcasts:
+        case VLCOnAirSectionTV:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
+- (UIView *)sectionHeaderViewWithTitle:(NSString *)title tag:(NSInteger)tag showsSeeAll:(BOOL)showsSeeAll
 {
     ColorPalette *themeColors = PresentationTheme.current.colors;
 
@@ -616,6 +613,16 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     label.textColor = themeColors.cellTextColor;
     label.text = title;
     [header addSubview:label];
+
+    if (!showsSeeAll) {
+        [NSLayoutConstraint activateConstraints:@[
+            [label.leadingAnchor constraintEqualToAnchor:header.safeAreaLayoutGuide.leadingAnchor constant:kVLCOnAirSideMargin],
+            [label.trailingAnchor constraintLessThanOrEqualToAnchor:header.safeAreaLayoutGuide.trailingAnchor constant:-kVLCOnAirSideMargin],
+            [label.centerYAnchor constraintEqualToAnchor:header.centerYAnchor]
+        ]];
+
+        return header;
+    }
 
     UIButton *seeAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
     seeAllButton.translatesAutoresizingMaskIntoConstraints = NO;
