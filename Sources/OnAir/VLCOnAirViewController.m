@@ -49,7 +49,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     NSArray<VLCFavorite *> *_radioFavorites;
     NSArray<VLCFavorite *> *_recentStreams;
     NSArray<NSNumber *> *_visibleSections;
-    VLCFavorite *_resumeFavorite;
+    VLCFavorite *_resumeStream;
     BOOL _resumeSuppressed;
     BOOL _radioIsEmpty;
     BOOL _podcastsIsEmpty;
@@ -235,7 +235,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 {
     NSMutableArray<NSNumber *> *sections = [NSMutableArray arrayWithCapacity:VLCOnAirSectionCount];
 
-    if (_resumeFavorite) {
+    if (_resumeStream) {
         [sections addObject:@(VLCOnAirSectionContinue)];
     }
     [sections addObject:@(VLCOnAirSectionRadio)];
@@ -255,14 +255,14 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)updateResumeSectionAnimated
 {
-    BOOL wasVisible = (_resumeFavorite != nil);
+    BOOL wasVisible = (_resumeStream != nil);
     BOOL wasZeroState = [self isZeroState];
     BOOL wasShowingRecents = (_recentStreams.count > 0);
     NSArray<NSNumber *> *previousSections = _visibleSections;
 
     [self reloadFavorites];
 
-    if (wasVisible == (_resumeFavorite != nil) || wasZeroState != [self isZeroState]
+    if (wasVisible == (_resumeStream != nil) || wasZeroState != [self isZeroState]
         || wasShowingRecents != (_recentStreams.count > 0)) {
         [self updateTableHeaderView];
         [_tableView reloadData];
@@ -289,26 +289,32 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)updateResumeItem
 {
-    _resumeFavorite = nil;
+    _resumeStream = nil;
 
     if (_resumeSuppressed) {
         return;
     }
 
-    for (VLCFavorite *favorite in _radioFavorites) {
-        NSDate *playedDate = favorite.lastPlayedDate;
+    [self updateResumeItemWithStreams:_radioFavorites];
+    [self updateResumeItemWithStreams:_recentStreams];
+}
+
+- (void)updateResumeItemWithStreams:(NSArray<VLCFavorite *> *)streams
+{
+    for (VLCFavorite *stream in streams) {
+        NSDate *playedDate = stream.lastPlayedDate;
         if (!playedDate) {
             continue;
         }
-        if (!_resumeFavorite || [playedDate compare:_resumeFavorite.lastPlayedDate] == NSOrderedDescending) {
-            _resumeFavorite = favorite;
+        if (!_resumeStream || [playedDate compare:_resumeStream.lastPlayedDate] == NSOrderedDescending) {
+            _resumeStream = stream;
         }
     }
 }
 
 - (NSString *)resumeMetaText
 {
-    NSDate *playedDate = _resumeFavorite.lastPlayedDate;
+    NSDate *playedDate = _resumeStream.lastPlayedDate;
     if (!playedDate) {
         return nil;
     }
@@ -430,8 +436,8 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         VLCOnAirContinueCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirContinueCell.reuseIdentifier
                                                                      forIndexPath:indexPath];
         cell.delegate = self;
-        [cell configureWithName:_resumeFavorite.userVisibleName
-                     artworkURL:_resumeFavorite.artworkURL
+        [cell configureWithName:_resumeStream.userVisibleName
+                     artworkURL:_resumeStream.artworkURL
                            meta:[self resumeMetaText]
                        progress:0.0];
         return cell;
@@ -653,7 +659,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if ([self sectionAtIndex:indexPath.section] == VLCOnAirSectionContinue) {
-        [self playFavorite:_resumeFavorite];
+        [self playFavorite:_resumeStream];
     }
 }
 
@@ -686,7 +692,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)continueCellDidTapPlay:(VLCOnAirContinueCell *)cell
 {
-    [self playFavorite:_resumeFavorite];
+    [self playFavorite:_resumeStream];
 }
 
 - (void)promptCell:(VLCOnAirPromptCell *)cell didTapButtonAtIndex:(NSInteger)index
