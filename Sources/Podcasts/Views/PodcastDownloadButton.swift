@@ -25,7 +25,7 @@ class PodcastDownloadButton: UIButton {
         guard #available(iOS 13.0, *) else {
             return nil
         }
-        return UIImage(systemName: "checkmark.circle.fill",
+        return UIImage(systemName: "arrow.down.circle.fill",
                        withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
     }()
 
