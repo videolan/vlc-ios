@@ -19,6 +19,7 @@ extension Notification.Name {
 
 extension NSNotification {
     @objc static let VLCPodcastsContentDidChange = Notification.Name.VLCPodcastsContentDidChange
+    @objc static let VLCPodcastsRefreshDidEnd = Notification.Name.VLCPodcastsRefreshDidEnd
 }
 
 @objc final class PodcastsOnAirBridge: NSObject {
@@ -34,6 +35,10 @@ extension NSNotification {
 
     @objc static var numberOfShows: Int {
         return PodcastStore.shared.shows.count
+    }
+
+    @objc static func refreshAllSubscriptions() -> Bool {
+        return PodcastStore.shared.refreshAllSubscriptions()
     }
 
     @discardableResult

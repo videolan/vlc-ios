@@ -23,6 +23,7 @@
 #import "VLC-Swift.h"
 #import "VLCAppSceneDelegate.h"
 #import "VLCMLMedia+isWatched.h"
+#import "PodcastBackgroundRefresher.h"
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
 #import <WatchConnectivity/WatchConnectivity.h>
 #endif
@@ -189,6 +190,10 @@
     UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
     if (shortcutItem) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+    }
+
+    if (@available(iOS 13.0, *)) {
+        [[PodcastBackgroundRefresher sharedInstance] registerTask];
     }
 
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH

@@ -1296,6 +1296,9 @@
 		7DCFE68F301804D700803FD0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DCFE68E301804D700803FD0 /* Images.xcassets */; };
 		7DCFF884304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
 		7DCFF885304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
+		7DCFF8883047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8873047EF03009244CA /* PodcastBackgroundRefresher.m */; };
+		7DCFF8893047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8873047EF03009244CA /* PodcastBackgroundRefresher.m */; };
+		7DCFF88A3047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8873047EF03009244CA /* PodcastBackgroundRefresher.m */; };
 		7DCFF8913047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */; };
 		7DCFF8923047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */; };
 		7DD3235A30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
@@ -2442,6 +2445,8 @@
 		7DCFE68E301804D700803FD0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7DCFF882304758CE009244CA /* CPInterfaceController+VLCTemplateStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPInterfaceController+VLCTemplateStack.h"; sourceTree = "<group>"; };
 		7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CPInterfaceController+VLCTemplateStack.m"; sourceTree = "<group>"; };
+		7DCFF8863047EF03009244CA /* PodcastBackgroundRefresher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PodcastBackgroundRefresher.h; sourceTree = "<group>"; };
+		7DCFF8873047EF03009244CA /* PodcastBackgroundRefresher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PodcastBackgroundRefresher.m; sourceTree = "<group>"; };
 		7DCFF88F3047FD87009244CA /* VLCCarPlayBrowserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayBrowserController.h; sourceTree = "<group>"; };
 		7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayBrowserController.m; sourceTree = "<group>"; };
 		7DD3235830013CA100C9A583 /* VLCCarPlayFoldersController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayFoldersController.h; sourceTree = "<group>"; };
@@ -3078,6 +3083,8 @@
 				597B95B0EE15FDB1E2629BBD /* Views */,
 				A03CE6E64E9D7F418631A425 /* Cells */,
 				5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */,
+				7DCFF8863047EF03009244CA /* PodcastBackgroundRefresher.h */,
+				7DCFF8873047EF03009244CA /* PodcastBackgroundRefresher.m */,
 				6FA619B52F59E5EA3D9A48DA /* PodcastsEmptyStateView.swift */,
 				7DF0C8CD3026687000326B65 /* PodcastEpisodeDetailViewController.swift */,
 				7DB74895304743180073F784 /* PodcastMenuAction.swift */,
@@ -6319,6 +6326,7 @@
 				7D1E8F46300F7A8A0014A118 /* VLCRadioStationsViewController.m in Sources */,
 				7D50C6992BBD20DF00B9F1A0 /* ABRepeatView.swift in Sources */,
 				7D50C69A2BBD20DF00B9F1A0 /* SliderInfoView.swift in Sources */,
+				7DCFF8893047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */,
 				7D50C69B2BBD20DF00B9F1A0 /* VLCMLMedia+App.m in Sources */,
 				7D50C69D2BBD20DF00B9F1A0 /* SleepTimerView.swift in Sources */,
 				7D50C69F2BBD20DF00B9F1A0 /* URL+isHidden.swift in Sources */,
@@ -6532,6 +6540,7 @@
 				32F2643A2FB4F1650046437D /* VLCSessionDelegate.swift in Sources */,
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
 				7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */,
+				7DCFF88A3047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */,
 				7D2DE69324D5A9AA00E8D84D /* VLCOpenSubtitlesDownloader.m in Sources */,
 				7D1E8F2A300E7FC20014A118 /* VLCRadioCountry.m in Sources */,
 				7D1E8F2C300E7FC20014A118 /* VLCRadioCountryListViewController.m in Sources */,
@@ -7138,6 +7147,7 @@
 				D82AA1FBB38EFE99313AEC0C /* ShowTileCell.swift in Sources */,
 				12F6B5D61974AB3F237B4899 /* ContinueListeningSectionCell.swift in Sources */,
 				A0F143D8611C013EA4BDB29B /* ShowsSectionCell.swift in Sources */,
+				7DCFF8883047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */,
 				9D397C5AFE47AEAD1F162437 /* PodcastSectionHeaderView.swift in Sources */,
 				E77833315D74A3AB4A5C4677 /* PodcastsViewController.swift in Sources */,
 				271037E80004A616F1EC5EB5 /* PodcastsEmptyStateView.swift in Sources */,
