@@ -212,7 +212,7 @@ class MediaLibraryService: NSObject {
     private var lastPlayedMediaList: VLCMedia?
 
 #if !os(watchOS)
-    private let subscriptionCacher = VLCSubscriptionCacher()
+    let subscriptionCacher = VLCSubscriptionCacher()
     private let artworkCacher = VLCArtworkCacher()
 #endif
 
