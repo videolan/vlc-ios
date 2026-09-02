@@ -1,8 +1,8 @@
 /*****************************************************************************
- * CPListTemplate+Albums.m
+ * CPListTemplate+Genres.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -11,8 +11,7 @@
  *****************************************************************************/
 
 #import "CPListTemplate+Genres.h"
-#import "VLCCarPlayListLimit.h"
-#import "UIImage+PaddedImage.h"
+#import "VLCCarPlayBrowserController.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
@@ -35,27 +34,19 @@
     NSArray *genres = [[VLCAppCoordinator sharedInstance].mediaLibraryService genresWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                    desc:NO];
 
-    NSUInteger maximumItemCount = VLCCarPlayMaximumItemCountLimit();
-    NSUInteger count = MIN(genres.count, maximumItemCount);
+    NSUInteger count = MIN(genres.count, [VLCCarPlayBrowserController maximumItemCount]);
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
-    CGSize placeholderSize = CGSizeMake(80.0, 80.0);
-    if (@available(iOS 14.0, *)) {
-        placeholderSize = [CPListItem maximumImageSize];
-    }
-    UIImage *placeholder = [UIImage paddedImageForSymbol:@"tag" ofSize:placeholderSize];
+    UIImage *placeholder = [VLCCarPlayBrowserController placeholderForSymbol:@"tag"];
 
     for (NSUInteger x = 0; x < count; x++) {
-        CPListItem *listItem;
-
-        VLCMLGenre *iter = genres[x];
-        NSArray *artists = iter.artists;
+        VLCMLGenre *genre = genres[x];
+        NSArray<VLCMLArtist *> *artists = genre.artists;
 
         UIImage *genreImage;
         NSUInteger artistCount = MIN(artists.count, (NSUInteger)8);
         for (NSUInteger index = 0; index < artistCount; index++) {
-            VLCMLArtist *artist = artists[index];
-            genreImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
+            genreImage = [VLCThumbnailsCache thumbnailForURL:artists[index].artworkMRL];
             if (genreImage) {
                 break;
             }
@@ -64,14 +55,13 @@
             genreImage = placeholder;
         }
 
-        listItem = [[CPListItem alloc] initWithText:iter.name detailText:iter.numberOfTracksString image:genreImage];
+        CPListItem *listItem = [[CPListItem alloc] initWithText:genre.name
+                                                     detailText:genre.numberOfTracksString
+                                                          image:genreImage];
 
-        listItem.userInfo = iter;
         listItem.handler = ^(id <CPSelectableListItem> item,
                              dispatch_block_t completionBlock) {
-            VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
-            VLCMLGenre *genre = item.userInfo;
-            [playbackService playCollection:[genre tracks]];
+            [[VLCPlaybackService sharedInstance] playCollection:[genre tracks]];
             completionBlock();
         };
         [itemList addObject:listItem];

@@ -9,16 +9,14 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <CarPlay/CarPlay.h>
+#import "VLCCarPlayBrowserController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@interface VLCCarPlayFoldersController : NSObject
-
-@property (readwrite) CPInterfaceController *interfaceController;
+@interface VLCCarPlayFoldersController : VLCCarPlayBrowserController
 
 - (CPListTemplate *)folderList;
 

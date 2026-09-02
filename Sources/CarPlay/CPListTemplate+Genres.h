@@ -1,5 +1,5 @@
 /*****************************************************************************
- * CPListTemplate+Albums.h
+ * CPListTemplate+Genres.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2022 VideoLAN. All rights reserved.
