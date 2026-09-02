@@ -1293,6 +1293,8 @@
 		7DCFE68F301804D700803FD0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DCFE68E301804D700803FD0 /* Images.xcassets */; };
 		7DCFF884304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
 		7DCFF885304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */; };
+		7DCFF8913047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */; };
+		7DCFF8923047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */; };
 		7DD3235A30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
 		7DD3235B30013CA200C9A583 /* VLCCarPlayFoldersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */; };
 		7DD3235E3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */; };
@@ -2436,6 +2438,8 @@
 		7DCFE68E301804D700803FD0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7DCFF882304758CE009244CA /* CPInterfaceController+VLCTemplateStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPInterfaceController+VLCTemplateStack.h"; sourceTree = "<group>"; };
 		7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CPInterfaceController+VLCTemplateStack.m"; sourceTree = "<group>"; };
+		7DCFF88F3047FD87009244CA /* VLCCarPlayBrowserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayBrowserController.h; sourceTree = "<group>"; };
+		7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayBrowserController.m; sourceTree = "<group>"; };
 		7DD3235830013CA100C9A583 /* VLCCarPlayFoldersController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayFoldersController.h; sourceTree = "<group>"; };
 		7DD3235930013CA100C9A583 /* VLCCarPlayFoldersController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayFoldersController.m; sourceTree = "<group>"; };
 		7DD3235C3001432B00C9A583 /* VLCCarPlayAlbumsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayAlbumsController.h; sourceTree = "<group>"; };
@@ -2487,7 +2491,6 @@
 		7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemoteBrowsingCollectionViewController.xib; sourceTree = "<group>"; };
 		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.h"; sourceTree = SOURCE_ROOT; };
 		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.m"; sourceTree = SOURCE_ROOT; };
-		7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayListLimit.h; sourceTree = "<group>"; };
 		7DF60F81300501AE003A40B8 /* VLCServiceBrowserRadio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCServiceBrowserRadio.h; sourceTree = "<group>"; };
 		7DF60F82300501AE003A40B8 /* VLCServiceBrowserRadio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCServiceBrowserRadio.m; sourceTree = "<group>"; };
 		7DF60F87300501CF003A40B8 /* VLCRadioListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioListViewController.h; sourceTree = "<group>"; };
@@ -4660,7 +4663,8 @@
 				7DCFF883304758CE009244CA /* CPInterfaceController+VLCTemplateStack.m */,
 				7DD71F9328FB421300327ACE /* VLCCarPlayArtistsController.h */,
 				7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */,
-				7DF5F0872F4CA46C00E3A822 /* VLCCarPlayListLimit.h */,
+				7DCFF88F3047FD87009244CA /* VLCCarPlayBrowserController.h */,
+				7DCFF8903047FD87009244CA /* VLCCarPlayBrowserController.m */,
 				7DD71F8828FB421300327ACE /* CPListTemplate+Genres.h */,
 				7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */,
 				7DD71F8B28FB421300327ACE /* CPListTemplate+NetworkStreams.h */,
@@ -6508,6 +6512,7 @@
 				7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */,
 				7D1E8F3D300F7A850014A118 /* VLCRadioFavoritesGridCell.m in Sources */,
 				7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */,
+				7DCFF8923047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				3282659E2FECABD700D3A097 /* MLSyncState.swift in Sources */,
 				7D50F91430111FBE00005A38 /* PlayRadioStationIntent.swift in Sources */,
@@ -6836,6 +6841,7 @@
 				7DC382AE301F8DF400B7FA58 /* UITextField+VLCKeyboardDismissal.m in Sources */,
 				7DA5146C2EF82B63000C9995 /* VLCFirstStepsDonateViewController.m in Sources */,
 				7DA5146D2EF82B63000C9995 /* VLCCharge.m in Sources */,
+				7DCFF8913047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */,
 				7DA5146E2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7DA5146F2EF82B63000C9995 /* EditController.swift in Sources */,
 				7DA514702EF82B63000C9995 /* AudioMiniPlayer.swift in Sources */,
