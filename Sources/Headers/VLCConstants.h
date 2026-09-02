@@ -103,6 +103,8 @@
 #define kVLCSettingCastingConversionQuality @"sout-chromecast-conversion-quality"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
+#define kVLCSettingPodcastAutomaticDownloads @"PodcastAutomaticDownloads"
+#define kVLCSettingPodcastAutomaticDownloadsDefaultValue @YES
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCResetSettings @"kVLCResetSettings"
 #define kVLCSettingAlwaysPlayURLs @"kVLCSettingAlwaysPlayURLs"

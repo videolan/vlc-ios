@@ -19,6 +19,9 @@
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
+"SETTINGS_PODCASTS_TITLE" = "Podcasts";
+"SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS" = "Download new episodes";
+"SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS_SUBTITLE" = "Keep the latest episodes of your subscriptions on this device. Downloads only over Wi-Fi.";
 "SETTINGS_PLAYBACK_TITLE" = "Playback";
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";

@@ -95,6 +95,7 @@
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
+                                  kVLCSettingPodcastAutomaticDownloads : kVLCSettingPodcastAutomaticDownloadsDefaultValue,
                                   kVLCSettingCastingAudioPassthrough : @(NO),
                                   kVLCSettingCastingConversionQuality : @(2),
                                   kVLCForceSMBV1 : @(NO),

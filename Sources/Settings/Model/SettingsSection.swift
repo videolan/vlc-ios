@@ -154,6 +154,7 @@ struct SettingsSection: Equatable {
             VideoOptions.section(),
             SubtitlesOptions.section(),
             AudioOptions.section(),
+            PodcastOptions.section(),
             CastingOptions.section(),
             MediaLibraryOptions.section(isBackingUp: isBackingUp),
             NetworkOptions.section(),
@@ -640,6 +641,22 @@ enum AudioOptions {
             preampLevel,
             timeStretchingAudio,
             audioPlaybackInBackground,
+        ])
+    }
+}
+
+// MARK: - PodcastOptions
+
+enum PodcastOptions {
+    static var automaticDownloads: SettingsItem {
+        .toggle(title: "SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS",
+                subtitle: "SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS_SUBTITLE",
+                preferenceKey: kVLCSettingPodcastAutomaticDownloads)
+    }
+
+    static func section() -> SettingsSection? {
+        .init(title: "SETTINGS_PODCASTS_TITLE", items: [
+            automaticDownloads,
         ])
     }
 }
