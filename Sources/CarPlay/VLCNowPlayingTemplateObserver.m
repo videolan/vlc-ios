@@ -2,7 +2,7 @@
  * VLCNowPlayingTemplateObserver.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022, 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2022, 2023, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -49,37 +49,22 @@ NSString *const VLCDisplayPlayQueueCarPlay = @"VLCDisplayPlayQueueCarPlay";
 
     CPNowPlayingRepeatButton *repeatButton = [[CPNowPlayingRepeatButton alloc] initWithHandler:^(CPNowPlayingRepeatButton *button) {
         VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
-        VLCRepeatMode vlcRepeatMode = vps.repeatMode;
-        MPRepeatType reportedRepeatType;
-        switch (vlcRepeatMode) {
+        switch (vps.repeatMode) {
             case VLCRepeatCurrentItem:
-                reportedRepeatType = MPRepeatTypeAll;
-                vlcRepeatMode = VLCRepeatAllItems;
+                vps.repeatMode = VLCRepeatAllItems;
                 break;
             case VLCRepeatAllItems:
-                reportedRepeatType = MPRepeatTypeOff;
-                vlcRepeatMode = VLCDoNotRepeat;
+                vps.repeatMode = VLCDoNotRepeat;
                 break;
             default:
-                reportedRepeatType = MPRepeatTypeOne;
-                vlcRepeatMode = VLCRepeatCurrentItem;
+                vps.repeatMode = VLCRepeatCurrentItem;
                 break;
         }
-
-        [MPRemoteCommandCenter sharedCommandCenter].changeRepeatModeCommand.currentRepeatType = reportedRepeatType;
-        vps.repeatMode = vlcRepeatMode;
     }];
 
     CPNowPlayingShuffleButton *shuffleButton = [[CPNowPlayingShuffleButton alloc] initWithHandler:^(CPNowPlayingShuffleButton *button) {
         VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
-
-        if (vps.shuffleMode) {
-            [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeOff;
-            vps.shuffleMode = NO;
-        } else {
-            [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeItems;
-            vps.shuffleMode = YES;
-        }
+        vps.shuffleMode = !vps.shuffleMode;
     }];
 
     CPNowPlayingTemplate *nowPlayingTemplate = CPNowPlayingTemplate.sharedTemplate;
