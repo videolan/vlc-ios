@@ -13,6 +13,7 @@
 #import "VLCSubscriptionCacher.h"
 #import "VLCAppCoordinator.h"
 #import "VLCTransferController.h"
+#import "Reachability.h"
 #import "VLC-Swift.h"
 
 static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
@@ -20,6 +21,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 @interface VLCSubscriptionCacher () <VLCMediaDownloaderDelegate>
 {
     VLCMediaDownloader *_downloader;
+    Reachability *_reachability;
 
     /* The mutex guards the state shared with interruptCaching, which is called
      * from a different thread than cacheMRL:toPath:. */
@@ -27,6 +29,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     VLCMediaDownloadTask *_task;
     NSFileHandle *_fileHandle;
     dispatch_semaphore_t _completion;
+    NSMutableSet<NSNumber *> *_manualMediaIdentifiers;
+    BOOL _currentIsAutomatic;
     BOOL _cancelled;
     BOOL _terminated;
     VLCMLCacheStatus _status;
@@ -43,14 +47,82 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     if (self = [super init]) {
         _downloader = [[VLCMediaDownloader alloc] init];
         _lock = [[NSLock alloc] init];
+        _manualMediaIdentifiers = [NSMutableSet set];
+        _reachability = [Reachability reachabilityForInternetConnection];
+        [_reachability startNotifier];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reachabilityDidChange)
+                                                     name:kReachabilityChangedNotification
+                                                   object:nil];
     }
     return self;
+}
+
+#pragma mark - network policy
+
+- (BOOL)automaticCachingAllowed
+{
+    return _reachability.currentReachabilityStatus == ReachableViaWiFi;
+}
+
+- (void)addManualRequestForMediaWithIdentifier:(VLCMLIdentifier)identifier
+{
+    [_lock lock];
+    [_manualMediaIdentifiers addObject:@(identifier)];
+    [_lock unlock];
+}
+
+- (void)removeManualRequestForMediaWithIdentifier:(VLCMLIdentifier)identifier
+{
+    [_lock lock];
+    [_manualMediaIdentifiers removeObject:@(identifier)];
+    [_lock unlock];
+}
+
+- (BOOL)consumeManualRequestForMedia:(VLCMLMedia *)media
+{
+    if (!media) {
+        return NO;
+    }
+
+    NSNumber *identifier = @([media identifier]);
+    [_lock lock];
+    BOOL manual = [_manualMediaIdentifiers containsObject:identifier];
+    if (manual) {
+        [_manualMediaIdentifiers removeObject:identifier];
+    }
+    [_lock unlock];
+
+    return manual;
+}
+
+- (void)reachabilityDidChange
+{
+    if (self.automaticCachingAllowed) {
+        return;
+    }
+
+    [_lock lock];
+    VLCMediaDownloadTask *task = _currentIsAutomatic ? _task : nil;
+    if (task) {
+        _cancelled = YES;
+    }
+    [_lock unlock];
+
+    [task cancel];
 }
 
 #pragma mark - VLCMLCacherDelegate
 
 - (VLCMLCacheStatus)cacheMRL:(NSURL *)mrl toPath:(NSString *)path
 {
+    VLCMLMedia *libraryMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib mediaWithMrl:mrl];
+    BOOL automatic = ![self consumeManualRequestForMedia:libraryMedia];
+    if (automatic && !self.automaticCachingAllowed) {
+        APLog(@"%s: skipping the automatic download of %@ while off Wi-Fi", __func__, mrl);
+        return VLCMLCacheStatusCancelled;
+    }
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager createFileAtPath:path contents:nil attributes:nil]) {
         APLog(@"%s: failed to create cache file at %@", __func__, path);
@@ -73,7 +145,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     }
 
     dispatch_semaphore_t completion = dispatch_semaphore_create(0);
-    NSString *displayName = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib mediaWithMrl:mrl].title;
+    NSString *displayName = libraryMedia.title;
     if (displayName.length == 0) {
         displayName = mrl.lastPathComponent.stringByRemovingPercentEncoding ?: mrl.absoluteString;
     }
@@ -85,6 +157,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     _status = VLCMLCacheStatusFailed;
     _transferToken = 0;
     _lastProgressReport = 0;
+    _currentIsAutomatic = automatic;
     /* A prior interruptCaching (e.g. a shutdown racing the next item) must abort
      * this download too rather than being silently forgotten. */
     BOOL abortImmediately = _cancelled;
@@ -157,6 +230,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     _task = nil;
     _completion = nil;
     _transferToken = 0;
+    _currentIsAutomatic = NO;
     /* Reset for the next item; a cancellation only applies to the download it
      * interrupted. */
     _cancelled = NO;
