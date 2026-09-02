@@ -578,6 +578,22 @@ extension PodcastStore: MediaLibraryObserver {
         }
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didReceiveNewMediaForSubscriptionsWithIds subscriptionIds: [NSNumber]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.automaticDownloadsEnabled else {
+                return
+            }
+            if #available(iOS 13.0, *) {
+                PodcastBackgroundRefresher.sharedInstance().scheduleDownloadTask()
+            }
+            guard UIApplication.shared.applicationState == .active else {
+                return
+            }
+            self.cacheNewEpisodes()
+        }
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, cacheIdleChanged idle: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self, self.cacheInFlight else {
