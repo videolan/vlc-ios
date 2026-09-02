@@ -30,6 +30,10 @@ final class PodcastStore: NSObject {
     private var refreshSawBusy = false
     private var refreshTimeout: DispatchWorkItem?
 
+    private var cacheInFlight = false
+    private var cacheSawBusy = false
+    private var cacheStartTimeout: DispatchWorkItem?
+
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
     // access, so it's cached per show and only dropped when the underlying data actually
@@ -45,6 +49,8 @@ final class PodcastStore: NSObject {
     private static let prefetchedArtworkEpisodes = 10
     private static let subscriptionRefreshInterval: TimeInterval = 30 * 60
     private static let subscriptionRefreshTimeout: TimeInterval = 30
+    private static let cacheStartTimeout: TimeInterval = 30
+    private static let maxCachedEpisodesPerShow: UInt32 = 2
     private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
 
     private static let dateFormatter: DateFormatter = {
@@ -62,6 +68,7 @@ final class PodcastStore: NSObject {
             return
         }
         self.mediaLibraryService = mediaLibraryService
+        mediaLibraryService.medialib.subscriptionMaxCachedMedia = PodcastStore.maxCachedEpisodesPerShow
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
         subscriptionModel?.observable.addObserver(self)
         mediaLibraryService.observable.addObserver(self)
@@ -237,6 +244,58 @@ final class PodcastStore: NSObject {
         NotificationCenter.default.post(name: .VLCPodcastsRefreshDidEnd, object: nil)
     }
 
+    // MARK: - Automatic downloads
+
+    var automaticDownloadsEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCSettingPodcastAutomaticDownloads)
+    }
+
+    // A pass marks every episode of a subscription as cache-handled even when it downloaded
+    // nothing, so one started off Wi-Fi would burn them for good.
+    @discardableResult
+    func cacheNewEpisodes() -> Bool {
+        guard automaticDownloadsEnabled,
+              let mediaLibraryService = mediaLibraryService,
+              mediaLibraryService.subscriptionCacher.automaticCachingAllowed,
+              !shows.isEmpty else {
+            return false
+        }
+
+        mediaLibraryService.medialib.cacheNewSubscriptionMedia()
+        beginCaching()
+        return true
+    }
+
+    func interruptCaching() {
+        mediaLibraryService?.subscriptionCacher.interruptCaching()
+    }
+
+    private func beginCaching() {
+        cacheStartTimeout?.cancel()
+        cacheInFlight = true
+        cacheSawBusy = false
+
+        let timeout = DispatchWorkItem { [weak self] in
+            guard let self = self, !self.cacheSawBusy else {
+                return
+            }
+            self.endCaching()
+        }
+        cacheStartTimeout = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + PodcastStore.cacheStartTimeout, execute: timeout)
+    }
+
+    private func endCaching() {
+        guard cacheInFlight else {
+            return
+        }
+        cacheStartTimeout?.cancel()
+        cacheStartTimeout = nil
+        cacheInFlight = false
+        cacheSawBusy = false
+        NotificationCenter.default.post(name: .VLCPodcastsCachingDidEnd, object: nil)
+    }
+
     func unsubscribe(showId: String) {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
@@ -382,8 +441,15 @@ final class PodcastStore: NSObject {
 
     @discardableResult
     func downloadEpisode(episodeId: String, showId: String) -> Bool {
-        guard let media = media(forEpisodeId: episodeId),
-              mediaLibraryService?.medialib.cacheMedia(media) == true else {
+        guard let mediaLibraryService = mediaLibraryService,
+              let media = media(forEpisodeId: episodeId) else {
+            return false
+        }
+
+        let cacher = mediaLibraryService.subscriptionCacher
+        cacher.addManualRequestForMedia(withIdentifier: media.identifier())
+        guard mediaLibraryService.medialib.cacheMedia(media) else {
+            cacher.removeManualRequestForMedia(withIdentifier: media.identifier())
             return false
         }
         pendingCacheMediaIds.insert(media.identifier())
@@ -509,6 +575,22 @@ extension PodcastStore: MediaLibraryObserver {
             }
             self.invalidateCaches()
             self.notifyReload()
+        }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, cacheIdleChanged idle: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.cacheInFlight else {
+                return
+            }
+            guard idle else {
+                self.cacheSawBusy = true
+                return
+            }
+            guard self.cacheSawBusy else {
+                return
+            }
+            self.endCaching()
         }
     }
 

@@ -15,11 +15,13 @@ import UIKit
 extension Notification.Name {
     static let VLCPodcastsContentDidChange = Notification.Name("VLCPodcastsContentDidChange")
     static let VLCPodcastsRefreshDidEnd = Notification.Name("VLCPodcastsRefreshDidEnd")
+    static let VLCPodcastsCachingDidEnd = Notification.Name("VLCPodcastsCachingDidEnd")
 }
 
 extension NSNotification {
     @objc static let VLCPodcastsContentDidChange = Notification.Name.VLCPodcastsContentDidChange
     @objc static let VLCPodcastsRefreshDidEnd = Notification.Name.VLCPodcastsRefreshDidEnd
+    @objc static let VLCPodcastsCachingDidEnd = Notification.Name.VLCPodcastsCachingDidEnd
 }
 
 @objc final class PodcastsOnAirBridge: NSObject {
@@ -39,6 +41,18 @@ extension NSNotification {
 
     @objc static func refreshAllSubscriptions() -> Bool {
         return PodcastStore.shared.refreshAllSubscriptions()
+    }
+
+    @objc static var automaticDownloadsEnabled: Bool {
+        return PodcastStore.shared.automaticDownloadsEnabled
+    }
+
+    @objc static func cacheNewEpisodes() -> Bool {
+        return PodcastStore.shared.cacheNewEpisodes()
+    }
+
+    @objc static func interruptCaching() {
+        PodcastStore.shared.interruptCaching()
     }
 
     @discardableResult
