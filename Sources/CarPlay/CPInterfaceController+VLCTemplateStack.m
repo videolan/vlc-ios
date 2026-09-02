@@ -37,6 +37,15 @@ static const NSUInteger VLCCarPlayMaximumTemplateDepth = 5;
     }
 }
 
+- (void)returnToRootTemplateAnimated:(BOOL)animated
+{
+    if (@available(iOS 14.0, *)) {
+        [self popToRootTemplateAnimated:animated completion:nil];
+    } else {
+        [self popToRootTemplateAnimated:animated];
+    }
+}
+
 @end
 
 #pragma clang diagnostic pop

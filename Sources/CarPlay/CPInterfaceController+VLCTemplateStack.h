@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CPInterfaceController (VLCTemplateStack)
 
 - (void)pushTemplateWithinDepthLimit:(__kindof CPTemplate *)templateToPush animated:(BOOL)animated;
+- (void)returnToRootTemplateAnimated:(BOOL)animated;
 
 @end
 
