@@ -19,7 +19,8 @@ API_AVAILABLE(ios(13.0))
 
 + (instancetype)sharedInstance;
 
-- (void)registerTask;
+- (void)registerTasks;
+- (void)scheduleDownloadTask;
 
 @end
 

@@ -194,7 +194,7 @@
     }
 
     if (@available(iOS 13.0, *)) {
-        [[PodcastBackgroundRefresher sharedInstance] registerTask];
+        [[PodcastBackgroundRefresher sharedInstance] registerTasks];
     }
 
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH

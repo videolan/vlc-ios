@@ -17,11 +17,14 @@
 #import <BackgroundTasks/BackgroundTasks.h>
 
 static const NSTimeInterval kVLCPodcastRefreshInterval = 2 * 60 * 60;
+static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
 
 @implementation PodcastBackgroundRefresher
 {
-    BGAppRefreshTask *_currentTask;
-    NSString *_taskIdentifier;
+    BGAppRefreshTask *_currentRefreshTask;
+    BGProcessingTask *_currentDownloadTask;
+    NSString *_refreshTaskIdentifier;
+    NSString *_downloadTaskIdentifier;
 }
 
 + (instancetype)sharedInstance
@@ -38,40 +41,64 @@ static const NSTimeInterval kVLCPodcastRefreshInterval = 2 * 60 * 60;
 {
     self = [super init];
     if (self) {
-        _taskIdentifier = [NSBundle.mainBundle.bundleIdentifier stringByAppendingString:@".podcast-refresh"];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(refreshDidEnd)
-                                                     name:NSNotification.VLCPodcastsRefreshDidEnd
-                                                   object:nil];
+        NSString *bundleIdentifier = NSBundle.mainBundle.bundleIdentifier;
+        _refreshTaskIdentifier = [bundleIdentifier stringByAppendingString:@".podcast-refresh"];
+        _downloadTaskIdentifier = [bundleIdentifier stringByAppendingString:@".podcast-download"];
+
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self
+                               selector:@selector(refreshDidEnd)
+                                   name:NSNotification.VLCPodcastsRefreshDidEnd
+                                 object:nil];
+        [notificationCenter addObserver:self
+                               selector:@selector(cachingDidEnd)
+                                   name:NSNotification.VLCPodcastsCachingDidEnd
+                                 object:nil];
     }
     return self;
 }
 
-- (void)registerTask
+- (void)registerTasks
 {
-    BOOL registered = [BGTaskScheduler.sharedScheduler
-                       registerForTaskWithIdentifier:_taskIdentifier
-                       usingQueue:dispatch_get_main_queue()
-                       launchHandler:^(BGTask *task) {
+    BGTaskScheduler *scheduler = BGTaskScheduler.sharedScheduler;
+
+    BOOL registered = [scheduler registerForTaskWithIdentifier:_refreshTaskIdentifier
+                                                    usingQueue:dispatch_get_main_queue()
+                                                 launchHandler:^(BGTask *task) {
         if (![task isKindOfClass:[BGAppRefreshTask class]]) {
             [task setTaskCompletedWithSuccess:NO];
             return;
         }
-        [self runTask:(BGAppRefreshTask *)task];
+        [self runRefreshTask:(BGAppRefreshTask *)task];
+    }];
+
+    if (registered) {
+        [self scheduleRefreshTask];
+    } else {
+        APLog(@"podcast background refresh: the task identifier is not permitted");
+    }
+
+    registered = [scheduler registerForTaskWithIdentifier:_downloadTaskIdentifier
+                                               usingQueue:dispatch_get_main_queue()
+                                            launchHandler:^(BGTask *task) {
+        if (![task isKindOfClass:[BGProcessingTask class]]) {
+            [task setTaskCompletedWithSuccess:NO];
+            return;
+        }
+        [self runDownloadTask:(BGProcessingTask *)task];
     }];
 
     if (!registered) {
-        APLog(@"podcast background refresh: the task identifier is not permitted");
-        return;
+        APLog(@"podcast background download: the task identifier is not permitted");
     }
-
-    [self scheduleTask];
 }
 
-- (void)scheduleTask
+#pragma mark - feed refresh
+
+- (void)scheduleRefreshTask
 {
     BGAppRefreshTaskRequest *request =
-        [[BGAppRefreshTaskRequest alloc] initWithIdentifier:_taskIdentifier];
+        [[BGAppRefreshTaskRequest alloc] initWithIdentifier:_refreshTaskIdentifier];
     request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:kVLCPodcastRefreshInterval];
 
     NSError *error = nil;
@@ -80,39 +107,90 @@ static const NSTimeInterval kVLCPodcastRefreshInterval = 2 * 60 * 60;
     }
 }
 
-- (void)runTask:(BGAppRefreshTask *)task
+- (void)runRefreshTask:(BGAppRefreshTask *)task
 {
-    [self scheduleTask];
+    [self scheduleRefreshTask];
 
-    _currentTask = task;
+    _currentRefreshTask = task;
     task.expirationHandler = ^{
-        [self completeWithSuccess:NO];
+        [self completeRefreshWithSuccess:NO];
     };
 
     [PodcastsOnAirBridge configureWithMediaLibraryService:VLCAppCoordinator.sharedInstance.mediaLibraryService];
 
     if (PodcastsOnAirBridge.numberOfShows == 0) {
-        [self completeWithSuccess:YES];
+        [self completeRefreshWithSuccess:YES];
         return;
     }
 
     if (![PodcastsOnAirBridge refreshAllSubscriptions]) {
-        [self completeWithSuccess:NO];
+        [self completeRefreshWithSuccess:NO];
     }
 }
 
 - (void)refreshDidEnd
 {
-    [self completeWithSuccess:YES];
+    [self completeRefreshWithSuccess:YES];
 }
 
-- (void)completeWithSuccess:(BOOL)success
+- (void)completeRefreshWithSuccess:(BOOL)success
 {
-    BGAppRefreshTask *task = _currentTask;
+    BGAppRefreshTask *task = _currentRefreshTask;
     if (!task) {
         return;
     }
-    _currentTask = nil;
+    _currentRefreshTask = nil;
+    [task setTaskCompletedWithSuccess:success];
+}
+
+#pragma mark - episode downloads
+
+- (void)scheduleDownloadTask
+{
+    BGProcessingTaskRequest *request =
+        [[BGProcessingTaskRequest alloc] initWithIdentifier:_downloadTaskIdentifier];
+    request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:kVLCPodcastDownloadDelay];
+    request.requiresNetworkConnectivity = YES;
+    request.requiresExternalPower = YES;
+
+    NSError *error = nil;
+    if (![BGTaskScheduler.sharedScheduler submitTaskRequest:request error:&error]) {
+        APLog(@"podcast background download: failed to schedule (%@)", error.localizedDescription);
+    }
+}
+
+- (void)runDownloadTask:(BGProcessingTask *)task
+{
+    _currentDownloadTask = task;
+    task.expirationHandler = ^{
+        [PodcastsOnAirBridge interruptCaching];
+        [self completeDownloadWithSuccess:NO];
+    };
+
+    [PodcastsOnAirBridge configureWithMediaLibraryService:VLCAppCoordinator.sharedInstance.mediaLibraryService];
+
+    if ([PodcastsOnAirBridge cacheNewEpisodes]) {
+        return;
+    }
+
+    if (PodcastsOnAirBridge.automaticDownloadsEnabled) {
+        [self scheduleDownloadTask];
+    }
+    [self completeDownloadWithSuccess:YES];
+}
+
+- (void)cachingDidEnd
+{
+    [self completeDownloadWithSuccess:YES];
+}
+
+- (void)completeDownloadWithSuccess:(BOOL)success
+{
+    BGProcessingTask *task = _currentDownloadTask;
+    if (!task) {
+        return;
+    }
+    _currentDownloadTask = nil;
     [task setTaskCompletedWithSuccess:success];
 }
 
