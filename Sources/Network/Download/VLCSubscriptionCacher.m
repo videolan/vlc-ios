@@ -29,7 +29,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     dispatch_semaphore_t _completion;
     BOOL _cancelled;
     BOOL _terminated;
-    BOOL _success;
+    VLCMLCacheStatus _status;
 
     NSUInteger _transferToken;
     NSTimeInterval _lastProgressReport;
@@ -49,19 +49,19 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 
 #pragma mark - VLCMLCacherDelegate
 
-- (BOOL)cacheMRL:(NSURL *)mrl toPath:(NSString *)path
+- (VLCMLCacheStatus)cacheMRL:(NSURL *)mrl toPath:(NSString *)path
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager createFileAtPath:path contents:nil attributes:nil]) {
         APLog(@"%s: failed to create cache file at %@", __func__, path);
-        return NO;
+        return VLCMLCacheStatusFailed;
     }
 
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
     if (!fileHandle) {
         APLog(@"%s: failed to open cache file at %@", __func__, path);
         [fileManager removeItemAtPath:path error:nil];
-        return NO;
+        return VLCMLCacheStatusFailed;
     }
 
     VLCMedia *media = [VLCMedia mediaWithURL:mrl];
@@ -69,7 +69,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         APLog(@"%s: failed to create media for %@", __func__, mrl);
         [fileHandle closeFile];
         [fileManager removeItemAtPath:path error:nil];
-        return NO;
+        return VLCMLCacheStatusFailed;
     }
 
     dispatch_semaphore_t completion = dispatch_semaphore_create(0);
@@ -82,7 +82,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     _fileHandle = fileHandle;
     _completion = completion;
     _terminated = NO;
-    _success = NO;
+    _status = VLCMLCacheStatusFailed;
     _transferToken = 0;
     _lastProgressReport = 0;
     /* A prior interruptCaching (e.g. a shutdown racing the next item) must abort
@@ -99,7 +99,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         if (!abortImmediately) {
             APLog(@"%s: failed to queue download for %@", __func__, mrl);
         }
-        [self finishWithSuccess:NO];
+        [self finishWithStatus:abortImmediately ? VLCMLCacheStatusCancelled : VLCMLCacheStatusFailed];
         dispatch_semaphore_wait(completion, DISPATCH_TIME_FOREVER);
         return [self teardownAndCleanupPath:path];
     }
@@ -120,8 +120,17 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 
 #pragma mark - completion handling
 
+- (BOOL)wasCancelled
+{
+    [_lock lock];
+    BOOL cancelled = _cancelled;
+    [_lock unlock];
+
+    return cancelled;
+}
+
 /* Signals the waiting cacheMRL:toPath: exactly once. */
-- (void)finishWithSuccess:(BOOL)success
+- (void)finishWithStatus:(VLCMLCacheStatus)status
 {
     [_lock lock];
     if (_terminated) {
@@ -129,7 +138,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         return;
     }
     _terminated = YES;
-    _success = success;
+    _status = status;
     dispatch_semaphore_t completion = _completion;
     [_lock unlock];
 
@@ -138,11 +147,11 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     }
 }
 
-- (BOOL)teardownAndCleanupPath:(NSString *)path
+- (VLCMLCacheStatus)teardownAndCleanupPath:(NSString *)path
 {
     [_lock lock];
     NSFileHandle *fileHandle = _fileHandle;
-    BOOL success = _success;
+    VLCMLCacheStatus status = _status;
     NSUInteger token = _transferToken;
     _fileHandle = nil;
     _task = nil;
@@ -155,6 +164,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 
     [fileHandle closeFile];
 
+    BOOL success = status == VLCMLCacheStatusSuccess;
     if (!success) {
         /* Drop the partial file so the library never treats it as a complete
          * cached episode. */
@@ -170,7 +180,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         }
     }
 
-    return success;
+    return status;
 }
 
 - (void)reportProgressReceived:(uint64_t)received expected:(uint64_t)expected
@@ -231,12 +241,16 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
             break;
 
         case VLCMediaDownloadStatusFinished:
-            [self finishWithSuccess:YES];
+            [self finishWithStatus:VLCMLCacheStatusSuccess];
             break;
 
         case VLCMediaDownloadStatusCancelled:
+            [self finishWithStatus:[self wasCancelled] ? VLCMLCacheStatusCancelled
+                                                       : VLCMLCacheStatusFailed];
+            break;
+
         case VLCMediaDownloadStatusError:
-            [self finishWithSuccess:NO];
+            [self finishWithStatus:VLCMLCacheStatusFailed];
             break;
     }
 }
