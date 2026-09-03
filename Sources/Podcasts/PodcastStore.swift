@@ -253,7 +253,8 @@ extension PodcastStore: MediaLibraryBaseModelObserver {
 
 extension PodcastStore: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
-                      didStartCachingMediaWithId mediaId: VLCMLIdentifier) {
+                      didStartCachingMediaWithId mediaId: VLCMLIdentifier,
+                      operation: VLCMLCacheOperation) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.pendingCacheMediaIds.insert(mediaId)
@@ -262,10 +263,15 @@ extension PodcastStore: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
-                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier, cached: Bool) {
+                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier,
+                      operation: VLCMLCacheOperation,
+                      status: VLCMLCacheStatus) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.pendingCacheMediaIds.remove(mediaId)
+            if status != .success && status != .alreadyCached {
+                APLog("podcast cache: media \(mediaId) ended with status \(status.rawValue)")
+            }
             self.invalidateCaches()
             self.notifyReload()
         }

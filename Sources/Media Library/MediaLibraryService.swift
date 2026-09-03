@@ -135,11 +135,13 @@ extension NSNotification {
                                      cacheIdleChanged idle: Bool)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didStartCachingMediaWithId mediaId: VLCMLIdentifier)
+                                     didStartCachingMediaWithId mediaId: VLCMLIdentifier,
+                                     operation: VLCMLCacheOperation)
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier,
-                                     cached: Bool)
+                                     operation: VLCMLCacheOperation,
+                                     status: VLCMLCacheStatus)
 
     // History
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
@@ -1041,16 +1043,20 @@ extension MediaLibraryService {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
-                      didStartCachingMediaWithId mediaId: VLCMLIdentifier) {
+                      didStartCachingMediaWithId mediaId: VLCMLIdentifier,
+                      operation: VLCMLCacheOperation) {
         observable.notifyObservers {
-            $0.medialibrary?(self, didStartCachingMediaWithId: mediaId)
+            $0.medialibrary?(self, didStartCachingMediaWithId: mediaId, operation: operation)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary,
-                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier, cached: Bool) {
+                      didFinishCachingMediaWithId mediaId: VLCMLIdentifier,
+                      operation: VLCMLCacheOperation,
+                      status: VLCMLCacheStatus) {
         observable.notifyObservers {
-            $0.medialibrary?(self, didFinishCachingMediaWithId: mediaId, cached: cached)
+            $0.medialibrary?(self, didFinishCachingMediaWithId: mediaId, operation: operation,
+                             status: status)
         }
     }
 }
