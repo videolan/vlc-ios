@@ -42,8 +42,8 @@ class VerticalSliderControl: UIControl {
         }
     }
 
-    private func updateValueAndNotify(_ value: Float) {
-        self.value = value
+    private func updateValueAndNotify(_ value: Float, animated: Bool = false) {
+        setValue(value, animated: animated)
         sendActions(for: .valueChanged)
     }
 
@@ -447,14 +447,14 @@ class VerticalSliderControl: UIControl {
     @objc private func handleAccessibilityIncrement() -> Bool {
         let newPct = min(1, percentage + Self.accessibilityIncrement)
         let newVal = lerp(from: range.lowerBound, to: range.upperBound, t: newPct)
-        setValue(newVal, animated: true)
+        updateValueAndNotify(newVal, animated: true)
         return true
     }
 
     @objc private func handleAccessibilityDecrement() -> Bool {
         let newPct = max(0, percentage - Self.accessibilityIncrement)
         let newVal = lerp(from: range.lowerBound, to: range.upperBound, t: newPct)
-        setValue(newVal, animated: true)
+        updateValueAndNotify(newVal, animated: true)
         return true
     }
 }
