@@ -154,6 +154,10 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     /* check Content-Disposition header for a server-provided filename */
     if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)downloadTask.response;
+        if (httpResponse.statusCode >= 400) {
+            return;
+        }
+
         NSString *suggestedFilename = [self filenameFromContentDisposition:httpResponse.allHeaderFields[@"Content-Disposition"]];
         if (suggestedFilename.length > 0) {
             NSString *directory = [_fileURL.path stringByDeletingLastPathComponent];
@@ -201,17 +205,28 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    if (error.code != -999) {
-        if (error) {
-            APLog(@"http file download failed (%li)", (long)error.code);
-            [self _failWithDescription:error.localizedDescription];
-        } else {
-            APLog(@"http file download complete");
-            [self _downloadSucceeded];
-        }
-    } else {
+    if (error.code == NSURLErrorCancelled) {
         APLog(@"http file download canceled");
+        return;
     }
+
+    if (error) {
+        APLog(@"http file download failed (%li)", (long)error.code);
+        [self _failWithDescription:error.localizedDescription];
+        return;
+    }
+
+    if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSInteger statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        if (statusCode >= 400) {
+            APLog(@"http file download failed with status code %li", (long)statusCode);
+            [self _failWithDescription:[NSHTTPURLResponse localizedStringForStatusCode:statusCode].capitalizedString];
+            return;
+        }
+    }
+
+    APLog(@"http file download complete");
+    [self _downloadSucceeded];
 }
 
 - (void)cancelDownload
