@@ -1038,6 +1038,7 @@
 				<string>SETTINGS_NETWORK_CACHING_LEVEL_NORMAL</string>
 				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGH</string>
 				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_CUSTOM</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -1046,7 +1047,19 @@
 				<integer>999</integer>
 				<integer>1667</integer>
 				<integer>3333</integer>
+				<integer>-1</integer>
 			</array>
+			<key>CustomValue</key>
+			<dict>
+				<key>Sentinel</key>
+				<integer>-1</integer>
+				<key>Minimum</key>
+				<integer>100</integer>
+				<key>Maximum</key>
+				<integer>60000</integer>
+				<key>Format</key>
+				<string>SETTINGS_NETWORK_CACHING_CUSTOM_FORMAT</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
