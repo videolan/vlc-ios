@@ -782,6 +782,10 @@
 		7D6972AB304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
 		7D6972AC304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
 		7D6972AD304A9FD600B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
+		7D6972B0304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
+		7D6972B1304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
+		7D6972B2304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
+		7D6972B3304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6D2CEE2A0A6056001604B3 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */; };
@@ -2213,6 +2217,8 @@
 		7D685AA91AAF7488006CD82A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D6972A8304A9F8F00B8261B /* UIApplication+VLCTopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+VLCTopViewController.h"; sourceTree = "<group>"; };
 		7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+VLCTopViewController.m"; sourceTree = "<group>"; };
+		7D6972AE304AA15100B8261B /* VLCURLAuthenticationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCURLAuthenticationHandler.h; sourceTree = "<group>"; };
+		7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCURLAuthenticationHandler.m; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/iOS/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -3889,6 +3895,8 @@
 			children = (
 				7DA9A0AF3025DE1700513322 /* VLCHTTPClient.h */,
 				7DA9A0B03025DE1700513322 /* VLCHTTPClient.m */,
+				7D6972AE304AA15100B8261B /* VLCURLAuthenticationHandler.h */,
+				7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -5969,6 +5977,7 @@
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				FEC04E0000000000000000F5 /* PulsingConeView.swift in Sources */,
 				226D57DD2B42C4710090AD88 /* VLCFavoriteService.m in Sources */,
+				7D6972B0304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
 				7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				2227B4CD2A80CE3100D2BE26 /* PlaylistTableViewCell.swift in Sources */,
@@ -6166,6 +6175,7 @@
 				7D50C6322BBD20DF00B9F1A0 /* VLCThumbnailsCache.m in Sources */,
 				7D50C6332BBD20DF00B9F1A0 /* AddToCollectionViewController.swift in Sources */,
 				7D50C6342BBD20DF00B9F1A0 /* AlbumHeaderFlowLayout.swift in Sources */,
+				7D6972B3304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
 				7D50C6352BBD20DF00B9F1A0 /* VLCMarqueeLabel.swift in Sources */,
 				32269BA12FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */,
 				7D50C6362BBD20DF00B9F1A0 /* VLCDonationCreditCardViewController.m in Sources */,
@@ -6748,6 +6758,7 @@
 				F0A852EB34AE38CC3F3C8CF7 /* PodcastShowHeaderCell.swift in Sources */,
 				DCD52D89ABD4E1074798F63F /* PodcastShowDetailViewController.swift in Sources */,
 				4AEF03CFE0C0B9517270CD51 /* PodcastSubscriptionModel.swift in Sources */,
+				7D6972B2304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
 				2D0954DF9338D5EC16CAE61D /* PodcastsOnAirBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6916,6 +6927,7 @@
 				7DA514B42EF82B63000C9995 /* MediaViewController.swift in Sources */,
 				7DA514B52EF82B63000C9995 /* VLCPlaybackService+MediaLibrary.m in Sources */,
 				7DA514B62EF82B63000C9995 /* MediaCategoryViewController.swift in Sources */,
+				7D6972B1304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
 				7DA514B72EF82B63000C9995 /* VLCMetadata.m in Sources */,
 				7DA514B82EF82B63000C9995 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				7DA514B92EF82B63000C9995 /* ActionSheetSectionHeader.swift in Sources */,

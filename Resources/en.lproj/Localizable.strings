@@ -112,6 +112,11 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
 
+"NETWORK_AUTH_TITLE" = "Authentication Required";
+"NETWORK_AUTH_MESSAGE" = "%@ requires a user name and a password.";
+"NETWORK_AUTH_MESSAGE_REALM" = "%@ requires a user name and a password for “%@”.";
+"NETWORK_AUTH_WRONG_CREDENTIALS" = "The user name or the password was incorrect.";
+
 "TRANSFERS" = "Transfers";
 "TRANSFERS_IN_PROGRESS" = "In progress";
 "TRANSFER_FAILED" = "Transfer failed";
