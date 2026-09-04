@@ -132,7 +132,7 @@ class MediaScrubProgressBar: UIStackView {
     private func initAccessibility() {
         isAccessibilityElement = true
         accessibilityLabel = NSLocalizedString("PLAYBACK_POSITION", comment: "")
-        accessibilityTraits = .updatesFrequently
+        accessibilityTraits = [.adjustable, .updatesFrequently]
 
         let forward = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("FWD_BUTTON", comment: ""),
@@ -172,6 +172,16 @@ class MediaScrubProgressBar: UIStackView {
     @objc private func handleAccessibilityTimeDisplay() -> Bool {
         handleTimeDisplay()
         return true
+    }
+
+    override func accessibilityIncrement() {
+        _ = handleAccessibilityForward()
+        updateAccessibilityValue()
+    }
+
+    override func accessibilityDecrement() {
+        _ = handleAccessibilityBackward()
+        updateAccessibilityValue()
     }
 
     @objc func updateInterfacePosition() {
