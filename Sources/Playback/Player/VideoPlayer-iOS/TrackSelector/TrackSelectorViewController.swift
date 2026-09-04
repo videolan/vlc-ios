@@ -50,14 +50,6 @@ class TrackSelectorViewController: UIViewController {
         return view
     }()
 
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textColor = PresentationTheme.currentExcludingWhite.colors.overlayPrimaryTextColor
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .system)
         if #available(iOS 13.0, *) {
@@ -129,6 +121,8 @@ class TrackSelectorViewController: UIViewController {
     }()
 
     private var footerConstraints: [NSLayoutConstraint] = []
+    private var segmentedControlLeadingToView: NSLayoutConstraint?
+    private var segmentedControlLeadingToCloseButton: NSLayoutConstraint?
 
     init(delegate: TrackSelectorViewControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
@@ -176,6 +170,33 @@ class TrackSelectorViewController: UIViewController {
         dismiss(animated: true)
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateCloseButtonVisibility()
+    }
+
+    private func updateCloseButtonVisibility() {
+        let shouldShow: Bool
+        if #available(iOS 13.0, *) {
+            shouldShow = (traitCollection.verticalSizeClass == .compact)
+        } else {
+            shouldShow = true
+        }
+
+        guard shouldShow == closeButton.isHidden else {
+            return
+        }
+
+        closeButton.isHidden = !shouldShow
+        if shouldShow {
+            segmentedControlLeadingToView?.isActive = false
+            segmentedControlLeadingToCloseButton?.isActive = true
+        } else {
+            segmentedControlLeadingToCloseButton?.isActive = false
+            segmentedControlLeadingToView?.isActive = true
+        }
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !hasPerformedInitialScroll, let indexPath = selectedIndexPath() {
@@ -212,6 +233,7 @@ class TrackSelectorViewController: UIViewController {
         installBackgroundEffect()
 
         view.addSubview(segmentedControl)
+        view.addSubview(closeButton)
         view.addSubview(tableView)
         view.addSubview(loadButton)
         view.addSubview(downloadButton)
@@ -226,7 +248,6 @@ class TrackSelectorViewController: UIViewController {
             backgroundContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             segmentedControl.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
 
@@ -235,24 +256,22 @@ class TrackSelectorViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -6),
         ])
 
-        if #available(iOS 13.0, *) {
-            segmentedControl.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16).isActive = true
-        } else {
-            view.addSubview(titleLabel)
-            view.addSubview(closeButton)
-            NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: guide.topAnchor, constant: 14),
-                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+        let leadingToView = segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        segmentedControlLeadingToView = leadingToView
+        leadingToView.isActive = true
 
-                closeButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-                closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                closeButton.widthAnchor.constraint(equalToConstant: 30),
-                closeButton.heightAnchor.constraint(equalToConstant: 30),
-                closeButton.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 8),
+        closeButton.isHidden = true
+        segmentedControlLeadingToCloseButton = segmentedControl.leadingAnchor.constraint(equalTo: closeButton.trailingAnchor,
+                                                                                        constant: 12)
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
 
-                segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 14),
-            ])
-        }
+            closeButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            closeButton.widthAnchor.constraint(equalToConstant: 30),
+            closeButton.heightAnchor.constraint(equalToConstant: 30),
+        ])
+        updateCloseButtonVisibility()
     }
 
     private func rebuildData() {
@@ -285,12 +304,6 @@ class TrackSelectorViewController: UIViewController {
     }
 
     private func applyTab() {
-        let isSubtitles = (activeTab == .subtitles)
-        if #unavailable(iOS 13.0) {
-            titleLabel.text = isSubtitles ? NSLocalizedString("SUBTITLES", comment: "").capitalized
-                                          : NSLocalizedString("AUDIO", comment: "").capitalized
-        }
-
         layoutFooter()
 
         loadButton.update(title: NSLocalizedString("LOAD_EXTERNAL", comment: ""))
