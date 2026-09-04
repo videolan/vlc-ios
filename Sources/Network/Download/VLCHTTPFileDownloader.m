@@ -13,6 +13,7 @@
 
 #import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
+#import "VLCURLAuthenticationHandler.h"
 #import "VLC-Swift.h"
 
 @interface VLCHTTPFileDownloader () <NSURLSessionDelegate>
@@ -23,6 +24,7 @@
 
     NSURLSession *_urlSession;
     NSURLSessionTask *_urlSessionTask;
+    VLCURLAuthenticationHandler *_authenticationHandler;
     dispatch_queue_t _downloadsAccessQueue;
 
     BOOL _downloadInProgress;
@@ -37,6 +39,7 @@
         _urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                     delegate:self
                                                delegateQueue:nil];
+        _authenticationHandler = [[VLCURLAuthenticationHandler alloc] init];
         _downloadsAccessQueue = dispatch_queue_create("VLCHTTPFileDownloader.downloadsQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
@@ -95,6 +98,14 @@
 
     _downloadInProgress = YES;
     return identifier;
+}
+
+- (void)URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler
+{
+    [_authenticationHandler handleChallenge:challenge forURL:_url completionHandler:completionHandler];
 }
 
 - (void)URLSession:(NSURLSession *)session
