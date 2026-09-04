@@ -100,14 +100,6 @@ extension NSObject {
     }
 
     func getSubtitle(for preferenceKey: String) -> String? {
-        if preferenceKey == kVLCSettingPlaybackSpeedDefaultValue {
-            let value = UserDefaults.standard.object(forKey: preferenceKey)
-            if let stringValue = value as? String, stringValue == "custom" {
-                let customSpeed = UserDefaults.standard.float(forKey: "playback-speed-custom")
-                return PlaybackSpeedFormatter.string(forSpeed: customSpeed)
-            }
-        }
-
         guard let userDefaultValue = UserDefaults.standard.value(forKey: preferenceKey),
             let (titles, values) = SettingsSpecifierCache.titlesAndValues(for: preferenceKey) else {
             return nil

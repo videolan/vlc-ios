@@ -97,6 +97,21 @@
 				<real>4</real>
 				<string>custom</string>
 			</array>
+			<key>CustomValue</key>
+			<dict>
+				<key>Sentinel</key>
+				<string>custom</string>
+				<key>ValueKey</key>
+				<string>playback-speed-custom</string>
+				<key>Minimum</key>
+				<real>0.25</real>
+				<key>Maximum</key>
+				<real>8</real>
+				<key>FractionDigits</key>
+				<integer>2</integer>
+				<key>Format</key>
+				<string>PLAYBACK_SPEED_FORMAT</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Type</key>

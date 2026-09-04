@@ -793,8 +793,6 @@
 // MARK: - Custom Playback Speed
 
 "SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
-"SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE" = "Enter a speed between 0.25 and 8.0";
-"SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.25 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */
 
 // MARK: - Custom Setting Value
 

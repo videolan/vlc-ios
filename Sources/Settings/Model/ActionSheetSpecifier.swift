@@ -28,11 +28,6 @@ class ActionSheetSpecifier: NSObject {
         }
     }
     
-    private lazy var customSpeedHandler: CustomSpeedInputHandler = {
-        let handler = CustomSpeedInputHandler()
-        return handler
-    }()
-
     private var customValueHandler: SettingsCustomValueInputHandler?
 
     var selectedIndex: IndexPath {
@@ -64,20 +59,6 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
     func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
         guard let preferenceKey = preferenceKey else {
             assertionFailure("No Preference Key Provided")
-            return
-        }
-        
-        if preferenceKey == kVLCSettingPlaybackSpeedDefaultValue &&
-           settingSpecifier?.specifier[indexPath.row].value as? String == "custom" {
-
-            if let actionSheet = collectionView.superview?.superview?.superview as? ActionSheet {
-                actionSheet.removeActionSheet()
-            }
-            
-            // Use a slight delay to avoid UI conflicts with the dismissal animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + PlaybackSpeedConfig.animationDelay) {
-                self.showCustomSpeedInputAlert()
-            }
             return
         }
 
@@ -116,10 +97,6 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
 
     func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
         AppearanceManager.setupUserInterfaceStyle()
-    }
-    
-    private func showCustomSpeedInputAlert() {
-        customSpeedHandler.presentCustomSpeedInput()
     }
 }
 
