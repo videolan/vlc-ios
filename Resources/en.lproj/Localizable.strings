@@ -796,6 +796,11 @@
 "SETTINGS_CUSTOM_PLAYBACK_SPEED_MESSAGE" = "Enter a speed between 0.25 and 8.0";
 "SETTINGS_INVALID_SPEED_VALUE" = "Please enter a valid number between 0.25 and 8.0"; /* Please enter a valid number between 0.25 and 8.0 */
 
+// MARK: - Custom Setting Value
+
+"SETTINGS_CUSTOM_VALUE_MESSAGE" = "Enter a value between %@ and %@";
+"SETTINGS_CUSTOM_VALUE_ERROR" = "Please enter a valid value between %@ and %@";
+
 // MARK: - TitleSelection
 
 

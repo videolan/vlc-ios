@@ -786,6 +786,9 @@
 		7D6972B1304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
 		7D6972B2304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
 		7D6972B3304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */; };
+		7D6972B5304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972B4304AA49E00B8261B /* SettingsCustomValueInputHandler.swift */; };
+		7D6972B6304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972B4304AA49E00B8261B /* SettingsCustomValueInputHandler.swift */; };
+		7D6972B7304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972B4304AA49E00B8261B /* SettingsCustomValueInputHandler.swift */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6D2CEE2A0A6056001604B3 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */; };
@@ -2223,6 +2226,7 @@
 		7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+VLCTopViewController.m"; sourceTree = "<group>"; };
 		7D6972AE304AA15100B8261B /* VLCURLAuthenticationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCURLAuthenticationHandler.h; sourceTree = "<group>"; };
 		7D6972AF304AA15100B8261B /* VLCURLAuthenticationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCURLAuthenticationHandler.m; sourceTree = "<group>"; };
+		7D6972B4304AA49E00B8261B /* SettingsCustomValueInputHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCustomValueInputHandler.swift; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/iOS/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -3225,6 +3229,7 @@
 				44C8BBA824AF36F4003F8940 /* SettingsSection.swift */,
 				44C8BBA924AF36F4003F8940 /* SettingsSpecifier.swift */,
 				44C8BBAA24AF36F4003F8940 /* ActionSheetSpecifier.swift */,
+				7D6972B4304AA49E00B8261B /* SettingsCustomValueInputHandler.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6251,6 +6256,7 @@
 				7D50C6612BBD20DF00B9F1A0 /* ArtistViewController.swift in Sources */,
 				7D50C6622BBD20DF00B9F1A0 /* CollectionModel.swift in Sources */,
 				324BD7342FDB8BEA0037F446 /* (null) in Sources */,
+				7D6972B7304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */,
 				7D50C6632BBD20DF00B9F1A0 /* AddBookmarksView.swift in Sources */,
 				7D50C6652BBD20DF00B9F1A0 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D09060B300682020092F985 /* MediaResolver.swift in Sources */,
@@ -6744,6 +6750,7 @@
 				417D7F601F7BA26200DDF36A /* VLCRemoteControlService.m in Sources */,
 				DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */,
 				DD3EFF431BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
+				7D6972B6304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */,
 				7D389AB42B5BEB8200F9D845 /* VLCCurrency.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 				7DA9A0B33025DE1700513322 /* VLCHTTPClient.m in Sources */,
@@ -6913,6 +6920,7 @@
 				7DA514A32EF82B63000C9995 /* VLCPlaybackService.m in Sources */,
 				32B7A66B2FA02ED000879A4D /* Character+Utility.swift in Sources */,
 				7DA514A42EF82B63000C9995 /* AudioPlayerView.swift in Sources */,
+				7D6972B5304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */,
 				7D4BE51C301A561D00277F3E /* VLCCloudServiceFactory.m in Sources */,
 				7DA514A52EF82B63000C9995 /* KeychainCoordinator.swift in Sources */,
 				7DA514A62EF82B63000C9995 /* CPListTemplate+Genres.m in Sources */,

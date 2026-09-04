@@ -33,6 +33,8 @@ class ActionSheetSpecifier: NSObject {
         return handler
     }()
 
+    private var customValueHandler: SettingsCustomValueInputHandler?
+
     var selectedIndex: IndexPath {
         guard let preferenceKey = preferenceKey else {
             assertionFailure("No Preference Key Provided")
@@ -75,6 +77,23 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             // Use a slight delay to avoid UI conflicts with the dismissal animation
             DispatchQueue.main.asyncAfter(deadline: .now() + PlaybackSpeedConfig.animationDelay) {
                 self.showCustomSpeedInputAlert()
+            }
+            return
+        }
+
+        if let customValue = settingSpecifier?.customValue,
+           let selectedValue = settingSpecifier?.specifier[indexPath.row].value as? NSObject,
+           customValue.sentinel.isEqual(selectedValue) {
+
+            if let actionSheet = collectionView.superview?.superview?.superview as? ActionSheet {
+                actionSheet.removeActionSheet()
+            }
+
+            let handler = SettingsCustomValueInputHandler(title: headerViewTitle() ?? "", specifier: customValue)
+            customValueHandler = handler
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + SettingsCustomValueInputHandler.animationDelay) {
+                handler.presentInput()
             }
             return
         }
