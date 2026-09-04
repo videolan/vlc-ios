@@ -836,8 +836,9 @@ class VideoPlayerViewController: PlayerViewController {
         let currentPos = recognizer.location(in: view)
 
         // Limit the gesture to avoid conflicts with top and bottom player controls
-        if currentPos.y > mediaScrubProgressBar.frame.origin.y
-            || currentPos.y < mediaNavigationBar.frame.origin.y {
+        if !playerController.isControlsHidden
+            && (currentPos.y > mediaScrubProgressBar.frame.origin.y
+                || currentPos.y < mediaNavigationBar.frame.origin.y) {
             recognizer.state = .ended
         }
 
