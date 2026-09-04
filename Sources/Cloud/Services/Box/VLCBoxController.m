@@ -12,6 +12,7 @@
 
 #import "VLCBoxController.h"
 #import "NSString+SupportedMedia.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCPlaybackService.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "VLC-Swift.h"
@@ -366,7 +367,7 @@
 {
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+                                       viewController:[UIApplication sharedApplication].topViewController];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize

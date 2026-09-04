@@ -12,6 +12,7 @@
 
 #import "VLCNetworkLoginDataSourceSavedLogins.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCNetworkServerLoginInformation+Keychain.h"
 #import "VLCSavedServerList.h"
 #import "VLCAppCoordinator.h"
@@ -122,9 +123,7 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
                                                         style:UIAlertActionStyleDefault
                                                       handler:nil]];
 
-    UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-    presentingVC = presentingVC.presentedViewController ?: presentingVC;
-    [presentingVC presentViewController:alertController animated:YES completion:nil];
+    [[UIApplication sharedApplication].topViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

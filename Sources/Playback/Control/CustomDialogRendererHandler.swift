@@ -54,10 +54,7 @@ private extension CustomDialogRendererHandler {
                                                     completionHandler(false)
         }))
 
-        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
-            let presentingController = rootViewController.presentedViewController ?? rootViewController
-            presentingController.present(alertController, animated: true, completion: nil)
-        }
+        UIApplication.shared.topViewController?.present(alertController, animated: true, completion: nil)
     }
 
     private func handleLoginAlert(with title: String, message: String,
@@ -122,10 +119,7 @@ private extension CustomDialogRendererHandler {
             }))
         }
 
-        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
-            let presentingController = rootViewController.presentedViewController ?? rootViewController
-            presentingController.present(alertController, animated: true, completion: nil)
-        }
+        UIApplication.shared.topViewController?.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -188,16 +182,10 @@ extension CustomDialogRendererHandler: VLCCustomDialogRendererProtocol {
                                                         self?.dialogProvider.postAction(2, forDialogReference: reference)
             }))
         }
-        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
-            let presentingController = rootViewController.presentedViewController ?? rootViewController
-            presentingController.present(alertController, animated: true, completion: nil)
-        }
+        UIApplication.shared.topViewController?.present(alertController, animated: true, completion: nil)
     }
 
     func cancelDialog(withReference reference: NSValue) {
-        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
-            let presentingController = rootViewController.presentedViewController ?? rootViewController
-            presentingController.dismiss(animated: true, completion: nil)
-        }
+        UIApplication.shared.topViewController?.dismiss(animated: true, completion: nil)
     }
 }

@@ -15,6 +15,7 @@
 #import "VLCGoogleDriveController.h"
 #import "GTLRDrive_File+VLCShortcut.h"
 #import "NSString+SupportedMedia.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
 
@@ -121,7 +122,7 @@
 {
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+                                       viewController:[UIApplication sharedApplication].topViewController];
 }
 
 #pragma mark - file management

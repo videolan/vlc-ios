@@ -24,6 +24,7 @@
 #import <CocoaHTTPServer/HTTPErrorResponse.h>
 #import <CocoaHTTPServer/HTTPRedirectResponse.h>
 #import "NSString+SupportedMedia.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCTransferController.h"
 #import "VLCMetaData.h"
@@ -1084,14 +1085,14 @@ static NSMutableDictionary *authentifiedHosts;
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    [[UIApplication sharedApplication].topViewController presentViewController:alertController animated:YES completion:nil];
 #else
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                          errorMessage:[NSString stringWithFormat:
                                                        NSLocalizedString(@"DISK_FULL_FORMAT", nil),
                                                        filename,
                                                        [[UIDevice currentDevice] model]]
-                                       viewController:[(VLCAppDelegate *)[UIApplication sharedApplication].delegate window].rootViewController];
+                                       viewController:[UIApplication sharedApplication].topViewController];
 #endif
 }
 

@@ -116,26 +116,11 @@ extension KeychainCoordinator {
     }
 
     private var presentingViewController: UIViewController? {
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else {
-            return nil
-        }
-
-        // if we have no video displayed we should use the current rootViewController
-        var presentingViewController = rootViewController
-        // If playing a video, show the passcode view above the player.
-        if let playerViewController = rootViewController.presentedViewController {
-            presentingViewController = playerViewController
-            // Check if the player is showing any modals.
-            if let modal = playerViewController.presentedViewController {
-                presentingViewController = modal
-            }
-        }
-
-        return presentingViewController
+        return UIApplication.shared.topViewController
     }
 
     private var isPasscodeControllerPresenting: Bool {
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+        guard let rootViewController = UIApplication.shared.activeKeyWindow?.rootViewController else {
             return false
         }
 

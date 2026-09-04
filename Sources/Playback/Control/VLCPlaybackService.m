@@ -30,6 +30,7 @@
 #if !TARGET_OS_WATCH
 #import "VLCPlayerDisplayController.h"
 #import "VLCAppCoordinator.h"
+#import "UIApplication+VLCTopViewController.h"
 #endif
 
 #import <stdatomic.h>
@@ -229,9 +230,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
 
     if (![movieVC isBeingPresented]) {
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:movieVC
-                                                                                     animated:YES
-                                                                                   completion:nil];
+        [[UIApplication sharedApplication].topViewController presentViewController:movieVC
+                                                                          animated:YES
+                                                                        completion:nil];
     }
 #endif
 }
@@ -1875,11 +1876,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             [alertController addAction:cancelAction];
             [alertController addAction:continueAction];
 
-            UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-            presentingVC = presentingVC.presentedViewController ?: presentingVC;
-            [presentingVC presentViewController:alertController
-                                       animated:YES
-                                     completion:nil];
+            [[UIApplication sharedApplication].topViewController presentViewController:alertController
+                                                                              animated:YES
+                                                                            completion:nil];
             #elif TARGET_OS_WATCH
             [_swiftUIDialogProvider showContinuePlaybackDialogWithMediaTitle:libraryMedia.title completion:^(BOOL shouldContinue) {
                 if (shouldContinue) {

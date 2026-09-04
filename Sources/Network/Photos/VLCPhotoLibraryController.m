@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCPhotoLibraryController.h"
+#import "UIApplication+VLCTopViewController.h"
 #import <PhotosUI/PhotosUI.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
@@ -32,8 +33,7 @@ API_AVAILABLE(ios(14.0))
     PHPickerViewController *picker = [[PHPickerViewController alloc] initWithConfiguration:configuration];
     picker.delegate = self;
 
-    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rootVC presentViewController:picker animated:YES completion:nil];
+    [[UIApplication sharedApplication].topViewController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results
@@ -96,8 +96,7 @@ API_AVAILABLE(ios(14.0))
                                               style:UIAlertActionStyleDefault
                                             handler:nil]];
 
-    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rootVC presentViewController:alert animated:YES completion:nil];
+    [[UIApplication sharedApplication].topViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSString *)availablePathInDirectory:(NSString *)directory forFileName:(NSString *)fileName

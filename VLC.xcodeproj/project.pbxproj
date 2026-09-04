@@ -778,6 +778,10 @@
 		7D638AB12C0CA191006A0E75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D65F2222D2C4D4B0042A6C2 /* VLCMLMedia+isWatched.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007EB02C2B46440042A95F /* VLCMLMedia+isWatched.m */; };
+		7D6972AA304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
+		7D6972AB304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
+		7D6972AC304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
+		7D6972AD304A9FD600B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6D2CEE2A0A6056001604B3 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */; };
@@ -2207,6 +2211,8 @@
 		7D685A9F1AAF745B006CD82A /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D685AA41AAF7472006CD82A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D685AA91AAF7488006CD82A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7D6972A8304A9F8F00B8261B /* UIApplication+VLCTopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+VLCTopViewController.h"; sourceTree = "<group>"; };
+		7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+VLCTopViewController.m"; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/iOS/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -4001,6 +4007,8 @@
 				7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */,
 				7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */,
 				7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */,
+				7D6972A8304A9F8F00B8261B /* UIApplication+VLCTopViewController.h */,
+				7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */,
 				7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */,
 				7DD3236430014BF300C9A583 /* UIImage+PaddedImage.h */,
 				7DD3236530014BF300C9A583 /* UIImage+PaddedImage.m */,
@@ -5927,6 +5935,7 @@
 				22ABF9EB2A77B5CD00F02453 /* SortingHandler.swift in Sources */,
 				7D39B6E43005356700D95829 /* VLCMigrationCursor.m in Sources */,
 				41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
+				7D6972AD304A9FD600B8261B /* UIApplication+VLCTopViewController.m in Sources */,
 				DDDEA6AF1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m in Sources */,
 				224F3F142A58A00D000BF072 /* Observable.swift in Sources */,
 				DD3EFF461BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
@@ -6115,6 +6124,7 @@
 				7D50C6102BBD20DF00B9F1A0 /* AudioCollectionModel.swift in Sources */,
 				7D50C6112BBD20DF00B9F1A0 /* VLCFrostedGlasView.m in Sources */,
 				7D50C6122BBD20DF00B9F1A0 /* BaseCollectionViewCell.swift in Sources */,
+				7D6972AB304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */,
 				7DF60F86300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
 				7D50C6132BBD20DF00B9F1A0 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				7D50C6142BBD20DF00B9F1A0 /* UIViewController+VLCAlert.h in Sources */,
@@ -6411,6 +6421,7 @@
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */,
 				7DC869CB28CB80B800EE99F8 /* VLCNetworkServerBrowserViewController.m in Sources */,
+				7D6972AA304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */,
 				0F856A212C24BF0E005806FE /* UIViewController+findViewController.swift in Sources */,
 				7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */,
 				7DF60F84300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
@@ -7040,6 +7051,7 @@
 				7DA515292EF82B63000C9995 /* VLCActivityManager.m in Sources */,
 				7DA5152A2EF82B63000C9995 /* VLCServerListViewController.m in Sources */,
 				7D4BE50E301A3FA600277F3E /* VLCBrowseSharingBandCell.m in Sources */,
+				7D6972AC304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */,
 				7DA5152B2EF82B63000C9995 /* VLCDonationSEPAViewController.m in Sources */,
 				7DA5152C2EF82B63000C9995 /* AudioViewController.swift in Sources */,
 				7DA5152D2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,

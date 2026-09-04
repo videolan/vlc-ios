@@ -35,6 +35,7 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "UIImage+AverageColor.h"
 #import "UIStackView+Orientation.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCFavoriteService.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCPhotoLibraryController.h"

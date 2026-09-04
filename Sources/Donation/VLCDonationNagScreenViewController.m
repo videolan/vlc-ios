@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCDonationNagScreenViewController.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNavigationController.h"
 #import "VLC-Swift.h"
@@ -103,7 +104,7 @@
 #else
         donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
 #endif
-        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:donationNC animated:YES completion:nil];
+        [[UIApplication sharedApplication].topViewController presentViewController:donationNC animated:YES completion:nil];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

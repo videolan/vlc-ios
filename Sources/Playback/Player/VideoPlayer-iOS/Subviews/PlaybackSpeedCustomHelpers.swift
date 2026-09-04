@@ -81,38 +81,6 @@ class PlaybackSpeedCustomManager {
 }
 
 enum UIUtils {
-    static func findTopViewController() -> UIViewController? {
-        var keyWindow: UIWindow?
-        
-        #if os(visionOS)
-        keyWindow = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
-        #else
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            keyWindow = UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .first { $0.isKeyWindow }
-        } else {
-            keyWindow = UIApplication.shared.keyWindow
-        }
-        #endif
-
-        guard let window = keyWindow,
-              let rootVC = window.rootViewController else {
-            return nil
-        }
-        
-        var topVC = rootVC
-        while let presentedVC = topVC.presentedViewController {
-            topVC = presentedVC
-        }
-        
-        return topVC
-    }
-    
 #if !os(tvOS)
     static func createToolbar() -> UIToolbar {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
@@ -131,7 +99,7 @@ class CustomSpeedInputHandler {
     private weak var currentAlertController: UIAlertController?
     
     func presentCustomSpeedInput() {
-        guard let topVC = UIUtils.findTopViewController() else {
+        guard let topVC = UIApplication.shared.topViewController else {
             print("Failed to find top view controller for presenting alert")
             return
         }
@@ -237,7 +205,7 @@ class CustomSpeedInputHandler {
     }
     
     private func showInvalidSpeedAlert() {
-        guard let topVC = UIUtils.findTopViewController() else {
+        guard let topVC = UIApplication.shared.topViewController else {
             return
         }
         

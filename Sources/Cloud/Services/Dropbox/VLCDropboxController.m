@@ -13,6 +13,7 @@
 
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
+#import "UIApplication+VLCTopViewController.h"
 #import "VLCPlaybackService.h"
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
@@ -423,7 +424,7 @@
 
     [alert addAction:defaultAction];
 
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+    [[UIApplication sharedApplication].topViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)reset

@@ -13,6 +13,7 @@
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveConstants.h"
 #import "NSString+SupportedMedia.h"
+#import "UIApplication+VLCTopViewController.h"
 #import <OneDriveSDK.h>
 #import "VLC-Swift.h"
 
@@ -374,7 +375,7 @@ static void *ProgressObserverContext = &ProgressObserverContext;
                                                                  handler:nil];
 
                 [alertController addAction:okAction];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                [[UIApplication sharedApplication].topViewController presentViewController:alertController animated:YES completion:nil];
                 return nil;
             }
         }

@@ -186,9 +186,8 @@ extension VLCURLHandler {
         alert.addAction(playAction)
         alert.addAction(alwaysPlayAction)
 
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-        if let tabBarController = UIApplication.shared.keyWindow?.rootViewController
-            as? UITabBarController {
+        var rootViewController = UIApplication.shared.activeKeyWindow?.rootViewController
+        if let tabBarController = rootViewController as? UITabBarController {
             rootViewController = tabBarController.selectedViewController
         }
 
