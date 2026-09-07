@@ -387,7 +387,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
         if store.nowPlayingEpisodeId == episodeId {
             store.togglePlayPause()
         } else {
-            store.play(episodeId: episodeId, showId: show.id)
+            store.playEpisode(episodeId: episodeId, showId: show.id)
         }
     }
 

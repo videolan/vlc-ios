@@ -554,7 +554,18 @@ private extension MediaLibraryService {
         guard let mrl = mrl  else {
             return nil //Happens when we have a URL or there is no currently playing file
         }
-        return medialib.media(withMrl: mrl)
+        if let media = medialib.media(withMrl: mrl) {
+            return media
+        }
+#if !os(watchOS)
+        if mrl.isFileURL {
+            let cachedIdentifier = subscriptionCacher.mediaIdentifier(forCachePath: mrl.path)
+            if cachedIdentifier != 0 {
+                return media(for: cachedIdentifier)
+            }
+        }
+#endif
+        return nil
     }
 
     @objc func fetchOrCreateMedia(with mrl: URL?) -> VLCMLMedia? {

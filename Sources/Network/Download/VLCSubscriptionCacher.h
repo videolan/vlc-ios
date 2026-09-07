@@ -15,6 +15,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VLCSubscriptionCacher;
+
+@protocol VLCSubscriptionCacherDelegate <NSObject>
+
+/* Invoked on the main queue while the file at path is still growing. */
+- (void)subscriptionCacher:(VLCSubscriptionCacher *)cacher
+didCacheMediaWithIdentifier:(VLCMLIdentifier)identifier
+                    toPath:(NSString *)path
+                  fraction:(float)fraction;
+
+@end
+
 /**
  * Bridges the media library's caching contract to VLCKit's downloader.
  *
@@ -34,12 +46,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface VLCSubscriptionCacher : NSObject <VLCMLCacherDelegate>
 
+@property (nonatomic, weak, nullable) id<VLCSubscriptionCacherDelegate> delegate;
 @property (nonatomic, readonly) BOOL automaticCachingAllowed;
 
 /* Must be called before the matching cacheMedia:, as the library may enter
  * cacheMRL:toPath: on its worker thread before that call returns. */
 - (void)addManualRequestForMediaWithIdentifier:(VLCMLIdentifier)identifier;
 - (void)removeManualRequestForMediaWithIdentifier:(VLCMLIdentifier)identifier;
+
+/* The media library only learns about a cached file once it is complete, so
+ * this resolves the partial file of the download in flight. */
+- (VLCMLIdentifier)mediaIdentifierForCachePath:(NSString *)path;
 
 @end
 

@@ -85,7 +85,7 @@ final class PodcastSubscriptionModel: NSObject {
         observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
     }
 
-    func play(episodeId: String, subscription: VLCMLSubscription) {
+    func play(episodeId: String, subscription: VLCMLSubscription, partialFileURL: URL? = nil) {
         let mediaList = media(for: subscription)
         guard let index = mediaList.firstIndex(where: { String($0.identifier()) == episodeId }) else {
             return
@@ -95,7 +95,13 @@ final class PodcastSubscriptionModel: NSObject {
         let playbackService = PlaybackService.sharedInstance()
         playbackService.fullscreenSessionRequested = media.type() != .audio
 
-        if UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem) {
+        // The library still points the episode at its remote MRL while the download runs, so the
+        // partial file has to be handed to the player directly, on its own.
+        if let partialFileURL = partialFileURL, let partialMedia = VLCMedia(url: partialFileURL) {
+            let list = VLCMediaList()
+            list.add(partialMedia)
+            playbackService.playMediaList(list, firstIndex: 0, subtitlesFilePath: nil)
+        } else if UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem) {
             playbackService.playMedia(at: index, fromCollection: mediaList)
         } else {
             playbackService.play(media)

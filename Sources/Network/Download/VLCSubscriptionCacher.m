@@ -30,6 +30,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     NSFileHandle *_fileHandle;
     dispatch_semaphore_t _completion;
     NSMutableSet<NSNumber *> *_manualMediaIdentifiers;
+    VLCMLIdentifier _currentMediaIdentifier;
+    NSString *_currentCachePath;
     BOOL _currentIsAutomatic;
     BOOL _cancelled;
     BOOL _terminated;
@@ -157,6 +159,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     _status = VLCMLCacheStatusFailed;
     _transferToken = 0;
     _lastProgressReport = 0;
+    _currentMediaIdentifier = libraryMedia.identifier;
+    _currentCachePath = path;
     _currentIsAutomatic = automatic;
     /* A prior interruptCaching (e.g. a shutdown racing the next item) must abort
      * this download too rather than being silently forgotten. */
@@ -230,6 +234,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     _task = nil;
     _completion = nil;
     _transferToken = 0;
+    _currentMediaIdentifier = 0;
+    _currentCachePath = nil;
     _currentIsAutomatic = NO;
     /* Reset for the next item; a cancellation only applies to the download it
      * interrupted. */
@@ -263,17 +269,46 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 
     [_lock lock];
     NSUInteger token = _transferToken;
+    VLCMLIdentifier identifier = _currentMediaIdentifier;
+    NSString *path = _currentCachePath;
     BOOL due = token != 0 && (now - _lastProgressReport >= VLCSubscriptionCacherProgressInterval);
     if (due) {
         _lastProgressReport = now;
     }
     [_lock unlock];
 
-    if (due) {
-        [[VLCAppCoordinator sharedInstance].transferController updateExternalDownload:token
-                                                                       receivedBytes:(long long)received
-                                                                       expectedBytes:(long long)expected];
+    if (!due) {
+        return;
     }
+
+    [[VLCAppCoordinator sharedInstance].transferController updateExternalDownload:token
+                                                                   receivedBytes:(long long)received
+                                                                   expectedBytes:(long long)expected];
+
+    if (identifier == 0 || expected == 0) {
+        return;
+    }
+
+    float fraction = (float)((double)received / (double)expected);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate subscriptionCacher:self
+              didCacheMediaWithIdentifier:identifier
+                                   toPath:path
+                                 fraction:fraction];
+    });
+}
+
+- (VLCMLIdentifier)mediaIdentifierForCachePath:(NSString *)path
+{
+    if (path.length == 0) {
+        return 0;
+    }
+
+    [_lock lock];
+    VLCMLIdentifier identifier = [_currentCachePath isEqualToString:path] ? _currentMediaIdentifier : 0;
+    [_lock unlock];
+
+    return identifier;
 }
 
 #pragma mark - VLCMediaDownloaderDelegate

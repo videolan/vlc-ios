@@ -34,6 +34,8 @@ final class PodcastStore: NSObject {
     private var cacheSawBusy = false
     private var cacheStartTimeout: DispatchWorkItem?
 
+    private var playbackRequest: (episodeId: String, showId: String)?
+
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
     // access, so it's cached per show and only dropped when the underlying data actually
@@ -51,6 +53,7 @@ final class PodcastStore: NSObject {
     private static let subscriptionRefreshTimeout: TimeInterval = 30
     private static let cacheStartTimeout: TimeInterval = 30
     private static let maxCachedEpisodesPerShow: UInt32 = 2
+    private static let playbackStartFraction: Float = 0.2
     private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
 
     private static let dateFormatter: DateFormatter = {
@@ -69,6 +72,7 @@ final class PodcastStore: NSObject {
         }
         self.mediaLibraryService = mediaLibraryService
         mediaLibraryService.medialib.subscriptionMaxCachedMedia = PodcastStore.maxCachedEpisodesPerShow
+        mediaLibraryService.subscriptionCacher.delegate = self
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
         subscriptionModel?.observable.addObserver(self)
         mediaLibraryService.observable.addObserver(self)
@@ -333,11 +337,32 @@ final class PodcastStore: NSObject {
         notifyReload()
     }
 
+    // An episode that has yet to be downloaded is fetched to the cache first and starts playing off
+    // the partial file, which by then is far enough ahead for the rest to arrive in time.
+    func playEpisode(episodeId: String, showId: String) {
+        guard downloadedFileURL(episodeId: episodeId, showId: showId) == nil else {
+            playbackRequest = nil
+            play(episodeId: episodeId, showId: showId)
+            return
+        }
+
+        guard isDownloading(episodeId: episodeId) || downloadEpisode(episodeId: episodeId, showId: showId) else {
+            playbackRequest = nil
+            return
+        }
+        playbackRequest = (episodeId, showId)
+        notifyReload()
+    }
+
     func play(episodeId: String, showId: String) {
+        play(episodeId: episodeId, showId: showId, partialFileURL: nil)
+    }
+
+    private func play(episodeId: String, showId: String, partialFileURL: URL?) {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
         }
-        subscriptionModel.play(episodeId: episodeId, subscription: subscription)
+        subscriptionModel.play(episodeId: episodeId, subscription: subscription, partialFileURL: partialFileURL)
     }
 
     var nowPlayingEpisodeId: String? {
@@ -550,6 +575,25 @@ extension PodcastStore: MediaLibraryBaseModelObserver {
     }
 }
 
+// MARK: - VLCSubscriptionCacherDelegate
+
+extension PodcastStore: VLCSubscriptionCacherDelegate {
+    func subscriptionCacher(_ cacher: VLCSubscriptionCacher,
+                            didCacheMediaWithIdentifier identifier: VLCMLIdentifier,
+                            toPath path: String,
+                            fraction: Float) {
+        guard fraction >= PodcastStore.playbackStartFraction,
+              let request = playbackRequest,
+              request.episodeId == String(identifier) else {
+            return
+        }
+        playbackRequest = nil
+        play(episodeId: request.episodeId,
+             showId: request.showId,
+             partialFileURL: URL(fileURLWithPath: path))
+    }
+}
+
 // MARK: - MediaLibraryObserver
 
 extension PodcastStore: MediaLibraryObserver {
@@ -575,6 +619,17 @@ extension PodcastStore: MediaLibraryObserver {
             }
             self.invalidateCaches()
             self.notifyReload()
+
+            // A feed that never announces a content length, or an episode short enough to arrive
+            // in a single progress report, never reaches the fraction playback waits for.
+            guard let request = self.playbackRequest, request.episodeId == String(mediaId) else {
+                return
+            }
+            self.playbackRequest = nil
+            guard status == .success || status == .alreadyCached else {
+                return
+            }
+            self.play(episodeId: request.episodeId, showId: request.showId)
         }
     }
 
