@@ -62,6 +62,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.font = .boldSystemFont(ofSize: 20.0)
+        titleLabel.numberOfLines = 2
         titleLabel.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return titleLabel
     }()
@@ -70,6 +71,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let artistLabel = UILabel()
         artistLabel.textAlignment = .center
         artistLabel.font = .systemFont(ofSize: 18.0)
+        artistLabel.numberOfLines = 2
         artistLabel.accessibilityLabel = NSLocalizedString("ARTIST", comment: "")
         return artistLabel
     }()
@@ -192,6 +194,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     lazy var progressionView: UIView = UIView()
 
     private lazy var progressionViewHeightConstraint: NSLayoutConstraint = progressionView.heightAnchor.constraint(equalToConstant: 70)
+
+    private lazy var titleLabelHeightConstraint: NSLayoutConstraint = titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: titleLabel.font.lineHeight)
+
+    private lazy var artistLabelHeightConstraint: NSLayoutConstraint = artistLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: artistLabel.font.lineHeight)
 
     private lazy var albumLabelHeightConstraint: NSLayoutConstraint = albumLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: albumLabel.font.lineHeight)
 
@@ -396,18 +402,19 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             albumLabel.isHidden = !hasAlbum
             albumLabel.text = album
             albumLabel.accessibilityValue = album
-            updateAlbumLabelHeight()
         } else {
             titleLabel.isHidden = true
             artistLabel.isHidden = true
             albumLabel.isHidden = true
         }
+
+        updateLabelHeights()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         updateContentInsets()
-        updateAlbumLabelHeight()
+        updateLabelHeights()
     }
 
     private func updateContentInsets() {
@@ -447,28 +454,34 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         compactConstraint.isActive = useCompact
     }
 
-    private func updateAlbumLabelHeight() {
-        guard !albumLabel.isHidden, let text = albumLabel.text, !text.isEmpty,
-              let font = albumLabel.font else {
-            if albumLabelHeightConstraint.constant != 0 {
-                albumLabelHeightConstraint.constant = 0
+    private func updateLabelHeights() {
+        updateHeight(of: titleLabel, constraint: titleLabelHeightConstraint, maximumLines: 2)
+        updateHeight(of: artistLabel, constraint: artistLabelHeightConstraint, maximumLines: 2)
+        updateHeight(of: albumLabel, constraint: albumLabelHeightConstraint, maximumLines: 3)
+    }
+
+    private func updateHeight(of label: UILabel, constraint: NSLayoutConstraint, maximumLines: Int) {
+        guard !label.isHidden, let text = label.text, !text.isEmpty,
+              let font = label.font else {
+            if constraint.constant != 0 {
+                constraint.constant = 0
             }
             return
         }
 
-        let width = albumLabel.bounds.width
+        let width = label.bounds.width
         let target: CGFloat
         if width > 0 {
             let bounding = (text as NSString).boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
                                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
                                                            attributes: [.font: font], context: nil)
-            target = min(ceil(bounding.height), ceil(font.lineHeight * 3))
+            target = min(ceil(bounding.height), ceil(font.lineHeight * CGFloat(maximumLines)))
         } else {
             target = font.lineHeight
         }
 
-        if abs(albumLabelHeightConstraint.constant - target) > 0.5 {
-            albumLabelHeightConstraint.constant = target
+        if abs(constraint.constant - target) > 0.5 {
+            constraint.constant = target
             setNeedsLayout()
         }
     }
@@ -789,8 +802,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let landscapeAlbumBottom = albumLabel.bottomAnchor.constraint(equalTo: controlsStackView.topAnchor, constant: -padding)
 
         sharedConstraints.append(contentsOf: [
-            titleLabel.heightAnchor.constraint(equalToConstant: titleLabel.font.lineHeight),
-            artistLabel.heightAnchor.constraint(equalToConstant: artistLabel.font.lineHeight),
+            titleLabelHeightConstraint,
+            artistLabelHeightConstraint,
             artistLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: labelSpacing),
             albumLabel.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: labelSpacing),
             albumLabelHeightConstraint,
