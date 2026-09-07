@@ -262,26 +262,46 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     return _radioIsEmpty && _recentStreams.count == 0 && _podcastsIsEmpty && _tvIsEmpty;
 }
 
+- (BOOL)onlyResumeSectionChangedFrom:(NSArray<NSNumber *> *)previousSections
+                                  to:(NSArray<NSNumber *> *)updatedSections
+{
+    NSArray<NSNumber *> *longer = previousSections.count > updatedSections.count ? previousSections
+                                                                                : updatedSections;
+    NSArray<NSNumber *> *shorter = longer == previousSections ? updatedSections : previousSections;
+
+    if (longer.count != shorter.count + 1 || longer.firstObject.integerValue != VLCOnAirSectionContinue) {
+        return NO;
+    }
+
+    return [[longer subarrayWithRange:NSMakeRange(1, shorter.count)] isEqualToArray:shorter];
+}
+
 - (void)updateResumeSectionAnimated
 {
     BOOL wasVisible = (_resumeStream != nil);
     BOOL wasZeroState = [self isZeroState];
-    BOOL wasShowingRecents = (_recentStreams.count > 0);
     NSArray<NSNumber *> *previousSections = _visibleSections;
 
     [self reloadFavorites];
 
-    if (wasVisible == (_resumeStream != nil) || wasZeroState != [self isZeroState]
-        || wasShowingRecents != (_recentStreams.count > 0)) {
+    NSArray<NSNumber *> *updatedSections = _visibleSections;
+    if (self.viewIfLoaded.window == nil || wasZeroState != [self isZeroState]
+        || ![self onlyResumeSectionChangedFrom:previousSections to:updatedSections]) {
         [self updateTableHeaderView];
         [_tableView reloadData];
         return;
     }
 
-    // the batch update flushes a pending layout before it runs, so the table view needs to see
-    // the previous sections until then
-    NSArray<NSNumber *> *updatedSections = _visibleSections;
+    // the batch update animates from the section count the table view last committed, so it has to
+    // see the previous sections and commit them before it runs
     _visibleSections = previousSections;
+    [_tableView layoutIfNeeded];
+
+    if (_tableView.numberOfSections != (NSInteger)previousSections.count) {
+        _visibleSections = updatedSections;
+        [_tableView reloadData];
+        return;
+    }
 
     NSIndexSet *resumeSection = [NSIndexSet indexSetWithIndex:0];
     [_tableView performBatchUpdates:^{
