@@ -129,8 +129,17 @@ class PodcastEpisodeCell: UITableViewCell {
 
         let hasDuration = episode.durationValue > 0
 
+        var detailComponents: [String] = []
+        if let number = episode.numberText {
+            detailComponents.append(number)
+        }
+        detailComponents.append(episode.date)
+        if hasDuration {
+            detailComponents.append(episode.duration)
+        }
+
         titleLabel.text = episode.title
-        detailLabel.text = hasDuration ? "\(episode.date) · \(episode.duration)" : episode.date
+        detailLabel.text = detailComponents.joined(separator: " · ")
         progressBar.isHidden = !episode.hasProgress
         progressBar.progress = episode.progressFraction
         downloadButton.configure(downloaded: episode.downloaded, downloading: downloading)
@@ -140,11 +149,7 @@ class PodcastEpisodeCell: UITableViewCell {
         deleteDownloadTapTarget = onDeleteDownload
 
         artworkView.isUserInteractionEnabled = onTapArtwork != nil
-        if hasDuration {
-            accessibilityLabel = "\(episode.title), \(episode.date), \(episode.duration)"
-        } else {
-            accessibilityLabel = "\(episode.title), \(episode.date)"
-        }
+        accessibilityLabel = ([episode.title] + detailComponents).joined(separator: ", ")
     }
 
     @objc private func didTapArtwork() {

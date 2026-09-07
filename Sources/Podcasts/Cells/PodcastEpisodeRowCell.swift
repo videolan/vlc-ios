@@ -264,6 +264,9 @@ class PodcastEpisodeRowCell: UITableViewCell {
         statusIndicatorView.isHidden = indicatorImage == nil
         updateStatusIndicatorColor()
         var dateText = episode.date.uppercased()
+        if let number = episode.numberText {
+            dateText = number + " · " + dateText
+        }
         if let time = timeText(for: episode) {
             dateText += " · " + time.uppercased()
         }
@@ -281,7 +284,11 @@ class PodcastEpisodeRowCell: UITableViewCell {
 
         textStack.alpha = episode.isPlayed ? PodcastEpisodeRowCell.playedAlpha : 1
 
-        var accessibilityComponents = [episode.title, episode.date]
+        var accessibilityComponents = [episode.title]
+        if let number = episode.numberText {
+            accessibilityComponents.append(number)
+        }
+        accessibilityComponents.append(episode.date)
         if let time = timeText(for: episode) {
             accessibilityComponents.append(time)
         }

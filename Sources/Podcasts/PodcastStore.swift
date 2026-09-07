@@ -562,6 +562,8 @@ final class PodcastStore: NSObject {
                                progress: progress,
                                downloaded: downloaded,
                                playCount: media.playCount(),
+                               seasonNumber: subscriptionEpisode?.seasonNumber ?? 0,
+                               episodeNumber: subscriptionEpisode?.episodeNumber ?? 0,
                                author: subscriptionEpisode?.author,
                                notesHTML: notesHTML)
     }

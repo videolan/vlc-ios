@@ -203,7 +203,11 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
         titleLabel.text = episode.title
 
-        var metaComponents = [episode.date]
+        var metaComponents: [String] = []
+        if let number = episode.numberText {
+            metaComponents.append(number)
+        }
+        metaComponents.append(episode.date)
         if let duration = episode.durationText {
             metaComponents.append(duration)
         }
