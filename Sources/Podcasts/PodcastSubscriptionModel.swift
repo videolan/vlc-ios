@@ -93,7 +93,8 @@ final class PodcastSubscriptionModel: NSObject {
         let media = mediaList[index]
 
         let playbackService = PlaybackService.sharedInstance()
-        playbackService.fullscreenSessionRequested = media.type() != .audio
+        playbackService.expectsAudioOnlyContent = true
+        playbackService.fullscreenSessionRequested = media.type() == .video
 
         // The library still points the episode at its remote MRL while the download runs, so the
         // partial file has to be handed to the player directly, on its own.
