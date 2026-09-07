@@ -87,7 +87,15 @@ extension VLCMLMedia {
             return nil
         }
 
-        return VLCThumbnailsCache.thumbnail(for: thumbnail())
+        if let image = VLCThumbnailsCache.thumbnail(for: thumbnail()) {
+            return image
+        }
+
+        guard nbSubscriptions() > 0,
+              let show = linkedSubscriptions(with: .default, desc: false)?.first else {
+            return nil
+        }
+        return VLCThumbnailsCache.thumbnail(for: show.artworkMRL)
     }
 
     @objc func placeholderImage() -> UIImage? {
