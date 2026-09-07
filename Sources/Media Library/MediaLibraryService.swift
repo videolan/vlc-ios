@@ -1213,6 +1213,13 @@ extension MediaLibraryService: VLCMediaParserDelegate {
             }
         }
 
+        // The loop above skips external media, so a queue made up of podcast episodes or network
+        // streams alone falls through to the first item and would resurrect it in the mini player.
+        guard let restoredMedia = mediaList.media(at: UInt(lastPlayedMediaIndex)),
+              let restoredLibraryMedia = fetchMedia(with: restoredMedia.url),
+              !restoredLibraryMedia.isExternalMedia()
+        else { return }
+
         DispatchQueue.main.async {
             PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex, fromCollection: mediaList, openInMiniPlayer: true)
             defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
