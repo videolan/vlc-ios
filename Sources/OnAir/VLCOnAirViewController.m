@@ -50,6 +50,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     NSArray<VLCFavorite *> *_recentStreams;
     NSArray<NSNumber *> *_visibleSections;
     VLCFavorite *_resumeStream;
+    PodcastResumeItem *_resumeEpisode;
     BOOL _resumeSuppressed;
     BOOL _radioIsEmpty;
     BOOL _podcastsIsEmpty;
@@ -173,8 +174,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 - (void)podcastsDidChange
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->_podcastsIsEmpty = (PodcastsOnAirBridge.numberOfShows == 0);
-        [self->_tableView reloadData];
+        [self reloadContent];
     });
 }
 
@@ -244,7 +244,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 {
     NSMutableArray<NSNumber *> *sections = [NSMutableArray arrayWithCapacity:VLCOnAirSectionCount];
 
-    if (_resumeStream) {
+    if ([self hasResumeItem]) {
         [sections addObject:@(VLCOnAirSectionContinue)];
     }
     [sections addObject:@(VLCOnAirSectionRadio)];
@@ -278,7 +278,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)updateResumeSectionAnimated
 {
-    BOOL wasVisible = (_resumeStream != nil);
+    BOOL wasVisible = [self hasResumeItem];
     BOOL wasZeroState = [self isZeroState];
     NSArray<NSNumber *> *previousSections = _visibleSections;
 
@@ -319,6 +319,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 - (void)updateResumeItem
 {
     _resumeStream = nil;
+    _resumeEpisode = nil;
 
     if (_resumeSuppressed) {
         return;
@@ -326,6 +327,22 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
     [self updateResumeItemWithStreams:_radioFavorites];
     [self updateResumeItemWithStreams:_recentStreams];
+
+    PodcastResumeItem *episode = PodcastsOnAirBridge.resumeEpisode;
+    if (!episode) {
+        return;
+    }
+    if (_resumeStream && [episode.lastPlayedDate compare:_resumeStream.lastPlayedDate] != NSOrderedDescending) {
+        return;
+    }
+
+    _resumeStream = nil;
+    _resumeEpisode = episode;
+}
+
+- (BOOL)hasResumeItem
+{
+    return _resumeStream != nil || _resumeEpisode != nil;
 }
 
 - (void)updateResumeItemWithStreams:(NSArray<VLCFavorite *> *)streams
@@ -341,9 +358,8 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     }
 }
 
-- (NSString *)resumeMetaText
+- (NSString *)resumeMetaTextForDate:(NSDate *)playedDate
 {
-    NSDate *playedDate = _resumeStream.lastPlayedDate;
     if (!playedDate) {
         return nil;
     }
@@ -465,10 +481,17 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         VLCOnAirContinueCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirContinueCell.reuseIdentifier
                                                                      forIndexPath:indexPath];
         cell.delegate = self;
-        [cell configureWithName:_resumeStream.userVisibleName
-                     artworkURL:_resumeStream.artworkURL
-                           meta:[self resumeMetaText]
-                       progress:0.0];
+        if (_resumeEpisode) {
+            [cell configureWithName:_resumeEpisode.title
+                         artworkURL:_resumeEpisode.artworkURL
+                               meta:[self resumeMetaTextForDate:_resumeEpisode.lastPlayedDate]
+                           progress:_resumeEpisode.progress];
+        } else {
+            [cell configureWithName:_resumeStream.userVisibleName
+                         artworkURL:_resumeStream.artworkURL
+                               meta:[self resumeMetaTextForDate:_resumeStream.lastPlayedDate]
+                           progress:0.0];
+        }
         return cell;
     }
 
@@ -688,7 +711,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if ([self sectionAtIndex:indexPath.section] == VLCOnAirSectionContinue) {
-        [self playFavorite:_resumeStream];
+        [self playResumeItem];
     }
 }
 
@@ -721,6 +744,15 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)continueCellDidTapPlay:(VLCOnAirContinueCell *)cell
 {
+    [self playResumeItem];
+}
+
+- (void)playResumeItem
+{
+    if (_resumeEpisode) {
+        [PodcastsOnAirBridge playResumeEpisode:_resumeEpisode];
+        return;
+    }
     [self playFavorite:_resumeStream];
 }
 

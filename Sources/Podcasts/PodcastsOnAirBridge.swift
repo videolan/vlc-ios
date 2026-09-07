@@ -24,6 +24,25 @@ extension NSNotification {
     @objc static let VLCPodcastsCachingDidEnd = Notification.Name.VLCPodcastsCachingDidEnd
 }
 
+@objc final class PodcastResumeItem: NSObject {
+    @objc let episodeId: String
+    @objc let showId: String
+    @objc let title: String
+    @objc let artworkURL: URL?
+    @objc let progress: CGFloat
+    @objc let lastPlayedDate: Date
+
+    init(episode: PodcastEpisode, artworkURL: URL?, lastPlayedDate: Date) {
+        self.episodeId = episode.id
+        self.showId = episode.showId
+        self.title = episode.title
+        self.artworkURL = artworkURL
+        self.progress = episode.progressFraction
+        self.lastPlayedDate = lastPlayedDate
+        super.init()
+    }
+}
+
 @objc final class PodcastsOnAirBridge: NSObject {
     @objc static let showsCellReuseIdentifier = "OnAirPodcastShowsCell"
 
@@ -37,6 +56,21 @@ extension NSNotification {
 
     @objc static var numberOfShows: Int {
         return PodcastStore.shared.shows.count
+    }
+
+    @objc static var resumeEpisode: PodcastResumeItem? {
+        let store = PodcastStore.shared
+        guard let episode = store.resumeEpisode, let lastPlayedDate = episode.lastPlayedDate else {
+            return nil
+        }
+        let show = store.show(withId: episode.showId)
+        return PodcastResumeItem(episode: episode,
+                                 artworkURL: episode.artworkURL ?? show?.artworkURL,
+                                 lastPlayedDate: lastPlayedDate)
+    }
+
+    @objc static func playResumeEpisode(_ item: PodcastResumeItem) {
+        PodcastStore.shared.playEpisode(episodeId: item.episodeId, showId: item.showId)
     }
 
     @objc static func refreshAllSubscriptions() -> Bool {

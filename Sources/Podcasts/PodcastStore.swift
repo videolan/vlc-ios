@@ -164,6 +164,20 @@ final class PodcastStore: NSObject {
         return result
     }
 
+    var resumeEpisode: PodcastEpisode? {
+        var newest: PodcastEpisode?
+        for episode in continueListeningEpisodes {
+            guard let date = episode.lastPlayedDate else {
+                continue
+            }
+            if let newestDate = newest?.lastPlayedDate, newestDate >= date {
+                continue
+            }
+            newest = episode
+        }
+        return newest
+    }
+
     func show(withId showId: String) -> PodcastShow? {
         rebuildShowsCacheIfNeeded()
         return cachedShowsById[showId]
@@ -572,6 +586,8 @@ final class PodcastStore: NSObject {
 
     private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
         let progress = media.progress > 0 ? Double(media.progress) : nil
+        // A media the library never played reports the epoch rather than no date at all.
+        let lastPlayed = media.lastPlayedDate()
         let downloaded = media.files.contains { $0.type() == .cache }
         let releaseDate = media.releaseDate()
         let subscriptionEpisode = media.subscriptionEpisode
@@ -585,6 +601,7 @@ final class PodcastStore: NSObject {
                                duration: VLCTime(number: NSNumber(value: media.duration())).stringValue,
                                durationValue: media.duration(),
                                progress: progress,
+                               lastPlayedDate: lastPlayed.timeIntervalSince1970 > 0 ? lastPlayed : nil,
                                downloaded: downloaded,
                                playCount: media.playCount(),
                                seasonNumber: subscriptionEpisode?.seasonNumber ?? 0,

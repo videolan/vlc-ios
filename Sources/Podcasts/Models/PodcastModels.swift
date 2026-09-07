@@ -57,6 +57,7 @@ struct PodcastEpisode {
     let duration: String
     let durationValue: Int64
     let progress: Double? // 0 means not started, 1 means finished. `nil` means never played.
+    let lastPlayedDate: Date?
     let downloaded: Bool
     let playCount: UInt32
     let seasonNumber: UInt32
@@ -76,6 +77,7 @@ struct PodcastEpisode {
          duration: String,
          durationValue: Int64,
          progress: Double?,
+         lastPlayedDate: Date?,
          downloaded: Bool,
          playCount: UInt32,
          seasonNumber: UInt32,
@@ -91,6 +93,7 @@ struct PodcastEpisode {
         self.duration = duration
         self.durationValue = durationValue
         self.progress = progress
+        self.lastPlayedDate = lastPlayedDate
         self.downloaded = downloaded
         self.playCount = playCount
         self.seasonNumber = seasonNumber
