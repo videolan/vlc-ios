@@ -81,10 +81,11 @@ struct PlayAudioIntent {
         let shuffle = playbackAttributes.contains(.shuffle)
         let repeatAll = playbackAttributes.contains(.repeat)
         let location = queueLocation
+        let waiter = PlaybackStartWaiter()
         let playbackService = PlaybackService.sharedInstance()
-        playbackService.fullscreenSessionRequested = false
 
         await MainActor.run {
+            playbackService.fullscreenSessionRequested = false
             playbackService.isShuffleMode = shuffle
             playbackService.repeatMode = repeatAll ? .repeatAllItems : .doNotRepeat
 
@@ -96,6 +97,10 @@ struct PlayAudioIntent {
             case nil:
                 playbackService.playCollection(media)
             }
+        }
+
+        guard await waiter.waitForPlaybackStart() else {
+            throw IntentError.playbackDidNotStart
         }
 
         return .result()

@@ -10,15 +10,8 @@
 
 import AppIntents
 import Foundation
-import OSLog
 
 extension UnitDuration: @unchecked Sendable {
-}
-
-@available(iOS 16.4, *)
-extension Logger {
-    static let intentLogging = Logger(
-        subsystem: Bundle.main.bundleIdentifier!, category: "App Intent")
 }
 
 @available(iOS 16.4, *)
@@ -177,62 +170,63 @@ struct PlayMediaIntent: AudioStartingIntent {
 
 
     func perform() async throws -> some IntentResult {
+        let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
 
-        let processinfo = ProcessInfo()
-        processinfo.performExpiringActivity(withReason: "VLC Play Media Intent Triggered") { (expired) in
+        guard let playlist = mediaLibraryService.medialib.searchPlaylists(byName: mediaName, of: .all)?.first,
+              let media = playlist.files(), !media.isEmpty else {
+            APLog("PlayMediaIntent: no media found for \(mediaName)")
+            throw IntentError.noMatchingMedia
+        }
 
-            Logger.intentLogging.debug("VLC Play Media Intent: \(mediaName)")
+        let waiter = PlaybackStartWaiter()
+        let playbackService = PlaybackService.sharedInstance()
 
-            let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
-            let playbackService = PlaybackService.sharedInstance()
+        await MainActor.run {
+            playbackService.fullscreenSessionRequested = false
 
-            if let playlist = mediaLibraryService.medialib.searchPlaylists(byName: mediaName, of: .all)?.first {
-                if let media = playlist.files() {
-                    Logger.intentLogging.debug("Found media for playlist \(playlist.title())")
-                    playbackService.fullscreenSessionRequested = false
-                    DispatchQueue.main.async {
-                        var mediaToPlay = media
-                        if let isShuffle = playShuffled {
-                            playbackService.isShuffleMode = isShuffle == .on
-                            if isShuffle == .on {
-                                mediaToPlay = mediaToPlay.shuffled()
-                            }
-                        }
-                        switch playbackQueueLocation {
-                        case .now:
-                            playbackService.playCollection(mediaToPlay)
-                        case .next:
-                            playbackService.playCollectionNextInQueue(mediaToPlay)
-                        case .later:
-                            playbackService.appendCollectionToQueue(mediaToPlay)
-                        case nil:
-                            playbackService.playCollection(mediaToPlay)
-                        }
-                        if let playbackRate = playbackSpeed {
-                            playbackService.playbackRate = Float(playbackRate)
-                        }
-                        playbackService.repeatMode = {
-                            switch playbackRepeatMode {
-                            case .doNotRepeat:
-                                return .doNotRepeat
-                            case .repeatAllItems:
-                                return .repeatAllItems
-                            case .repeatCurrentItem:
-                                return .repeatCurrentItem
-                            case nil:
-                                return .doNotRepeat
-                            }
-                        }()
-                        if let sleepTimer = sleepTimer {
-                            let sleepTimerSeconds = sleepTimer.converted(to: .seconds).value
-                            let timeInterval: TimeInterval = TimeInterval(sleepTimerSeconds)
-                            playbackService.scheduleSleepTimer(withInterval: timeInterval)
-                        }
-                    }
-                } else {
-                    Logger.intentLogging.debug("No media found for playlist \(playlist.title())")
+            var mediaToPlay = media
+            if let isShuffle = playShuffled {
+                playbackService.isShuffleMode = isShuffle == .on
+                if isShuffle == .on {
+                    mediaToPlay = mediaToPlay.shuffled()
                 }
             }
+
+            switch playbackQueueLocation {
+            case .next:
+                playbackService.playCollectionNextInQueue(mediaToPlay)
+            case .later:
+                playbackService.appendCollectionToQueue(mediaToPlay)
+            case .now, nil:
+                playbackService.playCollection(mediaToPlay)
+            }
+
+            if let playbackRate = playbackSpeed {
+                playbackService.playbackRate = Float(playbackRate)
+            }
+
+            playbackService.repeatMode = {
+                switch playbackRepeatMode {
+                case .doNotRepeat:
+                    return .doNotRepeat
+                case .repeatAllItems:
+                    return .repeatAllItems
+                case .repeatCurrentItem:
+                    return .repeatCurrentItem
+                case nil:
+                    return .doNotRepeat
+                }
+            }()
+
+            if let sleepTimer = sleepTimer {
+                let sleepTimerSeconds = sleepTimer.converted(to: .seconds).value
+                playbackService.scheduleSleepTimer(withInterval: TimeInterval(sleepTimerSeconds))
+            }
+        }
+
+        guard await waiter.waitForPlaybackStart() else {
+            APLog("PlayMediaIntent: playback did not start for \(mediaName)")
+            throw IntentError.playbackDidNotStart
         }
 
         return .result()
