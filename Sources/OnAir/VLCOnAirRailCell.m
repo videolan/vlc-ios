@@ -17,7 +17,7 @@
 
 static CGFloat const kVLCOnAirRailGap = 12.0;
 static CGFloat const kVLCOnAirRailSideMargin = 20.0;
-static CGFloat const kVLCOnAirRailNameArea = 28.0;
+static CGFloat const kVLCOnAirRailNameArea = 22.0;
 static CGFloat const kVLCOnAirRailCompactTileSide = 72.0;
 static CGFloat const kVLCOnAirRailRegularTileSide = 108.0;
 static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;

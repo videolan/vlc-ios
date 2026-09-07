@@ -16,7 +16,7 @@
 
 static CGFloat const kVLCRadioGridSideMargin = 20.0;
 static CGFloat const kVLCRadioGridGap = 14.0;
-static CGFloat const kVLCRadioGridNameArea = 28.0;
+static CGFloat const kVLCRadioGridNameArea = 22.0;
 static CGFloat const kVLCRadioGridMinTileWidth = 100.0;
 static CGFloat const kVLCRadioGridTopPadding = 0.0;
 static CGFloat const kVLCRadioGridBottomPadding = 4.0;

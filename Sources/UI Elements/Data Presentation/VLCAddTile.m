@@ -109,7 +109,7 @@ static CGFloat const kVLCAddTileLineWidth = 1.5;
 
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _nameLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightSemibold];
+    _nameLabel.font = [UIFont preferredCustomFontForTextStyle:UIFontTextStyleFootnote].semibolded;
     _nameLabel.numberOfLines = 1;
     _nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -126,7 +126,7 @@ static CGFloat const kVLCAddTileLineWidth = 1.5;
         [_plusLabel.centerXAnchor constraintEqualToAnchor:_outlineContainer.centerXAnchor],
         [_plusLabel.centerYAnchor constraintEqualToAnchor:_outlineContainer.centerYAnchor],
 
-        [_nameLabel.topAnchor constraintEqualToAnchor:_outlineContainer.bottomAnchor constant:8.0],
+        [_nameLabel.topAnchor constraintEqualToAnchor:_outlineContainer.bottomAnchor constant:6.0],
         [_nameLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:2.0],
         [_nameLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-2.0],
         [_nameLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor]

@@ -122,7 +122,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _nameLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightSemibold];
+    _nameLabel.font = [UIFont preferredCustomFontForTextStyle:UIFontTextStyleFootnote].semibolded;
     _nameLabel.numberOfLines = 1;
     _nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.contentView addSubview:_nameLabel];
@@ -170,7 +170,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         [_moreButton.widthAnchor constraintEqualToConstant:34.0],
         [_moreButton.heightAnchor constraintEqualToConstant:34.0],
 
-        [_nameLabel.topAnchor constraintEqualToAnchor:_artworkContainer.bottomAnchor constant:8.0],
+        [_nameLabel.topAnchor constraintEqualToAnchor:_artworkContainer.bottomAnchor constant:6.0],
         [_nameLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:2.0],
         [_nameLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-2.0],
         [_nameLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor]
