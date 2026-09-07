@@ -49,6 +49,7 @@ class PodcastEpisodeCell: UITableViewCell {
 
     private var artworkTapTarget: (() -> Void)?
     private var downloadTapTarget: (() -> Void)?
+    private var cancelDownloadTapTarget: (() -> Void)?
     private var deleteDownloadTapTarget: (() -> Void)?
 
     private lazy var textStack: UIStackView = {
@@ -115,6 +116,7 @@ class PodcastEpisodeCell: UITableViewCell {
                     downloading: Bool = false,
                     onTapArtwork: (() -> Void)? = nil,
                     onDownload: (() -> Void)? = nil,
+                    onCancelDownload: (() -> Void)? = nil,
                     onDeleteDownload: (() -> Void)? = nil) {
         PodcastStore.shared.requestArtwork(for: episode)
 
@@ -146,6 +148,7 @@ class PodcastEpisodeCell: UITableViewCell {
 
         artworkTapTarget = onTapArtwork
         downloadTapTarget = onDownload
+        cancelDownloadTapTarget = onCancelDownload
         deleteDownloadTapTarget = onDeleteDownload
 
         artworkView.isUserInteractionEnabled = onTapArtwork != nil
@@ -157,7 +160,9 @@ class PodcastEpisodeCell: UITableViewCell {
     }
 
     @objc private func didTapDownload() {
-        if downloadButton.isDownloaded {
+        if downloadButton.isDownloading {
+            cancelDownloadTapTarget?()
+        } else if downloadButton.isDownloaded {
             deleteDownloadTapTarget?()
         } else {
             downloadTapTarget?()
@@ -177,6 +182,7 @@ class PodcastEpisodeCell: UITableViewCell {
         super.prepareForReuse()
         artworkTapTarget = nil
         downloadTapTarget = nil
+        cancelDownloadTapTarget = nil
         deleteDownloadTapTarget = nil
         progressBar.isHidden = true
     }

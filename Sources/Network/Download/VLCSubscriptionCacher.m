@@ -30,6 +30,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     NSFileHandle *_fileHandle;
     dispatch_semaphore_t _completion;
     NSMutableSet<NSNumber *> *_manualMediaIdentifiers;
+    NSMutableSet<NSNumber *> *_cancelledMediaIdentifiers;
     VLCMLIdentifier _currentMediaIdentifier;
     NSString *_currentCachePath;
     BOOL _currentIsAutomatic;
@@ -50,6 +51,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         _downloader = [[VLCMediaDownloader alloc] init];
         _lock = [[NSLock alloc] init];
         _manualMediaIdentifiers = [NSMutableSet set];
+        _cancelledMediaIdentifiers = [NSMutableSet set];
         _reachability = [Reachability reachabilityForInternetConnection];
         [_reachability startNotifier];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -71,6 +73,7 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 {
     [_lock lock];
     [_manualMediaIdentifiers addObject:@(identifier)];
+    [_cancelledMediaIdentifiers removeObject:@(identifier)];
     [_lock unlock];
 }
 
@@ -98,6 +101,51 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     return manual;
 }
 
+- (BOOL)consumeCancellationForMedia:(VLCMLMedia *)media
+{
+    if (!media) {
+        return NO;
+    }
+
+    NSNumber *identifier = @([media identifier]);
+    [_lock lock];
+    BOOL cancelled = [_cancelledMediaIdentifiers containsObject:identifier];
+    if (cancelled) {
+        [_cancelledMediaIdentifiers removeObject:identifier];
+    }
+    [_lock unlock];
+
+    return cancelled;
+}
+
+- (void)cancelCachingOfMediaWithIdentifier:(VLCMLIdentifier)identifier
+{
+    [_lock lock];
+    VLCMediaDownloadTask *task = nil;
+    if (_currentMediaIdentifier == identifier) {
+        _cancelled = YES;
+        task = _task;
+    } else {
+        [_cancelledMediaIdentifiers addObject:@(identifier)];
+    }
+    [_lock unlock];
+
+    [task cancel];
+}
+
+- (void)cancelExternalDownloadWithToken:(NSUInteger)token
+{
+    [_lock lock];
+    VLCMediaDownloadTask *task = nil;
+    if (_transferToken == token) {
+        _cancelled = YES;
+        task = _task;
+    }
+    [_lock unlock];
+
+    [task cancel];
+}
+
 - (void)reachabilityDidChange
 {
     if (self.automaticCachingAllowed) {
@@ -120,6 +168,10 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
 {
     VLCMLMedia *libraryMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib mediaWithMrl:mrl];
     BOOL automatic = ![self consumeManualRequestForMedia:libraryMedia];
+    if ([self consumeCancellationForMedia:libraryMedia]) {
+        APLog(@"%s: skipping the cancelled download of %@", __func__, mrl);
+        return VLCMLCacheStatusCancelled;
+    }
     if (automatic && !self.automaticCachingAllowed) {
         APLog(@"%s: skipping the automatic download of %@ while off Wi-Fi", __func__, mrl);
         return VLCMLCacheStatusCancelled;
@@ -166,7 +218,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
      * this download too rather than being silently forgotten. */
     BOOL abortImmediately = _cancelled;
     if (!abortImmediately) {
-        _transferToken = [[VLCAppCoordinator sharedInstance].transferController startExternalDownloadWithName:displayName];
+        _transferToken = [[VLCAppCoordinator sharedInstance].transferController startExternalDownloadWithName:displayName
+                                                                                                   canceller:self];
         _task = [_downloader downloadMedia:media delegate:self];
     }
     VLCMediaDownloadTask *task = _task;
@@ -255,6 +308,8 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
         VLCTransferController *transferController = [VLCAppCoordinator sharedInstance].transferController;
         if (success) {
             [transferController finishExternalDownload:token filePath:path];
+        } else if (status == VLCMLCacheStatusCancelled) {
+            [transferController cancelExternalDownload:token];
         } else {
             [transferController failExternalDownload:token errorDescription:nil];
         }

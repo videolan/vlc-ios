@@ -39,6 +39,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     NSUInteger _nextUploadToken;
 
     NSMutableDictionary<NSNumber *, VLCTransferItem *> *_activeExternalDownloads;
+    NSMutableDictionary<NSNumber *, id<VLCExternalDownloadCanceller>> *_externalDownloadCancellers;
     NSUInteger _nextExternalDownloadToken;
 
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
@@ -63,6 +64,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         _userDefinedFileNameForDownloadItem = [[NSMutableDictionary alloc] init];
         _activeUploads = [[NSMutableDictionary alloc] init];
         _activeExternalDownloads = [[NSMutableDictionary alloc] init];
+        _externalDownloadCancellers = [[NSMutableDictionary alloc] init];
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
         _activeWatchTransfers = [[NSMapTable alloc] init];
         _observedWatchTransfers = [[NSMutableArray alloc] init];
@@ -410,6 +412,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
 
 #pragma mark - external download source
 - (NSUInteger)startExternalDownloadWithName:(NSString *)name
+                                  canceller:(id<VLCExternalDownloadCanceller>)canceller
 {
     NSUInteger token;
     @synchronized (self) {
@@ -417,6 +420,9 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     }
     [self _runOnMain:^{
         self->_activeExternalDownloads[@(token)] = [VLCTransferItem downloadItemWithName:name];
+        if (canceller) {
+            self->_externalDownloadCancellers[@(token)] = canceller;
+        }
         [self _postStateDidChange];
     }];
     return token;
@@ -443,6 +449,7 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
             return;
         }
         [self->_activeExternalDownloads removeObjectForKey:@(token)];
+        [self->_externalDownloadCancellers removeObjectForKey:@(token)];
         [item markCompletedWithFilePath:filePath];
         [self->_completed addObject:item];
         [self _postStateDidChange];
@@ -457,8 +464,21 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
             return;
         }
         [self->_activeExternalDownloads removeObjectForKey:@(token)];
+        [self->_externalDownloadCancellers removeObjectForKey:@(token)];
         [item markFailedWithError:description ?: @""];
         [self->_failed addObject:item];
+        [self _postStateDidChange];
+    }];
+}
+
+- (void)cancelExternalDownload:(NSUInteger)token
+{
+    [self _runOnMain:^{
+        if (!self->_activeExternalDownloads[@(token)]) {
+            return;
+        }
+        [self->_activeExternalDownloads removeObjectForKey:@(token)];
+        [self->_externalDownloadCancellers removeObjectForKey:@(token)];
         [self _postStateDidChange];
     }];
 }
@@ -640,6 +660,16 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
     return [_failed copy];
 }
 
+- (NSNumber *)_tokenForExternalDownloadItem:(VLCTransferItem *)item
+{
+    for (NSNumber *token in _activeExternalDownloads) {
+        if (_activeExternalDownloads[token] == item) {
+            return token;
+        }
+    }
+    return nil;
+}
+
 - (void)cancelInProgressItem:(VLCTransferItem *)item
 {
     if (item.direction == VLCTransferDirectionDownload && !item.active) {
@@ -659,7 +689,11 @@ NSString * const VLCTransferControllerStateDidChangeNotification = @"VLCTransfer
         }
         [self _postStateDidChange];
     } else if (item.direction == VLCTransferDirectionDownload && item.active) {
-        if ([[_activeExternalDownloads allValues] containsObject:item]) {
+        NSNumber *externalToken = [self _tokenForExternalDownloadItem:item];
+        if (externalToken) {
+            id<VLCExternalDownloadCanceller> canceller = _externalDownloadCancellers[externalToken];
+            [self cancelExternalDownload:externalToken.unsignedIntegerValue];
+            [canceller cancelExternalDownloadWithToken:externalToken.unsignedIntegerValue];
             return;
         }
         [self cancelCurrentDownload];

@@ -276,7 +276,11 @@ class PodcastEpisodeDetailViewController: UIViewController {
                               imageName: "safari", isEnabled: false) {}
         ]
 
-        if episode.downloaded {
+        if store.isDownloading(episodeId: episodeId) {
+            actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_EPISODE_CANCEL_DOWNLOAD", comment: ""),
+                                             imageName: "stop.circle",
+                                             isDestructive: true) { [weak self] in self?.cancelDownload() })
+        } else if episode.downloaded {
             actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_DELETE_DOWNLOAD_TITLE", comment: ""),
                                              imageName: "trash",
                                              isDestructive: true) { [weak self] in self?.confirmDeleteDownload() })
@@ -406,6 +410,11 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
     private func download() {
         store.downloadEpisode(episodeId: episodeId, showId: show.id)
+        refresh()
+    }
+
+    private func cancelDownload() {
+        store.cancelDownload(episodeId: episodeId, showId: show.id)
         refresh()
     }
 

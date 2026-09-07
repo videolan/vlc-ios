@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
+#import "VLCTransferController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +45,7 @@ didCacheMediaWithIdentifier:(VLCMLIdentifier)identifier
  * automatic. Automatic downloads are restricted to Wi-Fi and are abandoned when
  * Wi-Fi goes away; manual ones run on any network.
  */
-@interface VLCSubscriptionCacher : NSObject <VLCMLCacherDelegate>
+@interface VLCSubscriptionCacher : NSObject <VLCMLCacherDelegate, VLCExternalDownloadCanceller>
 
 @property (nonatomic, weak, nullable) id<VLCSubscriptionCacherDelegate> delegate;
 @property (nonatomic, readonly) BOOL automaticCachingAllowed;
@@ -57,6 +58,10 @@ didCacheMediaWithIdentifier:(VLCMLIdentifier)identifier
 /* The media library only learns about a cached file once it is complete, so
  * this resolves the partial file of the download in flight. */
 - (VLCMLIdentifier)mediaIdentifierForCachePath:(NSString *)path;
+
+/* The library has no way to drop a queued cache task, so a media cancelled
+ * before its download starts is refused once the library gets to it. */
+- (void)cancelCachingOfMediaWithIdentifier:(VLCMLIdentifier)identifier;
 
 @end
 

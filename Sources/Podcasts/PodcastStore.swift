@@ -481,6 +481,24 @@ final class PodcastStore: NSObject {
         return true
     }
 
+    // A pending removal marks the episode as busy just like a pending download does, so the
+    // absence of a cached file is what tells the two apart.
+    @discardableResult
+    func cancelDownload(episodeId: String, showId: String) -> Bool {
+        guard let mediaLibraryService = mediaLibraryService,
+              let media = media(forEpisodeId: episodeId),
+              pendingCacheMediaIds.contains(media.identifier()),
+              downloadedFileURL(episodeId: episodeId, showId: showId) == nil else {
+            return false
+        }
+
+        if playbackRequest?.episodeId == episodeId {
+            playbackRequest = nil
+        }
+        mediaLibraryService.subscriptionCacher.cancelCachingOfMedia(withIdentifier: media.identifier())
+        return true
+    }
+
     @discardableResult
     func deleteDownloadedEpisode(episodeId: String, showId: String) -> Bool {
         guard let media = media(forEpisodeId: episodeId),

@@ -451,6 +451,13 @@ class PodcastShowDetailViewController: UIViewController {
         tableView.reloadRows(at: [indexPath], with: .none)
     }
 
+    private func cancelDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
+        guard store.cancelDownload(episodeId: episode.id, showId: show.id) else {
+            return
+        }
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+
     private func confirmDeleteDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
         confirmPodcastDownloadDeletion { [weak self] in
             guard let self = self else { return }
@@ -484,6 +491,13 @@ extension PodcastShowDetailViewController: PodcastEpisodeRowCellDelegate {
             return
         }
         downloadEpisode(episode, at: indexPath)
+    }
+
+    func podcastEpisodeRowCellDidTapCancelDownload(_ cell: PodcastEpisodeRowCell) {
+        guard let (episode, indexPath) = episode(for: cell) else {
+            return
+        }
+        cancelDownload(of: episode, at: indexPath)
     }
 
     func podcastEpisodeRowCellDidTapDeleteDownload(_ cell: PodcastEpisodeRowCell) {

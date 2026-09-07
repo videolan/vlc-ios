@@ -233,6 +233,9 @@ class PodcastsViewController: UIViewController {
                        onDownload: { [weak self] in
                            self?.downloadEpisode(episode, at: indexPath)
                        },
+                       onCancelDownload: { [weak self] in
+                           self?.cancelDownload(of: episode, at: indexPath)
+                       },
                        onDeleteDownload: { [weak self] in
                            self?.confirmDeleteDownload(of: episode, at: indexPath)
                        })
@@ -243,6 +246,13 @@ class PodcastsViewController: UIViewController {
             return
         }
         store.downloadEpisode(episodeId: episode.id, showId: episode.showId)
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+
+    private func cancelDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
+        guard store.cancelDownload(episodeId: episode.id, showId: episode.showId) else {
+            return
+        }
         tableView.reloadRows(at: [indexPath], with: .none)
     }
 

@@ -15,6 +15,7 @@ import UIKit
 protocol PodcastEpisodeRowCellDelegate: AnyObject {
     func podcastEpisodeRowCellDidTapPlay(_ cell: PodcastEpisodeRowCell)
     func podcastEpisodeRowCellDidTapDownload(_ cell: PodcastEpisodeRowCell)
+    func podcastEpisodeRowCellDidTapCancelDownload(_ cell: PodcastEpisodeRowCell)
     func podcastEpisodeRowCellDidTapDeleteDownload(_ cell: PodcastEpisodeRowCell)
 }
 
@@ -336,7 +337,9 @@ class PodcastEpisodeRowCell: UITableViewCell {
     }
 
     @objc private func didTapDownload() {
-        if downloadButton.isDownloaded {
+        if downloadButton.isDownloading {
+            delegate?.podcastEpisodeRowCellDidTapCancelDownload(self)
+        } else if downloadButton.isDownloaded {
             delegate?.podcastEpisodeRowCellDidTapDeleteDownload(self)
         } else {
             delegate?.podcastEpisodeRowCellDidTapDownload(self)
