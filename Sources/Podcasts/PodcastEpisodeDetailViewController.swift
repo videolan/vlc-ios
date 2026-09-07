@@ -18,6 +18,11 @@ class PodcastEpisodeDetailViewController: UIViewController {
     private static let artworkSize: CGFloat = 180
     private static let artworkRadius: CGFloat = 14
 
+    private static let timestampScheme = "vlc-podcast-seek"
+
+    private static let timestampExpression =
+        try? NSRegularExpression(pattern: "(?<![0-9:])(?:([0-9]{1,2}):)?([0-9]{1,2}):([0-9]{2})(?![0-9:])")
+
     private let show: PodcastShow
     private let episodeId: String
     private let store = PodcastStore.shared
@@ -139,6 +144,8 @@ class PodcastEpisodeDetailViewController: UIViewController {
     }
 
     private func setupUI() {
+        notesTextView.delegate = self
+
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
 
@@ -363,9 +370,77 @@ class PodcastEpisodeDetailViewController: UIViewController {
             attributedNotes.addAttribute(.paragraphStyle, value: style, range: subrange)
         }
 
+        linkTimestamps(in: attributedNotes)
+
         cachedNotes = attributedNotes
         cachedNotesSource = notes
         return attributedNotes
+    }
+
+    private func linkTimestamps(in notes: NSMutableAttributedString) {
+        guard let expression = PodcastEpisodeDetailViewController.timestampExpression else {
+            return
+        }
+
+        let text = notes.string
+        let range = NSRange(text.startIndex..., in: text)
+        expression.enumerateMatches(in: text, options: [], range: range) { match, _, _ in
+            guard let match = match,
+                  notes.attribute(.link, at: match.range.location, effectiveRange: nil) == nil,
+                  let seconds = PodcastEpisodeDetailViewController.seconds(for: match, in: text),
+                  let url = URL(string: "\(PodcastEpisodeDetailViewController.timestampScheme)://\(seconds)") else {
+                return
+            }
+            notes.addAttribute(.link, value: url, range: match.range)
+        }
+    }
+
+    private static func seconds(for match: NSTextCheckingResult, in text: String) -> Int? {
+        var components: [Int] = []
+        for index in 1..<match.numberOfRanges {
+            guard let range = Range(match.range(at: index), in: text), let value = Int(text[range]) else {
+                continue
+            }
+            components.append(value)
+        }
+
+        guard components.count > 1 else {
+            return nil
+        }
+        return components.reduce(0) { $0 * 60 + $1 }
+    }
+
+    private static func seekSeconds(from url: URL) -> Int? {
+        guard url.scheme == timestampScheme, let host = url.host else {
+            return nil
+        }
+        return Int(host)
+    }
+
+    private func seek(toSeconds seconds: Int) {
+        guard store.nowPlayingEpisodeId == episodeId else {
+            store.playEpisode(episodeId: episodeId, showId: show.id,
+                              startPosition: startPosition(forSeconds: seconds))
+            return
+        }
+
+        let playbackService = PlaybackService.sharedInstance()
+        let length = Int(playbackService.mediaLength.intValue)
+        guard length > 0 else {
+            return
+        }
+
+        playbackService.playbackPosition = Float(Double(seconds * 1000) / Double(length))
+        if !store.isPlaying {
+            store.togglePlayPause()
+        }
+    }
+
+    private func startPosition(forSeconds seconds: Int) -> Float {
+        guard episode.durationValue > 0 else {
+            return -1
+        }
+        return Float(Double(seconds * 1000) / Double(episode.durationValue))
     }
 
     // Feeds put HTML in content:encoded and, within CDATA, in description and itunes:summary alike.
@@ -471,6 +546,33 @@ class PodcastEpisodeDetailViewController: UIViewController {
         authorLabel.textColor = colors.cellDetailTextColor
         updateOverflowMenu()
         updateNotes()
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension PodcastEpisodeDetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange,
+                  interaction: UITextItemInteraction) -> Bool {
+        guard let seconds = PodcastEpisodeDetailViewController.seekSeconds(from: URL) else {
+            return true
+        }
+        if interaction == .invokeDefaultAction {
+            seek(toSeconds: seconds)
+        }
+        return false
+    }
+
+    @available(iOS 17.0, *)
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem,
+                  defaultAction: UIAction) -> UIAction? {
+        guard case .link(let url) = textItem.content,
+              let seconds = PodcastEpisodeDetailViewController.seekSeconds(from: url) else {
+            return defaultAction
+        }
+        return UIAction { [weak self] _ in
+            self?.seek(toSeconds: seconds)
+        }
     }
 }
 

@@ -34,7 +34,8 @@ final class PodcastStore: NSObject {
     private var cacheSawBusy = false
     private var cacheStartTimeout: DispatchWorkItem?
 
-    private var playbackRequest: (episodeId: String, showId: String)?
+    private var playbackRequest: (episodeId: String, showId: String, startPosition: Float)?
+    private var lastPlayedEpisodeId: String?
 
     // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
     // duration - for a show with thousands of episodes that's too expensive to redo on every
@@ -96,7 +97,11 @@ final class PodcastStore: NSObject {
     }
 
     @objc private func playbackStateDidChange() {
-        guard let episodeId = nowPlayingEpisodeId else {
+        if let nowPlayingEpisodeId = nowPlayingEpisodeId {
+            lastPlayedEpisodeId = nowPlayingEpisodeId
+        }
+
+        guard let episodeId = lastPlayedEpisodeId else {
             return
         }
 
@@ -339,10 +344,10 @@ final class PodcastStore: NSObject {
 
     // An episode that has yet to be downloaded is fetched to the cache first and starts playing off
     // the partial file, which by then is far enough ahead for the rest to arrive in time.
-    func playEpisode(episodeId: String, showId: String) {
+    func playEpisode(episodeId: String, showId: String, startPosition: Float = -1) {
         guard downloadedFileURL(episodeId: episodeId, showId: showId) == nil else {
             playbackRequest = nil
-            play(episodeId: episodeId, showId: showId)
+            play(episodeId: episodeId, showId: showId, startPosition: startPosition)
             return
         }
 
@@ -350,24 +355,26 @@ final class PodcastStore: NSObject {
             playbackRequest = nil
             return
         }
-        playbackRequest = (episodeId, showId)
+        playbackRequest = (episodeId, showId, startPosition)
         notifyReload()
     }
 
     func play(episodeId: String, showId: String) {
-        play(episodeId: episodeId, showId: showId, partialFileURL: nil)
+        play(episodeId: episodeId, showId: showId, startPosition: -1)
     }
 
-    private func play(episodeId: String, showId: String, partialFileURL: URL?) {
+    private func play(episodeId: String, showId: String, startPosition: Float, partialFileURL: URL? = nil) {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
         }
+        PlaybackService.sharedInstance().startPosition = startPosition
         subscriptionModel.play(episodeId: episodeId, subscription: subscription, partialFileURL: partialFileURL)
     }
 
     var nowPlayingEpisodeId: String? {
         let playbackService = PlaybackService.sharedInstance()
-        guard let currentMedia = playbackService.currentlyPlayingMedia,
+        guard playbackService.playerIsSetup,
+              let currentMedia = playbackService.currentlyPlayingMedia,
               let media = VLCMLMedia(forPlaying: currentMedia) else {
             return nil
         }
@@ -610,6 +617,7 @@ extension PodcastStore: VLCSubscriptionCacherDelegate {
         playbackRequest = nil
         play(episodeId: request.episodeId,
              showId: request.showId,
+             startPosition: request.startPosition,
              partialFileURL: URL(fileURLWithPath: path))
     }
 }
@@ -649,7 +657,7 @@ extension PodcastStore: MediaLibraryObserver {
             guard status == .success || status == .alreadyCached else {
                 return
             }
-            self.play(episodeId: request.episodeId, showId: request.showId)
+            self.play(episodeId: request.episodeId, showId: request.showId, startPosition: request.startPosition)
         }
     }
 

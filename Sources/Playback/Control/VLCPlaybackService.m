@@ -82,6 +82,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
     int _majorPositionChangeInProgress;
     float _positionToRestore;
+    float _startPosition;
     BOOL _externalAudioPlaybackDeviceConnected;
 
     NSLock *_playbackSessionManagementLock;
@@ -161,6 +162,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     self = [super init];
     if (self) {
         _fullscreenSessionRequested = YES;
+        _startPosition = -1.;
         // listen to audiosessions and appkit callback
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
@@ -1037,9 +1039,11 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
                 [self->_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
 #pragma clang diagnostic pop
 
+                if (![self _applyStartPositionIfNeeded]) {
 #if !TARGET_OS_TV
-                [self _recoverLastPlaybackState];
+                    [self _recoverLastPlaybackState];
 #endif
+                }
                 [self setNeedsMetadataUpdate];
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
                     kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer),
@@ -1825,10 +1829,22 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [self _restorePlaybackPosition:_positionToRestore];
 }
 
-- (void)_recoverLastPlaybackState
+- (BOOL)_applyStartPositionIfNeeded
 {
     _positionToRestore = .0;
 
+    if (_startPosition < .0) {
+        return NO;
+    }
+
+    float startPosition = _startPosition;
+    _startPosition = -1.;
+    [self _restorePlaybackPosition:startPosition];
+    return YES;
+}
+
+- (void)_recoverLastPlaybackState
+{
     VLCMedia *media = _mediaPlayer.media;
     VLCMLMedia *libraryMedia = [VLCMLMedia mediaForPlayingMedia:media];
     if (!libraryMedia) return;
