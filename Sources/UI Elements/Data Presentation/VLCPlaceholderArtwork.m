@@ -31,7 +31,9 @@
     if (trimmed.length == 0)
         return @"?";
 
-    NSCharacterSet *wordSeparators = [NSCharacterSet characterSetWithCharactersInString:@" -_|/·•"];
+    /* The separators cover every dash Unicode knows, as feeds title their shows
+     * with all of them. */
+    NSCharacterSet *wordSeparators = [NSCharacterSet characterSetWithCharactersInString:@" _|/·•-‐‑‒–—―"];
     NSMutableArray<NSString *> *words = [NSMutableArray array];
     for (NSString *component in [trimmed componentsSeparatedByCharactersInSet:wordSeparators]) {
         if (component.length > 0)
@@ -39,7 +41,7 @@
     }
 
     if (words.count == 0)
-        return [self leadingCharacters:1 ofString:trimmed.uppercaseString];
+        return @"?";
 
     if (words.count == 1)
         return [self leadingCharacters:2 ofString:words.firstObject];
