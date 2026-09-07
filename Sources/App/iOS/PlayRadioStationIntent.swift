@@ -14,9 +14,10 @@ import AppIntents
 import Foundation
 
 @available(iOS 16.0, visionOS 1.0, *)
-struct PlayRadioStationIntent: AppIntent {
+struct PlayRadioStationIntent: AudioStartingIntent {
     static var title: LocalizedStringResource = LocalizedStringResource("APPINTENT_PLAY_RADIO_TITLE")
     static var description = IntentDescription(LocalizedStringResource("APPINTENT_PLAY_RADIO_DESCRIPTION"))
+    static var openAppWhenRun: Bool = false
 
     @Parameter(title: LocalizedStringResource("RADIO"))
     var station: RadioStationEntity?
