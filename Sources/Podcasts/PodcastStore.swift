@@ -381,6 +381,9 @@ final class PodcastStore: NSObject {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
         }
+        if let show = show(withId: showId) {
+            requestArtwork(for: show)
+        }
         PlaybackService.sharedInstance().startPosition = startPosition
         subscriptionModel.play(episodeId: episodeId, subscription: subscription, partialFileURL: partialFileURL)
     }
