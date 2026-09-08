@@ -204,6 +204,7 @@ extension VLCURLHandler {
         [
             googleURLHandler,
             DropBoxURLHandler(),
+            PodcastFeedURLHandler(),
             FileURLHandler(),
             XCallbackURLHandler(),
             VLCCallbackURLHandler(),
@@ -220,6 +221,7 @@ extension VLCURLHandler {
     #else
         @objc static let handlers =
             [
+                PodcastFeedURLHandler(),
                 XCallbackURLHandler(),
                 VLCCallbackURLHandler(),
                 ElseCallbackURLHandler()
