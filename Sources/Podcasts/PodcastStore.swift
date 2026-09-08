@@ -71,7 +71,7 @@ final class PodcastStore: NSObject {
         mediaLibraryService.medialib.subscriptionMaxCachedMedia = PodcastStore.maxCachedEpisodesPerShow
         mediaLibraryService.subscriptionCacher.delegate = self
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
-        subscriptionModel?.observable.addObserver(self)
+        subscriptionModel?.delegate = self
         mediaLibraryService.observable.addObserver(self)
 
         let notificationCenter = NotificationCenter.default
@@ -741,10 +741,10 @@ final class PodcastStore: NSObject {
     }
 }
 
-// MARK: - MediaLibraryBaseModelObserver
+// MARK: - PodcastSubscriptionModelDelegate
 
-extension PodcastStore: MediaLibraryBaseModelObserver {
-    func mediaLibraryBaseModelReloadView() {
+extension PodcastStore: PodcastSubscriptionModelDelegate {
+    func podcastSubscriptionModelDidChange(_ model: PodcastSubscriptionModel) {
         invalidateCaches()
     }
 }

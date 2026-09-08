@@ -13,9 +13,15 @@
 import UIKit
 import VLCMediaLibraryKit
 
+protocol PodcastSubscriptionModelDelegate: AnyObject {
+    func podcastSubscriptionModelDidChange(_ model: PodcastSubscriptionModel)
+}
+
 final class PodcastSubscriptionModel: NSObject {
     private let medialibrary: MediaLibraryService
     let observable = VLCObservable<MediaLibraryBaseModelObserver>()
+
+    weak var delegate: PodcastSubscriptionModelDelegate?
 
     private(set) var subscriptions: [VLCMLSubscription] = []
 
@@ -65,7 +71,7 @@ final class PodcastSubscriptionModel: NSObject {
             }
             DispatchQueue.main.async {
                 self.refresh()
-                self.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+                self.notifyChanged()
                 completion(.success(()))
             }
         }
@@ -99,7 +105,7 @@ final class PodcastSubscriptionModel: NSObject {
     func removeSubscription(_ subscription: VLCMLSubscription) {
         _ = medialibrary.medialib.removeSubscription(withIdentifier: subscription.identifier())
         refresh()
-        observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+        notifyChanged()
     }
 
     func play(episodeId: String, subscription: VLCMLSubscription, partialFileURL: URL? = nil) {
@@ -138,6 +144,11 @@ final class PodcastSubscriptionModel: NSObject {
     func refresh() {
         subscriptions = service?.subscriptions() ?? []
     }
+
+    private func notifyChanged() {
+        delegate?.podcastSubscriptionModelDidChange(self)
+        observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+    }
 }
 
 // MARK: - MediaLibraryObserver
@@ -169,13 +180,13 @@ extension PodcastSubscriptionModel: MediaLibraryObserver {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.refresh()
-            self.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+            self.notifyChanged()
         }
     }
 
     private func notifyOnMain() {
         DispatchQueue.main.async { [weak self] in
-            self?.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+            self?.notifyChanged()
         }
     }
 }
