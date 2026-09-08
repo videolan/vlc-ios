@@ -199,7 +199,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
     }
 
     @objc private func refresh() {
-        if let updated = store.episodes(forShowId: show.id).first(where: { $0.id == episodeId }) {
+        if let updated = store.episode(withId: episodeId, showId: show.id) {
             episode = updated
         }
 
