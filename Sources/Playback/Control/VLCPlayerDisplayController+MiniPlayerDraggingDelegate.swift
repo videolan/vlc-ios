@@ -68,6 +68,6 @@ extension VLCPlayerDisplayController: MiniPlayerDraggingDelegate {
 
     private func resetVerticalConstraints() {
             bottomConstraint?.constant = 0.0
-            playqueueBottomConstraint?.constant = 25.0
+            playqueueBottomConstraint?.constant = CGFloat(kVLCMiniPlayerPlayqueueTopInset)
     }
 }

@@ -27,6 +27,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 static const CGFloat kVLCMiniPlayerMaximumWidthFactor = 2.0 / 3.0;
 
+const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
+
 NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
 NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayControllerHideMiniPlayer";
 
@@ -724,8 +726,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self.view addSubview:miniPlaybackView];
             _bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
 
-            _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor
-                                                                                    constant: 25.0];
+            NSLayoutYAxisAnchor *topAnchor = self.realTopAnchor ?: self.view.safeAreaLayoutGuide.topAnchor;
+            _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:topAnchor
+                                                                                    constant: kVLCMiniPlayerPlayqueueTopInset];
 
             NSLayoutConstraint* heightConstraint = [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight];
             heightConstraint.priority = UILayoutPriorityDefaultHigh;

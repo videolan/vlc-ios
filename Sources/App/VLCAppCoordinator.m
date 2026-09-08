@@ -194,6 +194,7 @@
     [_tabBarController.view addSubview:_playerDisplayController.view];
     _playerDisplayController.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
     _playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor;
+    _playerDisplayController.realTopAnchor = tabBarController.view.safeAreaLayoutGuide.topAnchor;
     _playerDisplayController.miniPlayerReferenceTabBar = tabBarController.tabBar;
 
     if (@available(iOS 18.0, *)) {

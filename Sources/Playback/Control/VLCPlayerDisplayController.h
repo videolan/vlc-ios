@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const VLCPlayerDisplayControllerDisplayMiniPlayer;
 extern NSString * const VLCPlayerDisplayControllerHideMiniPlayer;
 
+extern const CGFloat kVLCMiniPlayerPlayqueueTopInset;
+
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
     VLCPlayerDisplayControllerDisplayModeMiniplayer,
@@ -48,6 +50,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
 @property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realBottomAnchor;
+@property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realTopAnchor;
 @property (nonatomic, weak, nullable) UITabBar *miniPlayerReferenceTabBar;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *leadingConstraint;
 @property (nonatomic, strong, nullable) NSLayoutConstraint *trailingConstraint;
