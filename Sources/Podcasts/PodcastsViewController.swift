@@ -21,13 +21,7 @@ class PodcastsViewController: UIViewController {
 
     private let store = PodcastStore.shared
 
-    private var revealedLatestEpisodesCount = Int(kVLCDefaultPageSize)
-
     private var isSubscribing = false
-
-    private var visibleLatestEpisodes: ArraySlice<PodcastEpisode> {
-        return store.latestEpisodes.prefix(revealedLatestEpisodesCount)
-    }
 
     // MARK: Search
 
@@ -491,7 +485,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         case .continueListening, .shows:
             return 1
         case .latestEpisodes:
-            return visibleLatestEpisodes.count
+            return store.latestEpisodes.count
         }
     }
 
@@ -557,7 +551,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
 
-            configureEpisodeCell(cell, for: visibleLatestEpisodes[indexPath.row], at: indexPath)
+            configureEpisodeCell(cell, for: store.latestEpisodes[indexPath.row], at: indexPath)
             return cell
         }
     }
@@ -567,24 +561,8 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         if isSearching {
             openShow(forEpisode: filteredEpisodes[indexPath.row])
         } else if visibleSections[indexPath.section] == .latestEpisodes {
-            openShow(forEpisode: visibleLatestEpisodes[indexPath.row])
+            openShow(forEpisode: store.latestEpisodes[indexPath.row])
         }
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard !isSearching, visibleSections[indexPath.section] == .latestEpisodes else {
-            return
-        }
-
-        let revealedCount = visibleLatestEpisodes.count
-
-        guard revealedCount < store.latestEpisodes.count,
-              indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
-            return
-        }
-
-        revealedLatestEpisodesCount += Int(kVLCDefaultPageSize)
-        tableView.reloadData()
     }
 }
 
