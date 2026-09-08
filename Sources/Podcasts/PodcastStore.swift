@@ -676,6 +676,30 @@ final class PodcastStore: NSObject {
         cachedLatestEpisodes = nil
     }
 
+    private func refreshCachedEpisode(withId episodeId: String) {
+        guard let media = media(forEpisodeId: episodeId) else {
+            invalidateDerivedEpisodeCaches()
+            return
+        }
+        cachedContinueListeningEpisodes = PodcastStore.refreshing(cachedContinueListeningEpisodes,
+                                                                  episodeId: episodeId,
+                                                                  media: media)
+        cachedLatestEpisodes = PodcastStore.refreshing(cachedLatestEpisodes,
+                                                       episodeId: episodeId,
+                                                       media: media)
+    }
+
+    private static func refreshing(_ episodes: [PodcastEpisode]?,
+                                   episodeId: String,
+                                   media: VLCMLMedia) -> [PodcastEpisode]? {
+        guard var episodes = episodes,
+              let index = episodes.firstIndex(where: { $0.id == episodeId }) else {
+            return episodes
+        }
+        episodes[index] = podcastEpisode(from: media, showId: episodes[index].showId)
+        return episodes
+    }
+
     private static func podcastShow(from subscription: VLCMLSubscription) -> PodcastShow {
         return PodcastShow(id: String(subscription.identifier()),
                             name: subscription.name,
@@ -764,7 +788,7 @@ extension PodcastStore: MediaLibraryObserver {
             if status != .success && status != .alreadyCached {
                 APLog("podcast cache: media \(mediaId) ended with status \(status.rawValue)")
             }
-            self.invalidateCaches()
+            self.refreshCachedEpisode(withId: String(mediaId))
             self.notifyEpisodeChanged(String(mediaId))
             self.notifyReload()
 
@@ -844,7 +868,7 @@ extension PodcastStore: MediaLibraryObserver {
                 return
             }
 
-            self.invalidateDerivedEpisodeCaches()
+            self.refreshCachedEpisode(withId: episodeId)
             self.notifyEpisodeChanged(episodeId)
             self.scheduleArtworkReload()
         }
