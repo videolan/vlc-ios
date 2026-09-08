@@ -546,12 +546,14 @@ final class PodcastStore: NSObject {
         guard let mediaLibraryService = mediaLibraryService else {
             return
         }
-        for episodeId in pending {
-            guard let identifier = VLCMLIdentifier(episodeId),
-                  let media = mediaLibraryService.media(for: identifier) else {
-                continue
+        DispatchQueue.global(qos: .userInitiated).async {
+            for episodeId in pending {
+                guard let identifier = VLCMLIdentifier(episodeId),
+                      let media = mediaLibraryService.media(for: identifier) else {
+                    continue
+                }
+                media.requestThumbnail(of: .thumbnail, desiredWidth: 0, desiredHeight: 0, atPosition: 0)
             }
-            media.requestThumbnail(of: .thumbnail, desiredWidth: 0, desiredHeight: 0, atPosition: 0)
         }
     }
 
@@ -564,8 +566,10 @@ final class PodcastStore: NSObject {
             APLog("podcast artwork: no subscription found for show \(show.id)")
             return
         }
-        if subscription.requestArtwork() == false {
-            APLog("podcast artwork: failed to queue show \(show.id)")
+        DispatchQueue.global(qos: .userInitiated).async {
+            if subscription.requestArtwork() == false {
+                APLog("podcast artwork: failed to queue show \(show.id)")
+            }
         }
     }
 
