@@ -43,12 +43,6 @@ final class PodcastStore: NSObject {
     private var playbackRequest: (episodeId: String, showId: String, startPosition: Float)?
     private var lastPlayedEpisodeId: String?
 
-    // Mapping a subscription's VLCMLMedia to PodcastEpisode reformats every episode's date and
-    // duration - for a show with thousands of episodes that's too expensive to redo on every
-    // access, so it's cached per show and only dropped when the underlying data actually
-    // changes (see invalidateCaches()).
-    private var episodesByShowId: [String: [PodcastEpisode]] = [:]
-
     private var cachedContinueListeningEpisodes: [PodcastEpisode]?
     private var cachedLatestEpisodes: [PodcastEpisode]?
     private var cachedShows: [PodcastShow]?
@@ -111,16 +105,7 @@ final class PodcastStore: NSObject {
             return
         }
 
-        for (showId, episodes) in episodesByShowId {
-            guard let index = episodes.firstIndex(where: { $0.id == episodeId }),
-                  let media = media(forEpisodeId: episodeId) else {
-                continue
-            }
-            episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media, showId: showId)
-            invalidateDerivedEpisodeCaches()
-            break
-        }
-
+        invalidateDerivedEpisodeCaches()
         notifyEpisodeChanged(episodeId)
         notifyReload()
     }
@@ -152,8 +137,7 @@ final class PodcastStore: NSObject {
             return cachedContinueListeningEpisodes
         }
 
-        let all = (subscriptionModel?.subscriptions ?? []).flatMap { episodes(forShowId: String($0.identifier())) }
-        let unfinished = all.filter { $0.continueListening }
+        let unfinished = (subscriptionModel?.subscriptions ?? []).flatMap(unfinishedEpisodes(forSubscription:))
         cachedContinueListeningEpisodes = unfinished
         return unfinished
     }
@@ -163,21 +147,69 @@ final class PodcastStore: NSObject {
             return cachedLatestEpisodes
         }
 
-        guard let subscriptionModel = subscriptionModel else {
-            return []
-        }
-
-        var result: [PodcastEpisode] = []
-        for subscription in subscriptionModel.subscriptions {
-            let showEpisodes: [PodcastEpisode] = episodes(forShowId: String(subscription.identifier()))
-            var unplayed: [PodcastEpisode] = showEpisodes.filter { !$0.continueListening }
-            unplayed.sort { $0.releaseDate > $1.releaseDate }
-            result.append(contentsOf: unplayed.prefix(PodcastStore.latestEpisodesPerShow))
-        }
+        var result = (subscriptionModel?.subscriptions ?? []).flatMap(newestEpisodes(forSubscription:))
         result.sort { $0.releaseDate > $1.releaseDate }
 
         cachedLatestEpisodes = result
         return result
+    }
+
+    private func unfinishedEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
+        guard let subscriptionModel = subscriptionModel else {
+            return []
+        }
+
+        let showId = String(subscription.identifier())
+        let pageSize = Int(kVLCDefaultPageSize)
+        var result: [PodcastEpisode] = []
+        var offset = 0
+
+        while true {
+            let page = subscriptionModel.media(for: subscription,
+                                               sortedBy: .releaseDate,
+                                               desc: true,
+                                               items: UInt32(pageSize),
+                                               offset: UInt32(offset))
+            for media in page where PodcastStore.isUnfinished(media) {
+                result.append(PodcastStore.podcastEpisode(from: media, showId: showId))
+            }
+            guard page.count >= pageSize else {
+                return result
+            }
+            offset += page.count
+        }
+    }
+
+    private func newestEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
+        guard let subscriptionModel = subscriptionModel else {
+            return []
+        }
+
+        let showId = String(subscription.identifier())
+        let pageSize = PodcastStore.latestEpisodesPerShow
+        var result: [PodcastEpisode] = []
+        var offset = 0
+
+        while result.count < PodcastStore.latestEpisodesPerShow {
+            let page = subscriptionModel.media(for: subscription,
+                                               sortedBy: .releaseDate,
+                                               desc: true,
+                                               items: UInt32(pageSize),
+                                               offset: UInt32(offset))
+            for media in page where !PodcastStore.isUnfinished(media) {
+                result.append(PodcastStore.podcastEpisode(from: media, showId: showId))
+            }
+            guard page.count >= pageSize else {
+                break
+            }
+            offset += page.count
+        }
+
+        return Array(result.prefix(PodcastStore.latestEpisodesPerShow))
+    }
+
+    private static func isUnfinished(_ media: VLCMLMedia) -> Bool {
+        return media.progress > 0 && media.progress < 1
     }
 
     var resumeEpisode: PodcastEpisode? {
@@ -197,18 +229,6 @@ final class PodcastStore: NSObject {
     func show(withId showId: String) -> PodcastShow? {
         rebuildShowsCacheIfNeeded()
         return cachedShowsById[showId]
-    }
-
-    func episodes(forShowId showId: String) -> [PodcastEpisode] {
-        if let cached = episodesByShowId[showId] {
-            return cached
-        }
-        guard let subscription = subscription(withId: showId) else {
-            return []
-        }
-        let episodes = episodes(forSubscription: subscription)
-        episodesByShowId[showId] = episodes
-        return episodes
     }
 
     func episodeCount(forShowId showId: String) -> Int {
@@ -634,7 +654,6 @@ final class PodcastStore: NSObject {
     }
 
     private func invalidateCaches() {
-        episodesByShowId.removeAll()
         invalidateDerivedEpisodeCaches()
         cachedShows = nil
         cachedShowsById.removeAll()
@@ -643,14 +662,6 @@ final class PodcastStore: NSObject {
     private func invalidateDerivedEpisodeCaches() {
         cachedContinueListeningEpisodes = nil
         cachedLatestEpisodes = nil
-    }
-
-    private func episodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
-        guard let subscriptionModel = subscriptionModel else {
-            return []
-        }
-        let showId = String(subscription.identifier())
-        return subscriptionModel.media(for: subscription).map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
     }
 
     private static func podcastShow(from subscription: VLCMLSubscription) -> PodcastShow {
@@ -811,8 +822,7 @@ extension PodcastStore: MediaLibraryObserver {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let episodeId = String(media.identifier())
-            // This fires for every thumbnail in the library, so leave the ones we never asked for
-            // alone instead of scanning each cached show for them.
+            // This fires for every thumbnail in the library, so leave the ones we never asked for alone.
             guard self.requestedArtworkEpisodeIds.contains(episodeId) else {
                 return
             }
@@ -821,16 +831,8 @@ extension PodcastStore: MediaLibraryObserver {
                 APLog("podcast artwork: episode \(episodeId) failed")
                 return
             }
-            for (showId, episodes) in self.episodesByShowId {
-                guard let index = episodes.firstIndex(where: { $0.id == episodeId }) else {
-                    continue
-                }
-                self.episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media,
-                                                                                    showId: showId)
-                self.invalidateDerivedEpisodeCaches()
-                break
-            }
 
+            self.invalidateDerivedEpisodeCaches()
             self.notifyEpisodeChanged(episodeId)
             self.scheduleArtworkReload()
         }
