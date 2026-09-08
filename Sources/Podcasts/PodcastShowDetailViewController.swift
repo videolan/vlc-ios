@@ -18,6 +18,9 @@ class PodcastShowDetailViewController: UIViewController {
         case episodes
     }
 
+    private static let episodePageSize = 50
+    private static let episodePrefetchDistance = 20
+
     private let show: PodcastShow
     private let store = PodcastStore.shared
 
@@ -40,21 +43,19 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     private func reloadEpisodes() {
-        episodes = []
-        hasMoreEpisodes = true
         isLoadingEpisodes = false
         knownEpisodeCount = store.episodeCount(forShowId: show.id)
-        episodes = fetchNextEpisodePage()
+        episodes = fetchEpisodePage(offset: 0)
         tableView.reloadData()
     }
 
-    private func fetchNextEpisodePage() -> [PodcastEpisode] {
-        let pageSize = Int(kVLCDefaultPageSize)
+    private func fetchEpisodePage(offset: Int) -> [PodcastEpisode] {
+        let pageSize = PodcastShowDetailViewController.episodePageSize
         let page = store.episodes(forShowId: show.id,
                                   sortedBy: sortCriteria,
                                   descending: sortDescending,
                                   matching: searchQuery,
-                                  offset: episodes.count,
+                                  offset: offset,
                                   count: pageSize)
         hasMoreEpisodes = page.count >= pageSize
         return page
@@ -73,12 +74,12 @@ class PodcastShowDetailViewController: UIViewController {
     private func insertNextEpisodePage() {
         defer { isLoadingEpisodes = false }
 
-        let page = fetchNextEpisodePage()
+        let firstRow = episodes.count
+        let page = fetchEpisodePage(offset: firstRow)
         guard !page.isEmpty else {
             return
         }
 
-        let firstRow = episodes.count
         episodes.append(contentsOf: page)
         let indexPaths = (firstRow..<episodes.count).map {
             IndexPath(row: $0, section: PodcastShowSection.episodes.rawValue)
@@ -704,7 +705,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         guard PodcastShowSection(rawValue: indexPath.section) == .episodes else {
             return
         }
-        guard indexPath.row >= episodes.count - Int(kVLCPrefetchDistance) else {
+        guard indexPath.row >= episodes.count - PodcastShowDetailViewController.episodePrefetchDistance else {
             return
         }
         appendNextEpisodePage()
