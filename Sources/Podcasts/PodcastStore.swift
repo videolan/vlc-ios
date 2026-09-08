@@ -195,6 +195,58 @@ final class PodcastStore: NSObject {
         return episodes
     }
 
+    func episodeCount(forShowId showId: String) -> Int {
+        return Int(subscription(withId: showId)?.nbMedia() ?? 0)
+    }
+
+    func episodes(forShowId showId: String,
+                  sortedBy criteria: PodcastEpisodeSortCriteria,
+                  descending: Bool,
+                  matching query: String,
+                  offset: Int,
+                  count: Int) -> [PodcastEpisode] {
+        guard let subscriptionModel = subscriptionModel,
+              let subscription = subscription(withId: showId) else {
+            return []
+        }
+
+        let sort = PodcastStore.sortingCriteria(for: criteria)
+        let media: [VLCMLMedia]
+        if query.isEmpty {
+            media = subscriptionModel.media(for: subscription,
+                                            sortedBy: sort,
+                                            desc: descending,
+                                            items: UInt32(count),
+                                            offset: UInt32(offset))
+        } else {
+            media = subscriptionModel.searchMedia(for: subscription,
+                                                  pattern: query,
+                                                  sortedBy: sort,
+                                                  desc: descending,
+                                                  items: UInt32(count),
+                                                  offset: UInt32(offset))
+        }
+        return media.map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
+    }
+
+    func episode(withId episodeId: String, showId: String) -> PodcastEpisode? {
+        guard let media = media(forEpisodeId: episodeId) else {
+            return nil
+        }
+        return PodcastStore.podcastEpisode(from: media, showId: showId)
+    }
+
+    private static func sortingCriteria(for criteria: PodcastEpisodeSortCriteria) -> VLCMLSortingCriteria {
+        switch criteria {
+        case .releaseDate:
+            return .releaseDate
+        case .title:
+            return .alpha
+        case .duration:
+            return .duration
+        }
+    }
+
     // MARK: - Mutations
 
     func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
@@ -426,8 +478,13 @@ final class PodcastStore: NSObject {
         if let show = show(withId: showId) {
             requestArtwork(for: show)
         }
-        let latest = episodes(forShowId: showId).sorted { $0.releaseDate > $1.releaseDate }
-        for episode in latest.prefix(PodcastStore.prefetchedArtworkEpisodes) {
+        let latest = episodes(forShowId: showId,
+                              sortedBy: .releaseDate,
+                              descending: true,
+                              matching: "",
+                              offset: 0,
+                              count: PodcastStore.prefetchedArtworkEpisodes)
+        for episode in latest {
             requestArtwork(for: episode)
         }
     }
