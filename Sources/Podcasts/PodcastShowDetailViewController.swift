@@ -122,6 +122,7 @@ class PodcastShowDetailViewController: UIViewController {
 
     private var isNavigationTitleVisible = false
     private var headerTitleBottomOffset: CGFloat?
+    private var headerRowMinY: CGFloat = 0
 
     private var episodeRowHeight = PodcastEpisodeRowCell.height
 
@@ -257,6 +258,8 @@ class PodcastShowDetailViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        let headerIndexPath = IndexPath(row: 0, section: PodcastShowSection.header.rawValue)
+        headerRowMinY = tableView.rectForRow(at: headerIndexPath).minY
         updateNavigationTitleVisibility()
     }
 
@@ -277,8 +280,7 @@ class PodcastShowDetailViewController: UIViewController {
             return
         }
 
-        let headerIndexPath = IndexPath(row: 0, section: PodcastShowSection.header.rawValue)
-        let titleBottom = tableView.rectForRow(at: headerIndexPath).minY + headerTitleBottomOffset
+        let titleBottom = headerRowMinY + headerTitleBottomOffset
         let navigationBarBottom = tableView.contentOffset.y + tableView.adjustedContentInset.top
 
         let shouldBeVisible = isSearching || titleBottom <= navigationBarBottom
