@@ -111,6 +111,21 @@
 				<string>com.real.smil</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Podcast Feeds</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.rss</string>
+				<string>org.opml.opml</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -251,6 +266,19 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.CLIENT</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>Podcast Feed</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>feed</string>
+				<string>feeds</string>
+				<string>pcast</string>
+				<string>itpc</string>
 			</array>
 		</dict>
 	</array>
@@ -1000,6 +1028,44 @@
 					<string>h264</string>
 					<string>264</string>
 				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>RSS Feed</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.rss</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>rss</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/rss+xml</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OPML Subscription List</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.opml.opml</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>opml</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>text/x-opml</string>
 			</dict>
 		</dict>
 	</array>
