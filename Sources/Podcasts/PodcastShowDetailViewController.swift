@@ -88,16 +88,35 @@ class PodcastShowDetailViewController: UIViewController {
         }
     }
 
-    private func reloadRows(forEpisodeIds episodeIds: [String]) {
-        let indexPaths = (tableView.indexPathsForVisibleRows ?? []).filter {
-            PodcastShowSection(rawValue: $0.section) == .episodes
-                && $0.row < episodes.count
-                && episodeIds.contains(episodes[$0.row].id)
+    private func reconfigureRows(forEpisodeIds episodeIds: [String]) {
+        for indexPath in tableView.indexPathsForVisibleRows ?? [] {
+            guard PodcastShowSection(rawValue: indexPath.section) == .episodes,
+                  indexPath.row < episodes.count,
+                  episodeIds.contains(episodes[indexPath.row].id) else {
+                continue
+            }
+            reconfigureRow(at: indexPath)
         }
-        guard !indexPaths.isEmpty else {
+    }
+
+    private func reconfigureRow(at indexPath: IndexPath) {
+        guard indexPath.row < episodes.count,
+              let cell = tableView.cellForRow(at: indexPath) as? PodcastEpisodeRowCell else {
             return
         }
-        tableView.reloadRows(at: indexPaths, with: .none)
+        configure(cell, at: indexPath)
+    }
+
+    private func configure(_ cell: PodcastEpisodeRowCell, at indexPath: IndexPath) {
+        let episode = episodes[indexPath.row]
+        store.requestArtwork(for: episode)
+        cell.configure(episode: episode,
+                       showName: show.name,
+                       showArtworkURL: show.artworkURL,
+                       isPlaying: episode.id == playingEpisodeId,
+                       downloading: store.isDownloading(episodeId: episode.id))
+        cell.showsSeparator = indexPath.row > 0
+        cell.delegate = self
     }
 
     private var isNavigationTitleVisible = false
@@ -263,7 +282,7 @@ class PodcastShowDetailViewController: UIViewController {
         guard previousEpisodeId != playingEpisodeId else {
             return
         }
-        reloadRows(forEpisodeIds: [previousEpisodeId, playingEpisodeId].compactMap { $0 })
+        reconfigureRows(forEpisodeIds: [previousEpisodeId, playingEpisodeId].compactMap { $0 })
     }
 
     @objc private func handleRefresh() {
@@ -452,21 +471,21 @@ class PodcastShowDetailViewController: UIViewController {
             return
         }
         store.downloadEpisode(episodeId: episode.id, showId: show.id)
-        tableView.reloadRows(at: [indexPath], with: .none)
+        reconfigureRow(at: indexPath)
     }
 
     private func cancelDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
         guard store.cancelDownload(episodeId: episode.id, showId: show.id) else {
             return
         }
-        tableView.reloadRows(at: [indexPath], with: .none)
+        reconfigureRow(at: indexPath)
     }
 
     private func confirmDeleteDownload(of episode: PodcastEpisode, at indexPath: IndexPath) {
         confirmPodcastDownloadDeletion { [weak self] in
             guard let self = self else { return }
             self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: self.show.id)
-            self.tableView.reloadRows(at: [indexPath], with: .none)
+            self.reconfigureRow(at: indexPath)
         }
     }
 }
@@ -550,7 +569,7 @@ extension PodcastShowDetailViewController: PodcastStoreObserver {
             return
         }
         episodes[row] = episode
-        reloadRows(forEpisodeIds: [episodeId])
+        reconfigureRow(at: IndexPath(row: row, section: PodcastShowSection.episodes.rawValue))
     }
 }
 
@@ -635,15 +654,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
                 return UITableViewCell()
             }
 
-            let episode = episodes[indexPath.row]
-            store.requestArtwork(for: episode)
-            cell.configure(episode: episode,
-                           showName: show.name,
-                           showArtworkURL: show.artworkURL,
-                           isPlaying: episode.id == playingEpisodeId,
-                           downloading: store.isDownloading(episodeId: episode.id))
-            cell.showsSeparator = indexPath.row > 0
-            cell.delegate = self
+            configure(cell, at: indexPath)
             return cell
         }
     }
