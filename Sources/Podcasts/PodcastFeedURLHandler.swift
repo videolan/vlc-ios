@@ -206,13 +206,10 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             return false
         }
 
-        let title: String
         let message: String
         if pendingFeedURLs.count == 1 {
-            title = NSLocalizedString("PODCAST_SUBSCRIBE_TITLE", comment: "")
             message = pendingFeedURLs[0].absoluteString
         } else {
-            title = NSLocalizedString("PODCAST_SUBSCRIBE_FEEDS_TITLE", comment: "")
             message = String(format: NSLocalizedString("PODCAST_SUBSCRIBE_FEEDS_MESSAGE", comment: ""),
                              pendingFeedURLs.count)
         }
@@ -227,7 +224,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             self.subscribeToPendingFeeds()
         }
 
-        VLCAlertViewController.alertViewManager(title: title,
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                                 errorMessage: message,
                                                 viewController: viewController,
                                                 buttonsAction: [cancelButton, subscribeButton])
@@ -286,7 +283,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             return
         }
 
-        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE_TITLE", comment: ""),
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                                 errorMessage: message,
                                                 viewController: viewController)
     }

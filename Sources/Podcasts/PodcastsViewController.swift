@@ -193,7 +193,7 @@ class PodcastsViewController: UIViewController {
 
         let addButton = UIBarButtonItem(image: addImage, style: .plain, target: self,
                                          action: #selector(didTapAdd))
-        addButton.accessibilityLabel = NSLocalizedString("PODCAST_ADD_BUTTON", comment: "")
+        addButton.accessibilityLabel = NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
 
         navigationItem.rightBarButtonItems = [addButton, searchButton]
     }
@@ -304,7 +304,7 @@ class PodcastsViewController: UIViewController {
         }
 
         let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
-        let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+        let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                       style: .default) { [weak self, weak alertController] _ in
             guard let self = self else { return }
 
@@ -352,7 +352,7 @@ class PodcastsViewController: UIViewController {
                 return
             }
 
-            VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+            VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                                     errorMessage: String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
                                                                          failureCount, feedURLs.count),
                                                     viewController: self)
@@ -412,7 +412,7 @@ class PodcastsViewController: UIViewController {
     }
 
     private func presentAddSubscriptionError(_ reason: PodcastAddSubscriptionError) {
-        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                                 errorMessage: reason.localizedMessage,
                                                 viewController: self)
     }
