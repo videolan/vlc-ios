@@ -134,7 +134,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredCustomFont(forTextStyle: .subheadline).semibolded
         label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
