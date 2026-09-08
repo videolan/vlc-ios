@@ -26,7 +26,10 @@ class PodcastShowDetailViewController: UIViewController {
     private var sortCriteria: PodcastEpisodeSortCriteria
     private var sortDescending: Bool
 
-    private var cachedEpisodes: [PodcastEpisode]?
+    private var episodes: [PodcastEpisode] = []
+    private var hasMoreEpisodes = true
+    private var isLoadingEpisodes = false
+    private var knownEpisodeCount = 0
 
     private var playingEpisodeId: String?
 
@@ -36,49 +39,65 @@ class PodcastShowDetailViewController: UIViewController {
         return !searchQuery.isEmpty
     }
 
-    private var episodes: [PodcastEpisode] {
-        if let cachedEpisodes = cachedEpisodes {
-            return cachedEpisodes
-        }
-
-        var episodes = store.episodes(forShowId: show.id)
-        if isSearching {
-            episodes = episodes.filter { matchesSearchQuery($0) }
-        }
-
-        let sorted: [PodcastEpisode]
-        switch sortCriteria {
-        case .releaseDate:
-            sorted = episodes.sorted { $0.releaseDate < $1.releaseDate }
-        case .title:
-            sorted = episodes.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
-        case .duration:
-            sorted = episodes.sorted { $0.durationValue < $1.durationValue }
-        }
-
-        let result = sortDescending ? Array(sorted.reversed()) : sorted
-        cachedEpisodes = result
-        return result
+    private func reloadEpisodes() {
+        episodes = []
+        hasMoreEpisodes = true
+        isLoadingEpisodes = false
+        knownEpisodeCount = store.episodeCount(forShowId: show.id)
+        episodes = fetchNextEpisodePage()
+        tableView.reloadData()
     }
 
-    private func matchesSearchQuery(_ episode: PodcastEpisode) -> Bool {
-        if episode.title.localizedStandardContains(searchQuery) {
-            return true
-        }
-        guard let notes = episode.notes else {
-            return false
-        }
-        return notes.localizedStandardContains(searchQuery)
+    private func fetchNextEpisodePage() -> [PodcastEpisode] {
+        let pageSize = Int(kVLCDefaultPageSize)
+        let page = store.episodes(forShowId: show.id,
+                                  sortedBy: sortCriteria,
+                                  descending: sortDescending,
+                                  matching: searchQuery,
+                                  offset: episodes.count,
+                                  count: pageSize)
+        hasMoreEpisodes = page.count >= pageSize
+        return page
     }
 
-    // Shows can have thousands of episodes (VLCMLSubscription has no paged query, unlike the
-    // audio/video tabs' VLCMediaLibrary calls), so only reveal kVLCDefaultPageSize at a time and
-    // grow the window as the user scrolls near the end, mirroring MediaCategoryViewController's
-    // willDisplay/kVLCPrefetchDistance pattern.
-    private var revealedEpisodeCount = Int(kVLCDefaultPageSize)
+    private func appendNextEpisodePage() {
+        guard !isLoadingEpisodes, hasMoreEpisodes else {
+            return
+        }
+        isLoadingEpisodes = true
+        DispatchQueue.main.async { [weak self] in
+            self?.insertNextEpisodePage()
+        }
+    }
 
-    private var visibleEpisodes: ArraySlice<PodcastEpisode> {
-        return episodes.prefix(revealedEpisodeCount)
+    private func insertNextEpisodePage() {
+        defer { isLoadingEpisodes = false }
+
+        let page = fetchNextEpisodePage()
+        guard !page.isEmpty else {
+            return
+        }
+
+        let firstRow = episodes.count
+        episodes.append(contentsOf: page)
+        let indexPaths = (firstRow..<episodes.count).map {
+            IndexPath(row: $0, section: PodcastShowSection.episodes.rawValue)
+        }
+        tableView.performBatchUpdates {
+            tableView.insertRows(at: indexPaths, with: .none)
+        }
+    }
+
+    private func reloadRows(forEpisodeIds episodeIds: [String]) {
+        let indexPaths = (tableView.indexPathsForVisibleRows ?? []).filter {
+            PodcastShowSection(rawValue: $0.section) == .episodes
+                && $0.row < episodes.count
+                && episodeIds.contains(episodes[$0.row].id)
+        }
+        guard !indexPaths.isEmpty else {
+            return
+        }
+        tableView.reloadRows(at: indexPaths, with: .none)
     }
 
     private var isNavigationTitleVisible = false
@@ -191,6 +210,7 @@ class PodcastShowDetailViewController: UIViewController {
         store.addObserver(self)
         store.prefetchArtwork(forShowId: show.id)
         refreshPlayingEpisodeId()
+        reloadEpisodes()
         setupNavigationBarButtons()
         setupSearchController()
 
@@ -242,7 +262,7 @@ class PodcastShowDetailViewController: UIViewController {
         guard previousEpisodeId != playingEpisodeId else {
             return
         }
-        tableView.reloadSections(IndexSet(integer: PodcastShowSection.episodes.rawValue), with: .none)
+        reloadRows(forEpisodeIds: [previousEpisodeId, playingEpisodeId].compactMap { $0 })
     }
 
     @objc private func handleRefresh() {
@@ -253,6 +273,7 @@ class PodcastShowDetailViewController: UIViewController {
 
     @objc private func refreshDidEnd() {
         refreshControl.endRefreshing()
+        reloadEpisodes()
     }
 
     private func setupNavigationBarButtons() {
@@ -384,14 +405,12 @@ class PodcastShowDetailViewController: UIViewController {
     private func executeSortAction(with criteria: PodcastEpisodeSortCriteria, desc: Bool) {
         sortCriteria = criteria
         sortDescending = desc
-        revealedEpisodeCount = Int(kVLCDefaultPageSize)
-        cachedEpisodes = nil
 
         let userDefaults = UserDefaults.standard
         userDefaults.set(criteria.rawValue, forKey: "\(kVLCSortDefault)podcastEpisodes")
         userDefaults.set(desc, forKey: "\(kVLCSortDescendingDefault)podcastEpisodes")
 
-        tableView.reloadData()
+        reloadEpisodes()
     }
 
     deinit {
@@ -456,10 +475,10 @@ extension PodcastShowDetailViewController: PodcastEpisodeRowCellDelegate {
     private func episode(for cell: PodcastEpisodeRowCell) -> (PodcastEpisode, IndexPath)? {
         guard let indexPath = tableView.indexPath(for: cell),
               PodcastShowSection(rawValue: indexPath.section) == .episodes,
-              indexPath.row < visibleEpisodes.count else {
+              indexPath.row < episodes.count else {
             return nil
         }
-        return (visibleEpisodes[indexPath.row], indexPath)
+        return (episodes[indexPath.row], indexPath)
     }
 
     func podcastEpisodeRowCellDidTapPlay(_ cell: PodcastEpisodeRowCell) {
@@ -515,9 +534,7 @@ extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchCont
         }
 
         searchQuery = query
-        revealedEpisodeCount = Int(kVLCDefaultPageSize)
-        cachedEpisodes = nil
-        tableView.reloadData()
+        reloadEpisodes()
         updateNavigationTitleVisibility()
     }
 }
@@ -526,9 +543,11 @@ extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchCont
 
 extension PodcastShowDetailViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
-        cachedEpisodes = nil
         refreshPlayingEpisodeId()
-        tableView.reloadData()
+        guard store.episodeCount(forShowId: show.id) != knownEpisodeCount else {
+            return
+        }
+        reloadEpisodes()
     }
 }
 
@@ -544,7 +563,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         case .header:
             return isSearching ? 0 : 1
         case .episodes, .none:
-            return visibleEpisodes.count
+            return episodes.count
         }
     }
 
@@ -568,7 +587,8 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return PodcastShowSection(rawValue: indexPath.section) == .header ? UITableView.automaticDimension
+                                                                         : episodeRowHeight
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -600,7 +620,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
                 return UITableViewCell()
             }
 
-            let episode = visibleEpisodes[indexPath.row]
+            let episode = episodes[indexPath.row]
             store.requestArtwork(for: episode)
             cell.configure(episode: episode,
                            showName: show.name,
@@ -619,7 +639,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         guard PodcastShowSection(rawValue: indexPath.section) == .episodes else {
             return
         }
-        let episode = visibleEpisodes[indexPath.row]
+        let episode = episodes[indexPath.row]
         let detailViewController = PodcastEpisodeDetailViewController(episode: episode, show: show)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
@@ -632,11 +652,9 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         guard PodcastShowSection(rawValue: indexPath.section) == .episodes else {
             return
         }
-        let revealedCount = visibleEpisodes.count
-        guard revealedCount < episodes.count, indexPath.row >= revealedCount - Int(kVLCPrefetchDistance) else {
+        guard indexPath.row >= episodes.count - Int(kVLCPrefetchDistance) else {
             return
         }
-        revealedEpisodeCount += Int(kVLCDefaultPageSize)
-        tableView.reloadData()
+        appendNextEpisodePage()
     }
 }
