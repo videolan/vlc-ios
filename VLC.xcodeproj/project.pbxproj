@@ -416,6 +416,9 @@
 		7D39AA6C3050166B0079EF02 /* PodcastFeedURLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6B3050166B0079EF02 /* PodcastFeedURLHandler.swift */; };
 		7D39AA6D3050166B0079EF02 /* PodcastFeedURLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6B3050166B0079EF02 /* PodcastFeedURLHandler.swift */; };
 		7D39AA6E3050166B0079EF02 /* PodcastFeedURLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6B3050166B0079EF02 /* PodcastFeedURLHandler.swift */; };
+		7D39AA70305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6F305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift */; };
+		7D39AA71305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6F305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift */; };
+		7D39AA72305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AA6F305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift */; };
 		7D39B6E03005356700D95829 /* VLCMigrationCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */; };
 		7D39B6E13005356700D95829 /* VLCMigrationCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */; };
 		7D39B6E23005356700D95829 /* VLCMigrationCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */; };
@@ -2163,6 +2166,7 @@
 		7D398DBF1CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserBonjour.h; sourceTree = "<group>"; };
 		7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserBonjour.m; sourceTree = "<group>"; };
 		7D39AA6B3050166B0079EF02 /* PodcastFeedURLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastFeedURLHandler.swift; sourceTree = "<group>"; };
+		7D39AA6F305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+VLCMiniPlayerInset.swift"; sourceTree = "<group>"; };
 		7D39B6DE3005356700D95829 /* VLCMigrationCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMigrationCursor.h; sourceTree = "<group>"; };
 		7D39B6DF3005356700D95829 /* VLCMigrationCursor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMigrationCursor.m; sourceTree = "<group>"; };
 		7D3B2EB42F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMovieTVCollectionViewCell.h; sourceTree = "<group>"; };
@@ -4051,6 +4055,7 @@
 				D96CC64B2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift */,
 				7DC382A7301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.h */,
 				7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */,
+				7D39AA6F305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift */,
 				7D3150A72AA8B8B90068D478 /* UIImage+AverageColor.h */,
 				7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */,
 				44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */,
@@ -6114,6 +6119,7 @@
 				7D50C5E92BBD20DF00B9F1A0 /* LayoutAnchorContainer.swift in Sources */,
 				7D50C5EA2BBD20DF00B9F1A0 /* PresentationTheme.swift in Sources */,
 				7D50C5EB2BBD20DF00B9F1A0 /* VLCNetworkLoginViewButtonCell.m in Sources */,
+				7D39AA72305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */,
 				7D50C5EC2BBD20DF00B9F1A0 /* Array+Safety.swift in Sources */,
 				7D50C5ED2BBD20DF00B9F1A0 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7D93B75D2D60EE9800F952DE /* PasscodeField.swift in Sources */,
@@ -6774,6 +6780,7 @@
 				3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */,
 				19F440AB9FB40F252BAF83B5 /* VLCDownloadProgressView.m in Sources */,
 				AD7E4C938BA345199B5386E2 /* VLCDownloadStatusBanner.m in Sources */,
+				7D39AA71305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */,
 				3F2BAF2F705F02514B9234A7 /* VLCTransferStatusBannerController.m in Sources */,
 				56FEA5AD2A919B2AAA8E5C8F /* VideoPreviewController.swift in Sources */,
 				5C819FAC08DAA218BD4660B9 /* PodcastModels.swift in Sources */,
@@ -6809,6 +6816,7 @@
 				7D39B6E13005356700D95829 /* VLCMigrationCursor.m in Sources */,
 				7DC382A9301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m in Sources */,
 				7DA514412EF82B63000C9995 /* EqualizerPresetSelector.swift in Sources */,
+				7D39AA70305051790079EF02 /* UIScrollView+VLCMiniPlayerInset.swift in Sources */,
 				7DA514422EF82B63000C9995 /* Reachability.m in Sources */,
 				7DA514432EF82B63000C9995 /* VLCNetworkLoginDataSource.m in Sources */,
 				7D4BE4F0301A3A0100277F3E /* VLCArtworkTile.m in Sources */,

@@ -156,14 +156,32 @@ class PodcastsViewController: UIViewController {
                                        selector: #selector(refreshDidEnd),
                                        name: .VLCPodcastsRefreshDidEnd,
                                        object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsShown),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsHidden),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                       object: nil)
         store.addObserver(self)
         updateContentVisibility()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+            ? miniPlayerIsShown() : miniPlayerIsHidden()
         tableView.reloadData()
         updateContentVisibility()
+    }
+
+    @objc private func miniPlayerIsShown() {
+        tableView.setMiniPlayerInset(true)
+    }
+
+    @objc private func miniPlayerIsHidden() {
+        tableView.setMiniPlayerInset(false)
     }
 
     @objc private func handleRefresh() {

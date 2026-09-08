@@ -223,6 +223,14 @@ class PodcastShowDetailViewController: UIViewController {
                                        selector: #selector(refreshDidEnd),
                                        name: .VLCPodcastsRefreshDidEnd,
                                        object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsShown),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsHidden),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                       object: nil)
 
         tableView.refreshControl = refreshControl
 
@@ -240,9 +248,23 @@ class PodcastShowDetailViewController: UIViewController {
                                                            action: nil)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+            ? miniPlayerIsShown() : miniPlayerIsHidden()
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateNavigationTitleVisibility()
+    }
+
+    @objc private func miniPlayerIsShown() {
+        tableView.setMiniPlayerInset(true)
+    }
+
+    @objc private func miniPlayerIsHidden() {
+        tableView.setMiniPlayerInset(false)
     }
 
     private func updateNavigationTitleVisibility() {

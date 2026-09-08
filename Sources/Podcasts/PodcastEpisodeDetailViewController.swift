@@ -133,10 +133,32 @@ class PodcastEpisodeDetailViewController: UIViewController {
                                        selector: #selector(refresh),
                                        name: Notification.Name(VLCPlaybackServicePlaybackDidStop),
                                        object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsShown),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(miniPlayerIsHidden),
+                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                       object: nil)
 
         store.addObserver(self)
         applyTheme()
         refresh()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+            ? miniPlayerIsShown() : miniPlayerIsHidden()
+    }
+
+    @objc private func miniPlayerIsShown() {
+        scrollView.setMiniPlayerInset(true)
+    }
+
+    @objc private func miniPlayerIsHidden() {
+        scrollView.setMiniPlayerInset(false)
     }
 
     deinit {
