@@ -179,6 +179,25 @@ struct PodcastEpisode {
     }
 }
 
+// MARK: - PodcastEpisodeSortCriteria
+
+enum PodcastEpisodeSortCriteria: Int, CaseIterable {
+    case releaseDate
+    case title
+    case duration
+
+    var title: String {
+        switch self {
+        case .releaseDate:
+            return NSLocalizedString("RELEASE_DATE", comment: "")
+        case .title:
+            return NSLocalizedString("TITLE", comment: "")
+        case .duration:
+            return NSLocalizedString("DURATION", comment: "")
+        }
+    }
+}
+
 // MARK: - PodcastAddSubscriptionError
 
 enum PodcastAddSubscriptionError: Error {

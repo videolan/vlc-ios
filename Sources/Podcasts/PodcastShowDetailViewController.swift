@@ -12,23 +12,6 @@
 
 import UIKit
 
-private enum PodcastEpisodeSortCriteria: Int, CaseIterable {
-    case releaseDate
-    case title
-    case duration
-
-    var title: String {
-        switch self {
-        case .releaseDate:
-            return NSLocalizedString("RELEASE_DATE", comment: "")
-        case .title:
-            return NSLocalizedString("TITLE", comment: "")
-        case .duration:
-            return NSLocalizedString("DURATION", comment: "")
-        }
-    }
-}
-
 class PodcastShowDetailViewController: UIViewController {
     private enum PodcastShowSection: Int, CaseIterable {
         case header
