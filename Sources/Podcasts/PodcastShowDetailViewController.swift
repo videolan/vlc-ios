@@ -299,6 +299,10 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     @objc private func playbackStateDidChange() {
+        updatePlayingEpisode()
+    }
+
+    private func updatePlayingEpisode() {
         let previousEpisodeId = playingEpisodeId
         refreshPlayingEpisodeId()
         guard previousEpisodeId != playingEpisodeId else {
@@ -599,7 +603,7 @@ extension PodcastShowDetailViewController: PodcastStoreObserver {
 
 extension PodcastShowDetailViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
-        refreshPlayingEpisodeId()
+        updatePlayingEpisode()
         guard store.episodeCount(forShowId: show.id) != knownEpisodeCount else {
             return
         }
