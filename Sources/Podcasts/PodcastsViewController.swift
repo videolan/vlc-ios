@@ -172,7 +172,6 @@ class PodcastsViewController: UIViewController {
         super.viewWillAppear(animated)
         PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
             ? miniPlayerIsShown() : miniPlayerIsHidden()
-        tableView.reloadData()
         updateContentVisibility()
     }
 
