@@ -32,6 +32,7 @@ class PodcastArtworkView: UIView {
     private var artworkURL: URL?
     private var requestedArtworkURL: URL?
     private var requestedArtworkPixelSize = 0
+    private var artworkLoadFailed = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,33 +62,46 @@ class PodcastArtworkView: UIView {
 
     func configure(initials: String, color: UIColor, textColor: UIColor,
                    cornerRadius: CGFloat, fontSize: CGFloat) {
+        applyPlaceholder(initials: initials, color: color, textColor: textColor,
+                         cornerRadius: cornerRadius, fontSize: fontSize)
+        artworkURL = nil
+        clearArtwork()
+    }
+
+    func configure(name: String, artworkURL: URL? = nil, cornerRadius: CGFloat, fontSize: CGFloat) {
+        applyPlaceholder(initials: VLCPlaceholderArtwork.initials(forName: name),
+                         color: VLCPlaceholderArtwork.backgroundColor(forName: name),
+                         textColor: VLCPlaceholderArtwork.foregroundColor(forName: name),
+                         cornerRadius: cornerRadius,
+                         fontSize: fontSize)
+
+        let artwork = artworkURL?.isFileURL == true ? artworkURL : nil
+        if artwork != self.artworkURL {
+            self.artworkURL = artwork
+        } else if !artworkLoadFailed {
+            return
+        }
+
+        clearArtwork()
+        setNeedsLayout()
+    }
+
+    private func applyPlaceholder(initials: String, color: UIColor, textColor: UIColor,
+                                  cornerRadius: CGFloat, fontSize: CGFloat) {
         initialsLabel.text = initials
         initialsLabel.textColor = textColor
         initialsLabel.font = .systemFont(ofSize: fontSize, weight: .medium)
         backgroundColor = color
         layer.cornerRadius = cornerRadius
-
-        artworkURL = nil
-        requestedArtworkURL = nil
-        requestedArtworkPixelSize = 0
-        artworkView.image = nil
-        artworkView.isHidden = true
+        artworkView.layer.cornerRadius = cornerRadius
     }
 
-    func configure(name: String, artworkURL: URL? = nil, cornerRadius: CGFloat, fontSize: CGFloat) {
-        configure(initials: VLCPlaceholderArtwork.initials(forName: name),
-                  color: VLCPlaceholderArtwork.backgroundColor(forName: name),
-                  textColor: VLCPlaceholderArtwork.foregroundColor(forName: name),
-                  cornerRadius: cornerRadius,
-                  fontSize: fontSize)
-
-        guard let artworkURL = artworkURL, artworkURL.isFileURL else {
-            return
-        }
-
-        self.artworkURL = artworkURL
-        artworkView.layer.cornerRadius = cornerRadius
-        setNeedsLayout()
+    private func clearArtwork() {
+        requestedArtworkURL = nil
+        requestedArtworkPixelSize = 0
+        artworkLoadFailed = false
+        artworkView.image = nil
+        artworkView.isHidden = true
     }
 
     override func layoutSubviews() {
@@ -120,7 +134,11 @@ class PodcastArtworkView: UIView {
             }
             DispatchQueue.main.async {
                 guard let self = self, self.requestedArtworkURL == artworkURL,
-                      self.requestedArtworkPixelSize == pixelSize, let image = image else {
+                      self.requestedArtworkPixelSize == pixelSize else {
+                    return
+                }
+                guard let image = image else {
+                    self.artworkLoadFailed = true
                     return
                 }
                 self.artworkView.image = image
