@@ -208,6 +208,7 @@ class PodcastShowDetailViewController: UIViewController {
         tableView.refreshControl = refreshControl
 
         store.addObserver(self)
+        store.addEpisodeObserver(self)
         store.prefetchArtwork(forShowId: show.id)
         refreshPlayingEpisodeId()
         reloadEpisodes()
@@ -415,6 +416,7 @@ class PodcastShowDetailViewController: UIViewController {
 
     deinit {
         store.removeObserver(self)
+        store.removeEpisodeObserver(self)
     }
 
     @objc private func applyTheme() {
@@ -536,6 +538,19 @@ extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchCont
         searchQuery = query
         reloadEpisodes()
         updateNavigationTitleVisibility()
+    }
+}
+
+// MARK: - PodcastStoreObserver
+
+extension PodcastShowDetailViewController: PodcastStoreObserver {
+    func podcastStore(_ store: PodcastStore, didUpdateEpisodeWithId episodeId: String) {
+        guard let row = episodes.firstIndex(where: { $0.id == episodeId }),
+              let episode = store.episode(withId: episodeId, showId: show.id) else {
+            return
+        }
+        episodes[row] = episode
+        reloadRows(forEpisodeIds: [episodeId])
     }
 }
 

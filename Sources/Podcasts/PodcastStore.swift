@@ -13,8 +13,14 @@
 import UIKit
 import VLCMediaLibraryKit
 
+@objc protocol PodcastStoreObserver {
+    func podcastStore(_ store: PodcastStore, didUpdateEpisodeWithId episodeId: String)
+}
+
 final class PodcastStore: NSObject {
     static let shared = PodcastStore()
+
+    private let episodeObservable = VLCObservable<PodcastStoreObserver>()
 
     private var subscriptionModel: PodcastSubscriptionModel?
     private var mediaLibraryService: MediaLibraryService?
@@ -112,9 +118,11 @@ final class PodcastStore: NSObject {
             }
             episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media, showId: showId)
             invalidateDerivedEpisodeCaches()
-            notifyReload()
-            return
+            break
         }
+
+        notifyEpisodeChanged(episodeId)
+        notifyReload()
     }
 
     func addObserver(_ observer: MediaLibraryBaseModelObserver) {
@@ -123,6 +131,14 @@ final class PodcastStore: NSObject {
 
     func removeObserver(_ observer: MediaLibraryBaseModelObserver) {
         subscriptionModel?.observable.removeObserver(observer)
+    }
+
+    func addEpisodeObserver(_ observer: PodcastStoreObserver) {
+        episodeObservable.addObserver(observer)
+    }
+
+    func removeEpisodeObserver(_ observer: PodcastStoreObserver) {
+        episodeObservable.removeObserver(observer)
     }
 
     // MARK: - Queries
@@ -405,6 +421,7 @@ final class PodcastStore: NSObject {
         media.setPlayCount(1)
 
         invalidateCaches()
+        notifyEpisodeChanged(episodeId)
         notifyReload()
     }
 
@@ -422,6 +439,7 @@ final class PodcastStore: NSObject {
             return
         }
         playbackRequest = (episodeId, showId, startPosition)
+        notifyEpisodeChanged(episodeId)
         notifyReload()
     }
 
@@ -708,6 +726,7 @@ extension PodcastStore: MediaLibraryObserver {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.pendingCacheMediaIds.insert(mediaId)
+            self.notifyEpisodeChanged(String(mediaId))
             self.notifyReload()
         }
     }
@@ -723,6 +742,7 @@ extension PodcastStore: MediaLibraryObserver {
                 APLog("podcast cache: media \(mediaId) ended with status \(status.rawValue)")
             }
             self.invalidateCaches()
+            self.notifyEpisodeChanged(String(mediaId))
             self.notifyReload()
 
             // A feed that never announces a content length, or an episode short enough to arrive
@@ -808,9 +828,11 @@ extension PodcastStore: MediaLibraryObserver {
                 self.episodesByShowId[showId]?[index] = PodcastStore.podcastEpisode(from: media,
                                                                                     showId: showId)
                 self.invalidateDerivedEpisodeCaches()
-                self.scheduleArtworkReload()
-                return
+                break
             }
+
+            self.notifyEpisodeChanged(episodeId)
+            self.scheduleArtworkReload()
         }
     }
 
@@ -846,5 +868,9 @@ extension PodcastStore: MediaLibraryObserver {
     private func notifyReload() {
         subscriptionModel?.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
         NotificationCenter.default.post(name: .VLCPodcastsContentDidChange, object: nil)
+    }
+
+    private func notifyEpisodeChanged(_ episodeId: String) {
+        episodeObservable.notifyObservers { $0.podcastStore(self, didUpdateEpisodeWithId: episodeId) }
     }
 }
