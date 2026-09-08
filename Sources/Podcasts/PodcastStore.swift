@@ -49,8 +49,12 @@ final class PodcastStore: NSObject {
     private var cachedShows: [PodcastShow]?
     private var cachedShowsById: [String: PodcastShow] = [:]
 
+    private static let derivedEpisodeCaches: [ReferenceWritableKeyPath<PodcastStore, [PodcastEpisode]?>] = [
+        \.cachedContinueListeningEpisodes, \.cachedResumeEpisode, \.cachedLatestEpisodes
+    ]
+
     private static let latestEpisodesPerShow = 3
-    private static let historyPageSize = 50
+    private static let mediaPageSize = 50
     private static let prefetchedArtworkEpisodes = 10
     private static let subscriptionRefreshInterval: TimeInterval = 30 * 60
     private static let subscriptionRefreshTimeout: TimeInterval = 30
@@ -156,30 +160,47 @@ final class PodcastStore: NSObject {
             return []
         }
 
-        let pageSize = PodcastStore.historyPageSize
+        return PodcastStore.episodes(limit: limit,
+                                     include: PodcastStore.isUnfinished,
+                                     showId: PodcastStore.showId(for:)) { offset, count in
+            mediaLibraryService.medialib.history(of: .global, count, offset) ?? []
+        }
+    }
+
+    private func newestEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
+        let showId = String(subscription.identifier())
+
+        return PodcastStore.episodes(limit: PodcastStore.latestEpisodesPerShow,
+                                     include: { !PodcastStore.isUnfinished($0) },
+                                     showId: { _ in showId }) { offset, count in
+            subscription.media(with: .releaseDate, desc: true, count, offset) ?? []
+        }
+    }
+
+    private static func episodes(limit: Int,
+                                 include: (VLCMLMedia) -> Bool,
+                                 showId: (VLCMLMedia) -> String?,
+                                 page: (_ offset: UInt32, _ count: UInt32) -> [VLCMLMedia]) -> [PodcastEpisode] {
+        let pageSize = PodcastStore.mediaPageSize
         var result: [PodcastEpisode] = []
         var offset = 0
 
-        while result.count < limit {
-            let page = mediaLibraryService.medialib.history(of: .global,
-                                                            UInt32(pageSize),
-                                                            UInt32(offset)) ?? []
-            for media in page where PodcastStore.isUnfinished(media) {
-                guard let showId = PodcastStore.showId(for: media) else {
+        while true {
+            let media = page(UInt32(offset), UInt32(pageSize))
+            for item in media where include(item) {
+                guard let showId = showId(item) else {
                     continue
                 }
-                result.append(PodcastStore.podcastEpisode(from: media, showId: showId))
-                if result.count >= limit {
+                result.append(podcastEpisode(from: item, showId: showId))
+                if result.count == limit {
                     return result
                 }
             }
-            guard page.count >= pageSize else {
+            guard media.count >= pageSize else {
                 return result
             }
-            offset += page.count
+            offset += media.count
         }
-
-        return result
     }
 
     private static func showId(for media: VLCMLMedia) -> String? {
@@ -188,34 +209,6 @@ final class PodcastStore: NSObject {
             return nil
         }
         return String(subscription.identifier())
-    }
-
-    private func newestEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
-        guard let subscriptionModel = subscriptionModel else {
-            return []
-        }
-
-        let showId = String(subscription.identifier())
-        let pageSize = PodcastStore.latestEpisodesPerShow
-        var result: [PodcastEpisode] = []
-        var offset = 0
-
-        while result.count < PodcastStore.latestEpisodesPerShow {
-            let page = subscriptionModel.media(for: subscription,
-                                               sortedBy: .releaseDate,
-                                               desc: true,
-                                               items: UInt32(pageSize),
-                                               offset: UInt32(offset))
-            for media in page where !PodcastStore.isUnfinished(media) {
-                result.append(PodcastStore.podcastEpisode(from: media, showId: showId))
-            }
-            guard page.count >= pageSize else {
-                break
-            }
-            offset += page.count
-        }
-
-        return Array(result.prefix(PodcastStore.latestEpisodesPerShow))
     }
 
     private static func isUnfinished(_ media: VLCMLMedia) -> Bool {
@@ -250,28 +243,19 @@ final class PodcastStore: NSObject {
                   matching query: String,
                   offset: Int,
                   count: Int) -> [PodcastEpisode] {
-        guard let subscriptionModel = subscriptionModel,
-              let subscription = subscription(withId: showId) else {
+        guard let subscription = subscription(withId: showId) else {
             return []
         }
 
         let sort = PodcastStore.sortingCriteria(for: criteria)
-        let media: [VLCMLMedia]
+        let media: [VLCMLMedia]?
         if query.isEmpty {
-            media = subscriptionModel.media(for: subscription,
-                                            sortedBy: sort,
-                                            desc: descending,
-                                            items: UInt32(count),
-                                            offset: UInt32(offset))
+            media = subscription.media(with: sort, desc: descending, UInt32(count), UInt32(offset))
         } else {
-            media = subscriptionModel.searchMedia(for: subscription,
-                                                  pattern: query,
-                                                  sortedBy: sort,
-                                                  desc: descending,
-                                                  items: UInt32(count),
-                                                  offset: UInt32(offset))
+            media = subscription.searchMedia(withPattern: query, sort: sort, desc: descending,
+                                             UInt32(count), UInt32(offset))
         }
-        return media.map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
+        return (media ?? []).map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
     }
 
     func episode(withId episodeId: String, showId: String) -> PodcastEpisode? {
@@ -676,9 +660,9 @@ final class PodcastStore: NSObject {
     }
 
     private func invalidateDerivedEpisodeCaches() {
-        cachedContinueListeningEpisodes = nil
-        cachedResumeEpisode = nil
-        cachedLatestEpisodes = nil
+        for cache in PodcastStore.derivedEpisodeCaches {
+            self[keyPath: cache] = nil
+        }
     }
 
     private func refreshCachedEpisode(withId episodeId: String) {
@@ -686,26 +670,18 @@ final class PodcastStore: NSObject {
             invalidateDerivedEpisodeCaches()
             return
         }
-        cachedContinueListeningEpisodes = PodcastStore.refreshing(cachedContinueListeningEpisodes,
-                                                                  episodeId: episodeId,
-                                                                  media: media)
-        cachedResumeEpisode = PodcastStore.refreshing(cachedResumeEpisode,
-                                                      episodeId: episodeId,
-                                                      media: media)
-        cachedLatestEpisodes = PodcastStore.refreshing(cachedLatestEpisodes,
-                                                       episodeId: episodeId,
-                                                       media: media)
+        for cache in PodcastStore.derivedEpisodeCaches {
+            refresh(&self[keyPath: cache], episodeId: episodeId, media: media)
+        }
     }
 
-    private static func refreshing(_ episodes: [PodcastEpisode]?,
-                                   episodeId: String,
-                                   media: VLCMLMedia) -> [PodcastEpisode]? {
-        guard var episodes = episodes,
-              let index = episodes.firstIndex(where: { $0.id == episodeId }) else {
-            return episodes
+    private func refresh(_ episodes: inout [PodcastEpisode]?, episodeId: String, media: VLCMLMedia) {
+        guard var list = episodes,
+              let index = list.firstIndex(where: { $0.id == episodeId }) else {
+            return
         }
-        episodes[index] = podcastEpisode(from: media, showId: episodes[index].showId)
-        return episodes
+        list[index] = PodcastStore.podcastEpisode(from: media, showId: list[index].showId)
+        episodes = list
     }
 
     private static func podcastShow(from subscription: VLCMLSubscription) -> PodcastShow {
