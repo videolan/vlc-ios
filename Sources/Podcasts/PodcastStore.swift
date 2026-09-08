@@ -58,12 +58,6 @@ final class PodcastStore: NSObject {
     private static let playbackStartFraction: Float = 0.2
     private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
 
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yMMMd")
-        return formatter
-    }()
-
     private override init() {
         super.init()
     }
@@ -714,16 +708,13 @@ final class PodcastStore: NSObject {
         // A media the library never played reports the epoch rather than no date at all.
         let lastPlayed = media.lastPlayedDate()
         let downloaded = media.files.contains { $0.type() == .cache }
-        let releaseDate = media.releaseDate()
         let subscriptionEpisode = media.subscriptionEpisode
         let notesHTML = subscriptionEpisode?.showNotes ?? media.shortSummary
         return PodcastEpisode(id: String(media.identifier()),
                                showId: showId,
                                title: media.title,
                                artworkURL: media.thumbnail(),
-                               date: dateFormatter.string(from: releaseDate),
-                               releaseDate: releaseDate,
-                               duration: VLCTime(number: NSNumber(value: media.duration())).stringValue,
+                               releaseDate: media.releaseDate(),
                                durationValue: media.duration(),
                                progress: progress,
                                lastPlayedDate: lastPlayed.timeIntervalSince1970 > 0 ? lastPlayed : nil,

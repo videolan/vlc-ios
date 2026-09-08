@@ -264,21 +264,25 @@ class PodcastEpisodeRowCell: UITableViewCell {
         statusIndicatorView.image = indicatorImage
         statusIndicatorView.isHidden = indicatorImage == nil
         updateStatusIndicatorColor()
-        var dateText = episode.date.uppercased()
-        if let number = episode.numberText {
+
+        let date = episode.date
+        let number = episode.numberText
+        let time = timeText(for: episode)
+
+        var dateText = date.uppercased()
+        if let number = number {
             dateText = number + " · " + dateText
         }
-        if let time = timeText(for: episode) {
+        if let time = time {
             dateText += " · " + time.uppercased()
         }
         setDateText(dateText, unplayed: isUnplayed)
 
         titleLabel.text = episode.title
 
-        let snippet = episode.notes?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let snippet = episode.notes
         snippetLabel.text = snippet
-        let hasSnippet = !(snippet?.isEmpty ?? true)
-        snippetLabel.isHidden = !hasSnippet
+        snippetLabel.isHidden = snippet == nil
 
         downloadButton.configure(downloaded: episode.downloaded, downloading: downloading)
         updatePlayButtonImage()
@@ -286,11 +290,11 @@ class PodcastEpisodeRowCell: UITableViewCell {
         textStack.alpha = episode.isPlayed ? PodcastEpisodeRowCell.playedAlpha : 1
 
         var accessibilityComponents = [episode.title]
-        if let number = episode.numberText {
+        if let number = number {
             accessibilityComponents.append(number)
         }
-        accessibilityComponents.append(episode.date)
-        if let time = timeText(for: episode) {
+        accessibilityComponents.append(date)
+        if let time = time {
             accessibilityComponents.append(time)
         }
         accessibilityLabel = accessibilityComponents.joined(separator: ", ")

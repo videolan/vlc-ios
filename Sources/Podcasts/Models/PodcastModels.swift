@@ -28,8 +28,7 @@ struct PodcastShow {
 struct PodcastEpisode {
     private static let playedThreshold = 0.95
 
-    // Show notes run to several kilobytes; the snippet only ever needs the first couple of lines,
-    // so cap the input before flattening it for every episode of every subscription.
+    // Show notes run to several kilobytes and the snippet only ever needs the first couple of lines.
     private static let snippetSourceLength = 500
 
     private static let durationFormatter: DateComponentsFormatter = {
@@ -37,6 +36,12 @@ struct PodcastEpisode {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .short
         formatter.zeroFormattingBehavior = .dropLeading
+        return formatter
+    }()
+
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("yMMMd")
         return formatter
     }()
 
@@ -52,9 +57,7 @@ struct PodcastEpisode {
     let showId: String
     let title: String
     let artworkURL: URL?
-    let date: String
     let releaseDate: Date
-    let duration: String
     let durationValue: Int64
     let progress: Double? // 0 means not started, 1 means finished. `nil` means never played.
     let lastPlayedDate: Date?
@@ -63,18 +66,13 @@ struct PodcastEpisode {
     let seasonNumber: UInt32
     let episodeNumber: UInt32
     let author: String?
-    let notes: String?
     let notesHTML: String?
-    let durationText: String?
-    let remainingText: String?
 
     init(id: String,
          showId: String,
          title: String,
          artworkURL: URL?,
-         date: String,
          releaseDate: Date,
-         duration: String,
          durationValue: Int64,
          progress: Double?,
          lastPlayedDate: Date?,
@@ -88,9 +86,7 @@ struct PodcastEpisode {
         self.showId = showId
         self.title = title
         self.artworkURL = artworkURL
-        self.date = date
         self.releaseDate = releaseDate
-        self.duration = duration
         self.durationValue = durationValue
         self.progress = progress
         self.lastPlayedDate = lastPlayedDate
@@ -100,15 +96,29 @@ struct PodcastEpisode {
         self.episodeNumber = episodeNumber
         self.author = author
         self.notesHTML = notesHTML
-        self.notes = PodcastEpisode.snippet(fromNotes: notesHTML)
-        self.durationText = PodcastEpisode.durationText(forMilliseconds: durationValue)
+    }
 
-        if let progress = progress, progress > 0, progress < 1 {
-            let remaining = Double(durationValue) * (1 - progress)
-            self.remainingText = PodcastEpisode.durationText(forMilliseconds: Int64(remaining))
-        } else {
-            self.remainingText = nil
+    var date: String {
+        return PodcastEpisode.dateFormatter.string(from: releaseDate)
+    }
+
+    var duration: String {
+        return VLCTime(number: NSNumber(value: durationValue)).stringValue
+    }
+
+    var notes: String? {
+        return PodcastEpisode.snippet(fromNotes: notesHTML)
+    }
+
+    var durationText: String? {
+        return PodcastEpisode.durationText(forMilliseconds: durationValue)
+    }
+
+    var remainingText: String? {
+        guard let progress = progress, progress > 0, progress < 1 else {
+            return nil
         }
+        return PodcastEpisode.durationText(forMilliseconds: Int64(Double(durationValue) * (1 - progress)))
     }
 
     var numberText: String? {
