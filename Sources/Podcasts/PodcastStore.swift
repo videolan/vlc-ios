@@ -637,7 +637,10 @@ final class PodcastStore: NSObject {
     // MARK: - Private helpers
 
     private func subscription(withId showId: String) -> VLCMLSubscription? {
-        return subscriptionModel?.subscriptions.first { String($0.identifier()) == showId }
+        guard let identifier = VLCMLIdentifier(showId) else {
+            return nil
+        }
+        return subscriptionModel?.subscriptions.first { $0.identifier() == identifier }
     }
 
     private func media(forEpisodeId episodeId: String) -> VLCMLMedia? {
