@@ -49,6 +49,7 @@ final class PodcastStore: NSObject {
     private var cachedShowsById: [String: PodcastShow] = [:]
 
     private static let latestEpisodesPerShow = 3
+    private static let historyPageSize = 50
     private static let prefetchedArtworkEpisodes = 10
     private static let subscriptionRefreshInterval: TimeInterval = 30 * 60
     private static let subscriptionRefreshTimeout: TimeInterval = 30
@@ -137,7 +138,7 @@ final class PodcastStore: NSObject {
             return cachedContinueListeningEpisodes
         }
 
-        let unfinished = (subscriptionModel?.subscriptions ?? []).flatMap(unfinishedEpisodes(forSubscription:))
+        let unfinished = unfinishedEpisodesFromHistory(limit: .max)
         cachedContinueListeningEpisodes = unfinished
         return unfinished
     }
@@ -154,30 +155,44 @@ final class PodcastStore: NSObject {
         return result
     }
 
-    private func unfinishedEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
-        guard let subscriptionModel = subscriptionModel else {
+    private func unfinishedEpisodesFromHistory(limit: Int) -> [PodcastEpisode] {
+        guard let mediaLibraryService = mediaLibraryService,
+              subscriptionModel?.subscriptions.isEmpty == false else {
             return []
         }
 
-        let showId = String(subscription.identifier())
-        let pageSize = Int(kVLCDefaultPageSize)
+        let pageSize = PodcastStore.historyPageSize
         var result: [PodcastEpisode] = []
         var offset = 0
 
-        while true {
-            let page = subscriptionModel.media(for: subscription,
-                                               sortedBy: .releaseDate,
-                                               desc: true,
-                                               items: UInt32(pageSize),
-                                               offset: UInt32(offset))
+        while result.count < limit {
+            let page = mediaLibraryService.medialib.history(of: .global,
+                                                            UInt32(pageSize),
+                                                            UInt32(offset)) ?? []
             for media in page where PodcastStore.isUnfinished(media) {
+                guard let showId = PodcastStore.showId(for: media) else {
+                    continue
+                }
                 result.append(PodcastStore.podcastEpisode(from: media, showId: showId))
+                if result.count >= limit {
+                    return result
+                }
             }
             guard page.count >= pageSize else {
                 return result
             }
             offset += page.count
         }
+
+        return result
+    }
+
+    private static func showId(for media: VLCMLMedia) -> String? {
+        guard media.nbSubscriptions() > 0,
+              let subscription = media.linkedSubscriptions(with: .alpha, desc: false)?.first else {
+            return nil
+        }
+        return String(subscription.identifier())
     }
 
     private func newestEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
@@ -213,17 +228,10 @@ final class PodcastStore: NSObject {
     }
 
     var resumeEpisode: PodcastEpisode? {
-        var newest: PodcastEpisode?
-        for episode in continueListeningEpisodes {
-            guard let date = episode.lastPlayedDate else {
-                continue
-            }
-            if let newestDate = newest?.lastPlayedDate, newestDate >= date {
-                continue
-            }
-            newest = episode
+        if let cachedContinueListeningEpisodes = cachedContinueListeningEpisodes {
+            return cachedContinueListeningEpisodes.first
         }
-        return newest
+        return unfinishedEpisodesFromHistory(limit: 1).first
     }
 
     func show(withId showId: String) -> PodcastShow? {
