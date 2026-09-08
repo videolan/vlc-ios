@@ -44,6 +44,7 @@ final class PodcastStore: NSObject {
     private var lastPlayedEpisodeId: String?
 
     private var cachedContinueListeningEpisodes: [PodcastEpisode]?
+    private var cachedResumeEpisode: [PodcastEpisode]?
     private var cachedLatestEpisodes: [PodcastEpisode]?
     private var cachedShows: [PodcastShow]?
     private var cachedShowsById: [String: PodcastShow] = [:]
@@ -225,7 +226,13 @@ final class PodcastStore: NSObject {
         if let cachedContinueListeningEpisodes = cachedContinueListeningEpisodes {
             return cachedContinueListeningEpisodes.first
         }
-        return unfinishedEpisodesFromHistory(limit: 1).first
+        if let cachedResumeEpisode = cachedResumeEpisode {
+            return cachedResumeEpisode.first
+        }
+
+        let resume = unfinishedEpisodesFromHistory(limit: 1)
+        cachedResumeEpisode = resume
+        return resume.first
     }
 
     func show(withId showId: String) -> PodcastShow? {
@@ -670,6 +677,7 @@ final class PodcastStore: NSObject {
 
     private func invalidateDerivedEpisodeCaches() {
         cachedContinueListeningEpisodes = nil
+        cachedResumeEpisode = nil
         cachedLatestEpisodes = nil
     }
 
@@ -681,6 +689,9 @@ final class PodcastStore: NSObject {
         cachedContinueListeningEpisodes = PodcastStore.refreshing(cachedContinueListeningEpisodes,
                                                                   episodeId: episodeId,
                                                                   media: media)
+        cachedResumeEpisode = PodcastStore.refreshing(cachedResumeEpisode,
+                                                      episodeId: episodeId,
+                                                      media: media)
         cachedLatestEpisodes = PodcastStore.refreshing(cachedLatestEpisodes,
                                                        episodeId: episodeId,
                                                        media: media)
