@@ -238,89 +238,41 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
 
     private func subscribeToPendingFeeds() {
         let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
-        let store = PodcastStore.shared
-        store.configure(mediaLibraryService: mediaLibraryService)
+        PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
 
         let feedURLs = pendingFeedURLs
         let fallbackURL = pendingFallbackURL
         pendingFeedURLs = []
         pendingFallbackURL = nil
 
-        guard feedURLs.count > 1 else {
-            guard let feedURL = feedURLs.first else {
-                return
-            }
-            subscribe(to: feedURL, fallbackURL: fallbackURL, store: store,
-                      mediaLibraryService: mediaLibraryService)
+        guard let podcastsViewController = showPodcasts(with: mediaLibraryService) else {
+            presentError(.unknown)
             return
         }
 
-        addSubscriptions(feedURLs, at: 0, failureCount: 0, store: store) { failureCount in
-            if failureCount < feedURLs.count {
-                self.showPodcasts(with: mediaLibraryService)
-            }
-
-            guard failureCount > 0 else {
-                return
-            }
-
-            self.presentAlert(message: String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
-                                              failureCount, feedURLs.count))
-        }
+        podcastsViewController.subscribe(to: feedURLs, fallbackURL: fallbackURL)
     }
 
-    private func subscribe(to feedURL: URL, fallbackURL: URL?, store: PodcastStore,
-                           mediaLibraryService: MediaLibraryService) {
-        store.addSubscription(mrl: feedURL) { result in
-            switch result {
-            case .success:
-                self.showPodcasts(with: mediaLibraryService)
-            case .failure(let reason):
-                guard let fallbackURL = fallbackURL else {
-                    self.presentError(reason)
-                    return
-                }
-                self.subscribe(to: fallbackURL, fallbackURL: nil, store: store,
-                               mediaLibraryService: mediaLibraryService)
-            }
-        }
-    }
-
-    private func addSubscriptions(_ feedURLs: [URL], at index: Int, failureCount: Int,
-                                  store: PodcastStore, completion: @escaping (Int) -> Void) {
-        guard index < feedURLs.count else {
-            completion(failureCount)
-            return
-        }
-
-        store.addSubscription(mrl: feedURLs[index]) { result in
-            var updatedFailureCount = failureCount
-            if case .failure = result {
-                updatedFailureCount += 1
-            }
-            self.addSubscriptions(feedURLs, at: index + 1, failureCount: updatedFailureCount,
-                                  store: store, completion: completion)
-        }
-    }
-
-    private func showPodcasts(with mediaLibraryService: MediaLibraryService) {
+    private func showPodcasts(with mediaLibraryService: MediaLibraryService) -> PodcastsViewController? {
         let tabBarController = VLCAppCoordinator.sharedInstance().tabBarController
         guard let controllers = tabBarController.viewControllers,
               let index = controllers.firstIndex(where: {
                   ($0 as? UINavigationController)?.viewControllers.first is VLCOnAirViewController
               }),
               let navigationController = controllers[index] as? UINavigationController else {
-            return
+            return nil
         }
 
         tabBarController.selectedIndex = index
 
-        guard !(navigationController.topViewController is PodcastsViewController) else {
-            return
+        if let podcastsViewController = navigationController.viewControllers.compactMap({ $0 as? PodcastsViewController }).last {
+            navigationController.popToViewController(podcastsViewController, animated: true)
+            return podcastsViewController
         }
 
         let podcastsViewController = PodcastsViewController(mediaLibraryService: mediaLibraryService)
         navigationController.pushViewController(podcastsViewController, animated: true)
+        return podcastsViewController
     }
 
     // MARK: - Errors

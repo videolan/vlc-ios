@@ -23,6 +23,8 @@ class PodcastsViewController: UIViewController {
 
     private var revealedLatestEpisodesCount = Int(kVLCDefaultPageSize)
 
+    private var isSubscribing = false
+
     private var visibleLatestEpisodes: ArraySlice<PodcastEpisode> {
         return store.latestEpisodes.prefix(revealedLatestEpisodesCount)
     }
@@ -62,6 +64,23 @@ class PodcastsViewController: UIViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return refreshControl
+    }()
+
+    private lazy var subscribeIndicator: UIActivityIndicatorView = {
+        let style: UIActivityIndicatorView.Style
+#if os(visionOS)
+        style = .large
+#else
+        if #available(iOS 13.0, *) {
+            style = .large
+        } else {
+            style = .whiteLarge
+        }
+#endif
+        let indicator = UIActivityIndicatorView(style: style)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
     }()
 
     private lazy var emptyStateView: PodcastsEmptyStateView = {
@@ -109,6 +128,7 @@ class PodcastsViewController: UIViewController {
 
         view.addSubview(tableView)
         view.addSubview(emptyStateView)
+        view.addSubview(subscribeIndicator)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -118,7 +138,10 @@ class PodcastsViewController: UIViewController {
 
             emptyStateView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20),
             emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+
+            subscribeIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            subscribeIndicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
 
         tableView.refreshControl = refreshControl
@@ -184,12 +207,13 @@ class PodcastsViewController: UIViewController {
 
         let isEmpty = store.shows.isEmpty
         tableView.isHidden = isEmpty
-        emptyStateView.isHidden = !isEmpty
+        emptyStateView.isHidden = !isEmpty || isSubscribing
     }
 
     @objc private func applyTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
         tableView.backgroundColor = PresentationTheme.current.colors.background
+        subscribeIndicator.color = PresentationTheme.current.colors.cellTextColor
     }
 
     @objc private func didTapSearch() {
@@ -298,16 +322,93 @@ class PodcastsViewController: UIViewController {
                 return
             }
 
-            self.store.addSubscription(mrl: url) { [weak self] result in
-                if case .failure(let reason) = result {
-                    self?.presentAddSubscriptionError(reason)
-                }
-            }
+            self.subscribe(to: [url], fallbackURL: nil)
         }
 
         alertController.addAction(cancelAction)
         alertController.addAction(addAction)
         present(alertController, animated: true)
+    }
+
+    func subscribe(to feedURLs: [URL], fallbackURL: URL?) {
+        guard !isSubscribing, !feedURLs.isEmpty else {
+            return
+        }
+
+        loadViewIfNeeded()
+        beginSubscribing()
+
+        guard feedURLs.count > 1 else {
+            addSubscription(to: feedURLs[0], fallbackURL: fallbackURL)
+            return
+        }
+
+        addSubscriptions(feedURLs, at: 0, failureCount: 0) { [weak self] failureCount in
+            guard let self = self else { return }
+
+            self.endSubscribing()
+
+            guard failureCount > 0 else {
+                return
+            }
+
+            VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_ADD_BUTTON", comment: ""),
+                                                    errorMessage: String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
+                                                                         failureCount, feedURLs.count),
+                                                    viewController: self)
+        }
+    }
+
+    private func addSubscription(to feedURL: URL, fallbackURL: URL?) {
+        store.addSubscription(mrl: feedURL) { [weak self] result in
+            guard let self = self else { return }
+
+            guard case .failure(let reason) = result else {
+                self.endSubscribing()
+                return
+            }
+
+            guard let fallbackURL = fallbackURL else {
+                self.endSubscribing()
+                self.presentAddSubscriptionError(reason)
+                return
+            }
+
+            self.addSubscription(to: fallbackURL, fallbackURL: nil)
+        }
+    }
+
+    private func addSubscriptions(_ feedURLs: [URL], at index: Int, failureCount: Int,
+                                  completion: @escaping (Int) -> Void) {
+        guard index < feedURLs.count else {
+            completion(failureCount)
+            return
+        }
+
+        store.addSubscription(mrl: feedURLs[index]) { [weak self] result in
+            guard let self = self else { return }
+
+            var updatedFailureCount = failureCount
+            if case .failure = result {
+                updatedFailureCount += 1
+            }
+            self.addSubscriptions(feedURLs, at: index + 1, failureCount: updatedFailureCount,
+                                  completion: completion)
+        }
+    }
+
+    private func beginSubscribing() {
+        isSubscribing = true
+        navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = false }
+        subscribeIndicator.startAnimating()
+        updateContentVisibility()
+    }
+
+    private func endSubscribing() {
+        isSubscribing = false
+        navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = true }
+        subscribeIndicator.stopAnimating()
+        updateContentVisibility()
     }
 
     private func presentAddSubscriptionError(_ reason: PodcastAddSubscriptionError) {
