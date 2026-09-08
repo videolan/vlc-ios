@@ -34,6 +34,23 @@ final class PodcastSubscriptionModel: NSObject {
         return subscription.media() ?? []
     }
 
+    func media(for subscription: VLCMLSubscription,
+               sortedBy criteria: VLCMLSortingCriteria,
+               desc: Bool,
+               items: UInt32,
+               offset: UInt32) -> [VLCMLMedia] {
+        return subscription.media(with: criteria, desc: desc, items, offset) ?? []
+    }
+
+    func searchMedia(for subscription: VLCMLSubscription,
+                     pattern: String,
+                     sortedBy criteria: VLCMLSortingCriteria,
+                     desc: Bool,
+                     items: UInt32,
+                     offset: UInt32) -> [VLCMLMedia] {
+        return subscription.searchMedia(withPattern: pattern, sort: criteria, desc: desc, items, offset) ?? []
+    }
+
     func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
