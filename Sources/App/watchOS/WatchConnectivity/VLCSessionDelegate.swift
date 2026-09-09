@@ -205,8 +205,7 @@ class VLCSessionDelegate: NSObject, WCSessionDelegate {
                let iphoneAlbumID = message.payload[kVLCiPhoneAlbumID] as? VLCMLIdentifier,
                let iphoneAlbumName = message.payload[kVLCiPhoneAlbumName] as? String,
                let iphoneArtistID = message.payload[kVLCiPhoneArtistID] as? VLCMLIdentifier,
-               let iphoneArtistName = message.payload[kVLCiPhoneArtistName] as? String
-            {
+               let iphoneArtistName = message.payload[kVLCiPhoneArtistName] as? String {
                 print("mlSyncManager.didReceiveFile timmy")
                 mlSyncManager?.didReceiveFile(
                     iphoneMediaId: iphoneMediaID,
