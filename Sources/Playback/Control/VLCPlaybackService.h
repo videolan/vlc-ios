@@ -207,7 +207,9 @@ NS_SWIFT_NAME(PlaybackService)
 - (NSIndexPath *)selectedEqualizerProfile;
 #endif
 
-- (void) saveCurrentlyPlayingMediaIdentifier;
-- (void) restoreLastPlayedMediaList;
+#if !TARGET_OS_WATCH
+- (void)saveCurrentlyPlayingMediaIdentifier;
+#endif
+
 NS_ASSUME_NONNULL_END
 @end
