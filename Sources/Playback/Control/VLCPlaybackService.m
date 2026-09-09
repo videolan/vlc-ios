@@ -457,13 +457,22 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         int count = (int)_mediaList.count;
         if (_shuffleMode && count > 0) {
             _itemInMediaListToBePlayedFirst = arc4random_uniform(count - 1);
-            [self shuffleMediaList];
         } else {
             _itemInMediaListToBePlayedFirst = 0;
         }
     }
 
-    VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
+    if (_shuffleMode && _mediaList.count > 1) {
+        _currentIndex = _itemInMediaListToBePlayedFirst;
+        [self shuffleMediaList];
+        _currentIndex = 0;
+        _shuffledList = nil;
+        [self rebuildShuffledListIfNeeded];
+        _itemInMediaListToBePlayedFirst = 0;
+    }
+
+    VLCMediaList *initialMediaList = (_shuffleMode && _shuffledList.count > 0) ? _shuffledList : _mediaList;
+    VLCMedia *media = [initialMediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
     media.delegate = self;
     // add options to the media
     if (self.mediaOptionsDictionary) {
@@ -1156,25 +1165,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     if (_shuffleMode) {
         [self shuffleMediaList];
         _currentIndex = 0;
-
-        @synchronized (_shuffledOrder) {
-            if ([_shuffledList count] == 0) {
-                NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
-                NSUInteger mediaListCount = _mediaList.count;
-                NSUInteger shuffledOrderCount = _shuffledOrder.count;
-                for (NSInteger i = _currentIndex; i < mediaListCount; i++) {
-                    if (i < shuffledOrderCount) {
-                        NSUInteger shuffleOrderIndex = [_shuffledOrder[i] unsignedIntegerValue];
-                        if (shuffleOrderIndex < mediaListCount) {
-                            [shuffledMedias addObject:[_mediaList mediaAtIndex:shuffleOrderIndex]];
-                        }
-                    }
-                }
-
-                _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
-                _listPlayer.mediaList = _shuffledList;
-            }
-        }
+        [self rebuildShuffledListIfNeeded];
     } else {
         _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
         _shuffledList = nil;
@@ -1215,6 +1206,30 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
             [_shuffledOrder exchangeObjectAtIndex:i withObjectAtIndex:n];
         }
+    }
+}
+
+- (void)rebuildShuffledListIfNeeded
+{
+    @synchronized (_shuffledOrder) {
+        if ([_shuffledList count] != 0) {
+            return;
+        }
+
+        NSMutableArray<VLCMedia *> *shuffledMedias = [[NSMutableArray alloc] init];
+        NSUInteger mediaListCount = _mediaList.count;
+        NSUInteger shuffledOrderCount = _shuffledOrder.count;
+        for (NSInteger i = _currentIndex; i < mediaListCount; i++) {
+            if (i < shuffledOrderCount) {
+                NSUInteger shuffleOrderIndex = [_shuffledOrder[i] unsignedIntegerValue];
+                if (shuffleOrderIndex < mediaListCount) {
+                    [shuffledMedias addObject:[_mediaList mediaAtIndex:shuffleOrderIndex]];
+                }
+            }
+        }
+
+        _shuffledList = [[VLCMediaList alloc] initWithArray:shuffledMedias];
+        _listPlayer.mediaList = _shuffledList;
     }
 }
 
