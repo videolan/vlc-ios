@@ -79,7 +79,7 @@
 				<string>3.00x</string>
 				<string>3.50x</string>
 				<string>4.00x</string>
-				<string>Custom Speed</string>
+				<string>SETTINGS_CUSTOM_PLAYBACK_SPEED</string>
 			</array>
 			<key>Values</key>
 			<array>

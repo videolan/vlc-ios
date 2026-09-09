@@ -52,6 +52,7 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+"SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
 
 "SETTINGS_GESTURES" = "Playback Controls";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
