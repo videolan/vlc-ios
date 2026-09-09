@@ -48,7 +48,7 @@ enum IntentError: Error, CustomLocalizedStringResourceConvertible {
 
 // The system only lets an audio intent activate its audio session while perform() is still running.
 @available(iOS 16.0, *)
-final class PlaybackStartWaiter {
+final class PlaybackStartWaiter: @unchecked Sendable {
     private static let defaultTimeout: TimeInterval = 15
 
     private var continuation: CheckedContinuation<Bool, Never>?
