@@ -24,7 +24,7 @@ enum SettingsSpecifierCache {
 
     static func localizedString(for key: String) -> String {
         let localized = settingsBundle?.localizedString(forKey: key, value: key, table: "Root") ?? key
-        return localized == key ? NSLocalizedString(key, comment: "") : localized
+        return localized == key ? Bundle.main.localizedString(forKey: key, value: key, table: nil) : localized
     }
 
     static func customValue(for preferenceKey: String) -> CustomValueSpecifier? {
