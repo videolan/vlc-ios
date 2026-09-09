@@ -13,6 +13,12 @@
 #import "UIImage+AverageColor.h"
 #import "VLC-Swift.h"
 
+enum {
+    kVLCAverageColorSide = 40,
+    kVLCAverageColorBytesPerPixel = 4,
+    kVLCAverageColorBytesPerRow = kVLCAverageColorSide * kVLCAverageColorBytesPerPixel,
+};
+
 @implementation UIImage(AverageColor)
 
 - (UIColor *)averageColor
@@ -25,38 +31,36 @@
     // Render the source image into a small bitmap of a known layout (RGBA8,
     // premultiplied, no row padding) so we never depend on the format of the
     // thumbnail handed to us by the media library.
-    const size_t side = 40;
-    const size_t bytesPerPixel = 4;
-    const size_t bytesPerRow = side * bytesPerPixel;
-    UInt8 pixels[side * bytesPerRow];
+    UInt8 pixels[kVLCAverageColorSide * kVLCAverageColorBytesPerRow];
     memset(pixels, 0, sizeof(pixels));
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pixels, side, side, 8, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextRef context = CGBitmapContextCreate(pixels, kVLCAverageColorSide, kVLCAverageColorSide, 8,
+                                                 kVLCAverageColorBytesPerRow, colorSpace,
+                                                 (CGBitmapInfo)kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
     if (!context) {
         return PresentationTheme.current.colors.background;
     }
 
     CGContextSetInterpolationQuality(context, kCGInterpolationLow);
-    CGContextDrawImage(context, CGRectMake(0, 0, side, side), imageRef);
+    CGContextDrawImage(context, CGRectMake(0, 0, kVLCAverageColorSide, kVLCAverageColorSide), imageRef);
     CGContextRelease(context);
 
     NSUInteger totalRed = 0;
     NSUInteger totalGreen = 0;
     NSUInteger totalBlue = 0;
 
-    for (size_t y = 0; y < side; y++) {
-        for (size_t x = 0; x < side; x++) {
-            const UInt8 *pixel = &pixels[y * bytesPerRow + x * bytesPerPixel];
+    for (size_t y = 0; y < kVLCAverageColorSide; y++) {
+        for (size_t x = 0; x < kVLCAverageColorSide; x++) {
+            const UInt8 *pixel = &pixels[y * kVLCAverageColorBytesPerRow + x * kVLCAverageColorBytesPerPixel];
             totalRed += pixel[0];
             totalGreen += pixel[1];
             totalBlue += pixel[2];
         }
     }
 
-    const NSUInteger pixelCount = side * side;
+    const NSUInteger pixelCount = kVLCAverageColorSide * kVLCAverageColorSide;
     CGFloat avgRed = (CGFloat)totalRed / pixelCount / 255.0;
     CGFloat avgGreen = (CGFloat)totalGreen / pixelCount / 255.0;
     CGFloat avgBlue = (CGFloat)totalBlue / pixelCount / 255.0;
