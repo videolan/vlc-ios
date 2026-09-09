@@ -12,6 +12,16 @@
 
 import UIKit
 
+struct PodcastFeedRequest {
+    let url: URL
+    let fallbackURL: URL?
+
+    init(url: URL, fallbackURL: URL? = nil) {
+        self.url = url
+        self.fallbackURL = fallbackURL
+    }
+}
+
 final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
     var subURL: URL?
@@ -22,8 +32,8 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     private static let feedSchemes = ["feed", "feeds", "pcast", "itpc"]
     private static let feedPathExtensions = ["opml", "rss"]
 
-    private var pendingFeedURLs: [URL] = []
-    private var pendingFallbackURL: URL?
+    private var pendingFeeds: [PodcastFeedRequest] = []
+    private weak var confirmationAlert: UIAlertController?
     private var activationObserver: NSObjectProtocol?
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
@@ -36,9 +46,6 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        pendingFeedURLs = []
-        pendingFallbackURL = nil
-
         guard !url.isFileURL else {
             resolveDocument(at: url)
             return true
@@ -49,9 +56,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             return true
         }
 
-        pendingFeedURLs = [resolved.primary]
-        pendingFallbackURL = resolved.fallback
-        presentConfirmationWhenPossible()
+        addPendingFeeds([PodcastFeedRequest(url: resolved.primary, fallbackURL: resolved.fallback)])
         return true
     }
 
@@ -134,8 +139,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
                     return
                 }
 
-                self.pendingFeedURLs = documentFeedURLs
-                self.presentConfirmationWhenPossible()
+                self.addPendingFeeds(documentFeedURLs.map { PodcastFeedRequest(url: $0) })
             }
         }
     }
@@ -169,6 +173,14 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
 
     // MARK: - Confirmation
 
+    private func addPendingFeeds(_ feeds: [PodcastFeedRequest]) {
+        for feed in feeds where !pendingFeeds.contains(where: { $0.url == feed.url }) {
+            pendingFeeds.append(feed)
+        }
+
+        presentConfirmationWhenPossible()
+    }
+
     private func presentConfirmationWhenPossible() {
         DispatchQueue.main.async {
             self.removeActivationObserver()
@@ -181,7 +193,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             self.activationObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification,
                                                                             object: nil,
                                                                             queue: .main) { _ in
-                guard self.presentConfirmation() || self.pendingFeedURLs.isEmpty else {
+                guard self.presentConfirmation() || self.pendingFeeds.isEmpty else {
                     return
                 }
 
@@ -201,34 +213,44 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
 
     @discardableResult
     private func presentConfirmation() -> Bool {
-        guard !pendingFeedURLs.isEmpty,
-              let viewController = UIApplication.shared.topViewController else {
+        guard !pendingFeeds.isEmpty else {
             return false
         }
 
-        let message: String
-        if pendingFeedURLs.count == 1 {
-            message = pendingFeedURLs[0].absoluteString
-        } else {
-            message = String(format: NSLocalizedString("PODCAST_SUBSCRIBE_FEEDS_MESSAGE", comment: ""),
-                             pendingFeedURLs.count)
+        if let confirmationAlert = confirmationAlert {
+            confirmationAlert.message = confirmationMessage()
+            return true
+        }
+
+        guard let viewController = UIApplication.shared.topViewController else {
+            return false
         }
 
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
                                           style: .cancel) { _ in
-            self.pendingFeedURLs = []
-            self.pendingFallbackURL = nil
+            self.confirmationAlert = nil
+            self.pendingFeeds = []
         }
         let subscribeButton = VLCAlertButton(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                              style: .default) { _ in
+            self.confirmationAlert = nil
             self.subscribeToPendingFeeds()
         }
 
-        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
-                                                errorMessage: message,
-                                                viewController: viewController,
-                                                buttonsAction: [cancelButton, subscribeButton])
+        confirmationAlert = VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
+                                                                    errorMessage: confirmationMessage(),
+                                                                    viewController: viewController,
+                                                                    buttonsAction: [cancelButton, subscribeButton])
         return true
+    }
+
+    private func confirmationMessage() -> String {
+        guard pendingFeeds.count > 1 else {
+            return pendingFeeds[0].url.absoluteString
+        }
+
+        return String(format: NSLocalizedString("PODCAST_SUBSCRIBE_FEEDS_MESSAGE", comment: ""),
+                      pendingFeeds.count)
     }
 
     // MARK: - Subscribing
@@ -237,17 +259,15 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
         let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
         PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
 
-        let feedURLs = pendingFeedURLs
-        let fallbackURL = pendingFallbackURL
-        pendingFeedURLs = []
-        pendingFallbackURL = nil
+        let feeds = pendingFeeds
+        pendingFeeds = []
 
         guard let podcastsViewController = showPodcasts(with: mediaLibraryService) else {
             presentError(.unknown)
             return
         }
 
-        podcastsViewController.subscribe(to: feedURLs, fallbackURL: fallbackURL)
+        podcastsViewController.subscribe(to: feeds)
     }
 
     private func showPodcasts(with mediaLibraryService: MediaLibraryService) -> PodcastsViewController? {

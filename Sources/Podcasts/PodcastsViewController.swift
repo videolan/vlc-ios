@@ -322,7 +322,7 @@ class PodcastsViewController: UIViewController {
                 return
             }
 
-            self.subscribe(to: [url], fallbackURL: nil)
+            self.subscribe(to: [PodcastFeedRequest(url: url)])
         }
 
         alertController.addAction(cancelAction)
@@ -330,20 +330,20 @@ class PodcastsViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-    func subscribe(to feedURLs: [URL], fallbackURL: URL?) {
-        guard !isSubscribing, !feedURLs.isEmpty else {
+    func subscribe(to feeds: [PodcastFeedRequest]) {
+        guard !isSubscribing, !feeds.isEmpty else {
             return
         }
 
         loadViewIfNeeded()
         beginSubscribing()
 
-        guard feedURLs.count > 1 else {
-            addSubscription(to: feedURLs[0], fallbackURL: fallbackURL)
+        guard feeds.count > 1 else {
+            addSubscription(to: feeds[0])
             return
         }
 
-        addSubscriptions(feedURLs, at: 0, failureCount: 0) { [weak self] failureCount in
+        addSubscriptions(feeds, at: 0, failureCount: 0) { [weak self] failureCount in
             guard let self = self else { return }
 
             self.endSubscribing()
@@ -354,13 +354,13 @@ class PodcastsViewController: UIViewController {
 
             VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
                                                     errorMessage: String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
-                                                                         failureCount, feedURLs.count),
+                                                                         failureCount, feeds.count),
                                                     viewController: self)
         }
     }
 
-    private func addSubscription(to feedURL: URL, fallbackURL: URL?) {
-        store.addSubscription(mrl: feedURL) { [weak self] result in
+    private func addSubscription(to feed: PodcastFeedRequest) {
+        store.addSubscription(mrl: feed.url) { [weak self] result in
             guard let self = self else { return }
 
             guard case .failure(let reason) = result else {
@@ -368,32 +368,48 @@ class PodcastsViewController: UIViewController {
                 return
             }
 
-            guard let fallbackURL = fallbackURL else {
+            guard let fallbackURL = feed.fallbackURL else {
                 self.endSubscribing()
                 self.presentAddSubscriptionError(reason)
                 return
             }
 
-            self.addSubscription(to: fallbackURL, fallbackURL: nil)
+            self.addSubscription(to: PodcastFeedRequest(url: fallbackURL))
         }
     }
 
-    private func addSubscriptions(_ feedURLs: [URL], at index: Int, failureCount: Int,
+    private func addSubscriptions(_ feeds: [PodcastFeedRequest], at index: Int, failureCount: Int,
                                   completion: @escaping (Int) -> Void) {
-        guard index < feedURLs.count else {
+        guard index < feeds.count else {
             completion(failureCount)
             return
         }
 
-        store.addSubscription(mrl: feedURLs[index]) { [weak self] result in
+        store.addSubscription(mrl: feeds[index].url) { [weak self] result in
             guard let self = self else { return }
 
-            var updatedFailureCount = failureCount
-            if case .failure = result {
-                updatedFailureCount += 1
+            guard case .failure = result else {
+                self.addSubscriptions(feeds, at: index + 1, failureCount: failureCount,
+                                      completion: completion)
+                return
             }
-            self.addSubscriptions(feedURLs, at: index + 1, failureCount: updatedFailureCount,
-                                  completion: completion)
+
+            guard let fallbackURL = feeds[index].fallbackURL else {
+                self.addSubscriptions(feeds, at: index + 1, failureCount: failureCount + 1,
+                                      completion: completion)
+                return
+            }
+
+            self.store.addSubscription(mrl: fallbackURL) { [weak self] fallbackResult in
+                guard let self = self else { return }
+
+                var updatedFailureCount = failureCount
+                if case .failure = fallbackResult {
+                    updatedFailureCount += 1
+                }
+                self.addSubscriptions(feeds, at: index + 1, failureCount: updatedFailureCount,
+                                      completion: completion)
+            }
         }
     }
 

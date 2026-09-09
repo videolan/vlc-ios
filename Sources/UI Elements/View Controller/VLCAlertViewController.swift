@@ -41,10 +41,11 @@ typealias AlertAction = (UIAlertAction) -> Void
                                                 buttonsAction: nil)
     }
 
+    @discardableResult
     static func alertViewManager(title: String,
                                  errorMessage: String? = nil,
                                  viewController: UIViewController,
-                                 buttonsAction: [VLCAlertButton]?) {
+                                 buttonsAction: [VLCAlertButton]?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         if let buttonsAction = buttonsAction {
             for buttonAction in buttonsAction {
@@ -61,6 +62,7 @@ typealias AlertAction = (UIAlertAction) -> Void
         }
         alert.show(viewController, sender: Any?.self)
         viewController.present(alert, animated: true, completion: nil)
+        return alert
     }
 
     static func alertManagerWithTextField(title: String, description: String? = nil,
