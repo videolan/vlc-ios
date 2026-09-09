@@ -10,7 +10,7 @@ only_rules:
   - legacy_constructor
   - mark
   - opening_brace
-  - operator_whitespace
+  - function_name_whitespace
   - private_unit_test
   - redundant_nil_coalescing
   - redundant_string_enum_value
@@ -23,9 +23,6 @@ excluded:
   - Pods
   - .bundle
   - fastlane
-
-colon:
-  apply_to_dictionaries: false
 
 custom_rules:
   equal_sign_whitespace:
