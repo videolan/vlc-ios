@@ -148,12 +148,7 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
     tile.accessibilityLabel = item.accessoryLabel ? [NSString stringWithFormat:@"%@, %@", item.name, item.accessoryLabel]
                                                   : item.name;
 
-    CGFloat maxPixelSize = 0.0;
-    if (item.downsamplesArtwork) {
-        CGFloat scale = collectionView.traitCollection.displayScale;
-        maxPixelSize = _tileSide * (scale > 0.0 ? scale : 2.0);
-    }
-    [tile configureWithName:item.name artworkURL:item.artworkURL maxPixelSize:maxPixelSize];
+    [tile configureWithName:item.name artworkURL:item.artworkURL];
     return tile;
 }
 

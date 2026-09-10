@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) VLCArtworkTileBadge badge;
 @property (nonatomic, copy, nullable) NSString *accessoryGlyphName;
 @property (nonatomic, copy, nullable) NSString *accessoryLabel;
-@property (nonatomic) BOOL downsamplesArtwork;
 
 - (instancetype)initWithName:(NSString *)name artworkURL:(nullable NSURL *)artworkURL;
 - (instancetype)init NS_UNAVAILABLE;

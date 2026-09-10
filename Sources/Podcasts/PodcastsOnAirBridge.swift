@@ -47,7 +47,6 @@ extension VLCOnAirRailItem {
     convenience init(show: PodcastShow) {
         self.init(name: show.name, artworkURL: show.artworkURL)
         subtitle = String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), show.episodeCount)
-        downsamplesArtwork = true
     }
 }
 

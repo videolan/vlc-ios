@@ -392,11 +392,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 - (void)configureWithName:(NSString *)name artworkURL:(NSURL *)artworkURL
 {
-    [self configureWithName:name artworkURL:artworkURL maxPixelSize:0.];
-}
-
-- (void)configureWithName:(NSString *)name artworkURL:(NSURL *)artworkURL maxPixelSize:(CGFloat)maxPixelSize
-{
     _nameLabel.text = name;
     _nameLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 
@@ -406,7 +401,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
     if (artworkURL) {
         _artworkView.hidden = NO;
-        [_artworkView setImageWithURL:artworkURL maxPixelSize:maxPixelSize];
+        [_artworkView setImageWithURL:artworkURL];
     } else {
         _artworkView.hidden = YES;
     }
