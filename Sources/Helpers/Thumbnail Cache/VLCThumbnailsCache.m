@@ -28,10 +28,10 @@
 
 @implementation VLCThumbnailsCache
 
-#define MAX_CACHE_SIZE_IPHONE (16 * 1024 * 1024)
-#define MAX_CACHE_SIZE_IPAD   (24 * 1024 * 1024)
+#define MAX_CACHE_SIZE_IPHONE (32 * 1024 * 1024)
+#define MAX_CACHE_SIZE_IPAD   (48 * 1024 * 1024)
 #define MAX_CACHE_SIZE_WATCH  (8 * 1024 * 1024)
-#define MAX_CACHE_SIZE_tvOS   (64 * 1024 * 1024)
+#define MAX_CACHE_SIZE_tvOS   (128 * 1024 * 1024)
 #define DEFAULT_MAX_PIXEL_SIZE 1024.f
 
 - (instancetype)init
