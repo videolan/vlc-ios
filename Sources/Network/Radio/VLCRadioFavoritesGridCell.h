@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)heightForFavoriteCount:(NSInteger)count width:(CGFloat)width;
 + (NSInteger)columnsForWidth:(CGFloat)width;
++ (CGFloat)tileWidthForWidth:(CGFloat)width columns:(NSInteger)columns;
 
 @end
 

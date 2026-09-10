@@ -125,7 +125,9 @@
                 <outlet property="folderTitleLabel" destination="23" id="24"/>
                 <outlet property="statusLabel" destination="28" id="29"/>
                 <outlet property="subtitleLabel" destination="7" id="8"/>
+                <outlet property="thumbnailHeightConstraint" destination="yWC-Jh-3pH" id="PdA-tH-sz2"/>
                 <outlet property="thumbnailView" destination="4" id="9"/>
+                <outlet property="thumbnailWidthConstraint" destination="q3t-5m-D2K" id="PdA-tW-sz1"/>
                 <outlet property="titleLabel" destination="6" id="10"/>
             </connections>
             <point key="canvasLocation" x="454" y="376"/>

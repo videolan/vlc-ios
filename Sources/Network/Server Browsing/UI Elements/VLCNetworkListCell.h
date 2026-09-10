@@ -26,6 +26,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *thumbnailWidthConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *thumbnailHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 @property (nonatomic, strong) IBOutlet UIButton *favoriteButton;
