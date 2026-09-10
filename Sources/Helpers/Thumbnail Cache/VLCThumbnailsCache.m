@@ -89,6 +89,40 @@
     return [sharedCache _thumbnailForURL:url maxPixelSize:maxPixelSize];
 }
 
++ (UIImage *)cachedImageForURL:(NSURL *)url
+{
+    if (!url) {
+        return nil;
+    }
+    VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
+    return [sharedCache _largestCachedImageForURL:url];
+}
+
++ (UIImage *)cachedImageForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
+{
+    if (!url) {
+        return nil;
+    }
+    if (maxPixelSize <= 0.) {
+        maxPixelSize = DEFAULT_MAX_PIXEL_SIZE;
+    }
+    VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
+    return [sharedCache->_thumbnailCache objectForKey:[sharedCache cacheKeyForURL:url maxPixelSize:maxPixelSize]];
+}
+
++ (UIImage *)imageFromData:(NSData *)data forURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
+{
+    if (maxPixelSize <= 0.) {
+        maxPixelSize = DEFAULT_MAX_PIXEL_SIZE;
+    }
+    UIImage *image = [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:maxPixelSize];
+    if (image && url) {
+        VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
+        [sharedCache storeImage:image forKey:[sharedCache cacheKeyForURL:url maxPixelSize:maxPixelSize] maxPixelSize:maxPixelSize];
+    }
+    return image;
+}
+
 + (UIImage *)downsampledImageFromData:(NSData *)data
 {
     return [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:DEFAULT_MAX_PIXEL_SIZE];
@@ -142,7 +176,8 @@
 
 - (NSString *)cacheKeyForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
 {
-    return [NSString stringWithFormat:@"%@|%.0f", url.path, maxPixelSize];
+    NSString *identifier = url.isFileURL ? url.path : url.absoluteString;
+    return [NSString stringWithFormat:@"%@|%.0f", identifier, maxPixelSize];
 }
 
 - (UIImage *)_thumbnailForURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize
@@ -165,13 +200,34 @@
         return nil;
     }
 
+    [self storeImage:theImage forKey:key maxPixelSize:maxPixelSize];
+
+    return theImage;
+}
+
+- (void)storeImage:(UIImage *)image forKey:(NSString *)key maxPixelSize:(CGFloat)maxPixelSize
+{
     [_knownMaxPixelSizesLock lock];
     [_knownMaxPixelSizes addObject:@(maxPixelSize)];
     [_knownMaxPixelSizesLock unlock];
 
-    [_thumbnailCache setObject:theImage forKey:key cost:[self costForImage:theImage]];
+    [_thumbnailCache setObject:image forKey:key cost:[self costForImage:image]];
+}
 
-    return theImage;
+- (UIImage *)_largestCachedImageForURL:(NSURL *)url
+{
+    [_knownMaxPixelSizesLock lock];
+    NSArray<NSNumber *> *maxPixelSizes = [_knownMaxPixelSizes.allObjects sortedArrayUsingSelector:@selector(compare:)];
+    [_knownMaxPixelSizesLock unlock];
+
+    for (NSNumber *maxPixelSize in maxPixelSizes.reverseObjectEnumerator) {
+        UIImage *image = [_thumbnailCache objectForKey:[self cacheKeyForURL:url
+                                                               maxPixelSize:maxPixelSize.doubleValue]];
+        if (image) {
+            return image;
+        }
+    }
+    return nil;
 }
 
 - (UIImage *)downsampledImageAtPath:(NSString *)path maxPixelSize:(CGFloat)maxPixelSize
