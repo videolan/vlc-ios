@@ -21,15 +21,27 @@ class PulsingConeView: UIView {
         return coneImageView
     }()
 
-    private let appearanceDelay: TimeInterval = 1.0
+    private let coneSize: CGFloat
+    private let appearanceDelay: TimeInterval
     private var delayTimer: Timer?
 
     override init(frame: CGRect) {
+        coneSize = 80
+        appearanceDelay = 1.0
         super.init(frame: frame)
         setupView()
     }
 
+    @objc init(coneSize: CGFloat) {
+        self.coneSize = coneSize
+        appearanceDelay = 0
+        super.init(frame: CGRect(x: 0, y: 0, width: coneSize, height: coneSize))
+        setupView()
+    }
+
     required init?(coder: NSCoder) {
+        coneSize = 80
+        appearanceDelay = 1.0
         super.init(coder: coder)
         setupView()
     }
@@ -41,8 +53,8 @@ class PulsingConeView: UIView {
         NSLayoutConstraint.activate([
             coneImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             coneImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            coneImageView.widthAnchor.constraint(equalToConstant: 80),
-            coneImageView.heightAnchor.constraint(equalToConstant: 80)
+            coneImageView.widthAnchor.constraint(equalToConstant: coneSize),
+            coneImageView.heightAnchor.constraint(equalToConstant: coneSize)
         ])
     }
 
