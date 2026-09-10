@@ -43,13 +43,15 @@ extension NSNotification {
     }
 }
 
-@objc final class PodcastsOnAirBridge: NSObject {
-    @objc static let showsCellReuseIdentifier = "OnAirPodcastShowsCell"
-
-    @objc static func registerShowsCell(with tableView: UITableView) {
-        tableView.register(ShowsSectionCell.self, forCellReuseIdentifier: showsCellReuseIdentifier)
+extension VLCOnAirRailItem {
+    convenience init(show: PodcastShow) {
+        self.init(name: show.name, artworkURL: show.artworkURL)
+        subtitle = String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), show.episodeCount)
+        downsamplesArtwork = true
     }
+}
 
+@objc final class PodcastsOnAirBridge: NSObject {
     @objc static func configure(mediaLibraryService: MediaLibraryService) {
         PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
     }
@@ -89,26 +91,22 @@ extension NSNotification {
         PodcastStore.shared.interruptCaching()
     }
 
-    @discardableResult
-    @objc static func configureShowsCell(_ cell: UITableViewCell, onSelectShowId: @escaping (String) -> Void) -> Bool {
-        guard let showsCell = cell as? ShowsSectionCell else {
-            return false
-        }
-        showsCell.shows = PodcastStore.shared.shows
-        showsCell.onSelectShow = { show in
-            onSelectShowId(show.id)
-        }
-        return true
+    @objc static var showRailItems: [VLCOnAirRailItem] {
+        let store = PodcastStore.shared
+        let shows = store.shows
+        shows.forEach { store.requestArtwork(for: $0) }
+        return shows.map { VLCOnAirRailItem(show: $0) }
     }
 
     @objc static func makePodcastsViewController(mediaLibraryService: MediaLibraryService) -> UIViewController {
         return PodcastsViewController(mediaLibraryService: mediaLibraryService)
     }
 
-    @objc static func makeShowDetailViewController(forShowId showId: String) -> UIViewController? {
-        guard let show = PodcastStore.shared.show(withId: showId) else {
+    @objc static func makeShowDetailViewController(forShowAt index: Int) -> UIViewController? {
+        let shows = PodcastStore.shared.shows
+        guard shows.indices.contains(index) else {
             return nil
         }
-        return PodcastShowDetailViewController(show: show)
+        return PodcastShowDetailViewController(show: shows[index])
     }
 }

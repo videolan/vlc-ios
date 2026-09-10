@@ -58,6 +58,7 @@
 #import "VLCRadioErrorView.h"
 #import "VLCPodcastIndexService.h"
 #import "VLCOnAirViewController.h"
+#import "VLCOnAirRailCell.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCMediaList+M3U.h"
 

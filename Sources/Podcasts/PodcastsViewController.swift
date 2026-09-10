@@ -46,7 +46,7 @@ class PodcastsViewController: UIViewController {
         tableView.estimatedRowHeight = 76
         tableView.register(ContinueListeningSectionCell.self,
                             forCellReuseIdentifier: ContinueListeningSectionCell.reuseIdentifier)
-        tableView.register(ShowsSectionCell.self, forCellReuseIdentifier: ShowsSectionCell.reuseIdentifier)
+        tableView.register(VLCOnAirRailCell.self, forCellReuseIdentifier: VLCOnAirRailCell.reuseIdentifier)
         tableView.register(PodcastEpisodeCell.self, forCellReuseIdentifier: PodcastEpisodeCell.reuseIdentifier)
         tableView.register(PodcastSectionHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: PodcastSectionHeaderView.reuseIdentifier)
@@ -535,15 +535,15 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return cell
         case .shows:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ShowsSectionCell.reuseIdentifier,
-                                                           for: indexPath) as? ShowsSectionCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: VLCOnAirRailCell.reuseIdentifier,
+                                                           for: indexPath) as? VLCOnAirRailCell else {
                 return UITableViewCell()
             }
 
-            cell.shows = store.shows
-            cell.onSelectShow = { [weak self] show in
-                self?.openShow(show)
-            }
+            let shows = store.shows
+            shows.forEach { store.requestArtwork(for: $0) }
+            cell.delegate = self
+            cell.configure(items: shows.map { VLCOnAirRailItem(show: $0) }, showsSubtitles: true, showsAddTile: false)
             return cell
         case .latestEpisodes:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeCell.reuseIdentifier,
@@ -556,6 +556,13 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !isSearching && visibleSections[indexPath.section] == .shows {
+            return VLCOnAirRailCell.height(withSubtitles: true)
+        }
+        return UITableView.automaticDimension
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if isSearching {
@@ -563,6 +570,18 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if visibleSections[indexPath.section] == .latestEpisodes {
             openShow(forEpisode: store.latestEpisodes[indexPath.row])
         }
+    }
+}
+
+// MARK: - VLCOnAirRailCellDelegate
+
+extension PodcastsViewController: VLCOnAirRailCellDelegate {
+    func railCell(_ cell: VLCOnAirRailCell, didSelectItemAt index: Int) {
+        let shows = store.shows
+        guard shows.indices.contains(index) else {
+            return
+        }
+        openShow(shows[index])
     }
 }
 

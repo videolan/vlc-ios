@@ -99,7 +99,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
        forCellReuseIdentifier:VLCOnAirRailCell.reuseIdentifier];
     [_tableView registerClass:[VLCOnAirPromptCell class]
        forCellReuseIdentifier:VLCOnAirPromptCell.reuseIdentifier];
-    [PodcastsOnAirBridge registerShowsCellWith:_tableView];
 
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -495,23 +494,13 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         return cell;
     }
 
-    if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
+    if ([self sectionHasRail:section]) {
         VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
                                                                  forIndexPath:indexPath];
         cell.delegate = self;
         [cell configureWithItems:[self railItemsForSection:section]
-                  showsSubtitles:NO
+                  showsSubtitles:section == VLCOnAirSectionPodcasts
                     showsAddTile:section == VLCOnAirSectionRadio];
-        return cell;
-    }
-
-    if (section == VLCOnAirSectionPodcasts && [self sectionHasRail:section]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PodcastsOnAirBridge.showsCellReuseIdentifier
-                                                                 forIndexPath:indexPath];
-        __weak typeof(self) weakSelf = self;
-        [PodcastsOnAirBridge configureShowsCell:cell onSelectShowId:^(NSString *showId) {
-            [weakSelf showPodcastShowWithId:showId];
-        }];
         return cell;
     }
 
@@ -529,6 +518,10 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (NSArray<VLCOnAirRailItem *> *)railItemsForSection:(VLCOnAirSection)section
 {
+    if (section == VLCOnAirSectionPodcasts) {
+        return PodcastsOnAirBridge.showRailItems;
+    }
+
     NSArray<VLCFavorite *> *streams = [self streamsForSection:section];
     NSMutableArray<VLCOnAirRailItem *> *items = [NSMutableArray arrayWithCapacity:streams.count];
     for (VLCFavorite *stream in streams) {
@@ -614,8 +607,8 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
-    if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
-        return [VLCOnAirRailCell heightWithSubtitles:NO];
+    if ([self sectionHasRail:section]) {
+        return [VLCOnAirRailCell heightWithSubtitles:section == VLCOnAirSectionPodcasts];
     }
 
     return UITableViewAutomaticDimension;
@@ -732,7 +725,13 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         return;
     }
 
-    NSArray<VLCFavorite *> *streams = [self streamsForSection:[self sectionAtIndex:indexPath.section]];
+    VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
+    if (section == VLCOnAirSectionPodcasts) {
+        [self showPodcastShowAtIndex:index];
+        return;
+    }
+
+    NSArray<VLCFavorite *> *streams = [self streamsForSection:section];
     if (index >= (NSInteger)streams.count) {
         return;
     }
@@ -830,9 +829,9 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [self.navigationController pushViewController:podcastsViewController animated:YES];
 }
 
-- (void)showPodcastShowWithId:(NSString *)showId
+- (void)showPodcastShowAtIndex:(NSInteger)index
 {
-    UIViewController *detailViewController = [PodcastsOnAirBridge makeShowDetailViewControllerForShowId:showId];
+    UIViewController *detailViewController = [PodcastsOnAirBridge makeShowDetailViewControllerForShowAt:index];
     if (!detailViewController) {
         return;
     }
