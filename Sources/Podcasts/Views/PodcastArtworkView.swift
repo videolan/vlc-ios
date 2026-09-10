@@ -20,8 +20,8 @@ class PodcastArtworkView: UIView {
         return label
     }()
 
-    private let artworkView: UIImageView = {
-        let imageView = UIImageView()
+    private let artworkView: VLCNetworkImageView = {
+        let imageView = VLCNetworkImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isHidden = true
@@ -75,9 +75,8 @@ class PodcastArtworkView: UIView {
                          cornerRadius: cornerRadius,
                          fontSize: fontSize)
 
-        let artwork = artworkURL?.isFileURL == true ? artworkURL : nil
-        if artwork != self.artworkURL {
-            self.artworkURL = artwork
+        if artworkURL != self.artworkURL {
+            self.artworkURL = artworkURL
         } else if !artworkLoadFailed {
             return
         }
@@ -90,7 +89,7 @@ class PodcastArtworkView: UIView {
                                   cornerRadius: CGFloat, fontSize: CGFloat) {
         initialsLabel.text = initials
         initialsLabel.textColor = textColor
-        initialsLabel.font = .systemFont(ofSize: fontSize, weight: .medium)
+        initialsLabel.font = .systemFont(ofSize: fontSize, weight: .heavy)
         backgroundColor = color
         layer.cornerRadius = cornerRadius
         artworkView.layer.cornerRadius = cornerRadius
@@ -100,6 +99,7 @@ class PodcastArtworkView: UIView {
         requestedArtworkURL = nil
         requestedArtworkPixelSize = 0
         artworkLoadFailed = false
+        artworkView.cancelLoading()
         artworkView.image = nil
         artworkView.isHidden = true
     }
@@ -126,6 +126,12 @@ class PodcastArtworkView: UIView {
         }
         requestedArtworkURL = artworkURL
         requestedArtworkPixelSize = pixelSize
+
+        guard artworkURL.isFileURL else {
+            artworkView.isHidden = false
+            artworkView.setImageWith(artworkURL, maxPixelSize: maxPixelSize)
+            return
+        }
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let image = VLCThumbnailsCache.thumbnail(for: artworkURL, maxPixelSize: maxPixelSize)
