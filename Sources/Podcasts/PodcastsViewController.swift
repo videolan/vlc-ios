@@ -555,7 +555,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
 
             cell.episodes = store.continueListeningEpisodes
             cell.onSelectEpisode = { [weak self] episode in
-                self?.openShow(forEpisode: episode)
+                self?.store.playEpisode(episodeId: episode.id, showId: episode.showId)
             }
             return cell
         case .shows:
