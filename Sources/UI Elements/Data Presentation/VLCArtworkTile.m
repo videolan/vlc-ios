@@ -34,6 +34,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     UIButton *_accessoryButton;
     UIButton *_moreButton;
     UILabel *_nameLabel;
+    UILabel *_subtitleLabel;
 }
 
 + (NSString *)reuseIdentifier
@@ -127,6 +128,14 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.contentView addSubview:_nameLabel];
 
+    _subtitleLabel = [[UILabel alloc] init];
+    _subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    _subtitleLabel.numberOfLines = 1;
+    _subtitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _subtitleLabel.hidden = YES;
+    [self.contentView addSubview:_subtitleLabel];
+
     [NSLayoutConstraint activateConstraints:@[
         [_artworkContainer.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
         [_artworkContainer.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
@@ -173,7 +182,12 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         [_nameLabel.topAnchor constraintEqualToAnchor:_artworkContainer.bottomAnchor constant:6.0],
         [_nameLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:2.0],
         [_nameLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-2.0],
-        [_nameLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor]
+        [_nameLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
+
+        [_subtitleLabel.topAnchor constraintEqualToAnchor:_nameLabel.bottomAnchor constant:1.0],
+        [_subtitleLabel.leadingAnchor constraintEqualToAnchor:_nameLabel.leadingAnchor],
+        [_subtitleLabel.trailingAnchor constraintEqualToAnchor:_nameLabel.trailingAnchor],
+        [_subtitleLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor]
     ]];
 }
 
@@ -277,6 +291,14 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     if (@available(iOS 13.0, *)) {
         _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:_badge]];
     }
+}
+
+- (void)setSubtitle:(NSString *)subtitle
+{
+    _subtitle = [subtitle copy];
+    _subtitleLabel.text = _subtitle;
+    _subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    _subtitleLabel.hidden = _subtitle.length == 0;
 }
 
 - (void)setPillText:(NSString *)pillText
@@ -393,6 +415,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _artworkView.hidden = NO;
     _nameLabel.text = nil;
     _initialsLabel.text = nil;
+    self.subtitle = nil;
     self.pillText = nil;
     self.accessoryGlyphName = nil;
     self.badgeImage = nil;
