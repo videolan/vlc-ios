@@ -479,6 +479,14 @@ class PodcastsViewController: UIViewController {
         }
         openShow(show)
     }
+
+    private func openEpisode(_ episode: PodcastEpisode) {
+        guard let show = store.show(withId: episode.showId) else {
+            return
+        }
+        let detailViewController = PodcastEpisodeDetailViewController(episode: episode, show: show)
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource / UITableViewDelegate
@@ -592,7 +600,7 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
         if isSearching {
             openShow(forEpisode: filteredEpisodes[indexPath.row])
         } else if visibleSections[indexPath.section] == .latestEpisodes {
-            openShow(forEpisode: store.latestEpisodes[indexPath.row])
+            openEpisode(store.latestEpisodes[indexPath.row])
         }
     }
 }
