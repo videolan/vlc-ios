@@ -11,15 +11,32 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCArtworkTile.h"
 
-@class VLCFavorite;
 @class VLCOnAirRailCell;
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface VLCOnAirRailItem : NSObject
+
+@property (readonly) NSString *name;
+@property (readonly, nullable) NSURL *artworkURL;
+@property (nonatomic, copy, nullable) NSString *subtitle;
+@property (nonatomic) VLCArtworkTileBadge badge;
+@property (nonatomic, copy, nullable) NSString *accessoryGlyphName;
+@property (nonatomic, copy, nullable) NSString *accessoryLabel;
+@property (nonatomic) BOOL downsamplesArtwork;
+
+- (instancetype)initWithName:(NSString *)name artworkURL:(nullable NSURL *)artworkURL;
+- (instancetype)init NS_UNAVAILABLE;
+
+@end
+
 @protocol VLCOnAirRailCellDelegate <NSObject>
 
 - (void)railCell:(VLCOnAirRailCell *)cell didSelectItemAtIndex:(NSInteger)index;
+
+@optional
 - (void)railCellDidSelectAddTile:(VLCOnAirRailCell *)cell;
 
 @end
@@ -27,10 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCOnAirRailCell : UITableViewCell
 
 @property (class, readonly) NSString *reuseIdentifier;
-@property (class, readonly) CGFloat height;
 @property (nonatomic, weak) id<VLCOnAirRailCellDelegate> delegate;
+@property (nonatomic) CGFloat tileSide;
 
-- (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites showsAddTile:(BOOL)showsAddTile;
++ (CGFloat)heightWithSubtitles:(BOOL)showsSubtitles;
++ (CGFloat)heightWithTileSide:(CGFloat)tileSide subtitles:(BOOL)showsSubtitles;
+
+- (void)configureWithItems:(NSArray<VLCOnAirRailItem *> *)items
+            showsSubtitles:(BOOL)showsSubtitles
+              showsAddTile:(BOOL)showsAddTile NS_SWIFT_NAME(configure(items:showsSubtitles:showsAddTile:));
 
 @end
 

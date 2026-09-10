@@ -495,19 +495,13 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         return cell;
     }
 
-    if (section == VLCOnAirSectionRadio && [self sectionHasRail:section]) {
+    if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
         VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
                                                                  forIndexPath:indexPath];
         cell.delegate = self;
-        [cell configureWithFavorites:_radioFavorites showsAddTile:YES];
-        return cell;
-    }
-
-    if (section == VLCOnAirSectionRadioRecent && [self sectionHasRail:section]) {
-        VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
-                                                                 forIndexPath:indexPath];
-        cell.delegate = self;
-        [cell configureWithFavorites:_recentStreams showsAddTile:NO];
+        [cell configureWithItems:[self railItemsForSection:section]
+                  showsSubtitles:NO
+                    showsAddTile:section == VLCOnAirSectionRadio];
         return cell;
     }
 
@@ -526,6 +520,24 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     cell.delegate = self;
     [self configurePromptCell:cell forSection:section];
     return cell;
+}
+
+- (NSArray<VLCFavorite *> *)streamsForSection:(VLCOnAirSection)section
+{
+    return section == VLCOnAirSectionRadioRecent ? _recentStreams : _radioFavorites;
+}
+
+- (NSArray<VLCOnAirRailItem *> *)railItemsForSection:(VLCOnAirSection)section
+{
+    NSArray<VLCFavorite *> *streams = [self streamsForSection:section];
+    NSMutableArray<VLCOnAirRailItem *> *items = [NSMutableArray arrayWithCapacity:streams.count];
+    for (VLCFavorite *stream in streams) {
+        VLCOnAirRailItem *item = [[VLCOnAirRailItem alloc] initWithName:stream.userVisibleName
+                                                             artworkURL:stream.artworkURL];
+        item.badge = VLCArtworkTileBadgePlay;
+        [items addObject:item];
+    }
+    return items;
 }
 
 - (void)configurePromptCell:(VLCOnAirPromptCell *)cell forSection:(VLCOnAirSection)section
@@ -603,7 +615,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 {
     VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
     if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
-        return VLCOnAirRailCell.height;
+        return [VLCOnAirRailCell heightWithSubtitles:NO];
     }
 
     return UITableViewAutomaticDimension;
@@ -713,24 +725,19 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 #pragma mark - cell delegates
 
-- (NSArray<VLCFavorite *> *)itemsForRailCell:(VLCOnAirRailCell *)cell
-{
-    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
-    if (indexPath && [self sectionAtIndex:indexPath.section] == VLCOnAirSectionRadioRecent) {
-        return _recentStreams;
-    }
-
-    return _radioFavorites;
-}
-
 - (void)railCell:(VLCOnAirRailCell *)cell didSelectItemAtIndex:(NSInteger)index
 {
-    NSArray<VLCFavorite *> *items = [self itemsForRailCell:cell];
-    if (index >= (NSInteger)items.count) {
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    if (!indexPath) {
         return;
     }
 
-    [self playFavorite:items[index]];
+    NSArray<VLCFavorite *> *streams = [self streamsForSection:[self sectionAtIndex:indexPath.section]];
+    if (index >= (NSInteger)streams.count) {
+        return;
+    }
+
+    [self playFavorite:streams[index]];
 }
 
 - (void)railCellDidSelectAddTile:(VLCOnAirRailCell *)cell
