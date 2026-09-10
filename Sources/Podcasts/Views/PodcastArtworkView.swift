@@ -30,9 +30,6 @@ class PodcastArtworkView: UIView {
     }()
 
     private var artworkURL: URL?
-    private var requestedArtworkURL: URL?
-    private var requestedArtworkPixelSize = 0
-    private var artworkLoadFailed = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,14 +72,17 @@ class PodcastArtworkView: UIView {
                          cornerRadius: cornerRadius,
                          fontSize: fontSize)
 
-        if artworkURL != self.artworkURL {
-            self.artworkURL = artworkURL
-        } else if !artworkLoadFailed {
+        if artworkURL == self.artworkURL && (artworkURL?.isFileURL != true || artworkView.image != nil) {
             return
         }
+        self.artworkURL = artworkURL
 
         clearArtwork()
-        setNeedsLayout()
+        guard let artworkURL = artworkURL else {
+            return
+        }
+        artworkView.isHidden = false
+        artworkView.setImageWith(artworkURL)
     }
 
     private func applyPlaceholder(initials: String, color: UIColor, textColor: UIColor,
@@ -96,60 +96,8 @@ class PodcastArtworkView: UIView {
     }
 
     private func clearArtwork() {
-        requestedArtworkURL = nil
-        requestedArtworkPixelSize = 0
-        artworkLoadFailed = false
         artworkView.cancelLoading()
         artworkView.image = nil
         artworkView.isHidden = true
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        loadArtworkIfNeeded()
-    }
-
-    private func loadArtworkIfNeeded() {
-        guard let artworkURL = artworkURL else {
-            return
-        }
-
-        let scale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 2
-        let maxPixelSize = max(bounds.width, bounds.height) * scale
-        guard maxPixelSize > 0 else {
-            return
-        }
-
-        let pixelSize = Int(maxPixelSize)
-        guard artworkURL != requestedArtworkURL || pixelSize != requestedArtworkPixelSize else {
-            return
-        }
-        requestedArtworkURL = artworkURL
-        requestedArtworkPixelSize = pixelSize
-
-        guard artworkURL.isFileURL else {
-            artworkView.isHidden = false
-            artworkView.setImageWith(artworkURL, maxPixelSize: maxPixelSize)
-            return
-        }
-
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            let image = VLCThumbnailsCache.thumbnail(for: artworkURL, maxPixelSize: maxPixelSize)
-            if image == nil {
-                APLog("podcast artwork: failed to load \(artworkURL.path)")
-            }
-            DispatchQueue.main.async {
-                guard let self = self, self.requestedArtworkURL == artworkURL,
-                      self.requestedArtworkPixelSize == pixelSize else {
-                    return
-                }
-                guard let image = image else {
-                    self.artworkLoadFailed = true
-                    return
-                }
-                self.artworkView.image = image
-                self.artworkView.isHidden = false
-            }
-        }
     }
 }
