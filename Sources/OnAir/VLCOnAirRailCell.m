@@ -18,12 +18,10 @@
 static CGFloat const kVLCOnAirRailGap = 12.0;
 static CGFloat const kVLCOnAirRailSideMargin = 20.0;
 static CGFloat const kVLCOnAirRailNameArea = 22.0;
-static CGFloat const kVLCOnAirRailCompactTileSide = 72.0;
-static CGFloat const kVLCOnAirRailRegularTileSide = 108.0;
-static CGFloat const kVLCOnAirRailRegularWidthThreshold = 600.0;
+static CGFloat const kVLCOnAirRailTileSide = 72.0;
 static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
 
-@interface VLCOnAirRailCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface VLCOnAirRailCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
 
 @implementation VLCOnAirRailCell
@@ -32,7 +30,6 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
     NSArray<VLCFavorite *> *_favorites;
     NSUInteger _favoriteCount;
     BOOL _showsAddTile;
-    CGFloat _tileSide;
 }
 
 + (NSString *)reuseIdentifier
@@ -40,15 +37,9 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
     return @"VLCOnAirRailCell";
 }
 
-+ (CGFloat)tileSideForWidth:(CGFloat)width
++ (CGFloat)height
 {
-    return width >= kVLCOnAirRailRegularWidthThreshold ? kVLCOnAirRailRegularTileSide
-                                                       : kVLCOnAirRailCompactTileSide;
-}
-
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-    return [self tileSideForWidth:width] + kVLCOnAirRailNameArea;
+    return kVLCOnAirRailTileSide + kVLCOnAirRailNameArea;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -66,6 +57,7 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
 
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.itemSize = CGSizeMake(kVLCOnAirRailTileSide, VLCOnAirRailCell.height);
         layout.minimumInteritemSpacing = kVLCOnAirRailGap;
         layout.minimumLineSpacing = kVLCOnAirRailGap;
         layout.sectionInset = UIEdgeInsetsMake(0.0, kVLCOnAirRailSideMargin, 0.0, kVLCOnAirRailSideMargin);
@@ -93,14 +85,11 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
     return self;
 }
 
-- (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites
-                  showsAddTile:(BOOL)showsAddTile
-                referenceWidth:(CGFloat)referenceWidth
+- (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites showsAddTile:(BOOL)showsAddTile
 {
     _favorites = favorites;
     _favoriteCount = favorites.count;
     _showsAddTile = showsAddTile;
-    _tileSide = [VLCOnAirRailCell tileSideForWidth:referenceWidth];
     [_collectionView setContentOffset:CGPointZero animated:NO];
     [_collectionView reloadData];
 }
@@ -132,13 +121,6 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
 }
 
 #pragma mark - collection view delegate
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(_tileSide, _tileSide + kVLCOnAirRailNameArea);
-}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

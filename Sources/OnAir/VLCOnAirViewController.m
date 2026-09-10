@@ -499,9 +499,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
                                                                  forIndexPath:indexPath];
         cell.delegate = self;
-        [cell configureWithFavorites:_radioFavorites
-                        showsAddTile:YES
-                      referenceWidth:CGRectGetWidth(tableView.bounds)];
+        [cell configureWithFavorites:_radioFavorites showsAddTile:YES];
         return cell;
     }
 
@@ -509,9 +507,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         VLCOnAirRailCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCOnAirRailCell.reuseIdentifier
                                                                  forIndexPath:indexPath];
         cell.delegate = self;
-        [cell configureWithFavorites:_recentStreams
-                        showsAddTile:NO
-                      referenceWidth:CGRectGetWidth(tableView.bounds)];
+        [cell configureWithFavorites:_recentStreams showsAddTile:NO];
         return cell;
     }
 
@@ -607,7 +603,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 {
     VLCOnAirSection section = [self sectionAtIndex:indexPath.section];
     if ((section == VLCOnAirSectionRadio || section == VLCOnAirSectionRadioRecent) && [self sectionHasRail:section]) {
-        return [VLCOnAirRailCell heightForWidth:CGRectGetWidth(tableView.bounds)];
+        return VLCOnAirRailCell.height;
     }
 
     return UITableViewAutomaticDimension;

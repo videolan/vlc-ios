@@ -27,14 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCOnAirRailCell : UITableViewCell
 
 @property (class, readonly) NSString *reuseIdentifier;
+@property (class, readonly) CGFloat height;
 @property (nonatomic, weak) id<VLCOnAirRailCellDelegate> delegate;
 
-- (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites
-                  showsAddTile:(BOOL)showsAddTile
-                referenceWidth:(CGFloat)referenceWidth;
-
-+ (CGFloat)tileSideForWidth:(CGFloat)width;
-+ (CGFloat)heightForWidth:(CGFloat)width;
+- (void)configureWithFavorites:(NSArray<VLCFavorite *> *)favorites showsAddTile:(BOOL)showsAddTile;
 
 @end
 
