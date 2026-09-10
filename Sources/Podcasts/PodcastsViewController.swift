@@ -172,6 +172,13 @@ class PodcastsViewController: UIViewController {
         updateContentVisibility()
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { _ in
+            self.tableView.reloadData()
+        }
+    }
+
     @objc private func miniPlayerIsShown() {
         tableView.setMiniPlayerInset(true)
     }
@@ -589,10 +596,17 @@ extension PodcastsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !isSearching && visibleSections[indexPath.section] == .shows {
-            return VLCOnAirRailCell.height(withSubtitles: true)
+        guard !isSearching else {
+            return UITableView.automaticDimension
         }
-        return UITableView.automaticDimension
+        switch visibleSections[indexPath.section] {
+        case .shows:
+            return VLCOnAirRailCell.height(withSubtitles: true)
+        case .continueListening:
+            return ContinueListeningSectionCell.height(forWidth: tableView.bounds.width)
+        case .latestEpisodes:
+            return UITableView.automaticDimension
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -15,8 +15,17 @@ import UIKit
 class ContinueListeningSectionCell: UITableViewCell {
     static let reuseIdentifier = "ContinueListeningSectionCell"
 
-    private static let itemWidth: CGFloat = 148
-    private static let itemHeight: CGFloat = 148 + 8 + 16 + 15
+    private static let textAreaHeight: CGFloat = 8 + 16 + 15
+    private static let verticalPadding: CGFloat = 4
+
+    static func height(forWidth width: CGFloat) -> CGFloat {
+        return tileWidth(forWidth: width) + textAreaHeight + 2 * verticalPadding
+    }
+
+    private static func tileWidth(forWidth width: CGFloat) -> CGFloat {
+        let columns = VLCRadioFavoritesGridCell.columns(forWidth: width)
+        return VLCRadioFavoritesGridCell.tileWidth(forWidth: width, columns: columns)
+    }
 
     var episodes: [PodcastEpisode] = [] {
         didSet {
@@ -29,7 +38,6 @@ class ContinueListeningSectionCell: UITableViewCell {
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: Self.itemWidth, height: Self.itemHeight)
         layout.minimumLineSpacing = 14
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return layout
@@ -62,16 +70,15 @@ class ContinueListeningSectionCell: UITableViewCell {
         backgroundColor = .clear
         contentView.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Self.verticalPadding),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.verticalPadding),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: Self.itemHeight)
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }
 
-extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return episodes.count
     }
@@ -84,6 +91,12 @@ extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollection
         let episode = episodes[indexPath.item]
         cell.configure(episode: episode, show: PodcastStore.shared.show(withId: episode.showId))
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let tileWidth = Self.tileWidth(forWidth: collectionView.bounds.width)
+        return CGSize(width: tileWidth, height: tileWidth + Self.textAreaHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
