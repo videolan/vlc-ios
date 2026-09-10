@@ -28,30 +28,30 @@ typedef void (^VLCHTTPClientFailureBlock)(NSError *error);
 @property (readonly) NSURL *baseURL;
 @property (readwrite, copy) NSString *userAgent;
 
-- (void)performRequestWithMethod:(NSString *)method
-                            path:(NSString *)path
+- (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method
+                                              path:(NSString *)path
+                                        parameters:(nullable NSDictionary *)parameters
+                                           headers:(nullable NSDictionary<NSString *, NSString *> *)headers
+                                           success:(nullable VLCHTTPClientSuccessBlock)success
+                                           failure:(nullable VLCHTTPClientFailureBlock)failure;
+
+- (NSURLSessionDataTask *)GET:(NSString *)path
+                   parameters:(nullable NSDictionary *)parameters
+                      headers:(nullable NSDictionary<NSString *, NSString *> *)headers
+                      success:(nullable VLCHTTPClientSuccessBlock)success
+                      failure:(nullable VLCHTTPClientFailureBlock)failure;
+
+- (NSURLSessionDataTask *)POST:(NSString *)path
+                    parameters:(nullable NSDictionary *)parameters
+                       headers:(nullable NSDictionary<NSString *, NSString *> *)headers
+                       success:(nullable VLCHTTPClientSuccessBlock)success
+                       failure:(nullable VLCHTTPClientFailureBlock)failure;
+
+- (NSURLSessionDataTask *)DELETE:(NSString *)path
                       parameters:(nullable NSDictionary *)parameters
                          headers:(nullable NSDictionary<NSString *, NSString *> *)headers
                          success:(nullable VLCHTTPClientSuccessBlock)success
                          failure:(nullable VLCHTTPClientFailureBlock)failure;
-
-- (void)GET:(NSString *)path
- parameters:(nullable NSDictionary *)parameters
-    headers:(nullable NSDictionary<NSString *, NSString *> *)headers
-    success:(nullable VLCHTTPClientSuccessBlock)success
-    failure:(nullable VLCHTTPClientFailureBlock)failure;
-
-- (void)POST:(NSString *)path
-  parameters:(nullable NSDictionary *)parameters
-     headers:(nullable NSDictionary<NSString *, NSString *> *)headers
-     success:(nullable VLCHTTPClientSuccessBlock)success
-     failure:(nullable VLCHTTPClientFailureBlock)failure;
-
-- (void)DELETE:(NSString *)path
-    parameters:(nullable NSDictionary *)parameters
-       headers:(nullable NSDictionary<NSString *, NSString *> *)headers
-       success:(nullable VLCHTTPClientSuccessBlock)success
-       failure:(nullable VLCHTTPClientFailureBlock)failure;
 
 @end
 
