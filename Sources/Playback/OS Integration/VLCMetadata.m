@@ -18,9 +18,12 @@
 
 #import "VLC-Swift.h"
 
+static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
+
 @implementation VLCMetaData
 {
     NSURL *_artworkURL;
+    BOOL _hasPreviewArtwork;
 }
 
 - (instancetype)init
@@ -51,6 +54,7 @@
         _artworkURL = artworkURL;
         self.artworkImage = nil;
         _hasPlaceholderArtwork = NO;
+        _hasPreviewArtwork = NO;
     }
 
     if (isLibraryMedia) {
@@ -111,6 +115,7 @@
 
     _artworkURL = artworkURL;
     [self updateArtworkImage:artworkImage];
+    _hasPreviewArtwork = YES;
 }
 
 - (void)updateArtworkImage:(nullable UIImage *)artworkImage
@@ -121,6 +126,7 @@
 
     self.artworkImage = artworkImage;
     _hasPlaceholderArtwork = NO;
+    _hasPreviewArtwork = NO;
 }
 
 - (UIImage *)songPlaceholderImage
@@ -208,7 +214,8 @@
         [self updateArtworkImage:metadata.artwork];
 
         NSURL *artworkURL = metadata.artworkURL;
-        if ((!self.artworkImage || _hasPlaceholderArtwork) && artworkURL) {
+        if ((!self.artworkImage || _hasPlaceholderArtwork || _hasPreviewArtwork) && artworkURL) {
+            _hasPreviewArtwork = NO;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
                 if (imageData) {
@@ -286,7 +293,6 @@
 
 - (UIImage *)downsampledArtworkImageFromData:(NSData *)imageData
 {
-    const CGFloat maxPixelSize = 1024.f;
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
     if (source == NULL) {
         return nil;
@@ -296,7 +302,7 @@
         (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
         (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
         (__bridge NSString *)kCGImageSourceShouldCache: @NO,
-        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxPixelSize)
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(kVLCArtworkMaxPixelSize)
     };
 
     CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
