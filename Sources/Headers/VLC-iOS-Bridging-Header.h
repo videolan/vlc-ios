@@ -55,6 +55,8 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCRadioListViewController.h"
 #import "VLCRadioService.h"
+#import "VLCRadioErrorView.h"
+#import "VLCPodcastIndexService.h"
 #import "VLCOnAirViewController.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCMediaList+M3U.h"
