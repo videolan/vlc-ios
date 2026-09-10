@@ -17,8 +17,14 @@ import VLCMediaLibraryKit
     func podcastStore(_ store: PodcastStore, didUpdateEpisodeWithId episodeId: String)
 }
 
+@objc enum PodcastSubscriptionState: Int {
+    case available
+    case pending
+    case subscribed
+}
+
 final class PodcastStore: NSObject {
-    static let shared = PodcastStore()
+    @objc static let shared = PodcastStore()
 
     private let episodeObservable = VLCObservable<PodcastStoreObserver>()
 
@@ -43,11 +49,15 @@ final class PodcastStore: NSObject {
     private var playbackRequest: (episodeId: String, showId: String, startPosition: Float)?
     private var lastPlayedEpisodeId: String?
 
+    private var pendingFeedURLs: Set<URL> = []
+    private var addedFeedTitleKeys: Set<String> = []
+
     private var cachedContinueListeningEpisodes: [PodcastEpisode]?
     private var cachedResumeEpisode: [PodcastEpisode]?
     private var cachedLatestEpisodes: [PodcastEpisode]?
     private var cachedShows: [PodcastShow]?
     private var cachedShowsById: [String: PodcastShow] = [:]
+    private var cachedShowIdsByTitleKey: [String: String] = [:]
 
     private static let derivedEpisodeCaches: [ReferenceWritableKeyPath<PodcastStore, [PodcastEpisode]?>] = [
         \.cachedContinueListeningEpisodes, \.cachedResumeEpisode, \.cachedLatestEpisodes
@@ -110,11 +120,11 @@ final class PodcastStore: NSObject {
         notifyReload()
     }
 
-    func addObserver(_ observer: MediaLibraryBaseModelObserver) {
+    @objc func addObserver(_ observer: MediaLibraryBaseModelObserver) {
         subscriptionModel?.observable.addObserver(observer)
     }
 
-    func removeObserver(_ observer: MediaLibraryBaseModelObserver) {
+    @objc func removeObserver(_ observer: MediaLibraryBaseModelObserver) {
         subscriptionModel?.observable.removeObserver(observer)
     }
 
@@ -233,6 +243,24 @@ final class PodcastStore: NSObject {
         return cachedShowsById[showId]
     }
 
+    func show(matchingTitle title: String) -> PodcastShow? {
+        rebuildShowsCacheIfNeeded()
+        guard let showId = cachedShowIdsByTitleKey[PodcastStore.titleKey(for: title)] else {
+            return nil
+        }
+        return cachedShowsById[showId]
+    }
+
+    @objc(subscriptionStateForFeedURL:title:)
+    func subscriptionState(forFeedURL feedURL: URL, title: String) -> PodcastSubscriptionState {
+        if pendingFeedURLs.contains(feedURL) {
+            return .pending
+        }
+        let key = PodcastStore.titleKey(for: title)
+        rebuildShowsCacheIfNeeded()
+        return cachedShowIdsByTitleKey[key] != nil || addedFeedTitleKeys.contains(key) ? .subscribed : .available
+    }
+
     func episodeCount(forShowId showId: String) -> Int {
         return Int(subscription(withId: showId)?.nbMedia() ?? 0)
     }
@@ -278,12 +306,25 @@ final class PodcastStore: NSObject {
 
     // MARK: - Mutations
 
-    func addSubscription(mrl: URL, completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
+    func addSubscription(mrl: URL,
+                         title: String? = nil,
+                         completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
         guard let subscriptionModel = subscriptionModel else {
             completion(.failure(.unknown))
             return
         }
-        subscriptionModel.addSubscription(mrl: mrl, completion: completion)
+
+        pendingFeedURLs.insert(mrl)
+        notifyReload()
+
+        subscriptionModel.addSubscription(mrl: mrl) { result in
+            self.pendingFeedURLs.remove(mrl)
+            if case .success = result, let title = title {
+                self.addedFeedTitleKeys.insert(PodcastStore.titleKey(for: title))
+            }
+            self.notifyReload()
+            completion(result)
+        }
     }
 
     @discardableResult
@@ -650,6 +691,9 @@ final class PodcastStore: NSObject {
         let shows = (subscriptionModel?.subscriptions ?? []).map(PodcastStore.podcastShow)
         cachedShows = shows
         cachedShowsById = Dictionary(uniqueKeysWithValues: shows.map { ($0.id, $0) })
+        cachedShowIdsByTitleKey = Dictionary(shows.map { (PodcastStore.titleKey(for: $0.name), $0.id) },
+                                             uniquingKeysWith: { first, _ in first })
+        addedFeedTitleKeys.subtract(cachedShowIdsByTitleKey.keys)
         return shows
     }
 
@@ -657,6 +701,13 @@ final class PodcastStore: NSObject {
         invalidateDerivedEpisodeCaches()
         cachedShows = nil
         cachedShowsById.removeAll()
+        cachedShowIdsByTitleKey.removeAll()
+    }
+
+    // The media library does not expose a subscription's feed URL yet, so feeds are matched on their name.
+    private static func titleKey(for title: String) -> String {
+        return title.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private func invalidateDerivedEpisodeCaches() {
@@ -868,6 +919,7 @@ extension PodcastStore: MediaLibraryObserver {
             self.subscriptionModel?.refresh()
             self.cachedShows = nil
             self.cachedShowsById.removeAll()
+            self.cachedShowIdsByTitleKey.removeAll()
             self.scheduleArtworkReload()
         }
     }
