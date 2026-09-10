@@ -17,6 +17,9 @@
 #import "VLCThumbnailsCache.h"
 
 @implementation VLCNetworkImageView
+{
+    NSURL *_localImageURL;
+}
 
 static NSCache *sharedImageCache = nil;
 
@@ -43,6 +46,7 @@ static NSCache *sharedImageCache = nil;
 - (void)cancelLoading {
     [self.downloadTask cancel];
     self.downloadTask = nil;
+    _localImageURL = nil;
 }
 
 - (void)setImageWithURL:(NSURL *)url {
@@ -55,6 +59,11 @@ static NSCache *sharedImageCache = nil;
     }
 
     [self cancelLoading];
+    if (url.isFileURL) {
+        [self loadLocalImageWithURL:url maxPixelSize:maxPixelSize];
+        return;
+    }
+
     id cacheKey = maxPixelSize > 0. ? [NSString stringWithFormat:@"%@|%.0f", url.absoluteString, maxPixelSize] : url;
     UIImage *cachedImage = [[self.class sharedImageCache] objectForKey:cacheKey];
     if (cachedImage) {
@@ -62,6 +71,20 @@ static NSCache *sharedImageCache = nil;
     } else {
         [self downloadImageWithURL:url maxPixelSize:maxPixelSize cacheKey:cacheKey];
     }
+}
+
+- (void)loadLocalImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize {
+    _localImageURL = url;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        UIImage *image = maxPixelSize > 0. ? [VLCThumbnailsCache thumbnailForURL:url maxPixelSize:maxPixelSize]
+                                           : [VLCThumbnailsCache thumbnailForURL:url];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (image && [self->_localImageURL isEqual:url]) {
+                self.image = image;
+                self->_localImageURL = nil;
+            }
+        });
+    });
 }
 
 - (void)downloadImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize cacheKey:(id)cacheKey {
