@@ -89,6 +89,48 @@
     return [sharedCache _thumbnailForURL:url maxPixelSize:maxPixelSize];
 }
 
++ (UIImage *)downsampledImageFromData:(NSData *)data
+{
+    return [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:DEFAULT_MAX_PIXEL_SIZE];
+}
+
++ (UIImage *)downsampledImageFromData:(NSData *)data maxPixelSize:(CGFloat)maxPixelSize
+{
+    if (data.length == 0) {
+        return nil;
+    }
+
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+    if (source == NULL) {
+        return nil;
+    }
+
+    UIImage *image = [VLCThumbnailsCache downsampledImageFromSource:source maxPixelSize:maxPixelSize];
+    CFRelease(source);
+
+    return image;
+}
+
++ (UIImage *)downsampledImageFromSource:(CGImageSourceRef)source maxPixelSize:(CGFloat)maxPixelSize
+{
+    NSDictionary *options = @{
+        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
+        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
+        (__bridge NSString *)kCGImageSourceShouldCacheImmediately: @YES,
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxPixelSize)
+    };
+
+    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    if (cgImage == NULL) {
+        return nil;
+    }
+
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+
+    return image;
+}
+
 + (void)invalidateThumbnailForURL:(nullable NSURL *)url
 {
     if (!url) {
@@ -141,23 +183,12 @@
         return nil;
     }
 
-    NSDictionary *options = @{
-        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
-        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
-        (__bridge NSString *)kCGImageSourceShouldCacheImmediately: @YES,
-        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxPixelSize)
-    };
-
-    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    UIImage *image = [VLCThumbnailsCache downsampledImageFromSource:source maxPixelSize:maxPixelSize];
     CFRelease(source);
 
-    if (cgImage == NULL) {
+    if (image == nil) {
         APLog(@"Failed to decode thumbnail at path '%@'", path);
-        return nil;
     }
-
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
-    CGImageRelease(cgImage);
 
     return image;
 }

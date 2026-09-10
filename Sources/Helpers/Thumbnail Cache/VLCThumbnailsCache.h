@@ -18,4 +18,7 @@
 + (nullable UIImage *)thumbnailForURL:(nullable NSURL *)url maxPixelSize:(CGFloat)maxPixelSize;
 + (void)invalidateThumbnailForURL:(nullable NSURL *)url;
 
++ (nullable UIImage *)downsampledImageFromData:(nullable NSData *)data;
++ (nullable UIImage *)downsampledImageFromData:(nullable NSData *)data maxPixelSize:(CGFloat)maxPixelSize;
+
 @end
