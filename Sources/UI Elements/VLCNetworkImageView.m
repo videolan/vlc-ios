@@ -21,28 +21,6 @@
     NSURL *_localImageURL;
 }
 
-static NSCache *sharedImageCache = nil;
-
-+ (void)setSharedImageCache:(NSCache *)sharedCache {
-    sharedImageCache = sharedCache;
-}
-
-+ (NSCache *)sharedImageCache {
-    if (!sharedImageCache) {
-        sharedImageCache = [[NSCache alloc] init];
-        [sharedImageCache setCountLimit:50];
-    }
-    return sharedImageCache;
-}
-
-+ (UIImage *)cachedImageForURL:(NSURL *)url {
-    if (url == nil) {
-        return nil;
-    }
-
-    return [[self sharedImageCache] objectForKey:url];
-}
-
 - (void)cancelLoading {
     [self.downloadTask cancel];
     self.downloadTask = nil;
@@ -64,12 +42,11 @@ static NSCache *sharedImageCache = nil;
         return;
     }
 
-    id cacheKey = maxPixelSize > 0. ? [NSString stringWithFormat:@"%@|%.0f", url.absoluteString, maxPixelSize] : url;
-    UIImage *cachedImage = [[self.class sharedImageCache] objectForKey:cacheKey];
+    UIImage *cachedImage = [VLCThumbnailsCache cachedImageForURL:url maxPixelSize:maxPixelSize];
     if (cachedImage) {
         self.image = cachedImage;
     } else {
-        [self downloadImageWithURL:url maxPixelSize:maxPixelSize cacheKey:cacheKey];
+        [self downloadImageWithURL:url maxPixelSize:maxPixelSize];
     }
 }
 
@@ -87,17 +64,15 @@ static NSCache *sharedImageCache = nil;
     });
 }
 
-- (void)downloadImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize cacheKey:(id)cacheKey {
+- (void)downloadImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize {
     __weak typeof(self) weakSelf = self;
     NSURLSession *sharedSession = [NSURLSession sharedSession];
     self.downloadTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!data) {
             return;
         }
-        UIImage *image = maxPixelSize > 0. ? [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:maxPixelSize]
-                                           : [VLCThumbnailsCache downsampledImageFromData:data];
+        UIImage *image = [VLCThumbnailsCache imageFromData:data forURL:url maxPixelSize:maxPixelSize];
         if (!image) { return; }
-        [[[weakSelf class] sharedImageCache] setObject:image forKey:cacheKey];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if ([strongSelf.downloadTask.originalRequest.URL isEqual:url]) {

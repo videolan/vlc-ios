@@ -18,7 +18,7 @@
 #import "VLCFavoriteService.h"
 #import "VLCPlaybackService.h"
 #import "VLCMetadata.h"
-#import "VLCNetworkImageView.h"
+#import "VLCThumbnailsCache.h"
 #import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
@@ -98,7 +98,7 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 
         VLCPlaybackService *playbackService = VLCPlaybackService.sharedInstance;
         playbackService.expectsAudioOnlyContent = YES;
-        [playbackService.metadata prepareArtworkImage:[VLCNetworkImageView cachedImageForURL:entry.artworkURL]
+        [playbackService.metadata prepareArtworkImage:[VLCThumbnailsCache cachedImageForURL:entry.artworkURL]
                                                forURL:entry.artworkURL];
     }
 
@@ -219,7 +219,7 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     cell.thumbnailView.clipsToBounds = YES;
     cell.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
 
-    UIImage *cachedArtwork = [VLCNetworkImageView cachedImageForURL:cell.iconURL];
+    UIImage *cachedArtwork = [VLCThumbnailsCache cachedImageForURL:cell.iconURL];
     if (cachedArtwork) {
         cell.thumbnailView.image = cachedArtwork;
         return;

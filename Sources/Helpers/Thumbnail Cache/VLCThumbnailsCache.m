@@ -123,11 +123,6 @@
     return image;
 }
 
-+ (UIImage *)downsampledImageFromData:(NSData *)data
-{
-    return [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:DEFAULT_MAX_PIXEL_SIZE];
-}
-
 + (UIImage *)downsampledImageFromData:(NSData *)data maxPixelSize:(CGFloat)maxPixelSize
 {
     if (data.length == 0) {

@@ -22,7 +22,4 @@
 + (nullable UIImage *)cachedImageForURL:(nullable NSURL *)url maxPixelSize:(CGFloat)maxPixelSize;
 + (nullable UIImage *)imageFromData:(nullable NSData *)data forURL:(nullable NSURL *)url maxPixelSize:(CGFloat)maxPixelSize;
 
-+ (nullable UIImage *)downsampledImageFromData:(nullable NSData *)data;
-+ (nullable UIImage *)downsampledImageFromData:(nullable NSData *)data maxPixelSize:(CGFloat)maxPixelSize;
-
 @end
