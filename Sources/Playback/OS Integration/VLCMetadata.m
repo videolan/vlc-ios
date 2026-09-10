@@ -12,9 +12,9 @@
  *****************************************************************************/
 
 #import "VLCMetadata.h"
-#import <ImageIO/ImageIO.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
+#import "VLCThumbnailsCache.h"
 
 #import "VLC-Swift.h"
 
@@ -215,11 +215,20 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
 
         NSURL *artworkURL = metadata.artworkURL;
         if ((!self.artworkImage || _hasPlaceholderArtwork || _hasPreviewArtwork) && artworkURL) {
+            UIImage *cachedArtworkImage = [VLCThumbnailsCache cachedImageForURL:artworkURL
+                                                                   maxPixelSize:kVLCArtworkMaxPixelSize];
+            if (cachedArtworkImage) {
+                [self updateArtworkImage:cachedArtworkImage];
+                return;
+            }
+
             _hasPreviewArtwork = NO;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
                 if (imageData) {
-                    UIImage *artworkImage = [self downsampledArtworkImageFromData:imageData];
+                    UIImage *artworkImage = [VLCThumbnailsCache imageFromData:imageData
+                                                                       forURL:artworkURL
+                                                                 maxPixelSize:kVLCArtworkMaxPixelSize];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self updateArtworkImage:artworkImage];
                         [playbackService recoverDisplayedMetadata];
@@ -289,32 +298,6 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     }
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
-}
-
-- (UIImage *)downsampledArtworkImageFromData:(NSData *)imageData
-{
-    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-    if (source == NULL) {
-        return nil;
-    }
-
-    NSDictionary *options = @{
-        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
-        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
-        (__bridge NSString *)kCGImageSourceShouldCache: @NO,
-        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(kVLCArtworkMaxPixelSize)
-    };
-
-    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
-    CFRelease(source);
-
-    if (cgImage == NULL) {
-        return nil;
-    }
-
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
-    CGImageRelease(cgImage);
-    return image;
 }
 
 @end
