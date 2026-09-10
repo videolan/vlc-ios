@@ -352,46 +352,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
             return cachedNotes
         }
 
-        let attributedNotes = attributedNotes(from: notes)
-        let range = NSRange(location: 0, length: attributedNotes.length)
-        let bodyFont = UIFont.preferredCustomFont(forTextStyle: .callout)
-
-        if #available(iOS 15.0, *) {
-            attributedNotes.enumerateAttribute(.inlinePresentationIntent, in: range, options: []) { value, subrange, _ in
-                guard let rawValue = (value as? NSNumber)?.uintValue else {
-                    return
-                }
-                let intent = InlinePresentationIntent(rawValue: rawValue)
-                var traits: UIFontDescriptor.SymbolicTraits = []
-                if intent.contains(.stronglyEmphasized) {
-                    traits.insert(.traitBold)
-                }
-                if intent.contains(.emphasized) {
-                    traits.insert(.traitItalic)
-                }
-                guard let descriptor = bodyFont.fontDescriptor.withSymbolicTraits(traits) else {
-                    return
-                }
-                attributedNotes.addAttribute(.font, value: UIFont(descriptor: descriptor, size: 0), range: subrange)
-            }
-        }
-
-        attributedNotes.enumerateAttribute(.font, in: range, options: []) { value, subrange, _ in
-            let traits = (value as? UIFont)?.fontDescriptor.symbolicTraits ?? []
-            guard let descriptor = bodyFont.fontDescriptor.withSymbolicTraits(traits) else {
-                attributedNotes.addAttribute(.font, value: bodyFont, range: subrange)
-                return
-            }
-            attributedNotes.addAttribute(.font, value: UIFont(descriptor: descriptor, size: 0), range: subrange)
-        }
-
-        attributedNotes.enumerateAttribute(.paragraphStyle, in: range, options: []) { value, subrange, _ in
-            let style = (value as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle
-                ?? NSMutableParagraphStyle()
-            style.lineHeightMultiple = 1.55
-            attributedNotes.addAttribute(.paragraphStyle, value: style, range: subrange)
-        }
-
+        let attributedNotes = PodcastNotes.attributedString(from: notes)
         linkTimestamps(in: attributedNotes)
 
         cachedNotes = attributedNotes
@@ -463,29 +424,6 @@ class PodcastEpisodeDetailViewController: UIViewController {
             return -1
         }
         return Float(Double(seconds * 1000) / Double(episode.durationValue))
-    }
-
-    // Feeds put HTML in content:encoded and, within CDATA, in description and itunes:summary alike.
-    // Anything without tags or entities is plain text that the publisher may have written as markdown.
-    private func attributedNotes(from notes: String) -> NSMutableAttributedString {
-        if notes.range(of: "<[^>]+>|&[a-zA-Z]+;|&#[0-9]+;", options: .regularExpression) != nil,
-           let data = notes.data(using: .utf8),
-           let html = try? NSMutableAttributedString(data: data,
-                                                     options: [.documentType: NSAttributedString.DocumentType.html,
-                                                               .characterEncoding: String.Encoding.utf8.rawValue],
-                                                     documentAttributes: nil) {
-            return html
-        }
-
-        guard #available(iOS 15.0, *) else {
-            return NSMutableAttributedString(string: notes)
-        }
-
-        let options = AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
-        guard let markdown = try? AttributedString(markdown: notes, options: options) else {
-            return NSMutableAttributedString(string: notes)
-        }
-        return NSMutableAttributedString(attributedString: NSAttributedString(markdown))
     }
 
     @objc private func didTapPlay() {
