@@ -82,6 +82,9 @@ class PodcastsViewController: UIViewController {
         view.onAddViaRSS = { [weak self] in
             self?.presentAddSubscriptionAlert()
         }
+        view.onBrowseDirectory = { [weak self] in
+            self?.showDirectory()
+        }
         return view
     }()
 
@@ -202,11 +205,32 @@ class PodcastsViewController: UIViewController {
                                             action: #selector(didTapSearch))
         searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
 
-        let addButton = UIBarButtonItem(image: addImage, style: .plain, target: self,
-                                         action: #selector(didTapAdd))
+        let addButton: UIBarButtonItem
+        if #available(iOS 14.0, *) {
+            addButton = UIBarButtonItem(image: addImage, style: .plain, target: nil, action: nil)
+            addButton.menu = addActions().menu()
+        } else {
+            addButton = UIBarButtonItem(image: addImage, style: .plain, target: self,
+                                        action: #selector(didTapAdd(_:)))
+        }
         addButton.accessibilityLabel = NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
 
         navigationItem.rightBarButtonItems = [addButton, searchButton]
+    }
+
+    private func addActions() -> [PodcastMenuAction] {
+        return [PodcastMenuAction(title: NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""),
+                                  imageName: "link") { [weak self] in
+                    self?.presentAddSubscriptionAlert()
+                },
+                PodcastMenuAction(title: NSLocalizedString("PODCAST_DIRECTORY_BROWSE", comment: ""),
+                                  imageName: "square.grid.2x2") { [weak self] in
+                    self?.showDirectory()
+                }]
+    }
+
+    private func showDirectory() {
+        navigationController?.pushViewController(PodcastDirectoryViewController(), animated: true)
     }
 
     private func updateContentVisibility() {
@@ -299,8 +323,8 @@ class PodcastsViewController: UIViewController {
         }
     }
 
-    @objc private func didTapAdd() {
-        presentAddSubscriptionAlert()
+    @objc private func didTapAdd(_ sender: UIBarButtonItem) {
+        addActions().presentActionSheet(title: nil, from: sender, in: self)
     }
 
     private func presentAddSubscriptionAlert() {

@@ -438,7 +438,7 @@
 "PODCAST_UNSUBSCRIBE_MESSAGE" = "This will remove this show, its episodes and any downloaded copies from your library.";
 "PODCAST_OPEN_WEBSITE" = "Open Website…";
 "PODCAST_EMPTY_TITLE" = "No Podcasts Yet";
-"PODCAST_EMPTY_DESCRIPTION" = "Add a show via its RSS feed URL to start listening.";
+"PODCAST_EMPTY_DESCRIPTION" = "Browse the directory or add a show via its RSS feed URL to start listening.";
 "PODCAST_ADD_VIA_RSS" = "Add via RSS URL";
 "PODCAST_SUBSCRIBE" = "Subscribe";
 "PODCAST_ADD_RSS_PLACEHOLDER" = "https://example.com/feed.xml";

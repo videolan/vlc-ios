@@ -14,6 +14,7 @@ import UIKit
 
 class PodcastsEmptyStateView: UIView {
     var onAddViaRSS: (() -> Void)?
+    var onBrowseDirectory: (() -> Void)?
 
     private let iconBackground: UIView = {
         let view = UIView()
@@ -56,6 +57,15 @@ class PodcastsEmptyStateView: UIView {
         return button
     }()
 
+    private let browseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(NSLocalizedString("PODCAST_DIRECTORY_BROWSE", comment: ""), for: .normal)
+        button.titleLabel?.font = .preferredCustomFont(forTextStyle: .subheadline).semibolded
+        button.layer.cornerRadius = 12
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -74,8 +84,10 @@ class PodcastsEmptyStateView: UIView {
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(addRSSButton)
+        addSubview(browseButton)
 
         addRSSButton.addTarget(self, action: #selector(didTapAddRSS), for: .touchUpInside)
+        browseButton.addTarget(self, action: #selector(didTapBrowse), for: .touchUpInside)
 
         if #available(iOS 13.0, *) {
             let config = UIImage.SymbolConfiguration(pointSize: 34, weight: .regular)
@@ -103,7 +115,12 @@ class PodcastsEmptyStateView: UIView {
             addRSSButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             addRSSButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             addRSSButton.heightAnchor.constraint(equalToConstant: 46),
-            addRSSButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+
+            browseButton.topAnchor.constraint(equalTo: addRSSButton.bottomAnchor, constant: 10),
+            browseButton.leadingAnchor.constraint(equalTo: addRSSButton.leadingAnchor),
+            browseButton.trailingAnchor.constraint(equalTo: addRSSButton.trailingAnchor),
+            browseButton.heightAnchor.constraint(equalToConstant: 46),
+            browseButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
         applyTheme()
@@ -122,9 +139,14 @@ class PodcastsEmptyStateView: UIView {
         descriptionLabel.textColor = colors.cellDetailTextColor
 
         addRSSButton.styleAsPrimaryAction()
+        browseButton.styleAsSecondaryAction()
     }
 
     @objc private func didTapAddRSS() {
         onAddViaRSS?()
+    }
+
+    @objc private func didTapBrowse() {
+        onBrowseDirectory?()
     }
 }
