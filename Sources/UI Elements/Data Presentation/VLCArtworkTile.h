@@ -43,6 +43,9 @@ typedef NS_ENUM(NSInteger, VLCArtworkTileBadge) {
 @property (nonatomic, copy, nullable) NSString *removalActionGlyphName;
 
 - (void)configureWithName:(nullable NSString *)name artworkURL:(nullable NSURL *)artworkURL;
+- (void)configureWithName:(nullable NSString *)name
+               artworkURL:(nullable NSURL *)artworkURL
+             maxPixelSize:(CGFloat)maxPixelSize;
 
 @end
 
