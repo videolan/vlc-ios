@@ -32,7 +32,10 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
         setupUI()
     }
 
-    private let sortButton: UIButton = {
+    private let sortButton = PodcastSectionHeaderView.makeButton()
+    private let actionButton = PodcastSectionHeaderView.makeButton()
+
+    private static func makeButton() -> UIButton {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredCustomFont(forTextStyle: .subheadline)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -40,7 +43,7 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
+    }
 
     private func setupUI() {
         let background = UIView()
@@ -48,6 +51,7 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(sortButton)
+        contentView.addSubview(actionButton)
 
         let bottomConstraint = titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
         bottomConstraint.priority = .init(999)
@@ -59,7 +63,11 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
             bottomConstraint,
 
             sortButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            sortButton.lastBaselineAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor)
+            sortButton.lastBaselineAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor),
+
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: actionButton.leadingAnchor, constant: -8),
+            actionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            actionButton.lastBaselineAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor)
         ])
 
         applyTheme()
@@ -72,11 +80,23 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
     func configure(title: String) {
         titleLabel.text = title
         sortButton.isHidden = true
+        actionButton.isHidden = true
+    }
+
+    func configure(title: String, actionTitle: String, tag: Int, target: Any, action: Selector) {
+        titleLabel.text = title
+        sortButton.isHidden = true
+        actionButton.isHidden = false
+        actionButton.tag = tag
+        actionButton.setTitle(actionTitle, for: .normal)
+        actionButton.removeTarget(nil, action: nil, for: .touchUpInside)
+        actionButton.addTarget(target, action: action, for: .touchUpInside)
     }
 
     @available(iOS 14.0, *)
     func configure(title: String, sortTitle: String, sortMenu: UIMenu) {
         titleLabel.text = title
+        actionButton.isHidden = true
         sortButton.isHidden = false
         sortButton.setTitle(sortTitle, for: .normal)
         sortButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
@@ -91,5 +111,6 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
         backgroundView?.backgroundColor = colors.background
         titleLabel.textColor = colors.cellTextColor
         sortButton.tintColor = colors.orangeUI
+        actionButton.tintColor = colors.orangeUI
     }
 }
