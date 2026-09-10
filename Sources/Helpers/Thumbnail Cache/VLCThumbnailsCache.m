@@ -103,9 +103,6 @@
     if (!url) {
         return nil;
     }
-    if (maxPixelSize <= 0.) {
-        maxPixelSize = DEFAULT_MAX_PIXEL_SIZE;
-    }
     VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
     return [sharedCache->_thumbnailCache objectForKey:[sharedCache cacheKeyForURL:url maxPixelSize:maxPixelSize]];
 }

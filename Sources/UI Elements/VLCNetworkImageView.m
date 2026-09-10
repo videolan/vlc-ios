@@ -19,12 +19,14 @@
 @implementation VLCNetworkImageView
 {
     NSURL *_localImageURL;
+    NSURL *_pendingURL;
 }
 
 - (void)cancelLoading {
     [self.downloadTask cancel];
     self.downloadTask = nil;
     _localImageURL = nil;
+    _pendingURL = nil;
 }
 
 - (void)setImageWithURL:(NSURL *)url {
@@ -37,6 +39,12 @@
     }
 
     [self cancelLoading];
+    if (maxPixelSize <= 0.) {
+        _pendingURL = url;
+        [self setNeedsLayout];
+        return;
+    }
+
     if (url.isFileURL) {
         [self loadLocalImageWithURL:url maxPixelSize:maxPixelSize];
         return;
@@ -53,8 +61,7 @@
 - (void)loadLocalImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize {
     _localImageURL = url;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        UIImage *image = maxPixelSize > 0. ? [VLCThumbnailsCache thumbnailForURL:url maxPixelSize:maxPixelSize]
-                                           : [VLCThumbnailsCache thumbnailForURL:url];
+        UIImage *image = [VLCThumbnailsCache thumbnailForURL:url maxPixelSize:maxPixelSize];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (image && [self->_localImageURL isEqual:url]) {
                 self.image = image;
@@ -107,6 +114,22 @@
     }
 }
 #endif
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (!_pendingURL) {
+        return;
+    }
+
+    CGSize size = self.bounds.size;
+    CGFloat maxPixelSize = MAX(size.width, size.height) * self.traitCollection.displayScale;
+    if (maxPixelSize <= 0.) {
+        return;
+    }
+
+    NSURL *url = _pendingURL;
+    [self setImageWithURL:url maxPixelSize:maxPixelSize];
+}
 
 - (void)setImage:(UIImage *)image {
     [super setImage:image];
