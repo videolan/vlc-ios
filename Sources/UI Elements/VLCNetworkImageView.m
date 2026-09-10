@@ -14,6 +14,7 @@
 #endif
 
 #import "VLCNetworkImageView.h"
+#import "VLCThumbnailsCache.h"
 
 @implementation VLCNetworkImageView
 
@@ -45,29 +46,35 @@ static NSCache *sharedImageCache = nil;
 }
 
 - (void)setImageWithURL:(NSURL *)url {
+    [self setImageWithURL:url maxPixelSize:0.];
+}
+
+- (void)setImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize {
     if (url == nil) {
         return;
     }
 
     [self cancelLoading];
-    UIImage *cachedImage = [self.class cachedImageForURL:url];
+    id cacheKey = maxPixelSize > 0. ? [NSString stringWithFormat:@"%@|%.0f", url.absoluteString, maxPixelSize] : url;
+    UIImage *cachedImage = [[self.class sharedImageCache] objectForKey:cacheKey];
     if (cachedImage) {
         self.image = cachedImage;
     } else {
-        [self downloadImageWithURL:url];
+        [self downloadImageWithURL:url maxPixelSize:maxPixelSize cacheKey:cacheKey];
     }
 }
 
-- (void)downloadImageWithURL:(NSURL *)url {
+- (void)downloadImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize cacheKey:(id)cacheKey {
     __weak typeof(self) weakSelf = self;
     NSURLSession *sharedSession = [NSURLSession sharedSession];
     self.downloadTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!data) {
             return;
         }
-        UIImage *image = [UIImage imageWithData:data];
+        UIImage *image = maxPixelSize > 0. ? [VLCThumbnailsCache downsampledImageFromData:data maxPixelSize:maxPixelSize]
+                                           : [VLCThumbnailsCache downsampledImageFromData:data];
         if (!image) { return; }
-        [[[weakSelf class] sharedImageCache] setObject:image forKey:url];
+        [[[weakSelf class] sharedImageCache] setObject:image forKey:cacheKey];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if ([strongSelf.downloadTask.originalRequest.URL isEqual:url]) {
