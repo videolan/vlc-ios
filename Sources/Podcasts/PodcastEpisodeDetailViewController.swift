@@ -300,9 +300,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
                               imageName: "text.append") { [weak self] in self?.appendToQueue() },
             PodcastMenuAction(title: NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""),
                               imageName: "arrow.down.doc",
-                              isEnabled: episode.downloaded) { [weak self] in self?.shareDownload() },
-            PodcastMenuAction(title: NSLocalizedString("PODCAST_OPEN_LINK", comment: ""),
-                              imageName: "safari", isEnabled: false) {}
+                              isEnabled: episode.downloaded) { [weak self] in self?.shareDownload() }
         ]
 
         if store.isDownloading(episodeId: episodeId) {
