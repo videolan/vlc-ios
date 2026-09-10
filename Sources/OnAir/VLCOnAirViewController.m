@@ -549,6 +549,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
             title = [self isZeroState] ? NSLocalizedString(@"ONAIR_PODCASTS_ZERO_BODY", nil)
                                        : NSLocalizedString(@"ONAIR_PODCASTS_EMPTY_BODY", nil);
             primaryTitle = NSLocalizedString(@"ONAIR_PASTE_RSS", nil);
+            secondaryTitle = NSLocalizedString(@"BROWSE", nil);
             break;
         case VLCOnAirSectionTV:
             title = NSLocalizedString(@"ONAIR_TV_EMPTY_BODY", nil);
@@ -770,7 +771,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
             [self showRadio];
             break;
         case VLCOnAirSectionPodcasts:
-            [self showPodcasts];
+            index == 0 ? [self showPodcasts] : [self showPodcastDirectory];
             break;
         case VLCOnAirSectionTV:
             index == 0 ? [self showTVDirectory] : [self showAddM3U];
@@ -827,6 +828,11 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
     UIViewController *podcastsViewController = [PodcastsOnAirBridge makePodcastsViewControllerWithMediaLibraryService:mediaLibraryService];
     [self.navigationController pushViewController:podcastsViewController animated:YES];
+}
+
+- (void)showPodcastDirectory
+{
+    [self.navigationController pushViewController:[PodcastsOnAirBridge makeDirectoryViewController] animated:YES];
 }
 
 - (void)showPodcastShowAtIndex:(NSInteger)index

@@ -102,6 +102,10 @@ extension VLCOnAirRailItem {
         return PodcastsViewController(mediaLibraryService: mediaLibraryService)
     }
 
+    @objc static func makeDirectoryViewController() -> UIViewController {
+        return PodcastDirectoryViewController()
+    }
+
     @objc static func makeShowDetailViewController(forShowAt index: Int) -> UIViewController? {
         let shows = PodcastStore.shared.shows
         guard shows.indices.contains(index) else {
