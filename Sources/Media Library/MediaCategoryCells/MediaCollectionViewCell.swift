@@ -308,19 +308,19 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         animationImageView.stopAnimating()
         isMediaBeingPlayed = false
 
-        let colors: ColorPalette
+        let textColor: UIColor
         if delegate is QueueViewController {
-            colors = PresentationTheme.darkTheme.colors
+            textColor = QueueViewController.queueTextColor
             newLabel.isHidden = true
         } else {
-            colors = PresentationTheme.current.colors
+            textColor = PresentationTheme.current.colors.cellTextColor
             newLabel.isHidden = !audiotrack.isNew
             if audiotrack.isNew {
                 setMediaNew()
             }
         }
 
-        titleLabel.textColor = isMediaBeingPlayed ? colors.orangeUI : colors.cellTextColor
+        titleLabel.textColor = isMediaBeingPlayed ? PresentationTheme.current.colors.orangeUI : textColor
 
         if isEditing {
             sizeDescriptionLabel.text = String(format: "%@ · %@", descriptionText, audiotrack.formatSize())
@@ -343,7 +343,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func setNowPlaying(_ isNowPlaying: Bool) {
         isMediaBeingPlayed = isNowPlaying && playbackService.mediaPlayerState != .stopped
 
-        let colors = (delegate is QueueViewController) ? PresentationTheme.darkTheme.colors : PresentationTheme.current.colors
+        let textColor = (delegate is QueueViewController) ? QueueViewController.queueTextColor : PresentationTheme.current.colors.cellTextColor
 
         if isMediaBeingPlayed && !UIAccessibility.isReduceMotionEnabled {
             animateCurrentlyPlayingState()
@@ -353,7 +353,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             thumbnailView.isHidden = false
         }
 
-        titleLabel.textColor = isMediaBeingPlayed ? colors.orangeUI : colors.cellTextColor
+        titleLabel.textColor = isMediaBeingPlayed ? PresentationTheme.current.colors.orangeUI : textColor
         dynamicFontSizeChange()
     }
 

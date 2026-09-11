@@ -91,14 +91,14 @@ class QueueViewController: UIViewController {
 
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
-    private var queueTextColor: UIColor {
+    static var queueTextColor: UIColor {
         if #available(iOS 26.0, *) {
             return .label
         }
         return PresentationTheme.darkTheme.colors.cellTextColor
     }
 
-    private var queueDetailTextColor: UIColor {
+    private static var queueDetailTextColor: UIColor {
         if #available(iOS 26.0, *) {
             return .secondaryLabel
         }
@@ -472,13 +472,12 @@ private extension QueueViewController {
 #endif
     }
 
-    private func updateCollectionViewCellAppearance(_ cell: MediaCollectionViewCell, isSelected: Bool) {
-        let accentColor = PresentationTheme.current.colors.orangeUI
+    private func updateCollectionViewCellAppearance(_ cell: MediaCollectionViewCell) {
+        let detailTextColor = QueueViewController.queueDetailTextColor
 
-        cell.tintColor = isSelected ? accentColor : queueDetailTextColor
-        cell.titleLabel.textColor = isSelected ? accentColor : queueTextColor
-        cell.sizeDescriptionLabel.textColor = queueDetailTextColor
-        cell.dragIndicatorImageView.tintColor = queueDetailTextColor
+        cell.tintColor = cell.isMediaBeingPlayed ? PresentationTheme.current.colors.orangeUI : detailTextColor
+        cell.sizeDescriptionLabel.textColor = detailTextColor
+        cell.dragIndicatorImageView.tintColor = detailTextColor
 
         if #available(iOS 13, *) {
             cell.titleLabel.backgroundColor = .clear
@@ -575,7 +574,6 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             return
         }
 
-        updateCollectionViewCellAppearance(cell, isSelected: true)
         cell.setNowPlaying(true)
         reload()
     }
@@ -733,8 +731,8 @@ extension QueueViewController: UICollectionViewDataSource {
         }
 
         let isCurrentlyPlaying = media == currentlyPlayingMedia
-        updateCollectionViewCellAppearance(cell, isSelected: isCurrentlyPlaying)
         cell.setNowPlaying(isCurrentlyPlaying)
+        updateCollectionViewCellAppearance(cell)
         cell.newLabel.isHidden = true
 
         return cell
