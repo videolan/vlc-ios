@@ -228,6 +228,9 @@ class QueueViewController: UIViewController {
             parent.view.addSubview(view)
 
             let safeArea = miniPlayerView?.safeAreaLayoutGuide ?? parent.view.safeAreaLayoutGuide
+            if #available(iOS 13.0, *) {
+                view.overrideUserInterfaceStyle = playerDisplayController != nil ? .unspecified : .dark
+            }
             configureAppearance()
 
             constraints = [
