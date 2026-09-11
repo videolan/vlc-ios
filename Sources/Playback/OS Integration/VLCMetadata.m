@@ -167,6 +167,8 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     self.elapsedPlaybackTime = @(0);
     self.position = @(0);
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+
 #if !TARGET_OS_WATCH && !TARGET_OS_TV
     if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
 #endif
