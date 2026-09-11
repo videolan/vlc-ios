@@ -109,11 +109,6 @@ static dispatch_queue_t VLCMediaDiscoveryQueue(void)
 
 - (void)stopDiscovery
 {
-    /* the UPnP module is special and may not be terminated */
-    if (_isUPnPdiscoverer) {
-        return;
-    }
-
     dispatch_async(VLCMediaDiscoveryQueue(), ^{
         VLCMediaDiscoverer *discoverer = self.mediaDiscoverer;
         discoverer.delegate = nil;
