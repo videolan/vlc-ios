@@ -186,6 +186,7 @@ class MediaScrubProgressBar: UIStackView {
         elapsedTimeLabel.setNeedsLayout()
 
         updateAccessibilityValue()
+        updateLiveStreamState()
     }
 
     func updateCurrentTime() {
@@ -273,7 +274,12 @@ class MediaScrubProgressBar: UIStackView {
         setupMarkConstraints(for: bMark, at: bMarkPosition)
     }
 
-    func setLiveStream(_ isLive: Bool) {
+    func updateLiveStreamState() {
+        let isLive = playbackService.metadata.isLiveStream && !playbackService.isSeekable
+        guard liveLabel.isHidden == isLive else {
+            return
+        }
+
         liveLabel.isHidden = !isLive
         horizontalStack.isHidden = isLive
         progressSlider.isHidden = isLive

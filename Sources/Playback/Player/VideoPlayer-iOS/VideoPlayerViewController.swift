@@ -1264,7 +1264,7 @@ extension VideoPlayerViewController {
         mediaNavigationBar.setMediaTitleLabelText("")
         updateFavoriteButton()
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.mediaPlayerState == .playing)
-        mediaScrubProgressBar.setLiveStream(playbackService.metadata.isLiveStream && !playbackService.isSeekable)
+        mediaScrubProgressBar.updateLiveStreamState()
 
         // FIXME: -
         resetIdleTimer()
@@ -1344,7 +1344,7 @@ extension VideoPlayerViewController {
 
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
         updateFavoriteButton()
-        mediaScrubProgressBar.setLiveStream(metadata.isLiveStream && !playbackService.isSeekable)
+        mediaScrubProgressBar.updateLiveStreamState()
 
         if playbackService.isPlayingOnExternalScreen() {
 #if os(iOS)
