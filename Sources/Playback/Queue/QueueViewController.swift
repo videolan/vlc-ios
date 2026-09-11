@@ -418,7 +418,11 @@ private extension QueueViewController {
     }
 
     private func initDarkOverlayView() {
-        darkOverlayView.backgroundColor = .black
+        if #available(iOS 26.0, *) {
+            darkOverlayView.backgroundColor = .clear
+        } else {
+            darkOverlayView.backgroundColor = .black
+        }
         darkOverlayView.alpha = darkOverlayAlpha
         darkOverlayView.isHidden = true
         darkOverlayView.isUserInteractionEnabled = true
