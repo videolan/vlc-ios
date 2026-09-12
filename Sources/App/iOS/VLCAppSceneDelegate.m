@@ -50,15 +50,12 @@
     }
 
     UIApplicationShortcutItem *shortcutItem = connectionOptions.shortcutItem;
-    if ([shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed]) {
+    if (![shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed] &&
+        [session.role isEqualToString:UIWindowSceneSessionRoleApplication]) {
+        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
+    }
+    if (shortcutItem) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
-    } else {
-        if ([session.role isEqualToString:UIWindowSceneSessionRoleApplication]) {
-            [appDelegate restoreLastPlayedMediaList];
-        }
-        if (shortcutItem) {
-            [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
-        }
     }
 }
 

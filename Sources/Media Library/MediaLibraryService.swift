@@ -211,6 +211,8 @@ class MediaLibraryService: NSObject {
     /// from everything else queued on it, network browsing in particular
     private var lastPlayedMediaList: VLCMedia?
     private var lastPlayedMediaListOpenInMiniPlayer = true
+    private var lastPlayedMediaListFallback: (() -> Void)?
+    private var didRequestLastPlayedMediaListRestore = false
 
 #if !os(watchOS)
     let subscriptionCacher = VLCSubscriptionCacher()
@@ -220,6 +222,12 @@ class MediaLibraryService: NSObject {
     @objc var medialib: VLCMediaLibrary {
         ensureMediaLibrarySetup()
         return privateMediaLib
+    }
+
+    /// deliberately unlocked, so that callers can tell whether reading from the library would bring
+    /// it up without waiting on that bring-up themselves
+    @objc var isMediaLibrarySetup: Bool {
+        return didSetupMediaLibrary
     }
 
     private func ensureMediaLibrarySetup() {
@@ -585,6 +593,10 @@ private extension MediaLibraryService {
         return medialib.media(withIdentifier: identifier)
     }
 
+    @objc func lastPlayedMedia() -> VLCMLMedia? {
+        return medialib.history(of: .global, 1, 0)?.first
+    }
+
     // Bridge for Obj-C clients: `observable` is a generic type and not visible from Obj-C.
     @objc func addObserver(_ observer: MediaLibraryObserver) {
         observable.addObserver(observer)
@@ -687,35 +699,54 @@ private extension MediaLibraryService {
         _ = try? FileManager.default.removeItem(atPath: targetPath)
         _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
     }
-
 }
 
 // MARK: - Last played media list restoration
 
 extension MediaLibraryService {
     @objc func restoreLastPlayedMediaList() {
-        restoreLastPlayedMediaList(bypassingSettingCheck: false, openInMiniPlayer: true)
+        guard !didRequestLastPlayedMediaListRestore else { return }
+        didRequestLastPlayedMediaListRestore = true
+
+        DispatchQueue.global(qos: .utility).async {
+            self.restoreLastPlayedMediaList(bypassingSettingCheck: false,
+                                            openInMiniPlayer: true,
+                                            fallback: nil)
+        }
     }
 
-    @discardableResult
-    func restoreLastPlayedMediaList(bypassingSettingCheck: Bool, openInMiniPlayer: Bool) -> Bool {
-        guard bypassingSettingCheck || UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia) else {
-            return false
-        }
+    /// `fallback` runs on the main queue once it is certain that nothing was restored, parsing included
+    func restoreLastPlayedMediaList(bypassingSettingCheck: Bool,
+                                    openInMiniPlayer: Bool,
+                                    fallback: (() -> Void)?) {
+        didRequestLastPlayedMediaListRestore = true
 
-        guard let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-        else { return false }
+        guard bypassingSettingCheck || UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia),
+              let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        else {
+            runLastPlayedMediaListFallback(fallback)
+            return
+        }
 
         let m3uFileName = NSLocalizedString("LAST_PLAYED_MEDIALIST", comment: "").appending(".m3u")
         let m3uFileURL = appSupportURL.appendingPathComponent(m3uFileName)
-        guard FileManager.default.fileExists(atPath: m3uFileURL.path) else { return false }
 
-        if let media = VLCMedia(url: m3uFileURL) {
-            lastPlayedMediaList = media
-            lastPlayedMediaListOpenInMiniPlayer = openInMiniPlayer
-            VLCMediaParser.shared().queue(media)
+        guard FileManager.default.fileExists(atPath: m3uFileURL.path),
+              let media = VLCMedia(url: m3uFileURL)
+        else {
+            runLastPlayedMediaListFallback(fallback)
+            return
         }
-        return true
+
+        lastPlayedMediaList = media
+        lastPlayedMediaListOpenInMiniPlayer = openInMiniPlayer
+        lastPlayedMediaListFallback = fallback
+        VLCMediaParser.shared().queue(media)
+    }
+
+    fileprivate func runLastPlayedMediaListFallback(_ fallback: (() -> Void)?) {
+        guard let fallback = fallback else { return }
+        DispatchQueue.main.async(execute: fallback)
     }
 }
 
@@ -1204,15 +1235,23 @@ extension MediaLibraryService: VLCMediaParserDelegate {
 
         lastPlayedMediaList = nil
         let openInMiniPlayer = lastPlayedMediaListOpenInMiniPlayer
+        let fallback = lastPlayedMediaListFallback
+        lastPlayedMediaListFallback = nil
 
         guard status == .done,
               let mediaList = media.subitems
-        else { return }
+        else {
+            runLastPlayedMediaListFallback(fallback)
+            return
+        }
 
         let defaults = UserDefaults.standard
         let mediaCount = mediaList.count
 
-        guard mediaCount > 0 else { return }
+        guard mediaCount > 0 else {
+            runLastPlayedMediaListFallback(fallback)
+            return
+        }
 
         let lastPlayedMediaId = defaults.integer(forKey: kVLCLastPlayedMediaIdentifier)
         var lastPlayedMediaIndex = 0
@@ -1234,7 +1273,10 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         guard let restoredMedia = mediaList.media(at: UInt(lastPlayedMediaIndex)),
               let restoredLibraryMedia = fetchMedia(with: restoredMedia.url),
               !restoredLibraryMedia.isExternalMedia()
-        else { return }
+        else {
+            runLastPlayedMediaListFallback(fallback)
+            return
+        }
 
         DispatchQueue.main.async {
             PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex,

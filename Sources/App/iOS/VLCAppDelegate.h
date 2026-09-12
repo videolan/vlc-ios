@@ -20,6 +20,5 @@
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationLock;
 
 - (void)setupTabBarAppearance;
-- (void)restoreLastPlayedMediaList;
 
 @end

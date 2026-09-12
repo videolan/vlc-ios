@@ -78,6 +78,9 @@ class TabBarCoordinator: NSObject {
         super.init()
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidEnterBackgroundNotification),
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
+        mediaLibraryService.observable.addObserver(self)
     }
 
     // MARK: - Setup methods
@@ -290,23 +293,25 @@ class TabBarCoordinator: NSObject {
     }
 
     private func handleLastPlayedShortcut() {
-        guard !KeychainCoordinator.passcodeService.hasSecret else {
+        guard !KeychainCoordinator.passcodeService.hasSecret,
+              let lastMedia = mediaLibraryService.lastPlayedMedia() else {
             return
         }
 
-        let hasLastPlayedMediaList = mediaLibraryService.restoreLastPlayedMediaList(bypassingSettingCheck: true,
-                                                                                    openInMiniPlayer: false)
-
-        guard let lastMedia = mediaLibraryService.medialib.history(of: .global)?.first else {
-            return
-        }
-
-        if lastMedia.type() == .audio, let album = lastMedia.album {
+        let album = lastMedia.type() == .audio ? lastMedia.album : nil
+        if let album = album {
             openAlbum(album)
         }
 
-        if !hasLastPlayedMediaList {
-            PlaybackService.sharedInstance().play(lastMedia)
+        // the queue on disk is only written when backgrounding, hence stale while anything plays
+        guard !PlaybackService.sharedInstance().playerIsSetup else {
+            return
+        }
+
+        let openInMiniPlayer = album != nil
+        mediaLibraryService.restoreLastPlayedMediaList(bypassingSettingCheck: true,
+                                                      openInMiniPlayer: openInMiniPlayer) {
+            PlaybackService.sharedInstance().play(lastMedia, openInMiniPlayer: openInMiniPlayer)
         }
     }
 
@@ -344,6 +349,49 @@ class TabBarCoordinator: NSObject {
             return
         }
         categoryViewController.pushCollectionViewController(for: album)
+    }
+}
+
+// MARK: - Last played quick action
+
+extension TabBarCoordinator: MediaLibraryObserver {
+    func medialibrary(_ medialibrary: MediaLibraryService, historyChangedOfType type: VLCMLHistoryType) {
+        let subtitle = lastPlayedShortcutSubtitle()
+        DispatchQueue.main.async {
+            self.updateLastPlayedShortcutItem(subtitle: subtitle)
+        }
+    }
+
+    @objc func handleDidEnterBackgroundNotification() {
+        updateLastPlayedShortcutItem(subtitle: lastPlayedShortcutSubtitle())
+    }
+
+    private func lastPlayedShortcutSubtitle() -> String? {
+        guard mediaLibraryService.isMediaLibrarySetup,
+              !KeychainCoordinator.passcodeService.hasSecret,
+              let lastMedia = mediaLibraryService.lastPlayedMedia() else {
+            return nil
+        }
+
+        return lastMedia.album?.title ?? lastMedia.title
+    }
+
+    private func updateLastPlayedShortcutItem(subtitle: String?) {
+        let application = UIApplication.shared
+        var shortcutItems = application.shortcutItems?.filter {
+            $0.type != kVLCApplicationShortcutLastPlayed
+        } ?? []
+
+        if let subtitle = subtitle {
+            let item = UIApplicationShortcutItem(type: kVLCApplicationShortcutLastPlayed,
+                                                 localizedTitle: NSLocalizedString("LAST_PLAYED", comment: ""),
+                                                 localizedSubtitle: subtitle,
+                                                 icon: UIApplicationShortcutIcon(type: .play),
+                                                 userInfo: nil)
+            shortcutItems.insert(item, at: 0)
+        }
+
+        application.shortcutItems = shortcutItems
     }
 }
 

@@ -33,7 +33,6 @@
     BOOL _isComingFromHandoff;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
-    BOOL _didRequestLastPlayedMediaListRestore;
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     VLCSessionDelegate *sessionDelegate;
 # endif
@@ -153,35 +152,8 @@
                                                                           localizedSubtitle:nil
                                                                                        icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
                                                                                    userInfo:nil];
-    NSArray<UIApplicationShortcutItem *> *defaultShortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
-    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
-        application.shortcutItems = defaultShortcutItems;
-        return;
-    }
-
-    VLCMLMedia *lastMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService.medialib historyOfType:VLCMLHistoryTypeGlobal].firstObject;
-    if (lastMedia) {
-        UIApplicationShortcutItem *lastMediaItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLastPlayed
-                                                                                    localizedTitle:NSLocalizedString(@"LAST_PLAYED", nil)
-                                                                                 localizedSubtitle:lastMedia.album.title ?: lastMedia.title
-                                                                                              icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay]
-                                                                                          userInfo:nil];
-        application.shortcutItems = @[lastMediaItem, localVideoItem, localAudioItem, localplaylistItem, browseItem];
-    } else {
-        application.shortcutItems = defaultShortcutItems;
-    }
-}
-
-- (void)restoreLastPlayedMediaList
-{
-    if (_didRequestLastPlayedMediaListRestore) {
-        return;
-    }
-    _didRequestLastPlayedMediaListRestore = YES;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
-    });
+    /* the dynamic last played item is added by the tab coordinator once the media library is up */
+    application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, browseItem];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -198,7 +170,7 @@
         [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         [self setupTabBarAppearance];
         if (![shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed]) {
-            [self restoreLastPlayedMediaList];
+            [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
         }
     }
 
