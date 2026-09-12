@@ -250,39 +250,26 @@ class TabBarCoordinator: NSObject {
     @objc func updateTheme() {
         let colors = PresentationTheme.current.colors
         let tabBar = tabBarController.tabBar
-        let bottomBar = tabBarController.bottomBar
 
 #if os(iOS)
         tabBar.isTranslucent = true
-        bottomBar.isTranslucent = false
 #endif
 
         tabBarController.view.tintColor = colors.orangeUI
 
         if #unavailable(iOS 26.0) {
             let tabBarLayer = tabBar.layer
-            let bottomBarLayer = bottomBar.layer
 
             //Setting this in appearanceManager doesn't update tabbar and UINavigationbar of the settingsViewController on change hence we do it here
             tabBar.backgroundColor = colors.tabBarColor
             tabBar.barTintColor = colors.tabBarColor
             tabBar.itemPositioning = .fill
 
-            bottomBar.backgroundColor = colors.tabBarColor
-            bottomBar.barTintColor = colors.tabBarColor
-            bottomBar.itemPositioning = .fill
-
             tabBarLayer.shadowOffset = CGSize(width: 0, height: 0)
             tabBarLayer.shadowRadius = 1.0
             tabBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
             tabBarLayer.shadowOpacity = 0.6
             tabBarLayer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
-
-            bottomBarLayer.shadowOffset = CGSize(width: 0, height: 0)
-            bottomBarLayer.shadowRadius = 1.0
-            bottomBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
-            bottomBarLayer.shadowOpacity = 0.6
-            bottomBarLayer.shadowPath = UIBezierPath(rect: bottomBar.bounds).cgPath
 
             tabBarController.view.backgroundColor = colors.background
         }

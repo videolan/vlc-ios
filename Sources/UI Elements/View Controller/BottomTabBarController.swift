@@ -10,67 +10,46 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#if os(visionOS)
+import SwiftUI
+#endif
+
 @objc(VLCBottomTabBarController)
 class BottomTabBarController: UITabBarController {
     // MARK: - Properties
-
-    @objc lazy var bottomBar: UITabBar = {
-        let bottomBar = UITabBar()
-        bottomBar.translatesAutoresizingMaskIntoConstraints = false
-        return bottomBar
-    }()
-
-    lazy var isBottomBarActive: Bool = {
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
-            return false
-        }
-
-        return false
-    }()
-
-    var tabBarHeightConstraint: NSLayoutConstraint?
-
     private var bottomEditToolbarConstraints: [NSLayoutConstraint] = []
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
+    }
+    
+    private lazy var audioMiniPlayer: AudioMiniPlayer = {
+        let miniPlayer = AudioMiniPlayer(draggingDelegate: BlankMiniPlayerDraggingDelegate())
+        if #unavailable(iOS 26) {
+            miniPlayer.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return miniPlayer
+    }()
+    
+    @objc
+    public private(set) var isMiniPlayerVisible: Bool = false
+    
+    @objc
+    public var miniPlayerZoomEndpoint: ZoomTransitionEndpoint? {
+        audioMiniPlayer
     }
 
     // MARK: - Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        guard isBottomBarActive else {
-            return
+        
+        #if os(iOS)
+        if #available(iOS 26.0, *) {
+            tabBarMinimizeBehavior = .onScrollDown
         }
-
-        bottomBar.isHidden = true
-        tabBar.isHidden = true
-        bottomBar.items = tabBar.items
-        bottomBar.selectedItem = tabBar.selectedItem
-
-        view.addSubview(bottomBar)
-        let heightConstraint = bottomBar.heightAnchor.constraint(equalToConstant: 1)
-        tabBarHeightConstraint = heightConstraint
-
-        NSLayoutConstraint.activate([
-            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            heightConstraint
-        ])
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        guard isBottomBarActive else {
-            return
-        }
-
-        bottomBar.items = tabBar.items
-        bottomBar.selectedItem = tabBar.selectedItem
+        #endif
     }
 
     override func viewDidLayoutSubviews() {
@@ -79,17 +58,91 @@ class BottomTabBarController: UITabBarController {
         if #unavailable(iOS 26.0) {
             tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
         }
-
-        guard isBottomBarActive else {
-            return
+    }
+    
+    // MARK: - Mini-player display
+    
+    @objc
+    func displayMiniPlayer(_ display: Bool, animated: Bool) {
+        #if os(iOS)
+        // TODO: Audio mini player doesn't correctly size itself
+        if #available(iOS 26, *) {
+            if display {
+                setBottomAccessory(UITabAccessory(contentView: audioMiniPlayer), animated: animated)
+            } else {
+                setBottomAccessory(nil, animated: animated)
+            }
+        } else {
+            // TODO: Respect animation
+            // TODO: Crashes on iPad as it uses a sidebar
+            if display {
+                view.addSubview(audioMiniPlayer)
+                
+                let bottomConstraint: NSLayoutConstraint
+                
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    bottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                } else {
+                    bottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor)
+                }
+                
+                NSLayoutConstraint.activate([
+                    audioMiniPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                    audioMiniPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                    bottomConstraint,
+                    audioMiniPlayer.heightAnchor.constraint(equalToConstant: CGFloat(AudioMiniPlayer.height))
+                ])
+                audioMiniPlayer.visible = true
+                
+                var edgeInsets = UIEdgeInsets()
+                edgeInsets.bottom = CGFloat(AudioMiniPlayer.height) + 8
+                
+                children.forEach {
+                    $0.additionalSafeAreaInsets = edgeInsets
+                }
+            } else {
+                audioMiniPlayer.visible = false
+                audioMiniPlayer.removeConstraints(audioMiniPlayer.constraints)
+                audioMiniPlayer.removeFromSuperview()
+                
+                children.forEach {
+                    $0.additionalSafeAreaInsets = .zero
+                }
+            }
+            
+            view.setNeedsLayout()
         }
-
-        let height = bottomBar.intrinsicContentSize.height
-        tabBarHeightConstraint?.constant = height
-
-        if #unavailable(iOS 26.0) {
-            bottomBar.layer.shadowPath = UIBezierPath(rect: bottomBar.bounds).cgPath
+        #else
+        if !display {
+            self.ornaments = []
+        } else {
+            self.ornaments = [UIHostingOrnament(sceneAnchor: .bottom, content: {
+                HStack {
+                    Text("Transport Bar")
+                    Button {
+                        PlaybackService.sharedInstance().playPause()
+                    } label: {
+                        Label("Play/Pause", systemImage: PlaybackService.sharedInstance().isPlaying ? "play.fill" : "pause.fill")
+                    }
+                    .imageScale(.large)
+                    .contentTransition(.symbolEffect(.replace.downUp))
+                    .labelStyle(.iconOnly)
+                }
+                .onTapGesture {
+                    if PlaybackService.sharedInstance().playAsAudio {
+                        UIApplication.shared.sendAction(#selector(VLCPlayerDisplayController.showAudioPlayer), to: PlaybackService.sharedInstance().playerDisplayController, from: nil, for: nil)
+                    } else {
+                        UIApplication.shared.sendAction(#selector(VLCPlayerDisplayController.showFullscreenPlayback), to: PlaybackService.sharedInstance().playerDisplayController, from: nil, for: nil)
+                    }
+                }
+                .scenePadding()
+                .glassBackgroundEffect()
+            })]
         }
+        #endif
+        
+        isMiniPlayerVisible = display
+        audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
     }
 
     // MARK: - Helpers
@@ -205,3 +258,29 @@ extension UITabBarController {
     }
 }
 #endif
+
+class BlankMiniPlayerDraggingDelegate: MiniPlayerDraggingDelegate {
+    func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
+        
+    }
+    
+    func miniPlayerDragDidEnd(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
+        
+    }
+    
+    func miniPlayerPositionToTop(_ miniPlayer: AudioMiniPlayer) {
+        
+    }
+    
+    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer, completion: ((Bool) -> Void)?) {
+        
+    }
+    
+    func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer) {
+        
+    }
+    
+    func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer) {
+        
+    }
+}

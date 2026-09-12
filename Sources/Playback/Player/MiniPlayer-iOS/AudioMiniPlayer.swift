@@ -41,6 +41,7 @@ struct MiniPlayerPosition {
 
 @objc(VLCAudioMiniPlayer)
 class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
+    @available(*, deprecated)
     @objc static let height: Float = 72.0
     private static let extraControlsMinWidth: CGFloat = 500.0
     var visible: Bool = false
@@ -175,19 +176,6 @@ private extension AudioMiniPlayer {
     private func setupBackground(modern: Bool) {
 #if !os(visionOS)
         if #available(iOS 26.0, *) {
-            audioMiniPlayer.backgroundColor = .clear
-            audioMiniPlayer.clipsToBounds = false
-
-            let corners = UICornerConfiguration.capsule()
-            audioMiniPlayer.cornerConfiguration = corners
-
-            let glassEffect = UIGlassEffect()
-            glassEffect.isInteractive = true
-            let glassView = UIVisualEffectView(effect: glassEffect)
-            glassView.cornerConfiguration = corners
-            glassView.translatesAutoresizingMaskIntoConstraints = false
-            audioMiniPlayer.addSubview(glassView)
-            pin(glassView, filling: audioMiniPlayer)
             return
         }
 #endif
@@ -380,6 +368,8 @@ private extension AudioMiniPlayer {
     }
 
     private func setupConstraint() {
+        guard #unavailable(iOS 26) else { return }
+        
         NSLayoutConstraint.activate([
             audioMiniPlayer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             audioMiniPlayer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
@@ -502,7 +492,7 @@ private extension AudioMiniPlayer {
         }
 
         UIApplication.shared.sendAction(selector,
-                                        to: nil,
+                                        to: PlaybackService.sharedInstance().playerDisplayController,
                                         from: self,
                                         for: nil)
     }
@@ -832,7 +822,11 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
     }
 
     private func addContextMenu() {
-        audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
+        if #available(iOS 26, *) {
+            self.addInteraction(UIContextMenuInteraction(delegate: self))
+        } else {
+            audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
+        }
     }
 }
 

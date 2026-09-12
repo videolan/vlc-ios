@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if !TARGET_OS_WATCH
 @class VLCHTTPUploaderController;
 @class VLCTransferController;
+@class VLCBottomTabBarController;
 #endif
 
 @interface VLCAppCoordinator : NSObject
@@ -48,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if !TARGET_OS_WATCH
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
-@property (retain) UITabBarController *tabBarController;
+@property (retain) VLCBottomTabBarController *tabBarController;
 @property (nullable) UIWindow *externalWindow;
 #endif
 
@@ -59,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
-- (void)setTabBarController:(UITabBarController *)tabBarController;
+- (void)setTabBarController:(VLCBottomTabBarController *)tabBarController;
 - (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
 - (void)showTabForMedia:(VLCMLMedia *)media;
 #endif

@@ -3043,7 +3043,7 @@ extension MediaCategoryViewController {
            fabBottomConstraint?.isActive == true { return }
         fabAnchorsToContainerBottom = anchorsToContainerBottom
 
-        let anchor = anchorsToContainerBottom ? containerView.bottomAnchor : tabBar.topAnchor
+        let anchor = anchorsToContainerBottom ? containerView.bottomAnchor : view.safeAreaLayoutGuide.bottomAnchor
         fabBottomConstraint?.isActive = false
         let bottomConstraint = fabButton.bottomAnchor.constraint(equalTo: anchor, constant: -15)
         bottomConstraint.isActive = true
