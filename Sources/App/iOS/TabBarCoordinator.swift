@@ -309,7 +309,7 @@ class TabBarCoordinator: NSObject {
         }
 
         let openInMiniPlayer = album != nil
-        mediaLibraryService.restoreLastPlayedMediaList(bypassingSettingCheck: true,
+        mediaLibraryService.restoreLastPlayedMediaList(onDemand: true,
                                                       openInMiniPlayer: openInMiniPlayer) {
             PlaybackService.sharedInstance().play(lastMedia, openInMiniPlayer: openInMiniPlayer)
         }

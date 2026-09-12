@@ -154,7 +154,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
 #if TARGET_OS_IOS
     if (@available(iOS 13.0, *)) {
         APLog(@"Using Scene flow");
@@ -165,9 +164,7 @@
         [self.window makeKeyAndVisible];
         [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         [self setupTabBarAppearance];
-        if (![shortcutItem.type isEqualToString:kVLCApplicationShortcutLastPlayed]) {
-            [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
-        }
+        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
     }
 
 #if TARGET_OS_IOS && !NO_WATCH
@@ -185,6 +182,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
 
+    UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
     if (shortcutItem) {
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
     }

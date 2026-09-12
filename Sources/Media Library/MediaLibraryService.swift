@@ -213,6 +213,7 @@ class MediaLibraryService: NSObject {
     private var lastPlayedMediaListOpenInMiniPlayer = true
     private var lastPlayedMediaListFallback: (() -> Void)?
     private var didRequestLastPlayedMediaListRestore = false
+    private var didRestoreLastPlayedMediaListOnDemand = false
 
 #if !os(watchOS)
     let subscriptionCacher = VLCSubscriptionCacher()
@@ -709,19 +710,26 @@ extension MediaLibraryService {
         didRequestLastPlayedMediaListRestore = true
 
         DispatchQueue.global(qos: .utility).async {
-            self.restoreLastPlayedMediaList(bypassingSettingCheck: false,
+            // an on-demand restore may have taken over while this was queued, and its play queue
+            // and mini player choice must not be downgraded to the automatic ones
+            guard !self.didRestoreLastPlayedMediaListOnDemand else { return }
+
+            self.restoreLastPlayedMediaList(onDemand: false,
                                             openInMiniPlayer: true,
                                             fallback: nil)
         }
     }
 
     /// `fallback` runs on the main queue once it is certain that nothing was restored, parsing included
-    func restoreLastPlayedMediaList(bypassingSettingCheck: Bool,
+    func restoreLastPlayedMediaList(onDemand: Bool,
                                     openInMiniPlayer: Bool,
                                     fallback: (() -> Void)?) {
         didRequestLastPlayedMediaListRestore = true
+        if onDemand {
+            didRestoreLastPlayedMediaListOnDemand = true
+        }
 
-        guard bypassingSettingCheck || UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia),
+        guard onDemand || UserDefaults.standard.bool(forKey: kVLCRestoreLastPlayedMedia),
               let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
         else {
             runLastPlayedMediaListFallback(fallback)
