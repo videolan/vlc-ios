@@ -13,7 +13,6 @@ import UIKit
 
 protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateGetThumbnail(_ audioPlayerView: AudioPlayerView) -> UIImage?
-    func audioPlayerViewDelegateGetPlaybackSpeed(_ audioPlayerView: AudioPlayerView) -> Float
     func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView)
@@ -323,9 +322,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         thumbnailImageView.clipsToBounds = true
     }
     
-    func setupPlaybackSpeed() {
-        let defaultPlaybackSpeed = delegate?.audioPlayerViewDelegateGetPlaybackSpeed(self)
-        playbackSpeedButton.setTitle(PlaybackSpeedFormatter.string(forSpeed: defaultPlaybackSpeed ?? 1.00), for: .normal)
+    func updatePlaybackSpeedButton(with playbackSpeed: Float) {
+        playbackSpeedButton.setTitle(PlaybackSpeedFormatter.string(forSpeed: playbackSpeed), for: .normal)
     }
 
     func setupBackgroundColor() {

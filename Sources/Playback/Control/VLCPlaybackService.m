@@ -409,7 +409,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [_mediaPlayer setDelegate:self];
     CGFloat defaultPlaybackSpeed = self.defaultPlaybackRate;
     if (defaultPlaybackSpeed != 0.)
-        [_mediaPlayer setRate: defaultPlaybackSpeed];
+        [self setPlaybackRate:defaultPlaybackSpeed];
     int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
     [_mediaPlayer setDeinterlace:deinterlace withFilter:@"blend"];
 
@@ -733,7 +733,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)setPlaybackRate:(float)playbackRate
 {
     [_mediaPlayer setRate:playbackRate];
-    _metadata.playbackRate = @(_mediaPlayer.rate);
 }
 
 - (CGFloat)defaultPlaybackRate
@@ -1126,6 +1125,17 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(mediaPlayerBufferingChanged:forPlaybackService:)]) {
             [self.delegate mediaPlayerBufferingChanged:progress forPlaybackService:self];
+        }
+    });
+}
+
+- (void)mediaPlayerRateChanged:(float)rate
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->_metadata updatePlaybackStateFromMediaPlayer:self->_mediaPlayer];
+
+        if ([self.delegate respondsToSelector:@selector(mediaPlayerRateChanged:forPlaybackService:)]) {
+            [self.delegate mediaPlayerRateChanged:rate forPlaybackService:self];
         }
     });
 }

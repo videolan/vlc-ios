@@ -47,6 +47,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
              forPlaybackService:(VLCPlaybackService *)playbackService;
 - (void)mediaPlayerBufferingChanged:(float)progress
                  forPlaybackService:(VLCPlaybackService *)playbackService;
+- (void)mediaPlayerRateChanged:(float)rate
+            forPlaybackService:(VLCPlaybackService *)playbackService;
 - (void)prepareForMediaPlayback:(VLCPlaybackService *)playbackService;
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
