@@ -1675,11 +1675,11 @@ extension PlayerViewController {
     }
 
     @objc func keyRightBracket() {
-        playbackService.playbackRate *= 1.5
+        playbackService.changePlaybackRate(byFactor: 1.5)
     }
 
     @objc func keyLeftBracket() {
-        playbackService.playbackRate *= 0.75
+        playbackService.changePlaybackRate(byFactor: 0.75)
     }
 
     @objc func keyEqual() {

@@ -992,12 +992,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)keyRightBracket
 {
-    _playbackController.playbackRate *= 1.5;
+    [_playbackController changePlaybackRateByFactor:1.5];
 }
 
 - (void)keyLeftBracket
 {
-    _playbackController.playbackRate *= 0.75;
+    [_playbackController changePlaybackRateByFactor:0.75];
 }
 
 - (void)keyEqual

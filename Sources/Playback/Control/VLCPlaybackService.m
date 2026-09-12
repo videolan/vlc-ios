@@ -55,6 +55,9 @@ NSString *const VLCPlaybackServiceShuffleModeUpdated = @"VLCPlaybackServiceShuff
 NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
 NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
+static const float kVLCPlaybackRateMinimum = 0.25f;
+static const float kVLCPlaybackRateMaximum = 8.0f;
+
 #if TARGET_OS_TV
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #elif TARGET_OS_WATCH
@@ -734,6 +737,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 - (void)setPlaybackRate:(float)playbackRate
 {
     [_mediaPlayer setRate:playbackRate];
+}
+
+- (void)changePlaybackRateByFactor:(float)factor
+{
+    float rate = _mediaPlayer.rate * factor;
+    self.playbackRate = MIN(MAX(rate, kVLCPlaybackRateMinimum), kVLCPlaybackRateMaximum);
 }
 
 - (CGFloat)defaultPlaybackRate

@@ -150,6 +150,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)nextFrame;
 - (void)previousFrame;
 - (void)toggleRepeatMode;
+- (void)changePlaybackRateByFactor:(float)factor;
 
 - (void)setABLoopFromPosition:(double)from toPosition:(double)to;
 - (void)resetABLoop;
