@@ -104,6 +104,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         return searchController
@@ -170,6 +171,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private var collectionViewTopConstraint: NSLayoutConstraint?
+
+    private lazy var searchBarButton: UIBarButtonItem = {
+        let searchBarButton = UIBarButtonItem(barButtonSystemItem: .search,
+                                              target: self,
+                                              action: #selector(handleSearchButton))
+        searchBarButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
+        return searchBarButton
+    }()
 
     private var artworkHeaderTopOffset: CGFloat {
         return navigationController?.navigationBar.frame.maxY ?? searchBarSize
@@ -587,6 +596,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.setupSearchBar()
             if usesArtworkHeader {
                 self.searchBar.removeFromSuperview()
+                self.definesPresentationContext = true
             }
 #if os(iOS)
             if PlaybackService.sharedInstance().renderer != nil {
@@ -1491,6 +1501,12 @@ extension MediaCategoryViewController {
             rightBarButtonItems.append(rendererBarButton)
         }
 #endif
+        if #unavailable(iOS 26.0) {
+            if usesArtworkHeader {
+                rightBarButtonItems.insert(searchBarButton, at: 0)
+            }
+        }
+
         return rightBarButtonItems
     }
 
@@ -1637,11 +1653,43 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
 
 // MARK: - UISearchBarDelegate
 
-extension MediaCategoryViewController: UISearchControllerDelegate {
+extension MediaCategoryViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        searchBarTextDidBeginEditing(searchController.searchBar)
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
+
+        if #unavailable(iOS 26.0) {
+            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField,
+               let backgroundView = textField.subviews.first {
+                backgroundView.backgroundColor = PresentationTheme.current.colors.background
+                backgroundView.layer.cornerRadius = 10
+                backgroundView.clipsToBounds = true
+                backgroundView.layer.opacity = 0.5
+            }
+        }
+    }
+
     func didDismissSearchController(_ searchController: UISearchController) {
         if searchDataSource.isSearching {
             searchBarCancelButtonClicked(searchController.searchBar)
         }
+
+        if #unavailable(iOS 26.0) {
+            navigationItem.searchController = nil
+        }
+    }
+
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text ?? ""
+
+        guard searchDataSource.isSearching, searchText != searchDataSource.searchString else {
+            return
+        }
+
+        searchBar(searchController.searchBar, textDidChange: searchText)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -1667,6 +1715,13 @@ extension MediaCategoryViewController: UISearchControllerDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         delegate?.enableCategorySwitching(for: self, enable: true)
+    }
+
+    @objc private func handleSearchButton() {
+        navigationItem.searchController = searchController
+        DispatchQueue.main.async { [weak self] in
+            self?.searchController.isActive = true
+        }
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

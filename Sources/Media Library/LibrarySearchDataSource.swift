@@ -15,6 +15,7 @@ class LibrarySearchDataSource: NSObject {
     var searchData = [VLCMLObject]()
     var isSearching: Bool = false
     var model: MediaLibraryBaseModel
+    private(set) var searchString: String = ""
 
     init(model: MediaLibraryBaseModel) {
         self.model = model
@@ -23,6 +24,8 @@ class LibrarySearchDataSource: NSObject {
     }
 
     func shouldReloadFor(searchString: String) {
+        self.searchString = searchString
+
         guard searchString != "" else {
             searchData = model.anyfiles
             return
