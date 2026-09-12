@@ -676,6 +676,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewDidAppear(_ animated: Bool) {
         showGuideOnLaunch()
         updateCollectionViewForArtworkHeader()
+#if os(iOS)
+        setNeedsStatusBarAppearanceUpdate()
+#endif
         if userDefaults.bool(forKey: kVLCSettingEnableScrollToCurrentlyPlayingMedia) && PlaybackService.sharedInstance().isPlaying {
              scrollToCurrentlyPlaying()
         }
