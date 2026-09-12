@@ -47,6 +47,7 @@ NSString *const VLCPlaybackServicePlaybackDidResume = @"VLCPlaybackServicePlayba
 NSString *const VLCPlaybackServicePlaybackWillStop = @"VLCPlaybackServicePlaybackWillStop";
 NSString *const VLCPlaybackServicePlaybackDidStop = @"VLCPlaybackServicePlaybackDidStop";
 NSString *const VLCPlaybackServicePlaybackMetadataDidChange = @"VLCPlaybackServicePlaybackMetadataDidChange";
+NSString *const VLCPlaybackServicePlaybackRateDidChange = @"VLCPlaybackServicePlaybackRateDidChange";
 NSString *const VLCPlaybackServicePlaybackDidFail = @"VLCPlaybackServicePlaybackDidFail";
 NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackServicePlaybackPositionUpdated";
 NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlaybackModeUpdated";
@@ -1133,10 +1134,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_metadata updatePlaybackStateFromMediaPlayer:self->_mediaPlayer];
-
-        if ([self.delegate respondsToSelector:@selector(mediaPlayerRateChanged:forPlaybackService:)]) {
-            [self.delegate mediaPlayerRateChanged:rate forPlaybackService:self];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackRateDidChange object:self];
     });
 }
 

@@ -77,6 +77,7 @@ class AudioPlayerViewController: PlayerViewController {
                    rendererDiscovererManager: rendererDiscovererManager,
                    playerController: playerController,
                    isBrightnessControlAvailable: false)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackRateDidChange(_:)), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
@@ -96,6 +97,7 @@ class AudioPlayerViewController: PlayerViewController {
 #else
     @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, playerController: playerController)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackRateDidChange(_:)), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
@@ -176,6 +178,10 @@ class AudioPlayerViewController: PlayerViewController {
         return true
     }
     
+    @objc func playbackRateDidChange(_ notification: NSNotification) {
+        refreshPlaybackSpeed()
+    }
+
     private func refreshPlaybackSpeed() {
         displayedPlaybackSpeed = playbackService.playbackRate
         audioPlayerView.updatePlaybackSpeedButton(with: displayedPlaybackSpeed)
@@ -447,7 +453,6 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         playbackService.playbackRate = requestedSpeed
         displayedPlaybackSpeed = requestedSpeed
         audioPlayerView.updatePlaybackSpeedButton(with: requestedSpeed)
-        NotificationCenter.default.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
     }
 
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
@@ -476,11 +481,6 @@ extension AudioPlayerViewController {
         }
 
         audioPlayerView.thumbnailView.isHidden = playbackService.isPlayingOnExternalScreen()
-    }
-
-    func mediaPlayerRateChanged(_ rate: Float, for playbackService: PlaybackService) {
-        displayedPlaybackSpeed = rate
-        audioPlayerView.updatePlaybackSpeedButton(with: rate)
     }
 
     override func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,

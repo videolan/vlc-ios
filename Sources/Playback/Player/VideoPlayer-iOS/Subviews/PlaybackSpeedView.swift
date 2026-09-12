@@ -56,7 +56,6 @@ class PlaybackSpeedView: UIView {
 
 
     let vpc = PlaybackService.sharedInstance()
-    let notificationCenter = NotificationCenter.default
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,7 +63,7 @@ class PlaybackSpeedView: UIView {
         setupResetButton()
         setupSegmentedControl()
         setupTheme()
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackRateDidChange(_:)), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
     }
 
     func setupTheme() {
@@ -171,7 +170,7 @@ class PlaybackSpeedView: UIView {
         shortcutSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
     }
 
-    @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
+    @objc func playbackRateDidChange(_ notification: NSNotification) {
         setupSliderAndButtons()
     }
 
@@ -192,7 +191,6 @@ class PlaybackSpeedView: UIView {
             currentValue = currentSpeed
             currentButtonText = PlaybackSpeedFormatter.string(forSpeed: currentValue)
             vpc.playbackRate = currentValue
-            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {
                 showIcon = false
             }
@@ -228,8 +226,7 @@ class PlaybackSpeedView: UIView {
     }
 
     func resetSlidersIfNeeded() {
-        if vpc.playbackRate != currentSpeed ||
-           round(vpc.subtitleDelay) != round(currentSubtitlesDelay) ||
+        if round(vpc.subtitleDelay) != round(currentSubtitlesDelay) ||
            round(vpc.audioDelay) != round(currentAudioDelay) {
             optionsSegmentedControl.selectedSegmentIndex = 0
 
@@ -249,7 +246,6 @@ class PlaybackSpeedView: UIView {
             vpc.playbackRate = defaultSpeed
             currentButton.setTitle(PlaybackSpeedFormatter.string(forSpeed: currentSpeed), for: .normal)
             speedSlider.setValue(currentSpeed, animated: true)
-            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
         } else if selectedIndex == 1 {
             currentSubtitlesDelay = defaultDelay
             vpc.subtitleDelay = defaultDelay
@@ -270,7 +266,6 @@ class PlaybackSpeedView: UIView {
     func reset() {
         currentSpeed = defaultSpeed
         vpc.playbackRate = currentSpeed
-        notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
 
         currentSubtitlesDelay = defaultDelay
         vpc.subtitleDelay = currentSubtitlesDelay
@@ -307,7 +302,6 @@ class PlaybackSpeedView: UIView {
             currentValue = currentSpeed
             currentButtonText = PlaybackSpeedFormatter.string(forSpeed: currentValue)
             vpc.playbackRate = currentValue
-            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {
                 showIcon = false
             }

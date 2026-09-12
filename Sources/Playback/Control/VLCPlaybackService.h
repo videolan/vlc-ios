@@ -22,6 +22,7 @@ extern NSString *const VLCPlaybackServicePlaybackWillStop;
 extern NSString *const VLCPlaybackServicePlaybackDidStop;
 extern NSString *const VLCPlaybackServicePlaybackDidFail;
 extern NSString *const VLCPlaybackServicePlaybackMetadataDidChange;
+extern NSString *const VLCPlaybackServicePlaybackRateDidChange;
 extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 extern NSString *const VLCPlaybackServicePlaybackModeUpdated;
 extern NSString *const VLCPlaybackServiceShuffleModeUpdated;
@@ -47,8 +48,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
              forPlaybackService:(VLCPlaybackService *)playbackService;
 - (void)mediaPlayerBufferingChanged:(float)progress
                  forPlaybackService:(VLCPlaybackService *)playbackService;
-- (void)mediaPlayerRateChanged:(float)rate
-            forPlaybackService:(VLCPlaybackService *)playbackService;
 - (void)prepareForMediaPlayback:(VLCPlaybackService *)playbackService;
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
