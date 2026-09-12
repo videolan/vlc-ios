@@ -378,9 +378,17 @@ extension TabBarCoordinator: MediaLibraryObserver {
 
     private func updateLastPlayedShortcutItem(subtitle: String?) {
         let application = UIApplication.shared
-        var shortcutItems = application.shortcutItems?.filter {
+        let currentItems = application.shortcutItems ?? []
+        let currentItem = currentItems.first { $0.type == kVLCApplicationShortcutLastPlayed }
+
+        // we only ever create this item with a subtitle, so it stands in for the whole state
+        guard subtitle != currentItem?.localizedSubtitle else {
+            return
+        }
+
+        var shortcutItems = currentItems.filter {
             $0.type != kVLCApplicationShortcutLastPlayed
-        } ?? []
+        }
 
         if let subtitle = subtitle {
             let item = UIApplicationShortcutItem(type: kVLCApplicationShortcutLastPlayed,
