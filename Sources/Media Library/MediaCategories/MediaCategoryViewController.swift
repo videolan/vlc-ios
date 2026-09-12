@@ -145,11 +145,35 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return statusBarView
     }()
 
-    private weak var albumHeader: AlbumHeader?
-    private var isAlbumArtworkBehindStatusBar: Bool = false
-    private lazy var albumFlowLayout = AlbumHeaderLayout()
+    private weak var artworkHeader: CollectionArtworkHeader?
+    private var isArtworkBehindStatusBar: Bool = false
+    private lazy var artworkHeaderLayout = CollectionArtworkHeaderLayout()
 
-    private weak var playlistHeader: PlaylistHeader?
+    private var usesArtworkHeader: Bool {
+        guard let model = model as? CollectionModel else {
+            return false
+        }
+
+        return model.mediaCollection is VLCMLAlbum || model.mediaCollection is VLCMLPlaylist
+    }
+
+    private var showsArtworkHeader: Bool {
+        guard usesArtworkHeader else {
+            return false
+        }
+
+        if let playlist = (model as? CollectionModel)?.mediaCollection as? VLCMLPlaylist {
+            return playlist.nbMedia() != 0
+        }
+
+        return true
+    }
+
+    private var collectionViewTopConstraint: NSLayoutConstraint?
+
+    private var artworkHeaderTopOffset: CGFloat {
+        return navigationController?.navigationBar.frame.maxY ?? searchBarSize
+    }
 
     private lazy var navItemTitle: VLCMarqueeLabel = VLCMarqueeLabel()
 
@@ -260,7 +284,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isAlbumArtworkBehindStatusBar {
+        if isArtworkBehindStatusBar {
             return .lightContent
         }
 
@@ -395,7 +419,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         handleFABButtonVisibility()
     }
 
-    private func updateAlbumHeader() {
+    private func updateArtworkHeader() {
         let backgroundColor: UIColor
         if collectionView.contentOffset.y >= 50 {
             backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (collectionView.contentOffset.y / 100))
@@ -410,11 +434,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             scrollEdgeAppearance?.backgroundColor = backgroundColor
         }
 
-        if let albumHeader = albumHeader,
+        if let artworkHeader = artworkHeader,
            let navBar = navigationController?.navigationBar {
             let padding = statusBarView.frame.maxY + navBar.frame.maxY
             let hideNavigationItemTitle: Bool
-            if collectionView.contentOffset.y >= albumHeader.frame.maxY - padding {
+            if collectionView.contentOffset.y >= artworkHeader.frame.maxY - padding {
                 hideNavigationItemTitle = false
             } else {
                 hideNavigationItemTitle = true
@@ -422,8 +446,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
             navigationItem.titleView?.isHidden = hideNavigationItemTitle
 
-            if isAlbumArtworkBehindStatusBar != hideNavigationItemTitle {
-                isAlbumArtworkBehindStatusBar = hideNavigationItemTitle
+            if isArtworkBehindStatusBar != hideNavigationItemTitle {
+                isArtworkBehindStatusBar = hideNavigationItemTitle
 #if os(iOS)
                 setNeedsStatusBarAppearanceUpdate()
 #endif
@@ -431,41 +455,33 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
-    private func updateCollectionViewForAlbum() {
-        guard let model = model as? CollectionModel, model.mediaCollection is VLCMLAlbum else {
+    private func updateCollectionViewForArtworkHeader() {
+        guard usesArtworkHeader else {
             return
         }
 
-        collectionView?.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
-        collectionView.collectionViewLayout = albumFlowLayout
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-#if os(iOS)
-        let isLandscape: Bool = UIDevice.current.orientation.isLandscape
-        let constant: CGFloat
-        if let navigationBarHeight = navigationController?.navigationBar.frame.height {
-            constant = isLandscape ? navigationBarHeight : navigationBarHeight * 2
-        } else {
-            constant = isLandscape ? searchBarSize : searchBarSize * 2
-        }
-#else
-        let constant: CGFloat
-        if let navigationBarHeight = navigationController?.navigationBar.frame.height {
-            constant = navigationBarHeight
-        } else {
-            constant = searchBarSize
-        }
-#endif
+        collectionView?.register(CollectionArtworkHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionArtworkHeader.headerID)
+        collectionView.collectionViewLayout = artworkHeaderLayout
 
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -constant),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        if collectionViewTopConstraint == nil {
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+            let topConstraint = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
+            collectionViewTopConstraint = topConstraint
+
+            NSLayoutConstraint.activate([
+                topConstraint,
+                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+
+        collectionViewTopConstraint?.constant = -artworkHeaderTopOffset
 
         navigationItem.titleView?.isHidden = true
 
-        updateAlbumHeader()
+        updateArtworkHeader()
     }
 
     private func setupSearchBar() {
@@ -558,18 +574,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         self.navigationItem.titleView = navItemTitle
         collectionView.tintColor = colors.orangeUI
 
-        let isAlbum = (model as? CollectionModel)?.mediaCollection is VLCMLAlbum
-        if isAlbum {
+        let usesArtworkHeader = self.usesArtworkHeader
+        if usesArtworkHeader {
             if #available(iOS 13.0, *) {
-                self.navigationItem.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
-                self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+                self.navigationItem.standardAppearance = AppearanceManager.navigationBarArtworkAppearance()
+                self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarArtworkAppearance()
             }
-            updateCollectionViewForAlbum()
+            updateCollectionViewForArtworkHeader()
         }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.setupSearchBar()
-            if isAlbum {
+            if usesArtworkHeader {
                 self.searchBar.removeFromSuperview()
             }
 #if os(iOS)
@@ -582,9 +598,21 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         addThemeChangeObserver()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        guard let collectionViewTopConstraint = collectionViewTopConstraint else {
+            return
+        }
+
+        let offset = -artworkHeaderTopOffset
+        if collectionViewTopConstraint.constant != offset {
+            collectionViewTopConstraint.constant = offset
+        }
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
-        if let model = model as? CollectionModel,
-           model.mediaCollection is VLCMLAlbum {
+        if usesArtworkHeader {
             statusBarView.removeFromSuperview()
             view.addSubview(searchBar)
         }
@@ -637,7 +665,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     override func viewDidAppear(_ animated: Bool) {
         showGuideOnLaunch()
-        updateCollectionViewForAlbum()
+        updateCollectionViewForArtworkHeader()
         if userDefaults.bool(forKey: kVLCSettingEnableScrollToCurrentlyPlayingMedia) && PlaybackService.sharedInstance().isPlaying {
              scrollToCurrentlyPlaying()
         }
@@ -775,8 +803,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         editToolBar.backgroundColor = colors.tabBarColor
 
-        albumHeader?.updateTheme()
-        updateAlbumHeader()
+        artworkHeader?.updateTheme()
+        updateArtworkHeader()
     }
 
     private func showGuideOnLaunch() {
@@ -862,10 +890,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         toSize = size
         collectionView?.collectionViewLayout.invalidateLayout()
 
-        if let playlistHeader = playlistHeader {
-            playlistHeader.updateAfterRotation()
-        }
-
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.updateFABButtonBottomConstraint()
         })
@@ -879,9 +903,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if #available(iOS 26.0, visionOS 26.0, *) {
-            if let model = model as? CollectionModel,
-               model.mediaCollection is VLCMLAlbum {
-                updateAlbumHeader()
+            if usesArtworkHeader {
+                updateArtworkHeader()
             }
             return
         }
@@ -916,10 +939,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
         }
 
-        if let model = model as? CollectionModel,
-           model.mediaCollection is VLCMLAlbum {
-
-            updateAlbumHeader()
+        if usesArtworkHeader {
+            updateArtworkHeader()
         }
     }
 
@@ -2147,30 +2168,19 @@ extension MediaCategoryViewController {
             return .init(width: collectionView.safeAreaLayoutGuide.layoutFrame.width, height: 40)
         }
 
-        guard let model = model as? CollectionModel else {
+        guard showsArtworkHeader else {
             return .init(width: 0, height: 0)
         }
 
-        if model.mediaCollection is VLCMLAlbum {
-            return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
-        } else if let playlist = model.mediaCollection as? VLCMLPlaylist {
-            guard playlist.nbMedia() != 0 else {
-                return .init(width: 0, height: 0)
-            }
-
-            return PlaylistHeader.getHeaderSize(with: collectionView.frame.size.width)
-        } else {
-            return .init(width: 0, height: 0)
-        }
+        return artworkHeaderLayout.getHeaderSize(with: collectionView.frame.size.width)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard let model = model as? CollectionModel,
-              let album = model.mediaCollection as? VLCMLAlbum else {
+        guard let model = model as? CollectionModel, showsArtworkHeader else {
             return .zero
         }
 
-        return AlbumFooter.getFooterSize(with: collectionView.frame.size.width, and: album)
+        return CollectionInfoFooter.getFooterSize(with: collectionView.frame.size.width, and: model.mediaCollection)
     }
 }
 
@@ -2284,49 +2294,39 @@ extension MediaCategoryViewController {
         }
     }
 
-    private func setupAlbumHeaderReusableView(headerView: AlbumHeader, collection: VLCMLAlbum) -> UICollectionReusableView {
-        let thumbnail = collection.thumbnail()
-        headerView.updateImage(with: thumbnail)
-        headerView.collection = collection
-        headerView.updateThumbnailTitle(collection.title)
+    private func setupArtworkHeaderReusableView(headerView: CollectionArtworkHeader, collection: MediaCollectionModel) -> UICollectionReusableView {
+        if let album = collection as? VLCMLAlbum {
+            headerView.updateImage(with: album.thumbnail())
+            headerView.updateThumbnailTitle(album.title)
+            headerView.collection = album
+        } else if let playlist = collection as? VLCMLPlaylist {
+            headerView.updateImage(with: playlist.thumbnailImage())
+            headerView.updateThumbnailTitle(playlist.title())
+            headerView.collection = playlist
+        }
 
+        headerView.sortModel = model.sortModel
         headerView.shouldDisablePlayButtons(false)
         headerView.updateParentView(parent: view)
-        albumHeader = headerView
+        artworkHeader = headerView
 
-        return headerView
-    }
-
-    private func setupPlaylistHeaderReusableView(headerView: PlaylistHeader, collection: VLCMLPlaylist) -> UICollectionReusableView {
-        headerView.updateImage(with: collection.thumbnail())
-        headerView.updateTitle(with: collection.title())
-        headerView.updateSubtitle(with: collection.subtitleString())
-        headerView.collection = collection
-        headerView.sortModel = model.sortModel
-        playlistHeader = headerView
         return headerView
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader else {
             if kind == UICollectionView.elementKindSectionFooter,
-               let collectionModel = model as? CollectionModel,
-               let album = collectionModel.mediaCollection as? VLCMLAlbum,
-               let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumFooter.footerID, for: indexPath) as? AlbumFooter {
-                footer.configure(with: album)
+               let collectionModel = model as? CollectionModel, usesArtworkHeader,
+               let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionInfoFooter.footerID, for: indexPath) as? CollectionInfoFooter {
+                footer.configure(with: collectionModel.mediaCollection)
                 return footer
             }
             return UICollectionReusableView()
         }
 
-        if let collectionModel = model as? CollectionModel,
-           let collection = collectionModel.mediaCollection as? VLCMLAlbum,
-           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath) as? AlbumHeader {
-            return setupAlbumHeaderReusableView(headerView: header, collection: collection)
-        } else if let collectionModel = model as? CollectionModel,
-                  let collection = collectionModel.mediaCollection as? VLCMLPlaylist,
-                  let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlaylistHeader.headerID, for: indexPath) as? PlaylistHeader {
-            return setupPlaylistHeaderReusableView(headerView: header, collection: collection)
+        if let collectionModel = model as? CollectionModel, usesArtworkHeader,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionArtworkHeader.headerID, for: indexPath) as? CollectionArtworkHeader {
+            return setupArtworkHeaderReusableView(headerView: header, collection: collectionModel.mediaCollection)
         } else if isSectioned,
                   let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrackSectionHeader.headerID, for: indexPath) as? TrackSectionHeader {
             let media = currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row]
@@ -2559,8 +2559,8 @@ extension MediaCategoryViewController: EditControllerDelegate {
         return nil
     }
 
-    func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize {
-        return albumFlowLayout.getHeaderSize(with: width)
+    func editControllerGetArtworkHeaderSize(with width: CGFloat) -> CGSize {
+        return artworkHeaderLayout.getHeaderSize(with: width)
     }
 
     func editControllerSetNavigationItemTitle(with title: String?) {
@@ -2611,9 +2611,8 @@ extension MediaCategoryViewController: EditControllerDelegate {
 
 private extension MediaCategoryViewController {
     func setupCollectionView() {
-        collectionView.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
-        collectionView.register(PlaylistHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PlaylistHeader.headerID)
-        collectionView.register(AlbumFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: AlbumFooter.footerID)
+        collectionView.register(CollectionArtworkHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionArtworkHeader.headerID)
+        collectionView.register(CollectionInfoFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionInfoFooter.footerID)
         collectionView.register(TrackSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TrackSectionHeader.headerID)
 
         // Register all possible cell types upfront

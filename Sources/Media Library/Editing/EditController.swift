@@ -14,7 +14,7 @@ protocol EditControllerDelegate: AnyObject {
     func editControllerDidDeSelectMultipleItem()
     func editControllerDidFinishEditing(editController: EditController?)
     func editControllerGetCurrentThumbnail() -> UIImage?
-    func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
+    func editControllerGetArtworkHeaderSize(with width: CGFloat) -> CGSize
     func editControllerSetNavigationItemTitle(with title: String?)
     func editControllerUpdateIsAllSelected(with allSelected: Bool)
 }
@@ -365,11 +365,9 @@ extension EditController: UICollectionViewDelegate {
             return .init(width: 0, height: 0)
         }
 
-        if model.mediaCollection is VLCMLAlbum,
-           let size = delegate?.editControllerGetAlbumHeaderSize(with: collectionView.frame.size.width) {
+        if model.mediaCollection is VLCMLAlbum || model.mediaCollection is VLCMLPlaylist,
+           let size = delegate?.editControllerGetArtworkHeaderSize(with: collectionView.frame.size.width) {
             return size
-        } else if model.mediaCollection is VLCMLPlaylist {
-            return PlaylistHeader.getHeaderSize(with: collectionView.frame.size.width)
         } else {
             return .init(width: 0, height: 0)
         }
@@ -451,14 +449,10 @@ extension EditController: UICollectionViewDataSource {
         }
 
         if let collectionModel = model as? CollectionModel,
-           collectionModel.mediaCollection is VLCMLAlbum,
-           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath) as? AlbumHeader {
+           collectionModel.mediaCollection is VLCMLAlbum || collectionModel.mediaCollection is VLCMLPlaylist,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionArtworkHeader.headerID, for: indexPath) as? CollectionArtworkHeader {
             header.updateImage(with: delegate?.editControllerGetCurrentThumbnail())
             header.shouldDisablePlayButtons(true)
-            return header
-        } else if let collectionModel = model as? CollectionModel,
-                  collectionModel.mediaCollection is VLCMLPlaylist,
-                  let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PlaylistHeader.headerID, for: indexPath) as? PlaylistHeader {
             return header
         }
 

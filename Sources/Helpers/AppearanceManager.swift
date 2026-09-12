@@ -83,7 +83,7 @@ class AppearanceManager: NSObject {
     }
 
     @available(iOS 13.0, tvOS 13.0, *)
-    @objc class func navigationBarAlbumAppearance() -> UINavigationBarAppearance {
+    @objc class func navigationBarArtworkAppearance() -> UINavigationBarAppearance {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.backgroundColor = .clear

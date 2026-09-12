@@ -1,5 +1,5 @@
 /*****************************************************************************
- * AlbumFooter.swift
+ * CollectionInfoFooter.swift
  *
  * Copyright © 2026 VLC authors and VideoLAN
  *
@@ -8,10 +8,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class AlbumFooter: UICollectionReusableView {
+class CollectionInfoFooter: UICollectionReusableView {
     // MARK: - Properties
 
-    static let footerID = "AlbumFooterID"
+    static let footerID = "CollectionInfoFooterID"
 
     private lazy var dividerView: UIView = {
         let dividerView = UIView(frame: .zero)
@@ -117,26 +117,37 @@ class AlbumFooter: UICollectionReusableView {
 
     // MARK: - Public methods
 
-    func configure(with album: VLCMLAlbum) {
-        artistLabel.text = "\(album.albumArtistName())"
+    func configure(with collection: MediaCollectionModel) {
+        var tracksContent: [String] = [collection.numberOfTracksString()]
 
-        var tracksContent: [String] = [album.numberOfTracksString()]
-        let duration = VLCTime(number: NSNumber(value: album.duration()))
-        tracksContent.append(String(describing: duration))
-        tracksLabel.text = tracksContent.joined(separator: " · ")
+        if let album = collection as? VLCMLAlbum {
+            artistLabel.isHidden = false
+            artistLabel.text = album.albumArtistName()
 
-        let releaseYear = album.releaseYear()
-        if releaseYear == 0 {
-            dateLabel.removeFromSuperview()
-        } else {
+            let duration = VLCTime(number: NSNumber(value: album.duration()))
+            tracksContent.append(String(describing: duration))
+
+            let releaseYear = album.releaseYear()
+            dateLabel.isHidden = releaseYear == 0
             dateLabel.text = "\(releaseYear)"
+        } else if let playlist = collection as? VLCMLPlaylist {
+            artistLabel.isHidden = false
+            artistLabel.text = " "
+            dateLabel.isHidden = true
+            dateLabel.text = nil
+
+            tracksContent.append(playlist.durationString())
         }
+
+        tracksLabel.text = tracksContent.joined(separator: " · ")
     }
 
-    static func getFooterSize(with width: CGFloat, and collection: VLCMLAlbum) -> CGSize {
+    static func getFooterSize(with width: CGFloat, and collection: MediaCollectionModel) -> CGSize {
         var height: CGFloat = 100.0
 
-        if collection.releaseYear() == 0 {
+        if collection is VLCMLPlaylist {
+            height -= 25.0
+        } else if let album = collection as? VLCMLAlbum, album.releaseYear() == 0 {
             height -= 25.0
         }
 
