@@ -13,6 +13,8 @@
 import UIKit
 
 final class RoundedCornerPlayerButton: UIControl {
+    private var glassBackgroundView: UIView?
+
     private let iconView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .center
@@ -72,7 +74,7 @@ final class RoundedCornerPlayerButton: UIControl {
 
     private func setup(showsChevron: Bool) {
         translatesAutoresizingMaskIntoConstraints = false
-        styleAsNeutralOverlayControl(cornerRadius: 16)
+        applyBackgroundStyle()
 
         iconView.isUserInteractionEnabled = false
         summaryLabel.isHidden = true
@@ -105,6 +107,53 @@ final class RoundedCornerPlayerButton: UIControl {
 
         isAccessibilityElement = true
         accessibilityTraits = .button
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applyBackgroundStyle),
+                                       name: UIAccessibility.reduceTransparencyStatusDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applyBackgroundStyle),
+                                       name: UIAccessibility.darkerSystemColorsStatusDidChangeNotification,
+                                       object: nil)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if glassBackgroundView == nil {
+            roundCorners(radius: bounds.height / 2)
+        }
+    }
+
+    @objc private func applyBackgroundStyle() {
+        glassBackgroundView?.removeFromSuperview()
+        glassBackgroundView = nil
+
+#if !os(visionOS)
+        if #available(iOS 26.0, *), !UIAccessibility.isReduceTransparencyEnabled {
+            backgroundColor = .clear
+            layer.borderWidth = 0
+            let glassView = UIVisualEffectView(effect: UIGlassEffect())
+            glassView.cornerConfiguration = .capsule()
+            glassView.isUserInteractionEnabled = false
+            glassView.translatesAutoresizingMaskIntoConstraints = false
+            insertSubview(glassView, at: 0)
+            NSLayoutConstraint.activate([
+                glassView.topAnchor.constraint(equalTo: topAnchor),
+                glassView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                glassView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                glassView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ])
+            glassBackgroundView = glassView
+            return
+        }
+#endif
+
+        styleAsNeutralOverlayControl(cornerRadius: bounds.height / 2)
+        if UIAccessibility.isDarkerSystemColorsEnabled {
+            backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        }
     }
 
     func setIcon(systemName: String) {

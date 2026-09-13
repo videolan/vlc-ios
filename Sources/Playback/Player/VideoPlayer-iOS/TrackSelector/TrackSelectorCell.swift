@@ -55,16 +55,17 @@ final class TrackSelectorCell: UITableViewCell {
         return label
     }()
 
-    private lazy var primaryPill = makePill(title: "1", action: #selector(didTapPrimaryPill))
-    private lazy var secondaryPill = makePill(title: "2", action: #selector(didTapSecondaryPill))
+    private lazy var primaryPill = makePill(action: #selector(didTapPrimaryPill))
+    private lazy var secondaryPill = makePill(action: #selector(didTapSecondaryPill))
 
     private let selectionCapsule: UIView = {
         let view = UIView()
-        view.roundCorners(radius: 12)
         view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    private var selectionGlassView: UIView?
 
     private var labelTrailingToContent: NSLayoutConstraint!
     private var labelTrailingToPills: NSLayoutConstraint!
@@ -131,12 +132,13 @@ final class TrackSelectorCell: UITableViewCell {
         labelTrailingToContent.isActive = true
     }
 
-    private func makePill(title: String, action: Selector) -> UIButton {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        selectionCapsule.roundCorners(radius: selectionCapsule.bounds.height / 2)
+    }
+
+    private func makePill(action: Selector) -> UIButton {
         let button = UIButton(type: .custom)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
-        button.roundCorners(radius: 11)
-        button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: action, for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -165,33 +167,56 @@ final class TrackSelectorCell: UITableViewCell {
             checkImageView.isHidden = true
             stylePill(primaryPill, kind: .primary, active: assignment == .primary, colors: colors)
             stylePill(secondaryPill, kind: .secondary, active: assignment == .secondary, colors: colors)
-            selectionCapsule.backgroundColor = .clear
-            selectionCapsule.layer.borderWidth = 0
+            updateSelectionCapsule(isSelected: false, colors: colors)
         } else {
             checkImageView.isHidden = !row.isSelected
-            if row.isSelected {
-                selectionCapsule.backgroundColor = colors.selectionAccent.withAlphaComponent(0.28)
-                selectionCapsule.layer.borderWidth = 1
-                selectionCapsule.layer.borderColor = colors.orangeUI.withAlphaComponent(0.65).cgColor
-            } else {
-                selectionCapsule.backgroundColor = .clear
-                selectionCapsule.layer.borderWidth = 0
-            }
+            updateSelectionCapsule(isSelected: row.isSelected, colors: colors)
         }
         updateAccessibility(row: row, dualMode: dualMode, assignment: assignment)
     }
 
+    private func updateSelectionCapsule(isSelected: Bool, colors: ColorPalette) {
+        selectionGlassView?.removeFromSuperview()
+        selectionGlassView = nil
+        selectionCapsule.backgroundColor = .clear
+        selectionCapsule.layer.borderWidth = 0
+        checkImageView.tintColor = colors.orangeUI
+
+        guard isSelected else {
+            return
+        }
+
+#if !os(visionOS)
+        if #available(iOS 26.0, *), !UIAccessibility.isReduceTransparencyEnabled {
+            let glassEffect = UIGlassEffect()
+            glassEffect.tintColor = colors.orangeUI
+            let glassView = UIVisualEffectView(effect: glassEffect)
+            glassView.cornerConfiguration = .capsule()
+            glassView.isUserInteractionEnabled = false
+            glassView.translatesAutoresizingMaskIntoConstraints = false
+            selectionCapsule.addSubview(glassView)
+            NSLayoutConstraint.activate([
+                glassView.topAnchor.constraint(equalTo: selectionCapsule.topAnchor),
+                glassView.leadingAnchor.constraint(equalTo: selectionCapsule.leadingAnchor),
+                glassView.trailingAnchor.constraint(equalTo: selectionCapsule.trailingAnchor),
+                glassView.bottomAnchor.constraint(equalTo: selectionCapsule.bottomAnchor),
+            ])
+            selectionGlassView = glassView
+            checkImageView.tintColor = .white
+            return
+        }
+#endif
+
+        selectionCapsule.backgroundColor = colors.orangeUI.withAlphaComponent(0.2)
+        selectionCapsule.layer.borderWidth = 1
+        selectionCapsule.layer.borderColor = colors.orangeUI.cgColor
+    }
+
     private func stylePill(_ pill: UIButton, kind: TrackSelectorAssignment, active: Bool, colors: ColorPalette) {
         let accent = (kind == .primary) ? colors.orangeUI : colors.secondarySubtitleAccent
-        if active {
-            pill.backgroundColor = accent
-            pill.layer.borderColor = accent.cgColor
-            pill.setTitleColor(colors.background, for: .normal)
-        } else {
-            pill.backgroundColor = colors.overlayControlFillColor
-            pill.layer.borderColor = colors.overlayHairlineColor.cgColor
-            pill.setTitleColor(colors.overlaySecondaryTextColor, for: .normal)
-        }
+        let title = (kind == .primary) ? "1" : "2"
+        pill.applyOverlayControlStyle(title: title, image: nil, isActive: active, cornerRadius: 17, activeColor: accent)
+        pill.configuration?.contentInsets = .zero
     }
 
     private func updateAccessibility(row: TrackSelectorRow, dualMode: Bool, assignment: TrackSelectorAssignment) {

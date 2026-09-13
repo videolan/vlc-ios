@@ -13,10 +13,12 @@
 import UIKit
 
 extension UIButton {
-    func applyOverlayControlStyle(title: String?, image: UIImage?, isActive: Bool, cornerRadius: CGFloat) {
+    func applyOverlayControlStyle(title: String?, image: UIImage?, isActive: Bool, cornerRadius: CGFloat, activeColor: UIColor? = nil) {
+        let colors = PresentationTheme.currentExcludingWhite.colors
+        let accentColor = activeColor ?? colors.orangeUI
         accessibilityTraits = isActive ? [.button, .selected] : .button
 
-        var configuration = makeOverlayControlConfiguration(isActive: isActive, cornerRadius: cornerRadius)
+        var configuration = makeOverlayControlConfiguration(isActive: isActive, cornerRadius: cornerRadius, accentColor: accentColor)
         configuration.title = title
         configuration.image = image
         configuration.imagePadding = 8
@@ -29,13 +31,13 @@ extension UIButton {
         self.configuration = configuration
     }
 
-    private func makeOverlayControlConfiguration(isActive: Bool, cornerRadius: CGFloat) -> UIButton.Configuration {
+    private func makeOverlayControlConfiguration(isActive: Bool, cornerRadius: CGFloat, accentColor: UIColor) -> UIButton.Configuration {
         let colors = PresentationTheme.currentExcludingWhite.colors
 #if !os(visionOS)
         if #available(iOS 26.0, *), !UIAccessibility.isReduceTransparencyEnabled {
             var configuration: UIButton.Configuration = isActive ? .prominentGlass() : .glass()
             if isActive {
-                configuration.baseBackgroundColor = colors.orangeUI
+                configuration.baseBackgroundColor = accentColor
                 configuration.baseForegroundColor = .white
             } else {
                 configuration.baseForegroundColor = colors.overlayPrimaryTextColor
@@ -45,13 +47,13 @@ extension UIButton {
         }
 #endif
         var configuration = UIButton.Configuration.plain()
-        configuration.baseForegroundColor = isActive ? colors.orangeUI : colors.overlayPrimaryTextColor
+        configuration.baseForegroundColor = isActive ? accentColor : colors.overlayPrimaryTextColor
         configuration.cornerStyle = .fixed
         configuration.background.cornerRadius = cornerRadius
         configuration.background.strokeWidth = 1
-        configuration.background.strokeColor = isActive ? colors.orangeUI : colors.overlayHairlineColor
+        configuration.background.strokeColor = isActive ? accentColor : colors.overlayHairlineColor
         if isActive {
-            configuration.background.backgroundColor = colors.orangeUI.withAlphaComponent(0.2)
+            configuration.background.backgroundColor = accentColor.withAlphaComponent(0.2)
         } else if UIAccessibility.isReduceTransparencyEnabled || UIAccessibility.isDarkerSystemColorsEnabled {
             configuration.background.backgroundColor = colors.background
         } else {
