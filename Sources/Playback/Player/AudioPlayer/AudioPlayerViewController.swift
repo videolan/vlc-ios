@@ -457,10 +457,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     }
 
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
-        present(moreOptionsActionSheet, animated: false) {
-            [unowned self] in
-            self.moreOptionsActionSheet.addView(.playback)
-        }
+        presentPlaybackSpeedSheet()
     }
 
 }
@@ -643,10 +640,6 @@ extension AudioPlayerViewController {
         super.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
 
         audioPlayerView.shouldDisableControls(false)
-    }
-
-    func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool) {
-        audioPlayerView.shouldDisplaySecondaryStackView(displayView)
     }
 
     override func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {

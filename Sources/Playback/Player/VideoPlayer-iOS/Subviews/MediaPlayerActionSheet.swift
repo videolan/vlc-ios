@@ -282,9 +282,8 @@ class MediaPlayerActionSheet: ActionSheet {
                 } else if let abRepeatView = item as? ABRepeatView {
                     self.removeActionSheet()
                     actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
-                } else if let playbackSpeedView = item as? PlaybackSpeedView {
-                    playbackSpeedView.setupSliderAndButtons()
-                    self.add(childView: playbackSpeedView)
+                } else if item is PlaybackSpeedView {
+                    actionSheet.closeAndPresentPlaybackSpeed()
                 } else {
                     self.add(childView: item)
                 }
@@ -403,6 +402,10 @@ extension MediaPlayerActionSheet: ActionSheetDelegate {
     
     func headerViewTitle() -> String? {
         return mediaPlayerActionSheetDelegate?.mediaPlayerActionSheetHeaderTitle()
+    }
+
+    func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
+        (self as? MediaMoreOptionsActionSheet)?.presentPendingPlaybackSpeed()
     }
 }
 

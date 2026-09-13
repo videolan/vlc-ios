@@ -617,12 +617,18 @@ class PlayerViewController: UIViewController {
     }
 
     func showIcon(button: UIButton) {
+        guard button.isHidden else {
+            return
+        }
         UIView.animate(withDuration: 0.5, animations: {
             button.isHidden = false
         }, completion: nil)
     }
 
     func hideIcon(button: UIButton) {
+        guard !button.isHidden else {
+            return
+        }
         UIView.animate(withDuration: 0.5, animations: {
             button.isHidden = true
         }, completion: nil)
@@ -698,9 +704,25 @@ class PlayerViewController: UIViewController {
         moreOptionsActionSheet.resetVideoFilters()
     }
 
+    func presentPlaybackSpeedSheet() {
+        let controller = PlaybackSpeedViewController(isAudioPlayer: self is AudioPlayerViewController, delegate: self)
+        present(controller, animated: true)
+    }
+
+    @objc func updatePlaybackSpeedIcon() {
+        let isSpeedModified = abs(playbackService.playbackRate - PlaybackSpeedCustomManager.shared.resetSpeed) > 0.001
+        if isSpeedModified || playbackService.audioDelay != 0 || playbackService.subtitleDelay != 0 {
+            showIcon(button: optionsNavigationBar.playbackSpeedButton)
+        } else {
+            hideIcon(button: optionsNavigationBar.playbackSpeedButton)
+        }
+    }
+
     private func resetPlaybackSpeed() {
+        playbackService.playbackRate = PlaybackSpeedCustomManager.shared.resetSpeed
+        playbackService.audioDelay = 0
+        playbackService.subtitleDelay = 0
         hideIcon(button: optionsNavigationBar.playbackSpeedButton)
-        moreOptionsActionSheet.resetPlaybackSpeed()
     }
 
     private func resetEqualizer() {
@@ -821,6 +843,7 @@ class PlayerViewController: UIViewController {
         try? AVAudioSession.sharedInstance().setActive(true)
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
 
+        notificationCenter.addObserver(self, selector: #selector(updatePlaybackSpeedIcon), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
     }
@@ -1275,8 +1298,7 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
 
         case .stopped:
             coneLoadingView.stopAnimating()
-            moreOptionsActionSheet.resetPlaybackSpeed()
-            mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
+            resetPlaybackSpeed()
             moreOptionsActionSheet.resetSleepTimer()
             mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
 
@@ -1355,6 +1377,14 @@ extension PlayerViewController: MediaNavigationBarDelegate {
     }
 }
 
+// MARK: - PlaybackSpeedViewControllerDelegate
+
+extension PlayerViewController: PlaybackSpeedViewControllerDelegate {
+    func playbackSpeedViewControllerDidChangeSpeed(_ controller: PlaybackSpeedViewController) {
+        updatePlaybackSpeedIcon()
+    }
+}
+
 // MARK: - MediaMoreOptionsActionSheetDelegate
 
 extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
@@ -1404,6 +1434,10 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         default:
             assertionFailure("PlayerViewController: Invalid option.")
         }
+    }
+
+    func mediaMoreOptionsActionSheetPresentPlaybackSpeed() {
+        presentPlaybackSpeedSheet()
     }
 
     func mediaMoreOptionsActionSheetHideAlertIfNecessary() {

@@ -19,6 +19,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
+    func mediaMoreOptionsActionSheetPresentPlaybackSpeed()
     func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController)
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
@@ -43,6 +44,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     // MARK: - Instance variables
     weak var moreOptionsDelegate: MediaMoreOptionsActionSheetDelegate?
     var currentMediaHasChapters: Bool = false
+    private var presentsPlaybackSpeedAfterClosing = false
 
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
     lazy private(set) var mockView: UIView = {
@@ -404,6 +406,23 @@ extension MediaMoreOptionsActionSheet: ABRepeatViewDelegate {
 
     func abRepeatViewHideIcon(_ option: OptionsNavigationBarIdentifier) {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: option)
+    }
+}
+
+// MARK: - Playback speed
+extension MediaMoreOptionsActionSheet {
+    func closeAndPresentPlaybackSpeed() {
+        presentsPlaybackSpeedAfterClosing = true
+        removeActionSheet()
+    }
+
+    func presentPendingPlaybackSpeed() {
+        guard presentsPlaybackSpeedAfterClosing else {
+            return
+        }
+
+        presentsPlaybackSpeedAfterClosing = false
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPlaybackSpeed()
     }
 }
 

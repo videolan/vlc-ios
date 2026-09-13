@@ -1747,6 +1747,7 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController: PlaybackDelayViewDelegate {
     func playbackDelayViewDidChangeDelay(_ delayView: PlaybackDelayView) {
+        updatePlaybackSpeedIcon()
     }
 
     func playbackDelayViewDidRequestDismissal(_ delayView: PlaybackDelayView) {
