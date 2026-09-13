@@ -98,6 +98,22 @@ final class ValueStepperView: UIView {
         accessibilityValue = valueText
     }
 
+    func pulseValue() {
+        guard !UIAccessibility.isReduceMotionEnabled else {
+            return
+        }
+
+        valueButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        UIView.animate(withDuration: 0.4,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0,
+                       options: [.allowUserInteraction],
+                       animations: {
+            self.valueButton.transform = .identity
+        })
+    }
+
     override func accessibilityIncrement() {
         delegate?.valueStepperViewDidIncrement(self)
     }

@@ -85,6 +85,24 @@ class PlaybackSpeedCustomManager {
     private static let presetSpeedValues: [Float] = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4]
 }
 
+@objc class PlaybackDelayFormatter: NSObject {
+    private static let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
+        formatter.usesGroupingSeparator = true
+        formatter.maximumFractionDigits = 0
+        formatter.positivePrefix = formatter.plusSign
+        formatter.zeroSymbol = "0"
+        return formatter
+    }()
+
+    @objc static func string(forDelay delay: Float) -> String {
+        let value = formatter.string(from: NSNumber(value: delay.rounded())) ?? String(format: "%.0f", delay)
+        return String(format: NSLocalizedString("DELAY_MS_FORMAT", comment: ""), value)
+    }
+}
+
 enum PlaybackSpeedScale {
     static let minimumSpeed: Float = 0.25
     static let maximumSpeed: Float = 8

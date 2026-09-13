@@ -1261,6 +1261,9 @@
 		7DC27E9B3056858000D33BEE /* PlaybackSpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9A3056858000D33BEE /* PlaybackSpeedViewController.swift */; };
 		7DC27E9C3056858000D33BEE /* PlaybackSpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9A3056858000D33BEE /* PlaybackSpeedViewController.swift */; };
 		7DC27E9D3056858000D33BEE /* PlaybackSpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9A3056858000D33BEE /* PlaybackSpeedViewController.swift */; };
+		7DC27E9F305686B200D33BEE /* PlaybackDelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */; };
+		7DC27EA0305686B200D33BEE /* PlaybackDelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */; };
+		7DC27EA1305686B200D33BEE /* PlaybackDelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */; };
 		7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC2A8F22A04D4CB002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC382A9301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */; };
@@ -2426,6 +2429,7 @@
 		7DC27E923056849C00D33BEE /* UIButton+OverlayControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+OverlayControl.swift"; sourceTree = "<group>"; };
 		7DC27E96305684C100D33BEE /* ValueStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperView.swift; sourceTree = "<group>"; };
 		7DC27E9A3056858000D33BEE /* PlaybackSpeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSpeedViewController.swift; sourceTree = "<group>"; };
+		7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelayView.swift; sourceTree = "<group>"; };
 		7DC382A7301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+VLCKeyboardAdjustment.h"; sourceTree = "<group>"; };
 		7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+VLCKeyboardAdjustment.m"; sourceTree = "<group>"; };
 		7DC382AC301F8DF400B7FA58 /* UITextField+VLCKeyboardDismissal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+VLCKeyboardDismissal.h"; sourceTree = "<group>"; };
@@ -3582,6 +3586,7 @@
 				418108792142894A0046A931 /* PlayingExternallyView.xib */,
 				416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */,
 				E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */,
+				7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */,
 				40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */,
 				BE4D248A2E37F4BD00434D7A /* PlaybackSpeedCustomHelpers.swift */,
 				40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */,
@@ -6232,6 +6237,7 @@
 				7D50C6332BBD20DF00B9F1A0 /* AddToCollectionViewController.swift in Sources */,
 				7D6972B3304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
 				7D50C6352BBD20DF00B9F1A0 /* VLCMarqueeLabel.swift in Sources */,
+				7DC27E9F305686B200D33BEE /* PlaybackDelayView.swift in Sources */,
 				32269BA12FEE347B00C80FFF /* MoveToRootHeader.swift in Sources */,
 				7D50C6362BBD20DF00B9F1A0 /* VLCDonationCreditCardViewController.m in Sources */,
 				7D50C6372BBD20DF00B9F1A0 /* VLCOpenSubtitlesDownloader.m in Sources */,
@@ -6802,6 +6808,7 @@
 				DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */,
 				DD3EFF431BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
 				7D6972B6304AA49E00B8261B /* SettingsCustomValueInputHandler.swift in Sources */,
+				7DC27EA1305686B200D33BEE /* PlaybackDelayView.swift in Sources */,
 				7D389AB42B5BEB8200F9D845 /* VLCCurrency.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 				7DA9A0B33025DE1700513322 /* VLCHTTPClient.m in Sources */,
@@ -7106,6 +7113,7 @@
 				7D7FAC022F30C82D00AFD748 /* FolderModel.swift in Sources */,
 				7DA5150C2EF82B63000C9995 /* SliderInfoView.swift in Sources */,
 				7DA5150D2EF82B63000C9995 /* VLCMLMedia+App.m in Sources */,
+				7DC27EA0305686B200D33BEE /* PlaybackDelayView.swift in Sources */,
 				7DA5150E2EF82B63000C9995 /* VLCCarPlaySceneDelegate.m in Sources */,
 				7DA5150F2EF82B63000C9995 /* SleepTimerView.swift in Sources */,
 				7DA515102EF82B63000C9995 /* VLCNowPlayingTemplateObserver.m in Sources */,

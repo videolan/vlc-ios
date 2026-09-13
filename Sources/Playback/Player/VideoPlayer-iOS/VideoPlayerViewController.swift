@@ -133,6 +133,11 @@ class VideoPlayerViewController: PlayerViewController {
     // Intent for the next external-file pick: true = audio, false = subtitle, nil = decide by extension.
     private var externalTrackRequestIsAudio: Bool?
 
+    private var delayView: PlaybackDelayView?
+    private var gesturesEnabledBeforeDelayView = true
+    private var delayViewConstraints: [NSLayoutConstraint] = []
+    private var isDelayViewLaidOutForLandscape = false
+
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
         let view = LongPressPlaybackSpeedView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -215,7 +220,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handleTapOnVideo))
+                                                          action: #selector(handleTapOnVideoRecognizer(_:)))
         tapOnVideoRecognizer.require(toFail: doubleTapGestureRecognizer)
         return tapOnVideoRecognizer
     }()
@@ -376,6 +381,7 @@ class VideoPlayerViewController: PlayerViewController {
         brightnessBackgroundGradientLayer.frame = self.view.bounds
         volumeBackgroundGradientLayer.frame = self.view.bounds
 #endif
+        layoutDelayViewIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -845,7 +851,19 @@ class VideoPlayerViewController: PlayerViewController {
         super.handleSwipeGestures(recognizer: recognizer)
     }
 
+    @objc private func handleTapOnVideoRecognizer(_ recognizer: UITapGestureRecognizer) {
+        if let delayView = delayView {
+            if !delayView.frame.contains(recognizer.location(in: view)) {
+                dismissDelayView()
+            }
+            return
+        }
+        handleTapOnVideo()
+    }
+
     @objc func handleTapOnVideo() {
+        dismissDelayView()
+
         if UserDefaults.standard.bool(forKey: kVLCSettingPauseWhenShowingControls) && playbackService.isPlaying {
             playbackService.pause()
         }
@@ -856,7 +874,7 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if playbackService.isPlaying && playerController.isControlsHidden {
+        if playbackService.isPlaying && playerController.isControlsHidden && delayView == nil {
             setControlsHidden(false, animated: true)
         }
 
@@ -1644,6 +1662,100 @@ extension VideoPlayerViewController: TrackSelectorViewControllerDelegate {
                 self.moreOptionsActionSheet.addView(.playback)
             }
         }
+    }
+}
+
+// MARK: - Delay
+
+extension VideoPlayerViewController {
+    func showDelayView(for kind: PlaybackDelayView.Kind) {
+        if let currentDelayView = delayView {
+            if currentDelayView.kind == kind {
+                currentDelayView.refresh()
+                return
+            }
+            dismissDelayView()
+        }
+
+        let delayView = PlaybackDelayView(kind: kind)
+        delayView.delegate = self
+        delayView.alpha = 0
+        view.addSubview(delayView)
+        self.delayView = delayView
+        layoutDelayViewIfNeeded(force: true)
+
+        setControlsHidden(true, animated: true)
+        gesturesEnabledBeforeDelayView = tapOnVideoRecognizer.isEnabled
+        shouldDisableGestures(true)
+        tapOnVideoRecognizer.isEnabled = true
+
+        UIView.animate(withDuration: 0.25) {
+            delayView.alpha = 1
+        }
+        delayView.focusForAccessibility()
+    }
+
+    func dismissDelayView() {
+        guard let delayView = delayView else {
+            return
+        }
+
+        self.delayView = nil
+        delayViewConstraints = []
+        shouldDisableGestures(!gesturesEnabledBeforeDelayView)
+
+        UIView.animate(withDuration: 0.25, animations: {
+            delayView.alpha = 0
+        }, completion: { _ in
+            delayView.removeFromSuperview()
+        })
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
+    }
+
+    private func layoutDelayViewIfNeeded(force: Bool = false) {
+        guard let delayView = delayView, view.bounds.width > 0 else {
+            return
+        }
+
+        let isLandscape = view.bounds.width > view.bounds.height
+        guard force || isLandscape != isDelayViewLaidOutForLandscape else {
+            return
+        }
+        isDelayViewLaidOutForLandscape = isLandscape
+
+        NSLayoutConstraint.deactivate(delayViewConstraints)
+        let guide = view.safeAreaLayoutGuide
+        let margin: CGFloat = 12
+        if isLandscape {
+            let preferredWidth = delayView.widthAnchor.constraint(equalToConstant: 340)
+            preferredWidth.priority = .defaultHigh
+            delayViewConstraints = [
+                delayView.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin),
+                delayView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
+                delayView.leadingAnchor.constraint(greaterThanOrEqualTo: guide.leadingAnchor, constant: margin),
+                delayView.bottomAnchor.constraint(lessThanOrEqualTo: guide.bottomAnchor, constant: -margin),
+                preferredWidth,
+            ]
+        } else {
+            delayViewConstraints = [
+                delayView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin),
+                delayView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
+                delayView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin),
+                delayView.topAnchor.constraint(greaterThanOrEqualTo: guide.topAnchor, constant: margin),
+            ]
+        }
+        NSLayoutConstraint.activate(delayViewConstraints)
+    }
+}
+
+// MARK: - PlaybackDelayViewDelegate
+
+extension VideoPlayerViewController: PlaybackDelayViewDelegate {
+    func playbackDelayViewDidChangeDelay(_ delayView: PlaybackDelayView) {
+    }
+
+    func playbackDelayViewDidRequestDismissal(_ delayView: PlaybackDelayView) {
+        dismissDelayView()
     }
 }
 

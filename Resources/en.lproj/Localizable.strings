@@ -56,6 +56,12 @@
 "PLAYBACK_SPEED_ALL_VIDEOS" = "All videos";
 "PLAYBACK_SPEED_THIS_TRACK" = "This track";
 "PLAYBACK_SPEED_ALL_TRACKS" = "All tracks";
+"DELAY_MS_FORMAT" = "%@ ms";
+"SYNC_VOICE_HEARD" = "Voice heard";
+"SYNC_TEXT_SEEN" = "Text seen";
+"SYNC_SOUND_HEARD" = "Sound heard";
+"SYNC_SCENE_SEEN" = "Scene seen";
+"SYNC_MARK_HINT" = "Double-tap at the moment it happens";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
 "SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
 "CONTINUE_PLAYBACK" = "Continue playback?";
