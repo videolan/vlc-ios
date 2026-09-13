@@ -315,9 +315,6 @@
 		7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471742B88A7BA00AB642B /* VLCCharge.m */; };
 		7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D15168A194773630086FB8C /* MobileCoreServices.framework */; };
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
-		7D1824B53043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1824B43043577F00835B4E /* AppMenuBarButtonItem.swift */; };
-		7D1824B63043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1824B43043577F00835B4E /* AppMenuBarButtonItem.swift */; };
-		7D1824B73043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1824B43043577F00835B4E /* AppMenuBarButtonItem.swift */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
 		7D1E44753018CA6C003E1452 /* VLCOnAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */; };
@@ -1249,6 +1246,9 @@
 		7DC0B5711C0094370027BFAD /* VLCSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC0B56F1C0094370027BFAD /* VLCSettingsViewController.xib */; };
 		7DC1865A2A0BB0C3009E84E1 /* UIImage+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC186592A0BB0C3009E84E1 /* UIImage+Gradient.swift */; };
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
+		7DC27E8C305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E89305681EE00D33BEE /* AppMenuBarButtonItem.swift */; };
+		7DC27E8E305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E89305681EE00D33BEE /* AppMenuBarButtonItem.swift */; };
+		7DC27E90305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27E89305681EE00D33BEE /* AppMenuBarButtonItem.swift */; };
 		7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC2A8F22A04D4CB002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC382A9301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */; };
@@ -2043,7 +2043,6 @@
 		7D15168A194773630086FB8C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7D168F6B18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D168F7018D4A21B003FAF59 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		7D1824B43043577F00835B4E /* AppMenuBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenuBarButtonItem.swift; sourceTree = "<group>"; };
 		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCActivityManager.h; sourceTree = "<group>"; };
 		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCActivityManager.m; sourceTree = "<group>"; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2410,6 +2409,7 @@
 		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/Onboarding/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/Onboarding/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7DC27E89305681EE00D33BEE /* AppMenuBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenuBarButtonItem.swift; sourceTree = "<group>"; };
 		7DC382A7301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+VLCKeyboardAdjustment.h"; sourceTree = "<group>"; };
 		7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+VLCKeyboardAdjustment.m"; sourceTree = "<group>"; };
 		7DC382AC301F8DF400B7FA58 /* UITextField+VLCKeyboardDismissal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+VLCKeyboardDismissal.h"; sourceTree = "<group>"; };
@@ -3494,6 +3494,7 @@
 		7D0C20A028C8A5DB00CCFFEF /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				7DC27E8B305681EE00D33BEE /* Buttons */,
 				7D0C20B728CA08F400CCFFEF /* Data Presentation */,
 				7D0C20B628CA08C200CCFFEF /* View Controller */,
 				8DD651B0208F62B70052EE68 /* ActionSheet */,
@@ -3508,7 +3509,6 @@
 				7D0C20A328C8A6CE00CCFFEF /* Progress Indicators */,
 				7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */,
 				7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */,
-				7D1824B43043577F00835B4E /* AppMenuBarButtonItem.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -3945,6 +3945,14 @@
 			);
 			name = Testing;
 			path = Buildsystem/Testing;
+			sourceTree = "<group>";
+		};
+		7DC27E8B305681EE00D33BEE /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				7DC27E89305681EE00D33BEE /* AppMenuBarButtonItem.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
@@ -6130,7 +6138,6 @@
 				7D4BE507301A3ECA00277F3E /* VLCBrowseSectionHeader.m in Sources */,
 				7D50C5F82BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.m in Sources */,
 				7D1E8F53300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */,
-				7D1824B63043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */,
 				7D50C5F92BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.m in Sources */,
 				7D50C5FA2BBD20DF00B9F1A0 /* NSObject+SettingsReader.swift in Sources */,
 				7D50C5FB2BBD20DF00B9F1A0 /* Observable.swift in Sources */,
@@ -6249,6 +6256,7 @@
 				7D50C6532BBD20DF00B9F1A0 /* ActionSheetSectionHeader.swift in Sources */,
 				7D50C6542BBD20DF00B9F1A0 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D50C6552BBD20DF00B9F1A0 /* UIImage+Gradient.swift in Sources */,
+				7DC27E90305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */,
 				E049E89E2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
 				7D50C6562BBD20DF00B9F1A0 /* QueueViewController.swift in Sources */,
 				7D9819482FC8B4E90017248D /* VideoPreviewController.swift in Sources */,
@@ -6536,6 +6544,7 @@
 				7D20EA2C2D2A88D6001CE62D /* VLCPCloudViewController.swift in Sources */,
 				7DCFF8923047FD87009244CA /* VLCCarPlayBrowserController.m in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
+				7DC27E8C305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */,
 				3282659E2FECABD700D3A097 /* MLSyncState.swift in Sources */,
 				7D50F91430111FBE00005A38 /* PlayRadioStationIntent.swift in Sources */,
 				413EC987201A329D00BF412F /* SortModel.swift in Sources */,
@@ -6738,7 +6747,6 @@
 				E049E89F2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
 				7DC869E728CB87AB00EE99F8 /* VLCCloudServicesTableViewController.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCNetworkListCell.m in Sources */,
-				7D1824B73043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */,
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
 				44B5822024E434FD001A2583 /* MediaGridCollectionCell.swift in Sources */,
 				8D6E1588223BBAF600077DD3 /* MiniPlayer.swift in Sources */,
@@ -6898,7 +6906,6 @@
 				7DA5148A2EF82B63000C9995 /* FeedbackGenerators.swift in Sources */,
 				7DA5148B2EF82B63000C9995 /* UIView+Accessibility.swift in Sources */,
 				7DA5148C2EF82B63000C9995 /* PlayerController.swift in Sources */,
-				7D1824B53043577F00835B4E /* AppMenuBarButtonItem.swift in Sources */,
 				7D4BE4FC301A3DC800277F3E /* VLCNetworkServerBrowserFactory.m in Sources */,
 				7DA5148D2EF82B63000C9995 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */,
 				7DA5148E2EF82B63000C9995 /* UIBarButtonItem+Theme.m in Sources */,
@@ -7005,6 +7012,7 @@
 				7DA514D82EF82B63000C9995 /* VLCHTTPFileDownloader.m in Sources */,
 				7DA514D92EF82B63000C9995 /* VLCLinearProgressIndicator.m in Sources */,
 				7D50F92730112C9800005A38 /* VLCRadioFavoriteMenu.m in Sources */,
+				7DC27E8E305681EE00D33BEE /* AppMenuBarButtonItem.swift in Sources */,
 				7DA514DA2EF82B63000C9995 /* VLCBoxTableViewController.m in Sources */,
 				7DA514DB2EF82B63000C9995 /* VLCPlexParser.m in Sources */,
 				7DA514DC2EF82B63000C9995 /* HistoryModel.swift in Sources */,
