@@ -1261,6 +1261,9 @@
 		7DC27EAB3056A21A00D33BEE /* TrackSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAA3056A21A00D33BEE /* TrackSelectorView.swift */; };
 		7DC27EAC3056A21A00D33BEE /* TrackSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAA3056A21A00D33BEE /* TrackSelectorView.swift */; };
 		7DC27EAD3056A21A00D33BEE /* TrackSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAA3056A21A00D33BEE /* TrackSelectorView.swift */; };
+		7DC27EAF3056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */; };
+		7DC27EB03056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */; };
+		7DC27EB13056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */; };
 		7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC2A8F22A04D4CB002B6704 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC382A9301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */; };
@@ -2426,6 +2429,7 @@
 		7DC27EA230569B0E00D33BEE /* UIView+OverlayBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+OverlayBackground.swift"; sourceTree = "<group>"; };
 		7DC27EA630569F7000D33BEE /* PlaybackSpeedControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSpeedControlsView.swift; sourceTree = "<group>"; };
 		7DC27EAA3056A21A00D33BEE /* TrackSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectorView.swift; sourceTree = "<group>"; };
+		7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerControlsView.swift; sourceTree = "<group>"; };
 		7DC382A7301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+VLCKeyboardAdjustment.h"; sourceTree = "<group>"; };
 		7DC382A8301F8DE900B7FA58 /* UIScrollView+VLCKeyboardAdjustment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+VLCKeyboardAdjustment.m"; sourceTree = "<group>"; };
 		7DC382AC301F8DF400B7FA58 /* UITextField+VLCKeyboardDismissal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+VLCKeyboardDismissal.h"; sourceTree = "<group>"; };
@@ -3585,6 +3589,7 @@
 				7DC27E9E305686B200D33BEE /* PlaybackDelayView.swift */,
 				7DC27EA630569F7000D33BEE /* PlaybackSpeedControlsView.swift */,
 				BE4D248A2E37F4BD00434D7A /* PlaybackSpeedCustomHelpers.swift */,
+				7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */,
 				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
 				407EB586257A418900686B1F /* SleepTimerView.xib */,
 				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
@@ -6210,6 +6215,7 @@
 				448BA8492D83116D008CCDFF /* PreferenceSetting.swift in Sources */,
 				7D4BE50F301A3FA600277F3E /* VLCBrowseSharingBandCell.m in Sources */,
 				7D50C6232BBD20DF00B9F1A0 /* VLCConfettiView.swift in Sources */,
+				7DC27EB03056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */,
 				7D50C6252BBD20DF00B9F1A0 /* VLCAppCoordinator.m in Sources */,
 				7D50C6272BBD20DF00B9F1A0 /* PlayerController.swift in Sources */,
 				7D50C6282BBD20DF00B9F1A0 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */,
@@ -6770,6 +6776,7 @@
 				7DB0CB42247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				7D02C5A52A84F0830046DC5E /* VLCMLMedia+Podcast.m in Sources */,
 				E049E89F2DF8C166004F4299 /* ParentalControlCoordinator.swift in Sources */,
+				7DC27EB13056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */,
 				7DC869E728CB87AB00EE99F8 /* VLCCloudServicesTableViewController.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCNetworkListCell.m in Sources */,
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
@@ -7123,6 +7130,7 @@
 				7DA5151B2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				7DA5151C2EF82B63000C9995 /* CPListTemplate+NetworkStreams.m in Sources */,
 				7DA5151D2EF82B63000C9995 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */,
+				7DC27EAF3056B3D200D33BEE /* SleepTimerControlsView.swift in Sources */,
 				7DA5151E2EF82B63000C9995 /* VLCCloudStorageTableViewCell.m in Sources */,
 				7D50F91530111FBE00005A38 /* PlayRadioStationIntent.swift in Sources */,
 				7DA5151F2EF82B63000C9995 /* APLog.swift in Sources */,

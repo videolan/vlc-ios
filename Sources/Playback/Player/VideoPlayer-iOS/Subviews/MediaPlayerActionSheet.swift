@@ -120,8 +120,6 @@ class MediaPlayerActionSheet: ActionSheet {
     private func getTitle(of childView: UIView) -> String {
         if childView is VideoFiltersView {
             return ActionSheetCellIdentifier.filter.description
-        } else if childView is SleepTimerView {
-            return ActionSheetCellIdentifier.sleepTimer.description
         } else if childView is EqualizerView {
             return ActionSheetCellIdentifier.equalizer.description
         } else if childView is ChapterView {
@@ -281,7 +279,9 @@ class MediaPlayerActionSheet: ActionSheet {
                     self.removeActionSheet()
                     actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
                 } else if item == actionSheet.playbackSpeedPlaceholderView {
-                    actionSheet.closeAndPresentPlaybackSpeed()
+                    actionSheet.closeAndPresentCard(for: .playback)
+                } else if item == actionSheet.sleepTimerPlaceholderView {
+                    actionSheet.closeAndPresentCard(for: .sleepTimer)
                 } else {
                     self.add(childView: item)
                 }
@@ -403,7 +403,7 @@ extension MediaPlayerActionSheet: ActionSheetDelegate {
     }
 
     func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
-        (self as? MediaMoreOptionsActionSheet)?.presentPendingPlaybackSpeed()
+        (self as? MediaMoreOptionsActionSheet)?.presentPendingCard()
     }
 }
 

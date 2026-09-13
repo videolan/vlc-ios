@@ -20,6 +20,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
     func mediaMoreOptionsActionSheetPresentPlaybackSpeed()
+    func mediaMoreOptionsActionSheetPresentSleepTimer()
     func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController)
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
@@ -43,7 +44,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     // MARK: - Instance variables
     weak var moreOptionsDelegate: MediaMoreOptionsActionSheetDelegate?
     var currentMediaHasChapters: Bool = false
-    private var presentsPlaybackSpeedAfterClosing = false
+    private var pendingCardIdentifier: ActionSheetCellIdentifier?
 
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
     lazy private(set) var mockView: UIView = {
@@ -80,14 +81,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     private(set) lazy var playbackSpeedPlaceholderView = UIView()
 
-    private lazy var sleepTimerView: SleepTimerView = {
-        let nib = UINib(nibName: "SleepTimerView", bundle: nil)
-        let sleepTimerView = nib.instantiate(withOwner: nil, options: nil).first as! SleepTimerView
-        sleepTimerView.frame = offScreenFrame
-        sleepTimerView.overrideUserInterfaceStyle = .dark
-        sleepTimerView.delegate = self
-        return sleepTimerView
-    }()
+    private(set) lazy var sleepTimerPlaceholderView = UIView()
 
     private lazy var equalizerView: EqualizerView = {
         let equalizerView = EqualizerView()
@@ -157,17 +151,8 @@ protocol MediaMoreOptionsActionSheetDelegate {
         equalizerView.resetEqualizer()
     }
 
-    func resetSleepTimer() {
-        sleepTimerView.reset()
-    }
-
-    func getRemainingTime() -> String {
-        return sleepTimerView.remainingTime()
-    }
-
     func updateThemes() {
         videoFiltersView.setupTheme()
-        sleepTimerView.setupTheme()
         equalizerView.setupTheme()
         chapterView.setupTheme()
         bookmarksView.setupTheme()
@@ -210,8 +195,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         switch view {
         case .filter:
             openOptionView(videoFiltersView)
-        case .sleepTimer:
-            openOptionView(sleepTimerView)
         case .equalizer:
             openOptionView(equalizerView)
         case .chapters:
@@ -242,40 +225,6 @@ extension MediaMoreOptionsActionSheet: VideoFiltersViewDelegate {
 
     func videoFiltersViewHideIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .videoFilters)
-    }
-}
-
-// MARK: - SleepTimerViewDelegate
-extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
-    func sleepTimerViewCloseActionSheet() {
-        removeActionSheet()
-    }
-
-    func sleepTimerViewShowAlert(message: String, seconds: Double) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.view.overrideUserInterfaceStyle = .dark
-        alert.view.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        alert.view.layer.cornerRadius = 15
-
-        self.present(alert, animated: true)
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true, completion: {
-                self.sleepTimerViewCloseActionSheet()
-            })
-        }
-    }
-
-    func sleepTimerViewHideAlertIfNecessary() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideAlertIfNecessary()
-    }
-
-    func sleepTimerViewShowIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .sleepTimer)
-    }
-
-    func sleepTimerViewHideIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
     }
 }
 
@@ -362,20 +311,27 @@ extension MediaMoreOptionsActionSheet: ABRepeatViewDelegate {
     }
 }
 
-// MARK: - Playback speed
+// MARK: - Cards
 extension MediaMoreOptionsActionSheet {
-    func closeAndPresentPlaybackSpeed() {
-        presentsPlaybackSpeedAfterClosing = true
+    func closeAndPresentCard(for identifier: ActionSheetCellIdentifier) {
+        pendingCardIdentifier = identifier
         removeActionSheet()
     }
 
-    func presentPendingPlaybackSpeed() {
-        guard presentsPlaybackSpeedAfterClosing else {
+    func presentPendingCard() {
+        guard let identifier = pendingCardIdentifier else {
             return
         }
 
-        presentsPlaybackSpeedAfterClosing = false
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPlaybackSpeed()
+        pendingCardIdentifier = nil
+        switch identifier {
+        case .playback:
+            moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPlaybackSpeed()
+        case .sleepTimer:
+            moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentSleepTimer()
+        default:
+            break
+        }
     }
 }
 
@@ -415,7 +371,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         case .playback:
             return playbackSpeedPlaceholderView
         case .sleepTimer:
-            return sleepTimerView
+            return sleepTimerPlaceholderView
         case .equalizer:
             return equalizerView
         case .chapters:

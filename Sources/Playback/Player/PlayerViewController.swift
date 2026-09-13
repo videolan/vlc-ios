@@ -431,6 +431,7 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
 
         setupObservers()
+        updateSleepTimerIcon()
         setupGestures()
         hideSystemVolumeInfo()
     }
@@ -726,6 +727,17 @@ class PlayerViewController: UIViewController {
         speedCard.focusForAccessibility()
     }
 
+    func showSleepTimerCard() {
+        guard !(overlayCardView is SleepTimerControlsView) else {
+            return
+        }
+
+        let sleepTimerCard = SleepTimerControlsView()
+        sleepTimerCard.delegate = self
+        showOverlayCard(sleepTimerCard)
+        sleepTimerCard.focusForAccessibility()
+    }
+
     @objc var areGesturesEnabled: Bool {
         return playPauseRecognizer.isEnabled
     }
@@ -839,9 +851,16 @@ class PlayerViewController: UIViewController {
         hideIcon(button: optionsNavigationBar.equalizerButton)
     }
 
+    @objc func updateSleepTimerIcon() {
+        if playbackService.sleepTimer != nil {
+            showIcon(button: optionsNavigationBar.sleepTimerButton)
+        } else {
+            hideIcon(button: optionsNavigationBar.sleepTimerButton)
+        }
+    }
+
     private func resetSleepTimer() {
-        hideIcon(button: optionsNavigationBar.sleepTimerButton)
-        moreOptionsActionSheet.resetSleepTimer()
+        playbackService.cancelSleepTimer()
     }
 
     private func handleReset(button: UIButton) {
@@ -955,6 +974,7 @@ class PlayerViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(updatePlaybackSpeedIcon), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updateSleepTimerIcon), name: Notification.Name(VLCPlaybackServiceSleepTimerDidChange), object: nil)
     }
 
     private func setupSeekDurations() {
@@ -1408,8 +1428,6 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
         case .stopped:
             coneLoadingView.stopAnimating()
             resetPlaybackSpeed()
-            moreOptionsActionSheet.resetSleepTimer()
-            mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
 
         case .error:
             coneLoadingView.stopAnimating()
@@ -1498,6 +1516,14 @@ extension PlayerViewController: PlaybackSpeedControlsViewDelegate {
     }
 }
 
+// MARK: - SleepTimerControlsViewDelegate
+
+extension PlayerViewController: SleepTimerControlsViewDelegate {
+    func sleepTimerControlsViewDidRequestDismissal(_ controlsView: SleepTimerControlsView) {
+        dismissOverlayCard()
+    }
+}
+
 // MARK: - MediaMoreOptionsActionSheetDelegate
 
 extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
@@ -1551,6 +1577,10 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
     func mediaMoreOptionsActionSheetPresentPlaybackSpeed() {
         showPlaybackSpeedCard()
+    }
+
+    func mediaMoreOptionsActionSheetPresentSleepTimer() {
+        showSleepTimerCard()
     }
 
     func mediaMoreOptionsActionSheetHideAlertIfNecessary() {
@@ -1740,7 +1770,12 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
     }
 
     func optionsNavigationBarGetRemainingTime() -> String {
-        return moreOptionsActionSheet.getRemainingTime()
+        guard let fireDate = playbackService.sleepTimer?.fireDate else {
+            return ""
+        }
+
+        let time = SleepTimerControlsView.remainingTimeString(for: max(fireDate.timeIntervalSinceNow, 0))
+        return String(format: NSLocalizedString("REMAINING_TIME", comment: ""), time) + "\n"
     }
 
     func resetABRepeat() {
