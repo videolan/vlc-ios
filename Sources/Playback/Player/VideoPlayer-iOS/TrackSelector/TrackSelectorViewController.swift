@@ -15,7 +15,7 @@ import UIKit
 protocol TrackSelectorViewControllerDelegate: AnyObject {
     func trackSelector(_ controller: TrackSelectorViewController, didRequestLoadExternalFileForAudio audio: Bool)
     func trackSelectorDidRequestDownloadSubtitles(_ controller: TrackSelectorViewController)
-    func trackSelectorDidRequestSpeedAndSync(_ controller: TrackSelectorViewController)
+    func trackSelector(_ controller: TrackSelectorViewController, didRequestDelayForAudio audio: Bool)
 }
 
 class TrackSelectorViewController: UIViewController {
@@ -405,8 +405,7 @@ class TrackSelectorViewController: UIViewController {
         if delayMs == 0 {
             summary = NSLocalizedString("NO_DELAY", comment: "")
         } else {
-            let delay = Self.numberFormatter.string(from: NSNumber(value: delayMs / 1000.0)) ?? "0.0"
-            summary = String(format: NSLocalizedString("DELAY_FORMAT", comment: ""), delay)
+            summary = PlaybackDelayFormatter.string(forDelay: delayMs)
         }
 
         syncRow.update(title: NSLocalizedString("SYNC", comment: ""), summary: summary)
@@ -486,7 +485,7 @@ class TrackSelectorViewController: UIViewController {
     }
 
     @objc private func didTapSyncRow() {
-        delegate?.trackSelectorDidRequestSpeedAndSync(self)
+        delegate?.trackSelector(self, didRequestDelayForAudio: activeTab == .audio)
     }
 
     @objc private func didTapLoad() {
@@ -523,14 +522,6 @@ class TrackSelectorViewController: UIViewController {
     private static let tableToFooter: CGFloat = 8
     private static let footerRowHeight: CGFloat = 56
     private static let footerRowSpacing: CGFloat = 12
-
-    private static let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 1
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }()
 }
 
 extension TrackSelectorViewController: UITableViewDataSource, UITableViewDelegate {

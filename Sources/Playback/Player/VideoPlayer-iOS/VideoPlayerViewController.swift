@@ -1653,14 +1653,9 @@ extension VideoPlayerViewController: TrackSelectorViewControllerDelegate {
         }
     }
 
-    func trackSelectorDidRequestSpeedAndSync(_ controller: TrackSelectorViewController) {
+    func trackSelector(_ controller: TrackSelectorViewController, didRequestDelayForAudio audio: Bool) {
         controller.dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.present(self.moreOptionsActionSheet, animated: false) {
-                self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
-                self.moreOptionsActionSheet.hidePlayer()
-                self.moreOptionsActionSheet.addView(.playback)
-            }
+            self?.showDelayView(for: audio ? .audio : .subtitle)
         }
     }
 }

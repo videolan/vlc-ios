@@ -917,7 +917,6 @@
 "AUDIO_CHANNELS_FORMAT" = "%u channels";
 "SECOND_SUBTITLE" = "Second Subtitle";
 "SYNC" = "Sync";
-"DELAY_FORMAT" = "Delay %@ s";
 "NO_DELAY" = "No delay";
 "SUBTITLE_ASSIGN_PRIMARY" = "Assign primary subtitle";
 "SUBTITLE_ASSIGN_SECONDARY" = "Assign secondary subtitle";
