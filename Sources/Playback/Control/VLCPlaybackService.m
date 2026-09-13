@@ -595,6 +595,13 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     }
 }
 
+- (void)restoreDelaysForMedia:(VLCMLMedia *)media
+{
+    BOOL saveAudioDelay = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveAudioDelay];
+    self.subtitleDelay = [media metadataOfType:VLCMLMetadataTypeSubtitleDelay].integer;
+    self.audioDelay = saveAudioDelay ? [media metadataOfType:VLCMLMetadataTypeAudioDelay].integer : 0;
+}
+
 - (void)restoreAudioAndSubtitleTrack
 {
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
@@ -605,9 +612,11 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
             return;
         }
 
-        VLCMLMetadata *speedMetadata = [media metadataOfType:VLCMLMetadataTypeSpeed];
-        if (speedMetadata.integer > 0) {
-            [self setPlaybackRate:speedMetadata.integer / 100.0];
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlaybackSpeedAppliesToAll]) {
+            VLCMLMetadata *speedMetadata = [media metadataOfType:VLCMLMetadataTypeSpeed];
+            if (speedMetadata.integer > 0) {
+                [self setPlaybackRate:speedMetadata.integer / 100.0];
+            }
         }
 
         BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
@@ -1062,6 +1071,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
                     [self _recoverLastPlaybackState];
 #endif
                 }
+                [self restoreDelaysForMedia:[VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media]];
                 [self setNeedsMetadataUpdate];
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
                     kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer),

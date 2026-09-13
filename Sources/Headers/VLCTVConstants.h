@@ -21,6 +21,8 @@
 
 #define kVLCThemeDidChangeNotification @"themeDidChangeNotfication"
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
+#define kVLCSettingPlaybackSpeedAppliesToAll @"playback-speed-applies-to-all"
+#define kVLCSettingSaveAudioDelay @"save-audio-delay"
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingNetworkRTSPTCP @"rtsp-tcp"

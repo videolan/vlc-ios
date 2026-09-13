@@ -73,6 +73,8 @@
 #define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingContinueAudioPlayback @"ContinueAudioPlayback"
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
+#define kVLCSettingPlaybackSpeedAppliesToAll @"playback-speed-applies-to-all"
+#define kVLCSettingSaveAudioDelay @"save-audio-delay"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"

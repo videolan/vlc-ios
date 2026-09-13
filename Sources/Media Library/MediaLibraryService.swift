@@ -599,7 +599,14 @@ private extension MediaLibraryService {
         mlMedia.secondarySubtitleTrackIndex = Int64(player.indexOfCurrentSecondaryVideoSubtitleTrack)
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
-        mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64(player.playbackRate * 100))
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: kVLCSettingPlaybackSpeedAppliesToAll) {
+            mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64(player.playbackRate * 100))
+        }
+        mlMedia.setMetadataOf(VLCMLMetadataType.subtitleDelay, intValue: Int64(player.subtitleDelay))
+        if defaults.bool(forKey: kVLCSettingSaveAudioDelay) {
+            mlMedia.setMetadataOf(VLCMLMetadataType.audioDelay, intValue: Int64(player.audioDelay))
+        }
 
         if mlMedia.type() != .audio {
             if let thumbnailURL = mlMedia.thumbnail() {

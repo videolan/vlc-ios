@@ -92,6 +92,8 @@ class VLCWatchAppDelegate: NSObject, WKApplicationDelegate {
             kVLCPlayerIsShuffleEnabled: false,
             kVLCPlayerIsRepeatEnabled: 0,
             kVLCSettingPlaybackSpeedDefaultValue: 1.0,
+            kVLCSettingPlaybackSpeedAppliesToAll: false,
+            kVLCSettingSaveAudioDelay: true,
             kVLCPlayerShowPlaybackSpeedShortcut: false,
             kVLCSettingAlwaysPlayURLs: false,
             kVLCRestoreLastPlayedMedia: false,

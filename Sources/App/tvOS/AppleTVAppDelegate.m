@@ -75,6 +75,8 @@
                                   kVLCForceSMBV1 : @(NO),
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingPlaybackSpeedDefaultValue: @(1.0),
+                                  kVLCSettingPlaybackSpeedAppliesToAll: @(NO),
+                                  kVLCSettingSaveAudioDelay: @(YES),
                                   kVLCSettingsAudioOffsetDelay : kVLCSettingsOffsetDefaultValue,
                                   kVLCSettingsSubtitlesOffsetDelay : kVLCSettingsOffsetDefaultValue};
     [defaults registerDefaults:appDefaults];
