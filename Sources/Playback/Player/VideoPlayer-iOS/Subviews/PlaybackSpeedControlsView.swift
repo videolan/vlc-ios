@@ -18,35 +18,25 @@ protocol PlaybackSpeedControlsViewDelegate: AnyObject {
 }
 
 final class PlaybackSpeedControlsView: UIView {
-    enum Style {
-        case sheet
-        case card
-    }
-
-    private struct Metrics {
-        let horizontalPadding: CGFloat
-        let verticalPadding: CGFloat
-        let stepperButtonSize: CGFloat
-        let valuePointSize: CGFloat
-        let scopeSpacing: CGFloat
-        let stepperSpacing: CGFloat
-        let sliderSpacing: CGFloat
-        let presetSpacing: CGFloat
-        let showsSliderLabels: Bool
+    private enum Metrics {
+        static let horizontalPadding: CGFloat = 14
+        static let verticalPadding: CGFloat = 10
+        static let stepperButtonSize: CGFloat = 44
+        static let valuePointSize: CGFloat = 28
+        static let scopeSpacing: CGFloat = 2
+        static let stepperSpacing: CGFloat = 8
+        static let sliderSpacing: CGFloat = 2
+        static let presetSpacing: CGFloat = 6
     }
 
     weak var delegate: PlaybackSpeedControlsViewDelegate?
-    let style: Style
 
-    private let metrics: Metrics
     private let isAudioPlayer: Bool
     private let playbackService = PlaybackService.sharedInstance()
     private let speedManager = PlaybackSpeedCustomManager.shared
     private var displayedSpeed: Float = 1
     private var activePresetIndex: Int?
     private var hasPendingDefaultSpeed = false
-    private var titleLeadingToContent: NSLayoutConstraint?
-    private var titleLeadingToCloseButton: NSLayoutConstraint?
 
     // MARK: - Views
 
@@ -94,21 +84,6 @@ final class PlaybackSpeedControlsView: UIView {
         return button
     }()
 
-    private lazy var closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        if #available(iOS 13.0, *) {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 26)
-            button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: configuration), for: .normal)
-        } else {
-            button.setImage(UIImage(named: "close")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
-        button.tintColor = PresentationTheme.currentExcludingWhite.colors.overlaySecondaryTextColor
-        button.accessibilityLabel = NSLocalizedString("BUTTON_CLOSE", comment: "")
-        button.addTarget(self, action: #selector(requestDismissal), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     private lazy var scopeControl: UISegmentedControl = {
         let items: [String]
         if isAudioPlayer {
@@ -129,7 +104,7 @@ final class PlaybackSpeedControlsView: UIView {
     }()
 
     private lazy var stepperView: ValueStepperView = {
-        let stepperView = ValueStepperView(buttonSize: metrics.stepperButtonSize, valuePointSize: metrics.valuePointSize)
+        let stepperView = ValueStepperView(buttonSize: Metrics.stepperButtonSize, valuePointSize: Metrics.valuePointSize)
         stepperView.accessibilityLabel = NSLocalizedString("PLAYBACK_SPEED", comment: "")
         stepperView.delegate = self
         return stepperView
@@ -160,10 +135,6 @@ final class PlaybackSpeedControlsView: UIView {
         return view
     }()
 
-    private lazy var minimumLabel = makeSliderLabel(speed: PlaybackSpeedScale.minimumSpeed)
-    private lazy var neutralLabel = makeSliderLabel(speed: 1)
-    private lazy var maximumLabel = makeSliderLabel(speed: PlaybackSpeedScale.maximumSpeed)
-
     private lazy var presetButtons: [UIButton] = Self.presetSpeeds.enumerated().map { index, _ in
         let button = UIButton(type: .custom)
         button.tag = index
@@ -183,10 +154,8 @@ final class PlaybackSpeedControlsView: UIView {
 
     // MARK: - Lifecycle
 
-    init(style: Style, isAudioPlayer: Bool) {
-        self.style = style
+    init(isAudioPlayer: Bool) {
         self.isAudioPlayer = isAudioPlayer
-        metrics = style == .card ? Self.cardMetrics : Self.sheetMetrics
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         overrideUserInterfaceStyle = .dark
@@ -197,11 +166,9 @@ final class PlaybackSpeedControlsView: UIView {
         updateInterface(updatingSlider: true)
         updatePresetButtons(force: true)
 
-        if style == .card {
-            let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(requestDismissal))
-            swipeDownRecognizer.direction = .down
-            addGestureRecognizer(swipeDownRecognizer)
-        }
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(requestDismissal))
+        swipeDownRecognizer.direction = .down
+        addGestureRecognizer(swipeDownRecognizer)
 
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
@@ -237,36 +204,6 @@ final class PlaybackSpeedControlsView: UIView {
 
     // MARK: - Public
 
-    var estimatedHeight: CGFloat {
-        let rows = Self.minimumControlHeight * 4 + metrics.stepperButtonSize
-        let spacing = metrics.scopeSpacing + metrics.stepperSpacing + metrics.sliderSpacing + metrics.presetSpacing
-        let sliderLabels = metrics.showsSliderLabels ? UIFont.preferredFont(forTextStyle: .caption1).lineHeight : 0
-        return metrics.verticalPadding * 2 + rows + spacing + sliderLabels
-    }
-
-    func fittingHeight(forWidth width: CGFloat) -> CGFloat {
-        let targetSize = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
-        let contentHeight = contentView.systemLayoutSizeFitting(targetSize,
-                                                                withHorizontalFittingPriority: .required,
-                                                                verticalFittingPriority: .fittingSizeLevel).height
-        return metrics.verticalPadding * 2 + contentHeight
-    }
-
-    func setCloseButtonVisible(_ isVisible: Bool) {
-        guard isVisible == closeButton.isHidden else {
-            return
-        }
-
-        closeButton.isHidden = !isVisible
-        if isVisible {
-            titleLeadingToContent?.isActive = false
-            titleLeadingToCloseButton?.isActive = true
-        } else {
-            titleLeadingToCloseButton?.isActive = false
-            titleLeadingToContent?.isActive = true
-        }
-    }
-
     func focusForAccessibility() {
         UIAccessibility.post(notification: .screenChanged, argument: titleLabel)
     }
@@ -286,21 +223,12 @@ final class PlaybackSpeedControlsView: UIView {
     // MARK: - Layout
 
     private func setupLayout() {
-        if style == .card {
-            backgroundContainer.roundCorners(radius: Self.cardCornerRadius)
-            addSubview(backgroundContainer)
-            installBackgroundEffect()
-            NSLayoutConstraint.activate([
-                backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
-                backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-                backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-                backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
-            ])
-        }
+        backgroundContainer.roundCorners(radius: Self.cardCornerRadius)
+        addSubview(backgroundContainer)
+        installBackgroundEffect()
 
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(closeButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(resetButton)
         contentView.addSubview(scopeControl)
@@ -309,15 +237,20 @@ final class PlaybackSpeedControlsView: UIView {
         contentView.addSubview(slider)
         contentView.addSubview(presetStackView)
 
-        let inset = metrics.horizontalPadding
+        let inset = Metrics.horizontalPadding
         let scrollViewHeight = scrollView.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         scrollViewHeight.priority = .defaultHigh
 
-        var constraints: [NSLayoutConstraint] = [
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: metrics.verticalPadding),
+        NSLayoutConstraint.activate([
+            backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
+            backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.verticalPadding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -metrics.verticalPadding),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Metrics.verticalPadding),
             scrollViewHeight,
 
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -331,25 +264,21 @@ final class PlaybackSpeedControlsView: UIView {
             resetButton.widthAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumControlHeight),
             resetButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumControlHeight),
 
-            closeButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset - 8),
-            closeButton.centerYAnchor.constraint(equalTo: resetButton.centerYAnchor),
-            closeButton.widthAnchor.constraint(equalToConstant: Self.minimumControlHeight),
-            closeButton.heightAnchor.constraint(equalToConstant: Self.minimumControlHeight),
-
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: resetButton.leadingAnchor, constant: -8),
             titleLabel.centerYAnchor.constraint(equalTo: resetButton.centerYAnchor),
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
 
-            scopeControl.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: metrics.scopeSpacing),
+            scopeControl.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: Metrics.scopeSpacing),
             scopeControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             scopeControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             scopeControl.heightAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumControlHeight),
 
-            stepperView.topAnchor.constraint(equalTo: scopeControl.bottomAnchor, constant: metrics.stepperSpacing),
+            stepperView.topAnchor.constraint(equalTo: scopeControl.bottomAnchor, constant: Metrics.stepperSpacing),
             stepperView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             stepperView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
 
-            slider.topAnchor.constraint(equalTo: stepperView.bottomAnchor, constant: metrics.sliderSpacing),
+            slider.topAnchor.constraint(equalTo: stepperView.bottomAnchor, constant: Metrics.sliderSpacing),
             slider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             slider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             slider.heightAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumControlHeight),
@@ -359,49 +288,15 @@ final class PlaybackSpeedControlsView: UIView {
             sliderTickView.widthAnchor.constraint(equalToConstant: 2),
             sliderTickView.heightAnchor.constraint(equalToConstant: 16),
 
+            presetStackView.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: Metrics.presetSpacing),
             presetStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             presetStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             presetStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ]
-
-        if metrics.showsSliderLabels {
-            contentView.addSubview(minimumLabel)
-            contentView.addSubview(neutralLabel)
-            contentView.addSubview(maximumLabel)
-            constraints += [
-                minimumLabel.topAnchor.constraint(equalTo: slider.bottomAnchor),
-                minimumLabel.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
-                neutralLabel.topAnchor.constraint(equalTo: slider.bottomAnchor),
-                neutralLabel.centerXAnchor.constraint(equalTo: slider.centerXAnchor),
-                maximumLabel.topAnchor.constraint(equalTo: slider.bottomAnchor),
-                maximumLabel.trailingAnchor.constraint(equalTo: slider.trailingAnchor),
-                presetStackView.topAnchor.constraint(equalTo: neutralLabel.bottomAnchor, constant: metrics.presetSpacing),
-            ]
-        } else {
-            constraints.append(presetStackView.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: metrics.presetSpacing))
-        }
+        ])
 
         if #available(iOS 26.0, visionOS 26.0, *) {
             sliderTickView.isHidden = true
         }
-
-        NSLayoutConstraint.activate(constraints)
-
-        titleLeadingToContent = titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset)
-        titleLeadingToCloseButton = titleLabel.leadingAnchor.constraint(equalTo: closeButton.trailingAnchor, constant: 4)
-        closeButton.isHidden = true
-        titleLeadingToContent?.isActive = true
-    }
-
-    private func makeSliderLabel(speed: Float) -> UILabel {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .caption1)
-        label.adjustsFontForContentSizeCategory = true
-        label.textColor = PresentationTheme.currentExcludingWhite.colors.overlayTertiaryTextColor
-        label.text = String(format: NSLocalizedString("PLAYBACK_SPEED_FORMAT", comment: ""), Self.presetTitle(for: speed))
-        label.isAccessibilityElement = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }
 
     private func updatePresetAxis() {
@@ -480,6 +375,7 @@ final class PlaybackSpeedControlsView: UIView {
 
     @objc private func didTapReset() {
         apply(speed: resetSpeed)
+        announceSpeed()
     }
 
     @objc private func scopeChanged() {
@@ -499,6 +395,12 @@ final class PlaybackSpeedControlsView: UIView {
 
     @objc private func didTapPreset(_ sender: UIButton) {
         apply(speed: Self.presetSpeeds[sender.tag])
+        announceSpeed()
+    }
+
+    private func announceSpeed() {
+        let announcement = NSLocalizedString("PLAYBACK_SPEED", comment: "") + " " + PlaybackSpeedFormatter.string(forSpeed: displayedSpeed)
+        UIAccessibility.post(notification: .announcement, argument: announcement)
     }
 
     @objc private func playbackRateChanged() {
@@ -511,9 +413,7 @@ final class PlaybackSpeedControlsView: UIView {
     }
 
     @objc private func reduceTransparencyChanged() {
-        if style == .card {
-            installBackgroundEffect()
-        }
+        installBackgroundEffect()
         updateInterface(updatingSlider: false)
         updatePresetButtons(force: true)
     }
@@ -529,26 +429,6 @@ final class PlaybackSpeedControlsView: UIView {
     private static let minimumControlHeight: CGFloat = 44
     private static let cardCornerRadius: CGFloat = 30
     private static let defaultSpeedStoreDelay: TimeInterval = 0.3
-
-    private static let sheetMetrics = Metrics(horizontalPadding: 16,
-                                              verticalPadding: 16,
-                                              stepperButtonSize: 52,
-                                              valuePointSize: 46,
-                                              scopeSpacing: 8,
-                                              stepperSpacing: 18,
-                                              sliderSpacing: 16,
-                                              presetSpacing: 18,
-                                              showsSliderLabels: true)
-
-    private static let cardMetrics = Metrics(horizontalPadding: 14,
-                                             verticalPadding: 10,
-                                             stepperButtonSize: 44,
-                                             valuePointSize: 28,
-                                             scopeSpacing: 2,
-                                             stepperSpacing: 8,
-                                             sliderSpacing: 2,
-                                             presetSpacing: 6,
-                                             showsSliderLabels: false)
 
     private static let presetFormatter: NumberFormatter = {
         let formatter = NumberFormatter()

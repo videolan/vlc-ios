@@ -133,11 +133,11 @@ class VideoPlayerViewController: PlayerViewController {
     // Intent for the next external-file pick: true = audio, false = subtitle, nil = decide by extension.
     private var externalTrackRequestIsAudio: Bool?
 
-    private var delayView: PlaybackDelayView?
-    private var gesturesEnabledBeforeDelayView = true
-    private var delayViewConstraints: [NSLayoutConstraint] = []
-    private var isDelayViewLaidOutForLandscape = false
     private var delayViewHideTimer: Timer?
+
+    private var delayView: PlaybackDelayView? {
+        return overlayCardView as? PlaybackDelayView
+    }
 
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
         let view = LongPressPlaybackSpeedView()
@@ -221,7 +221,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handleTapOnVideoRecognizer(_:)))
+                                                          action: #selector(handleTapOnVideo))
         tapOnVideoRecognizer.require(toFail: doubleTapGestureRecognizer)
         return tapOnVideoRecognizer
     }()
@@ -382,7 +382,6 @@ class VideoPlayerViewController: PlayerViewController {
         brightnessBackgroundGradientLayer.frame = self.view.bounds
         volumeBackgroundGradientLayer.frame = self.view.bounds
 #endif
-        layoutDelayViewIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -852,18 +851,8 @@ class VideoPlayerViewController: PlayerViewController {
         super.handleSwipeGestures(recognizer: recognizer)
     }
 
-    @objc private func handleTapOnVideoRecognizer(_ recognizer: UITapGestureRecognizer) {
-        if let delayView = delayView {
-            if !delayView.frame.contains(recognizer.location(in: view)) {
-                dismissDelayView()
-            }
-            return
-        }
-        handleTapOnVideo()
-    }
-
     @objc func handleTapOnVideo() {
-        dismissDelayView()
+        dismissOverlayCard()
 
         if UserDefaults.standard.bool(forKey: kVLCSettingPauseWhenShowingControls) && playbackService.isPlaying {
             playbackService.pause()
@@ -875,7 +864,7 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if playbackService.isPlaying && playerController.isControlsHidden && delayView == nil {
+        if playbackService.isPlaying && playerController.isControlsHidden && overlayCardView == nil {
             setControlsHidden(false, animated: true)
         }
 
@@ -1075,6 +1064,16 @@ class VideoPlayerViewController: PlayerViewController {
         tapOnVideoRecognizer.isEnabled = !disable
         upSwipeRecognizer.isEnabled = !disable
         downSwipeRecognizer.isEnabled = !disable
+    }
+
+    override var areGesturesEnabled: Bool {
+        return tapOnVideoRecognizer.isEnabled
+    }
+
+    override func dismissOverlayCard() {
+        delayViewHideTimer?.invalidate()
+        delayViewHideTimer = nil
+        super.dismissOverlayCard()
     }
 
     override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
@@ -1513,6 +1512,9 @@ extension VideoPlayerViewController {
     }
 
     func mediaMoreOptionsActionSheetDidAppeared() {
+        guard overlayCardView == nil else {
+            return
+        }
         handleTapOnVideo()
     }
 
@@ -1635,29 +1637,39 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
     }
 }
 
-// MARK: - TrackSelectorViewControllerDelegate
+// MARK: - TrackSelectorViewDelegate
 
-extension VideoPlayerViewController: TrackSelectorViewControllerDelegate {
-    func trackSelector(_ controller: TrackSelectorViewController, didRequestLoadExternalFileForAudio audio: Bool) {
-        controller.dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.externalTrackRequestIsAudio = audio
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
-            picker.delegate = self
-            self.present(picker, animated: true)
+extension VideoPlayerViewController: TrackSelectorViewDelegate {
+    func showTrackSelectorCard() {
+        guard !(overlayCardView is TrackSelectorView) else {
+            return
         }
+
+        let trackSelectorCard = TrackSelectorView()
+        trackSelectorCard.delegate = self
+        showOverlayCard(trackSelectorCard)
+        trackSelectorCard.focusForAccessibility()
     }
 
-    func trackSelectorDidRequestDownloadSubtitles(_ controller: TrackSelectorViewController) {
-        controller.dismiss(animated: true) { [weak self] in
-            self?.downloadMoreSPU()
-        }
+    func trackSelectorView(_ trackSelectorView: TrackSelectorView, didRequestLoadExternalFileForAudio audio: Bool) {
+        dismissOverlayCard()
+        externalTrackRequestIsAudio = audio
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+        picker.delegate = self
+        present(picker, animated: true)
     }
 
-    func trackSelector(_ controller: TrackSelectorViewController, didRequestDelayForAudio audio: Bool) {
-        controller.dismiss(animated: true) { [weak self] in
-            self?.showDelayView(for: audio ? .audio : .subtitle)
-        }
+    func trackSelectorViewDidRequestDownloadSubtitles(_ trackSelectorView: TrackSelectorView) {
+        dismissOverlayCard()
+        downloadMoreSPU()
+    }
+
+    func trackSelectorView(_ trackSelectorView: TrackSelectorView, didRequestDelayForAudio audio: Bool) {
+        showDelayView(for: audio ? .audio : .subtitle)
+    }
+
+    func trackSelectorViewDidRequestDismissal(_ trackSelectorView: TrackSelectorView) {
+        dismissOverlayCard()
     }
 }
 
@@ -1665,49 +1677,15 @@ extension VideoPlayerViewController: TrackSelectorViewControllerDelegate {
 
 extension VideoPlayerViewController {
     func showDelayView(for kind: PlaybackDelayView.Kind) {
-        if let currentDelayView = delayView {
-            if currentDelayView.kind == kind {
-                currentDelayView.refresh()
-                return
-            }
-            dismissDelayView()
+        if let delayView = delayView, delayView.kind == kind {
+            delayView.refresh()
+            return
         }
 
         let delayView = PlaybackDelayView(kind: kind)
         delayView.delegate = self
-        delayView.alpha = 0
-        view.addSubview(delayView)
-        self.delayView = delayView
-        layoutDelayViewIfNeeded(force: true)
-
-        setControlsHidden(true, animated: true)
-        gesturesEnabledBeforeDelayView = tapOnVideoRecognizer.isEnabled
-        shouldDisableGestures(true)
-        tapOnVideoRecognizer.isEnabled = true
-
-        UIView.animate(withDuration: 0.25) {
-            delayView.alpha = 1
-        }
+        showOverlayCard(delayView)
         delayView.focusForAccessibility()
-    }
-
-    func dismissDelayView() {
-        guard let delayView = delayView else {
-            return
-        }
-
-        self.delayView = nil
-        delayViewConstraints = []
-        delayViewHideTimer?.invalidate()
-        delayViewHideTimer = nil
-        shouldDisableGestures(!gesturesEnabledBeforeDelayView)
-
-        UIView.animate(withDuration: 0.25, animations: {
-            delayView.alpha = 0
-        }, completion: { _ in
-            delayView.removeFromSuperview()
-        })
-        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
 
     override var keyCommands: [UIKeyCommand]? {
@@ -1746,14 +1724,6 @@ extension VideoPlayerViewController {
         nudgeDelayFromKeyboard(kind: .subtitle, increasing: true)
     }
 
-    override func keyEscape() {
-        guard delayView == nil else {
-            dismissDelayView()
-            return
-        }
-        super.keyEscape()
-    }
-
     private func nudgeDelayFromKeyboard(kind: PlaybackDelayView.Kind, increasing: Bool) {
         showDelayView(for: kind)
         delayView?.nudgeDelay(increasing: increasing)
@@ -1770,42 +1740,7 @@ extension VideoPlayerViewController {
     }
 
     @objc private func delayViewHideTimerFired() {
-        dismissDelayView()
-    }
-
-    private func layoutDelayViewIfNeeded(force: Bool = false) {
-        guard let delayView = delayView, view.bounds.width > 0 else {
-            return
-        }
-
-        let isLandscape = view.bounds.width > view.bounds.height
-        guard force || isLandscape != isDelayViewLaidOutForLandscape else {
-            return
-        }
-        isDelayViewLaidOutForLandscape = isLandscape
-
-        NSLayoutConstraint.deactivate(delayViewConstraints)
-        let guide = view.safeAreaLayoutGuide
-        let margin: CGFloat = 12
-        if isLandscape {
-            let preferredWidth = delayView.widthAnchor.constraint(equalToConstant: 340)
-            preferredWidth.priority = .defaultHigh
-            delayViewConstraints = [
-                delayView.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin),
-                delayView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
-                delayView.leadingAnchor.constraint(greaterThanOrEqualTo: guide.leadingAnchor, constant: margin),
-                delayView.bottomAnchor.constraint(lessThanOrEqualTo: guide.bottomAnchor, constant: -margin),
-                preferredWidth,
-            ]
-        } else {
-            delayViewConstraints = [
-                delayView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin),
-                delayView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
-                delayView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin),
-                delayView.topAnchor.constraint(greaterThanOrEqualTo: guide.topAnchor, constant: margin),
-            ]
-        }
-        NSLayoutConstraint.activate(delayViewConstraints)
+        dismissOverlayCard()
     }
 }
 
@@ -1820,7 +1755,7 @@ extension VideoPlayerViewController: PlaybackDelayViewDelegate {
     }
 
     func playbackDelayViewDidRequestDismissal(_ delayView: PlaybackDelayView) {
-        dismissDelayView()
+        dismissOverlayCard()
     }
 }
 

@@ -310,6 +310,12 @@ class PlayerViewController: UIViewController {
 
     var addBookmarksView: AddBookmarksView? = nil
 
+    private(set) var overlayCardView: UIView?
+    private var overlayCardBackdropView: UIView?
+    private var overlayCardConstraints: [NSLayoutConstraint] = []
+    private var isOverlayCardLaidOutForLandscape = false
+    private var gesturesEnabledBeforeOverlayCard = true
+
     private let isBrightnessControlAvailable: Bool
 
     private(set) var isGestureActive: Bool = false
@@ -488,6 +494,11 @@ class PlayerViewController: UIViewController {
 
         // Adjust the position of the AB Repeat marks if needed based on the device's orientation.
         mediaScrubProgressBar.adjustABRepeatMarks(aMark: aMark, bMark: bMark)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutOverlayCardIfNeeded()
     }
 
 #if os(iOS)
@@ -704,9 +715,107 @@ class PlayerViewController: UIViewController {
         moreOptionsActionSheet.resetVideoFilters()
     }
 
-    func presentPlaybackSpeedSheet() {
-        let controller = PlaybackSpeedViewController(isAudioPlayer: self is AudioPlayerViewController, delegate: self)
-        present(controller, animated: true)
+    func showPlaybackSpeedCard() {
+        guard !(overlayCardView is PlaybackSpeedControlsView) else {
+            return
+        }
+
+        let speedCard = PlaybackSpeedControlsView(isAudioPlayer: self is AudioPlayerViewController)
+        speedCard.delegate = self
+        showOverlayCard(speedCard)
+        speedCard.focusForAccessibility()
+    }
+
+    @objc var areGesturesEnabled: Bool {
+        return playPauseRecognizer.isEnabled
+    }
+
+    func showOverlayCard(_ card: UIView) {
+        dismissOverlayCard()
+
+        let backdropView = UIView()
+        backdropView.translatesAutoresizingMaskIntoConstraints = false
+        backdropView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissOverlayCard)))
+        view.addSubview(backdropView)
+        NSLayoutConstraint.activate([
+            backdropView.topAnchor.constraint(equalTo: view.topAnchor),
+            backdropView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backdropView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backdropView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        overlayCardBackdropView = backdropView
+
+        card.alpha = 0
+        view.addSubview(card)
+        overlayCardView = card
+        layoutOverlayCardIfNeeded(force: true)
+
+        setControlsHidden(true, animated: true)
+        gesturesEnabledBeforeOverlayCard = areGesturesEnabled
+        shouldDisableGestures(true)
+
+        UIView.animate(withDuration: 0.25) {
+            card.alpha = 1
+        }
+    }
+
+    @objc func dismissOverlayCard() {
+        guard let card = overlayCardView else {
+            return
+        }
+
+        (card as? PlaybackSpeedControlsView)?.storeDefaultSpeed()
+        overlayCardView = nil
+        overlayCardConstraints = []
+        overlayCardBackdropView?.removeFromSuperview()
+        overlayCardBackdropView = nil
+        shouldDisableGestures(!gesturesEnabledBeforeOverlayCard)
+
+        UIView.animate(withDuration: 0.25, animations: {
+            card.alpha = 0
+        }, completion: { _ in
+            card.removeFromSuperview()
+        })
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
+    }
+
+    private func layoutOverlayCardIfNeeded(force: Bool = false) {
+        guard let card = overlayCardView, view.bounds.width > 0 else {
+            return
+        }
+
+        let isLandscape = view.bounds.width > view.bounds.height
+        guard force || isLandscape != isOverlayCardLaidOutForLandscape else {
+            return
+        }
+        isOverlayCardLaidOutForLandscape = isLandscape
+
+        NSLayoutConstraint.deactivate(overlayCardConstraints)
+        let guide = view.safeAreaLayoutGuide
+        let margin: CGFloat = 12
+        if isLandscape {
+            let preferredWidth = card.widthAnchor.constraint(equalToConstant: card is TrackSelectorView ? 380 : 340)
+            preferredWidth.priority = .defaultHigh
+            overlayCardConstraints = [
+                card.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin),
+                card.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
+                card.leadingAnchor.constraint(greaterThanOrEqualTo: guide.leadingAnchor, constant: margin),
+                card.bottomAnchor.constraint(lessThanOrEqualTo: guide.bottomAnchor, constant: -margin),
+                preferredWidth,
+            ]
+        } else {
+            let preferredWidth = card.widthAnchor.constraint(equalTo: guide.widthAnchor, constant: -2 * margin)
+            preferredWidth.priority = .defaultHigh
+            overlayCardConstraints = [
+                card.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+                card.leadingAnchor.constraint(greaterThanOrEqualTo: guide.leadingAnchor, constant: margin),
+                card.widthAnchor.constraint(lessThanOrEqualToConstant: 480),
+                card.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin),
+                card.topAnchor.constraint(greaterThanOrEqualTo: guide.topAnchor, constant: margin),
+                preferredWidth,
+            ]
+        }
+        NSLayoutConstraint.activate(overlayCardConstraints)
     }
 
     @objc func updatePlaybackSpeedIcon() {
@@ -1377,11 +1486,15 @@ extension PlayerViewController: MediaNavigationBarDelegate {
     }
 }
 
-// MARK: - PlaybackSpeedViewControllerDelegate
+// MARK: - PlaybackSpeedControlsViewDelegate
 
-extension PlayerViewController: PlaybackSpeedViewControllerDelegate {
-    func playbackSpeedViewControllerDidChangeSpeed(_ controller: PlaybackSpeedViewController) {
+extension PlayerViewController: PlaybackSpeedControlsViewDelegate {
+    func playbackSpeedControlsViewDidChangeSpeed(_ controlsView: PlaybackSpeedControlsView) {
         updatePlaybackSpeedIcon()
+    }
+
+    func playbackSpeedControlsViewDidRequestDismissal(_ controlsView: PlaybackSpeedControlsView) {
+        dismissOverlayCard()
     }
 }
 
@@ -1437,7 +1550,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetPresentPlaybackSpeed() {
-        presentPlaybackSpeedSheet()
+        showPlaybackSpeedCard()
     }
 
     func mediaMoreOptionsActionSheetHideAlertIfNecessary() {
@@ -1770,6 +1883,11 @@ extension PlayerViewController {
     }
 
     @objc func keyEscape() {
+        guard overlayCardView == nil else {
+            dismissOverlayCard()
+            return
+        }
+
         // Close whatever is on top first (options sheet, track selector, ...)
         // instead of falling through and closing the player underneath it.
         if let actionSheet = presentedViewController as? ActionSheet {

@@ -36,8 +36,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
 
     private func presentTrackSelector() {
         guard presentedViewController == nil else { return }
-        let trackSelector = TrackSelectorViewController(delegate: self)
-        present(trackSelector, animated: true)
+        showTrackSelectorCard()
     }
 
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
