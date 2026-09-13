@@ -53,6 +53,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlaybackModeUpdated";
 NSString *const VLCPlaybackServiceShuffleModeUpdated = @"VLCPlaybackServiceShuffleModeUpdated";
 NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
+NSString *const VLCPlaybackServiceSleepTimerDidChange = @"VLCPlaybackServiceSleepTimerDidChange";
 NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 static const float kVLCPlaybackRateMinimum = 0.25f;
@@ -591,6 +592,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
             [self startPlayback];
         });
     } else {
+        [self cancelSleepTimer];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
     }
 }
@@ -2018,11 +2020,28 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval
 {
-    if (_sleepTimer) {
-        [_sleepTimer invalidate];
-        _sleepTimer = nil;
+    [_sleepTimer invalidate];
+    _sleepTimerInterval = timeInterval;
+    _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(sleepTimerFired) userInfo:nil repeats:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceSleepTimerDidChange object:self];
+}
+
+- (void)cancelSleepTimer
+{
+    if (!_sleepTimer) {
+        return;
     }
-    _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(stopPlayback) userInfo:nil repeats:NO];
+
+    [_sleepTimer invalidate];
+    _sleepTimer = nil;
+    _sleepTimerInterval = 0;
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceSleepTimerDidChange object:self];
+}
+
+- (void)sleepTimerFired
+{
+    [self cancelSleepTimer];
+    [self stopPlayback];
 }
 
 - (BOOL)isPlayingOnExternalScreen

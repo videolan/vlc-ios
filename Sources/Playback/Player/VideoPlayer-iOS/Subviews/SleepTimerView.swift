@@ -48,7 +48,7 @@ class SleepTimerView: UIView {
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         setButton.setTitle(NSLocalizedString("BUTTON_SET", comment: ""), for: .normal)
 
-        if !vpc.sleepTimer.isValid {
+        if vpc.sleepTimer == nil {
             resetButton.isHidden = true
         }
 
