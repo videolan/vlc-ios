@@ -140,8 +140,6 @@
 		3F2BAF2F705F02514B9234A7 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
 		4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
 		4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
-		407EB587257A418900686B1F /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
-		407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EB58D257A41B200686B1F /* SleepTimerView.swift */; };
 		4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */; };
 		41275E3D8FE52628809BEC22 /* ContinueListeningSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */; };
@@ -631,7 +629,6 @@
 		7D50C6992BBD20DF00B9F1A0 /* ABRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B421722B14AB1C000F7318 /* ABRepeatView.swift */; };
 		7D50C69A2BBD20DF00B9F1A0 /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		7D50C69B2BBD20DF00B9F1A0 /* VLCMLMedia+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */; };
-		7D50C69D2BBD20DF00B9F1A0 /* SleepTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EB58D257A41B200686B1F /* SleepTimerView.swift */; };
 		7D50C69F2BBD20DF00B9F1A0 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */; };
 		7D50C6A02BBD20DF00B9F1A0 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB6633216147DD00FDC38B /* PlaylistViewController.swift */; };
 		7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
@@ -730,7 +727,6 @@
 		7D50C7122BBD20DF00B9F1A0 /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D50C7132BBD20DF00B9F1A0 /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
 		7D50C7142BBD20DF00B9F1A0 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
-		7D50C7152BBD20DF00B9F1A0 /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
 		7D50C7162BBD20DF00B9F1A0 /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		7D50C7182BBD20DF00B9F1A0 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7D50C7192BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
@@ -1070,7 +1066,6 @@
 		7DA5150C2EF82B63000C9995 /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		7DA5150D2EF82B63000C9995 /* VLCMLMedia+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */; };
 		7DA5150E2EF82B63000C9995 /* VLCCarPlaySceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */; };
-		7DA5150F2EF82B63000C9995 /* SleepTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EB58D257A41B200686B1F /* SleepTimerView.swift */; };
 		7DA515102EF82B63000C9995 /* VLCNowPlayingTemplateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */; };
 		7DA515112EF82B63000C9995 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */; };
 		7DA515122EF82B63000C9995 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB6633216147DD00FDC38B /* PlaylistViewController.swift */; };
@@ -1184,7 +1179,6 @@
 		7DA515862EF82B63000C9995 /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7DA515872EF82B63000C9995 /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
 		7DA515882EF82B63000C9995 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
-		7DA515892EF82B63000C9995 /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
 		7DA5158A2EF82B63000C9995 /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		7DA5158C2EF82B63000C9995 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
 		7DA5158D2EF82B63000C9995 /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
@@ -1852,8 +1846,6 @@
 		4048CFB0F054C0A7A6FAB1E9 /* PodcastSubscriptionModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastSubscriptionModel.swift; sourceTree = "<group>"; };
 		4072A776258791B8006EA498 /* VideoFiltersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoFiltersView.xib; sourceTree = "<group>"; };
 		4072A77D25879577006EA498 /* VideoFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFiltersView.swift; sourceTree = "<group>"; };
-		407EB586257A418900686B1F /* SleepTimerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SleepTimerView.xib; sourceTree = "<group>"; };
-		407EB58D257A41B200686B1F /* SleepTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerView.swift; sourceTree = "<group>"; };
 		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNavigationBar.swift; sourceTree = "<group>"; };
 		4120863922323E87006A6630 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		4133CADC22CCB0620047A4EC /* VLC-iOS-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOS-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3590,8 +3582,6 @@
 				7DC27EA630569F7000D33BEE /* PlaybackSpeedControlsView.swift */,
 				BE4D248A2E37F4BD00434D7A /* PlaybackSpeedCustomHelpers.swift */,
 				7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */,
-				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
-				407EB586257A418900686B1F /* SleepTimerView.xib */,
 				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
 				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
 				D92C186427CD317D0034058F /* ChapterView.swift */,
@@ -5531,7 +5521,6 @@
 				7D50C7122BBD20DF00B9F1A0 /* favicon.ico in Resources */,
 				7D50C7132BBD20DF00B9F1A0 /* gradient-cell.png in Resources */,
 				7D50C7142BBD20DF00B9F1A0 /* AddToCollectionView.xib in Resources */,
-				7D50C7152BBD20DF00B9F1A0 /* SleepTimerView.xib in Resources */,
 				7D50C7162BBD20DF00B9F1A0 /* libMediaVLC.xml in Resources */,
 				7D50C7182BBD20DF00B9F1A0 /* VLCDonationNagScreenViewController.xib in Resources */,
 				7D50C7192BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.xib in Resources */,
@@ -5585,7 +5574,6 @@
 				7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */,
 				7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				8D2AD4DA227AEE8E00393833 /* AddToCollectionView.xib in Resources */,
-				407EB587257A418900686B1F /* SleepTimerView.xib in Resources */,
 				6D1745622F9D2816003BE08B /* VLCCone26-512x512.png in Resources */,
 				6D4FFE3D2F9C5EED002F4F26 /* VLC26-dev-blue.icon in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
@@ -5642,7 +5630,6 @@
 				7DA515862EF82B63000C9995 /* favicon.ico in Resources */,
 				7DA515872EF82B63000C9995 /* gradient-cell.png in Resources */,
 				7DA515882EF82B63000C9995 /* AddToCollectionView.xib in Resources */,
-				7DA515892EF82B63000C9995 /* SleepTimerView.xib in Resources */,
 				6D1745612F9D2816003BE08B /* VLCCone26-512x512.png in Resources */,
 				6D4FFE3C2F9C5EED002F4F26 /* VLC26-dev-blue.icon in Resources */,
 				7DA5158A2EF82B63000C9995 /* libMediaVLC.xml in Resources */,
@@ -6363,7 +6350,6 @@
 				7D50C69A2BBD20DF00B9F1A0 /* SliderInfoView.swift in Sources */,
 				7DCFF8893047EF03009244CA /* PodcastBackgroundRefresher.m in Sources */,
 				7D50C69B2BBD20DF00B9F1A0 /* VLCMLMedia+App.m in Sources */,
-				7D50C69D2BBD20DF00B9F1A0 /* SleepTimerView.swift in Sources */,
 				7D50C69F2BBD20DF00B9F1A0 /* URL+isHidden.swift in Sources */,
 				7D50C6A02BBD20DF00B9F1A0 /* PlaylistViewController.swift in Sources */,
 				7D50C6A12BBD20DF00B9F1A0 /* VLCHTTPUploaderController.m in Sources */,
@@ -6733,7 +6719,6 @@
 				597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */,
 				7D9BF3112991947400B68FEC /* VLCMLMedia+App.m in Sources */,
 				7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */,
-				407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */,
 				7D4556AC29192F5400276567 /* VLCNowPlayingTemplateObserver.m in Sources */,
 				7DC7BABC28C8959F00109F28 /* URL+isHidden.swift in Sources */,
 				41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */,
@@ -7114,7 +7099,6 @@
 				7DA5150D2EF82B63000C9995 /* VLCMLMedia+App.m in Sources */,
 				7DC27EA0305686B200D33BEE /* PlaybackDelayView.swift in Sources */,
 				7DA5150E2EF82B63000C9995 /* VLCCarPlaySceneDelegate.m in Sources */,
-				7DA5150F2EF82B63000C9995 /* SleepTimerView.swift in Sources */,
 				7DA515102EF82B63000C9995 /* VLCNowPlayingTemplateObserver.m in Sources */,
 				7DA515112EF82B63000C9995 /* URL+isHidden.swift in Sources */,
 				7DA515122EF82B63000C9995 /* PlaylistViewController.swift in Sources */,

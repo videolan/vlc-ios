@@ -63,7 +63,6 @@
 "SYNC_SCENE_SEEN" = "Scene seen";
 "SYNC_MARK_HINT" = "Double-tap at the moment it happens";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
-"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
@@ -86,7 +85,6 @@
 "BUTTON_LEARN_MORE" = "Learn More";
 "BUTTON_LOGOUT" = "Logout";
 "BUTTON_CONTINUE" = "Continue";
-"BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
 "BUTTON_RESCAN" = "Rescan";
 "BUTTON_SYNC" = "Sync";
