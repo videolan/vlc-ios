@@ -363,7 +363,7 @@ class VideoPlayerViewController: PlayerViewController {
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
 
-        moreOptionsActionSheet.resetOptionsIfNecessary()
+        moreOptionsActionSheet.updateThemes()
         gameControllerManager.startMonitoring()
     }
 

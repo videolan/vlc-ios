@@ -120,8 +120,6 @@ class MediaPlayerActionSheet: ActionSheet {
     private func getTitle(of childView: UIView) -> String {
         if childView is VideoFiltersView {
             return ActionSheetCellIdentifier.filter.description
-        } else if childView is PlaybackSpeedView {
-            return ActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
             return ActionSheetCellIdentifier.sleepTimer.description
         } else if childView is EqualizerView {
@@ -161,7 +159,7 @@ class MediaPlayerActionSheet: ActionSheet {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
-            if child is VideoFiltersView || child is PlaybackSpeedView {
+            if child is VideoFiltersView {
                 self.changeBackground(alpha: 0)
             }
 
@@ -184,7 +182,7 @@ class MediaPlayerActionSheet: ActionSheet {
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
 
-            if child is VideoFiltersView || child is PlaybackSpeedView {
+            if child is VideoFiltersView {
                 self.changeBackground(alpha: 0.6)
             }
         }
@@ -282,7 +280,7 @@ class MediaPlayerActionSheet: ActionSheet {
                 } else if let abRepeatView = item as? ABRepeatView {
                     self.removeActionSheet()
                     actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
-                } else if item is PlaybackSpeedView {
+                } else if item == actionSheet.playbackSpeedPlaceholderView {
                     actionSheet.closeAndPresentPlaybackSpeed()
                 } else {
                     self.add(childView: item)

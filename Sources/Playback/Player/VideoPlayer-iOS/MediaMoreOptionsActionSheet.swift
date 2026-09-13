@@ -35,7 +35,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView)
     func mediaMoreOptionsActionSheetDidSelectAMark()
     func mediaMoreOptionsActionSheetDidSelectBMark()
-    @objc optional func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool)
 }
 
 @objc(VLCMediaMoreOptionsActionSheet)
@@ -79,17 +78,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return videoFiltersView
     }()
 
-    private lazy var playbackSpeedView: PlaybackSpeedView = {
-        let playbackSpeedView = Bundle.main.loadNibNamed("PlaybackSpeedView",
-                                                         owner: nil,
-                                                         options: nil)?.first as! PlaybackSpeedView
-
-        playbackSpeedView.frame = offScreenFrame
-        playbackSpeedView.overrideUserInterfaceStyle = .dark
-        playbackSpeedView.delegate = self
-        playbackSpeedView.setupShortcutView()
-        return playbackSpeedView
-    }()
+    private(set) lazy var playbackSpeedPlaceholderView = UIView()
 
     private lazy var sleepTimerView: SleepTimerView = {
         let nib = UINib(nibName: "SleepTimerView", bundle: nil)
@@ -164,10 +153,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         videoFiltersView.resetIfNeeded()
     }
 
-    func resetPlaybackSpeed() {
-        playbackSpeedView.reset()
-    }
-
     func resetEqualizer() {
         equalizerView.resetEqualizer()
     }
@@ -182,7 +167,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func updateThemes() {
         videoFiltersView.setupTheme()
-        playbackSpeedView.setupTheme()
         sleepTimerView.setupTheme()
         equalizerView.setupTheme()
         chapterView.setupTheme()
@@ -222,18 +206,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return (image, localization, isEnabled)
     }
 
-    func resetOptionsIfNecessary() {
-        playbackSpeedView.resetSlidersIfNeeded()
-        updateThemes()
-    }
-
     func addView(_ view: ActionSheetCellIdentifier) {
         switch view {
         case .filter:
             openOptionView(videoFiltersView)
-        case .playback:
-            playbackSpeedView.setupSliderAndButtons()
-            openOptionView(playbackSpeedView)
         case .sleepTimer:
             openOptionView(sleepTimerView)
         case .equalizer:
@@ -266,29 +242,6 @@ extension MediaMoreOptionsActionSheet: VideoFiltersViewDelegate {
 
     func videoFiltersViewHideIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .videoFilters)
-    }
-}
-
-// MARK: - PlaybackSpeedViewDelegate
-extension MediaMoreOptionsActionSheet: PlaybackSpeedViewDelegate {
-    func playbackSpeedViewHandleOptionChange(title: String) {
-        self.headerView.title.text = title
-    }
-
-    func playbackSpeedViewShowIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .playbackSpeed)
-    }
-
-    func playbackSpeedViewHideIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
-    }
-
-    func playbackSpeedViewCanDisplayShortcutView() -> Bool {
-        return moreOptionsDelegate is AudioPlayerViewController
-    }
-
-    func playbackSpeedViewHandleShortcutSwitchChange(displayView: Bool) {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut?(displayView)
     }
 }
 
@@ -460,7 +413,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         case .filter:
             return videoFiltersView
         case .playback:
-            return playbackSpeedView
+            return playbackSpeedPlaceholderView
         case .sleepTimer:
             return sleepTimerView
         case .equalizer:
