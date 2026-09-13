@@ -460,6 +460,10 @@ class PlayerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        guard isBrightnessControlAvailable else {
+            return
+        }
+
         // The window is only attached once the presentation finished, so the
         // screen cannot be resolved any earlier than this.
         if let screen = screenForCurrentWindow() {
@@ -467,14 +471,12 @@ class PlayerViewController: UIViewController {
             systemBrightness = screen.brightness
         }
 
-        if isBrightnessControlAvailable {
-            if playerController.isRememberBrightnessEnabled,
-               let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
-                animateBrightness(to: brightness)
-                brightnessControl.value = Float(brightness)
-            } else {
-                brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
-            }
+        if playerController.isRememberBrightnessEnabled,
+           let brightness = userDefaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
+            animateBrightness(to: brightness)
+            brightnessControl.value = Float(brightness)
+        } else {
+            brightnessControlView.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         }
 
         addPlayerBrightnessObservers()
