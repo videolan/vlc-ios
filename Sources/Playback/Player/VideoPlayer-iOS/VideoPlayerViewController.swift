@@ -137,6 +137,7 @@ class VideoPlayerViewController: PlayerViewController {
     private var gesturesEnabledBeforeDelayView = true
     private var delayViewConstraints: [NSLayoutConstraint] = []
     private var isDelayViewLaidOutForLandscape = false
+    private var delayViewHideTimer: Timer?
 
     private lazy var longPressPlaybackSpeedView: LongPressPlaybackSpeedView = {
         let view = LongPressPlaybackSpeedView()
@@ -1697,6 +1698,8 @@ extension VideoPlayerViewController {
 
         self.delayView = nil
         delayViewConstraints = []
+        delayViewHideTimer?.invalidate()
+        delayViewHideTimer = nil
         shouldDisableGestures(!gesturesEnabledBeforeDelayView)
 
         UIView.animate(withDuration: 0.25, animations: {
@@ -1705,6 +1708,69 @@ extension VideoPlayerViewController {
             delayView.removeFromSuperview()
         })
         UIAccessibility.post(notification: .screenChanged, argument: nil)
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        let decreaseAudioDelay = UIKeyCommand(input: "j", modifierFlags: [], action: #selector(keyDecreaseAudioDelay))
+        decreaseAudioDelay.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_AUDIO_DELAY", comment: "")
+        let increaseAudioDelay = UIKeyCommand(input: "k", modifierFlags: [], action: #selector(keyIncreaseAudioDelay))
+        increaseAudioDelay.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_AUDIO_DELAY", comment: "")
+        commands += [decreaseAudioDelay, increaseAudioDelay]
+
+        if !playbackService.metadata.isAudioOnly {
+            let decreaseSubtitleDelay = UIKeyCommand(input: "g", modifierFlags: [], action: #selector(keyDecreaseSubtitleDelay))
+            decreaseSubtitleDelay.discoverabilityTitle = NSLocalizedString("KEY_DECREASE_SUBTITLE_DELAY", comment: "")
+            let increaseSubtitleDelay = UIKeyCommand(input: "h", modifierFlags: [], action: #selector(keyIncreaseSubtitleDelay))
+            increaseSubtitleDelay.discoverabilityTitle = NSLocalizedString("KEY_INCREASE_SUBTITLE_DELAY", comment: "")
+            commands += [decreaseSubtitleDelay, increaseSubtitleDelay]
+        }
+
+        return commands
+    }
+
+    @objc func keyDecreaseAudioDelay() {
+        nudgeDelayFromKeyboard(kind: .audio, increasing: false)
+    }
+
+    @objc func keyIncreaseAudioDelay() {
+        nudgeDelayFromKeyboard(kind: .audio, increasing: true)
+    }
+
+    @objc func keyDecreaseSubtitleDelay() {
+        nudgeDelayFromKeyboard(kind: .subtitle, increasing: false)
+    }
+
+    @objc func keyIncreaseSubtitleDelay() {
+        nudgeDelayFromKeyboard(kind: .subtitle, increasing: true)
+    }
+
+    override func keyEscape() {
+        guard delayView == nil else {
+            dismissDelayView()
+            return
+        }
+        super.keyEscape()
+    }
+
+    private func nudgeDelayFromKeyboard(kind: PlaybackDelayView.Kind, increasing: Bool) {
+        showDelayView(for: kind)
+        delayView?.nudgeDelay(increasing: increasing)
+        scheduleDelayViewHideTimer()
+    }
+
+    private func scheduleDelayViewHideTimer() {
+        delayViewHideTimer?.invalidate()
+        delayViewHideTimer = Timer.scheduledTimer(timeInterval: 4,
+                                                  target: self,
+                                                  selector: #selector(delayViewHideTimerFired),
+                                                  userInfo: nil,
+                                                  repeats: false)
+    }
+
+    @objc private func delayViewHideTimerFired() {
+        dismissDelayView()
     }
 
     private func layoutDelayViewIfNeeded(force: Bool = false) {
@@ -1748,6 +1814,9 @@ extension VideoPlayerViewController {
 extension VideoPlayerViewController: PlaybackDelayViewDelegate {
     func playbackDelayViewDidChangeDelay(_ delayView: PlaybackDelayView) {
         updatePlaybackSpeedIcon()
+        if delayViewHideTimer != nil {
+            scheduleDelayViewHideTimer()
+        }
     }
 
     func playbackDelayViewDidRequestDismissal(_ delayView: PlaybackDelayView) {
