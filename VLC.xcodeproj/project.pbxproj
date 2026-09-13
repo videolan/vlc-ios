@@ -138,8 +138,6 @@
 		3C319440CEBA3CD632A73003 /* VLCPlayerInlineMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCE235DBA251D6DE36C6E /* VLCPlayerInlineMenuViewController.m */; };
 		3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25514A95AD71903F66BDB68B /* VLCActiveDownloadCell.m */; };
 		3F2BAF2F705F02514B9234A7 /* VLCTransferStatusBannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B996FC4922C6AC260C4683F /* VLCTransferStatusBannerController.m */; };
-		4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
-		4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
 		4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */; };
 		41275E3D8FE52628809BEC22 /* ContinueListeningSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */; };
@@ -618,7 +616,6 @@
 		7D50C68C2BBD20DF00B9F1A0 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
 		7D50C68D2BBD20DF00B9F1A0 /* VLCFirstStepsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */; };
 		7D50C68E2BBD20DF00B9F1A0 /* CollectionViewCellPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */; };
-		7D50C68F2BBD20DF00B9F1A0 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
 		7D50C6902BBD20DF00B9F1A0 /* VLCLocalNetworkServiceNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEFD1BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m */; };
 		7D50C6912BBD20DF00B9F1A0 /* VLCPlexWebAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF1A1BDEBCE500B68579 /* VLCPlexWebAPI.m */; };
 		7D50C6922BBD20DF00B9F1A0 /* VLCDonationNagScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */; };
@@ -719,7 +716,6 @@
 		7D50C7092BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */; };
 		7D50C70A2BBD20DF00B9F1A0 /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
 		7D50C70B2BBD20DF00B9F1A0 /* VLCCloudStorageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell.xib */; };
-		7D50C70D2BBD20DF00B9F1A0 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
 		7D50C70E2BBD20DF00B9F1A0 /* VLCLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */; };
 		7D50C70F2BBD20DF00B9F1A0 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */; };
 		7D50C7102BBD20DF00B9F1A0 /* VLCCloudStorageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */; };
@@ -1052,7 +1048,6 @@
 		7DA514FE2EF82B63000C9995 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
 		7DA514FF2EF82B63000C9995 /* VLCFirstStepsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */; };
 		7DA515002EF82B63000C9995 /* CollectionViewCellPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */; };
-		7DA515012EF82B63000C9995 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
 		7DA515022EF82B63000C9995 /* VLCLocalNetworkServiceNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEFD1BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m */; };
 		7DA515032EF82B63000C9995 /* VLCPlexWebAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF1A1BDEBCE500B68579 /* VLCPlexWebAPI.m */; };
 		7DA515042EF82B63000C9995 /* VLCDonationNagScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */; };
@@ -1170,7 +1165,6 @@
 		7DA5157D2EF82B63000C9995 /* VLCSEPANotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DCC2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib */; };
 		7DA5157E2EF82B63000C9995 /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
 		7DA5157F2EF82B63000C9995 /* VLCCloudStorageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell.xib */; };
-		7DA515802EF82B63000C9995 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
 		7DA515812EF82B63000C9995 /* VLCLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */; };
 		7DA515822EF82B63000C9995 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */; };
 		7DA515832EF82B63000C9995 /* VLCCloudStorageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */; };
@@ -1847,8 +1841,6 @@
 		3B41D98D1BDDF926FC5C815D /* VLCPlayerControlsBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VLCPlayerControlsBar.m; sourceTree = "<group>"; };
 		3DFCCE235DBA251D6DE36C6E /* VLCPlayerInlineMenuViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VLCPlayerInlineMenuViewController.m; sourceTree = "<group>"; };
 		4048CFB0F054C0A7A6FAB1E9 /* PodcastSubscriptionModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastSubscriptionModel.swift; sourceTree = "<group>"; };
-		4072A776258791B8006EA498 /* VideoFiltersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoFiltersView.xib; sourceTree = "<group>"; };
-		4072A77D25879577006EA498 /* VideoFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFiltersView.swift; sourceTree = "<group>"; };
 		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNavigationBar.swift; sourceTree = "<group>"; };
 		4120863922323E87006A6630 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		4133CADC22CCB0620047A4EC /* VLC-iOS-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOS-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3587,8 +3579,6 @@
 				BE4D248A2E37F4BD00434D7A /* PlaybackSpeedCustomHelpers.swift */,
 				7DC27EAE3056B3D200D33BEE /* SleepTimerControlsView.swift */,
 				7DC27EB23056BCEA00D33BEE /* VideoFiltersControlsView.swift */,
-				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
-				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
 				D92C186427CD317D0034058F /* ChapterView.swift */,
 				7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */,
 				D9AFDCA427D6383F002326CC /* BookmarksView.swift */,
@@ -5517,7 +5507,6 @@
 				7D50C7092BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.xib in Resources */,
 				7D50C70A2BBD20DF00B9F1A0 /* VLCDonationViewController.xib in Resources */,
 				7D50C70B2BBD20DF00B9F1A0 /* VLCCloudStorageTableViewCell.xib in Resources */,
-				7D50C70D2BBD20DF00B9F1A0 /* VideoFiltersView.xib in Resources */,
 				7D50C70E2BBD20DF00B9F1A0 /* VLCLabelCell.xib in Resources */,
 				7D50C70F2BBD20DF00B9F1A0 /* MovieCollectionViewCell.xib in Resources */,
 				7D50C7102BBD20DF00B9F1A0 /* VLCCloudStorageTableViewController.xib in Resources */,
@@ -5570,7 +5559,6 @@
 				7D745DCE2B88CE9F004B4DCD /* VLCSEPANotificationViewController.xib in Resources */,
 				7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell.xib in Resources */,
-				4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */,
 				41D7DD2120C1FC2D00AD94F6 /* VLCLabelCell.xib in Resources */,
 				41EC28E92136DE46004BCF0F /* MovieCollectionViewCell.xib in Resources */,
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
@@ -5626,7 +5614,6 @@
 				7DA5157D2EF82B63000C9995 /* VLCSEPANotificationViewController.xib in Resources */,
 				7DA5157E2EF82B63000C9995 /* VLCDonationViewController.xib in Resources */,
 				7DA5157F2EF82B63000C9995 /* VLCCloudStorageTableViewCell.xib in Resources */,
-				7DA515802EF82B63000C9995 /* VideoFiltersView.xib in Resources */,
 				7DA515812EF82B63000C9995 /* VLCLabelCell.xib in Resources */,
 				7DA515822EF82B63000C9995 /* MovieCollectionViewCell.xib in Resources */,
 				7DA515832EF82B63000C9995 /* VLCCloudStorageTableViewController.xib in Resources */,
@@ -6340,7 +6327,6 @@
 				7D50C68D2BBD20DF00B9F1A0 /* VLCFirstStepsBaseViewController.m in Sources */,
 				327973422FF7976D0007E3EC /* URL+printAllFiles.swift in Sources */,
 				7D50C68E2BBD20DF00B9F1A0 /* CollectionViewCellPreviewController.swift in Sources */,
-				7D50C68F2BBD20DF00B9F1A0 /* VideoFiltersView.swift in Sources */,
 				7D5872013051C0580005F27F /* PodcastDirectoryFeedViewController.swift in Sources */,
 				7D1E8F50300F8B1F0014A118 /* VLCRadioErrorView.m in Sources */,
 				7D50C6902BBD20DF00B9F1A0 /* VLCLocalNetworkServiceNetService.m in Sources */,
@@ -6709,7 +6695,6 @@
 				7DBF605B2B5D64FF00F16BB4 /* VLCFirstStepsBaseViewController.m in Sources */,
 				7DD3236630014BF300C9A583 /* UIImage+PaddedImage.m in Sources */,
 				6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */,
-				4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD3EFF511BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				321B3B552FB6BCFB007E4E8A /* SessionTransfer.swift in Sources */,
@@ -7090,7 +7075,6 @@
 				7DA514FF2EF82B63000C9995 /* VLCFirstStepsBaseViewController.m in Sources */,
 				7DA515002EF82B63000C9995 /* CollectionViewCellPreviewController.swift in Sources */,
 				7D7FAC062F30CD0700AFD748 /* ParentalControlCoordinator.swift in Sources */,
-				7DA515012EF82B63000C9995 /* VideoFiltersView.swift in Sources */,
 				7DA515022EF82B63000C9995 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				7DA515032EF82B63000C9995 /* VLCPlexWebAPI.m in Sources */,
 				7D1318A830090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
