@@ -31,22 +31,6 @@ extension UIView {
         layer.borderColor = colors.overlayHairlineColor.cgColor
         backgroundColor = UIAccessibility.isReduceTransparencyEnabled ? colors.background : colors.overlayControlFillColor
     }
-
-    static func makeOverlayBackgroundView() -> UIView {
-        if UIAccessibility.isReduceTransparencyEnabled {
-            let view = UIView()
-            view.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-            return view
-        }
-
-#if !os(visionOS)
-        if #available(iOS 26.0, *) {
-            return UIVisualEffectView(effect: UIGlassEffect())
-        }
-#endif
-
-        return UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
-    }
 }
 
 @objc extension UIButton {
