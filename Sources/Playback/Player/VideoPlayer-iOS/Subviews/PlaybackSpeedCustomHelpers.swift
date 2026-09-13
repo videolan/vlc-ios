@@ -65,12 +65,13 @@ class PlaybackSpeedCustomManager {
         }
     }
 
-    var resetSpeed: Float {
-        if appliesToAllMedia {
-            return 1
-        }
+    var defaultSpeed: Float {
         let speed = effectiveSpeedValue
         return speed > 0 ? speed : 1
+    }
+
+    var resetSpeed: Float {
+        return appliesToAllMedia ? 1 : defaultSpeed
     }
 
     func setDefaultSpeed(_ speed: Float) {
