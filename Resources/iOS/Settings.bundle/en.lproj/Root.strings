@@ -53,6 +53,7 @@
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
 "SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
+"SETTINGS_SAVE_AUDIO_DELAY" = "Save audio delay";
 
 "SETTINGS_GESTURES" = "Playback Controls";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";

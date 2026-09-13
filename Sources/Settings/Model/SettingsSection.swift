@@ -206,6 +206,11 @@ enum PlaybackOptions {
                      action: .showActionSheet(title: "SETTINGS_PLAYBACK_SPEED_DEFAULT", preferenceKey: k, hasInfo: false))
     }
 
+    static var saveAudioDelay: SettingsItem {
+        .toggle(title: "SETTINGS_SAVE_AUDIO_DELAY",
+                preferenceKey: kVLCSettingSaveAudioDelay)
+    }
+
     static var continueAudioPlayback: SettingsItem {
         let k = kVLCSettingContinueAudioPlayback
         return .init(title: "SETTINGS_CONTINUE_AUDIO_PLAYBACK",
@@ -257,6 +262,7 @@ enum PlaybackOptions {
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_PLAYBACK_TITLE", items: [
             defaultPlaybackSpeed,
+            saveAudioDelay,
             continueAudioPlayback,
             playVideoInFullScreen,
             continueVideoPlayback,
