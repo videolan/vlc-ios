@@ -499,7 +499,7 @@ class TrackSelectorViewController: UIViewController {
 
     private func installBackgroundEffect() {
         backgroundContainer.subviews.forEach { $0.removeFromSuperview() }
-        let effectView = makeSheetBackgroundView()
+        let effectView = UIView.makeOverlayBackgroundView()
         effectView.translatesAutoresizingMaskIntoConstraints = false
         backgroundContainer.addSubview(effectView)
         NSLayoutConstraint.activate([
@@ -508,22 +508,6 @@ class TrackSelectorViewController: UIViewController {
             effectView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor),
             effectView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
         ])
-    }
-
-    private func makeSheetBackgroundView() -> UIView {
-        if UIAccessibility.isReduceTransparencyEnabled {
-            let view = UIView()
-            view.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-            return view
-        }
-
-#if !os(visionOS)
-        if #available(iOS 26.0, *) {
-            return UIVisualEffectView(effect: UIGlassEffect())
-        }
-#endif
-
-        return UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
     }
 
     @objc private func reduceTransparencyChanged() {
