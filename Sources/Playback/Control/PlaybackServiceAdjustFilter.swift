@@ -48,6 +48,11 @@ final class PlaybackServiceAdjustFilter: NSObject {
     func resetParametersIfNeeded() -> Bool {
         return mediaPlayerAdjustFilter.resetParametersIfNeeded()
     }
+
+    func reset() {
+        _ = resetParametersIfNeeded()
+        isEnabled = false
+    }
 }
 
 extension PlaybackServiceAdjustFilter {
@@ -72,6 +77,10 @@ extension PlaybackServiceAdjustFilter {
             set {
                 parameter.value = NSNumber(value: newValue)
             }
+        }
+
+        var defaultValue: Float {
+            floatValue(parameter.defaultValue)
         }
 
         var minValue: Float {
