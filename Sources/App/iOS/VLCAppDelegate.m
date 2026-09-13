@@ -106,7 +106,6 @@
                                   kVLCSettingPlaybackSpeedDefaultValue: @(1.0),
                                   kVLCSettingPlaybackSpeedAppliesToAll: @(NO),
                                   kVLCSettingSaveAudioDelay: @(YES),
-                                  kVLCPlayerShowPlaybackSpeedShortcut: @(NO),
                                   kVLCSettingAlwaysPlayURLs: @(NO),
                                   kVLCRestoreLastPlayedMedia: @(NO),
                                   kVLCSettingPlayerControlDuration: kVLCSettingPlayerControlDurationDefaultValue,

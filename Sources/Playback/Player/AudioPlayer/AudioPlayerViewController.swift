@@ -31,7 +31,6 @@ class AudioPlayerViewController: PlayerViewController {
 
     private var isQueueHidden: Bool = true
 
-    private var displayedPlaybackSpeed: Float = 1.0
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get { return UIInterfaceOrientationMask.allButUpsideDown }
@@ -78,7 +77,6 @@ class AudioPlayerViewController: PlayerViewController {
                    rendererDiscovererManager: rendererDiscovererManager,
                    playerController: playerController,
                    isBrightnessControlAvailable: false)
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackRateDidChange(_:)), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
@@ -98,7 +96,6 @@ class AudioPlayerViewController: PlayerViewController {
 #else
     @objc override init(mediaLibraryService: MediaLibraryService, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, playerController: playerController)
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackRateDidChange(_:)), name: Notification.Name(VLCPlaybackServicePlaybackRateDidChange), object: nil)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
@@ -138,9 +135,6 @@ class AudioPlayerViewController: PlayerViewController {
         let isLandscape = view.bounds.width > view.bounds.height
         audioPlayerView.updateLayout(isLandscape: isLandscape)
         mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
-
-        let displayShortcutView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
-        audioPlayerView.shouldDisplaySecondaryStackView(displayShortcutView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -179,13 +173,15 @@ class AudioPlayerViewController: PlayerViewController {
         return true
     }
     
-    @objc func playbackRateDidChange(_ notification: NSNotification) {
+    override func updatePlaybackSpeedIcon() {
+        super.updatePlaybackSpeedIcon()
         refreshPlaybackSpeed()
     }
 
     private func refreshPlaybackSpeed() {
-        displayedPlaybackSpeed = playbackService.playbackRate
-        audioPlayerView.updatePlaybackSpeedButton(with: displayedPlaybackSpeed)
+        let playbackSpeed = playbackService.playbackRate
+        audioPlayerView.updatePlaybackSpeedButton(with: playbackSpeed)
+        audioPlayerView.shouldDisplaySecondaryStackView(abs(playbackSpeed - 1) > 0.001)
     }
 
     override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
@@ -441,23 +437,17 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     }
 
     func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
-        let speedOffset: Float = 0.25
-        var requestedSpeed = displayedPlaybackSpeed + speedOffset
-
-        if requestedSpeed > 2.0 {
-            requestedSpeed = 1.0
-            mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
-        } else {
-            mediaMoreOptionsActionSheetShowIcon(for: .playbackSpeed)
-        }
-
-        playbackService.playbackRate = requestedSpeed
-        displayedPlaybackSpeed = requestedSpeed
-        audioPlayerView.updatePlaybackSpeedButton(with: requestedSpeed)
+        presentPlaybackSpeedSheet()
     }
 
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
-        presentPlaybackSpeedSheet()
+        let speedManager = PlaybackSpeedCustomManager.shared
+        let resetSpeed = speedManager.resetSpeed
+        playbackService.playbackRate = resetSpeed
+        if speedManager.appliesToAllMedia {
+            speedManager.setDefaultSpeed(resetSpeed)
+        }
+        updatePlaybackSpeedIcon()
     }
 
 }

@@ -156,7 +156,6 @@
 #define kVLCPlayerIsShuffleEnabledDefaultValue @NO
 #define kVLCPlayerIsRepeatEnabled @"PlayerIsRepeatEnabled"
 #define kVLCPlayerIsRepeatEnabledDefaultValue @(0)
-#define kVLCPlayerShowPlaybackSpeedShortcut @"kVLCPlayerShowPlaybackSpeedShortcut"
 
 #define kVLCCustomProfileEnabled @"kVLCCustomProfileEnabled"
 #define kVLCCustomEqualizerProfiles @"kVLCCustomEqualizerProfiles"
