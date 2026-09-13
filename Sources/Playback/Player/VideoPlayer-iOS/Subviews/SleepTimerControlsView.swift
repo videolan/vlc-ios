@@ -24,12 +24,15 @@ final class SleepTimerControlsView: UIView {
         static let valueSpacing: CGFloat = 2
         static let presetHorizontalInset: CGFloat = 4
         static let presetSpacing: CGFloat = 6
+        static let stopAfterSpacing: CGFloat = 8
     }
 
     weak var delegate: SleepTimerControlsViewDelegate?
 
+    private let isAudioPlayer: Bool
     private let playbackService = PlaybackService.sharedInstance()
     private var activePresetIndex: Int?
+    private var isStopAfterActive: Bool?
     private var refreshTimer: Timer?
 
     // MARK: - Views
@@ -109,9 +112,18 @@ final class SleepTimerControlsView: UIView {
         return stackView
     }()
 
+    private lazy var stopAfterButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(didTapStopAfter), for: .touchUpInside)
+        button.heightAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumControlHeight).isActive = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     // MARK: - Lifecycle
 
-    init() {
+    init(isAudioPlayer: Bool) {
+        self.isAudioPlayer = isAudioPlayer
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         overrideUserInterfaceStyle = .dark
@@ -197,6 +209,7 @@ final class SleepTimerControlsView: UIView {
         contentView.addSubview(resetButton)
         contentView.addSubview(valueLabel)
         contentView.addSubview(presetStackView)
+        contentView.addSubview(stopAfterButton)
 
         let inset = Metrics.horizontalPadding
         let scrollViewHeight = scrollView.heightAnchor.constraint(equalTo: contentView.heightAnchor)
@@ -238,7 +251,11 @@ final class SleepTimerControlsView: UIView {
             presetStackView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: Metrics.presetSpacing),
             presetStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             presetStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-            presetStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            stopAfterButton.topAnchor.constraint(equalTo: presetStackView.bottomAnchor, constant: Metrics.stopAfterSpacing),
+            stopAfterButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            stopAfterButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            stopAfterButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 
@@ -268,20 +285,53 @@ final class SleepTimerControlsView: UIView {
         return max(fireDate.timeIntervalSinceNow, 0)
     }
 
+    private var remainingItemTime: TimeInterval? {
+        let rate = Double(playbackService.playbackRate)
+        guard rate > 0, let milliseconds = playbackService.remainingTime().value?.doubleValue, milliseconds < 0 else {
+            return nil
+        }
+        return -milliseconds / 1000 / rate
+    }
+
+    private var stopAfterTitle: String {
+        if isAudioPlayer {
+            return NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_TRACK", comment: "")
+        }
+        return NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_VIDEO", comment: "")
+    }
+
     private func updateInterface() {
         let colors = PresentationTheme.currentExcludingWhite.colors
-        if let remainingTime = remainingSleepTime {
+        let stopsAfterCurrentItem = playbackService.stopAfterCurrentItem
+        if let remainingTime = remainingSleepTime ?? (stopsAfterCurrentItem ? remainingItemTime : nil) {
             valueLabel.text = Self.remainingTimeString(for: remainingTime)
             valueLabel.accessibilityValue = Self.spokenFormatter.string(from: remainingTime.rounded(.up))
             valueLabel.textColor = colors.orangeUI
-            resetButton.isEnabled = true
+        } else if stopsAfterCurrentItem {
+            valueLabel.text = "–"
+            valueLabel.accessibilityValue = stopAfterTitle
+            valueLabel.textColor = colors.orangeUI
         } else {
             valueLabel.text = NSLocalizedString("OFF", comment: "")
             valueLabel.accessibilityValue = valueLabel.text
             valueLabel.textColor = colors.overlayPrimaryTextColor
-            resetButton.isEnabled = false
         }
+        resetButton.isEnabled = playbackService.sleepTimer != nil || stopsAfterCurrentItem
         updatePresetButtons(force: false)
+        updateStopAfterButton(force: false)
+    }
+
+    private func updateStopAfterButton(force: Bool) {
+        let isActive = playbackService.stopAfterCurrentItem
+        guard force || isActive != isStopAfterActive else {
+            return
+        }
+
+        isStopAfterActive = isActive
+        stopAfterButton.applyOverlayControlStyle(title: stopAfterTitle,
+                                                 image: nil,
+                                                 isActive: isActive,
+                                                 cornerRadius: Self.minimumControlHeight / 2)
     }
 
     private func updatePresetButtons(force: Bool) {
@@ -312,11 +362,17 @@ final class SleepTimerControlsView: UIView {
 
     @objc private func didTapReset() {
         playbackService.cancelSleepTimer()
+        playbackService.stopAfterCurrentItem = false
         announceState()
     }
 
     @objc private func didTapPreset(_ sender: UIButton) {
         playbackService.scheduleSleepTimer(withInterval: TimeInterval(Self.presetMinutes[sender.tag] * 60))
+        announceState()
+    }
+
+    @objc private func didTapStopAfter() {
+        playbackService.stopAfterCurrentItem = !playbackService.stopAfterCurrentItem
         announceState()
     }
 
@@ -339,11 +395,13 @@ final class SleepTimerControlsView: UIView {
         installBackgroundEffect()
         updateInterface()
         updatePresetButtons(force: true)
+        updateStopAfterButton(force: true)
     }
 
     @objc private func darkerSystemColorsChanged() {
         updateInterface()
         updatePresetButtons(force: true)
+        updateStopAfterButton(force: true)
     }
 
     // MARK: - Helpers

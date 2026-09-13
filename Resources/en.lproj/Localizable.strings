@@ -63,6 +63,8 @@
 "SYNC_SCENE_SEEN" = "Scene seen";
 "SYNC_MARK_HINT" = "Double-tap at the moment it happens";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
+"SLEEP_TIMER_STOP_AFTER_THIS_VIDEO" = "Stop After This Video";
+"SLEEP_TIMER_STOP_AFTER_THIS_TRACK" = "Stop After This Track";
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 

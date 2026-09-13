@@ -124,6 +124,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly, nullable) NSTimer *sleepTimer;
 @property (nonatomic, readonly) NSTimeInterval sleepTimerInterval;
+@property (nonatomic) BOOL stopAfterCurrentItem;
 
 @property (nonatomic, readwrite) CGFloat preAmplification;
 

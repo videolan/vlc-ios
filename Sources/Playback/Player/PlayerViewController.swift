@@ -732,7 +732,7 @@ class PlayerViewController: UIViewController {
             return
         }
 
-        let sleepTimerCard = SleepTimerControlsView()
+        let sleepTimerCard = SleepTimerControlsView(isAudioPlayer: self is AudioPlayerViewController)
         sleepTimerCard.delegate = self
         showOverlayCard(sleepTimerCard)
         sleepTimerCard.focusForAccessibility()
@@ -852,7 +852,7 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func updateSleepTimerIcon() {
-        if playbackService.sleepTimer != nil {
+        if playbackService.sleepTimer != nil || playbackService.stopAfterCurrentItem {
             showIcon(button: optionsNavigationBar.sleepTimerButton)
         } else {
             hideIcon(button: optionsNavigationBar.sleepTimerButton)
@@ -861,6 +861,7 @@ class PlayerViewController: UIViewController {
 
     private func resetSleepTimer() {
         playbackService.cancelSleepTimer()
+        playbackService.stopAfterCurrentItem = false
     }
 
     private func handleReset(button: UIButton) {
