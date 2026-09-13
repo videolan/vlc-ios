@@ -52,6 +52,10 @@
 "PLAYBACK_SPEED_FORMAT" = "%@×";
 "SPU_DELAY" = "Subtitles delay";
 "AUDIO_DELAY" = "Audio delay";
+"PLAYBACK_SPEED_THIS_VIDEO" = "This video";
+"PLAYBACK_SPEED_ALL_VIDEOS" = "All videos";
+"PLAYBACK_SPEED_THIS_TRACK" = "This track";
+"PLAYBACK_SPEED_ALL_TRACKS" = "All tracks";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
 "SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
 "CONTINUE_PLAYBACK" = "Continue playback?";
