@@ -1,5 +1,34 @@
 # Changelog
 
+## iOS [3.7.4]
+· require iOS 13 or later due to Apple's enforcement, drop support for iOS 9 to 12
+· drop support for 32bit iOS devices
+· update linked SDK to version 26
+· update libvlc to version 3.0.24
+· codecs: use FFmpeg 8.1 (upgraded from 4.4)
+· codecs: add support for APV, Atrac3 and Atrac9 decoding
+· demuxers: add support for CEA-708 closed captions in MP4
+· demuxers: improve subtitle language detection from filenames and SSA/ASS metadata
+· demuxers: fix several MKV crashes, hangs and malformed file handling issues
+· network: improve SMB2 share enumeration
+· network: drop legacy RealRTSP support
+· casting: disable HEVC for original Chromecast devices
+· fix security issues in metadata parsing, decoders, subtitles, demuxers, network inputs and bundled libraries (SB-VLC3024)
+· fix audio track selection issue on iPadOS 27
+
+## tvOS [3.7.4]
+· require tvOS 13 or later due to Apple's enforcement, drop support for tvOS 11 to 12
+· update linked SDK to version 26
+· update libvlc to version 3.0.24
+· codecs: use FFmpeg 8.1 (upgraded from 4.4)
+· codecs: add support for APV, Atrac3 and Atrac9 decoding
+· demuxers: add support for CEA-708 closed captions in MP4
+· demuxers: improve subtitle language detection from filenames and SSA/ASS metadata
+· demuxers: fix several MKV crashes, hangs and malformed file handling issues
+· network: improve SMB2 share enumeration
+· network: drop legacy RealRTSP support
+· fix security issues in metadata parsing, decoders, subtitles, demuxers, network inputs and bundled libraries (SB-VLC3024)
+
 ## iOS [3.7.3]
 · stability improvements
 · fix expansion of playlists stored on the network
