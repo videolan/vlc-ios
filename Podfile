@@ -7,7 +7,7 @@ def shared_pods
   pod 'XKKeychain', '~>1.0'
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-  pod 'AFNetworking', '~>4.0'
+  pod 'AFNetworking', :git => 'https://code.videolan.org/fkuehne/AFNetworking.git', :commit => '80323fce'
 
   # debug
   pod 'SwiftLint', '~> 0.47.1', :configurations => ['Debug']
