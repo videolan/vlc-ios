@@ -326,14 +326,6 @@ class SettingsCell: UITableViewCell {
         mainLabel.textColor = colors.cellTextColor
         subtitleLabel.textColor = colors.cellDetailTextColor
         activityIndicator.color = colors.cellDetailTextColor
-        guard #available(iOS 13, *) else {
-            backgroundColor = colors.background
-            mainLabel.backgroundColor = backgroundColor
-            subtitleLabel.backgroundColor = backgroundColor
-            activityIndicator.backgroundColor = backgroundColor
-            switchControl.backgroundColor = backgroundColor
-            return
-        }
     }
 
     @objc func handleSwitchAction(sender: UISwitch) {
