@@ -219,7 +219,7 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
     cell.thumbnailView.layer.cornerRadius = VLCPodcastDirectoryListArtworkRadius;
     cell.isDownloadable = NO;
     cell.isFavorable = NO;
-    [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL title:feed.title] toCell:cell];
+    [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL] toCell:cell];
 
     return cell;
 }
@@ -278,7 +278,7 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
     for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows) {
         VLCNetworkListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         VLCPodcastIndexFeed *feed = _feeds[indexPath.row];
-        [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL title:feed.title] toCell:cell];
+        [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL] toCell:cell];
     }
 }
 

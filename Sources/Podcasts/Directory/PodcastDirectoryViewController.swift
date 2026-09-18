@@ -163,7 +163,7 @@ class PodcastDirectoryViewController: UIViewController {
         return shelf.feeds.prefix(Self.railLimit).map { feed in
             let item = VLCOnAirRailItem(name: feed.title, artworkURL: feed.artworkURL)
             item.subtitle = feed.subtitle
-            if store.subscriptionState(forFeedURL: feed.feedURL, title: feed.title) == .subscribed {
+            if store.subscriptionState(forFeedURL: feed.feedURL) == .subscribed {
                 item.accessoryGlyphName = "checkmark"
                 item.accessoryLabel = NSLocalizedString("PODCAST_DIRECTORY_SUBSCRIBED", comment: "")
             }

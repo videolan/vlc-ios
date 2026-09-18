@@ -197,7 +197,7 @@ class PodcastDirectoryFeedViewController: UIViewController {
     }
 
     private func subscriptionBarButton() -> UIBarButtonItem {
-        switch store.subscriptionState(forFeedURL: feed.feedURL, title: feed.title) {
+        switch store.subscriptionState(forFeedURL: feed.feedURL) {
         case .available:
             return barButton(symbolName: "plus",
                              title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
@@ -283,7 +283,7 @@ class PodcastDirectoryFeedViewController: UIViewController {
     }
 
     @objc private func didTapSubscribe() {
-        store.addSubscription(mrl: feed.feedURL, title: feed.title) { [weak self] result in
+        store.addSubscription(mrl: feed.feedURL) { [weak self] result in
             guard let self = self, case .failure(let error) = result else {
                 return
             }
@@ -298,7 +298,7 @@ class PodcastDirectoryFeedViewController: UIViewController {
         let cancel = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
         let unsubscribe = VLCAlertButton(title: NSLocalizedString("PODCAST_UNSUBSCRIBE", comment: ""),
                                          style: .destructive) { [weak self] _ in
-            guard let self = self, let show = self.store.show(matchingTitle: self.feed.title) else {
+            guard let self = self, let show = self.store.show(forFeedURL: self.feed.feedURL) else {
                 return
             }
 
