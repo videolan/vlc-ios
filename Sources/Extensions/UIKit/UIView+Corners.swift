@@ -15,9 +15,7 @@ import UIKit
 extension UIView {
     @objc func roundCorners(radius: CGFloat) {
         layer.cornerRadius = radius
-        if #available(iOS 13.0, *) {
-            layer.cornerCurve = .continuous
-        }
+        layer.cornerCurve = .continuous
     }
 
     @objc func roundCorners(radius: CGFloat, maskedCorners: CACornerMask) {
