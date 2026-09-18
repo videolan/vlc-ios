@@ -154,11 +154,9 @@ class SettingsController: UITableViewController {
 
     private func setNavBarAppearance() {
         if #unavailable(iOS 26.0) {
-            if #available(iOS 13.0, *) {
-                let navigationBarAppearance = AppearanceManager.navigationbarAppearance
-                self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
-                self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
-            }
+            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
+            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
+            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
         }
     }
 
