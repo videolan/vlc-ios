@@ -57,6 +57,7 @@ class AppMenuBarButtonItem: UIBarButtonItem {
                                 image: UIImage(systemName: "gearshape")) { [weak self] _ in
             self?.showSettings()
         }
+        settings.accessibilityIdentifier = VLCAccessibilityIdentifier.openSettings
 
         let settingsSection = UIMenu(title: "", options: .displayInline, children: [settings])
         return UIMenu(title: "", children: [about, documentation, donation, settingsSection])
