@@ -308,11 +308,9 @@ enum PresentationThemeType: Int {
             presentationTheme = darkTheme
         } else if theme == .auto {
 #if os(iOS) || os(tvOS)
-            if #available(iOS 13.0, tvOS 13.0, *) {
-                let traits = traitCollection ?? UITraitCollection.current
-                let isSystemDarkTheme = traits.userInterfaceStyle == .dark
-                presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
-            }
+            let traits = traitCollection ?? UITraitCollection.current
+            let isSystemDarkTheme = traits.userInterfaceStyle == .dark
+            presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
 #else
             presentationTheme = darkTheme
 #endif // os(iOS) || os(tvOS)
