@@ -58,21 +58,18 @@ class AppearanceManager: NSObject {
 
     @objc class func setupUserInterfaceStyle(theme: PresentationTheme = PresentationTheme.current) {
 #if !os(tvOS)
-        if #available(iOS 13.0, *) {
-            if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeSystem {
-                UIView.animate(withDuration: 0.55, delay: 0,
-                               usingSpringWithDamping: 1,
-                               initialSpringVelocity: 0,
-                               options: .curveEaseIn,
-                               animations: {
-                    UIApplication.shared.activeKeyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
-                })
-            }
+        if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) != kVLCSettingAppThemeSystem {
+            UIView.animate(withDuration: 0.55, delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseIn,
+                           animations: {
+                UIApplication.shared.activeKeyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+            })
         }
 #endif
     }
 
-    @available(iOS 13.0, tvOS 13.0, *)
     @objc class func navigationbarAppearance() -> UINavigationBarAppearance {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -82,7 +79,6 @@ class AppearanceManager: NSObject {
         return navBarAppearance
     }
 
-    @available(iOS 13.0, tvOS 13.0, *)
     @objc class func navigationBarArtworkAppearance() -> UINavigationBarAppearance {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
