@@ -35,7 +35,6 @@
     VLCBottomTabBarController *_tabBarController;
     TabBarCoordinator *_tabCoordinator;
     VLCPlayerDisplayController *_playerDisplayController;
-    UIWindow *_externalWindow;
     VLCStripeController *_stripeController;
 #endif
 
@@ -157,33 +156,6 @@
     return _rendererDiscovererManager;
 }
 #endif
-
-- (void)setExternalWindow:(UIWindow *)externalWindow
-{
-    _externalWindow = externalWindow;
-}
-
-- (UIWindow *)externalWindow
-{
-#if TARGET_OS_IOS
-    if (@available(iOS 13.0, *)) {
-        return _externalWindow;
-    } else {
-        NSArray *screens = UIScreen.screens;
-        if (screens.count <= 1)
-            return nil;
-
-        UIScreen *externalScreen = screens[1];
-        externalScreen.overscanCompensation = UIScreenOverscanCompensationNone;
-
-        _externalWindow = [[UIWindow alloc] initWithFrame:externalScreen.bounds];
-        _externalWindow.rootViewController = [[VLCExternalDisplayController alloc] initWithNibName:nil bundle:nil];
-        _externalWindow.screen = externalScreen;
-        [_externalWindow makeKeyAndVisible];
-    }
-#endif
-    return _externalWindow;
-}
 
 - (void)setTabBarController:(VLCBottomTabBarController *)tabBarController
 {
