@@ -155,19 +155,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #if TARGET_OS_IOS
-    if (@available(iOS 13.0, *)) {
-        APLog(@"Using Scene flow");
-    } else {
-        APLog(@"Using Traditional flow");
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = [VLCBottomTabBarController new];
-        [self.window makeKeyAndVisible];
-        [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
-        [self setupTabBarAppearance];
-        [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
-    }
-
-#if TARGET_OS_IOS && !NO_WATCH
+#if !NO_WATCH
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         VLCWatchConnectivityService *watchService = [[VLCWatchConnectivityService alloc] init];
         [watchService transferMediaLibraryFileIfNeeded];
@@ -342,7 +330,7 @@
 #pragma mark - UISceneSession lifecycle
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
-                              options:(UISceneConnectionOptions *)options  API_AVAILABLE(ios(13.0))
+                              options:(UISceneConnectionOptions *)options
 {
     UISceneSessionRole role = connectingSceneSession.role;
     if ([role isEqualToString:@"CPTemplateApplicationSceneSessionRoleApplication"]) {
@@ -355,7 +343,7 @@
     return [[UISceneConfiguration alloc] initWithName:@"VLCDefaultAppScene" sessionRole:role];
 }
 
-- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(ios(13.0))
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions
 {
 }
 
