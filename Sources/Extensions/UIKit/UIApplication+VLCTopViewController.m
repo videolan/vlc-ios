@@ -16,45 +16,25 @@
 
 - (UIWindow *)activeKeyWindow
 {
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        UIWindow *inactiveKeyWindow;
-        for (UIScene *scene in self.connectedScenes) {
-            if (![scene isKindOfClass:[UIWindowScene class]]) {
+    UIWindow *inactiveKeyWindow;
+    for (UIScene *scene in self.connectedScenes) {
+        if (![scene isKindOfClass:[UIWindowScene class]]) {
+            continue;
+        }
+        BOOL sceneIsActive = scene.activationState == UISceneActivationStateForegroundActive;
+        for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+            if (!window.isKeyWindow) {
                 continue;
             }
-            BOOL sceneIsActive = scene.activationState == UISceneActivationStateForegroundActive;
-            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
-                if (!window.isKeyWindow) {
-                    continue;
-                }
-                if (sceneIsActive) {
-                    return window;
-                }
-                if (!inactiveKeyWindow) {
-                    inactiveKeyWindow = window;
-                }
+            if (sceneIsActive) {
+                return window;
+            }
+            if (!inactiveKeyWindow) {
+                inactiveKeyWindow = window;
             }
         }
-        if (inactiveKeyWindow) {
-            return inactiveKeyWindow;
-        }
     }
-
-#if !TARGET_OS_VISION
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    UIWindow *keyWindow = self.keyWindow;
-#pragma clang diagnostic pop
-    if (keyWindow) {
-        return keyWindow;
-    }
-#endif
-
-    id<UIApplicationDelegate> delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(window)]) {
-        return delegate.window;
-    }
-    return nil;
+    return inactiveKeyWindow;
 }
 
 - (UIViewController *)topViewController
