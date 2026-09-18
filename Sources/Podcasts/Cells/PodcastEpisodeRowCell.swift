@@ -173,6 +173,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
 
     private func setupUI() {
         selectedBackgroundView = UIView()
+        accessibilityIdentifier = VLCAccessibilityIdentifier.podcastEpisode
 
         dateStack.addArrangedSubview(statusIndicatorView)
         dateStack.addArrangedSubview(dateLabel)

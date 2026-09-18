@@ -138,6 +138,7 @@ class PodcastDirectoryViewController: UIViewController {
         let languageButton = UIBarButtonItem(image: languageImage, style: .plain, target: self,
                                              action: #selector(didTapLanguage))
         languageButton.accessibilityLabel = NSLocalizedString("PODCAST_DIRECTORY_LANGUAGE", comment: "")
+        languageButton.accessibilityIdentifier = VLCAccessibilityIdentifier.podcastLanguage
 
         let searchButton = UIBarButtonItem(image: searchImage, style: .plain, target: self,
                                            action: #selector(didTapSearch))

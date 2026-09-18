@@ -221,6 +221,7 @@ class PodcastsViewController: UIViewController {
                                         action: #selector(didTapAdd(_:)))
         }
         addButton.accessibilityLabel = NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
+        addButton.accessibilityIdentifier = VLCAccessibilityIdentifier.podcastAdd
 
         navigationItem.rightBarButtonItems = [addButton, searchButton]
     }
@@ -231,7 +232,8 @@ class PodcastsViewController: UIViewController {
                     self?.presentAddSubscriptionAlert()
                 },
                 PodcastMenuAction(title: NSLocalizedString("PODCAST_DIRECTORY_BROWSE", comment: ""),
-                                  imageName: "square.grid.2x2") { [weak self] in
+                                  imageName: "square.grid.2x2",
+                                  accessibilityIdentifier: VLCAccessibilityIdentifier.podcastDirectory) { [weak self] in
                     self?.showDirectory()
                 }]
     }

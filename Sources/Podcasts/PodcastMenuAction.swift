@@ -17,6 +17,7 @@ struct PodcastMenuAction {
     let imageName: String
     var isEnabled = true
     var isDestructive = false
+    var accessibilityIdentifier: String?
     let handler: () -> Void
 }
 
@@ -31,9 +32,11 @@ extension Array where Element == PodcastMenuAction {
             }
             let image = action.isDestructive ? UIImage(systemName: action.imageName)
                 : UIImage(systemName: action.imageName)?.withTintColor(color, renderingMode: .alwaysOriginal)
-            return UIAction(title: action.title, image: image, attributes: attributes) { _ in
+            let menuAction = UIAction(title: action.title, image: image, attributes: attributes) { _ in
                 action.handler()
             }
+            menuAction.accessibilityIdentifier = action.accessibilityIdentifier
+            return menuAction
         }
         return UIMenu(title: "", children: actions)
     }

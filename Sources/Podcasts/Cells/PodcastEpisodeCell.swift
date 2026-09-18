@@ -73,6 +73,7 @@ class PodcastEpisodeCell: UITableViewCell {
 
     private func setupUI() {
         selectionStyle = .none
+        accessibilityIdentifier = VLCAccessibilityIdentifier.podcastEpisode
 
         contentView.addSubview(artworkView)
         contentView.addSubview(textStack)
