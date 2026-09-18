@@ -35,6 +35,8 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     UIButton *_moreButton;
     UILabel *_nameLabel;
     UILabel *_subtitleLabel;
+    UIAccessibilityElement *_tileElement;
+    NSString *_tileAccessibilityLabel;
 }
 
 + (NSString *)reuseIdentifier
@@ -119,6 +121,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         [_moreButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
         [_moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle.fill"] forState:UIControlStateNormal];
     }
+    _moreButton.accessibilityLabel = NSLocalizedString(@"MORE_OPTIONS_BUTTON", nil);
     [_artworkContainer addSubview:_moreButton];
 
     _nameLabel = [[UILabel alloc] init];
@@ -135,6 +138,9 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _subtitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _subtitleLabel.hidden = YES;
     [self.contentView addSubview:_subtitleLabel];
+
+    _tileElement = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
+    _tileElement.accessibilityTraits = UIAccessibilityTraitButton;
 
     [NSLayoutConstraint activateConstraints:@[
         [_artworkContainer.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
@@ -423,6 +429,51 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     self.delegate = nil;
     self.removalActionTitle = nil;
     self.removalActionGlyphName = nil;
+    _tileAccessibilityLabel = nil;
+}
+
+#pragma mark - accessibility
+
+- (NSString *)accessibilityLabel
+{
+    return _tileAccessibilityLabel ?: _nameLabel.text;
+}
+
+- (void)setAccessibilityLabel:(NSString *)accessibilityLabel
+{
+    _tileAccessibilityLabel = [accessibilityLabel copy];
+}
+
+- (NSString *)accessibilityIdentifier
+{
+    return _tileElement.accessibilityIdentifier;
+}
+
+- (void)setAccessibilityIdentifier:(NSString *)accessibilityIdentifier
+{
+    _tileElement.accessibilityIdentifier = accessibilityIdentifier;
+}
+
+- (BOOL)isAccessibilityElement
+{
+    return NO;
+}
+
+- (NSArray *)accessibilityElements
+{
+    NSMutableArray<NSString *> *values = [NSMutableArray arrayWithCapacity:2];
+    if (_subtitle.length > 0) {
+        [values addObject:_subtitle];
+    }
+    if (_pillText.length > 0) {
+        [values addObject:_pillText];
+    }
+
+    _tileElement.accessibilityLabel = self.accessibilityLabel;
+    _tileElement.accessibilityValue = [values componentsJoinedByString:@", "];
+    _tileElement.accessibilityFrameInContainerSpace = self.contentView.frame;
+
+    return _moreButton.hidden ? @[_tileElement] : @[_tileElement, _moreButton];
 }
 
 @end
