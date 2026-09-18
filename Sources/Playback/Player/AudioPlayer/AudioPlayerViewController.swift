@@ -56,6 +56,7 @@ class AudioPlayerViewController: PlayerViewController {
         moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
         moreOptionsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         moreOptionsButton.addTarget(self, action: #selector(handleMoreOptionsButton), for: .touchUpInside)
+        moreOptionsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.moreOptions
         return moreOptionsButton
     }()
 

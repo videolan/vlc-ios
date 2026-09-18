@@ -53,6 +53,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         closeButton.addGestureRecognizer(longPressGesture)
         closeButton.addGestureRecognizer(tapGesture)
         closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        closeButton.accessibilityIdentifier = VLCAccessibilityIdentifier.closePlayback
         return closeButton
     }()
 

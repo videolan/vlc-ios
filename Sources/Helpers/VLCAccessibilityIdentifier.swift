@@ -48,4 +48,6 @@ import Foundation
     @objc static let about = "about"
     @objc static let playPause = "playPause"
     static let videoPlayerScrubBar = "videoPlayerScrubBar"
+    static let moreOptions = "moreOptions"
+    static let closePlayback = "closePlayback"
 }

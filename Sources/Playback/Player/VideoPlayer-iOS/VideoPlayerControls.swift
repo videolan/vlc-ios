@@ -138,6 +138,7 @@ class VideoPlayerControls: UIView {
                                                                  comment: "")
         moreActionsButton.accessibilityHint = NSLocalizedString("MORE_OPTIONS_HINT",
                                                                 comment: "")
+        moreActionsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.moreOptions
 
         self.accessibilityLabel = NSLocalizedString("PLAYBACK_CONTROLS_BAR_TITLE",
                                                     comment: "")

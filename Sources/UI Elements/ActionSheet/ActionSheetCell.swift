@@ -399,6 +399,7 @@ class ActionSheetCell: UICollectionViewCell {
         toggleSwitch.removeFromSuperview()
         accessoryType = .checkmark
         identifier = nil
+        accessibilityIdentifier = nil
         updateColors()
     }
 
@@ -422,6 +423,7 @@ class ActionSheetCell: UICollectionViewCell {
         icon.image = model.iconImage
         viewToPresent = model.viewToPresent
         identifier = model.cellIdentifier
+        accessibilityIdentifier = model.cellIdentifier?.rawValue
         // disclosure chevron is set as the default accessoryView if a viewController is present
         accessoryType = model.viewToPresent != nil && model.accessoryType != .popup && model.accessoryType != .none ? .disclosureChevron : model.accessoryType
         isMediaPlayerActionSheetCell = isFromMediaPlayerActionSheet
