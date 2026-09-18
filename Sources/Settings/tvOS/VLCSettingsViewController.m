@@ -31,9 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(tvOS 13.0, *)) {
-        self.navigationController.navigationBarHidden = YES;
-    }
+    self.navigationController.navigationBarHidden = YES;
 
     self.userDefaults = [NSUserDefaults standardUserDefaults];
     self.settingsReader = [[IASKSettingsReader alloc] initWithFile:@"Root"];
@@ -183,9 +181,7 @@
             textField.text = [self.userDefaults stringForKey:specifier.key];
             if ([specifier.key isEqualToString:kVLCSettingNetworkSatIPChannelListUrl]) {
                 textField.keyboardType = UIKeyboardTypeURL;
-                if (@available(tvOS 10.0, *)) {
-                    textField.textContentType = UITextContentTypeURL;
-                }
+                textField.textContentType = UITextContentTypeURL;
             }
 
             [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
