@@ -447,7 +447,7 @@ let darkPalette = ColorPalette(isDark: true,
 
 let brightPalette = ColorPalette(isDark: false,
                                  name: "Default",
-                                 statusBarStyle: .autoDarkContent,
+                                 statusBarStyle: .darkContent,
                                  navigationbarColor: UIColor(0xFFFFFF),
                                  navigationbarTextColor: UIColor(0x000000),
                                  background: UIColor(0xFFFFFF),
@@ -590,18 +590,6 @@ let visionPalette = ColorPalette(isDark: true,
                                  cardBackground: UIColor(0x494B4D, 0.2),
                                  accentTint: UIColor(0xFF8800, 0.22))
 #endif
-
-// MARK: - UIStatusBarStyle - autoDarkContent
-
-extension UIStatusBarStyle {
-    static var autoDarkContent: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .default
-        }
-    }
-}
 
 #endif // !os(tvOS)
 
