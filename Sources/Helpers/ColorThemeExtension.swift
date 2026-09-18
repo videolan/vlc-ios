@@ -11,15 +11,13 @@
 
 extension PresentationTheme {
     static func traitCollectionDidChange(from previousTraitCollection: UITraitCollection?, to traitCollection: UITraitCollection) {
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
 #if !os(tvOS)
-                guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
-                    return
-                }
-#endif
-                PresentationTheme.themeDidUpdate()
+            guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
+                return
             }
+#endif
+            PresentationTheme.themeDidUpdate()
         }
     }
 }
@@ -71,10 +69,8 @@ extension UINavigationController {
     @objc func themeDidChange() {
 #if !os(tvOS)
         if #unavailable(iOS 26.0) {
-            if #available(iOS 13.0, *) {
-                navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-                navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-            }
+            navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
             navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         }
 #endif
