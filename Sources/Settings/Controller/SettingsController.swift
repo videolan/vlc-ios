@@ -139,13 +139,7 @@ class SettingsController: UITableViewController {
 
     private func setupBarButton() {
         if navigationController?.presentingViewController != nil {
-            let closeItem: UIBarButtonItem.SystemItem
-            if #available(iOS 13.0, *) {
-                closeItem = .close
-            } else {
-                closeItem = .done
-            }
-            let closeButton = UIBarButtonItem(barButtonSystemItem: closeItem,
+            let closeButton = UIBarButtonItem(barButtonSystemItem: .close,
                                               target: self,
                                               action: #selector(dismissSettings))
             closeButton.tintColor = PresentationTheme.current.colors.orangeUI
