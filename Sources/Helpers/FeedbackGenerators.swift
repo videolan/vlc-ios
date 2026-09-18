@@ -13,29 +13,12 @@ import UIKit
 
 ///Haptic feedback generator wrapper that generates haptics *only when available*.
 
-@available(iOS 10.0, *)
 class ImpactFeedbackGenerator {
 
-    private let feedbackGenerator: UIFeedbackGenerator?
-
-    init() {
-        if #available(iOS 13, *) {
-            feedbackGenerator = UIImpactFeedbackGenerator()
-        }
-        else {
-            feedbackGenerator = UISelectionFeedbackGenerator()
-        }
-    }
+    private let feedbackGenerator = UIImpactFeedbackGenerator()
 
     func prepare() {
-        if #available(iOS 13, *) {
-            guard let feedbackGenerator = feedbackGenerator as? UIImpactFeedbackGenerator else { return }
-            feedbackGenerator.prepare()
-        }
-        else {
-            guard let feedbackGenerator = feedbackGenerator as? UISelectionFeedbackGenerator else { return }
-            feedbackGenerator.prepare()
-        }
+        feedbackGenerator.prepare()
     }
 
     func selectionChanged() {
@@ -47,18 +30,10 @@ class ImpactFeedbackGenerator {
     }
 
     private func genericImpactFeedback(intensity: CGFloat) {
-        if #available(iOS 13, *) {
-            guard let feedbackGenerator = feedbackGenerator as? UIImpactFeedbackGenerator else { return }
-            feedbackGenerator.impactOccurred(intensity: intensity)
-        }
-        else {
-            guard let feedbackGenerator = feedbackGenerator as? UISelectionFeedbackGenerator else { return }
-            feedbackGenerator.selectionChanged()
-        }
+        feedbackGenerator.impactOccurred(intensity: intensity)
     }
 }
 
-@available(iOS 10.0, *)
 class NotificationFeedbackGenerator {
 
     private let feedbackGenerator: UINotificationFeedbackGenerator?
