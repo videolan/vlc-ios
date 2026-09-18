@@ -689,6 +689,8 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     UIButton *seeAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
     seeAllButton.translatesAutoresizingMaskIntoConstraints = NO;
     seeAllButton.tag = tag;
+    seeAllButton.accessibilityIdentifier = [self sectionAtIndex:tag] == VLCOnAirSectionPodcasts ? VLCAccessibilityIdentifier.onAirPodcasts
+                                                                                               : VLCAccessibilityIdentifier.onAirRadio;
     seeAllButton.tintColor = themeColors.orangeUI;
     seeAllButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [seeAllButton setTitle:NSLocalizedString(@"SEE_ALL", nil) forState:UIControlStateNormal];

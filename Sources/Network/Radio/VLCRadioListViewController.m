@@ -229,8 +229,10 @@
         VLCRadioCountry *country = visited[row];
         [cell setTitle:country.localizedName];
         [cell setIcon:country.flagImage];
+        cell.accessibilityIdentifier = VLCAccessibilityIdentifier.radioCountry;
     } else {
         [cell setTitle:NSLocalizedString(@"ALL_COUNTRIES", nil)];
+        cell.accessibilityIdentifier = VLCAccessibilityIdentifier.radioAllCountries;
         if (@available(iOS 14.2, *)) {
             [cell setIcon:[UIImage systemImageNamed:@"globe.europe.africa"]];
         } else if (@available(iOS 13.0, *)) {

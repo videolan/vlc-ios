@@ -13,6 +13,8 @@
 #import "VLCOnAirRailCell.h"
 #import "VLCAddTile.h"
 
+#import "VLC-Swift.h"
+
 static CGFloat const kVLCOnAirRailGap = 12.0;
 static CGFloat const kVLCOnAirRailSideMargin = 20.0;
 static CGFloat const kVLCOnAirRailNameArea = 22.0;
@@ -145,6 +147,7 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
     tile.badge = item.badge;
     tile.subtitle = _showsSubtitles ? item.subtitle : nil;
     tile.accessoryGlyphName = item.accessoryGlyphName;
+    tile.accessibilityIdentifier = VLCAccessibilityIdentifier.railItem;
     tile.accessibilityLabel = item.accessoryLabel ? [NSString stringWithFormat:@"%@, %@", item.name, item.accessoryLabel]
                                                   : item.name;
 
