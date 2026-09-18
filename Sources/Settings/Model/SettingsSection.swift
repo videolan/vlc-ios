@@ -337,9 +337,7 @@ enum PrivacyOptions {
         ]
 
         #if os(iOS)
-        if #available(iOS 14.0, *) {
-            items.append(openPrivacySettings)
-        }
+        items.append(openPrivacySettings)
         #endif
 
         return .init(title: "SETTINGS_PRIVACY_TITLE", items: items.compactMap { $0 })
