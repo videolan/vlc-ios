@@ -482,7 +482,7 @@ final class PodcastStore: NSObject {
     // An episode that has yet to be downloaded is fetched to the cache first and starts playing off
     // the partial file, which by then is far enough ahead for the rest to arrive in time.
     func playEpisode(episodeId: String, showId: String, startPosition: Float = -1) {
-        guard downloadedFileURL(episodeId: episodeId, showId: showId) == nil else {
+        guard media(forEpisodeId: episodeId)?.isCached() != true else {
             playbackRequest = nil
             play(episodeId: episodeId, showId: showId, startPosition: startPosition)
             return
@@ -615,7 +615,7 @@ final class PodcastStore: NSObject {
     }
 
     func downloadedFileURL(episodeId: String, showId: String) -> URL? {
-        guard let media = media(forEpisodeId: episodeId) else {
+        guard let media = media(forEpisodeId: episodeId), media.isCached() else {
             return nil
         }
         return media.files.first { $0.type() == .cache }?.mrl
@@ -645,7 +645,7 @@ final class PodcastStore: NSObject {
         guard let mediaLibraryService = mediaLibraryService,
               let media = media(forEpisodeId: episodeId),
               pendingCacheMediaIds.contains(media.identifier()),
-              downloadedFileURL(episodeId: episodeId, showId: showId) == nil else {
+              !media.isCached() else {
             return false
         }
 
@@ -748,7 +748,6 @@ final class PodcastStore: NSObject {
         let progress = media.progress > 0 ? Double(media.progress) : nil
         // A media the library never played reports the epoch rather than no date at all.
         let lastPlayed = media.lastPlayedDate()
-        let downloaded = media.files.contains { $0.type() == .cache }
         let subscriptionEpisode = media.subscriptionEpisode
         let notesHTML = subscriptionEpisode?.showNotes ?? media.shortSummary
         return PodcastEpisode(id: String(media.identifier()),
@@ -759,7 +758,7 @@ final class PodcastStore: NSObject {
                                durationValue: media.duration(),
                                progress: progress,
                                lastPlayedDate: lastPlayed.timeIntervalSince1970 > 0 ? lastPlayed : nil,
-                               downloaded: downloaded,
+                               downloaded: media.isCached(),
                                playCount: media.playCount(),
                                seasonNumber: subscriptionEpisode?.seasonNumber ?? 0,
                                episodeNumber: subscriptionEpisode?.episodeNumber ?? 0,
