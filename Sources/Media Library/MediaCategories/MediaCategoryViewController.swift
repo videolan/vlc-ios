@@ -1045,9 +1045,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 #endif
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        var uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
-        if model is ArtistModel {
+        let uiTestAccessibilityIdentifier: String?
+        switch model {
+        case is TrackModel, is CollectionModel:
+            uiTestAccessibilityIdentifier = VLCAccessibilityIdentifier.songs
+        case is ArtistModel:
             uiTestAccessibilityIdentifier = VLCAccessibilityIdentifier.artists
+        case is AlbumModel:
+            uiTestAccessibilityIdentifier = VLCAccessibilityIdentifier.albums
+        case is GenreModel:
+            uiTestAccessibilityIdentifier = VLCAccessibilityIdentifier.genres
+        default:
+            uiTestAccessibilityIdentifier = nil
         }
         return IndicatorInfo(title: model.indicatorName, accessibilityIdentifier: uiTestAccessibilityIdentifier)
     }
@@ -2284,6 +2293,8 @@ extension MediaCategoryViewController {
                 assert(media.mainFile() != nil, "The mainfile is nil")
             }
         }
+
+        mediaCell.accessibilityIdentifier = VLCAccessibilityIdentifier.mediaCell
 
         if let mediaCell = mediaCell as? MediaCollectionViewCell {
             mediaCell.delegate = self

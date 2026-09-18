@@ -83,6 +83,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
         buttonItem.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
         buttonItem.accessibilityHint = NSLocalizedString("BUTTON_MENU_HINT", comment: "")
+        buttonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.mediaMenu
         return buttonItem
     }()
 
@@ -266,7 +267,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         cell.iconLabel.adjustsFontSizeToFitWidth = true
         cell.iconLabel.text = indicatorInfo.title
         cell.iconLabel.font = tabTitleFont
-        cell.accessibilityIdentifier = indicatorInfo.accessibilityIdentifier
+        cell.iconLabel.accessibilityIdentifier = indicatorInfo.accessibilityIdentifier
     }
 
     override func minimumCellWidth(for indicatorInfo: IndicatorInfo?) -> CGFloat {
@@ -576,6 +577,7 @@ extension MediaViewController {
         })
         selectAction.accessibilityLabel = NSLocalizedString("BUTTON_SELECT", comment: "")
         selectAction.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
+        selectAction.accessibilityIdentifier = VLCAccessibilityIdentifier.select
         return selectAction
     }
 

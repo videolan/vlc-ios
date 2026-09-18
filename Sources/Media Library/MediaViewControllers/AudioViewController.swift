@@ -69,6 +69,7 @@ class ArtistsViewController: MediaViewController {
         }
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.artists
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -95,6 +96,7 @@ class AlbumsViewController: MediaViewController {
         }
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.albums
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -121,6 +123,7 @@ class TracksViewController: MediaViewController {
         }
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.songs
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -147,6 +150,7 @@ class GenresViewController: MediaViewController {
         }
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.genres
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
