@@ -10,7 +10,6 @@ import Foundation
 @preconcurrency import Intents
 @preconcurrency import VLCMediaLibraryKit
 
-@available(iOS 14.0, *)
 class SirikitIntentCoordinator: NSObject {
     private let mediaLibraryService: MediaLibraryService
     private let resolver: MediaResolver
@@ -23,7 +22,6 @@ class SirikitIntentCoordinator: NSObject {
     }
 }
 
-@available(iOS 14.0, *)
 extension SirikitIntentCoordinator: INPlayMediaIntentHandling {
     func resolveMediaItems(for intent: INPlayMediaIntent) async -> [INPlayMediaMediaItemResolutionResult] {
         if let searchItems = intent.mediaSearch, let mediaItem = getIntentMedia(searchItem: searchItems) {
@@ -84,7 +82,6 @@ extension SirikitIntentCoordinator: INPlayMediaIntentHandling {
     }
 }
 
-@available(iOS 14.0, *)
 extension SirikitIntentCoordinator: INAddMediaIntentHandling {
     func resolveMediaItems(for intent: INAddMediaIntent) async -> [INAddMediaMediaItemResolutionResult] {
         if intent.mediaSearch?.reference == .currentlyPlaying, let identifier = playbackService.metadata.identifier?.stringValue {
@@ -107,7 +104,6 @@ extension SirikitIntentCoordinator: INAddMediaIntentHandling {
     }
 }
 
-@available(iOS 14.0, *)
 extension SirikitIntentCoordinator: INSearchForMediaIntentHandling {
     func handle(intent: INSearchForMediaIntent) async -> INSearchForMediaIntentResponse {
         guard let searchItem = intent.mediaSearch, let mediaItem = getIntentMedia(searchItem: searchItem) else {
@@ -119,7 +115,6 @@ extension SirikitIntentCoordinator: INSearchForMediaIntentHandling {
     }
 }
 
-@available(iOS 14.0, *)
 private extension SirikitIntentCoordinator {
     private func mediaKind(for type: INMediaItemType) -> MediaKind? {
         switch type {
