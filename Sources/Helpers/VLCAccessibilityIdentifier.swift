@@ -27,6 +27,7 @@ import Foundation
     static let podcasts = "podcasts"
     @objc static let settings = "settings"
     static let openSettings = "openSettings"
+    @objc static let addServer = "addServer"
     @objc static let local = "local"
     @objc static let photos = "photos"
     @objc static let cloud = "cloud"

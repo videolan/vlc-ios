@@ -543,6 +543,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
                                                                         forIndexPath:indexPath];
         addTile.outlineCornerRadius = kVLCBrowseTileCornerRadius;
         [addTile configureWithTitle:NSLocalizedString(@"BROWSE_ADD_SERVER", nil)];
+        addTile.accessibilityIdentifier = VLCAccessibilityIdentifier.addServer;
         return addTile;
     }
 
@@ -554,6 +555,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     tile.badge = VLCArtworkTileBadgeNone;
     tile.delegate = nil;
     tile.pillText = _discoveredPills[indexPath.item];
+    tile.accessibilityIdentifier = nil;
 
     /* never touch service.icon here, it downloads synchronously for VLCMedia backed services */
     NSURL *iconURL = nil;
@@ -574,6 +576,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     tile.pillText = nil;
     tile.badgeImage = nil;
     tile.delegate = self;
+    tile.accessibilityIdentifier = VLCAccessibilityIdentifier.favorite;
 
     NSUInteger item = indexPath.item;
     if (item < _manualServers.count) {
