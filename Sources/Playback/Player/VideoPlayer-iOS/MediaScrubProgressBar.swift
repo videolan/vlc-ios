@@ -136,13 +136,13 @@ class MediaScrubProgressBar: UIStackView {
 
         let forward = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("FWD_BUTTON", comment: ""),
-                    image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
+                    image: UIImage(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("BWD_BUTTON", comment: ""),
-                    image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
+                    image: UIImage(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 

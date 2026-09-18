@@ -205,7 +205,7 @@ class SettingsCell: UITableViewCell {
                 activityIndicator.isHidden = true
                 selectionStyle = .default
 
-                if let externalLinkIcon = UIImage.with(systemName: "arrow.up.forward.app")?
+                if let externalLinkIcon = UIImage(systemName: "arrow.up.forward.app")?
                     .withRenderingMode(.alwaysTemplate) {
                     externalLinkAccessoryImageView.image = externalLinkIcon
                     externalLinkAccessoryImageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor

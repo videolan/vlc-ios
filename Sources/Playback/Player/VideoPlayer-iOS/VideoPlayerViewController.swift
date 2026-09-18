@@ -497,37 +497,37 @@ class VideoPlayerViewController: PlayerViewController {
 
         let playPause = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: ""),
-                    image: .with(systemName: "playpause"),
+                    image: UIImage(systemName: "playpause"),
                     target: self,
                     selector: #selector(handleAccessibilityPlayPause))
 
         let close = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("STOP_BUTTON", comment: ""),
-                    image: .with(systemName: "xmark"),
+                    image: UIImage(systemName: "xmark"),
                     target: self,
                     selector: #selector(handleAccessibilityClose))
 
         let forward = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("FWD_BUTTON", comment: ""),
-                    image: .with(systemName: "plus.arrow.trianglehead.clockwise"),
+                    image: UIImage(systemName: "plus.arrow.trianglehead.clockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityForward))
 
         let backward = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("BWD_BUTTON", comment: ""),
-                    image: .with(systemName: "minus.arrow.trianglehead.counterclockwise"),
+                    image: UIImage(systemName: "minus.arrow.trianglehead.counterclockwise"),
                     target: self,
                     selector: #selector(handleAccessibilityBackward))
 
         let next = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("NEXT_HINT", comment: ""),
-                    image: .with(systemName: "forward.end"),
+                    image: UIImage(systemName: "forward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityNext))
 
         let prev = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("PREVIOUS_HINT", comment: ""),
-                    image: .with(systemName: "backward.end"),
+                    image: UIImage(systemName: "backward.end"),
                     target: self,
                     selector: #selector(handleAccessibilityPrev))
 

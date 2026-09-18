@@ -207,8 +207,6 @@
 		44D57DD52D320074009D80AA /* VerticalSliderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD42D320055009D80AA /* VerticalSliderControl.swift */; };
 		44D57DD72D360438009D80AA /* UIAccessibilityCustomAction+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */; };
 		44D57DD82D360438009D80AA /* UIAccessibilityCustomAction+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */; };
-		44D57DDA2D36050E009D80AA /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
-		44D57DDB2D36050E009D80AA /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
 		44E18A532D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E18A542D2B806D00CB415D /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
 		44E9F0972D62C8FA00F50277 /* UIView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E18A522D2B806300CB415D /* UIView+Accessibility.swift */; };
@@ -867,7 +865,6 @@
 		7D93B75D2D60EE9800F952DE /* PasscodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F998BB52C230BD500BCBAF8 /* PasscodeField.swift */; };
 		7D93B75E2D60EED100F952DE /* BottomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91042AE2D356F7F00036D12 /* BottomTabBarController.swift */; };
 		7D93B75F2D60EEFA00F952DE /* UIAccessibilityCustomAction+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */; };
-		7D93B7602D60EF1800F952DE /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
 		7D93B7612D60EF5000F952DE /* CustomEqualizerProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6907C2D083B5D008C6C40 /* CustomEqualizerProfiles.swift */; };
 		7D9416013008E42500C6171B /* VideoEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9416003008E42500C6171B /* VideoEntities.swift */; };
 		7D9416023008E42500C6171B /* VideoEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9416003008E42500C6171B /* VideoEntities.swift */; };
@@ -1069,7 +1066,6 @@
 		7DA514F82EF82B63000C9995 /* VideoPlayerViewController+ControlsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */; };
 		7DA514F92EF82B63000C9995 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
 		7DA514FA2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23DD24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m */; };
-		7DA514FB2EF82B63000C9995 /* UIImage+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD92D360503009D80AA /* UIImage+Util.swift */; };
 		7DA514FC2EF82B63000C9995 /* MediaNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */; };
 		7DA514FD2EF82B63000C9995 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7DA514FE2EF82B63000C9995 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
@@ -1977,7 +1973,6 @@
 		44C8BBAD24AF36F4003F8940 /* SettingsHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsHeaderFooterView.swift; sourceTree = "<group>"; };
 		44D57DD42D320055009D80AA /* VerticalSliderControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderControl.swift; sourceTree = "<group>"; };
 		44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAccessibilityCustomAction+Util.swift"; sourceTree = "<group>"; };
-		44D57DD92D360503009D80AA /* UIImage+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Util.swift"; sourceTree = "<group>"; };
 		44E18A522D2B806300CB415D /* UIView+Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Accessibility.swift"; sourceTree = "<group>"; };
 		49DA499209F9C49AA6D7BA44 /* Pods-VLC-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackCacheHelper.swift; sourceTree = "<group>"; };
@@ -4080,7 +4075,6 @@
 				7D3150A72AA8B8B90068D478 /* UIImage+AverageColor.h */,
 				7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */,
 				44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */,
-				44D57DD92D360503009D80AA /* UIImage+Util.swift */,
 				0F856A202C24BF0E005806FE /* UIViewController+findViewController.swift */,
 				55B880DE2CE02A8B009C181A /* UIScreen+Brightness.swift */,
 				44E18A522D2B806300CB415D /* UIView+Accessibility.swift */,
@@ -5998,7 +5992,6 @@
 				327973402FF7976D0007E3EC /* URL+printAllFiles.swift in Sources */,
 				7DC7BAB428C8958900109F28 /* UIImage+Blur.m in Sources */,
 				44D57DD72D360438009D80AA /* UIAccessibilityCustomAction+Util.swift in Sources */,
-				44D57DDA2D36050E009D80AA /* UIImage+Util.swift in Sources */,
 				D9691C4828F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				22A0C19E2A56FC2C00E9E107 /* VLCRemotePlaybackViewController.m in Sources */,
 				226D57E22B42FE060090AD88 /* FavoriteHeaderContentView.swift in Sources */,
@@ -6116,7 +6109,6 @@
 				7D7FAC052F30C85C00AFD748 /* FolderCategoryViewController.swift in Sources */,
 				7D50C5DA2BBD20DF00B9F1A0 /* VLCNonInteractiveWindowSceneDelegate.m in Sources */,
 				7D50C5DB2BBD20DF00B9F1A0 /* VLCDonationViewController.m in Sources */,
-				7D93B7602D60EF1800F952DE /* UIImage+Util.swift in Sources */,
 				7D50C5DC2BBD20DF00B9F1A0 /* URL+isExcludedFromBackup.swift in Sources */,
 				7D50C5DD2BBD20DF00B9F1A0 /* VLCInvoice.m in Sources */,
 				7D98194D2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */,
@@ -6693,7 +6685,6 @@
 				8D0E75CB24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift in Sources */,
 				7DD9CD5E24223B1300D0324F /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */,
 				7D5A23DF24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */,
-				44D57DDB2D36050E009D80AA /* UIImage+Util.swift in Sources */,
 				E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
 				7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */,
@@ -7072,7 +7063,6 @@
 				7DA514F82EF82B63000C9995 /* VideoPlayerViewController+ControlsDelegate.swift in Sources */,
 				7DA514F92EF82B63000C9995 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */,
 				7DA514FA2EF82B63000C9995 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */,
-				7DA514FB2EF82B63000C9995 /* UIImage+Util.swift in Sources */,
 				7DA514FC2EF82B63000C9995 /* MediaNavigationBar.swift in Sources */,
 				7D4BE513301A4F7C00277F3E /* VLCAddTile.m in Sources */,
 				7DA514FD2EF82B63000C9995 /* VLCHTTPConnection.m in Sources */,

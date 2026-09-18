@@ -290,13 +290,13 @@ class VerticalSliderControl: UIControl {
 
         let increment = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("VERTICAL_SLIDER_CONTROL_INCREMENT_ACTION", comment: ""),
-                    image: .with(systemName: "arrow.up"),
+                    image: UIImage(systemName: "arrow.up"),
                     target: self,
                     selector: #selector(handleAccessibilityIncrement))
 
         let decrement = UIAccessibilityCustomAction
             .create(name: NSLocalizedString("VERTICAL_SLIDER_CONTROL_DECREMENT_ACTION", comment: ""),
-                    image: .with(systemName: "arrow.down"),
+                    image: UIImage(systemName: "arrow.down"),
                     target: self,
                     selector: #selector(handleAccessibilityDecrement))
 
