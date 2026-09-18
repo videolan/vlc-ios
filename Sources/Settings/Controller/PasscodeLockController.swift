@@ -226,9 +226,7 @@ class PasscodeLockController: UIViewController {
             setupPasscodeOptionsButton()
         }
 
-        if #available(iOS 11, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func setupCancelButton() {
@@ -243,14 +241,7 @@ class PasscodeLockController: UIViewController {
     private func setupPasscodeOptionsButton() {
         view.addSubview(passcodeOptionsButton)
 
-        let viewBottomAnchor: NSLayoutYAxisAnchor
-        if #available(iOS 11, *) {
-            viewBottomAnchor = self.view.safeAreaLayoutGuide.bottomAnchor
-        } else {
-            viewBottomAnchor = view.bottomAnchor
-        }
-
-        passcodeOptionsButtonYConstraint = viewBottomAnchor.constraint(
+        passcodeOptionsButtonYConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(
             equalTo: passcodeOptionsButton.bottomAnchor
         )
 
@@ -266,10 +257,6 @@ class PasscodeLockController: UIViewController {
     }
 
     private func setNavBarAppearance() {
-        guard #available(iOS 13.0, *) else {
-            return
-        }
-
         let navigationBarAppearance = AppearanceManager.navigationbarAppearance
         self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
@@ -324,9 +311,7 @@ class PasscodeLockController: UIViewController {
         completionHandler?(false, nil)
 
 #if os(iOS)
-        if #available(iOS 10, *) {
-            ImpactFeedbackGenerator().selectionChanged()
-        }
+        ImpactFeedbackGenerator().selectionChanged()
 #endif
 
         dismiss(animated: true)
@@ -361,9 +346,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 passcodeOptionsButton.isHidden = true
 
 #if os(iOS)
-                if #available(iOS 10, *) {
-                    ImpactFeedbackGenerator().selectionChanged()
-                }
+                ImpactFeedbackGenerator().selectionChanged()
 #endif
             } else {
                 if passcode == tempPasscode {
@@ -374,9 +357,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     completionHandler?(true, passcode)
 
 #if os(iOS)
-                    if #available(iOS 10, *) {
-                        NotificationFeedbackGenerator().success()
-                    }
+                    NotificationFeedbackGenerator().success()
 #endif
 
                     dismiss(animated: true)
@@ -388,9 +369,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     passcodeField.clear()
 
 #if os(iOS)
-                    if #available(iOS 10, *) {
-                        NotificationFeedbackGenerator().error()
-                    }
+                    NotificationFeedbackGenerator().error()
 #endif
                 }
             }
@@ -400,9 +379,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 completionHandler?(true, nil)
 
 #if os(iOS)
-                if #available(iOS 10, *) {
-                    ImpactFeedbackGenerator().selectionChanged()
-                }
+                ImpactFeedbackGenerator().selectionChanged()
 #endif
 
                 dismiss(animated: true)
@@ -414,9 +391,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                 passcodeField.clear()
 
 #if os(iOS)
-                if #available(iOS 10, *) {
-                    NotificationFeedbackGenerator().error()
-                }
+                NotificationFeedbackGenerator().error()
 #endif
             }
         }
@@ -482,10 +457,8 @@ extension PasscodeLockController {
 
         if let navigationController = navigationController {
             coordinateFromTop = navigationController.navigationBar.frame.maxY
-        } else if #available(iOS 11, *) {
-            coordinateFromTop = view.safeAreaInsets.top
         } else {
-            coordinateFromTop = 0
+            coordinateFromTop = view.safeAreaInsets.top
         }
 
         // The coordinate of keyboard's top edge
