@@ -108,9 +108,7 @@ final class RoundedCornerPlayerButton: UIControl {
     }
 
     func setIcon(systemName: String) {
-        if #available(iOS 13.0, *) {
-            iconView.image = UIImage(systemName: systemName)
-        }
+        iconView.image = UIImage(systemName: systemName)
     }
 
     func update(title: String, summary: String? = nil) {
