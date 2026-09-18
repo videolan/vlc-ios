@@ -56,11 +56,6 @@ Check style and conventions
 fastlane ci
 ```
 
-### screenshots
-```
-fastlane screenshots
-```
-Take screenshots
 ### test
 ```
 fastlane test

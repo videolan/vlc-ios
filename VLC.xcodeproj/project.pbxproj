@@ -148,9 +148,7 @@
 		412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */; };
 		41275E3D8FE52628809BEC22 /* ContinueListeningSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */; };
 		4133CAE722CCB0820047A4EC /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925782075536300F88496 /* Screenshot.swift */; };
-		4133CAE822CCB1250047A4EC /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B0F620726A0E00B9274E /* TestHelper.swift */; };
 		4133CAE922CCB26C0047A4EC /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
-		4133CAEA22CCB4E10047A4EC /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925802075613100F88496 /* SnapshotHelper.swift */; };
 		413EC987201A329D00BF412F /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortModel.swift */; };
 		413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
@@ -799,6 +797,7 @@
 		7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
+		7D5FA769305DCC6D00A17B1B /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5FA768305DCC6D00A17B1B /* TestHelper.swift */; };
 		7D638AAF2C0CA171006A0E75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D638AB12C0CA191006A0E75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
@@ -1499,7 +1498,6 @@
 		CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */; };
 		CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */; };
 		CAA0B0F52072686E00B9274E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
-		CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B0F620726A0E00B9274E /* TestHelper.swift */; };
 		CAC0AFED20CF8F6F00EDB035 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
 		CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */; };
 		CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC51170493B100A20CBF /* OpenGLES.framework */; };
@@ -2237,6 +2235,7 @@
 		7D5B266D1D63511700FE7B4D /* favicon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = favicon.ico; sourceTree = "<group>"; };
 		7D5C204D17999A74004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
+		7D5FA768305DCC6D00A17B1B /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDeletionCapableViewController.h; sourceTree = "<group>"; };
 		7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDeletionCapableViewController.m; sourceTree = "<group>"; };
 		7D63C18D18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsiTunesSyncViewController.h; path = Sources/Onboarding/VLCFirstStepsiTunesSyncViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2609,10 +2608,7 @@
 		BEB724F02E560D20002A9729 /* View+CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CustomDialog.swift"; sourceTree = "<group>"; };
 		BEB724F32E56143E002A9729 /* CustomSwiftUIDialogBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwiftUIDialogBridge.swift; sourceTree = "<group>"; };
 		C7BD85C99AD3F91C426A7412 /* GoogleDriveShortcutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleDriveShortcutTests.m; sourceTree = "<group>"; };
-		CA6FB8222074601900FC9BF2 /* VLC-iOS-Screenshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Screenshots-Bridging-Header.h"; sourceTree = "<group>"; };
-		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
-		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = Buildsystem/Fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCEmptyLibraryView.h; sourceTree = "<group>"; };
 		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTestMenu.swift; sourceTree = "<group>"; };
@@ -3161,7 +3157,6 @@
 		4133CADD22CCB0620047A4EC /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
-				CA6FB8222074601900FC9BF2 /* VLC-iOS-Screenshots-Bridging-Header.h */,
 				CAD925782075536300F88496 /* Screenshot.swift */,
 				4133CAE022CCB0620047A4EC /* Info.plist */,
 			);
@@ -4983,9 +4978,8 @@
 		CAC0AFE720CF8A6900EDB035 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7D5FA768305DCC6D00A17B1B /* TestHelper.swift */,
 				CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */,
-				CAD925802075613100F88496 /* SnapshotHelper.swift */,
-				CAA0B0F620726A0E00B9274E /* TestHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -5935,8 +5929,6 @@
 			files = (
 				4133CAE922CCB26C0047A4EC /* VLCAccessibilityIdentifier.swift in Sources */,
 				4133CAE722CCB0820047A4EC /* Screenshot.swift in Sources */,
-				4133CAE822CCB1250047A4EC /* TestHelper.swift in Sources */,
-				4133CAEA22CCB4E10047A4EC /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5955,8 +5947,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */,
 				8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */,
+				7D5FA769305DCC6D00A17B1B /* TestHelper.swift in Sources */,
 				CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */,
 				CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */,
 				BBD4BF00B0FE472C1DAF5A94 /* VLCDonationNavigationController.m in Sources */,
@@ -7581,7 +7573,6 @@
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Buildsystem/Testing/Screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7621,7 +7612,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.VLC-iOSScreenShots";
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Buildsystem/Testing/Screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
@@ -7660,7 +7650,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.VLC-iOSScreenShots";
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Buildsystem/Testing/Screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";

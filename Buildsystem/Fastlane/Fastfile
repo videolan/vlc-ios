@@ -63,11 +63,6 @@ lane :ci do
   test
 end
 
-desc 'Take screenshots'
-lane :screenshots do
-  capture_screenshots(stop_after_first_error: true)
-end
-
 #### Tests ####
 
 desc 'Run Tests'

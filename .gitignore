@@ -7,13 +7,6 @@ xcuserdata
 # macOS
 .DS_Store
 
-# Fastlane
-Buildsystem/fastlane/Preview.html
-Buildsystem/fastlane/report.xml
-Buildsystem/fastlane/screenshots/*/*.png
-Buildsystem/fastlane/screenshots/screenshots.html
-Buildsystem/fastlane/test_output
-
 # CocoaPods
 Pods
 
