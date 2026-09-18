@@ -170,9 +170,7 @@
         [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
     }
 
-    if (@available(iOS 13.0, *)) {
-        [[PodcastBackgroundRefresher sharedInstance] registerTasks];
-    }
+    [[PodcastBackgroundRefresher sharedInstance] registerTasks];
 
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     if ([WCSession isSupported]) {
