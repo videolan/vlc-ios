@@ -259,11 +259,9 @@ class TabBarCoordinator: NSObject {
         sideToolBar?.backgroundColor = colors.tabBarColor
 
         if #unavailable(iOS 26.0) {
-            if #available(iOS 15.0, *) {
-                UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
-                UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()
-                UINavigationBar.appearance().scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-            }
+            UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
+            UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()
+            UINavigationBar.appearance().scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
     }
 
