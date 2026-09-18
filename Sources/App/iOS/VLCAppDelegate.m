@@ -45,12 +45,7 @@
 + (void)initialize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSUInteger appThemeIndex = kVLCSettingAppThemeBright;
-    if (@available(iOS 13.0, *)) {
-        appThemeIndex = kVLCSettingAppThemeSystem;
-    }
-
-    NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(appThemeIndex),
+    NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(kVLCSettingAppThemeSystem),
                                   kVLCSettingPasscodeEnableBiometricAuth : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
