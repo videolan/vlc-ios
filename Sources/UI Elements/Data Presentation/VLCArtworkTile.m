@@ -116,11 +116,9 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _moreButton.translatesAutoresizingMaskIntoConstraints = NO;
     _moreButton.tintColor = [UIColor whiteColor];
     _moreButton.hidden = YES;
-    if (@available(iOS 13.0, *)) {
-        UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:26.0];
-        [_moreButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
-        [_moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle.fill"] forState:UIControlStateNormal];
-    }
+    UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:26.0];
+    [_moreButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
+    [_moreButton setImage:[UIImage systemImageNamed:@"ellipsis.circle.fill"] forState:UIControlStateNormal];
     _moreButton.accessibilityLabel = NSLocalizedString(@"MORE_OPTIONS_BUTTON", nil);
     [_artworkContainer addSubview:_moreButton];
 
@@ -292,11 +290,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _badgeGlyphCenterX.constant = isPlay ? 1.0 : 0.0;
     _badgeGlyphWidth.constant = isPlay ? 12.0 : 15.0;
     _badgeGlyphHeight.constant = 13.0;
-    _badgeGlyph.image = nil;
-
-    if (@available(iOS 13.0, *)) {
-        _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:_badge]];
-    }
+    _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:_badge]];
 }
 
 - (void)setSubtitle:(NSString *)subtitle
@@ -319,11 +313,9 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _accessoryGlyphName = [accessoryGlyphName copy];
 
     UIImage *image = nil;
-    if (@available(iOS 13.0, *)) {
-        if (_accessoryGlyphName.length > 0) {
-            UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:14.0];
-            image = [UIImage systemImageNamed:_accessoryGlyphName withConfiguration:symbolConfiguration];
-        }
+    if (_accessoryGlyphName.length > 0) {
+        UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:14.0];
+        image = [UIImage systemImageNamed:_accessoryGlyphName withConfiguration:symbolConfiguration];
     }
 
 #if TARGET_OS_VISION
