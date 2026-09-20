@@ -18,9 +18,6 @@
 #import "VLCThumbnailsCache.h"
 #import "VLCAppCoordinator.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation CPListTemplate (NetworkStreams)
 
 + (CPListTemplate *)streamList
@@ -123,9 +120,7 @@
         CPListItem *listItem = [self listItemForFavorite:favorite image:radioIcon];
         NSURL *artworkURL = favorite.artworkURL;
         if (artworkURL) {
-            if (@available(iOS 14.0, *)) {
-                [self setArtworkFromURL:artworkURL onListItem:listItem];
-            }
+            [self setArtworkFromURL:artworkURL onListItem:listItem];
         }
 
         [itemList addObject:listItem];
@@ -148,7 +143,7 @@
     }];
 }
 
-+ (void)setArtworkFromURL:(NSURL *)artworkURL onListItem:(CPListItem *)listItem API_AVAILABLE(ios(14.0))
++ (void)setArtworkFromURL:(NSURL *)artworkURL onListItem:(CPListItem *)listItem
 {
     UIImage *cachedArtwork = [VLCThumbnailsCache cachedImageForURL:artworkURL];
     if (cachedArtwork) {
@@ -215,5 +210,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop
