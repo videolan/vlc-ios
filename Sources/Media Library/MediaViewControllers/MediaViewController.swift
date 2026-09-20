@@ -24,35 +24,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     #if os(iOS)
     private lazy var rendererButton: UIButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
     #endif
-    private(set) lazy var sortButton: UIBarButtonItem = {
-        let sortButton = setupSortbutton()
-
-        sortButton.addTarget(self, action: #selector(handleSort), for: .touchUpInside)
-        sortButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
-                                                                     action: #selector(handleSortShortcut(sender:))))
-        return UIBarButtonItem(customView: sortButton)
-    }()
-
-    private lazy var editButton: UIBarButtonItem = {
-        var editButton = UIBarButtonItem(image: UIImage(named: "edit"),
-                                     style: .plain, target: self,
-                                     action: #selector(customSetEditing))
-        editButton.tintColor = PresentationTheme.current.colors.orangeUI
-        editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
-        editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
-        return editButton
-    }()
-    
-    private lazy var historyButton: UIBarButtonItem = {
-        var historyButton = UIBarButtonItem(image: UIImage(named: "HistoryClock"),
-                                     style: .plain, target: self,
-                                     action: #selector(handleHistory))
-        historyButton.tintColor = PresentationTheme.current.colors.orangeUI
-        historyButton.accessibilityLabel = NSLocalizedString("BUTTON_HISTORY", comment: "")
-        historyButton.accessibilityHint = NSLocalizedString("BUTTON_HISTORY_HINT", comment: "")
-        return historyButton
-    }()
-
     private lazy var regroupButton: UIBarButtonItem = {
         var regroup = UIBarButtonItem(image: UIImage(named: "regroupMediaGroups"),
                                      style: .plain, target: self,
@@ -111,12 +82,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
         super.viewDidLoad()
-        if #available(iOS 14.0, *) {
-            rightBarButtons = [menuButton]
-        } else {
-            rightBarButtons = [editButton]
-            leftBarButtons = [sortButton, historyButton]
-        }
+        rightBarButtons = [menuButton]
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -132,20 +98,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if #available(iOS 14.0, *), menuButton.menu == nil,
+        if menuButton.menu == nil,
            let viewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             menuButton.menu = generateMenu(viewController: viewController)
         }
-    }
-
-    private func setupSortbutton() -> UIButton {
-        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-
-        sortButton.setImage(UIImage(named: "sort"), for: .normal)
-        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
-        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
-        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
-        return sortButton
     }
 
     private func setupNavigationBar() {
@@ -179,12 +135,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
 
-        if #available(iOS 14.0, *) {
-            if let viewController = viewController as? MediaCategoryViewController {
-                menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
-            }
+        if let viewController = viewController as? MediaCategoryViewController {
+            menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
         }
-        leftBarButtons = isEditing ? [selectAllButton] : leftBarButtonItems(for: viewController)
+        leftBarButtons = isEditing ? [selectAllButton] : nil
         rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
 
         var mediaCategoryViewController: UIViewController = self
@@ -219,38 +173,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
     }
 
-    private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
-        var leftBarButtonItems = [UIBarButtonItem]()
-
-        if #available(iOS 14.0, *) {
-            return nil
-        } else if viewController is CollectionCategoryViewController ||
-                    viewController is ArtistAlbumCategoryViewController {
-            return nil
-        }
-
-        leftBarButtonItems.append(sortButton)
-
-        if let parentViewController = viewController.parent,
-           parentViewController is AudioViewController || parentViewController is VideoViewController {
-            leftBarButtonItems.append(historyButton)
-        }
-
-        return leftBarButtonItems
-    }
-
     private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
-        var rightBarButtonItems = [UIBarButtonItem]()
-
-        rightBarButtonItems.append(editButton)
-        if navigationController?.viewControllers.last is ArtistViewController ||
-            viewController is CollectionCategoryViewController {
-            rightBarButtonItems.append(sortButton)
-        }
-
-        if #available(iOS 14.0, *) {
-            rightBarButtonItems = [menuButton]
-        }
+        var rightBarButtonItems: [UIBarButtonItem] = [menuButton]
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -316,11 +240,7 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        if #available(iOS 14.0, *) {
-            rightBarButtons = isEditing ? [doneButton] : [menuButton]
-        } else {
-            rightBarButtons = isEditing ? [doneButton] : [editButton]
-        }
+        rightBarButtons = isEditing ? [doneButton] : [menuButton]
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -344,27 +264,13 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 extension MediaViewController {
     @objc private func customSetEditing() {
         isEditing = !isEditing
-        var rightButtons: [UIBarButtonItem] = []
+        var rightButtons: [UIBarButtonItem] = [menuButton]
 
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
-            leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton, historyButton]
-            rightButtons = [editButton]
-        } else if viewControllers[currentIndex] is ArtistAlbumCategoryViewController ||
-                    viewControllers[currentIndex] is CollectionCategoryViewController {
-            leftBarButtons = isEditing ? [selectAllButton] : nil
-            rightButtons = [editButton, sortButton]
+            leftBarButtons = isEditing ? [regroupButton, selectAllButton] : nil
         } else {
-            leftBarButtons = isEditing ? [selectAllButton] : [sortButton, historyButton]
-            rightButtons = [editButton]
-        }
-
-        if #available(iOS 14.0, *) {
-            rightButtons = [menuButton]
-            // left button is History button
-            if isEditing == false {
-                leftBarButtons = nil
-            }
+            leftBarButtons = isEditing ? [selectAllButton] : nil
         }
 
 #if os(iOS)
@@ -442,12 +348,8 @@ extension MediaViewController {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             let isFolder = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
             mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: !isFolder)
-            if #available(iOS 14.0, *) {
-                UserDefaults.standard.set(!isFolder, forKey: KVLCFolderViewLayout)
-                menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
-            } else {
-                // Fallback on earlier versions
-            }
+            UserDefaults.standard.set(!isFolder, forKey: KVLCFolderViewLayout)
+            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         }
     }
 
@@ -464,24 +366,11 @@ extension MediaViewController {
         controller.handleSelectAll()
         selectAllButton.image = controller.isAllSelected ? UIImage(named: "allSelected") : UIImage(named: "emptySelectAll")
     }
-
-    @objc func handleSort() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-            mediaCategoryViewController.handleSort()
-        }
-    }
-
-    @objc func handleSortShortcut(sender: UILongPressGestureRecognizer) {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-            mediaCategoryViewController.handleSortLongPress(sender: sender)
-        }
-    }
 }
 
 // MARK: - UIMenu
 
 extension MediaViewController {
-    @available(iOS 14.0, *)
     func generateLayoutMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
         let isGridLayout: Bool = mediaCategoryViewController.model.cellType == MovieCollectionViewCell.self
         || mediaCategoryViewController.model.cellType == MediaGridCollectionCell.self
@@ -518,7 +407,6 @@ extension MediaViewController {
                       children: [gridAction, listAction])
     }
 
-    @available(iOS 14.0, *)
     func generateSortMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
         let sortModel = mediaCategoryViewController.model.sortModel
         var sortActions: [UIMenuElement] = []
@@ -554,17 +442,12 @@ extension MediaViewController {
             sortActions.append(action)
         }
 
-        if #available(iOS 15.0, *) {
-            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
-                          image: UIImage(named: "sort"),
-                          options: .singleSelection,
-                          children: sortActions)
-        } else {
-            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""), options: .displayInline, children: sortActions)
-        }
+        return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
+                      image: UIImage(named: "sort"),
+                      options: .singleSelection,
+                      children: sortActions)
     }
 
-    @available(iOS 14.0, *)
     func generateSelectAction() -> UIAction {
         let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
                                     image: UIImage(systemName: "checkmark.circle"),
@@ -578,7 +461,6 @@ extension MediaViewController {
         return selectAction
     }
 
-    @available(iOS 14.0, *)
     func generateHistoryMenu() -> UIMenu {
         let historyAction = UIAction(title: NSLocalizedString("BUTTON_HISTORY", comment: ""),
                                      image: UIImage(systemName: "clock.arrow.2.circlepath")) { [weak self] _ in
@@ -591,7 +473,6 @@ extension MediaViewController {
         return UIMenu(options: .displayInline, children: [historyAction])
     }
 
-    @available(iOS 14.0, *)
     func generateFolderMenu() -> UIMenu {
         let isFolderLayout = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
         let folderAction = UIAction(
@@ -608,7 +489,6 @@ extension MediaViewController {
         return UIMenu(options: .displayInline, children: [folderAction])
     }
 
-    @available(iOS 14.0, *)
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
