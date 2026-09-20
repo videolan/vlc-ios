@@ -125,7 +125,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     private var cachedCellSize = CGSize.zero
-    private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
     weak var delegate: MediaCategoryViewControllerDelegate?
 
@@ -889,7 +888,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         cachedCellSize = .zero
-        toSize = size
         collectionView?.collectionViewLayout.invalidateLayout()
 
         coordinator.animate(alongsideTransition: { [weak self] _ in
@@ -2396,10 +2394,6 @@ extension MediaCategoryViewController {
 extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
-            //For iOS 10 when rotating we take the value from willTransition to size, for the first layout pass that value is 0 though,
-            //so we need the frame.size width. For rotation on iOS 11 this approach doesn't work because at the time when this is called
-            //we don't have yet the updated safeare layout frame. This is addressed by relayouting from viewSafeAreaInsetsDidChange
-
             let toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
             let safeAreaInsets = collectionView.window?.safeAreaInsets ?? collectionView.safeAreaInsets
             cachedCellSize = model.cellType.cellSizeForWidth(toWidth, safeAreaInsets: safeAreaInsets)
