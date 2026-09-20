@@ -25,9 +25,6 @@
 
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @interface VLCCarPlaySceneDelegate() <CPTemplateApplicationSceneDelegate, CPMediaLibraryObserverDelegate, CPListTemplateDelegate>
 {
     CPInterfaceController *_interfaceController;
@@ -53,7 +50,7 @@
     _mediaLibraryObserver.observerDelegate = self;
     [_mediaLibraryObserver observeLibrary];
 
-    [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
+    [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES completion:nil];
 
     _nowPlayingTemplateObserver = [VLCNowPlayingTemplateObserver new];
     [[CPNowPlayingTemplate sharedTemplate] addObserver:_nowPlayingTemplateObserver];
@@ -123,7 +120,7 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
             return;
         }
 
-        [self->_interfaceController setRootTemplate:[self generateRootTemplate] animated:NO];
+        [self->_interfaceController setRootTemplate:[self generateRootTemplate] animated:NO completion:nil];
     });
 }
 
@@ -161,7 +158,7 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
     completionHandler();
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self->_interfaceController popTemplateAnimated:YES];
+        [self->_interfaceController popTemplateAnimated:YES completion:nil];
     });
 }
 
@@ -182,5 +179,3 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 }
 
 @end
-
-#pragma clang diagnostic pop
