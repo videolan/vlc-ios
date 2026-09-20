@@ -1800,7 +1800,6 @@ private extension MediaCategoryViewController {
         mediaLibraryService.setCurrentlyPlayingCollection(with: model, for: index)
     }
 
-    @available(iOS 13.0, *)
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let index = indexPath.row
         let modelContent = getObject(at: indexPath)
@@ -2165,7 +2164,6 @@ extension MediaCategoryViewController {
         selectedItem(at: indexPath)
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
@@ -2202,7 +2200,6 @@ extension MediaCategoryViewController {
         return configuration
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         guard let indexPath = configuration.identifier as? IndexPath else { return }
 
