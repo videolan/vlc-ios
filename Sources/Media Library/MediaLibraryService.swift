@@ -274,16 +274,7 @@ class MediaLibraryService: NSObject {
         desiredThumbnailWidth = UInt(thumbnailSize)
         desiredThumbnailHeight = UInt(thumbnailSize / 1.2)
         #else
-        let displayScale: CGFloat
-#if os(visionOS)
-        displayScale = UITraitCollection.current.displayScale
-#else
-        if #available(iOS 13.0, *) {
-            displayScale = UITraitCollection.current.displayScale
-        } else {
-            displayScale = UIScreen.main.scale
-        }
-#endif
+        let displayScale: CGFloat = UITraitCollection.current.displayScale
         let scaledCellWidth = MediaLibraryService.desiredCellWidth * displayScale
         desiredThumbnailWidth = UInt(scaledCellWidth)
         desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
