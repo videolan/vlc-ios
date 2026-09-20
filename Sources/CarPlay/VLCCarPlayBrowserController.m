@@ -14,28 +14,16 @@
 #import "UIImage+PaddedImage.h"
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation VLCCarPlayBrowserController
 
 + (NSUInteger)maximumItemCount
 {
-    if (@available(iOS 14.0, *)) {
-        return CPListTemplate.maximumItemCount;
-    }
-
-    // educated guess for iOS 13
-    return 100;
+    return CPListTemplate.maximumItemCount;
 }
 
 + (CGSize)listItemIconSize
 {
-    if (@available(iOS 14.0, *)) {
-        return [CPListItem maximumImageSize];
-    }
-
-    return CGSizeMake(80.0, 80.0);
+    return [CPListItem maximumImageSize];
 }
 
 + (UIImage *)placeholderForSymbol:(NSString *)symbol
@@ -143,5 +131,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop
