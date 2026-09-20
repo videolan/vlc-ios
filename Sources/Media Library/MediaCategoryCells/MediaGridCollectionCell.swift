@@ -321,13 +321,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.isHidden = false
         titleLabel.text = folder.name
 
-        if #available(iOS 13.0, *) {
-            let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
-            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfig)
-            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
-        } else {
-            thumbnailView.image = UIImage(named: "folder")
-        }
+        let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfig)
+        thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
 
         thumbnailView.backgroundColor = .clear
 

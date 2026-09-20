@@ -271,13 +271,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.isHidden = true
         thumbnailView.contentMode = .scaleAspectFit
 
-        if #available(iOS 13.0, *) {
-            let config = UIImage.SymbolConfiguration(weight: .thin)
-            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: config)
-            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
-        } else {
-            thumbnailView.image = UIImage(named: "folder")
-        }
+        let config = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.image = UIImage(systemName: "folder", withConfiguration: config)
+        thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
 
         thumbnailView.backgroundColor = .clear
     }

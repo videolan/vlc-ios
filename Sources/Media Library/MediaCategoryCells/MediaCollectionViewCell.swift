@@ -444,13 +444,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = true
         thumbnailView.layer.cornerRadius = 3
 
-        if #available(iOS 13.0, *) {
-            let symbolConfiguration = UIImage.SymbolConfiguration(weight: .thin)
-            thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfiguration)
-            thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
-        } else {
-            thumbnailView.image = UIImage(named: "folder")
-        }
+        let symbolConfiguration = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfiguration)
+        thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
 
         thumbnailView.backgroundColor = .clear
 
