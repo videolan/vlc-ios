@@ -47,10 +47,8 @@
 {
     [super traitCollectionDidChange:previousTraitCollection];
 
-    if (@available(tvOS 13.0, *)) {
-        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
-            [PresentationTheme themeDidUpdate];
-        }
+    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+        [PresentationTheme themeDidUpdate];
     }
 }
 
