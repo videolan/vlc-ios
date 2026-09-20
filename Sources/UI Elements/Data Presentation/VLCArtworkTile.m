@@ -248,10 +248,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         case VLCArtworkTileBadgeFolder:
             return @"folder.fill";
         case VLCArtworkTileBadgeServer:
-            if (@available(iOS 14.0, *)) {
-                return @"server.rack";
-            }
-            return @"network";
+            return @"server.rack";
         case VLCArtworkTileBadgeNone:
             return nil;
     }
@@ -339,29 +336,23 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     }
 
     _delegate = delegate;
-    if (@available(iOS 14.0, *)) {
-        _moreButton.hidden = delegate == nil;
-        [self updateMenu];
-    }
+    _moreButton.hidden = delegate == nil;
+    [self updateMenu];
 }
 
 - (void)setRemovalActionTitle:(NSString *)removalActionTitle
 {
     _removalActionTitle = [removalActionTitle copy];
-    if (@available(iOS 14.0, *)) {
-        [self updateMenu];
-    }
+    [self updateMenu];
 }
 
 - (void)setRemovalActionGlyphName:(NSString *)removalActionGlyphName
 {
     _removalActionGlyphName = [removalActionGlyphName copy];
-    if (@available(iOS 14.0, *)) {
-        [self updateMenu];
-    }
+    [self updateMenu];
 }
 
-- (void)updateMenu API_AVAILABLE(ios(14.0))
+- (void)updateMenu
 {
     NSString *title = _removalActionTitle.length > 0 ? _removalActionTitle
                                                      : NSLocalizedString(@"REMOVE_FAVORITE", nil);

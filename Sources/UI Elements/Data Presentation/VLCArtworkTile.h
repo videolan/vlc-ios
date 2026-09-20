@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, VLCArtworkTileBadge) {
 @protocol VLCArtworkTileDelegate <NSObject>
 - (void)artworkTileDidRequestRemoval:(VLCArtworkTile *)tile;
 @optional
-- (nullable NSArray<UIMenuElement *> *)menuElementsForArtworkTile:(VLCArtworkTile *)tile API_AVAILABLE(ios(14.0));
+- (nullable NSArray<UIMenuElement *> *)menuElementsForArtworkTile:(VLCArtworkTile *)tile;
 @end
 
 @interface VLCArtworkTile : UICollectionViewCell
