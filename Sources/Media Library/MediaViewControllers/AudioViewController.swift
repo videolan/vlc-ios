@@ -60,13 +60,8 @@ class ArtistsViewController: MediaViewController {
         let localizedTitle: String = NSLocalizedString("ARTISTS", comment: "")
         title = localizedTitle
 
-        let image: UIImage?
-        if #available(iOS 13.0, *) {
-            let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
-            image = UIImage(named: "artists")?.withTintColor(color)
-        } else {
-            image = UIImage(named: "artists")
-        }
+        let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
+        let image: UIImage? = UIImage(named: "artists")?.withTintColor(color)
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.artists
@@ -87,13 +82,8 @@ class AlbumsViewController: MediaViewController {
         let localizedTitle: String = NSLocalizedString("ALBUMS", comment: "")
         title = localizedTitle
 
-        let image: UIImage?
-        if #available(iOS 13.0, *) {
-            let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
-            image = UIImage(named: "albums")?.withTintColor(color)
-        } else {
-            image = UIImage(named: "albums")
-        }
+        let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
+        let image: UIImage? = UIImage(named: "albums")?.withTintColor(color)
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.albums
@@ -114,13 +104,8 @@ class TracksViewController: MediaViewController {
         let localizedTitle: String = NSLocalizedString("SONGS", comment: "")
         title = localizedTitle
 
-        let image: UIImage?
-        if #available(iOS 13.0, *) {
-            let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
-            image = UIImage(named: "songs")?.withTintColor(color)
-        } else {
-            image = UIImage(named: "songs")
-        }
+        let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
+        let image: UIImage? = UIImage(named: "songs")?.withTintColor(color)
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.songs
@@ -141,13 +126,8 @@ class GenresViewController: MediaViewController {
         let localizedTitle: String = NSLocalizedString("GENRES", comment: "")
         title = localizedTitle
 
-        let image: UIImage?
-        if #available(iOS 13.0, *) {
-            let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
-            image = UIImage(named: "genres")?.withTintColor(color)
-        } else {
-            image = UIImage(named: "genres")
-        }
+        let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
+        let image: UIImage? = UIImage(named: "genres")?.withTintColor(color)
 
         tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.genres
