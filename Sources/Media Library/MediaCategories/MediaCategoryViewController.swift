@@ -133,11 +133,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var statusBarView: UIView = {
         let statusBarFrame: CGRect
 #if os(iOS)
-        if #available(iOS 13.0, *) {
-            statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
-        } else {
-            statusBarFrame = UIApplication.shared.statusBarFrame
-        }
+        statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
 #else
         statusBarFrame = CGRect(x: 0, y: 0, width: 500, height: 100) // view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
 #endif
