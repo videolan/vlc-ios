@@ -602,7 +602,6 @@
 		7D50C66E2BBD20DF00B9F1A0 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */; };
 		7D50C6702BBD20DF00B9F1A0 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF181BDEBCE500B68579 /* VLCPlexParser.m */; };
 		7D50C6712BBD20DF00B9F1A0 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F67A5902A34E820005A8AC1 /* HistoryModel.swift */; };
-		7D50C6722BBD20DF00B9F1A0 /* ActionSheetSortSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */; };
 		7D50C6742BBD20DF00B9F1A0 /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
 		7D50C6752BBD20DF00B9F1A0 /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BB183A9938009EE944 /* VLCSlider.m */; };
 		7D50C6762BBD20DF00B9F1A0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BD183A9938009EE944 /* VLCStatusLabel.m */; };
@@ -1038,7 +1037,6 @@
 		7DA514DB2EF82B63000C9995 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF181BDEBCE500B68579 /* VLCPlexParser.m */; };
 		7DA514DC2EF82B63000C9995 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F67A5902A34E820005A8AC1 /* HistoryModel.swift */; };
 		7DA514DD2EF82B63000C9995 /* UIStackView+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */; };
-		7DA514DE2EF82B63000C9995 /* ActionSheetSortSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */; };
 		7DA514DF2EF82B63000C9995 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		7DA514E02EF82B63000C9995 /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
 		7DA514E12EF82B63000C9995 /* UIAccessibilityCustomAction+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D57DD62D360432009D80AA /* UIAccessibilityCustomAction+Util.swift */; };
@@ -1397,7 +1395,6 @@
 		8C7DABE49F57839FBCFEF67B /* PodcastSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */; };
 		8D0E75CB24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */; };
 		8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
-		8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */; };
 		8D15A1F022B0FB9300CFA758 /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */; };
 		8D15A1F322B0FCE000CFA758 /* QueueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D15A1F222B0FCE000CFA758 /* QueueView.xib */; };
 		8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */; };
@@ -2531,7 +2528,6 @@
 		7DFCAF8D2B877D6600B63B84 /* VLCPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCPrice.m; sourceTree = "<group>"; };
 		8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerViewController+ControlsDelegate.swift"; sourceTree = "<group>"; };
 		8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMiniPlayer.swift; sourceTree = "<group>"; };
-		8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetSortSectionHeader.swift; sourceTree = "<group>"; };
 		8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
 		8D15A1F222B0FCE000CFA758 /* QueueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QueueView.xib; sourceTree = "<group>"; };
 		8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCollectionViewController.swift; sourceTree = "<group>"; };
@@ -4849,7 +4845,6 @@
 				8D437153205808FF00F36458 /* ActionSheet.swift */,
 				8DD651B9208F6AF00052EE68 /* ActionSheetCell.swift */,
 				8DD651C3208F786F0052EE68 /* ActionSheetSectionHeader.swift */,
-				8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */,
 			);
 			path = ActionSheet;
 			sourceTree = "<group>";
@@ -6296,7 +6291,6 @@
 				7D50C6702BBD20DF00B9F1A0 /* VLCPlexParser.m in Sources */,
 				7D50C6712BBD20DF00B9F1A0 /* HistoryModel.swift in Sources */,
 				7D4BC98B3008D3CF00C81534 /* VLCSubscriptionCacher.m in Sources */,
-				7D50C6722BBD20DF00B9F1A0 /* ActionSheetSortSectionHeader.swift in Sources */,
 				7D50C6742BBD20DF00B9F1A0 /* ColorThemeExtension.swift in Sources */,
 				7D50C6752BBD20DF00B9F1A0 /* VLCSlider.m in Sources */,
 				7D50C6762BBD20DF00B9F1A0 /* VLCStatusLabel.m in Sources */,
@@ -6652,7 +6646,6 @@
 				8F67A5912A34E820005A8AC1 /* HistoryModel.swift in Sources */,
 				7D2891822C21E3FA00FA2CB7 /* UIStackView+Orientation.m in Sources */,
 				D97244F42F1558E700473C4B /* MLWidgetBridge.swift in Sources */,
-				8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				32D467722FB6A68C0074F2B5 /* VLCWatchConnectivityService.swift in Sources */,
 				91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */,
@@ -7027,7 +7020,6 @@
 				7DA514DC2EF82B63000C9995 /* HistoryModel.swift in Sources */,
 				7DA514DD2EF82B63000C9995 /* UIStackView+Orientation.m in Sources */,
 				D97244F62F15597A00473C4B /* MLWidgetBridge.swift in Sources */,
-				7DA514DE2EF82B63000C9995 /* ActionSheetSortSectionHeader.swift in Sources */,
 				7D4BE4F5301A3D1300277F3E /* VLCSavedServerList.m in Sources */,
 				7D1E8F54300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */,
 				7DA514DF2EF82B63000C9995 /* VLCBoxController.m in Sources */,
