@@ -13,9 +13,6 @@
 #import "VLCCarPlayPlaylistsController.h"
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation VLCCarPlayPlaylistsController
 
 - (CPListTemplate *)playlists
@@ -66,5 +63,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

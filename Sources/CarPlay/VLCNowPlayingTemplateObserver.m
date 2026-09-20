@@ -15,9 +15,6 @@
 #import "VLCPlaybackService.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 NSString *const VLCDisplayPlayQueueCarPlay = @"VLCDisplayPlayQueueCarPlay";
 
 @implementation VLCNowPlayingTemplateObserver
@@ -121,5 +118,3 @@ NSString *const VLCDisplayPlayQueueCarPlay = @"VLCDisplayPlayQueueCarPlay";
 }
 
 @end
-
-#pragma clang diagnostic pop

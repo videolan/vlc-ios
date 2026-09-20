@@ -14,15 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @interface VLCCarPlayArtistsController : VLCCarPlayBrowserController
 
 - (CPListTemplate *)artistList;
 
 @end
-
-#pragma clang diagnostic pop
 
 NS_ASSUME_NONNULL_END

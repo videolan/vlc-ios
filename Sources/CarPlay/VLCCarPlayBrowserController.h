@@ -15,9 +15,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @interface VLCCarPlayBrowserController : NSObject
 
 @property (readwrite) CPInterfaceController *interfaceController;
@@ -38,7 +35,5 @@ NS_ASSUME_NONNULL_BEGIN
                     placeholderSymbol:(NSString *)symbol;
 
 @end
-
-#pragma clang diagnostic pop
 
 NS_ASSUME_NONNULL_END

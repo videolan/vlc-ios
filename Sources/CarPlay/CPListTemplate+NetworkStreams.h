@@ -14,16 +14,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @interface CPListTemplate (NetworkStreams)
 
 + (CPListTemplate *)streamList;
 + (NSArray<CPListSection *> *)streamSections;
 
 @end
-
-#pragma clang diagnostic pop
 
 NS_ASSUME_NONNULL_END

@@ -12,9 +12,6 @@
 #import "VLCCarPlayFoldersController.h"
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation VLCCarPlayFoldersController
 
 - (CPListTemplate *)folderList
@@ -77,5 +74,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

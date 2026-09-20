@@ -14,9 +14,6 @@
 #import "VLCCarPlayBrowserController.h"
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation CPListTemplate (Genres)
 
 + (CPListTemplate *)genreList
@@ -71,5 +68,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop
