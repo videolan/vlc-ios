@@ -296,7 +296,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 // MARK: - MediaCatgoryViewControllerDelegate
 
 extension MediaViewController: MediaCategoryViewControllerDelegate {
-    @available(iOS 14.0, *)
     func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu {
         return generateMenu(viewController: viewController)
     }

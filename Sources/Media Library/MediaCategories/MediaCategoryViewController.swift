@@ -21,7 +21,6 @@ import UIKit
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool)
-    @available(iOS 14.0, *)
     func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu
     func updateSelectAllButton(for viewController: MediaCategoryViewController)
 }
