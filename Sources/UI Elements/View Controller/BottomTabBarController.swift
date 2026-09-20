@@ -10,9 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#if os(visionOS)
 import SwiftUI
-#endif
 
 @objc(VLCBottomTabBarController)
 class BottomTabBarController: UITabBarController {
@@ -32,6 +30,9 @@ class BottomTabBarController: UITabBarController {
         return miniPlayer
     }()
     
+    private var legacyMiniPlayerNeedsUpdatedConstraints: Bool = false
+    private var legacyMiniPlayerConstraints: [NSLayoutConstraint] = []
+    
     @objc
     public private(set) var isMiniPlayerVisible: Bool = false
     
@@ -39,6 +40,8 @@ class BottomTabBarController: UITabBarController {
     public var miniPlayerZoomEndpoint: ZoomTransitionEndpoint? {
         audioMiniPlayer
     }
+    
+    private static let legacyContentInsetConstant: CGFloat = 8
 
     // MARK: - Init
 
@@ -57,59 +60,56 @@ class BottomTabBarController: UITabBarController {
 
         if #unavailable(iOS 26.0) {
             tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
+            if legacyMiniPlayerNeedsUpdatedConstraints {
+                setupMiniPlayerLayout()
+            }
         }
     }
+    
+    #if os(iOS)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard #unavailable(iOS 26) else { return }
+        
+        if isMiniPlayerVisible && traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass {
+            legacyMiniPlayerNeedsUpdatedConstraints = true
+        }
+    }
+    #endif
     
     // MARK: - Mini-player display
     
     @objc
     func displayMiniPlayer(_ display: Bool, animated: Bool) {
         #if os(iOS)
-        // TODO: Audio mini player doesn't correctly size itself
         if #available(iOS 26, *) {
             if display {
                 setBottomAccessory(UITabAccessory(contentView: audioMiniPlayer), animated: animated)
+                audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
             } else {
                 setBottomAccessory(nil, animated: animated)
             }
+            isMiniPlayerVisible = display
         } else {
             // TODO: Respect animation
-            // TODO: Crashes on iPad as it uses a sidebar
             if display {
                 view.addSubview(audioMiniPlayer)
-                
-                let bottomConstraint: NSLayoutConstraint
-                
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    bottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-                } else {
-                    bottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor)
-                }
-                
-                NSLayoutConstraint.activate([
-                    audioMiniPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                    audioMiniPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                    bottomConstraint,
-                    audioMiniPlayer.heightAnchor.constraint(equalToConstant: CGFloat(AudioMiniPlayer.height))
-                ])
-                audioMiniPlayer.visible = true
-                
+                isMiniPlayerVisible = true
+                setupMiniPlayerLayout()
                 var edgeInsets = UIEdgeInsets()
-                edgeInsets.bottom = CGFloat(AudioMiniPlayer.height) + 8
-                
-                children.forEach {
+                edgeInsets.bottom = CGFloat(audioMiniPlayer.contentHeight) + Self.legacyContentInsetConstant * 2
+                viewControllers?.forEach {
                     $0.additionalSafeAreaInsets = edgeInsets
                 }
+                audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
             } else {
-                audioMiniPlayer.visible = false
-                audioMiniPlayer.removeConstraints(audioMiniPlayer.constraints)
                 audioMiniPlayer.removeFromSuperview()
-                
-                children.forEach {
+                viewControllers?.forEach {
                     $0.additionalSafeAreaInsets = .zero
                 }
+                isMiniPlayerVisible = false
             }
-            
             view.setNeedsLayout()
         }
         #else
@@ -117,32 +117,40 @@ class BottomTabBarController: UITabBarController {
             self.ornaments = []
         } else {
             self.ornaments = [UIHostingOrnament(sceneAnchor: .bottom, content: {
-                HStack {
-                    Text("Transport Bar")
-                    Button {
-                        PlaybackService.sharedInstance().playPause()
-                    } label: {
-                        Label("Play/Pause", systemImage: PlaybackService.sharedInstance().isPlaying ? "play.fill" : "pause.fill")
-                    }
-                    .imageScale(.large)
-                    .contentTransition(.symbolEffect(.replace.downUp))
-                    .labelStyle(.iconOnly)
-                }
-                .onTapGesture {
-                    if PlaybackService.sharedInstance().playAsAudio {
-                        UIApplication.shared.sendAction(#selector(VLCPlayerDisplayController.showAudioPlayer), to: PlaybackService.sharedInstance().playerDisplayController, from: nil, for: nil)
-                    } else {
-                        UIApplication.shared.sendAction(#selector(VLCPlayerDisplayController.showFullscreenPlayback), to: PlaybackService.sharedInstance().playerDisplayController, from: nil, for: nil)
-                    }
-                }
-                .scenePadding()
-                .glassBackgroundEffect()
+                AudioMiniPlayerOrnamentBridge()
+                    .glassBackgroundEffect()
+                    .scenePadding()
             })]
         }
-        #endif
-        
         isMiniPlayerVisible = display
-        audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
+        #endif
+    }
+    
+    private func setupMiniPlayerLayout() {
+        guard isMiniPlayerVisible else { return }
+        
+        NSLayoutConstraint.deactivate(legacyMiniPlayerConstraints)
+        
+        legacyMiniPlayerConstraints = [
+            audioMiniPlayer.heightAnchor.constraint(equalToConstant: CGFloat(audioMiniPlayer.contentHeight))
+        ]
+        
+        if traitCollection.horizontalSizeClass == .regular {
+            legacyMiniPlayerConstraints.append(contentsOf: [
+                audioMiniPlayer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+                audioMiniPlayer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: AudioMiniPlayer.largeScreenWidthFactor),
+                audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Self.legacyContentInsetConstant)
+            ])
+        } else {
+            legacyMiniPlayerConstraints.append(contentsOf: [
+                audioMiniPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Self.legacyContentInsetConstant),
+                audioMiniPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Self.legacyContentInsetConstant),
+                audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -Self.legacyContentInsetConstant)
+            ])
+        }
+        
+        NSLayoutConstraint.activate(legacyMiniPlayerConstraints)
+        legacyMiniPlayerNeedsUpdatedConstraints = false
     }
 
     // MARK: - Helpers
@@ -283,4 +291,14 @@ class BlankMiniPlayerDraggingDelegate: MiniPlayerDraggingDelegate {
     func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer) {
         
     }
+}
+
+struct AudioMiniPlayerOrnamentBridge: UIViewRepresentable {
+    func makeUIView(context: Context) -> AudioMiniPlayer {
+        let miniPlayer = AudioMiniPlayer(draggingDelegate: BlankMiniPlayerDraggingDelegate())
+        miniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
+        return miniPlayer
+    }
+    
+    func updateUIView(_ uiView: AudioMiniPlayer, context: Context) {}
 }

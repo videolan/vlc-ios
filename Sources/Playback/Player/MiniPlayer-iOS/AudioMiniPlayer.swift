@@ -42,11 +42,30 @@ struct MiniPlayerPosition {
 @objc(VLCAudioMiniPlayer)
 class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     @available(*, deprecated)
-    @objc static let height: Float = 72.0
+    @objc static let height: Float = 56.0
     private static let extraControlsMinWidth: CGFloat = 500.0
     var visible: Bool = false
     var contentHeight: Float {
         return AudioMiniPlayer.height
+    }
+    
+    public static let largeScreenWidthFactor: CGFloat = 2/3
+    override var intrinsicContentSize: CGSize {
+        #if os(visionOS)
+        let width: Int = 750
+        #else
+        // UITabAccessory incorrectly sizes the miniplayer if there is no instrinsic
+        // content size or it is set too low for the screen.
+        var width: Int = .max
+        if let window {
+            var cgWidth = window.bounds.width
+            if traitCollection.horizontalSizeClass == .regular {
+                cgWidth = cgWidth * Self.largeScreenWidthFactor
+            }
+            width = Int(cgWidth)
+        }
+        #endif
+        return CGSize(width: width, height: Int(contentHeight))
     }
 
     private let audioMiniPlayer = UIView()
@@ -174,11 +193,9 @@ private extension AudioMiniPlayer {
     }
 
     private func setupBackground(modern: Bool) {
-#if !os(visionOS)
         if #available(iOS 26.0, *) {
             return
         }
-#endif
         audioMiniPlayer.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.173, alpha: 1)
         audioMiniPlayer.layer.cornerRadius = 4
         audioMiniPlayer.layer.borderWidth = 0.5
@@ -243,7 +260,6 @@ private extension AudioMiniPlayer {
 
         audioMiniPlayer.addSubview(controlStack)
         NSLayoutConstraint.activate([
-            audioMiniPlayer.heightAnchor.constraint(equalToConstant: 56),
             controlStack.trailingAnchor.constraint(equalTo: audioMiniPlayer.trailingAnchor,
                                                    constant: modern ? -8 : 0),
             controlStack.topAnchor.constraint(equalTo: audioMiniPlayer.topAnchor),
@@ -286,7 +302,7 @@ private extension AudioMiniPlayer {
 
         let artInset: CGFloat = modern ? 8 : 0
         NSLayoutConstraint.activate([
-            infoContainer.leadingAnchor.constraint(equalTo: audioMiniPlayer.leadingAnchor),
+            infoContainer.leadingAnchor.constraint(equalTo: audioMiniPlayer.leadingAnchor, constant: artInset),
             infoContainer.topAnchor.constraint(equalTo: audioMiniPlayer.topAnchor),
             infoContainer.bottomAnchor.constraint(equalTo: audioMiniPlayer.bottomAnchor),
             infoContainer.trailingAnchor.constraint(equalTo: controlStack.leadingAnchor),
@@ -368,12 +384,11 @@ private extension AudioMiniPlayer {
     }
 
     private func setupConstraint() {
-        guard #unavailable(iOS 26) else { return }
-        
         NSLayoutConstraint.activate([
-            audioMiniPlayer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            audioMiniPlayer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            audioMiniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            audioMiniPlayer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            audioMiniPlayer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            audioMiniPlayer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            audioMiniPlayer.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
 
@@ -822,11 +837,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
     }
 
     private func addContextMenu() {
-        if #available(iOS 26, *) {
-            self.addInteraction(UIContextMenuInteraction(delegate: self))
-        } else {
-            audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
-        }
+        self.addInteraction(UIContextMenuInteraction(delegate: self))
     }
 }
 

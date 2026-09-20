@@ -715,7 +715,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 
     if (needsShow) {
-        [VLCAppCoordinator.sharedInstance.tabBarController displayMiniPlayer:YES animated:YES];
+        [self becomeFirstResponder];
+        [VLCAppCoordinator.sharedInstance.tabBarController displayMiniPlayer:YES animated:animated];
 
         // Properly set the shuffle and repeat mode
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -729,7 +730,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         [[NSNotificationCenter defaultCenter]
          postNotificationName:VLCPlayerDisplayControllerDisplayMiniPlayer object:self];
     } else if (needsHide) {
-        [VLCAppCoordinator.sharedInstance.tabBarController displayMiniPlayer:NO animated:YES];
+        [VLCAppCoordinator.sharedInstance.tabBarController displayMiniPlayer:NO animated:animated];
         [self.transferBannerController refreshBottomAnchor];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
