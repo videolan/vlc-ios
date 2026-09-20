@@ -432,12 +432,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             backgroundColor = .clear
         }
 
-        if #available(iOS 13.0, *) {
-            let standardAppearance = navigationItem.standardAppearance
-            let scrollEdgeAppearance = navigationItem.scrollEdgeAppearance
-            standardAppearance?.backgroundColor = backgroundColor
-            scrollEdgeAppearance?.backgroundColor = backgroundColor
-        }
+        let standardAppearance = navigationItem.standardAppearance
+        let scrollEdgeAppearance = navigationItem.scrollEdgeAppearance
+        standardAppearance?.backgroundColor = backgroundColor
+        scrollEdgeAppearance?.backgroundColor = backgroundColor
 
         if let artworkHeader = artworkHeader,
            let navBar = navigationController?.navigationBar {
@@ -581,10 +579,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         let usesArtworkHeader = self.usesArtworkHeader
         if usesArtworkHeader {
-            if #available(iOS 13.0, *) {
-                self.navigationItem.standardAppearance = AppearanceManager.navigationBarArtworkAppearance()
-                self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarArtworkAppearance()
-            }
+            self.navigationItem.standardAppearance = AppearanceManager.navigationBarArtworkAppearance()
+            self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarArtworkAppearance()
             updateCollectionViewForArtworkHeader()
         }
         DispatchQueue.main.async { [weak self] in
@@ -787,10 +783,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private func setNavbarAppearance() {
         if #unavailable(iOS 26.0) {
-            if #available(iOS 13.0, *) {
-                navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-                navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-            }
+            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
             navigationController?.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         }
 #if os(iOS)
