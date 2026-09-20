@@ -49,10 +49,7 @@ class EditButton {
     }
 
     private var resolvedImage: UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(named: image) ?? UIImage(systemName: image)
-        }
-        return UIImage(named: image)
+        return UIImage(named: image) ?? UIImage(systemName: image)
     }
 
     func button(_ target: Any?, _ selector: Selector) -> UIButton {
@@ -66,7 +63,6 @@ class EditButton {
         return generatedButton
     }
 
-    @available(iOS 13.0, *)
     func action(_ handler: @escaping (UIAction) -> Void) -> UIAction {
         let generatedAction = UIAction(title: title,
                                        image: resolvedImage?.withTintColor(PresentationTheme.current.colors.orangeUI, renderingMode: .alwaysOriginal),
