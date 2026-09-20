@@ -231,14 +231,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return actionSheet
     }()
 
-    private lazy var sortBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(customView: setupSortButton())
-    }()
-
-    private lazy var editBarButton: UIBarButtonItem = {
-        return setupEditBarButton()
-    }()
-
     private lazy var clearHistoryButton: UIBarButtonItem = {
         return setupClearHistoryButton()
     }()
@@ -1421,16 +1413,6 @@ private extension MediaCategoryViewController {
 // MARK: - NavigationItem
 
 extension MediaCategoryViewController {
-    private func setupEditBarButton() -> UIBarButtonItem {
-        let editButton = UIBarButtonItem(image: UIImage(named: "edit"),
-                                         style: .plain, target: self,
-                                         action: #selector(handleEditingInsideCollection))
-        editButton.tintColor = PresentationTheme.current.colors.orangeUI
-        editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
-        editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
-        return editButton
-    }
-
     private func setupSelectAllButton() -> UIBarButtonItem {
         let selectAll = UIBarButtonItem(image: UIImage(named: "emptySelectAll"),
                                         style: .plain, target: self,
@@ -1448,23 +1430,6 @@ extension MediaCategoryViewController {
         return clearHistory
     }
 
-    private func setupSortButton() -> UIButton {
-        // Fetch sortButton configuration from MediaVC
-        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        sortButton.setImage(UIImage(named: "sort"), for: .normal)
-        sortButton.addTarget(self,
-                             action: #selector(handleSort),
-                             for: .touchUpInside)
-        sortButton
-            .addGestureRecognizer(UILongPressGestureRecognizer(target: self,
-                                                               action: #selector(handleSortLongPress(sender:))))
-
-        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
-        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
-        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
-        return sortButton
-    }
-
     private func leftBarButtonItem() -> [UIBarButtonItem] {
         var leftBarButtonItems = [UIBarButtonItem]()
 
@@ -1475,23 +1440,13 @@ extension MediaCategoryViewController {
     private func rightBarButtonItems() -> [UIBarButtonItem] {
         var rightBarButtonItems = [UIBarButtonItem]()
 
-        if #available(iOS 14.0, *) {
-            let menu = delegate?.generateMenu(for: self)
-            if #available(iOS 26.0, *) {
-                rightBarButtonItems.append(UIBarButtonItem(image:
-                                                            UIImage(systemName: "ellipsis"),
-                                                           menu: menu))
-            } else {
-                rightBarButtonItems.append(UIBarButtonItem(image:
-                                                            UIImage(systemName: "ellipsis.circle"),
-                                                           menu: menu))
-            }
+        let menu = delegate?.generateMenu(for: self)
+        if #available(iOS 26.0, *) {
+            rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
+                                                       menu: menu))
         } else {
-            rightBarButtonItems.append(editBarButton)
-            // Sort is not available for Playlists
-            if let model = model as? CollectionModel, !(model.mediaCollection is VLCMLPlaylist) {
-                rightBarButtonItems.append(sortBarButton)
-            }
+            rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+                                                       menu: menu))
         }
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -1558,31 +1513,6 @@ extension MediaCategoryViewController {
         reloadData()
     }
 
-    @objc func handleSort() {
-        var currentSortIndex: Int = 0
-        for (index, criteria) in
-                model.sortModel.sortingCriteria.enumerated()
-        where criteria == model.sortModel.currentSort {
-            currentSortIndex = index
-            break
-        }
-        present(sortActionSheet, animated: false) {
-            [sortActionSheet, currentSortIndex] in
-            sortActionSheet.collectionView.selectItem(at:
-                                                        IndexPath(row: currentSortIndex, section: 0), animated: false,
-                                                      scrollPosition: .centeredVertically)
-        }
-    }
-
-    @objc func handleSortLongPress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-#if os(iOS)
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-#endif
-            handleSortShortcut()
-        }
-    }
-
     @objc func handleClearHistory() {
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
 
@@ -1605,10 +1535,6 @@ extension MediaCategoryViewController {
         editController.selectAll()
         selectAllBarButton.image = isAllSelected ? UIImage(named: "allSelected")
         : UIImage(named: "emptySelectAll")
-    }
-
-    @objc func handleSortShortcut() {
-        model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
     }
 
     @objc func handleEditingInsideCollection() {
