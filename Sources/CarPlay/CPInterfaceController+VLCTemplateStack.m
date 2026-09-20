@@ -11,10 +11,6 @@
 
 #import "CPInterfaceController+VLCTemplateStack.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 // CarPlay terminates the app as soon as a sixth template enters the hierarchy
 static const NSUInteger VLCCarPlayMaximumTemplateDepth = 5;
 
@@ -23,29 +19,18 @@ static const NSUInteger VLCCarPlayMaximumTemplateDepth = 5;
 - (void)pushTemplateWithinDepthLimit:(__kindof CPTemplate *)templateToPush animated:(BOOL)animated
 {
     if (self.templates.count < VLCCarPlayMaximumTemplateDepth) {
-        [self pushTemplate:templateToPush animated:animated];
+        [self pushTemplate:templateToPush animated:animated completion:nil];
         return;
     }
 
-    if (@available(iOS 14.0, *)) {
-        [self popTemplateAnimated:NO completion:^(BOOL success, NSError * _Nullable error) {
-            [self pushTemplate:templateToPush animated:animated completion:nil];
-        }];
-    } else {
-        [self popTemplateAnimated:NO];
-        [self pushTemplate:templateToPush animated:animated];
-    }
+    [self popTemplateAnimated:NO completion:^(BOOL success, NSError * _Nullable error) {
+        [self pushTemplate:templateToPush animated:animated completion:nil];
+    }];
 }
 
 - (void)returnToRootTemplateAnimated:(BOOL)animated
 {
-    if (@available(iOS 14.0, *)) {
-        [self popToRootTemplateAnimated:animated completion:nil];
-    } else {
-        [self popToRootTemplateAnimated:animated];
-    }
+    [self popToRootTemplateAnimated:animated completion:nil];
 }
 
 @end
-
-#pragma clang diagnostic pop
