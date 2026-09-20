@@ -184,53 +184,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return userDefaults.bool(forKey: kVLCHasLaunchedBefore)
     }
 
-    @objc private lazy var sortActionSheet: ActionSheet = {
-        var header: ActionSheetSortSectionHeader
-        var isVideoModel: Bool = false
-        var collectionModelName: String = ""
-
-        if let model = model as? CollectionModel {
-            if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
-                isVideoModel = true
-            }
-            collectionModelName = String(describing: type(of: model.mediaCollection)) + model.name
-        } else if let model = model as? MediaGroupViewModel {
-            isVideoModel = true
-            collectionModelName = model.name
-        } else if let model = model as? VideoModel {
-            isVideoModel = true
-            collectionModelName = secondModel.name
-        } else {
-            collectionModelName = model.name
-        }
-
-        header = ActionSheetSortSectionHeader(model: model.sortModel,
-                                              isVideoModel: isVideoModel,
-                                              currentModelType: collectionModelName)
-
-        if model is ArtistModel {
-            header.updateHeaderForArtists()
-        } else if let model = model as? CollectionModel,
-                  let mediaCollection = model.mediaCollection as? VLCMLAlbum,
-                  !mediaCollection.isUnknownAlbum() {
-            header.updateHeaderForAlbums()
-        }
-
-        let actionSheet = ActionSheet(header: header)
-        header.delegate = self
-        actionSheet.delegate = self
-        actionSheet.dataSource = self
-        actionSheet.modalPresentationStyle = .custom
-        actionSheet.setAction { [weak self] item in
-            guard let sortingCriteria = item as? VLCMLSortingCriteria else {
-                return
-            }
-            self?.executeSortAction(with: sortingCriteria,
-                                    desc: header.actionSwitch.isOn)
-        }
-        return actionSheet
-    }()
-
     private lazy var clearHistoryButton: UIBarButtonItem = {
         return setupClearHistoryButton()
     }()
@@ -1509,7 +1462,6 @@ extension MediaCategoryViewController {
                          forKey: "\(kVLCSortDescendingDefault)\(model.name)")
         userDefaults.set(sortingCriteria.rawValue,
                          forKey: "\(kVLCSortDefault)\(model.name)")
-        sortActionSheet.removeActionSheet()
         reloadData()
     }
 
@@ -2352,56 +2304,9 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - VLCActionSheetDelegate
+// MARK: - Layout and sort options
 
-extension MediaCategoryViewController: ActionSheetDelegate {
-    func headerViewTitle() -> String? {
-        return NSLocalizedString("HEADER_TITLE_SORT", comment: "")
-    }
-
-    // This provide the item to send to the selection action
-    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
-        let enabledSortCriteria = model.sortModel.sortingCriteria
-
-        if indexPath.row < enabledSortCriteria.count {
-            return enabledSortCriteria[indexPath.row]
-        }
-        assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDelegate: IndexPath out of range")
-        return nil
-    }
-}
-
-// MARK: - VLCActionSheetDataSource
-
-extension MediaCategoryViewController: ActionSheetDataSource {
-    func numberOfRows() -> Int {
-        return model.sortModel.sortingCriteria.count
-    }
-
-    func actionSheet(collectionView: UICollectionView,
-                     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ActionSheetCell.identifier,
-            for: indexPath) as? ActionSheetCell else {
-            assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-            return UICollectionViewCell()
-        }
-
-        let sortingCriterias = model.sortModel.sortingCriteria
-
-        guard indexPath.row < sortingCriterias.count else {
-            assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: IndexPath out of range")
-            return cell
-        }
-
-        cell.name.text = String(describing: sortingCriterias[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: - ActionSheetSortSectionHeaderDelegate
-
-extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
+extension MediaCategoryViewController {
     private func getTypeName(of mediaCollection: MediaCollectionModel) -> String {
         return String(describing: type(of: mediaCollection))
     }
@@ -2470,23 +2375,6 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         cachedCellSize = .zero
         model.sort(by: model.sortModel.currentSort, desc: model.sortModel.desc)
         reloadData()
-    }
-
-    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
-        var prefix: String = ""
-        var suffix: String = ""
-        if type == .descendingOrder {
-            model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
-            prefix = kVLCSortDescendingDefault
-            suffix = model is VideoModel ? secondModel.name : model.name
-            userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")
-            setupCollectionView()
-            cachedCellSize = .zero
-            collectionView?.collectionViewLayout.invalidateLayout()
-            reloadData()
-        } else if type == .layoutChange {
-            handleLayoutChange(gridLayout: onSwitchIsOnChange, isFolder: false)
-        }
     }
 }
 
