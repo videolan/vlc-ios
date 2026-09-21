@@ -57,6 +57,7 @@ NSString *const VLCPlaybackServiceShuffleModeUpdated = @"VLCPlaybackServiceShuff
 NSString *const VLCPlaybackServiceMediaListDidChange = @"VLCPlaybackServiceMediaListDidChange";
 NSString *const VLCPlaybackServiceMediaDurationDidChange = @"VLCPlaybackServiceMediaDurationDidChange";
 NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
+NSString *const VLCPlaybackServicePlaybackDidStopFailed = @"VLCPlaybackServicePlaybackDidStopFailed";
 NSString *const VLCPlaybackServiceSleepTimerDidChange = @"VLCPlaybackServiceSleepTimerDidChange";
 NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
@@ -101,6 +102,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSLock *_playbackSessionManagementLock;
 
     void (^_playbackCompletion)(BOOL success);
+    BOOL _lastPlaybackFailed;
 #if !TARGET_OS_WATCH
     VLCDialogProvider *_dialogProvider;
     VLCCustomDialogRendererHandler *_customDialogHandler;
@@ -641,7 +643,9 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         });
     } else {
         [self cancelSleepTimer];
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
+        NSDictionary *userInfo = @{VLCPlaybackServicePlaybackDidStopFailed: @(self->_lastPlaybackFailed)};
+        self->_lastPlaybackFailed = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self userInfo:userInfo];
     }
 }
 
@@ -1192,6 +1196,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
             case VLCMediaPlayerStateError: {
                 APLog(@"%s: playback failed", __func__);
+                self->_lastPlaybackFailed = YES;
                 dispatch_async(dispatch_get_main_queue(),^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
                 });

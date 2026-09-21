@@ -213,7 +213,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 - (void)playbackDidStop:(NSNotification *)notification
 {
-    [self dismissPlaybackView];
+    BOOL playbackFailed = [notification.userInfo[VLCPlaybackServicePlaybackDidStopFailed] boolValue];
+    if (!playbackFailed || ![self _isPresentingFullscreenVideo]) {
+        [self dismissPlaybackView];
+    }
     _currentMediaType = VLCMLMediaTypeUnknown;
 }
 
@@ -275,6 +278,17 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     }
 
     return ((UINavigationController *)presentedController).topViewController;
+}
+
+- (BOOL)_isPresentingFullscreenVideo
+{
+    if (self.displayMode != VLCPlayerDisplayControllerDisplayModeFullscreen) {
+        return NO;
+    }
+
+    UIViewController *presentedController = [self _presentedPlaybackController];
+    return presentedController != nil &&
+           ![presentedController isKindOfClass:[VLCAudioPlayerViewController class]];
 }
 
 - (BOOL)_isPlaybackControllerPresentedOrTransitioning:(UIViewController *)playbackController

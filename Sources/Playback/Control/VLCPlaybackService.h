@@ -29,6 +29,7 @@ extern NSString *const VLCPlaybackServiceShuffleModeUpdated;
 extern NSString *const VLCPlaybackServiceMediaListDidChange;
 extern NSString *const VLCPlaybackServiceMediaDurationDidChange;
 extern NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem;
+extern NSString *const VLCPlaybackServicePlaybackDidStopFailed;
 extern NSString *const VLCPlaybackServiceSleepTimerDidChange;
 extern NSString *const VLCLastPlaylistPlayedMedia;
 
