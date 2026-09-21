@@ -18,8 +18,6 @@
 #import "UIScrollView+VLCKeyboardAdjustment.h"
 #import "UITextField+VLCKeyboardDismissal.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
 #import <AuthenticationServices/AuthenticationServices.h>
 
 #ifndef UITextContentTypeCreditCardExpiration
@@ -62,45 +60,20 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     self.expiryDateMonthField.delegate = self;
     self.expiryDateYearField.delegate = self;
 
-    if (@available(iOS 13.0, *)) {
-        self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
-        self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
-    } else {
-        self.creditCardNumberField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"0000 0000 0000 0000"
-                                                                                          attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-        self.expiryDateMonthField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil)
-                                                                                          attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-        self.expiryDateYearField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil)
-                                                                                         attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-        self.cvvField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"123"
-                                                                              attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-    }
+    self.expiryDateMonthField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_MONTH", nil);
+    self.expiryDateYearField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_YEAR", nil);
 
     self.cvvLabel.text = NSLocalizedString(@"DONATION_CC_CVV", nil);
     self.cvvField.delegate = self;
-    if (@available(iOS 15.0, *)) {
-        self.expiryDateMonthField.textContentType = UITextContentTypeDateTime;
-        self.expiryDateYearField.textContentType = UITextContentTypeDateTime;
-    }
-    if (@available(iOS 10.0, *)) {
-        self.creditCardNumberField.textContentType = UITextContentTypeCreditCardNumber;
-    }
+    self.expiryDateMonthField.textContentType = UITextContentTypeDateTime;
+    self.expiryDateYearField.textContentType = UITextContentTypeDateTime;
+    self.creditCardNumberField.textContentType = UITextContentTypeCreditCardNumber;
     if (@available(iOS 17.0, *)) {
         self.expiryDateMonthField.textContentType = UITextContentTypeCreditCardExpiration;
         self.expiryDateYearField.textContentType = UITextContentTypeCreditCardExpiration;
         self.cvvField.textContentType = UITextContentTypeCreditCardSecurityCode;
     }
-    if (@available(iOS 14.0, *)) {
-        self.continueButton.role = UIButtonRolePrimary;
-    }
+    self.continueButton.role = UIButtonRolePrimary;
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_DONATE_BUTTON", nil) forState:UIControlStateNormal];
 
     [_creditCardNumberField addKeyboardDismissAccessory];
@@ -492,5 +465,3 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 }
 
 @end
-
-#pragma clang diagnostic pop
