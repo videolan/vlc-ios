@@ -38,14 +38,9 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
 - (void)loadView
 {
-    UIColor *backgroundColor = [UIColor whiteColor];
-    UIColor *textColor = [UIColor blackColor];
-    UIColor *detailColor = [UIColor grayColor];
-    if (@available(iOS 13.0, *)) {
-        backgroundColor = UIColor.systemBackgroundColor;
-        textColor = UIColor.labelColor;
-        detailColor = UIColor.secondaryLabelColor;
-    }
+    UIColor *backgroundColor = UIColor.systemBackgroundColor;
+    UIColor *textColor = UIColor.labelColor;
+    UIColor *detailColor = UIColor.secondaryLabelColor;
 
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = backgroundColor;
