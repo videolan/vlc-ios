@@ -67,15 +67,7 @@
     _subtitleLabel.numberOfLines = _subtitleNumberOfLines;
     [self addSubview:_subtitleLabel];
 
-#if TARGET_OS_VISION
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-#else
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-    } else {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    }
-#endif
     _spinner.translatesAutoresizingMaskIntoConstraints = NO;
     _spinner.hidesWhenStopped = YES;
     [self addSubview:_spinner];

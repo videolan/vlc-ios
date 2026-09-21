@@ -45,14 +45,7 @@ NSString *const VLCHTTPClientResponseBodyErrorKey = @"VLCHTTPClientResponseBody"
 
 - (CGFloat)displayScale
 {
-#if TARGET_OS_VISION
     return [UITraitCollection currentTraitCollection].displayScale;
-#else
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        return [UITraitCollection currentTraitCollection].displayScale;
-    }
-    return [UIScreen mainScreen].scale;
-#endif
 }
 
 - (NSString *)defaultUserAgent

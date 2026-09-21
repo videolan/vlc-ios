@@ -69,12 +69,8 @@
     urlField.leftViewMode = UITextFieldViewModeAlways;
 
     UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (@available(iOS 13.0, *)) {
-        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
-        [downloadButton setImage:[UIImage systemImageNamed:@"arrow.down.to.line" withConfiguration:cfg] forState:UIControlStateNormal];
-    } else {
-        [downloadButton setImage:[[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    }
+    UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
+    [downloadButton setImage:[UIImage systemImageNamed:@"arrow.down.to.line" withConfiguration:cfg] forState:UIControlStateNormal];
     downloadButton.accessibilityLabel = NSLocalizedString(@"BUTTON_DOWNLOAD", nil);
     [downloadButton setAccessibilityIdentifier:@"Download"];
     [downloadButton addTarget:self action:@selector(downloadAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,9 +79,7 @@
     self.downloadButton = downloadButton;
 
     UIButton *fieldClearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    if (@available(iOS 13.0, *)) {
-        [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
-    }
+    [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
     fieldClearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
     [fieldClearButton addTarget:self action:@selector(clearURLField) forControlEvents:UIControlEventTouchUpInside];
     fieldClearButton.frame = CGRectMake(0, 4, 30, 30);
@@ -104,9 +98,7 @@
     downloadsTable.showsHorizontalScrollIndicator = NO;
     downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     downloadsTable.estimatedSectionHeaderHeight = 44;
-    if (@available(iOS 15.0, *)) {
-        downloadsTable.sectionHeaderTopPadding = 0;
-    }
+    downloadsTable.sectionHeaderTopPadding = 0;
     downloadsTable.dataSource = self;
     downloadsTable.delegate = self;
     [self.view addSubview:downloadsTable];
@@ -414,14 +406,12 @@
     UITableViewCell *cell = [self _plainCellForTableView:tableView];
 
     NSString *sfSymbolName;
-    NSString *fallbackImageName;
     UIColor *tintColor;
     NSString *name;
     if (indexPath.section == 1) {
         VLCTransferItem *item = _completed[row];
         name = item.displayName;
         sfSymbolName = @"checkmark.circle.fill";
-        fallbackImageName = @"checkmark";
         tintColor = [UIColor systemGreenColor];
         cell.detailTextLabel.text = item.date ? [_dateFormatter stringFromDate:item.date] : @"";
         cell.detailTextLabel.numberOfLines = 1;
@@ -429,20 +419,14 @@
         VLCTransferItem *item = _failed[row];
         name = item.displayName;
         sfSymbolName = @"exclamationmark.triangle.fill";
-        fallbackImageName = @"warning";
         tintColor = [UIColor systemRedColor];
         cell.detailTextLabel.text = item.errorDescription;
         cell.detailTextLabel.numberOfLines = 2;
         cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 
-    if (@available(iOS 13.0, *)) {
-        UIImage *symbol = [UIImage systemImageNamed:sfSymbolName];
-        cell.imageView.image = [symbol imageWithTintColor:tintColor renderingMode:UIImageRenderingModeAlwaysOriginal];
-    } else {
-        cell.imageView.image = [[UIImage imageNamed:fallbackImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        cell.imageView.tintColor = tintColor;
-    }
+    UIImage *symbol = [UIImage systemImageNamed:sfSymbolName];
+    cell.imageView.image = [symbol imageWithTintColor:tintColor renderingMode:UIImageRenderingModeAlwaysOriginal];
     cell.textLabel.text = name;
     cell.textLabel.textColor = colors.cellTextColor;
     cell.detailTextLabel.textColor = colors.cellDetailTextColor;

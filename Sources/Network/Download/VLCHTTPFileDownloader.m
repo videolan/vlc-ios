@@ -167,12 +167,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:[_fileURL path]]) {
-        if (@available(iOS 10.3, *)) {
-            //The copy should be instant iOS 10.3+ with APFS
-            [fileManager copyItemAtURL:location toURL:_fileURL error:nil];
-        } else {
-            [fileManager moveItemAtURL:location toURL:_fileURL error:nil];
-        }
+        [fileManager copyItemAtURL:location toURL:_fileURL error:nil];
     }
 }
 
