@@ -47,9 +47,7 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
         self.contentView.backgroundColor = [UIColor clearColor];
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.backgroundColor = [UIColor clearColor];
-        if (@available(iOS 14.0, *)) {
-            self.backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
-        }
+        self.backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
         [self setupViews];
     }
     return self;

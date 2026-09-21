@@ -54,9 +54,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
         self.contentView.backgroundColor = [UIColor clearColor];
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.backgroundColor = [UIColor clearColor];
-        if (@available(iOS 14.0, *)) {
-            self.backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
-        }
+        self.backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
         [self setupViews];
     }
     return self;
@@ -100,9 +98,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
     _playButton.translatesAutoresizingMaskIntoConstraints = NO;
     _playButton.layer.cornerRadius = kVLCOnAirContinuePlaySide / 2.0;
     _playButton.accessibilityLabel = NSLocalizedString(@"PLAY_BUTTON", nil);
-    if (@available(iOS 13.0, *)) {
-        [_playButton setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateNormal];
-    }
+    [_playButton setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateNormal];
     [_playButton addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
     [_cardView addSubview:_playButton];
 
