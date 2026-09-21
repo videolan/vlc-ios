@@ -487,7 +487,6 @@
 		7D50C5E62BBD20DF00B9F1A0 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		7D50C5E72BBD20DF00B9F1A0 /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E5BFF24C719480003B69C /* AboutController.swift */; };
 		7D50C5E82BBD20DF00B9F1A0 /* PagerStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */; };
-		7D50C5E92BBD20DF00B9F1A0 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
 		7D50C5EA2BBD20DF00B9F1A0 /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		7D50C5EB2BBD20DF00B9F1A0 /* VLCNetworkLoginViewButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908CF1CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m */; };
 		7D50C5EC2BBD20DF00B9F1A0 /* Array+Safety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA7828C894EC00109F28 /* Array+Safety.swift */; };
@@ -900,7 +899,6 @@
 		7DA514472EF82B63000C9995 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		7DA514482EF82B63000C9995 /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E5BFF24C719480003B69C /* AboutController.swift */; };
 		7DA514492EF82B63000C9995 /* PagerStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */; };
-		7DA5144A2EF82B63000C9995 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
 		7DA5144B2EF82B63000C9995 /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		7DA5144C2EF82B63000C9995 /* VLCNetworkLoginViewButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908CF1CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m */; };
 		7DA5144D2EF82B63000C9995 /* Array+Safety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA7828C894EC00109F28 /* Array+Safety.swift */; };
@@ -1280,8 +1278,6 @@
 		7DC7BAB228C8958900109F28 /* CAAnimation+VLCWiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */; };
 		7DC7BAB328C8958900109F28 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */; };
 		7DC7BAB428C8958900109F28 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */; };
-		7DC7BAB728C8958900109F28 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
-		7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */; };
 		7DC7BABC28C8959F00109F28 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */; };
 		7DC7BABD28C8959F00109F28 /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */; };
 		7DC869B828CB794A00EE99F8 /* VLCDeletionCapableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */; };
@@ -2441,7 +2437,6 @@
 		7DC7BAA928C8958800109F28 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
-		7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchorContainer.swift; sourceTree = "<group>"; };
 		7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isHidden.swift"; sourceTree = "<group>"; };
 		7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
 		7DC869C028CB7E0000EE99F8 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCNetworkLoginViewController.h; sourceTree = "<group>"; };
@@ -4054,7 +4049,6 @@
 				7D2891812C21E3FA00FA2CB7 /* UIStackView+Orientation.m */,
 				7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */,
 				7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */,
-				7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */,
 				7D6972A8304A9F8F00B8261B /* UIApplication+VLCTopViewController.h */,
 				7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */,
 				7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */,
@@ -6022,7 +6016,6 @@
 				221E71FB2A8F6B5D00797794 /* VLCThumbnailsCache.m in Sources */,
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC7BA7E28C894EC00109F28 /* GRKArrayDiff+UICollectionView.m in Sources */,
-				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				7D1E8F57300FA4160014A118 /* VLCRadioCountry.m in Sources */,
 				226686992A91DED1003114C7 /* AddToPlaylistViewController.swift in Sources */,
 				322A104A2F6C69EE005EC9F0 /* GameControllerManager.swift in Sources */,
@@ -6117,7 +6110,6 @@
 				7D50C5E62BBD20DF00B9F1A0 /* OptionsNavigationBar.swift in Sources */,
 				7D50C5E72BBD20DF00B9F1A0 /* AboutController.swift in Sources */,
 				7D50C5E82BBD20DF00B9F1A0 /* PagerStripViewController.swift in Sources */,
-				7D50C5E92BBD20DF00B9F1A0 /* LayoutAnchorContainer.swift in Sources */,
 				7D50C5EA2BBD20DF00B9F1A0 /* PresentationTheme.swift in Sources */,
 				7D5871FD3051AECB0005F27F /* PodcastDirectoryViewController.swift in Sources */,
 				7D50C5EB2BBD20DF00B9F1A0 /* VLCNetworkLoginViewButtonCell.m in Sources */,
@@ -6446,7 +6438,6 @@
 				7D0BE2772FF2B6EE0002D451 /* UIView+Corners.swift in Sources */,
 				7D50F91C3011232100005A38 /* VLCRadioAlarmEditorViewController.m in Sources */,
 				41D7DD2720C3060300AD94F6 /* PagerStripViewController.swift in Sources */,
-				7DC7BAB728C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				7D1318A930090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
 				413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */,
 				7D98194B2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */,
@@ -6827,7 +6818,6 @@
 				7DA514472EF82B63000C9995 /* OptionsNavigationBar.swift in Sources */,
 				7DA514482EF82B63000C9995 /* AboutController.swift in Sources */,
 				7DA514492EF82B63000C9995 /* PagerStripViewController.swift in Sources */,
-				7DA5144A2EF82B63000C9995 /* LayoutAnchorContainer.swift in Sources */,
 				7DA5144B2EF82B63000C9995 /* PresentationTheme.swift in Sources */,
 				7D98194C2FC8B91C0017248D /* VLCMediaList+M3U.m in Sources */,
 				7DA5144C2EF82B63000C9995 /* VLCNetworkLoginViewButtonCell.m in Sources */,
