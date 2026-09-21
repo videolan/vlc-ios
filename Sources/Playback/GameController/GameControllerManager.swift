@@ -203,21 +203,17 @@ class GameControllerManager: NSObject {
             }
         }
         
-        if #available(iOS 13.0, *, tvOS 13.0, *) {
-            gamepad.buttonOptions?.pressedChangedHandler = { [weak self] _, _, pressed in
-                guard let self else { return }
-                if pressed {
-                    self.delegate?.gameControllerManagerDelegateDidTogglePlayerQueue(self)
-                }
+        gamepad.buttonOptions?.pressedChangedHandler = { [weak self] _, _, pressed in
+            guard let self else { return }
+            if pressed {
+                self.delegate?.gameControllerManagerDelegateDidTogglePlayerQueue(self)
             }
         }
-        
-        if #available(iOS 13.0, *, tvOS 13.0, *) {
-            gamepad.buttonMenu.pressedChangedHandler = { [weak self] _, _, pressed in
-                guard let self else { return }
-                if pressed {
-                    self.delegate?.gameControllerManagerDelegateDidTogglePlayerOptions(self)
-                }
+
+        gamepad.buttonMenu.pressedChangedHandler = { [weak self] _, _, pressed in
+            guard let self else { return }
+            if pressed {
+                self.delegate?.gameControllerManagerDelegateDidTogglePlayerOptions(self)
             }
         }
     }
