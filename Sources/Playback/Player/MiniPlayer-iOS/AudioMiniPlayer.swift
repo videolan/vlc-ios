@@ -78,14 +78,6 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     var tapticPosition = MiniPlayerPosition(vertical: .bottom, horizontal: .center)
     var panDirection: PanDirection = .vertical
 
-    var stopGestureEnabled: Bool {
-        if #available(iOS 13.0, *) {
-            return false
-        } else {
-            return true
-        }
-    }
-
     @objc init(draggingDelegate: MiniPlayerDraggingDelegate) {
         self.draggingDelegate = draggingDelegate
         super.init(frame: .zero)
@@ -177,9 +169,7 @@ private extension AudioMiniPlayer {
         updateRepeatButton()
         updateShuffleButton()
 
-        if #available(iOS 13.0, *) {
-            addContextMenu()
-        }
+        addContextMenu()
     }
 
     private func setupBackground(modern: Bool) {
@@ -472,10 +462,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 
 #if os(iOS)
     func updateWidgetsIfNeeded() {
-        guard #available(iOS 14.0, *) else {
-            return
-        }
-
         let widgetCenter = WidgetCenter.shared
         widgetCenter.getCurrentConfigurations({ result in
             switch result {
@@ -609,9 +595,7 @@ extension AudioMiniPlayer {
                         showPlayqueue(in: superview)
                     }
                 case .bottom:
-                    if stopGestureEnabled && self.frame.minY > originY + 10 {
-                        playbackService.stopPlayback()
-                    } else if self.frame.minY > limit && velocity.y > -1000.0 {
+                    if self.frame.minY > limit && velocity.y > -1000.0 {
                         let completion: ((Bool) -> Void) = { _ in
                             self.queueViewController?.hide()
                         }
@@ -670,11 +654,7 @@ extension AudioMiniPlayer {
             tapticPosition.vertical = .bottom
         }
         if position.vertical == .bottom {
-            if stopGestureEnabled && frame.minY > originY + 10 {
-                previousNextImage.image = UIImage(named: "stopIcon")
-                previousNextOverlay.alpha = 0.8
-                previousNextOverlay.isHidden = false
-            } else if frame.minY > originY {
+            if frame.minY > originY {
                 queueViewController?.hide()
             } else {
                 hidePreviousNextOverlay()
@@ -791,7 +771,6 @@ private extension AudioMiniPlayer {
 
 // MARK: - UIContextMenuInteractionDelegate
 
-@available(iOS 13.0, *)
 extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
                                 configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
