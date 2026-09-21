@@ -52,32 +52,13 @@
     self.bankAccountNumberLabel.text = NSLocalizedString(@"DONATION_IBAN", nil);
     self.bankAccountNumberField.delegate = self;
     self.nameLabel.text = NSLocalizedString(@"DONATION_NAME", nil);
-    if (@available(iOS 13.0, *)) {
-        self.nameField.placeholder = NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil);
-    } else {
-        self.nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil)
-                                                                               attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-        self.bankAccountNumberField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"FR00 0000 0000 0000 0000 00"
-                                                                               attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-        self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"donation@videolan.org"
-                                                                               attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-    }
+    self.nameField.placeholder = NSLocalizedString(@"DONATION_NAME_BANK_ACCOUNT", nil);
     self.emailLabel.text = NSLocalizedString(@"DONATION_EMAIL", nil);
     self.descriptionLabel.text = NSLocalizedString(@"DONATION_BANK_TRANSFER_LONG", nil);
 
-    if (@available(iOS 10.0, *)) {
-        self.nameField.textContentType = UITextContentTypeName;
-        self.emailField.textContentType = UITextContentTypeEmailAddress;
-    }
-    if (@available(iOS 14.0, *)) {
-        self.continueButton.role = UIButtonRolePrimary;
-    }
+    self.nameField.textContentType = UITextContentTypeName;
+    self.emailField.textContentType = UITextContentTypeEmailAddress;
+    self.continueButton.role = UIButtonRolePrimary;
     [self.continueButton setTitle:NSLocalizedString(@"DONATION_DONATE_BUTTON", nil) forState:UIControlStateNormal];
 
     [_bankAccountNumberField addKeyboardDismissAccessory];
