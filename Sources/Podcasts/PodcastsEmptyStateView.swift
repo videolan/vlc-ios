@@ -89,10 +89,8 @@ class PodcastsEmptyStateView: UIView {
         addRSSButton.addTarget(self, action: #selector(didTapAddRSS), for: .touchUpInside)
         browseButton.addTarget(self, action: #selector(didTapBrowse), for: .touchUpInside)
 
-        if #available(iOS 13.0, *) {
-            let config = UIImage.SymbolConfiguration(pointSize: 34, weight: .regular)
-            iconView.image = UIImage(systemName: "antenna.radiowaves.left.and.right", withConfiguration: config)
-        }
+        let config = UIImage.SymbolConfiguration(pointSize: 34, weight: .regular)
+        iconView.image = UIImage(systemName: "antenna.radiowaves.left.and.right", withConfiguration: config)
 
         NSLayoutConstraint.activate([
             iconBackground.centerXAnchor.constraint(equalTo: centerXAnchor),

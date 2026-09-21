@@ -93,7 +93,6 @@ class PodcastSectionHeaderView: UITableViewHeaderFooterView {
         actionButton.addTarget(target, action: action, for: .touchUpInside)
     }
 
-    @available(iOS 14.0, *)
     func configure(title: String, sortTitle: String, sortMenu: UIMenu) {
         titleLabel.text = title
         actionButton.isHidden = true

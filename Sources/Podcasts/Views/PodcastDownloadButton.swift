@@ -13,29 +13,14 @@
 import UIKit
 
 class PodcastDownloadButton: UIButton {
-    private static let downloadImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return nil
-        }
-        return UIImage(systemName: "arrow.down.circle",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
-    }()
+    private static let downloadImage = UIImage(systemName: "arrow.down.circle",
+                                               withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
 
-    private static let downloadedImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return nil
-        }
-        return UIImage(systemName: "arrow.down.circle.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
-    }()
+    private static let downloadedImage = UIImage(systemName: "arrow.down.circle.fill",
+                                                 withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
 
-    private static let downloadingImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return nil
-        }
-        return UIImage(systemName: "stop.circle",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
-    }()
+    private static let downloadingImage = UIImage(systemName: "stop.circle",
+                                                  withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))
 
     private(set) var isDownloaded = false
     private(set) var isDownloading = false
@@ -67,19 +52,9 @@ class PodcastDownloadButton: UIButton {
         let colors = PresentationTheme.current.colors
 
         if downloading {
-            guard #available(iOS 13.0, *) else {
-                setTitle("✕", for: .normal)
-                accessibilityLabel = NSLocalizedString("PODCAST_EPISODE_CANCEL_DOWNLOAD", comment: "")
-                return
-            }
             setImage(PodcastDownloadButton.downloadingImage, for: .normal)
             tintColor = colors.orangeUI
             accessibilityLabel = NSLocalizedString("PODCAST_EPISODE_CANCEL_DOWNLOAD", comment: "")
-            return
-        }
-
-        guard #available(iOS 13.0, *) else {
-            setTitle(downloaded ? "✓" : "↓", for: .normal)
             return
         }
 

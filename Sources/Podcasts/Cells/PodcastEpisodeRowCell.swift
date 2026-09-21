@@ -36,43 +36,18 @@ class PodcastEpisodeRowCell: UITableViewCell {
     private static let actionGap: CGFloat = 8
     private static let playedAlpha: CGFloat = 0.55
 
-    private static let playImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return UIImage(named: "iconPlay")
-        }
-        return UIImage(systemName: "play.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
-    }()
+    private static let playImage = UIImage(systemName: "play.fill",
+                                           withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
 
-    private static let pauseImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return UIImage(named: "pauseIcon")
-        }
-        return UIImage(systemName: "pause.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
-    }()
+    private static let pauseImage = UIImage(systemName: "pause.fill",
+                                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
 
-    private static let unplayedImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            let size = CGSize(width: statusIndicatorSize, height: statusIndicatorSize)
-            let dot = UIGraphicsImageRenderer(size: size).image { context in
-                context.cgContext.setFillColor(UIColor.white.cgColor)
-                context.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
-            }
-            return dot.withRenderingMode(.alwaysTemplate)
-        }
-        return UIImage(systemName: "circle.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: statusIndicatorSize,
-                                                                      weight: .regular))
-    }()
+    private static let unplayedImage = UIImage(systemName: "circle.fill",
+                                               withConfiguration: UIImage.SymbolConfiguration(pointSize: statusIndicatorSize,
+                                                                                              weight: .regular))
 
-    private static let playedImage: UIImage? = {
-        guard #available(iOS 13.0, *) else {
-            return nil
-        }
-        return UIImage(systemName: "checkmark.circle.fill",
-                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 11, weight: .regular))
-    }()
+    private static let playedImage = UIImage(systemName: "checkmark.circle.fill",
+                                             withConfiguration: UIImage.SymbolConfiguration(pointSize: 11, weight: .regular))
 
     static var height: CGFloat {
         let dateHeight = UIFont.preferredCustomFont(forTextStyle: .caption1).lineHeight
