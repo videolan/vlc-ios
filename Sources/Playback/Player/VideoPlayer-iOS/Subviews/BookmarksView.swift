@@ -178,7 +178,6 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
         return true
     }
 
-    @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "", handler: { _, _, _ in
             self.delegate?.bookmarksViewDisplayAlert(action: .delete, index: indexPath.row, isEditing: self.isEditing)

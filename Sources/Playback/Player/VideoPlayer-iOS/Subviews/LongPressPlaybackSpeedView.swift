@@ -52,18 +52,10 @@ class LongPressPlaybackSpeedView: UIView {
 
     /// Creates a new instance of UIImageView with play symbol
     private var playSymbolView: UIImageView {
-        let imageView: UIImageView
-
-        if #available(iOS 13, *) {
-            let image = UIImage(systemName: "play.fill")?
-                .applyingSymbolConfiguration(.init(scale: .small))
-            imageView = UIImageView(image: image)
-            imageView.tintColor = .label
-        } else {
-            let image = UIImage(named: "play.fill")
-            imageView = UIImageView(image: image)
-        }
-
+        let image = UIImage(systemName: "play.fill")?
+            .applyingSymbolConfiguration(.init(scale: .small))
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .label
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         return imageView
@@ -94,11 +86,7 @@ class LongPressPlaybackSpeedView: UIView {
             playSymbolView1.trailingAnchor.constraint(equalTo: playSymbolView2.leadingAnchor)
         ])
         
-        if #available(iOS 13, *) {
-            self.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.5)
-        } else {
-            self.backgroundColor = .black.withAlphaComponent(0.35)
-        }
+        self.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.5)
     }
 
     override func layoutSubviews() {
