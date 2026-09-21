@@ -12,7 +12,7 @@
 
 import Foundation
 
-// Need to separate MLSyncManagerProtocol and ObservableObject because ObservableObject is iOS 13.0+
+// Kept separate so MLSyncManagerProtocol stays free of associated types and usable as an existential
 protocol ObservableMLSyncManager: MLSyncManagerProtocol, ObservableObject { }
 
 // This class is repsonsible for managing the watch to iPhone media id mapping.
