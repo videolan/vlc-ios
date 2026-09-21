@@ -103,10 +103,8 @@
     self.urlField = urlField;
 
     UIButton *privateToggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (@available(iOS 13.0, *)) {
-        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightMedium];
-        [privateToggleButton setImage:[UIImage systemImageNamed:@"eye.slash" withConfiguration:cfg] forState:UIControlStateNormal];
-    }
+    UIImageSymbolConfiguration *privateCfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightMedium];
+    [privateToggleButton setImage:[UIImage systemImageNamed:@"eye.slash" withConfiguration:privateCfg] forState:UIControlStateNormal];
     privateToggleButton.accessibilityLabel = NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil);
     [privateToggleButton addTarget:self action:@selector(privatePlaybackToggled:) forControlEvents:UIControlEventTouchUpInside];
     privateToggleButton.frame = CGRectMake(10, 0, 30, 30);
@@ -118,19 +116,15 @@
     urlField.leftViewMode = UITextFieldViewModeAlways;
 
     UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (@available(iOS 13.0, *)) {
-        UIImageSymbolConfiguration *cfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
-        [openButton setImage:[UIImage systemImageNamed:@"arrow.right" withConfiguration:cfg] forState:UIControlStateNormal];
-    }
+    UIImageSymbolConfiguration *openCfg = [UIImageSymbolConfiguration configurationWithPointSize:17 weight:UIImageSymbolWeightSemibold];
+    [openButton setImage:[UIImage systemImageNamed:@"arrow.right" withConfiguration:openCfg] forState:UIControlStateNormal];
     [openButton addTarget:self action:@selector(openButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     openButton.frame = CGRectMake(0, 0, 38, 38);
     openButton.layer.cornerRadius = 8.0;
     self.openButton = openButton;
 
     UIButton *fieldClearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    if (@available(iOS 13.0, *)) {
-        [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
-    }
+    [fieldClearButton setImage:[UIImage systemImageNamed:@"xmark.circle.fill"] forState:UIControlStateNormal];
     fieldClearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
     [fieldClearButton addTarget:self action:@selector(clearURLField) forControlEvents:UIControlEventTouchUpInside];
     fieldClearButton.frame = CGRectMake(0, 4, 30, 30);
@@ -155,12 +149,8 @@
 
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
     clearButton.translatesAutoresizingMaskIntoConstraints = NO;
-    if (@available(iOS 13.0, *)) {
-        UIImage *icon = [UIImage systemImageNamed:@"xmark.bin"] ?: [UIImage systemImageNamed:@"trash"];
-        [clearButton setImage:icon forState:UIControlStateNormal];
-    } else {
-        [clearButton setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
-    }
+    UIImage *clearIcon = [UIImage systemImageNamed:@"xmark.bin"] ?: [UIImage systemImageNamed:@"trash"];
+    [clearButton setImage:clearIcon forState:UIControlStateNormal];
     clearButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
     [clearButton addTarget:self action:@selector(emptyListAction:) forControlEvents:UIControlEventTouchUpInside];
     [root addSubview:clearButton];
@@ -168,11 +158,7 @@
 
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
     shareButton.translatesAutoresizingMaskIntoConstraints = NO;
-    if (@available(iOS 13.0, *)) {
-        [shareButton setImage:[UIImage systemImageNamed:@"square.and.arrow.up"] forState:UIControlStateNormal];
-    } else {
-        [shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    }
+    [shareButton setImage:[UIImage systemImageNamed:@"square.and.arrow.up"] forState:UIControlStateNormal];
     shareButton.accessibilityLabel = NSLocalizedString(@"SHARE_LABEL", nil);
     [shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
     [root addSubview:shareButton];
@@ -292,9 +278,7 @@
 
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
-    if (@available(iOS 10.0, *)) {
-        self.urlField.textContentType = UITextContentTypeURL;
-    }
+    self.urlField.textContentType = UITextContentTypeURL;
 
     if (@available(iOS 26.0, *)) {
     } else {
@@ -745,9 +729,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
         [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
         completionHandler(YES);
     }];
-    if (@available(iOS 13.0, *)) {
-        deleteAction.image = [UIImage systemImageNamed:@"trash"];
-    }
+    deleteAction.image = [UIImage systemImageNamed:@"trash"];
 
     UIContextualAction *renameAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                title:NSLocalizedString(@"BUTTON_RENAME", nil)
@@ -759,16 +741,14 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
         completionHandler(YES);
     }];
     renameAction.backgroundColor = PresentationTheme.current.colors.lightTextColor;
-    if (@available(iOS 13.0, *)) {
-        renameAction.image = [UIImage systemImageNamed:@"pencil"];
-    }
+    renameAction.image = [UIImage systemImageNamed:@"pencil"];
 
     return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, renameAction]];
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView
 contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
-                                    point:(CGPoint)point API_AVAILABLE(ios(13.0))
+                                    point:(CGPoint)point
 {
     return [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                     previewProvider:nil

@@ -34,9 +34,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
                                                  name:kVLCThemeDidChangeNotification object:nil];
     // If a tableViewCell is highlighted, one needs to manualy set the opaque property
-    if (@available(iOS 13.0, *)) {
-        self.opaque = NO;
-    }
+    self.opaque = NO;
     [self themeDidChange];
     [super awakeFromNib];
 }
@@ -49,11 +47,7 @@
     self.titleLabel.highlightedTextColor = colors.cellTextColor;
     self.subtitleLabel.highlightedTextColor = colors.cellDetailTextColor;
 
-    UIColor *backgroundColor = colors.background;
-
-    if (@available(iOS 13.0, *)) {
-        backgroundColor = UIColor.clearColor;
-    }
+    UIColor *backgroundColor = UIColor.clearColor;
 
     self.backgroundColor = backgroundColor;
     self.titleLabel.backgroundColor = backgroundColor;

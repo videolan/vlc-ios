@@ -33,9 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(tvOS 13.0, *)) {
-        self.navigationController.navigationBarHidden = YES;
-    }
+    self.navigationController.navigationBarHidden = YES;
 
     self.nothingFoundLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
 
@@ -46,9 +44,7 @@
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
     self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
-    if (@available(tvOS 10.0, *)) {
-        self.playURLField.textContentType = UITextContentTypeURL;
-    }
+    self.playURLField.textContentType = UITextContentTypeURL;
     self.emptyListButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];
