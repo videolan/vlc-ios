@@ -79,9 +79,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     _stripeController.delegate = self;
     _embargoedCountry = [_stripeController currentLocaleIsEmbargoed];
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
 
     [self.confettiView.widthAnchor constraintEqualToAnchor:self.contentScrollView.frameLayoutGuide.widthAnchor].active = YES;
 
@@ -106,22 +104,13 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     }
     [self showSelectedCurrency];
 
-    if (@available(iOS 14.0, *)) {
-        self.continueButton.role = UIButtonRolePrimary;
-        self.monthlyUpdateButton.role = UIButtonRolePrimary;
-        self.monthlyCancelButton.role = UIButtonRoleCancel;
-    }
+    self.continueButton.role = UIButtonRolePrimary;
+    self.monthlyUpdateButton.role = UIButtonRolePrimary;
+    self.monthlyCancelButton.role = UIButtonRoleCancel;
 
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
-    if (@available(iOS 13.0, *)) {
-        _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
-    } else {
-        _customAmountField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil)
-                                                                                   attributes:@{
-            NSForegroundColorAttributeName : PresentationTheme.current.colors.textfieldPlaceholderColor
-        }];
-    }
+    _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_customAmountField addKeyboardDismissAccessory];
 
     [_continueButton setTitle:NSLocalizedString(@"DONATION_CONTINUE", nil) forState:UIControlStateNormal];
@@ -615,21 +604,13 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     if ([PKPaymentAuthorizationViewController canMakePayments]) {
         [_paymentProviders addObject:@"Apple Pay"];
 
-        if (@available(iOS 10.2, *)) {
-            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
-        } else {
-            _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleBlack];
-        }
+        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
 
         _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
         /* This is a fake button, the action is handled by the containing collection view */
         _applePayButton.userInteractionEnabled = NO;
     }
-    /* we need to support credit card authentication via 3D Secure for which we depend on
-     * ASWebAuthenticationSession that was introduced in iOS 12 */
-    if (@available(iOS 12.0, *)) {
-        [_paymentProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
-    }
+    [_paymentProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
     /* SEPA is available in EU, EFTA and 4 microstates for some currencies, if we have a valid translation for the legal contract
      * As the UK is too complex after Brexit, it is ignored even SEPA is still supported with exceptions */
     if ([VLCSEPA isAvailable] && _selectedCurrency.supportsSEPA) {
@@ -764,16 +745,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     PKPaymentSummaryItem *summaryItem;
     NSNumber *amount = _selectedPrice ? _selectedPrice.amount : _selectedDonationAmount;
     if (_recurring) {
-        if (@available(iOS 15.0, *)) {
-            PKRecurringPaymentSummaryItem *summary = [PKRecurringPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
-                                                                                                  amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
-            summary.intervalUnit = NSCalendarUnitMonth;
-            summary.intervalCount = 1;
-            summaryItem = summary;
-        } else {
-            summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_MONTHLY_VIDEOLAN", "")
-                                                              amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
-        }
+        PKRecurringPaymentSummaryItem *summary = [PKRecurringPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
+                                                                                              amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
+        summary.intervalUnit = NSCalendarUnitMonth;
+        summary.intervalCount = 1;
+        summaryItem = summary;
     } else {
         summaryItem = [PKPaymentSummaryItem summaryItemWithLabel:NSLocalizedString(@"DONATION_VIDEOLAN", "")
                                                           amount:[NSDecimalNumber decimalNumberWithDecimal:[amount decimalValue]]];
@@ -785,11 +761,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
     paymentRequest.paymentSummaryItems = @[summaryItem];
     paymentRequest.currencyCode = _selectedCurrency.isoCode;
-    if (@available(iOS 12.0, *)) {
-        paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex, PKPaymentNetworkMaestro];
-    } else {
-        paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex];
-    }
+    paymentRequest.supportedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover, PKPaymentNetworkAmex, PKPaymentNetworkMaestro];
 
     PKPaymentAuthorizationViewController *paymentAuthorizationViewController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
 
