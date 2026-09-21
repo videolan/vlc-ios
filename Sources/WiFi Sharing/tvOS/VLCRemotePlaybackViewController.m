@@ -82,9 +82,7 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      _searchBar.delegate = self;
      _didBeginSearching = NO;
 
-     if (@available(tvOS 13.0, *)) {
-          self.navigationController.navigationBarHidden = YES;
-     }
+     self.navigationController.navigationBarHidden = YES;
 
      UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
      const CGFloat inset = 50.;
