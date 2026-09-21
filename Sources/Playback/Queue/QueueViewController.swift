@@ -228,9 +228,7 @@ class QueueViewController: UIViewController {
             parent.view.addSubview(view)
 
             let safeArea = miniPlayerView?.safeAreaLayoutGuide ?? parent.view.safeAreaLayoutGuide
-            if #available(iOS 13.0, *) {
-                view.overrideUserInterfaceStyle = playerDisplayController != nil ? .unspecified : .dark
-            }
+            view.overrideUserInterfaceStyle = playerDisplayController != nil ? .unspecified : .dark
             configureAppearance()
 
             constraints = [
@@ -400,12 +398,7 @@ private extension QueueViewController {
     private func initViews() {
         Bundle.main.loadNibNamed("QueueView", owner: self, options: nil)
 
-        if #available(iOS 13, *) {
-            view.backgroundColor = .clear
-        } else {
-            view.backgroundColor = PresentationTheme.darkTheme.colors.background
-            grabberView.backgroundColor = PresentationTheme.darkTheme.colors.background
-        }
+        view.backgroundColor = .clear
 
         view.translatesAutoresizingMaskIntoConstraints = false
         initDarkOverlayView()
@@ -486,13 +479,8 @@ private extension QueueViewController {
         cell.sizeDescriptionLabel.textColor = detailTextColor
         cell.dragIndicatorImageView.tintColor = detailTextColor
 
-        if #available(iOS 13, *) {
-            cell.titleLabel.backgroundColor = .clear
-            cell.sizeDescriptionLabel.backgroundColor = .clear
-        } else {
-            cell.titleLabel.backgroundColor = PresentationTheme.darkTheme.colors.background
-            cell.sizeDescriptionLabel.backgroundColor = PresentationTheme.darkTheme.colors.background
-        }
+        cell.titleLabel.backgroundColor = .clear
+        cell.sizeDescriptionLabel.backgroundColor = .clear
     }
 
     @objc private func handleLongPress(gesture: UILongPressGestureRecognizer) {
