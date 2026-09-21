@@ -72,9 +72,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                         owner: nil,
                                                         options: nil)?.first as! VideoFiltersView
         videoFiltersView.frame = offScreenFrame
-        if #available(iOS 13.0, *) {
-            videoFiltersView.overrideUserInterfaceStyle = .dark
-        }
+        videoFiltersView.overrideUserInterfaceStyle = .dark
         videoFiltersView.delegate = self
         return videoFiltersView
     }()
@@ -85,9 +83,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                          options: nil)?.first as! PlaybackSpeedView
 
         playbackSpeedView.frame = offScreenFrame
-        if #available(iOS 13.0, *) {
-            playbackSpeedView.overrideUserInterfaceStyle = .dark
-        }
+        playbackSpeedView.overrideUserInterfaceStyle = .dark
         playbackSpeedView.delegate = self
         playbackSpeedView.setupShortcutView()
         return playbackSpeedView
@@ -97,18 +93,14 @@ protocol MediaMoreOptionsActionSheetDelegate {
         let nib = UINib(nibName: "SleepTimerView", bundle: nil)
         let sleepTimerView = nib.instantiate(withOwner: nil, options: nil).first as! SleepTimerView
         sleepTimerView.frame = offScreenFrame
-        if #available(iOS 13.0, *) {
-            sleepTimerView.overrideUserInterfaceStyle = .dark
-        }
+        sleepTimerView.overrideUserInterfaceStyle = .dark
         sleepTimerView.delegate = self
         return sleepTimerView
     }()
 
     private lazy var equalizerView: EqualizerView = {
         let equalizerView = EqualizerView()
-        if #available(iOS 13.0, *) {
-            equalizerView.overrideUserInterfaceStyle = .dark
-        }
+        equalizerView.overrideUserInterfaceStyle = .dark
 
         guard let playbackService = PlaybackService.sharedInstance() as? EqualizerViewDelegate else {
             preconditionFailure("PlaybackService should be EqualizerViewDelegate.")
@@ -120,18 +112,14 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     private lazy var chapterView: ChapterView = {
         let chapterView = ChapterView.init(frame: offScreenFrame)
-        if #available(iOS 13.0, *) {
-            chapterView.overrideUserInterfaceStyle = .dark
-        }
+        chapterView.overrideUserInterfaceStyle = .dark
         chapterView.delegate = self
         return chapterView
     }()
 
     private lazy var bookmarksView: BookmarksView = {
         let bookmarksView = BookmarksView(frame: offScreenFrame)
-        if #available(iOS 13.0, *) {
-            bookmarksView.overrideUserInterfaceStyle = .dark
-        }
+        bookmarksView.overrideUserInterfaceStyle = .dark
         bookmarksView.delegate = self
         return bookmarksView
     }()
@@ -310,9 +298,7 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
 
     func sleepTimerViewShowAlert(message: String, seconds: Double) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        if #available(iOS 13.0, *) {
-            alert.view.overrideUserInterfaceStyle = .dark
-        }
+        alert.view.overrideUserInterfaceStyle = .dark
         alert.view.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         alert.view.layer.cornerRadius = 15
 

@@ -53,12 +53,8 @@ class TrackSelectorViewController: UIViewController {
 
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .system)
-        if #available(iOS 13.0, *) {
-            let config = UIImage.SymbolConfiguration(pointSize: 26)
-            button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
-        } else {
-            button.setImage(UIImage(named: "close")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
+        let config = UIImage.SymbolConfiguration(pointSize: 26)
+        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
         button.tintColor = PresentationTheme.currentExcludingWhite.colors.overlaySecondaryTextColor
         button.accessibilityLabel = NSLocalizedString("BUTTON_CLOSE", comment: "")
         button.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
@@ -138,9 +134,7 @@ class TrackSelectorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .dark
-        }
+        overrideUserInterfaceStyle = .dark
         setupLayout()
         rebuildData()
         dualSubtitleMode = playbackService.indexOfCurrentSecondaryVideoSubtitleTrack >= 0
@@ -177,12 +171,7 @@ class TrackSelectorViewController: UIViewController {
     }
 
     private func updateCloseButtonVisibility() {
-        let shouldShow: Bool
-        if #available(iOS 13.0, *) {
-            shouldShow = (traitCollection.verticalSizeClass == .compact)
-        } else {
-            shouldShow = true
-        }
+        let shouldShow = (traitCollection.verticalSizeClass == .compact)
 
         guard shouldShow == closeButton.isHidden else {
             return
@@ -252,23 +241,16 @@ class TrackSelectorViewController: UIViewController {
 
     private func configureSheetPresentation() {
 #if !os(visionOS)
-        if #available(iOS 15.0, *) {
-            modalPresentationStyle = .pageSheet
-            if let sheet = sheetPresentationController {
-                if #available(iOS 16.0, *) {
-                    sheet.detents = [contentDetent(), .large()]
-                } else {
-                    sheet.detents = [.medium(), .large()]
-                }
-                sheet.prefersGrabberVisible = true
-                sheet.preferredCornerRadius = 30
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+        modalPresentationStyle = .pageSheet
+        if let sheet = sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                sheet.detents = [contentDetent(), .large()]
+            } else {
+                sheet.detents = [.medium(), .large()]
             }
-        } else if #available(iOS 13.0, *) {
-            // The native card sheet is swipe-to-dismiss out of the box.
-            modalPresentationStyle = .pageSheet
-        } else {
-            modalPresentationStyle = .formSheet
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
 #else
         modalPresentationStyle = .pageSheet
@@ -541,13 +523,7 @@ class TrackSelectorViewController: UIViewController {
         }
 #endif
 
-        let style: UIBlurEffect.Style
-        if #available(iOS 13.0, *) {
-            style = .systemChromeMaterialDark
-        } else {
-            style = .dark
-        }
-        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+        return UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
     }
 
     @objc private func reduceTransparencyChanged() {

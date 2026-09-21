@@ -201,9 +201,7 @@ class MediaPlayerActionSheet: ActionSheet {
     }
 
     func setTheme() {
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .dark
-        }
+        overrideUserInterfaceStyle = .dark
         collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         collectionView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         headerView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
