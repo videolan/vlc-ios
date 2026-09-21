@@ -836,9 +836,7 @@ extension PodcastStore: MediaLibraryObserver {
             guard let self = self, self.automaticDownloadsEnabled else {
                 return
             }
-            if #available(iOS 13.0, *) {
-                PodcastBackgroundRefresher.sharedInstance().scheduleDownloadTask()
-            }
+            PodcastBackgroundRefresher.sharedInstance().scheduleDownloadTask()
             guard UIApplication.shared.applicationState == .active else {
                 return
             }

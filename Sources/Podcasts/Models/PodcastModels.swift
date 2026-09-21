@@ -258,24 +258,22 @@ enum PodcastNotes {
         let range = NSRange(location: 0, length: attributedNotes.length)
         let bodyFont = UIFont.preferredCustomFont(forTextStyle: .callout)
 
-        if #available(iOS 15.0, *) {
-            attributedNotes.enumerateAttribute(.inlinePresentationIntent, in: range, options: []) { value, subrange, _ in
-                guard let rawValue = (value as? NSNumber)?.uintValue else {
-                    return
-                }
-                let intent = InlinePresentationIntent(rawValue: rawValue)
-                var traits: UIFontDescriptor.SymbolicTraits = []
-                if intent.contains(.stronglyEmphasized) {
-                    traits.insert(.traitBold)
-                }
-                if intent.contains(.emphasized) {
-                    traits.insert(.traitItalic)
-                }
-                guard let descriptor = bodyFont.fontDescriptor.withSymbolicTraits(traits) else {
-                    return
-                }
-                attributedNotes.addAttribute(.font, value: UIFont(descriptor: descriptor, size: 0), range: subrange)
+        attributedNotes.enumerateAttribute(.inlinePresentationIntent, in: range, options: []) { value, subrange, _ in
+            guard let rawValue = (value as? NSNumber)?.uintValue else {
+                return
             }
+            let intent = InlinePresentationIntent(rawValue: rawValue)
+            var traits: UIFontDescriptor.SymbolicTraits = []
+            if intent.contains(.stronglyEmphasized) {
+                traits.insert(.traitBold)
+            }
+            if intent.contains(.emphasized) {
+                traits.insert(.traitItalic)
+            }
+            guard let descriptor = bodyFont.fontDescriptor.withSymbolicTraits(traits) else {
+                return
+            }
+            attributedNotes.addAttribute(.font, value: UIFont(descriptor: descriptor, size: 0), range: subrange)
         }
 
         attributedNotes.enumerateAttribute(.font, in: range, options: []) { value, subrange, _ in
@@ -307,10 +305,6 @@ enum PodcastNotes {
                                                                .characterEncoding: String.Encoding.utf8.rawValue],
                                                      documentAttributes: nil) {
             return html
-        }
-
-        guard #available(iOS 15.0, *) else {
-            return NSMutableAttributedString(string: notes)
         }
 
         let options = AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
