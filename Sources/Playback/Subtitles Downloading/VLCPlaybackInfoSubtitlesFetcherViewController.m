@@ -63,13 +63,11 @@
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-        self.navigationItem.largeTitleDisplayMode = NO;
-        
-        // Setup search controller
-        [self setupSearchController];
-    }
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
+    self.navigationItem.largeTitleDisplayMode = NO;
+
+    // Setup search controller
+    [self setupSearchController];
 #endif
 
     self.osoFetcher = [[VLCOSOFetcher alloc] init];
@@ -177,7 +175,7 @@
     self.navigationItem.rightBarButtonItem = doneButton;
 }
 
-- (void)setupSearchController API_AVAILABLE(ios(11))
+- (void)setupSearchController
 {
     self.searchController = [[UISearchController alloc] init];
     self.searchController.hidesNavigationBarDuringPresentation = NO;
@@ -218,15 +216,7 @@
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
     [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-#if TARGET_OS_VISION
     self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
-#else
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
-    } else {
-        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    }
-#endif
 
     self.activityIndicatorView.color = [UIColor lightGrayColor];
     self.activityIndicatorView.hidesWhenStopped = YES;
@@ -265,16 +255,14 @@
 
     /* the event handler in TabBarCoordinator cannot listen to the system because the movie view controller blocks the event
      * Therefore, we need to check the current theme ourselves */
-    if (@available(iOS 13.0, *)) {
-        if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
-            return;
-        }
-
-        if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
-            [PresentationTheme themeDidUpdate];
-        }
-        [self themeDidChange];
+    if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
+        return;
     }
+
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
+        [PresentationTheme themeDidUpdate];
+    }
+    [self themeDidChange];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
