@@ -1818,12 +1818,10 @@ extension PlayerViewController {
             commands.append(resetSpeed)
         }
 
-        if #available(iOS 15, *) {
-            commands.forEach {
-                if $0.input == UIKeyCommand.inputRightArrow
-                    || $0.input == UIKeyCommand.inputLeftArrow {
-                    $0.wantsPriorityOverSystemBehavior = true
-                }
+        commands.forEach {
+            if $0.input == UIKeyCommand.inputRightArrow
+                || $0.input == UIKeyCommand.inputLeftArrow {
+                $0.wantsPriorityOverSystemBehavior = true
             }
         }
 

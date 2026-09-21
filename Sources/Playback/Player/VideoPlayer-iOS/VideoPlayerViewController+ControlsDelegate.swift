@@ -63,11 +63,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
 
 #if os(iOS)
     var currentInterfaceOrientation: UIInterfaceOrientation {
-        if #available(iOS 13.0, *), let orientation = view.window?.windowScene?.interfaceOrientation {
-            return orientation
-        }
-
-        return UIApplication.shared.statusBarOrientation
+        return view.window?.windowScene?.interfaceOrientation ?? .unknown
     }
 
     func videoPlayerControlsDelegateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls) {

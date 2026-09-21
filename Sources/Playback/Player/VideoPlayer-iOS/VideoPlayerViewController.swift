@@ -113,13 +113,8 @@ class VideoPlayerViewController: PlayerViewController {
         if isIPad {
             videoPlayerControls.rotationLockButton.isHidden = true
         } else {
-            var image: UIImage?
-            if #available(iOS 13.0, *) {
-                let largeConfig = UIImage.SymbolConfiguration(scale: .large)
-                image = UIImage(systemName: "lock.rotation")?.withConfiguration(largeConfig)
-            } else {
-                image = UIImage(named: "lock.rotation")?.withRenderingMode(.alwaysTemplate)
-            }
+            let largeConfig = UIImage.SymbolConfiguration(scale: .large)
+            let image = UIImage(systemName: "lock.rotation")?.withConfiguration(largeConfig)
             videoPlayerControls.rotationLockButton.setImage(image, for: .normal)
             videoPlayerControls.rotationLockButton.tintColor = .white
         }
@@ -182,9 +177,7 @@ class VideoPlayerViewController: PlayerViewController {
         videoOutputView.isUserInteractionEnabled = false
         videoOutputView.translatesAutoresizingMaskIntoConstraints = false
 
-        if #available(iOS 11.0, *) {
-            videoOutputView.accessibilityIgnoresInvertColors = true
-        }
+        videoOutputView.accessibilityIgnoresInvertColors = true
         videoOutputView.accessibilityIdentifier = "Video Player Title"
         videoOutputView.accessibilityLabel = NSLocalizedString("VO_VIDEOPLAYER_TITLE",
                                                                comment: "")
@@ -434,9 +427,7 @@ class VideoPlayerViewController: PlayerViewController {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
 #if os(iOS)
-        if #available(iOS 15.0, *) {
-            mediaNavigationBar.addPictureInPictureButton()
-        }
+        mediaNavigationBar.addPictureInPictureButton()
 #endif
         videoPlayerButtons()
         if playerController.isRememberStateEnabled {
@@ -1146,9 +1137,7 @@ class VideoPlayerViewController: PlayerViewController {
             videoOutputView.frame = view.frame
             // Adjust constraint for local display
             setupVideoOutputConstraints()
-            if #available(iOS 11.0, *) {
-                adaptVideoOutputToNotch()
-            }
+            adaptVideoOutputToNotch()
         }
     }
 
