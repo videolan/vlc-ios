@@ -67,11 +67,7 @@
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.tintColor = PresentationTheme.current.colors.orangeUI;
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    if (@available(iOS 10, *)) {
-        self.tableView.refreshControl = _refreshControl;
-    } else {
-        [self.tableView addSubview:_refreshControl];
-    }
+    self.tableView.refreshControl = _refreshControl;
 
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -178,21 +174,18 @@
 
 - (UIBarButtonItem *)sortBarButtonItem
 {
-    if (@available(iOS 14.0, *)) {
-        if (![self sortableBrowser]) {
-            return nil;
-        }
-        if (!_sortBarButtonItem) {
-            _sortBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.up.arrow.down"]
-                                                                   menu:[self sortMenu]];
-            _sortBarButtonItem.accessibilityLabel = NSLocalizedString(@"SORT", nil);
-        }
-        return _sortBarButtonItem;
+    if (![self sortableBrowser]) {
+        return nil;
     }
-    return nil;
+    if (!_sortBarButtonItem) {
+        _sortBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"arrow.up.arrow.down"]
+                                                               menu:[self sortMenu]];
+        _sortBarButtonItem.accessibilityLabel = NSLocalizedString(@"SORT", nil);
+    }
+    return _sortBarButtonItem;
 }
 
-- (UIMenu *)sortMenu API_AVAILABLE(ios(14.0))
+- (UIMenu *)sortMenu
 {
     NSArray<UIAction *> *actions = @[
         [self sortActionForCriteria:VLCMediaListSortCriteriaDefault title:NSLocalizedString(@"DEFAULT", nil)],
@@ -203,7 +196,7 @@
     return [UIMenu menuWithTitle:NSLocalizedString(@"SORT_BY", nil) children:actions];
 }
 
-- (UIAction *)sortActionForCriteria:(VLCMediaListSortCriteria)criteria title:(NSString *)title API_AVAILABLE(ios(14.0))
+- (UIAction *)sortActionForCriteria:(VLCMediaListSortCriteria)criteria title:(NSString *)title
 {
     VLCNetworkServerBrowserVLCMedia *browser = [self sortableBrowser];
     BOOL active = browser.sortCriteria == criteria;
@@ -222,7 +215,7 @@
     return action;
 }
 
-- (void)applySortCriteria:(VLCMediaListSortCriteria)criteria API_AVAILABLE(ios(14.0))
+- (void)applySortCriteria:(VLCMediaListSortCriteria)criteria
 {
     VLCNetworkServerBrowserVLCMedia *browser = [self sortableBrowser];
     if (!browser) {
@@ -399,15 +392,13 @@
         completionHandler(YES);
     }];
     favoriteAction.backgroundColor = PresentationTheme.current.colors.orangeUI;
-    if (@available(iOS 13.0, *)) {
-        favoriteAction.image = [UIImage systemImageNamed:isFavorite ? @"heart.slash" : @"heart.fill"];
-    }
+    favoriteAction.image = [UIImage systemImageNamed:isFavorite ? @"heart.slash" : @"heart.fill"];
 
     return [UISwipeActionsConfiguration configurationWithActions:@[favoriteAction]];
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point
-API_AVAILABLE(ios(13.0)) {
+{
     VLCNetworkListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     if (!cell || !cell.isFavorable) {

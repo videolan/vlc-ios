@@ -41,9 +41,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
                                                  name:kVLCThemeDidChangeNotification object:nil];
     // If a tableViewCell is highlighted, one needs to manualy set the opaque property
-    if (@available(iOS 13.0, *)) {
-        self.opaque = NO;
-    }
+    self.opaque = NO;
     [self themeDidChange];
     [super awakeFromNib];
 }
@@ -57,11 +55,7 @@
     self.subtitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellDetailTextColor;
     self.folderTitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
 
-    UIColor *backgroundColor = PresentationTheme.current.colors.background;
-
-    if (@available(iOS 13.0, *)) {
-        backgroundColor = UIColor.clearColor;
-    }
+    UIColor *backgroundColor = UIColor.clearColor;
 
     self.backgroundColor = backgroundColor;
     self.titleLabel.backgroundColor = backgroundColor;
@@ -120,17 +114,10 @@
 
 - (void)setIsFavorite:(BOOL)isFavorite
 {
-    if (@available(iOS 13.0, *)) {
-        // Display the favorite button only if the folder is marked as favorite
-        _favoriteButton.hidden = !isFavorite;
-        [_favoriteButton setImage:[UIImage systemImageNamed:isFavorite ? @"heart.fill" : @"heart"]
-                         forState:UIControlStateNormal];
-    } else {
-        // The contextual menu is not available so the favorite button is always displayed when available.
-        _favoriteButton.hidden = !_isFavorable;
-        UIImage *icon = isFavorite ? [UIImage imageNamed:@"heart-fill"] : [UIImage imageNamed:@"heart"];
-        [_favoriteButton setImage:icon forState:UIControlStateNormal];
-    }
+    // Display the favorite button only if the folder is marked as favorite
+    _favoriteButton.hidden = !isFavorite;
+    [_favoriteButton setImage:[UIImage systemImageNamed:isFavorite ? @"heart.fill" : @"heart"]
+                     forState:UIControlStateNormal];
 
     _isFavorite = isFavorite;
 }

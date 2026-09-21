@@ -92,11 +92,7 @@
 - (UIImage *)streamImage
 {
     if (!_streamImage) {
-        if (@available(iOS 13.0, tvOS 13.0, *)) {
-            _streamImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
-        } else {
-            _streamImage = self.genericFileImage;
-        }
+        _streamImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
     }
 
     return _streamImage;

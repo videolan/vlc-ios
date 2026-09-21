@@ -83,11 +83,7 @@
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
 
-    if (@available(tvOS 13.0, *)) {
-         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-     } else {
-         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-     }
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
     _activityIndicator.center = self.view.center;
     _activityIndicator.color = PresentationTheme.current.colors.orangeUI;
     _activityIndicator.color = [UIColor orangeColor];
