@@ -63,12 +63,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     if (self) {
         self.title = NSLocalizedString(@"ONAIR", nil);
 
-        UIImage *tabImage;
-        if (@available(iOS 13.0, *)) {
-            tabImage = [UIImage systemImageNamed:@"dot.radiowaves.right"];
-        } else {
-            tabImage = [UIImage imageNamed:@"Network"];
-        }
+        UIImage *tabImage = [UIImage systemImageNamed:@"dot.radiowaves.right"];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"ONAIR", nil)
                                                         image:tabImage
                                                 selectedImage:tabImage];
@@ -89,9 +84,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.estimatedRowHeight = 96.0;
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
-    if (@available(iOS 15.0, *)) {
-        _tableView.sectionHeaderTopPadding = 0.0;
-    }
+    _tableView.sectionHeaderTopPadding = 0.0;
 
     [_tableView registerClass:[VLCOnAirContinueCell class]
        forCellReuseIdentifier:VLCOnAirContinueCell.reuseIdentifier];
@@ -363,14 +356,10 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         return nil;
     }
 
-    if (@available(iOS 13.0, *)) {
-        NSRelativeDateTimeFormatter *formatter = [[NSRelativeDateTimeFormatter alloc] init];
-        formatter.dateTimeStyle = NSRelativeDateTimeFormatterStyleNamed;
-        NSString *relative = [formatter localizedStringForDate:playedDate relativeToDate:[NSDate date]];
-        return [NSString stringWithFormat:NSLocalizedString(@"ONAIR_CONTINUE_PAUSED", nil), relative];
-    }
-
-    return nil;
+    NSRelativeDateTimeFormatter *formatter = [[NSRelativeDateTimeFormatter alloc] init];
+    formatter.dateTimeStyle = NSRelativeDateTimeFormatterStyleNamed;
+    NSString *relative = [formatter localizedStringForDate:playedDate relativeToDate:[NSDate date]];
+    return [NSString stringWithFormat:NSLocalizedString(@"ONAIR_CONTINUE_PAUSED", nil), relative];
 }
 
 - (void)updateTableHeaderView
@@ -584,23 +573,16 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (UIImage *)glyphForSection:(VLCOnAirSection)section
 {
-    if (@available(iOS 13.0, *)) {
-        switch (section) {
-            case VLCOnAirSectionRadio:
-                if (@available(iOS 14.0, *)) {
-                    return [UIImage systemImageNamed:@"radio"];
-                }
-                return [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
-            case VLCOnAirSectionPodcasts:
-                return [UIImage systemImageNamed:@"dot.radiowaves.left.and.right"];
-            case VLCOnAirSectionTV:
-                return [UIImage systemImageNamed:@"tv"];
-            default:
-                return nil;
-        }
+    switch (section) {
+        case VLCOnAirSectionRadio:
+            return [UIImage systemImageNamed:@"radio"];
+        case VLCOnAirSectionPodcasts:
+            return [UIImage systemImageNamed:@"dot.radiowaves.left.and.right"];
+        case VLCOnAirSectionTV:
+            return [UIImage systemImageNamed:@"tv"];
+        default:
+            return nil;
     }
-
-    return nil;
 }
 
 #pragma mark - table view delegate
