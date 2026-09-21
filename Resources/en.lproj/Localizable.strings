@@ -933,3 +933,10 @@
 "DISCOVER_LABEL" = "Discover";
 "RECENTS" = "Recents";
 
+
+// MARK: - Media library corruption
+"MEDIALIBRARY_CORRUPTION_TITLE" = "Media Library damaged";
+"MEDIALIBRARY_CORRUPTION_MESSAGE" = "VLC needs to rebuild its media library due to corruption. Playlists and playback positions may be lost. Send us the damaged database, which includes the names of your media and playlists, so we can find out why?";
+"MEDIALIBRARY_CORRUPTION_SEND" = "Send Report";
+"MEDIALIBRARY_CORRUPTION_DISMISS" = "Don't Send";
+"MEDIALIBRARY_CORRUPTION_EMAIL_TITLE" = "Damaged media library database";
