@@ -139,7 +139,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
         }
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
+        rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems()
 
         var mediaCategoryViewController: UIViewController = self
         if navigationController?.viewControllers.last is ArtistViewController {
@@ -173,7 +173,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
     }
 
-    private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
+    private func rightBarButtonItems() -> [UIBarButtonItem] {
         var rightBarButtonItems: [UIBarButtonItem] = [menuButton]
 
 #if os(iOS)
