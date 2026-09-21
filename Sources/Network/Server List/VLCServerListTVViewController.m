@@ -79,9 +79,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(tvOS 13.0, *)) {
-        self.navigationController.navigationBarHidden = YES;
-    }
+    self.navigationController.navigationBarHidden = YES;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
@@ -315,18 +313,14 @@
         textField.placeholder = NSLocalizedString(@"USER_LABEL", nil);
         textField.text = login.username;
         usernameField = textField;
-        if (@available(tvOS 11.0, *)) {
-            usernameField.textContentType = UITextContentTypeUsername;
-        }
+        usernameField.textContentType = UITextContentTypeUsername;
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.secureTextEntry = YES;
         textField.placeholder = NSLocalizedString(@"PASSWORD_LABEL", nil);
         textField.text = login.password;
         passwordField = textField;
-        if (@available(tvOS 11.0, *)) {
-            passwordField.textContentType = UITextContentTypePassword;
-        }
+        passwordField.textContentType = UITextContentTypePassword;
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedString(@"SERVER_PORT", nil);

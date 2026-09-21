@@ -12,7 +12,6 @@
 
 #import <Foundation/Foundation.h>
 
-API_AVAILABLE(ios(14.0))
 @interface VLCPhotoLibraryController : NSObject
 
 - (void)showPhotoLibraryPicker:(id)sender;

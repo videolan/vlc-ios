@@ -151,9 +151,7 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     [chips addObject:@(VLCBrowseChipLocalFiles)];
 #if TARGET_OS_IOS
-    if (@available(iOS 14.0, *)) {
-        [chips addObject:@(VLCBrowseChipPhotos)];
-    }
+    [chips addObject:@(VLCBrowseChipPhotos)];
     [chips addObject:@(VLCBrowseChipCloud)];
 #endif
     [chips addObject:@(VLCBrowseChipNetworkStream)];
@@ -280,16 +278,14 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     /* the event handler in TabBarCoordinator cannot listen to the system because the movie view controller blocks the event
      * Therefore, we need to check the current theme ourselves */
-    if (@available(iOS 13.0, *)) {
-        if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
-            return;
-        }
-
-        if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
-            [PresentationTheme themeDidUpdate];
-        }
-        [self themeDidChange];
+    if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
+        return;
     }
+
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
+        [PresentationTheme themeDidUpdate];
+    }
+    [self themeDidChange];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -908,10 +904,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
         case VLCBrowseChipLocalFiles:
             return [UIImage imageNamed:@"homeLocalFiles"];
         case VLCBrowseChipPhotos:
-            if (@available(iOS 13.0, *)) {
-                return [UIImage systemImageNamed:@"photo.on.rectangle"];
-            }
-            return nil;
+            return [UIImage systemImageNamed:@"photo.on.rectangle"];
         case VLCBrowseChipCloud:
             return [UIImage imageNamed:@"iCloudIcon"];
         case VLCBrowseChipNetworkStream:
@@ -954,13 +947,12 @@ referenceSizeForHeaderInSection:(NSInteger)section
             [[VLCDocumentPickerController new] presentFromViewController:self initialDirectory:nil];
             break;
 #if TARGET_OS_IOS
-        case VLCBrowseChipPhotos:
-            if (@available(iOS 14.0, *)) {
-                VLCPhotoLibraryController *controller = [[VLCPhotoLibraryController alloc] init];
-                _photoLibraryController = controller;
-                [controller showPhotoLibraryPicker:[_collectionView cellForItemAtIndexPath:indexPath]];
-            }
+        case VLCBrowseChipPhotos: {
+            VLCPhotoLibraryController *controller = [[VLCPhotoLibraryController alloc] init];
+            _photoLibraryController = controller;
+            [controller showPhotoLibraryPicker:[_collectionView cellForItemAtIndexPath:indexPath]];
             break;
+        }
         case VLCBrowseChipCloud:
             [self pushViewController:[[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController"
                                                                                            bundle:[NSBundle mainBundle]]];
@@ -1133,7 +1125,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
     self.navigationController.view.backgroundColor = PresentationTheme.current.colors.pageBackground;
 
     if (@available(iOS 26.0, *)) {
-    } else if (@available(iOS 13.0, *)) {
+    } else {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;

@@ -59,15 +59,10 @@ static CGFloat const kVLCBrowseHeaderButtonSide = 44.0;
     _addButton.translatesAutoresizingMaskIntoConstraints = NO;
     _addButton.hidden = YES;
     _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    if (@available(iOS 13.0, *)) {
-        UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:20.0
-                                                                                                         weight:UIImageSymbolWeightSemibold];
-        [_addButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
-        [_addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
-    } else {
-        [_addButton setTitle:@"+" forState:UIControlStateNormal];
-        _addButton.titleLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightMedium];
-    }
+    UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:20.0
+                                                                                                     weight:UIImageSymbolWeightSemibold];
+    [_addButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
+    [_addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
     _addButton.accessibilityLabel = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
     [_addButton addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_addButton];

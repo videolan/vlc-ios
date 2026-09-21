@@ -137,9 +137,7 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
         copyGlyph.translatesAutoresizingMaskIntoConstraints = NO;
         copyGlyph.contentMode = UIViewContentModeScaleAspectFit;
         copyGlyph.tintColor = themeColors.orangeUI;
-        if (@available(iOS 13.0, *)) {
-            copyGlyph.image = [UIImage systemImageNamed:@"doc.on.doc"];
-        }
+        copyGlyph.image = [UIImage systemImageNamed:@"doc.on.doc"];
         [row addSubview:copyGlyph];
 
         row.isAccessibilityElement = YES;
@@ -177,11 +175,7 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
 
 - (UIFont *)addressFont
 {
-    if (@available(iOS 13.0, *)) {
-        return [UIFont monospacedSystemFontOfSize:14.0 weight:UIFontWeightSemibold];
-    }
-
-    return [UIFont fontWithName:@"Menlo-Bold" size:14.0];
+    return [UIFont monospacedSystemFontOfSize:14.0 weight:UIFontWeightSemibold];
 }
 
 - (NSString *)displayStringForAddress:(NSString *)address

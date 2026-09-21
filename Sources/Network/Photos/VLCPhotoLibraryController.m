@@ -15,7 +15,6 @@
 #import <PhotosUI/PhotosUI.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-API_AVAILABLE(ios(14.0))
 @interface VLCPhotoLibraryController () <PHPickerViewControllerDelegate>
 
 @end
