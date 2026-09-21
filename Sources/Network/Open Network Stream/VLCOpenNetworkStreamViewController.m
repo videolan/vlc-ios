@@ -521,9 +521,7 @@
                                                          handler:nil];
     [alertController addAction:cancelAction];
 
-    if ([alertController respondsToSelector:@selector(setPreferredAction:)]) {
-        [alertController setPreferredAction:deleteAction];
-    }
+    [alertController setPreferredAction:deleteAction];
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
