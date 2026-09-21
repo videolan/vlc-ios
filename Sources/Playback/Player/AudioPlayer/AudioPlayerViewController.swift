@@ -540,10 +540,6 @@ extension AudioPlayerViewController {
 
 #if os(iOS)
     func updateWidgetsIfNeeded() {
-        guard #available(iOS 14.0, *) else {
-            return
-        }
-
         let widgetCenter = WidgetCenter.shared
         widgetCenter.getCurrentConfigurations({ result in
             switch result {
