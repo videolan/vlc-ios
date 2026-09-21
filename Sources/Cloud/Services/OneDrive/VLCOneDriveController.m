@@ -80,18 +80,11 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 {
     _presentingViewController = presentingViewController;
 
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setPrefersLargeTitles:NO];
-    }
+    [[UINavigationBar appearance] setPrefersLargeTitles:NO];
 
     [ODClient authenticatedClientWithCompletion:^(ODClient *client, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (@available(iOS 11.0, *)) {
-                [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
-            }
-            if (@available(iOS 13.0, *)) {
-                [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
-            }
+            [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         });
         if (error) {
             [self authFailed:error];
