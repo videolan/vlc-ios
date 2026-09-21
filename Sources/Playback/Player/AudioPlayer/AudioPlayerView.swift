@@ -210,15 +210,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
 #if os(iOS)
     private var currentScreen: UIScreen? {
-        guard let window = window else {
-            return nil
-        }
-
-        if #available(iOS 13.0, *), let screen = window.windowScene?.screen {
-            return screen
-        }
-
-        return window.screen
+        return window?.windowScene?.screen
     }
 #endif
 

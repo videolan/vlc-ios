@@ -908,15 +908,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func screenForCurrentWindow() -> UIScreen? {
-        guard let window = view.window else {
-            return nil
-        }
-
-        if #available(iOS 13.0, *), let screen = window.windowScene?.screen {
-            return screen
-        }
-
-        return window.screen
+        return view.window?.windowScene?.screen
     }
 
     func animateBrightness(to value: CGFloat, duration: CGFloat = 0.3) {
