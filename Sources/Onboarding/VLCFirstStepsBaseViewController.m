@@ -31,12 +31,8 @@
 {
     [super viewDidLoad];
 
-    if (@available(iOS 11.0, *)) {
-        UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleLargeTitle];
-        self.pageTitleLabel.font = [UIFont systemFontOfSize:titleFont.pointSize weight:UIFontWeightBold];
-    } else {
-        self.pageTitleLabel.font = [UIFont systemFontOfSize:17. weight:UIFontWeightSemibold];
-    }
+    UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleLargeTitle];
+    self.pageTitleLabel.font = [UIFont systemFontOfSize:titleFont.pointSize weight:UIFontWeightBold];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [self setupPage];
@@ -87,10 +83,7 @@
     [bottom removeFromSuperview];
     [self.view addSubview:bottom];
 
-    id<VLCLayoutAnchorContainer> guide = self.view;
-    if (@available(iOS 11.0, *)) {
-        guide = self.view.safeAreaLayoutGuide;
-    }
+    UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
 
     [NSLayoutConstraint deactivateConstraints: self.labelHeightConstraints];
     [NSLayoutConstraint activateConstraints: self.isCompactHeight ? @[

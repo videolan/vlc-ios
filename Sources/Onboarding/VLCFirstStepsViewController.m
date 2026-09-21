@@ -78,11 +78,9 @@
 - (void)updateTheme
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
-    if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
-    }
+    UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
+    self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+    self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -141,9 +139,7 @@
 
 - (void)setupNavigationBar
 {
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
 }
 
 @end
