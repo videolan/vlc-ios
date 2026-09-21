@@ -74,9 +74,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
             labelString = NSLocalizedString(@"SERVER", nil);
             valueString = self.loginInformation.address;
             [self.delegate canConnect:valueString && valueString.length > 0];
-            if (@available(iOS 10.0, *)) {
-                textContentType = UITextContentTypeURL;
-            }
+            textContentType = UITextContentTypeURL;
             break;
         case VLCNetworkServerLoginIndexPort:
             keyboardType = UIKeyboardTypeNumberPad;
@@ -86,9 +84,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
         case VLCNetworkServerLoginIndexUsername:
             labelString = NSLocalizedString(@"USER_LABEL", nil);
             valueString = self.loginInformation.username;
-            if (@available(iOS 11.0, *)) {
-                textContentType = UITextContentTypeUsername;
-            }
+            textContentType = UITextContentTypeUsername;
             break;
         case VLCNetworkServerLoginIndexPassword:
             labelString = NSLocalizedString(@"PASSWORD_LABEL", nil);
@@ -97,9 +93,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
             if (self.loginInformation.additionalFields.count == 0) {
                 returnKeyType = UIReturnKeyDone;
             }
-            if (@available(iOS 11.0, *)) {
-                textContentType = UITextContentTypePassword;
-            }
+            textContentType = UITextContentTypePassword;
             break;
         default: {
             NSUInteger additionalFieldRow = row-VLCNetworkServerLoginIndexFieldCount;
@@ -124,9 +118,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     textField.secureTextEntry        = secureTextEntry;
     textField.returnKeyType          = returnKeyType;
     textField.tag                    = row;
-    if (@available(iOS 10.0, *)) {
-        textField.textContentType = textContentType;
-    }
+    textField.textContentType = textContentType;
     fieldCell.delegate = self;
 }
 

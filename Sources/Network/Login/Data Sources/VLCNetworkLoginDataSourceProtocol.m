@@ -95,22 +95,18 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
         _segmentedControl.apportionsSegmentWidthsByContent = YES;
 
         UIFont *segmentedControlFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        if (@available(iOS 13.0, *)) {
-            [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                                                PresentationTheme.current.colors.cellDetailTextColor,
-                                                            NSFontAttributeName: segmentedControlFont
-                                                          }
-                                                 forState:UIControlStateNormal];
+        [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                            PresentationTheme.current.colors.cellDetailTextColor,
+                                                        NSFontAttributeName: segmentedControlFont
+                                                      }
+                                             forState:UIControlStateNormal];
 
-            // Always use black since the background is always white.
-            [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                                                UIColor.blackColor,
-                                                            NSFontAttributeName: segmentedControlFont
-                                                          }
-                                                 forState:UIControlStateSelected];
-        } else {
-            [self.segmentedControl setTitleTextAttributes:@{NSFontAttributeName: segmentedControlFont} forState:UIControlStateNormal];
-        }
+        // Always use black since the background is always white.
+        [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                            UIColor.blackColor,
+                                                        NSFontAttributeName: segmentedControlFont
+                                                      }
+                                             forState:UIControlStateSelected];
         [self.contentView addSubview:_segmentedControl];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
         [self themeDidChange];

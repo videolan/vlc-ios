@@ -76,11 +76,9 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
 
-    if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
-    }
+    UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
+    self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+    self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

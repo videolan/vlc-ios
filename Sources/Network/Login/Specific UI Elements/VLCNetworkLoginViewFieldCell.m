@@ -43,10 +43,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     [self addSubview:_textField];
     
-    id<VLCLayoutAnchorContainer> guide = self;
-    if (@available(iOS 11.0, *)) {
-        guide = self.safeAreaLayoutGuide;
-    }
+    UILayoutGuide *guide = self.safeAreaLayoutGuide;
     [NSLayoutConstraint activateConstraints:@[
                                               [_darkView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
                                               [_darkView.topAnchor constraintEqualToAnchor:self.topAnchor],
