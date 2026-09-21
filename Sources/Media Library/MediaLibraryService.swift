@@ -195,6 +195,7 @@ class MediaLibraryService: NSObject {
 
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
     private var initRecoveryAttempt = 0
+    private var currentDatabasePath = ""
 
     private var didStartMediaDiscovery = false
 
@@ -261,6 +262,10 @@ class MediaLibraryService: NSObject {
             #if !os(watchOS)
             NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
                                                    name: UIApplication.willEnterForegroundNotification, object: nil)
+            #endif
+
+            #if os(iOS)
+            MediaLibraryCorruptionReportPresenter.shared.presentIfNeeded()
             #endif
         }
 
@@ -430,6 +435,8 @@ private extension MediaLibraryService {
             medialibraryPath = libraryPath + "/MediaLibrarySnapshot/Internal"
         }
 
+        currentDatabasePath = databasePath
+
 #if os(tvOS)
         // we need to create the folder before we can listen to it
         do {
@@ -480,6 +487,9 @@ private extension MediaLibraryService {
             } else if initRecoveryAttempt == 1 {
                 initRecoveryAttempt = 2
                 APLog("MediaLibraryService: Retry with journal recovery failed, clearing all database files.")
+#if os(iOS)
+                preserveCorruptedDatabase(reason: .setupFailed, details: nil)
+#endif
                 removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
                                                   medialibraryPath: medialibraryPath)
                 removeMedialibraryDatabaseFiles(databasePath: databasePath)
@@ -490,6 +500,9 @@ private extension MediaLibraryService {
             APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
+#if os(iOS)
+            preserveCorruptedDatabase(reason: .databaseCorrupted, details: nil)
+#endif
             privateMediaLib.clearDatabase(restorePlaylists: true)
             if mlServiceType == .mediaLibrary {
                 startMediaLibrary(on: mediaPath)
@@ -498,6 +511,19 @@ private extension MediaLibraryService {
             assertionFailure("MediaLibraryService: unhandled case")
         }
     }
+
+#if os(iOS)
+    private func preserveCorruptedDatabase(reason: MediaLibraryCorruptionReason, details: String?) {
+        guard mlServiceType == .mediaLibrary, !currentDatabasePath.isEmpty else {
+            return
+        }
+
+        MediaLibraryCorruptionReport.preserve(databasePath: currentDatabasePath,
+                                              reason: reason,
+                                              details: details)
+        MediaLibraryCorruptionReportPresenter.shared.presentIfNeeded()
+    }
+#endif
 }
 
 // MARK: - Helpers
@@ -1147,6 +1173,10 @@ extension MediaLibraryService {
                       errorMessage: String, clearSuggested: Bool) -> Bool {
         APLog("MediaLibraryService: unhandled exception in \(context): \(errorMessage)")
         if clearSuggested {
+#if os(iOS)
+            preserveCorruptedDatabase(reason: .unhandledException,
+                                      details: "\(context): \(errorMessage)")
+#endif
             medialib.clearDatabase(restorePlaylists: true)
             setupMediaLibrary()
         }
