@@ -14,9 +14,6 @@
 #import "VLCExternalDisplayController.h"
 #import "VLCAppCoordinator.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 NSString *VLCNonInteractiveWindowSceneBecameActive = @"VLCNonInteractiveWindowSceneBecameActive";
 NSString *VLCNonInteractiveWindowSceneDisconnected = @"VLCNonInteractiveWindowSceneDisconnected";
 
@@ -48,5 +45,3 @@ NSString *VLCNonInteractiveWindowSceneDisconnected = @"VLCNonInteractiveWindowSc
 }
 
 @end
-
-#pragma clang diagnostic pop

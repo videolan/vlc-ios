@@ -11,9 +11,6 @@
 
 #import "UIImage+PaddedImage.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @implementation UIImage (paddedImage)
 
 + (UIImage *)paddedImageForSymbol:(NSString *)symbol ofSize:(CGSize)size
@@ -36,5 +33,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

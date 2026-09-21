@@ -14,9 +14,6 @@
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-
 @interface VLCAppSceneDelegate () <UISceneDelegate>
 {
 }
@@ -132,5 +129,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop
