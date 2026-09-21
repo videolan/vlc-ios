@@ -47,13 +47,10 @@
     }
 
     BOOL success = YES;
+    NSError *writeError = nil;
 
-    // exception handling as writeData:error: is iOS 13+ only
-    NSException *caught = nil;
     [self lock];
-    @try {
-        [handle writeData:[@"#EXTM3U\n" dataUsingEncoding:NSUTF8StringEncoding]];
-
+    if ([handle writeData:[@"#EXTM3U\n" dataUsingEncoding:NSUTF8StringEncoding] error:&writeError]) {
         NSInteger count = self.count;
         for (NSInteger i = 0; i < count; i++) {
             VLCMedia *media = [self mediaAtIndex:i];
@@ -86,21 +83,22 @@
             }
 
             NSString *entry = [NSString stringWithFormat:@"#EXTINF:-1,%@\n%@\n", sanitizedTitle, location];
-            [handle writeData:[entry dataUsingEncoding:NSUTF8StringEncoding]];
+            if (![handle writeData:[entry dataUsingEncoding:NSUTF8StringEncoding] error:&writeError]) {
+                success = NO;
+                break;
+            }
         }
-    } @catch (NSException *exception) {
-        caught = exception;
+    } else {
         success = NO;
-    } @finally {
-        [self unlock];
     }
+    [self unlock];
 
     [handle closeFile];
 
     if (!success && error) {
-        *error = [NSError errorWithDomain:NSCocoaErrorDomain
-                                     code:NSFileWriteUnknownError
-                                 userInfo:@{NSLocalizedDescriptionKey: caught.reason ?: @"M3U write failed"}];
+        *error = writeError ?: [NSError errorWithDomain:NSCocoaErrorDomain
+                                                   code:NSFileWriteUnknownError
+                                               userInfo:@{NSLocalizedDescriptionKey: @"M3U write failed"}];
     }
 
     return success;
