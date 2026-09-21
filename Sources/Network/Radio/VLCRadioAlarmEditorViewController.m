@@ -33,11 +33,9 @@
                                                                                                 existingAlarm:existingAlarm
                                                                                                    completion:completion];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editor];
-    if (@available(iOS 15.0, *)) {
-        UISheetPresentationController *sheet = navigationController.sheetPresentationController;
-        sheet.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
-        sheet.prefersGrabberVisible = YES;
-    }
+    UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+    sheet.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
+    sheet.prefersGrabberVisible = YES;
     [viewController presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -80,9 +78,7 @@
     _datePicker = [[UIDatePicker alloc] init];
     _datePicker.translatesAutoresizingMaskIntoConstraints = NO;
     _datePicker.datePickerMode = UIDatePickerModeTime;
-    if (@available(iOS 13.4, *)) {
-        _datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
-    }
+    _datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
     if (_existingAlarm) {
         NSDateComponents *components = [[NSDateComponents alloc] init];
         components.hour = _existingAlarm.hour;

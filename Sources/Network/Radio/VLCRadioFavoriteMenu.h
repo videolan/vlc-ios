@@ -14,7 +14,6 @@
 
 @class VLCFavorite;
 
-API_AVAILABLE(ios(14.0))
 @interface VLCRadioFavoriteMenu : NSObject
 
 + (UIMenu *)menuForFavorite:(VLCFavorite *)favorite

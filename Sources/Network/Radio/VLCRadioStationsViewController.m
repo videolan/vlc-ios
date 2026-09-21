@@ -42,10 +42,7 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
 
 - (UITableViewStyle)tableViewStyle
 {
-    if (@available(iOS 13.0, *)) {
-        return UITableViewStyleInsetGrouped;
-    }
-    return UITableViewStyleGrouped;
+    return UITableViewStyleInsetGrouped;
 }
 
 - (void)viewDidLoad
@@ -237,10 +234,8 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     if (_moreImage)
         return _moreImage;
 
-    if (@available(iOS 13.0, *)) {
-        _moreImage = [[UIImage systemImageNamed:@"ellipsis"] imageWithTintColor:PresentationTheme.current.colors.cellDetailTextColor
-                                                                  renderingMode:UIImageRenderingModeAlwaysOriginal];
-    }
+    _moreImage = [[UIImage systemImageNamed:@"ellipsis"] imageWithTintColor:PresentationTheme.current.colors.cellDetailTextColor
+                                                              renderingMode:UIImageRenderingModeAlwaysOriginal];
     return _moreImage;
 }
 
@@ -254,36 +249,25 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     UIButton *moreButton = [cell.accessoryView isKindOfClass:[UIButton class]] ? (UIButton *)cell.accessoryView : nil;
     if (!moreButton) {
         moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        if (@available(iOS 14.0, *)) {
-            moreButton.showsMenuAsPrimaryAction = YES;
-        } else {
-            [moreButton addTarget:cell action:@selector(triggerFavorite:) forControlEvents:UIControlEventTouchUpInside];
-        }
+        moreButton.showsMenuAsPrimaryAction = YES;
         cell.accessoryView = moreButton;
     }
 
-    if (@available(iOS 13.0, *)) {
-        [moreButton setImage:self.moreImage forState:UIControlStateNormal];
-    } else {
-        [moreButton setTitle:@"•••" forState:UIControlStateNormal];
-        [moreButton setTitleColor:PresentationTheme.current.colors.cellDetailTextColor forState:UIControlStateNormal];
-    }
+    [moreButton setImage:self.moreImage forState:UIControlStateNormal];
     [moreButton sizeToFit];
 
-    if (@available(iOS 14.0, *)) {
-        BOOL isFavorite = cell.isFavorite;
-        NSString *title = isFavorite ? NSLocalizedString(@"REMOVE_FAVORITE", nil)
-                                     : NSLocalizedString(@"ADD_FAVORITE", nil);
-        UIImage *image = [UIImage systemImageNamed:isFavorite ? @"heart.slash" : @"heart.fill"];
-        __weak VLCNetworkListCell *weakCell = cell;
-        UIAction *favoriteAction = [UIAction actionWithTitle:title
-                                                       image:image
-                                                  identifier:nil
-                                                     handler:^(__kindof UIAction * _Nonnull action) {
-            [weakCell triggerFavorite:nil];
-        }];
-        moreButton.menu = [UIMenu menuWithTitle:@"" children:@[favoriteAction]];
-    }
+    BOOL isFavorite = cell.isFavorite;
+    NSString *title = isFavorite ? NSLocalizedString(@"REMOVE_FAVORITE", nil)
+                                 : NSLocalizedString(@"ADD_FAVORITE", nil);
+    UIImage *image = [UIImage systemImageNamed:isFavorite ? @"heart.slash" : @"heart.fill"];
+    __weak VLCNetworkListCell *weakCell = cell;
+    UIAction *favoriteAction = [UIAction actionWithTitle:title
+                                                   image:image
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+        [weakCell triggerFavorite:nil];
+    }];
+    moreButton.menu = [UIMenu menuWithTitle:@"" children:@[favoriteAction]];
 }
 
 @end
