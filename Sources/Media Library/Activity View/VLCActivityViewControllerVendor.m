@@ -34,17 +34,13 @@
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:files applicationActivities:@[openInActivity]];
 
-    NSMutableArray *excludedActivities = [@[
-                                            UIActivityTypePrint,
-                                            UIActivityTypeAssignToContact,
-                                            UIActivityTypeAddToReadingList,
-                                            UIActivityTypeOpenInIBooks
-                                            ] mutableCopy];
-
-    if (@available(iOS 11_0, *)) {
-        [excludedActivities addObject:UIActivityTypeMarkupAsPDF];
-    }
-    controller.excludedActivityTypes = excludedActivities;
+    controller.excludedActivityTypes = @[
+        UIActivityTypePrint,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeAddToReadingList,
+        UIActivityTypeOpenInIBooks,
+        UIActivityTypeMarkupAsPDF
+    ];
     controller.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
         APLog(@"UIActivityViewController finished with activity type: %@, completed: %i", activityType, completed);
 
