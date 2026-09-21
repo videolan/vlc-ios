@@ -46,12 +46,7 @@
     }
 #else
     } else {
-        UIInterfaceOrientation currentOrientation;
-        if (@available(iOS 13.0, *)) {
-            currentOrientation = self.window.windowScene.interfaceOrientation;
-        } else {
-            currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-        }
+        UIInterfaceOrientation currentOrientation = self.window.windowScene.interfaceOrientation;
 
         UIInterfaceOrientationMask orientation;
         if (currentOrientation == UIInterfaceOrientationPortrait) {
