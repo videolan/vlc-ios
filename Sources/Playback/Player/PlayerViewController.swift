@@ -1502,8 +1502,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             self.alertController = alertController
         }
 
-        // iOS 12.0 and below versions do not execute the completion if the dismiss call is not performed,
-        // here the check is necessary in order to enable the edit actions for these iOS versions.
         if addBookmarksView == nil {
             moreOptionsActionSheet.dismiss(animated: true, completion: completion)
         } else {
