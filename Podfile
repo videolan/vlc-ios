@@ -14,7 +14,7 @@ def ios_specific_pods
 end
 
 target 'VLC-iOS' do
-  platform :ios, '12.0'
+  platform :ios, '15.0'
   ios_specific_pods
 
   target 'VLC-iOSTests' do
@@ -23,7 +23,7 @@ target 'VLC-iOS' do
 end
 
 target 'VLC-iOS-no-watch' do
-  platform :ios, '12.0'
+  platform :ios, '15.0'
   ios_specific_pods
 end
 
@@ -36,7 +36,7 @@ post_install do |installer_representation|
       # Apply per-platform Build Settings
       case platform
       when :ios
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
         config.build_settings['ARCHS'] = 'arm64 x86_64'
         config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
         config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone and iPad
