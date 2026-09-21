@@ -84,7 +84,7 @@
 - (UIImage *)folderImage
 {
     if (!_folderImage)
-        _folderImage = [UIImage imageNamed:@"folder"];
+        _folderImage = [UIImage systemImageNamed:@"folder"];
 
     return _folderImage;
 }

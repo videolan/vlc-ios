@@ -98,7 +98,7 @@ extension FavoriteListViewController {
             }
         }
         cell.isDirectory = true
-        cell.thumbnailImage = UIImage(named: "folder")
+        cell.thumbnailImage = UIImage(systemName: "folder")
         return cell
     }
 

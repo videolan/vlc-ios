@@ -98,7 +98,7 @@
     _folderTitleLabel.text = _oneDriveFile.name;
     _titleLabel.hidden = _subtitleLabel.hidden = YES;
     _folderTitleLabel.hidden = NO;
-    _thumbnailView.image = [UIImage imageNamed:@"folder"];
+    _thumbnailView.image = [UIImage systemImageNamed:@"folder"];
 }
 
 - (void)loadThumbnail
@@ -190,7 +190,7 @@
             NSString *urlString = [NSString stringWithFormat:@"file://DropBox/%@", selectedFilePath];
             NSURL *url = [NSURL URLWithString:urlString];
             self.isFavourite = [service isFavoriteURL:url];
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+            self.thumbnailView.image = [UIImage systemImageNamed:@"folder"];
         } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
             DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
             self.titleLabel.text = file.name;
@@ -243,7 +243,7 @@
         if (!self.thumbnailView.image) {
             NSString *iconName = self.driveFile.iconLink;
             if (isDirectory) {
-                self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+                self.thumbnailView.image = [UIImage systemImageNamed:@"folder"];
             } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
                 self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
             } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_video_list.png"]) {
@@ -280,7 +280,7 @@
         }
 
         if (isDirectory) {
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+            self.thumbnailView.image = [UIImage systemImageNamed:@"folder"];
         } else {
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
@@ -319,7 +319,7 @@
         }
 
         if (isDirectory) {
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+            self.thumbnailView.image = [UIImage systemImageNamed:@"folder"];
         } else if (self.pcloudFile.isAudioFile) {
             self.thumbnailView.image = [UIImage imageNamed:@"audioFile"];
         } else if (self.pcloudFile.isVideoFile) {
