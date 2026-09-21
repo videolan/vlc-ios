@@ -24,11 +24,7 @@
 
 - (UIDocumentPickerViewController *)createPickerViewController
 {
-    if (@available(iOS 14.0, *)) {
-        return [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:@[UTTypeItem, UTTypeFolder] asCopy:NO];
-    } else {
-        return [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.item", @"public.folder"] inMode:UIDocumentPickerModeOpen];
-    }
+    return [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:@[UTTypeItem, UTTypeFolder] asCopy:NO];
 }
 
 - (void)presentFromViewController:(UIViewController *)presentingViewController
@@ -37,9 +33,7 @@
     UIDocumentPickerViewController *picker = [self createPickerViewController];
     picker.delegate = self;
     picker.allowsMultipleSelection = YES;
-    if (@available(iOS 13.0, *)) {
-        picker.directoryURL = initialDirectoryURL;
-    }
+    picker.directoryURL = initialDirectoryURL;
 
     self.presentingViewController = presentingViewController;
     self.retainedSelf = self;

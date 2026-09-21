@@ -51,9 +51,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = backButton;
@@ -401,7 +399,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point
-API_AVAILABLE(ios(13.0)) {
+{
      VLCCloudStorageTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     if (cell.isFavourable == false) {
