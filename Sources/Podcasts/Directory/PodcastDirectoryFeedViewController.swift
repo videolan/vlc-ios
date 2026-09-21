@@ -213,7 +213,7 @@ class PodcastDirectoryFeedViewController: UIViewController {
     }
 
     private func barButton(symbolName: String, title: String, action: Selector) -> UIBarButtonItem {
-        if #available(iOS 13.0, *), let image = UIImage(systemName: symbolName) {
+        if let image = UIImage(systemName: symbolName) {
             let item = UIBarButtonItem(image: image, style: .plain, target: self, action: action)
             item.accessibilityLabel = title
             return item

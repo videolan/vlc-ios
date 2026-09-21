@@ -333,23 +333,11 @@ class PodcastShowDetailViewController: UIViewController {
             overflowButton.image = UIImage(named: "EllipseCircle")
         }
         overflowButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
-        if #available(iOS 14.0, *) {
-            overflowButton.menu = overflowActions.menu()
-        } else {
-            overflowButton.target = self
-            overflowButton.action = #selector(showOverflowActionSheet)
-        }
+        overflowButton.menu = overflowActions.menu()
         var rightBarButtonItems = [overflowButton]
 
         if #unavailable(iOS 26) {
-            let searchImage: UIImage?
-            if #available(iOS 13.0, *) {
-                searchImage = UIImage(systemName: "magnifyingglass")
-            } else {
-                searchImage = nil
-            }
-
-            let searchButton = UIBarButtonItem(image: searchImage, style: .plain, target: self,
+            let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
                                                action: #selector(didTapSearch))
             searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
             rightBarButtonItems.insert(searchButton, at: 0)
@@ -393,10 +381,6 @@ class PodcastShowDetailViewController: UIViewController {
         return actions
     }
 
-    @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
-        overflowActions.presentActionSheet(title: show.name, from: sender, in: self)
-    }
-
     private func markAllEpisodesAsPlayed() {
         store.markAllEpisodes(ofShowId: show.id, played: true)
     }
@@ -423,7 +407,6 @@ class PodcastShowDetailViewController: UIViewController {
                                                 buttonsAction: [cancel, unsubscribe])
     }
 
-    @available(iOS 14.0, *)
     private func generateSortMenu() -> UIMenu {
         var sortActions: [UIMenuElement] = []
         for criterion in PodcastEpisodeSortCriteria.allCases {
@@ -441,14 +424,10 @@ class PodcastShowDetailViewController: UIViewController {
             sortActions.append(action)
         }
 
-        if #available(iOS 15.0, *) {
-            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
-                          image: UIImage(named: "sort"),
-                          options: .singleSelection,
-                          children: sortActions)
-        } else {
-            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""), options: .displayInline, children: sortActions)
-        }
+        return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
+                      image: UIImage(named: "sort"),
+                      options: .singleSelection,
+                      children: sortActions)
     }
 
     private func executeSortAction(with criteria: PodcastEpisodeSortCriteria, desc: Bool) {
@@ -640,12 +619,9 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
             return nil
         }
 
-        let title = NSLocalizedString("EPISODES", comment: "")
-        if #available(iOS 14.0, *) {
-            header.configure(title: title, sortTitle: sortCriteria.title, sortMenu: generateSortMenu())
-        } else {
-            header.configure(title: title)
-        }
+        header.configure(title: NSLocalizedString("EPISODES", comment: ""),
+                         sortTitle: sortCriteria.title,
+                         sortMenu: generateSortMenu())
         return header
     }
 

@@ -264,10 +264,6 @@ class PodcastEpisodeDetailViewController: UIViewController {
             overflowButton.image = UIImage(named: "EllipseCircle")
         }
         overflowButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
-        if #unavailable(iOS 14.0) {
-            overflowButton.target = self
-            overflowButton.action = #selector(showOverflowActionSheet)
-        }
 
         playBarButton.target = self
         playBarButton.action = #selector(didTapPlay)
@@ -278,17 +274,10 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
     private func updatePlayBarButton() {
         let isPlaying = store.isPlaying && store.nowPlayingEpisodeId == episodeId
-        guard #available(iOS 13.0, *) else {
-            playBarButton.image = UIImage(named: isPlaying ? "pauseIcon" : "iconPlay")
-            return
-        }
         playBarButton.image = UIImage(systemName: isPlaying ? "pause.fill" : "play.fill")
     }
 
     private func updateOverflowMenu() {
-        guard #available(iOS 14.0, *) else {
-            return
-        }
         overflowButton.menu = overflowActions.menu()
     }
 
@@ -316,10 +305,6 @@ class PodcastEpisodeDetailViewController: UIViewController {
                                              imageName: "arrow.down.circle") { [weak self] in self?.download() })
         }
         return actions
-    }
-
-    @objc private func showOverflowActionSheet(_ sender: UIBarButtonItem) {
-        overflowActions.presentActionSheet(title: episode.title, from: sender, in: self)
     }
 
     private func updateNotes() {

@@ -120,27 +120,12 @@ class PodcastDirectoryViewController: UIViewController {
     }
 
     private func setupNavigationBarButtons() {
-        let languageImage: UIImage?
-        let searchImage: UIImage?
-        if #available(iOS 14.2, *) {
-            languageImage = UIImage(systemName: "globe.europe.africa")
-        } else if #available(iOS 13.0, *) {
-            languageImage = UIImage(systemName: "globe")
-        } else {
-            languageImage = nil
-        }
-        if #available(iOS 13.0, *) {
-            searchImage = UIImage(systemName: "magnifyingglass")
-        } else {
-            searchImage = nil
-        }
-
-        let languageButton = UIBarButtonItem(image: languageImage, style: .plain, target: self,
+        let languageButton = UIBarButtonItem(image: UIImage(systemName: "globe.europe.africa"), style: .plain, target: self,
                                              action: #selector(didTapLanguage))
         languageButton.accessibilityLabel = NSLocalizedString("PODCAST_DIRECTORY_LANGUAGE", comment: "")
         languageButton.accessibilityIdentifier = VLCAccessibilityIdentifier.podcastLanguage
 
-        let searchButton = UIBarButtonItem(image: searchImage, style: .plain, target: self,
+        let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
                                            action: #selector(didTapSearch))
         searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
 

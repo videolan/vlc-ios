@@ -61,17 +61,7 @@ class PodcastsViewController: UIViewController {
     }()
 
     private lazy var subscribeIndicator: UIActivityIndicatorView = {
-        let style: UIActivityIndicatorView.Style
-#if os(visionOS)
-        style = .large
-#else
-        if #available(iOS 13.0, *) {
-            style = .large
-        } else {
-            style = .whiteLarge
-        }
-#endif
-        let indicator = UIActivityIndicatorView(style: style)
+        let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
@@ -104,14 +94,9 @@ class PodcastsViewController: UIViewController {
 
     private func setupTabBarItem() {
         title = NSLocalizedString("ONAIR_PODCASTS", comment: "")
-        if #available(iOS 13.0, *) {
-            tabBarItem = UITabBarItem(title: title,
-                                       image: UIImage(systemName: "mic"),
-                                       selectedImage: UIImage(systemName: "mic.fill"))
-        } else {
-            tabBarItem = UITabBarItem(title: title,
-                                       image: nil, selectedImage: nil)
-        }
+        tabBarItem = UITabBarItem(title: title,
+                                  image: UIImage(systemName: "mic"),
+                                  selectedImage: UIImage(systemName: "mic.fill"))
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.podcasts
     }
 
@@ -198,28 +183,11 @@ class PodcastsViewController: UIViewController {
     }
 
     private func setupNavigationBarButtons() {
-        let searchImage: UIImage?
-        let addImage: UIImage?
-        if #available(iOS 13.0, *) {
-            searchImage = UIImage(systemName: "magnifyingglass")
-            addImage = UIImage(systemName: "plus")
-        } else {
-            searchImage = nil
-            addImage = nil
-        }
-
-        let searchButton = UIBarButtonItem(image: searchImage, style: .plain, target: self,
+        let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
                                             action: #selector(didTapSearch))
         searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
 
-        let addButton: UIBarButtonItem
-        if #available(iOS 14.0, *) {
-            addButton = UIBarButtonItem(image: addImage, style: .plain, target: nil, action: nil)
-            addButton.menu = addActions().menu()
-        } else {
-            addButton = UIBarButtonItem(image: addImage, style: .plain, target: self,
-                                        action: #selector(didTapAdd(_:)))
-        }
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), menu: addActions().menu())
         addButton.accessibilityLabel = NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
         addButton.accessibilityIdentifier = VLCAccessibilityIdentifier.podcastAdd
 
@@ -330,10 +298,6 @@ class PodcastsViewController: UIViewController {
             self.store.deleteDownloadedEpisode(episodeId: episode.id, showId: episode.showId)
             self.tableView.reloadRows(at: [indexPath], with: .none)
         }
-    }
-
-    @objc private func didTapAdd(_ sender: UIBarButtonItem) {
-        addActions().presentActionSheet(title: nil, from: sender, in: self)
     }
 
     private func presentAddSubscriptionAlert() {
