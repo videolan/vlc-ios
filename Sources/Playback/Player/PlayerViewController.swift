@@ -712,8 +712,27 @@ class PlayerViewController: UIViewController {
     }
 
     private func resetVideoFilters() {
-        hideIcon(button: optionsNavigationBar.videoFiltersButton)
-        moreOptionsActionSheet.resetVideoFilters()
+        playbackService.adjustFilter.reset()
+        updateVideoFiltersIcon()
+    }
+
+    func updateVideoFiltersIcon() {
+        if playbackService.adjustFilter.isEnabled {
+            showIcon(button: optionsNavigationBar.videoFiltersButton)
+        } else {
+            hideIcon(button: optionsNavigationBar.videoFiltersButton)
+        }
+    }
+
+    func showVideoFiltersCard() {
+        guard !(overlayCardView is VideoFiltersControlsView) else {
+            return
+        }
+
+        let videoFiltersCard = VideoFiltersControlsView()
+        videoFiltersCard.delegate = self
+        showOverlayCard(videoFiltersCard)
+        videoFiltersCard.focusForAccessibility()
     }
 
     func showPlaybackSpeedCard() {
@@ -1525,6 +1544,18 @@ extension PlayerViewController: SleepTimerControlsViewDelegate {
     }
 }
 
+// MARK: - VideoFiltersControlsViewDelegate
+
+extension PlayerViewController: VideoFiltersControlsViewDelegate {
+    func videoFiltersControlsViewDidChangeFilters(_ controlsView: VideoFiltersControlsView) {
+        updateVideoFiltersIcon()
+    }
+
+    func videoFiltersControlsViewDidRequestDismissal(_ controlsView: VideoFiltersControlsView) {
+        dismissOverlayCard()
+    }
+}
+
 // MARK: - MediaMoreOptionsActionSheetDelegate
 
 extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
@@ -1582,6 +1613,10 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
     func mediaMoreOptionsActionSheetPresentSleepTimer() {
         showSleepTimerCard()
+    }
+
+    func mediaMoreOptionsActionSheetPresentVideoFilters() {
+        showVideoFiltersCard()
     }
 
     func mediaMoreOptionsActionSheetHideAlertIfNecessary() {

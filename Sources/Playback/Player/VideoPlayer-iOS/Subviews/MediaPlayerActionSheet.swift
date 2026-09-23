@@ -118,9 +118,7 @@ class MediaPlayerActionSheet: ActionSheet {
     }
 
     private func getTitle(of childView: UIView) -> String {
-        if childView is VideoFiltersView {
-            return ActionSheetCellIdentifier.filter.description
-        } else if childView is EqualizerView {
+        if childView is EqualizerView {
             return ActionSheetCellIdentifier.equalizer.description
         } else if childView is ChapterView {
             return ActionSheetCellIdentifier.chapters.description
@@ -129,12 +127,6 @@ class MediaPlayerActionSheet: ActionSheet {
         } else {
             return getDefaultHeaderTitle()
         }
-    }
-
-    private func changeBackground(alpha: CGFloat) {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(alpha)
-        })
     }
 
     private func add(childView child: UIView) {
@@ -157,9 +149,6 @@ class MediaPlayerActionSheet: ActionSheet {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
-            if child is VideoFiltersView {
-                self.changeBackground(alpha: 0)
-            }
 
             self.headerView.previousButton.addTarget(self, action: #selector(self.removeCurrentChild), for: .touchUpInside)
         }
@@ -179,10 +168,6 @@ class MediaPlayerActionSheet: ActionSheet {
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
-
-            if child is VideoFiltersView {
-                self.changeBackground(alpha: 0.6)
-            }
         }
     }
 
@@ -282,6 +267,8 @@ class MediaPlayerActionSheet: ActionSheet {
                     actionSheet.closeAndPresentCard(for: .playback)
                 } else if item == actionSheet.sleepTimerPlaceholderView {
                     actionSheet.closeAndPresentCard(for: .sleepTimer)
+                } else if item == actionSheet.videoFiltersPlaceholderView {
+                    actionSheet.closeAndPresentCard(for: .filter)
                 } else {
                     self.add(childView: item)
                 }

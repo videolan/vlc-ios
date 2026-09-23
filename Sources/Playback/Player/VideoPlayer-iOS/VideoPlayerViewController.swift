@@ -338,11 +338,7 @@ class VideoPlayerViewController: PlayerViewController {
 
         adaptVideoOutputToNotch()
 
-        if playbackService.adjustFilter.isEnabled {
-            showIcon(button: optionsNavigationBar.videoFiltersButton)
-        } else {
-            hideIcon(button: optionsNavigationBar.videoFiltersButton)
-        }
+        updateVideoFiltersIcon()
 
         view.transform = .identity
 

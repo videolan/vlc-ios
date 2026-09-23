@@ -21,6 +21,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
     func mediaMoreOptionsActionSheetPresentPlaybackSpeed()
     func mediaMoreOptionsActionSheetPresentSleepTimer()
+    func mediaMoreOptionsActionSheetPresentVideoFilters()
     func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController)
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
@@ -69,15 +70,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         }
     }
 
-    private lazy var videoFiltersView: VideoFiltersView = {
-        let videoFiltersView = Bundle.main.loadNibNamed("VideoFiltersView",
-                                                        owner: nil,
-                                                        options: nil)?.first as! VideoFiltersView
-        videoFiltersView.frame = offScreenFrame
-        videoFiltersView.overrideUserInterfaceStyle = .dark
-        videoFiltersView.delegate = self
-        return videoFiltersView
-    }()
+    private(set) lazy var videoFiltersPlaceholderView = UIView()
 
     private(set) lazy var playbackSpeedPlaceholderView = UIView()
 
@@ -143,16 +136,11 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }
 
     // MARK: - Instance Methods
-    func resetVideoFilters() {
-        videoFiltersView.resetIfNeeded()
-    }
-
     func resetEqualizer() {
         equalizerView.resetEqualizer()
     }
 
     func updateThemes() {
-        videoFiltersView.setupTheme()
         equalizerView.setupTheme()
         chapterView.setupTheme()
         bookmarksView.setupTheme()
@@ -193,8 +181,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func addView(_ view: ActionSheetCellIdentifier) {
         switch view {
-        case .filter:
-            openOptionView(videoFiltersView)
         case .equalizer:
             openOptionView(equalizerView)
         case .chapters:
@@ -214,17 +200,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func renameBookmarkAt(name: String, row: Int) {
         bookmarksView.renameBookmarkAt(name: name, row: row)
-    }
-}
-
-// MARK: - VideoFiltersViewDelegate
-extension MediaMoreOptionsActionSheet: VideoFiltersViewDelegate {
-    func videoFiltersViewShowIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .videoFilters)
-    }
-
-    func videoFiltersViewHideIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .videoFilters)
     }
 }
 
@@ -329,6 +304,8 @@ extension MediaMoreOptionsActionSheet {
             moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPlaybackSpeed()
         case .sleepTimer:
             moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentSleepTimer()
+        case .filter:
+            moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentVideoFilters()
         default:
             break
         }
@@ -367,7 +344,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
     private func selectViewToPresent(for cell: ActionSheetCellIdentifier) -> UIView {
         switch cell {
         case .filter:
-            return videoFiltersView
+            return videoFiltersPlaceholderView
         case .playback:
             return playbackSpeedPlaceholderView
         case .sleepTimer:
