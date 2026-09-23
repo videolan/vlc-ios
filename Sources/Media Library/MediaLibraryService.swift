@@ -601,7 +601,7 @@ private extension MediaLibraryService {
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
         let defaults = UserDefaults.standard
         if !defaults.bool(forKey: kVLCSettingPlaybackSpeedAppliesToAll) {
-            mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64(player.playbackRate * 100))
+            mlMedia.setMetadataOf(VLCMLMetadataType.speed, intValue: Int64((player.playbackRate * 100).rounded()))
         }
         mlMedia.setMetadataOf(VLCMLMetadataType.subtitleDelay, intValue: Int64(player.subtitleDelay))
         if defaults.bool(forKey: kVLCSettingSaveAudioDelay) {
