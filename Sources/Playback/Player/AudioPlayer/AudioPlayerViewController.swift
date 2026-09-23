@@ -442,10 +442,9 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
         let speedManager = PlaybackSpeedCustomManager.shared
-        let resetSpeed = speedManager.resetSpeed
-        playbackService.playbackRate = resetSpeed
+        playbackService.playbackRate = 1
         if speedManager.appliesToAllMedia {
-            speedManager.setDefaultSpeed(resetSpeed)
+            speedManager.setDefaultSpeed(1)
         }
         updatePlaybackSpeedIcon()
     }

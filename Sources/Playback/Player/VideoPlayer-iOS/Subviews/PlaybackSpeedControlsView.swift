@@ -318,9 +318,7 @@ final class PlaybackSpeedControlsView: UIView {
 
     // MARK: - State
 
-    private var resetSpeed: Float {
-        return PlaybackSpeedScale.rounded(speedManager.resetSpeed)
-    }
+    private let resetSpeed: Float = 1
 
     private func updateInterface(updatingSlider: Bool) {
         let speedText = PlaybackSpeedFormatter.string(forSpeed: displayedSpeed)
@@ -380,10 +378,15 @@ final class PlaybackSpeedControlsView: UIView {
 
     @objc private func scopeChanged() {
         storeDefaultSpeed()
-        speedManager.appliesToAllMedia = scopeControl.selectedSegmentIndex == 1
-        if speedManager.appliesToAllMedia {
+        let appliesToAllMedia = scopeControl.selectedSegmentIndex == 1
+        if appliesToAllMedia {
+            playbackService.savePlaybackRateForCurrentMedia()
+            speedManager.appliesToAllMedia = true
             displayedSpeed = PlaybackSpeedScale.rounded(speedManager.defaultSpeed)
             playbackService.playbackRate = displayedSpeed
+        } else {
+            speedManager.appliesToAllMedia = false
+            displayedSpeed = PlaybackSpeedScale.rounded(playbackService.restorePlaybackRateForCurrentMedia())
         }
         updateInterface(updatingSlider: true)
         delegate?.playbackSpeedControlsViewDidChangeSpeed(self)

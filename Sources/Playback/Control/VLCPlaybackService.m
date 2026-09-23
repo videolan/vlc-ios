@@ -413,8 +413,10 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 
     [_mediaPlayer setDelegate:self];
     CGFloat defaultPlaybackSpeed = self.defaultPlaybackRate;
-    if (defaultPlaybackSpeed != 0.)
+    if ([defaults boolForKey:kVLCSettingPlaybackSpeedAppliesToAll] && defaultPlaybackSpeed != 0.)
         [self setPlaybackRate:defaultPlaybackSpeed];
+    else
+        [self setPlaybackRate:1.0];
     int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
     [_mediaPlayer setDeinterlace:deinterlace withFilter:@"blend"];
 
@@ -610,17 +612,14 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 {
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
 
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlaybackSpeedAppliesToAll]) {
+        [self restorePlaybackRateForCurrentMedia];
+    }
+
     if (media) {
         if (media.isNew) {
             [self disableSubtitlesIfNeeded];
             return;
-        }
-
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlaybackSpeedAppliesToAll]) {
-            VLCMLMetadata *speedMetadata = [media metadataOfType:VLCMLMetadataTypeSpeed];
-            if (speedMetadata.integer > 0) {
-                [self setPlaybackRate:speedMetadata.integer / 100.0];
-            }
         }
 
         BOOL disableSubtitles = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles];
@@ -756,6 +755,23 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 {
     float rate = _mediaPlayer.rate * factor;
     self.playbackRate = MIN(MAX(rate, kVLCPlaybackRateMinimum), kVLCPlaybackRateMaximum);
+}
+
+- (float)restorePlaybackRateForCurrentMedia
+{
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
+    float rate = [media metadataOfType:VLCMLMetadataTypeSpeed].integer / 100.0;
+    if (rate <= 0.) {
+        rate = 1.0;
+    }
+    [self setPlaybackRate:rate];
+    return rate;
+}
+
+- (void)savePlaybackRateForCurrentMedia
+{
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
+    [media setMetadataOfType:VLCMLMetadataTypeSpeed intValue:lroundf(_mediaPlayer.rate * 100.f)];
 }
 
 - (CGFloat)defaultPlaybackRate

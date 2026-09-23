@@ -70,10 +70,6 @@ class PlaybackSpeedCustomManager {
         return speed > 0 ? speed : 1
     }
 
-    var resetSpeed: Float {
-        return appliesToAllMedia ? 1 : defaultSpeed
-    }
-
     func setDefaultSpeed(_ speed: Float) {
         if Self.presetSpeedValues.contains(speed) {
             userDefaults.set(speed, forKey: kVLCSettingPlaybackSpeedDefaultValue)

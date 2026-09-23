@@ -850,7 +850,7 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func updatePlaybackSpeedIcon() {
-        let isSpeedModified = abs(playbackService.playbackRate - PlaybackSpeedCustomManager.shared.resetSpeed) > 0.001
+        let isSpeedModified = abs(playbackService.playbackRate - 1) > 0.001
         if isSpeedModified || playbackService.audioDelay != 0 || playbackService.subtitleDelay != 0 {
             showIcon(button: optionsNavigationBar.playbackSpeedButton)
         } else {
@@ -859,7 +859,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func resetPlaybackSpeed() {
-        playbackService.playbackRate = PlaybackSpeedCustomManager.shared.resetSpeed
+        playbackService.playbackRate = 1
         playbackService.audioDelay = 0
         playbackService.subtitleDelay = 0
         hideIcon(button: optionsNavigationBar.playbackSpeedButton)
