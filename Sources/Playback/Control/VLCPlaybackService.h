@@ -38,6 +38,7 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 @class VLCMediaPlayerTitleDescription;
 @class VLCMediaPlayerChapterDescription;
 @class VLCMediaPlayerTrack;
+@class VLCAudioEqualizerPreset;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
@@ -202,6 +203,10 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index;
+- (CGFloat)amplificationOfBand:(unsigned int)index;
+- (unsigned int)numberOfBands;
+- (CGFloat)frequencyOfBandAtIndex:(unsigned int)index;
+- (NSArray<VLCAudioEqualizerPreset *> *)equalizerProfiles;
 - (void)togglePictureInPicture;
 - (void)saveSnapshotWithCompletion:(void (^)(BOOL success, NSError *_Nullable error))completion;
 
@@ -213,6 +218,14 @@ NS_SWIFT_NAME(PlaybackService)
 - (BOOL)mediaListContains:(NSURL *)url;
 - (void)removeMediaFromMediaListAtIndex:(NSUInteger)index;
 - (NSIndexPath *)selectedEqualizerProfile;
+@property (nonatomic, readonly) NSArray<NSString *> *customEqualizerProfileNames;
+- (void)applyEqualizerPreset:(unsigned int)profile;
+- (void)applyCustomEqualizerProfileAtIndex:(NSUInteger)index;
+- (void)restoreSavedEqualizerProfile;
+- (void)saveCustomEqualizerProfileWithName:(NSString *)name;
+- (void)renameCustomEqualizerProfileAtIndex:(NSUInteger)index toName:(NSString *)name;
+- (void)deleteCustomEqualizerProfileAtIndex:(NSUInteger)index;
+- (void)moveCustomEqualizerProfileAtIndex:(NSUInteger)index up:(BOOL)up;
 #endif
 
 #if !TARGET_OS_WATCH

@@ -1021,29 +1021,6 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    private func applyCustomEqualizerProfileIfNeeded() {
-        let userDefaults = UserDefaults.standard
-        guard userDefaults.bool(forKey: kVLCCustomProfileEnabled) else {
-            return
-        }
-
-        let profileIndex = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
-        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
-
-        guard let encodedData = encodedData,
-              let customProfiles = CustomEqualizerProfiles.unarchive(from: encodedData),
-              profileIndex < customProfiles.profiles.count else {
-            return
-        }
-
-        let selectedProfile = customProfiles.profiles[profileIndex]
-        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
-
-        for (index, frequency) in selectedProfile.frequencies.enumerated() {
-            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(index))
-        }
-    }
-
     // MARK: - Observers
 
 #if os(iOS)
@@ -1442,9 +1419,6 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
 
     func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState, isPlaying: Bool, currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool, for playbackService: PlaybackService) {
         switch currentState {
-        case .opening:
-            applyCustomEqualizerProfileIfNeeded()
-
         case .stopped:
             coneLoadingView.stopAnimating()
             resetPlaybackSpeed()

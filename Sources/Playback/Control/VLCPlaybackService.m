@@ -427,10 +427,17 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     }
 
     BOOL equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    BOOL customProfileEnabled = equalizerEnabled && [userDefaults boolForKey:kVLCCustomProfileEnabled];
+#else
+    BOOL customProfileEnabled = NO;
+#endif
 
     VLCAudioEqualizer *equalizer;
 
-    if (equalizerEnabled) {
+    if (customProfileEnabled) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+    } else if (equalizerEnabled) {
         NSArray *presets = [VLCAudioEqualizer presets];
         NSInteger profile = [userDefaults integerForKey:kVLCSettingEqualizerProfile];
         if (presets.count == 0) {
@@ -453,6 +460,11 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         equalizer.preAmplification = preampValue;
     }
     _mediaPlayer.equalizer = equalizer;
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    if (customProfileEnabled) {
+        [self applyCustomEqualizerProfileAtIndex:[userDefaults integerForKey:kVLCSettingEqualizerProfile]];
+    }
+#endif
 
 #if TARGET_OS_IOS
     [_mediaPlayer setRendererItem:_renderer];
@@ -1607,7 +1619,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     return 0.;
 }
 
-- (NSArray *)equalizerProfiles
+- (NSArray<VLCAudioEqualizerPreset *> *)equalizerProfiles
 {
     return VLCAudioEqualizer.presets;
 }
@@ -1692,7 +1704,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     return band.frequency;
 }
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (NSIndexPath *)selectedEqualizerProfile
 {
     /* this is a bit complex, if the eq is off, we need to return 0
@@ -1707,6 +1719,154 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         return [NSIndexPath indexPathForRow:actualProfile + 1 inSection:0];
     } else {
         return [NSIndexPath indexPathForRow:actualProfile inSection:1];
+    }
+}
+
+- (nullable CustomEqualizerProfiles *)storedCustomEqualizerProfiles
+{
+    NSData *encodedProfiles = [[NSUserDefaults standardUserDefaults] dataForKey:kVLCCustomEqualizerProfiles];
+    if (!encodedProfiles) {
+        return nil;
+    }
+    return [CustomEqualizerProfiles unarchiveFrom:encodedProfiles];
+}
+
+- (void)storeCustomEqualizerProfiles:(CustomEqualizerProfiles *)customProfiles
+{
+    NSData *encodedProfiles = [NSKeyedArchiver archivedDataWithRootObject:customProfiles requiringSecureCoding:NO error:nil];
+    [[NSUserDefaults standardUserDefaults] setObject:encodedProfiles forKey:kVLCCustomEqualizerProfiles];
+}
+
+- (NSArray<NSString *> *)customEqualizerProfileNames
+{
+    return [[self storedCustomEqualizerProfiles].profiles valueForKey:@"name"] ?: @[];
+}
+
+- (void)applyEqualizerPreset:(unsigned int)profile
+{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCCustomProfileEnabled];
+    [self resetEqualizerFromProfile:profile];
+}
+
+- (void)applyCustomEqualizerProfileAtIndex:(NSUInteger)index
+{
+    NSArray<CustomEqualizerProfile *> *profiles = [self storedCustomEqualizerProfiles].profiles;
+    if (index >= profiles.count) {
+        return;
+    }
+
+    CustomEqualizerProfile *selectedProfile = profiles[index];
+    self.preAmplification = selectedProfile.preAmpLevel;
+    NSArray<NSNumber *> *frequencies = selectedProfile.frequencies;
+    NSUInteger bandCount = frequencies.count;
+    for (NSUInteger bandIndex = 0; bandIndex < bandCount; bandIndex++) {
+        [self setAmplification:frequencies[bandIndex].floatValue forBand:(unsigned int)bandIndex];
+    }
+
+    [self selectCustomEqualizerProfileAtIndex:index];
+}
+
+- (void)selectCustomEqualizerProfileAtIndex:(NSUInteger)index
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger:index forKey:kVLCSettingEqualizerProfile];
+    [userDefaults setBool:NO forKey:kVLCSettingEqualizerProfileDisabled];
+    [userDefaults setBool:YES forKey:kVLCCustomProfileEnabled];
+}
+
+- (void)restoreSavedEqualizerProfile
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:kVLCCustomProfileEnabled]) {
+        [self applyCustomEqualizerProfileAtIndex:[userDefaults integerForKey:kVLCSettingEqualizerProfile]];
+    } else if ([userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled]) {
+        [self resetEqualizerFromProfile:0];
+    } else {
+        [self resetEqualizerFromProfile:(unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile] + 1];
+    }
+}
+
+- (void)saveCustomEqualizerProfileWithName:(NSString *)name
+{
+    unsigned int bandCount = [self numberOfBands];
+    NSMutableArray<NSNumber *> *frequencies = [NSMutableArray arrayWithCapacity:bandCount];
+    for (unsigned int bandIndex = 0; bandIndex < bandCount; bandIndex++) {
+        [frequencies addObject:@((float)[self amplificationOfBand:bandIndex])];
+    }
+
+    CustomEqualizerProfile *profile = [[CustomEqualizerProfile alloc] initWithName:name
+                                                                       preAmpLevel:(float)self.preAmplification
+                                                                       frequencies:frequencies];
+    CustomEqualizerProfiles *customProfiles = [self storedCustomEqualizerProfiles];
+    if (customProfiles) {
+        customProfiles.profiles = [customProfiles.profiles arrayByAddingObject:profile];
+    } else {
+        customProfiles = [[CustomEqualizerProfiles alloc] initWithProfiles:@[profile]];
+    }
+    [self storeCustomEqualizerProfiles:customProfiles];
+    [self selectCustomEqualizerProfileAtIndex:customProfiles.profiles.count - 1];
+}
+
+- (void)renameCustomEqualizerProfileAtIndex:(NSUInteger)index toName:(NSString *)name
+{
+    CustomEqualizerProfiles *customProfiles = [self storedCustomEqualizerProfiles];
+    if (name.length == 0 || index >= customProfiles.profiles.count) {
+        return;
+    }
+
+    customProfiles.profiles[index].name = name;
+    [self storeCustomEqualizerProfiles:customProfiles];
+}
+
+- (void)deleteCustomEqualizerProfileAtIndex:(NSUInteger)index
+{
+    CustomEqualizerProfiles *customProfiles = [self storedCustomEqualizerProfiles];
+    if (index >= customProfiles.profiles.count) {
+        return;
+    }
+
+    NSMutableArray<CustomEqualizerProfile *> *profiles = [customProfiles.profiles mutableCopy];
+    [profiles removeObjectAtIndex:index];
+    customProfiles.profiles = profiles;
+    [self storeCustomEqualizerProfiles:customProfiles];
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:kVLCCustomProfileEnabled]) {
+        return;
+    }
+
+    NSInteger selectedIndex = [userDefaults integerForKey:kVLCSettingEqualizerProfile];
+    if (selectedIndex == (NSInteger)index) {
+        [self applyEqualizerPreset:0];
+    } else if (selectedIndex > (NSInteger)index) {
+        [userDefaults setInteger:selectedIndex - 1 forKey:kVLCSettingEqualizerProfile];
+    }
+}
+
+- (void)moveCustomEqualizerProfileAtIndex:(NSUInteger)index up:(BOOL)up
+{
+    CustomEqualizerProfiles *customProfiles = [self storedCustomEqualizerProfiles];
+    NSUInteger profileCount = customProfiles.profiles.count;
+    if (index >= profileCount || (up && index == 0) || (!up && index + 1 >= profileCount)) {
+        return;
+    }
+
+    NSUInteger targetIndex = up ? index - 1 : index + 1;
+    NSMutableArray<CustomEqualizerProfile *> *profiles = [customProfiles.profiles mutableCopy];
+    [profiles exchangeObjectAtIndex:index withObjectAtIndex:targetIndex];
+    customProfiles.profiles = profiles;
+    [self storeCustomEqualizerProfiles:customProfiles];
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:kVLCCustomProfileEnabled]) {
+        return;
+    }
+
+    NSInteger selectedIndex = [userDefaults integerForKey:kVLCSettingEqualizerProfile];
+    if (selectedIndex == (NSInteger)index) {
+        [userDefaults setInteger:targetIndex forKey:kVLCSettingEqualizerProfile];
+    } else if (selectedIndex == (NSInteger)targetIndex) {
+        [userDefaults setInteger:index forKey:kVLCSettingEqualizerProfile];
     }
 }
 #endif

@@ -232,20 +232,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     }
 
     func moveProfile(_ moveIdentifier: MoveEventIdentifier, at index: IndexPath) {
-        let userDefaults = UserDefaults.standard
-        let profilesData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
-        guard let profilesData = profilesData,
-              let customProfiles = CustomEqualizerProfiles.unarchive(from: profilesData) else {
-            return
-        }
-
-        if moveIdentifier == .up {
-            customProfiles.moveUp(index: index.row)
-        } else {
-            customProfiles.moveDown(index: index.row)
-        }
-
-        userDefaults.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
+        PlaybackService.sharedInstance().moveCustomEqualizerProfile(at: UInt(index.row), up: moveIdentifier == .up)
     }
 }
 

@@ -457,32 +457,7 @@ extension EqualizerView {
 
         let saveAction = UIAlertAction(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { _ in
             let name: String = alertController.textFields?.first?.text ?? NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
-            var frequencies: [Float] = []
-
-            for frequency in self.eqFrequencies {
-                frequencies.append(frequency.slider.value)
-            }
-
-            let preAmplification = self.playbackService.preAmplification
-
-            let customProfile = CustomEqualizerProfile(name: name, preAmpLevel: Float(preAmplification), frequencies: frequencies)
-            let encodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
-            var customProfiles: CustomEqualizerProfiles
-
-            if let encodedProfiles = encodedProfiles,
-               let profiles = CustomEqualizerProfiles.unarchive(from: encodedProfiles) {
-                profiles.profiles.append(customProfile)
-                customProfiles = profiles
-            } else {
-                customProfiles = CustomEqualizerProfiles(profiles: [customProfile])
-            }
-
-            let index = customProfiles.profiles.count - 1
-            let userDefaults = UserDefaults.standard
-            userDefaults.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
-            userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
-            userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
-            userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
+            self.playbackService.saveCustomEqualizerProfile(withName: name)
 
             self.presetSelectorView?.presetsTableView.reloadData()
             self.shouldDisplaySaveButton(false)
@@ -498,19 +473,7 @@ extension EqualizerView {
     }
 
     @objc func resetEqualizer() {
-        let userDefaults = UserDefaults.standard
-        let isEqualizerDisabled = userDefaults.bool(forKey: kVLCSettingEqualizerProfileDisabled)
-        let isCustomProfile = userDefaults.bool(forKey: kVLCCustomProfileEnabled)
-
-        let profile: Int
-        if !isCustomProfile {
-            profile = isEqualizerDisabled ? 0 : userDefaults.integer(forKey: kVLCSettingEqualizerProfile) + 1
-            delegate?.resetEqualizer(fromProfile: UInt32(profile))
-        } else {
-            profile = userDefaults.integer(forKey: kVLCSettingEqualizerProfile)
-            applyCustomProfile(profile)
-        }
-
+        playbackService.restoreSavedEqualizerProfile()
         reloadData()
         hideEqualizerIconIfNeeded()
         shouldDisplaySaveButton(false)
@@ -518,28 +481,6 @@ extension EqualizerView {
 
     private func hideEqualizerIconIfNeeded() {
         UIDelegate?.equalizerViewHideIcon()
-    }
-
-    private func applyCustomProfile(_ index: Int) {
-        let userDefaults = UserDefaults.standard
-        let encodedData = userDefaults.data(forKey: kVLCCustomEqualizerProfiles)
-
-        guard let encodedData = encodedData,
-              let customProfiles = CustomEqualizerProfiles.unarchive(from: encodedData),
-              index < customProfiles.profiles.count else {
-            return
-        }
-
-        let selectedProfile = customProfiles.profiles[index]
-        playbackService.preAmplification = CGFloat(selectedProfile.preAmpLevel)
-
-        for (bandIndex, frequency) in selectedProfile.frequencies.enumerated() {
-            playbackService.setAmplification(CGFloat(frequency), forBand: UInt32(bandIndex))
-        }
-
-        userDefaults.setValue(index, forKey: kVLCSettingEqualizerProfile)
-        userDefaults.setValue(false, forKey: kVLCSettingEqualizerProfileDisabled)
-        userDefaults.setValue(true, forKey: kVLCCustomProfileEnabled)
     }
 
     private func shouldDisplaySaveButton(_ display: Bool) {
@@ -559,9 +500,9 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
 
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int, isCustom: Bool) {
         if !isCustom {
-            delegate?.resetEqualizer(fromProfile: UInt32(preset))
+            playbackService.applyEqualizerPreset(UInt32(preset))
         } else {
-            applyCustomProfile(preset)
+            playbackService.applyCustomEqualizerProfile(at: UInt(preset))
         }
 
         shouldDisplaySaveButton(false)
@@ -577,22 +518,9 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
 
         if type == .delete {
             action = UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""), style: .destructive) { _ in
-                let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
-                guard let customEncodedProfiles = customEncodedProfiles,
-                      let customProfiles = CustomEqualizerProfiles.unarchive(from: customEncodedProfiles),
-                      index.row < customProfiles.profiles.count else {
-                    return
-                }
-
-                customProfiles.profiles.remove(at: index.row)
-                let userDefaults = UserDefaults.standard
-                userDefaults.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
-
-                // Reset the equalizer
-                self.equalizerPresetSelector(equalizerPresetSelector, didSelectPreset: 0, isCustom: false)
-                userDefaults.setValue(true, forKey: kVLCSettingEqualizerProfileDisabled)
-                userDefaults.setValue(false, forKey: kVLCCustomProfileEnabled)
-
+                self.playbackService.deleteCustomEqualizerProfile(at: UInt(index.row))
+                self.shouldDisplaySaveButton(false)
+                self.reloadData()
                 self.presetSelectorView?.presetsTableView.reloadData()
             }
         } else {
@@ -603,20 +531,11 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
             }
 
             action = UIAlertAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""), style: .default) { _ in
-                let customEncodedProfiles = UserDefaults.standard.data(forKey: kVLCCustomEqualizerProfiles)
-                guard let customEncodedProfiles = customEncodedProfiles,
-                      let customProfiles = CustomEqualizerProfiles.unarchive(from: customEncodedProfiles),
-                      index.row < customProfiles.profiles.count else {
+                guard let newName = alertController.textFields?.first?.text else {
                     return
                 }
 
-                guard let newName = alertController.textFields?.first?.text,
-                      !newName.isEmpty else {
-                    return
-                }
-
-                customProfiles.profiles[index.row].name = newName
-                UserDefaults.standard.setValue(try? NSKeyedArchiver.archivedData(withRootObject: customProfiles, requiringSecureCoding: false), forKey: kVLCCustomEqualizerProfiles)
+                self.playbackService.renameCustomEqualizerProfile(at: UInt(index.row), toName: newName)
                 self.presetSelectorView?.presetsTableView.reloadData()
             }
         }
