@@ -810,6 +810,7 @@
 		7D77ECE32D626A480062A109 /* PlaybackCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CFFC42C30D69500E47D8E /* PlaybackCacheHelper.swift */; };
 		7D799BA22B8394F100FF93F2 /* VLCDonationNagScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */; };
 		7D799BA32B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */; };
+		7D7C5A95306544E70016506F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D7C5A94306544E70016506F /* Launch Screen.storyboard */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
 		7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
 		7D7FAC022F30C82D00AFD748 /* FolderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226C04212C3EAEEC003B005E /* FolderModel.swift */; };
@@ -2263,6 +2264,7 @@
 		7D799B9F2B8394F100FF93F2 /* VLCDonationNagScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationNagScreenViewController.h; sourceTree = "<group>"; };
 		7D799BA02B8394F100FF93F2 /* VLCDonationNagScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationNagScreenViewController.m; sourceTree = "<group>"; };
 		7D799BA12B8394F100FF93F2 /* VLCDonationNagScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationNagScreenViewController.xib; sourceTree = "<group>"; };
+		7D7C5A94306544E70016506F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamTVViewController.h; sourceTree = "<group>"; };
 		7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamTVViewController.m; sourceTree = "<group>"; };
@@ -4655,6 +4657,7 @@
 				7D1329501BA1F10100BE647E /* Info.plist */,
 				7D2D7FD21BD2F109002D6B6D /* VLC.entitlements */,
 				7D13294E1BA1F10100BE647E /* Images.xcassets */,
+				7D7C5A94306544E70016506F /* Launch Screen.storyboard */,
 				7DEC8BE81BD68BC9006E1093 /* Settings.bundle */,
 			);
 			path = tvOS;
@@ -5448,6 +5451,7 @@
 				417E686C1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7D405ED91BEA1F56006ED886 /* jquery.ui.widget.js in Resources */,
 				2227B4CE2A80CE3100D2BE26 /* PlaylistTableViewCell.xib in Resources */,
+				7D7C5A95306544E70016506F /* Launch Screen.storyboard in Resources */,
 				7D405ED71BEA1F56006ED886 /* jquery.fileupload.js in Resources */,
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7D5B26651D6350BF00FE7B4D /* gradient-cell.png in Resources */,
@@ -7940,7 +7944,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7987,7 +7990,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -8034,7 +8036,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
