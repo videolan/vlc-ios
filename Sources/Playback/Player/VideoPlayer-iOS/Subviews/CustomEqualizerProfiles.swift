@@ -1,5 +1,5 @@
 /*****************************************************************************
-* EqualizerView.swift
+* CustomEqualizerProfiles.swift
 *
 * Copyright © 2020 VLC authors and VideoLAN
 *
