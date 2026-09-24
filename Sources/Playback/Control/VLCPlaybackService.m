@@ -1666,9 +1666,12 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 - (void)setPreAmplification:(CGFloat)preAmplification
 {
     VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
-    if (!equalizer) {
-        equalizer = [[VLCAudioEqualizer alloc] init];
+    if (equalizer) {
+        equalizer.preAmplification = preAmplification;
+        return;
     }
+
+    equalizer = [[VLCAudioEqualizer alloc] init];
     equalizer.preAmplification = preAmplification;
     _mediaPlayer.equalizer = equalizer;
 }
