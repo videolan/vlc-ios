@@ -1605,16 +1605,9 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 
 - (CGFloat)amplificationOfBand:(unsigned int)index
 {
-    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
-    if (!equalizer) {
-        equalizer = [[VLCAudioEqualizer alloc] init];
-        _mediaPlayer.equalizer = equalizer;
-    }
-
-    NSArray *bands = equalizer.bands;
+    NSArray<VLCAudioEqualizerBand *> *bands = _mediaPlayer.equalizer.bands;
     if (index < bands.count) {
-        VLCAudioEqualizerBand *band = equalizer.bands[index];
-        return band.amplification;
+        return bands[index].amplification;
     }
     return 0.;
 }
