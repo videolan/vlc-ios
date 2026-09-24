@@ -1212,6 +1212,7 @@
 		7DB74896304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
 		7DB74897304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
 		7DB74898304743180073F784 /* PodcastMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB74895304743180073F784 /* PodcastMenuAction.swift */; };
+		7DB748F930619EE700510A41 /* VLCQRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB748F830619EE700510A41 /* VLCQRCodeGenerator.m */; };
 		7DB88E09302A3F3400795DF9 /* LiquidGlassStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB88E08302A3F3400795DF9 /* LiquidGlassStyleExtension.swift */; };
 		7DBB9D4027FF3BFB00ABCEC7 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
 		7DBB9D4127FF3C5D00ABCEC7 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
@@ -2394,6 +2395,8 @@
 		7DB7488F3046DE010073F784 /* VLCRadioService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCRadioService.h; sourceTree = "<group>"; };
 		7DB748903046DE010073F784 /* VLCRadioService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCRadioService.m; sourceTree = "<group>"; };
 		7DB74895304743180073F784 /* PodcastMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastMenuAction.swift; sourceTree = "<group>"; };
+		7DB748F730619EE700510A41 /* VLCQRCodeGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCQRCodeGenerator.h; sourceTree = "<group>"; };
+		7DB748F830619EE700510A41 /* VLCQRCodeGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCQRCodeGenerator.m; sourceTree = "<group>"; };
 		7DB88E08302A3F3400795DF9 /* LiquidGlassStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassStyleExtension.swift; sourceTree = "<group>"; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppDelegate.h; sourceTree = "<group>"; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppDelegate.m; sourceTree = "<group>"; };
@@ -3418,6 +3421,8 @@
 				7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */,
 				7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */,
 				7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */,
+				7DB748F730619EE700510A41 /* VLCQRCodeGenerator.h */,
+				7DB748F830619EE700510A41 /* VLCQRCodeGenerator.m */,
 			);
 			path = "WiFi Sharing";
 			sourceTree = "<group>";
@@ -6057,6 +6062,7 @@
 				7D8E12562B5D3F4A00BD81B7 /* VLCDeleteHintTVView.m in Sources */,
 				DD490B1F1BE95B5C0010F335 /* VLCSiriRemoteGestureRecognizer.m in Sources */,
 				7D0C20AA28C8AA2700CCFFEF /* VLCMaskView.m in Sources */,
+				7DB748F930619EE700510A41 /* VLCQRCodeGenerator.m in Sources */,
 				7DE0A9452F94247E0020980C /* AppearanceManager.swift in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D38BF91249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
