@@ -14,7 +14,6 @@ import AVKit
 @objc enum OptionsNavigationBarIdentifier: Int {
     case videoFilters
     case playbackSpeed
-    case equalizer
     case sleepTimer
     case abRepeat
     case abRepeatMarks

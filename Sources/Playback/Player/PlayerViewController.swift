@@ -746,6 +746,17 @@ class PlayerViewController: UIViewController {
         speedCard.focusForAccessibility()
     }
 
+    func showEqualizerCard() {
+        guard !(overlayCardView is EqualizerView) else {
+            return
+        }
+
+        let equalizerCard = EqualizerView(isModified: !optionsNavigationBar.equalizerButton.isHidden)
+        equalizerCard.delegate = self
+        showOverlayCard(equalizerCard)
+        equalizerCard.focusForAccessibility()
+    }
+
     func showSleepTimerCard() {
         guard !(overlayCardView is SleepTimerControlsView) else {
             return
@@ -825,7 +836,13 @@ class PlayerViewController: UIViewController {
         let guide = view.safeAreaLayoutGuide
         let margin: CGFloat = 12
         if isLandscape {
-            let preferredWidth = card.widthAnchor.constraint(equalToConstant: card is TrackSelectorView ? 380 : 340)
+            let landscapeWidth: CGFloat
+            if card is EqualizerView {
+                landscapeWidth = traitCollection.verticalSizeClass == .regular ? 480 : 380
+            } else {
+                landscapeWidth = card is TrackSelectorView ? 380 : 340
+            }
+            let preferredWidth = card.widthAnchor.constraint(equalToConstant: landscapeWidth)
             preferredWidth.priority = .defaultHigh
             overlayCardConstraints = [
                 card.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin),
@@ -866,7 +883,11 @@ class PlayerViewController: UIViewController {
     }
 
     private func resetEqualizer() {
-        moreOptionsActionSheet.resetEqualizer()
+        playbackService.restoreSavedEqualizerProfile()
+        hideEqualizerIcon()
+    }
+
+    @objc private func hideEqualizerIcon() {
         hideIcon(button: optionsNavigationBar.equalizerButton)
     }
 
@@ -995,6 +1016,7 @@ class PlayerViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidAppendMediaToQueue, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateSleepTimerIcon), name: Notification.Name(VLCPlaybackServiceSleepTimerDidChange), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(hideEqualizerIcon), name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
     }
 
     private func setupSeekDurations() {
@@ -1518,6 +1540,26 @@ extension PlayerViewController: SleepTimerControlsViewDelegate {
     }
 }
 
+// MARK: - EqualizerViewDelegate
+
+extension PlayerViewController: EqualizerViewDelegate {
+    func equalizerView(_ equalizerView: EqualizerView, didChangeModifiedState isModified: Bool) {
+        if isModified {
+            showIcon(button: optionsNavigationBar.equalizerButton)
+        } else {
+            hideIcon(button: optionsNavigationBar.equalizerButton)
+        }
+    }
+
+    func equalizerView(_ equalizerView: EqualizerView, present alertController: UIAlertController) {
+        present(alertController, animated: true)
+    }
+
+    func equalizerViewDidRequestDismissal(_ equalizerView: EqualizerView) {
+        dismissOverlayCard()
+    }
+}
+
 // MARK: - VideoFiltersControlsViewDelegate
 
 extension PlayerViewController: VideoFiltersControlsViewDelegate {
@@ -1545,9 +1587,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         case .sleepTimer:
             showIcon(button: optionsNavigationBar.sleepTimerButton)
             break
-        case .equalizer:
-            showIcon(button: optionsNavigationBar.equalizerButton)
-            break
         case .abRepeat:
             showIcon(button: optionsNavigationBar.abRepeatButton)
             break
@@ -1566,9 +1605,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             break
         case .sleepTimer:
             hideIcon(button: optionsNavigationBar.sleepTimerButton)
-            break
-        case .equalizer:
-            hideIcon(button: optionsNavigationBar.equalizerButton)
             break
         case .abRepeat:
             hideIcon(button: optionsNavigationBar.abRepeatButton)
@@ -1593,6 +1629,10 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         showVideoFiltersCard()
     }
 
+    func mediaMoreOptionsActionSheetPresentEqualizer() {
+        showEqualizerCard()
+    }
+
     func mediaMoreOptionsActionSheetHideAlertIfNecessary() {
         guard let alertController = alertController else {
             return
@@ -1600,20 +1640,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
         alertController.dismiss(animated: true)
         self.alertController = nil
-    }
-
-    func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView) {
-        if let equalizerView = child as? EqualizerView {
-            guard !equalizerPopupView.isShown else {
-                return
-            }
-
-            showPopup(equalizerPopupView, with: equalizerView, accessoryViewsDelegate: equalizerView)
-        }
-    }
-
-    func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController) {
-        present(alert, animated: true)
     }
 
     func mediaMoreOptionsActionSheetUpdateProgressBar() {

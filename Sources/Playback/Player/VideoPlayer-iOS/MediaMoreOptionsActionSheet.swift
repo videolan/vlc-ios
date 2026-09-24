@@ -18,11 +18,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
-    func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
     func mediaMoreOptionsActionSheetPresentPlaybackSpeed()
     func mediaMoreOptionsActionSheetPresentSleepTimer()
     func mediaMoreOptionsActionSheetPresentVideoFilters()
-    func mediaMoreOptionsActionSheetDisplayEqualizerAlert(_ alert: UIAlertController)
+    func mediaMoreOptionsActionSheetPresentEqualizer()
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
     func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float)
@@ -76,17 +75,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     private(set) lazy var sleepTimerPlaceholderView = UIView()
 
-    private lazy var equalizerView: EqualizerView = {
-        let equalizerView = EqualizerView()
-        equalizerView.overrideUserInterfaceStyle = .dark
-
-        guard let playbackService = PlaybackService.sharedInstance() as? EqualizerViewDelegate else {
-            preconditionFailure("PlaybackService should be EqualizerViewDelegate.")
-        }
-        equalizerView.delegate = playbackService
-        equalizerView.UIDelegate = self
-        return equalizerView
-    }()
+    private(set) lazy var equalizerPlaceholderView = UIView()
 
     private lazy var chapterView: ChapterView = {
         let chapterView = ChapterView.init(frame: offScreenFrame)
@@ -136,12 +125,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }
 
     // MARK: - Instance Methods
-    func resetEqualizer() {
-        equalizerView.resetEqualizer()
-    }
-
     func updateThemes() {
-        equalizerView.setupTheme()
         chapterView.setupTheme()
         bookmarksView.setupTheme()
     }
@@ -181,8 +165,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func addView(_ view: ActionSheetCellIdentifier) {
         switch view {
-        case .equalizer:
-            openOptionView(equalizerView)
         case .chapters:
             openOptionView(chapterView)
         case .bookmarks:
@@ -200,21 +182,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func renameBookmarkAt(name: String, row: Int) {
         bookmarksView.renameBookmarkAt(name: name, row: row)
-    }
-}
-
-// MARK: - EqualizeViewUIDelegate
-extension MediaMoreOptionsActionSheet: EqualizerViewUIDelegate {
-    func equalizerViewShowIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .equalizer)
-    }
-
-    func equalizerViewHideIcon() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .equalizer)
-    }
-
-    func displayAlert(_ alert: UIAlertController) {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayEqualizerAlert(alert)
     }
 }
 
@@ -306,6 +273,8 @@ extension MediaMoreOptionsActionSheet {
             moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentSleepTimer()
         case .filter:
             moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentVideoFilters()
+        case .equalizer:
+            moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentEqualizer()
         default:
             break
         }
@@ -350,7 +319,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         case .sleepTimer:
             return sleepTimerPlaceholderView
         case .equalizer:
-            return equalizerView
+            return equalizerPlaceholderView
         case .chapters:
             return chapterView
         case .bookmarks:

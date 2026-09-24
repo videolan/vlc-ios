@@ -118,9 +118,7 @@ class MediaPlayerActionSheet: ActionSheet {
     }
 
     private func getTitle(of childView: UIView) -> String {
-        if childView is EqualizerView {
-            return ActionSheetCellIdentifier.equalizer.description
-        } else if childView is ChapterView {
+        if childView is ChapterView {
             return ActionSheetCellIdentifier.chapters.description
         } else if childView is BookmarksView {
             return ActionSheetCellIdentifier.bookmarks.description
@@ -256,11 +254,7 @@ class MediaPlayerActionSheet: ActionSheet {
                       item != actionSheet.mockView else {
                     return
                 }
-                if let equalizerView = item as? EqualizerView {
-                    equalizerView.willShow()
-                    actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
-                    self.removeActionSheet()
-                } else if let abRepeatView = item as? ABRepeatView {
+                if let abRepeatView = item as? ABRepeatView {
                     self.removeActionSheet()
                     actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
                 } else if item == actionSheet.playbackSpeedPlaceholderView {
@@ -269,6 +263,8 @@ class MediaPlayerActionSheet: ActionSheet {
                     actionSheet.closeAndPresentCard(for: .sleepTimer)
                 } else if item == actionSheet.videoFiltersPlaceholderView {
                     actionSheet.closeAndPresentCard(for: .filter)
+                } else if item == actionSheet.equalizerPlaceholderView {
+                    actionSheet.closeAndPresentCard(for: .equalizer)
                 } else {
                     self.add(childView: item)
                 }

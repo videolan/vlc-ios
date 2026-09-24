@@ -64,7 +64,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 #elif TARGET_OS_WATCH
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate>
 #else
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate, VLCDrawable, VLCPictureInPictureDrawable>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
 #endif
 {
     VLCMediaPlayer *_backgroundDummyPlayer;

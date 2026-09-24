@@ -42,6 +42,10 @@
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "SNAP_BANDS" = "Snap bands";
+"EQUALIZER_SAVE_PROFILE" = "Save as Profile…";
+"EQUALIZER_APPLY_PROFILE" = "Apply";
+"EQUALIZER_MOVE_UP" = "Move Up";
+"EQUALIZER_MOVE_DOWN" = "Move Down";
 
 "PLAYBACK_FAILED" = "Playback failed";
 "PLEASE_WAIT" = "Please wait";
