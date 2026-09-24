@@ -349,6 +349,14 @@ private extension AudioMiniPlayer {
         audioMiniPlayer.addSubview(previousNextOverlay)
 
         pin(previousNextOverlay, filling: audioMiniPlayer)
+
+#if !os(visionOS)
+        if #available(iOS 26.0, *) {
+            let corners = UICornerConfiguration.capsule()
+            previousNextOverlay.cornerConfiguration = corners
+        }
+#endif
+
         NSLayoutConstraint.activate([
             previousNextImage.centerXAnchor.constraint(equalTo: previousNextOverlay.centerXAnchor),
             previousNextImage.topAnchor.constraint(equalTo: previousNextOverlay.topAnchor, constant: 3.5),
