@@ -607,9 +607,9 @@ extension AudioMiniPlayer {
             case .horizontal:
                 switch position.horizontal {
                 case .right:
-                    playbackService.previous()
-                case .left:
                     playbackService.next()
+                case .left:
+                    playbackService.previous()
                 case .center:
                     break
                 }
@@ -680,7 +680,7 @@ extension AudioMiniPlayer {
                 position.horizontal = .center
                 hidePreviousNextOverlay()
             } else {
-                previousNextImage.image = UIImage(named: "MiniNext")
+                previousNextImage.image = UIImage(named: "MiniPrev")
                 previousNextOverlay.alpha = abs(superview.center.x - center.x) / (superview.frame.width / 2)
                 previousNextOverlay.isHidden = false
             }
@@ -690,7 +690,7 @@ extension AudioMiniPlayer {
                 position.horizontal = .center
                 hidePreviousNextOverlay()
             } else {
-                previousNextImage.image = UIImage(named: "MiniPrev")
+                previousNextImage.image = UIImage(named: "MiniNext")
                 previousNextOverlay.alpha = abs(superview.center.x - center.x) / (superview.frame.width / 2)
                 previousNextOverlay.isHidden = false
             }
