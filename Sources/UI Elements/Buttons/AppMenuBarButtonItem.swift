@@ -42,8 +42,8 @@ class AppMenuBarButtonItem: UIBarButtonItem {
             self?.showDocumentation()
         }
 
-        let donation = UIAction(title: NSLocalizedString("SETTINGS_DONATE", comment: ""),
-                                image: UIImage(systemName: "heart")) { [weak self] _ in
+        let donation: UIMenuElement = UIAction(title: NSLocalizedString("SETTINGS_DONATE", comment: ""),
+                                               image: UIImage(systemName: "heart")) { [weak self] _ in
             self?.showDonation()
         }
         donation.subtitle = NSLocalizedString("SETTINGS_DONATE_LONG", comment: "")
