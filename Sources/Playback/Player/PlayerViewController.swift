@@ -181,12 +181,6 @@ class PlayerViewController: UIViewController {
         return optionsNavigationBar
     }()
 
-    lazy var equalizerPopupView: PopupView = {
-        let equalizerPopupView = PopupView()
-        equalizerPopupView.delegate = self
-        return equalizerPopupView
-    }()
-
     lazy var externalOutputView: PlayerInfoView = {
         let externalOutputView = PlayerInfoView()
         externalOutputView.isHidden = true
@@ -525,19 +519,6 @@ class PlayerViewController: UIViewController {
 #endif
 
     // MARK: - Public methods
-
-    func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
-        shouldDisableGestures(true)
-
-        popupView.isShown = true
-
-        popupView.addContentView(contentView, constraintWidth: true)
-        if let accessoryViewsDelegate = accessoryViewsDelegate {
-            popupView.accessoryViewsDelegate = accessoryViewsDelegate
-        }
-
-        view.addSubview(popupView)
-    }
 
     func setControlsHidden(_ hidden: Bool, animated: Bool) {
         // Empty implementation. Should override in subclasses.
@@ -1841,16 +1822,6 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
     }
 }
 
-// MARK: - PopupViewDelegate
-
-extension PlayerViewController: PopupViewDelegate {
-    @objc func popupViewDidClose(_ popupView: PopupView) {
-        shouldDisableGestures(false)
-
-        popupView.isShown = false
-    }
-}
-
 // MARK: - DeviceMotionDelegate
 
 extension PlayerViewController: DeviceMotionDelegate {
@@ -1968,11 +1939,6 @@ extension PlayerViewController {
 
         if let presented = presentedViewController {
             presented.dismiss(animated: true)
-            return
-        }
-
-        guard !equalizerPopupView.isShown else {
-            equalizerPopupView.close()
             return
         }
 

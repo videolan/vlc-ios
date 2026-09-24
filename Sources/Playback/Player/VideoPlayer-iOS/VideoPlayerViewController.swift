@@ -264,14 +264,6 @@ class VideoPlayerViewController: PlayerViewController {
                                                     constant: -5)
     }()
 
-    private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
-        equalizerPopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
-    }()
-
-    private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
-        equalizerPopupView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10)
-    }()
-
     // MARK: - Init methods
 
 #if os(iOS)
@@ -865,27 +857,6 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
         videoPlayerButtons()
-
-        let popupMargin: CGFloat
-        let videoPlayerControlsHeight: CGFloat
-        let scrubProgressBarSpacing: CGFloat
-
-        if traitCollection.verticalSizeClass == .compact {
-            popupMargin = 0
-            videoPlayerControlsHeight = 22
-            scrubProgressBarSpacing = 0
-        } else {
-            popupMargin = 10
-            videoPlayerControlsHeight = 44
-            scrubProgressBarSpacing = 5
-        }
-        equalizerPopupTopConstraint.constant = popupMargin
-        equalizerPopupBottomConstraint.constant = -popupMargin
-        if equalizerPopupView.isShown {
-            videoPlayerControlsHeightConstraint.constant = videoPlayerControlsHeight
-            mediaScrubProgressBar.spacing = scrubProgressBarSpacing
-            view.layoutSubviews()
-        }
     }
 
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -1000,9 +971,6 @@ class VideoPlayerViewController: PlayerViewController {
     override func setControlsHidden(_ hidden: Bool, animated: Bool) {
         guard !UIAccessibility.isVoiceOverRunning || !hidden else { return }
 
-        if equalizerPopupView.isShown && hidden {
-            return
-        }
         playerController.isControlsHidden = hidden
         if let alert = alertController, hidden {
             alert.dismiss(animated: true, completion: nil)
@@ -1070,27 +1038,6 @@ class VideoPlayerViewController: PlayerViewController {
         delayViewHideTimer?.invalidate()
         delayViewHideTimer = nil
         super.dismissOverlayCard()
-    }
-
-    override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
-        super.showPopup(popupView, with: contentView, accessoryViewsDelegate: accessoryViewsDelegate)
-
-        videoPlayerControls.moreActionsButton.isEnabled = false
-
-        let iPhone5width: CGFloat = 320
-        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
-        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
-        leadingConstraint.priority = .required
-        trailingConstraint.priority = .required
-
-        NSLayoutConstraint.activate([
-            equalizerPopupTopConstraint,
-            equalizerPopupBottomConstraint,
-            leadingConstraint,
-            trailingConstraint,
-            popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            popupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
-        ])
     }
 
     // MARK: - Private helpers
@@ -1603,18 +1550,6 @@ extension VideoPlayerViewController {
 
         let modalNavigationController = UINavigationController(rootViewController: targetViewController)
         present(modalNavigationController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - PopupViewDelegate
-
-extension VideoPlayerViewController {
-    override func popupViewDidClose(_ popupView: PopupView) {
-        super.popupViewDidClose(popupView)
-        videoPlayerControls.moreActionsButton.isEnabled = true
-        videoPlayerControlsHeightConstraint.constant = 44
-        mediaScrubProgressBar.spacing = 5
-        resetIdleTimer()
     }
 }
 

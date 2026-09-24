@@ -10,20 +10,6 @@
 
 import UIKit
 
-// MARK: - MoveEventIdentifier
-
-enum MoveEventIdentifier: Int {
-    case up = 1
-    case down
-}
-
-// MARK: - EqualizerEditActionsIdentifier
-
-@objc enum EqualizerEditActionsIdentifier: Int {
-    case rename = 1
-    case delete
-}
-
 // MARK: - CustomEqualizerProfile
 
 @objcMembers class CustomEqualizerProfile: NSObject, NSCoding {

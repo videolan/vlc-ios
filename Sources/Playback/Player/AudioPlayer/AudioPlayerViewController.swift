@@ -59,14 +59,6 @@ class AudioPlayerViewController: PlayerViewController {
         return moreOptionsButton
     }()
 
-    private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
-        equalizerPopupView.topAnchor.constraint(equalTo: audioPlayerView.navigationBarView.topAnchor, constant: 10)
-    }()
-
-    private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
-        equalizerPopupView.bottomAnchor.constraint(equalTo: audioPlayerView.progressionView.topAnchor, constant: -10)
-    }()
-
     // MARK: - Init
 
 #if os(iOS)
@@ -182,28 +174,6 @@ class AudioPlayerViewController: PlayerViewController {
         let playbackSpeed = playbackService.playbackRate
         audioPlayerView.updatePlaybackSpeedButton(with: playbackSpeed)
         audioPlayerView.shouldDisplaySecondaryStackView(abs(playbackSpeed - 1) > 0.001)
-    }
-
-    override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
-        moreOptionsButton.isEnabled = false
-        super.showPopup(popupView, with: contentView, accessoryViewsDelegate: accessoryViewsDelegate)
-
-        let iPhone5width: CGFloat = 320
-        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.leadingAnchor, constant: 10)
-        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.trailingAnchor, constant: -10)
-        leadingConstraint.priority = .required
-        trailingConstraint.priority = .required
-
-        let newConstraints = [
-            equalizerPopupTopConstraint,
-            equalizerPopupBottomConstraint,
-            leadingConstraint,
-            trailingConstraint,
-            popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
-        ]
-
-        NSLayoutConstraint.activate(newConstraints)
     }
 
     @objc func setupQueueViewController(with qvc: QueueViewController) {
@@ -645,15 +615,6 @@ extension AudioPlayerViewController {
             abRepeatView.centerXAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.centerXAnchor),
             abRepeatView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10.0),
         ])
-    }
-}
-
-// MARK: - PopupViewDelegate
-
-extension AudioPlayerViewController {
-    override func popupViewDidClose(_ popupView: PopupView) {
-        super.popupViewDidClose(popupView)
-        moreOptionsButton.isEnabled = true
     }
 }
 
