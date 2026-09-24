@@ -5,6 +5,7 @@
         <deployment identifier="tvOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,6 +19,8 @@
                 <outlet property="editSelectionButton" destination="96d-hs-Fxc" id="HCH-ea-mlb"/>
                 <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
                 <outlet property="playlistButton" destination="yP1-U8-5i9" id="hZX-Yx-Ir7"/>
+                <outlet property="qrCodeContainerView" destination="Fzq-8N-tKp" id="Rvc-2E-qd8"/>
+                <outlet property="qrCodeImageView" destination="Ld2-Rv-x9C" id="Wmj-7A-nb4"/>
                 <outlet property="searchBar" destination="zYp-CG-hFx" id="NDx-cY-z0a"/>
                 <outlet property="sortButton" destination="4tp-OP-T5c" id="Ktw-qW-C7i"/>
                 <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
@@ -29,7 +32,7 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOM-K1-6hX">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontSizeToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mOM-K1-6hX">
                     <rect key="frame" x="763" y="150" width="394" height="115"/>
                     <string key="text">http://bonjour.local
 http://192.168.1.1</string>
@@ -38,6 +41,23 @@ http://192.168.1.1</string>
                     <nil key="highlightedColor"/>
                     <color key="shadowColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzq-8N-tKp">
+                    <rect key="frame" x="1640" y="60" width="200" height="200"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ld2-Rv-x9C">
+                            <rect key="frame" x="10" y="10" width="180" height="180"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ld2-Rv-x9C" firstAttribute="top" secondItem="Fzq-8N-tKp" secondAttribute="top" constant="10" id="Bm4-pQ-s1T"/>
+                        <constraint firstItem="Ld2-Rv-x9C" firstAttribute="leading" secondItem="Fzq-8N-tKp" secondAttribute="leading" constant="10" id="Yc7-hW-u2R"/>
+                        <constraint firstAttribute="trailing" secondItem="Ld2-Rv-x9C" secondAttribute="trailing" constant="10" id="Ke9-Jx-v3D"/>
+                        <constraint firstAttribute="bottom" secondItem="Ld2-Rv-x9C" secondAttribute="bottom" constant="10" id="Ns5-Tz-w4F"/>
+                        <constraint firstAttribute="width" secondItem="Fzq-8N-tKp" secondAttribute="height" multiplier="1:1" id="Gk6-Ld-y8M"/>
+                        <constraint firstAttribute="height" constant="200" id="Tq3-Hw-k7N"/>
+                    </constraints>
+                </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Gw-i36">
                     <rect key="frame" x="0.0" y="417" width="1920" height="663"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pP2-ie-8Sr">
@@ -141,7 +161,11 @@ http://192.168.1.1</string>
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Jd9-Pw-r4X"/>
             <constraints>
+                <constraint firstItem="Fzq-8N-tKp" firstAttribute="top" secondItem="Jd9-Pw-r4X" secondAttribute="top" id="Ao1-Bc-d5G"/>
+                <constraint firstItem="Jd9-Pw-r4X" firstAttribute="trailing" secondItem="Fzq-8N-tKp" secondAttribute="trailing" id="Qw4-Lr-z8T"/>
+                <constraint firstItem="Fzq-8N-tKp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mOM-K1-6hX" secondAttribute="trailing" constant="42" id="Ut8-Vn-f7J"/>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerY" secondItem="VjG-Gw-i36" secondAttribute="centerY" constant="100" id="3tr-BA-rpi"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="tfS-RT-SOx" secondAttribute="bottom" constant="42" id="8UJ-xz-sXh"/>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="GCV-oF-eIh"/>

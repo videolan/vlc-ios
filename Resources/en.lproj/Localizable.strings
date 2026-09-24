@@ -356,6 +356,7 @@
 "ENTER_URL" = "Enter URL to play";
 "HTTP_SERVER_ON" = "Disable Remote Playback";
 "HTTP_SERVER_OFF" = "Enable Remote Playback";
+"HTTP_UPLOAD_QR_CODE" = "QR code for the server address"; /* Accessibility label for the QR code on the Apple TV remote playback screen */
 "CACHED_MEDIA" = "Cached Media";
 "CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Download Subtitles...";

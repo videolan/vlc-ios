@@ -16,6 +16,8 @@
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *httpServerLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *qrCodeContainerView;
+@property (readwrite, nonatomic, weak) IBOutlet UIImageView *qrCodeImageView;
 @property (weak, nonatomic) IBOutlet UITextField *searchBar;
 
 @property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;

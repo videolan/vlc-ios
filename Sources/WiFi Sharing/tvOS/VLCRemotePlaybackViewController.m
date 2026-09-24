@@ -13,6 +13,7 @@
 #import "VLCRemotePlaybackViewController.h"
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCQRCodeGenerator.h"
 #import "VLCMovieTVCollectionViewCell.h"
 #import "VLCMediaTVCollectionViewCell.h"
 #import "VLCMaskView.h"
@@ -48,6 +49,9 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
 @end
 
 @implementation VLCRemotePlaybackViewController
+{
+     NSString *_qrCodeAddress;
+}
 
 - (NSString *)title
 {
@@ -81,6 +85,12 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      _searchedMedia = [[NSMutableArray alloc] init];
      _searchBar.delegate = self;
      _didBeginSearching = NO;
+
+     self.qrCodeContainerView.layer.cornerRadius = 12.;
+     self.qrCodeContainerView.isAccessibilityElement = YES;
+     self.qrCodeContainerView.accessibilityLabel = NSLocalizedString(@"HTTP_UPLOAD_QR_CODE", nil);
+     self.qrCodeImageView.layer.magnificationFilter = kCAFilterNearest;
+     [self updateTheme];
 
      self.navigationController.navigationBarHidden = YES;
 
@@ -186,6 +196,8 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
      ColorPalette *colors = PresentationTheme.current.colors;
      self.cachedMediaLabel.textColor = colors.cellTextColor;
      self.cachedMediaLongLabel.textColor = colors.cellDetailTextColor;
+     self.qrCodeContainerView.backgroundColor = colors.background;
+     self.qrCodeImageView.tintColor = colors.cellTextColor;
 }
 
 - (void)updateHTTPServerAddress
@@ -198,6 +210,14 @@ static NSString * const VLCMediaFooterIdentifier = @"VLCMediaFooterView";
           [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_ON", nil) forState:UIControlStateNormal];
      else
           [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_OFF", nil) forState:UIControlStateNormal];
+
+     VLCHTTPUploaderController *uploader = [[VLCAppCoordinator sharedInstance] httpUploaderController];
+     NSString *address = (connectedViaWifi && uploader.isServerRunning) ? uploader.addressToCopy : nil;
+     if (![address isEqualToString:_qrCodeAddress]) {
+          _qrCodeAddress = address;
+          self.qrCodeImageView.image = address ? [VLCQRCodeGenerator QRCodeImageForString:address] : nil;
+     }
+     self.qrCodeContainerView.hidden = address == nil;
 }
 
 - (IBAction)toggleEditSelectionMode:(id)sender
