@@ -17,7 +17,7 @@ import AppIntents
 import Foundation
 import VLCMediaLibraryKit
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 enum AudioIntentStrings {
     // Required so that genstrings/update_strings.py doesn't delete the localized strings
     static var _genstringsDummy = [
@@ -27,7 +27,7 @@ enum AudioIntentStrings {
     ]
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppEnum(schema: .audio.playbackAttributes)
 enum PlaybackAttributes: String {
     case shuffle
@@ -39,7 +39,7 @@ enum PlaybackAttributes: String {
     ]
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppEnum(schema: .audio.queueInsertionLocation)
 enum QueueInsertionLocation: String {
     case next
@@ -51,7 +51,7 @@ enum QueueInsertionLocation: String {
     ]
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppEnum(schema: .audio.affinityState)
 enum AffinityState: String {
     case like
@@ -65,7 +65,7 @@ enum AffinityState: String {
     ]
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppIntent(schema: .audio.playAudio)
 struct PlayAudioIntent {
     var audioEntity: AudioItem
@@ -107,7 +107,7 @@ struct PlayAudioIntent {
     }
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppIntent(schema: .audio.warmupAudioQueue)
 struct WarmupAudioQueueIntent {
     var audioEntity: AudioItem
@@ -122,7 +122,7 @@ struct WarmupAudioQueueIntent {
     }
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppIntent(schema: .audio.addToPlaylist)
 struct AddAudioToPlaylistIntent {
     var audioEntity: AudioItem
@@ -145,7 +145,7 @@ struct AddAudioToPlaylistIntent {
     }
 }
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppIntent(schema: .audio.updateAudioAffinity)
 struct UpdateAudioAffinityIntent {
     var affinityState: AffinityState

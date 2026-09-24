@@ -47,7 +47,7 @@ struct AppShortcuts: AppShortcutsProvider {
         }
         // iOS 27 SDK
 #if canImport(MediaIntents)
-        if #available(iOS 27, *) {
+        if #available(iOS 27.0, visionOS 27.0, *) {
             AppShortcut(
                 intent: PlayAudioIntent(),
                 phrases: [
@@ -58,7 +58,7 @@ struct AppShortcuts: AppShortcutsProvider {
                 systemImageName: "music.note"
             )
         }
-        if #available(iOS 27, *) {
+        if #available(iOS 27.0, visionOS 27.0, *) {
             AppShortcut(
                 intent: AddAudioToPlaylistIntent(),
                 phrases: [
@@ -68,7 +68,7 @@ struct AppShortcuts: AppShortcutsProvider {
                 systemImageName: "text.badge.plus"
             )
         }
-        if #available(iOS 27, *) {
+        if #available(iOS 27.0, visionOS 27.0, *) {
             AppShortcut(
                 intent: UpdateAudioAffinityIntent(),
                 phrases: [

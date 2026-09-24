@@ -72,7 +72,7 @@ extension AudioItem {
 
 // MARK: - Song
 
-@available(iOS 27, *)
+@available(iOS 27.0, visionOS 27.0, *)
 @AppEntity(schema: .audio.song)
 struct SongEntity: IndexedEntity {
     static let defaultQuery = SongEntityQuery()

@@ -204,7 +204,7 @@ extension VLCMLMedia {
 
         // iOS 27 SDK
 #if canImport(MediaIntents)
-        if #available(iOS 27, *), type() == .audio {
+        if #available(iOS 27.0, visionOS 27.0, *), type() == .audio {
             attributeSet.associateAppEntity(SongEntity(media: self), priority: isFavorite() ? 10 : 1)
         }
 #endif
