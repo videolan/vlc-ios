@@ -166,9 +166,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     self.intervalSelectorControl.selectedSegmentIndex = 0;
     [self segmentedControlAction:self];
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_VISION
     // not needed on iPad as this VC is not a fullscreen modal
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (TARGET_OS_VISION || [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil)
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
