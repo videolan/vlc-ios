@@ -39,7 +39,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="75" id="mq3-eh-tr6"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="63"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="63"/>
                     <color key="textColor" systemColor="systemOrangeColor"/>
                     <nil key="highlightedColor"/>
                 </label>
