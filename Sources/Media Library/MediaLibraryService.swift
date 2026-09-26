@@ -205,6 +205,10 @@ class MediaLibraryService: NSObject {
 
     private(set) var observable = VLCObservable<MediaLibraryObserver>()
 
+    private static let medialibraryLogLimit = 200
+    private let medialibraryLogLock = NSLock()
+    private var medialibraryLog: [String] = []
+
     private let mediaLibrarySetupLock = NSLock()
     private var didSetupMediaLibrary = false
     private lazy var privateMediaLib = VLCMediaLibrary()
@@ -461,6 +465,7 @@ private extension MediaLibraryService {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 
+        privateMediaLib.loggerDelegate = self
         let medialibraryStatus = privateMediaLib.setupMediaLibrary(databasePath: databasePath,
                                                                medialibraryPath: medialibraryPath)
 
@@ -520,9 +525,14 @@ private extension MediaLibraryService {
             return
         }
 
+        medialibraryLogLock.lock()
+        let log = medialibraryLog
+        medialibraryLogLock.unlock()
+
         MediaLibraryCorruptionReport.preserve(databasePath: currentDatabasePath,
                                               reason: reason,
-                                              details: details)
+                                              details: details,
+                                              log: log)
         MediaLibraryCorruptionReportPresenter.shared.presentIfNeeded()
     }
 #endif
@@ -1185,6 +1195,21 @@ extension MediaLibraryService {
             }
         }
         return true
+    }
+}
+
+// MARK: - VLCMLLoggerDelegate
+
+extension MediaLibraryService: VLCMLLoggerDelegate {
+    func medialibraryDidLogMessage(_ message: String, level: VLCMLLogLevel) {
+        APLog("medialibrary: \(message)")
+
+        medialibraryLogLock.lock()
+        medialibraryLog.append(message)
+        if medialibraryLog.count > MediaLibraryService.medialibraryLogLimit {
+            medialibraryLog.removeFirst(medialibraryLog.count - MediaLibraryService.medialibraryLogLimit)
+        }
+        medialibraryLogLock.unlock()
     }
 }
 
