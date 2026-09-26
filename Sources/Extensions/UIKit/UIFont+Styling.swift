@@ -37,11 +37,7 @@ extension UIFont {
     @objc class func preferredCustomFont(forTextStyle textStyle: UIFont.TextStyle) -> UIFont {
         let systemFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
 
-        let customFontDescriptor = UIFontDescriptor.init(fontAttributes: [
-            UIFontDescriptor.AttributeName.size: systemFontDescriptor.pointSize
-        ])
-
-        return UIFont(descriptor: customFontDescriptor, size: 0)
+        return UIFont.systemFont(ofSize: systemFontDescriptor.pointSize)
     }
 
 }
