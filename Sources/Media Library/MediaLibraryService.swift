@@ -196,6 +196,7 @@ class MediaLibraryService: NSObject {
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
     private var initRecoveryAttempt = 0
     private var currentDatabasePath = ""
+    private var currentMediaPath = ""
 
     private var didStartMediaDiscovery = false
 
@@ -436,6 +437,7 @@ private extension MediaLibraryService {
         }
 
         currentDatabasePath = databasePath
+        currentMediaPath = mediaPath
 
 #if os(tvOS)
         // we need to create the folder before we can listen to it
@@ -1178,7 +1180,9 @@ extension MediaLibraryService {
                                       details: "\(context): \(errorMessage)")
 #endif
             medialib.clearDatabase(restorePlaylists: true)
-            setupMediaLibrary()
+            if mlServiceType == .mediaLibrary {
+                startMediaLibrary(on: currentMediaPath)
+            }
         }
         return true
     }
