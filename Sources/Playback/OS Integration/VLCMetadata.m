@@ -157,6 +157,10 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
     self.position = @(mediaPlayer.position);
 
+#if !TARGET_OS_WATCH && !TARGET_OS_TV
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) return;
+#endif
+
     [self populateInfoCenterFromMetadata];
 }
 
