@@ -17,7 +17,7 @@
 
 #import "VLC-Swift.h"
 
-static CGFloat const kVLCBrowseSharingCornerRadius = 14.0;
+static CGFloat const kVLCBrowseSharingCornerRadius = 9.0;
 
 @implementation VLCBrowseSharingCell
 {
