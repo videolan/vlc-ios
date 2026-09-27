@@ -84,6 +84,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
     commandCenter.changePlaybackRateCommand.supportedPlaybackRates = @[@(0.5),@(0.75),@(1.0),@(1.25),@(1.5),@(1.75),@(2.0)];
 
     for (MPRemoteCommand *command in RemoteCommandCenterCommandsToHandle()) {
+        [command removeTarget:self];
         [command addTarget:self action:@selector(remoteCommandEvent:)];
     }
 }
