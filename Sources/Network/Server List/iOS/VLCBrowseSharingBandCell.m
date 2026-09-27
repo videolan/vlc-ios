@@ -26,6 +26,7 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
 {
     UIView *_bandView;
     UIView *_chipRiserView;
+    UIView *_chipFilletView;
     NSLayoutConstraint *_chipRiserWidthConstraint;
     NSArray<NSString *> *_addresses;
     NSMutableArray<UIControl *> *_rowViews;
@@ -69,6 +70,27 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
     _chipRiserView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_chipRiserView];
 
+    CGFloat filletSide = kVLCBrowseBandChipOverlap;
+    UIBezierPath *filletPath = [UIBezierPath bezierPath];
+    [filletPath moveToPoint:CGPointMake(filletSide, 0.0)];
+    [filletPath addLineToPoint:CGPointMake(filletSide, filletSide)];
+    [filletPath addLineToPoint:CGPointMake(0.0, filletSide)];
+    [filletPath addArcWithCenter:CGPointZero
+                          radius:filletSide
+                      startAngle:M_PI_2
+                        endAngle:0.0
+                       clockwise:NO];
+    [filletPath closePath];
+
+    CAShapeLayer *filletMask = [CAShapeLayer layer];
+    filletMask.frame = CGRectMake(0.0, 0.0, filletSide, filletSide);
+    filletMask.path = filletPath.CGPath;
+
+    _chipFilletView = [[UIView alloc] init];
+    _chipFilletView.translatesAutoresizingMaskIntoConstraints = NO;
+    _chipFilletView.layer.mask = filletMask;
+    [self.contentView addSubview:_chipFilletView];
+
     _chipRiserWidthConstraint = [_chipRiserView.widthAnchor constraintEqualToConstant:0.0];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -80,7 +102,12 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
         _chipRiserWidthConstraint,
         [_chipRiserView.trailingAnchor constraintEqualToAnchor:_bandView.trailingAnchor],
         [_chipRiserView.bottomAnchor constraintEqualToAnchor:_bandView.topAnchor],
-        [_chipRiserView.heightAnchor constraintEqualToConstant:kVLCBrowseBandChipOverlap]
+        [_chipRiserView.heightAnchor constraintEqualToConstant:kVLCBrowseBandChipOverlap],
+
+        [_chipFilletView.trailingAnchor constraintEqualToAnchor:_chipRiserView.leadingAnchor],
+        [_chipFilletView.bottomAnchor constraintEqualToAnchor:_bandView.topAnchor],
+        [_chipFilletView.widthAnchor constraintEqualToConstant:filletSide],
+        [_chipFilletView.heightAnchor constraintEqualToConstant:filletSide]
     ]];
 }
 
@@ -94,6 +121,8 @@ static CGFloat const kVLCBrowseBandGlyphSide = 18.0;
     _bandView.backgroundColor = themeColors.accentTint;
     _chipRiserView.backgroundColor = themeColors.accentTint;
     _chipRiserView.hidden = !joined;
+    _chipFilletView.backgroundColor = themeColors.accentTint;
+    _chipFilletView.hidden = !joined;
     _chipRiserWidthConstraint.constant = joined ? chipWidth : 0.0;
 
     /* the riser bridges the gap up to the sharing chip, so that corner stays square */
