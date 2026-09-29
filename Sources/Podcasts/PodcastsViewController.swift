@@ -230,7 +230,9 @@ class PodcastsViewController: UIViewController {
 
     @objc private func didTapSearch() {
         navigationItem.searchController = searchController
-        searchController.isActive = true
+        DispatchQueue.main.async {
+            self.searchController.isActive = true
+        }
     }
 
     private func performSearch(_ searchText: String) {
@@ -621,6 +623,10 @@ extension PodcastsViewController: UISearchBarDelegate, UISearchControllerDelegat
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         endSearch()
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
     }
 
     func didDismissSearchController(_ searchController: UISearchController) {
