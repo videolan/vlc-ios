@@ -769,7 +769,10 @@ extension EqualizerView {
         }
 
         let saveAction = UIAlertAction(title: NSLocalizedString("BUTTON_SAVE", comment: ""), style: .default) { [weak alertController] _ in
-            let name: String = alertController?.textFields?.first?.text ?? NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
+            var name = alertController?.textFields?.first?.text ?? ""
+            if name.isEmpty {
+                name = NSLocalizedString("DEFAULT_PROFILE_NAME", comment: "")
+            }
             self.playbackService.saveCustomEqualizerProfile(withName: name)
 
             self.setModified(false)
