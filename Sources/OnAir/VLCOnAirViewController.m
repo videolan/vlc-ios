@@ -106,12 +106,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
     self.navigationItem.leftBarButtonItem = [[VLCAppMenuBarButtonItem alloc] initWithPresenter:self];
 
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                                                                  target:self
-                                                                                  action:@selector(showSearch)];
-    searchButton.accessibilityLabel = NSLocalizedString(@"SEARCH", nil);
-    self.navigationItem.rightBarButtonItem = searchButton;
-
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
@@ -836,11 +830,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 - (void)showAddM3U
 {
     APLog(@"On Air: no M3U channel list import available yet");
-}
-
-- (void)showSearch
-{
-    APLog(@"On Air: no cross-category search available yet");
 }
 
 #pragma mark - appearance
