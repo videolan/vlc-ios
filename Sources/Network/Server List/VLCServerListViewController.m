@@ -1121,8 +1121,8 @@ referenceSizeForHeaderInSection:(NSInteger)section
 
 - (void)themeDidChange
 {
-    _collectionView.backgroundColor = PresentationTheme.current.colors.pageBackground;
-    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    _collectionView.backgroundColor = PresentationTheme.current.colors.background;
+    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
 
     if (@available(iOS 26.0, *)) {
     } else {

@@ -51,7 +51,7 @@
     self.navigationItem.searchController = nil;
 
     self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
-    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     self.tableView.sectionHeaderTopPadding = 0.0;
 
     [self.tableView registerClass:[VLCRadioFavoritesGridCell class]
@@ -78,7 +78,7 @@
 
 - (void)themeDidChange
 {
-    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     [self.tableView reloadData];
 }
 

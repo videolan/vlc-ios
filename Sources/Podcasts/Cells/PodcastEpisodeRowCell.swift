@@ -329,7 +329,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
         let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         contentView.backgroundColor = colors.background
-        selectedBackgroundView?.backgroundColor = colors.pageBackground
+        selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
         separatorView.backgroundColor = colors.mediaCategorySeparatorColor
         updateStatusIndicatorColor()
         setDateText(dateLabel.attributedText?.string ?? "", unplayed: isUnplayed)

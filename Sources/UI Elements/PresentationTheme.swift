@@ -56,7 +56,6 @@ extension Notification.Name {
     let textfieldPlaceholderColor: UIColor
     let thumbnailBackgroundColor: UIColor
     let transparentDarkBackgroundColor: UIColor
-    let pageBackground: UIColor
     let cardBackground: UIColor
     let accentTint: UIColor
 
@@ -91,7 +90,6 @@ extension Notification.Name {
          textfieldPlaceholderColor: UIColor,
          thumbnailBackgroundColor: UIColor,
          transparentDarkBackgroundColor: UIColor,
-         pageBackground: UIColor,
          cardBackground: UIColor,
          accentTint: UIColor) {
         self.isDark = isDark
@@ -124,7 +122,6 @@ extension Notification.Name {
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
         self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
-        self.pageBackground = pageBackground
         self.cardBackground = cardBackground
         self.accentTint = accentTint
     }
@@ -161,7 +158,6 @@ extension Notification.Name {
          textfieldPlaceholderColor: UIColor,
          thumbnailBackgroundColor: UIColor,
          transparentDarkBackgroundColor: UIColor,
-         pageBackground: UIColor,
          cardBackground: UIColor,
          accentTint: UIColor) {
         self.isDark = isDark
@@ -196,7 +192,6 @@ extension Notification.Name {
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
         self.thumbnailBackgroundColor = thumbnailBackgroundColor
         self.transparentDarkBackgroundColor = transparentDarkBackgroundColor
-        self.pageBackground = pageBackground
         self.cardBackground = cardBackground
         self.accentTint = accentTint
     }
@@ -405,7 +400,6 @@ let brightPalette = ColorPalette(isDark: false,
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
                                  thumbnailBackgroundColor: UIColor(0xE6E6E6),
                                  transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                                 pageBackground: UIColor(0xF2F2F4),
                                  cardBackground: UIColor(0xFFFFFF),
                                  accentTint: UIColor(0xFF8800, 0.13))
 
@@ -439,7 +433,6 @@ let darkPalette = ColorPalette(isDark: true,
                                textfieldPlaceholderColor: UIColor(0x737373),
                                thumbnailBackgroundColor: UIColor(0x26282B),
                                transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                               pageBackground: UIColor(0x121417),
                                cardBackground: UIColor(0x1B1E21),
                                accentTint: UIColor(0xFF8800, 0.22))
 
@@ -450,8 +443,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  statusBarStyle: .darkContent,
                                  navigationbarColor: UIColor(0xFFFFFF),
                                  navigationbarTextColor: UIColor(0x000000),
-                                 background: UIColor(0xFFFFFF),
-                                 cellBackgroundA: UIColor(0xFFFFFF),
+                                 background: UIColor(0xF6F6F8),
+                                 cellBackgroundA: UIColor(0xF6F6F8),
                                  cellBackgroundB: UIColor(0xE5E5E3),
                                  cellDetailTextColor: UIColor(0x919191),
                                  cellTextColor: UIColor(0x000000),
@@ -477,7 +470,6 @@ let brightPalette = ColorPalette(isDark: false,
                                  textfieldPlaceholderColor: UIColor(0xB3B3B3),
                                  thumbnailBackgroundColor: UIColor(0xE6E6E6),
                                  transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                                 pageBackground: UIColor(0xF2F2F4),
                                  cardBackground: UIColor(0xFFFFFF),
                                  accentTint: UIColor(0xFF8800, 0.13))
 
@@ -486,8 +478,8 @@ let darkPalette = ColorPalette(isDark: true,
                                statusBarStyle: .lightContent,
                                navigationbarColor: UIColor(0x1B1E21),
                                navigationbarTextColor: UIColor(0xFFFFFF),
-                               background: UIColor(0x1B1E21),
-                               cellBackgroundA: UIColor(0x1B1E21),
+                               background: UIColor(0x121417),
+                               cellBackgroundA: UIColor(0x121417),
                                cellBackgroundB: UIColor(0x494B4D),
                                cellDetailTextColor: UIColor(0x919191),
                                cellTextColor: UIColor(0xFFFFFF),
@@ -513,7 +505,6 @@ let darkPalette = ColorPalette(isDark: true,
                                textfieldPlaceholderColor: UIColor(0x737373),
                                thumbnailBackgroundColor: UIColor(0x26282B),
                                transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                               pageBackground: UIColor(0x121417),
                                cardBackground: UIColor(0x1B1E21),
                                accentTint: UIColor(0xFF8800, 0.22))
 
@@ -549,7 +540,6 @@ let blackPalette = ColorPalette(isDark: true,
                                 textfieldPlaceholderColor: UIColor(0x737373),
                                 thumbnailBackgroundColor: UIColor(0x1C1E21),
                                 transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                                pageBackground: UIColor(0x000000),
                                 cardBackground: UIColor(0x1B1E21),
                                 accentTint: UIColor(0xFF8800, 0.22))
 
@@ -586,7 +576,6 @@ let visionPalette = ColorPalette(isDark: true,
                                  textfieldPlaceholderColor: UIColor(0x737373),
                                  thumbnailBackgroundColor: UIColor(0x1C1E21),
                                  transparentDarkBackgroundColor: UIColor(0x1E1E1E, 0.5),
-                                 pageBackground: .clear,
                                  cardBackground: UIColor(0x494B4D, 0.2),
                                  accentTint: UIColor(0xFF8800, 0.22))
 #endif

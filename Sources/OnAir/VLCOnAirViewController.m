@@ -832,7 +832,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)updateTheme
 {
-    _tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    _tableView.backgroundColor = PresentationTheme.current.colors.background;
 
     [self updateTableHeaderView];
     [_tableView reloadData];

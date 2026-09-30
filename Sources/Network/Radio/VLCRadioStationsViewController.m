@@ -49,14 +49,14 @@ static NSTimeInterval const kVLCRadioStationsDiscoveryTimeout = 20.0;
     [super viewDidLoad];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)themeDidChange
 {
     [super themeDidChange];
 
-    self.tableView.backgroundColor = PresentationTheme.current.colors.pageBackground;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
 
     _moreImage = nil;
     for (VLCNetworkListCell *cell in self.tableView.visibleCells) {
