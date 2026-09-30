@@ -3,60 +3,49 @@
 ## iOS [4.0.0]
 
 Known issues:
-· Picture-in-Picture featured is offered on devices where it is actually unsupported
+· Picture-in-Picture feature is offered on devices where it is actually unsupported
 · Files stored in Google Drive fail to stream, download them instead
-· multiple UI rendering issues on iOS 12
 · Chromecast fails to connect and render
 
-New features since beta 2:
-· Add an On Air tab bundling radio and podcasts
-· Add podcast support: subscribe through RSS, browse shows and episodes, download, play and search
-· Radio: redesigned discovery with a country browser, a favorites grid and recently visited countries
-· Radio: schedule an alarm to wake up with a station (iOS 26.1 and later)
-· Add a share extension to receive files from apps such as Voice Memos or Telegram
-· Browse: redesigned interface using artwork tiles for servers, cloud services and favorites
-· Google Drive: browse My Drive, Shared with me and shared drives, follow shortcuts
-· Wi-Fi Sharing: add download all or a selection of files at once
-· Network browsing: sort by name, date or size
-· Expose playback to Siri and Spotlight through App Shortcuts, including radio stations and videos
-· Adopt the iOS 27 audio intents for songs, albums, artists, playlists and genres
-· Media library: enqueue to the play queue with a swipe
-· Media library: sort albums by artist and remember the sort criteria per collection
-· Playlists: reorder multiple tracks at once and show the number of tracks and the total duration
-· Restore the last played media list on the next launch
-· Player: close the topmost panel or the player itself using the Escape key
+New features since beta 3:
+· Add a VLC menu to the navigation bar with settings, help, donations and information about the app
+· Podcasts: add a directory of shows from the Podcast Index and an episode screen with seekable show notes
+· Podcasts: refresh in the background, download new episodes on Wi-Fi, subscribe from feed links and RSS or OPML files
+· On Air: continue the last played episode or station and list recently played stations, also in CarPlay
+· Player: redesigned playback speed, sleep timer, equalizer and video filter controls
+· Player: sync audio and subtitles with sync marks or the G, H, J and K keys, remember delays and speed per media
+· Player: add a favorite button for radio stations
+· Player: make the seek bar and the sliders adjustable with VoiceOver
+· Mini player: swipe right for the next item and left for the previous one
+· Media library: enqueue and delete albums and artists with a swipe
+· Media library: offer to email a report to support when the database is corrupted
+· Add a quick action to resume the last played media
+· Downloads: ask for credentials when the server requires authentication
 
-Bug fixes since beta 2:
-· WebDAV: fix connections to encrypted servers such as nextcloud
-· Player: fix black screens after lockin/unlocking the device or backgrounding the app 
-· OneDrive: fix directory listings with thousands of items
-· Player: fix video being slightly cut off on newer iPhones
-· Player: fix restoring the playback position on slow-starting media
-· Fix the file extension of downloads from non-compliant UPnP servers
-· x-callback-url: fix URL decoding and playback of external subtitles
-· Fix a full-screen flash of the audio player while its artwork was reloading
-· CarPlay: reload when the favorites change
-· Numerous fixes to the web interface, the on-boarding, theme switching and the mini player
+Bug fixes since beta 3:
+· Siri and Shortcuts: fix playback not starting while VLC is in the background or the device is locked
+· Lock screen: no longer reveal the playing media while a passcode is set
+· Radio: play the selected station only instead of queuing its entire country
+· Player: fix brightness and volume gestures while the controls are hidden, keep the brightness for audio
+· Fix crashes in CarPlay with deeply nested folders and when toggling Wi-Fi Sharing
+· Media library: fix searching inside albums and playlists
+· Numerous fixes to shuffle, CarPlay, the landscape layout, the software keyboard, dark mode and localization
 
 ---
 
-· VLC now requires iOS 12 or later
+· VLC now requires iOS 15 or later
 · 32bit iOS devices are no longer supported :(
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
 · Add HDR playback
 · Add multi-channel and spatial audio
 · Add Picture-in-Picture playback
-· Add App-Intent to play media (iOS 16.4 and later)
+· Siri, Shortcuts and Spotlight: play media, radio stations and videos through App Intents (iOS 16.4 and later), adopt the iOS 27 audio intents
 · Add Parental Control ("Kids Mode") to prevent accidental deletions and modifications
-· Audio player: Add seek backward/forward buttons
 · Add play count metadata to media long press UI
 · Add support for passcodes with four and six digits
-· Cloud services: allow downloads of entire folders and to favorite them
 · Add swipe-to-favorite while browsing, including for non-downloadable streams
 · Major accessbility improvements for the playback interface
-· Last played item in a playlist is now indicated
-· Add more sorting options for playlists and improve appearance
-· Export playlists as M3U
+· Playlists: more sorting options, M3U export and improved appearance
 · Improve brightness restoration and handling
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
@@ -70,30 +59,27 @@ Bug fixes since beta 2:
 · Seek playback using the number keys on external keyboards
 · Add options to skip forward/back instead of go to next/previous track
     - on lockscreen and when using external controls (like headphones and car controls)
-· Integrate with the pCloud service
 · Add Frame-by-Frame playback, forward and backward
 · Customize playback speed option
 · Customize seeking options
 · Add option to export settings and include in feedback email
 · Dual subtitles
-· Browsing the media library uses pagination
 · Add widget displaying the last played audio content
 · Add gamepad support to control the playback
 · Add the side bar navigation on iPadOS
 · Adopt iOS 26 liquid glass appearance for navigation bars and UI components
-· Audio player: major redesign
-· Player: redesigned track selector interface
-· Player: switch to the audio interface for audio-only network streams
-· Media library: add "Mark as Played" / "Mark as Unplayed" action
-· Media library: song list now shows section index and section headers
-· Media library: video media preview
+· Audio player: major redesign with seek backward/forward buttons
+· Player: redesigned track selector, switch to the audio interface for audio-only network streams
+· Media library: mark as played or unplayed, section index for songs, video preview, enqueue with a swipe
+· Restore the last played media list on the next launch
 · Import videos directly from the Photos library
-· Unify iCloud Drive and Local Files into one browsing section
+· Add a share extension to receive files from apps such as Voice Memos or Telegram
+· Browse: redesigned with artwork tiles, sort network shares by name, date or size, unify iCloud Drive and Local Files
 · Open Network Streams: redesigned interface
-· Add pulsing cone loading animation in the player during buffering
-· Dropbox and Box: add thumbnail support
-· Web interface: redesigned interface
-· Add a radio station discovery service so users can find and favorite their stations
+· Cloud services: add pCloud, Google Drive shared drives, folder downloads and favorites, Dropbox and Box thumbnails
+· Wi-Fi Sharing: redesigned web interface, download all or a selection of files at once
+· Add an On Air tab with podcasts: subscribe through RSS, browse shows and episodes, download, play and search
+· Radio: discover and favorite stations, wake up with a station alarm (iOS 26.1 and later)
 · CarPlay: browse by album and folder, show artist names and add a Library section
 · Improve Spotlight search by indexing more media metadata
 
@@ -102,21 +88,16 @@ Bug fixes since beta 2:
 
 ## tvOS [4.0.0]
 
-New features since beta 2:
-· Wi-Fi Sharing: add download all or a selection of files at once
-· Network browsing: sort by name, date or size
-· Shared libraries: show the media name instead of its URL during playback
+New features since beta 3:
+· Wi-Fi Sharing: show a QR code for the sharing address
+· Player: remember the audio and subtitle delay per media
 
-Bug fixes since beta 2:
-· WebDAV: fix connections to encrypted servers such as nextcloud
-· Player: fix black screens after backgrounding the app 
-· Open Network Stream: keep custom titles aligned with their URLs when deleting an entry
-· Fix the file extension of downloads from non-compliant UPnP servers
-· Report network login failures instead of leaving the browser empty
+Bug fixes since beta 3:
+· Start the shuffled play queue with the selected item
 
 ---
 
-· VLC now requires tvOS 13 or later
+· VLC now requires tvOS 15 or later
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
 · Add HDR playback
 · Add multi-channel and spatial audio
@@ -142,6 +123,8 @@ Bug fixes since beta 2:
 · Player: add an aspect ratio button
 · Player: inline information and pop-up menu panel
 · Wi-Fi sharing: add transfer status banner and option to disable auto-playing uploaded files while receiving
+· Wi-Fi Sharing: add download all or a selection of files at once
+· Network browsing: sort by name, date or size
 · Add support for multiple users
 
 ## iOS [3.6.4]
