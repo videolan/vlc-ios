@@ -125,7 +125,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     private var cachedCellSize = CGSize.zero
-    private var longPressGesture: UILongPressGestureRecognizer!
     weak var delegate: MediaCategoryViewControllerDelegate?
 
     private lazy var statusBarView: UIView = {
@@ -900,6 +899,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
+        collectionView.dragDelegate = editing ? editController : nil
+        collectionView.dropDelegate = editing ? editController : nil
+        collectionView.dragInteractionEnabled = editing
         /// Those changes are highly recommended in order to prevent a UICollectionView gesture
         /// issue when cells are embedding a UIScrollView
         /// See https://code.videolan.org/umxprime/collection-view-bug
@@ -2497,9 +2499,6 @@ private extension MediaCategoryViewController {
         }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
-        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
-        longPressGesture.minimumPressDuration = 0.2
-        collectionView?.addGestureRecognizer(longPressGesture)
         collectionView?.contentInsetAdjustmentBehavior = .always
     }
 
@@ -2518,32 +2517,6 @@ private extension MediaCategoryViewController {
             editToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             editToolBar.heightAnchor.constraint(equalToConstant: EditToolbar.height)
         ])
-    }
-
-    func constrainOnX(_ location: CGPoint, for width: CGFloat) -> CGPoint {
-        var constrainedLocation = location
-        if model.cellType.numberOfColumns(for: width, safeAreaInsets: collectionView.safeAreaInsets) == 1 {
-            constrainedLocation.x = width / 2
-        }
-        return constrainedLocation
-    }
-
-    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
-        switch gesture.state {
-        case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
-                break
-            }
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            let location = constrainOnX(gesture.location(in: gesture.view!),
-                                        for: collectionView.frame.width)
-            collectionView.updateInteractiveMovementTargetPosition(location)
-        case .ended:
-            collectionView.endInteractiveMovement()
-        default:
-            collectionView.cancelInteractiveMovement()
-        }
     }
 }
 

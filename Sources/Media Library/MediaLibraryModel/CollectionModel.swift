@@ -116,6 +116,28 @@ class CollectionModel: MLBaseModel {
         }
     }
 
+    func reorderFiles(to order: [Int]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
+        guard let playlist = mediaCollection as? VLCMLPlaylist,
+              order.count == files.count else {
+            return
+        }
+
+        var currentOrder = Array(files.indices)
+        for (position, index) in order.enumerated() where currentOrder[position] != index {
+            guard let currentPosition = currentOrder.firstIndex(of: index) else {
+                continue
+            }
+            playlist.moveMedia(fromPosition: UInt32(currentPosition), toDestination: UInt32(position))
+            currentOrder.remove(at: currentPosition)
+            currentOrder.insert(index, at: position)
+        }
+        files = order.map { files[$0] }
+    }
+
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         defer {
             fileArrayLock.unlock()

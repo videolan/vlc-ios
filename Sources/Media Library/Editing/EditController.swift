@@ -104,39 +104,37 @@ class EditController: UIViewController {
 // MARK: - Helpers
 
 private extension EditController {
-    private func moveSelectedItems(of playlist: VLCMLPlaylist, draggedFrom source: IndexPath, to destination: IndexPath) {
-        let itemCount = currentDataSet.count
-        let selectedRows = selectedCellIndexPaths.map({ $0.row }).sorted()
-        guard let lastSelectedRow = selectedRows.last, lastSelectedRow < itemCount else {
-            return
+    private var canReorder: Bool {
+        guard let collectionModel = model as? CollectionModel else {
+            return false
         }
 
-        let selection = Set(selectedRows)
-        let remainingRows = (0..<itemCount).filter({ !selection.contains($0) })
-        let rowsWithoutDragged = (0..<itemCount).filter({ $0 != source.row })
+        return collectionModel.mediaCollection is VLCMLPlaylist
+            && collectionModel.sortModel.currentSort == .default
+            && !searchDataSource.isSearching
+    }
+
+    private func order(moving movingRows: [Int], draggedFrom source: Int, to destination: Int) -> [Int] {
+        let itemCount = currentDataSet.count
+        let moving = Set(movingRows)
+        let remainingRows = (0..<itemCount).filter({ !moving.contains($0) })
+        let rowsWithoutDragged = (0..<itemCount).filter({ $0 != source })
 
         var insertionIndex = remainingRows.count
-        if destination.row < rowsWithoutDragged.count {
-            let anchor = rowsWithoutDragged[destination.row]
+        if destination < rowsWithoutDragged.count {
+            let anchor = rowsWithoutDragged[destination]
             insertionIndex = remainingRows.firstIndex(where: { $0 >= anchor }) ?? remainingRows.count
         }
 
         var newOrder = remainingRows
-        newOrder.insert(contentsOf: selectedRows, at: insertionIndex)
+        newOrder.insert(contentsOf: movingRows, at: insertionIndex)
+        return newOrder
+    }
 
-        var currentOrder = Array(0..<itemCount)
-        for (position, row) in newOrder.enumerated() where currentOrder[position] != row {
-            guard let currentPosition = currentOrder.firstIndex(of: row) else {
-                continue
-            }
-            playlist.moveMedia(fromPosition: UInt32(currentPosition), toDestination: UInt32(position))
-            currentOrder.remove(at: currentPosition)
-            currentOrder.insert(row, at: position)
-        }
-
-        selectedCellIndexPaths = Set(selectedRows.indices.map({
-            IndexPath(row: insertionIndex + $0, section: source.section)
-        }))
+    private func dragPreviewParameters() -> UIDragPreviewParameters {
+        let parameters = UIDragPreviewParameters()
+        parameters.backgroundColor = PresentationTheme.current.colors.background
+        return parameters
     }
 
     private func getTitle(for count: Int) -> String {
@@ -393,9 +391,7 @@ extension EditController: UICollectionViewDataSource {
             if let cell = cell as? MediaCollectionViewCell {
                 cell.showCheckmark(true)
                 cell.disableScrollView()
-                if let collectionModel = model as? CollectionModel,
-                   collectionModel.mediaCollection is VLCMLPlaylist,
-                   collectionModel.sortModel.currentSort == .default {
+                if canReorder {
                     cell.dragIndicatorImageView.isHidden = false
                 } else if cell.media is VLCMLMediaGroup || cell.media is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = true
@@ -419,30 +415,6 @@ extension EditController: UICollectionViewDataSource {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        guard let collectionModel = model as? CollectionModel, let playlist = collectionModel.mediaCollection as? VLCMLPlaylist else {
-            assertionFailure("can Move should've been false")
-            return
-        }
-
-        if selectedCellIndexPaths.contains(sourceIndexPath) {
-            moveSelectedItems(of: playlist, draggedFrom: sourceIndexPath, to: destinationIndexPath)
-            return
-        }
-
-        playlist.moveMedia(fromPosition: UInt32(sourceIndexPath.row), toDestination: UInt32(destinationIndexPath.row))
-    }
-
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        if let collectionModel = model as? CollectionModel,
-           collectionModel.mediaCollection is VLCMLPlaylist,
-           collectionModel.sortModel.currentSort == .default {
-            return true
-        }
-
-        return false
-    }
-
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
@@ -463,6 +435,91 @@ extension EditController: UICollectionViewDataSource {
         if let delegate = delegate as? MediaCategoryViewController {
             delegate.scrollViewDidScroll(scrollView)
         }
+    }
+}
+
+// MARK: - UICollectionViewDragDelegate
+
+extension EditController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        itemsForBeginning session: UIDragSession,
+                        at indexPath: IndexPath) -> [UIDragItem] {
+        guard canReorder,
+              collectionView.indexPathForItem(at: session.location(in: collectionView)) == indexPath else {
+            return []
+        }
+
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
+        return true
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return dragPreviewParameters()
+    }
+}
+
+// MARK: - UICollectionViewDropDelegate
+
+extension EditController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.localDragSession != nil
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dropSessionDidUpdate session: UIDropSession,
+                        withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        guard collectionView.hasActiveDrag, canReorder else {
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+
+        return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let collectionModel = model as? CollectionModel,
+              let item = coordinator.items.first,
+              let sourceIndexPath = item.sourceIndexPath else {
+            return
+        }
+
+        let itemCount = currentDataSet.count
+        let section = sourceIndexPath.section
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(row: itemCount - 1, section: section)
+
+        var movingRows = [sourceIndexPath.row]
+        if selectedCellIndexPaths.contains(sourceIndexPath) {
+            movingRows = selectedCellIndexPaths.map({ $0.row }).filter({ $0 < itemCount }).sorted()
+        }
+
+        let newOrder = order(moving: movingRows, draggedFrom: sourceIndexPath.row, to: destinationIndexPath.row)
+        var newRows = Array(repeating: 0, count: itemCount)
+        for (newRow, row) in newOrder.enumerated() {
+            newRows[row] = newRow
+        }
+
+        collectionView.performBatchUpdates({
+            collectionModel.reorderFiles(to: newOrder)
+            for row in movingRows {
+                collectionView.moveItem(at: IndexPath(row: row, section: section),
+                                        to: IndexPath(row: newRows[row], section: section))
+            }
+        })
+
+        selectedCellIndexPaths = Set(selectedCellIndexPaths.filter({ $0.row < itemCount }).map({
+            IndexPath(row: newRows[$0.row], section: $0.section)
+        }))
+
+        coordinator.drop(item.dragItem, toItemAt: IndexPath(row: newRows[sourceIndexPath.row], section: section))
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return dragPreviewParameters()
     }
 }
 
