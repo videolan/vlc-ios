@@ -4,13 +4,6 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_INFORMATION_TITLE" = "Information";
-"SETTINGS_ABOUT" = "About VLC";
-"SETTINGS_DONATE" = "Make a Donation to VideoLAN";
-"SETTINGS_DONATE_LONG" = "Support free and open source multimedia";
-
-"SETTINGS_DOCUMENTATION" = "Documentation";
-
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "Automatic";
@@ -26,6 +19,9 @@
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
+"SETTINGS_PODCASTS_TITLE" = "Podcasts";
+"SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS" = "Download new episodes";
+"SETTINGS_PODCASTS_AUTOMATIC_DOWNLOADS_SUBTITLE" = "Keep the latest episodes of your subscriptions on this device. Downloads only over Wi-Fi.";
 "SETTINGS_PLAYBACK_TITLE" = "Playback";
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
@@ -56,6 +52,8 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+"SETTINGS_CUSTOM_PLAYBACK_SPEED" = "Custom Speed";
+"SETTINGS_SAVE_AUDIO_DELAY" = "Save audio delay";
 
 "SETTINGS_GESTURES" = "Playback Controls";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
@@ -132,6 +130,8 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High latency";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_CUSTOM" = "Custom…";
+"SETTINGS_NETWORK_CACHING_CUSTOM_FORMAT" = "%@ ms";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi sharing";
 "SETTINGS_PLAY_UPLOADS_WHILE_RECEIVING" = "Play uploads while still being received";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
@@ -186,3 +186,13 @@
 "SETTINGS_PARENTAL_CONTROL" = "Parental control";
 "SETTINGS_PARENTAL_CONTROL_SUBTITLE" = "When activated, files cannot be deleted or playlists modified without entering the pin";
 
+"SETTINGS_WATCHOS_TITLE" = "watchOS";
+"SETTINGS_SYNC_MEDIA_LIBRARY_TITLE" = "Sync media library to Apple Watch";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_TITLE" = "Automatically sync media library";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_NEVER" = "Never";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_24_HR" = "Every 24 hours";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_3_D" = "Every 3 days";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_7_D" = "Every 7 days";
+"SETTINGS_AUTOMATICALLY_SYNC_MEDIA_LIBRARY_INFO" = "This periodically sends a snapshot of the iPhone's current media library metadata to the Apple Watch for display. It does not download the individual audio files themselves.";
+"SETTINGS_WATCHOS_TRANSFERS_TITLE" = "Transfers";
+"SETTINGS_WATCHOS_TRANSFERS_SUBTITLE" = "View and manage file transfers to Apple Watch";
