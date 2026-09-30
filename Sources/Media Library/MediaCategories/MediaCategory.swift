@@ -6,9 +6,12 @@
  * $Id$
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
+
+// MARK: - MovieCategoryViewController
 
 class MovieCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
@@ -18,6 +21,8 @@ class MovieCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - ShowEpisodeCategoryViewController
+
 class ShowEpisodeCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
         let model = ShowEpisodeModel(medialibrary: mediaLibraryService)
@@ -26,13 +31,63 @@ class ShowEpisodeCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - PlaylistCategoryViewController
+
 class PlaylistCategoryViewController: MediaCategoryViewController {
+    private lazy var createPlaylistButton: UIBarButtonItem = {
+        let createPlaylistButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(handleCreatePlaylist))
+        return createPlaylistButton
+    }()
+
+    private let playlistModel: PlaylistModel
+
     init(_ mediaLibraryService: MediaLibraryService) {
         let model = PlaylistModel(medialibrary: mediaLibraryService)
+        playlistModel = model
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
     }
+
+    func getCreatePlaylistButton() -> UIBarButtonItem {
+        return createPlaylistButton
+    }
+
+    @objc func handleCreatePlaylist() {
+        let addToCollectionViewController = AddToCollectionViewController()
+        addToCollectionViewController.delegate = self
+        addToCollectionViewController.mlCollection = playlistModel.medialibrary.playlists()
+        addToCollectionViewController.updateInterface(for: VLCMLPlaylist.self, isOnlyCreation: true)
+        let createPlaylistNavigationController = UINavigationController(rootViewController: addToCollectionViewController)
+        present(createPlaylistNavigationController, animated: true)
+    }
 }
+
+// MARK: AddToCollectionViewControllerDelegate
+
+extension PlaylistCategoryViewController: AddToCollectionViewControllerDelegate {
+    func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
+                                       didSelectCollection collection: MediaCollectionModel) {
+        addToCollectionViewController.dismiss(animated: true)
+    }
+
+    func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
+                                       newCollectionName name: String,
+                                       from mlType: MediaCollectionModel.Type) {
+        guard playlistModel.medialibrary.createPlaylist(with: name) != nil else {
+            assertionFailure("PlaylistCategoryViewController: Failed to create a playlist.")
+            VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_PLAYLIST_CREATION", comment: ""),
+                                                    viewController: addToCollectionViewController)
+            return
+        }
+        addToCollectionViewController.dismiss(animated: true)
+    }
+
+    func addToCollectionViewControllerMoveCollections(_ addToCollectionViewController: AddToCollectionViewController) {
+        addToCollectionViewController.dismiss(animated: true)
+    }
+}
+
+// MARK: - TrackCategoryViewController
 
 class TrackCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
@@ -51,6 +106,8 @@ class TrackCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - GenreCategoryViewController
+
 class GenreCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
         let model = GenreModel(medialibrary: mediaLibraryService)
@@ -63,6 +120,8 @@ class GenreCategoryViewController: MediaCategoryViewController {
         super.viewWillAppear(animated)
     }
 }
+
+// MARK: - ArtistCategoryViewController
 
 class ArtistCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
@@ -77,6 +136,8 @@ class ArtistCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - FolderViewController
+
 class FolderViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService, isAudio: Bool, folder: VLCMLFolder?) {
         let model = FolderModel(medialibrary: mediaLibraryService, isAudio: isAudio, folder: folder)
@@ -89,6 +150,8 @@ class FolderViewController: MediaCategoryViewController {
         super.viewWillAppear(animated)
     }
 }
+
+// MARK: - AlbumCategoryViewController
 
 class AlbumCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
@@ -103,6 +166,8 @@ class AlbumCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - ArtistAlbumCategoryViewController
+
 class ArtistAlbumCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService, mediaCollection: VLCMLArtist) {
         let model = AlbumModel(medialibrary: mediaLibraryService, artist: mediaCollection)
@@ -111,6 +176,8 @@ class ArtistAlbumCategoryViewController: MediaCategoryViewController {
     }
 }
 
+// MARK: - HistoryCategoryViewController
+
 class HistoryCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService, mediaType: VLCMLMediaType) {
         let model = HistoryModel(medialibrary: mediaLibraryService, mediaType: mediaType)
@@ -118,6 +185,8 @@ class HistoryCategoryViewController: MediaCategoryViewController {
         model.observable.addObserver(self)
     }
 }
+
+// MARK: - CollectionCategoryViewController
 
 class CollectionCategoryViewController: MediaCategoryViewController {
     private lazy var playAllButton: UIBarButtonItem = {

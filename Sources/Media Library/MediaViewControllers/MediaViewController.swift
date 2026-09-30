@@ -155,6 +155,15 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             rightBarButtons?.append(playButton)
         }
 
+        var emptyStateRightBarButtons: [UIBarButtonItem] = []
+        if navigationController?.viewControllers.last is PlaylistViewController,
+           let viewController = viewControllers[currentIndex] as? PlaylistCategoryViewController,
+           !isEditing {
+            let createPlaylistButton = viewController.getCreatePlaylistButton()
+            rightBarButtons?.append(createPlaylistButton)
+            emptyStateRightBarButtons = [createPlaylistButton]
+        }
+
         if !isEditing, navigationController?.viewControllers.count == 1 {
             var items: [UIBarButtonItem] = [appMenuButton]
             if showButtons, let leftBarButtons = leftBarButtons {
@@ -164,7 +173,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         } else {
             mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
         }
-        mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
+        mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : emptyStateRightBarButtons
 
         if #available(iOS 26.0, visionOS 26.0, *), let page = viewController as? MediaCategoryViewController {
             let showSearch = (showButtons || page.isSearchActive) && !isEditing
@@ -248,6 +257,12 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
         }
 #endif
 
+        if navigationController?.viewControllers.last is PlaylistViewController,
+           let playlistCategoryViewController = viewControllers[currentIndex] as? PlaylistCategoryViewController,
+           !isEditing {
+            rightBarButtons?.append(playlistCategoryViewController.getCreatePlaylistButton())
+        }
+
         viewController.navigationItem.rightBarButtonItems = rightBarButtons
         viewController.navigationItem.leftBarButtonItems = leftBarButtons
 
@@ -284,6 +299,11 @@ extension MediaViewController {
            let viewController = viewControllers[currentIndex] as? CollectionCategoryViewController {
             let playAllButton = viewController.getPlayAllButton()
             rightButtons.append(playAllButton)
+        }
+
+        if navigationController?.viewControllers.last is PlaylistViewController,
+           let viewController = viewControllers[currentIndex] as? PlaylistCategoryViewController {
+            rightButtons.append(viewController.getCreatePlaylistButton())
         }
 
         rightBarButtons = isEditing ? [doneButton] : rightButtons
