@@ -87,10 +87,11 @@ class AddToCollectionViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    func updateInterface(for collectionModelType: MediaCollectionModel.Type) {
+    func updateInterface(for collectionModelType: MediaCollectionModel.Type, isOnlyCreation: Bool = false) {
         if collectionModelType is VLCMLPlaylist.Type {
-            title = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
+            title = isOnlyCreation ? NSLocalizedString("PLAYLIST_CREATION", comment: "") : NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
             collectionViewTopConstraint.constant = 10
+            collectionView.allowsSelection = !isOnlyCreation
         } else {
             title = NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: "")
             collectionViewTopConstraint.constant = 0
@@ -282,6 +283,7 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
         }
 
         cell.media = mlCollection[indexPath.row] as? VLCMLObject
+        cell.dragIndicatorImageView.isHidden = !collectionView.allowsSelection
         return cell
     }
 
