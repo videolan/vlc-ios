@@ -48,7 +48,6 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
-    private var grabbedCellIndex: IndexPath?
 
     private let sidePadding: CGFloat = 10
     private let topPadding: CGFloat = 8
@@ -105,6 +104,13 @@ class QueueViewController: UIViewController {
         return PresentationTheme.darkTheme.colors.cellDetailTextColor
     }
 
+    private static var queueDragPreviewBackgroundColor: UIColor {
+        if #available(iOS 26.0, *) {
+            return .systemBackground
+        }
+        return PresentationTheme.darkTheme.colors.background
+    }
+
     private var contentInset: CGFloat {
         if #available(iOS 26.0, *) {
             return liquidGlassSpacing
@@ -113,12 +119,6 @@ class QueueViewController: UIViewController {
     }
 
     private let animationDuration = 0.2
-
-    private lazy var longPressGesture: UILongPressGestureRecognizer = {
-        let longPressGesture = UILongPressGestureRecognizer(target: self,
-                                                            action: #selector(handleLongPress))
-        return longPressGesture
-    }()
 
     @objc weak var delegate: QueueViewControllerDelegate?
 
@@ -435,7 +435,9 @@ private extension QueueViewController {
                                      forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
         queueCollectionView.delegate = self
         queueCollectionView.dataSource = self
-        queueCollectionView.addGestureRecognizer(longPressGesture)
+        queueCollectionView.dragDelegate = self
+        queueCollectionView.dropDelegate = self
+        queueCollectionView.dragInteractionEnabled = true
         queueCollectionView.collectionViewLayout = collectionViewLayout
         queueCollectionView.backgroundColor = .clear
     }
@@ -483,42 +485,14 @@ private extension QueueViewController {
         cell.sizeDescriptionLabel.backgroundColor = .clear
     }
 
-    @objc private func handleLongPress(gesture: UILongPressGestureRecognizer) {
-        switch gesture.state {
-        case .began:
-            guard let selectedIndexPath = queueCollectionView.indexPathForItem(at:
-                                                                                gesture.location(in: queueCollectionView)) else {
-                break
-            }
-            queueCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-            grabbedCellIndex = selectedIndexPath
-        case .changed:
-            var location = gesture.location(in: gesture.view)
-            location.x = queueCollectionView.frame.width / 2
-            queueCollectionView.updateInteractiveMovementTargetPosition(location)
-            if let selectedIndexPath = queueCollectionView.indexPathForItem(at: gesture.location(in: queueCollectionView)) {
-                grabbedCellIndex = selectedIndexPath
-            }
-        case .ended:
-            queueCollectionView.endInteractiveMovement()
-            var indexPath: IndexPath? = nil
-
-            if let selectedIndexPath = queueCollectionView.indexPathForItem(at: gesture.location(in: queueCollectionView)) {
-                indexPath = selectedIndexPath
-            } else if let grabbedCellIndex = grabbedCellIndex {
-                indexPath = grabbedCellIndex
-            }
-
-            guard let index = indexPath,
-                  let cell = queueCollectionView.cellForItem(at: index) as? MediaCollectionViewCell else {
-                break
-            }
-
-            cell.animateCurrentlyPlayingState()
-            break
-        default:
-            queueCollectionView.cancelInteractiveMovement()
+    private func dragPreviewParameters(for indexPath: IndexPath) -> UIDragPreviewParameters? {
+        guard let cell = queueCollectionView.cellForItem(at: indexPath) else {
+            return nil
         }
+
+        let parameters = UIDragPreviewParameters()
+        parameters.backgroundColor = QueueViewController.queueDragPreviewBackgroundColor.resolvedColor(with: cell.traitCollection)
+        return parameters
     }
 
     @objc private func dismissView() {
@@ -575,12 +549,6 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedItem(in: collectionView, at: indexPath)
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath,
-                        toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        return proposedIndexPath
     }
 
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
@@ -666,30 +634,6 @@ extension QueueViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView,
-                        canMoveItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        moveItemAt sourceIndexPath: IndexPath,
-                        to destinationIndexPath: IndexPath) {
-        guard sourceIndexPath.row <= mediaList.count
-                && destinationIndexPath.row <= mediaList.count else {
-            assertionFailure("QueueViewController: moveItemAt: IndexPath out of range.")
-            return
-        }
-        mediaList.lock()
-        guard let currentMedia = mediaList.media(at: UInt(sourceIndexPath.row)) else {
-            mediaList.unlock()
-            return
-        }
-        if mediaList.removeMedia(at: UInt(sourceIndexPath.row)) {
-            mediaList.insert(currentMedia, at: UInt(destinationIndexPath.row))
-        }
-        mediaList.unlock()
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier,
@@ -731,6 +675,83 @@ extension QueueViewController: UICollectionViewDataSource {
         cell.newLabel.isHidden = true
 
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDragDelegate
+
+extension QueueViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        itemsForBeginning session: UIDragSession,
+                        at indexPath: IndexPath) -> [UIDragItem] {
+        guard mediaList.count > 1 else {
+            return []
+        }
+
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
+        return true
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return dragPreviewParameters(for: indexPath)
+    }
+}
+
+// MARK: - UICollectionViewDropDelegate
+
+extension QueueViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.localDragSession != nil
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dropSessionDidUpdate session: UIDropSession,
+                        withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        guard collectionView.hasActiveDrag else {
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+
+        return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let item = coordinator.items.first,
+              let sourceIndexPath = item.sourceIndexPath else {
+            return
+        }
+
+        let mediaList = self.mediaList
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(row: mediaList.count - 1, section: 0)
+        guard sourceIndexPath.row < mediaList.count,
+              destinationIndexPath.row < mediaList.count else {
+            return
+        }
+
+        collectionView.performBatchUpdates({
+            mediaList.lock()
+            defer { mediaList.unlock() }
+            guard let media = mediaList.media(at: UInt(sourceIndexPath.row)),
+                  mediaList.removeMedia(at: UInt(sourceIndexPath.row)) else {
+                return
+            }
+            mediaList.insert(media, at: UInt(destinationIndexPath.row))
+            collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
+        })
+
+        coordinator.drop(item.dragItem, toItemAt: destinationIndexPath).addCompletion { _ in
+            (collectionView.cellForItem(at: destinationIndexPath) as? MediaCollectionViewCell)?.animateCurrentlyPlayingState()
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return dragPreviewParameters(for: indexPath)
     }
 }
 
