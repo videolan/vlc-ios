@@ -422,6 +422,8 @@
 /* Noun, not verb: the label of a search field or search button (French: "Recherche", not "Rechercher") */
 "SEARCH" = "Search";
 "SEARCH_NO_RESULTS" = "No results";
+/* Accessibility description of a video that is part of a media group, %@ is the media group name */
+"IN_MEDIA_GROUP" = "In the group %@";
 "VIDEO" = "Video";
 
 // MARK: - MediaViewController Swipable Header

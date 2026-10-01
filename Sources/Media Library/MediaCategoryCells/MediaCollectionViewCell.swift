@@ -32,6 +32,13 @@ protocol MediaCollectionViewCellEnqueueDelegate: MediaCollectionViewCellDelegate
 // MARK: -
 class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
+    // MARK: MediaGroupIndicator
+
+    private struct MediaGroupIndicator {
+        let description: String
+        let mediaGroupName: String
+    }
+
     // MARK: - Properties
 
     @IBOutlet weak var thumbnailView: VLCArtworkImageView!
@@ -60,6 +67,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var vibrationTriggered: Bool = false
     private var isDeleteDisplayed: Bool = false
     private var hasXGoneNegative: Bool = false
+    private var mediaGroupIndicator: MediaGroupIndicator?
 
     private let playbackService: PlaybackService = PlaybackService.sharedInstance()
     private static let enqueueButtonDefaultWidth: CGFloat = 80.0
@@ -280,6 +288,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel?.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
         dragIndicatorImageView.tintColor = colors.cellDetailTextColor
+        updateMediaGroupIndicator()
     }
 
     static func getDefaultConstant() -> CGFloat {
@@ -554,6 +563,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.labelize = enableMarquee
         accessibilityLabel = ""
         accessibilityValue = nil
+        mediaGroupIndicator = nil
         sizeDescriptionLabel.text = ""
         sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.contentMode = .scaleAspectFill
@@ -638,6 +648,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .footnote).semibolded
         titleLabel.font = isMediaBeingPlayed ? UIFont.preferredFont(forTextStyle: .title3).bolded : UIFont.preferredFont(forTextStyle: .title3)
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        updateMediaGroupIndicator()
     }
 
     private func generateAnimation(with imageName: String, color: UIColor) -> [UIImage] {
@@ -725,5 +736,37 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     func setMediaNew() {
         newLabel.text = NSLocalizedString("NEW", comment: "")
+    }
+
+    func showMediaGroup(named mediaGroupName: String) {
+        mediaGroupIndicator = MediaGroupIndicator(description: sizeDescriptionLabel.text ?? "",
+                                                  mediaGroupName: mediaGroupName)
+        updateMediaGroupIndicator()
+
+        let mediaGroupAccessibilityText = String(format: NSLocalizedString("IN_MEDIA_GROUP", comment: ""),
+                                                 mediaGroupName)
+        accessibilityLabel = [accessibilityLabel, mediaGroupAccessibilityText]
+            .compactMap { $0 }
+            .joined(separator: ", ")
+    }
+
+    private func updateMediaGroupIndicator() {
+        guard let mediaGroupIndicator = mediaGroupIndicator else {
+            return
+        }
+
+        let description = NSMutableAttributedString(string: mediaGroupIndicator.description + " · ")
+
+        let font = sizeDescriptionLabel.font ?? UIFont.preferredFont(forTextStyle: .subheadline)
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: font, scale: .small)
+        if let groupImage = UIImage(systemName: "square.stack", withConfiguration: symbolConfiguration)?
+            .withTintColor(sizeDescriptionLabel.textColor, renderingMode: .alwaysOriginal) {
+            description.append(NSAttributedString(attachment: NSTextAttachment(image: groupImage)))
+            description.append(NSAttributedString(string: " "))
+        }
+        description.append(NSAttributedString(string: mediaGroupIndicator.mediaGroupName))
+        description.addAttributes([.font: font, .foregroundColor: sizeDescriptionLabel.textColor as Any],
+                                  range: NSRange(location: 0, length: description.length))
+        sizeDescriptionLabel.attributedText = description
     }
 }
