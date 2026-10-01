@@ -135,6 +135,10 @@ private extension LibraryTabSearchDataSource {
         return searchString.trimmingCharacters(in: .whitespaces)
     }
 
+    static var isGroupingDisabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCSettingsDisableGrouping)
+    }
+
     static func isDisplayable(_ mediaGroup: VLCMLMediaGroup) -> Bool {
         return mediaGroup.nbVideo() > 0 && (mediaGroup.nbTotalMedia() > 1 || mediaGroup.userInteracted())
     }
@@ -144,6 +148,10 @@ private extension LibraryTabSearchDataSource {
         case .video:
             let videos = LibrarySearchSection(title: NSLocalizedString("VIDEOS", comment: ""),
                                               items: medialib.searchVideo(pattern, sort: .alpha, desc: false) ?? [])
+            guard !LibraryTabSearchDataSource.isGroupingDisabled else {
+                return [videos]
+            }
+
             let mediaGroups = medialib.searchMediaGroups(withPattern: pattern, sort: .alpha, desc: false)?
                 .filter { LibraryTabSearchDataSource.isDisplayable($0) } ?? []
             return [LibrarySearchSection(title: NSLocalizedString("VIDEO_GROUPS", comment: ""), items: mediaGroups),
@@ -167,6 +175,16 @@ private extension LibraryTabSearchDataSource {
                                      items: medialib.searchGenre(byName: pattern, sort: .alpha, desc: false) ?? [])
             ]
         }
+    }
+
+    func mediaGroupName(of media: VLCMLMedia) -> String? {
+        guard media.type() == .video,
+              !LibraryTabSearchDataSource.isGroupingDisabled,
+              let mediaGroup = media.group(),
+              LibraryTabSearchDataSource.isDisplayable(mediaGroup) else {
+            return nil
+        }
+        return mediaGroup.name()
     }
 }
 
@@ -203,6 +221,9 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
 
         cell.isEditing = false
         cell.media = item
+        if let media = item as? VLCMLMedia, let mediaGroupName = mediaGroupName(of: media) {
+            cell.showMediaGroup(named: mediaGroupName)
+        }
         cell.isAccessibilityElement = true
         cell.accessibilityIdentifier = VLCAccessibilityIdentifier.mediaCell
         cell.disableScrollView()
