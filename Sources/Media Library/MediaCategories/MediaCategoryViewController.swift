@@ -338,7 +338,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.secondModel = videoModel
         }
 
-        self.searchDataSource = LibrarySearchDataSource(model: model)
+        self.searchDataSource = LibrarySearchDataSource(model: self.model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
