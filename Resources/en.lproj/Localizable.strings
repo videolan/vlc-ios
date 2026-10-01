@@ -421,6 +421,7 @@
 "SORT_NOTIFICATION" = "Using the same option in a row reverses the sorting order";
 /* Noun, not verb: the label of a search field or search button (French: "Recherche", not "Rechercher") */
 "SEARCH" = "Search";
+"SEARCH_NO_RESULTS" = "No results";
 "VIDEO" = "Video";
 
 // MARK: - MediaViewController Swipable Header
