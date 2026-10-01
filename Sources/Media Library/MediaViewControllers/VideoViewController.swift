@@ -26,7 +26,9 @@ class VideoViewController: MediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [MovieCategoryViewController(mediaLibraryService)]
+        let movieCategoryViewController = MovieCategoryViewController(mediaLibraryService)
+        movieCategoryViewController.tabSearchScope = .video
+        return [movieCategoryViewController]
     }
 
     func resetTitleView() {
