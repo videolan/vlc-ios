@@ -31,18 +31,18 @@ class AudioViewController: MediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [
+        var audioCategoryViewControllers: [MediaCategoryViewController] = [
             ArtistCategoryViewController(mediaLibraryService),
             AlbumCategoryViewController(mediaLibraryService),
             TrackCategoryViewController(mediaLibraryService),
-            GenreCategoryViewController(mediaLibraryService),
-            FolderViewController(
-                mediaLibraryService,
-                isAudio: true,
-                folder: mediaLibraryService.baseFolder()
-            ),
-
+            GenreCategoryViewController(mediaLibraryService)
         ]
+        audioCategoryViewControllers.forEach { $0.tabSearchScope = .audio }
+
+        audioCategoryViewControllers.append(FolderViewController(mediaLibraryService,
+                                                                 isAudio: true,
+                                                                 folder: mediaLibraryService.baseFolder()))
+        return audioCategoryViewControllers
     }
 
     func resetTitleView() {
