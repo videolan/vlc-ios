@@ -260,7 +260,6 @@ extension VLCMLMedia: SearchableMLModel {
             matches = matches || search(searchString, in: album?.title ?? "")
         }
 
-        matches = matches || search(searchString, in: title)
         return matches
     }
 }

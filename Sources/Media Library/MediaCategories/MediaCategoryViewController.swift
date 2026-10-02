@@ -2726,16 +2726,9 @@ extension MediaCategoryViewController {
 
         if let mediaGroupModel = model as? MediaGroupViewModel {
             mediaGroupModel.fileArrayLock.lock(); defer { mediaGroupModel.fileArrayLock.unlock() }; do {
-                var singleGroup = [VLCMLMediaGroup]()
-
-                if searchDataSource.isSearching,
-                   let dataSet = currentDataSet as? [VLCMLMediaGroup] {
-                    singleGroup = dataSet
-                } else {
-                    // The model is paginated, so its loaded `files` only cover a prefix of the
-                    // library. Fetch all groups so playback (incl. shuffle) considers everything.
-                    singleGroup = mediaGroupModel.fetchAllItems()
-                }
+                // The model is paginated, so its loaded `files` only cover a prefix of the
+                // library. Fetch all groups so playback (incl. shuffle) considers everything.
+                var singleGroup = mediaGroupModel.fetchAllItems()
 
                 // Filter single groups
                 singleGroup = singleGroup.filter() {
@@ -2758,9 +2751,11 @@ extension MediaCategoryViewController {
             tracks = model.folderMediaFiles
             index = index - model.files.count
             model.fileArrayLock.unlock()
-        } else if !searchDataSource.isSearching, let mediaModel = model as? (any MediaModel) {
+        } else if !searchDataSource.isSearching || searchDataSource.searchString.isEmpty,
+                  let mediaModel = model as? (any MediaModel) {
             // The model is paginated, so its loaded `files` only cover a prefix of the
             // library. Fetch the complete list so playback (incl. shuffle) considers all media.
+            // An empty search string does not filter anything, the whole list is played as well.
             tracks = mediaModel.fetchAllItems()
             index = tracks.firstIndex(where: { $0.identifier() == media.identifier() }) ?? index
         } else {

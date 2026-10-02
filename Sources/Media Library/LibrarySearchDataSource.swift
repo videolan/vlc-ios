@@ -31,13 +31,12 @@ class LibrarySearchDataSource: NSObject {
             return
         }
         searchData.removeAll()
-        let lowercaseSearchString = searchString.lowercased()
         model.anyfiles.forEach {
             guard let searchableFile = $0 as? SearchableMLModel else {
                 assertionFailure("LibrarySearchDataSource: Unhandled type")
                 return
             }
-            if searchableFile.contains(lowercaseSearchString) {
+            if searchableFile.contains(searchString) {
                 searchData.append($0)
             }
         }
