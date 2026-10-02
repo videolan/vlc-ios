@@ -228,6 +228,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         return isCompactScreen ? 24.0 : 60.0
     }
 
+    private var portraitVerticalSpacing: CGFloat {
+        return isCompactScreen ? 10.0 : 20.0
+    }
+
     // Landscape margin: wide on iPad, tighter on the narrower iPhone panes.
     private var horizontalContentInset: CGFloat {
         if isPad {
@@ -258,6 +262,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private var thumbnailImageViewTrailingConstraint: NSLayoutConstraint?
     private var portraitThumbnailWidthCompactConstraint: NSLayoutConstraint?
     private var portraitThumbnailWidthRegularConstraint: NSLayoutConstraint?
+    private var portraitThumbnailTopConstraint: NSLayoutConstraint?
+    private var portraitAlbumBottomConstraint: NSLayoutConstraint?
+    private var portraitControlsTopConstraint: NSLayoutConstraint?
     private var portraitProgressionLeadingConstraint: NSLayoutConstraint?
     private var portraitProgressionTrailingConstraint: NSLayoutConstraint?
     private var landscapeProgressionTopConstraint: NSLayoutConstraint?
@@ -416,6 +423,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         portraitThumbnailWidthRegularConstraint?.constant = -2 * portraitInset
         portraitProgressionLeadingConstraint?.constant = portraitInset
         portraitProgressionTrailingConstraint?.constant = -portraitInset
+
+        let portraitSpacing = portraitVerticalSpacing
+
+        portraitThumbnailTopConstraint?.constant = portraitSpacing
+        portraitAlbumBottomConstraint?.constant = -portraitSpacing
+        portraitControlsTopConstraint?.constant = portraitSpacing
 
         let landscapeInset = horizontalContentInset
 
@@ -635,9 +648,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let yConstraint = slider.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor)
 
         heightConstraint.priority = .required
-        topConstraint.priority = .defaultHigh
-        bottomConstraint.priority = .defaultHigh
-        yConstraint.priority = .defaultHigh
+        topConstraint.priority = .defaultHigh - 2
+        bottomConstraint.priority = .defaultHigh - 2
+        yConstraint.priority = .defaultHigh - 2
 
         NSLayoutConstraint.activate([
             heightConstraint,
@@ -771,7 +784,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         // Regular screens have the vertical room, so the size is required;
         // compact screens keep it high-priority so it yields when too short.
         let compactWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor)
-        compactWidthConstraint.priority = .defaultHigh
+        compactWidthConstraint.priority = .defaultHigh - 1
         portraitThumbnailWidthCompactConstraint = compactWidthConstraint
 
         let regularWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor)
@@ -805,8 +818,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         thumbnailImageViewLeadingConstraint = thumbnailImageViewLeading
         thumbnailImageViewTrailingConstraint = thumbnailImageViewTrailing
 
+        let portraitThumbnailTop = thumbnailImageView.topAnchor.constraint(equalTo: thumbnailView.topAnchor, constant: padding)
+        let portraitAlbumBottom = albumLabel.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -padding)
+        portraitThumbnailTopConstraint = portraitThumbnailTop
+        portraitAlbumBottomConstraint = portraitAlbumBottom
+
         portraitConstraints.append(contentsOf: [
-            thumbnailImageView.topAnchor.constraint(equalTo: thumbnailView.topAnchor, constant: padding),
+            portraitThumbnailTop,
             thumbnailImageView.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             thumbnailImageViewLeading,
             thumbnailImageViewTrailing,
@@ -825,7 +843,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             albumLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             albumLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
             albumLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
-            albumLabel.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -padding),
+            portraitAlbumBottom,
         ])
 
         landscapeConstraints.append(contentsOf: [
@@ -894,8 +912,11 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let portraitSecondaryControlBottom = secondaryControlStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
         portraitSecondaryControlBottom.priority = .defaultHigh
 
+        let portraitControlsTop = controlsStackView.topAnchor.constraint(equalTo: progressionView.bottomAnchor, constant: topPadding)
+        portraitControlsTopConstraint = portraitControlsTop
+
         portraitConstraints.append(contentsOf: [
-            controlsStackView.topAnchor.constraint(equalTo: progressionView.bottomAnchor, constant: topPadding),
+            portraitControlsTop,
             secondaryControlStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             portraitSecondaryControlBottom,
         ])
