@@ -507,13 +507,21 @@ private extension MediaLibraryService {
             APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
             assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
+            guard initRecoveryAttempt < 2 else {
+                APLog("MediaLibraryService: Permanently failed to setup medialibrary after recovery attempts.")
+                assertionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
+                return
+            }
+            initRecoveryAttempt = 2
+            APLog("MediaLibraryService: Database corrupted, clearing all database files.")
 #if os(iOS)
             preserveCorruptedDatabase(reason: .databaseCorrupted, details: nil)
 #endif
-            privateMediaLib.clearDatabase(restorePlaylists: true)
-            if mlServiceType == .mediaLibrary {
-                startMediaLibrary(on: mediaPath)
-            }
+            removeMedialibraryCachedArtifacts(thumbnailPath: thumbnailPath,
+                                              medialibraryPath: medialibraryPath)
+            removeMedialibraryDatabaseFiles(databasePath: databasePath)
+            privateMediaLib = VLCMediaLibrary()
+            setupMediaLibrary()
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }
