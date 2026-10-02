@@ -522,6 +522,33 @@ private extension MediaLibraryService {
             removeMedialibraryDatabaseFiles(databasePath: databasePath)
             privateMediaLib = VLCMediaLibrary()
             setupMediaLibrary()
+        case .dbMigrationFailed:
+#if os(iOS)
+            preserveCorruptedDatabase(reason: .migrationFailed, details: nil)
+#endif
+            privateMediaLib.clearDatabase(restorePlaylists: true)
+            if mlServiceType == .mediaLibrary {
+                startMediaLibrary(on: mediaPath)
+            }
+        case .dbSchemaMismatch:
+#if os(iOS)
+            preserveCorruptedDatabase(reason: .schemaMismatch, details: nil)
+#endif
+            privateMediaLib.clearDatabase(restorePlaylists: true)
+            if mlServiceType == .mediaLibrary {
+                startMediaLibrary(on: mediaPath)
+            }
+        case .dbForeignKeyViolation:
+#if os(iOS)
+            preserveCorruptedDatabase(reason: .foreignKeyViolation, details: nil)
+#endif
+            privateMediaLib.clearDatabase(restorePlaylists: true)
+            if mlServiceType == .mediaLibrary {
+                startMediaLibrary(on: mediaPath)
+            }
+        case .dbBusy:
+            APLog("MediaLibraryService: Database is locked by another connection.")
+            assertionFailure("MediaLibraryService: Database is locked by another connection.")
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }

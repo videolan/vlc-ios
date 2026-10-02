@@ -13,6 +13,9 @@ import Foundation
 
 enum MediaLibraryCorruptionReason: String {
     case databaseCorrupted = "database-corrupted"
+    case migrationFailed = "migration-failed"
+    case schemaMismatch = "schema-mismatch"
+    case foreignKeyViolation = "foreign-key-violation"
     case setupFailed = "setup-failed"
     case unhandledException = "unhandled-exception"
 }
