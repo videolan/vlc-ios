@@ -9460,7 +9460,7 @@
 			repositoryURL = "https://code.videolan.org/videolan/VLCMediaLibraryKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = "0.14.0-b9";
+				version = "0.14.0-b10";
 			};
 		};
 		7D1E8F02300E44960014A118 /* XCRemoteSwiftPackageReference "GRKArrayDiff" */ = {
