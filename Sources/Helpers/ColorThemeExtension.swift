@@ -70,6 +70,7 @@ extension UINavigationController {
 #if !os(tvOS)
         if #unavailable(iOS 26.0) {
             navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationBar.compactAppearance = AppearanceManager.navigationbarAppearance()
             navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
             navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         }
