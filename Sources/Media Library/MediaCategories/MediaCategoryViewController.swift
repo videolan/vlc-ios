@@ -1958,7 +1958,7 @@ private extension MediaCategoryViewController {
 extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
         // Set collectionView.isEditing to true only if the gesture is triggered properly
-        if collectionView.panGestureRecognizer.numberOfTouches == 2 {
+        if collectionView.panGestureRecognizer.numberOfTouches == 2 && !isEmptyCollectionView() {
             return true
         }
 
