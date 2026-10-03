@@ -368,12 +368,6 @@ private extension EditActions {
                                                 message: info.alertDescription,
                                                 preferredStyle: .alert)
 
-        alertController.addTextField(configurationHandler: {
-            textField in
-            textField.text = info.textfieldText
-            textField.placeholder = info.placeHolder
-        })
-
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
                                          style: .cancel)
 
@@ -384,6 +378,16 @@ private extension EditActions {
                   let textField = alertController.textFields?.first else { return }
             completionHandler(textField.text ?? "")
         }
+        confirmAction.isEnabled = !info.textfieldText.isEmpty
+
+        alertController.addTextField(configurationHandler: {
+            textField in
+            textField.text = info.textfieldText
+            textField.placeholder = info.placeHolder
+            textField.addAction(UIAction { action in
+                confirmAction.isEnabled = !((action.sender as? UITextField)?.text ?? "").isEmpty
+            }, for: .editingChanged)
+        })
 
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
