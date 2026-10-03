@@ -290,6 +290,17 @@ class TabBarCoordinator: NSObject {
         }
     }
 
+    @objc(showTabForMedia:) func showTab(for media: VLCMLMedia) {
+        let isVideo = media.type() == .video
+        if let index = tabBarController.viewControllers?.firstIndex(where: {
+            let rootViewController = ($0 as? UINavigationController)?.viewControllers.first
+            return isVideo ? rootViewController is VideoViewController
+                           : rootViewController is AudioViewController || rootViewController is TracksViewController
+        }) {
+            tabBarController.selectedIndex = index
+        }
+    }
+
     private func handleLastPlayedShortcut() {
         guard !KeychainCoordinator.passcodeService.hasSecret,
               let lastMedia = mediaLibraryService.lastPlayedMedia() else {

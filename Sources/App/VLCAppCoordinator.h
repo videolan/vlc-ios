@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 - (void)setTabBarController:(UITabBarController *)tabBarController;
 - (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
+- (void)showTabForMedia:(VLCMLMedia *)media;
 #endif
 
 #if TARGET_OS_WATCH

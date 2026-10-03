@@ -191,6 +191,11 @@
     [_tabCoordinator handleShortcutItem:shortcutItem];
 }
 
+- (void)showTabForMedia:(VLCMLMedia *)media
+{
+    [_tabCoordinator showTabForMedia:media];
+}
+
 - (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity
 {
     VLCMLIdentifier identifier = 0;

@@ -203,6 +203,7 @@
     if (!media) return NO;
 
     [self validatePasscodeIfNeededWithCompletion:^{
+        [[VLCAppCoordinator sharedInstance] showTabForMedia:media];
         [[VLCPlaybackService sharedInstance] playMedia:media];
     }];
     return YES;
