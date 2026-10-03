@@ -22,6 +22,7 @@
 @interface VLCFirstStepsViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
     UIPageViewController *pageVC;
+    UIPageControl *pageControl;
 }
 
 @end
@@ -36,7 +37,10 @@
     pageVC.dataSource = self;
     pageVC.delegate = self;
 
-    [[pageVC view] setFrame:[[self view] bounds]];
+    pageControl = [[UIPageControl alloc] init];
+    pageControl.numberOfPages = VLCFirstStepsPageCount;
+    pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [pageControl addTarget:self action:@selector(pageControlValueChanged) forControlEvents:UIControlEventValueChanged];
 
 #if TARGET_OS_IOS
     VLCFirstStepsBaseViewController *firstVC = [[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil];
@@ -51,7 +55,20 @@
     self.navigationController.navigationBar.translucent = NO;
 
     [self addChildViewController:pageVC];
-    [self.view addSubview:[pageVC view]];
+    UIView *pageView = pageVC.view;
+    pageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:pageView];
+    [self.view addSubview:pageControl];
+    UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [pageView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [pageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [pageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [pageView.bottomAnchor constraintEqualToAnchor:pageControl.topAnchor],
+        [pageControl.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor],
+        [pageControl.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor],
+        [pageControl.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
+    ]];
     [pageVC didMoveToParentViewController:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [self updateTheme];
@@ -114,14 +131,28 @@
     return [[pageClasses[beforeIndex] alloc] initWithNibName:nil bundle:nil];
 }
 
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+- (VLCFirstStepsPage)currentPage
 {
-    return VLCFirstStepsPageCount;
+    VLCFirstStepsBaseViewController *currentVC = (VLCFirstStepsBaseViewController *)pageVC.viewControllers.firstObject;
+    return currentVC.page;
 }
 
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+- (void)pageControlValueChanged
 {
-    return 0;
+    VLCFirstStepsPage currentPage = [self currentPage];
+    VLCFirstStepsPage targetPage = (VLCFirstStepsPage)pageControl.currentPage;
+    if (targetPage == currentPage) {
+        return;
+    }
+
+    UIPageViewControllerNavigationDirection direction = targetPage > currentPage ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
+    UIViewController *targetVC = [[VLCFirstStepsBaseViewController.pageClasses[targetPage] alloc] initWithNibName:nil bundle:nil];
+    pageControl.enabled = NO;
+    [pageVC setViewControllers:@[targetVC] direction:direction animated:YES completion:^(BOOL finished) {
+        self->pageControl.enabled = YES;
+        self->pageControl.currentPage = [self currentPage];
+        [self updateTitle];
+    }];
 }
 
 - (void)dismissFirstSteps
@@ -134,6 +165,7 @@
    previousViewControllers:(NSArray *)previousViewControllers
        transitionCompleted:(BOOL)completed
 {
+    pageControl.currentPage = [self currentPage];
     [self updateTitle];
 }
 
