@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) UIWindow *activeKeyWindow;
 @property (nonatomic, readonly, nullable) UIViewController *topViewController;
 
+#if !TARGET_OS_TV
+- (nullable UIViewController *)dismissPresentedScreensAbovePlayer;
+#endif
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,9 @@
  *****************************************************************************/
 
 #import "UIApplication+VLCTopViewController.h"
+#if !TARGET_OS_TV
+#import "VLCPlaybackNavigationController.h"
+#endif
 
 @implementation UIApplication (VLCTopViewController)
 
@@ -45,5 +48,19 @@
     }
     return viewController;
 }
+
+#if !TARGET_OS_TV
+- (UIViewController *)dismissPresentedScreensAbovePlayer
+{
+    UIViewController *presenter = self.activeKeyWindow.rootViewController;
+    if ([presenter.presentedViewController isKindOfClass:[VLCPlaybackNavigationController class]]) {
+        presenter = presenter.presentedViewController;
+    }
+    if (presenter.presentedViewController) {
+        [presenter dismissViewControllerAnimated:NO completion:nil];
+    }
+    return presenter;
+}
+#endif
 
 @end

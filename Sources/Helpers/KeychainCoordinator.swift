@@ -100,7 +100,8 @@ extension KeychainCoordinator {
 
     @objc func lockApplication(allowBiometricAuthentication: Bool, completion: @escaping () -> Void) {
         actionsAfterUnlock.append(completion)
-        guard applicationLockController == nil, let presentingViewController else {
+        guard applicationLockController == nil,
+              let presentingViewController = UIApplication.shared.dismissPresentedScreensAbovePlayer() else {
             return
         }
 
