@@ -1371,9 +1371,12 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         }
 
         DispatchQueue.main.async {
-            PlaybackService.sharedInstance().configurePlaybackWithMedia(at: lastPlayedMediaIndex,
-                                                                        fromCollection: mediaList,
-                                                                        openInMiniPlayer: openInMiniPlayer)
+            let playbackService = PlaybackService.sharedInstance()
+            guard !playbackService.playerIsSetup else { return }
+
+            playbackService.configurePlaybackWithMedia(at: lastPlayedMediaIndex,
+                                                       fromCollection: mediaList,
+                                                       openInMiniPlayer: openInMiniPlayer)
             defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
         }
     }
