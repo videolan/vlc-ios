@@ -311,29 +311,35 @@
     if (urlString == nil || urlString.length == 0)
         return;
 
-    /* force store update */
-    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousKeyValueStore synchronize];
-
-    /* fetch data from cloud */
-    NSMutableArray *recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
-
-    /* re-order array and add item */
-    if ([recentURLs indexOfObject:urlString] != NSNotFound)
-        [recentURLs removeObject:urlString];
-
-    if (recentURLs.count >= 100)
-        [recentURLs removeLastObject];
-    [recentURLs addObject:urlString];
-
-    /* sync back */
-    [ubiquitousKeyValueStore setArray:recentURLs forKey:kVLCRecentURLs];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCPrivateWebStreaming]) {
+        [self addURLStringToRecentStreams:urlString];
+    }
 
     VLCMedia *receivedMedia = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
     [mediaList addMedia:receivedMedia];
     NSInteger indexToPlay = [mediaList indexOfMedia:receivedMedia];
     if (!vpc.isPlaying) {
         [vpc playMediaList:mediaList firstIndex:indexToPlay subtitlesFilePath:nil];
+    }
+}
+
+- (void)addURLStringToRecentStreams:(NSString *)urlString
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+    BOOL useUbiquitousStore = [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
+
+    NSArray *recentURLs = useUbiquitousStore ? [ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs] : [defaults arrayForKey:kVLCRecentURLs];
+    if ([recentURLs containsObject:urlString]) {
+        return;
+    }
+
+    recentURLs = [(recentURLs ?: @[]) arrayByAddingObject:urlString];
+    if (useUbiquitousStore) {
+        [ubiquitousKeyValueStore setArray:recentURLs forKey:kVLCRecentURLs];
+        [ubiquitousKeyValueStore synchronize];
+    } else {
+        [defaults setObject:recentURLs forKey:kVLCRecentURLs];
     }
 }
 
