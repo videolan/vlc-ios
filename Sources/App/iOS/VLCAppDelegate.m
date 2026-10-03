@@ -165,6 +165,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
+    [defaults setBool:[[VLCKeychainCoordinator passcodeService] hasSecret] forKey:kVLCSettingPasscodeOnKey];
 
     UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
     if (shortcutItem) {
@@ -299,8 +300,7 @@
 #pragma mark - pass code validation
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeOnKey] &&
-        [[VLCKeychainCoordinator passcodeService] hasSecret]) {
+    if ([[VLCKeychainCoordinator passcodeService] hasSecret]) {
         //TODO: Dismiss playback
         BOOL allowBiometricAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeEnableBiometricAuth];
 
