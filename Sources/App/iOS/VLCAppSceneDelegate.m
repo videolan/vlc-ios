@@ -47,7 +47,9 @@
 
     UIApplicationShortcutItem *shortcutItem = connectionOptions.shortcutItem;
     if (shortcutItem) {
-        [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+        [appDelegate validatePasscodeIfNeededWithCompletion:^{
+            [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
+        }];
     }
     if ([session.role isEqualToString:UIWindowSceneSessionRoleApplication]) {
         [[VLCAppCoordinator sharedInstance].mediaLibraryService restoreLastPlayedMediaList];
