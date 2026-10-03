@@ -210,7 +210,7 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 - (IBAction)fieldAction:(id)sender
 {
     // American Express cards have 4 digits for the CVV and only 15 digits
-    _continueButton.enabled = _cvvField.text.length >= 3 && _expiryDateMonthField.text.length == 2 && _expiryDateYearField.text.length == 2 && _creditCardNumberField.text.length >= 15;
+    _continueButton.enabled = _cvvField.text.length >= 3 && _expiryDateMonthField.text.length == 2 && _expiryDateYearField.text.length == 2 && _creditCardNumberField.text.length >= 15 && [self cardNumberPassesLuhnCheck:_creditCardNumberField.text];
     _continueButton.backgroundColor = _continueButton.enabled ? PresentationTheme.current.colors.orangeUI : [UIColor grayColor];
 }
 
@@ -309,6 +309,29 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
 }
 
 #pragma mark - credit card number formatting
+
+- (BOOL)cardNumberPassesLuhnCheck:(NSString *)cardNumber
+{
+    NSUInteger sum = 0;
+    BOOL doubleDigit = NO;
+    for (NSInteger i = (NSInteger)cardNumber.length - 1; i >= 0; i--) {
+        unichar character = [cardNumber characterAtIndex:i];
+        if (!isdigit(character)) {
+            continue;
+        }
+
+        NSUInteger digit = character - '0';
+        if (doubleDigit) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+        sum += digit;
+        doubleDigit = !doubleDigit;
+    }
+    return sum % 10 == 0;
+}
 
 // Version 1.3
 // Source and explanation: http://stackoverflow.com/a/19161529/1709587
