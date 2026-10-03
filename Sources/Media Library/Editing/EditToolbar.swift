@@ -43,6 +43,7 @@ class EditToolbar: UIView {
         let addToPlaylistButton = UIButton(type: .system)
         addToPlaylistButton.setTitle(NSLocalizedString("ADD_TO_PLAYLIST", comment: ""), for: .normal)
         addToPlaylistButton.titleLabel?.font = UIFont.preferredCustomFont(forTextStyle: .headline)
+        addToPlaylistButton.titleLabel?.lineBreakMode = .byTruncatingTail
         addToPlaylistButton.contentHorizontalAlignment = .left
         addToPlaylistButton.addTarget(self, action: #selector(addToPlaylist), for: .touchUpInside)
         addToPlaylistButton.tintColor = .orange
