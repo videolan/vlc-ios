@@ -62,7 +62,12 @@
                                  userInfo:nil];
         return NO;
     }
-    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:keychainServiceIdentifier error:&localError].firstObject;
+    XKKeychainGenericPasswordItem *keychainItem;
+    if (self.username) {
+        keychainItem = [XKKeychainGenericPasswordItem itemForService:keychainServiceIdentifier account:self.username error:&localError];
+    } else {
+        keychainItem = [XKKeychainGenericPasswordItem itemsForService:keychainServiceIdentifier error:&localError].firstObject;
+    }
     if (localError) {
         if (error) {
             *error = localError;

@@ -26,6 +26,7 @@ FOUNDATION_EXPORT NSString *const VLCSavedServerListDidChange;
 - (BOOL)removeServerAtIndex:(NSUInteger)index error:(NSError **)error;
 
 - (nullable VLCNetworkServerLoginInformation *)loginAtIndex:(NSUInteger)index error:(NSError **)error;
+- (nullable NSString *)usernameAtIndex:(NSUInteger)index;
 
 @end
 

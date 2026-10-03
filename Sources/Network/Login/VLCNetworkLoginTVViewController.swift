@@ -256,16 +256,7 @@ import UIKit
         }
 
         cell.textLabel?.text = String(format: "%@ [%@]", serviceHost, serviceScheme)
-
-        let accountName: String
-        do {
-            let keychainItem = try XKKeychainGenericPasswordItem(forService: serviceString, account: nil)
-            accountName = keychainItem.account
-        } catch {
-            accountName = ""
-        }
-
-        cell.detailTextLabel?.text = accountName
+        cell.detailTextLabel?.text = savedServerList.username(at: UInt(indexPath.row)) ?? ""
 
         return cell
     }

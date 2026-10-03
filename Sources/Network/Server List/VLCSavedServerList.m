@@ -138,7 +138,16 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
         return NO;
     }
 
-    [_serverList addObject:serviceIdentifier];
+    NSString *entry = serviceIdentifier;
+    if (login.username.length > 0) {
+        NSURLComponents *components = [NSURLComponents componentsWithString:serviceIdentifier];
+        components.user = login.username;
+        entry = components.string ?: serviceIdentifier;
+    }
+
+    if (![_serverList containsObject:entry]) {
+        [_serverList addObject:entry];
+    }
     [self storeServerList];
 
     return success;
@@ -150,17 +159,24 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
         return NO;
     }
 
-    NSString *serviceString = _serverList[index];
+    NSString *entry = _serverList[index];
+    [_serverList removeObjectAtIndex:index];
+
     NSError *innerError = nil;
-    BOOL success = [XKKeychainGenericPasswordItem removeItemsForService:serviceString error:&innerError];
-    if (!success) {
-        APLog(@"Failed to delete login with error: %@", innerError);
+    BOOL success = YES;
+    if (![self keychainItemOfEntryIsInUse:entry]) {
+        XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+        keychainItem.service = [self serviceOfEntry:entry];
+        keychainItem.account = [self userOfEntry:entry];
+        success = [keychainItem deleteWithError:&innerError];
+        if (!success) {
+            APLog(@"Failed to delete login with error: %@", innerError);
+        }
     }
     if (error) {
         *error = innerError;
     }
 
-    [_serverList removeObjectAtIndex:index];
     [self storeServerList];
 
     return success;
@@ -172,12 +188,61 @@ NSString *const VLCSavedServerListDidChange = @"VLCSavedServerListDidChange";
         return nil;
     }
 
-    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation loginInformationWithKeychainIdentifier:_serverList[index]];
+    NSString *entry = _serverList[index];
+    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation loginInformationWithKeychainIdentifier:entry];
+    login.username = [self userOfEntry:entry];
     if (![login loadLoginInformationFromKeychainWithError:error]) {
         return nil;
     }
 
     return login;
+}
+
+- (NSString *)usernameAtIndex:(NSUInteger)index
+{
+    if (index >= _serverList.count) {
+        return nil;
+    }
+
+    NSString *entry = _serverList[index];
+    NSString *user = [self userOfEntry:entry];
+    if (user) {
+        return user;
+    }
+
+    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:entry error:nil].firstObject;
+    return keychainItem.account;
+}
+
+- (NSString *)userOfEntry:(NSString *)entry
+{
+    return [NSURLComponents componentsWithString:entry].user;
+}
+
+- (NSString *)serviceOfEntry:(NSString *)entry
+{
+    NSURLComponents *components = [NSURLComponents componentsWithString:entry];
+    if (!components.user) {
+        return entry;
+    }
+
+    components.user = nil;
+    return components.string;
+}
+
+- (BOOL)keychainItemOfEntryIsInUse:(NSString *)entry
+{
+    NSString *service = [self serviceOfEntry:entry];
+    NSString *user = [self userOfEntry:entry];
+    for (NSString *otherEntry in _serverList) {
+        if (![[self serviceOfEntry:otherEntry] isEqualToString:service]) {
+            continue;
+        }
+        if (!user || [[self userOfEntry:otherEntry] isEqualToString:user]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

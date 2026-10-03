@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginDataSourceSavedLogins.h"
-#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "UIApplication+VLCTopViewController.h"
 #import "VLCNetworkServerLoginInformation+Keychain.h"
 #import "VLCSavedServerList.h"
@@ -88,12 +87,7 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
     NSURL *service = [NSURL URLWithString:serviceString];
     NSString *serviceHost = [NSString stringWithFormat:@"%@%@", service.host, service.path];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ [%@]", serviceHost, [service.scheme uppercaseString]];
-    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
-    if (keychainItem) {
-        cell.detailTextLabel.text = keychainItem.account;
-    } else {
-        cell.detailTextLabel.text = @"";
-    }
+    cell.detailTextLabel.text = [_savedServerList usernameAtIndex:row] ?: @"";
 }
 
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRow:(NSUInteger)row
