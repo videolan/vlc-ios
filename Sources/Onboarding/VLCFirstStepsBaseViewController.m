@@ -53,6 +53,17 @@
     [self setupPage];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if (self.isCompactHeight) {
+        return;
+    }
+    [self.pageTitleContainer layoutIfNeeded];
+    [self.bottomView layoutIfNeeded];
+    [self updateHeightConstraints];
+}
+
 - (BOOL)isCompactHeight
 {
     return (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
@@ -106,8 +117,6 @@
     ]];
 
     if (!self.isCompactHeight) {
-        [self.view setNeedsLayout];
-        [self updateHeightConstraints];
         [NSLayoutConstraint activateConstraints: self.labelHeightConstraints];
     }
     [self configureCentral];
