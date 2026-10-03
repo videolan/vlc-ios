@@ -60,7 +60,18 @@
     NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
     if (dayOfYear >= 354)
         self.nothingFoundConeImageView.image = [UIImage imageNamed:@"xmas-cone"];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self loadRecentStreams];
+    [self.previouslyPlayedStreamsTableView reloadData];
+}
+
+- (void)loadRecentStreams
+{
     if ([self ubiquitousKeyStoreAvailable]) {
         APLog(@"%s: ubiquitous key store is available", __func__);
         /* force store update */
