@@ -217,6 +217,12 @@
     return _media.metaData.artworkURL;
 }
 
+- (NSString *)duration
+{
+    VLCTime *length = _media.length;
+    return length.intValue > 0 ? length.stringValue : nil;
+}
+
 - (NSString *)mediaDescription
 {
     NSDictionary<NSString *, NSString *> *extra = _media.metaData.extra;
