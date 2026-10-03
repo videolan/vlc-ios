@@ -31,8 +31,6 @@
 @interface VLCAppDelegate ()
 {
     BOOL _isComingFromHandoff;
-    id<VLCURLHandler> _urlHandlerToExecute;
-    NSURL *_urlToHandle;
 #if (TARGET_OS_IOS || TARGET_OS_WATCH) && !NO_WATCH
     VLCSessionDelegate *sessionDelegate;
 # endif
@@ -223,15 +221,12 @@
 {
     for (id<VLCURLHandler> handler in URLHandlers.handlers) {
         if ([handler canHandleOpenWithUrl:url options:options]) {
-            /* if no passcode is set, immediately execute the handler
-             * otherwise, store it for later use by the passcode controller's completion function */
-            if (![[VLCKeychainCoordinator passcodeService] hasSecret]) {
-                return [handler performOpenWithUrl:url options:options];
-            } else {
-                _urlHandlerToExecute = handler;
-                _urlToHandle = url;
-                return YES;
-            }
+            [self validatePasscodeIfNeededWithCompletion:^{
+                if (![handler performOpenWithUrl:url options:options]) {
+                    APLog(@"Failed to execute %@", url);
+                }
+            }];
+            return YES;
         }
     }
     return NO;
@@ -243,15 +238,6 @@
         //TODO: handle updating the videoview and
         if ([VLCPlaybackService sharedInstance].isPlaying){
             //TODO: push playback
-        }
-
-        /* execute a potential URL handler that was set when the app was moved into foreground */
-        if (self->_urlHandlerToExecute) {
-            if (![self->_urlHandlerToExecute performOpenWithUrl:self->_urlToHandle options:@{}]) {
-                APLog(@"Failed to execute %@", self->_urlToHandle);
-            }
-            self->_urlHandlerToExecute = nil;
-            self->_urlToHandle = nil;
         }
     }];
 }
