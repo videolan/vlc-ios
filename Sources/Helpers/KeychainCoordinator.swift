@@ -46,7 +46,7 @@ class KeychainCoordinator: NSObject {
         keychainItem.account = serviceIdentifier
         keychainItem.secret.stringValue = secret
 
-        try? keychainItem.save()
+        try keychainItem.save()
     }
 
     func removeSecret() throws {
