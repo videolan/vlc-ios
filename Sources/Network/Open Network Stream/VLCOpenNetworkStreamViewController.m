@@ -232,34 +232,6 @@
                                name:kVLCThemeDidChangeNotification
                              object:nil];
 
-    if ([self ubiquitousKeyStoreAvailable]) {
-        APLog(@"%s: ubiquitous key store is available", __func__);
-        /* force store update */
-        NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-        [ubiquitousKeyValueStore synchronize];
-
-        /* fetch data from cloud */
-        _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
-        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
-
-        /* merge data from local storage (aka legacy VLC versions) */
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
-        if (localRecentUrls != nil) {
-            if (localRecentUrls.count != 0) {
-                [_recentURLs addObjectsFromArray:localRecentUrls];
-                [defaults setObject:nil forKey:kVLCRecentURLs];
-                [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
-                [ubiquitousKeyValueStore synchronize];
-            }
-        }
-    } else {
-        APLog(@"%s: ubiquitous key store is not available", __func__);
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
-        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:kVLCRecentURLTitles]];
-    }
-
     /*
      * Observe changes to the pasteboard so we can automatically paste it into the URL field.
      * Do not use UIPasteboardChangedNotification because we have copy actions that will trigger it on this screen.
@@ -338,11 +310,45 @@
         self.urlField.text = [[pasteboard valueForPasteboardType:@"public.url"] absoluteString];
 }
 
+- (void)loadRecentStreams
+{
+    if ([self ubiquitousKeyStoreAvailable]) {
+        APLog(@"%s: ubiquitous key store is available", __func__);
+        /* force store update */
+        NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+        [ubiquitousKeyValueStore synchronize];
+
+        /* fetch data from cloud */
+        _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
+
+        /* merge data from local storage (aka legacy VLC versions) */
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
+        if (localRecentUrls != nil) {
+            if (localRecentUrls.count != 0) {
+                [_recentURLs addObjectsFromArray:localRecentUrls];
+                [defaults setObject:nil forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore synchronize];
+            }
+        }
+    } else {
+        APLog(@"%s: ubiquitous key store is not available", __func__);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:kVLCRecentURLTitles]];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
     [self updatePrivateToggleColor];
+
+    [self loadRecentStreams];
+    [self.historyTableView reloadData];
 
     self.historyTableView.editing = NO;
     [self _setRightBarButtonItemsEditing:NO];
