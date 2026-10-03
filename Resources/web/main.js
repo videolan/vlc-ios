@@ -211,7 +211,7 @@ $(function(){
 
     $('form.open-url').on('submit', function(e) {
         e.preventDefault();
-        var url = $(this).find('input').val();
+        var url = $(this).find('input').val().trim();
         var localesURL = (typeof LOCALES !== 'undefined' && LOCALES.PLAYER_CONTROL) ? LOCALES.PLAYER_CONTROL.URL : {};
         if (!url) {
             return displayMessage(localesURL.EMPTY);

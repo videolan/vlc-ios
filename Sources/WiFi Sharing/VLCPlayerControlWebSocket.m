@@ -307,7 +307,7 @@
         mediaList = [[VLCMediaList alloc] init];
     }
 
-    NSString *urlString = dictionary[@"url"];
+    NSString *urlString = [dictionary[@"url"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (urlString == nil || urlString.length == 0)
         return;
 
