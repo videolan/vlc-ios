@@ -821,6 +821,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""),
                      image: UIImage(named: "stopIcon")?.withTintColor(defaultButtonColor, renderingMode: .alwaysOriginal)) {
                          action in
+                         guard self.playbackService.playerIsSetup else { return }
                          self.playbackService.stopPlayback()
                          let completion: ((Bool) -> Void) = { _ in
                              self.queueViewController?.hide()
