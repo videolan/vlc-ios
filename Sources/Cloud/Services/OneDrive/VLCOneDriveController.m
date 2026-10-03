@@ -160,6 +160,18 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self sessionWasUpdated];
+
+        if (error.isAuthCanceledError || !self.presentingViewController) {
+            return;
+        }
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"OneDrive"
+                                                                                 message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        [self.presentingViewController presentViewController:alertController animated:YES completion:nil];
     });
 }
 
