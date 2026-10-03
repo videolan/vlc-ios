@@ -123,6 +123,13 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
     }
 
+    func scrollToTop() {
+        guard let collectionView = (viewControllers[currentIndex] as? UICollectionViewController)?.collectionView else {
+            return
+        }
+        collectionView.setContentOffset(CGPoint(x: 0, y: -collectionView.adjustedContentInset.top), animated: true)
+    }
+
     // MARK: - PagerTabStripDataSource
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

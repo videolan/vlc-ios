@@ -404,6 +404,13 @@ extension TabBarCoordinator: MediaLibraryObserver {
 // MARK: - UITabBarControllerDelegate
 
 extension TabBarCoordinator: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController === tabBarController.selectedViewController {
+            ((viewController as? UINavigationController)?.topViewController as? MediaViewController)?.scrollToTop()
+        }
+        return true
+    }
+
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
         UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
