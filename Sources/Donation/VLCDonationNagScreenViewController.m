@@ -96,8 +96,7 @@
         UINavigationController *donationNC = [[VLCDonationNavigationController alloc] initWithRootViewController:donationVC];
 #if TARGET_OS_IOS
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            donationNC.modalPresentationStyle = UIModalPresentationPopover;
-            donationNC.popoverPresentationController.sourceView = [[[VLCAppCoordinator sharedInstance] tabBarController] tabBar];
+            donationNC.modalPresentationStyle = UIModalPresentationFormSheet;
         } else {
             donationNC.modalPresentationStyle = UIModalPresentationFullScreen;
         }
