@@ -304,12 +304,8 @@
         //TODO: Dismiss playback
         BOOL allowBiometricAuthentication = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeEnableBiometricAuth];
 
-        [[VLCKeychainCoordinator passcodeService]
-         validateSecretWithAllowBiometricAuthentication:allowBiometricAuthentication
-         isCancellable:NO
-         completion:^(BOOL success){
-            completion();
-        }];
+        [[VLCKeychainCoordinator passcodeService] lockApplicationWithAllowBiometricAuthentication:allowBiometricAuthentication
+                                                                                       completion:completion];
     } else {
         completion();
     }
