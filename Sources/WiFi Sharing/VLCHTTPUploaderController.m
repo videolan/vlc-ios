@@ -30,6 +30,7 @@
 #import "VLC-Swift.h"
 
 NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskName";
+NSString * const VLCHTTPUploaderControllerReachabilityDidChangeNotification = @"VLCHTTPUploaderControllerReachabilityDidChangeNotification";
 
 @interface VLCHTTPUploaderController()
 {
@@ -53,9 +54,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
                        name:UIApplicationDidBecomeActiveNotification
                      object:nil];
         [center addObserver:self
-                   selector:@selector(netReachabilityChanged)
+                   selector:@selector(reachabilityDidChange)
                        name:kReachabilityChangedNotification
                      object:nil];
+        _reachability = [Reachability reachabilityForLocalWiFi];
+        [_reachability startNotifier];
 
         BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
         [self netReachabilityChanged];
@@ -71,8 +74,23 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    [self updateReachabilityIfNeeded];
     if (!_httpServer.isRunning)
         [self changeHTTPServerState:[[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCHTTPUploaderControllerReachabilityDidChangeNotification object:self];
+}
+
+- (void)reachabilityDidChange
+{
+    [self netReachabilityChanged];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCHTTPUploaderControllerReachabilityDidChangeNotification object:self];
+}
+
+- (void)updateReachabilityIfNeeded
+{
+    if (!_isReachable) {
+        [self netReachabilityChanged];
+    }
 }
 
 - (void)beginBackgroundTask

@@ -13,7 +13,6 @@
 #import "VLCBrowseSharingCell.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCAppCoordinator.h"
-#import "Reachability.h"
 
 #import "VLC-Swift.h"
 
@@ -23,7 +22,6 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 9.0;
 {
     UISwitch *_serverSwitch;
     UILabel *_titleLabel;
-    Reachability *_reachability;
     VLCHTTPUploaderController *_httpUploaderController;
 }
 
@@ -37,22 +35,15 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 9.0;
     self = [super initWithFrame:frame];
     if (self) {
         _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
-        _reachability = [Reachability reachabilityForLocalWiFi];
-        [_reachability startNotifier];
 
         [self setupViews];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reachabilityDidChange)
-                                                     name:kReachabilityChangedNotification
-                                                   object:nil];
+                                                     name:VLCHTTPUploaderControllerReachabilityDidChangeNotification
+                                                   object:_httpUploaderController];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [_reachability stopNotifier];
 }
 
 - (void)setupViews
@@ -127,6 +118,7 @@ static CGFloat const kVLCBrowseSharingCornerRadius = 9.0;
 
 - (void)toggleSharing
 {
+    [_httpUploaderController updateReachabilityIfNeeded];
     if (!_httpUploaderController.isReachable) {
         return;
     }

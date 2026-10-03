@@ -17,6 +17,8 @@
 
 @class MediaLibraryService;
 
+extern NSString * _Nonnull const VLCHTTPUploaderControllerReachabilityDidChangeNotification;
+
 @interface VLCHTTPUploaderController : NSObject
 
 @property (readonly, nullable) NSString *nameOfUsedNetworkInterface;
@@ -24,6 +26,7 @@
 @property (nonatomic, readwrite, nullable) MediaLibraryService *medialibrary;
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
+- (void)updateReachabilityIfNeeded;
 - (nonnull NSArray<NSString *> *)serverAddresses;
 - (nonnull NSString *)httpStatus;
 - (nonnull NSString *)addressToCopy;
