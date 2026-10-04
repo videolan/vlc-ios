@@ -28,6 +28,8 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     var successCallback: URL?
     var errorCallback: URL?
     var fileName: String?
+    var loop = false
+    var shuffle = false
 
     private static let feedSchemes = ["feed", "feeds", "pcast", "itpc"]
     private static let feedPathExtensions = ["opml", "rss"]

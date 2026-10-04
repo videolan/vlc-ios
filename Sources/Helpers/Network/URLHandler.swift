@@ -23,6 +23,8 @@ enum VLCXCallbackType {
     case filename
     case xSuccess
     case xError
+    case loop
+    case shuffle
     case undefined
 }
 
@@ -32,6 +34,8 @@ enum VLCXCallbackType {
     var successCallback: URL? { get set }
     var errorCallback: URL? { get set }
     var fileName: String? { get set }
+    var loop: Bool { get set }
+    var shuffle: Bool { get set }
 
     func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool
     func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool
@@ -50,6 +54,10 @@ extension VLCURLHandler {
             return .xSuccess
         case "x-error":
             return .xError
+        case "loop":
+            return .loop
+        case "shuffle":
+            return .shuffle
         default:
             return .undefined
         }
@@ -61,6 +69,11 @@ extension VLCURLHandler {
             return
         }
 
+        let playbackService = PlaybackService.sharedInstance()
+        if shuffle {
+            playbackService.isShuffleMode = true
+        }
+
         play(url: safeMovieURL, sub: self.subURL) { success in
             guard let callback = success ? self.successCallback : self.errorCallback else {
                 return
@@ -69,6 +82,10 @@ extension VLCURLHandler {
             UIApplication.shared.open(callback,
                                       options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]),
                                       completionHandler: nil)
+        }
+
+        if loop {
+            playbackService.repeatMode = .repeatAllItems
         }
     }
 
@@ -87,6 +104,8 @@ extension VLCURLHandler {
         successCallback = nil
         errorCallback = nil
         fileName = nil
+        loop = false
+        shuffle = false
     }
 
     func getURLForValue(value: String) -> URL? {
@@ -115,16 +134,16 @@ extension VLCURLHandler {
 
         for entry in query.components(separatedBy: "&") {
             let components = entry.components(separatedBy: "=")
-            if components.count < 2 {
-                continue
-            }
-
             guard let key = components.first else {
                 assertionFailure("VLCURLHandler: Fail to retrieve key.")
                 continue
             }
 
             let callback = matchCallback(key: key)
+            let isFlag = callback == .loop || callback == .shuffle
+            if components.count < 2 && !isFlag {
+                continue
+            }
 
             let value = components.dropFirst().joined(separator: "=")
 
@@ -143,6 +162,12 @@ extension VLCURLHandler {
                 break
             case .xError:
                 errorCallback = URL(string: value.removingPercentEncoding ?? value)
+                break
+            case .loop:
+                loop = value.isEmpty || (value as NSString).boolValue
+                break
+            case .shuffle:
+                shuffle = value.isEmpty || (value as NSString).boolValue
                 break
             default:
                 assertionFailure("VLCURLHandler: Invalid match of callback.")
@@ -238,6 +263,8 @@ class VLCTopShelfURLHandler: NSObject, VLCURLHandler {
     var successCallback: URL?
     var errorCallback: URL?
     var fileName: String?
+    var loop = false
+    var shuffle = false
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc" && url.host == "topshelf"
@@ -264,15 +291,12 @@ class VLCTopShelfURLHandler: NSObject, VLCURLHandler {
 #if os(iOS)
 class DropBoxURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
-
     var subURL: URL?
-
     var successCallback: URL?
-
     var errorCallback: URL?
-
     var fileName: String?
-
+    var loop = false
+    var shuffle = false
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
 
@@ -304,14 +328,12 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
 
 class GoogleURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
-
     var subURL: URL?
-
     var successCallback: URL?
-
     var errorCallback: URL?
-
     var fileName: String?
+    var loop = false
+    var shuffle = false
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         // the scheme is the reversed client ID, which is injected at build time
@@ -325,15 +347,12 @@ class GoogleURLHandler: NSObject, VLCURLHandler {
 
 class FileURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
-
     var subURL: URL?
-
     var successCallback: URL?
-
     var errorCallback: URL?
-
     var fileName: String?
-
+    var loop = false
+    var shuffle = false
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.isFileURL
@@ -380,14 +399,12 @@ class FileURLHandler: NSObject, VLCURLHandler {
 
 class XCallbackURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
-
     var subURL: URL?
-
     var successCallback: URL?
-
     var errorCallback: URL?
-
     var fileName: String?
+    var loop = false
+    var shuffle = false
 
     enum VLCXCallbackActionType {
         case stream
@@ -440,14 +457,12 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
 
 public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
     public var movieURL: URL?
-
     public var subURL: URL?
-
     public var successCallback: URL?
-
     public var errorCallback: URL?
-
     public var fileName: String?
+    public var loop = false
+    public var shuffle = false
 
     @objc public func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc"
@@ -490,14 +505,12 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
 class ElseCallbackURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
-
     var subURL: URL?
-
     var successCallback: URL?
-
     var errorCallback: URL?
-
     var fileName: String?
+    var loop = false
+    var shuffle = false
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         guard let scheme = url.scheme else {
