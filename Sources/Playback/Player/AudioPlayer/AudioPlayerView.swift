@@ -48,6 +48,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     lazy var thumbnailImageView: UIImageView = {
         let thumbnailImageView = UIImageView()
         thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.layer.cornerRadius = 14.0
         // The artwork size is driven by layout constraints, never by the
         // bitmap's intrinsic size.
         thumbnailImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
