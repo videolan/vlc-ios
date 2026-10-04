@@ -91,7 +91,12 @@ final class PodcastSubscriptionModel: NSObject {
         notifyChanged()
     }
 
-    func play(episodeId: String, subscription: VLCMLSubscription, partialFileURL: URL? = nil) {
+    func play(episodeId: String,
+              subscription: VLCMLSubscription,
+              sortedBy sort: VLCMLSortingCriteria,
+              descending: Bool,
+              matching query: String,
+              partialFileURL: URL? = nil) {
         guard let identifier = VLCMLIdentifier(episodeId),
               let media = medialibrary.media(for: identifier) else {
             return
@@ -108,7 +113,12 @@ final class PodcastSubscriptionModel: NSObject {
             list.add(partialMedia)
             playbackService.playMediaList(list, firstIndex: 0, subtitlesFilePath: nil)
         } else if UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem) {
-            let mediaList = self.media(for: subscription)
+            let mediaList: [VLCMLMedia]
+            if query.isEmpty {
+                mediaList = subscription.media(with: sort, desc: descending) ?? []
+            } else {
+                mediaList = subscription.searchMedia(withPattern: query, sort: sort, desc: descending) ?? []
+            }
             if let index = mediaList.firstIndex(where: { $0.identifier() == identifier }) {
                 playbackService.playMedia(at: index, fromCollection: mediaList)
             } else {

@@ -26,9 +26,6 @@ class PodcastShowDetailViewController: UIViewController {
 
     private weak var headerView: PodcastShowHeaderView?
 
-    private var sortCriteria: PodcastEpisodeSortCriteria
-    private var sortDescending: Bool
-
     private var episodes: [PodcastEpisode] = []
     private var hasMoreEpisodes = true
     private var isLoadingEpisodes = false
@@ -52,8 +49,8 @@ class PodcastShowDetailViewController: UIViewController {
     private func fetchEpisodePage(offset: Int) -> [PodcastEpisode] {
         let pageSize = PodcastShowDetailViewController.episodePageSize
         let page = store.episodes(forShowId: show.id,
-                                  sortedBy: sortCriteria,
-                                  descending: sortDescending,
+                                  sortedBy: store.episodeSortCriteria,
+                                  descending: store.episodeSortDescending,
                                   matching: searchQuery,
                                   offset: offset,
                                   count: pageSize)
@@ -162,18 +159,6 @@ class PodcastShowDetailViewController: UIViewController {
 
     init(show: PodcastShow) {
         self.show = show
-        let userDefaults = UserDefaults.standard
-        if let rawCriteria = userDefaults.object(forKey: "\(kVLCSortDefault)podcastEpisodes") as? Int,
-           let criteria = PodcastEpisodeSortCriteria(rawValue: rawCriteria) {
-            self.sortCriteria = criteria
-        } else {
-            self.sortCriteria = .releaseDate
-        }
-        if userDefaults.object(forKey: "\(kVLCSortDescendingDefault)podcastEpisodes") != nil {
-            self.sortDescending = userDefaults.bool(forKey: "\(kVLCSortDescendingDefault)podcastEpisodes")
-        } else {
-            self.sortDescending = true
-        }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -410,8 +395,8 @@ class PodcastShowDetailViewController: UIViewController {
     private func generateSortMenu() -> UIMenu {
         var sortActions: [UIMenuElement] = []
         for criterion in PodcastEpisodeSortCriteria.allCases {
-            let isCurrentSort = criterion == sortCriteria
-            let chevronImageName = sortDescending ? "chevron.down" : "chevron.up"
+            let isCurrentSort = criterion == store.episodeSortCriteria
+            let chevronImageName = store.episodeSortDescending ? "chevron.down" : "chevron.up"
             let actionImage = isCurrentSort ? UIImage(systemName: chevronImageName) : nil
 
             let action = UIAction(title: criterion.title,
@@ -419,7 +404,7 @@ class PodcastShowDetailViewController: UIViewController {
                                   state: isCurrentSort ? .on : .off,
                                   handler: { [weak self] _ in
                 guard let self = self else { return }
-                self.executeSortAction(with: criterion, desc: !self.sortDescending)
+                self.executeSortAction(with: criterion, desc: !self.store.episodeSortDescending)
             })
             sortActions.append(action)
         }
@@ -431,13 +416,8 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     private func executeSortAction(with criteria: PodcastEpisodeSortCriteria, desc: Bool) {
-        sortCriteria = criteria
-        sortDescending = desc
-
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(criteria.rawValue, forKey: "\(kVLCSortDefault)podcastEpisodes")
-        userDefaults.set(desc, forKey: "\(kVLCSortDescendingDefault)podcastEpisodes")
-
+        store.episodeSortCriteria = criteria
+        store.episodeSortDescending = desc
         reloadEpisodes()
     }
 
@@ -470,7 +450,7 @@ class PodcastShowDetailViewController: UIViewController {
         if store.nowPlayingEpisodeId == episode.id {
             store.togglePlayPause()
         } else {
-            store.playEpisode(episodeId: episode.id, showId: show.id)
+            store.playEpisode(episodeId: episode.id, showId: show.id, matching: searchQuery)
         }
     }
 
@@ -620,7 +600,7 @@ extension PodcastShowDetailViewController: UITableViewDataSource, UITableViewDel
         }
 
         header.configure(title: NSLocalizedString("EPISODES", comment: ""),
-                         sortTitle: sortCriteria.title,
+                         sortTitle: store.episodeSortCriteria.title,
                          sortMenu: generateSortMenu())
         return header
     }

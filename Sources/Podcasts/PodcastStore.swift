@@ -46,7 +46,7 @@ final class PodcastStore: NSObject {
     private var cacheSawBusy = false
     private var cacheStartTimeout: DispatchWorkItem?
 
-    private var playbackRequest: (episodeId: String, showId: String, startPosition: Float)?
+    private var playbackRequest: (episodeId: String, showId: String, startPosition: Float, query: String)?
     private var lastPlayedEpisodeId: String?
 
     private var pendingFeedURLs: Set<URL> = []
@@ -72,6 +72,8 @@ final class PodcastStore: NSObject {
     private static let maxCachedEpisodesPerShow: UInt32 = 2
     private static let playbackStartFraction: Float = 0.2
     private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
+    private static let episodeSortCriteriaKey = "\(kVLCSortDefault)podcastEpisodes"
+    private static let episodeSortDescendingKey = "\(kVLCSortDescendingDefault)podcastEpisodes"
 
     private override init() {
         super.init()
@@ -262,6 +264,25 @@ final class PodcastStore: NSObject {
 
     func episodeCount(forShowId showId: String) -> Int {
         return Int(subscription(withId: showId)?.nbMedia() ?? 0)
+    }
+
+    var episodeSortCriteria: PodcastEpisodeSortCriteria {
+        get {
+            let rawValue = UserDefaults.standard.object(forKey: PodcastStore.episodeSortCriteriaKey) as? Int
+            return rawValue.flatMap(PodcastEpisodeSortCriteria.init(rawValue:)) ?? .releaseDate
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: PodcastStore.episodeSortCriteriaKey)
+        }
+    }
+
+    var episodeSortDescending: Bool {
+        get {
+            return UserDefaults.standard.object(forKey: PodcastStore.episodeSortDescendingKey) as? Bool ?? true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: PodcastStore.episodeSortDescendingKey)
+        }
     }
 
     func episodes(forShowId showId: String,
@@ -479,10 +500,10 @@ final class PodcastStore: NSObject {
 
     // An episode that has yet to be downloaded is fetched to the cache first and starts playing off
     // the partial file, which by then is far enough ahead for the rest to arrive in time.
-    func playEpisode(episodeId: String, showId: String, startPosition: Float = -1) {
+    func playEpisode(episodeId: String, showId: String, startPosition: Float = -1, matching query: String = "") {
         guard media(forEpisodeId: episodeId)?.isCached() != true else {
             playbackRequest = nil
-            play(episodeId: episodeId, showId: showId, startPosition: startPosition)
+            play(episodeId: episodeId, showId: showId, startPosition: startPosition, matching: query)
             return
         }
 
@@ -490,7 +511,7 @@ final class PodcastStore: NSObject {
             playbackRequest = nil
             return
         }
-        playbackRequest = (episodeId, showId, startPosition)
+        playbackRequest = (episodeId, showId, startPosition, query)
         notifyEpisodeChanged(episodeId)
         notifyReload()
     }
@@ -499,7 +520,11 @@ final class PodcastStore: NSObject {
         play(episodeId: episodeId, showId: showId, startPosition: -1)
     }
 
-    private func play(episodeId: String, showId: String, startPosition: Float, partialFileURL: URL? = nil) {
+    private func play(episodeId: String,
+                      showId: String,
+                      startPosition: Float,
+                      matching query: String = "",
+                      partialFileURL: URL? = nil) {
         guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
             return
         }
@@ -507,7 +532,12 @@ final class PodcastStore: NSObject {
             requestArtwork(for: show)
         }
         PlaybackService.sharedInstance().startPosition = startPosition
-        subscriptionModel.play(episodeId: episodeId, subscription: subscription, partialFileURL: partialFileURL)
+        subscriptionModel.play(episodeId: episodeId,
+                               subscription: subscription,
+                               sortedBy: PodcastStore.sortingCriteria(for: episodeSortCriteria),
+                               descending: episodeSortDescending,
+                               matching: query,
+                               partialFileURL: partialFileURL)
     }
 
     var nowPlayingEpisodeId: String? {
@@ -785,6 +815,7 @@ extension PodcastStore: VLCSubscriptionCacherDelegate {
         play(episodeId: request.episodeId,
              showId: request.showId,
              startPosition: request.startPosition,
+             matching: request.query,
              partialFileURL: URL(fileURLWithPath: path))
     }
 }
@@ -826,7 +857,10 @@ extension PodcastStore: MediaLibraryObserver {
             guard status == .success || status == .alreadyCached else {
                 return
             }
-            self.play(episodeId: request.episodeId, showId: request.showId, startPosition: request.startPosition)
+            self.play(episodeId: request.episodeId,
+                      showId: request.showId,
+                      startPosition: request.startPosition,
+                      matching: request.query)
         }
     }
 
