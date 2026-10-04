@@ -66,6 +66,17 @@ class PasscodeLockController: UIViewController {
     }
 
     // MARK: - UI Elements
+    private let coneView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        imageView.contentMode = .scaleAspectFit
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+
+        return imageView
+    }()
+
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -177,6 +188,11 @@ class PasscodeLockController: UIViewController {
         passcodeField.resignFirstResponder()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        coneView.isHidden = coneView.bounds.height < 40
+    }
+
     // MARK: - Setup
 
     private func setup() {
@@ -197,6 +213,7 @@ class PasscodeLockController: UIViewController {
             messageLabel.text = NSLocalizedString("Enter your passcode", comment: "")
         }
 
+        view.addSubview(coneView)
         view.addSubview(messageLabel)
         view.addSubview(passcodeField)
         view.addSubview(failedLabel)
@@ -204,7 +221,19 @@ class PasscodeLockController: UIViewController {
         // Create center y constraint
         passcodeFieldCenterYConstraint = view.centerYAnchor.constraint(equalTo: passcodeField.centerYAnchor)
 
+        let coneHeightConstraint = coneView.heightAnchor.constraint(equalToConstant: 80)
+        coneHeightConstraint.priority = .defaultHigh
+
+        let coneTopConstraint = coneView.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        coneTopConstraint.priority = .required - 1
+
         NSLayoutConstraint.activate([
+            coneView.bottomAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -20),
+            coneView.centerXAnchor.constraint(equalTo: passcodeField.centerXAnchor),
+            coneView.widthAnchor.constraint(equalTo: coneView.heightAnchor),
+            coneView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0),
+            coneHeightConstraint,
+            coneTopConstraint,
             // Put messageLabel top on passcodeField
             passcodeField.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 30),
             passcodeField.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor),
@@ -297,6 +326,7 @@ class PasscodeLockController: UIViewController {
 
     @objc private func setupTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
+        coneView.image = UIImage(named: PresentationTheme.current.colors.isDark ? "VLCCone26-dark-512x512" : "VLCCone26-512x512")
         messageLabel.textColor = PresentationTheme.current.colors.cellTextColor
         setNavBarAppearance()
     }
