@@ -340,17 +340,28 @@ class FileURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
+        let playbackService = PlaybackService.sharedInstance()
+        let addsSubtitles = playbackService.playerIsSetup && url.lastPathComponent.isSupportedSubtitleFormat()
+
         if InboxManager.isInInbox(url) {
             let movedURL = InboxManager.moveToDocuments(url) ?? url
             InboxManager.drainInbox()
-            self.play(url: movedURL, completion: nil)
+            if addsSubtitles {
+                playbackService.addSubtitlesToCurrentPlayback(from: movedURL)
+            } else {
+                self.play(url: movedURL, completion: nil)
+            }
             return true
         }
 
-        let playbackService = PlaybackService.sharedInstance()
         let isSecurityScopedURL = url.startAccessingSecurityScopedResource()
         if isSecurityScopedURL {
             playbackService.openedLocalURLs.add(url)
+        }
+
+        if addsSubtitles {
+            playbackService.addSubtitlesToCurrentPlayback(from: url)
+            return true
         }
 
         self.play(url: url) { _ in
