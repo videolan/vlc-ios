@@ -192,8 +192,8 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
     for (NSItemProvider *provider in providers) {
         dispatch_group_enter(importGroup);
-        NSProgress *itemProgress = [provider loadFileRepresentationForTypeIdentifier:@"public.data"
-                                                                   completionHandler:^(NSURL *url, NSError *itemError) {
+
+        void (^importURL)(NSURL *, NSError *) = ^(NSURL *url, NSError *itemError) {
             BOOL imported = NO;
             if (url) {
                 imported = [self copyToDropFolder:url dropFolderURL:dropFolderURL];
@@ -207,7 +207,28 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
                 self->_progress.completedUnitCount += 10;
             });
             dispatch_group_leave(importGroup);
-        }];
+        };
+
+        NSProgress *itemProgress;
+        if ([provider canLoadObjectOfClass:[NSURL class]]) {
+            itemProgress = [provider loadObjectOfClass:[NSURL class] completionHandler:^(id<NSItemProviderReading> object, NSError *itemError) {
+                NSURL *url = (NSURL *)object;
+                NSNumber *isDirectory;
+                [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+                if (!isDirectory.boolValue) {
+                    [provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importURL];
+                    return;
+                }
+
+                BOOL isSecurityScoped = [url startAccessingSecurityScopedResource];
+                importURL(url, itemError);
+                if (isSecurityScoped) {
+                    [url stopAccessingSecurityScopedResource];
+                }
+            }];
+        } else {
+            itemProgress = [provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importURL];
+        }
 
         [_progress addChild:itemProgress withPendingUnitCount:90];
     }
