@@ -211,12 +211,7 @@ extension VLCURLHandler {
         alert.addAction(playAction)
         alert.addAction(alwaysPlayAction)
 
-        var rootViewController = UIApplication.shared.activeKeyWindow?.rootViewController
-        if let tabBarController = rootViewController as? UITabBarController {
-            rootViewController = tabBarController.selectedViewController
-        }
-
-        rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.dismissPresentedScreensAbovePlayer()?.present(alert, animated: true, completion: nil)
     }
 #endif
 }
@@ -529,6 +524,9 @@ class ElseCallbackURLHandler: NSObject, VLCURLHandler {
 extension VLCURLHandler {
     // TODO: This code should probably not live here
     func play(url: URL, sub: URL? = nil, completion: ((Bool) -> Void)?) {
+#if !os(tvOS)
+        UIApplication.shared.dismissPresentedScreensAbovePlayer()
+#endif
         let vpc = PlaybackService.sharedInstance()
         if let media = VLCMedia(url: url) {
             let mediaList = VLCMediaList(array: [media])
