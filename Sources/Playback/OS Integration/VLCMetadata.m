@@ -82,7 +82,7 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     }
 
     if (!self.artworkImage || _hasPlaceholderArtwork) {
-        self.artworkImage = isLibraryMedia ? [media placeholderImage] : [self songPlaceholderImage];
+        self.artworkImage = isLibraryMedia ? [media placeholderImage] : [self streamPlaceholderImage];
         _hasPlaceholderArtwork = YES;
     }
 
@@ -129,13 +129,18 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     _hasPreviewArtwork = NO;
 }
 
-- (UIImage *)songPlaceholderImage
+- (UIImage *)streamPlaceholderImage
 {
 #if TARGET_OS_WATCH
     return [UIImage imageNamed:@"song-placeholder-dark"];
 #else
-    return PresentationTheme.current.isDark ? [UIImage imageNamed:@"song-placeholder-dark"]
-                                            : [UIImage imageNamed:@"song-placeholder-white"];
+    BOOL isDark = PresentationTheme.current.isDark;
+    if (!_isAudioOnly) {
+        return isDark ? [UIImage imageNamed:@"movie-placeholder-dark"]
+                      : [UIImage imageNamed:@"movie-placeholder-white"];
+    }
+    return isDark ? [UIImage imageNamed:@"song-placeholder-dark"]
+                  : [UIImage imageNamed:@"song-placeholder-white"];
 #endif
 }
 
