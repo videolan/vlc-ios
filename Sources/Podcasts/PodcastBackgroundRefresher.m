@@ -164,6 +164,7 @@ static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
     _currentDownloadTask = task;
     task.expirationHandler = ^{
         [PodcastsOnAirBridge interruptCaching];
+        [self scheduleDownloadTask];
         [self completeDownloadWithSuccess:NO];
     };
 
