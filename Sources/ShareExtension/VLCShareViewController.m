@@ -62,6 +62,7 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
     _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     _progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    _progressView.hidden = YES;
     [self.view addSubview:_progressView];
 
     UIImage *cone = [[UIImage imageNamed:@"LaunchCone"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -133,6 +134,13 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
     float fraction = (float)_progress.fractionCompleted;
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->_progressView.hidden) {
+            if (fraction <= 0. || fraction >= 1.) {
+                return;
+            }
+            [self->_activityIndicator stopAnimating];
+            self->_progressView.hidden = NO;
+        }
         [self->_progressView setProgress:fraction animated:YES];
     });
 }
@@ -184,7 +192,7 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
     dispatch_group_t importGroup = dispatch_group_create();
 
-    _progress = [NSProgress discreteProgressWithTotalUnitCount:providers.count * 100];
+    _progress = [NSProgress discreteProgressWithTotalUnitCount:providers.count];
     [_progress addObserver:self
                 forKeyPath:@"fractionCompleted"
                    options:NSKeyValueObservingOptionNew
@@ -193,44 +201,46 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
     for (NSItemProvider *provider in providers) {
         dispatch_group_enter(importGroup);
 
-        void (^importURL)(NSURL *, NSError *) = ^(NSURL *url, NSError *itemError) {
-            BOOL imported = NO;
-            if (url) {
-                imported = [self copyToDropFolder:url dropFolderURL:dropFolderURL];
-            } else {
-                APLog(@"%s: no file representation received: %@", __func__, itemError.localizedDescription);
-            }
-            dispatch_sync(self->_importQueue, ^{
-                if (imported) {
+        void (^finishItem)(BOOL) = ^(BOOL imported) {
+            if (imported) {
+                dispatch_sync(self->_importQueue, ^{
                     self->_importedCount++;
-                }
-                self->_progress.completedUnitCount += 10;
-            });
+                });
+            }
             dispatch_group_leave(importGroup);
         };
 
-        NSProgress *itemProgress;
-        if ([provider canLoadObjectOfClass:[NSURL class]]) {
-            itemProgress = [provider loadObjectOfClass:[NSURL class] completionHandler:^(id<NSItemProviderReading> object, NSError *itemError) {
-                NSURL *url = (NSURL *)object;
-                NSNumber *isDirectory;
-                [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
-                if (!isDirectory.boolValue) {
-                    [provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importURL];
-                    return;
-                }
+        void (^importFile)(NSURL *, NSError *) = ^(NSURL *url, NSError *itemError) {
+            if (!url) {
+                APLog(@"%s: no file representation received: %@", __func__, itemError.localizedDescription);
+            }
+            finishItem(url != nil && [self copyToDropFolder:url dropFolderURL:dropFolderURL]);
+        };
 
-                BOOL isSecurityScoped = [url startAccessingSecurityScopedResource];
-                importURL(url, itemError);
-                if (isSecurityScoped) {
-                    [url stopAccessingSecurityScopedResource];
-                }
-            }];
-        } else {
-            itemProgress = [provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importURL];
+        if (![provider canLoadObjectOfClass:[NSURL class]]) {
+            [_progress addChild:[provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importFile]
+                withPendingUnitCount:1];
+            continue;
         }
 
-        [_progress addChild:itemProgress withPendingUnitCount:90];
+        [provider loadObjectOfClass:[NSURL class] completionHandler:^(id<NSItemProviderReading> object, NSError *itemError) {
+            NSURL *url = (NSURL *)object;
+            NSNumber *isDirectory;
+            [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+            if (!isDirectory.boolValue) {
+                [self->_progress addChild:[provider loadFileRepresentationForTypeIdentifier:@"public.data" completionHandler:importFile]
+                     withPendingUnitCount:1];
+                return;
+            }
+
+            NSProgress *folderProgress = [NSProgress progressWithTotalUnitCount:0 parent:self->_progress pendingUnitCount:1];
+            BOOL isSecurityScoped = [url startAccessingSecurityScopedResource];
+            BOOL imported = [self copyFolderToDropFolder:url dropFolderURL:dropFolderURL progress:folderProgress];
+            if (isSecurityScoped) {
+                [url stopAccessingSecurityScopedResource];
+            }
+            finishItem(imported);
+        }];
     }
 
     dispatch_group_notify(importGroup, dispatch_get_main_queue(), ^{
@@ -255,6 +265,59 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
         return NO;
     }
 
+    return YES;
+}
+
+- (BOOL)copyFolderToDropFolder:(NSURL *)folderURL dropFolderURL:(NSURL *)dropFolderURL progress:(NSProgress *)progress
+{
+    NSFileManager *fileManager = NSFileManager.defaultManager;
+    NSURL *destination = [self availableURLForFileNamed:folderURL.lastPathComponent inFolder:dropFolderURL];
+    NSURL *partialURL = [dropFolderURL URLByAppendingPathComponent:[@"." stringByAppendingString:destination.lastPathComponent]];
+
+    [fileManager removeItemAtURL:partialURL error:nil];
+
+    NSMutableArray<NSString *> *directories = [NSMutableArray array];
+    NSMutableArray<NSString *> *files = [NSMutableArray array];
+    NSMutableArray<NSNumber *> *fileSizes = [NSMutableArray array];
+    unsigned long long totalSize = 0;
+
+    NSDirectoryEnumerator<NSString *> *enumerator = [fileManager enumeratorAtPath:folderURL.path];
+    for (NSString *relativePath in enumerator) {
+        NSDictionary<NSFileAttributeKey, id> *attributes = enumerator.fileAttributes;
+        if ([attributes.fileType isEqualToString:NSFileTypeDirectory]) {
+            [directories addObject:relativePath];
+        } else {
+            [files addObject:relativePath];
+            [fileSizes addObject:@(attributes.fileSize)];
+            totalSize += attributes.fileSize;
+        }
+    }
+    progress.totalUnitCount = MAX(totalSize, 1);
+
+    NSError *error;
+    BOOL success = [fileManager createDirectoryAtURL:partialURL withIntermediateDirectories:NO attributes:nil error:&error];
+    for (NSString *relativePath in directories) {
+        success = success && [fileManager createDirectoryAtURL:[partialURL URLByAppendingPathComponent:relativePath]
+                                   withIntermediateDirectories:YES
+                                                    attributes:nil
+                                                         error:&error];
+    }
+
+    NSUInteger fileCount = files.count;
+    for (NSUInteger index = 0; success && index < fileCount; index++) {
+        success = [fileManager copyItemAtURL:[folderURL URLByAppendingPathComponent:files[index]]
+                                       toURL:[partialURL URLByAppendingPathComponent:files[index]]
+                                       error:&error];
+        progress.completedUnitCount += fileSizes[index].unsignedLongLongValue;
+    }
+
+    if (!success || ![fileManager moveItemAtURL:partialURL toURL:destination error:&error]) {
+        APLog(@"%s: failed to import %@: %@", __func__, folderURL.lastPathComponent, error.localizedDescription);
+        [fileManager removeItemAtURL:partialURL error:nil];
+        return NO;
+    }
+
+    progress.completedUnitCount = progress.totalUnitCount;
     return YES;
 }
 
@@ -286,8 +349,9 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 - (void)finishWithSuccess:(BOOL)success
 {
     [_activityIndicator stopAnimating];
-    _progressView.hidden = !success;
-    [_progressView setProgress:1. animated:YES];
+    if (!success) {
+        _progressView.hidden = YES;
+    }
     _label.text = success ? NSLocalizedString(@"SHARE_EXTENSION_IMPORTED", nil)
                           : NSLocalizedString(@"SHARE_EXTENSION_FAILED", nil);
 
