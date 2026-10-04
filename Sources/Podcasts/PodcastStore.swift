@@ -45,6 +45,7 @@ final class PodcastStore: NSObject {
     private var cacheInFlight = false
     private var cacheSawBusy = false
     private var cacheStartTimeout: DispatchWorkItem?
+    private var cacheBackgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     private var playbackRequest: (episodeId: String, showId: String, startPosition: Float, query: String)?
     private var lastPlayedEpisodeId: String?
@@ -457,7 +458,26 @@ final class PodcastStore: NSObject {
         cacheStartTimeout = nil
         cacheInFlight = false
         cacheSawBusy = false
+        endCacheBackgroundTask()
         NotificationCenter.default.post(name: .VLCPodcastsCachingDidEnd, object: nil)
+    }
+
+    private func beginCacheBackgroundTask() {
+        guard cacheBackgroundTask == .invalid else {
+            return
+        }
+        cacheBackgroundTask = UIApplication.shared.beginBackgroundTask(withName: "VLCPodcastCachingBackgroundTask") { [weak self] in
+            self?.interruptCaching()
+            self?.endCacheBackgroundTask()
+        }
+    }
+
+    private func endCacheBackgroundTask() {
+        guard cacheBackgroundTask != .invalid else {
+            return
+        }
+        UIApplication.shared.endBackgroundTask(cacheBackgroundTask)
+        cacheBackgroundTask = .invalid
     }
 
     func unsubscribe(showId: String) {
@@ -871,10 +891,10 @@ extension PodcastStore: MediaLibraryObserver {
                 return
             }
             PodcastBackgroundRefresher.sharedInstance().scheduleDownloadTask()
-            guard UIApplication.shared.applicationState == .active else {
+            guard UIApplication.shared.applicationState == .active, self.cacheNewEpisodes() else {
                 return
             }
-            self.cacheNewEpisodes()
+            self.beginCacheBackgroundTask()
         }
     }
 
