@@ -34,6 +34,7 @@ class ContinueListeningSectionCell: UITableViewCell {
     }
 
     var onSelectEpisode: ((PodcastEpisode) -> Void)?
+    var onMarkEpisodeAsPlayed: ((PodcastEpisode) -> Void)?
 
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -90,6 +91,12 @@ extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollection
         }
         let episode = episodes[indexPath.item]
         cell.configure(episode: episode, show: PodcastStore.shared.show(withId: episode.showId))
+        cell.accessibilityCustomActions = [
+            UIAccessibilityCustomAction(name: NSLocalizedString("MARK_AS_PLAYED", comment: "")) { [weak self] _ in
+                self?.onMarkEpisodeAsPlayed?(episode)
+                return true
+            }
+        ]
         return cell
     }
 
@@ -101,5 +108,17 @@ extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollection
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         onSelectEpisode?(episodes[indexPath.item])
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath,
+                        point: CGPoint) -> UIContextMenuConfiguration? {
+        let episode = episodes[indexPath.item]
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+            return [PodcastMenuAction(title: NSLocalizedString("MARK_AS_PLAYED", comment: ""),
+                                      imageName: "checkmark.circle") {
+                self?.onMarkEpisodeAsPlayed?(episode)
+            }].menu()
+        }
     }
 }
