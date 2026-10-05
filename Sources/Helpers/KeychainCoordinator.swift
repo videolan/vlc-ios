@@ -118,7 +118,9 @@ extension KeychainCoordinator {
         passcodeController.allowBiometricAuthentication = allowBiometricAuthentication
         applicationLockController = passcodeController
 
-        present(passcodeController, from: presentingViewController)
+        present(passcodeController,
+                from: presentingViewController,
+                animated: UIApplication.shared.applicationState != .background)
     }
 
     /// The handler called on completion. On ``PasscodeAction/set`` action passcode provided. Otherwise nil.
@@ -137,12 +139,12 @@ extension KeychainCoordinator {
         present(passcodeController, from: presentingViewController)
     }
 
-    private func present(_ passcodeController: PasscodeLockController, from presentingViewController: UIViewController) {
+    private func present(_ passcodeController: PasscodeLockController, from presentingViewController: UIViewController, animated: Bool = true) {
         let passcodeNavigationController = UINavigationController(rootViewController: passcodeController)
         passcodeNavigationController.modalPresentationStyle = .fullScreen
         passcodeNavigationController.modalTransitionStyle = .crossDissolve
 
-        presentingViewController.present(passcodeNavigationController, animated: true)
+        presentingViewController.present(passcodeNavigationController, animated: animated)
     }
 
     private var presentingViewController: UIViewController? {

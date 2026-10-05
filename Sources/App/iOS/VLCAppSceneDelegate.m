@@ -82,6 +82,7 @@
 {
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
+    [appDelegate validatePasscodeIfNeededWithCompletion:^{}];
     [appDelegate applicationWillTerminate:sharedApplication];
 }
 
