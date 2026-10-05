@@ -188,6 +188,10 @@ class PasscodeLockController: UIViewController {
         avoidPromptingBiometricAuth = false
 
         passcodeField.resignFirstResponder()
+
+        if isBeingDismissed || navigationController?.isBeingDismissed == true {
+            takeCompletionHandler()?(false, nil)
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -340,7 +344,7 @@ class PasscodeLockController: UIViewController {
     }
 
     @objc private func handleCancel() {
-        completionHandler?(false, nil)
+        takeCompletionHandler()?(false, nil)
 
 #if os(iOS)
         ImpactFeedbackGenerator().selectionChanged()
@@ -354,7 +358,14 @@ class PasscodeLockController: UIViewController {
     }
 
     @objc private func handleApplicationWillTerminate() {
-        completionHandler?(false, nil)
+        takeCompletionHandler()?(false, nil)
+    }
+
+    private func takeCompletionHandler() -> ((Bool, String?) -> Void)? {
+        defer {
+            completionHandler = nil
+        }
+        return completionHandler
     }
 }
 
@@ -386,7 +397,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
                     failedLabel.isHidden = true
 
                     // Two time entry has matched. Call completionHandler with success and passcode.
-                    completionHandler?(true, passcode)
+                    takeCompletionHandler()?(true, passcode)
 
 #if os(iOS)
                     NotificationFeedbackGenerator().success()
@@ -408,7 +419,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
         case .enter:
             if keychainService.isSecretValid(passcode) {
                 // Call completion handler with success but don't give passcode
-                completionHandler?(true, nil)
+                takeCompletionHandler()?(true, nil)
 
 #if os(iOS)
                 ImpactFeedbackGenerator().selectionChanged()
@@ -465,8 +476,9 @@ extension PasscodeLockController {
 
                 if success {
                     // Dismiss and call completion handler
+                    let completionHandler = self.takeCompletionHandler()
                     self.dismiss(animated: true) {
-                        self.completionHandler?(true, nil)
+                        completionHandler?(true, nil)
                     }
                 } else {
                     // User hit cancel and wants to enter the passcode
