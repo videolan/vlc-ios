@@ -493,10 +493,10 @@ final class PodcastStore: NSObject {
         }
 
         for media in subscriptionModel.media(for: subscription) {
-            media.removeFromHistory()
-            media.isNew = !played
             if played {
-                media.setPlayCount(1)
+                PodcastStore.markAsPlayed(media)
+            } else {
+                media.removeFromHistory()
             }
         }
 
@@ -509,13 +509,18 @@ final class PodcastStore: NSObject {
             return
         }
 
-        media.removeFromHistory()
-        media.isNew = false
-        media.setPlayCount(1)
+        PodcastStore.markAsPlayed(media)
 
         invalidateCaches()
         notifyEpisodeChanged(episodeId)
         notifyReload()
+    }
+
+    private static func markAsPlayed(_ media: VLCMLMedia) {
+        if media.progress > 0 {
+            media.progress = 0
+        }
+        media.setPlayCount(media.playCount() + 1)
     }
 
     // An episode that has yet to be downloaded is fetched to the cache first and starts playing off
