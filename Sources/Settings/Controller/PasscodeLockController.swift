@@ -26,6 +26,8 @@ enum PasscodeAction {
 
 class PasscodeLockController: UIViewController {
     // MARK: - Properties
+    @objc static private(set) var isEvaluatingBiometricAuthentication = false
+
     private let notificationCenter = NotificationCenter.default
 
     let action: PasscodeAction
@@ -448,16 +450,19 @@ extension PasscodeLockController {
         }
 
         avoidPromptingBiometricAuth = true
+        PasscodeLockController.isEvaluatingBiometricAuthentication = true
 
         let context = LAContext()
 
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
                                localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: "")) { [weak self] success, _ in
-            guard let self = self else {
-                return
-            }
-
             DispatchQueue.main.async {
+                PasscodeLockController.isEvaluatingBiometricAuthentication = false
+
+                guard let self = self else {
+                    return
+                }
+
                 if success {
                     // Dismiss and call completion handler
                     self.dismiss(animated: true) {

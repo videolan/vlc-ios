@@ -234,6 +234,10 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    if (PasscodeLockController.isEvaluatingBiometricAuthentication) {
+        return;
+    }
+
     [self validatePasscodeIfNeededWithCompletion:^{
         //TODO: handle updating the videoview and
         if ([VLCPlaybackService sharedInstance].isPlaying){
