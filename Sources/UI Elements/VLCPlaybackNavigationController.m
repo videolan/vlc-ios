@@ -11,8 +11,26 @@
  *****************************************************************************/
 
 #import "VLCPlaybackNavigationController.h"
+#import "VLCPlaybackService.h"
+#import "VLCPlayerDisplayController.h"
 
 @implementation VLCPlaybackNavigationController
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.isBeingPresented) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+        if (!playbackService.playerIsSetup) {
+            [playbackService.playerDisplayController dismissPlaybackView];
+        }
+    });
+}
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
