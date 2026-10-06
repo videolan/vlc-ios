@@ -35,6 +35,10 @@ class KeychainCoordinator: NSObject {
         return secretFromKeychain != nil
     }
 
+    @objc var isApplicationLocked: Bool {
+        applicationLockController != nil
+    }
+
     private var secretFromKeychain: String? {
         let item = try? XKKeychainGenericPasswordItem(forService: serviceIdentifier, account: serviceIdentifier)
         return item?.secret.stringValue

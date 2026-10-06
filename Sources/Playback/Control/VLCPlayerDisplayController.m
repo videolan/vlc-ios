@@ -462,6 +462,9 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
+            if ([VLCKeychainCoordinator passcodeService].isApplicationLocked) {
+                break;
+            }
             if ([[self _presentedPlaybackController] isKindOfClass:[VLCAudioPlayerViewController class]]) {
                 [self closeAudioPlayer];
             } else {
