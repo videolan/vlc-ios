@@ -25,7 +25,7 @@
 
 @interface VLCDropboxController ()
 
-@property (strong, nonatomic) DBUserClient *client;
+@property (readonly, nonatomic) DBUserClient *client;
 @property (strong, nonatomic) NSArray *currentFileList;
 @property (strong, nonatomic) NSArray *folderFileList;
 @property (strong, nonatomic) NSMutableArray *listOfDropboxFilesToDownload;
@@ -108,10 +108,7 @@
 }
 
 - (DBUserClient *)client {
-    if (!_client) {
-        _client = [DBClientsManager authorizedClient];
-    }
-    return _client;
+    return [DBClientsManager authorizedClient];
 }
 
 
@@ -219,6 +216,10 @@
 
 - (void)sendMediaListUpdatedWithList:(NSArray *)list : (BOOL)downloadingFolder
 {
+    if (!self.isAuthorized) {
+        return;
+    }
+
     if (downloadingFolder) {
         self.folderFileList = [[list sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
             NSString *first = [(DBFILESMetadata*)a name];
@@ -258,9 +259,9 @@
             if ([result.hasMore boolValue]) {
                 [stock addObjectsFromArray:result.entries];
                 if (downloadingFolder) {
-                    [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock: YES];
+                    [self listFolderContinueWithClient:self.client cursor:result.cursor list:stock: YES];
                 } else {
-                    [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock: NO];
+                    [self listFolderContinueWithClient:self.client cursor:result.cursor list:stock: NO];
                 }
             } else {
                 if (downloadingFolder) {
@@ -436,6 +437,7 @@
 - (void)reset
 {
     self.currentFileList = nil;
+    [self.listOfDropboxFilesToDownload removeAllObjects];
 }
 
 @end
