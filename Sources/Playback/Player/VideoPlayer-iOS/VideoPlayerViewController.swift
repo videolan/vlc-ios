@@ -1262,9 +1262,7 @@ extension VideoPlayerViewController {
             return
         }
 
-        if let queueCollectionView = queueViewController?.queueCollectionView {
-            queueCollectionView.reloadData()
-        }
+        queueViewController?.reload()
 
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
 

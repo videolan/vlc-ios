@@ -72,6 +72,14 @@ class QueueViewController: UIViewController {
 
     private var currentlyPlayingMedia: VLCMedia?
 
+    // The queue view stays alive (and its view attached to the hierarchy) for the whole
+    // playback session once shown once; `hide()` only fades its alpha out. Without this check
+    // `reload()` would keep rebuilding every cell (medialibrary lookups + artwork decoding) on
+    // every track change / play / pause of a playlist even while the queue is not visible.
+    private var isQueueVisible: Bool {
+        return isViewLoaded && view.window != nil && view.alpha > 0.01
+    }
+
     private let medialibraryService: MediaLibraryService
 
     private lazy var collectionViewLayout = QueueViewFlowLayout()
@@ -267,6 +275,10 @@ class QueueViewController: UIViewController {
     }
 
     @objc func show() {
+        // Becoming visible, so force a full refresh regardless of `isQueueVisible`:
+        // content may have gone stale while the queue was hidden since `reload()`
+        // skips the actual collection view work in that case.
+        forceReload()
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1.0
             self.darkOverlayView.isHidden = false
@@ -387,6 +399,22 @@ class QueueViewController: UIViewController {
 
     @objc func reload() {
         currentlyPlayingMedia = playbackService.currentlyPlayingMedia
+        guard isQueueVisible else {
+            return
+        }
+        performReload()
+    }
+
+    // Unconditionally refreshes content, bypassing the `isQueueVisible` guard.
+    // Used by callers who are about to make the queue visible outside of `show()`
+    // (e.g. the "hint" animation that briefly flashes the queue when media is
+    // added), where skipping the refresh would show stale content.
+    @objc func forceReload() {
+        currentlyPlayingMedia = playbackService.currentlyPlayingMedia
+        performReload()
+    }
+
+    private func performReload() {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
