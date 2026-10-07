@@ -196,9 +196,7 @@
         if (response) {
             [list addObjectsFromArray:response.entries];
             if ([response.hasMore boolValue]) {
-                if (downloadingFolder) {
-                    [self listFolderContinueWithClient: client cursor:response.cursor list:list: downloadingFolder];
-                }
+                [self listFolderContinueWithClient: client cursor:response.cursor list:list: downloadingFolder];
             } else {
                 if (downloadingFolder) {
                     [self sendMediaListUpdatedWithList:list :YES];
@@ -207,7 +205,8 @@
                 }
             }
         } else {
-            NSLog(@"%@\n%@\n", routeError, networkError);
+            APLog(@"listFolderContinue failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
+            [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
         }
     }];
 }
@@ -251,6 +250,7 @@
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
             if ([result.hasMore boolValue]) {
+                [stock addObjectsFromArray:result.entries];
                 if (downloadingFolder) {
                     [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock: YES];
                 } else {
