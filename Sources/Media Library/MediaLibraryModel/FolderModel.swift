@@ -144,9 +144,11 @@ class FolderModel: MLBaseModel {
     }
 
     private func removeEmptiedDirectories(_ directories: Set<URL>) {
+        let externalFolders = medialibrary.medialib.externalFolders(with: .default, desc: false).compactMap { $0.mrl }
         for directory in directories {
             do {
-                try FileManager.default.deleteMediaFolder(name: directory.lastPathComponent, at: directory)
+                try FileManager.default.deleteMediaFolder(name: directory.lastPathComponent, at: directory,
+                                                          externalFolders: externalFolders)
             } catch let error as NSError {
                 APLog("FolderModel: Failed to remove the emptied directory \(directory.path): \(error.localizedDescription)")
             }

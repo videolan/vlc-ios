@@ -19,6 +19,7 @@ extension AudioCollectionModel {
             defer {
                 fileArrayLock.unlock()
             }
+            let externalFolders = medialibrary.medialib.externalFolders(with: .default, desc: false).compactMap { $0.mrl }
             for case let item as MediaCollectionModel in items {
                 if let tracks = item.files() {
                     for track in tracks {
@@ -31,7 +32,8 @@ extension AudioCollectionModel {
                     })
                     for path in folderPaths {
                         if let path = path {
-                            try FileManager.default.deleteMediaFolder(name: item.title(), at: path)
+                            try FileManager.default.deleteMediaFolder(name: item.title(), at: path,
+                                                                      externalFolders: externalFolders)
                         }
                     }
                 }
