@@ -3,7 +3,7 @@
 //  VLC-iOS
 //
 //  Created by Eshan Singh on 10/07/24.
-//  Copyright © 2024 VideoLAN. All rights reserved.
+//  Copyright © 2024-2026 VideoLAN. All rights reserved.
 //
 
 import Foundation
@@ -76,7 +76,11 @@ class FolderModel: MLBaseModel {
         var parentDirectories = Set<URL>()
 
         for folder in items {
-            let url = URL(fileURLWithPath: folder.mrl.path)
+            guard let mrl = folder.mrl else {
+                continue
+            }
+
+            let url = URL(fileURLWithPath: mrl.path)
             parentDirectories.insert(url.deletingLastPathComponent())
             do {
                 try FileManager.default.removeItem(at: url)
@@ -111,11 +115,12 @@ class FolderModel: MLBaseModel {
         var parentDirectories = Set<URL>()
 
         for mediaItem in media {
-            guard let file = mediaItem.mainFile(), !file.isExternal(), !file.isNetwork() else {
+            guard let file = mediaItem.mainFile(), !file.isExternal(), !file.isNetwork(),
+                  let mrl = file.mrl else {
                 continue
             }
 
-            let url = URL(fileURLWithPath: file.mrl.path)
+            let url = URL(fileURLWithPath: mrl.path)
             parentDirectories.insert(url.deletingLastPathComponent())
             do {
                 try FileManager.default.removeItem(at: url)
@@ -202,7 +207,7 @@ extension VLCMLFolder: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
         var matches = false
 
-        matches = matches || search(searchString, in: name)
+        matches = matches || search(searchString, in: name ?? "")
 
         return matches
     }

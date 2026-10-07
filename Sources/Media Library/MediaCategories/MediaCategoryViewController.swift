@@ -8,6 +8,7 @@
  * Authors: Carola Nitz <nitz.carola # gmail.com>
  *          Mike JS. Choi <mkchoi212 # icloud.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -215,7 +216,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let folderModel = model as? FolderModel {
             let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path
             if let currentFolder = folderModel.currentFolder,
-               currentFolder.mrl.path != documentsPath {
+               currentFolder.mrl?.path != documentsPath {
                 emptyView.folderName = currentFolder.name
             }
             emptyView.isAudioFolder = folderModel.isAudio
@@ -1298,7 +1299,7 @@ private extension MediaCategoryViewController {
         // Inside a folder that has been removed from the disk
         if let folderModel = model as? FolderModel,
            let currentFolder = folderModel.currentFolder,
-           !FileManager.default.fileExists(atPath: currentFolder.mrl.path) {
+           !FileManager.default.fileExists(atPath: currentFolder.mrl?.path ?? "") {
             navigationController?.popViewController(animated: true)
         }
     }

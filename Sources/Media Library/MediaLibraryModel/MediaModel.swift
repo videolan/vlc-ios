@@ -5,6 +5,7 @@
  * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -167,7 +168,7 @@ extension VLCMLMedia {
         attributeSet.codecs = codecs()
         attributeSet.languages = languages()
         if let file = mainFile() {
-            attributeSet.path = file.mrl.path
+            attributeSet.path = file.mrl?.path
             attributeSet.contentModificationDate = file.lastModificationDate
             attributeSet.fileSize = NSNumber(value: Double(file.size()) / (1024 * 1024))
         }

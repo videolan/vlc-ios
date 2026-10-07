@@ -1,9 +1,10 @@
 /*****************************************************************************
  * EditActions.swift
  *
- * Copyright © 2019-2023 VLC authors and VideoLAN
+ * Copyright © 2019-2026 VLC authors and VideoLAN
  *
  * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -400,8 +401,8 @@ private extension EditActions {
 
         for object in objects {
             if let media = object as? VLCMLMedia {
-                if let file = media.mainFile() {
-                    fileURLs.append(file.mrl)
+                if let mrl = media.mainFile()?.mrl {
+                    fileURLs.append(mrl)
                 }
             } else if let playlist = object as? VLCMLPlaylist {
                 if let url = exportURL(for: playlist) {
@@ -410,8 +411,8 @@ private extension EditActions {
             } else if let mediaCollection = object as? MediaCollectionModel {
                 if let files = mediaCollection.files() {
                     for media in files {
-                        if let file = media.mainFile() {
-                            fileURLs.append(file.mrl)
+                        if let mrl = media.mainFile()?.mrl {
+                            fileURLs.append(mrl)
                         }
                     }
                 }

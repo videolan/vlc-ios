@@ -1,9 +1,10 @@
 /*****************************************************************************
 * AudioCollectionModel.swift
 *
-* Copyright © 2019 VLC authors and VideoLAN
+* Copyright © 2019-2026 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+*          Felix Paul Kühne <fkuehne # videolan.org>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -26,7 +27,7 @@ extension AudioCollectionModel {
                         }
                     }
                     let folderPaths = Set(tracks.map {
-                        $0.mainFile()?.mrl.deletingLastPathComponent()
+                        $0.mainFile()?.mrl?.deletingLastPathComponent()
                     })
                     for path in folderPaths {
                         if let path = path {
