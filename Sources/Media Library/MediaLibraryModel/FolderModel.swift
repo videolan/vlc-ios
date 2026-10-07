@@ -60,12 +60,27 @@ class FolderModel: MLBaseModel {
             return
         }
 
-        files = currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? []
+        files = externalFolders(sortingCriteria: sortModel.currentSort, desc: sortModel.desc)
+            + (currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? [])
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
         } else {
             folderMediaFiles = currentFolder.media(of: .video, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
         }
+    }
+
+    var isRoot: Bool {
+        guard let currentFolder = currentFolder, let baseFolder = medialibrary.baseFolder() else {
+            return false
+        }
+        return currentFolder.identifier() == baseFolder.identifier()
+    }
+
+    private func externalFolders(sortingCriteria criteria: VLCMLSortingCriteria, desc: Bool) -> [VLCMLFolder] {
+        guard isRoot else {
+            return []
+        }
+        return medialibrary.medialib.externalFolders(with: criteria, desc: desc)
     }
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLFolder] {
@@ -159,7 +174,8 @@ class FolderModel: MLBaseModel {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
         if let currentFolder = currentFolder {
-            files = currentFolder.subfolders(with: criteria, desc: desc) ?? []
+            files = externalFolders(sortingCriteria: criteria, desc: desc)
+                + (currentFolder.subfolders(with: criteria, desc: desc) ?? [])
             if self.isAudio {
                 folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
             } else {
