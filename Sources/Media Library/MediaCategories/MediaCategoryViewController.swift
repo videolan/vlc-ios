@@ -2047,8 +2047,18 @@ extension MediaCategoryViewController {
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
         let modelContent = getObject(at: indexPath)
-        if modelContent is VLCMLFolder {
-            return nil
+        if let folder = modelContent as? VLCMLFolder {
+            guard let folderModel = model as? FolderModel, folderModel.isExternalFolder(folder) else {
+                return nil
+            }
+            return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: nil) { _ in
+                let removeAction = UIAction(title: NSLocalizedString("REMOVE_FROM_LIBRARY", comment: ""),
+                                            image: UIImage(systemName: "folder.badge.minus"),
+                                            attributes: .destructive) { _ in
+                    folderModel.removeFromLibrary(folder)
+                }
+                return UIMenu(children: [removeAction])
+            }
         }
         let cell = collectionView.cellForItem(at: indexPath)
         let thumbnail = (cell as? MovieCollectionViewCell)?.thumbnailView.image

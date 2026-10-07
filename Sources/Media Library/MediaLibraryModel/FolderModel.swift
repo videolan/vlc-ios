@@ -99,6 +99,11 @@ class FolderModel: MLBaseModel {
         var parentDirectories = Set<URL>()
 
         for folder in items {
+            if isExternalFolder(folder) {
+                medialibrary.medialib.deleteExternalFolder(folder)
+                continue
+            }
+
             guard let mrl = folder.mrl else {
                 continue
             }
@@ -120,6 +125,18 @@ class FolderModel: MLBaseModel {
         fileArrayLock.unlock()
 
         medialibrary.reload()
+
+        observable.notifyObservers() {
+            $0.mediaLibraryBaseModelReloadView()
+        }
+    }
+
+    func removeFromLibrary(_ folder: VLCMLFolder) {
+        medialibrary.medialib.removeExternalFolder(folder)
+
+        fileArrayLock.lock()
+        files.removeAll { $0.identifier() == folder.identifier() }
+        fileArrayLock.unlock()
 
         observable.notifyObservers() {
             $0.mediaLibraryBaseModelReloadView()

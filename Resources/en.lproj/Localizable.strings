@@ -403,6 +403,7 @@
 "DELETE_MESSAGE_PLAYLISTS" = "Are you sure to delete the selected playlists?\nAssociated media files won't be deleted.";
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_MESSAGE_FOLDER" = "Are you sure to delete the selection?\nEvery media file inside the selected folders will be deleted from the disk, too.";
+"DELETE_MESSAGE_EXTERNAL_FOLDER" = "Are you sure to delete the selection?\nThe selected folders and everything inside them will be deleted from the disk. Drives are only removed from the library.";
 "DELETE_MESSAGE_HISTORY" = "Are you sure to remove the selected media from the history?\nThey won't be deleted from the disk, but their playback progress will be lost.";
 
 // MARK: - Drag and Drop
@@ -917,6 +918,7 @@
 "EXTERNAL_FOLDER_NOT_ADDED" = "Folder Not Added";
 "EXTERNAL_FOLDER_OVERLAPPING" = "This folder is already part of your library.";
 "EXTERNAL_FOLDER_FAILED" = "VLC can't access this folder.";
+"REMOVE_FROM_LIBRARY" = "Remove from Library";
 
 "ACCESSIBILITY_SELECTED" = "selected";
 "TRACK_SELECTOR_OFF" = "Off";
