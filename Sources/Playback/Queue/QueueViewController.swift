@@ -72,6 +72,10 @@ class QueueViewController: UIViewController {
 
     private var currentlyPlayingMedia: VLCMedia?
 
+    private var isQueueVisible: Bool {
+        return isViewLoaded && view.window != nil && view.alpha > 0.01
+    }
+
     private let medialibraryService: MediaLibraryService
 
     private lazy var collectionViewLayout = QueueViewFlowLayout()
@@ -267,6 +271,7 @@ class QueueViewController: UIViewController {
     }
 
     @objc func show() {
+        forceReload()
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1.0
             self.darkOverlayView.isHidden = false
@@ -387,6 +392,18 @@ class QueueViewController: UIViewController {
 
     @objc func reload() {
         currentlyPlayingMedia = playbackService.currentlyPlayingMedia
+        guard isQueueVisible else {
+            return
+        }
+        performReload()
+    }
+
+    @objc func forceReload() {
+        currentlyPlayingMedia = playbackService.currentlyPlayingMedia
+        performReload()
+    }
+
+    private func performReload() {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
