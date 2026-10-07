@@ -384,6 +384,7 @@ extension PasscodeLockController: PasscodeFieldDelegate {
 
                 // Update label
                 messageLabel.text = NSLocalizedString("Re-enter your passcode", comment: "")
+                failedLabel.isHidden = true
 
                 // Hide passcode options
                 passcodeOptionsButton.isHidden = true
@@ -405,6 +406,10 @@ extension PasscodeLockController: PasscodeFieldDelegate {
 
                     dismiss(animated: true)
                 } else {
+                    tempPasscode = ""
+                    messageLabel.text = NSLocalizedString("Enter a passcode", comment: "")
+                    passcodeOptionsButton.isHidden = false
+
                     // Update label
                     failedLabel.isHidden = false
 
