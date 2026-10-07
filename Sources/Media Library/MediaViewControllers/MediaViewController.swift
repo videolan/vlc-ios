@@ -2,16 +2,18 @@
  * MediaViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 import UIKit
 import Foundation
+import UniformTypeIdentifiers
 
 class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
@@ -171,6 +173,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             emptyStateRightBarButtons = [createPlaylistButton]
         }
 
+        if !isEditing, offersExternalFolders(on: viewController) {
+            emptyStateRightBarButtons.insert(menuButton, at: 0)
+        }
+
         if !isEditing, navigationController?.viewControllers.count == 1 {
             var items: [UIBarButtonItem] = [appMenuButton]
             if showButtons, let leftBarButtons = leftBarButtons {
@@ -199,6 +205,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 #endif
 
         return rightBarButtonItems
+    }
+
+    private func offersExternalFolders(on viewController: UIViewController) -> Bool {
+        return (self is VideoViewController || self is AudioViewController) && viewControllers.contains(viewController)
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
@@ -380,6 +390,12 @@ extension MediaViewController {
         }
     }
 
+    func handleAddExternalFolder() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
+        documentPicker.delegate = self
+        present(documentPicker, animated: true)
+    }
+
     @objc func handleSelectAll() {
         let controller: MediaCategoryViewController
         if let mediaCategoryViewController = navigationController?.viewControllers.last as? CollectionCategoryViewController {
@@ -516,6 +532,15 @@ extension MediaViewController {
         return UIMenu(options: .displayInline, children: [folderAction])
     }
 
+    func generateAddExternalFolderMenu() -> UIMenu {
+        let addExternalFolderAction = UIAction(title: NSLocalizedString("ADD_EXTERNAL_FOLDER", comment: ""),
+                                               image: UIImage(systemName: "folder.badge.plus")) { [weak self] _ in
+            self?.handleAddExternalFolder()
+        }
+
+        return UIMenu(options: .displayInline, children: [addExternalFolderAction])
+    }
+
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
@@ -524,6 +549,14 @@ extension MediaViewController {
         let selectAction = generateSelectAction()
 
         var rightMenuItems: [UIMenuElement] = [selectAction]
+
+        if offersExternalFolders(on: mediaCategoryViewController) {
+            let addExternalFolderMenu = generateAddExternalFolderMenu()
+            if mediaCategoryViewController.isEmptyCollectionView() {
+                return addExternalFolderMenu
+            }
+            rightMenuItems.append(addExternalFolderMenu)
+        }
 
         if let parentViewController = viewController?.parent,
            parentViewController is VideoViewController || parentViewController is AudioViewController {
@@ -582,5 +615,31 @@ extension MediaViewController {
         }
 
         return UIMenu(options: .displayInline, children: rightMenuItems)
+    }
+}
+
+// MARK: - UIDocumentPickerDelegate
+
+extension MediaViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else {
+            return
+        }
+
+        let errorMessage: String
+        switch mediaLibraryService.medialib.addExternalFolder(at: url) {
+        case .added, .updated:
+            return
+        case .overlapping:
+            errorMessage = NSLocalizedString("EXTERNAL_FOLDER_OVERLAPPING", comment: "")
+        case .failed:
+            errorMessage = NSLocalizedString("EXTERNAL_FOLDER_FAILED", comment: "")
+        @unknown default:
+            return
+        }
+
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("EXTERNAL_FOLDER_NOT_ADDED", comment: ""),
+                                                errorMessage: errorMessage,
+                                                viewController: self)
     }
 }

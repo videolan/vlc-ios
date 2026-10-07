@@ -913,6 +913,10 @@
 "FOLDER_LOCATION_DEVICE" = "On This Device";
 "FOLDER_LOCATION_EXTERNAL_DRIVE" = "External Drive";
 "FOLDER_LOCATION_ICLOUD_DRIVE" = "iCloud Drive";
+"ADD_EXTERNAL_FOLDER" = "Add External Folder…";
+"EXTERNAL_FOLDER_NOT_ADDED" = "Folder Not Added";
+"EXTERNAL_FOLDER_OVERLAPPING" = "This folder is already part of your library.";
+"EXTERNAL_FOLDER_FAILED" = "VLC can't access this folder.";
 
 "ACCESSIBILITY_SELECTED" = "selected";
 "TRACK_SELECTOR_OFF" = "Off";
