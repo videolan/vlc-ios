@@ -2,10 +2,11 @@
  * MovieCollectionViewCell.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -261,7 +262,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(folder: VLCMLFolder) {
-        titleLabel.text = folder.name
+        titleLabel.text = folder.displayName
 
         let description = folder.folderDescriptionString()
         descriptionLabel.isHidden = description.isEmpty
@@ -276,6 +277,12 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
 
         thumbnailView.backgroundColor = .clear
+    }
+
+    override func update(folderLocation location: VLCMLFolder.Location) {
+        accessibilityValue = location.accessibilityValue
+        let config = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.image = UIImage(systemName: location.symbolName, withConfiguration: config)
     }
 
     override class func numberOfColumns(for width: CGFloat, safeAreaInsets: UIEdgeInsets) -> CGFloat {
@@ -314,6 +321,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
+        accessibilityValue = nil
         descriptionLabel.text = ""
         thumbnailView.image = nil
         progressView.isHidden = true

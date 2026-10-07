@@ -3,7 +3,7 @@
 //  VLC-iOS
 //
 //  Created by Eshan Singh on 10/07/24.
-//  Copyright © 2024 VideoLAN. All rights reserved.
+//  Copyright © 2024-2026 VideoLAN. All rights reserved.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class FolderCategoryViewController: MediaViewController {
         self.folder = folder
         self.isAudio = isAudio
         super.init(mediaLibraryService: medialib)
-        title = folder.name
+        title = folder.displayName
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

@@ -19,6 +19,7 @@ class FolderModel: MLBaseModel {
     var files = [VLCMLFolder]()
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder?
+    private var externalFolderIdentifiers = Set<VLCMLIdentifier>()
 
     var currentPage = 0
     var hasMorePages = false
@@ -60,8 +61,9 @@ class FolderModel: MLBaseModel {
             return
         }
 
-        files = externalFolders(sortingCriteria: sortModel.currentSort, desc: sortModel.desc)
-            + (currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? [])
+        let externalFolders = self.externalFolders(sortingCriteria: sortModel.currentSort, desc: sortModel.desc)
+        externalFolderIdentifiers = Set(externalFolders.map { $0.identifier() })
+        files = externalFolders + (currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? [])
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
         } else {
@@ -81,6 +83,12 @@ class FolderModel: MLBaseModel {
             return []
         }
         return medialibrary.medialib.externalFolders(with: criteria, desc: desc)
+    }
+
+    func isExternalFolder(_ folder: VLCMLFolder) -> Bool {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+        return externalFolderIdentifiers.contains(folder.identifier())
     }
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLFolder] {
@@ -174,8 +182,9 @@ class FolderModel: MLBaseModel {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
         if let currentFolder = currentFolder {
-            files = externalFolders(sortingCriteria: criteria, desc: desc)
-                + (currentFolder.subfolders(with: criteria, desc: desc) ?? [])
+            let externalFolders = self.externalFolders(sortingCriteria: criteria, desc: desc)
+            externalFolderIdentifiers = Set(externalFolders.map { $0.identifier() })
+            files = externalFolders + (currentFolder.subfolders(with: criteria, desc: desc) ?? [])
             if self.isAudio {
                 folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
             } else {

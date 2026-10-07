@@ -910,6 +910,9 @@
 "EMPTY_FOLDER_DES_AUDIO" = "We couldn't find any audio files here. This folder may still contain videos.";
 "SUBFOLDER_DESCRIPTION" = "1 folder";
 "SUBFOLDERS_DESCRIPTION" = "%d folders";
+"FOLDER_LOCATION_DEVICE" = "On This Device";
+"FOLDER_LOCATION_EXTERNAL_DRIVE" = "External Drive";
+"FOLDER_LOCATION_ICLOUD_DRIVE" = "iCloud Drive";
 
 "ACCESSIBILITY_SELECTED" = "selected";
 "TRACK_SELECTOR_OFF" = "Off";

@@ -304,6 +304,9 @@
 		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D1471712B88A45B00AB642B /* VLCSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471702B88A45B00AB642B /* VLCSubscription.m */; };
 		7D1471752B88A7BA00AB642B /* VLCCharge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1471742B88A7BA00AB642B /* VLCCharge.m */; };
+		7D14C9E83077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14C9E73077C32800E8F01D /* VLCMLFolder+Location.swift */; };
+		7D14C9E93077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14C9E73077C32800E8F01D /* VLCMLFolder+Location.swift */; };
+		7D14C9EA3077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14C9E73077C32800E8F01D /* VLCMLFolder+Location.swift */; };
 		7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D15168A194773630086FB8C /* MobileCoreServices.framework */; };
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
@@ -2034,6 +2037,7 @@
 		7D1471702B88A45B00AB642B /* VLCSubscription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCSubscription.m; sourceTree = "<group>"; };
 		7D1471732B88A7BA00AB642B /* VLCCharge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCharge.h; sourceTree = "<group>"; };
 		7D1471742B88A7BA00AB642B /* VLCCharge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCharge.m; sourceTree = "<group>"; };
+		7D14C9E73077C32800E8F01D /* VLCMLFolder+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCMLFolder+Location.swift"; sourceTree = "<group>"; };
 		7D15168A194773630086FB8C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7D168F6B18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D168F7018D4A21B003FAF59 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -3917,6 +3921,7 @@
 		7D9BF30E2991944200B68FEC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7D14C9E73077C32800E8F01D /* VLCMLFolder+Location.swift */,
 				7D9BF30F2991947400B68FEC /* VLCMLMedia+App.h */,
 				7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */,
 				7D02C5A32A84F0830046DC5E /* VLCMLMedia+Podcast.h */,
@@ -6437,6 +6442,7 @@
 				AB55D6531B36F36C8871D96D /* PodcastShowDetailViewController.swift in Sources */,
 				19E4F280427F2717879EC1AF /* PodcastSubscriptionModel.swift in Sources */,
 				7DC27E953056849C00D33BEE /* UIButton+OverlayControl.swift in Sources */,
+				7D14C9E93077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */,
 				CA163E3756AE2AC6CF46357F /* PodcastsOnAirBridge.swift in Sources */,
 				7DC27EAC3056A21A00D33BEE /* TrackSelectorView.swift in Sources */,
 			);
@@ -6609,6 +6615,7 @@
 				8F9108352A67AC76007EB0D5 /* SirikitIntentCoordinator.swift in Sources */,
 				8D66A47320AC61B900FA5B92 /* MediaLibraryService.swift in Sources */,
 				91562F5A2CAEBC1500D42986 /* PlayMediaIntent.swift in Sources */,
+				7D14C9EA3077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */,
 				7D09060A300682020092F985 /* MediaResolver.swift in Sources */,
 				7DF246712FCABBA100F38805 /* VLCPhotoLibraryController.m in Sources */,
 				7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */,
@@ -7066,6 +7073,7 @@
 				3218FCC02F75FC00009B6473 /* TrackSectionHeader.swift in Sources */,
 				7DA514F32EF82B63000C9995 /* BottomTabBarController.swift in Sources */,
 				7DA514F42EF82B63000C9995 /* PlaybackServiceAdjustFilter.swift in Sources */,
+				7D14C9E83077C32800E8F01D /* VLCMLFolder+Location.swift in Sources */,
 				7DA514F52EF82B63000C9995 /* VLCNetworkLoginViewController.m in Sources */,
 				7DA514F62EF82B63000C9995 /* GoogleSignInAuthenticator.swift in Sources */,
 				7DA514F72EF82B63000C9995 /* AlbumModel.swift in Sources */,

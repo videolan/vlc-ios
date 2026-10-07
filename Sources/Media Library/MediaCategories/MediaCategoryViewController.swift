@@ -2181,6 +2181,12 @@ extension MediaCategoryViewController {
         mediaCell.media = mediaObject
         mediaCell.isAccessibilityElement = true
 
+        if let folder = mediaObject as? VLCMLFolder,
+           let folderModel = model as? FolderModel, folderModel.isExternalFolder(folder),
+           let location = folder.location {
+            mediaCell.update(folderLocation: location)
+        }
+
         if let mediaCell = mediaCell as? MediaCollectionViewCell,
            let media = mediaObject as? VLCMLMedia, media.subtype() == .albumTrack {
             mediaCell.setNowPlaying(isNowPlaying(media))

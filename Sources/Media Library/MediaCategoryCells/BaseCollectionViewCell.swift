@@ -2,11 +2,12 @@
  * BaseCollectionViewCell.Swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -54,6 +55,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
     class var interItemPadding: CGFloat {
         return 5
+    }
+
+    func update(folderLocation location: VLCMLFolder.Location) {
     }
 
     func scaleUpCell(with duration: CGFloat, and scale: CGFloat) {

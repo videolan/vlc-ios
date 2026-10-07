@@ -2,10 +2,11 @@
 * MediaGridCollectionCell.swift
 * VLC for iOS
 *****************************************************************************
-* Copyright (c) 2020 VideoLAN. All rights reserved.
+* Copyright (c) 2020-2026 VideoLAN. All rights reserved.
 * $Id$
 *
 * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
+*          Felix Paul Kühne <fkuehne # videolan.org>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -319,7 +320,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         isFolder = true
         newLabel.isHidden = true
         titleLabel.isHidden = false
-        titleLabel.text = folder.name
+        titleLabel.text = folder.displayName
 
         let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
         thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfig)
@@ -330,6 +331,12 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let description = folder.folderDescriptionString()
         descriptionLabel.isHidden = description.isEmpty
         descriptionLabel.text = description
+    }
+
+    override func update(folderLocation location: VLCMLFolder.Location) {
+        accessibilityValue = location.accessibilityValue
+        let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.image = UIImage(systemName: location.symbolName, withConfiguration: symbolConfig)
     }
 
     private func configureShadows() {
@@ -393,6 +400,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         super.prepareForReuse()
         titleLabel.text = ""
         accessibilityLabel = ""
+        accessibilityValue = nil
         descriptionLabel.text = ""
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee

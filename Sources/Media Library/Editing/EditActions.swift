@@ -345,7 +345,7 @@ private extension EditActions {
         } else if let genre = mlObject as? VLCMLGenre {
             return genre.title()
         } else if let folder = mlObject as? VLCMLFolder {
-            return folder.name
+            return folder.displayName
         } else {
             assertionFailure("EditActions: Rename/Delete called with wrong model.")
             return nil
