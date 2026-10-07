@@ -25,7 +25,6 @@
     VLCDropboxController *_dropboxController;
     DBFILESMetadata *_selectedFile;
     DBFILESFolderMetadata *_folder;
-    NSArray *_mediaList;
 }
 
 @end
@@ -82,29 +81,21 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
+    NSArray *mediaList = _dropboxController.currentListFiles;
     NSUInteger index = indexPath.row;
-    if (_mediaList) {
-        if (index < _mediaList.count) {
-            cell.dropboxFile = _mediaList[index];
-            cell.delegate = self;
-        }
+    if (index < mediaList.count) {
+        cell.dropboxFile = mediaList[index];
+        cell.delegate = self;
     }
 
     return cell;
-}
-
-- (void)mediaListUpdated
-{
-    _mediaList = [self.controller.currentListFiles copy];
-
-    [super mediaListUpdated];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectedFile = _mediaList[indexPath.row];
+    _selectedFile = _dropboxController.currentListFiles[indexPath.row];
     if (![_selectedFile isKindOfClass:[DBFILESFolderMetadata class]])
         [_dropboxController streamFile:_selectedFile currentNavigationController:self.navigationController];
     else {
@@ -148,10 +139,10 @@
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
-    if ([_mediaList[[self.tableView indexPathForCell:cell].row] isKindOfClass:[DBFILESFolderMetadata class]]) {
-        _folder = _mediaList[[self.tableView indexPathForCell:cell].row];
+    if ([_dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row] isKindOfClass:[DBFILESFolderMetadata class]]) {
+        _folder = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
     } else {
-        _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
+        _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
     }
     
     /* selected item is a proper file, ask the user if s/he wants to download it */
@@ -184,7 +175,7 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     VLCFavoriteService *service = [VLCAppCoordinator sharedInstance].favoriteService;
-    _selectedFile = _mediaList[indexPath.row];
+    _selectedFile = _dropboxController.currentListFiles[indexPath.row];
 
     VLCFavorite *fav = [[VLCFavorite alloc] init];
     fav.userVisibleName = _selectedFile.name;
