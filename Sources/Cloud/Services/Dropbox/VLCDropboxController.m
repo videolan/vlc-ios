@@ -226,7 +226,7 @@
             return [first caseInsensitiveCompare:second];
         }] copy];
         for (DBFILESMetadata *file in self.folderFileList) {
-            if ([file isKindOfClass:[DBFILESFileMetadata class]]) {
+            if ([file isKindOfClass:[DBFILESFileMetadata class]] && [self _supportedFileExtension:file.name]) {
                 [self downloadFileToDocumentFolder:file];
             }
         }

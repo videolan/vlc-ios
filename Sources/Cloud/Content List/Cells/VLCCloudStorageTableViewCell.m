@@ -197,7 +197,7 @@
             self.subtitleLabel.text = (file.size.integerValue > 0) ? [NSByteCountFormatter stringFromByteCount:file.size.longLongValue countStyle:NSByteCountFormatterCountStyleFile] : @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-            self.downloadButton.hidden = NO;
+            self.downloadButton.hidden = ![file.name isSupportedFormat];
             self.isFavourable = NO;
             self.favouriteButton.hidden = YES;
 
