@@ -309,12 +309,11 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
         let authResult = DBClientsManager.handleRedirectURL(url) {
             dbAuthResult in
             if dbAuthResult?.tag == .DBAuthSuccess {
-                // TODO: refresh viewcontroller
+                VLCDropboxController.sharedInstance().sessionWasUpdated()
             }
         }
 
         if authResult == true {
-            //TODO:update Dropboxcontrollers
             return true
         }
         return false

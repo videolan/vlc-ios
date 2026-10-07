@@ -136,7 +136,7 @@
         [_dropboxController logout];
 }
 
-- (void)sessionWasUpdated:(NSNotification *)aNotification
+- (void)sessionWasUpdated
 {
     self.authorizationInProgress = YES;
     [self updateViewAfterSessionChange];

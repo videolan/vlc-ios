@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareCredentials;
 - (BOOL)restoreFromSharedCredentials;
+- (void)sessionWasUpdated;
 
 - (void)downloadFileToDocumentFolder:(DBFILESMetadata *)file;
 - (void)downloadFolderFiles:(DBFILESFolderMetadata *)folder;

@@ -96,6 +96,12 @@
         [self.delegate mediaListUpdated];
 }
 
+- (void)sessionWasUpdated
+{
+    if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+        [self.delegate sessionWasUpdated];
+}
+
 - (BOOL)isAuthorized
 {
     return [DBClientsManager authorizedClient];
