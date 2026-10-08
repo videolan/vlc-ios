@@ -114,6 +114,8 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    [super touchesEnded:touches withEvent:event];
+
     UITouch *touch = [touches anyObject];
 
     if ([touch tapCount] == 1) {
