@@ -205,6 +205,12 @@ extension FolderModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         reloadContents()
     }
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddEntryPoint entryPoint: String) {
+        reloadContents()
+    }
+    func medialibrary(_ medialibrary: MediaLibraryService, didRemoveEntryPoint entryPoint: String) {
+        reloadContents()
+    }
 
     private func reloadContents() {
         guard Thread.isMainThread else {

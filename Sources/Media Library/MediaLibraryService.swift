@@ -2,10 +2,11 @@
  * MediaLibraryService.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2018-2022 VideoLAN. All rights reserved.
+ * Copyright © 2018-2026 VideoLAN. All rights reserved.
  * Copyright © 2018-2022 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -153,6 +154,13 @@ extension NSNotification {
     // History
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      historyChangedOfType type: VLCMLHistoryType)
+
+    // Entry points
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didAddEntryPoint entryPoint: String)
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didRemoveEntryPoint entryPoint: String)
 
     // Force Rescan
     @objc optional func medialibraryDidStartRescan()
@@ -1270,6 +1278,28 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, historyChangedOf type: VLCMLHistoryType) {
         observable.notifyObservers {
             $0.medialibrary?(self, historyChangedOfType: type)
+        }
+    }
+}
+
+// MARK: - VLCMediaLibraryDelegate - Entry points
+
+extension MediaLibraryService {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didAddEntryPoint entryPoint: String, withSuccess success: Bool) {
+        guard success else {
+            return
+        }
+        observable.notifyObservers {
+            $0.medialibrary?(self, didAddEntryPoint: entryPoint)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didRemoveEntryPoint entryPoint: String, withSuccess success: Bool) {
+        guard success else {
+            return
+        }
+        observable.notifyObservers {
+            $0.medialibrary?(self, didRemoveEntryPoint: entryPoint)
         }
     }
 }
