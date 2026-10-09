@@ -2193,7 +2193,7 @@ extension MediaCategoryViewController {
 
         if let folder = mediaObject as? VLCMLFolder,
            let folderModel = model as? FolderModel, folderModel.isExternalFolder(folder),
-           let location = folder.location {
+           let location = folderModel.location(of: folder) {
             mediaCell.update(folderLocation: location)
         }
 

@@ -20,6 +20,7 @@ class FolderModel: MLBaseModel {
     var folderMediaFiles = [VLCMLMedia]()
     var currentFolder: VLCMLFolder?
     private var externalFolderIdentifiers = Set<VLCMLIdentifier>()
+    private var externalFolderLocations = [VLCMLIdentifier: VLCMLFolder.Location]()
 
     var currentPage = 0
     var hasMorePages = false
@@ -63,6 +64,7 @@ class FolderModel: MLBaseModel {
 
         let externalFolders = self.externalFolders(sortingCriteria: sortModel.currentSort, desc: sortModel.desc)
         externalFolderIdentifiers = Set(externalFolders.map { $0.identifier() })
+        updateLocations(of: externalFolders)
         files = externalFolders + (currentFolder.subfolders(with: sortModel.currentSort, desc: sortModel.desc) ?? [])
         if self.isAudio {
             folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: sortModel.currentSort, desc: sortModel.desc) ?? []
@@ -89,6 +91,41 @@ class FolderModel: MLBaseModel {
         fileArrayLock.lock()
         defer { fileArrayLock.unlock() }
         return externalFolderIdentifiers.contains(folder.identifier())
+    }
+
+    func location(of folder: VLCMLFolder) -> VLCMLFolder.Location? {
+        fileArrayLock.lock()
+        defer { fileArrayLock.unlock() }
+        return externalFolderLocations[folder.identifier()]
+    }
+
+    private func updateLocations(of folders: [VLCMLFolder]) {
+        let mrls = folders.compactMap { folder in folder.mrl.map { (folder.identifier(), $0) } }
+        guard !mrls.isEmpty else {
+            return
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            var locations = [VLCMLIdentifier: VLCMLFolder.Location]()
+            for (identifier, mrl) in mrls {
+                locations[identifier] = VLCMLFolder.Location(url: mrl)
+            }
+
+            DispatchQueue.main.async {
+                self.fileArrayLock.lock()
+                let previousLocations = self.externalFolderLocations
+                self.externalFolderLocations.merge(locations) { _, location in location }
+                let didChange = self.externalFolderLocations != previousLocations
+                self.fileArrayLock.unlock()
+
+                guard didChange else {
+                    return
+                }
+                self.observable.notifyObservers {
+                    $0.mediaLibraryBaseModelReloadView()
+                }
+            }
+        }
     }
 
     func fetchPage(offset: Int, limit: Int) -> [VLCMLFolder] {
@@ -201,6 +238,7 @@ class FolderModel: MLBaseModel {
         if let currentFolder = currentFolder {
             let externalFolders = self.externalFolders(sortingCriteria: criteria, desc: desc)
             externalFolderIdentifiers = Set(externalFolders.map { $0.identifier() })
+            updateLocations(of: externalFolders)
             files = externalFolders + (currentFolder.subfolders(with: criteria, desc: desc) ?? [])
             if self.isAudio {
                 folderMediaFiles = currentFolder.media(of: .audio, sortingCriteria: criteria, desc: desc) ?? []
