@@ -21,6 +21,8 @@ class FolderModel: MLBaseModel {
     var currentFolder: VLCMLFolder?
     private var externalFolderIdentifiers = Set<VLCMLIdentifier>()
     private var externalFolderLocations = [VLCMLIdentifier: VLCMLFolder.Location]()
+    private let reloadQueue = DispatchQueue(label: "org.videolan.vlc-ios.folder-model")
+    private var isReloadPending = false
 
     var currentPage = 0
     var hasMorePages = false
@@ -277,16 +279,54 @@ extension FolderModel: MediaLibraryObserver {
     }
 
     private func reloadContents() {
-        guard Thread.isMainThread else {
+        reloadQueue.async {
+            guard !self.isReloadPending else {
+                return
+            }
+            self.isReloadPending = true
+            self.reloadQueue.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                self.isReloadPending = false
+                self.fetchContents()
+            }
+        }
+    }
+
+    private func fetchContents() {
+        fileArrayLock.lock()
+        let folder = currentFolder
+        let criteria = sortModel.currentSort
+        let desc = sortModel.desc
+        fileArrayLock.unlock()
+
+        guard let folder = folder else {
             DispatchQueue.main.async {
-                self.reloadContents()
+                self.setupData()
+                self.observable.notifyObservers() {
+                    $0.mediaLibraryBaseModelReloadView()
+                }
             }
             return
         }
 
-        setupData()
-        observable.notifyObservers() {
-            $0.mediaLibraryBaseModelReloadView()
+        let externalFolders = self.externalFolders(sortingCriteria: criteria, desc: desc)
+        let subfolders = folder.subfolders(with: criteria, desc: desc) ?? []
+        let media = folder.media(of: isAudio ? .audio : .video, sortingCriteria: criteria, desc: desc) ?? []
+        updateLocations(of: externalFolders)
+
+        DispatchQueue.main.async {
+            self.fileArrayLock.lock()
+            guard self.sortModel.currentSort == criteria, self.sortModel.desc == desc else {
+                self.fileArrayLock.unlock()
+                return
+            }
+            self.externalFolderIdentifiers = Set(externalFolders.map { $0.identifier() })
+            self.files = externalFolders + subfolders
+            self.folderMediaFiles = media
+            self.fileArrayLock.unlock()
+
+            self.observable.notifyObservers() {
+                $0.mediaLibraryBaseModelReloadView()
+            }
         }
     }
 }
