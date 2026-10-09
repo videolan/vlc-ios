@@ -420,9 +420,7 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         updatePlayPauseButton()
         updateRepeatButton()
         updateShuffleButton()
-        if let queueCollectionView = queueViewController?.queueCollectionView {
-            queueCollectionView.reloadData()
-        }
+        queueViewController?.reload()
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {

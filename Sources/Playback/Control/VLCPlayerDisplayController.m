@@ -910,7 +910,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)hintPlayqueueWithDelay:(NSTimeInterval)delay
 {
     if (_miniPlaybackView && _queueViewController && !_hintingPlayqueue) {
-        [_queueViewController reload];
+        [_queueViewController forceReload];
         _hintingPlayqueue = YES;
         _bottomConstraint.constant -= 50.0;
         [UIView animateWithDuration:0.3 delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
