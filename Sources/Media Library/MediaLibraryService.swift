@@ -425,19 +425,26 @@ private extension MediaLibraryService {
 
         libraryPath = libraryDirectory
 
+        guard let cachesDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else {
+            preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
+        }
+
         let databasePath: String
         let thumbnailPath: String
         let medialibraryPath: String
+        let mediaCachePath: String
 
         switch mlServiceType {
         case .mediaLibrary:
             databasePath = libraryPath + "/MediaLibrary/" + MLServiceType.mediaLibrary.databaseName
             thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
             medialibraryPath = libraryPath + "/MediaLibrary/Internal"
+            mediaCachePath = cachesDirectory + "/MediaLibrary/Cache"
         case .snapshotLibrary:
             databasePath = libraryPath + "/MediaLibrarySnapshot/" + MLServiceType.snapshotLibrary.databaseName
             thumbnailPath = libraryPath + "/MediaLibrarySnapshot/Thumbnails"
             medialibraryPath = libraryPath + "/MediaLibrarySnapshot/Internal"
+            mediaCachePath = cachesDirectory + "/MediaLibrarySnapshot/Cache"
         }
 
         currentDatabasePath = databasePath
@@ -467,7 +474,8 @@ private extension MediaLibraryService {
 
         privateMediaLib.loggerDelegate = self
         let medialibraryStatus = privateMediaLib.setupMediaLibrary(databasePath: databasePath,
-                                                               medialibraryPath: medialibraryPath)
+                                                               medialibraryPath: medialibraryPath,
+                                                               cachePath: mediaCachePath)
 
         privateMediaLib.delegate = self
 #if !os(watchOS)
