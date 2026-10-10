@@ -258,13 +258,10 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     // MARK: - Subscribing
 
     private func subscribeToPendingFeeds() {
-        let mediaLibraryService = VLCAppCoordinator.sharedInstance().mediaLibraryService
-        PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
-
         let feeds = pendingFeeds
         pendingFeeds = []
 
-        guard let podcastsViewController = showPodcasts(with: mediaLibraryService) else {
+        guard let podcastsViewController = showPodcasts() else {
             presentError(.unknown)
             return
         }
@@ -272,7 +269,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
         podcastsViewController.subscribe(to: feeds)
     }
 
-    private func showPodcasts(with mediaLibraryService: MediaLibraryService) -> PodcastsViewController? {
+    private func showPodcasts() -> PodcastsViewController? {
         let tabBarController = VLCAppCoordinator.sharedInstance().tabBarController
         guard let controllers = tabBarController.viewControllers,
               let index = controllers.firstIndex(where: {
@@ -289,7 +286,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
             return podcastsViewController
         }
 
-        let podcastsViewController = PodcastsViewController(mediaLibraryService: mediaLibraryService)
+        let podcastsViewController = PodcastsViewController()
         navigationController.pushViewController(podcastsViewController, animated: true)
         return podcastsViewController
     }

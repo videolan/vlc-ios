@@ -80,9 +80,9 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
     }
 
     func configure(episode: PodcastEpisode, show: PodcastShow?) {
-        PodcastStore.shared.requestArtwork(for: episode)
+        VLCAppCoordinator.sharedInstance().podcastStore.requestArtwork(for: episode)
         if let show = show {
-            PodcastStore.shared.requestArtwork(for: show)
+            VLCAppCoordinator.sharedInstance().podcastStore.requestArtwork(for: show)
         }
         artworkView.configure(name: show?.name ?? "",
                               artworkURL: episode.artworkURL ?? show?.artworkURL,

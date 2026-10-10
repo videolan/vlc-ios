@@ -20,7 +20,7 @@ class PodcastDirectoryFeedViewController: UIViewController {
     }()
 
     private let service: VLCPodcastIndexService
-    private let store = PodcastStore.shared
+    private let store = VLCAppCoordinator.sharedInstance().podcastStore
     private var feed: VLCPodcastIndexFeed
 
     private var summaryText: NSMutableAttributedString?

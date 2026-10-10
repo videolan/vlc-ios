@@ -119,7 +119,7 @@ class PodcastEpisodeCell: UITableViewCell {
                     onDownload: (() -> Void)? = nil,
                     onCancelDownload: (() -> Void)? = nil,
                     onDeleteDownload: (() -> Void)? = nil) {
-        PodcastStore.shared.requestArtwork(for: episode)
+        VLCAppCoordinator.sharedInstance().podcastStore.requestArtwork(for: episode)
 
         artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8, fontSize: 16)
 

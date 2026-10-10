@@ -25,7 +25,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
     private let show: PodcastShow
     private let episodeId: String
-    private let store = PodcastStore.shared
+    private let store = VLCAppCoordinator.sharedInstance().podcastStore
 
     private var episode: PodcastEpisode
 

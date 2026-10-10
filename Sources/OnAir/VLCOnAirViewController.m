@@ -119,8 +119,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidStop object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidFail object:nil];
 
-    [PodcastsOnAirBridge configureWithMediaLibraryService:[[VLCAppCoordinator sharedInstance] mediaLibraryService]];
-
     [self updateTheme];
 }
 
@@ -803,9 +801,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)showPodcasts
 {
-    MediaLibraryService *mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
-    UIViewController *podcastsViewController = [PodcastsOnAirBridge makePodcastsViewControllerWithMediaLibraryService:mediaLibraryService];
-    [self.navigationController pushViewController:podcastsViewController animated:YES];
+    [self.navigationController pushViewController:[PodcastsOnAirBridge makePodcastsViewController] animated:YES];
 }
 
 - (void)showPodcastDirectory

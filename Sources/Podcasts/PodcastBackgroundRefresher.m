@@ -116,8 +116,6 @@ static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
         [self completeRefreshWithSuccess:NO];
     };
 
-    [PodcastsOnAirBridge configureWithMediaLibraryService:VLCAppCoordinator.sharedInstance.mediaLibraryService];
-
     if (PodcastsOnAirBridge.numberOfShows == 0) {
         [self completeRefreshWithSuccess:YES];
         return;
@@ -167,8 +165,6 @@ static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
         [self scheduleDownloadTask];
         [self completeDownloadWithSuccess:NO];
     };
-
-    [PodcastsOnAirBridge configureWithMediaLibraryService:VLCAppCoordinator.sharedInstance.mediaLibraryService];
 
     if ([PodcastsOnAirBridge cacheNewEpisodes]) {
         return;

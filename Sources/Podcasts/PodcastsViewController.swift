@@ -19,7 +19,7 @@ class PodcastsViewController: UIViewController {
         case shows
     }
 
-    private let store = PodcastStore.shared
+    private let store = VLCAppCoordinator.sharedInstance().podcastStore
 
     private var isSubscribing = false
 
@@ -78,9 +78,8 @@ class PodcastsViewController: UIViewController {
         return view
     }()
 
-    init(mediaLibraryService: MediaLibraryService) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
         setupTabBarItem()
     }
 

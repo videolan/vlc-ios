@@ -14,6 +14,7 @@
 #import "VLCPodcastIndexService.h"
 #import "VLCNetworkListCell.h"
 #import "VLCPlaceholderArtwork.h"
+#import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
 
@@ -41,7 +42,7 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _service = service;
-        _store = PodcastStore.shared;
+        _store = [VLCAppCoordinator sharedInstance].podcastStore;
         _shelf = shelf;
         _feeds = shelf ? shelf.feeds : @[];
     }

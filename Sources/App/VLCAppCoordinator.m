@@ -2,7 +2,7 @@
  * VLCAppCoordinator.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -36,6 +36,7 @@
     TabBarCoordinator *_tabCoordinator;
     VLCPlayerDisplayController *_playerDisplayController;
     VLCStripeController *_stripeController;
+    PodcastStore *_podcastStore;
 #endif
 
 #if TARGET_OS_IOS
@@ -124,6 +125,10 @@
 
     // start the remote control service
     _remoteControlService = [[VLCRemoteControlService alloc] init];
+
+#if TARGET_OS_IOS || TARGET_OS_VISION
+    _podcastStore = [[PodcastStore alloc] initWithMediaLibraryService:self.mediaLibraryService];
+#endif
 }
 
 - (VLCHTTPUploaderController *)httpUploaderController
@@ -221,6 +226,14 @@
         _stripeController = [[VLCStripeController alloc] init];
     }
     return _stripeController;
+}
+
+- (PodcastStore *)podcastStore
+{
+    if (!_podcastStore) {
+        [self initializeServices];
+    }
+    return _podcastStore;
 }
 #endif
 

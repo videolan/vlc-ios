@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -24,12 +25,10 @@ import VLCMediaLibraryKit
 }
 
 final class PodcastStore: NSObject {
-    @objc static let shared = PodcastStore()
-
     private let episodeObservable = VLCObservable<PodcastStoreObserver>()
 
-    private var subscriptionModel: PodcastSubscriptionModel?
-    private var mediaLibraryService: MediaLibraryService?
+    private let subscriptionModel: PodcastSubscriptionModel
+    private let mediaLibraryService: MediaLibraryService
 
     private var pendingCacheMediaIds: Set<VLCMLIdentifier> = []
     private var requestedArtworkEpisodeIds: Set<String> = []
@@ -76,19 +75,13 @@ final class PodcastStore: NSObject {
     private static let episodeSortCriteriaKey = "\(kVLCSortDefault)podcastEpisodes"
     private static let episodeSortDescendingKey = "\(kVLCSortDescendingDefault)podcastEpisodes"
 
-    private override init() {
-        super.init()
-    }
-
-    func configure(mediaLibraryService: MediaLibraryService) {
-        guard subscriptionModel == nil else {
-            return
-        }
+    @objc init(mediaLibraryService: MediaLibraryService) {
         self.mediaLibraryService = mediaLibraryService
+        subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
+        super.init()
         mediaLibraryService.medialib.subscriptionMaxCachedMedia = PodcastStore.maxCachedEpisodesPerShow
         mediaLibraryService.subscriptionCacher.delegate = self
-        subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
-        subscriptionModel?.delegate = self
+        subscriptionModel.delegate = self
         mediaLibraryService.observable.addObserver(self)
 
         let notificationCenter = NotificationCenter.default
@@ -124,11 +117,11 @@ final class PodcastStore: NSObject {
     }
 
     @objc func addObserver(_ observer: MediaLibraryBaseModelObserver) {
-        subscriptionModel?.observable.addObserver(observer)
+        subscriptionModel.observable.addObserver(observer)
     }
 
     @objc func removeObserver(_ observer: MediaLibraryBaseModelObserver) {
-        subscriptionModel?.observable.removeObserver(observer)
+        subscriptionModel.observable.removeObserver(observer)
     }
 
     func addEpisodeObserver(_ observer: PodcastStoreObserver) {
@@ -160,7 +153,7 @@ final class PodcastStore: NSObject {
             return cachedLatestEpisodes
         }
 
-        var result = (subscriptionModel?.subscriptions ?? []).flatMap(newestEpisodes(forSubscription:))
+        var result = subscriptionModel.subscriptions.flatMap(newestEpisodes(forSubscription:))
         result.sort { $0.releaseDate > $1.releaseDate }
 
         cachedLatestEpisodes = result
@@ -168,8 +161,7 @@ final class PodcastStore: NSObject {
     }
 
     private func unfinishedEpisodesFromHistory(limit: Int) -> [PodcastEpisode] {
-        guard let mediaLibraryService = mediaLibraryService,
-              subscriptionModel?.subscriptions.isEmpty == false else {
+        guard !subscriptionModel.subscriptions.isEmpty else {
             return []
         }
 
@@ -329,11 +321,6 @@ final class PodcastStore: NSObject {
 
     func addSubscription(mrl: URL,
                          completion: @escaping (Result<Void, PodcastAddSubscriptionError>) -> Void) {
-        guard let subscriptionModel = subscriptionModel else {
-            completion(.failure(.unknown))
-            return
-        }
-
         pendingFeedURLs.insert(mrl)
         notifyReload()
 
@@ -349,7 +336,7 @@ final class PodcastStore: NSObject {
 
     @discardableResult
     func refreshAllSubscriptions() -> Bool {
-        guard let mediaLibraryService = mediaLibraryService, !shows.isEmpty else {
+        guard !shows.isEmpty else {
             return false
         }
 
@@ -420,7 +407,6 @@ final class PodcastStore: NSObject {
     @discardableResult
     func cacheNewEpisodes() -> Bool {
         guard automaticDownloadsEnabled,
-              let mediaLibraryService = mediaLibraryService,
               mediaLibraryService.subscriptionCacher.automaticCachingAllowed,
               !shows.isEmpty else {
             return false
@@ -432,7 +418,7 @@ final class PodcastStore: NSObject {
     }
 
     func interruptCaching() {
-        mediaLibraryService?.subscriptionCacher.interruptCaching()
+        mediaLibraryService.subscriptionCacher.interruptCaching()
     }
 
     private func beginCaching() {
@@ -481,14 +467,14 @@ final class PodcastStore: NSObject {
     }
 
     func unsubscribe(showId: String) {
-        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+        guard let subscription = subscription(withId: showId) else {
             return
         }
         subscriptionModel.removeSubscription(subscription)
     }
 
     func markAllEpisodes(ofShowId showId: String, played: Bool) {
-        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+        guard let subscription = subscription(withId: showId) else {
             return
         }
 
@@ -550,7 +536,7 @@ final class PodcastStore: NSObject {
                       startPosition: Float,
                       matching query: String = "",
                       partialFileURL: URL? = nil) {
-        guard let subscriptionModel = subscriptionModel, let subscription = subscription(withId: showId) else {
+        guard let subscription = subscription(withId: showId) else {
             return
         }
         if let show = show(withId: showId) {
@@ -630,9 +616,7 @@ final class PodcastStore: NSObject {
         let pending = pendingArtworkEpisodeIds
         pendingArtworkEpisodeIds.removeAll()
 
-        guard let mediaLibraryService = mediaLibraryService else {
-            return
-        }
+        let mediaLibraryService = self.mediaLibraryService
         DispatchQueue.global(qos: .userInitiated).async {
             for episodeId in pending {
                 guard let identifier = VLCMLIdentifier(episodeId),
@@ -676,8 +660,7 @@ final class PodcastStore: NSObject {
 
     @discardableResult
     func downloadEpisode(episodeId: String, showId: String) -> Bool {
-        guard let mediaLibraryService = mediaLibraryService,
-              let media = media(forEpisodeId: episodeId) else {
+        guard let media = media(forEpisodeId: episodeId) else {
             return false
         }
 
@@ -695,8 +678,7 @@ final class PodcastStore: NSObject {
     // absence of a cached file is what tells the two apart.
     @discardableResult
     func cancelDownload(episodeId: String, showId: String) -> Bool {
-        guard let mediaLibraryService = mediaLibraryService,
-              let media = media(forEpisodeId: episodeId),
+        guard let media = media(forEpisodeId: episodeId),
               pendingCacheMediaIds.contains(media.identifier()),
               !media.isCached() else {
             return false
@@ -712,7 +694,7 @@ final class PodcastStore: NSObject {
     @discardableResult
     func deleteDownloadedEpisode(episodeId: String, showId: String) -> Bool {
         guard let media = media(forEpisodeId: episodeId),
-              mediaLibraryService?.medialib.removeCachedMedia(media) == true else {
+              mediaLibraryService.medialib.removeCachedMedia(media) else {
             return false
         }
         pendingCacheMediaIds.insert(media.identifier())
@@ -725,14 +707,14 @@ final class PodcastStore: NSObject {
         guard let identifier = VLCMLIdentifier(showId) else {
             return nil
         }
-        return subscriptionModel?.subscriptions.first { $0.identifier() == identifier }
+        return subscriptionModel.subscriptions.first { $0.identifier() == identifier }
     }
 
     private func media(forEpisodeId episodeId: String) -> VLCMLMedia? {
         guard let mediaId = VLCMLIdentifier(episodeId) else {
             return nil
         }
-        return mediaLibraryService?.media(for: mediaId)
+        return mediaLibraryService.media(for: mediaId)
     }
 
     @discardableResult
@@ -741,7 +723,7 @@ final class PodcastStore: NSObject {
             return cachedShows
         }
 
-        let subscriptions = subscriptionModel?.subscriptions ?? []
+        let subscriptions = subscriptionModel.subscriptions
         let shows = subscriptions.map(PodcastStore.podcastShow)
         cachedShows = shows
         cachedShowsById = Dictionary(uniqueKeysWithValues: shows.map { ($0.id, $0) })
@@ -966,7 +948,7 @@ extension PodcastStore: MediaLibraryObserver {
                 APLog("podcast artwork: show \(showId) failed")
                 return
             }
-            self.subscriptionModel?.refresh()
+            self.subscriptionModel.refresh()
             self.cachedShows = nil
             self.cachedShowsById.removeAll()
             self.cachedShowIdsByFeedURL.removeAll()
@@ -987,7 +969,7 @@ extension PodcastStore: MediaLibraryObserver {
     }
 
     private func notifyReload() {
-        subscriptionModel?.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
+        subscriptionModel.observable.notifyObservers { $0.mediaLibraryBaseModelReloadView() }
         NotificationCenter.default.post(name: .VLCPodcastsContentDidChange, object: nil)
     }
 

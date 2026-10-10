@@ -2,7 +2,7 @@
  * VLCAppCoordinator.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 @class VLCStripeController;
+@class PodcastStore;
 #endif
 
 #if !TARGET_OS_WATCH
@@ -53,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 @property (readonly) VLCStripeController *stripeController;
+@property (readonly) PodcastStore *podcastStore;
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_VISION

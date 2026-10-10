@@ -17,7 +17,7 @@ class PodcastDirectoryViewController: UIViewController {
     private static let sharedService = VLCPodcastIndexService()
 
     private let service = PodcastDirectoryViewController.sharedService
-    private let store = PodcastStore.shared
+    private let store = VLCAppCoordinator.sharedInstance().podcastStore
 
     private var shelves: [VLCPodcastIndexShelf] = []
     private var laidOutWidth: CGFloat = 0

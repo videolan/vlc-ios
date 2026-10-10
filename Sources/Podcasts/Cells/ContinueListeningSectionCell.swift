@@ -90,7 +90,7 @@ extension ContinueListeningSectionCell: UICollectionViewDataSource, UICollection
             return UICollectionViewCell()
         }
         let episode = episodes[indexPath.item]
-        cell.configure(episode: episode, show: PodcastStore.shared.show(withId: episode.showId))
+        cell.configure(episode: episode, show: VLCAppCoordinator.sharedInstance().podcastStore.show(withId: episode.showId))
         cell.accessibilityCustomActions = [
             UIAccessibilityCustomAction(name: NSLocalizedString("MARK_AS_PLAYED", comment: "")) { [weak self] _ in
                 self?.onMarkEpisodeAsPlayed?(episode)

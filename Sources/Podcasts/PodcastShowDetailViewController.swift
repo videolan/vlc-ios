@@ -22,7 +22,7 @@ class PodcastShowDetailViewController: UIViewController {
     private static let episodePrefetchDistance = 20
 
     private let show: PodcastShow
-    private let store = PodcastStore.shared
+    private let store = VLCAppCoordinator.sharedInstance().podcastStore
 
     private weak var headerView: PodcastShowHeaderView?
 

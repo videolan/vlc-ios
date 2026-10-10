@@ -51,16 +51,15 @@ extension VLCOnAirRailItem {
 }
 
 @objc final class PodcastsOnAirBridge: NSObject {
-    @objc static func configure(mediaLibraryService: MediaLibraryService) {
-        PodcastStore.shared.configure(mediaLibraryService: mediaLibraryService)
+    private static var store: PodcastStore {
+        return VLCAppCoordinator.sharedInstance().podcastStore
     }
 
     @objc static var numberOfShows: Int {
-        return PodcastStore.shared.shows.count
+        return store.shows.count
     }
 
     @objc static var resumeEpisode: PodcastResumeItem? {
-        let store = PodcastStore.shared
         guard let episode = store.resumeEpisode, let lastPlayedDate = episode.lastPlayedDate else {
             return nil
         }
@@ -71,34 +70,33 @@ extension VLCOnAirRailItem {
     }
 
     @objc static func playResumeEpisode(_ item: PodcastResumeItem) {
-        PodcastStore.shared.playEpisode(episodeId: item.episodeId, showId: item.showId)
+        store.playEpisode(episodeId: item.episodeId, showId: item.showId)
     }
 
     @objc static func refreshAllSubscriptions() -> Bool {
-        return PodcastStore.shared.refreshAllSubscriptions()
+        return store.refreshAllSubscriptions()
     }
 
     @objc static var automaticDownloadsEnabled: Bool {
-        return PodcastStore.shared.automaticDownloadsEnabled
+        return store.automaticDownloadsEnabled
     }
 
     @objc static func cacheNewEpisodes() -> Bool {
-        return PodcastStore.shared.cacheNewEpisodes()
+        return store.cacheNewEpisodes()
     }
 
     @objc static func interruptCaching() {
-        PodcastStore.shared.interruptCaching()
+        store.interruptCaching()
     }
 
     @objc static var showRailItems: [VLCOnAirRailItem] {
-        let store = PodcastStore.shared
         let shows = store.shows
         shows.forEach { store.requestArtwork(for: $0) }
         return shows.map { VLCOnAirRailItem(show: $0) }
     }
 
-    @objc static func makePodcastsViewController(mediaLibraryService: MediaLibraryService) -> UIViewController {
-        return PodcastsViewController(mediaLibraryService: mediaLibraryService)
+    @objc static func makePodcastsViewController() -> UIViewController {
+        return PodcastsViewController()
     }
 
     @objc static func makeDirectoryViewController() -> UIViewController {
@@ -106,7 +104,7 @@ extension VLCOnAirRailItem {
     }
 
     @objc static func makeShowDetailViewController(forShowAt index: Int) -> UIViewController? {
-        let shows = PodcastStore.shared.shows
+        let shows = store.shows
         guard shows.indices.contains(index) else {
             return nil
         }
