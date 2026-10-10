@@ -41,6 +41,9 @@ final class PodcastStore: NSObject {
     private var refreshSawBusy = false
     private var refreshTimeout: DispatchWorkItem?
 
+    private var activationPending = true
+    private var cacheAfterRefresh = false
+
     private var cacheInFlight = false
     private var cacheSawBusy = false
     private var cacheStartTimeout: DispatchWorkItem?
@@ -95,11 +98,34 @@ final class PodcastStore: NSObject {
                                            object: nil)
         }
         notificationCenter.addObserver(self,
-                                       selector: #selector(refreshAllSubscriptionsIfNeeded),
-                                       name: UIApplication.willEnterForegroundNotification,
+                                       selector: #selector(applicationDidEnterBackground),
+                                       name: UIApplication.didEnterBackgroundNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applicationDidBecomeActive),
+                                       name: UIApplication.didBecomeActiveNotification,
                                        object: nil)
 
+        if UIApplication.shared.applicationState == .active {
+            applicationDidBecomeActive()
+        }
+    }
+
+    @objc private func applicationDidEnterBackground() {
+        activationPending = true
+    }
+
+    @objc private func applicationDidBecomeActive() {
+        guard activationPending else {
+            return
+        }
+        activationPending = false
         refreshAllSubscriptionsIfNeeded()
+        if refreshInFlight {
+            cacheAfterRefresh = true
+        } else {
+            cacheNewEpisodesInForeground()
+        }
     }
 
     @objc private func playbackStateDidChange() {
@@ -362,7 +388,7 @@ final class PodcastStore: NSObject {
         return true
     }
 
-    @objc private func refreshAllSubscriptionsIfNeeded() {
+    private func refreshAllSubscriptionsIfNeeded() {
         let last = UserDefaults.standard.double(forKey: PodcastStore.lastSubscriptionRefreshKey)
         guard Date().timeIntervalSinceReferenceDate - last >= PodcastStore.subscriptionRefreshInterval else {
             return
@@ -394,6 +420,11 @@ final class PodcastStore: NSObject {
         refreshInFlight = false
         refreshSawBusy = false
         NotificationCenter.default.post(name: .VLCPodcastsRefreshDidEnd, object: nil)
+
+        if cacheAfterRefresh {
+            cacheAfterRefresh = false
+            cacheNewEpisodesInForeground()
+        }
     }
 
     // MARK: - Automatic downloads
@@ -415,6 +446,13 @@ final class PodcastStore: NSObject {
         mediaLibraryService.medialib.cacheNewSubscriptionMedia()
         beginCaching()
         return true
+    }
+
+    private func cacheNewEpisodesInForeground() {
+        guard UIApplication.shared.applicationState == .active, cacheNewEpisodes() else {
+            return
+        }
+        beginCacheBackgroundTask()
     }
 
     func interruptCaching() {
@@ -878,10 +916,7 @@ extension PodcastStore: MediaLibraryObserver {
                 return
             }
             PodcastBackgroundRefresher.sharedInstance().scheduleDownloadTask()
-            guard UIApplication.shared.applicationState == .active, self.cacheNewEpisodes() else {
-                return
-            }
-            self.beginCacheBackgroundTask()
+            self.cacheNewEpisodesInForeground()
         }
     }
 
