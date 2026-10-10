@@ -162,6 +162,8 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didRemoveEntryPoint entryPoint: String)
 
+    @objc optional func medialibraryDidUpdateExternalFolders(_ medialibrary: MediaLibraryService)
+
     // Force Rescan
     @objc optional func medialibraryDidStartRescan()
 }
@@ -1300,6 +1302,12 @@ extension MediaLibraryService {
         }
         observable.notifyObservers {
             $0.medialibrary?(self, didRemoveEntryPoint: entryPoint)
+        }
+    }
+
+    func medialibraryDidUpdateExternalFolders(_ medialibrary: VLCMediaLibrary) {
+        observable.notifyObservers {
+            $0.medialibraryDidUpdateExternalFolders?(self)
         }
     }
 }

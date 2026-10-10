@@ -277,6 +277,9 @@ extension FolderModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didRemoveEntryPoint entryPoint: String) {
         reloadContents()
     }
+    func medialibraryDidUpdateExternalFolders(_ medialibrary: MediaLibraryService) {
+        reloadContents()
+    }
 
     private func reloadContents() {
         reloadQueue.async {
