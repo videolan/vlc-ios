@@ -450,6 +450,8 @@
 "PODCAST_UNSUBSCRIBE" = "Unsubscribe";
 "PODCAST_UNSUBSCRIBE_MESSAGE" = "This will remove this show, its episodes and any downloaded copies from your library.";
 "PODCAST_OPEN_WEBSITE" = "Open Website…";
+"PODCAST_DOWNLOAD_NEW_EPISODES" = "Download New Episodes";
+"PODCAST_DOWNLOADS_DISABLED" = "Disabled";
 "PODCAST_EMPTY_TITLE" = "No Podcasts Yet";
 "PODCAST_EMPTY_DESCRIPTION" = "Browse the directory or add a show via its RSS feed URL to start listening.";
 "PODCAST_ADD_VIA_RSS" = "Add via RSS URL";

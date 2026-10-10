@@ -318,7 +318,7 @@ class PodcastShowDetailViewController: UIViewController {
             overflowButton.image = UIImage(named: "EllipseCircle")
         }
         overflowButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
-        overflowButton.menu = overflowActions.menu()
+        overflowButton.menu = UIMenu(title: "", children: [episodeLimitMenu] + overflowActions.menu().children)
         var rightBarButtonItems = [overflowButton]
 
         if #unavailable(iOS 26) {
@@ -364,6 +364,41 @@ class PodcastShowDetailViewController: UIViewController {
                                          imageName: "xmark.circle",
                                          isDestructive: true) { [weak self] in self?.confirmUnsubscribe() })
         return actions
+    }
+
+    private var episodeLimitMenu: UIMenuElement {
+        return UIDeferredMenuElement.uncached { [weak self] completion in
+            guard let self = self else {
+                completion([])
+                return
+            }
+            completion([self.makeEpisodeLimitMenu()])
+        }
+    }
+
+    private func makeEpisodeLimitMenu() -> UIMenu {
+        let currentLimit = store.episodeLimit(forShowId: show.id)
+        let limits: [Int?] = [nil, 0, 1, 2, 3, 4]
+        let actions = limits.map { limit -> UIAction in
+            let title: String
+            switch limit {
+            case nil:
+                title = NSLocalizedString("DEFAULT", comment: "")
+            case 0?:
+                title = NSLocalizedString("PODCAST_DOWNLOADS_DISABLED", comment: "")
+            case let count?:
+                title = NumberFormatter.localizedString(from: NSNumber(value: count), number: .none)
+            }
+            return UIAction(title: title, state: limit == currentLimit ? .on : .off) { [weak self] _ in
+                guard let self = self else { return }
+                self.store.setEpisodeLimit(limit, forShowId: self.show.id)
+            }
+        }
+        let color = PresentationTheme.current.colors.cellTextColor
+        return UIMenu(title: NSLocalizedString("PODCAST_DOWNLOAD_NEW_EPISODES", comment: ""),
+                      image: UIImage(systemName: "arrow.down.circle")?.withTintColor(color, renderingMode: .alwaysOriginal),
+                      options: .singleSelection,
+                      children: actions)
     }
 
     private func markAllEpisodesAsPlayed() {

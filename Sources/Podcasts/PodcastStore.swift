@@ -435,6 +435,17 @@ final class PodcastStore: NSObject {
         return UserDefaults.standard.integer(forKey: kVLCSettingPodcastEpisodesPerShow)
     }
 
+    func episodeLimit(forShowId showId: String) -> Int? {
+        guard let limit = subscription(withId: showId)?.maxCachedMedia, limit >= 0 else {
+            return nil
+        }
+        return Int(limit)
+    }
+
+    func setEpisodeLimit(_ limit: Int?, forShowId showId: String) {
+        subscription(withId: showId)?.maxCachedMedia = Int32(limit ?? -1)
+    }
+
     // A pass marks every episode of a subscription as cache-handled even when it downloaded
     // nothing, so one started off Wi-Fi would burn them for good.
     @discardableResult
