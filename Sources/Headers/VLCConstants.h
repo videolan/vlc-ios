@@ -2,7 +2,7 @@
  * VLCConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -107,6 +107,8 @@
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingPodcastAutomaticDownloads @"PodcastAutomaticDownloads"
 #define kVLCSettingPodcastAutomaticDownloadsDefaultValue @YES
+#define kVLCSettingPodcastEpisodesPerShow @"PodcastEpisodesPerShow"
+#define kVLCSettingPodcastEpisodesPerShowDefaultValue @2
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCResetSettings @"kVLCResetSettings"
 #define kVLCSettingAlwaysPlayURLs @"kVLCSettingAlwaysPlayURLs"

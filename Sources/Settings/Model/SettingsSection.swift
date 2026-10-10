@@ -2,7 +2,7 @@
  * SettingsSection.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2020-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2020-2026 VideoLAN. All rights reserved.
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *          Soomin Lee < bubu@mikan.io >
@@ -658,9 +658,17 @@ enum PodcastOptions {
                 preferenceKey: kVLCSettingPodcastAutomaticDownloads)
     }
 
+    static var episodesPerShow: SettingsItem {
+        let k = kVLCSettingPodcastEpisodesPerShow
+        return .init(title: "SETTINGS_PODCASTS_EPISODES_PER_SHOW",
+                     subtitle: Localizer.getSubtitle(for: k),
+                     action: .showActionSheet(title: "SETTINGS_PODCASTS_EPISODES_PER_SHOW", preferenceKey: k, hasInfo: false))
+    }
+
     static func section() -> SettingsSection? {
         .init(title: "SETTINGS_PODCASTS_TITLE", items: [
             automaticDownloads,
+            episodesPerShow,
         ])
     }
 }

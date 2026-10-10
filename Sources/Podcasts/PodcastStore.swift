@@ -72,7 +72,6 @@ final class PodcastStore: NSObject {
     private static let subscriptionRefreshInterval: TimeInterval = 30 * 60
     private static let subscriptionRefreshTimeout: TimeInterval = 30
     private static let cacheStartTimeout: TimeInterval = 30
-    private static let maxCachedEpisodesPerShow: UInt32 = 2
     private static let playbackStartFraction: Float = 0.2
     private static let lastSubscriptionRefreshKey = "VLCPodcastsLastSubscriptionRefresh"
     private static let episodeSortCriteriaKey = "\(kVLCSortDefault)podcastEpisodes"
@@ -82,7 +81,6 @@ final class PodcastStore: NSObject {
         self.mediaLibraryService = mediaLibraryService
         subscriptionModel = PodcastSubscriptionModel(medialibrary: mediaLibraryService)
         super.init()
-        mediaLibraryService.medialib.subscriptionMaxCachedMedia = PodcastStore.maxCachedEpisodesPerShow
         mediaLibraryService.subscriptionCacher.delegate = self
         subscriptionModel.delegate = self
         mediaLibraryService.observable.addObserver(self)
@@ -433,6 +431,10 @@ final class PodcastStore: NSObject {
         return UserDefaults.standard.bool(forKey: kVLCSettingPodcastAutomaticDownloads)
     }
 
+    var episodesPerShow: Int {
+        return UserDefaults.standard.integer(forKey: kVLCSettingPodcastEpisodesPerShow)
+    }
+
     // A pass marks every episode of a subscription as cache-handled even when it downloaded
     // nothing, so one started off Wi-Fi would burn them for good.
     @discardableResult
@@ -443,6 +445,7 @@ final class PodcastStore: NSObject {
             return false
         }
 
+        mediaLibraryService.medialib.subscriptionMaxCachedMedia = UInt32(episodesPerShow)
         mediaLibraryService.medialib.cacheNewSubscriptionMedia()
         beginCaching()
         return true

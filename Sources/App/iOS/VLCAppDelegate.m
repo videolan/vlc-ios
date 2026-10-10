@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -89,6 +89,7 @@
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingPodcastAutomaticDownloads : kVLCSettingPodcastAutomaticDownloadsDefaultValue,
+                                  kVLCSettingPodcastEpisodesPerShow : kVLCSettingPodcastEpisodesPerShowDefaultValue,
                                   kVLCSettingCastingAudioPassthrough : @(NO),
                                   kVLCSettingCastingConversionQuality : @(2),
                                   kVLCForceSMBV1 : @(NO),
