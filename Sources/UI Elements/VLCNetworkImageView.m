@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -45,14 +45,11 @@
         return;
     }
 
-    if (url.isFileURL) {
-        [self loadLocalImageWithURL:url maxPixelSize:maxPixelSize];
-        return;
-    }
-
     UIImage *cachedImage = [VLCThumbnailsCache cachedImageForURL:url maxPixelSize:maxPixelSize];
     if (cachedImage) {
         self.image = cachedImage;
+    } else if (url.isFileURL) {
+        [self loadLocalImageWithURL:url maxPixelSize:maxPixelSize];
     } else {
         [self downloadImageWithURL:url maxPixelSize:maxPixelSize];
     }
