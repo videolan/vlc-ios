@@ -423,7 +423,8 @@ extension EditController: UICollectionViewDataSource {
         if let collectionModel = model as? CollectionModel,
            collectionModel.mediaCollection is VLCMLAlbum || collectionModel.mediaCollection is VLCMLPlaylist,
            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionArtworkHeader.headerID, for: indexPath) as? CollectionArtworkHeader {
-            header.updateImage(with: delegate?.editControllerGetCurrentThumbnail())
+            header.updateImage(with: delegate?.editControllerGetCurrentThumbnail(),
+                               placeholderName: collectionModel.mediaCollection.placeholderName())
             header.shouldDisablePlayButtons(true)
             return header
         }

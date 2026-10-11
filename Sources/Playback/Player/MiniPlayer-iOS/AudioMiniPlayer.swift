@@ -50,7 +50,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
     private let audioMiniPlayer = UIView()
     private let infoContainer = UIView()
-    private let artworkImageView = UIImageView()
+    private let artworkImageView = VLCArtworkImageView()
     private var artworkBlurImageView: UIImageView?
     private var artworkBlurView: UIVisualEffectView?
     private let titleLabel = VLCMarqueeLabel(frame: .zero, rate: 30, fadeLength: 20)
@@ -735,14 +735,12 @@ private extension AudioMiniPlayer {
         artistLabel.isHidden = artistLabel.text?.isEmpty ?? true
         if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
             playbackService.playAsAudio {
-            let placeholder = PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
-            : UIImage(named: "song-placeholder-white")
-            artworkImageView.image = metadata.artworkImage ?? placeholder
+            artworkImageView.setImage(metadata.artworkImage, placeholderName: metadata.placeholderName)
             artworkBlurImageView?.image = metadata.artworkImage
             artworkBlurView?.isHidden = false
             playbackService.videoOutputView = nil
         } else {
-            artworkImageView.image = nil
+            artworkImageView.setImage(nil, placeholderName: nil)
             artworkBlurImageView?.image = nil
             artworkBlurView?.isHidden = true
             playbackService.videoOutputView = artworkImageView
@@ -841,7 +839,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 // MARK: - ZoomTransitionEndpoint
 
 extension AudioMiniPlayer: ZoomTransitionEndpoint {
-    var zoomTransitionArtworkView: UIImageView? {
+    var zoomTransitionArtworkView: VLCArtworkImageView? {
         return artworkImageView
     }
 }

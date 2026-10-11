@@ -82,7 +82,7 @@ extension VLCMLMedia {
         return nil
     }
 
-    @objc func artworkImage() -> UIImage? {
+    @objc func thumbnailImage() -> UIImage? {
         if (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
             return nil
@@ -99,34 +99,17 @@ extension VLCMLMedia {
         return VLCThumbnailsCache.thumbnail(for: show.artworkMRL)
     }
 
-    @objc func placeholderImage() -> UIImage? {
-        // Podcast episodes have no generated thumbnail of their own and aren't album tracks,
-        // so they'd otherwise fall through to the generic movie placeholder below - use the
-        // same colored-initials placeholder the show list shows for the owning show instead.
-        #if !os(watchOS) && !os(tvOS)
+    @objc func placeholderName() -> String {
         if nbSubscriptions() > 0,
            let show = linkedSubscriptions(with: .default, desc: false)?.first {
-            return VLCPlaceholderArtwork.placeholderImage(forName: show.name,
-                                                           size: CGSize(width: 512, height: 512),
-                                                           cornerRadius: 0,
-                                                           fontSize: 160)
-        }
-        #endif
-        #if os(watchOS)
-        /// watchOS only doesn't have light mode
-        let isDarktheme = true
-        #else
-        let isDarktheme = PresentationTheme.current.isDark
-        #endif
-        if subtype() == .albumTrack {
-            return isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
+            return show.name
         }
 
-        return isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
-    }
+        if subtype() == .albumTrack, let album = album, !album.isUnknownAlbum(), !album.title.isEmpty {
+            return album.title
+        }
 
-    @objc func thumbnailImage() -> UIImage? {
-        return artworkImage() ?? placeholderImage()
+        return title()
     }
 
     func accessibilityText(editing: Bool) -> String? {

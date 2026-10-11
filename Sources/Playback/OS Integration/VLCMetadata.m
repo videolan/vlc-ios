@@ -15,6 +15,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
 #import "VLCThumbnailsCache.h"
+#import "VLCPlaceholderArtwork.h"
 
 #import "VLC-Swift.h"
 
@@ -24,6 +25,8 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
 {
     NSURL *_artworkURL;
     BOOL _hasPreviewArtwork;
+    UIImage *_placeholderArtworkImage;
+    NSString *_placeholderArtworkName;
 }
 
 - (instancetype)init
@@ -53,7 +56,6 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     if (_artworkURL != artworkURL && ![_artworkURL isEqual:artworkURL]) {
         _artworkURL = artworkURL;
         self.artworkImage = nil;
-        _hasPlaceholderArtwork = NO;
         _hasPreviewArtwork = NO;
     }
 
@@ -65,7 +67,7 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
         self.albumTrackCount = @(media.album.numberOfTracks);
         self.discNumber = @(media.discNumber);
         self.albumName = media.album.title;
-        [self updateArtworkImage:[media artworkImage]];
+        [self updateArtworkImage:[media thumbnailImage]];
         self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
         self.identifier = @(media.identifier);
 
@@ -82,19 +84,14 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
         [self checkIsAudioOnly:mediaPlayer];
     }
 
-    if (!self.artworkImage || _hasPlaceholderArtwork) {
-        self.artworkImage = isLibraryMedia ? [media placeholderImage] : [self streamPlaceholderImage];
-        _hasPlaceholderArtwork = YES;
-    }
+    _placeholderName = isLibraryMedia ? [media placeholderName] : mediaPlayer.media.metaData.title;
 
     self.descriptiveTitle = nil;
     if (self.isAudioOnly) {
-        if (self.artworkImage) {
-            if (self.artist)
-                self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.artist];
-            if (self.albumName)
-                self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.albumName];
-        }
+        if (self.artist)
+            self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.artist];
+        if (self.albumName)
+            self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.albumName];
         if (self.title.length < 1)
             self.title = [[mediaPlayer.media url] lastPathComponent];
     }
@@ -126,23 +123,23 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
     }
 
     self.artworkImage = artworkImage;
-    _hasPlaceholderArtwork = NO;
     _hasPreviewArtwork = NO;
 }
 
-- (UIImage *)streamPlaceholderImage
+- (BOOL)hasPlaceholderArtwork
 {
-#if TARGET_OS_WATCH
-    return [UIImage imageNamed:@"song-placeholder-dark"];
-#else
-    BOOL isDark = PresentationTheme.current.isDark;
-    if (!_isAudioOnly) {
-        return isDark ? [UIImage imageNamed:@"movie-placeholder-dark"]
-                      : [UIImage imageNamed:@"movie-placeholder-white"];
+    return self.artworkImage == nil;
+}
+
+- (UIImage *)placeholderArtworkImage
+{
+    if (!_placeholderArtworkImage
+        || (_placeholderArtworkName != _placeholderName && ![_placeholderArtworkName isEqualToString:_placeholderName])) {
+        _placeholderArtworkName = _placeholderName;
+        _placeholderArtworkImage = [VLCPlaceholderArtwork placeholderImageForName:_placeholderName
+                                                                        pixelSize:kVLCArtworkMaxPixelSize];
     }
-    return isDark ? [UIImage imageNamed:@"song-placeholder-dark"]
-                  : [UIImage imageNamed:@"song-placeholder-white"];
-#endif
+    return _placeholderArtworkImage;
 }
 
 - (void)updatePlaybackStateFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer
@@ -226,7 +223,7 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
         [self updateArtworkImage:metadata.artwork];
 
         NSURL *artworkURL = metadata.artworkURL;
-        if ((!self.artworkImage || _hasPlaceholderArtwork || _hasPreviewArtwork) && artworkURL) {
+        if ((!self.artworkImage || _hasPreviewArtwork) && artworkURL) {
             UIImage *cachedArtworkImage = [VLCThumbnailsCache cachedImageForURL:artworkURL
                                                                    maxPixelSize:kVLCArtworkMaxPixelSize];
             if (cachedArtworkImage) {
@@ -297,10 +294,11 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyChapterNumber] = @(MAX(0, playbackService.indexOfCurrentChapter));
     }
 
-    if (self.artworkImage) {
-        MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:self.artworkImage.size
+    UIImage *artworkImage = self.artworkImage ?: [self placeholderArtworkImage];
+    if (artworkImage) {
+        MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:artworkImage.size
                                                                         requestHandler:^UIImage * _Nonnull(CGSize size) {
-            return self.artworkImage;
+            return artworkImage;
         }];
         @try {
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;

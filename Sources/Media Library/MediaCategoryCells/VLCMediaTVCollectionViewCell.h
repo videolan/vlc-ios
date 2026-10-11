@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCArtworkImageView.h"
 
 @class VLCMLMedia;
 
@@ -17,7 +18,7 @@ extern NSString * const VLCMediaTVCollectionViewCellIdentifier;
 
 @interface VLCMediaTVCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, readonly) UIImageView *thumbnailView;
+@property (nonatomic, readonly) VLCArtworkImageView *thumbnailView;
 @property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) UILabel *descriptionLabel;
 @property (nonatomic, readonly) UILabel *mediaIsNewIndicator;

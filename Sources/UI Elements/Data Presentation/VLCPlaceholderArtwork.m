@@ -83,21 +83,18 @@ static CGFloat const kVLCPlaceholderArtworkFontSizeRatio = 0.28;
     return side * kVLCPlaceholderArtworkFontSizeRatio;
 }
 
-+ (void)drawPlaceholderForName:(NSString *)name
-                        inRect:(CGRect)bounds
-                  cornerRadius:(CGFloat)cornerRadius
-                      fontSize:(CGFloat)fontSize
++ (void)drawPlaceholderForName:(NSString *)name inRect:(CGRect)bounds
 {
     UIColor *backgroundColor = [self backgroundColorForName:name];
     UIColor *foregroundColor = [self foregroundColorForName:name];
     NSString *initials = [self initialsForName:name];
 
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
     [backgroundColor setFill];
-    [path fill];
+    UIRectFill(bounds);
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentCenter;
+    CGFloat fontSize = [self fontSizeForSide:MIN(bounds.size.width, bounds.size.height)];
     NSDictionary *attributes = @{
         NSFontAttributeName: [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy],
         NSForegroundColorAttributeName: foregroundColor,
@@ -109,46 +106,25 @@ static CGFloat const kVLCPlaceholderArtworkFontSizeRatio = 0.28;
     [initials drawInRect:textRect withAttributes:attributes];
 }
 
-+ (UIImage *)placeholderImageForName:(NSString *)name
-                                size:(CGSize)size
-                               scale:(CGFloat)scale
-                        cornerRadius:(CGFloat)cornerRadius
-                            fontSize:(CGFloat)fontSize
++ (UIImage *)placeholderImageForName:(NSString *)name pixelSize:(CGFloat)pixelSize
 {
-    CGRect bounds = CGRectMake(0, 0, size.width, size.height);
+    CGRect bounds = CGRectMake(0, 0, pixelSize, pixelSize);
 #if TARGET_OS_WATCH
-    UIGraphicsBeginImageContextWithOptions(size, NO, scale);
-    [self drawPlaceholderForName:name inRect:bounds cornerRadius:cornerRadius fontSize:fontSize];
+    UIGraphicsBeginImageContextWithOptions(bounds.size, YES, 1.0);
+    [self drawPlaceholderForName:name inRect:bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 #else
     UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat preferredFormat];
-    if (scale > 0.0)
-        format.scale = scale;
+    format.scale = 1.0;
+    format.opaque = YES;
 
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:size format:format];
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:bounds.size format:format];
     return [renderer imageWithActions:^(UIGraphicsImageRendererContext *context) {
-        [self drawPlaceholderForName:name inRect:bounds cornerRadius:cornerRadius fontSize:fontSize];
+        [self drawPlaceholderForName:name inRect:bounds];
     }];
 #endif
-}
-
-+ (UIImage *)placeholderImageForName:(NSString *)name
-                                size:(CGSize)size
-                        cornerRadius:(CGFloat)cornerRadius
-                            fontSize:(CGFloat)fontSize
-{
-    return [self placeholderImageForName:name size:size scale:0.0 cornerRadius:cornerRadius fontSize:fontSize];
-}
-
-+ (UIImage *)placeholderImageForName:(NSString *)name pixelSize:(CGFloat)pixelSize
-{
-    return [self placeholderImageForName:name
-                                    size:CGSizeMake(pixelSize, pixelSize)
-                                   scale:1.0
-                            cornerRadius:0.0
-                                fontSize:[self fontSizeForSide:pixelSize]];
 }
 
 @end

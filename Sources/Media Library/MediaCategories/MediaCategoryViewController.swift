@@ -2061,9 +2061,11 @@ extension MediaCategoryViewController {
             }
         }
         let cell = collectionView.cellForItem(at: indexPath)
-        let thumbnail = (cell as? MovieCollectionViewCell)?.thumbnailView.image
-            ?? (cell as? MediaCollectionViewCell)?.thumbnailView.image
-            ?? (cell as? MediaGridCollectionCell)?.thumbnailView.image
+        let thumbnailView = (cell as? MovieCollectionViewCell)?.thumbnailView
+            ?? (cell as? MediaCollectionViewCell)?.thumbnailView
+            ?? (cell as? MediaGridCollectionCell)?.thumbnailView
+        let thumbnail = thumbnailView?.image
+        let placeholderName = thumbnailView?.placeholderName
         let videoMedia: VLCMLMedia?
         if let media = modelContent as? VLCMLMedia, media.type() == .video {
             videoMedia = media
@@ -2078,7 +2080,9 @@ extension MediaCategoryViewController {
             if let videoMedia = videoMedia {
                 return VideoPreviewController(media: videoMedia, thumbnail: thumbnail)
             }
-            guard let thumbnail = thumbnail else {
+            guard let thumbnail = thumbnail ?? placeholderName.map({
+                VLCPlaceholderArtwork.placeholderImage(forName: $0, pixelSize: 1024)
+            }) else {
                 return nil
             }
             return CollectionViewCellPreviewController(thumbnail: thumbnail, with: modelContent)
@@ -2244,11 +2248,11 @@ extension MediaCategoryViewController {
 
     private func setupArtworkHeaderReusableView(headerView: CollectionArtworkHeader, collection: MediaCollectionModel) -> UICollectionReusableView {
         if let album = collection as? VLCMLAlbum {
-            headerView.updateImage(with: album.thumbnail())
+            headerView.updateImage(with: album.thumbnail(), placeholderName: album.placeholderName())
             headerView.updateThumbnailTitle(album.title)
             headerView.collection = album
         } else if let playlist = collection as? VLCMLPlaylist {
-            headerView.updateImage(with: playlist.thumbnailImage())
+            headerView.updateImage(with: playlist.thumbnailImage(), placeholderName: playlist.placeholderName())
             headerView.updateThumbnailTitle(playlist.title())
             headerView.collection = playlist
         }

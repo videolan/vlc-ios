@@ -15,7 +15,7 @@ class CollectionArtworkHeader: UICollectionReusableView {
 
     private weak var parentView: UIView?
 
-    private var imageView = UIImageView()
+    private var imageView = VLCArtworkImageView()
 
     private var titleLabel = UILabel()
 
@@ -60,10 +60,11 @@ class CollectionArtworkHeader: UICollectionReusableView {
     }
 
     private func updateTitleColor() {
-        // Over the dark gradient of the artwork a light color is needed, without
-        // artwork the plain background requires the regular one.
-        let colors = imageView.image != nil ? PresentationTheme.darkTheme.colors
-                                            : PresentationTheme.current.colors
+        // Over the dark gradient of the artwork or the placeholder's color a light
+        // color is needed, without either the plain background requires the
+        // regular one.
+        let hasArtwork = imageView.image != nil || imageView.placeholderName != nil
+        let colors = hasArtwork ? PresentationTheme.darkTheme.colors : PresentationTheme.current.colors
         titleLabel.textColor = colors.cellTextColor
     }
 
@@ -159,8 +160,8 @@ class CollectionArtworkHeader: UICollectionReusableView {
 
     // MARK: - Methods
 
-    func updateImage(with image: UIImage?) {
-        imageView.image = image?.imageWithGradient()
+    func updateImage(with image: UIImage?, placeholderName: String?) {
+        imageView.setImage(image?.imageWithGradient(), placeholderName: placeholderName)
         updateTitleColor()
     }
 

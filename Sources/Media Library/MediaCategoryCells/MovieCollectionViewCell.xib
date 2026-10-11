@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RvZ-lz-hs5" userLabel="Media View">
                         <rect key="frame" x="0.0" y="0.0" width="309" height="289"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jmi-G0-XOo" userLabel="Thumbnail">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jmi-G0-XOo" userLabel="Thumbnail" customClass="VLCArtworkImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="309" height="193"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -98,25 +98,25 @@
                                 <rect key="frame" x="0.0" y="0.0" width="309" height="192.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHG-G0-9Vk" userLabel="First Thumbnail">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHG-G0-9Vk" userLabel="First Thumbnail" customClass="VLCArtworkImageView">
                                 <rect key="frame" x="6" y="4" width="146.5" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="oHG-G0-9Vk" secondAttribute="height" multiplier="73:45" id="Rda-mf-R0B"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cIO-qN-iRz" userLabel="Second Thumbnail">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cIO-qN-iRz" userLabel="Second Thumbnail" customClass="VLCArtworkImageView">
                                 <rect key="frame" x="157" y="4" width="146" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cIO-qN-iRz" secondAttribute="height" multiplier="73:45" id="VET-0z-PEF"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k2A-Rs-9So" userLabel="Third Thumbnail">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k2A-Rs-9So" userLabel="Third Thumbnail" customClass="VLCArtworkImageView">
                                 <rect key="frame" x="6" y="98" width="147" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="k2A-Rs-9So" secondAttribute="height" multiplier="49:30" id="tic-Bx-lne"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rHh-pR-BuA" userLabel="Fourth Thumbnail">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rHh-pR-BuA" userLabel="Fourth Thumbnail" customClass="VLCArtworkImageView">
                                 <rect key="frame" x="157" y="98" width="146" height="90.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rHh-pR-BuA" secondAttribute="height" multiplier="73:45" id="6VX-FI-QkT"/>

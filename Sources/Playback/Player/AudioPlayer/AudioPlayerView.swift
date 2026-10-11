@@ -13,6 +13,7 @@ import UIKit
 
 protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateGetThumbnail(_ audioPlayerView: AudioPlayerView) -> UIImage?
+    func audioPlayerViewDelegateGetPlaceholderName(_ audioPlayerView: AudioPlayerView) -> String?
     func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView)
@@ -45,8 +46,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     lazy var thumbnailView: UIView = UIView()
 
-    lazy var thumbnailImageView: UIImageView = {
-        let thumbnailImageView = UIImageView()
+    lazy var thumbnailImageView: VLCArtworkImageView = {
+        let thumbnailImageView = VLCArtworkImageView()
         thumbnailImageView.contentMode = .scaleAspectFit
         thumbnailImageView.layer.cornerRadius = 14.0
         // The artwork size is driven by layout constraints, never by the
@@ -318,7 +319,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     func updateThumbnailImageView() {
-        thumbnailImageView.image = delegate?.audioPlayerViewDelegateGetThumbnail(self)
+        thumbnailImageView.setImage(delegate?.audioPlayerViewDelegateGetThumbnail(self),
+                                    placeholderName: delegate?.audioPlayerViewDelegateGetPlaceholderName(self))
         thumbnailImageView.clipsToBounds = true
     }
     
@@ -327,14 +329,19 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setupBackgroundColor() {
+        let image = thumbnailImageView.image
+        let placeholderColor = image == nil ? thumbnailImageView.placeholderName.map {
+            VLCPlaceholderArtwork.backgroundColor(forName: $0)
+        } : nil
+
         if #available(iOS 26.0, *) {
-            backgroundImageView.image = thumbnailImageView.image
+            backgroundImageView.image = image
+            backgroundImageView.backgroundColor = placeholderColor
             return
         }
 
-        let image = thumbnailImageView.image
         DispatchQueue.global(qos: .userInitiated).async {
-            let averageColor = image?.averageColor()
+            let averageColor = placeholderColor ?? image?.averageColor()
 
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.25) {

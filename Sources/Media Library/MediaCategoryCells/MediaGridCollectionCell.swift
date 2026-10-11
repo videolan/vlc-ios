@@ -33,8 +33,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         return view
     }()
 
-    let thumbnailView: UIImageView = {
-        let imageView = UIImageView()
+    let thumbnailView: VLCArtworkImageView = {
+        let imageView = VLCArtworkImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = false
@@ -267,7 +267,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         }
         descriptionLabel.text = descriptionText
         newLabel.isHidden = !audioTrack.isNew
-        thumbnailView.image = audioTrack.thumbnailImage()
+        thumbnailView.setImage(audioTrack.thumbnailImage(), placeholderName: audioTrack.placeholderName())
         sizeLabel.text = audioTrack.formatSize()
         sizeLabel.isHidden = true
         separatorLabel.text = "·"
@@ -279,7 +279,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.text = album.albumName()
         accessibilityLabel = album.accessibilityText(editing: false)
         descriptionLabel.text = album.albumArtistName()
-        thumbnailView.image = album.thumbnail()
+        thumbnailView.setImage(album.thumbnail(), placeholderName: album.placeholderName())
     }
 
     private func update(artist: VLCMLArtist) {
@@ -289,7 +289,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let numberOfAlbums = artist.albumsCount()
         descriptionLabel.text = numberOfAlbums == 0 ? artist.numberOfTracksString() :
                                 String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
-        thumbnailView.image = artist.thumbnail()
+        thumbnailView.setImage(artist.thumbnail(), placeholderName: artist.placeholderName())
     }
 
     func update(playlist: VLCMLPlaylist) {
@@ -297,7 +297,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
-        thumbnailView.image = playlist.thumbnail()
+        thumbnailView.setImage(playlist.thumbnail(), placeholderName: playlist.placeholderName())
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
@@ -305,14 +305,14 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.text = mediaGroup.title()
         accessibilityLabel = mediaGroup.accessibilityText()
         descriptionLabel.text = mediaGroup.numberOfTracksString()
-        thumbnailView.image = mediaGroup.thumbnail()
+        thumbnailView.setImage(mediaGroup.thumbnail(), placeholderName: mediaGroup.placeholderName())
     }
 
     func update(genre: VLCMLGenre) {
         newLabel.isHidden = true
         titleLabel.text = genre.name
         accessibilityLabel = genre.accessibilityText()
-        thumbnailView.image = genre.thumbnail()
+        thumbnailView.setImage(genre.thumbnail(), placeholderName: genre.placeholderName())
         descriptionLabel.text = genre.numberOfTracksString()
     }
 
@@ -405,7 +405,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
         thumbnailView.contentMode = .scaleAspectFit
-        thumbnailView.image = nil
+        thumbnailView.setImage(nil, placeholderName: nil)
         descriptionLabel.isHidden = false
         newLabel.isHidden = true
         checkboxImageView.isHidden = true

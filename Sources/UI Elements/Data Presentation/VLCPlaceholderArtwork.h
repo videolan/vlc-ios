@@ -21,10 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)foregroundColorForName:(nullable NSString *)name;
 + (CGFloat)fontSizeForSide:(CGFloat)side;
 
-+ (UIImage *)placeholderImageForName:(nullable NSString *)name
-                                size:(CGSize)size
-                        cornerRadius:(CGFloat)cornerRadius
-                            fontSize:(CGFloat)fontSize;
 + (UIImage *)placeholderImageForName:(nullable NSString *)name pixelSize:(CGFloat)pixelSize;
 
 @end

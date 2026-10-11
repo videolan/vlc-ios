@@ -181,7 +181,7 @@ extension AddToPlaylistViewController: UICollectionViewDataSource {
         playlistModel.fileArrayLock.unlock()
         cell.titleLabel.text = playlist.title()
         cell.descriptionLabel.text = playlist.numberOfTracksString() + " · " + playlist.durationString()
-        cell.thumbnailView.image = playlist.thumbnailImage()
+        cell.thumbnailView.setImage(playlist.thumbnailImage(), placeholderName: playlist.placeholderName())
         return cell
     }
 }

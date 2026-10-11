@@ -45,7 +45,7 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
     CGFloat thumbnailHeight = kCellWidth * kThumbnailAspectRatio;
 
     // Thumbnail
-    _thumbnailView = [[UIImageView alloc] init];
+    _thumbnailView = [[VLCArtworkImageView alloc] init];
     _thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     _thumbnailView.clipsToBounds = YES;
     _thumbnailView.layer.cornerRadius = 6.0;
@@ -187,7 +187,7 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    _thumbnailView.image = nil;
+    [_thumbnailView setImage:nil placeholderName:nil];
     _titleLabel.text = nil;
     _descriptionLabel.text = nil;
     _progressView.hidden = YES;
@@ -205,7 +205,7 @@ static const CGFloat kThumbnailAspectRatio = 9.0 / 16.0;
 {
     _titleLabel.text = media.title;
     _descriptionLabel.text = [media mediaDuration];
-    _thumbnailView.image = [media thumbnailImage];
+    [_thumbnailView setImage:[media thumbnailImage] placeholderName:[media placeholderName]];
 
     BOOL continuePlayback = [[NSUserDefaults standardUserDefaults] boolForKey:KVLCContinuePlaybackWhereLeftOff];
     if (continuePlayback && media.progress > 0) {

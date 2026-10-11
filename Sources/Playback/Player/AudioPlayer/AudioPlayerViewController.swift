@@ -363,12 +363,11 @@ class AudioPlayerViewController: PlayerViewController {
 
 extension AudioPlayerViewController: AudioPlayerViewDelegate {
     func audioPlayerViewDelegateGetThumbnail(_ audioPlayerView: AudioPlayerView) -> UIImage? {
-        guard let image = playbackService.metadata.artworkImage else {
-            return PresentationTheme.current.isDark ? UIImage(named: "song-placeholder-dark")
-                                                    : UIImage(named: "song-placeholder-white")
-        }
+        return playbackService.metadata.artworkImage
+    }
 
-        return image
+    func audioPlayerViewDelegateGetPlaceholderName(_ audioPlayerView: AudioPlayerView) -> String? {
+        return playbackService.metadata.placeholderName
     }
 
     func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView) {
@@ -484,7 +483,8 @@ extension AudioPlayerViewController {
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
         mediaScrubProgressBar.updateLiveStreamState()
 
-        if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
+        if metadata.artworkImage != audioPlayerView.thumbnailImageView.image
+            || metadata.placeholderName != audioPlayerView.thumbnailImageView.placeholderName {
             audioPlayerView.updateThumbnailImageView()
             audioPlayerView.setupBackgroundColor()
         }
@@ -621,7 +621,7 @@ extension AudioPlayerViewController {
 // MARK: - ZoomTransitionEndpoint
 
 extension AudioPlayerViewController: ZoomTransitionEndpoint {
-    var zoomTransitionArtworkView: UIImageView? {
+    var zoomTransitionArtworkView: VLCArtworkImageView? {
         return audioPlayerView.thumbnailImageView
     }
 }

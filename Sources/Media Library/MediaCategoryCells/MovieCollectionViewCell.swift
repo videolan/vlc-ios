@@ -17,7 +17,7 @@ import UIKit
 class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var checkboxImageView: UIImageView!
 
-    @IBOutlet weak var thumbnailView: UIImageView!
+    @IBOutlet weak var thumbnailView: VLCArtworkImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -30,17 +30,17 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var groupView: UIView!
     @IBOutlet weak var thumbnailsBackground: UIView!
-    @IBOutlet weak var firstThumbnail: UIImageView!
-    @IBOutlet weak var secondThumbnail: UIImageView!
-    @IBOutlet weak var thirdThumbnail: UIImageView!
-    @IBOutlet weak var fourthThumbnail: UIImageView!
+    @IBOutlet weak var firstThumbnail: VLCArtworkImageView!
+    @IBOutlet weak var secondThumbnail: VLCArtworkImageView!
+    @IBOutlet weak var thirdThumbnail: VLCArtworkImageView!
+    @IBOutlet weak var fourthThumbnail: VLCArtworkImageView!
     @IBOutlet weak var groupTitleLabel: UILabel!
     @IBOutlet weak var additionalMediaOverlay: UIView!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var groupLastPlayedLabel: UILabel!
 
-    private var thumbnailsArray: [UIImageView] = []
+    private var thumbnailsArray: [VLCArtworkImageView] = []
     private let itemCornerRadius: CGFloat = 4.5
     private let groupCornerRadius: CGFloat = 3.0
     var lastPlayed: Bool = false
@@ -165,7 +165,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     private func setThumbnails(medias: [VLCMLMedia]?) {
         for index in 0...3 {
             if let media = medias?.objectAtIndex(index: index) {
-                thumbnailsArray[index].image = media.thumbnailImage()
+                thumbnailsArray[index].setImage(media.thumbnailImage(), placeholderName: media.placeholderName())
             }
         }
 
@@ -180,7 +180,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
         descriptionLabel.text = movie.mediaDuration()
-        thumbnailView.image = movie.thumbnailImage()
+        thumbnailView.setImage(movie.thumbnailImage(), placeholderName: movie.placeholderName())
         let progress = movie.progress
         guard let value = UserDefaults.standard.value(forKey: kVLCSettingContinuePlayback) as? Int else {
             return
@@ -323,7 +323,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = ""
         accessibilityValue = nil
         descriptionLabel.text = ""
-        thumbnailView.image = nil
+        thumbnailView.setImage(nil, placeholderName: nil)
         progressView.isHidden = true
         newLabel.isHidden = true
         checkboxImageView.isHidden = true
@@ -333,10 +333,10 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         resolutionClassLabel.isHidden = true
         mediaView.isHidden = false
 
-        firstThumbnail.image = nil
-        secondThumbnail.image = nil
-        thirdThumbnail.image = nil
-        fourthThumbnail.image = nil
+        firstThumbnail.setImage(nil, placeholderName: nil)
+        secondThumbnail.setImage(nil, placeholderName: nil)
+        thirdThumbnail.setImage(nil, placeholderName: nil)
+        fourthThumbnail.setImage(nil, placeholderName: nil)
         additionalMediaOverlay.isHidden = true
         groupTitleLabel.text = ""
         numberLabel.text = ""

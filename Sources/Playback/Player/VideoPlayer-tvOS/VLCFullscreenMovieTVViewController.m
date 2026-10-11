@@ -242,10 +242,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     if (self.playbackUIShouldHide) {
         [self.coneLoadingView stopAnimating];
         self.bufferingLabel.hidden = YES;
-        self.audioArtworkImageView.image = nil;
-        self.audioLargeBackgroundImageView.image = nil;
+        [self.audioArtworkImageView setImage:nil placeholderName:nil];
+        [self.audioLargeBackgroundImageView setImage:nil placeholderName:nil];
     } else {
-        [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"]];
+        [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"] placeholderName:nil];
     }
 
     [vpc recoverPlaybackState];
@@ -909,14 +909,14 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     self.disabledIdleTimer = NO;
 }
 
-- (void)updateThumbnailImageViewsWith:(UIImage *)artworkImage
+- (void)updateThumbnailImageViewsWith:(UIImage *)artworkImage placeholderName:(NSString *)placeholderName
 {
-    if (artworkImage == nil && !self.playbackUIShouldHide) {
+    if (artworkImage == nil && placeholderName == nil && !self.playbackUIShouldHide) {
         artworkImage = [UIImage imageNamed:@"about-app-icon"];
     }
 
-    self.audioArtworkImageView.image = artworkImage;
-    self.audioLargeBackgroundImageView.image = artworkImage;
+    [self.audioArtworkImageView setImage:artworkImage placeholderName:placeholderName];
+    [self.audioLargeBackgroundImageView setImage:artworkImage placeholderName:placeholderName];
 }
 
 #pragma mark - PlaybackControls
@@ -1149,11 +1149,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }
 
             UIImage *artworkImage = metadata.artworkImage;
+            NSString *placeholderName = metadata.placeholderName;
+            NSString *shownPlaceholderName = self.audioArtworkImageView.placeholderName;
+            BOOL isShowingArtwork = artworkImage ? self.audioArtworkImageView.image == artworkImage
+                                                 : (shownPlaceholderName == placeholderName || [shownPlaceholderName isEqualToString:placeholderName]);
 
-            if ((![self.lastArtist isEqualToString:artist]) ||
-                (artworkImage != nil && self.audioArtworkImageView.image != artworkImage)) {
+            if ((![self.lastArtist isEqualToString:artist]) || !isShowingArtwork) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self updateThumbnailImageViewsWith:artworkImage];
+                    [self updateThumbnailImageViewsWith:artworkImage placeholderName:placeholderName];
                 });
             }
 
@@ -1166,7 +1169,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }];
         } else if (!self.audioView.hidden) {
             self.audioView.hidden = YES;
-            self.audioArtworkImageView.image = nil;
+            [self.audioArtworkImageView setImage:nil placeholderName:nil];
             [self.audioLargeBackgroundImageView stopAnimating];
         }
     });

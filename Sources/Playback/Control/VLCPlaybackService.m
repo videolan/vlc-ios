@@ -26,6 +26,7 @@
 #import <Photos/Photos.h>
 #endif
 #import "VLCMetadata.h"
+#import "VLCPlaceholderArtwork.h"
 
 #if !TARGET_OS_WATCH
 #import "VLCPlayerDisplayController.h"
@@ -2601,11 +2602,13 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 
     VLCMLMedia *mlMedia = [VLCMLMedia mediaForPlayingMedia:currentMedia];
     VLCMLArtist *artist = mlMedia.artist;
-    UIImage *thumbnailImage = mlMedia.thumbnailImage;
 
-    if (!mlMedia || !artist || !thumbnailImage) {
+    if (!mlMedia || !artist) {
         return;
     }
+
+    UIImage *thumbnailImage = mlMedia.thumbnailImage ?: [VLCPlaceholderArtwork placeholderImageForName:mlMedia.placeholderName
+                                                                                             pixelSize:512.];
 
     NSString *albumName = mlMedia.title;
     NSString *artistName = artist.name ?: @"";

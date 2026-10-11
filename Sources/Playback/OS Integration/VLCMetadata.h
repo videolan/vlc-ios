@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, copy, nullable) NSString *title;
 @property(readwrite, copy, nullable) NSString *descriptiveTitle;
 @property(readwrite, nullable) UIImage *artworkImage;
+@property(readonly, copy, nullable) NSString *placeholderName;
 @property(readwrite, copy, nullable) NSString *artist;
 @property(readwrite, copy, nullable) NSString *albumName;
 @property(readwrite, assign) BOOL isAudioOnly;

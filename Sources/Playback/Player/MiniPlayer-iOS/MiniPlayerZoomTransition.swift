@@ -13,7 +13,7 @@ import UIKit
 
 @objc(VLCZoomTransitionEndpoint)
 protocol ZoomTransitionEndpoint: NSObjectProtocol {
-    var zoomTransitionArtworkView: UIImageView? { get }
+    var zoomTransitionArtworkView: VLCArtworkImageView? { get }
 }
 
 @objc(VLCZoomTransitionDataSource)
@@ -21,9 +21,19 @@ protocol ZoomTransitionDataSource: NSObjectProtocol {
     func miniPlayerZoomTransitionEndpoint() -> ZoomTransitionEndpoint?
 }
 
-private func artworkView(of viewController: UIViewController) -> UIImageView? {
+private func artworkView(of viewController: UIViewController) -> VLCArtworkImageView? {
     let endpoint = (viewController as? UINavigationController)?.topViewController ?? viewController
     return (endpoint as? ZoomTransitionEndpoint)?.zoomTransitionArtworkView
+}
+
+private extension VLCArtworkImageView {
+    var hasArtwork: Bool {
+        return image != nil || placeholderName != nil
+    }
+
+    var transitionArtwork: UIImage? {
+        return image ?? placeholderName.map { VLCPlaceholderArtwork.placeholderImage(forName: $0, pixelSize: 1024) }
+    }
 }
 
 class MiniPlayerZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
@@ -62,7 +72,7 @@ class MiniPlayerZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         toView.layoutIfNeeded()
 
         guard let miniArtworkView = miniPlayerEndpoint?.zoomTransitionArtworkView,
-              let artwork = miniArtworkView.image,
+              let artwork = miniArtworkView.transitionArtwork,
               let playerArtworkView = artworkView(of: toViewController),
               miniArtworkView.window != nil else {
             fade(toView, from: 0.0, to: 1.0, using: transitionContext)
@@ -96,7 +106,7 @@ class MiniPlayerZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
 
         guard let playerArtworkView = artworkView(of: fromViewController),
-              let artwork = playerArtworkView.image,
+              let artwork = playerArtworkView.transitionArtwork,
               let miniArtworkView = miniPlayerEndpoint?.zoomTransitionArtworkView,
               miniArtworkView.window != nil else {
             fade(fromView, from: 1.0, to: 0.0, using: transitionContext)
@@ -180,7 +190,7 @@ class MiniPlayerZoomTransitioningDelegate: NSObject, UIViewControllerTransitioni
                              presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let miniPlayerEndpoint = dataSource?.miniPlayerZoomTransitionEndpoint(),
-              miniPlayerEndpoint.zoomTransitionArtworkView?.image != nil else {
+              miniPlayerEndpoint.zoomTransitionArtworkView?.hasArtwork == true else {
             return nil
         }
 
@@ -189,8 +199,8 @@ class MiniPlayerZoomTransitioningDelegate: NSObject, UIViewControllerTransitioni
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let miniPlayerEndpoint = dataSource?.miniPlayerZoomTransitionEndpoint(),
-              miniPlayerEndpoint.zoomTransitionArtworkView?.image != nil,
-              artworkView(of: dismissed)?.image != nil else {
+              miniPlayerEndpoint.zoomTransitionArtworkView?.hasArtwork == true,
+              artworkView(of: dismissed)?.hasArtwork == true else {
             return nil
         }
 

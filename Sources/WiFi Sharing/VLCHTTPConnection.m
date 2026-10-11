@@ -28,6 +28,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCTransferController.h"
 #import "VLCMetaData.h"
+#import "VLCPlaceholderArtwork.h"
 #import <CocoaHTTPServer/GCDAsyncSocket.h>
 #import "VLC-Swift.h"
 #import "VLCPlayerControlWebSocket.h"
@@ -408,8 +409,8 @@ static NSMutableDictionary *authentifiedHosts;
     VLCMLMedia *media = [medialibrary mediaFor:mediaId];
     if (!media) return [[HTTPErrorResponse alloc] initWithErrorCode:404];
 
-    UIImage *thumbnail = [media thumbnailImage];
-    if (!thumbnail) return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    UIImage *thumbnail = [media thumbnailImage] ?: [VLCPlaceholderArtwork placeholderImageForName:[media placeholderName]
+                                                                                       pixelSize:512.];
 
     NSData *theData = UIImageJPEGRepresentation(thumbnail, .9);
     if (!theData) return [[HTTPErrorResponse alloc] initWithErrorCode:404];

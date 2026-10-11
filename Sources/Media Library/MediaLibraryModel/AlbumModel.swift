@@ -162,6 +162,10 @@ extension VLCMLAlbum: MediaCollectionModel {
     func title() -> String {
         return albumArtistName()
     }
+
+    func placeholderName() -> String {
+        return albumName()
+    }
 }
 
 extension VLCMLAlbum {

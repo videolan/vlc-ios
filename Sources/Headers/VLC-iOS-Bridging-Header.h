@@ -39,6 +39,7 @@
 #import "UIApplication+VLCTopViewController.h"
 #import "VLCFavoriteService.h"
 #import "VLCPlaceholderArtwork.h"
+#import "VLCArtworkImageView.h"
 #import "VLCPhotoLibraryController.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNavigationController.h"
@@ -62,7 +63,6 @@
 #import "VLCPodcastDirectoryLanguageViewController.h"
 #import "VLCOnAirViewController.h"
 #import "VLCOnAirRailCell.h"
-#import "VLCPlaceholderArtwork.h"
 #import "VLCMediaList+M3U.h"
 
 #if TARGET_OS_IOS

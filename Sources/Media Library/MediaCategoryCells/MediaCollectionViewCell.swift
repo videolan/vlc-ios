@@ -34,7 +34,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     // MARK: - Properties
 
-    @IBOutlet weak var thumbnailView: UIImageView!
+    @IBOutlet weak var thumbnailView: VLCArtworkImageView!
     @IBOutlet weak var animationImageView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var sizeDescriptionLabel: VLCMarqueeLabel!
@@ -303,7 +303,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             descriptionText += " · " + albumTitle
         }
 
-        thumbnailView.image = audiotrack.thumbnailImage()
+        thumbnailView.setImage(audiotrack.thumbnailImage(), placeholderName: audiotrack.placeholderName())
         thumbnailView.isHidden = false
         animationImageView.isHidden = true
         animationImageView.stopAnimating()
@@ -392,7 +392,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = album.albumName()
         accessibilityLabel = album.accessibilityText(editing: false)
         sizeDescriptionLabel.text = album.albumArtistName()
-        thumbnailView.image = album.thumbnail()
+        thumbnailView.setImage(album.thumbnail(), placeholderName: album.placeholderName())
         scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
     }
@@ -406,7 +406,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let numberOfAlbums = artist.albumsCount()
         sizeDescriptionLabel.text = numberOfAlbums == 0 ? artist.numberOfTracksString() :
         String(format: "%@ · %@", artist.numberOfAlbumsString(), artist.numberOfTracksString())
-        thumbnailView.image = artist.thumbnail()
+        thumbnailView.setImage(artist.thumbnail(), placeholderName: artist.placeholderName())
         scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
     }
@@ -415,7 +415,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
         thumbnailView.layer.cornerRadius = 3
-        thumbnailView.image = movie.thumbnailImage()
+        thumbnailView.setImage(movie.thumbnailImage(), placeholderName: movie.placeholderName())
         newLabel.isHidden = !movie.isNew
 
         if movie.isNew {
@@ -488,7 +488,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
 
         thumbnailView.layer.cornerRadius = 3
-        thumbnailView.image = playlist.thumbnail()
+        thumbnailView.setImage(playlist.thumbnail(), placeholderName: playlist.placeholderName())
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
         scrollView.isScrollEnabled = true
@@ -511,7 +511,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = mediaGroup.accessibilityText()
 
         thumbnailView.layer.cornerRadius = 3
-        thumbnailView.image = mediaGroup.thumbnail()
+        thumbnailView.setImage(mediaGroup.thumbnail(), placeholderName: mediaGroup.placeholderName())
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
 
@@ -526,7 +526,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = genre.name
         accessibilityLabel = genre.accessibilityText()
 
-        thumbnailView.image = genre.thumbnail()
+        thumbnailView.setImage(genre.thumbnail(), placeholderName: genre.placeholderName())
         sizeDescriptionLabel.text = genre.numberOfTracksString()
         scrollView.isScrollEnabled = false
         updateSizeDescriptionLabelConstraint()
@@ -557,7 +557,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = ""
         sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.contentMode = .scaleAspectFill
-        thumbnailView.image = nil
+        thumbnailView.setImage(nil, placeholderName: nil)
         thumbnailView.isHidden = false
         animationImageView.stopAnimating()
         animationImageView.animationImages = nil

@@ -169,6 +169,7 @@ protocol MediaCollectionModel {
     func sortModel() -> SortModel?
     func title() -> String
     func numberOfTracksString() -> String
+    func placeholderName() -> String
 }
 
 // MARK: - Helper methods
@@ -219,6 +220,10 @@ extension MediaCollectionModel {
         return files(with: criteria, desc: desc)
     }
 
+    func placeholderName() -> String {
+        return title()
+    }
+
     func thumbnail() -> UIImage? {
         var image: UIImage? = nil
         if image == nil {
@@ -227,21 +232,9 @@ extension MediaCollectionModel {
                 break
             }
         }
-        if image == nil
-            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLMediaGroup)
+        if (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLMediaGroup)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && !(self is VLCMLMediaGroup)) {
-            #if os(tvOS) || os(watchOS)
-            let isDarktheme = true
-            #else
-            let isDarktheme = PresentationTheme.current.isDark
-            #endif
-            if self is VLCMLMediaGroup {
-                image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
-            } else if self is VLCMLArtist {
-                image = isDarktheme ? UIImage(named: "artist-placeholder-dark") : UIImage(named: "artist-placeholder-white")
-            } else {
-                image = isDarktheme ? UIImage(named: "album-placeholder-dark") : UIImage(named: "album-placeholder-white")
-            }
+            return nil
         }
         return image
     }

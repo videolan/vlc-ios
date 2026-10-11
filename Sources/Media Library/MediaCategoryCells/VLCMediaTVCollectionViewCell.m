@@ -44,7 +44,7 @@ static const CGFloat kCellWidth = 250.0;
 
 - (void)setupViews
 {
-    _thumbnailView = [[UIImageView alloc] init];
+    _thumbnailView = [[VLCArtworkImageView alloc] init];
     _thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     _thumbnailView.clipsToBounds = YES;
     _thumbnailView.layer.cornerRadius = kThumbnailSize / 2.0;
@@ -143,7 +143,7 @@ static const CGFloat kCellWidth = 250.0;
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    _thumbnailView.image = nil;
+    [_thumbnailView setImage:nil placeholderName:nil];
     _titleLabel.text = nil;
     _descriptionLabel.text = nil;
     _mediaIsNewIndicator.hidden = YES;
@@ -156,7 +156,7 @@ static const CGFloat kCellWidth = 250.0;
 - (void)configureWithMedia:(VLCMLMedia *)media
 {
     _titleLabel.text = media.title;
-    _thumbnailView.image = [media thumbnailImage];
+    [_thumbnailView setImage:[media thumbnailImage] placeholderName:[media placeholderName]];
     _mediaIsNewIndicator.hidden = !media.isNew;
 
     NSString *artistName = media.artist.name ?: NSLocalizedString(@"UNKNOWN_ARTIST", nil);

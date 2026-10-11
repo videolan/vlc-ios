@@ -171,8 +171,8 @@ class VideoPlayerViewController: PlayerViewController {
         return backgroundGradientView
     }()
 
-    private var artworkImageView: UIImageView = {
-        let artworkImageView = UIImageView(frame: .zero)
+    private var artworkImageView: VLCArtworkImageView = {
+        let artworkImageView = VLCArtworkImageView(frame: .zero)
         artworkImageView.translatesAutoresizingMaskIntoConstraints = false
         return artworkImageView
     }()
@@ -307,7 +307,7 @@ class VideoPlayerViewController: PlayerViewController {
         // Make sure interface is enabled on
         setPlayerInterfaceEnabled(true)
 
-        artworkImageView.image = nil
+        artworkImageView.setImage(nil, placeholderName: nil)
         // FIXME: Test userdefault
 #if os(iOS)
         let rendererDiscoverer = rendererDiscovererManager
@@ -1316,8 +1316,7 @@ extension VideoPlayerViewController {
         if metadata.isAudioOnly || playbackService.playAsAudio {
             // Only update the artwork image when the media is being played
             if playbackService.isPlaying {
-                let artworkImage = metadata.artworkImage
-                artworkImageView.image = artworkImage
+                artworkImageView.setImage(metadata.artworkImage, placeholderName: metadata.placeholderName)
             }
 
             // Only show the artwork when not casting to a device.

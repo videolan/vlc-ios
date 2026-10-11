@@ -16,7 +16,7 @@ class PlaylistTableViewCell: UITableViewCell {
 
     @IBOutlet weak var playlistTitle: UILabel!
     @IBOutlet weak var playlistDuration: UILabel!
-    @IBOutlet weak var playlistThumbnail: UIImageView!
+    @IBOutlet weak var playlistThumbnail: VLCArtworkImageView!
     @IBOutlet weak var playlistTracks: UILabel!
 
     override func awakeFromNib() {
@@ -35,7 +35,7 @@ class PlaylistTableViewCell: UITableViewCell {
                 playlistDuration.text = duration
                 playlistTitle.text = playlist.title()
                 playlistTitle.textColor = .systemOrange
-                playlistThumbnail.image = playlist.thumbnailImage()
+                playlistThumbnail.setImage(playlist.thumbnailImage(), placeholderName: playlist.placeholderName())
                 playlistTracks.text = playlist.numberOfTracksString()
             }
         }
@@ -44,7 +44,7 @@ class PlaylistTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         playlistTitle.text = ""
         playlistDuration.text = ""
-        playlistThumbnail.image = nil
+        playlistThumbnail.setImage(nil, placeholderName: nil)
     }
 
     func formattedDuration(from seconds: Int64) -> String {
