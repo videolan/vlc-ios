@@ -12,6 +12,8 @@
 
 #import "VLCPlaceholderArtwork.h"
 
+static CGFloat const kVLCPlaceholderArtworkFontSizeRatio = 0.28;
+
 @implementation VLCPlaceholderArtwork
 
 + (NSString *)leadingCharacters:(NSUInteger)count ofString:(NSString *)string
@@ -76,34 +78,77 @@
     return [UIColor whiteColor];
 }
 
-+ (UIImage *)placeholderImageForName:(NSString *)name
-                                size:(CGSize)size
-                        cornerRadius:(CGFloat)cornerRadius
-                            fontSize:(CGFloat)fontSize
++ (CGFloat)fontSizeForSide:(CGFloat)side
+{
+    return side * kVLCPlaceholderArtworkFontSizeRatio;
+}
+
++ (void)drawPlaceholderForName:(NSString *)name
+                        inRect:(CGRect)bounds
+                  cornerRadius:(CGFloat)cornerRadius
+                      fontSize:(CGFloat)fontSize
 {
     UIColor *backgroundColor = [self backgroundColorForName:name];
     UIColor *foregroundColor = [self foregroundColorForName:name];
     NSString *initials = [self initialsForName:name];
 
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
+    [backgroundColor setFill];
+    [path fill];
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    NSDictionary *attributes = @{
+        NSFontAttributeName: [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy],
+        NSForegroundColorAttributeName: foregroundColor,
+        NSParagraphStyleAttributeName: paragraphStyle
+    };
+
+    CGSize textSize = [initials sizeWithAttributes:attributes];
+    CGRect textRect = CGRectMake(0, (bounds.size.height - textSize.height) / 2.0, bounds.size.width, textSize.height);
+    [initials drawInRect:textRect withAttributes:attributes];
+}
+
++ (UIImage *)placeholderImageForName:(NSString *)name
+                                size:(CGSize)size
+                               scale:(CGFloat)scale
+                        cornerRadius:(CGFloat)cornerRadius
+                            fontSize:(CGFloat)fontSize
+{
+    CGRect bounds = CGRectMake(0, 0, size.width, size.height);
+#if TARGET_OS_WATCH
+    UIGraphicsBeginImageContextWithOptions(size, NO, scale);
+    [self drawPlaceholderForName:name inRect:bounds cornerRadius:cornerRadius fontSize:fontSize];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+#else
+    UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat preferredFormat];
+    if (scale > 0.0)
+        format.scale = scale;
+
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:size format:format];
     return [renderer imageWithActions:^(UIGraphicsImageRendererContext *context) {
-        CGRect bounds = CGRectMake(0, 0, size.width, size.height);
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
-        [backgroundColor setFill];
-        [path fill];
-
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        NSDictionary *attributes = @{
-            NSFontAttributeName: [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy],
-            NSForegroundColorAttributeName: foregroundColor,
-            NSParagraphStyleAttributeName: paragraphStyle
-        };
-
-        CGSize textSize = [initials sizeWithAttributes:attributes];
-        CGRect textRect = CGRectMake(0, (size.height - textSize.height) / 2.0, size.width, textSize.height);
-        [initials drawInRect:textRect withAttributes:attributes];
+        [self drawPlaceholderForName:name inRect:bounds cornerRadius:cornerRadius fontSize:fontSize];
     }];
+#endif
+}
+
++ (UIImage *)placeholderImageForName:(NSString *)name
+                                size:(CGSize)size
+                        cornerRadius:(CGFloat)cornerRadius
+                            fontSize:(CGFloat)fontSize
+{
+    return [self placeholderImageForName:name size:size scale:0.0 cornerRadius:cornerRadius fontSize:fontSize];
+}
+
++ (UIImage *)placeholderImageForName:(NSString *)name pixelSize:(CGFloat)pixelSize
+{
+    return [self placeholderImageForName:name
+                                    size:CGSizeMake(pixelSize, pixelSize)
+                                   scale:1.0
+                            cornerRadius:0.0
+                                fontSize:[self fontSizeForSide:pixelSize]];
 }
 
 @end

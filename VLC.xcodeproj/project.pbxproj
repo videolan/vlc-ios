@@ -807,6 +807,8 @@
 		7D72A2BE307B95AC0047222A /* VLCCarPlayOnAirController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72A2BC307B95AC0047222A /* VLCCarPlayOnAirController.m */; };
 		7D72A2C0307B97790047222A /* CarPlayPodcastsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72A2BF307B97780047222A /* CarPlayPodcastsController.swift */; };
 		7D72A2C1307B97790047222A /* CarPlayPodcastsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72A2BF307B97780047222A /* CarPlayPodcastsController.swift */; };
+		7D72A2CD307BA56A0047222A /* VLCPlaceholderArtwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F52300FA18B0014A118 /* VLCPlaceholderArtwork.m */; };
+		7D72A2CE307BA56A0047222A /* VLCPlaceholderArtwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E8F52300FA18B0014A118 /* VLCPlaceholderArtwork.m */; };
 		7D745DC82B88CE32004B4DCD /* VLCDonationSEPAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */; };
 		7D745DC92B88CE32004B4DCD /* VLCDonationSEPAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */; };
 		7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DCB2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m */; };
@@ -6086,6 +6088,7 @@
 				7DC7BA9528C8954B00109F28 /* NSString+SupportedMedia.m in Sources */,
 				7D3B2EB62F6D6C6A0067C419 /* VLCMovieTVCollectionViewCell.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
+				7D72A2CD307BA56A0047222A /* VLCPlaceholderArtwork.m in Sources */,
 				7DA5CE0E2EF9000000000003 /* VLCAppleTVSceneDelegate.m in Sources */,
 				7D0C20AC28C8AA6400CCFFEF /* VLCNetworkImageView.m in Sources */,
 				7DC869B928CB795400EE99F8 /* VLCMediaFileDiscoverer.m in Sources */,
@@ -7273,6 +7276,7 @@
 				32F9AD7A2FD0FF19003736C1 /* ArtistsViewModel.swift in Sources */,
 				3217BE742FCFD59D006D75BC /* ArtistModel.swift in Sources */,
 				BEB724F42E56143E002A9729 /* CustomSwiftUIDialogBridge.swift in Sources */,
+				7D72A2CE307BA56A0047222A /* VLCPlaceholderArtwork.m in Sources */,
 				3280F8CD3001AFBB00C7162C /* AlbumDetailViewModel.swift in Sources */,
 				3280F8C93001991100C7162C /* ArtistDetailViewModel.swift in Sources */,
 				7D9EFBDE2FED30A200908225 /* RadioPlayingAnimationElementView.swift in Sources */,
