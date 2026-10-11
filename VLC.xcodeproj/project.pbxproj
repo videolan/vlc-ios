@@ -803,6 +803,8 @@
 		7D715D572B852B01005873FE /* VLCInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D715D562B852B01005873FE /* VLCInvoice.m */; };
 		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
+		7D72A2BD307B95AC0047222A /* VLCCarPlayOnAirController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72A2BC307B95AC0047222A /* VLCCarPlayOnAirController.m */; };
+		7D72A2BE307B95AC0047222A /* VLCCarPlayOnAirController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D72A2BC307B95AC0047222A /* VLCCarPlayOnAirController.m */; };
 		7D745DC82B88CE32004B4DCD /* VLCDonationSEPAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */; };
 		7D745DC92B88CE32004B4DCD /* VLCDonationSEPAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */; };
 		7D745DCD2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D745DCB2B88CE9F004B4DCD /* VLCSEPANotificationViewController.m */; };
@@ -2252,6 +2254,8 @@
 		7D715D552B852B01005873FE /* VLCInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCInvoice.h; sourceTree = "<group>"; };
 		7D715D562B852B01005873FE /* VLCInvoice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCInvoice.m; sourceTree = "<group>"; };
 		7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCStreamingHistoryCell.xib; sourceTree = "<group>"; };
+		7D72A2BB307B95AC0047222A /* VLCCarPlayOnAirController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayOnAirController.h; sourceTree = "<group>"; };
+		7D72A2BC307B95AC0047222A /* VLCCarPlayOnAirController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayOnAirController.m; sourceTree = "<group>"; };
 		7D745DC52B88CE32004B4DCD /* VLCDonationSEPAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDonationSEPAViewController.h; sourceTree = "<group>"; };
 		7D745DC62B88CE32004B4DCD /* VLCDonationSEPAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDonationSEPAViewController.m; sourceTree = "<group>"; };
 		7D745DC72B88CE32004B4DCD /* VLCDonationSEPAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCDonationSEPAViewController.xib; sourceTree = "<group>"; };
@@ -4740,6 +4744,8 @@
 				7DD3235D3001432B00C9A583 /* VLCCarPlayAlbumsController.m */,
 				7DD32360300143D300C9A583 /* VLCCarPlayLibraryController.h */,
 				7DD32361300143D300C9A583 /* VLCCarPlayLibraryController.m */,
+				7D72A2BB307B95AC0047222A /* VLCCarPlayOnAirController.h */,
+				7D72A2BC307B95AC0047222A /* VLCCarPlayOnAirController.m */,
 				7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */,
 			);
 			path = CarPlay;
@@ -6534,6 +6540,7 @@
 				412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */,
 				44C8BBB024AF36F4003F8940 /* SettingsSpecifier.swift in Sources */,
 				7DB74897304743180073F784 /* PodcastMenuAction.swift in Sources */,
+				7D72A2BE307B95AC0047222A /* VLCCarPlayOnAirController.m in Sources */,
 				7DE6C1842913EF0200379A78 /* CarPlayMediaLibraryObserver.swift in Sources */,
 				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				7D4BE509301A3ED900277F3E /* VLCBrowseSharingCell.m in Sources */,
@@ -6951,6 +6958,7 @@
 				7DA514972EF82B63000C9995 /* SettingsCell.swift in Sources */,
 				7DA514982EF82B63000C9995 /* VLCThumbnailsCache.m in Sources */,
 				7DA514992EF82B63000C9995 /* AddToCollectionViewController.swift in Sources */,
+				7D72A2BD307B95AC0047222A /* VLCCarPlayOnAirController.m in Sources */,
 				7DF60F85300501AE003A40B8 /* VLCServiceBrowserRadio.m in Sources */,
 				7DA5149B2EF82B63000C9995 /* VLCMarqueeLabel.swift in Sources */,
 				7DA5149C2EF82B63000C9995 /* VLCDonationCreditCardViewController.m in Sources */,

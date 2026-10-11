@@ -21,11 +21,8 @@
 
 + (CPListTemplate *)streamList
 {
-    CPListTemplate *template = [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"STREAMS", nil)
-                                                            sections:[self streamSections]];
-    template.tabTitle = NSLocalizedString(@"STREAMS", nil);
-    template.tabImage = [UIImage systemImageNamed:@"antenna.radiowaves.left.and.right"];
-    return template;
+    return [[CPListTemplate alloc] initWithTitle:NSLocalizedString(@"RADIO", nil)
+                                        sections:[self streamSections]];
 }
 
 + (NSArray<CPListSection *> *)streamSections
@@ -38,7 +35,7 @@
                                              withLimit:remainingItemCount];
     if (radioStations.count > 0) {
         [sections addObject:[[CPListSection alloc] initWithItems:radioStations
-                                                          header:NSLocalizedString(@"RADIO", nil)
+                                                          header:NSLocalizedString(@"FAVORITES", nil)
                                                sectionIndexTitle:nil]];
         remainingItemCount -= radioStations.count;
     }
