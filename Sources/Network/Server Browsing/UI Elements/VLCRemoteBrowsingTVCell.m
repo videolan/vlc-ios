@@ -84,11 +84,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [self.thumbnailImageView setImage:thumbnailImage];
 }
 
--(void)setCachedThumbnail:(VLCMLMedia *)forMedia
-{
-    [self.thumbnailImageView requestCachedThumbnail:forMedia];
-}
-
 -(UIImage *)thumbnailImage
 {
     return self.thumbnailImageView.image;
@@ -154,7 +149,5 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 @synthesize mediaIsNew;
 
 @synthesize progressViewHidden;
-
-@synthesize forMedia;
 
 @end

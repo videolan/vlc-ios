@@ -31,10 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL progressViewHidden;
 
 -(void)setCheckBoxImageView;
-#if TARGET_OS_TV
-@property (nonatomic, nullable) VLCMLMedia *forMedia;
--(void)setCachedThumbnail:(VLCMLMedia *)forMedia;
-#endif
 #if DOWNLOAD_SUPPORTED
 @property (nonatomic) BOOL isDownloadable;
 #endif

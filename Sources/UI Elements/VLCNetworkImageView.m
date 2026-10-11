@@ -9,10 +9,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#if TARGET_OS_TV
-#import "VLC-Swift.h"
-#endif
-
 #import "VLCNetworkImageView.h"
 #import "VLCThumbnailsCache.h"
 
@@ -93,24 +89,6 @@
     }];
     [self.downloadTask resume];
 }
-
-#if TARGET_OS_TV
--(void)requestCachedThumbnail:(VLCMLMedia *)media
-{
-    UIImage *cachedImage = [media thumbnailImage];
-    if (cachedImage) {
-        self.image = cachedImage;
-    } else {
-        _mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
-        [_mediaLibraryService requestThumbnailFor:media];
-        if (media.type == VLCMLMediaTypeVideo) {
-            [self setImage:[UIImage imageNamed:@"movie"]];
-        } else {
-            [self setImage:[UIImage imageNamed:@"audio"]];
-        }
-    }
-}
-#endif
 
 - (void)layoutSubviews {
     [super layoutSubviews];
