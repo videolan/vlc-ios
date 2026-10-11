@@ -9,10 +9,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "VLCArtworkImageView.h"
 @class MediaLibraryService;
 
-@interface VLCNetworkImageView : UIImageView
+@interface VLCNetworkImageView : VLCArtworkImageView
 @property (nonatomic) NSURLSessionDataTask *downloadTask;
 - (void)setImageWithURL:(NSURL *)url;
 - (void)setImageWithURL:(NSURL *)url maxPixelSize:(CGFloat)maxPixelSize;
