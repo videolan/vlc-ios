@@ -53,6 +53,8 @@
         return;
     }
 
+    CGSize iconSize = [self listItemIconSize];
+    CGFloat maxPixelSize = MAX(iconSize.width, iconSize.height) * [UIGraphicsImageRendererFormat preferredFormat].scale;
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:artworkURL
                                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = [response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)response : nil;
@@ -60,7 +62,7 @@
             return;
         }
 
-        UIImage *artwork = [VLCThumbnailsCache imageFromData:data forURL:artworkURL maxPixelSize:0.];
+        UIImage *artwork = [VLCThumbnailsCache imageFromData:data forURL:artworkURL maxPixelSize:maxPixelSize];
         if (!artwork) {
             return;
         }
