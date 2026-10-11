@@ -42,6 +42,7 @@ class PlaylistTableViewCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         playlistTitle.text = ""
         playlistDuration.text = ""
         playlistThumbnail.setImage(nil, placeholderName: nil)
