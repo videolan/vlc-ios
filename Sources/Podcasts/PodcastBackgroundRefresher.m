@@ -73,7 +73,10 @@ static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
     }];
 
     if (registered) {
-        [self scheduleRefreshTask];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(scheduleRefreshTask)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
     } else {
         APLog(@"podcast background refresh: the task identifier is not permitted");
     }
