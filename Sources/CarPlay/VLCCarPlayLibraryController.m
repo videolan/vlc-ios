@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "VLCCarPlayLibraryController.h"
-#import "CPInterfaceController+VLCTemplateStack.h"
 #import "VLCCarPlayArtistsController.h"
 #import "VLCCarPlayAlbumsController.h"
 #import "CPListTemplate+Genres.h"
@@ -53,17 +52,6 @@
     template.tabTitle = NSLocalizedString(@"MEDIA_LIBRARY_LABEL", nil);
     template.tabImage = [UIImage systemImageNamed:@"music.note.house"];
     return template;
-}
-
-- (CPGridButton *)buttonWithTitle:(NSString *)title
-                           symbol:(NSString *)symbol
-                         template:(CPListTemplate *(^)(void))templateProvider
-{
-    return [[CPGridButton alloc] initWithTitleVariants:@[title]
-                                                 image:[VLCCarPlayBrowserController placeholderForSymbol:symbol]
-                                               handler:^(CPGridButton * _Nonnull button) {
-        [self.interfaceController pushTemplateWithinDepthLimit:templateProvider() animated:YES];
-    }];
 }
 
 @end

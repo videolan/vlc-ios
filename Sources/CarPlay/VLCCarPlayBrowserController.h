@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (CPListTemplate *)tabTemplateWithTitle:(NSString *)title
                                   symbol:(NSString *)symbol
                                 sections:(NSArray<CPListSection *> *)sections;
+- (CPGridButton *)buttonWithTitle:(NSString *)title
+                           symbol:(NSString *)symbol
+                         template:(CPListTemplate *(^)(void))templateProvider;
 - (void)pushListWithTitle:(NSString *)title items:(NSArray<CPListItem *> *)items;
 
 - (NSArray<CPListItem *> *)albumItems:(NSArray<VLCMLAlbum *> *)albums;

@@ -41,6 +41,17 @@
     return template;
 }
 
+- (CPGridButton *)buttonWithTitle:(NSString *)title
+                           symbol:(NSString *)symbol
+                         template:(CPListTemplate *(^)(void))templateProvider
+{
+    return [[CPGridButton alloc] initWithTitleVariants:@[title]
+                                                 image:[VLCCarPlayBrowserController placeholderForSymbol:symbol]
+                                               handler:^(CPGridButton * _Nonnull button) {
+        [self.interfaceController pushTemplateWithinDepthLimit:templateProvider() animated:YES];
+    }];
+}
+
 - (void)pushListWithTitle:(NSString *)title items:(NSArray<CPListItem *> *)items
 {
     CPListSection *section = [[CPListSection alloc] initWithItems:items];
