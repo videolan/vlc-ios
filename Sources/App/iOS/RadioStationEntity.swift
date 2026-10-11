@@ -34,10 +34,7 @@ struct RadioStationEntity: AppEntity {
             return DisplayRepresentation(title: "\(name)", image: .init(url: url))
         }
 
-        let placeholder = VLCPlaceholderArtwork.placeholderImage(forName: name,
-                                                                 size: CGSize(width: 120.0, height: 120.0),
-                                                                 cornerRadius: 0.0,
-                                                                 fontSize: 48.0)
+        let placeholder = VLCPlaceholderArtwork.placeholderImage(forName: name, pixelSize: 512.0)
         guard let data = placeholder.pngData() else {
             return DisplayRepresentation(title: "\(name)",
                                          image: .init(systemName: "antenna.radiowaves.left.and.right"))

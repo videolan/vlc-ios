@@ -45,7 +45,6 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        artworkView.configure(initials: "", color: .clear, textColor: .clear, cornerRadius: 12, fontSize: 30)
         artworkView.addSubview(progressBar)
 
         contentView.addSubview(artworkView)
@@ -86,8 +85,7 @@ class ContinueListeningCarouselCell: UICollectionViewCell {
         }
         artworkView.configure(name: show?.name ?? "",
                               artworkURL: episode.artworkURL ?? show?.artworkURL,
-                              cornerRadius: 12,
-                              fontSize: 30)
+                              cornerRadius: 12)
         progressBar.progress = episode.progressFraction
         titleLabel.text = episode.title
         showNameLabel.text = show?.name

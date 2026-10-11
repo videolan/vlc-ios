@@ -121,7 +121,7 @@ class PodcastEpisodeCell: UITableViewCell {
                     onDeleteDownload: (() -> Void)? = nil) {
         VLCAppCoordinator.sharedInstance().podcastStore.requestArtwork(for: episode)
 
-        artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8, fontSize: 16)
+        artworkView.configure(name: name, artworkURL: artworkURL, cornerRadius: 8)
 
         if let showName = showName {
             showNameLabel.isHidden = false

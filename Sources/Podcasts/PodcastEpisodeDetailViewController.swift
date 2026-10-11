@@ -227,8 +227,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
         artworkView.configure(name: show.name,
                               artworkURL: episode.artworkURL ?? show.artworkURL,
-                              cornerRadius: PodcastEpisodeDetailViewController.artworkRadius,
-                              fontSize: 48)
+                              cornerRadius: PodcastEpisodeDetailViewController.artworkRadius)
 
         titleLabel.text = episode.title
 

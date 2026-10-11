@@ -56,7 +56,7 @@ class PodcastShowHeaderView: UIView {
         addSubview(artworkView)
         addSubview(nameLabel)
 
-        artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 20, fontSize: 44)
+        artworkView.configure(name: show.name, artworkURL: show.artworkURL, cornerRadius: 20)
 
         nameLabel.text = show.name
 

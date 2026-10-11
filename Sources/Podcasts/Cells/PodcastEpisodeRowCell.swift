@@ -231,8 +231,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
 
         artworkView.configure(name: showName ?? episode.title,
                               artworkURL: episode.artworkURL ?? showArtworkURL,
-                              cornerRadius: PodcastEpisodeRowCell.artworkRadius,
-                              fontSize: 20)
+                              cornerRadius: PodcastEpisodeRowCell.artworkRadius)
 
         isUnplayed = episode.isUnplayed
         let indicatorImage = isUnplayed ? PodcastEpisodeRowCell.unplayedImage

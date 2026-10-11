@@ -13,7 +13,6 @@
 #import "VLCPodcastDirectoryListViewController.h"
 #import "VLCPodcastIndexService.h"
 #import "VLCNetworkListCell.h"
-#import "VLCPlaceholderArtwork.h"
 #import "VLCAppCoordinator.h"
 
 #import "VLC-Swift.h"
@@ -21,7 +20,6 @@
 static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCell";
 static const CGFloat VLCPodcastDirectoryListArtworkSize = 72.;
 static const CGFloat VLCPodcastDirectoryListArtworkRadius = 9.;
-static const CGFloat VLCPodcastDirectoryListArtworkFontSize = 20.;
 static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
 
 @interface VLCPodcastDirectoryListViewController () <VLCMediaLibraryBaseModelObserver>
@@ -210,10 +208,7 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
     VLCPodcastIndexFeed *feed = _feeds[indexPath.row];
     cell.title = feed.title;
     cell.subtitle = feed.subtitle;
-    cell.icon = [VLCPlaceholderArtwork placeholderImageForName:feed.title
-                                                          size:CGSizeMake(VLCPodcastDirectoryListArtworkSize, VLCPodcastDirectoryListArtworkSize)
-                                                  cornerRadius:VLCPodcastDirectoryListArtworkRadius
-                                                      fontSize:VLCPodcastDirectoryListArtworkFontSize];
+    [cell.thumbnailView setImage:nil placeholderName:feed.title];
     cell.iconURL = feed.artworkURL;
     cell.thumbnailWidthConstraint.constant = VLCPodcastDirectoryListArtworkSize;
     cell.thumbnailHeightConstraint.constant = VLCPodcastDirectoryListArtworkSize;

@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCArtworkTile.h"
-#import "VLCPlaceholderArtwork.h"
+#import "VLCPlaceholderArtworkView.h"
 #import "VLCNetworkImageView.h"
 
 #import "VLC-Swift.h"
@@ -21,8 +21,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 @implementation VLCArtworkTile
 {
-    UIView *_artworkContainer;
-    UILabel *_initialsLabel;
+    VLCPlaceholderArtworkView *_artworkContainer;
     VLCNetworkImageView *_artworkView;
     UIVisualEffectView *_badgeView;
     UIImageView *_badgeGlyph;
@@ -56,16 +55,11 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 - (void)setupViews
 {
-    _artworkContainer = [[UIView alloc] init];
+    _artworkContainer = [[VLCPlaceholderArtworkView alloc] init];
     _artworkContainer.translatesAutoresizingMaskIntoConstraints = NO;
     [_artworkContainer roundCornersWithRadius:_artworkCornerRadius];
     _artworkContainer.clipsToBounds = YES;
     [self.contentView addSubview:_artworkContainer];
-
-    _initialsLabel = [[UILabel alloc] init];
-    _initialsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _initialsLabel.textAlignment = NSTextAlignmentCenter;
-    [_artworkContainer addSubview:_initialsLabel];
 
     _artworkView = [[VLCNetworkImageView alloc] init];
     _artworkView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -146,10 +140,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         [_artworkContainer.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
         [_artworkContainer.heightAnchor constraintEqualToAnchor:_artworkContainer.widthAnchor],
 
-        [_initialsLabel.leadingAnchor constraintEqualToAnchor:_artworkContainer.leadingAnchor constant:8.0],
-        [_initialsLabel.trailingAnchor constraintEqualToAnchor:_artworkContainer.trailingAnchor constant:-8.0],
-        [_initialsLabel.centerYAnchor constraintEqualToAnchor:_artworkContainer.centerYAnchor],
-
         [_artworkView.topAnchor constraintEqualToAnchor:_artworkContainer.topAnchor],
         [_artworkView.leadingAnchor constraintEqualToAnchor:_artworkContainer.leadingAnchor],
         [_artworkView.trailingAnchor constraintEqualToAnchor:_artworkContainer.trailingAnchor],
@@ -215,11 +205,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-    // scale the initials to the actual tile size and keep the shadow path in sync
-    CGFloat tileWidth = self.contentView.bounds.size.width;
-    _initialsLabel.font = [UIFont systemFontOfSize:MAX(24.0, tileWidth * 0.28)
-                                            weight:UIFontWeightHeavy];
 
     self.contentView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.contentView.layer.shadowOffset = CGSizeMake(0, 4);
@@ -384,9 +369,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _nameLabel.text = name;
     _nameLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 
-    _artworkContainer.backgroundColor = [VLCPlaceholderArtwork backgroundColorForName:name];
-    _initialsLabel.textColor = [VLCPlaceholderArtwork foregroundColorForName:name];
-    _initialsLabel.text = [VLCPlaceholderArtwork initialsForName:name];
+    _artworkContainer.name = name;
 
     if (artworkURL) {
         _artworkView.hidden = NO;
@@ -403,7 +386,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _artworkView.image = nil;
     _artworkView.hidden = NO;
     _nameLabel.text = nil;
-    _initialsLabel.text = nil;
     self.subtitle = nil;
     self.pillText = nil;
     self.accessoryGlyphName = nil;

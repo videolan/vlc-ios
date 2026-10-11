@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCOnAirContinueCell.h"
-#import "VLCPlaceholderArtwork.h"
 #import "VLCNetworkImageView.h"
 
 #import "VLC-Swift.h"
@@ -171,10 +170,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
 
     _cardView.backgroundColor = themeColors.cardBackground;
 
-    _artworkView.image = [VLCPlaceholderArtwork placeholderImageForName:name
-                                                                   size:CGSizeMake(kVLCOnAirContinueArtworkSide, kVLCOnAirContinueArtworkSide)
-                                                           cornerRadius:kVLCOnAirContinueArtworkRadius
-                                                               fontSize:22.0];
+    [_artworkView setImage:nil placeholderName:name];
     if (artworkURL) {
         [_artworkView setImageWithURL:artworkURL];
     }
@@ -208,7 +204,7 @@ static CGFloat const kVLCOnAirContinueTrackHeight = 4.0;
 {
     [super prepareForReuse];
     [_artworkView cancelLoading];
-    _artworkView.image = nil;
+    [_artworkView setImage:nil placeholderName:nil];
     _titleLabel.text = nil;
     _metaLabel.text = nil;
 }
