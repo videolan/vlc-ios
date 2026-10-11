@@ -33,9 +33,9 @@ static CGFloat const kVLCPlaceholderArtworkFontSizeRatio = 0.28;
     if (trimmed.length == 0)
         return @"?";
 
-    /* The separators cover every dash Unicode knows, as feeds title their shows
-     * with all of them. */
-    NSCharacterSet *wordSeparators = [NSCharacterSet characterSetWithCharactersInString:@" _|/·•-‐‑‒–—―"];
+    /* The separators cover dots for file names and every dash Unicode knows,
+     * as feeds title their shows with all of them. */
+    NSCharacterSet *wordSeparators = [NSCharacterSet characterSetWithCharactersInString:@" _|/·•.-‐‑‒–—―"];
     NSMutableArray<NSString *> *words = [NSMutableArray array];
     for (NSString *component in [trimmed componentsSeparatedByCharactersInSet:wordSeparators]) {
         if (component.length > 0)
