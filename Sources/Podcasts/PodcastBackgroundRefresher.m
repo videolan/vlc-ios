@@ -17,7 +17,6 @@
 #import <BackgroundTasks/BackgroundTasks.h>
 
 static const NSTimeInterval kVLCPodcastRefreshInterval = 2 * 60 * 60;
-static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
 
 @implementation PodcastBackgroundRefresher
 {
@@ -150,7 +149,6 @@ static const NSTimeInterval kVLCPodcastDownloadDelay = 15 * 60;
 {
     BGProcessingTaskRequest *request =
         [[BGProcessingTaskRequest alloc] initWithIdentifier:_downloadTaskIdentifier];
-    request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:kVLCPodcastDownloadDelay];
     request.requiresNetworkConnectivity = YES;
     request.requiresExternalPower = YES;
 
