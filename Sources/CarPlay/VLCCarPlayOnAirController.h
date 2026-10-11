@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CPGridTemplate *)onAirTemplate;
 - (void)radioListNeedsUpdate;
+- (void)podcastsNeedUpdate;
 
 @end
 

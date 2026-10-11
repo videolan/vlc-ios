@@ -77,4 +77,6 @@
 #import "VLCDropboxController.h"
 #import "VLCPCloudConstants.h"
 #import "VLCBoxTableViewController.h"
+#import "VLCCarPlayBrowserController.h"
+#import "CPInterfaceController+VLCTemplateStack.h"
 #endif

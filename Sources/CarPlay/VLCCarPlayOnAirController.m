@@ -11,14 +11,19 @@
 
 #import "VLCCarPlayOnAirController.h"
 #import "CPListTemplate+NetworkStreams.h"
+#import "VLC-Swift.h"
 
 @implementation VLCCarPlayOnAirController
 {
     CPListTemplate *_radioListTemplate;
+    CarPlayPodcastsController *_podcastsController;
 }
 
 - (CPGridTemplate *)onAirTemplate
 {
+    _podcastsController = [[CarPlayPodcastsController alloc] init];
+    _podcastsController.interfaceController = self.interfaceController;
+
     NSString *radioSymbol = @"antenna.radiowaves.left.and.right";
     if (@available(iOS 16.0, *)) {
         radioSymbol = @"radio";
@@ -31,6 +36,9 @@
             self->_radioListTemplate = [CPListTemplate streamList];
             return self->_radioListTemplate;
         }],
+        [self buttonWithTitle:NSLocalizedString(@"ONAIR_PODCASTS", nil)
+                       symbol:@"mic"
+                     template:^{ return [self->_podcastsController podcastList]; }],
     ];
 
     CPGridTemplate *template = [[CPGridTemplate alloc] initWithTitle:NSLocalizedString(@"ONAIR", nil)
@@ -43,6 +51,11 @@
 - (void)radioListNeedsUpdate
 {
     [_radioListTemplate updateSections:[CPListTemplate streamSections]];
+}
+
+- (void)podcastsNeedUpdate
+{
+    [_podcastsController podcastsNeedUpdate];
 }
 
 @end

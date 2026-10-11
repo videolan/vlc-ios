@@ -63,6 +63,7 @@
     [notificationCenter addObserver:self selector:@selector(resetPlayQueueTemplate) name:VLCPlaybackServiceShuffleModeUpdated object:nil];
     [notificationCenter addObserver:self selector:@selector(streamListNeedsUpdate) name:VLCFavoriteServiceContentDidChange object:nil];
     [notificationCenter addObserver:self selector:@selector(streamListNeedsUpdate) name:VLCRadioRecentStreamsDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(podcastsNeedUpdate) name:NSNotification.VLCPodcastsContentDidChange object:nil];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
@@ -101,6 +102,11 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 - (void)streamListNeedsUpdate
 {
     [_onAirController radioListNeedsUpdate];
+}
+
+- (void)podcastsNeedUpdate
+{
+    [_onAirController podcastsNeedUpdate];
 }
 
 - (void)templatesNeedUpdate
