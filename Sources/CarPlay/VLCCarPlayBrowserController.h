@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)maximumItemCount;
 + (CGSize)listItemIconSize;
 + (nullable UIImage *)placeholderForSymbol:(NSString *)symbol;
++ (void)setArtworkFromURL:(NSURL *)artworkURL onListItem:(CPListItem *)listItem;
 
 - (CPListTemplate *)tabTemplateWithTitle:(NSString *)title
                                   symbol:(NSString *)symbol

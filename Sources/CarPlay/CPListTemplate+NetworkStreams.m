@@ -15,7 +15,6 @@
 #import "VLCPlaybackService.h"
 #import "VLCFavoriteService.h"
 #import "VLCRadioService.h"
-#import "VLCThumbnailsCache.h"
 #import "VLCAppCoordinator.h"
 
 @implementation CPListTemplate (NetworkStreams)
@@ -120,55 +119,13 @@
         CPListItem *listItem = [self listItemForFavorite:favorite image:radioIcon];
         NSURL *artworkURL = favorite.artworkURL;
         if (artworkURL) {
-            [self setArtworkFromURL:artworkURL onListItem:listItem];
+            [VLCCarPlayBrowserController setArtworkFromURL:artworkURL onListItem:listItem];
         }
 
         [itemList addObject:listItem];
     }
 
     return itemList;
-}
-
-+ (UIImage *)artworkScaledToIconSize:(UIImage *)artwork
-{
-    CGSize iconSize = [VLCCarPlayBrowserController listItemIconSize];
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:iconSize];
-    return [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
-        CGSize artworkSize = artwork.size;
-        CGFloat scale = MIN(iconSize.width / artworkSize.width, iconSize.height / artworkSize.height);
-        CGSize scaledSize = CGSizeMake(artworkSize.width * scale, artworkSize.height * scale);
-        [artwork drawInRect:CGRectMake((iconSize.width - scaledSize.width) / 2.0,
-                                       (iconSize.height - scaledSize.height) / 2.0,
-                                       scaledSize.width, scaledSize.height)];
-    }];
-}
-
-+ (void)setArtworkFromURL:(NSURL *)artworkURL onListItem:(CPListItem *)listItem
-{
-    UIImage *cachedArtwork = [VLCThumbnailsCache cachedImageForURL:artworkURL];
-    if (cachedArtwork) {
-        [listItem setImage:[self artworkScaledToIconSize:cachedArtwork]];
-        return;
-    }
-
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:artworkURL
-                                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = [response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)response : nil;
-        if (error || (httpResponse && httpResponse.statusCode != 200)) {
-            return;
-        }
-
-        UIImage *artwork = [VLCThumbnailsCache imageFromData:data forURL:artworkURL maxPixelSize:0.];
-        if (!artwork) {
-            return;
-        }
-
-        UIImage *scaledArtwork = [self artworkScaledToIconSize:artwork];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [listItem setImage:scaledArtwork];
-        });
-    }];
-    [task resume];
 }
 
 + (NSArray *)listOfNetworkStreamsWithLimit:(NSUInteger)limit
