@@ -15,6 +15,7 @@
 #import "VLCPlaybackService+MediaLibrary.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCThumbnailsCache.h"
+#import "VLCPlaceholderArtwork.h"
 #import "VLCAppCoordinator.h"
 #import "NSString+SupportedMedia.h"
 

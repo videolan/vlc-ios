@@ -12,14 +12,16 @@
 import SwiftUI
 
 protocol VLCWatchMLCellItem {
-    func placeholderName(for color: ColorScheme) -> String
+    var placeholderName: String { get }
 }
 
 struct MediaCellView<Title: View, Subtitle: View>: View {
     let titleView: Title
     let subtitleView: Subtitle
     let thumbnail: URL?
-    let placeholderImageName: String
+    let placeholderName: String
+
+    private let artworkSide: CGFloat = 42
 
     var body: some View {
         HStack {
@@ -28,11 +30,14 @@ struct MediaCellView<Title: View, Subtitle: View>: View {
                     .resizable()
                     .scaledToFit()
             } placeholder: {
-                Image(placeholderImageName)
-                    .resizable()
-                    .scaledToFit()
+                ZStack {
+                    Color(uiColor: VLCPlaceholderArtwork.backgroundColor(forName: placeholderName))
+                    Text(VLCPlaceholderArtwork.initials(forName: placeholderName))
+                        .font(.system(size: VLCPlaceholderArtwork.fontSize(forSide: artworkSide), weight: .heavy))
+                        .foregroundStyle(Color(uiColor: VLCPlaceholderArtwork.foregroundColor(forName: placeholderName)))
+                }
             }
-            .frame(width: 42, height: 42)
+            .frame(width: artworkSide, height: artworkSide)
             .clipShape(RoundedRectangle(cornerRadius: 8))
 
             VStack(alignment: .leading, spacing: 0) {

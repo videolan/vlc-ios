@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 import Foundation
-import SwiftUI
 
 // Wrapper around VLCMLAlbum to be used in SwiftUI view
 struct VLCWatchMLAlbum: VLCWatchMLObject {
@@ -19,6 +18,7 @@ struct VLCWatchMLAlbum: VLCWatchMLObject {
     let title: String
     var thumbnail: URL?
     let albumArtistName: String?
+    let placeholderName: String
 
     private let _album: VLCMLAlbum
 
@@ -27,6 +27,7 @@ struct VLCWatchMLAlbum: VLCWatchMLObject {
         self.id = album.identifier()
         self.title = album.title
         self.albumArtistName = album.albumArtistName()
+        self.placeholderName = album.placeholderName()
     }
 
     func tracks() -> [VLCMLMedia] {
@@ -34,11 +35,7 @@ struct VLCWatchMLAlbum: VLCWatchMLObject {
     }
 }
 
-extension VLCWatchMLAlbum: VLCWatchMLCellItem {
-    func placeholderName(for color: ColorScheme) -> String {
-        return color == .light ? "album-placeholder-white" : "album-placeholder-dark"
-    }
-}
+extension VLCWatchMLAlbum: VLCWatchMLCellItem { }
 
 // Used for NavigationDestination
 extension VLCWatchMLAlbum: Hashable { }

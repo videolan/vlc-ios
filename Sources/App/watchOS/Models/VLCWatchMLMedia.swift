@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 import Foundation
-import SwiftUI
 
 protocol VLCWatchMLObject: Identifiable {
     var id: VLCMLIdentifier { get }
@@ -23,6 +22,7 @@ struct VLCWatchMLMedia: VLCWatchMLObject {
     let title: String
     var thumbnail: URL?
     let trackNumber: Int
+    let placeholderName: String
 
     let artist: VLCMLArtist?
 
@@ -30,6 +30,7 @@ struct VLCWatchMLMedia: VLCWatchMLObject {
         self.id = media.identifier()
         self.title = media.title
         self.trackNumber = Int(media.trackNumber)
+        self.placeholderName = media.placeholderName()
         self.artist = media.artist
     }
 
@@ -39,11 +40,7 @@ struct VLCWatchMLMedia: VLCWatchMLObject {
     }
 }
 
-extension VLCWatchMLMedia: VLCWatchMLCellItem {
-    func placeholderName(for color: ColorScheme) -> String {
-        return color == .light ? "song-placeholder-white" : "song-placeholder-dark"
-    }
-}
+extension VLCWatchMLMedia: VLCWatchMLCellItem { }
 
 // Used for NavigationDestination
 extension VLCWatchMLMedia: Hashable {}

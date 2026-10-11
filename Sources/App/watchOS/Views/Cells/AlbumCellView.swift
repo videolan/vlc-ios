@@ -13,7 +13,6 @@
 import SwiftUI
 
 struct AlbumCellView: View {
-    @Environment(\.colorScheme) private var colorScheme
     let album: VLCWatchMLAlbum
     let thumbnail: URL?
 
@@ -22,7 +21,7 @@ struct AlbumCellView: View {
             titleView: titleView(album),
             subtitleView: subtitleView(album),
             thumbnail: thumbnail,
-            placeholderImageName: album.placeholderName(for: colorScheme)
+            placeholderName: album.placeholderName
         )
     }
 

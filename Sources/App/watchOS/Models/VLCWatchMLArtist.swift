@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 import Foundation
-import SwiftUI
 
 // Wrapper around VLCMLArtist to be used in SwiftUI view
 struct VLCWatchMLArtist: VLCWatchMLObject {
@@ -20,6 +19,7 @@ struct VLCWatchMLArtist: VLCWatchMLObject {
     var thumbnail: URL?
     let albumsCount: Int
     let tracksCount: Int
+    let placeholderName: String
 
     private let _artist: VLCMLArtist
 
@@ -29,6 +29,7 @@ struct VLCWatchMLArtist: VLCWatchMLObject {
         self.name = artist.artistName()
         self.albumsCount = Int(artist.albumsCount())
         self.tracksCount = Int(artist.tracksCount())
+        self.placeholderName = artist.placeholderName()
     }
 
     func albums() -> [VLCMLAlbum] {
@@ -40,11 +41,7 @@ struct VLCWatchMLArtist: VLCWatchMLObject {
     }
 }
 
-extension VLCWatchMLArtist: VLCWatchMLCellItem {
-    func placeholderName(for color: ColorScheme) -> String {
-        return color == .light ? "artist-placeholder-white" : "artist-placeholder-dark"
-    }
-}
+extension VLCWatchMLArtist: VLCWatchMLCellItem { }
 
 // Used for NavigationDestination
 extension VLCWatchMLArtist: Hashable { }
