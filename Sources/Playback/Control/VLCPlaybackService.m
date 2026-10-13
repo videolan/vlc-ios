@@ -2082,7 +2082,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 
     CGFloat lastPosition = libraryMedia.progress;
 
-    if (_mediaPlayer.position < lastPosition) {
+    if (lastPosition > .0) {
         NSInteger continuePlayback;
 
         if ([libraryMedia isWatched]) {
