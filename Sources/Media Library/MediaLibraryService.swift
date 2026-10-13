@@ -3,7 +3,7 @@
  * VLC for iOS
  *****************************************************************************
  * Copyright © 2018-2026 VideoLAN. All rights reserved.
- * Copyright © 2018-2022 Videolabs
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *          Felix Paul Kühne <fkuehne # videolan.org>
@@ -711,10 +711,8 @@ private extension MediaLibraryService {
         }
     }
 
-    func savePlaybackState(from player: PlaybackService) {
-        let media: VLCMedia? = player.currentlyPlayingMedia
-
-        guard let mrl = media?.url?.absoluteURL else {
+    func savePlaybackState(of media: VLCMedia, from player: PlaybackService) {
+        guard let mrl = media.url?.absoluteURL else {
             // No URL from currently played media
             return
         }

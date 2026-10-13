@@ -72,6 +72,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     VLCMediaListPlayer *_listPlayer;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
+    VLCMedia *_openedMedia;
     VLCMediaPlayerTrack *videoTrack;
 
     NSString *_pathToExternalSubtitlesFile;
@@ -1084,6 +1085,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         switch (currentState) {
             case VLCMediaPlayerStateOpening: {
                 APLog(@"%s: opening", __func__);
+                self->_openedMedia = self->_mediaPlayer.media;
 
                 /* attach delegate */
                 self->_mediaPlayer.media.delegate = self;
@@ -2345,8 +2347,8 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
 - (void)savePlaybackState
 {
     BOOL activePlaybackSession = self.isPlaying || _playerIsSetup;
-    if (activePlaybackSession)
-        [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateFrom:self];
+    if (activePlaybackSession && _openedMedia)
+        [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateOf:_openedMedia from:self];
 }
 
 - (BOOL)mediaListContains:(NSURL *)url
