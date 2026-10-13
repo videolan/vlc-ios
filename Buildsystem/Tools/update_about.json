@@ -1,0 +1,1522 @@
+{
+  "authors": {
+    "written_by_min_commits": 29,
+    "credited_elsewhere": [
+      "VideoLAN",
+      "Jean-Romain Prévost",
+      "Damien Erambert",
+      "Louis Currie"
+    ],
+    "excluded": [
+      "X",
+      "Naruyoko"
+    ],
+    "always_authors": [
+      "Christoph Miebach",
+      "Dean Lee",
+      "Konstantin Pavlov",
+      "Shai Shamir"
+    ],
+    "always_thanks": [
+      "Jeremiah Njoroge",
+      "Alexandre Perraud"
+    ],
+    "authors_without_commits": [
+      "Pierre d'Herbemont"
+    ],
+    "thanks_without_commits": [
+      "Ludovic Fauvet"
+    ],
+    "known_handles": [
+      "abuyop",
+      "Aitzol",
+      "Ekaterina",
+      "enolp",
+      "JeanDeLaMouche",
+      "Osoitz",
+      "Rui",
+      "samson",
+      "scootergrisen",
+      "Sirius2007",
+      "Txopi"
+    ],
+    "html_names": {
+      "Tamás Tímár": "Tam&aacute;s T&iacute;m&aacute;r"
+    },
+    "links": {
+      "Felix Paul Kühne": "https://www.feepk.net",
+      "Soomin Lee": "https://github.com/Mikanbu",
+      "Carola Nitz": "http://carolanitz.com",
+      "Tobias Conradi": "http://github.com/toco",
+      "Edgar Fouillet": "https://edgar.fouillet.eu",
+      "Pierre Sagaspe": "http://twitter.com/iTarax",
+      "Gleb Pinigin": "http://twitter.com/gpinigin",
+      "Diogo Simao Marques": "https://code.videolan.org/diogo.simao-marques",
+      "Mike JS. Choi": "http://deadbeef.me/",
+      "Jean-Baptiste Kempf": "http://jbkempf.com",
+      "Marc Etcheverry": "http://taplightsoftware.com",
+      "Tamás Tímár": "http://www.tamastimar.com",
+      "Martin Finkel": "https://github.com/mfkl",
+      "Maxime Chapelet": "https://github.com/umxprime",
+      "Pierre d'Herbemont": "https://twitter.com/pdherbemont"
+    }
+  },
+  "libraries": [
+    {
+      "name": "VLCKit",
+      "url": "https://code.videolan.org/videolan/VLCKit.git",
+      "copyright": "Copyright &copy; 2007-2026 Felix Paul K&uuml;hne, Pierre d&rsquo;Herbemont, Carola Nitz, Soomin Lee, Thomas Guillem et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "spm": "vlckit",
+        "version": "4.0.0-a25"
+      }
+    },
+    {
+      "name": "VLCMediaLibraryKit",
+      "url": "https://code.videolan.org/videolan/VLCMediaLibraryKit.git",
+      "copyright": "Copyright &copy; 2018-2026 Soomin Lee, Felix Paul K&uuml;hne, Carola Nitz, et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "spm": "vlcmedialibrarykit",
+        "version": "0.15.0-b1"
+      }
+    },
+    {
+      "name": "medialibrary",
+      "url": "https://code.videolan.org/videolan/medialibrary",
+      "copyright": "Copyright &copy; 2015-2026 Hugo Beauz&eacute;e-Luyssen, Videolabs, VideoLAN and contributors",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "vlcmlkit": "TESTED_HASH",
+        "version": "b82e7e9a"
+      },
+      "symbol": "medialibrary"
+    },
+    {
+      "name": "libvlc",
+      "url": "http://wiki.videolan.org/Developers_Corner",
+      "copyright": "Copyright &copy; 1996-2026 VideoLAN and VLC Authors",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "vlckit": "TESTEDHASH",
+        "version": "005e69e67"
+      },
+      "symbol": " _libvlc_new"
+    },
+    {
+      "name": "libvlcpp",
+      "url": "https://code.videolan.org/videolan/libvlcpp",
+      "copyright": "Copyright &copy; 2015 libvlcpp authors &amp; VideoLAN",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "bundled_in": "medialibrary"
+      }
+    },
+    {
+      "name": "ADAL for Objective-C",
+      "url": "https://github.com/AzureAD/azure-activedirectory-library-for-objc",
+      "copyright": "Copyright &copy; Microsoft Open Technologies, Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "ADAL"
+        ],
+        "version": "1.2.10"
+      }
+    },
+    {
+      "name": "AFNetworking",
+      "url": "https://github.com/AFNetworking/AFNetworking",
+      "copyright": "Copyright &copy; 2011-2020 Alamofire Software Foundation",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "tvos"
+      ],
+      "source": {
+        "spm": "afnetworking",
+        "version": "4.0.2"
+      }
+    },
+    {
+      "name": "AppAuth for iOS",
+      "url": "https://github.com/openid/AppAuth-iOS",
+      "copyright": "Copyright &copy; 2015-2020 The AppAuth Authors, Google Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "AppAuth"
+        ],
+        "version": "2.1.0"
+      }
+    },
+    {
+      "name": "App Check Core",
+      "url": "https://github.com/google/app-check",
+      "copyright": "Copyright &copy; 2020-2026 Google LLC",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "AppCheckCore"
+        ],
+        "version": "11.3.1"
+      }
+    },
+    {
+      "name": "Base32",
+      "url": "https://github.com/ekscrypto/Base32",
+      "copyright": "Dave Poirier",
+      "license": "Public domain",
+      "anchor": null,
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "Base32"
+        ],
+        "version": "1.1.2"
+      }
+    },
+    {
+      "name": "Box iOS SDK v2",
+      "url": null,
+      "copyright": "Copyright &copy; 2013 Box, Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "box-ios-sdk-v2"
+        ],
+        "version": "1.2.3"
+      }
+    },
+    {
+      "name": "CocoaHTTPServer",
+      "url": "https://github.com/robbiehanson/CocoaHTTPServer",
+      "copyright": "Copyright &copy; 2011, Deusty, LLC",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "spm": "cocoahttpserver",
+        "version": "2.4.2"
+      }
+    },
+    {
+      "name": "Dropbox for Objective-C",
+      "url": "https://github.com/dropbox/dropbox-sdk-obj-c",
+      "copyright": "Copyright &copy; 2015-2021 Dropbox Inc.",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "ObjectiveDropboxOfficial"
+        ],
+        "version": "7.4.2"
+      }
+    },
+    {
+      "name": "Google APIs Client Library for Objective-C (REST)",
+      "url": "https://github.com/google/google-api-objectivec-client-for-rest.git",
+      "copyright": "Copyright &copy; 2010-2016 Google Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "GoogleAPIClientForREST"
+        ],
+        "version": "4.2.0"
+      }
+    },
+    {
+      "name": "Google Sign-In for iOS",
+      "url": "https://github.com/google/GoogleSignIn-iOS",
+      "copyright": "Copyright &copy; 2021-2025 Google LLC",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "GoogleSignIn"
+        ],
+        "version": "9.2.0"
+      }
+    },
+    {
+      "name": "Google Utilities",
+      "url": "https://github.com/google/GoogleUtilities",
+      "copyright": "Copyright &copy; 2010-2022 Google LLC, &copy; 2017 Landon J. Fuller",
+      "license": "Apache 2 License and MIT License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "GoogleUtilities"
+        ],
+        "version": "8.1.2"
+      }
+    },
+    {
+      "name": "GRKArrayDiff",
+      "url": "https://github.com/levigroker/GRKArrayDiff",
+      "copyright": "Copyright &copy; 2015-2018 Levi Brown et al.",
+      "license": "Creative Commons Attribution 4.0 International License",
+      "anchor": "cca4",
+      "platforms": [
+        "tvos"
+      ],
+      "source": {
+        "spm": "grkarraydiff",
+        "version": "1.1.2"
+      }
+    },
+    {
+      "name": "GTMAppAuth",
+      "url": "https://github.com/google/GTMAppAuth",
+      "copyright": "Copyright &copy; 2022-2023 Google LLC",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "GTMAppAuth"
+        ],
+        "version": "5.0.0"
+      }
+    },
+    {
+      "name": "GTM Session Fetcher",
+      "url": "https://github.com/google/gtm-session-fetcher",
+      "copyright": "Copyright &copy; 2014-2024 Google Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "GTMSessionFetcher"
+        ],
+        "version": "3.5.0"
+      }
+    },
+    {
+      "name": "InAppSettingsKit",
+      "url": "https://github.com/futuretap/InAppSettingsKit",
+      "copyright": "Copyright &copy; 2009-2014 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "tvos"
+      ],
+      "source": {
+        "spm": "inappsettingskit",
+        "version": "3.7.1"
+      }
+    },
+    {
+      "name": "MarqueeLabel",
+      "url": "https://github.com/cbpowell/MarqueeLabel",
+      "copyright": "Copyright &copy; 2011-2017 Charles Powell",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "spm": "marqueelabel",
+        "version": "4.5.3"
+      }
+    },
+    {
+      "name": "MetaDataFetcherKit",
+      "url": "https://code.videolan.org/fkuehne/MetaDataFetcherKit",
+      "copyright": "Copyright &copy; 2015, 2019-2021 Felix Paul K&uuml;hne",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "tvos"
+      ],
+      "source": {
+        "spm": "metadatafetcherkit",
+        "version": "0.5.3"
+      }
+    },
+    {
+      "name": "OBSlider",
+      "url": "https://github.com/ole/OBSlider",
+      "copyright": "Copyright &copy; 2011 Ole Begemann and contributors",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "spm": "obslider",
+        "version": "1.1.3"
+      }
+    },
+    {
+      "name": "OneDrive SDK for iOS",
+      "url": "https://github.com/OneDrive/onedrive-sdk-ios",
+      "copyright": "Copyright &copy; 2015 Microsoft Corporation",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "OneDriveSDK"
+        ],
+        "version": "1.3.0"
+      }
+    },
+    {
+      "name": "OROpenSubtitleDownloader",
+      "url": "https://github.com/orta/OROpenSubtitleDownloader",
+      "copyright": "Copyright &copy; 2012 Art.sy, Orta Therox &amp; Contributors",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "files": [
+          "Sources/Playback/Subtitles Downloading/VLCOpenSubtitlesDownloader.[hm]"
+        ]
+      }
+    },
+    {
+      "name": "pCloud SDK",
+      "url": "https://github.com/pCloud/pcloud-sdk-swift",
+      "copyright": "Copyright &copy; 2017 pCloud LTD",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "spm": "pcloud-sdk-swift",
+        "version": "3.2.3"
+      }
+    },
+    {
+      "name": "Promises",
+      "url": "https://github.com/google/promises",
+      "copyright": "Copyright &copy; 2018 Google Inc.",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "PromisesObjC",
+          "PromisesSwift"
+        ],
+        "version": "2.4.1"
+      }
+    },
+    {
+      "name": "Raleway",
+      "url": "https://github.com/impallari/Raleway",
+      "copyright": "Copyright &copy; 2012-2013 The League of Moveable Type, Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida, Igino Marini.",
+      "license": "SIL Open Font License, Version 1.1",
+      "anchor": "silopenfont",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "files": [
+          "Resources/web/public/Raleway.woff"
+        ]
+      }
+    },
+    {
+      "name": "Reachability",
+      "url": "https://developer.apple.com/Library/ios/samplecode/Reachability/Introduction/Intro.html",
+      "copyright": "Copyright &copy; 2013-2016 Apple Inc. All Rights Reserved.",
+      "license": "Apple Sample Code disclaimer",
+      "anchor": "applesampledisclaimer",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "files": [
+          "Sources/Helpers/Network/Reachability.[hm]"
+        ]
+      }
+    },
+    {
+      "name": "reCAPTCHA Interop",
+      "url": "https://github.com/google/interop-ios-for-google-sdks",
+      "copyright": "Copyright &copy; 2021-2023 Google LLC",
+      "license": "Apache 2 License",
+      "anchor": "apache2",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "pod": [
+          "RecaptchaInterop"
+        ],
+        "version": "101.0.0"
+      }
+    },
+    {
+      "name": "SwiftLint",
+      "url": "https://github.com/realm/SwiftLint",
+      "copyright": "Copyright &copy; 2015-2026 Realm Inc",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "tool": "swiftlint"
+      }
+    },
+    {
+      "name": "Transferring data with Watch Connectivity",
+      "url": "https://developer.apple.com/documentation/WatchConnectivity/transferring-data-with-watch-connectivity",
+      "copyright": "Copyright &copy; 2024 Apple Inc.",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "files": [
+          "Sources/App/watchOS/WatchConnectivity/*.swift",
+          "Sources/App/watchOS/Views/Temp/*.swift"
+        ]
+      }
+    },
+    {
+      "name": "update_strings.py",
+      "url": "https://github.com/ndfred/xcode-tools/blob/master/update_strings.py",
+      "copyright": "Copyright &copy; 2010 Fr&eacute;d&eacute;ric Sagnes",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "files": [
+          "Buildsystem/Tools/update_strings.py"
+        ]
+      }
+    },
+    {
+      "name": "XKKeychain",
+      "url": "https://github.com/karlvr/XKKeychain",
+      "copyright": "Copyright &copy; 2014-2016 Karl von Randow",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "spm": "xkkeychain",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "XLPagerTabStrip",
+      "url": "https://github.com/xmartlabs/XLPagerTabStrip",
+      "copyright": "Copyright &copy; 2014-2019 xmartlabs",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "files": [
+          "Sources/UI Elements/View Controller/PagerStripViewController.swift"
+        ]
+      }
+    },
+    {
+      "name": "libarchive",
+      "url": "https://libarchive.org",
+      "copyright": "Copyright &copy; 2003-2020 Tim Kientzle, Michihiro Nakajima, Martin Matu&scaron;ka et al.",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "contrib": "libarchive",
+        "version": "3.8.9"
+      },
+      "symbol": " _archive_read_new"
+    },
+    {
+      "name": "libaribcaption",
+      "url": "https://github.com/xqq/libaribcaption",
+      "copyright": "Copyright &copy; 2022 magicxqq",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libaribcaption",
+        "version": "1.1.1"
+      },
+      "symbol": " _aribcc_context_alloc"
+    },
+    {
+      "name": "libass",
+      "url": "https://github.com/libass/libass",
+      "copyright": "Copyright &copy; 2006-2016 libass contributors",
+      "license": "ISC License",
+      "anchor": "isc",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "ass",
+        "dsym_dir": "libass",
+        "version": "0.17.5"
+      },
+      "symbol": " _ass_library_init"
+    },
+    {
+      "name": "dav1d",
+      "url": "https://code.videolan.org/videolan/dav1d",
+      "copyright": "Copyright &copy; 2018-2025 VideoLAN and dav1d authors",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "dav1d",
+        "version": "1.5.4"
+      },
+      "symbol": " _dav1d_open"
+    },
+    {
+      "name": "liBDSM",
+      "url": "https://github.com/videolabs/libdsm",
+      "copyright": "Copyright &copy; 2014-2022 VideoLabs SAS and contributors",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libdsm",
+        "version": "0.4.3"
+      },
+      "symbol": " _smb_session_new"
+    },
+    {
+      "name": "libdvbpsi",
+      "url": "http://www.videolan.org/developers/libdvbpsi.html",
+      "copyright": "Copyright &copy; 2001-2020 VideoLAN and authors",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "dvbpsi",
+        "dsym_dir": "libdvbpsi",
+        "version": "1.3.3"
+      },
+      "symbol": " _dvbpsi_new"
+    },
+    {
+      "name": "libebml",
+      "url": "http://matroska.org",
+      "copyright": "Copyright &copy; 2002-2026 Steve Lhomme et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "ebml",
+        "version": "1.4.6"
+      },
+      "symbol": "EbmlElement"
+    },
+    {
+      "name": "libebur128",
+      "url": "https://github.com/jiixyj/libebur128",
+      "copyright": "Copyright &copy; 2011 Jan Kokem&uuml;ller",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libebur128",
+        "version": "1.2.6"
+      },
+      "symbol": " _ebur128_init"
+    },
+    {
+      "name": "FFmpeg",
+      "url": "https://ffmpeg.org/",
+      "copyright": "Copyright &copy; 2000-2026 the FFmpeg developers",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "ffmpeg",
+        "version": "9.0"
+      },
+      "symbol": " _avcodec_open2"
+    },
+    {
+      "name": "libFLAC",
+      "url": "http://xiph.org/flac",
+      "copyright": "Copyright &copy; 2000-2009 Josh Coalson, &copy; 2011-2025 Xiph.Org Foundation",
+      "license": "Xiph.org BSD License",
+      "anchor": "xiphbsd",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "flac",
+        "version": "1.5.0"
+      },
+      "symbol": " _FLAC__stream_decoder_new"
+    },
+    {
+      "name": "FluidLite",
+      "url": "https://github.com/divideconcept/FluidLite",
+      "copyright": "Copyright &copy; 2003 Peter Hanappe and others, &copy; 2016 Robin Lobel",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "fluidlite",
+        "version": "b0f187b404e393ee0a495b277154d55d7d03cbeb"
+      },
+      "symbol": " _new_fluid_synth"
+    },
+    {
+      "name": "freetype",
+      "url": "http://www.freetype.org",
+      "copyright": "Copyright &copy; 1996-2026 David Turner, Robert Wilhelm, and Werner Lemberg",
+      "license": "FreeType Project License",
+      "anchor": "freetype",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "freetype2",
+        "dsym_dir": "freetype",
+        "version": "2.14.3"
+      },
+      "symbol": " _FT_Init_FreeType"
+    },
+    {
+      "name": "GNU FriBidi",
+      "url": "http://www.fribidi.org",
+      "copyright": "Copyright &copy; 1999-2019 Dov Grobgeld, Behdad Esfahbod, Roozbeh Pournader, Sharif FarsiWeb, Inc. et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "fribidi",
+        "version": "1.0.16"
+      },
+      "symbol": " _fribidi_get_bidi_types"
+    },
+    {
+      "name": "libgcrypt",
+      "url": "https://www.gnupg.org/related_software/libgcrypt/",
+      "copyright": "Copyright &copy; 1989, 1991-2018 Free Software Foundation, Inc., &copy; 2012-2025 g10 Code GmbH, &copy; 2013-2025 Jussi Kivilinna et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "gcrypt",
+        "version": "1.12.2"
+      },
+      "symbol": " _gcry_check_version"
+    },
+    {
+      "name": "libgpg-error",
+      "url": "https://www.gnupg.org/related_software/libgpg-error/",
+      "copyright": "Copyright &copy; 2001-2026 g10 Code GmbH, &copy; 1995-2017 Free Software Foundation, Inc., &copy; 1998-2006, 2008-2017 Werner Koch et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "gpg-error",
+        "dsym_dir": "libgpg-error",
+        "version": "1.61"
+      },
+      "symbol": " _gpg_strerror"
+    },
+    {
+      "name": "GSM",
+      "url": "http://www.quut.com/gsm/",
+      "copyright": "Copyright &copy; 1992-1994, 2009 Jutta Degener &amp; Carsten Bormann",
+      "license": "GSM permissive license",
+      "anchor": "gsm",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "gsm",
+        "version": "1.0 22"
+      },
+      "symbol": " _gsm_create"
+    },
+    {
+      "name": "harfbuzz",
+      "url": "https://harfbuzz.github.io",
+      "copyright": "Copyright &copy; 2010-2022 Google, Inc., &copy; 2015-2020 Ebrahim Byagowi, &copy; 2019-2020 Facebook, Inc., &copy; 2012, 2015 Mozilla Foundation, &copy; 2011 Codethink Limited, &copy; 2008, 2010 Nokia Corporation and/or its subsidiary(-ies), &copy; 2009 Keith Stribley, &copy; 2011 Martin Hosken and SIL International, &copy; 2007 Chris Wilson, &copy; 2005-2006, 2020-2023 Behdad Esfahbod, &copy; 2004, 2007-2010, 2013, 2021-2023 Red Hat, Inc., &copy; 1998-2005 David Turner and Werner Lemberg, &copy; 2016 Igalia S.L., &copy; 2022 Matthias Clasen, &copy; 2018, 2021 Khaled Hosny, &copy; 2018-2020 Adobe, Inc, &copy; 2013-2015 Alexei Podtelezhnikov",
+      "license": "Old MIT License",
+      "anchor": "oldmit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "harfbuzz",
+        "version": "14.2.1"
+      },
+      "symbol": " _hb_buffer_create"
+    },
+    {
+      "name": "jQuery",
+      "url": "http://jquery.org",
+      "copyright": "Copyright &copy; 2005-2013 jQuery Foundation, Inc. and other contributors",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "files": [
+          "Resources/web/public/jquery-1.10.1.min.js",
+          "Resources/web/jquery.ui.widget.js"
+        ]
+      }
+    },
+    {
+      "name": "jQuery File Upload",
+      "url": "https://github.com/blueimp/jQuery-File-Upload",
+      "copyright": "Copyright &copy; 2010-2011 Sebastian Tschan",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "files": [
+          "Resources/web/jquery.fileupload.js",
+          "Resources/web/jquery.iframe-transport.js"
+        ]
+      }
+    },
+    {
+      "name": "libjpeg-turbo",
+      "url": "https://libjpeg-turbo.org",
+      "copyright": "Copyright &copy; 1991-2020 Thomas G. Lane, Guido Vollbeding, &copy; 2009-2026 D. R. Commander, &copy; 2015 Viktor Szathm&aacute;ry. This software is based in part on the work of the Independent JPEG Group.",
+      "license": "IJG License, 3-clause BSD License and zlib License",
+      "anchor": "ijg",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "jpeg",
+        "version": "3.1.4.1"
+      },
+      "symbol": " _jpeg_CreateDecompress"
+    },
+    {
+      "name": "LAME",
+      "url": "http://lame.sourceforge.net/",
+      "copyright": "Copyright &copy; 1998-1999 Mike Cheng, &copy; 1999-2017 Mark Taylor, Takehiro Tominaga, Robert Hegemann, Gabriel Bouvigne, Alexander Leidinger and the LAME developers",
+      "license": "LGPLv2 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "lame",
+        "version": "3.100"
+      },
+      "symbol": " _lame_init"
+    },
+    {
+      "name": "liblive555",
+      "url": "http://www.live555.com/liveMedia/",
+      "copyright": "Copyright &copy; 1996-2016 Live Networks, Inc.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "live555",
+        "version": "2016.10.21"
+      },
+      "symbol": "RTSPClient"
+    },
+    {
+      "name": "libmatroska",
+      "url": "http://matroska.org",
+      "copyright": "Copyright &copy; 2002-2026 Steve Lhomme et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "matroska",
+        "version": "1.7.2"
+      },
+      "symbol": "KaxSegment"
+    },
+    {
+      "name": "libmodplug",
+      "url": null,
+      "copyright": "Oliver Lapicque, Konstanty",
+      "license": "Public domain",
+      "anchor": null,
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "modplug",
+        "version": "0.8.9.0"
+      },
+      "symbol": " _ModPlug_Load"
+    },
+    {
+      "name": "mpg123",
+      "url": "http://mpg123.de",
+      "copyright": "Copyright &copy; 1995-2020 Michael Hipp et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "mpg123",
+        "version": "1.33.6"
+      },
+      "symbol": " _mpg123_new"
+    },
+    {
+      "name": "libmysofa",
+      "url": "https://github.com/hoene/libmysofa",
+      "copyright": "Copyright &copy; 2016-2017 Symonics GmbH, Christian Hoene",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "mysofa",
+        "version": "1.2.1"
+      },
+      "symbol": " _mysofa_open"
+    },
+    {
+      "name": "libnfs",
+      "url": "https://github.com/sahlberg/libnfs",
+      "copyright": "Copyright &copy; 2010-2024 Ronnie Sahlberg and libnfs developers",
+      "license": "LGPLv2.1 or later and 2-clause BSD License",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "nfs",
+        "version": "6.0.2"
+      },
+      "symbol": " _nfs_init_context"
+    },
+    {
+      "name": "libNoIDea",
+      "url": "https://code.videolan.org/jbk/libnoidea",
+      "copyright": "Copyright &copy; 2025-2026 libnoidea authors and VideoLAN",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libnoidea",
+        "version": "b20c2d0a6f606db2c4649f368b9735a2599d6a2c"
+      },
+      "symbol": " _noidea_"
+    },
+    {
+      "name": "libogg",
+      "url": "http://xiph.org",
+      "copyright": "Copyright &copy; 2002 Xiph.org Foundation",
+      "license": "Xiph.org BSD License",
+      "anchor": "xiphbsd",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "ogg",
+        "dsym_dir": "libogg",
+        "version": "1.3.6"
+      },
+      "symbol": " _ogg_sync_init"
+    },
+    {
+      "name": "OpenAPV",
+      "url": "https://github.com/AcademySoftwareFoundation/openapv",
+      "copyright": "Copyright &copy; 2022 Samsung Electronics Co., Ltd.",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "openapv",
+        "version": "0.3.0.0"
+      },
+      "symbol": " _oapvd_create"
+    },
+    {
+      "name": "OpenCV",
+      "url": "https://opencv.org",
+      "copyright": "Copyright &copy; 2000-2020 Intel Corporation, &copy; 2009-2011 Willow Garage Inc., &copy; 2009-2016 NVIDIA Corporation, &copy; 2010-2013 Advanced Micro Devices, Inc., &copy; 2015-2016 OpenCV Foundation, &copy; 2015-2016 Itseez Inc., &copy; 2019-2020 Xperience AI",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "opencv4",
+        "version": "4.4.0"
+      },
+      "symbol": "N2cv"
+    },
+    {
+      "name": "OpenJPEG",
+      "url": "http://www.openjpeg.org",
+      "copyright": "Copyright &copy; 2002-2014 Universit&eacute; catholique de Louvain (UCL), Belgium, &copy; 2002-2014 Professor Benoit Macq, &copy; 2003-2014 Antonin Descampe, &copy; 2003-2009 Francois-Olivier Devaux, &copy; 2005 Herve Drolon, FreeImage Team, &copy; 2002-2003 Yannick Verschueren, &copy; 2001-2003 David Janssens, &copy; 2011-2012 Centre National d&rsquo;Etudes Spatiales (CNES), France, &copy; 2012 CS Systemes d&rsquo;Information, France",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "openjpeg",
+        "version": "2.5.4"
+      },
+      "symbol": " _opj_create_decompress"
+    },
+    {
+      "name": "Opus",
+      "url": "http://www.opus-codec.org",
+      "copyright": "Copyright &copy; 2001-2023 Xiph.Org, Skype Limited, Octasic, Jean-Marc Valin, Timothy B. Terriberry, CSIRO, Gregory Maxwell, Mark Borgerding, Erik de Castro Lopo, Mozilla, Amazon",
+      "license": "Xiph.org BSD License",
+      "anchor": "xiphbsd",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "opus",
+        "version": "1.6.1"
+      },
+      "symbol": " _opus_decoder_create"
+    },
+    {
+      "name": "libplacebo",
+      "url": "https://code.videolan.org/videolan/libplacebo",
+      "copyright": "Copyright &copy; 2017-2023 VideoLAN, Niklas Haas and libplacebo Contributors",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libplacebo",
+        "version": "5.264.1"
+      },
+      "symbol": "_pl_gpu"
+    },
+    {
+      "name": "libpng",
+      "url": "http://www.libpng.org",
+      "copyright": "Copyright &copy; 1995-2026 The PNG Reference Library Authors, &copy; 2018-2026 Cosmin Truta, &copy; 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson, &copy; 1996-1997 Andreas Dilger, &copy; 1995-1996 Guy Eric Schalnat, Group 42, Inc.",
+      "license": "libpng license",
+      "anchor": "libpng",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "png",
+        "version": "1.6.58"
+      },
+      "symbol": " _png_create_read_struct"
+    },
+    {
+      "name": "Protocol Buffers",
+      "url": "https://github.com/protocolbuffers/protobuf",
+      "copyright": "Copyright &copy; 2008 Google Inc.",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios"
+      ],
+      "source": {
+        "contrib": "protobuf",
+        "version": "21"
+      },
+      "symbol": "N6google8protobuf"
+    },
+    {
+      "name": "RNNoise",
+      "url": "https://gitlab.xiph.org/xiph/rnnoise",
+      "copyright": "Copyright &copy; 2017 Mozilla, &copy; 2007-2017 Jean-Marc Valin, &copy; 2005-2017 Xiph.Org Foundation, &copy; 2003-2004 Mark Borgerding",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "rnnoise",
+        "version": "0.1.1"
+      },
+      "symbol": " _rnnoise_create"
+    },
+    {
+      "name": "librist",
+      "url": "https://code.videolan.org/rist/librist",
+      "copyright": "Copyright &copy; 2019-2020 SipRadius LLC, VideoLAN and librist authors",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "librist",
+        "version": "v0.2.20"
+      },
+      "symbol": " _rist_receiver_create"
+    },
+    {
+      "name": "libshout",
+      "url": "http://www.icecast.org",
+      "copyright": "Copyright &copy; 2002-2004 the Icecast team, &copy; 2012-2022 Philipp Schafft",
+      "license": "LGPLv2 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "shout",
+        "dsym_dir": "libshout",
+        "version": "2.4.6"
+      },
+      "symbol": " _shout_new"
+    },
+    {
+      "name": "libsmb2",
+      "url": "https://github.com/sahlberg/libsmb2",
+      "copyright": "Copyright &copy; 2016-2024 Ronnie Sahlberg, &copy; 2017 Primary Data Inc. and libsmb2 developers",
+      "license": "LGPLv2.1 or later and 2-clause BSD License",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "smb2",
+        "version": "6.1"
+      },
+      "symbol": " _smb2_init_context"
+    },
+    {
+      "name": "libsoxr",
+      "url": "https://sourceforge.net/projects/soxr/",
+      "copyright": "Copyright &copy; 2007-2018 Rob Sykes",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "soxr",
+        "version": "0.1.3"
+      },
+      "symbol": " _soxr_create"
+    },
+    {
+      "name": "libspatialaudio",
+      "url": "https://github.com/videolabs/libspatialaudio",
+      "copyright": "Copyright &copy; 2007 Aristotel Digenis, &copy; 2017 Videolabs and libspatialaudio developers",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "spatialaudio",
+        "version": "0.3.0"
+      },
+      "symbol": "CAmbisonic"
+    },
+    {
+      "name": "Speex",
+      "url": "http://www.speex.org",
+      "copyright": "Copyright &copy; 1992-1994 Jutta Degener, Carsten Bormann, &copy; 1993, 2002, 2006 David Rowe, &copy; 2002-2008 Xiph.org Foundation, Jean-Marc Valin, &copy; 2003 EpicGames, &copy; 2005-2007 Analog Devices Inc., &copy; 2005-2008 Commonwealth Scientific and Industrial Research Organisation (CSIRO)",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "speex",
+        "version": "1.2.1"
+      },
+      "symbol": " _speex_decoder_init"
+    },
+    {
+      "name": "SQLite",
+      "url": "https://sqlite.org",
+      "copyright": "Dedicated to the public domain by the SQLite authors",
+      "license": "Public domain",
+      "anchor": null,
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "vlcmlkit": "SQLITE_RELEASE",
+        "version": "sqlite-autoconf-3530300"
+      },
+      "symbol": " _sqlite3_open"
+    },
+    {
+      "name": "libssh2",
+      "url": "http://www.libssh2.org",
+      "copyright": "Copyright &copy; 2004-2007 Sara Golemon, &copy; 2005, 2006 Mikhail Gusarov, &copy; 2006-2007 The Written Word, Inc., &copy; 2007 Eli Fant, &copy; 2009-2023 Daniel Stenberg, &copy; 2008, 2009 Simon Josefsson, &copy; 2000 Markus Friedl, &copy; 2015 Microsoft Corp.",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "ssh2",
+        "version": "1.11.1"
+      },
+      "symbol": " _libssh2_init"
+    },
+    {
+      "name": "taglib",
+      "url": "http://taglib.github.io",
+      "copyright": "Copyright &copy; 2002-2026 Scott Wheeler, Allan Sandfeld Jensen, Luk&aacute;&scaron; Lalinsk&yacute;, Mathias Panzenb&ouml;ck, Urs Fleisch et al.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "taglib",
+        "version": "2.3.2"
+      },
+      "symbol": "N6TagLib"
+    },
+    {
+      "name": "libtasn1",
+      "url": "https://www.gnu.org/software/libtasn1/",
+      "copyright": "Copyright &copy; 2002-2026 Free Software Foundation, Inc.",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libtasn1",
+        "version": "4.21.0"
+      },
+      "symbol": " _asn1_der_decoding"
+    },
+    {
+      "name": "libtheora",
+      "url": "http://www.theora.org",
+      "copyright": "Copyright &copy; 2002-2009 Xiph.org Foundation",
+      "license": "Xiph.org BSD License",
+      "anchor": "xiphbsd",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "theora",
+        "dsym_dir": "libtheora",
+        "version": "1.2.0 fb92ede9ba5162d0b8134cd1ff57751df6f3dbe6"
+      },
+      "symbol": " _th_decode_alloc"
+    },
+    {
+      "name": "TwoLAME",
+      "url": "http://www.twolame.org/",
+      "copyright": "Copyright &copy; 2001-2004 Michael Cheng, &copy; 2004-2018 The TwoLAME Project",
+      "license": "LGPLv2.1 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "twolame",
+        "version": "0.4.0"
+      },
+      "symbol": " _twolame_init"
+    },
+    {
+      "name": "libupnp",
+      "url": "https://pupnp.github.io/pupnp/",
+      "copyright": "Copyright &copy; 2000-2003 Intel Corporation",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "upnp",
+        "version": "1.14.31"
+      },
+      "symbol": " _UpnpInit2"
+    },
+    {
+      "name": "utf8proc",
+      "url": "https://github.com/JuliaStrings/utf8proc",
+      "copyright": "Copyright &copy; 2014-2021 Steven G. Johnson, Jiahao Chen, Tony Kelman, Jonas Fonseca and other contributors, &copy; 2009, 2013 Public Software Group e. V., Berlin, Germany, Unicode data &copy; 1991-2007 Unicode, Inc. (<a href=\"http://www.unicode.org/copyright.html\">Unicode Terms of Use</a>)",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "vlcmlkit": "UTF8PROC_VERSION",
+        "version": "2.12.0"
+      },
+      "symbol": " _utf8proc_"
+    },
+    {
+      "name": "libvorbis",
+      "url": "http://xiph.org",
+      "copyright": "Copyright &copy; 2002-2020 Xiph.org Foundation",
+      "license": "Xiph.org BSD License",
+      "anchor": "xiphbsd",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "vorbis",
+        "dsym_dir": "libvorbis",
+        "version": "1.3.7"
+      },
+      "symbol": " _vorbis_synthesis_init"
+    },
+    {
+      "name": "libvpx",
+      "url": "https://chromium.googlesource.com/webm/libvpx/",
+      "copyright": "Copyright &copy; 2010-2026 The WebM Project authors",
+      "license": "3-clause BSD License",
+      "anchor": "bsd3clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "vpx",
+        "dsym_dir": "libvpx",
+        "version": "1.17.0"
+      },
+      "symbol": " _vpx_codec_dec_init_ver"
+    },
+    {
+      "name": "libxml2",
+      "url": "https://gitlab.gnome.org/GNOME/libxml2",
+      "copyright": "Copyright &copy; 1998-2012 Daniel Veillard, The Libxml2 Contributors",
+      "license": "MIT License",
+      "anchor": "mit",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "libxml2",
+        "version": "2.15.3"
+      },
+      "symbol": " _xmlReadMemory"
+    },
+    {
+      "name": "xxHash",
+      "url": "https://github.com/Cyan4973/xxHash",
+      "copyright": "Copyright &copy; 2012-2020 Yann Collet",
+      "license": "2-clause BSD License",
+      "anchor": "bsd2clause",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "bundled_in": "medialibrary"
+      },
+      "symbol": "XXH3_"
+    },
+    {
+      "name": "zlib",
+      "url": "https://zlib.net",
+      "copyright": "Copyright &copy; 1995-2026 Jean-loup Gailly and Mark Adler",
+      "license": "zlib License",
+      "anchor": "zlib",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "zlib",
+        "version": "1.3.2"
+      },
+      "symbol": " _inflateInit_"
+    },
+    {
+      "name": "Zapping VBI library",
+      "url": "http://zapping.sourceforge.net/ZVBI/",
+      "copyright": "Copyright &copy; 1998-2008 Manish Singh, Michael H. Schimek, Stefan Westerfeld, I&ntilde;aki Garc&iacute;a Etxebarria, Tom Zoerner",
+      "license": "LGPLv2 or later",
+      "anchor": "lgpl2",
+      "platforms": [
+        "ios",
+        "tvos"
+      ],
+      "source": {
+        "contrib": "zvbi",
+        "version": "0.2.45"
+      },
+      "symbol": " _vbi_decoder_new"
+    }
+  ]
+}
