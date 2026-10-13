@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://code.videolan.org/videolan/VLCMediaLibraryKit.git",
       "state" : {
-        "revision" : "551bd0abd00757b4b378beb9dfdab6032d91bee0",
-        "version" : "0.15.0-b1"
+        "revision" : "cc6be7e3c03508d01ea60460ce74baa3305f3c10",
+        "version" : "0.15.0-b2"
       }
     },
     {
