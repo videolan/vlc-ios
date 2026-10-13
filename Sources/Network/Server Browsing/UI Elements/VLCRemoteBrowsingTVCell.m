@@ -11,15 +11,11 @@
  *****************************************************************************/
 
 #import "VLCRemoteBrowsingTVCell.h"
-#import "VLCMDFBrowsingArtworkProvider.h"
 #import "VLC-Swift.h"
 
 NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 
 @interface VLCRemoteBrowsingTVCell ()
-{
-    VLCMDFBrowsingArtworkProvider *_artworkProvider;
-}
 @property (nonatomic) IBOutlet NSLayoutConstraint *aspectRationConstraint;
 
 @end
@@ -31,8 +27,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
-    _artworkProvider.artworkReceiver = self;
     self.mediaNewLabel.hidden = YES;
     self.checkBoxImageView.hidden = YES;
     _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -44,21 +38,10 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    [_artworkProvider reset];
     [self.thumbnailImageView cancelLoading];
     self.title = nil;
     self.subtitle = nil;
-    self.downloadArtwork = NO;
     self.selectedPreviously = NO;
-}
-
-- (void)setCouldBeAudioOnlyMedia:(BOOL)couldBeAudioOnlyMedia
-{
-    _artworkProvider.searchForAudioMetadata = _couldBeAudioOnlyMedia;
-    if (_couldBeAudioOnlyMedia != couldBeAudioOnlyMedia) {
-        [_artworkProvider reset];
-    }
-    _couldBeAudioOnlyMedia = couldBeAudioOnlyMedia;
 }
 
 - (void)setIsFavorable:(BOOL)isFavorable
@@ -71,11 +54,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     _thumbnailURL = thumbnailURL;
     if (_thumbnailURL) {
         [self.thumbnailImageView setImageWithURL:thumbnailURL];
-    } else {
-        NSString *searchString = self.title;
-        if (searchString != nil && !_isDirectory && _downloadArtwork) {
-            [_artworkProvider searchForArtworkForVideoRelatedString:searchString];
-        }
     }
 }
 
@@ -92,9 +70,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)setTitle:(NSString *)title
 {
     self.titleLabel.text = title;
-    if (title != nil && !_isDirectory && _downloadArtwork) {
-        [_artworkProvider searchForArtworkForVideoRelatedString:title];
-    }
 }
 
 -(void)setMediaProgress:(float)mediaProgress

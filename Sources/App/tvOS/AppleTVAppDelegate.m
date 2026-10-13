@@ -71,7 +71,6 @@
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
                                   kVLCPlayerShouldRememberState: @(YES),
                                   kVLCPlayerUIShouldHide : @(NO),
-                                  kVLCSettingDownloadArtwork : @(YES),
                                   kVLCForceSMBV1 : @(NO),
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingPlaybackSpeedDefaultValue: @(1.0),

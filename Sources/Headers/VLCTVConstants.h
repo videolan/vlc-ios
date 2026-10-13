@@ -74,7 +74,6 @@
 #define kVLCSettingShowThumbnailsDefaultValue @YES
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
-#define kVLCSettingDownloadArtwork @"download-artwork"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"
@@ -96,8 +95,6 @@
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 #define kVLCSettingPlayUploadsWhileReceiving @"PlayUploadsWhileReceiving"
 #define kVLCSettingPlayUploadsWhileReceivingDefaultValue @(YES)
-
-#define kVLCfortvOSMovieDBKey @""
 
 #define kVLCStoredServerList @"kVLCStoredServerList"
 

@@ -310,7 +310,6 @@
 		7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D15168A194773630086FB8C /* MobileCoreServices.framework */; };
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
-		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
 		7D1E44753018CA6C003E1452 /* VLCOnAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44733018CA6C003E1452 /* VLCOnAirViewController.m */; };
 		7D1E44763018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E446D3018CA6C003E1452 /* VLCOnAirContinueCell.m */; };
 		7D1E44773018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E44713018CA6C003E1452 /* VLCOnAirRailCell.m */; };
@@ -1371,7 +1370,6 @@
 		7DED9DE5300D2A03006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE4300D2A03006CAFFA /* CocoaHTTPServer */; };
 		7DED9DE7300D2A0B006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE6300D2A0B006CAFFA /* CocoaHTTPServer */; };
 		7DED9DE9300D2A16006CAFFA /* CocoaHTTPServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DE8300D2A16006CAFFA /* CocoaHTTPServer */; };
-		7DED9DEC300D2C55006CAFFA /* MetaDataFetcherKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DED9DEB300D2C55006CAFFA /* MetaDataFetcherKit */; };
 		7DEF111F2B8BA9DC0068D030 /* VLCLocalNetworkServiceBrowserFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEF111C2B8BA7C50068D030 /* VLCLocalNetworkServiceBrowserFavorites.m */; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
@@ -2054,8 +2052,6 @@
 		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCActivityManager.h; sourceTree = "<group>"; };
 		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCActivityManager.m; sourceTree = "<group>"; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMDFBrowsingArtworkProvider.h; sourceTree = "<group>"; };
-		7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMDFBrowsingArtworkProvider.m; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D1AB281179C98CD004CC271 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB286179C98D4004CC271 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2804,7 +2800,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D1E8F1F300E6AA70014A118 /* VLCKit in Frameworks */,
-				7DED9DEC300D2C55006CAFFA /* MetaDataFetcherKit in Frameworks */,
 				7D018FB7301CC5FF00900340 /* VLCMediaLibraryKit in Frameworks */,
 				7DE88F7F300E419700C3F238 /* InAppSettingsKit in Frameworks */,
 				7D1E8F04300E45650014A118 /* GRKArrayDiff in Frameworks */,
@@ -4308,7 +4303,6 @@
 			isa = PBXGroup;
 			children = (
 				7DC869D328CB853700EE99F8 /* Data */,
-				7DC869D128CB846C00EE99F8 /* Artwork Provider */,
 				7DC869CF28CB83E900EE99F8 /* UI Elements */,
 				7DC869CC28CB80DF00EE99F8 /* View Controllers */,
 			);
@@ -4344,15 +4338,6 @@
 				DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */,
 			);
 			path = "UI Elements";
-			sourceTree = "<group>";
-		};
-		7DC869D128CB846C00EE99F8 /* Artwork Provider */ = {
-			isa = PBXGroup;
-			children = (
-				7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */,
-				7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */,
-			);
-			path = "Artwork Provider";
 			sourceTree = "<group>";
 		};
 		7DC869D328CB853700EE99F8 /* Data */ = {
@@ -5417,7 +5402,6 @@
 				7DED9DBD300D1395006CAFFA /* XCRemoteSwiftPackageReference "pcloud-sdk-swift" */,
 				7DED9DCE300D2039006CAFFA /* XCRemoteSwiftPackageReference "XKKeychain" */,
 				7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */,
-				7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */,
 				7DE88F7D300E413200C3F238 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */,
 				7DE88F80300E41AF00C3F238 /* XCRemoteSwiftPackageReference "OBSlider" */,
 				7D1E8F02300E44960014A118 /* XCRemoteSwiftPackageReference "GRKArrayDiff" */,
@@ -6050,7 +6034,6 @@
 				FEC04E0000000000000000F5 /* PulsingConeView.swift in Sources */,
 				226D57DD2B42C4710090AD88 /* VLCFavoriteService.m in Sources */,
 				7D6972B0304AA15100B8261B /* VLCURLAuthenticationHandler.m in Sources */,
-				7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				2227B4CD2A80CE3100D2BE26 /* PlaylistTableViewCell.swift in Sources */,
 				7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */,
@@ -9565,14 +9548,6 @@
 				minimumVersion = 2.4.0;
 			};
 		};
-		7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://code.videolan.org/fkuehne/MetaDataFetcherKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -9715,11 +9690,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7DED9DE1300D29F9006CAFFA /* XCRemoteSwiftPackageReference "CocoaHTTPServer" */;
 			productName = CocoaHTTPServer;
-		};
-		7DED9DEB300D2C55006CAFFA /* MetaDataFetcherKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7DED9DEA300D2C55006CAFFA /* XCRemoteSwiftPackageReference "MetaDataFetcherKit" */;
-			productName = MetaDataFetcherKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

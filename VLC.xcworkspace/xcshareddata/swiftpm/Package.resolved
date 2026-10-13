@@ -1,15 +1,6 @@
 {
-  "originHash" : "3f47ff979802481b0e4d8001196256578c3e99d62aa236df953d0933d862a2c5",
+  "originHash" : "647da6223d8e247dad0253e3aad7c1b14a2ad73e2d30d3c841c0fcc3a3cd7c4e",
   "pins" : [
-    {
-      "identity" : "afnetworking",
-      "kind" : "remoteSourceControl",
-      "location" : "https://code.videolan.org/fkuehne/AFNetworking.git",
-      "state" : {
-        "revision" : "80323fce156b9d64fde63e3138591213fdedcbd3",
-        "version" : "4.0.2"
-      }
-    },
     {
       "identity" : "cocoahttpserver",
       "kind" : "remoteSourceControl",
@@ -44,15 +35,6 @@
       "state" : {
         "revision" : "c6b4da400c00dfd5db7a4f6e4915ca531d95fc49",
         "version" : "4.5.3"
-      }
-    },
-    {
-      "identity" : "metadatafetcherkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://code.videolan.org/fkuehne/MetaDataFetcherKit.git",
-      "state" : {
-        "revision" : "75d432a7fc95fa3bf53cdac0c09eca8e2b5973db",
-        "version" : "0.5.3"
       }
     },
     {
