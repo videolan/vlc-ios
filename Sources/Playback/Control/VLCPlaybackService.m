@@ -2096,6 +2096,12 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
         }
 
+        #if TARGET_OS_IOS
+        if (continuePlayback == 0 && [self _carPlayIsConnected]) {
+            continuePlayback = 1;
+        }
+        #endif
+
         if (continuePlayback == 1) {
             [self _restorePlaybackPosition:lastPosition];
         } else if (continuePlayback == 0) {
@@ -2127,6 +2133,18 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         }
     }
 }
+
+#if TARGET_OS_IOS
+- (BOOL)_carPlayIsConnected
+{
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if ([scene.session.role isEqualToString:@"CPTemplateApplicationSceneSessionRoleApplication"]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+#endif
 
 - (void)_findCachedSubtitlesForMedia:(VLCMedia *)media
 {
