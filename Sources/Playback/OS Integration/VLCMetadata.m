@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2017-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -77,6 +77,7 @@ static const CGFloat kVLCArtworkMaxPixelSize = 1024.;
             }
         }
     } else { // We're streaming something
+        self.identifier = nil;
         [self fillFromMetaDict:mediaPlayer];
         [self checkIsAudioOnly:mediaPlayer];
     }
