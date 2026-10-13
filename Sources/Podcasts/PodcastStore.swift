@@ -127,13 +127,11 @@ final class PodcastStore: NSObject {
     }
 
     @objc private func playbackStateDidChange() {
-        if let nowPlayingEpisodeId = nowPlayingEpisodeId {
-            lastPlayedEpisodeId = nowPlayingEpisodeId
-        }
-
-        guard let episodeId = lastPlayedEpisodeId else {
+        let playingEpisodeId = nowPlayingEpisodeId
+        guard let episodeId = playingEpisodeId ?? lastPlayedEpisodeId else {
             return
         }
+        lastPlayedEpisodeId = playingEpisodeId
 
         invalidateDerivedEpisodeCaches()
         notifyEpisodeChanged(episodeId)
@@ -607,7 +605,8 @@ final class PodcastStore: NSObject {
         let playbackService = PlaybackService.sharedInstance()
         guard playbackService.playerIsSetup,
               let currentMedia = playbackService.currentlyPlayingMedia,
-              let media = VLCMLMedia(forPlaying: currentMedia) else {
+              let media = VLCMLMedia(forPlaying: currentMedia),
+              media.nbSubscriptions() > 0 else {
             return nil
         }
         return String(media.identifier())
