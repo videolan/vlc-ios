@@ -2089,7 +2089,9 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
             return;
         }
 
-        if (libraryMedia.type == VLCMLMediaTypeAudio) {
+        if (libraryMedia.nbSubscriptions > 0) {
+            continuePlayback = 1;
+        } else if (libraryMedia.type == VLCMLMediaTypeAudio) {
             if (!libraryMedia.isPodcast) {
                 return;
             }
