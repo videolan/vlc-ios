@@ -49,6 +49,7 @@ didCacheMediaWithIdentifier:(VLCMLIdentifier)identifier
 
 @property (nonatomic, weak, nullable) id<VLCSubscriptionCacherDelegate> delegate;
 @property (nonatomic, readonly) BOOL automaticCachingAllowed;
+@property (nonatomic, readonly) BOOL networkReachable;
 
 /* Must be called before the matching cacheMedia:, as the library may enter
  * cacheMRL:toPath: on its worker thread before that call returns. */

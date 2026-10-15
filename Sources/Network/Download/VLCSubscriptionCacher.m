@@ -69,6 +69,11 @@ static const NSTimeInterval VLCSubscriptionCacherProgressInterval = 0.5;
     return _reachability.currentReachabilityStatus == ReachableViaWiFi;
 }
 
+- (BOOL)networkReachable
+{
+    return _reachability.currentReachabilityStatus != NotReachable;
+}
+
 - (void)addManualRequestForMediaWithIdentifier:(VLCMLIdentifier)identifier
 {
     [_lock lock];

@@ -113,11 +113,14 @@ final class PodcastSubscriptionModel: NSObject {
             list.add(partialMedia)
             playbackService.playMediaList(list, firstIndex: 0, subtitlesFilePath: nil)
         } else if UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem) {
-            let mediaList: [VLCMLMedia]
+            var mediaList: [VLCMLMedia]
             if query.isEmpty {
                 mediaList = subscription.media(with: sort, desc: descending) ?? []
             } else {
                 mediaList = subscription.searchMedia(withPattern: query, sort: sort, desc: descending) ?? []
+            }
+            if !medialibrary.subscriptionCacher.networkReachable {
+                mediaList = mediaList.filter { $0.isCached() }
             }
             if let index = mediaList.firstIndex(where: { $0.identifier() == identifier }) {
                 playbackService.playMedia(at: index, fromCollection: mediaList)
