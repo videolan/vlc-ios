@@ -463,9 +463,7 @@ extension AudioPlayerViewController {
             return
         }
 
-        if let queueCollectionView = queueViewController?.queueCollectionView {
-            queueCollectionView.reloadData()
-        }
+        queueViewController?.reload()
 
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
