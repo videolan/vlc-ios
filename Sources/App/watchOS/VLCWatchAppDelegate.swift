@@ -38,7 +38,7 @@ class VLCWatchAppDelegate: NSObject, WKApplicationDelegate {
             kVLCSettingPasscodeEnableBiometricAuth : 1,
             kVLCSettingContinueAudioInBackgroundKey : true,
             kVLCSettingStretchAudio : true,
-            kVLCSettingDefaultPreampLevel : 6,
+            kVLCSettingDefaultPreampLevel : 0,
             kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
             kVLCSettingSkipLoopFilter : "1",
             kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,

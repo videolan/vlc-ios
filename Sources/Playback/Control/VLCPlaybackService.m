@@ -27,6 +27,7 @@
 #endif
 #import "VLCMetadata.h"
 #import "VLCPlaceholderArtwork.h"
+#import "VLCMigrationCursor.h"
 
 #if !TARGET_OS_WATCH
 #import "VLCPlayerDisplayController.h"
@@ -59,6 +60,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 static const float kVLCPlaybackRateMinimum = 0.25f;
 static const float kVLCPlaybackRateMaximum = 8.0f;
+/* libvlc's equalizer scales the dry signal by 0.25 (-12 dB) */
+static const float kVLCEqualizerUnityPreamp = 12.0f;
+static const NSInteger kVLCPreampLevelMinimum = -12;
 
 #if TARGET_OS_TV
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCDrawable, VLCPictureInPictureDrawable>
@@ -137,6 +141,22 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     });
 
     return sharedInstance;
+}
+
++ (void)migrateToRelativePreampLevel
+{
+    if (![VLCMigrationCursor isStepPending:VLCMigrationStepRelativePreampLevel]) {
+        return;
+    }
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *persistentDomain = [userDefaults persistentDomainForName:[NSBundle mainBundle].bundleIdentifier];
+    NSNumber *storedLevel = persistentDomain[kVLCSettingDefaultPreampLevel];
+    if (storedLevel) {
+        NSInteger preampLevel = MAX(storedLevel.integerValue - (NSInteger)kVLCEqualizerUnityPreamp, kVLCPreampLevelMinimum);
+        [userDefaults setInteger:preampLevel forKey:kVLCSettingDefaultPreampLevel];
+    }
+    [VLCMigrationCursor completeStep:VLCMigrationStepRelativePreampLevel];
 }
 
 - (void)dealloc
@@ -458,8 +478,10 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         }
     } else {
         float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
-        equalizer = [[VLCAudioEqualizer alloc] init];
-        equalizer.preAmplification = preampValue;
+        if (preampValue != 0.) {
+            equalizer = [[VLCAudioEqualizer alloc] init];
+            equalizer.preAmplification = preampValue + kVLCEqualizerUnityPreamp;
+        }
     }
     _mediaPlayer.equalizer = equalizer;
 #if TARGET_OS_IOS || TARGET_OS_VISION
@@ -1596,6 +1618,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
     VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
     if (!equalizer) {
         equalizer = [[VLCAudioEqualizer alloc] init];
+        equalizer.preAmplification = self.preAmplification;
         _mediaPlayer.equalizer = equalizer;
     }
 
@@ -1628,10 +1651,10 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         [userDefaults setBool:YES forKey:kVLCSettingEqualizerProfileDisabled];
 
         float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
-        if (preampValue != 6.0) {
+        if (preampValue != 0.) {
             APLog(@"Enforcing presumbly disabled equalizer due to custom preamp value of %f2.0", preampValue);
             VLCAudioEqualizer *eq = [[VLCAudioEqualizer alloc] init];
-            eq.preAmplification = preampValue;
+            eq.preAmplification = preampValue + kVLCEqualizerUnityPreamp;
             _mediaPlayer.equalizer = eq;
         }
         return;
@@ -1679,7 +1702,7 @@ static const float kVLCPlaybackRateMaximum = 8.0f;
         return equalizer.preAmplification;
     }
 
-    return [[NSUserDefaults standardUserDefaults] floatForKey:kVLCSettingDefaultPreampLevel];
+    return [[NSUserDefaults standardUserDefaults] floatForKey:kVLCSettingDefaultPreampLevel] + kVLCEqualizerUnityPreamp;
 }
 
 - (unsigned int)numberOfBands

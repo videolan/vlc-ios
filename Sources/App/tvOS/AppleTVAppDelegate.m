@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2021, 2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2021, 2023, 2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -45,7 +45,7 @@
     NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(kVLCSettingAppThemeSystem),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
-                                  kVLCSettingDefaultPreampLevel : @(6),
+                                  kVLCSettingDefaultPreampLevel : @(0),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
                                   kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
@@ -79,6 +79,7 @@
                                   kVLCSettingsAudioOffsetDelay : kVLCSettingsOffsetDefaultValue,
                                   kVLCSettingsSubtitlesOffsetDelay : kVLCSettingsOffsetDefaultValue};
     [defaults registerDefaults:appDefaults];
+    [VLCPlaybackService migrateToRelativePreampLevel];
 }
 
 - (UIViewController *)setupMainViewController

@@ -47,7 +47,7 @@
                                   kVLCSettingPasscodeEnableBiometricAuth : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(YES),
-                                  kVLCSettingDefaultPreampLevel : @(6),
+                                  kVLCSettingDefaultPreampLevel : @(0),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
                                   kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
@@ -113,6 +113,7 @@
                                   kVLCAudioTabIndex: @(0),
     };
     [defaults registerDefaults:appDefaults];
+    [VLCPlaybackService migrateToRelativePreampLevel];
 }
 
 - (void)setupTabBarAppearance

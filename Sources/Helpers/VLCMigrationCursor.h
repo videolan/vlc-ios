@@ -14,7 +14,8 @@
 
 typedef NS_ENUM(NSInteger, VLCMigrationStep) {
     VLCMigrationStepBanLogsFolder = 1,
-    VLCMigrationStepReloadRadioCountries = 2
+    VLCMigrationStepReloadRadioCountries = 2,
+    VLCMigrationStepRelativePreampLevel = 3
 };
 
 @interface VLCMigrationCursor : NSObject

@@ -140,6 +140,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic) NSMutableArray *openedLocalURLs;
 
 + (VLCPlaybackService *)sharedInstance;
++ (void)migrateToRelativePreampLevel;
 - (VLCTime *)playedTime;
 #pragma mark - playback
 - (void)startPlayback;
