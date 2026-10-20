@@ -14,7 +14,6 @@
 
 /* migrations must outlive a settings reset, so they live outside the app's persistent domain */
 static NSString *const kVLCMigrationSuiteName = @"org.videolan.vlc-ios.migrations";
-static NSString *const kVLCLastCompletedMigrationStep = @"lastCompletedMigrationStep";
 
 @implementation VLCMigrationCursor
 
@@ -30,15 +29,12 @@ static NSString *const kVLCLastCompletedMigrationStep = @"lastCompletedMigration
 
 + (BOOL)isStepPending:(VLCMigrationStep)step
 {
-    return [[self store] integerForKey:kVLCLastCompletedMigrationStep] < step;
+    return ![[self store] boolForKey:@(step).stringValue];
 }
 
 + (void)completeStep:(VLCMigrationStep)step
 {
-    NSUserDefaults *store = [self store];
-    if ([store integerForKey:kVLCLastCompletedMigrationStep] < step) {
-        [store setInteger:step forKey:kVLCLastCompletedMigrationStep];
-    }
+    [[self store] setBool:YES forKey:@(step).stringValue];
 }
 
 @end
