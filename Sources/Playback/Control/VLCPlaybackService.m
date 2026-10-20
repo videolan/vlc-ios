@@ -1618,7 +1618,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
     if (!equalizer) {
         equalizer = [[VLCAudioEqualizer alloc] init];
-        equalizer.preAmplification = self.preAmplification;
+        equalizer.preAmplification = self.preAmplification + kVLCEqualizerUnityPreamp;
         _mediaPlayer.equalizer = equalizer;
     }
 
@@ -1686,12 +1686,12 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 {
     VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
     if (equalizer) {
-        equalizer.preAmplification = preAmplification;
+        equalizer.preAmplification = preAmplification + kVLCEqualizerUnityPreamp;
         return;
     }
 
     equalizer = [[VLCAudioEqualizer alloc] init];
-    equalizer.preAmplification = preAmplification;
+    equalizer.preAmplification = preAmplification + kVLCEqualizerUnityPreamp;
     _mediaPlayer.equalizer = equalizer;
 }
 
@@ -1699,10 +1699,10 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 {
     VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
     if (equalizer) {
-        return equalizer.preAmplification;
+        return equalizer.preAmplification - kVLCEqualizerUnityPreamp;
     }
 
-    return [[NSUserDefaults standardUserDefaults] floatForKey:kVLCSettingDefaultPreampLevel] + kVLCEqualizerUnityPreamp;
+    return [[NSUserDefaults standardUserDefaults] floatForKey:kVLCSettingDefaultPreampLevel];
 }
 
 - (unsigned int)numberOfBands
@@ -1778,7 +1778,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     }
 
     CustomEqualizerProfile *selectedProfile = profiles[index];
-    self.preAmplification = selectedProfile.preAmpLevel;
+    self.preAmplification = selectedProfile.preAmpLevel - kVLCEqualizerUnityPreamp;
     NSArray<NSNumber *> *frequencies = selectedProfile.frequencies;
     NSUInteger bandCount = frequencies.count;
     for (NSUInteger bandIndex = 0; bandIndex < bandCount; bandIndex++) {
@@ -1817,7 +1817,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     }
 
     CustomEqualizerProfile *profile = [[CustomEqualizerProfile alloc] initWithName:name
-                                                                       preAmpLevel:(float)self.preAmplification
+                                                                       preAmpLevel:(float)self.preAmplification + kVLCEqualizerUnityPreamp
                                                                        frequencies:frequencies];
     CustomEqualizerProfiles *customProfiles = [self storedCustomEqualizerProfiles];
     if (customProfiles) {

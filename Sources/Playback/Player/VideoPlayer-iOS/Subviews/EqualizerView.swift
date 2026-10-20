@@ -1,7 +1,7 @@
 /*****************************************************************************
 * EqualizerView.swift
 *
-* Copyright © 2020 VLC authors and VideoLAN
+* Copyright © 2020-2026 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
 *                       Diogo Simao Marques <dogo@videolabs.io>
@@ -185,14 +185,14 @@ class EqualizerView: UIView {
 
     private lazy var preampSlider: UISlider = {
         let slider = UISlider()
-        slider.minimumValue = -20.0
-        slider.maximumValue = 20.0
+        slider.minimumValue = 0
+        slider.maximumValue = 1
         slider.minimumTrackTintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
         slider.accessibilityLabel = NSLocalizedString("PREAMP", comment: "")
         if #available(iOS 26.0, visionOS 26.0, *) {
             slider.trackConfiguration = UISlider.TrackConfiguration(allowsTickValuesOnly: false,
-                                                                    neutralValue: 0.5,
-                                                                    ticks: [.init(position: 0.5)])
+                                                                    neutralValue: Self.preampNeutralSliderValue,
+                                                                    ticks: [.init(position: Self.preampNeutralSliderValue)])
         }
         slider.addTarget(self, action: #selector(preampSliderDidChangeValue), for: .valueChanged)
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -524,7 +524,7 @@ class EqualizerView: UIView {
     // MARK: - State
 
     func reloadData() {
-        preampSlider.value = Float(playbackService.preAmplification)
+        preampSlider.value = Self.preampSliderValue(forDecibels: Float(playbackService.preAmplification))
         updatePreampValueLabel()
 
         for (i, eqFrequency) in eqFrequencies.enumerated() {
@@ -536,7 +536,7 @@ class EqualizerView: UIView {
     }
 
     private func updatePreampValueLabel() {
-        let text = EqualizerValueFormatter.stringWithUnit(forDecibels: preampSlider.value)
+        let text = EqualizerValueFormatter.stringWithUnit(forDecibels: Self.preampDecibels(forSliderValue: preampSlider.value))
         preampValueLabel.text = text
         preampSlider.accessibilityValue = text
     }
@@ -587,7 +587,23 @@ class EqualizerView: UIView {
 
     private static let minimumControlHeight: CGFloat = 44
     private static let cardCornerRadius: CGFloat = 30
-    private static let preampSnapDistance: Float = 0.5
+    private static let preampSnapDistance: Float = 0.0125
+    private static let preampNeutralSliderValue: Float = 0.5
+    private static let preampRange: ClosedRange<Float> = -20...8
+
+    private static func preampSliderValue(forDecibels decibels: Float) -> Float {
+        if decibels < 0 {
+            return preampNeutralSliderValue * (decibels - preampRange.lowerBound) / -preampRange.lowerBound
+        }
+        return preampNeutralSliderValue + (1 - preampNeutralSliderValue) * decibels / preampRange.upperBound
+    }
+
+    private static func preampDecibels(forSliderValue sliderValue: Float) -> Float {
+        if sliderValue < preampNeutralSliderValue {
+            return preampRange.lowerBound * (1 - sliderValue / preampNeutralSliderValue)
+        }
+        return preampRange.upperBound * (sliderValue - preampNeutralSliderValue) / (1 - preampNeutralSliderValue)
+    }
 
     fileprivate static let frequencyFormatter: MeasurementFormatter = {
         let formatter = MeasurementFormatter()
@@ -703,10 +719,10 @@ extension EqualizerView {
 
 extension EqualizerView {
     @objc func preampSliderDidChangeValue(sender: UISlider) {
-        if abs(sender.value) < Self.preampSnapDistance {
-            sender.value = 0
+        if abs(sender.value - Self.preampNeutralSliderValue) < Self.preampSnapDistance {
+            sender.value = Self.preampNeutralSliderValue
         }
-        playbackService.preAmplification = CGFloat(sender.value)
+        playbackService.preAmplification = CGFloat(Self.preampDecibels(forSliderValue: sender.value))
         updatePreampValueLabel()
         setModified(true)
     }
