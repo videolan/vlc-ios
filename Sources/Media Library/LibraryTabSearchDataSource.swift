@@ -62,6 +62,7 @@ class LibraryTabSearchDataSource: NSObject {
     private var cachedCellWidth: CGFloat = 0
 
     private let sectionHeaderHeight: CGFloat = 40.0
+    private let searchDelay: TimeInterval = 0.25
 
     private var medialib: VLCMediaLibrary {
         return mediaLibraryService.medialib
@@ -94,7 +95,7 @@ class LibraryTabSearchDataSource: NSObject {
         }
 
         let pattern = LibraryTabSearchDataSource.pattern(from: searchString)
-        searchQueue.async { [weak self] in
+        searchQueue.asyncAfter(deadline: .now() + searchDelay) { [weak self] in
             // A newer search was requested while this one was queued, skip the queries
             guard let self = self, self.isCurrentSearch(generation) else { return }
 
