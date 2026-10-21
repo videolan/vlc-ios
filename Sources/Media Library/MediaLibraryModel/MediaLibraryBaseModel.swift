@@ -2,8 +2,8 @@ import Foundation
 /*****************************************************************************
  * MediaLibraryBaseModel.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -227,7 +227,13 @@ extension MediaCollectionModel {
     func thumbnail() -> UIImage? {
         var image: UIImage? = nil
         if image == nil {
-            for track in files() ?? [] where track.thumbnailStatus() == .available {
+            let tracks: [VLCMLMedia]?
+            if let mediaGroup = self as? VLCMLMediaGroup {
+                tracks = mediaGroup.media(of: .video, sort: .default, desc: false, items: 4, offset: 0)
+            } else {
+                tracks = files()
+            }
+            for track in tracks ?? [] where track.thumbnailStatus() == .available {
                 image = VLCThumbnailsCache.thumbnail(for: track.thumbnail())
                 break
             }
