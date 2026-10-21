@@ -24,6 +24,7 @@ enum LibrarySearchScope {
 struct LibrarySearchSection {
     let title: String
     let items: [VLCMLObject]
+    var mediaGroupNames = [VLCMLIdentifier: String]()
 }
 
 // MARK: - LibraryTabSearchDataSourceDelegate
@@ -147,12 +148,13 @@ private extension LibraryTabSearchDataSource {
     func searchSections(for pattern: String) -> [LibrarySearchSection] {
         switch scope {
         case .video:
-            let videos = LibrarySearchSection(title: NSLocalizedString("VIDEOS", comment: ""),
+            var videos = LibrarySearchSection(title: NSLocalizedString("VIDEOS", comment: ""),
                                               items: medialib.searchVideo(pattern, sort: .alpha, desc: false) ?? [])
             guard !LibraryTabSearchDataSource.isGroupingDisabled else {
                 return [videos]
             }
 
+            videos.mediaGroupNames = mediaGroupNames(of: videos.items)
             let mediaGroups = medialib.searchMediaGroups(withPattern: pattern, sort: .alpha, desc: false)?
                 .filter { LibraryTabSearchDataSource.isDisplayable($0) } ?? []
             return [LibrarySearchSection(title: NSLocalizedString("VIDEO_GROUPS", comment: ""), items: mediaGroups),
@@ -178,14 +180,17 @@ private extension LibraryTabSearchDataSource {
         }
     }
 
-    func mediaGroupName(of media: VLCMLMedia) -> String? {
-        guard media.type() == .video,
-              !LibraryTabSearchDataSource.isGroupingDisabled,
-              let mediaGroup = media.group(),
-              LibraryTabSearchDataSource.isDisplayable(mediaGroup) else {
-            return nil
+    func mediaGroupNames(of items: [VLCMLObject]) -> [VLCMLIdentifier: String] {
+        let groupIdentifiers = Set(items.compactMap { ($0 as? VLCMLMedia)?.groupIdentifier() })
+        var mediaGroupNames = [VLCMLIdentifier: String]()
+        for groupIdentifier in groupIdentifiers {
+            guard let mediaGroup = medialib.mediaGroup(withIdentifier: groupIdentifier),
+                  LibraryTabSearchDataSource.isDisplayable(mediaGroup) else {
+                continue
+            }
+            mediaGroupNames[groupIdentifier] = mediaGroup.name()
         }
-        return mediaGroup.name()
+        return mediaGroupNames
     }
 }
 
@@ -222,7 +227,7 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
 
         cell.isEditing = false
         cell.media = item
-        if let media = item as? VLCMLMedia, let mediaGroupName = mediaGroupName(of: media) {
+        if let media = item as? VLCMLMedia, let mediaGroupName = section.mediaGroupNames[media.groupIdentifier()] {
             cell.showMediaGroup(named: mediaGroupName)
         }
         cell.isAccessibilityElement = true
