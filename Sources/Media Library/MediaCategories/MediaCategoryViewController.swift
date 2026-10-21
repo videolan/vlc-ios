@@ -2299,7 +2299,7 @@ extension MediaCategoryViewController {
         }
 
         if let mediaGroup = mediaObject as? VLCMLMediaGroup {
-            guard let mediaArray = mediaGroup.media(of: .unknown) else {
+            guard let mediaArray = mediaGroup.media(of: .unknown, sort: .default, desc: false, items: 4, offset: 0) else {
                 assertionFailure("MediaCategoryViewController: Failed to retrieve media array")
                 return mediaCell
             }

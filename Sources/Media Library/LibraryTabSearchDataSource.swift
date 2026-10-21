@@ -218,7 +218,7 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
         }
 
         if let mediaGroup = item as? VLCMLMediaGroup {
-            mediaGroup.media(of: .video)?.prefix(4).forEach {
+            mediaGroup.media(of: .video, sort: .default, desc: false, items: 4, offset: 0)?.forEach {
                 mediaLibraryService.requestThumbnail(for: $0)
             }
         } else if let media = item as? VLCMLMedia, media.type() == .video {

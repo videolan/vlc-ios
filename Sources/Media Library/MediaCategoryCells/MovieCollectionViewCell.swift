@@ -162,14 +162,14 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         groupLastPlayedLabel.font = UIFont.preferredCustomFont(forTextStyle: .caption1).bolded
     }
 
-    private func setThumbnails(medias: [VLCMLMedia]?) {
+    private func setThumbnails(medias: [VLCMLMedia]?, totalCount: Int? = nil) {
         for index in 0...3 {
             if let media = medias?.objectAtIndex(index: index) {
                 thumbnailsArray[index].setImage(media.thumbnailImage(), placeholderName: media.placeholderName())
             }
         }
 
-        let mediasCount = medias?.count ?? 0
+        let mediasCount = totalCount ?? medias?.count ?? 0
         if mediasCount > 4 {
             numberLabel.text = String(format:"+  %i", mediasCount - 4)
             additionalMediaOverlay.isHidden = false
@@ -252,7 +252,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         setupGroupView()
 
-        setThumbnails(medias: mediaGroup.media(of: .unknown))
+        setThumbnails(medias: mediaGroup.media(of: .unknown, sort: .default, desc: false, items: 4, offset: 0),
+                      totalCount: Int(mediaGroup.nbPresentMedia()))
 
         groupTitleLabel.text = mediaGroup.name()
         groupSizeLabel.text = mediaGroup.numberOfTracksString()
