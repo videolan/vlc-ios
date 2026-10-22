@@ -113,13 +113,34 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let hasRoomForExtraControls = bounds.width >= AudioMiniPlayer.extraControlsMinWidth
+        var miniPlayerIsMinimized: Bool = false
+        #if os(iOS)
+        if #available(iOS 26, *) {
+            miniPlayerIsMinimized = traitCollection.tabAccessoryEnvironment == .inline
+        }
+        #endif
+        let hasRoomForControls = bounds.width >= AudioMiniPlayer.extraControlsMinWidth
+        let hasRoomForExtraControls = hasRoomForControls && !miniPlayerIsMinimized
         if repeatButton.isHidden == hasRoomForExtraControls {
             repeatButton.isHidden = !hasRoomForExtraControls
         }
         if shuffleButton.isHidden == hasRoomForExtraControls {
             shuffleButton.isHidden = !hasRoomForExtraControls
         }
+        #if os(iOS)
+        guard #available(iOS 26, *) else { return }
+        if miniPlayerIsMinimized {
+            if previousButton.isHidden == hasRoomForControls {
+                previousButton.isHidden = !hasRoomForControls
+            }
+            if nextButton.isHidden == hasRoomForControls {
+                nextButton.isHidden = !hasRoomForControls
+            }
+        } else {
+            previousButton.isHidden = false
+            nextButton.isHidden = false
+        }
+        #endif
     }
 
     func updatePlayPauseButton() {
