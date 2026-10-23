@@ -178,7 +178,7 @@ extension MLBaseModel {
     /// Swap the given [MLType] to the cached array.
     /// This only swaps models with the same VLCMLIdentifiers
     /// - Parameter models: To be swapped models
-    /// - Returns: New array of `MLType` if changes have been made, else return a unchanged cached version.
+    /// - Returns: New array of `MLType` if changes have been made, else return an unchanged cached version.
     func swapModels(with models: [MLType]) -> [MLType] {
         var newFiles = files
 

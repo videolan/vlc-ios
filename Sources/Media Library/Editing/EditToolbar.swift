@@ -123,7 +123,7 @@ class EditToolbar: UIView {
             case .addToPlaylist:
                 addToPlaylistButton.isHidden = false
             case .addToMediaGroup:
-                // Disable button by default, enable it depeding on selected items.
+                // Disable button by default, enable it depending on selected items.
                 addToMediaGroupButton.isEnabled = false
                 addToMediaGroupButton.isHidden = false
             case .removeFromMediaGroup:
