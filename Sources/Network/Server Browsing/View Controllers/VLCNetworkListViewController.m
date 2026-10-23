@@ -100,23 +100,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
                            selector:@selector(adjustForKeyboard:)
                                name:UIKeyboardWillHideNotification
                              object:nil];
-    [notificationCenter addObserver:self
-                           selector:@selector(updateBottomInsets)
-                               name:VLCPlayerDisplayControllerDisplayMiniPlayer
-                             object:nil];
-    [notificationCenter addObserver:self
-                           selector:@selector(updateBottomInsets)
-                               name:VLCPlayerDisplayControllerHideMiniPlayer
-                             object:nil];
-}
-
-- (void)updateBottomInsets
-{
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    contentInsets.bottom = [self baseBottomInset];
-
-    self.tableView.contentInset = contentInsets;
-    self.tableView.verticalScrollIndicatorInsets = contentInsets;
 }
 
 - (CGFloat)baseBottomInset
@@ -126,10 +109,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     // ensure that the last row is not cut-off on iPad by the tab bar
     if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad && self.tabBarController) {
         inset += self.tabBarController.tabBar.frame.size.height;
-    }
-
-    if (VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible) {
-        inset += VLCAudioMiniPlayer.height;
     }
 
     return inset;
@@ -142,13 +121,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     }
 
     [self.tableView adjustBottomInsetForKeyboardNotification:aNotification baseInset:[self baseBottomInset]];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    [self updateBottomInsets];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

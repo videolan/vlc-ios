@@ -159,6 +159,9 @@
 #define kVLCPlayerIsRepeatEnabled @"PlayerIsRepeatEnabled"
 #define kVLCPlayerIsRepeatEnabledDefaultValue @(0)
 
+#define kVLCMiniPlayerDisplayedNotification @"VLCMiniPlayerDisplayedNotification"
+#define kVLCMiniPlayerHiddenNotification @"VLCMiniPlayerHiddenNotification"
+
 #define kVLCCustomProfileEnabled @"kVLCCustomProfileEnabled"
 #define kVLCCustomEqualizerProfiles @"kVLCCustomEqualizerProfiles"
 

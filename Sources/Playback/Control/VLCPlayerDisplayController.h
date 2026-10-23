@@ -22,9 +22,6 @@ typedef NS_ENUM(UInt8, VLCMLMediaType);
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const VLCPlayerDisplayControllerDisplayMiniPlayer;
-extern NSString * const VLCPlayerDisplayControllerHideMiniPlayer;
-
 extern const CGFloat kVLCMiniPlayerPlayqueueTopInset;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
@@ -49,17 +46,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
-@property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realBottomAnchor;
-@property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realTopAnchor;
-@property (nonatomic, weak, nullable) UILayoutGuide *realSafeAreaLayoutGuide;
-@property (nonatomic, weak, nullable) UITabBar *miniPlayerReferenceTabBar;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *leadingConstraint;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *trailingConstraint;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *bottomConstraint;
-@property (nonatomic, strong, nullable) NSLayoutConstraint *playqueueBottomConstraint;
-@property (nonatomic, readonly) BOOL isMiniPlayerVisible;
 @property (nonatomic, readonly) BOOL hintingPlayqueue;
-@property (nonatomic, strong, nullable) UIView *miniPlaybackView;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
 @property (nonatomic, readonly) BOOL canBecomeFirstResponder;
@@ -77,8 +64,6 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 - (void)pushPlaybackView;
 - (void)dismissPlaybackView;
-
-- (void)updateMiniPlayerHorizontalConstraints;
 
 @end
 

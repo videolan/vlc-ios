@@ -12,6 +12,11 @@
 
 import SwiftUI
 
+extension Notification.Name {
+    static let VLCMiniPlayerDisplayedNotification = Notification.Name(kVLCMiniPlayerDisplayedNotification)
+    static let VLCMiniPlayerHiddenNotification = Notification.Name(kVLCMiniPlayerHiddenNotification)
+}
+
 @objc(VLCBottomTabBarController)
 class BottomTabBarController: UITabBarController {
     // MARK: - Properties
@@ -124,6 +129,8 @@ class BottomTabBarController: UITabBarController {
         }
         isMiniPlayerVisible = display
         #endif
+        
+        NotificationCenter.default.post(name: display ? .VLCMiniPlayerDisplayedNotification : .VLCMiniPlayerHiddenNotification, object: self)
     }
     
     private func setupMiniPlayerLayout() {

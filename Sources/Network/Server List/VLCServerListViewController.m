@@ -210,8 +210,6 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCSavedServerListDidChange object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown) name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden) name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
 
     _browserClasses = @[
         [VLCLocalNetworkServiceBrowserUPnP class],
@@ -234,9 +232,6 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-
-    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
-    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
 
     _sharingExpanded = _httpUploaderController.isReachable && _httpUploaderController.isServerRunning;
     [self updateSharingHandoff];
@@ -1142,16 +1137,6 @@ referenceSizeForHeaderInSection:(NSInteger)section
 {
     [_collectionView.collectionViewLayout invalidateLayout];
     [_collectionView reloadData];
-}
-
-- (void)miniPlayerIsShown
-{
-    _collectionView.contentInset = UIEdgeInsetsMake(0, 0, VLCAudioMiniPlayer.height, 0);
-}
-
-- (void)miniPlayerIsHidden
-{
-    _collectionView.contentInset = UIEdgeInsetsZero;
 }
 
 @end

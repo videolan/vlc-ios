@@ -114,8 +114,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     [notificationCenter addObserver:self selector:@selector(favoritesDidChange) name:VLCFavoriteServiceContentDidChange object:nil];
     [notificationCenter addObserver:self selector:@selector(reloadContent) name:VLCRadioRecentStreamsDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(podcastsDidChange) name:NSNotification.VLCPodcastsContentDidChange object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown) name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
-    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden) name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidStart) name:VLCPlaybackServicePlaybackDidStart object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidStart) name:VLCPlaybackServicePlaybackDidResume object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidHalt) name:VLCPlaybackServicePlaybackDidPause object:nil];
@@ -131,9 +129,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-
-    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
-    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
 
     _resumeSuppressed = VLCPlaybackService.sharedInstance.isPlaying;
     [self reloadContent];
@@ -898,16 +893,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
     [self updateTableHeaderView];
     [_tableView reloadData];
-}
-
-- (void)miniPlayerIsShown
-{
-    _tableView.contentInset = UIEdgeInsetsMake(0, 0, VLCAudioMiniPlayer.height, 0);
-}
-
-- (void)miniPlayerIsHidden
-{
-    _tableView.contentInset = UIEdgeInsetsZero;
 }
 
 @end

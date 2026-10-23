@@ -386,15 +386,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc func miniPlayerIsShown() {
-        collectionView.contentInset.bottom = CGFloat(AudioMiniPlayer.height)
         handleFABButtonVisibility()
     }
 
     @objc func miniPlayerIsHidden() {
-        collectionView.contentInset.bottom = 0
         handleFABButtonVisibility()
     }
-
+            
     private func updateArtworkHeader() {
         let backgroundColor: UIColor
         if collectionView.contentOffset.y >= 50 {
@@ -621,7 +619,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+            VLCAppCoordinator.sharedInstance().tabBarController.isMiniPlayerVisible
             ? self.miniPlayerIsShown() : self.miniPlayerIsHidden()
             self.loadSort()
             self.reloadData()
@@ -665,11 +663,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         notificationCenter.addObserver(self, selector: #selector(themeDidChange),
                                               name: .VLCThemeDidChangeNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(miniPlayerIsShown),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
-                                       object: nil)
+                                               name: .VLCMiniPlayerDisplayedNotification,
+                                               object: nil)
         notificationCenter.addObserver(self, selector: #selector(miniPlayerIsHidden),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
-                                       object: nil)
+                                               name: .VLCMiniPlayerHiddenNotification,
+                                               object: nil)
         notificationCenter.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)),
                                        name: UIContentSizeCategory.didChangeNotification,
                                        object: nil)
@@ -704,9 +702,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private func removeInitializationCommonObservers() {
         let notificationCenter = NotificationCenter.default
-
-        notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer), object: nil)
-        notificationCenter.removeObserver(self, name:  NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer), object: nil)
+        notificationCenter.removeObserver(self, name: .VLCMiniPlayerDisplayedNotification, object: nil)
+        notificationCenter.removeObserver(self, name: .VLCMiniPlayerHiddenNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
 
         if model is MediaGroupViewModel || model is VideoModel {
@@ -3005,7 +3002,7 @@ extension MediaCategoryViewController {
     }
 
     private func handleFABButtonVisibility() {
-        let isMiniPlayerVisible = PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
+        let isMiniPlayerVisible = VLCAppCoordinator.sharedInstance().tabBarController.isMiniPlayerVisible
         fabButton.isHidden = fabAction == nil || model.anyfiles.isEmpty || isMiniPlayerVisible || isEditing || searchDataSource.isSearching
     }
 

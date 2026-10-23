@@ -124,14 +124,6 @@ class PodcastDirectoryFeedViewController: UIViewController {
                                        selector: #selector(playbackStateDidChange),
                                        name: Notification.Name(VLCPlaybackServicePlaybackDidStop),
                                        object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(miniPlayerIsShown),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(miniPlayerIsHidden),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
-                                       object: nil)
 
         service.loadDetails(for: feed) { [weak self] feed, _ in
             guard let self = self, let feed = feed else {
@@ -162,17 +154,6 @@ class PodcastDirectoryFeedViewController: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = false
         setupNavigationBarButtons()
-
-        PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
-            ? miniPlayerIsShown() : miniPlayerIsHidden()
-    }
-
-    @objc private func miniPlayerIsShown() {
-        tableView.setMiniPlayerInset(true)
-    }
-
-    @objc private func miniPlayerIsHidden() {
-        tableView.setMiniPlayerInset(false)
     }
 
     @objc private func contentSizeCategoryDidChange() {

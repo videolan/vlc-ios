@@ -71,11 +71,6 @@ class SettingsController: UITableViewController {
         setup()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible ? miniPlayerIsShown() : miniPlayerIsHidden()
-    }
-
     private func setup() {
         setupUI()
         setNavBarAppearance()
@@ -117,14 +112,6 @@ class SettingsController: UITableViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(themeDidChange),
                                        name: .VLCThemeDidChangeNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(miniPlayerIsShown),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(miniPlayerIsHidden),
-                                       name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
                                        object: nil)
     }
 
@@ -176,20 +163,6 @@ class SettingsController: UITableViewController {
         }
 
         reloadSettingsSections()
-    }
-
-    @objc private func miniPlayerIsShown() {
-        tableView.contentInset = UIEdgeInsets(top: 0,
-                                              left: 0,
-                                              bottom: CGFloat(AudioMiniPlayer.height),
-                                              right: 0)
-    }
-
-    @objc private func miniPlayerIsHidden() {
-        tableView.contentInset = UIEdgeInsets(top: 0,
-                                              left: 0,
-                                              bottom: 0,
-                                              right: 0)
     }
 
     // MARK: - Helper Functions

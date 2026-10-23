@@ -170,23 +170,6 @@
     _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
     [_tabBarController.view addSubview:_playerDisplayController.view];
     _playerDisplayController.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
-    if (@available(iOS 26.0, visionOS 26.0, *)) {
-        _playerDisplayController.realBottomAnchor = tabBarController.contentLayoutGuide.bottomAnchor;
-    } else {
-        _playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor;
-    }
-    _playerDisplayController.realTopAnchor = tabBarController.view.safeAreaLayoutGuide.topAnchor;
-    _playerDisplayController.realSafeAreaLayoutGuide = tabBarController.view.safeAreaLayoutGuide;
-    _playerDisplayController.miniPlayerReferenceTabBar = tabBarController.tabBar;
-
-    if (@available(iOS 18.0, *)) {
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            // Adjust the margins and the constraint to the previous tab bar appearance on iPadOS
-            _playerDisplayController.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
-            _playerDisplayController.realBottomAnchor = tabBarController.view.safeAreaLayoutGuide.bottomAnchor;
-            _playerDisplayController.miniPlayerReferenceTabBar = nil;
-        }
-    }
 
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }

@@ -186,7 +186,7 @@ class QueueViewController: UIViewController {
         if let parent = parent {
             parent.view.addSubview(darkOverlayView)
 
-            let overlayBottomAnchor = playerDisplayController?.realBottomAnchor ?? parent.view.bottomAnchor
+            let overlayBottomAnchor = parent.view.bottomAnchor
             darkOverlayViewConstraints = [
                 darkOverlayView.topAnchor.constraint(equalTo: parent.view.topAnchor),
                 darkOverlayView.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
@@ -199,38 +199,25 @@ class QueueViewController: UIViewController {
             }
 
             var miniPlayerView: AudioMiniPlayer?
-            if let playerDisplayController,
-               let miniPlaybackView = playerDisplayController.miniPlaybackView as? AudioMiniPlayer {
+            grabberView.isHidden = false
+            closeButton.isHidden = false
+            if let parent = parent as? VideoPlayerViewController {
+                topConstraint = nil
+                heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
+                                                                constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.mediaScrubProgressBar.frame.height))
+                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
+                                                                constant: self.view.frame.height)
+            } else if let parent = parent as? AudioPlayerViewController {
+                heightConstraint = nil
                 grabberView.isHidden = true
                 closeButton.isHidden = true
-                playerDisplayController.view.bringSubviewToFront(miniPlaybackView)
-                topConstraint = view.topAnchor.constraint(equalTo: miniPlaybackView.bottomAnchor)
-                heightConstraint = nil
-                let bottomAnchor = playerDisplayController.realBottomAnchor
-                    ?? playerDisplayController.view.safeAreaLayoutGuide.bottomAnchor
-                bottomConstraint = view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentInset)
-                miniPlayerView = miniPlaybackView
+                topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
+                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
+                darkOverlayView.isHidden = true
             } else {
-                grabberView.isHidden = false
-                closeButton.isHidden = false
-                if let parent = parent as? VideoPlayerViewController {
-                    topConstraint = nil
-                    heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
-                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.mediaScrubProgressBar.frame.height))
-                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
-                                                                    constant: self.view.frame.height)
-                } else if let parent = parent as? AudioPlayerViewController {
-                    heightConstraint = nil
-                    grabberView.isHidden = true
-                    closeButton.isHidden = true
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
-                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
-                    darkOverlayView.isHidden = true
-                } else {
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.bottomAnchor)
-                    heightConstraint = nil
-                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
-                }
+                topConstraint = view.topAnchor.constraint(equalTo: parent.view.bottomAnchor)
+                heightConstraint = nil
+                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             }
 
             parent.view.addSubview(view)
