@@ -37,6 +37,7 @@ class BottomTabBarController: UITabBarController {
     
     private var legacyMiniPlayerNeedsUpdatedConstraints: Bool = false
     private var legacyMiniPlayerConstraints: [NSLayoutConstraint] = []
+    private var legacyMiniPlayerBottomConstraint: NSLayoutConstraint?
     
     @objc
     public private(set) var isMiniPlayerVisible: Bool = false
@@ -89,33 +90,31 @@ class BottomTabBarController: UITabBarController {
     func displayMiniPlayer(_ display: Bool, animated: Bool) {
         #if os(iOS)
         if #available(iOS 26, *) {
-            if display {
-                setBottomAccessory(UITabAccessory(contentView: audioMiniPlayer), animated: animated)
-                audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
-            } else {
-                setBottomAccessory(nil, animated: animated)
-            }
+            setBottomAccessory(display ? UITabAccessory(contentView: audioMiniPlayer) : nil, animated: animated)
             isMiniPlayerVisible = display
-        } else {
-            // TODO: Respect animation
             if display {
-                view.addSubview(audioMiniPlayer)
-                isMiniPlayerVisible = true
-                setupMiniPlayerLayout()
-                var edgeInsets = UIEdgeInsets()
-                edgeInsets.bottom = CGFloat(audioMiniPlayer.contentHeight) + Self.legacyContentInsetConstant * 2
-                viewControllers?.forEach {
-                    $0.additionalSafeAreaInsets = edgeInsets
-                }
                 audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
-            } else {
-                audioMiniPlayer.removeFromSuperview()
-                viewControllers?.forEach {
-                    $0.additionalSafeAreaInsets = .zero
-                }
-                isMiniPlayerVisible = false
             }
-            view.setNeedsLayout()
+        } else if display {
+            view.addSubview(audioMiniPlayer)
+            isMiniPlayerVisible = true
+            setupMiniPlayerLayout()
+            audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
+            guard let legacyMiniPlayerBottomConstraint else { return }
+            if #available(iOS 18, *), traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad {
+                legacyMiniPlayerBottomConstraint.constant = CGFloat(audioMiniPlayer.contentHeight)
+            } else {
+                legacyMiniPlayerBottomConstraint.constant = tabBar.bounds.height + CGFloat(audioMiniPlayer.contentHeight)
+            }
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: animated ? 0.2 : 0) {
+                self.animateLegacyMiniPlayerShow()
+            }
+        } else {
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: animated ? 0.2 : 0) {
+                self.animateLegacyMiniPlayerHide()
+            }
         }
         #else
         if !display {
@@ -133,6 +132,34 @@ class BottomTabBarController: UITabBarController {
         NotificationCenter.default.post(name: display ? .VLCMiniPlayerDisplayedNotification : .VLCMiniPlayerHiddenNotification, object: self)
     }
     
+    private func animateLegacyMiniPlayerShow() {
+        guard let legacyMiniPlayerBottomConstraint else { return }
+        var edgeInsets = UIEdgeInsets()
+        edgeInsets.bottom = CGFloat(audioMiniPlayer.contentHeight) + Self.legacyContentInsetConstant * 2
+        legacyMiniPlayerBottomConstraint.constant = -Self.legacyContentInsetConstant
+        viewControllers?.forEach {
+            $0.additionalSafeAreaInsets = edgeInsets
+        }
+        view.layoutIfNeeded()
+    }
+    
+    private func animateLegacyMiniPlayerHide() {
+        guard let legacyMiniPlayerBottomConstraint else { return }
+        let miniPlayerOffscreenConstant: CGFloat
+        if #available(iOS 18, *), traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad {
+            miniPlayerOffscreenConstant = CGFloat(audioMiniPlayer.contentHeight)
+        } else {
+            miniPlayerOffscreenConstant = tabBar.bounds.height + CGFloat(audioMiniPlayer.contentHeight)
+        }
+        legacyMiniPlayerBottomConstraint.constant = miniPlayerOffscreenConstant
+        viewControllers?.forEach {
+            $0.additionalSafeAreaInsets = .zero
+        }
+        self.isMiniPlayerVisible = false
+        self.audioMiniPlayer.removeFromSuperview()
+        view.layoutIfNeeded()
+    }
+    
     private func setupMiniPlayerLayout() {
         guard isMiniPlayerVisible else { return }
         
@@ -143,16 +170,23 @@ class BottomTabBarController: UITabBarController {
         ]
         
         if traitCollection.horizontalSizeClass == .regular {
+            if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
+                legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Self.legacyContentInsetConstant)
+            } else {
+                legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -Self.legacyContentInsetConstant)
+            }
+            
             legacyMiniPlayerConstraints.append(contentsOf: [
                 audioMiniPlayer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
                 audioMiniPlayer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: AudioMiniPlayer.largeScreenWidthFactor),
-                audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Self.legacyContentInsetConstant)
+                legacyMiniPlayerBottomConstraint!
             ])
         } else {
+            legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -Self.legacyContentInsetConstant)
             legacyMiniPlayerConstraints.append(contentsOf: [
                 audioMiniPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Self.legacyContentInsetConstant),
                 audioMiniPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Self.legacyContentInsetConstant),
-                audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -Self.legacyContentInsetConstant)
+                legacyMiniPlayerBottomConstraint!
             ])
         }
         
