@@ -64,6 +64,7 @@
 #import "VLCOnAirViewController.h"
 #import "VLCOnAirRailCell.h"
 #import "VLCMediaList+M3U.h"
+#import "VLCTransferStatusBannerController.h"
 
 #if TARGET_OS_IOS
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>

@@ -48,11 +48,17 @@ class BottomTabBarController: UITabBarController {
     public var miniPlayerZoomEndpoint: ZoomTransitionEndpoint? {
         audioMiniPlayer
     }
+    
+    private var transferStatusBottomAnchorNeedsRefresh: Bool = false
+    private var transferStatusBannerController: VLCTransferStatusBannerController!
+    private var transferNavigationController: UINavigationController?
 
     // MARK: - Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        transferStatusBannerController = VLCTransferStatusBannerController(containerView: view, delegate: self)
         
         #if os(iOS)
         if #available(iOS 26.0, *) {
@@ -69,6 +75,9 @@ class BottomTabBarController: UITabBarController {
             if legacyMiniPlayerNeedsUpdatedConstraints {
                 setupMiniPlayerLayout()
             }
+            if transferStatusBottomAnchorNeedsRefresh {
+                refreshTransferStatusBottomAnchor()
+            }
         }
     }
     
@@ -78,8 +87,9 @@ class BottomTabBarController: UITabBarController {
         
         guard #unavailable(iOS 26) else { return }
         
-        if isMiniPlayerVisible && traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass {
-            legacyMiniPlayerNeedsUpdatedConstraints = true
+        if traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass {
+            transferStatusBottomAnchorNeedsRefresh = true
+            legacyMiniPlayerNeedsUpdatedConstraints = isMiniPlayerVisible
         }
     }
     #endif
@@ -140,6 +150,7 @@ class BottomTabBarController: UITabBarController {
         viewControllers?.forEach {
             $0.additionalSafeAreaInsets = edgeInsets
         }
+        self.refreshTransferStatusBottomAnchor()
         view.layoutIfNeeded()
     }
     
@@ -157,6 +168,7 @@ class BottomTabBarController: UITabBarController {
         }
         self.isMiniPlayerVisible = false
         self.audioMiniPlayer.removeFromSuperview()
+        self.refreshTransferStatusBottomAnchor()
         view.layoutIfNeeded()
     }
     
@@ -307,3 +319,54 @@ extension UITabBarController {
     }
 }
 #endif
+
+// MARK: Transfer status
+
+extension BottomTabBarController: VLCTransferStatusBannerControllerDelegate {
+    func refreshTransferStatusBottomAnchor() {
+        transferStatusBannerController.refreshBottomAnchor()
+        transferStatusBottomAnchorNeedsRefresh = false
+    }
+    
+    func bottomAnchor(forTransferStatusBanner controller: VLCTransferStatusBannerController!) -> NSLayoutYAxisAnchor! {
+        #if os(visionOS)
+        if #available(visionOS 26, *) {
+            return contentLayoutGuide.bottomAnchor
+        } else {
+            return view.safeAreaLayoutGuide.bottomAnchor
+        }
+        #else
+        if #available(iOS 26, *) {
+            return contentLayoutGuide.bottomAnchor
+        } else if isMiniPlayerVisible {
+            return audioMiniPlayer.topAnchor
+        } else if #available(iOS 18, *) {
+            return traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad
+            ? view.safeAreaLayoutGuide.bottomAnchor : tabBar.topAnchor
+        } else {
+            return tabBar.topAnchor
+        }
+        #endif
+    }
+    
+    func safeAreaLayoutGuide(forTransferStatusBanner controller: VLCTransferStatusBannerController!) -> UILayoutGuide! {
+        if #available(iOS 26, visionOS 26, *) {
+            return contentLayoutGuide
+        } else {
+            return view.safeAreaLayoutGuide
+        }
+    }
+    
+    func transferStatusBannerWasTapped(_ controller: VLCTransferStatusBannerController!) {
+        let transferVC = VLCTransferViewController()
+        transferNavigationController = UINavigationController(rootViewController: transferVC)
+        transferVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissTransfersViewController))
+        self.present(transferNavigationController!, animated: true)
+    }
+    
+    @objc
+    private func dismissTransfersViewController(_ sender: Any) {
+        transferNavigationController?.dismiss(animated: true)
+        transferNavigationController = nil
+    }
+}

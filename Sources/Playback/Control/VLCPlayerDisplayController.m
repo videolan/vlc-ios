@@ -20,8 +20,6 @@
 #import "VLCFullscreenMovieTVViewController.h"
 #else
 #import "UIStackView+Orientation.h"
-#import "VLCTransferViewController.h"
-#import "VLCTransferStatusBannerController.h"
 #endif
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
@@ -50,11 +48,6 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *audioPlayerViewController;
 @end
 
-@interface VLCPlayerDisplayController () <VLCTransferStatusBannerControllerDelegate>
-@property (nonatomic, strong, nullable) VLCTransferStatusBannerController *transferBannerController;
-@property (nonatomic, weak, nullable) UINavigationController *downloadsNavigationController;
-@end
-
 @implementation VLCPlayerDisplayController
 {
     VLCMiniPlayerZoomTransitioningDelegate *_zoomTransitioningDelegate;
@@ -80,8 +73,6 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
-
-    self.transferBannerController = [[VLCTransferStatusBannerController alloc] initWithContainerView:self.view delegate:self];
 
     [super viewDidLoad];
 }
@@ -586,10 +577,8 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
             NSInteger repeatMode = [userDefaults integerForKey:kVLCPlayerIsRepeatEnabled];
             _playbackController.repeatMode = repeatMode;
         }
-        [self.transferBannerController refreshBottomAnchor];
     } else if (needsHide) {
         [VLCAppCoordinator.sharedInstance.tabBarController displayMiniPlayer:NO animated:animated];
-        [self.transferBannerController refreshBottomAnchor];
     }
 
     if (needsHide) {
@@ -605,49 +594,6 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
         [bottomTabBarController displayMiniPlayer:NO animated:YES];
         [self resignFirstResponder];
     }
-}
-
-#pragma mark - Download status banner
-
-- (void)transferStatusBannerWasTapped:(VLCTransferStatusBannerController *)controller
-{
-    [self _presentDownloadsViewController];
-}
-
-- (NSLayoutYAxisAnchor *)bottomAnchorForTransferStatusBanner:(VLCTransferStatusBannerController *)controller
-{
-    return _transferStatusBannerBottomAnchor;
-}
-
-- (UILayoutGuide *)safeAreaLayoutGuideForTransferStatusBanner:(VLCTransferStatusBannerController *)controller
-{
-    return nil;
-}
-
-- (void)_presentDownloadsViewController
-{
-    VLCTransferViewController *dlVC = [[VLCTransferViewController alloc] init];
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:dlVC];
-
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                              target:self
-                                                                              action:@selector(_dismissDownloadsViewController)];
-    dlVC.navigationItem.leftBarButtonItem = doneBtn;
-
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-    UIViewController *root = window.rootViewController;
-    UIViewController *top = root;
-    while (top.presentedViewController) {
-        top = top.presentedViewController;
-    }
-    self.downloadsNavigationController = navCon;
-    [top presentViewController:navCon animated:YES completion:nil];
-}
-
-- (void)_dismissDownloadsViewController
-{
-    [self.downloadsNavigationController dismissViewControllerAnimated:YES completion:nil];
-    self.downloadsNavigationController = nil;
 }
 
 #pragma mark - QueueViewController
