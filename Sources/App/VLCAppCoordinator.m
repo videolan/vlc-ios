@@ -170,6 +170,15 @@
     _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
     [_tabBarController.view addSubview:_playerDisplayController.view];
     _playerDisplayController.view.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
+#if TARGET_OS_VISION
+    _playerDisplayController.transferStatusBannerBottomAnchor = _tabBarController.view.safeAreaLayoutGuide.bottomAnchor;
+#else
+    if (@available(iOS 26.0, *)) {
+        _playerDisplayController.transferStatusBannerBottomAnchor = _tabBarController.contentLayoutGuide.bottomAnchor;
+    } else {
+        _playerDisplayController.transferStatusBannerBottomAnchor = _tabBarController.view.safeAreaLayoutGuide.bottomAnchor;
+    }
+#endif
 
     [_playerDisplayController didMoveToParentViewController:tabBarController];
 }

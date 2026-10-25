@@ -7,6 +7,7 @@
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Neo Salmon <neos_dev@outlook.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -615,7 +616,7 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
 
 - (NSLayoutYAxisAnchor *)bottomAnchorForTransferStatusBanner:(VLCTransferStatusBannerController *)controller
 {
-    return nil;
+    return _transferStatusBannerBottomAnchor;
 }
 
 - (UILayoutGuide *)safeAreaLayoutGuideForTransferStatusBanner:(VLCTransferStatusBannerController *)controller

@@ -40,12 +40,11 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @end
 
-@protocol VLCMiniPlayer;
-
 @interface VLCPlayerDisplayController : UIViewController
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
+@property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *transferStatusBannerBottomAnchor;
 @property (nonatomic, readonly) BOOL hintingPlayqueue;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;

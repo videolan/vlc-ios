@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
+ *          Neo Salmon <neos_dev@outlook.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -27,7 +28,7 @@ class BottomTabBarController: UITabBarController {
     }
     
     private lazy var audioMiniPlayer: AudioMiniPlayer = {
-        let miniPlayer = AudioMiniPlayer(draggingDelegate: BlankMiniPlayerDraggingDelegate())
+        let miniPlayer = AudioMiniPlayer()
         if #unavailable(iOS 26) {
             miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -35,6 +36,7 @@ class BottomTabBarController: UITabBarController {
         return miniPlayer
     }()
     
+    private static let legacyContentInsetConstant: CGFloat = 8
     private var legacyMiniPlayerNeedsUpdatedConstraints: Bool = false
     private var legacyMiniPlayerConstraints: [NSLayoutConstraint] = []
     private var legacyMiniPlayerBottomConstraint: NSLayoutConstraint?
@@ -46,8 +48,6 @@ class BottomTabBarController: UITabBarController {
     public var miniPlayerZoomEndpoint: ZoomTransitionEndpoint? {
         audioMiniPlayer
     }
-    
-    private static let legacyContentInsetConstant: CGFloat = 8
 
     // MARK: - Init
 
@@ -117,14 +117,14 @@ class BottomTabBarController: UITabBarController {
             }
         }
         #else
-        if !display {
-            self.ornaments = []
-        } else {
+        if display {
             self.ornaments = [UIHostingOrnament(sceneAnchor: .bottom, content: {
-                AudioMiniPlayerOrnamentBridge()
+                AudioMiniPlayerOrnamentView()
                     .glassBackgroundEffect()
                     .scenePadding()
             })]
+        } else {
+            self.ornaments = []
         }
         isMiniPlayerVisible = display
         #endif
@@ -307,39 +307,3 @@ extension UITabBarController {
     }
 }
 #endif
-
-class BlankMiniPlayerDraggingDelegate: MiniPlayerDraggingDelegate {
-    func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
-        
-    }
-    
-    func miniPlayerDragDidEnd(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
-        
-    }
-    
-    func miniPlayerPositionToTop(_ miniPlayer: AudioMiniPlayer) {
-        
-    }
-    
-    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer, completion: ((Bool) -> Void)?) {
-        
-    }
-    
-    func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer) {
-        
-    }
-    
-    func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer) {
-        
-    }
-}
-
-struct AudioMiniPlayerOrnamentBridge: UIViewRepresentable {
-    func makeUIView(context: Context) -> AudioMiniPlayer {
-        let miniPlayer = AudioMiniPlayer(draggingDelegate: BlankMiniPlayerDraggingDelegate())
-        miniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
-        return miniPlayer
-    }
-    
-    func updateUIView(_ uiView: AudioMiniPlayer, context: Context) {}
-}

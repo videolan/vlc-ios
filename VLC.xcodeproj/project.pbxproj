@@ -216,6 +216,7 @@
 		5C819FAC08DAA218BD4660B9 /* PodcastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB7CFF898DD5504AA004CCB /* PodcastModels.swift */; };
 		5D2FF65C2C9E21EBF46A7998 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DF5C43BEEACDF6DB606E06 /* libPods-VLC-iOS.a */; };
 		606F8A2F33CF7029C4EEF9DD /* PodcastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */; };
+		687DA53A308D97FE00270AB6 /* AudioMiniPlayerOrnamentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687DA537308D97FE00270AB6 /* AudioMiniPlayerOrnamentView.swift */; };
 		68C67167302D1C2F008D6F2D /* Image+WidgetAccentedRenderingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67166302D1C10008D6F2D /* Image+WidgetAccentedRenderingMode.swift */; };
 		68C6716B302D27ED008D6F2D /* MediaLibraryWidgetBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6716A302D27E3008D6F2D /* MediaLibraryWidgetBackgroundView.swift */; };
 		6A4FA11D7A38A9B0482B4FF4 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FF604A243B75D3450DA2B7 /* libPods-VLC-iOSTests.a */; };
@@ -1985,6 +1986,7 @@
 		5EBF8DA0B16136EBFED6F35B /* PodcastsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastsViewController.swift; sourceTree = "<group>"; };
 		600E1C387D2ECF520705C551 /* PodcastSectionHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastSectionHeaderView.swift; sourceTree = "<group>"; };
 		6156983777DD2563597369F8 /* ContinueListeningSectionCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContinueListeningSectionCell.swift; sourceTree = "<group>"; };
+		687DA537308D97FE00270AB6 /* AudioMiniPlayerOrnamentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMiniPlayerOrnamentView.swift; sourceTree = "<group>"; };
 		68C67166302D1C10008D6F2D /* Image+WidgetAccentedRenderingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+WidgetAccentedRenderingMode.swift"; sourceTree = "<group>"; };
 		68C6716A302D27E3008D6F2D /* MediaLibraryWidgetBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryWidgetBackgroundView.swift; sourceTree = "<group>"; };
 		6B7B338E137A884541BBB779 /* PodcastArtworkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastArtworkView.swift; sourceTree = "<group>"; };
@@ -3284,6 +3286,14 @@
 				7BCFBCA659C50275CD0A5B93 /* PodcastShowHeaderView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		687DA538308D97FE00270AB6 /* MiniPlayer-visionOS */ = {
+			isa = PBXGroup;
+			children = (
+				687DA537308D97FE00270AB6 /* AudioMiniPlayerOrnamentView.swift */,
+			);
+			path = "MiniPlayer-visionOS";
 			sourceTree = "<group>";
 		};
 		7BBF7C7F9B65548AAA8FA8D0 /* Models */ = {
@@ -5037,6 +5047,7 @@
 				D93C0B19291BAB5E002311B5 /* AudioPlayer */,
 				7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */,
 				8D144D6122298E5800984C46 /* MiniPlayer-iOS */,
+				687DA538308D97FE00270AB6 /* MiniPlayer-visionOS */,
 				8D9F1F9C249385BB0074BDBB /* VideoPlayer-iOS */,
 				D9F0D6792937624900A97964 /* PlayerViewController.swift */,
 			);
@@ -6154,6 +6165,7 @@
 				7D50C5F02BBD20DF00B9F1A0 /* CustomDialogRendererHandler.swift in Sources */,
 				7D50C5F42BBD20DF00B9F1A0 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7D50C5F52BBD20DF00B9F1A0 /* VLCLocalServerDiscoveryController.m in Sources */,
+				687DA53A308D97FE00270AB6 /* AudioMiniPlayerOrnamentView.swift in Sources */,
 				7D50C5F62BBD20DF00B9F1A0 /* BookmarksView.swift in Sources */,
 				7D50C5F72BBD20DF00B9F1A0 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				3218FCC12F75FC00009B6473 /* TrackSectionHeader.swift in Sources */,

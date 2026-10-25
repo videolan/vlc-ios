@@ -7,6 +7,7 @@
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Neo Salmon <neos_dev@outlook.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -41,12 +42,10 @@ struct MiniPlayerPosition {
 
 @objc(VLCAudioMiniPlayer)
 class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
-    @available(*, deprecated)
-    @objc static let height: Float = 56.0
     private static let extraControlsMinWidth: CGFloat = 500.0
     var visible: Bool = false
     var contentHeight: Float {
-        return AudioMiniPlayer.height
+        return 56
     }
     
     public static let largeScreenWidthFactor: CGFloat = 2/3
@@ -101,7 +100,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     private var internalLeadingAnchorConstraint: NSLayoutConstraint!
     private var internalTrailingAnchorConstraint: NSLayoutConstraint!
 
-    @objc init(draggingDelegate: MiniPlayerDraggingDelegate) {
+    init() {
         super.init(frame: .zero)
         initView()
         setupConstraint()
@@ -651,7 +650,6 @@ extension AudioMiniPlayer {
             position.horizontal = .center
         }
         hidePreviousNextOverlay()
-        // TODO: Review
         UIView.animate(withDuration: animationDuration, animations: {
             self.setNeedsLayout()
             self.layoutIfNeeded()
@@ -890,13 +888,4 @@ extension AudioMiniPlayer: ZoomTransitionEndpoint {
     var zoomTransitionArtworkView: VLCArtworkImageView? {
         return artworkImageView
     }
-}
-
-@objc protocol MiniPlayerDraggingDelegate {
-    func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
-    func miniPlayerDragDidEnd(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
-    func miniPlayerPositionToTop(_ miniPlayer: AudioMiniPlayer)
-    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer, completion: ((Bool) -> Void)?)
-    func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer)
-    func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer)
 }
