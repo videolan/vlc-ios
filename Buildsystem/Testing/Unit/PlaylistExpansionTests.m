@@ -1,0 +1,392 @@
+#import <XCTest/XCTest.h>
+#import <VLCKit/VLCKit.h>
+#import "VLCPlaybackService.h"
+
+@interface VLCPlaybackService (PlaylistExpansionTests)
+- (void)_expandMediaList:(VLCMediaList *)children forMedia:(VLCMedia *)parent;
+- (void)mediaPlayerSubitemsChanged:(VLCMedia *)media;
+- (void)mediaPlayerLengthChanged:(int64_t)length;
+@end
+
+@interface PlaylistMedia : VLCMedia
+@property (nonatomic, strong) VLCMediaList *discoveredSubitems;
+@property (nonatomic, strong) VLCTime *testLength;
+@end
+@implementation PlaylistMedia
+- (VLCMediaList *)subitems { return self.discoveredSubitems; }
+- (VLCTime *)length { return self.testLength ?: [VLCTime nullTime]; }
+@end
+
+// The formatter only reads the library duration; no database is needed here.
+@interface PlaylistLibraryMedia : NSObject
+@property (nonatomic) int64_t duration;
+@end
+@implementation PlaylistLibraryMedia
+@end
+
+@interface PlaylistListPlayer : VLCMediaListPlayer
+@property (nonatomic) NSUInteger playbackCommands;
+@end
+@implementation PlaylistListPlayer
+- (void)play { self.playbackCommands++; }
+- (void)playItemAtNumber:(NSNumber *)index { self.playbackCommands++; }
+- (BOOL)next
+{
+    self.playbackCommands++;
+    return YES;
+}
+@end
+
+// Exercise queue mutation without starting a network stream or presenting UI.
+@interface PlaylistPlaybackService : VLCPlaybackService
+@property (nonatomic, strong) VLCMedia *testPlaying;
+@property (nonatomic, strong) PlaylistListPlayer *testListPlayer;
+@property (nonatomic, readonly) NSUInteger starts;
+@end
+@implementation PlaylistPlaybackService
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _testListPlayer = [PlaylistListPlayer new];
+        [self setValue:_testListPlayer forKey:@"listPlayer"];
+    }
+    return self;
+}
+- (VLCMedia *)currentlyPlayingMedia { return self.testPlaying; }
+- (NSUInteger)starts { return self.testListPlayer.playbackCommands; }
+@end
+
+@interface PlaylistExpansionTests : XCTestCase
+@end
+@implementation PlaylistExpansionTests
+- (PlaylistMedia *)media:(NSString *)name
+{
+    return [[PlaylistMedia alloc] initWithURL:[NSURL URLWithString:[@"https://example.invalid/" stringByAppendingString:name]]];
+}
+
+- (void)drainMainQueue
+{
+    XCTestExpectation *drained = [self expectationWithDescription:@"Pending queue updates"];
+    dispatch_async(dispatch_get_main_queue(), ^{ [drained fulfill]; });
+    [self waitForExpectations:@[drained] timeout:1.0];
+}
+
+- (void)testOrderedMetadataURLDeduplicationAndDuplicateCallback
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    PlaylistMedia *first = [self media:@"channel"];
+    VLCMedia *second = [self media:@"channel"];
+    VLCMedia *third = [self media:@"another-channel"];
+    first.metaData.title = @"News";
+    first.testLength = [VLCTime timeWithNumber:@3000];
+    second.metaData.title = @"News repeat";
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent]];
+    service.testPlaying = parent;
+    VLCMediaList *children = [[VLCMediaList alloc] initWithArray:@[first, second, third, first, third]];
+    [service _expandMediaList:children forMedia:parent];
+    XCTAssertEqual(service.mediaList.count, 2);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0].metaData.title, @"News");
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0].length.value, @3000);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:1], third);
+    XCTAssertEqualObjects(service.testPlaying, parent);
+    XCTAssertEqual(service.starts, 0);
+    VLCMediaList *expanded = service.mediaList;
+    [service _expandMediaList:children forMedia:parent];
+    XCTAssertEqual(service.mediaList, expanded);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testRemovedParentAndEmptyDiscoveryDoNothing
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    VLCMedia *other = [self media:@"movie"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[other]];
+    VLCMediaList *original = service.mediaList;
+    [service _expandMediaList:[[VLCMediaList alloc] initWithArray:@[[self media:@"child"]]] forMedia:parent];
+    XCTAssertEqual(service.mediaList, original);
+    [service _expandMediaList:[VLCMediaList new] forMedia:other];
+    XCTAssertEqual(service.mediaList, original);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testUnrelatedPlaybackAndShuffleOrderArePreserved
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    VLCMedia *other = [self media:@"movie"];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent, other]];
+    service.testPlaying = other;
+    service.shuffleMode = YES;
+    service.shuffledList = [[VLCMediaList alloc] initWithArray:@[other, parent]];
+    [service _expandMediaList:[[VLCMediaList alloc] initWithArray:@[first, second]] forMedia:parent];
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0], first);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:1], second);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], other);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:1], first);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:2], second);
+    XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @0);
+    XCTAssertEqualObjects(service.testPlaying, other);
+    XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], (@[@2, @0, @1]));
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testAlreadyPlayingChildIsNotRestarted
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent]];
+    service.testPlaying = second;
+    [service _expandMediaList:[[VLCMediaList alloc] initWithArray:@[first, second]] forMedia:parent];
+    XCTAssertEqualObjects(service.testPlaying, second);
+    XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @1);
+    XCTAssertEqual(service.starts, 0);
+}
+- (void)testActivePlaylistSelectsFirstChildWithoutRestartingPlayback
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    VLCMedia *other = [self media:@"movie"];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent, other]];
+    service.testPlaying = parent;
+    service.shuffleMode = YES;
+    service.shuffledList = [[VLCMediaList alloc] initWithArray:@[other, parent]];
+    __block NSUInteger notifications = 0;
+    id token = [NSNotificationCenter.defaultCenter addObserverForName:VLCPlaybackServiceMediaListDidChange
+                                                              object:service queue:nil
+                                                          usingBlock:^(NSNotification *note) { notifications++; }];
+    VLCMediaList *children = [[VLCMediaList alloc] initWithArray:@[first, second]];
+    [service _expandMediaList:children forMedia:parent];
+    [service _expandMediaList:children forMedia:parent];
+    XCTAssertEqualObjects(service.testPlaying, parent);
+    XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @1);
+    XCTAssertEqual(service.shuffledList.count, 3);
+    XCTAssertEqual(service.testListPlayer.mediaList, service.shuffledList);
+    XCTAssertEqual(service.starts, 0);
+    XCTAssertEqual(notifications, 1);
+    [NSNotificationCenter.defaultCenter removeObserver:token];
+}
+- (void)testPlayerCallbackUsesTheReportedPlaylistWithoutItsMediaDelegate
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    PlaylistMedia *parent = [[PlaylistMedia alloc] initWithURL:[NSURL URLWithString:@"https://example.invalid/channels.m3u"]];
+    VLCMedia *child = [self media:@"channel"];
+    VLCMedia *other = [self media:@"movie"];
+    parent.discoveredSubitems = [[VLCMediaList alloc] initWithArray:@[child]];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent, other]];
+    service.testPlaying = parent;
+    [service mediaPlayerSubitemsChanged:parent];
+    service.testPlaying = other;
+    [self drainMainQueue];
+    XCTAssertNil(parent.delegate);
+    XCTAssertEqual(service.mediaList.count, 2);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0], child);
+    XCTAssertEqualObjects(service.testPlaying, other);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testCachedPlaylistCanBeReappendedAndExpandedAgain
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    PlaylistMedia *parent = [[PlaylistMedia alloc] initWithURL:[NSURL URLWithString:@"https://example.invalid/cached.m3u"]];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    VLCMedia *other = [self media:@"other"];
+    parent.discoveredSubitems = [[VLCMediaList alloc] initWithArray:@[first, second]];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[parent]];
+    service.testPlaying = parent;
+    [service mediaPlayerSubitemsChanged:parent];
+    [self drainMainQueue];
+    XCTAssertEqual(service.mediaList.count, 2);
+
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[other]];
+    [service appendMedia:parent];
+    __block NSUInteger notifications = 0;
+    id token = [NSNotificationCenter.defaultCenter addObserverForName:VLCPlaybackServiceMediaListDidChange
+                                                              object:service queue:nil
+                                                          usingBlock:^(NSNotification *note) { notifications++; }];
+    [service mediaPlayerSubitemsChanged:parent];
+    [self drainMainQueue];
+    VLCMediaList *expanded = service.mediaList;
+    [service mediaPlayerSubitemsChanged:parent];
+    [self drainMainQueue];
+    XCTAssertEqual(service.mediaList, expanded);
+    XCTAssertEqual(service.mediaList.count, 3);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0], other);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:1], first);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:2], second);
+    XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @1);
+    XCTAssertEqual(service.testListPlayer.mediaList, expanded);
+    XCTAssertNil(parent.delegate);
+    XCTAssertEqual(service.starts, 0);
+    XCTAssertEqual(notifications, 1);
+    [NSNotificationCenter.defaultCenter removeObserver:token];
+}
+
+- (void)testAppendMaintainsShuffleOrderWithoutStartingPlayback
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    VLCMedia *third = [self media:@"third"];
+    XCTAssertEqual([service appendMedia:first], 0);
+    XCTAssertEqual([service appendMedia:second], 1);
+    service.testPlaying = first;
+    service.shuffleMode = YES;
+    NSArray *order = [[service valueForKey:@"shuffledOrder"] copy];
+    __block NSUInteger notifications = 0;
+    id token = [NSNotificationCenter.defaultCenter addObserverForName:VLCPlaybackServiceMediaListDidChange
+                                                              object:service queue:nil
+                                                          usingBlock:^(NSNotification *note) { notifications++; }];
+    XCTAssertEqual([service appendMedia:third], 2);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:2], third);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:2], third);
+    XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], [order arrayByAddingObject:@2]);
+    XCTAssertEqualObjects(service.testPlaying, first);
+    XCTAssertEqual(service.starts, 0);
+    XCTAssertEqual(notifications, 1);
+    [NSNotificationCenter.defaultCenter removeObserver:token];
+    service.shuffleMode = NO;
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:2], third);
+    service.shuffleMode = YES;
+    XCTAssertNotEqual([service.shuffledList indexOfMedia:third], NSNotFound);
+}
+
+- (void)testAppendToEmptyShuffledQueue
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    service.shuffleMode = YES;
+    VLCMedia *media = [self media:@"first"];
+    XCTAssertEqual([service appendMedia:media], 0);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:0], media);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], media);
+    XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], @[@0]);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testAppendPreservesTheOnlyItemWhenShuffleIsEnabled
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *first = [self media:@"first"];
+    VLCMedia *second = [self media:@"second"];
+    [service appendMedia:first];
+    service.testPlaying = first;
+    service.shuffleMode = YES;
+    XCTAssertEqual([service appendMedia:second], 1);
+    XCTAssertEqual(service.shuffledList.count, 2);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], first);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:1], second);
+    XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], (@[@0, @1]));
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testAppendAfterClearingTheQueueDiscardsOldShuffleIndices
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    [service appendMedia:[self media:@"old-first"]];
+    [service appendMedia:[self media:@"old-second"]];
+    service.shuffleMode = YES;
+    service.mediaList = [VLCMediaList new];
+    [service setValue:nil forKey:@"shuffledList"];
+    [service setValue:@(-1) forKey:@"currentIndex"];
+    VLCMedia *media = [self media:@"new"];
+    XCTAssertEqual([service appendMedia:media], 0);
+    XCTAssertEqual(service.shuffledList.count, 1);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], media);
+    XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], @[@0]);
+}
+
+- (void)testQueueDurationPrefersMediaThenLibraryAndHidesUnknown
+{
+    PlaylistMedia *media = [self media:@"duration"];
+    PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
+    library.duration = 125000;
+    media.testLength = [VLCTime nullTime];
+    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"02:05");
+    media.testLength = [VLCTime timeWithNumber:@3000];
+    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"00:03");
+    media.testLength = [VLCTime timeWithNumber:@0];
+    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+    media.testLength = [VLCTime timeWithNumber:@(-1)];
+    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+    media.testLength = [VLCTime nullTime];
+    XCTAssertEqualObjects(VLCQueueDurationString(media, nil), @"");
+    library.duration = 0;
+    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+}
+
+- (void)testRuntimeDurationRefreshesCapturedItemAndSuppressesUnchangedDisplay
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    PlaylistMedia *first = [self media:@"first"];
+    PlaylistMedia *second = [self media:@"second"];
+    first.testLength = [VLCTime timeWithNumber:@3000];
+    second.testLength = [VLCTime timeWithNumber:@7000];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[first, second]];
+    service.testPlaying = first;
+    service.shuffleMode = YES;
+    __block NSUInteger notifications = 0;
+    id token = [NSNotificationCenter.defaultCenter addObserverForName:VLCPlaybackServiceMediaDurationDidChange
+                                                              object:service queue:nil
+                                                          usingBlock:^(NSNotification *note) {
+        XCTAssertTrue(NSThread.isMainThread);
+        XCTAssertEqualObjects(note.userInfo[@"media"], first);
+        notifications++;
+    }];
+    first.testLength = [VLCTime timeWithNumber:@125000];
+    [service mediaPlayerLengthChanged:125000];
+    service.testPlaying = second;
+    [self drainMainQueue];
+    XCTAssertEqualObjects(first.length.value, @125000);
+    XCTAssertEqualObjects(second.length.value, @7000);
+    XCTAssertEqualObjects(VLCQueueDurationString(first, nil), @"02:05");
+    service.testPlaying = first;
+    [service mediaPlayerLengthChanged:125000];
+    [self drainMainQueue];
+    XCTAssertEqual(notifications, 1);
+    first.testLength = [VLCTime timeWithNumber:@0];
+    [service mediaPlayerLengthChanged:0];
+    [self drainMainQueue];
+    XCTAssertEqualObjects(first.length.value, @0);
+    XCTAssertEqualObjects(VLCQueueDurationString(first, nil), @"");
+    XCTAssertEqual(notifications, 2);
+    [service.mediaList removeMediaAtIndex:0];
+    [service mediaPlayerLengthChanged:5000];
+    [self drainMainQueue];
+    XCTAssertEqual(notifications, 2);
+    [NSNotificationCenter.defaultCenter removeObserver:token];
+}
+
+- (void)testDurationRefreshReadsLatestValueRatherThanDeferredEventPayload
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    PlaylistMedia *media = [self media:@"duration"];
+    media.testLength = [VLCTime timeWithNumber:@3000];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[media]];
+    service.testPlaying = media;
+    __block NSUInteger notifications = 0;
+    id token = [NSNotificationCenter.defaultCenter addObserverForName:VLCPlaybackServiceMediaDurationDidChange
+                                                              object:service queue:nil
+                                                          usingBlock:^(NSNotification *note) {
+        XCTAssertEqualObjects(note.userInfo[@"media"], media);
+        XCTAssertEqualObjects(VLCQueueDurationString(media, nil), @"02:06");
+        notifications++;
+    }];
+    [service mediaPlayerLengthChanged:125000];
+    media.testLength = [VLCTime timeWithNumber:@126000];
+    [self drainMainQueue];
+    XCTAssertEqual(notifications, 1);
+    [service mediaPlayerLengthChanged:125000];
+    [self drainMainQueue];
+    XCTAssertEqual(notifications, 1);
+    [NSNotificationCenter.defaultCenter removeObserver:token];
+}
+@end

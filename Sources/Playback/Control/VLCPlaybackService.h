@@ -26,6 +26,8 @@ extern NSString *const VLCPlaybackServicePlaybackRateDidChange;
 extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 extern NSString *const VLCPlaybackServicePlaybackModeUpdated;
 extern NSString *const VLCPlaybackServiceShuffleModeUpdated;
+extern NSString *const VLCPlaybackServiceMediaListDidChange;
+extern NSString *const VLCPlaybackServiceMediaDurationDidChange;
 extern NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem;
 extern NSString *const VLCPlaybackServiceSleepTimerDidChange;
 extern NSString *const VLCLastPlaylistPlayedMedia;
@@ -39,6 +41,8 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 @class VLCMediaPlayerChapterDescription;
 @class VLCMediaPlayerTrack;
 @class VLCAudioEqualizerPreset;
+
+FOUNDATION_EXPORT NSString *VLCQueueDurationString(VLCMedia *media, VLCMLMedia * _Nullable libraryMedia);
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
@@ -181,6 +185,8 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)setCurrentAspectRatio:(NSInteger)currentAspectRatio;
 
 - (void)playItemAtIndex:(NSUInteger)index;
+
+- (NSUInteger)appendMedia:(VLCMedia *)media;
 
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;
