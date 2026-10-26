@@ -533,7 +533,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupEditToolBar()
         if let model = model as? CollectionModel,
            let collection = model.mediaCollection as? VLCMLAlbum {
-            navItemTitle.text = collection.title
+            navItemTitle.text = collection.albumName()
         } else if let collection = model as? CollectionModel {
             navItemTitle.text = collection.mediaCollection.title()
         }
@@ -2398,7 +2398,7 @@ extension MediaCategoryViewController {
     private func setupArtworkHeaderReusableView(headerView: CollectionArtworkHeader, collection: MediaCollectionModel) -> UICollectionReusableView {
         if let album = collection as? VLCMLAlbum {
             headerView.updateImage(with: album.thumbnail(), placeholderName: album.placeholderName())
-            headerView.updateThumbnailTitle(album.title)
+            headerView.updateThumbnailTitle(album.albumName())
             headerView.collection = album
         } else if let playlist = collection as? VLCMLPlaylist {
             headerView.updateImage(with: playlist.thumbnailImage(), placeholderName: playlist.placeholderName())
@@ -2615,7 +2615,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
             } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLAlbum {
-                newTitle = collection.title
+                newTitle = collection.albumName()
             } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLGenre {
