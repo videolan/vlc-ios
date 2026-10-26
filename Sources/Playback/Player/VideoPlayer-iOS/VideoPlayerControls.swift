@@ -78,6 +78,12 @@ class VideoPlayerControls: UIView {
         super.init(coder: coder)
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Fill alignment stretches the image view to a non-square area, so keep the icon round.
+        playPauseButton.imageView?.contentMode = .scaleAspectFit
+    }
+
     func setupAccessibility() {
         subtitleButton.accessibilityLabel = NSLocalizedString("SUBTITLE_AND_TRACK_BUTTON",
                                                               comment: "")

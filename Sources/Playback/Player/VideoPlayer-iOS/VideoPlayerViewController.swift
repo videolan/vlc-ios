@@ -536,12 +536,11 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {
-        videoPlayerControls.heightAnchor.constraint(equalToConstant: 44)
+        videoPlayerControls.heightAnchor.constraint(equalToConstant: 56)
     }()
 
     private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
-        videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
-                                            constant: -5)
+        videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
     }()
 
     private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
@@ -954,7 +953,7 @@ extension VideoPlayerViewController {
             scrubProgressBarSpacing = 0
         } else {
             popupMargin = 10
-            videoPlayerControlsHeight = 44
+            videoPlayerControlsHeight = 56
             scrubProgressBarSpacing = 5
         }
         equalizerPopupTopConstraint.constant = popupMargin
@@ -1571,7 +1570,7 @@ private extension VideoPlayerViewController {
     }
 
     private func setupScrubProgressBarConstraints() {
-        let margin: CGFloat = 12
+        let margin: CGFloat = 6
 
         NSLayoutConstraint.activate([
             scrubProgressBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor),
@@ -1902,8 +1901,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
             qvc.didMove(toParent: self)
             view.layoutIfNeeded()
             videoPlayerControlsBottomConstraint.isActive = false
-            videoPlayerControls.bottomAnchor.constraint(equalTo: qvc.view.topAnchor,
-                                                        constant: -5).isActive = true
+            videoPlayerControls.bottomAnchor.constraint(equalTo: qvc.view.topAnchor).isActive = true
             videoPlayerControls.subtitleButton.isEnabled = false
             videoPlayerControls.rotationLockButton.isEnabled = false
             videoPlayerControls.aspectRatioButton.isEnabled = false
@@ -2385,7 +2383,7 @@ extension VideoPlayerViewController: PopupViewDelegate {
     func popupViewDidClose(_ popupView: PopupView) {
         popupView.isShown = false
         videoPlayerControls.moreActionsButton.isEnabled = true
-        videoPlayerControlsHeightConstraint.constant = 44
+        videoPlayerControlsHeightConstraint.constant = 56
         scrubProgressBar.spacing = 5
 
         shouldDisableGestures(false)

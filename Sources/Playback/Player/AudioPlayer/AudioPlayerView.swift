@@ -514,6 +514,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         NSLayoutConstraint.activate([
             controlsStackView.topAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: topPadding),
             controlsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            controlsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: layoutGuide.leadingAnchor, constant: 10),
+            controlsStackView.trailingAnchor.constraint(lessThanOrEqualTo: layoutGuide.trailingAnchor, constant: -10),
             controlsStackView.heightAnchor.constraint(equalToConstant: 50.0)
         ])
         
@@ -529,6 +531,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         controlsStackView.addArrangedSubview(nextButton)
         controlsStackView.addArrangedSubview(repeatButton)
         
+        controlsStackView.arrangedSubviews.forEach {
+            // Breakable so a row too narrow for 44pt buttons shrinks them instead of spilling off screen.
+            let minimumWidth = $0.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
+            minimumWidth.priority = .defaultHigh
+            minimumWidth.isActive = true
+        }
+
         secondaryControlStackView.addArrangedSubview(playbackSpeedButton)
 
         let displaySecondaryStackView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
