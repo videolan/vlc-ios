@@ -209,6 +209,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     UIImageView *_nowPlayingView;
     BOOL _current;
 }
+@property (nonatomic, getter=isCurrent) BOOL current;
 - (void)configureWithTitle:(NSString *)title subtitle:(NSString *)subtitle current:(BOOL)current;
 @end
 
@@ -253,10 +254,15 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
 
 - (void)configureWithTitle:(NSString *)title subtitle:(NSString *)subtitle current:(BOOL)current
 {
-    _current = current;
     _titleLabel.text = title;
     _subtitleLabel.text = subtitle;
     _subtitleLabel.hidden = subtitle.length == 0;
+    self.current = current;
+}
+
+- (void)setCurrent:(BOOL)current
+{
+    _current = current;
     _nowPlayingView.hidden = !current;
     [self updateColors];
 }
@@ -791,6 +797,9 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 @interface VLCPlayerQueuePanelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     UICollectionView *_collectionView;
+    NSArray<VLCMedia *> *_displayedMedia;
+    VLCMedia *_focusedMedia;
+    BOOL _queueHasFocus;
     VLCQueueToggleButton *_shuffleButton;
     VLCQueueToggleButton *_repeatButton;
 }
@@ -806,12 +815,160 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 
 - (NSInteger)currentIndex
 {
+    VLCMedia *media = [VLCPlaybackService sharedInstance].currentlyPlayingMedia;
+    return media ? [_displayedMedia indexOfObject:media] : NSNotFound;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    return [[self activeList] indexOfMedia:vpc.currentlyPlayingMedia];
+    [center addObserver:self selector:@selector(queueMediaDidChange:)
+                   name:VLCMediaMetaChangedNotification object:nil];
+    [center addObserver:self selector:@selector(queueMediaDidChange:)
+                   name:VLCPlaybackServiceMediaDurationDidChange object:vpc];
+    for (NSString *name in @[VLCPlaybackServiceMediaListDidChange,
+                             VLCPlaybackServicePlaybackDidMoveOnToNextItem,
+                             VLCPlaybackServicePlaybackDidStart,
+                             VLCPlaybackServiceShuffleModeUpdated,
+                             VLCPlaybackServicePlaybackModeUpdated]) {
+        [center addObserver:self selector:@selector(queueDidChange:) name:name object:vpc];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    _focusedMedia = [VLCPlaybackService sharedInstance].currentlyPlayingMedia;
+    [self updateQueueFocus];
+}
+
+- (void)updateQueueFocus
+{
+    NSIndexPath *path = [self indexPathForPreferredFocusedItemInCollectionView:_collectionView];
+    if (path) {
+        [_collectionView scrollToItemAtIndexPath:path atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        [_collectionView layoutIfNeeded];
+        [self setNeedsFocusUpdate];
+        [self updateFocusIfNeeded];
+    }
+}
+
+- (void)queueDidChange:(NSNotification *)notification
+{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{ [self queueDidChange:notification]; });
+        return;
+    }
+    NSString *name = notification.name;
+    if ([name isEqualToString:VLCPlaybackServicePlaybackModeUpdated]) {
+        [self updateRepeatButton];
+        return;
+    }
+    if ([name isEqualToString:VLCPlaybackServicePlaybackDidMoveOnToNextItem]
+        || [name isEqualToString:VLCPlaybackServicePlaybackDidStart]) {
+        [self updatePlayingMarkers];
+        return;
+    }
+    if ([name isEqualToString:VLCPlaybackServiceShuffleModeUpdated])
+        [self updateShuffleButton];
+    if (![self refreshSnapshot])
+        return;
+
+    BOOL restoreFocus = _queueHasFocus;
+    VLCMedia *focusedMedia = _focusedMedia;
+    [_collectionView reloadData];
+    _focusedMedia = focusedMedia;
+    [self.view setNeedsLayout];
+    if (restoreFocus)
+        [self updateQueueFocus];
+}
+
+- (void)queueMediaDidChange:(NSNotification *)notification
+{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{ [self queueMediaDidChange:notification]; });
+        return;
+    }
+    VLCMedia *media = notification.userInfo[@"media"] ?: notification.object;
+    if (![media isKindOfClass:VLCMedia.class])
+        return;
+    VLCMediaList *list = [self activeList];
+    if (!list || [list indexOfMedia:media] == NSNotFound)
+        return;
+
+    if ([notification.name isEqualToString:VLCMediaMetaChangedNotification]) {
+        VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+        [self clearMetadataForMedia:media inList:vpc.mediaList];
+        if (vpc.isShuffleMode && vpc.shuffledList != vpc.mediaList)
+            [self clearMetadataForMedia:media inList:vpc.shuffledList];
+        for (VLCMedia *displayedMedia in _displayedMedia) {
+            if ([displayedMedia isEqual:media])
+                [displayedMedia.metaData clearCache];
+        }
+    }
+    for (NSIndexPath *path in _collectionView.indexPathsForVisibleItems) {
+        if (path.item >= _displayedMedia.count || ![_displayedMedia[path.item] isEqual:media])
+            continue;
+        VLCPlayerQueueCell *cell = (VLCPlayerQueueCell *)[_collectionView cellForItemAtIndexPath:path];
+        [self configureCell:cell withMedia:_displayedMedia[path.item]];
+    }
+}
+
+- (void)clearMetadataForMedia:(VLCMedia *)media inList:(VLCMediaList *)list
+{
+    if (!list || [list indexOfMedia:media] == NSNotFound)
+        return;
+    [list lock];
+    NSUInteger count = list.count;
+    for (NSUInteger i = 0; i < count; i++) {
+        VLCMedia *queuedMedia = [list mediaAtIndex:i];
+        if ([queuedMedia isEqual:media])
+            [queuedMedia.metaData clearCache];
+    }
+    [list unlock];
+}
+
+- (void)updatePlayingMarkers
+{
+    VLCMedia *playingMedia = [VLCPlaybackService sharedInstance].currentlyPlayingMedia;
+    for (NSIndexPath *path in _collectionView.indexPathsForVisibleItems) {
+        if (path.item >= _displayedMedia.count)
+            continue;
+        VLCPlayerQueueCell *cell = (VLCPlayerQueueCell *)[_collectionView cellForItemAtIndexPath:path];
+        BOOL current = [_displayedMedia[path.item] isEqual:playingMedia];
+        if (cell.isCurrent != current)
+            cell.current = current;
+    }
+}
+
+- (BOOL)refreshSnapshot
+{
+    VLCMediaList *list = [self activeList];
+    [list lock];
+    NSUInteger count = list.count;
+    NSMutableArray<VLCMedia *> *snapshot = [NSMutableArray arrayWithCapacity:count];
+    for (NSUInteger i = 0; i < count; i++)
+        [snapshot addObject:[list mediaAtIndex:i]];
+    [list unlock];
+    NSArray<VLCMedia *> *previous = _displayedMedia;
+    BOOL changed = ![previous isEqualToArray:snapshot];
+    _displayedMedia = [snapshot copy];
+    if (!changed) {
+        for (NSIndexPath *path in _collectionView.indexPathsForVisibleItems) {
+            if (path.item >= _displayedMedia.count || previous[path.item] == _displayedMedia[path.item])
+                continue;
+            VLCPlayerQueueCell *cell = (VLCPlayerQueueCell *)[_collectionView cellForItemAtIndexPath:path];
+            [self configureCell:cell withMedia:_displayedMedia[path.item]];
+        }
+    }
+    return changed;
 }
 
 - (void)populatePanelContent
 {
+    [self refreshSnapshot];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = VLCInlineMenuItemSpacing;
     layout.minimumInteritemSpacing = 0.0;
@@ -822,7 +979,7 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
     _collectionView.backgroundColor = UIColor.clearColor;
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
-    _collectionView.remembersLastFocusedIndexPath = YES;
+    _collectionView.remembersLastFocusedIndexPath = NO;
     [_collectionView registerClass:[VLCPlayerQueueCell class] forCellWithReuseIdentifier:VLCQueueCellIdentifier];
 
     UIView *container = self.panelContentView;
@@ -894,15 +1051,11 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     vpc.shuffleMode = !vpc.isShuffleMode;
-    [self updateShuffleButton];
-    [_collectionView reloadData];
-    [self setNeedsFocusUpdate];
 }
 
 - (void)toggleRepeat
 {
     [[VLCPlaybackService sharedInstance] toggleRepeatMode];
-    [self updateRepeatButton];
 }
 
 - (void)updateShuffleButton
@@ -921,19 +1074,21 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 
 - (CGFloat)panelContentHeight
 {
-    CGFloat rows = [self activeList].count;
+    CGFloat rows = _displayedMedia.count;
     CGFloat height = rows * VLCInlineMenuQueueRowHeight + MAX(0, rows - 1) * VLCInlineMenuItemSpacing;
     return height + VLCInlineMenuInset + VLCInlineMenuStepperRowHeight;
 }
 
 - (NSArray<id<UIFocusEnvironment>> *)panelPreferredFocusEnvironments
 {
-    return @[_collectionView];
+    NSIndexPath *path = [self indexPathForPreferredFocusedItemInCollectionView:_collectionView];
+    UICollectionViewCell *cell = path ? [_collectionView cellForItemAtIndexPath:path] : nil;
+    return cell ? @[cell] : @[_collectionView];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self activeList].count;
+    return _displayedMedia.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -941,32 +1096,31 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 {
     VLCPlayerQueueCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCQueueCellIdentifier
                                                                         forIndexPath:indexPath];
-    VLCMedia *media = [[self activeList] mediaAtIndex:indexPath.row];
-    VLCMLMedia *mlMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService fetchOrCreateMediaWith:media.url];
-
-    NSString *title = mlMedia.title.length ? mlMedia.title : media.url.lastPathComponent;
-    NSString *subtitle = [self subtitleForMedia:mlMedia];
-    BOOL current = indexPath.row == [self currentIndex];
-    [cell configureWithTitle:title subtitle:subtitle current:current];
+    [self configureCell:cell withMedia:_displayedMedia[indexPath.item]];
     return cell;
 }
 
-- (NSString *)subtitleForMedia:(VLCMLMedia *)mlMedia
+- (void)configureCell:(VLCPlayerQueueCell *)cell withMedia:(VLCMedia *)media
 {
-    if (mlMedia == nil) {
-        return @"";
-    }
+    VLCMLMedia *mlMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService fetchMediaWith:media.url];
+
+    NSString *title = media.metaData.title;
+    if (title.length == 0)
+        title = mlMedia.title.length ? mlMedia.title : media.url.lastPathComponent;
     NSString *artist = mlMedia.artist.name;
-    NSString *duration = [VLCTime timeWithInt:(int)mlMedia.duration].stringValue;
-    if (artist.length && duration.length) {
-        return [NSString stringWithFormat:@"%@ — %@", artist, duration];
-    }
-    return artist.length ? artist : duration;
+    NSString *duration = VLCQueueDurationString(media, mlMedia);
+    NSString *subtitle = artist.length ? artist : duration;
+    if (artist.length && duration.length)
+        subtitle = [NSString stringWithFormat:@"%@ — %@", artist, duration];
+    BOOL current = [media isEqual:[VLCPlaybackService sharedInstance].currentlyPlayingMedia];
+    [cell configureWithTitle:title subtitle:subtitle current:current];
 }
 
 - (NSIndexPath *)indexPathForPreferredFocusedItemInCollectionView:(UICollectionView *)collectionView
 {
-    NSInteger current = [self currentIndex];
+    NSInteger current = _focusedMedia ? [_displayedMedia indexOfObject:_focusedMedia] : NSNotFound;
+    if (current == NSNotFound)
+        current = [self currentIndex];
     if (current == NSNotFound || current < 0) {
         return nil;
     }
@@ -975,10 +1129,27 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger index = indexPath.row;
+    if (indexPath.item >= _displayedMedia.count)
+        return;
+    VLCMedia *selected = _displayedMedia[indexPath.row];
     [self dismissViewControllerAnimated:YES completion:^{
-        [[VLCPlaybackService sharedInstance] playItemAtIndex:index];
+        VLCMediaList *list = [self activeList];
+        [list lock];
+        NSUInteger index = [list indexOfMedia:selected];
+        [list unlock];
+        if (list && index != NSNotFound)
+            [[VLCPlaybackService sharedInstance] playItemAtIndex:index];
     }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView
+ didUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context
+ withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    NSIndexPath *path = context.nextFocusedIndexPath;
+    _queueHasFocus = path != nil;
+    if (path && path.item < _displayedMedia.count)
+        _focusedMedia = _displayedMedia[path.item];
 }
 
 @end
