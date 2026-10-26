@@ -29,6 +29,11 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeMiniplayer,
 };
 
+typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerQueueStatusMessage) {
+    VLCPlayerDisplayControllerQueueStatusMessageAppended,
+    VLCPlayerDisplayControllerQueueStatusMessagePlayingNext,
+};
+
 @protocol VLCMiniPlaybackViewInterface <NSObject>
 
 @required;
@@ -44,7 +49,6 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
-@property (nonatomic, readonly) BOOL hintingPlayqueue;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
 @property (nonatomic, readonly) BOOL canBecomeFirstResponder;
@@ -62,6 +66,8 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 - (void)pushPlaybackView;
 - (void)dismissPlaybackView;
+
+- (void)showPlayqueueStatus:(VLCPlayerDisplayControllerQueueStatusMessage)status withDelay:(NSTimeInterval)delay;
 
 @end
 

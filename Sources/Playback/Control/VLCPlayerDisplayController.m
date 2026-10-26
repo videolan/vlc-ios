@@ -24,8 +24,6 @@
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
-const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
-
 @interface VLCUntouchableView: UIView
 @end
 
@@ -51,6 +49,10 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
 @implementation VLCPlayerDisplayController
 {
     VLCMiniPlayerZoomTransitioningDelegate *_zoomTransitioningDelegate;
+    VLCStatusLabel *_statusLabel;
+#if TARGET_OS_IOS
+    UINotificationFeedbackGenerator *_queueFeedbackGenerator;
+#endif
 }
 
 - (instancetype)init
@@ -602,6 +604,48 @@ const CGFloat kVLCMiniPlayerPlayqueueTopInset = 8.0;
 - (void)initQueueViewController
 {
     _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:[VLCAppCoordinator sharedInstance].mediaLibraryService];
+}
+
+- (void)_setupStatusLabel
+{
+    _statusLabel = [[VLCStatusLabel alloc] init];
+    _statusLabel.hidden = YES;
+    _statusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _statusLabel.textColor = UIColor.whiteColor;
+    [self.view addSubview:_statusLabel];
+    [self.view bringSubviewToFront:_statusLabel];
+    [NSLayoutConstraint activateConstraints:@[
+        [_statusLabel.centerXAnchor constraintEqualToAnchor: self.view.centerXAnchor],
+        [_statusLabel.centerYAnchor constraintEqualToAnchor: self.view.centerYAnchor]
+    ]];
+}
+
+- (void)showPlayqueueStatus:(VLCPlayerDisplayControllerQueueStatusMessage)status withDelay:(NSTimeInterval)delay
+{
+    if (!_statusLabel) {
+        [self _setupStatusLabel];
+    }
+#if TARGET_OS_IOS
+    if (!_queueFeedbackGenerator) {
+        _queueFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+    }
+#endif
+    
+    [NSTimer scheduledTimerWithTimeInterval:delay repeats:NO block:^(NSTimer *timer) {
+#if TARGET_OS_IOS
+        [self->_queueFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
+#endif
+        NSString *message;
+        switch (status) {
+            case VLCPlayerDisplayControllerQueueStatusMessageAppended:
+                message = NSLocalizedString(@"APPENDED_TO_QUEUE_STATUS_MESSAGE", "");
+                break;
+            case VLCPlayerDisplayControllerQueueStatusMessagePlayingNext:
+                message = NSLocalizedString(@"PLAYING_NEXT_STATUS_MESSAGE", "");
+                break;
+        }
+        [self->_statusLabel showStatusMessage:message];
+    }];
 }
 
 #endif

@@ -83,11 +83,13 @@
 - (void)playMediaNextInQueue:(VLCMLMedia *)media
 {
     [self playMedia:media withMode:EditButtonTypePlayNextInQueue];
+    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
 }
 
 - (void)appendMediaToQueue:(VLCMLMedia *)media
 {
     [self playMedia:media withMode:EditButtonTypeAppendToQueue];
+    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
 }
 
 - (void)playCollection:(NSArray<VLCMLMedia *> *)collection
@@ -120,11 +122,13 @@
 - (void)playCollectionNextInQueue:(NSArray<VLCMLMedia *> *)collection
 {
     [self playCollection:collection withMode:EditButtonTypePlayNextInQueue];
+    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
 }
 
 - (void)appendCollectionToQueue:(NSArray<VLCMLMedia *> *)collection
 {
     [self playCollection:collection withMode:EditButtonTypeAppendToQueue];
+    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
 }
 
 #endif

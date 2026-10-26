@@ -198,7 +198,6 @@ class QueueViewController: UIViewController {
                 view.removeConstraint(heightConstraint)
             }
 
-            var miniPlayerView: AudioMiniPlayer?
             grabberView.isHidden = false
             closeButton.isHidden = false
             if let parent = parent as? VideoPlayerViewController {
@@ -222,7 +221,7 @@ class QueueViewController: UIViewController {
 
             parent.view.addSubview(view)
 
-            let safeArea = miniPlayerView?.safeAreaLayoutGuide ?? parent.view.safeAreaLayoutGuide
+            let safeArea = parent.view.safeAreaLayoutGuide
             view.overrideUserInterfaceStyle = playerDisplayController != nil ? .unspecified : .dark
             configureAppearance()
 
@@ -271,11 +270,6 @@ class QueueViewController: UIViewController {
     }
 
     @objc func hide() {
-        if let parent = parent as? VLCPlayerDisplayController {
-            guard !parent.hintingPlayqueue else {
-                return
-            }
-        }
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 0.0
             self.darkOverlayView.isHidden = true
