@@ -21,6 +21,11 @@ New features since beta 3:
 · Media library: offer to email a report to support when the database is corrupted
 · Add a quick action to resume the last played media
 · Downloads: ask for credentials when the server requires authentication
+· Media library: search the whole Audio or Video tab, manage external folders, rebuild a corrupted database automatically
+· Playlists: create from the media views, reorder with drag and drop
+· Podcasts: choose how many episodes each show downloads, mark as played from Continue Listening
+· CarPlay: show Streams as an On Air grid that includes podcasts
+· Import folders from the share extension, add subtitle files to the current playback
 
 Bug fixes since beta 3:
 · Siri and Shortcuts: fix playback not starting while VLC is in the background or the device is locked
@@ -30,6 +35,9 @@ Bug fixes since beta 3:
 · Fix crashes in CarPlay with deeply nested folders and when toggling Wi-Fi Sharing
 · Media library: fix searching inside albums and playlists
 · Numerous fixes to shuffle, CarPlay, the landscape layout, the software keyboard, dark mode and localization
+· Fix passcode locking, podcast caching and resume, and equalizer preamp levels
+· Fix Dropbox, OneDrive and Wi-Fi Sharing issues
+· Fix a shuffle problem and theming on iOS 26
 
 ---
 
@@ -94,6 +102,7 @@ New features since beta 3:
 
 Bug fixes since beta 3:
 · Start the shuffled play queue with the selected item
+· Fix a shuffle problem and the network stream history
 
 ---
 
