@@ -277,7 +277,6 @@
 			<array>
 				<string>feed</string>
 				<string>feeds</string>
-				<string>pcast</string>
 				<string>itpc</string>
 			</array>
 		</dict>

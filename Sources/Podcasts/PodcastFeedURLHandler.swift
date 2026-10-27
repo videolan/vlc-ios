@@ -31,7 +31,7 @@ final class PodcastFeedURLHandler: NSObject, VLCURLHandler {
     var loop = false
     var shuffle = false
 
-    private static let feedSchemes = ["feed", "feeds", "pcast", "itpc"]
+    private static let feedSchemes = ["feed", "feeds", "itpc"]
     private static let feedPathExtensions = ["opml", "rss"]
 
     private var pendingFeeds: [PodcastFeedRequest] = []
