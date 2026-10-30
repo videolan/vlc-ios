@@ -2470,6 +2470,8 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     }
 
     override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        parent?.view.setNeedsLayout()
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
         updateEmptyViewLayoutMargins()
