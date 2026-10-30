@@ -1346,7 +1346,18 @@ private extension MediaCategoryViewController {
         }
         searchBar.isHidden = isEmpty
         collectionView?.backgroundView = isEmpty ? emptyView : nil
+        updateEmptyViewLayoutMargins()
         updateBarButtonItems()
+    }
+
+    private func updateEmptyViewLayoutMargins() {
+        guard let collectionView = collectionView,
+              let emptyView = collectionView.backgroundView as? VLCEmptyLibraryView else {
+            return
+        }
+
+        let safeAreaInsets = collectionView.safeAreaInsets
+        emptyView.layoutMargins = UIEdgeInsets(top: 0, left: safeAreaInsets.left, bottom: 0, right: safeAreaInsets.right)
     }
 
     private func objects(from modelContent: VLCMLObject, keepPlaylists: Bool = false) -> [VLCMLObject] {
@@ -2461,6 +2472,7 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     override func viewSafeAreaInsetsDidChange() {
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
+        updateEmptyViewLayoutMargins()
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

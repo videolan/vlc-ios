@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" id="112" customClass="VLCEmptyLibraryView">
+        <view contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="112" customClass="VLCEmptyLibraryView">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -61,10 +61,10 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="1mU-bI-aIo"/>
             <constraints>
-                <constraint firstItem="141-gp-zTI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1mU-bI-aIo" secondAttribute="leading" id="2Vo-bW-Lsv"/>
+                <constraint firstItem="141-gp-zTI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="112" secondAttribute="leadingMargin" id="2Vo-bW-Lsv"/>
                 <constraint firstItem="141-gp-zTI" firstAttribute="centerY" secondItem="1mU-bI-aIo" secondAttribute="centerY" id="CpN-VR-Hat"/>
-                <constraint firstItem="141-gp-zTI" firstAttribute="centerX" secondItem="1mU-bI-aIo" secondAttribute="centerX" id="bBv-fo-6gn"/>
-                <constraint firstItem="1mU-bI-aIo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="141-gp-zTI" secondAttribute="trailing" id="kq9-Bv-e9S"/>
+                <constraint firstItem="141-gp-zTI" firstAttribute="centerX" secondItem="112" secondAttribute="centerXWithinMargins" id="bBv-fo-6gn"/>
+                <constraint firstItem="112" firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="141-gp-zTI" secondAttribute="trailing" id="kq9-Bv-e9S"/>
             </constraints>
             <connections>
                 <outlet property="emptyLibraryLabel" destination="114" id="119"/>
