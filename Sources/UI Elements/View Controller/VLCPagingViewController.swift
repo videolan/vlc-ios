@@ -2,7 +2,7 @@
  * BaseButtonBarPageTabStripViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -42,7 +42,7 @@ enum PagerScroll {
     case onlyIfOutOfScreen
 }
 
-class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, ButtonBarViewDelegate, UICollectionViewDataSource {
 
     var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
@@ -254,6 +254,13 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
             }
         }
         moveToViewController(at: indexPath.item)
+    }
+
+    // MARK: - ButtonBarViewDelegate
+
+    func buttonBarViewDidChangeSafeAreaInsets(_ buttonBarView: ButtonBarView) {
+        cachedCellWidths = calculateWidths()
+        buttonBarView.moveTo(index: currentIndex, animated: false, swipeDirection: .none, pagerScroll: .onlyIfOutOfScreen)
     }
 
     // MARK: - UICollectionViewDataSource

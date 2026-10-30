@@ -2,7 +2,7 @@
  * ButtonBarView.Swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -37,6 +37,7 @@ class ButtonBarView: UICollectionView {
     func setup() {
         scrollsToTop = false
         showsHorizontalScrollIndicator = false
+        contentInsetAdjustmentBehavior = .never
         register(UINib(nibName: VLCLabelCell.cellIdentifier, bundle: .main), forCellWithReuseIdentifier:VLCLabelCell.cellIdentifier)
 
         separatorView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - separatorHeight, width: self.frame.size.width, height: separatorHeight))
@@ -156,4 +157,22 @@ class ButtonBarView: UICollectionView {
         super.layoutSubviews()
         updateSelectedBarYPosition()
     }
+
+    override func safeAreaInsetsDidChange() {
+        super.safeAreaInsetsDidChange()
+
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
+              flowLayout.sectionInset.left != safeAreaInsets.left || flowLayout.sectionInset.right != safeAreaInsets.right else {
+            return
+        }
+
+        flowLayout.sectionInset.left = safeAreaInsets.left
+        flowLayout.sectionInset.right = safeAreaInsets.right
+        (delegate as? ButtonBarViewDelegate)?.buttonBarViewDidChangeSafeAreaInsets(self)
+    }
+}
+
+protocol ButtonBarViewDelegate: UICollectionViewDelegate {
+
+    func buttonBarViewDidChangeSafeAreaInsets(_ buttonBarView: ButtonBarView)
 }
