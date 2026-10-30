@@ -231,7 +231,7 @@ class VerticalSliderControl: UIControl {
     }
 
     private var panInfo: PanInfo?
-    private var isPanning: Bool {
+    var isPanning: Bool {
         panInfo != nil
     }
 
@@ -324,6 +324,9 @@ class VerticalSliderControl: UIControl {
         return layer
     }()
 
+    /// Allows drags to start anywhere on the control.
+    var allowsDragFromAnywhere = false
+
     var trackWidth: CGFloat = defaultTrackWidth {
         didSet {
             setNeedsLayout()
@@ -397,7 +400,7 @@ class VerticalSliderControl: UIControl {
 
         switch sender.state {
         case .began:
-            guard (minY...maxY).contains(y) else {
+            guard isEnabled, allowsDragFromAnywhere || (minY...maxY).contains(y) else {
                 sender.state = .cancelled
                 return
             }

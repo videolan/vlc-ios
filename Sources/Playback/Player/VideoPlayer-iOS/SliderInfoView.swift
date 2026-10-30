@@ -31,6 +31,8 @@ protocol SliderInfoViewDelegate {
 }
 
 class SliderInfoView: UIView {
+    static let width: CGFloat = 44
+
     var delegate: SliderInfoViewDelegate?
 
     var iconNames: [String] = []
@@ -41,6 +43,7 @@ class SliderInfoView: UIView {
         levelSlider.maximumTrackLayerColor = UIColor(white: 1, alpha: 0.2).cgColor
         levelSlider.trackWidth = 4
         levelSlider.range = 0...1
+        levelSlider.allowsDragFromAnywhere = true
         levelSlider.translatesAutoresizingMaskIntoConstraints = false
         return levelSlider
     }()
@@ -80,22 +83,63 @@ class SliderInfoView: UIView {
         levelSlider.isEnabled = enabled
     }
 
+    private static let touchOutset: CGFloat = 16
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let outset = levelSlider.isEnabled ? Self.touchOutset : 0
+        return bounds.insetBy(dx: -outset, dy: 0).contains(point)
+    }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        // Route the capsule's icon and padding to the slider too.
+        guard let hitView = super.hitTest(point, with: event) else { return nil }
+        return levelSlider.isEnabled ? levelSlider : hitView
+    }
+
+    private let background = VideoControlBackgroundView(isInteractive: true)
+    private(set) var isVisible = true
+
+    /// Fades the effect and content separately to preserve glass rendering.
+    func setVisible(_ visible: Bool) {
+        isVisible = visible
+        isUserInteractionEnabled = visible
+        accessibilityElementsHidden = !visible
+        background.setVisible(visible)
+        levelImageView.alpha = visible ? 1 : 0
+        levelSlider.alpha = visible ? 1 : 0
+    }
+
     func setupView() {
-        addSubview(levelImageView)
-        addSubview(levelSlider)
-        bringSubviewToFront(levelSlider)
+        background.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(background)
+        // Interactive glass responds to touches inside contentView.
+        let contentView = background.contentView
+        contentView.addSubview(levelImageView)
+        contentView.addSubview(levelSlider)
 
         isUserInteractionEnabled = true
         translatesAutoresizingMaskIntoConstraints = false
 
+        // Allow padding to compress on short screens.
+        let topPadding = levelImageView.topAnchor.constraint(equalTo: topAnchor, constant: 12)
+        let bottomPadding = levelSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+        topPadding.priority = .required - 1
+        bottomPadding.priority = .required - 1
+
         NSLayoutConstraint.activate([
-            levelImageView.topAnchor.constraint(equalTo: topAnchor),
+            background.topAnchor.constraint(equalTo: topAnchor),
+            background.bottomAnchor.constraint(equalTo: bottomAnchor),
+            background.leadingAnchor.constraint(equalTo: leadingAnchor),
+            background.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            topPadding,
+            levelImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             levelImageView.heightAnchor.constraint(equalToConstant: 25),
             levelImageView.widthAnchor.constraint(equalToConstant: 25),
 
             levelSlider.topAnchor.constraint(equalTo: levelImageView.bottomAnchor, constant: 10),
-            levelSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
-            levelSlider.widthAnchor.constraint(equalToConstant: 30),
+            bottomPadding,
+            levelSlider.widthAnchor.constraint(equalTo: widthAnchor),
             levelSlider.centerXAnchor.constraint(equalTo: levelImageView.centerXAnchor)
         ])
     }
@@ -143,20 +187,18 @@ class BrightnessControlView: SliderInfoView {
         currentScreen?.brightness = CGFloat(levelSlider.value)
         update(level: levelSlider.value)
     }
-
-    override func setupView() {
-        super.setupView()
-
-        NSLayoutConstraint.activate([
-            levelImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
-        ])
-    }
 #endif
 }
 
 class VolumeControlView: SliderInfoView {
     private let volumeView: MPVolumeView?
-    private(set) var isBeingTouched: Bool = false
+    private var lastSliderChange = Date.distantPast
+
+    /// Extends the touch state to cover delayed system volume updates.
+    var isBeingTouched: Bool {
+        return levelSlider.isPanning || Date().timeIntervalSince(lastSliderChange) < 0.5
+    }
+
     init(volumeView: MPVolumeView?) {
         self.volumeView = volumeView
         super.init(frame: .zero)
@@ -169,8 +211,6 @@ class VolumeControlView: SliderInfoView {
         }
 
         levelSlider.addTarget(self, action: #selector(self.onVolumeChange), for: .valueChanged)
-        levelSlider.addTarget(self, action: #selector(self.onTouchStarted), for: .touchDown)
-        levelSlider.addTarget(self, action: #selector(self.onTouchEnded), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         self.iconNames = ["noSound", "lowSound", "mediumSound", "highSound"]
 
         levelSlider.isAccessibilityElement = true
@@ -187,23 +227,8 @@ class VolumeControlView: SliderInfoView {
     }
 
     @objc func onVolumeChange() {
+        lastSliderChange = Date()
         volumeView?.setVolume(levelSlider.value)
         update(level: levelSlider.value)
-    }
-
-    @objc func onTouchStarted() {
-        isBeingTouched = true
-    }
-
-    @objc func onTouchEnded() {
-        isBeingTouched = false
-    }
-
-    override func setupView() {
-        super.setupView()
-
-        NSLayoutConstraint.activate([
-            levelImageView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
     }
 }

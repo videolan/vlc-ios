@@ -44,6 +44,8 @@ class VideoPlayerControls: UIView {
 
     // MARK: - Left Controls
 
+    @IBOutlet weak var leftControls: UIStackView!
+
     @IBOutlet weak var subtitleButton: UIButton!
     
     @IBOutlet weak var dvdButton: UIButton!
@@ -53,15 +55,62 @@ class VideoPlayerControls: UIView {
     @IBOutlet weak var repeatButton: UIButton!
     // MARK: - Main Controls
 
-    @IBOutlet weak var backwardButton: UIButton!
+    private(set) lazy var backwardButton = makeTransportButton(systemImageName: "gobackward",
+                                                               action: #selector(handleBackwardButton(_:)))
 
-    @IBOutlet weak var previousMediaButton: UIButton!
+    private(set) lazy var previousMediaButton = makeTransportButton(systemImageName: "backward.end.fill",
+                                                                    action: #selector(handlePreviousButton(_:)))
 
-    @IBOutlet weak var playPauseButton: UIButton!
+    private(set) lazy var playPauseButton: WideTouchButton = {
+        let button = makeTransportButton(systemImageName: "play.fill",
+                                         action: #selector(handlePlayPauseButton(_:)))
+        let longPressGesture = UILongPressGestureRecognizer(target: self,
+                                                            action: #selector(handlePlayPauseLongPressButton(_:)))
+        longPressGesture.minimumPressDuration = 1
+        longPressGesture.allowableMovement = 10
+        button.addGestureRecognizer(longPressGesture)
+        return button
+    }()
 
-    @IBOutlet weak var nextMediaButton: UIButton!
+    private(set) lazy var nextMediaButton = makeTransportButton(systemImageName: "forward.end.fill",
+                                                                action: #selector(handleNextButton(_:)))
 
-    @IBOutlet weak var forwardButton: UIButton!
+    private(set) lazy var forwardButton = makeTransportButton(systemImageName: "goforward",
+                                                              action: #selector(handleForwardButton(_:)))
+
+    static let playPauseCircleSize: CGFloat = 81
+
+    private static let playPauseTouchOutset: CGFloat = 12
+
+    private static let playPauseSideTouchOutset: CGFloat = 44
+
+    private(set) lazy var transportControls: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [backwardButton,
+                                                       previousMediaButton,
+                                                       playPauseButton,
+                                                       nextMediaButton,
+                                                       forwardButton])
+        stackView.semanticContentAttribute = .forceLeftToRight
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        stackView.spacing = 8
+        stackView.overrideUserInterfaceStyle = .dark
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        backwardButton.isHidden = true
+        forwardButton.isHidden = true
+        // Give skip buttons priority over the expanded play target.
+        stackView.sendSubviewToBack(playPauseButton)
+        return stackView
+    }()
+
+    /// Uses smaller controls above the play queue.
+    var isTransportCompact = false {
+        didSet {
+            updateTransportSizeConstraints()
+        }
+    }
+
+    private var transportSizeConstraints: [NSLayoutConstraint] = []
 
     // MARK: - Right Controls
 
@@ -70,12 +119,19 @@ class VideoPlayerControls: UIView {
     @IBOutlet weak var moreActionsButton: UIButton!
 
     @IBOutlet weak var shuffleButton: UIButton!
+
+    @IBOutlet weak var rightControls: UIStackView!
     // MARK: -
 
     weak var delegate: VideoPlayerControlsDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateTransportSizeConstraints()
     }
 
     func setupAccessibility() {
@@ -148,17 +204,18 @@ class VideoPlayerControls: UIView {
         // Play/pause is the most important.
         // Then, next track, then previous.
         // Lastly, iterate over the remaining controls left to right.
-        applyAccessibilityControls(
+        transportControls.applyAccessibilityControls(
             playPauseButton,
             nextMediaButton,
             previousMediaButton,
-
+            backwardButton,
+            forwardButton
+        )
+        applyAccessibilityControls(
             rotationLockButton,
             dvdButton,
             subtitleButton,
             repeatButton,
-            backwardButton,
-            forwardButton,
             shuffleButton,
             aspectRatioButton,
             moreActionsButton
@@ -171,11 +228,111 @@ class VideoPlayerControls: UIView {
     }
 
     func updatePlayPauseButton(toState isPlaying: Bool) {
-        let imageName = isPlaying ? "pause-circle" : "play-circle"
-        playPauseButton.setImage(UIImage(named: imageName), for: .normal)
+        playPauseButton.configuration?.image = UIImage(systemName: isPlaying ? "pause.fill" : "play.fill")
+    }
+
+    func updateSkipButtonImages(backwardBy: Int, forwardBy: Int) {
+        backwardButton.configuration?.image = Self.skipImage(named: "gobackward", seconds: backwardBy)
+        forwardButton.configuration?.image = Self.skipImage(named: "goforward", seconds: forwardBy)
+    }
+
+    private static func skipImage(named name: String, seconds: Int) -> UIImage? {
+        // Some skip lengths have no numbered SF Symbol.
+        return UIImage(systemName: "\(name).\(seconds)") ?? UIImage(systemName: name)
+    }
+
+    private func makeTransportButton(systemImageName: String, action: Selector) -> WideTouchButton {
+        var configuration = Self.transportButtonConfiguration()
+        configuration.image = UIImage(systemName: systemImageName)
+        let button = WideTouchButton(configuration: configuration)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
+        // Let size constraints override the icon's intrinsic size.
+        button.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        button.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        return button
+    }
+
+    private static func transportButtonConfiguration() -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.plain()
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .capsule
+        configuration.background.customView = VideoControlBackgroundView()
+        return configuration
+    }
+
+    /// Call inside an animation block to fade the main buttons.
+    func setTransportControlsVisible(_ visible: Bool) {
+        transportControls.isUserInteractionEnabled = visible
+        transportControls.accessibilityElementsHidden = !visible
+        for case let button as UIButton in transportControls.arrangedSubviews {
+            button.imageView?.alpha = visible ? 1 : 0
+            let background = button.configuration?.background.customView as? VideoControlBackgroundView
+            background?.setVisible(visible)
+        }
+    }
+
+    private func updateTransportSizeConstraints() {
+        NSLayoutConstraint.deactivate(transportSizeConstraints)
+
+        // Match the 44pt bar above the queue.
+        let buttonSize: CGFloat = isTransportCompact ? 44 : 63
+        let playPauseCircleSize = isTransportCompact ? buttonSize : Self.playPauseCircleSize
+        let touchOutset = isTransportCompact ? 0 : Self.playPauseTouchOutset
+        playPauseButton.configuration?.background.backgroundInsets = NSDirectionalEdgeInsets(
+            top: touchOutset, leading: touchOutset, bottom: touchOutset, trailing: touchOutset)
+        playPauseButton.horizontalTouchOutset = isTransportCompact ? 0 : Self.playPauseSideTouchOutset - touchOutset
+        let iconSize: CGFloat = isTransportCompact ? 20 : 22
+        for case let button as UIButton in transportControls.arrangedSubviews {
+            let pointSize = button == playPauseButton && !isTransportCompact ? 29 : iconSize
+            button.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(
+                pointSize: pointSize, weight: .semibold)
+        }
+
+        let preferredPlayPauseWidth = playPauseButton.widthAnchor.constraint(
+            equalToConstant: playPauseCircleSize + 2 * touchOutset)
+        preferredPlayPauseWidth.priority = .defaultHigh
+        let sideButtonRatio = buttonSize / playPauseCircleSize
+        let minimumSideButtonSize: CGFloat = isTransportCompact ? 32 : 44
+        let minimumPlayPauseWidth = playPauseButton.widthAnchor.constraint(
+            greaterThanOrEqualToConstant: minimumSideButtonSize / sideButtonRatio + 2 * touchOutset)
+        let preferredWidth = transportControls.widthAnchor.constraint(equalToConstant: isTransportCompact ? 180 : 400)
+        // Close gaps before shrinking buttons.
+        preferredWidth.priority = .defaultHigh - 1
+
+        // Hidden stack buttons have zero width; constrain only the visible pair.
+        let leftButton = previousMediaButton.isHidden ? backwardButton : previousMediaButton
+        let rightButton = nextMediaButton.isHidden ? forwardButton : nextMediaButton
+        transportSizeConstraints = [leftButton, rightButton].map {
+            $0.widthAnchor.constraint(equalTo: playPauseButton.widthAnchor,
+                                      multiplier: sideButtonRatio,
+                                      constant: -2 * touchOutset * sideButtonRatio)
+        }
+        transportSizeConstraints += [preferredPlayPauseWidth, minimumPlayPauseWidth, preferredWidth]
+        if isTransportCompact {
+            let clearOfLeftControls = transportControls.leadingAnchor.constraint(
+                greaterThanOrEqualTo: leftControls.trailingAnchor, constant: 8)
+            let clearOfRightControls = transportControls.trailingAnchor.constraint(
+                lessThanOrEqualTo: rightControls.leadingAnchor, constant: -8)
+            clearOfLeftControls.priority = .required - 1
+            clearOfRightControls.priority = .required - 1
+            transportSizeConstraints += [clearOfLeftControls, clearOfRightControls]
+        } else {
+            // Shrink buttons before reducing the minimum gap.
+            let leftGap = playPauseButton.leadingAnchor.constraint(greaterThanOrEqualTo: leftButton.trailingAnchor,
+                                                                   constant: 24)
+            let rightGap = rightButton.leadingAnchor.constraint(greaterThanOrEqualTo: playPauseButton.trailingAnchor,
+                                                                constant: 24)
+            leftGap.priority = .defaultHigh + 1
+            rightGap.priority = .defaultHigh + 1
+            transportSizeConstraints += [leftGap, rightGap]
+        }
+        NSLayoutConstraint.activate(transportSizeConstraints)
     }
 
     func shouldEnableSeekButtons(_ enable: Bool) {
+        let swapsButtons = backwardButton.isHidden == enable
         backwardButton.isEnabled = enable
         backwardButton.isHidden = !enable
         forwardButton.isEnabled = enable
@@ -185,6 +342,9 @@ class VideoPlayerControls: UIView {
         previousMediaButton.isHidden = enable
         nextMediaButton.isEnabled = !enable
         nextMediaButton.isHidden = enable
+        if swapsButtons {
+            updateTransportSizeConstraints()
+        }
     }
 
     func shouldDisableControls(_ disable: Bool) {
@@ -226,19 +386,19 @@ extension VideoPlayerControls {
 // MARK: - Main Controls
 
 extension VideoPlayerControls {
-    @IBAction func handleBackwardButton(_ sender: Any) {
+    @objc func handleBackwardButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapBackward(self)
     }
 
-    @IBAction func handlePreviousButton(_ sender: Any) {
+    @objc func handlePreviousButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapPreviousMedia(self)
     }
 
-    @IBAction func handlePlayPauseButton(_ sender: Any) {
+    @objc func handlePlayPauseButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapPlayPause(self)
     }
 
-    @IBAction func handlePlayPauseLongPressButton(_ sender: UILongPressGestureRecognizer) {
+    @objc func handlePlayPauseLongPressButton(_ sender: UILongPressGestureRecognizer) {
         switch sender.state {
         case .began:
             delegate?.videoPlayerControlsDelegateDidLongPressPlayPauseBegan?(self)
@@ -251,11 +411,11 @@ extension VideoPlayerControls {
         }
     }
 
-    @IBAction func handleNextButton(_ sender: Any) {
+    @objc func handleNextButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapNextMedia(self)
     }
 
-    @IBAction func handleForwardButton(_ sender: Any) {
+    @objc func handleForwardButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapForward(self)
     }
 }
@@ -279,5 +439,13 @@ extension VideoPlayerControls {
 
     @IBAction func handleShuffleButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateShuffle(self)
+    }
+}
+
+final class WideTouchButton: UIButton {
+    var horizontalTouchOutset: CGFloat = 0
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.insetBy(dx: -horizontalTouchOutset, dy: 0).contains(point)
     }
 }

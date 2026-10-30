@@ -297,6 +297,32 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var isTabletopLayout = false
 
+    private lazy var transportControlsCenterYConstraint: NSLayoutConstraint = {
+        videoPlayerControls.transportControls.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
+    }()
+
+    private lazy var transportControlsInBarConstraint: NSLayoutConstraint = {
+        videoPlayerControls.transportControls.centerYAnchor.constraint(equalTo: videoPlayerControls.centerYAnchor)
+    }()
+
+    private lazy var transportControlsAboveScrubBarConstraint: NSLayoutConstraint = {
+        // Limit height relative to the fixed bar; the scrub bar expands during scrubbing.
+        let constraint = videoPlayerControls.transportControls.bottomAnchor.constraint(
+            lessThanOrEqualTo: videoPlayerControls.topAnchor, constant: -80)
+        constraint.priority = .required - 1
+        return constraint
+    }()
+
+    // Bottom-bar icons sit 10pt inside their buttons.
+    private static let controlsIconInset: CGFloat = 10
+
+    private lazy var closeButtonBackground: VideoControlBackgroundView = {
+        let background = VideoControlBackgroundView()
+        background.isUserInteractionEnabled = false
+        background.translatesAutoresizingMaskIntoConstraints = false
+        return background
+    }()
+
     // MARK: - Init methods
 
 #if os(iOS)
@@ -336,6 +362,7 @@ class VideoPlayerViewController: PlayerViewController {
         mediaScrubProgressBar.updateInterfacePosition()
 
         setControlsHidden(false, animated: false)
+        videoPlayerControls.updateSkipButtonImages(backwardBy: seekBackwardBy, forwardBy: seekForwardBy)
 
         // Make sure interface is enabled on
         setPlayerInterfaceEnabled(true)
@@ -475,8 +502,8 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
 #if os(iOS)
-        volumeControlView.alpha = 0
-        brightnessControlView.alpha = 0
+        volumeControlView.setVisible(false)
+        brightnessControlView.setVisible(false)
 #endif
     }
 
@@ -522,8 +549,13 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
         view.addSubview(externalVideoOutputView)
         view.addSubview(coneLoadingView)
+        // Keep the external-display panel and loading cone from intercepting transport taps.
+        view.addSubview(videoPlayerControls.transportControls)
         view.addSubview(statusLabel)
         view.addSubview(longPressPlaybackSpeedView)
+        // Keep glass outside the navigation bar's alpha animation.
+        view.insertSubview(closeButtonBackground, belowSubview: mediaNavigationBar)
+        mediaNavigationBar.setCustomSpacing(8, after: mediaNavigationBar.closePlaybackButton)
 
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
@@ -544,6 +576,7 @@ class VideoPlayerViewController: PlayerViewController {
         } else {
 #if os(iOS)
             view.applyAccessibilityControls(
+                videoPlayerControls.transportControls,
                 videoPlayerControls,
                 mediaScrubProgressBar,
                 volumeControlView,
@@ -552,6 +585,7 @@ class VideoPlayerViewController: PlayerViewController {
             )
 #else
             view.applyAccessibilityControls(
+                videoPlayerControls.transportControls,
                 videoPlayerControls,
                 mediaScrubProgressBar,
                 mediaNavigationBar
@@ -613,6 +647,10 @@ class VideoPlayerViewController: PlayerViewController {
         view.addGestureRecognizer(downSwipeRecognizer)
         view.addGestureRecognizer(longPressGestureRecognizer)
         view.addGestureRecognizer(snapshotTapRecognizer)
+
+        for recognizer in [tapOnVideoRecognizer, doubleTapGestureRecognizer, longPressGestureRecognizer, panRecognizer] {
+            recognizer.delegate = self
+        }
     }
 
     private func setupConstraints() {
@@ -622,6 +660,7 @@ class VideoPlayerViewController: PlayerViewController {
         setupSwitchControlUtilityConstraints()
         setupExternalVideoOutputConstraints()
         setupVideoPlayerControlsConstraints()
+        setupTransportControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
 #if os(iOS)
@@ -685,7 +724,7 @@ class VideoPlayerViewController: PlayerViewController {
             heightConstraint,
             topConstraint,
             bottomConstraint,
-            slider.widthAnchor.constraint(equalToConstant: 50),
+            slider.widthAnchor.constraint(equalToConstant: SliderInfoView.width),
             yConstraint,
         ])
 
@@ -772,9 +811,13 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = VideoPlayerViewController.mediaNavigationBarTopPadding
         NSLayoutConstraint.activate([
-            mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor, constant: -8),
-            mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor, constant: 8),
+            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor,
+                                                        constant: Self.controlsIconInset),
+            mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor),
+            closeButtonBackground.centerXAnchor.constraint(equalTo: mediaNavigationBar.closePlaybackButton.centerXAnchor),
+            closeButtonBackground.centerYAnchor.constraint(equalTo: mediaNavigationBar.closePlaybackButton.centerYAnchor),
+            closeButtonBackground.widthAnchor.constraint(equalToConstant: 44),
+            closeButtonBackground.heightAnchor.constraint(equalToConstant: 44),
             mediaNavigationBarTopConstraint,
             optionsNavigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
@@ -797,12 +840,29 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
+    private func setupTransportControlsConstraints() {
+        // Keep transport buttons 8pt clear of the sliders.
+        let sliderSpace: CGFloat = 8 + Self.controlsIconInset + SliderInfoView.width + 8
+        let maximumWidth = videoPlayerControls.transportControls.widthAnchor.constraint(
+            lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * sliderSpace)
+        maximumWidth.priority = .required - 1
+
+        NSLayoutConstraint.activate([
+            videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            transportControlsCenterYConstraint,
+            transportControlsAboveScrubBarConstraint,
+            maximumWidth
+        ])
+    }
+
     private func setupScrubProgressBarConstraints() {
         let margin: CGFloat = 12
 
         NSLayoutConstraint.activate([
-            mediaScrubProgressBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor),
-            mediaScrubProgressBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor),
+            mediaScrubProgressBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor,
+                                                           constant: Self.controlsIconInset),
+            mediaScrubProgressBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor,
+                                                            constant: -Self.controlsIconInset),
             mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
         ])
     }
@@ -810,7 +870,8 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupStatusLabelConstraints() {
         NSLayoutConstraint.activate([
             statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statusLabel.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
+            statusLabel.bottomAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor,
+                                                constant: -(VideoPlayerControls.playPauseCircleSize / 2 + 16))
         ])
     }
 
@@ -1086,13 +1147,15 @@ class VideoPlayerViewController: PlayerViewController {
 
         let animations = { [weak self, playerController] in
             self?.mediaNavigationBar.alpha = uiComponentOpacity
+            self?.closeButtonBackground.setVisible(!hidden)
             self?.optionsNavigationBar.alpha = uiComponentOpacity
 #if os(iOS)
-            self?.volumeControlView.alpha = playerController.isVolumeGestureEnabled ? uiComponentOpacity : 0
-            self?.brightnessControlView.alpha = playerController.isBrightnessGestureEnabled ? uiComponentOpacity : 0
+            self?.volumeControlView.setVisible(!hidden && playerController.isVolumeGestureEnabled)
+            self?.brightnessControlView.setVisible(!hidden && playerController.isBrightnessGestureEnabled)
 #endif
             if !hidden || qvcHidden {
                 self?.videoPlayerControls.alpha = uiComponentOpacity
+                self?.videoPlayerControls.setTransportControlsVisible(!hidden)
                 self?.mediaScrubProgressBar.alpha = uiComponentOpacity
             }
             self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
@@ -1103,9 +1166,9 @@ class VideoPlayerViewController: PlayerViewController {
 #endif
         }
 
-        let duration = animated ? 0.2 : 0
+        let duration = animated ? (hidden ? 0.3 : 0.2) : 0
         UIView.animate(withDuration: duration, delay: 0,
-                       options: .beginFromCurrentState, animations: animations,
+                       options: [.beginFromCurrentState, .curveEaseOut], animations: animations,
                        completion: { _ in
             self.switchControlUtility.alpha = hidden ? 1 : 0
             self.setupAccessibility()
@@ -1500,8 +1563,13 @@ extension VideoPlayerViewController {
             videoPlayerControls.rotationLockButton.isEnabled = false
             videoPlayerControls.aspectRatioButton.isEnabled = false
             videoPlayerControls.moreActionsButton.isEnabled = false
+            transportControlsCenterYConstraint.isActive = false
+            transportControlsAboveScrubBarConstraint.isActive = false
+            transportControlsInBarConstraint.isActive = true
+            videoPlayerControls.isTransportCompact = true
             view.bringSubviewToFront(mediaScrubProgressBar)
             view.bringSubviewToFront(videoPlayerControls)
+            view.bringSubviewToFront(videoPlayerControls.transportControls)
             setControlsHidden(true, animated: true)
             qvc.bottomConstraint?.constant = 0
             UIView.animate(withDuration: 0.3, animations: {
@@ -1659,10 +1727,30 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
         queueViewController?.hide()
         shouldDisableGestures(false)
         videoPlayerControlsBottomConstraint.isActive = true
+        transportControlsInBarConstraint.isActive = false
+        transportControlsCenterYConstraint.isActive = true
+        transportControlsAboveScrubBarConstraint.isActive = true
+        videoPlayerControls.isTransportCompact = false
         videoPlayerControls.subtitleButton.isEnabled = true
         videoPlayerControls.rotationLockButton.isEnabled = true
         videoPlayerControls.aspectRatioButton.isEnabled = true
         videoPlayerControls.moreActionsButton.isEnabled = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension VideoPlayerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard let control = touch.view as? UIControl else { return true }
+#if os(iOS)
+        // Keep player swipes from competing with slider drags.
+        if control.isDescendant(of: brightnessControlView) || control.isDescendant(of: volumeControlView) {
+            return gestureRecognizer == tapOnVideoRecognizer
+        }
+#endif
+        // Prevent video taps and long presses on transport buttons.
+        return gestureRecognizer == panRecognizer || !control.isDescendant(of: videoPlayerControls.transportControls)
     }
 }
 
@@ -1947,8 +2035,8 @@ extension VideoPlayerViewController: GameControllerManagerDelegate {
         var animations : (() -> Void)?
         volumeBackgroundGradientLayer.isHidden = false
         volumeControl.fetchDeviceValue()
-        animations = { [brightnessControlView, sideBackgroundGradientView] in
-            brightnessControlView.alpha = 1
+        animations = { [volumeControlView, sideBackgroundGradientView] in
+            volumeControlView.setVisible(true)
             sideBackgroundGradientView.alpha = 1
         }
         
@@ -1963,7 +2051,7 @@ extension VideoPlayerViewController: GameControllerManagerDelegate {
         volumeControlView.updateIcon(level: volumeControl.value)
         
         animations = { [volumeControlView, sideBackgroundGradientView] in
-            volumeControlView.alpha = 0
+            volumeControlView.setVisible(false)
             sideBackgroundGradientView.alpha = 0
         }
         

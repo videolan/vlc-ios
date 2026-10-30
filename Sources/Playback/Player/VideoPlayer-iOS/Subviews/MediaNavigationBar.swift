@@ -41,6 +41,9 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     weak var delegate: MediaNavigationBarDelegate?
 
+    // Extend the close target beyond the bar's bounds.
+    private static let closeButtonTouchOutset: CGFloat = 16
+
     lazy var closePlaybackButton: UIButton = {
         var closeButton = UIButton(type: .system)
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -323,6 +326,23 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     func toggleChromeCast() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidToggleChromeCast?(self)
+    }
+
+    private var closeButtonTouchArea: CGRect {
+        return closePlaybackButton.frame.insetBy(dx: -Self.closeButtonTouchOutset, dy: -Self.closeButtonTouchOutset)
+    }
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return super.point(inside: point, with: event)
+            || (closePlaybackButton.isEnabled && closeButtonTouchArea.contains(point))
+    }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+        guard view === self, closePlaybackButton.isEnabled, closeButtonTouchArea.contains(point) else {
+            return view
+        }
+        return closePlaybackButton
     }
 
     func updateCloseButton(with icon: UIImage?, accessibility: (String, String)) {

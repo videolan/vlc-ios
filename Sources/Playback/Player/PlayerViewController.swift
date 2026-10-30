@@ -267,7 +267,7 @@ class PlayerViewController: UIViewController {
         let vc = BrightnessControlView()
         vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
-        vc.alpha = 0
+        vc.setVisible(false)
         return vc
     }()
 
@@ -275,7 +275,7 @@ class PlayerViewController: UIViewController {
         let vc = VolumeControlView(volumeView: self.volumeView)
         vc.updateIcon(level: volumeControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
-        vc.alpha = 0
+        vc.setVisible(false)
         return vc
     }()
 
@@ -320,6 +320,10 @@ class PlayerViewController: UIViewController {
     private(set) var isGestureActive: Bool = false
 
     private var currentPanType: PlayerPanType = .none
+
+#if os(iOS)
+    private var pendingVolumeRefresh: DispatchWorkItem?
+#endif
 
     private var projectionLocation: CGPoint = .zero
 
@@ -546,26 +550,52 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        // Slider writes reach the system asynchronously; reconcile after the interaction settles.
+        if keyPath == "outputVolume", volumeControlView.isBeingTouched {
+            scheduleVolumeRefresh()
+            return
+        }
         // We're observing outputVolume to handle volume changes from physical volume buttons
         // To processd properly we have to check we're not interacting with UI controls or gesture
         if  keyPath == "outputVolume" &&
-                !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
                 !isGestureActive && // Check if the slider did not just changed value
                 currentPanType != .volume { // Check we're not doing pan gestures for volume
+            pendingVolumeRefresh?.cancel()
+            pendingVolumeRefresh = nil
             let appearAnimations = { [volumeControlView] in
-                volumeControlView.alpha = 1
+                volumeControlView.setVisible(true)
             }
             let disappearAnimations = { [volumeControlView] in
-                volumeControlView.alpha = 0
+                volumeControlView.setVisible(false)
             }
-            UIView.animate(withDuration:0.2, delay: 0,
-                           options: .beginFromCurrentState,
-                           animations:appearAnimations, completion:nil)
-            UIView.animate(withDuration: 0.2, delay: 1,
-                           options: [],
-                           animations:disappearAnimations, completion:nil)
+            // Only auto-hide a slider revealed by this volume change.
+            if !volumeControlView.isVisible {
+                UIView.animate(withDuration:0.2, delay: 0,
+                               options: [.beginFromCurrentState, .curveEaseOut],
+                               animations:appearAnimations, completion:nil)
+                UIView.animate(withDuration: 0.2, delay: 1,
+                               options: .curveEaseOut,
+                               animations:disappearAnimations, completion:nil)
+            }
             self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
         }
+    }
+
+    private func scheduleVolumeRefresh() {
+        pendingVolumeRefresh?.cancel()
+        let refresh = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.pendingVolumeRefresh = nil
+            // Wait for slider and player gestures to finish before reading system volume.
+            guard !self.volumeControlView.isBeingTouched, !self.isGestureActive,
+                  self.currentPanType != .volume else {
+                self.scheduleVolumeRefresh()
+                return
+            }
+            self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
+        }
+        pendingVolumeRefresh = refresh
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: refresh)
     }
 #endif
 
@@ -1175,14 +1205,14 @@ class PlayerViewController: UIViewController {
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
                 animations = { [brightnessControlView, sideBackgroundGradientView] in
-                    brightnessControlView.alpha = 1
+                    brightnessControlView.setVisible(true)
                     sideBackgroundGradientView.alpha = 1
                 }
             case .volume:
                 volumeBackgroundGradientLayer.isHidden = false
                 volumeControl.fetchDeviceValue()
                 animations = { [volumeControlView, sideBackgroundGradientView] in
-                    volumeControlView.alpha = 1
+                    volumeControlView.setVisible(true)
                     sideBackgroundGradientView.alpha = 1
                 }
             default:
@@ -1191,7 +1221,7 @@ class PlayerViewController: UIViewController {
 #endif
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 0,
-                               options: .beginFromCurrentState, animations: animations,
+                               options: [.beginFromCurrentState, .curveEaseOut], animations: animations,
                                completion: nil)
             }
             if playbackService.currentMediaIs360Video {
@@ -1275,25 +1305,25 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
             // Check if both of the sliders are visible to hide them at the same time
-            if currentPanType == .brightness && volumeControlView.alpha == 1 ||
-                currentPanType == .volume && brightnessControlView.alpha == 1 {
+            if currentPanType == .brightness && volumeControlView.isVisible ||
+                currentPanType == .volume && brightnessControlView.isVisible {
                 animations = { [brightnessControlView,
                                 volumeControlView,
                                 sideBackgroundGradientView] in
-                    brightnessControlView.alpha = 0
-                    volumeControlView.alpha = 0
+                    brightnessControlView.setVisible(false)
+                    volumeControlView.setVisible(false)
                     sideBackgroundGradientView.alpha = 0
                 }
             } else if currentPanType == .brightness {
                 animations = { [brightnessControlView,
                                 sideBackgroundGradientView] in
-                    brightnessControlView.alpha = 0
+                    brightnessControlView.setVisible(false)
                     sideBackgroundGradientView.alpha = 0
                 }
             } else if currentPanType == .volume {
                 animations = { [volumeControlView,
                                 sideBackgroundGradientView] in
-                    volumeControlView.alpha = 0
+                    volumeControlView.setVisible(false)
                     sideBackgroundGradientView.alpha = 0
                 }
             }
@@ -1302,7 +1332,7 @@ class PlayerViewController: UIViewController {
 #if os(iOS)
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 0.5,
-                               options: .beginFromCurrentState, animations: animations, completion: {
+                               options: [.beginFromCurrentState, .curveEaseOut], animations: animations, completion: {
                     [brightnessBackgroundGradientLayer,
                      volumeBackgroundGradientLayer] _ in
                     brightnessBackgroundGradientLayer.isHidden = true
