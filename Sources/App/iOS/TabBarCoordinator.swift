@@ -2,7 +2,7 @@
  * TabBarCoordinator.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
@@ -226,6 +226,8 @@ class TabBarCoordinator: NSObject {
         tabBar.isTranslucent = true
         bottomBar.isTranslucent = false
 #endif
+
+        tabBarController.view.tintColor = colors.orangeUI
 
         if #unavailable(iOS 26.0) {
             let tabBarLayer = tabBar.layer
