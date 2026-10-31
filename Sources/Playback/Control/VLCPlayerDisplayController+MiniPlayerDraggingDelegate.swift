@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift
  *
- * Copyright © 2021 VLC authors and VideoLAN
+ * Copyright © 2021-2026 VLC authors and VideoLAN
  *
  * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
  *
@@ -13,7 +13,7 @@ extension VLCPlayerDisplayController: MiniPlayerDraggingDelegate {
 
     func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection) {
 
-        let translation = sender.translation(in: UIApplication.shared.delegate?.window?!.rootViewController?.view)
+        let translation = sender.translation(in: nil)
 
         switch panDirection {
             case .vertical:

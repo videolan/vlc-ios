@@ -2,7 +2,7 @@
  * AudioMiniPlayer.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2019-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Soomin Lee <bubu # mikan.io>
@@ -553,14 +553,14 @@ extension AudioMiniPlayer {
 
     private func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
         draggingDelegate.miniPlayerDragStateDidChange(self, sender: sender, panDirection: panDirection)
-        sender.setTranslation(CGPoint.zero, in: UIApplication.shared.delegate?.window??.rootViewController!.view)
+        sender.setTranslation(CGPoint.zero, in: nil)
         handleHapticFeedback()
         draggingDelegate.miniPlayerNeedsLayout(self)
     }
 
     private func dragDidEnd(_ sender: UIPanGestureRecognizer) {
 
-        let velocity = sender.velocity(in: UIApplication.shared.delegate?.window??.rootViewController!.view)
+        let velocity = sender.velocity(in: nil)
         if let superview = superview {
             switch panDirection {
             case .vertical:
@@ -617,7 +617,7 @@ extension AudioMiniPlayer {
     }
 
     private func getPanDirection(_ sender: UIPanGestureRecognizer) {
-        let velocity = sender.velocity(in: UIApplication.shared.delegate?.window??.rootViewController!.view)
+        let velocity = sender.velocity(in: nil)
         panDirection = abs(velocity.x) > abs(velocity.y) ? .horizontal : .vertical
     }
 
