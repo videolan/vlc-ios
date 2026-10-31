@@ -253,8 +253,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private var thumbnailImageViewLeadingConstraint: NSLayoutConstraint?
     private var thumbnailImageViewTrailingConstraint: NSLayoutConstraint?
-    private var portraitThumbnailWidthCompactConstraint: NSLayoutConstraint?
-    private var portraitThumbnailWidthRegularConstraint: NSLayoutConstraint?
+    private var portraitThumbnailWidthConstraint: NSLayoutConstraint?
     private var portraitThumbnailTopConstraint: NSLayoutConstraint?
     private var portraitAlbumBottomConstraint: NSLayoutConstraint?
     private var portraitControlsTopConstraint: NSLayoutConstraint?
@@ -420,8 +419,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         thumbnailImageViewLeadingConstraint?.constant = portraitInset
         thumbnailImageViewTrailingConstraint?.constant = -portraitInset
-        portraitThumbnailWidthCompactConstraint?.constant = -2 * portraitInset
-        portraitThumbnailWidthRegularConstraint?.constant = -2 * portraitInset
+        portraitThumbnailWidthConstraint?.constant = -2 * portraitInset
         portraitProgressionLeadingConstraint?.constant = portraitInset
         portraitProgressionTrailingConstraint?.constant = -portraitInset
 
@@ -443,25 +441,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             constraint.priority = landscapeThumbnailPriority
         }
 
-        updatePortraitThumbnailWidthConstraint()
         updatePortraitControlsWidthConstraints()
-    }
-
-    private func updatePortraitThumbnailWidthConstraint() {
-        guard let compactConstraint = portraitThumbnailWidthCompactConstraint,
-              let regularConstraint = portraitThumbnailWidthRegularConstraint else {
-            return
-        }
-
-        if isLandscapeLayout {
-            compactConstraint.isActive = false
-            return
-        }
-
-        let useCompact = isCompactScreen
-
-        regularConstraint.isActive = !useCompact
-        compactConstraint.isActive = useCompact
     }
 
     private func updatePortraitControlsWidthConstraints() {
@@ -618,7 +598,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             progressionViewHeightConstraint.constant = 70
         }
 
-        updatePortraitThumbnailWidthConstraint()
         updatePortraitControlsWidthConstraints()
 
         setNeedsLayout()
@@ -790,16 +769,11 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         landscapeThumbnailWidth.priority = .defaultHigh
         landscapeThumbnailWidthConstraint = landscapeThumbnailWidth
 
-        // Portrait: the artwork is a square that fills the content width.
-        // Regular screens have the vertical room, so the size is required;
-        // compact screens keep it high-priority so it yields when too short.
-        let compactWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor)
-        compactWidthConstraint.priority = .defaultHigh - 1
-        portraitThumbnailWidthCompactConstraint = compactWidthConstraint
-
-        let regularWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor)
-        regularWidthConstraint.priority = .required
-        portraitThumbnailWidthRegularConstraint = regularWidthConstraint
+        // Portrait: the artwork is a square that fills the content width,
+        // high-priority so it yields when the pane is too short.
+        let portraitWidthConstraint = thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailView.widthAnchor)
+        portraitWidthConstraint.priority = .defaultHigh - 1
+        portraitThumbnailWidthConstraint = portraitWidthConstraint
 
         // The width constraints yield when the pane is too short. Without a floor
         // they yield all the way to zero in a resizable window, hiding the artwork.
@@ -839,7 +813,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             thumbnailImageViewLeading,
             thumbnailImageViewTrailing,
             thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor),
-            regularWidthConstraint,
+            portraitWidthConstraint,
 
             titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: padding),
             titleLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
