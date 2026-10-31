@@ -2,7 +2,7 @@
  * VLCPlayerDisplayController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -112,6 +112,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 }
 
+- (UILayoutGuide *)miniPlayerSafeAreaLayoutGuide
+{
+    return self.realSafeAreaLayoutGuide ?: self.view.safeAreaLayoutGuide;
+}
+
 - (BOOL)hasBottomTabBarLayout
 {
     return self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact
@@ -138,7 +143,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             trailingConstant = 8.0 - pill.right;
         }
     } else if (![self hasBottomTabBarLayout]) {
-        CGRect safeArea = UIEdgeInsetsInsetRect(self.view.bounds, self.view.safeAreaInsets);
+        CGRect safeArea = [self miniPlayerSafeAreaLayoutGuide].layoutFrame;
         CGFloat inset = floor(CGRectGetWidth(safeArea) * (1.0 - kVLCMiniPlayerMaximumWidthFactor) / 2.0);
         if (inset > 0.0) {
             leadingConstant = inset;
@@ -202,9 +207,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     self.leadingConstraint.active = NO;
     self.trailingConstraint.active = NO;
 
-    self.leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor
+    UILayoutGuide *safeAreaLayoutGuide = [self miniPlayerSafeAreaLayoutGuide];
+    self.leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:safeAreaLayoutGuide.leadingAnchor
                                                                             constant:leadingConstant];
-    self.trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor
+    self.trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:safeAreaLayoutGuide.trailingAnchor
                                                                               constant:trailingConstant];
     self.leadingConstraint.active = YES;
     self.trailingConstraint.active = YES;

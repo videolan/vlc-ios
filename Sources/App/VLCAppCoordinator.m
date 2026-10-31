@@ -176,6 +176,7 @@
         _playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor;
     }
     _playerDisplayController.realTopAnchor = tabBarController.view.safeAreaLayoutGuide.topAnchor;
+    _playerDisplayController.realSafeAreaLayoutGuide = tabBarController.view.safeAreaLayoutGuide;
     _playerDisplayController.miniPlayerReferenceTabBar = tabBarController.tabBar;
 
     if (@available(iOS 18.0, *)) {
