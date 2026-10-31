@@ -241,6 +241,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         return constraint
     }()
 
+    private lazy var centeredLayoutGuide: UILayoutGuide = UILayoutGuide()
+
     private lazy var landscapeRightLayoutGuide: UILayoutGuide = UILayoutGuide()
 
     private lazy var landscapeRightContentLayoutGuide: UILayoutGuide = UILayoutGuide()
@@ -251,6 +253,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private var isLandscapeLayout: Bool = false
 
+    private var centeredLayoutGuideLeadingConstraint: NSLayoutConstraint?
+    private var centeredLayoutGuideTrailingConstraint: NSLayoutConstraint?
     private var thumbnailImageViewLeadingConstraint: NSLayoutConstraint?
     private var thumbnailImageViewTrailingConstraint: NSLayoutConstraint?
     private var portraitThumbnailWidthConstraint: NSLayoutConstraint?
@@ -288,6 +292,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         setupBackgroundView()
         setupOverlayView()
         setupNavigationBarView()
+        setupCenteredLayoutGuide()
         setupLandscapeLayoutGuide()
         setupThumbnailView()
         setupPlayqueueView()
@@ -415,6 +420,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func updateContentInsets() {
+        let centeredInset = isLandscapeLayout
+            ? (safeAreaInsets.left + safeAreaInsets.right) / 2
+            : min(safeAreaInsets.left, safeAreaInsets.right)
+
+        centeredLayoutGuideLeadingConstraint?.constant = centeredInset
+        centeredLayoutGuideTrailingConstraint?.constant = -centeredInset
+
         let portraitInset = portraitContentInset
 
         thumbnailImageViewLeadingConstraint?.constant = portraitInset
@@ -710,13 +722,29 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         ])
     }
 
+    private func setupCenteredLayoutGuide() {
+        addLayoutGuide(centeredLayoutGuide)
+
+        let leading = centeredLayoutGuide.leadingAnchor.constraint(equalTo: leadingAnchor)
+        let trailing = centeredLayoutGuide.trailingAnchor.constraint(equalTo: trailingAnchor)
+        centeredLayoutGuideLeadingConstraint = leading
+        centeredLayoutGuideTrailingConstraint = trailing
+
+        NSLayoutConstraint.activate([
+            leading,
+            trailing,
+            centeredLayoutGuide.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            centeredLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+        ])
+    }
+
     private func setupLandscapeLayoutGuide() {
         addLayoutGuide(landscapeRightLayoutGuide)
         addLayoutGuide(landscapeRightContentLayoutGuide)
 
         landscapeConstraints.append(contentsOf: [
-            landscapeRightLayoutGuide.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor, constant: 8),
-            landscapeRightLayoutGuide.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            landscapeRightLayoutGuide.leadingAnchor.constraint(equalTo: centeredLayoutGuide.centerXAnchor, constant: 8),
+            landscapeRightLayoutGuide.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor),
             landscapeRightLayoutGuide.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor),
             landscapeRightLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
         ])
@@ -727,15 +755,15 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         addSubview(thumbnailView)
 
-        sharedConstraints.append(thumbnailView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor))
+        sharedConstraints.append(thumbnailView.leadingAnchor.constraint(equalTo: centeredLayoutGuide.leadingAnchor))
 
         portraitConstraints.append(contentsOf: [
             thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 16),
-            thumbnailView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            thumbnailView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor),
         ])
 
         landscapeConstraints.append(contentsOf: [
-            thumbnailView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor, constant: -8),
+            thumbnailView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.centerXAnchor, constant: -8),
             thumbnailView.topAnchor.constraint(greaterThanOrEqualTo: navigationBarView.bottomAnchor, constant: 10),
             thumbnailView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             thumbnailViewCenterYConstraint,
@@ -907,7 +935,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         portraitRegularWidthControlsConstraints = [
             controlsStackView.centerXAnchor.constraint(equalTo: progressionView.centerXAnchor),
-            controlsStackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.5),
+            controlsStackView.widthAnchor.constraint(equalTo: centeredLayoutGuide.widthAnchor, multiplier: 0.5),
         ]
 
         landscapeConstraints.append(contentsOf: [
@@ -935,8 +963,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         sharedConstraints.append(progressionViewHeightConstraint)
 
-        let portraitProgressionLeading = progressionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
-        let portraitProgressionTrailing = progressionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+        let portraitProgressionLeading = progressionView.leadingAnchor.constraint(equalTo: centeredLayoutGuide.leadingAnchor)
+        let portraitProgressionTrailing = progressionView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor)
         portraitProgressionLeadingConstraint = portraitProgressionLeading
         portraitProgressionTrailingConstraint = portraitProgressionTrailing
 
