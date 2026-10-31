@@ -42,11 +42,15 @@ class PlayerViewController: UIViewController {
         private var deviceSetter: (Float) -> Void
         private let deviceGetter: () -> Float
         var value: Float = 0.5
-        let speed: Float = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 1.0 / 70000 : 1.0 / 20000
         init(deviceSetter: @escaping (Float) -> Void, deviceGetter: @escaping () -> Float) {
             self.deviceGetter = deviceGetter
             self.deviceSetter = deviceSetter
             self.fetchDeviceValue()
+        }
+
+        func speed(for traitCollection: UITraitCollection) -> Float {
+            let isRegular = traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
+            return isRegular ? 1.0 / 70000 : 1.0 / 20000
         }
 
         mutating func fetchDeviceValue() -> Void {
@@ -1230,7 +1234,7 @@ class PlayerViewController: UIViewController {
 #if os(iOS)
         case .volume:
             if recognizer.state == .changed || recognizer.state == .ended {
-                let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
+                let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed(for: traitCollection))
                 volumeControl.value = min(max(newValue, 0), 1)
                 volumeControl.applyValueToDevice()
                 volumeControlView.updateIcon(level: volumeControl.value)
@@ -1238,7 +1242,7 @@ class PlayerViewController: UIViewController {
             break
         case .brightness:
             if recognizer.state == .changed || recognizer.state == .ended {
-                let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed)
+                let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed(for: traitCollection))
                 brightnessControl.value = min(max(newValue, 0), 1)
                 brightnessControl.applyValueToDevice()
                 brightnessControlView.updateIcon(level: brightnessControl.value)
