@@ -779,18 +779,10 @@ private extension VideoPlayerViewController {
             return
         }
 
-        // 30.0 represents the exact size of the notch
-        let constant: CGFloat = playbackService.currentAspectRatio != AspectRatio.fillToScreen.rawValue ? 30.0 : 0.0
-        let interfaceOrientation = UIApplication.shared.statusBarOrientation
-
-        if interfaceOrientation == .landscapeLeft
-            || interfaceOrientation == .landscapeRight {
-            videoOutputViewLeadingConstraint.constant = constant
-            videoOutputViewTrailingConstraint.constant = -constant
-        } else {
-            videoOutputViewLeadingConstraint.constant = 0
-            videoOutputViewTrailingConstraint.constant = 0
-        }
+        let fillsScreen = playbackService.currentAspectRatio == AspectRatio.fillToScreen.rawValue
+        let insets = view.safeAreaInsets
+        videoOutputViewLeadingConstraint.constant = fillsScreen ? 0 : insets.left
+        videoOutputViewTrailingConstraint.constant = fillsScreen ? 0 : -insets.right
         videoOutputView.layoutIfNeeded()
     }
 
