@@ -206,12 +206,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
 
-#if os(iOS)
-    private var currentScreen: UIScreen? {
-        return window?.windowScene?.screen
-    }
-#endif
-
     private var isCompactScreen: Bool {
 #if os(iOS)
         return bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
@@ -643,12 +637,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         secondaryControlStackViewHeightConstraint.constant = display ? 30 : 0
     }
 
-    func applyCornerRadius() {
-#if os(iOS)
-        let cornerRadius = currentScreen?.displayCornerRadius ?? 0.0
-#else
-        let cornerRadius = 5.0
-#endif
+    func applyCornerRadius(_ cornerRadius: CGFloat) {
         overlayView.layer.cornerRadius = cornerRadius
         backgroundView.layer.cornerRadius = cornerRadius
     }

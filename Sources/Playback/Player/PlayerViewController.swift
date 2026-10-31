@@ -642,7 +642,14 @@ class PlayerViewController: UIViewController {
     func applyCornerRadius() {
         var cornerRadius: CGFloat
 #if os(iOS)
-        cornerRadius = screenForCurrentWindow()?.displayCornerRadius ?? 0.0
+        if #available(iOS 26.0, *) {
+            let cornerConfiguration = view.cornerConfiguration
+            view.cornerConfiguration = .uniformCorners(radius: .containerConcentric())
+            cornerRadius = view.effectiveRadius(corner: .topLeft)
+            view.cornerConfiguration = cornerConfiguration
+        } else {
+            cornerRadius = screenForCurrentWindow()?.displayCornerRadius ?? 0.0
+        }
 #else
         cornerRadius = 5.0
 #endif

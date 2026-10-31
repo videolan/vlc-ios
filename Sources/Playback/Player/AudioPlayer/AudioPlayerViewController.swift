@@ -2,7 +2,7 @@
  * AudioPlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2022-2023 VLC authors and VideoLAN
+ * Copyright © 2022-2026 VLC authors and VideoLAN
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
  *
@@ -244,7 +244,7 @@ class AudioPlayerViewController: PlayerViewController {
     override func applyCornerRadius() {
         super.applyCornerRadius()
 
-        audioPlayerView.applyCornerRadius()
+        audioPlayerView.applyCornerRadius(view.layer.cornerRadius)
     }
 
     override func resetCornerRadius() {
