@@ -160,14 +160,15 @@
         _banner = banner;
     }
     [container addSubview:_banner];
+    UILayoutGuide *safeAreaLayoutGuide = [self _safeAreaLayoutGuideForContainer:container];
 
 #if TARGET_OS_TV
     NSLayoutConstraint *heightConstraint = [_banner.heightAnchor constraintEqualToConstant:120.0];
     heightConstraint.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
-        [_banner.centerXAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.centerXAnchor],
-        [_banner.widthAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.widthAnchor multiplier:0.5],
+        [_banner.centerXAnchor constraintEqualToAnchor:safeAreaLayoutGuide.centerXAnchor],
+        [_banner.widthAnchor constraintEqualToAnchor:safeAreaLayoutGuide.widthAnchor multiplier:0.5],
         heightConstraint,
     ]];
 #else
@@ -175,8 +176,8 @@
     heightConstraint.priority = UILayoutPriorityDefaultHigh;
 
     [NSLayoutConstraint activateConstraints:@[
-        [_banner.leadingAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.leadingAnchor constant:12],
-        [_banner.trailingAnchor constraintEqualToAnchor:container.safeAreaLayoutGuide.trailingAnchor constant:-12],
+        [_banner.leadingAnchor constraintEqualToAnchor:safeAreaLayoutGuide.leadingAnchor constant:12],
+        [_banner.trailingAnchor constraintEqualToAnchor:safeAreaLayoutGuide.trailingAnchor constant:-12],
         heightConstraint,
     ]];
 #endif
@@ -201,10 +202,19 @@
         anchor = [_delegate bottomAnchorForTransferStatusBanner:self];
     }
     if (!anchor) {
-        anchor = container.safeAreaLayoutGuide.bottomAnchor;
+        anchor = [self _safeAreaLayoutGuideForContainer:container].bottomAnchor;
     }
     _bottomConstraint = [_banner.bottomAnchor constraintEqualToAnchor:anchor constant:-8];
     _bottomConstraint.active = YES;
+}
+
+- (UILayoutGuide *)_safeAreaLayoutGuideForContainer:(UIView *)container
+{
+    UILayoutGuide *guide = nil;
+    if ([_delegate respondsToSelector:@selector(safeAreaLayoutGuideForTransferStatusBanner:)]) {
+        guide = [_delegate safeAreaLayoutGuideForTransferStatusBanner:self];
+    }
+    return guide ?: container.safeAreaLayoutGuide;
 }
 
 @end

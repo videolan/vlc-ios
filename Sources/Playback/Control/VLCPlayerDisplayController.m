@@ -879,6 +879,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     return nil;
 }
 
+- (UILayoutGuide *)safeAreaLayoutGuideForTransferStatusBanner:(VLCTransferStatusBannerController *)controller
+{
+    return [self miniPlayerSafeAreaLayoutGuide];
+}
+
 - (void)_presentDownloadsViewController
 {
     VLCTransferViewController *dlVC = [[VLCTransferViewController alloc] init];

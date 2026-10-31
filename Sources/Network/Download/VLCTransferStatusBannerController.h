@@ -18,6 +18,7 @@
 @optional
 - (void)transferStatusBannerWasTapped:(VLCTransferStatusBannerController *)controller;
 - (NSLayoutYAxisAnchor *)bottomAnchorForTransferStatusBanner:(VLCTransferStatusBannerController *)controller;
+- (UILayoutGuide *)safeAreaLayoutGuideForTransferStatusBanner:(VLCTransferStatusBannerController *)controller;
 @end
 
 @interface VLCTransferStatusBannerController : NSObject
