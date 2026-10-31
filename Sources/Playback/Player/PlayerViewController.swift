@@ -2,7 +2,7 @@
  * PlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2022 VLC authors and VideoLAN
+ * Copyright © 2022-2026 VLC authors and VideoLAN
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
  *
@@ -911,10 +911,9 @@ class PlayerViewController: UIViewController {
     }
 
     private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> PlayerPanType {
-        let window: UIWindow = (UIApplication.shared.delegate?.window!)!
-        let windowWidth: CGFloat = window.bounds.width
-        let location: CGPoint = recognizer.location(in: window)
-        let velocity = recognizer.velocity(in: window)
+        let viewWidth: CGFloat = view.bounds.width
+        let location: CGPoint = recognizer.location(in: view)
+        let velocity = recognizer.velocity(in: view)
 
         // If minimization handler not ended yet, don't detect other gestures to don't block it.
         guard minimizationInitialCenter == nil else {
@@ -939,9 +938,9 @@ class PlayerViewController: UIViewController {
                 panType = .frame
             }
         } else if !isHorizontalSwipe {
-            if location.x < windowWidth / 2 && playerController.isBrightnessGestureEnabled && isBrightnessControlAvailable {
+            if location.x < viewWidth / 2 && playerController.isBrightnessGestureEnabled && isBrightnessControlAvailable {
                 panType = .brightness
-            } else if location.x > windowWidth / 2 && playerController.isVolumeGestureEnabled {
+            } else if location.x > viewWidth / 2 && playerController.isVolumeGestureEnabled {
                 panType = .volume
             }
         }
