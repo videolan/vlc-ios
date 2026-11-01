@@ -67,17 +67,6 @@ class PodcastsViewController: UIViewController {
         return indicator
     }()
 
-    private lazy var emptyStateView: PodcastsEmptyStateView = {
-        let view = PodcastsEmptyStateView()
-        view.onAddViaRSS = { [weak self] in
-            self?.presentAddFeedAlert()
-        }
-        view.onBrowseDirectory = { [weak self] in
-            self?.showDirectory()
-        }
-        return view
-    }()
-
     init() {
         super.init(nibName: nil, bundle: nil)
         setupTabBarItem()
@@ -108,7 +97,6 @@ class PodcastsViewController: UIViewController {
         setupNavigationBarButtons()
 
         view.addSubview(tableView)
-        view.addSubview(emptyStateView)
         view.addSubview(subscribeIndicator)
 
         NSLayoutConstraint.activate([
@@ -116,10 +104,6 @@ class PodcastsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            emptyStateView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
 
             subscribeIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             subscribeIndicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
@@ -154,6 +138,11 @@ class PodcastsViewController: UIViewController {
         PlaybackService.sharedInstance().playerDisplayController.isMiniPlayerVisible
             ? miniPlayerIsShown() : miniPlayerIsHidden()
         updateContentVisibility()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        popIfEmpty()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -210,15 +199,14 @@ class PodcastsViewController: UIViewController {
     }
 
     private func updateContentVisibility() {
-        guard !isSearching else {
-            tableView.isHidden = false
-            emptyStateView.isHidden = true
+        tableView.isHidden = !isSearching && store.shows.isEmpty
+    }
+
+    private func popIfEmpty() {
+        guard store.shows.isEmpty, !isSubscribing else {
             return
         }
-
-        let isEmpty = store.shows.isEmpty
-        tableView.isHidden = isEmpty
-        emptyStateView.isHidden = !isEmpty || isSubscribing
+        navigationController?.popViewController(animated: true)
     }
 
     @objc private func applyTheme() {
@@ -329,10 +317,8 @@ class PodcastsViewController: UIViewController {
                 return
             }
 
-            VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
-                                                    errorMessage: String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
-                                                                         failureCount, feeds.count),
-                                                    viewController: self)
+            self.presentSubscriptionError(String(format: NSLocalizedString("PODCAST_SUBSCRIBE_PARTIAL", comment: ""),
+                                                 failureCount, feeds.count))
         }
     }
 
@@ -347,7 +333,7 @@ class PodcastsViewController: UIViewController {
 
             guard let fallbackURL = feed.fallbackURL else {
                 self.endSubscribing()
-                self.presentAddSubscriptionError(reason)
+                self.presentSubscriptionError(reason.localizedMessage)
                 return
             }
 
@@ -404,10 +390,14 @@ class PodcastsViewController: UIViewController {
         updateContentVisibility()
     }
 
-    private func presentAddSubscriptionError(_ reason: PodcastAddSubscriptionError) {
+    private func presentSubscriptionError(_ message: String) {
+        let okButton = VLCAlertButton(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .default) { _ in
+            self.popIfEmpty()
+        }
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
-                                                errorMessage: reason.localizedMessage,
-                                                viewController: self)
+                                                errorMessage: message,
+                                                viewController: self,
+                                                buttonsAction: [okButton])
     }
 
     private func openShow(_ show: PodcastShow) {
