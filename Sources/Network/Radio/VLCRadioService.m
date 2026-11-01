@@ -12,6 +12,7 @@
 
 #import "VLCRadioService.h"
 #import "VLCRadioCountry.h"
+#import "VLCAppCoordinator.h"
 #import "VLCFavoriteService.h"
 #import "VLCServiceBrowserRadio.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
@@ -166,6 +167,24 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 }
 
 #pragma mark - recent streams
+
+- (NSArray<VLCFavorite *> *)playedStreams
+{
+    @synchronized (self) {
+        return [_recentStreams copy];
+    }
+}
+
+- (NSArray<VLCFavorite *> *)recentStreams
+{
+    NSArray<VLCFavorite *> *playedStreams = self.playedStreams;
+    NSArray<VLCFavorite *> *favorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    NSSet<NSURL *> *favoriteURLs = [NSSet setWithArray:[favorites valueForKey:@"url"]];
+    NSIndexSet *indexes = [playedStreams indexesOfObjectsPassingTest:^BOOL(VLCFavorite *stream, NSUInteger idx, BOOL *stop) {
+        return ![favoriteURLs containsObject:stream.url];
+    }];
+    return [playedStreams objectsAtIndexes:indexes];
+}
 
 - (NSUInteger)indexOfRecentStreamWithURL:(NSURL *)url
 {

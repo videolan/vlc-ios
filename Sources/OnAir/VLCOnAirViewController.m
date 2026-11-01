@@ -311,7 +311,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     }
 
     [self updateResumeItemWithStreams:_radioFavorites];
-    [self updateResumeItemWithStreams:_recentStreams];
+    [self updateResumeItemWithStreams:[[[VLCAppCoordinator sharedInstance] radioService] playedStreams]];
 
     PodcastResumeItem *episode = PodcastsOnAirBridge.resumeEpisode;
     if (!episode) {

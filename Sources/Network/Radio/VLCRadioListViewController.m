@@ -71,6 +71,10 @@
                                name:VLCRadioRecentStreamsDidChangeNotification
                              object:nil];
     [notificationCenter addObserver:self
+                           selector:@selector(favoritesDidChange)
+                               name:VLCFavoriteServiceContentDidChange
+                             object:nil];
+    [notificationCenter addObserver:self
                            selector:@selector(themeDidChange)
                                name:kVLCThemeDidChangeNotification
                              object:nil];
@@ -123,6 +127,16 @@
 {
     _recentStreams = _radioService.recentStreams;
     [self.tableView reloadData];
+}
+
+- (void)favoritesDidChange
+{
+    NSArray<VLCFavorite *> *recentStreams = _radioService.recentStreams;
+    if ([recentStreams isEqualToArray:_recentStreams])
+        return;
+
+    _recentStreams = recentStreams;
+    [self reloadFavorites];
 }
 
 - (void)reloadFavorites
@@ -365,6 +379,7 @@
     VLCFavoriteService *favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
     [favoriteService removeFavorite:streams[index]];
     _radioFavorites = [favoriteService favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
+    _recentStreams = _radioService.recentStreams;
     [self.tableView reloadData];
 }
 

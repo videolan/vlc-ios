@@ -24,6 +24,7 @@ FOUNDATION_EXPORT NSString *const VLCRadioRecentStreamsDidChangeNotification;
 
 @property (readonly) NSArray<VLCRadioCountry *> *allCountries;
 @property (readonly) NSArray<VLCRadioCountry *> *visitedCountries;
+@property (readonly) NSArray<VLCFavorite *> *playedStreams;
 @property (readonly) NSArray<VLCFavorite *> *recentStreams;
 @property (readonly) BOOL hasCachedCountries;
 @property (readonly) BOOL discoveryFailed;
