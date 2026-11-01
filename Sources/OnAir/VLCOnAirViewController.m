@@ -482,7 +482,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         cell.delegate = self;
         [cell configureWithItems:[self railItemsForSection:section]
                   showsSubtitles:section == VLCOnAirSectionPodcasts
-                    showsAddTile:section == VLCOnAirSectionRadio];
+                    showsAddTile:section == VLCOnAirSectionRadio || section == VLCOnAirSectionPodcasts];
         return cell;
     }
 
@@ -768,6 +768,16 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
 
 - (void)railCellDidSelectAddTile:(VLCOnAirRailCell *)cell
 {
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    if (!indexPath) {
+        return;
+    }
+
+    if ([self sectionAtIndex:indexPath.section] == VLCOnAirSectionPodcasts) {
+        [self showPodcastDirectory];
+        return;
+    }
+
     [self showRadio];
 }
 
