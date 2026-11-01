@@ -2464,7 +2464,13 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let totalCount = model.anyfiles.count
-        if totalCount > 0 && indexPath.row >= totalCount - Int(kVLCPrefetchDistance) {
+        var position = indexPath.row
+        if isSectioned {
+            for section in 0..<indexPath.section {
+                position += collectionView.numberOfItems(inSection: section)
+            }
+        }
+        if totalCount > 0 && position >= totalCount - Int(kVLCPrefetchDistance) {
             model.getMedia()
         }
     }
