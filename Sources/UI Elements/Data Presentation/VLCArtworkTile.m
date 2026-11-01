@@ -80,8 +80,8 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _badgeGlyph.tintColor = [UIColor whiteColor];
     [_badgeView.contentView addSubview:_badgeGlyph];
 
-    _badgeGlyphCenterX = [_badgeGlyph.centerXAnchor constraintEqualToAnchor:_badgeView.centerXAnchor constant:1.0];
-    _badgeGlyphWidth = [_badgeGlyph.widthAnchor constraintEqualToConstant:12.0];
+    _badgeGlyphCenterX = [_badgeGlyph.centerXAnchor constraintEqualToAnchor:_badgeView.centerXAnchor];
+    _badgeGlyphWidth = [_badgeGlyph.widthAnchor constraintEqualToConstant:15.0];
     _badgeGlyphHeight = [_badgeGlyph.heightAnchor constraintEqualToConstant:13.0];
 
     _pillView = [[UIView alloc] init];
@@ -228,8 +228,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 - (NSString *)symbolNameForBadge:(VLCArtworkTileBadge)badge
 {
     switch (badge) {
-        case VLCArtworkTileBadgePlay:
-            return @"play.fill";
         case VLCArtworkTileBadgeFolder:
             return @"folder.fill";
         case VLCArtworkTileBadgeServer:
@@ -268,9 +266,8 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
         return;
     }
 
-    BOOL isPlay = _badge == VLCArtworkTileBadgePlay;
-    _badgeGlyphCenterX.constant = isPlay ? 1.0 : 0.0;
-    _badgeGlyphWidth.constant = isPlay ? 12.0 : 15.0;
+    _badgeGlyphCenterX.constant = 0.0;
+    _badgeGlyphWidth.constant = 15.0;
     _badgeGlyphHeight.constant = 13.0;
     _badgeGlyph.image = [UIImage systemImageNamed:[self symbolNameForBadge:_badge]];
 }

@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCOnAirRailCell.h"
+#import "VLCArtworkTile.h"
 #import "VLCAddTile.h"
 
 #import "VLC-Swift.h"
@@ -142,7 +143,6 @@ static CGFloat const kVLCOnAirRailTileCornerRadius = 9.0;
                                                                      forIndexPath:indexPath];
     VLCOnAirRailItem *item = _items[indexPath.item];
     tile.artworkCornerRadius = kVLCOnAirRailTileCornerRadius;
-    tile.badge = item.badge;
     tile.subtitle = _showsSubtitles ? item.subtitle : nil;
     tile.accessoryGlyphName = item.accessoryGlyphName;
     tile.accessibilityIdentifier = VLCAccessibilityIdentifier.railItem;

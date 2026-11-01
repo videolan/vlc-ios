@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "VLCArtworkTile.h"
 
 @class VLCOnAirRailCell;
 
@@ -22,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString *name;
 @property (readonly, nullable) NSURL *artworkURL;
 @property (nonatomic, copy, nullable) NSString *subtitle;
-@property (nonatomic) VLCArtworkTileBadge badge;
 @property (nonatomic, copy, nullable) NSString *accessoryGlyphName;
 @property (nonatomic, copy, nullable) NSString *accessoryLabel;
 

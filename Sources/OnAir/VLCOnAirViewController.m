@@ -508,7 +508,6 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     for (VLCFavorite *stream in streams) {
         VLCOnAirRailItem *item = [[VLCOnAirRailItem alloc] initWithName:stream.userVisibleName
                                                              artworkURL:stream.artworkURL];
-        item.badge = VLCArtworkTileBadgePlay;
         [items addObject:item];
     }
     return items;
