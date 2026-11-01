@@ -15,6 +15,8 @@
 
 #import "VLCThumbnailsCache.h"
 
+#import <ImageIO/ImageIO.h>
+
 @interface VLCThumbnailsCache() {
     NSInteger MaxCacheSize;
     NSCache *_thumbnailCache;
@@ -27,6 +29,7 @@
 #define MAX_CACHE_SIZE_IPHONE 24  // three times the number of items shown on iPhone 11 Pro
 #define MAX_CACHE_SIZE_IPAD   45  // three times the number of items shown on regular sized iPad
 #define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
+#define DEFAULT_MAX_PIXEL_SIZE 1024.f
 
 - (instancetype)init
 {
@@ -107,16 +110,44 @@
         return theImage;
     }
 
-    @try {
-        theImage = [UIImage imageWithContentsOfFile:path];
-    } @catch (NSException *exception) {
-        APLog(@"Failed to load thumbnail for path '%@': %@", path, exception);
+    theImage = [self downsampledImageAtPath:path];
+    if (!theImage) {
         return nil;
     }
 
     [self _setThumbnail:theImage forURL:url];
 
     return theImage;
+}
+
+- (UIImage *)downsampledImageAtPath:(NSString *)path
+{
+    NSURL *url = [NSURL fileURLWithPath:path];
+    CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    if (source == NULL) {
+        APLog(@"Failed to read thumbnail at path '%@'", path);
+        return nil;
+    }
+
+    NSDictionary *options = @{
+        (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
+        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
+        (__bridge NSString *)kCGImageSourceShouldCacheImmediately: @YES,
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(DEFAULT_MAX_PIXEL_SIZE)
+    };
+
+    CGImageRef cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    CFRelease(source);
+
+    if (cgImage == NULL) {
+        APLog(@"Failed to decode thumbnail at path '%@'", path);
+        return nil;
+    }
+
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+
+    return image;
 }
 
 - (void)_invalidateThumbnailForURL:(NSURL *)url
