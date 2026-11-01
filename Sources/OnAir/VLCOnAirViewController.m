@@ -807,7 +807,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
             [self showRadio];
             break;
         case VLCOnAirSectionPodcasts:
-            index == 0 ? [self showPodcasts] : [self showPodcastDirectory];
+            index == 0 ? [PodcastsOnAirBridge presentAddSubscriptionAlertFrom:self] : [self showPodcastDirectory];
             break;
         case VLCOnAirSectionTV:
             index == 0 ? [self showTVDirectory] : [self showAddM3U];

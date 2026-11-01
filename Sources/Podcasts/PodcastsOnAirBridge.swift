@@ -99,6 +99,14 @@ extension VLCOnAirRailItem {
         return PodcastsViewController()
     }
 
+    @objc static func presentAddSubscriptionAlert(from viewController: UIViewController) {
+        viewController.presentAddSubscriptionAlert { feed in
+            let podcastsViewController = PodcastsViewController()
+            viewController.navigationController?.pushViewController(podcastsViewController, animated: true)
+            podcastsViewController.subscribe(to: [feed])
+        }
+    }
+
     @objc static func makeDirectoryViewController() -> UIViewController {
         return PodcastDirectoryViewController()
     }

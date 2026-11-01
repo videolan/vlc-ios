@@ -55,4 +55,46 @@ extension UIViewController {
                                                 viewController: self,
                                                 buttonsAction: [cancel, delete])
     }
+
+    func presentAddSubscriptionAlert(_ submitted: @escaping (PodcastFeedRequest) -> Void) {
+        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""),
+                                                 message: nil,
+                                                 preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = NSLocalizedString("PODCAST_ADD_RSS_PLACEHOLDER", comment: "")
+            textField.keyboardType = .URL
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+        let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
+                                      style: .default) { [weak alertController] _ in
+            let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            guard !text.isEmpty else {
+                self.presentInvalidFeedError(.emptyInput)
+                return
+            }
+            guard let url = URL(string: text), let scheme = url.scheme, url.host != nil else {
+                self.presentInvalidFeedError(.invalidURL)
+                return
+            }
+            guard scheme == "http" || scheme == "https" else {
+                self.presentInvalidFeedError(.unsupportedScheme)
+                return
+            }
+
+            submitted(PodcastFeedRequest(url: url))
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        present(alertController, animated: true)
+    }
+
+    private func presentInvalidFeedError(_ reason: PodcastAddSubscriptionError) {
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
+                                                errorMessage: reason.localizedMessage,
+                                                viewController: self)
+    }
 }

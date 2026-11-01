@@ -70,7 +70,7 @@ class PodcastsViewController: UIViewController {
     private lazy var emptyStateView: PodcastsEmptyStateView = {
         let view = PodcastsEmptyStateView()
         view.onAddViaRSS = { [weak self] in
-            self?.presentAddSubscriptionAlert()
+            self?.presentAddFeedAlert()
         }
         view.onBrowseDirectory = { [weak self] in
             self?.showDirectory()
@@ -196,7 +196,7 @@ class PodcastsViewController: UIViewController {
     private func addActions() -> [PodcastMenuAction] {
         return [PodcastMenuAction(title: NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""),
                                   imageName: "link") { [weak self] in
-                    self?.presentAddSubscriptionAlert()
+                    self?.presentAddFeedAlert()
                 },
                 PodcastMenuAction(title: NSLocalizedString("PODCAST_DIRECTORY_BROWSE", comment: ""),
                                   imageName: "square.grid.2x2",
@@ -301,42 +301,10 @@ class PodcastsViewController: UIViewController {
         }
     }
 
-    private func presentAddSubscriptionAlert() {
-        let alertController = UIAlertController(title: NSLocalizedString("PODCAST_ADD_VIA_RSS", comment: ""),
-                                                 message: nil,
-                                                 preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = NSLocalizedString("PODCAST_ADD_RSS_PLACEHOLDER", comment: "")
-            textField.keyboardType = .URL
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
+    private func presentAddFeedAlert() {
+        presentAddSubscriptionAlert { feed in
+            self.subscribe(to: [feed])
         }
-
-        let cancelAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
-        let addAction = UIAlertAction(title: NSLocalizedString("PODCAST_SUBSCRIBE", comment: ""),
-                                      style: .default) { [weak self, weak alertController] _ in
-            guard let self = self else { return }
-
-            let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            guard !text.isEmpty else {
-                self.presentAddSubscriptionError(.emptyInput)
-                return
-            }
-            guard let url = URL(string: text), let scheme = url.scheme, url.host != nil else {
-                self.presentAddSubscriptionError(.invalidURL)
-                return
-            }
-            guard scheme == "http" || scheme == "https" else {
-                self.presentAddSubscriptionError(.unsupportedScheme)
-                return
-            }
-
-            self.subscribe(to: [PodcastFeedRequest(url: url)])
-        }
-
-        alertController.addAction(cancelAction)
-        alertController.addAction(addAction)
-        present(alertController, animated: true)
     }
 
     func subscribe(to feeds: [PodcastFeedRequest]) {
