@@ -76,6 +76,7 @@ typedef void (^VLCPodcastIndexEpisodesCompletion)(NSArray<VLCPodcastIndexEpisode
 @property (class, readonly, getter=isAvailable) BOOL available;
 
 @property (readonly) NSArray<NSString *> *availableLanguageCodes;
+@property (readonly) NSArray<NSString *> *suggestedLanguageCodes;
 @property (nonatomic, copy) NSString *languageCode;
 
 @property (readonly) NSArray<VLCPodcastIndexShelf *> *shelves;

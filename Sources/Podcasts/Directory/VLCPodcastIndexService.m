@@ -307,12 +307,48 @@ static NSUInteger const kVLCPodcastIndexEpisodeLimit = 10;
     return variants;
 }
 
++ (NSArray<NSString *> *)curatedLanguageCodes
+{
+    return @[ @"af", @"ar", @"az", @"bg", @"bn", @"ca", @"cs", @"cy", @"da", @"de", @"el", @"en", @"es", @"et",
+              @"eu", @"fa", @"ff", @"fi", @"fil", @"fr", @"gl", @"gu", @"ha", @"he", @"hi", @"hr", @"hu", @"id",
+              @"is", @"it", @"ja", @"ka", @"ko", @"lb", @"lg", @"lt", @"lv", @"ml", @"ms", @"my", @"nb", @"nl",
+              @"pa", @"pl", @"ps", @"pt", @"ro", @"ru", @"sk", @"sl", @"sq", @"sr", @"sv", @"sw", @"ta", @"te",
+              @"th", @"tr", @"uk", @"ur", @"vi", @"wo", @"yi", @"zh" ];
+}
+
++ (nullable NSString *)languageCodeForIdentifier:(NSString *)identifier
+{
+    return [NSLocale componentsFromLocaleIdentifier:identifier][NSLocaleLanguageCode];
+}
+
+- (NSArray<NSString *> *)suggestedLanguageCodes
+{
+    NSMutableOrderedSet<NSString *> *codes = [NSMutableOrderedSet orderedSet];
+    for (NSString *identifier in [NSLocale preferredLanguages]) {
+        NSString *code = [VLCPodcastIndexService languageCodeForIdentifier:identifier];
+        if (code.length > 0) {
+            [codes addObject:code];
+        }
+    }
+    [codes addObject:_languageCode];
+    return codes.array;
+}
+
 - (NSArray<NSString *> *)availableLanguageCodes
 {
+    NSMutableSet<NSString *> *candidates = [NSMutableSet setWithArray:[VLCPodcastIndexService curatedLanguageCodes]];
+    for (NSString *identifier in [NSBundle mainBundle].localizations) {
+        NSString *code = [VLCPodcastIndexService languageCodeForIdentifier:identifier];
+        if (code.length > 0) {
+            [candidates addObject:code];
+        }
+    }
+    [candidates addObjectsFromArray:self.suggestedLanguageCodes];
+
     NSLocale *locale = [NSLocale currentLocale];
     NSMutableDictionary<NSString *, NSString *> *names = [NSMutableDictionary dictionary];
 
-    for (NSString *code in [VLCPodcastIndexService regionalVariants]) {
+    for (NSString *code in candidates) {
         NSString *name = [locale localizedStringForLanguageCode:code];
         if (name.length > 0 && ![name isEqualToString:code]) {
             names[code] = name;
