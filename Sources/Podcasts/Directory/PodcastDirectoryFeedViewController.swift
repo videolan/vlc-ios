@@ -13,61 +13,51 @@
 import UIKit
 
 class PodcastDirectoryFeedViewController: UIViewController {
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yMMMd")
-        return formatter
-    }()
+    private enum Section: Int, CaseIterable {
+        case show
+        case episodes
+    }
+
+    private enum ShowRow: Int, CaseIterable {
+        case header
+        case info
+    }
 
     private let service: VLCPodcastIndexService
     private let store = VLCAppCoordinator.sharedInstance().podcastStore
     private var feed: VLCPodcastIndexFeed
+    private let show: PodcastShow
 
     private var summaryText: NSMutableAttributedString?
+    private var episodes: [VLCPodcastIndexEpisode] = []
+    private var playingEpisodeURL: URL?
 
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-
-    private let contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let headerView: PodcastShowHeaderView
+    private var episodeRowHeight = PodcastEpisodeRowCell.height
 
     private let subscribeIndicator = PulsingConeView(coneSize: 22)
 
-    private let detailsLabel = PodcastDirectoryFeedViewController.makeFootnoteLabel()
-    private let categoriesLabel = PodcastDirectoryFeedViewController.makeFootnoteLabel()
-
-    private let summaryTextView: UITextView = {
-        let textView = UITextView()
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.backgroundColor = .clear
-        textView.textContainerInset = .zero
-        textView.textContainer.lineFragmentPadding = 0
-        return textView
-    }()
-
-    private lazy var rowsView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [detailsLabel, categoriesLabel, summaryTextView])
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.setCustomSpacing(4, after: detailsLabel)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.register(PodcastShowHeaderCell.self, forCellReuseIdentifier: PodcastShowHeaderCell.reuseIdentifier)
+        tableView.register(PodcastDirectoryFeedInfoCell.self,
+                           forCellReuseIdentifier: PodcastDirectoryFeedInfoCell.reuseIdentifier)
+        tableView.register(PodcastEpisodeRowCell.self, forCellReuseIdentifier: PodcastEpisodeRowCell.reuseIdentifier)
+        tableView.register(PodcastSectionHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: PodcastSectionHeaderView.reuseIdentifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
 
     @objc init(feed: VLCPodcastIndexFeed, service: VLCPodcastIndexService) {
         self.feed = feed
         self.service = service
-        self.headerView = PodcastShowHeaderView(show: PodcastDirectoryFeedViewController.podcastShow(for: feed))
+        self.show = PodcastDirectoryFeedViewController.podcastShow(for: feed)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -77,15 +67,6 @@ class PodcastDirectoryFeedViewController: UIViewController {
 
     deinit {
         store.removeObserver(self)
-    }
-
-    private static func makeFootnoteLabel() -> UILabel {
-        let label = UILabel()
-        label.font = .preferredCustomFont(forTextStyle: .footnote)
-        label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
     }
 
     private static func podcastShow(for feed: VLCPodcastIndexFeed) -> PodcastShow {
@@ -103,9 +84,18 @@ class PodcastDirectoryFeedViewController: UIViewController {
         title = feed.title
         navigationItem.largeTitleDisplayMode = .never
 
-        setupUI()
-        updateContent()
+        view.addSubview(tableView)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        setupNavigationBarButtons()
         applyTheme()
+        refreshPlayingEpisodeURL()
 
         store.addObserver(self)
 
@@ -113,6 +103,26 @@ class PodcastDirectoryFeedViewController: UIViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(applyTheme),
                                        name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(contentSizeCategoryDidChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStart),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidPause),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidResume),
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(playbackStateDidChange),
+                                       name: Notification.Name(VLCPlaybackServicePlaybackDidStop),
                                        object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(miniPlayerIsShown),
@@ -132,7 +142,18 @@ class PodcastDirectoryFeedViewController: UIViewController {
             if let summary = feed.summary, !summary.isEmpty {
                 self.summaryText = PodcastNotes.attributedString(from: summary)
             }
-            self.updateContent()
+            self.setupNavigationBarButtons()
+            self.tableView.reloadRows(at: [IndexPath(row: ShowRow.info.rawValue, section: Section.show.rawValue)],
+                                      with: .none)
+        }
+
+        service.loadRecentEpisodes(for: feed) { [weak self] episodes, _ in
+            guard let self = self, !episodes.isEmpty else {
+                return
+            }
+
+            self.episodes = episodes
+            self.tableView.reloadSections(IndexSet(integer: Section.episodes.rawValue), with: .none)
         }
     }
 
@@ -147,41 +168,16 @@ class PodcastDirectoryFeedViewController: UIViewController {
     }
 
     @objc private func miniPlayerIsShown() {
-        scrollView.setMiniPlayerInset(true)
+        tableView.setMiniPlayerInset(true)
     }
 
     @objc private func miniPlayerIsHidden() {
-        scrollView.setMiniPlayerInset(false)
+        tableView.setMiniPlayerInset(false)
     }
 
-    private func setupUI() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-
-        contentView.addSubview(headerView)
-        contentView.addSubview(rowsView)
-
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
-            headerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-            rowsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20),
-            rowsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            rowsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            rowsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
-        ])
+    @objc private func contentSizeCategoryDidChange() {
+        episodeRowHeight = PodcastEpisodeRowCell.height
+        tableView.reloadData()
     }
 
     private func setupNavigationBarButtons() {
@@ -222,64 +218,11 @@ class PodcastDirectoryFeedViewController: UIViewController {
         return UIBarButtonItem(title: title, style: .plain, target: self, action: action)
     }
 
-    private func updateContent() {
-        setupNavigationBarButtons()
-        updateDetails()
-        updateSummary()
-    }
-
-    private func updateDetails() {
-        var parts: [String] = []
-
-        if feed.episodeCount > 0 {
-            parts.append(String(format: NSLocalizedString("PODCAST_EPISODE_COUNT", comment: ""), feed.episodeCount))
-        }
-
-        if let date = feed.lastUpdateDate {
-            parts.append(String(format: NSLocalizedString("PODCAST_DIRECTORY_UPDATED", comment: ""),
-                                PodcastDirectoryFeedViewController.dateFormatter.string(from: date)))
-        }
-
-        if let code = feed.language?.components(separatedBy: "-").first,
-           let language = Locale.current.localizedString(forLanguageCode: code) {
-            parts.append(language.localizedCapitalized)
-        }
-
-        if feed.isExplicit {
-            parts.append(NSLocalizedString("PODCAST_DIRECTORY_EXPLICIT", comment: ""))
-        }
-
-        detailsLabel.text = parts.joined(separator: " · ")
-        detailsLabel.isHidden = parts.isEmpty
-
-        let categories = VLCPodcastIndexService.localizedTitles(forCategoryNames: feed.categories)
-        categoriesLabel.text = categories.joined(separator: " · ")
-        categoriesLabel.isHidden = categories.isEmpty
-    }
-
-    private func updateSummary() {
-        guard let text = summaryText, text.length > 0 else {
-            summaryTextView.isHidden = true
-            return
-        }
-
-        text.addAttribute(.foregroundColor, value: PresentationTheme.current.colors.cellTextColor,
-                          range: NSRange(location: 0, length: text.length))
-        summaryTextView.attributedText = text
-        summaryTextView.isHidden = false
-    }
-
     @objc private func applyTheme() {
         let colors = PresentationTheme.current.colors
 
         view.backgroundColor = colors.background
-        scrollView.backgroundColor = colors.background
-        detailsLabel.textColor = colors.cellDetailTextColor
-        categoriesLabel.textColor = colors.cellDetailTextColor
-        summaryTextView.tintColor = colors.orangeUI
-        summaryTextView.linkTextAttributes = [.foregroundColor: colors.orangeUI]
-
-        updateSummary()
+        tableView.backgroundColor = colors.background
     }
 
     @objc private func didTapSubscribe() {
@@ -318,6 +261,189 @@ class PodcastDirectoryFeedViewController: UIViewController {
         }
 
         UIApplication.shared.open(websiteURL)
+    }
+
+    private func podcastEpisode(for episode: VLCPodcastIndexEpisode) -> PodcastEpisode {
+        return PodcastEpisode(id: String(episode.episodeIdentifier),
+                              showId: show.id,
+                              title: episode.title,
+                              artworkURL: episode.artworkURL,
+                              releaseDate: episode.releaseDate,
+                              durationValue: Int64(episode.duration * 1000),
+                              progress: nil,
+                              lastPlayedDate: nil,
+                              downloaded: false,
+                              playCount: 0,
+                              seasonNumber: UInt32(clamping: episode.seasonNumber),
+                              episodeNumber: UInt32(clamping: episode.episodeNumber),
+                              author: nil,
+                              notesHTML: episode.summary)
+    }
+
+    private func configure(_ cell: PodcastEpisodeRowCell, at indexPath: IndexPath) {
+        let episode = episodes[indexPath.row]
+        cell.configure(episode: podcastEpisode(for: episode),
+                       showName: feed.title,
+                       showArtworkURL: feed.artworkURL,
+                       isPlaying: episode.enclosureURL == playingEpisodeURL,
+                       downloading: false,
+                       inLibrary: false)
+        cell.showsSeparator = indexPath.row > 0
+        cell.delegate = self
+    }
+
+    private var currentEpisodeURL: URL? {
+        let playbackService = PlaybackService.sharedInstance()
+        return playbackService.playerIsSetup ? playbackService.currentlyPlayingMedia?.url : nil
+    }
+
+    private func refreshPlayingEpisodeURL() {
+        playingEpisodeURL = PlaybackService.sharedInstance().isPlaying ? currentEpisodeURL : nil
+    }
+
+    @objc private func playbackStateDidChange() {
+        let previousURL = playingEpisodeURL
+        refreshPlayingEpisodeURL()
+        guard previousURL != playingEpisodeURL else {
+            return
+        }
+
+        for indexPath in tableView.indexPathsForVisibleRows ?? [] {
+            guard Section(rawValue: indexPath.section) == .episodes,
+                  let cell = tableView.cellForRow(at: indexPath) as? PodcastEpisodeRowCell else {
+                continue
+            }
+            configure(cell, at: indexPath)
+        }
+    }
+
+    private func togglePlayback(at index: Int) {
+        if currentEpisodeURL == episodes[index].enclosureURL {
+            PlaybackService.sharedInstance().playPause()
+        } else {
+            stream(from: index)
+        }
+    }
+
+    private func stream(from index: Int) {
+        let playsNext = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
+        let mediaList = VLCMediaList()
+
+        for episode in playsNext ? episodes[index...] : episodes[index...index] {
+            guard let media = VLCMedia(url: episode.enclosureURL) else {
+                continue
+            }
+
+            media.metaData.title = episode.title
+            media.metaData.artist = feed.title
+            media.metaData.artworkURL = episode.artworkURL ?? feed.artworkURL
+            mediaList.add(media)
+        }
+
+        let playbackService = PlaybackService.sharedInstance()
+        playbackService.expectsAudioOnlyContent = true
+        playbackService.fullscreenSessionRequested = episodes[index].isVideo
+        playbackService.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil)
+
+        VLCAppCoordinator.sharedInstance().mediaLibraryService.currentlyPlayingCollection = nil
+    }
+}
+
+// MARK: - PodcastEpisodeRowCellDelegate
+
+extension PodcastDirectoryFeedViewController: PodcastEpisodeRowCellDelegate {
+    func podcastEpisodeRowCellDidTapPlay(_ cell: PodcastEpisodeRowCell) {
+        guard let indexPath = tableView.indexPath(for: cell),
+              Section(rawValue: indexPath.section) == .episodes,
+              indexPath.row < episodes.count else {
+            return
+        }
+        togglePlayback(at: indexPath.row)
+    }
+}
+
+// MARK: - UITableViewDataSource / UITableViewDelegate
+
+extension PodcastDirectoryFeedViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch Section(rawValue: section) {
+        case .show:
+            return ShowRow.allCases.count
+        case .episodes, .none:
+            return episodes.count
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard Section(rawValue: indexPath.section) == .show else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastEpisodeRowCell.reuseIdentifier,
+                                                           for: indexPath) as? PodcastEpisodeRowCell else {
+                return UITableViewCell()
+            }
+
+            configure(cell, at: indexPath)
+            return cell
+        }
+
+        switch ShowRow(rawValue: indexPath.row) {
+        case .header:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastShowHeaderCell.reuseIdentifier,
+                                                           for: indexPath) as? PodcastShowHeaderCell else {
+                return UITableViewCell()
+            }
+
+            _ = cell.configure(show: show)
+            return cell
+        case .info, .none:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PodcastDirectoryFeedInfoCell.reuseIdentifier,
+                                                           for: indexPath) as? PodcastDirectoryFeedInfoCell else {
+                return UITableViewCell()
+            }
+
+            cell.configure(feed: feed, summary: summaryText)
+            return cell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard Section(rawValue: section) == .episodes, !episodes.isEmpty,
+              let header = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: PodcastSectionHeaderView.reuseIdentifier) as? PodcastSectionHeaderView else {
+            return nil
+        }
+
+        header.configure(title: NSLocalizedString("PODCAST_LATEST_EPISODES", comment: ""))
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Section(rawValue: section) == .episodes && !episodes.isEmpty ? UITableView.automaticDimension
+                                                                            : .leastNormalMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Section(rawValue: indexPath.section) == .show ? UITableView.automaticDimension : episodeRowHeight
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Section(rawValue: indexPath.section) == .show ? 200 : episodeRowHeight
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard Section(rawValue: indexPath.section) == .episodes, indexPath.row < episodes.count else {
+            return
+        }
+        togglePlayback(at: indexPath.row)
     }
 }
 
