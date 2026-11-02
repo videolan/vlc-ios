@@ -799,6 +799,9 @@
 		7D6F42673098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F42663098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift */; };
 		7D6F42683098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F42663098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift */; };
 		7D6F42693098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F42663098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift */; };
+		7D6F426B3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F426A3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift */; };
+		7D6F426C3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F426A3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift */; };
+		7D6F426D3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6F426A3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift */; };
 		7D715D542B852A92005873FE /* VLCDonationInvoicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D715D532B852A92005873FE /* VLCDonationInvoicesViewController.m */; };
 		7D715D572B852B01005873FE /* VLCInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D715D562B852B01005873FE /* VLCInvoice.m */; };
 		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
@@ -2257,6 +2260,7 @@
 		7D6DE9A630614E870028EED9 /* MediaLibraryCorruptionReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryCorruptionReport.swift; sourceTree = "<group>"; };
 		7D6DE9A730614E870028EED9 /* MediaLibraryCorruptionReportPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryCorruptionReportPresenter.swift; sourceTree = "<group>"; };
 		7D6F42663098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDirectoryFeedInfoCell.swift; sourceTree = "<group>"; };
+		7D6F426A3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCNetworkListCell+PodcastFeed.swift"; sourceTree = "<group>"; };
 		7D715D522B852A92005873FE /* VLCDonationInvoicesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationInvoicesViewController.h; sourceTree = "<group>"; };
 		7D715D532B852A92005873FE /* VLCDonationInvoicesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationInvoicesViewController.m; sourceTree = "<group>"; };
 		7D715D552B852B01005873FE /* VLCInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCInvoice.h; sourceTree = "<group>"; };
@@ -3786,6 +3790,7 @@
 				7D6F42663098F42600F14B5F /* PodcastDirectoryFeedInfoCell.swift */,
 				7D5872003051C0580005F27F /* PodcastDirectoryFeedViewController.swift */,
 				7D5871F33051AECB0005F27F /* PodcastDirectoryViewController.swift */,
+				7D6F426A3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift */,
 			);
 			path = Directory;
 			sourceTree = "<group>";
@@ -6161,6 +6166,7 @@
 				3218FCC12F75FC00009B6473 /* TrackSectionHeader.swift in Sources */,
 				7D4BE506301A3ECA00277F3E /* VLCBrowseChipCell.m in Sources */,
 				7D4BE507301A3ECA00277F3E /* VLCBrowseSectionHeader.m in Sources */,
+				7D6F426D3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */,
 				7D50C5F82BBD20DF00B9F1A0 /* VLCSEPANotificationViewController.m in Sources */,
 				7D1E8F53300FA18B0014A118 /* VLCPlaceholderArtwork.m in Sources */,
 				7D50C5F92BBD20DF00B9F1A0 /* VLCStreamingHistoryCell.m in Sources */,
@@ -6819,6 +6825,7 @@
 				7D389AB42B5BEB8200F9D845 /* VLCCurrency.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 				7DA9A0B33025DE1700513322 /* VLCHTTPClient.m in Sources */,
+				7D6F426B3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */,
 				9A761A7A538E67D66B525E17 /* VLCDonationNavigationController.m in Sources */,
 				3EE04F0A8E84825A96C1CAA6 /* VLCActiveDownloadCell.m in Sources */,
 				7D4EDDD4305570EA00C343D6 /* CollectionArtworkHeader.swift in Sources */,
@@ -6928,6 +6935,7 @@
 				7DA514772EF82B63000C9995 /* BaseCollectionViewCell.swift in Sources */,
 				7DA514782EF82B63000C9995 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				7DA514792EF82B63000C9995 /* UIViewController+VLCAlert.h in Sources */,
+				7D6F426C3098F73700F14B5F /* VLCNetworkListCell+PodcastFeed.swift in Sources */,
 				7DA5147A2EF82B63000C9995 /* SettingsSpecifier.swift in Sources */,
 				7DA5147B2EF82B63000C9995 /* CarPlayMediaLibraryObserver.swift in Sources */,
 				7DA5147D2EF82B63000C9995 /* VLCOSOFetcher.m in Sources */,

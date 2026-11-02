@@ -18,9 +18,6 @@
 #import "VLC-Swift.h"
 
 static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCell";
-static const CGFloat VLCPodcastDirectoryListArtworkSize = 72.;
-static const CGFloat VLCPodcastDirectoryListArtworkRadius = 9.;
-static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
 
 @interface VLCPodcastDirectoryListViewController () <VLCMediaLibraryBaseModelObserver>
 @end
@@ -206,47 +203,16 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
                                                                forIndexPath:indexPath];
 
     VLCPodcastIndexFeed *feed = _feeds[indexPath.row];
-    cell.title = feed.title;
-    cell.subtitle = feed.subtitle;
-    [cell.thumbnailView setImage:nil placeholderName:feed.title];
-    cell.iconURL = feed.artworkURL;
-    cell.thumbnailWidthConstraint.constant = VLCPodcastDirectoryListArtworkSize;
-    cell.thumbnailHeightConstraint.constant = VLCPodcastDirectoryListArtworkSize;
-    cell.thumbnailView.layer.cornerRadius = VLCPodcastDirectoryListArtworkRadius;
-    cell.isDownloadable = NO;
-    cell.isFavorable = NO;
-    [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL] toCell:cell];
+    [cell configureWithPodcastFeed:feed subscriptionState:[_store subscriptionStateForFeedURL:feed.feedURL]];
 
     return cell;
-}
-
-- (void)applyState:(PodcastSubscriptionState)state toCell:(VLCNetworkListCell *)cell
-{
-    switch (state) {
-        case PodcastSubscriptionStateAvailable:
-            cell.accessoryView = nil;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            break;
-        case PodcastSubscriptionStatePending: {
-            VLCPulsingConeView *coneView = [[VLCPulsingConeView alloc] initWithConeSize:22.];
-            [coneView startAnimating];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.accessoryView = coneView;
-            break;
-        }
-        case PodcastSubscriptionStateSubscribed:
-            cell.accessoryView = nil;
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            cell.tintColor = PresentationTheme.current.colors.orangeUI;
-            break;
-    }
 }
 
 #pragma mark - table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return VLCPodcastDirectoryListArtworkSize + 2. * VLCPodcastDirectoryListVerticalPadding;
+    return VLCNetworkListCell.podcastFeedHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -274,7 +240,7 @@ static const CGFloat VLCPodcastDirectoryListVerticalPadding = 8.;
     for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows) {
         VLCNetworkListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         VLCPodcastIndexFeed *feed = _feeds[indexPath.row];
-        [self applyState:[_store subscriptionStateForFeedURL:feed.feedURL] toCell:cell];
+        [cell applyPodcastSubscriptionState:[_store subscriptionStateForFeedURL:feed.feedURL]];
     }
 }
 
