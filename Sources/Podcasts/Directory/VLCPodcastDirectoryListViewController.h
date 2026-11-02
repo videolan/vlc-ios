@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCPodcastDirectoryListViewController : VLCNetworkListViewController
 
 - (instancetype)initWithService:(VLCPodcastIndexService *)service
-                          shelf:(nullable VLCPodcastIndexShelf *)shelf;
+                          shelf:(VLCPodcastIndexShelf *)shelf;
 
 @end
 

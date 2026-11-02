@@ -28,7 +28,6 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
     PodcastStore *_store;
     VLCPodcastIndexShelf *_shelf;
     NSArray<VLCPodcastIndexFeed *> *_feeds;
-    NSURLSessionTask *_searchTask;
 }
 
 - (instancetype)initWithService:(VLCPodcastIndexService *)service
@@ -39,7 +38,7 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
         _service = service;
         _store = [VLCAppCoordinator sharedInstance].podcastStore;
         _shelf = shelf;
-        _feeds = shelf ? shelf.feeds : @[];
+        _feeds = shelf.feeds;
     }
     return self;
 }
@@ -60,15 +59,9 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
     [self.tableView registerNib:[UINib nibWithNibName:@"VLCNetworkListCell" bundle:nil]
          forCellReuseIdentifier:VLCPodcastDirectoryListCellIdentifier];
 
-    if (_shelf) {
-        self.title = _shelf.title;
-        self.navigationItem.searchController = nil;
-        [self loadCategory];
-    } else {
-        self.title = NSLocalizedString(@"SEARCH", nil);
-        self.searchController.searchBar.placeholder = NSLocalizedString(@"PODCAST_DIRECTORY_SEARCH_PLACEHOLDER", nil);
-        self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    }
+    self.title = _shelf.title;
+    self.navigationItem.searchController = nil;
+    [self loadCategory];
 
     [_store addObserver:self];
 
@@ -84,26 +77,6 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
 
     self.navigationController.navigationBar.prefersLargeTitles = NO;
     [self.tableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-    if (!_shelf && !self.searchController.isActive) {
-        self.searchController.active = YES;
-        [self.searchController.searchBar becomeFirstResponder];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-
-    if (self.isMovingFromParentViewController) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSearch) object:nil];
-        [_searchTask cancel];
-    }
 }
 
 - (void)themeDidChange
@@ -122,29 +95,6 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
 
     [self beginLoading];
     [_service loadTrendingForCategory:category completion:^(NSArray<VLCPodcastIndexFeed *> *feeds, NSError *error) {
-        [self endLoadingWithFeeds:feeds error:error];
-    }];
-}
-
-- (void)performSearch
-{
-    [_searchTask cancel];
-    _searchTask = nil;
-
-    NSString *query = [self.searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (query.length == 0) {
-        _feeds = @[];
-        [self stopActivityIndicator];
-        self.tableView.backgroundView = nil;
-        [self.tableView reloadData];
-        return;
-    }
-
-    [self beginLoading];
-    _searchTask = [_service searchFeedsMatching:query completion:^(NSArray<VLCPodcastIndexFeed *> *feeds, NSError *error) {
-        if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
-            return;
-        }
         [self endLoadingWithFeeds:feeds error:error];
     }];
 }
@@ -223,14 +173,6 @@ static NSString *const VLCPodcastDirectoryListCellIdentifier = @"LocalNetworkCel
         [[PodcastDirectoryFeedViewController alloc] initWithFeed:_feeds[indexPath.row]
                                                          service:_service];
     [self.navigationController pushViewController:feedViewController animated:YES];
-}
-
-#pragma mark - search
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSearch) object:nil];
-    [self performSelector:@selector(performSearch) withObject:nil afterDelay:0.5];
 }
 
 #pragma mark - store observer
