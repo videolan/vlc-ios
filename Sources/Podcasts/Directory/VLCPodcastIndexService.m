@@ -31,8 +31,15 @@ static NSUInteger const kVLCPodcastIndexChartLimit = 50;
 static NSUInteger const kVLCPodcastIndexListLimit = 100;
 static NSUInteger const kVLCPodcastIndexTitleMatchLimit = 25;
 static NSUInteger const kVLCPodcastIndexCategoryBatch = 4;
+static NSUInteger const kVLCPodcastIndexEpisodeLimit = 10;
 
 @interface VLCPodcastIndexFeed ()
+
+- (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+@end
+
+@interface VLCPodcastIndexEpisode ()
 
 - (nullable instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
@@ -180,6 +187,53 @@ static NSUInteger const kVLCPodcastIndexCategoryBatch = 4;
     [coder encodeObject:_title forKey:@"title"];
     [coder encodeObject:_category forKey:@"category"];
     [coder encodeObject:_feeds forKey:@"feeds"];
+}
+
+@end
+
+@implementation VLCPodcastIndexEpisode
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    NSString *enclosure = dictionary[@"enclosureUrl"];
+    NSString *title = dictionary[@"title"];
+    NSNumber *published = dictionary[@"datePublished"];
+    if (![enclosure isKindOfClass:[NSString class]] || ![title isKindOfClass:[NSString class]]
+        || ![published isKindOfClass:[NSNumber class]]) {
+        return nil;
+    }
+
+    NSURL *enclosureURL = [NSURL URLWithString:enclosure];
+    if (!enclosureURL.scheme || !enclosureURL.host) {
+        return nil;
+    }
+
+    self = [super init];
+    if (self) {
+        _episodeIdentifier = [dictionary[@"id"] integerValue];
+        _enclosureURL = enclosureURL;
+        _title = title;
+        _releaseDate = [NSDate dateWithTimeIntervalSince1970:published.doubleValue];
+
+        NSNumber *duration = dictionary[@"duration"];
+        _duration = [duration isKindOfClass:[NSNumber class]] ? duration.doubleValue : 0;
+
+        NSNumber *season = dictionary[@"season"];
+        _seasonNumber = [season isKindOfClass:[NSNumber class]] ? season.integerValue : 0;
+
+        NSNumber *episode = dictionary[@"episode"];
+        _episodeNumber = [episode isKindOfClass:[NSNumber class]] ? episode.integerValue : 0;
+
+        NSString *image = dictionary[@"image"];
+        _artworkURL = [image isKindOfClass:[NSString class]] && image.length > 0 ? [NSURL URLWithString:image] : nil;
+
+        NSString *summary = dictionary[@"description"];
+        _summary = [summary isKindOfClass:[NSString class]] && summary.length > 0 ? summary : nil;
+
+        NSString *type = dictionary[@"enclosureType"];
+        _video = [type isKindOfClass:[NSString class]] && [type hasPrefix:@"video/"];
+    }
+    return self;
 }
 
 @end
@@ -478,6 +532,46 @@ static NSUInteger const kVLCPodcastIndexCategoryBatch = 4;
          failure:^(NSError *error) {
         APLog(@"podcast index: podcasts/byfeedid failed with %@", error.localizedDescription);
         completion(nil, error);
+    }];
+}
+
++ (NSArray<VLCPodcastIndexEpisode *> *)episodesFromResponse:(NSDictionary *)response
+{
+    NSArray *items = response[@"items"];
+    if (![items isKindOfClass:[NSArray class]]) {
+        return @[];
+    }
+
+    NSMutableArray<VLCPodcastIndexEpisode *> *episodes = [NSMutableArray arrayWithCapacity:items.count];
+    for (NSDictionary *item in items) {
+        if (![item isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
+
+        VLCPodcastIndexEpisode *episode = [[VLCPodcastIndexEpisode alloc] initWithDictionary:item];
+        if (episode) {
+            [episodes addObject:episode];
+        }
+    }
+    return episodes;
+}
+
+- (void)loadRecentEpisodesForFeed:(VLCPodcastIndexFeed *)feed
+                       completion:(VLCPodcastIndexEpisodesCompletion)completion
+{
+    if (!VLCPodcastIndexService.isAvailable) {
+        return;
+    }
+
+    [_client GET:@"episodes/byfeedid"
+      parameters:@{ @"id": @(feed.feedIdentifier), @"max": @(kVLCPodcastIndexEpisodeLimit) }
+         headers:[self authenticationHeaders]
+         success:^(NSDictionary *jsonResponse) {
+        completion([VLCPodcastIndexService episodesFromResponse:jsonResponse], nil);
+    }
+         failure:^(NSError *error) {
+        APLog(@"podcast index: episodes/byfeedid failed with %@", error.localizedDescription);
+        completion(@[], error);
     }];
 }
 
