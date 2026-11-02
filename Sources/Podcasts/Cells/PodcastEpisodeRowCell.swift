@@ -19,6 +19,12 @@ protocol PodcastEpisodeRowCellDelegate: AnyObject {
     func podcastEpisodeRowCellDidTapDeleteDownload(_ cell: PodcastEpisodeRowCell)
 }
 
+extension PodcastEpisodeRowCellDelegate {
+    func podcastEpisodeRowCellDidTapDownload(_ cell: PodcastEpisodeRowCell) {}
+    func podcastEpisodeRowCellDidTapCancelDownload(_ cell: PodcastEpisodeRowCell) {}
+    func podcastEpisodeRowCellDidTapDeleteDownload(_ cell: PodcastEpisodeRowCell) {}
+}
+
 class PodcastEpisodeRowCell: UITableViewCell {
     static let reuseIdentifier = "PodcastEpisodeRowCell"
 
@@ -34,6 +40,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
     private static let downloadButtonWidth: CGFloat = 44
     private static let downloadButtonHeight: CGFloat = 26
     private static let actionGap: CGFloat = 8
+    private static let playButtonOffset: CGFloat = -(downloadButtonHeight + actionGap) / 2
     private static let playedAlpha: CGFloat = 0.55
 
     private static let playImage = UIImage(systemName: "play.fill",
@@ -133,6 +140,12 @@ class PodcastEpisodeRowCell: UITableViewCell {
 
     private let downloadButton = PodcastDownloadButton()
 
+    private lazy var playButtonCenterYConstraint = playButton.centerYAnchor.constraint(
+        equalTo: contentView.centerYAnchor, constant: PodcastEpisodeRowCell.playButtonOffset)
+
+    private lazy var downloadButtonBottomConstraint = downloadButton.bottomAnchor.constraint(
+        lessThanOrEqualTo: contentView.bottomAnchor, constant: -PodcastEpisodeRowCell.verticalPadding)
+
     private var isPlaying = false
     private var isUnplayed = false
 
@@ -195,9 +208,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
 
             playButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                  constant: -PodcastEpisodeRowCell.horizontalPadding),
-            playButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,
-                                                constant: -(PodcastEpisodeRowCell.downloadButtonHeight
-                                                            + PodcastEpisodeRowCell.actionGap) / 2),
+            playButtonCenterYConstraint,
             playButton.widthAnchor.constraint(equalToConstant: PodcastEpisodeRowCell.playButtonSize),
             playButton.heightAnchor.constraint(equalToConstant: PodcastEpisodeRowCell.playButtonSize),
             playButton.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor,
@@ -208,8 +219,7 @@ class PodcastEpisodeRowCell: UITableViewCell {
                                                 constant: PodcastEpisodeRowCell.actionGap),
             downloadButton.widthAnchor.constraint(equalToConstant: PodcastEpisodeRowCell.downloadButtonWidth),
             downloadButton.heightAnchor.constraint(equalToConstant: PodcastEpisodeRowCell.downloadButtonHeight),
-            downloadButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
-                                                   constant: -PodcastEpisodeRowCell.verticalPadding)
+            downloadButtonBottomConstraint
         ])
 
         isAccessibilityElement = true
@@ -226,16 +236,18 @@ class PodcastEpisodeRowCell: UITableViewCell {
                    showName: String?,
                    showArtworkURL: URL?,
                    isPlaying: Bool,
-                   downloading: Bool) {
+                   downloading: Bool,
+                   inLibrary: Bool = true) {
         self.isPlaying = isPlaying
 
         artworkView.configure(name: showName ?? episode.title,
                               artworkURL: episode.artworkURL ?? showArtworkURL,
                               cornerRadius: PodcastEpisodeRowCell.artworkRadius)
 
-        isUnplayed = episode.isUnplayed
+        isUnplayed = inLibrary && episode.isUnplayed
+        let isPlayed = inLibrary && episode.isPlayed
         let indicatorImage = isUnplayed ? PodcastEpisodeRowCell.unplayedImage
-            : (episode.isPlayed ? PodcastEpisodeRowCell.playedImage : nil)
+            : (isPlayed ? PodcastEpisodeRowCell.playedImage : nil)
         statusIndicatorView.image = indicatorImage
         statusIndicatorView.isHidden = indicatorImage == nil
         updateStatusIndicatorColor()
@@ -260,9 +272,12 @@ class PodcastEpisodeRowCell: UITableViewCell {
         snippetLabel.isHidden = snippet == nil
 
         downloadButton.configure(downloaded: episode.downloaded, downloading: downloading)
+        downloadButton.isHidden = !inLibrary
+        downloadButtonBottomConstraint.isActive = inLibrary
+        playButtonCenterYConstraint.constant = inLibrary ? PodcastEpisodeRowCell.playButtonOffset : 0
         updatePlayButtonImage()
 
-        textStack.alpha = episode.isPlayed ? PodcastEpisodeRowCell.playedAlpha : 1
+        textStack.alpha = isPlayed ? PodcastEpisodeRowCell.playedAlpha : 1
 
         var accessibilityComponents = [episode.title]
         if let number = number {
@@ -273,14 +288,17 @@ class PodcastEpisodeRowCell: UITableViewCell {
             accessibilityComponents.append(time)
         }
         accessibilityLabel = accessibilityComponents.joined(separator: ", ")
-        accessibilityCustomActions = [
+        var customActions = [
             UIAccessibilityCustomAction(name: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: ""),
                                         target: self,
-                                        selector: #selector(didTapPlay)),
-            UIAccessibilityCustomAction(name: downloadButton.accessibilityLabel ?? "",
-                                        target: self,
-                                        selector: #selector(didTapDownload))
+                                        selector: #selector(didTapPlay))
         ]
+        if inLibrary {
+            customActions.append(UIAccessibilityCustomAction(name: downloadButton.accessibilityLabel ?? "",
+                                                             target: self,
+                                                             selector: #selector(didTapDownload)))
+        }
+        accessibilityCustomActions = customActions
     }
 
     private func updateStatusIndicatorColor() {
