@@ -285,10 +285,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
             PodcastMenuAction(title: NSLocalizedString("MARK_AS_PLAYED", comment: ""),
                               imageName: "checkmark.circle") { [weak self] in self?.markAsPlayed() },
             PodcastMenuAction(title: NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""),
-                              imageName: "text.append") { [weak self] in self?.appendToQueue() },
-            PodcastMenuAction(title: NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""),
-                              imageName: "arrow.down.doc",
-                              isEnabled: episode.downloaded) { [weak self] in self?.shareDownload() }
+                              imageName: "text.append") { [weak self] in self?.appendToQueue() }
         ]
 
         if store.isDownloading(episodeId: episodeId) {
@@ -303,6 +300,9 @@ class PodcastEpisodeDetailViewController: UIViewController {
             actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_EPISODE_DOWNLOAD", comment: ""),
                                              imageName: "arrow.down.circle") { [weak self] in self?.download() })
         }
+        actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_EXPORT_MEDIA_FILE", comment: ""),
+                                         imageName: "arrow.down.doc",
+                                         isEnabled: episode.downloaded) { [weak self] in self?.shareDownload() })
         return actions
     }
 
