@@ -41,7 +41,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var groupLastPlayedLabel: UILabel!
 
     private var thumbnailsArray: [VLCArtworkImageView] = []
-    private let itemCornerRadius: CGFloat = 4.5
+    private let itemCornerRadius: CGFloat = 5.0
     private let groupCornerRadius: CGFloat = 3.0
     var lastPlayed: Bool = false
     override class var edgePadding: CGFloat {
