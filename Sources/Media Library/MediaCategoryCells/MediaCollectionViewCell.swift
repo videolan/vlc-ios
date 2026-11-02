@@ -71,6 +71,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     private let playbackService: PlaybackService = PlaybackService.sharedInstance()
     private static let enqueueButtonDefaultWidth: CGFloat = 80.0
+    private static let thumbnailCornerRadius: CGFloat = 5.0
     static let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
     private var swipeActionsWidth: CGFloat {
@@ -312,6 +313,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             descriptionText += " · " + albumTitle
         }
 
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(audiotrack.thumbnailImage(), placeholderName: audiotrack.placeholderName())
         thumbnailView.isHidden = false
         animationImageView.isHidden = true
@@ -401,6 +403,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = album.albumName()
         accessibilityLabel = album.accessibilityText(editing: false)
         sizeDescriptionLabel.text = album.albumArtistName()
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(album.thumbnail(), placeholderName: album.placeholderName())
         scrollView.isScrollEnabled = true
         updateSizeDescriptionLabelConstraint()
@@ -423,7 +426,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
-        thumbnailView.layer.cornerRadius = 3
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(movie.thumbnailImage(), placeholderName: movie.placeholderName())
         newLabel.isHidden = !movie.isNew
 
@@ -452,7 +455,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = folder.displayName
         scrollView.isScrollEnabled = false
         newLabel.isHidden = true
-        thumbnailView.layer.cornerRadius = 3
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
 
         let symbolConfiguration = UIImage.SymbolConfiguration(weight: .thin)
         thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfiguration)
@@ -496,7 +499,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             sizeDescriptionLabel.text = metadata
         }
 
-        thumbnailView.layer.cornerRadius = 3
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(playlist.thumbnail(), placeholderName: playlist.placeholderName())
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
@@ -519,7 +522,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = mediaGroup.title()
         accessibilityLabel = mediaGroup.accessibilityText()
 
-        thumbnailView.layer.cornerRadius = 3
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(mediaGroup.thumbnail(), placeholderName: mediaGroup.placeholderName())
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
@@ -535,6 +538,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = genre.name
         accessibilityLabel = genre.accessibilityText()
 
+        thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(genre.thumbnail(), placeholderName: genre.placeholderName())
         sizeDescriptionLabel.text = genre.numberOfTracksString()
         scrollView.isScrollEnabled = false
