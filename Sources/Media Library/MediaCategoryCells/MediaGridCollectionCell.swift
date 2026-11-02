@@ -35,7 +35,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     let thumbnailView: VLCArtworkImageView = {
         let imageView = VLCArtworkImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -323,6 +323,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.text = folder.displayName
 
         let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
+        thumbnailView.contentMode = .scaleAspectFit
         thumbnailView.image = UIImage(systemName: "folder", withConfiguration: symbolConfig)
         thumbnailView.tintColor = PresentationTheme.current.colors.orangeUI
 
@@ -404,7 +405,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         descriptionLabel.text = ""
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
-        thumbnailView.contentMode = .scaleAspectFit
+        thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.setImage(nil, placeholderName: nil)
         descriptionLabel.isHidden = false
         newLabel.isHidden = true
