@@ -99,8 +99,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let separatorLabel = UILabel()
 
-    private var isFolder = false
-
     override var media: VLCMLObject? {
         didSet {
             if let media = media as? VLCMLMedia {
@@ -241,7 +239,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         sizeLabel.textColor = colors.cellDetailTextColor
         sizeLabel.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
-        configureShadows()
+        applyRadius()
     }
 
     @objc private func dynamicFontSizeChange() {
@@ -249,11 +247,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded
         descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         sizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureShadows()
     }
 
 // MARK: - Media Update Functions
@@ -317,7 +310,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     func update(folder: VLCMLFolder) {
-        isFolder = true
         newLabel.isHidden = true
         titleLabel.isHidden = false
         titleLabel.text = folder.displayName
@@ -338,31 +330,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         accessibilityValue = location.accessibilityValue
         let symbolConfig = UIImage.SymbolConfiguration(weight: .thin)
         thumbnailView.image = UIImage(systemName: location.symbolName, withConfiguration: symbolConfig)
-    }
-
-    private func configureShadows() {
-        if isFolder || PresentationTheme.current.colors.isDark {
-            clearShadow()
-        } else {
-            setShadow()
-        }
-
-        applyRadius()
-    }
-
-    private func setShadow() {
-        layer.shadowColor = PresentationTheme.current.colors.cellDetailTextColor.cgColor
-        layer.shadowOpacity = 0.7
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 5
-        layer.shadowPath = UIBezierPath(rect: thumbnailView.bounds).cgPath
-    }
-
-    private func clearShadow() {
-        layer.shadowColor = UIColor.clear.cgColor
-        layer.shadowOpacity = 0
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 0
     }
 
     private func applyRadius() {
@@ -413,7 +380,5 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true
         separatorLabel.isHidden = true
-        isFolder = false
-        clearShadow()
     }
 }
