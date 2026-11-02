@@ -316,6 +316,16 @@ static NSUInteger const kVLCPodcastIndexEpisodeLimit = 10;
               @"th", @"tr", @"uk", @"ur", @"vi", @"wo", @"yi", @"zh" ];
 }
 
++ (NSDictionary<NSString *, NSArray<NSString *> *> *)languageAliases
+{
+    return @{ @"fil": @[ @"tl" ],
+              @"he": @[ @"iw" ],
+              @"id": @[ @"in" ],
+              @"nb": @[ @"no", @"no-no" ],
+              @"nn": @[ @"no", @"no-no" ],
+              @"yi": @[ @"ji" ] };
+}
+
 + (nullable NSString *)languageCodeForIdentifier:(NSString *)identifier
 {
     return [NSLocale componentsFromLocaleIdentifier:identifier][NSLocaleLanguageCode];
@@ -388,8 +398,10 @@ static NSUInteger const kVLCPodcastIndexEpisodeLimit = 10;
 
 - (NSString *)languageQuery
 {
-    NSArray<NSString *> *variants = [VLCPodcastIndexService regionalVariants][_languageCode];
-    return [[@[_languageCode] arrayByAddingObjectsFromArray:variants ?: @[]] componentsJoinedByString:@","];
+    NSArray<NSString *> *variants = [VLCPodcastIndexService regionalVariants][_languageCode] ?: @[];
+    NSArray<NSString *> *aliases = [VLCPodcastIndexService languageAliases][_languageCode] ?: @[];
+    return [[[@[_languageCode] arrayByAddingObjectsFromArray:variants] arrayByAddingObjectsFromArray:aliases]
+            componentsJoinedByString:@","];
 }
 
 #pragma mark - persistence
