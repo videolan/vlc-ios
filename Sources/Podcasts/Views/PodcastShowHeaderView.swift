@@ -31,7 +31,7 @@ class PodcastShowHeaderView: UIView {
         label.font = .preferredCustomFont(forTextStyle: .subheadline)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
