@@ -321,7 +321,7 @@ class PodcastShowDetailViewController: UIViewController {
         overflowButton.menu = UIMenu(title: "", children: [episodeLimitMenu] + overflowActions.menu().children)
         var rightBarButtonItems = [overflowButton]
 
-        if #unavailable(iOS 26) {
+        if #unavailable(iOS 26.0, visionOS 26.0) {
             let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
                                                action: #selector(didTapSearch))
             searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
@@ -467,7 +467,7 @@ class PodcastShowDetailViewController: UIViewController {
         tableView.backgroundColor = colors.background
         searchController.searchBar.backgroundColor = colors.background
 
-        if #unavailable(iOS 26) {
+        if #unavailable(iOS 26.0, visionOS 26.0) {
             if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField,
                let backgroundView = textField.subviews.first {
                 backgroundView.backgroundColor = colors.background
@@ -566,7 +566,7 @@ extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchCont
     }
 
     func willDismissSearchController(_ searchController: UISearchController) {
-        if #unavailable(iOS 26) {
+        if #unavailable(iOS 26.0, visionOS 26.0) {
             navigationItem.searchController = nil
         }
         applySearchQuery("")
