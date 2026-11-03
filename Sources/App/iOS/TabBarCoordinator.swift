@@ -226,7 +226,6 @@ class TabBarCoordinator: NSObject {
         editToolbar.translatesAutoresizingMaskIntoConstraints = false
         editToolbar.backgroundColor = colors.tabBarColor
 
-        var useSidebar = false
 #if os(iOS)
         if #available(iOS 18.0, *), tabBarController.canShowSidebar {
             let sideToolBar = EditToolbar()
@@ -235,19 +234,14 @@ class TabBarCoordinator: NSObject {
             sideToolBar.translatesAutoresizingMaskIntoConstraints = false
             sideToolBar.backgroundColor = colors.tabBarColor
             tabBarController.sidebar.bottomBarView = sideToolBar
-            useSidebar = true
         }
-#endif
-        if !useSidebar {
-            let containerView = tabBarController.view!
-            containerView.addSubview(editToolbar)
 
-            NSLayoutConstraint.activate([
-                editToolbar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-                editToolbar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                editToolbar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-                editToolbar.topAnchor.constraint(equalTo: tabBarController.tabBar.topAnchor),
-            ])
+        let needsBottomToolbar = UIDevice.current.userInterfaceIdiom != .pad
+#else
+        let needsBottomToolbar = true
+#endif
+        if needsBottomToolbar {
+            tabBarController.view.addSubview(editToolbar)
         }
     }
 

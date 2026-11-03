@@ -30,6 +30,8 @@ class BottomTabBarController: UITabBarController {
 
     var tabBarHeightConstraint: NSLayoutConstraint?
 
+    private var bottomEditToolbarConstraints: [NSLayoutConstraint] = []
+
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
@@ -102,14 +104,39 @@ class BottomTabBarController: UITabBarController {
         handler()
     }
 
+    var bottomEditToolbar: EditToolbar? {
+        return view.subviews.first { $0 is EditToolbar } as? EditToolbar
+    }
+
     func editToolBar() -> EditToolbar? {
 #if os(iOS)
-        if isSidebarShown {
-            return bottomBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
+        if isSidebarShown || usesVerticalBar {
+            return nil
         }
 #endif
 
-        return view.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
+        guard let toolbar = bottomEditToolbar, tabBar.isDescendant(of: view) else {
+            return nil
+        }
+
+        pinBottomEditToolbarToTabBar(toolbar)
+        return toolbar
+    }
+
+    private func pinBottomEditToolbarToTabBar(_ toolbar: EditToolbar) {
+        if !bottomEditToolbarConstraints.isEmpty,
+           bottomEditToolbarConstraints.allSatisfy({ $0.isActive }) {
+            return
+        }
+
+        NSLayoutConstraint.deactivate(bottomEditToolbarConstraints)
+        bottomEditToolbarConstraints = [
+            toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            toolbar.topAnchor.constraint(equalTo: tabBar.topAnchor),
+        ]
+        NSLayoutConstraint.activate(bottomEditToolbarConstraints)
     }
 
     func displayEditToolbar(with model: MediaLibraryBaseModel) {
@@ -161,7 +188,20 @@ extension UITabBarController {
             return false
         }
 
-        return UIDevice.current.userInterfaceIdiom == .pad || isSidebarAvailable
+        if #available(iOS 27.0, *) {
+            return true
+        }
+
+        return UIDevice.current.userInterfaceIdiom == .pad
+    }
+
+    var usesVerticalBar: Bool {
+        if #available(iOS 27.1, *),
+           traitCollection.responds(to: NSSelectorFromString("verticalBarEdge")) {
+            return (traitCollection.value(forKey: "verticalBarEdge") as? Int ?? 0) != 0
+        }
+
+        return false
     }
 }
 #endif
