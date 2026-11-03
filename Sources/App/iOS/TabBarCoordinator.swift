@@ -22,6 +22,10 @@ class TabBarCoordinator: NSObject {
     private var editToolbar: EditToolbar?
     private var sideToolBar: EditToolbar?
 
+    private var isUsingSidebarTabs = false
+
+    private static let tabBarIndexUsesSidebarTabsKey = "TabBarIndexUsesSidebarTabs"
+
     private lazy var videoNavigationController: UINavigationController = {
         let rootViewController = VideoViewController(mediaLibraryService: mediaLibraryService)
         return UINavigationController(rootViewController: rootViewController)
@@ -98,19 +102,30 @@ class TabBarCoordinator: NSObject {
             tabBarController.mode = .tabSidebar
             let sideBar = tabBarController.sidebar
             sideBar.preferredLayout = .overlap
+
+            if #available(iOS 27.0, *),
+               sideBar.responds(to: NSSelectorFromString("setPreferredPlacement:")) {
+                sideBar.setValue(1, forKey: "preferredPlacement")
+            }
             sideBar.delegate = self
             sideBar.bottomBarView?.isHidden = true
         }
-#endif
+
+        if tabBarController.isSidebarShown != isUsingSidebarTabs {
+            setupViewControllers()
+        }
+        restoreTabBarIndex()
+#else
         tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
+#endif
     }
 
     private func setupViewControllers() {
         var controllers: [UINavigationController] = [videoNavigationController]
 
 #if os(iOS)
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
-           !tabBarController.sidebar.isHidden {
+        isUsingSidebarTabs = tabBarController.isSidebarShown
+        if isUsingSidebarTabs {
             controllers.append(artistsNavigationController)
             controllers.append(albumsNavigationController)
             controllers.append(tracksNavigationController)
@@ -137,12 +152,31 @@ class TabBarCoordinator: NSObject {
     }
 
 #if os(iOS)
-    private func updateTabBarIndexIfNeeded() {
+    private func updateTabsForSidebarIfNeeded() {
+        guard tabBarController.isSidebarShown != isUsingSidebarTabs else {
+            return
+        }
+
+        setupViewControllers()
+        restoreTabBarIndex()
+        NotificationCenter.default.post(name: NSNotification.Name("sidebarVisibilityChanged"), object: nil)
+    }
+
+    private func saveTabBarIndex(_ tabIndex: Int) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(tabIndex, forKey: kVLCTabBarIndex)
+        userDefaults.set(isUsingSidebarTabs, forKey: TabBarCoordinator.tabBarIndexUsesSidebarTabsKey)
+    }
+
+    private func restoreTabBarIndex() {
         let userDefaults = UserDefaults.standard
         var tabIndex: Int = userDefaults.integer(forKey: kVLCTabBarIndex)
+        let savedWithSidebarTabs = userDefaults.object(forKey: TabBarCoordinator.tabBarIndexUsesSidebarTabsKey) as? Bool
+            ?? isUsingSidebarTabs
 
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad,
-           !tabBarController.sidebar.isHidden {
+        if savedWithSidebarTabs == isUsingSidebarTabs {
+            // Nothing to convert.
+        } else if isUsingSidebarTabs {
             switch tabIndex {
             case 0:
                 break
@@ -177,8 +211,10 @@ class TabBarCoordinator: NSObject {
             }
         }
 
+        let tabCount = tabBarController.viewControllers?.count ?? 0
+        tabIndex = min(max(tabIndex, 0), max(tabCount - 1, 0))
         tabBarController.selectedIndex = tabIndex
-        userDefaults.set(tabIndex, forKey: kVLCTabBarIndex)
+        saveTabBarIndex(tabIndex)
     }
 #endif
 
@@ -192,7 +228,7 @@ class TabBarCoordinator: NSObject {
 
         var useSidebar = false
 #if os(iOS)
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
+        if #available(iOS 18.0, *), tabBarController.canShowSidebar {
             let sideToolBar = EditToolbar()
             self.sideToolBar = sideToolBar
             sideToolBar.isHidden = true
@@ -426,7 +462,11 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
+#if os(iOS)
+        saveTabBarIndex(viewControllerIndex)
+#else
         UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
+#endif
     }
 }
 
@@ -434,10 +474,15 @@ extension TabBarCoordinator: UITabBarControllerDelegate {
 @available(iOS 18.0, *)
 extension TabBarCoordinator: UITabBarController.Sidebar.Delegate {
     func tabBarController(_ tabBarController: UITabBarController, sidebarVisibilityWillChange sidebar: UITabBarController.Sidebar, animator: any UITabBarController.Sidebar.Animating) {
-        setupViewControllers()
-        updateTabBarIndexIfNeeded()
+        updateTabsForSidebarIfNeeded()
+        animator.addCompletion { [weak self] in
+            self?.updateTabsForSidebarIfNeeded()
+        }
+    }
 
-        NotificationCenter.default.post(name: NSNotification.Name("sidebarVisibilityChanged"), object: nil)
+    @available(iOS 27.0, *)
+    func tabBarController(_ tabBarController: UITabBarController, sidebarAvailabilityDidChange sidebar: UITabBarController.Sidebar) {
+        updateTabsForSidebarIfNeeded()
     }
 }
 #endif

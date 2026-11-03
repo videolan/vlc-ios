@@ -104,9 +104,7 @@ class BottomTabBarController: UITabBarController {
 
     func editToolBar() -> EditToolbar? {
 #if os(iOS)
-        if #available(iOS 18.0, *),
-           UIDevice.current.userInterfaceIdiom == .pad,
-           !sidebar.isHidden {
+        if isSidebarShown {
             return bottomBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
         }
 #endif
@@ -132,3 +130,38 @@ class BottomTabBarController: UITabBarController {
         editToolbar.isHidden = true
     }
 }
+
+#if os(iOS)
+// MARK: - Sidebar availability
+
+extension UITabBarController {
+    var isSidebarAvailable: Bool {
+        if #available(iOS 27.0, *),
+           sidebar.responds(to: NSSelectorFromString("isAvailable")) {
+            return sidebar.value(forKey: "isAvailable") as? Bool ?? false
+        }
+
+        if #available(iOS 18.0, *) {
+            return UIDevice.current.userInterfaceIdiom == .pad
+        }
+
+        return false
+    }
+
+    var isSidebarShown: Bool {
+        guard #available(iOS 18.0, *) else {
+            return false
+        }
+
+        return isSidebarAvailable && !sidebar.isHidden
+    }
+
+    var canShowSidebar: Bool {
+        guard #available(iOS 18.0, *) else {
+            return false
+        }
+
+        return UIDevice.current.userInterfaceIdiom == .pad || isSidebarAvailable
+    }
+}
+#endif

@@ -960,10 +960,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         (tabBarController as? BottomTabBarController)?.ensureEditToolbarSetup()
 #if os(iOS)
         if #available(iOS 18.0, *),
-           UIDevice.current.userInterfaceIdiom == .pad,
            let tabBarController = tabBarController,
-           let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar,
-           !tabBarController.sidebar.isHidden {
+           tabBarController.isSidebarShown,
+           let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar {
             return sideToolBar
         }
 #endif
@@ -984,15 +983,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 #if os(iOS)
     @objc private func handleEditToolBar() {
         guard #available(iOS 18.0, *),
-              UIDevice.current.userInterfaceIdiom == .pad,
               isEditing,
               let tabBarController = tabBarController,
+              tabBarController.canShowSidebar,
               let sideToolBar = tabBarController.sidebar.bottomBarView as? EditToolbar else {
             return
         }
 
         let toolBar: EditToolbar
-        if tabBarController.sidebar.isHidden {
+        if !tabBarController.isSidebarShown {
             sideToolBar.isHidden = true
             editToolBar.isHidden = false
             toolBar = editToolBar
@@ -2693,8 +2692,9 @@ private extension MediaCategoryViewController {
     }
 
     func setupEditToolBar() {
+#if os(iOS)
         guard #available(iOS 18.0, *),
-              UIDevice.current.userInterfaceIdiom == .pad else {
+              tabBarController?.canShowSidebar == true else {
             return
         }
 
@@ -2707,6 +2707,7 @@ private extension MediaCategoryViewController {
             editToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             editToolBar.heightAnchor.constraint(equalToConstant: EditToolbar.height)
         ])
+#endif
     }
 }
 
@@ -3015,11 +3016,8 @@ extension MediaCategoryViewController {
 
         let anchorsToContainerBottom: Bool
 #if os(iOS)
-        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
-            anchorsToContainerBottom = traitCollection.horizontalSizeClass == .regular
-        } else {
-            anchorsToContainerBottom = false
-        }
+        anchorsToContainerBottom = tabBarController?.isSidebarAvailable == true
+            && traitCollection.horizontalSizeClass == .regular
 #else
         anchorsToContainerBottom = false
 #endif
