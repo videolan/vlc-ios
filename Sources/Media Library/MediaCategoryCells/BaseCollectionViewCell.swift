@@ -69,14 +69,13 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
 }
 
-enum DeviceDimensions: CGFloat {
-    case iPhone4sPortrait = 320
-    case iPhone5Landscape = 568
-    case iPhone6Portrait = 375
-    case iPhonePortrait = 414
-    case iPhone12ProMaxPortrait = 428
-    case iPhone14ProMaxPortrait = 430
-    case iPhone16ProMaxPortrait = 440
-    case iPhoneLandscape = 926
-    case iPadLandscape = 1024
+enum LayoutWidth: CGFloat {
+    /// The narrowest phone layout, as on the iPhone SE 1st generation in portrait.
+    case narrowest = 320
+    /// Phones in portrait, up to the folded iPhone Duo held upright (466 pt).
+    case compact = 480
+    /// Phones in landscape and most iPads in portrait.
+    case medium = 926
+    /// Large iPads in portrait and small iPads in landscape.
+    case regular = 1024
 }

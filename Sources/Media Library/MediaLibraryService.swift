@@ -319,13 +319,13 @@ class MediaLibraryService: NSObject {
     }
 
     private static var widestCellWidth: CGFloat {
-        let layoutWidths: [CGFloat] = [DeviceDimensions.iPhone16ProMaxPortrait.rawValue,
-                                       DeviceDimensions.iPhoneLandscape.rawValue,
-                                       DeviceDimensions.iPadLandscape.rawValue]
+        let layoutWidths: [CGFloat] = [LayoutWidth.compact.rawValue,
+                                       LayoutWidth.medium.rawValue,
+                                       LayoutWidth.regular.rawValue]
         let cellWidths = layoutWidths.map {
             MovieCollectionViewCell.cellSizeForWidth($0, safeAreaInsets: .zero).width
         }
-        return cellWidths.max() ?? DeviceDimensions.iPhone4sPortrait.rawValue
+        return cellWidths.max() ?? LayoutWidth.narrowest.rawValue
     }
 #endif
 }

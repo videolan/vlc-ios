@@ -208,7 +208,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private var isCompactScreen: Bool {
 #if os(iOS)
-        return bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue
+        return bounds.width <= LayoutWidth.narrowest.rawValue
 #else
         return false
 #endif
