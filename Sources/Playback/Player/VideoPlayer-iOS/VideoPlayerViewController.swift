@@ -56,6 +56,17 @@ class VideoPlayerViewController: PlayerViewController {
         return true
     }
 
+#if os(iOS) && canImport(MediaIntents) // iOS 27 SDK
+    @available(iOS 27.1, *)
+    override var preferredVerticalBarBehavior: UIVerticalBarBehavior {
+        return .disabled
+    }
+#elseif os(iOS)
+    @objc var preferredVerticalBarBehavior: Int {
+        return 1
+    }
+#endif
+
     // MARK: - UI elements
 
     override var canBecomeFirstResponder: Bool {
@@ -264,6 +275,28 @@ class VideoPlayerViewController: PlayerViewController {
                                                     constant: -5)
     }()
 
+    private let videoAreaLayoutGuide = UILayoutGuide()
+
+    private lazy var videoAreaBottomConstraint: NSLayoutConstraint = {
+        videoAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    }()
+
+    private static let mediaNavigationBarTopPadding: CGFloat = 16
+
+    private lazy var mediaNavigationBarTopConstraint: NSLayoutConstraint = {
+        mediaNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                constant: VideoPlayerViewController.mediaNavigationBarTopPadding)
+    }()
+
+    private lazy var mediaNavigationBarTabletopTopConstraint: NSLayoutConstraint = {
+        mediaNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
+    }()
+
+    private var regularSliderConstraints: [NSLayoutConstraint] = []
+    private var tabletopSliderConstraints: [NSLayoutConstraint] = []
+
+    private var isTabletopLayout = false
+
     // MARK: - Init methods
 
 #if os(iOS)
@@ -369,8 +402,61 @@ class VideoPlayerViewController: PlayerViewController {
 #if os(iOS)
         brightnessBackgroundGradientLayer.frame = self.view.bounds
         volumeBackgroundGradientLayer.frame = self.view.bounds
+
+        // The fold has no change notification, so it is checked on each layout pass.
+        updateTabletopLayout()
 #endif
     }
+
+#if os(iOS)
+    private var tabletopFoldFrame: CGRect? {
+        guard #available(iOS 27.1, *),
+              let kindClass = NSClassFromString("UIViewReservedRegionKind") as AnyObject?,
+              kindClass.responds(to: NSSelectorFromString("divisionRegionKind")),
+              let kind = kindClass.perform(NSSelectorFromString("divisionRegionKind"))?.takeUnretainedValue(),
+              view.responds(to: NSSelectorFromString("reservedRegionsOfKind:")),
+              let regions = view.perform(NSSelectorFromString("reservedRegionsOfKind:"), with: kind)?
+                .takeUnretainedValue() as? [NSObject] else {
+            return nil
+        }
+
+        let bounds = view.bounds
+        return regions
+            .filter { $0.value(forKey: "active") as? Bool ?? false }
+            .compactMap { ($0.value(forKey: "frame") as? NSValue)?.cgRectValue }
+            .first { $0.width > $0.height && $0.minY > bounds.minY && $0.maxY < bounds.maxY }
+    }
+
+    private func updateTabletopLayout() {
+        let foldFrame = tabletopFoldFrame
+        let videoAreaBottomConstant = foldFrame.map { $0.minY - view.bounds.maxY } ?? 0
+        let navigationBarTopConstant = foldFrame.map {
+            $0.maxY + VideoPlayerViewController.mediaNavigationBarTopPadding
+        } ?? 0
+
+        if videoAreaBottomConstraint.constant != videoAreaBottomConstant {
+            videoAreaBottomConstraint.constant = videoAreaBottomConstant
+        }
+
+        if mediaNavigationBarTabletopTopConstraint.constant != navigationBarTopConstant {
+            mediaNavigationBarTabletopTopConstraint.constant = navigationBarTopConstant
+        }
+
+        let isTabletop = foldFrame != nil
+        guard isTabletop != isTabletopLayout else {
+            return
+        }
+
+        isTabletopLayout = isTabletop
+        if isTabletop {
+            NSLayoutConstraint.deactivate([mediaNavigationBarTopConstraint] + regularSliderConstraints)
+            NSLayoutConstraint.activate([mediaNavigationBarTabletopTopConstraint] + tabletopSliderConstraints)
+        } else {
+            NSLayoutConstraint.deactivate([mediaNavigationBarTabletopTopConstraint] + tabletopSliderConstraints)
+            NSLayoutConstraint.activate([mediaNavigationBarTopConstraint] + regularSliderConstraints)
+        }
+    }
+#endif
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -534,6 +620,7 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func setupConstraints() {
+        setupVideoAreaLayoutGuide()
         setupVideoOutputConstraints()
         setupArtworkConstraints()
         setupSwitchControlUtilityConstraints()
@@ -593,7 +680,7 @@ class VideoPlayerViewController: PlayerViewController {
         let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
         let topConstraint = slider.topAnchor.constraint(greaterThanOrEqualTo: mediaNavigationBar.bottomAnchor, constant: 10)
         let bottomConstraint = slider.bottomAnchor.constraint(lessThanOrEqualTo: mediaScrubProgressBar.topAnchor, constant: -16)
-        let yConstraint = slider.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let yConstraint = slider.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
         heightConstraint.priority = .required
         topConstraint.priority = .required
         bottomConstraint.priority = .required
@@ -605,6 +692,12 @@ class VideoPlayerViewController: PlayerViewController {
             slider.widthAnchor.constraint(equalToConstant: 50),
             yConstraint,
         ])
+
+        regularSliderConstraints.append(topConstraint)
+        tabletopSliderConstraints.append(contentsOf: [
+            slider.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            slider.bottomAnchor.constraint(lessThanOrEqualTo: videoAreaLayoutGuide.bottomAnchor, constant: -16),
+        ])
     }
 
     // MARK: - Private helpers
@@ -612,20 +705,34 @@ class VideoPlayerViewController: PlayerViewController {
 #if os(iOS)
     private func setupBrightnessControlConstraints() {
         setupCommonSliderConstraints(for: brightnessControlView)
+        let belowOptionsConstraint = brightnessControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
+        regularSliderConstraints.append(belowOptionsConstraint)
         NSLayoutConstraint.activate([
             brightnessControlView.leadingAnchor.constraint(equalTo: mediaScrubProgressBar.leadingAnchor),
-            brightnessControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
+            belowOptionsConstraint
         ])
     }
 
     private func setupVolumeControlConstraints() {
         setupCommonSliderConstraints(for: volumeControlView)
+        let belowOptionsConstraint = volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
+        regularSliderConstraints.append(belowOptionsConstraint)
         NSLayoutConstraint.activate([
             volumeControlView.trailingAnchor.constraint(equalTo: mediaScrubProgressBar.trailingAnchor),
-            volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
+            belowOptionsConstraint
         ])
     }
 #endif
+
+    private func setupVideoAreaLayoutGuide() {
+        view.addLayoutGuide(videoAreaLayoutGuide)
+        NSLayoutConstraint.activate([
+            videoAreaLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            videoAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            videoAreaLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
+            videoAreaBottomConstraint,
+        ])
+    }
 
     private func setupVideoOutputConstraints() {
         videoOutputViewLeadingConstraint = videoOutputView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
@@ -634,8 +741,8 @@ class VideoPlayerViewController: PlayerViewController {
         NSLayoutConstraint.activate([
             videoOutputViewLeadingConstraint,
             videoOutputViewTrailingConstraint,
-            videoOutputView.topAnchor.constraint(equalTo: view.topAnchor),
-            videoOutputView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            videoOutputView.topAnchor.constraint(equalTo: videoAreaLayoutGuide.topAnchor),
+            videoOutputView.bottomAnchor.constraint(equalTo: videoAreaLayoutGuide.bottomAnchor),
         ])
     }
 
@@ -652,7 +759,7 @@ class VideoPlayerViewController: PlayerViewController {
         NSLayoutConstraint.activate([
             switchControlUtility.heightAnchor.constraint(equalToConstant: 44),
             switchControlUtility.widthAnchor.constraint(equalToConstant: 44),
-            switchControlUtility.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            switchControlUtility.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor),
             switchControlUtility.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
@@ -661,19 +768,18 @@ class VideoPlayerViewController: PlayerViewController {
         NSLayoutConstraint.activate([
             externalVideoOutputView.heightAnchor.constraint(equalToConstant: 320),
             externalVideoOutputView.widthAnchor.constraint(equalToConstant: 320),
-            externalVideoOutputView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            externalVideoOutputView.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor),
             externalVideoOutputView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
     private func setupMediaNavigationBarConstraints() {
-        let padding: CGFloat = 16
+        let padding: CGFloat = VideoPlayerViewController.mediaNavigationBarTopPadding
         NSLayoutConstraint.activate([
             mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor, constant: -8),
             mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor, constant: 8),
-            mediaNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                                    constant: padding),
+            mediaNavigationBarTopConstraint,
             optionsNavigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
         ])
@@ -708,7 +814,7 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupStatusLabelConstraints() {
         NSLayoutConstraint.activate([
             statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            statusLabel.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
         ])
     }
 
