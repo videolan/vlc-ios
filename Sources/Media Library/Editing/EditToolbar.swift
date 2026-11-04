@@ -52,6 +52,12 @@ class EditToolbar: UIView {
         return addToPlaylistButton
     }()
 
+    private static let stackViewLeadingPadding: CGFloat = 20
+    private static let stackViewTrailingPadding: CGFloat = 10
+
+    private var showsAddToPlaylistIcon = false
+    private lazy var addToPlaylistIconWidthConstraint = addToPlaylistButton.widthAnchor.constraint(equalToConstant: 44)
+
     private(set) var addToMediaGroupButton: UIButton!
     private var removeFromMediaGroupButton: UIButton!
     private var renameButton: UIButton!
@@ -146,6 +152,44 @@ class EditToolbar: UIView {
                 break
             }
         }
+
+        setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        updateAddToPlaylistButtonStyle()
+        super.layoutSubviews()
+    }
+
+    private func updateAddToPlaylistButtonStyle() {
+        let availableWidth = bounds.intersection(safeAreaLayoutGuide.layoutFrame).width
+            - EditToolbar.stackViewLeadingPadding - EditToolbar.stackViewTrailingPadding
+
+        guard availableWidth > 0 else {
+            return
+        }
+
+        let title = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
+        let font = addToPlaylistButton.titleLabel?.font ?? UIFont.preferredCustomFont(forTextStyle: .headline)
+        let titleWidth = ceil((title as NSString).size(withAttributes: [.font: font]).width)
+        let buttonsWidth = rightStackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
+        let showsIcon = titleWidth + buttonsWidth > availableWidth
+
+        guard showsIcon != showsAddToPlaylistIcon else {
+            return
+        }
+
+        showsAddToPlaylistIcon = showsIcon
+        if showsIcon {
+            addToPlaylistButton.setTitle(nil, for: .normal)
+            addToPlaylistButton.setImage(UIImage(named: "Playlist"), for: .normal)
+            addToPlaylistButton.contentHorizontalAlignment = .center
+        } else {
+            addToPlaylistButton.setImage(nil, for: .normal)
+            addToPlaylistButton.setTitle(title, for: .normal)
+            addToPlaylistButton.contentHorizontalAlignment = .left
+        }
+        addToPlaylistIconWidthConstraint.isActive = showsIcon
     }
 
     private func setupRightStackView() {
@@ -189,10 +233,25 @@ class EditToolbar: UIView {
         stackView.addArrangedSubview(rightStackView)
 
         addSubview(stackView)
-        NSLayoutConstraint.activate([
+
+        let leadingPadding = EditToolbar.stackViewLeadingPadding
+        let trailingPadding = EditToolbar.stackViewTrailingPadding
+        let preferredEdgeConstraints = [
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: leadingPadding),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingPadding),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -trailingPadding),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -trailingPadding)
+        ]
+        preferredEdgeConstraints.forEach { $0.priority = .defaultHigh }
+
+        NSLayoutConstraint.activate(preferredEdgeConstraints + [
             stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor,
+                                               constant: leadingPadding),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: leadingPadding),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor,
+                                                constant: -trailingPadding),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -trailingPadding),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
