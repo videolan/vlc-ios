@@ -65,8 +65,10 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
         self.title = NSLocalizedString(@"ONAIR", nil);
 
         UIImage *tabImage = [UIImage systemImageNamed:@"dot.radiowaves.right"];
+        UIImage *greyTabImage = [tabImage imageWithTintColor:PresentationTheme.current.colors.tabBarIconColor
+                                               renderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"ONAIR", nil)
-                                                        image:tabImage
+                                                        image:greyTabImage
                                                 selectedImage:tabImage];
         self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.onAir;
 
