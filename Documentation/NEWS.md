@@ -7,37 +7,13 @@ Known issues:
 · Files stored in Google Drive fail to stream, download them instead
 · Chromecast fails to connect and render
 
-New features since beta 3:
-· Add a VLC menu to the navigation bar with settings, help, donations and information about the app
-· Podcasts: add a directory of shows from the Podcast Index and an episode screen with seekable show notes
-· Podcasts: refresh in the background, download new episodes on Wi-Fi, subscribe from feed links and RSS or OPML files
-· On Air: continue the last played episode or station and list recently played stations, also in CarPlay
-· Player: redesigned playback speed, sleep timer, equalizer and video filter controls
-· Player: sync audio and subtitles with sync marks or the G, H, J and K keys, remember delays and speed per media
-· Player: add a favorite button for radio stations
-· Player: make the seek bar and the sliders adjustable with VoiceOver
-· Mini player: swipe right for the next item and left for the previous one
-· Media library: enqueue and delete albums and artists with a swipe
-· Media library: offer to email a report to support when the database is corrupted
-· Add a quick action to resume the last played media
-· Downloads: ask for credentials when the server requires authentication
-· Media library: search the whole Audio or Video tab, manage external folders, rebuild a corrupted database automatically
-· Playlists: create from the media views, reorder with drag and drop
-· Podcasts: choose how many episodes each show downloads, mark as played from Continue Listening
-· CarPlay: show Streams as an On Air grid that includes podcasts
-· Import folders from the share extension, add subtitle files to the current playback
+New features since beta 4:
+· Podcasts: list and stream a show's recent episodes from the directory, search in place, pick the directory language from a redesigned list
+· On Air: add an add tile to the podcasts rail, open the RSS feed prompt directly from Paste RSS, add section headers to the radio rails
+· Support the layout of the unfolded iPhone Duo in the library, the player and the edit toolbar
 
-Bug fixes since beta 3:
-· Siri and Shortcuts: fix playback not starting while VLC is in the background or the device is locked
-· Lock screen: no longer reveal the playing media while a passcode is set
-· Radio: play the selected station only instead of queuing its entire country
-· Player: fix brightness and volume gestures while the controls are hidden, keep the brightness for audio
-· Fix crashes in CarPlay with deeply nested folders and when toggling Wi-Fi Sharing
-· Media library: fix searching inside albums and playlists
-· Numerous fixes to shuffle, CarPlay, the landscape layout, the software keyboard, dark mode and localization
-· Fix passcode locking, podcast caching and resume, and equalizer preamp levels
-· Fix Dropbox, OneDrive and Wi-Fi Sharing issues
-· Fix a shuffle problem and theming on iOS 26
+Bug fixes since beta 4:
+· Fix pagination in the sectioned song list and the player swipe gestures
 
 ---
 
