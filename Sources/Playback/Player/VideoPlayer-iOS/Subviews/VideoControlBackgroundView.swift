@@ -14,9 +14,16 @@ import UIKit
 
 /// A glass capsule with dark blur or solid fill fallbacks.
 final class VideoControlBackgroundView: UIVisualEffectView {
+    private static let legacyMaterialInset: CGFloat = 6
+
     private let isInteractive: Bool
     private var visibleEffect: UIVisualEffect?
     private var isVisible = true
+    private let legacyMaterialMask: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
+    }()
 
     init(isInteractive: Bool = false) {
         self.isInteractive = isInteractive
@@ -45,7 +52,10 @@ final class VideoControlBackgroundView: UIVisualEffectView {
             return
         }
 #endif
-        layer.cornerRadius = min(bounds.width, bounds.height) / 2
+        let materialFrame = bounds.insetBy(dx: Self.legacyMaterialInset, dy: Self.legacyMaterialInset)
+        legacyMaterialMask.frame = materialFrame
+        legacyMaterialMask.layer.cornerRadius = min(materialFrame.width, materialFrame.height) / 2
+        mask = legacyMaterialMask
     }
 
     @objc private func updateBackgroundStyle() {
