@@ -2,7 +2,7 @@
  * VLCSlider.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,7 +13,7 @@
 #import "OBSlider.h"
 
 @interface VLCOBSlider : OBSlider
-
+@property (nonatomic) BOOL seekOnTap;
 @end
 
 @interface VLCSlider : UISlider

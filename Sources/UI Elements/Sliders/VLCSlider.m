@@ -2,7 +2,7 @@
  * VLCSlider.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,12 +14,43 @@
 #import "VLC-Swift.h"
 
 @implementation VLCOBSlider
+{
+    UITapGestureRecognizer *_seekTapRecognizer;
+}
 
 - (void)awakeFromNib
 {
     self.accessibilityLabel = NSLocalizedString(@"PLAYBACK_POSITION", nil);
     [self setThumbImage:[UIImage imageNamed:@"sliderKnob"] forState:UIControlStateNormal];
     [super awakeFromNib];
+}
+
+- (void)setSeekOnTap:(BOOL)seekOnTap
+{
+    _seekOnTap = seekOnTap;
+    if (!_seekTapRecognizer) {
+        _seekTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        _seekTapRecognizer.cancelsTouchesInView = NO;
+        [self addGestureRecognizer:_seekTapRecognizer];
+    }
+    _seekTapRecognizer.enabled = seekOnTap;
+}
+
+- (void)didTap:(UITapGestureRecognizer *)recognizer
+{
+    if (!self.enabled)
+        return;
+
+    CGRect bounds = self.bounds;
+    CGRect trackRect = [self trackRectForBounds:bounds];
+    CGFloat startX = CGRectGetMidX([self thumbRectForBounds:bounds trackRect:trackRect value:self.minimumValue]);
+    CGFloat endX = CGRectGetMidX([self thumbRectForBounds:bounds trackRect:trackRect value:self.maximumValue]);
+    if (endX <= startX)
+        return;
+
+    CGFloat fraction = MIN(MAX(([recognizer locationInView:self].x - startX) / (endX - startX), 0.), 1.);
+    self.value = self.minimumValue + fraction * (self.maximumValue - self.minimumValue);
+    [self sendActionsForControlEvents:UIControlEventPrimaryActionTriggered];
 }
 
 @end

@@ -42,6 +42,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpOutside)
         slider.addTarget(self, action: #selector(updateScrubLabel), for: .touchDragInside)
         slider.addTarget(self, action: #selector(updateScrubLabel), for: .touchDragOutside)
+        slider.addTarget(self, action: #selector(handleSeekTap), for: .primaryActionTriggered)
         return slider
     }()
     
@@ -355,6 +356,8 @@ private extension MediaScrubProgressBar {
         elapsedTimeLabel.font = .monospacedDigitSystemFont(ofSize: pointSize, weight: .semibold)
         remainingTimeButton.titleLabel?.font = .monospacedDigitSystemFont(ofSize: pointSize, weight: .semibold)
 
+        progressSlider.seekOnTap = true
+
         let rowViews: [UIView] = [elapsedTimeLabel, progressSlider, remainingTimeButton, liveLabel]
         for view in rowViews {
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -488,6 +491,16 @@ private extension MediaScrubProgressBar {
     @objc private func progressSliderTouchUp() {
         isScrubbing = false
         scrubInfoStackView.isHidden = shouldHideScrubLabels ? true : !isScrubbing
+    }
+
+    @objc private func handleSeekTap() {
+        let duration = Float(playbackService.mediaDuration)
+        guard duration > 0 else {
+            progressSlider.value = playbackService.playbackPosition
+            return
+        }
+
+        updateSliderWithValue(value: progressSlider.value * duration)
     }
 
     @objc private func handleWillResignActive() {
