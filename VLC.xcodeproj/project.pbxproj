@@ -9521,7 +9521,7 @@
 			repositoryURL = "https://code.videolan.org/videolan/VLCKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = "4.0.0-a25";
+				version = "4.0.0-a26";
 			};
 		};
 		7DE88F7D300E413200C3F238 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */ = {
