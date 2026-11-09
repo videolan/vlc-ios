@@ -5,6 +5,7 @@
  *
  * Authors: Robert Gordon <robwaynegordon # gmail.com>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -166,6 +167,15 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return airplayVolumeView
     }()
 
+    private let outputControls = PlayerControlGroupView(arrangedSubviews: [])
+
+    private lazy var closeButtonBackground: VideoControlBackgroundView = {
+        let background = VideoControlBackgroundView()
+        background.isUserInteractionEnabled = false
+        background.translatesAutoresizingMaskIntoConstraints = false
+        return background
+    }()
+
     // MARK: - Initializers
 
     required init(coder: NSCoder) {
@@ -195,20 +205,26 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     func addMoreOptionsButton(_ button: UIButton) {
-        addArrangedSubview(button)
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalTo: heightAnchor)
-        ])
+        outputControls.addArrangedSubview(button)
     }
 
 #if os(iOS)
     func addPictureInPictureButton() {
-        addArrangedSubview(pictureInPictureButton)
-        NSLayoutConstraint.activate([
-            pictureInPictureButton.widthAnchor.constraint(equalTo: heightAnchor)
-        ])
+        outputControls.addArrangedSubview(pictureInPictureButton)
     }
 #endif
+
+    /// Call inside an animation block; keep this view and its ancestors at alpha 1.
+    func setControlsVisible(_ visible: Bool) {
+        isUserInteractionEnabled = visible
+        accessibilityElementsHidden = !visible
+        let alpha: CGFloat = visible ? 1 : 0
+        for view in arrangedSubviews where view !== outputControls {
+            view.alpha = alpha
+        }
+        outputControls.setVisible(visible)
+        closeButtonBackground.setVisible(visible)
+    }
 
     func updateDeviceButton(with image: UIImage?, color: UIColor) {
 #if os(iOS)
@@ -218,22 +234,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     private func setupContraints() {
-#if os(iOS)
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            favoriteButton.widthAnchor.constraint(equalTo: heightAnchor),
-            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
+            closeButtonBackground.centerXAnchor.constraint(equalTo: closePlaybackButton.centerXAnchor),
+            closeButtonBackground.centerYAnchor.constraint(equalTo: closePlaybackButton.centerYAnchor),
+            closeButtonBackground.widthAnchor.constraint(equalToConstant: 44),
+            closeButtonBackground.heightAnchor.constraint(equalToConstant: 44),
         ])
-#else
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 44),
-            closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            favoriteButton.widthAnchor.constraint(equalTo: heightAnchor),
-            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-        ])
-#endif
     }
 
     private func setupViews() {
@@ -243,13 +251,17 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
         setupRotateButtonIfNeeded()
-        addArrangedSubview(favoriteButton)
-        addArrangedSubview(queueButton)
+
 #if os(iOS)
-        addArrangedSubview(deviceButton)
+        let outputButtons: [UIView] = [favoriteButton, queueButton, deviceButton]
 #else
-        addArrangedSubview(airplayVolumeView)
+        let outputButtons: [UIView] = [favoriteButton, queueButton, airplayVolumeView]
 #endif
+        insertSubview(closeButtonBackground, belowSubview: closePlaybackButton)
+        setCustomSpacing(12, after: closePlaybackButton)
+        outputButtons.forEach(outputControls.addArrangedSubview)
+        outputControls.setContentHuggingPriority(.required, for: .horizontal)
+        addArrangedSubview(outputControls)
     }
 
     private func setupRotateButtonIfNeeded() {

@@ -336,16 +336,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var isScrubProgressBarAboveRow = false
 
-    // Bottom-bar icons sit 10pt inside their buttons.
-    private static let controlsIconInset: CGFloat = 10
-
-    private lazy var closeButtonBackground: VideoControlBackgroundView = {
-        let background = VideoControlBackgroundView()
-        background.isUserInteractionEnabled = false
-        background.translatesAutoresizingMaskIntoConstraints = false
-        return background
-    }()
-
     // MARK: - Init methods
 
 #if os(iOS)
@@ -582,9 +572,6 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(videoPlayerControls.transportControls)
         view.addSubview(statusLabel)
         view.addSubview(longPressPlaybackSpeedView)
-        // Keep glass outside the navigation bar's alpha animation.
-        view.insertSubview(closeButtonBackground, belowSubview: mediaNavigationBar)
-        mediaNavigationBar.setCustomSpacing(8, after: mediaNavigationBar.closePlaybackButton)
 
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
@@ -846,13 +833,8 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = VideoPlayerViewController.mediaNavigationBarTopPadding
         NSLayoutConstraint.activate([
-            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor,
-                                                        constant: Self.controlsIconInset),
+            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor),
             mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor),
-            closeButtonBackground.centerXAnchor.constraint(equalTo: mediaNavigationBar.closePlaybackButton.centerXAnchor),
-            closeButtonBackground.centerYAnchor.constraint(equalTo: mediaNavigationBar.closePlaybackButton.centerYAnchor),
-            closeButtonBackground.widthAnchor.constraint(equalToConstant: 44),
-            closeButtonBackground.heightAnchor.constraint(equalToConstant: 44),
             mediaNavigationBarTopConstraint,
             optionsNavigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
@@ -1199,8 +1181,7 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
         let animations = { [weak self, playerController] in
-            self?.mediaNavigationBar.alpha = uiComponentOpacity
-            self?.closeButtonBackground.setVisible(!hidden)
+            self?.mediaNavigationBar.setControlsVisible(!hidden)
             self?.optionsNavigationBar.alpha = uiComponentOpacity
 #if os(iOS)
             self?.volumeControlView.setVisible(!hidden && playerController.isVolumeGestureEnabled)
