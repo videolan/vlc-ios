@@ -166,13 +166,15 @@ class VideoPlayerViewController: PlayerViewController {
         let topBottomBackgroundGradientLayer = CAGradientLayer()
 
         topBottomBackgroundGradientLayer.frame = self.view.bounds
-        topBottomBackgroundGradientLayer.colors = [UIColor.black.cgColor,
+        topBottomBackgroundGradientLayer.colors = [UIColor.black.withAlphaComponent(0.5).cgColor,
                                                    UIColor.clear.cgColor,
                                                    UIColor.clear.cgColor,
-                                                   UIColor.black.cgColor]
-        topBottomBackgroundGradientLayer.locations = [0, 0.3, 0.7, 1]
+                                                   UIColor.black.withAlphaComponent(0.55).cgColor]
         return topBottomBackgroundGradientLayer
     }()
+
+    private static let topScrimHeight: CGFloat = 120
+    private static let bottomScrimHeight: CGFloat = 150
 
     private lazy var backgroundGradientView: UIView = {
         let backgroundGradientView = UIView()
@@ -426,6 +428,12 @@ class VideoPlayerViewController: PlayerViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         topBottomBackgroundGradientLayer.frame = self.view.bounds
+        let height = view.bounds.height
+        if height > 0 {
+            let topScrimEnd = min(VideoPlayerViewController.topScrimHeight / height, 0.5)
+            let bottomScrimStart = max(1 - VideoPlayerViewController.bottomScrimHeight / height, 0.5)
+            topBottomBackgroundGradientLayer.locations = [0, topScrimEnd as NSNumber, bottomScrimStart as NSNumber, 1]
+        }
 #if os(iOS)
         brightnessBackgroundGradientLayer.frame = self.view.bounds
         volumeBackgroundGradientLayer.frame = self.view.bounds
