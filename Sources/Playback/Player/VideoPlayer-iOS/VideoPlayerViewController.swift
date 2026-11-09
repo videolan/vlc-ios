@@ -559,6 +559,7 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(switchControlUtility)
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
+        setupMoreOptionsMenu()
         view.addSubview(mediaScrubProgressBar)
         view.addSubview(videoOutputView)
 #if os(iOS)
@@ -1172,6 +1173,9 @@ class VideoPlayerViewController: PlayerViewController {
             alert.dismiss(animated: true, completion: nil)
             alertController = nil
         }
+        if hidden {
+            videoPlayerControls.moreActionsButton.contextMenuInteraction?.dismissMenu()
+        }
         let uiComponentOpacity: CGFloat = hidden ? 0 : 1
 
         var qvcHidden = true
@@ -1639,6 +1643,19 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
     func mediaScrubProgressBarShouldResetIdleTimer() {
+        resetIdleTimer()
+    }
+}
+
+// MARK: - MenuButtonDelegate
+
+extension VideoPlayerViewController: MenuButtonDelegate {
+    func menuButtonWillShowMenu(_ menuButton: MenuButton) {
+        idleTimer?.invalidate()
+        idleTimer = nil
+    }
+
+    func menuButtonDidHideMenu(_ menuButton: MenuButton) {
         resetIdleTimer()
     }
 }

@@ -571,7 +571,7 @@ class EqualizerView: UIView {
         UIAccessibility.post(notification: .announcement, argument: presetButton.configuration?.title)
     }
 
-    private static func presetName(for selectedProfile: IndexPath,
+    static func presetName(for selectedProfile: IndexPath,
                                    presets: [VLCAudioEqualizer.Preset],
                                    customProfileNames: [String]) -> String {
         if selectedProfile.section == 1 {

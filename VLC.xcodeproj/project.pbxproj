@@ -1366,6 +1366,9 @@
 		7DE6F3BB30A21EA30048DC15 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BA30A21EA30048DC15 /* MenuButton.swift */; };
 		7DE6F3BC30A21EA30048DC15 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BA30A21EA30048DC15 /* MenuButton.swift */; };
 		7DE6F3BD30A21EA30048DC15 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BA30A21EA30048DC15 /* MenuButton.swift */; };
+		7DE6F3BF30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BE30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift */; };
+		7DE6F3C030A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BE30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift */; };
+		7DE6F3C130A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6F3BE30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift */; };
 		7DE88F7F300E419700C3F238 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE88F7E300E419700C3F238 /* InAppSettingsKit */; };
 		7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
 		7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */; };
@@ -2531,6 +2534,7 @@
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackService.m; path = Sources/Playback/Control/VLCPlaybackService.m; sourceTree = SOURCE_ROOT; };
 		7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMediaLibraryObserver.swift; sourceTree = "<group>"; };
 		7DE6F3BA30A21EA30048DC15 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		7DE6F3BE30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerViewController+MoreOptionsMenu.swift"; sourceTree = "<group>"; };
 		7DEBF3761C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoSubtitlesFetcherViewController.h; sourceTree = "<group>"; };
 		7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoSubtitlesFetcherViewController.m; sourceTree = "<group>"; };
 		7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFullscreenMovieTVViewController.h; sourceTree = "<group>"; };
@@ -4896,6 +4900,7 @@
 				8DB0D71824CED15C00915506 /* VideoPlayerControls.swift */,
 				8D9F1F9E24938B680074BDBB /* VideoPlayerViewController.swift */,
 				8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */,
+				7DE6F3BE30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift */,
 				91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */,
 				597B403E2625E85000C0D81E /* SliderInfoView.swift */,
 				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
@@ -6279,6 +6284,7 @@
 				7D50C6392BBD20DF00B9F1A0 /* UIViewController+VLCAlert.m in Sources */,
 				7D50C63A2BBD20DF00B9F1A0 /* UIImage+AverageColor.m in Sources */,
 				7D4BE50A301A3ED900277F3E /* VLCBrowseSharingCell.m in Sources */,
+				7DE6F3C030A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */,
 				7D50C63B2BBD20DF00B9F1A0 /* VLCFirstStepsViewController.m in Sources */,
 				7D69050D30A36AE200D1B543 /* VLCArrangementViewController.m in Sources */,
 				7D50C63C2BBD20DF00B9F1A0 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
@@ -6607,6 +6613,7 @@
 				7DD3235F3001432B00C9A583 /* VLCCarPlayAlbumsController.m in Sources */,
 				7D1E447F3018CA6C003E1452 /* VLCOnAirViewController.m in Sources */,
 				7D1E44803018CA6C003E1452 /* VLCOnAirContinueCell.m in Sources */,
+				7DE6F3C130A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */,
 				7D1E44813018CA6C003E1452 /* VLCOnAirRailCell.m in Sources */,
 				7D1E44833018CA6C003E1452 /* VLCOnAirPromptCell.m in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
@@ -7150,6 +7157,7 @@
 				7DA515022EF82B63000C9995 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				7DA515032EF82B63000C9995 /* VLCPlexWebAPI.m in Sources */,
 				7D1318A830090DC600B9E7E0 /* MiniPlayerZoomTransition.swift in Sources */,
+				7DE6F3BF30A2200E0048DC15 /* VideoPlayerViewController+MoreOptionsMenu.swift in Sources */,
 				7DA515042EF82B63000C9995 /* VLCDonationNagScreenViewController.m in Sources */,
 				7DA515052EF82B63000C9995 /* ButtonBarView.swift in Sources */,
 				7DA515062EF82B63000C9995 /* MediaPlayerActionSheet.swift in Sources */,

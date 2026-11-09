@@ -132,12 +132,4 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
             videoPlayerControls.shuffleButton.tintColor = PresentationTheme.current.colors.orangeUI
         }
     }
-
-    func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls) {
-        present(moreOptionsActionSheet, animated: false) {
-            [unowned self] in
-            self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
-            self.moreOptionsActionSheet.hidePlayer()
-        }
-    }
 }

@@ -1,7 +1,7 @@
 /*****************************************************************************
  * MediaMoreOptionsActionSheet.swift
  *
- * Copyright © 2019-2022 VLC authors and VideoLAN
+ * Copyright © 2019-2026 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
  *          Maxime Chapelet <umxprime # videolabs.io>
@@ -96,7 +96,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return addBookmarksView
     }()
 
-    private lazy var abRepeatView: ABRepeatView = {
+    private(set) lazy var abRepeatView: ABRepeatView = {
         let abRepeatView = ABRepeatView(frame: CGRect(x: 0, y: 0, width: 500, height: 100))
         abRepeatView.delegate = self
         return abRepeatView
@@ -182,6 +182,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func renameBookmarkAt(name: String, row: Int) {
         bookmarksView.renameBookmarkAt(name: name, row: row)
+    }
+
+    func addBookmarkAtCurrentTime() {
+        bookmarksView.addBookmark()
     }
 }
 

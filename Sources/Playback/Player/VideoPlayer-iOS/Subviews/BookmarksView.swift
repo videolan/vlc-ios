@@ -1,8 +1,8 @@
 /*****************************************************************************
  * BookmarksView.swift
  *
- * Copyright © 2022 VLC authors and VideoLAN
- * Copyright © 2022 Videolabs
+ * Copyright © 2022-2026 VLC authors and VideoLAN
+ * Copyright © 2022-2026 Videolabs
  *
  * Authors: Diogo Simao Marques <diogo.simaomarquespro@gmail.com>
  *
@@ -110,7 +110,7 @@ class BookmarksView: UIView {
         addBookmarkAtTimeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
-    @objc private func addBookmark() {
+    @objc func addBookmark() {
         if let currentMedia = delegate?.bookmarksViewGetCurrentPlayingMedia() {
             let playbackService = PlaybackService.sharedInstance()
             let currentTime = playbackService.playedTime()

@@ -33,7 +33,6 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidLongPressAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapRotate(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls)
 }
@@ -141,8 +140,17 @@ class VideoPlayerControls: UIView {
         return button
     }()
 
-    private(set) lazy var moreActionsButton = makeBarButton(image: UIImage(named: "iconMoreOptions"),
-                                                            action: #selector(handleMoreActionsButton(_:)))
+    private(set) lazy var moreActionsButton: MenuButton = {
+        let button = MenuButton(type: .custom)
+        button.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
+        button.tintColor = .white
+        button.overrideUserInterfaceStyle = .dark
+        button.showsMenuAsPrimaryAction = true
+        if #available(iOS 16.0, *) {
+            button.preferredMenuElementOrder = .fixed
+        }
+        return button
+    }()
 
     private(set) lazy var rightControls = PlayerControlGroupView(arrangedSubviews: [shuffleButton,
                                                                                     aspectRatioButton,
@@ -480,10 +488,6 @@ extension VideoPlayerControls {
 
     @objc func handleRotateButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapRotate(self)
-    }
-
-    @objc func handleMoreActionsButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelegateDidMoreActions(self)
     }
 
     @objc func handleShuffleButton(_ sender: Any) {

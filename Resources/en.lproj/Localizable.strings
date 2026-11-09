@@ -665,8 +665,10 @@
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
 "MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
+"MORE_OPTIONS_NAVIGATION" = "Navigation";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"ADD_BOOKMARK" = "Add Bookmark";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_PLACEHOLDER" = "Bookmark title";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
