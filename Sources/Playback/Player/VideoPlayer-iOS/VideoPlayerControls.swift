@@ -15,7 +15,6 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     // MARK: - Left Controls
 
     func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls)
 
     // MARK: - Main Controls
@@ -47,8 +46,6 @@ class VideoPlayerControls: UIView {
     @IBOutlet weak var leftControls: UIStackView!
 
     @IBOutlet weak var subtitleButton: UIButton!
-    
-    @IBOutlet weak var dvdButton: UIButton!
 
     @IBOutlet weak var rotationLockButton: UIButton!
 
@@ -143,11 +140,6 @@ class VideoPlayerControls: UIView {
         subtitleButton.accessibilityHint = NSLocalizedString("SUBTITLE_AND_TRACK_HINT",
                                                              comment: "")
 
-        dvdButton.accessibilityLabel = NSLocalizedString("DVD_BUTTON",
-                                                         comment: "")
-        dvdButton.accessibilityHint = NSLocalizedString("DVD_HINT",
-                                                        comment: "")
-
         rotationLockButton.accessibilityLabel = NSLocalizedString("ROTATION_LOCK_BUTTON",
                                                                   comment: "")
         rotationLockButton.accessibilityHint = NSLocalizedString("ROTATION_LOCK_HINT",
@@ -216,7 +208,6 @@ class VideoPlayerControls: UIView {
         )
         applyAccessibilityControls(
             rotationLockButton,
-            dvdButton,
             subtitleButton,
             repeatButton,
             shuffleButton,
@@ -362,7 +353,6 @@ class VideoPlayerControls: UIView {
 
     func shouldDisableControls(_ disable: Bool) {
         subtitleButton.isEnabled = !disable
-        dvdButton.isEnabled = !disable
         rotationLockButton.isEnabled = !disable
         repeatButton.isEnabled = !disable
         backwardButton.isEnabled = !disable
@@ -382,10 +372,6 @@ class VideoPlayerControls: UIView {
 extension VideoPlayerControls {
     @IBAction func handleSubtitleButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapSubtitle(self)
-    }
-
-    @IBAction func handleDVDButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelegateDidTapDVD(self)
     }
 
     @IBAction func handleRotationLockButton(_ sender: Any) {

@@ -2,8 +2,8 @@
  * VideoPlayerViewController+ControlsDelegate.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2020 VideoLAN. All rights reserved.
- * Copyright © 2020 Videolabs
+ * Copyright © 2020-2026 VideoLAN. All rights reserved.
+ * Copyright © 2020-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
@@ -42,10 +42,6 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.toggleRepeatMode()
         self.playModeUpdated()
-    }
-
-    func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
-        // Not DVD support yet.
     }
 
     func getInterfaceOrientationMask(orientation: UIInterfaceOrientation) -> UIInterfaceOrientationMask {

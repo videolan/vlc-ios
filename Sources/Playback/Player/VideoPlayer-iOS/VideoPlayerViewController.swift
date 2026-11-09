@@ -1352,7 +1352,6 @@ class VideoPlayerViewController: PlayerViewController {
         videoPlayerControls.subtitleButton.isEnabled = enabled
         videoPlayerControls.shuffleButton.isEnabled = enabled
         videoPlayerControls.repeatButton.isEnabled = enabled
-        videoPlayerControls.dvdButton.isEnabled = enabled
         videoPlayerControls.rotationLockButton.isEnabled = enabled
         videoPlayerControls.backwardButton.isEnabled = enabled
         videoPlayerControls.previousMediaButton.isEnabled = enabled

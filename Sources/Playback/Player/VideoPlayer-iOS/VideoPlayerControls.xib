@@ -37,17 +37,6 @@
                                         <outletCollection property="gestureRecognizers" destination="lbY-n6-jYe" appends="YES" id="5Yc-Q8-5aD"/>
                                     </connections>
                                 </button>
-                                <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-qU-px8" userLabel="DVD">
-                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="44" id="5iz-gb-AXG"/>
-                                        <constraint firstAttribute="height" constant="44" id="Dfr-es-duj"/>
-                                    </constraints>
-                                    <state key="normal" title="DVD"/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="ftr-HO-OcS" appends="YES" id="99s-5S-pnx"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
                                     <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
@@ -135,7 +124,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="aspectRatioButton" destination="VA6-oF-BG7" id="y6e-y8-fWr"/>
-                <outlet property="dvdButton" destination="0hN-qU-px8" id="5h5-wR-Ohx"/>
                 <outlet property="leftControls" destination="PII-h1-l4a" id="Lc7-qT-m2e"/>
                 <outlet property="moreActionsButton" destination="BVD-eC-bAW" id="LJ1-HL-etY"/>
                 <outlet property="repeatButton" destination="elQ-lM-1p8" id="qyI-dl-pOq"/>
@@ -149,11 +137,6 @@
         <tapGestureRecognizer id="lbY-n6-jYe" userLabel="RotationLockTapGesture">
             <connections>
                 <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" id="4M7-O4-irf"/>
-            </connections>
-        </tapGestureRecognizer>
-        <tapGestureRecognizer id="ftr-HO-OcS" userLabel="DVDTapGesture">
-            <connections>
-                <action selector="handleDVDButton:" destination="Ve6-FF-JXf" id="6EF-b3-pP1"/>
             </connections>
         </tapGestureRecognizer>
         <tapGestureRecognizer id="1vV-VP-Ju1" userLabel="SubtitleTapGesture">
