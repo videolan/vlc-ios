@@ -6,6 +6,7 @@
  * Copyright © 2020-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -39,17 +40,24 @@ protocol VideoPlayerControlsDelegate: AnyObject {
 
 class VideoPlayerControls: UIView {
 
-    // MARK: - IB properties
-
     // MARK: - Left Controls
 
-    @IBOutlet weak var leftControls: UIStackView!
+    private(set) lazy var rotationLockButton = makeBarButton(image: nil,
+                                                             action: #selector(handleRotationLockButton(_:)))
 
-    @IBOutlet weak var subtitleButton: UIButton!
+    private(set) lazy var subtitleButton = makeBarButton(image: UIImage(named: "iconSubtitle"),
+                                                         action: #selector(handleSubtitleButton(_:)))
 
-    @IBOutlet weak var rotationLockButton: UIButton!
+    private(set) lazy var repeatButton: UIButton = {
+        let button = makeBarButton(image: UIImage(named: "iconRepeat"), action: #selector(handleRepeatButton(_:)))
+        button.isHidden = true
+        return button
+    }()
 
-    @IBOutlet weak var repeatButton: UIButton!
+    private(set) lazy var leftControls = PlayerControlGroupView(arrangedSubviews: [rotationLockButton,
+                                                                                   subtitleButton,
+                                                                                   repeatButton])
+
     // MARK: - Main Controls
 
     private(set) lazy var backwardButton = makeTransportButton(systemImageName: "gobackward",
@@ -114,24 +122,60 @@ class VideoPlayerControls: UIView {
 
     // MARK: - Right Controls
 
-    @IBOutlet weak var aspectRatioButton: UIButton!
+    private(set) lazy var shuffleButton: UIButton = {
+        let button = makeBarButton(image: UIImage(named: "shuffle"), action: #selector(handleShuffleButton(_:)))
+        button.isHidden = true
+        return button
+    }()
 
-    @IBOutlet weak var moreActionsButton: UIButton!
+    private(set) lazy var aspectRatioButton = makeBarButton(image: UIImage(named: "aspectRatio"),
+                                                            action: #selector(handleAspectRatioButton(_:)))
 
-    @IBOutlet weak var shuffleButton: UIButton!
+    private(set) lazy var moreActionsButton = makeBarButton(image: UIImage(named: "iconMoreOptions"),
+                                                            action: #selector(handleMoreActionsButton(_:)))
 
-    @IBOutlet weak var rightControls: UIStackView!
+    private(set) lazy var rightControls = PlayerControlGroupView(arrangedSubviews: [shuffleButton,
+                                                                                    aspectRatioButton,
+                                                                                    moreActionsButton])
+
     // MARK: -
 
     weak var delegate: VideoPlayerControlsDelegate?
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    init() {
+        super.init(frame: .zero)
+        setupViews()
+        updateTransportSizeConstraints()
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        updateTransportSizeConstraints()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupViews() {
+        translatesAutoresizingMaskIntoConstraints = false
+        addSubview(leftControls)
+        addSubview(rightControls)
+        NSLayoutConstraint.activate([
+            leftControls.leftAnchor.constraint(equalTo: leftAnchor),
+            leftControls.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rightControls.rightAnchor.constraint(equalTo: rightAnchor),
+            rightControls.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+    }
+
+    private func makeBarButton(image: UIImage?, action: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: action, for: .touchUpInside)
+        return button
+    }
+
+    /// Call inside an animation block; keep this view and its ancestors at alpha 1.
+    func setControlGroupsVisible(_ visible: Bool) {
+        leftControls.setVisible(visible)
+        rightControls.setVisible(visible)
     }
 
     func setupAccessibility() {
@@ -365,19 +409,19 @@ class VideoPlayerControls: UIView {
     }
 }
 
-// MARK: - IB Actions
+// MARK: - Actions
 
 // MARK: - Left Controls
 
 extension VideoPlayerControls {
-    @IBAction func handleSubtitleButton(_ sender: Any) {
+    @objc func handleSubtitleButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapSubtitle(self)
     }
 
-    @IBAction func handleRotationLockButton(_ sender: Any) {
+    @objc func handleRotationLockButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapRotationLock(self)
     }
-    @IBAction func handleRepeatButton(_ sender: Any) {
+    @objc func handleRepeatButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateRepeat(self)
     }
 }
@@ -422,7 +466,7 @@ extension VideoPlayerControls {
 // MARK: - Right Controls
 
 extension VideoPlayerControls {
-    @IBAction func handleAspectRatioButton(_ sender: Any) {
+    @objc func handleAspectRatioButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapAspectRatio(self)
     }
 
@@ -432,11 +476,11 @@ extension VideoPlayerControls {
         }
     }
 
-    @IBAction func handleMoreActionsButton(_ sender: Any) {
+    @objc func handleMoreActionsButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidMoreActions(self)
     }
 
-    @IBAction func handleShuffleButton(_ sender: Any) {
+    @objc func handleShuffleButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateShuffle(self)
     }
 }

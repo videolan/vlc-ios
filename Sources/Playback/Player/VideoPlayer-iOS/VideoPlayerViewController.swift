@@ -113,10 +113,7 @@ class VideoPlayerViewController: PlayerViewController {
     }()
 
     private(set) lazy var videoPlayerControls: VideoPlayerControls = {
-        let videoPlayerControls = Bundle.main.loadNibNamed("VideoPlayerControls",
-                                                           owner: nil,
-                                                           options: nil)?.first as! VideoPlayerControls
-        videoPlayerControls.translatesAutoresizingMaskIntoConstraints = false
+        let videoPlayerControls = VideoPlayerControls()
         videoPlayerControls.setupAccessibility()
         videoPlayerControls.setupLongPressGestureRecognizer()
         videoPlayerControls.delegate = self
@@ -273,8 +270,7 @@ class VideoPlayerViewController: PlayerViewController {
     }()
 
     private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
-        videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                    constant: -5)
+        videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
     }()
 
     private let videoAreaLayoutGuide = UILayoutGuide()
@@ -833,17 +829,23 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func setupVideoPlayerControlsConstraints() {
-        let padding: CGFloat = 8
-        let minPadding: CGFloat = 5
+        let minimumMargin: CGFloat = 16
+        let safeArea = view.safeAreaLayoutGuide
+        let leadingConstraint = videoPlayerControls.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor)
+        let trailingConstraint = videoPlayerControls.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+        leadingConstraint.priority = .defaultHigh
+        trailingConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
             videoPlayerControlsHeightConstraint,
-            videoPlayerControls.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                                                         constant: padding),
-            videoPlayerControls.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                                                          constant: -padding),
-            videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
-                                                       constant: -2 * minPadding),
+            leadingConstraint,
+            trailingConstraint,
+            videoPlayerControls.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor),
+            videoPlayerControls.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor,
+                                                         constant: minimumMargin),
+            videoPlayerControls.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor),
+            videoPlayerControls.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor,
+                                                          constant: -minimumMargin),
             videoPlayerControlsBottomConstraint
         ])
     }
@@ -1162,7 +1164,7 @@ class VideoPlayerViewController: PlayerViewController {
             self?.brightnessControlView.setVisible(!hidden && playerController.isBrightnessGestureEnabled)
 #endif
             if !hidden || qvcHidden {
-                self?.videoPlayerControls.alpha = uiComponentOpacity
+                self?.videoPlayerControls.setControlGroupsVisible(!hidden)
                 self?.videoPlayerControls.setTransportControlsVisible(!hidden)
                 self?.mediaScrubProgressBar.alpha = uiComponentOpacity
             }
