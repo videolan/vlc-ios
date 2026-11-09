@@ -2,8 +2,8 @@
  * VideoPlayerControls.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2020 VideoLAN. All rights reserved.
- * Copyright © 2020 Videolabs
+ * Copyright © 2020-2026 VideoLAN. All rights reserved.
+ * Copyright © 2020-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *
@@ -63,7 +63,8 @@ class VideoPlayerControls: UIView {
 
     private(set) lazy var playPauseButton: WideTouchButton = {
         let button = makeTransportButton(systemImageName: "play.fill",
-                                         action: #selector(handlePlayPauseButton(_:)))
+                                         action: #selector(handlePlayPauseButton(_:)),
+                                         hasGlassBackground: true)
         let longPressGesture = UILongPressGestureRecognizer(target: self,
                                                             action: #selector(handlePlayPauseLongPressButton(_:)))
         longPressGesture.minimumPressDuration = 1
@@ -78,7 +79,9 @@ class VideoPlayerControls: UIView {
     private(set) lazy var forwardButton = makeTransportButton(systemImageName: "goforward",
                                                               action: #selector(handleForwardButton(_:)))
 
-    static let playPauseCircleSize: CGFloat = 81
+    static let playPauseCircleSize: CGFloat = 72
+
+    private static let transportGap: CGFloat = 40
 
     private static let playPauseTouchOutset: CGFloat = 12
 
@@ -241,10 +244,20 @@ class VideoPlayerControls: UIView {
         return UIImage(systemName: "\(name).\(seconds)") ?? UIImage(systemName: name)
     }
 
-    private func makeTransportButton(systemImageName: String, action: Selector) -> WideTouchButton {
+    private func makeTransportButton(systemImageName: String, action: Selector,
+                                     hasGlassBackground: Bool = false) -> WideTouchButton {
         var configuration = Self.transportButtonConfiguration()
         configuration.image = UIImage(systemName: systemImageName)
+        if hasGlassBackground {
+            configuration.background.customView = VideoControlBackgroundView()
+        }
         let button = WideTouchButton(configuration: configuration)
+        if !hasGlassBackground {
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 0, height: 1)
+            button.layer.shadowRadius = 3
+            button.layer.shadowOpacity = 0.45
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
         // Let size constraints override the icon's intrinsic size.
@@ -258,7 +271,6 @@ class VideoPlayerControls: UIView {
         var configuration = UIButton.Configuration.plain()
         configuration.baseForegroundColor = .white
         configuration.cornerStyle = .capsule
-        configuration.background.customView = VideoControlBackgroundView()
         return configuration
     }
 
@@ -277,7 +289,7 @@ class VideoPlayerControls: UIView {
         NSLayoutConstraint.deactivate(transportSizeConstraints)
 
         // Match the 44pt bar above the queue.
-        let buttonSize: CGFloat = isTransportCompact ? 44 : 63
+        let buttonSize: CGFloat = isTransportCompact ? 44 : 56
         let playPauseCircleSize = isTransportCompact ? buttonSize : Self.playPauseCircleSize
         let touchOutset = isTransportCompact ? 0 : Self.playPauseTouchOutset
         playPauseButton.configuration?.background.backgroundInsets = NSDirectionalEdgeInsets(
@@ -285,7 +297,7 @@ class VideoPlayerControls: UIView {
         playPauseButton.horizontalTouchOutset = isTransportCompact ? 0 : Self.playPauseSideTouchOutset - touchOutset
         let iconSize: CGFloat = isTransportCompact ? 20 : 22
         for case let button as UIButton in transportControls.arrangedSubviews {
-            let pointSize = button == playPauseButton && !isTransportCompact ? 29 : iconSize
+            let pointSize = button == playPauseButton && !isTransportCompact ? 26 : iconSize
             button.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(
                 pointSize: pointSize, weight: .semibold)
         }
@@ -297,7 +309,8 @@ class VideoPlayerControls: UIView {
         let minimumSideButtonSize: CGFloat = isTransportCompact ? 32 : 44
         let minimumPlayPauseWidth = playPauseButton.widthAnchor.constraint(
             greaterThanOrEqualToConstant: minimumSideButtonSize / sideButtonRatio + 2 * touchOutset)
-        let preferredWidth = transportControls.widthAnchor.constraint(equalToConstant: isTransportCompact ? 180 : 400)
+        let preferredWidth = transportControls.widthAnchor.constraint(
+            equalToConstant: isTransportCompact ? 180 : 2 * buttonSize + playPauseCircleSize + 2 * Self.transportGap)
         // Close gaps before shrinking buttons.
         preferredWidth.priority = .defaultHigh - 1
 
