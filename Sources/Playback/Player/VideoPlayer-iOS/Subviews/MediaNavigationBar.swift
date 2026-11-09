@@ -90,20 +90,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return queueButton
     }()
 
-    lazy var rotateButton: UIButton = {
-        var rotateButton = UIButton(type: .system)
-        rotateButton.addTarget(self, action: #selector(toggleOrientation), for: .touchDown)
-        rotateButton.setImage(UIImage(named: "rectangle.landscape.rotate"), for: .normal)
-        rotateButton.tintColor = .white
-        rotateButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        rotateButton.accessibilityLabel = NSLocalizedString("ROTATE_BUTTON",
-                                                            comment: "Accessibility label for rotate button on the player")
-        rotateButton.accessibilityHint = NSLocalizedString("ROTATE_BUTTON_HINT",
-                                                           comment: "Accessibility hint for rotate button on the player")
-        rotateButton.isHidden = true
-        return rotateButton
-    }()
-
 #if os(iOS)
     lazy var chromeCastButton: UIButton = {
         var chromeButton = UIButton(type: .system)
@@ -250,7 +236,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
-        setupRotateButtonIfNeeded()
 
 #if os(iOS)
         let outputButtons: [UIView] = [favoriteButton, queueButton, deviceButton]
@@ -262,18 +247,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         outputButtons.forEach(outputControls.addArrangedSubview)
         outputControls.setContentHuggingPriority(.required, for: .horizontal)
         addArrangedSubview(outputControls)
-    }
-
-    private func setupRotateButtonIfNeeded() {
-        if #available(iOS 16.0, *), UIDevice.current.userInterfaceIdiom == .pad {
-            return
-        }
-
-        addArrangedSubview(rotateButton)
-
-        NSLayoutConstraint.activate([
-            rotateButton.widthAnchor.constraint(equalTo: heightAnchor)
-        ])
     }
 
     // MARK: Gesture recognizer

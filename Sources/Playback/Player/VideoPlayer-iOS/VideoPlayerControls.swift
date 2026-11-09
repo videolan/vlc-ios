@@ -32,6 +32,7 @@ protocol VideoPlayerControlsDelegate: AnyObject {
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidLongPressAspectRatio(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapRotate(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls)
@@ -131,11 +132,21 @@ class VideoPlayerControls: UIView {
     private(set) lazy var aspectRatioButton = makeBarButton(image: UIImage(named: "aspectRatio"),
                                                             action: #selector(handleAspectRatioButton(_:)))
 
+    private(set) lazy var rotateButton: UIButton = {
+        let button = makeBarButton(image: UIImage(named: "rectangle.landscape.rotate"),
+                                   action: #selector(handleRotateButton(_:)))
+        if #available(iOS 16.0, *), UIDevice.current.userInterfaceIdiom == .pad {
+            button.isHidden = true
+        }
+        return button
+    }()
+
     private(set) lazy var moreActionsButton = makeBarButton(image: UIImage(named: "iconMoreOptions"),
                                                             action: #selector(handleMoreActionsButton(_:)))
 
     private(set) lazy var rightControls = PlayerControlGroupView(arrangedSubviews: [shuffleButton,
                                                                                     aspectRatioButton,
+                                                                                    rotateButton,
                                                                                     moreActionsButton])
 
     // MARK: -
@@ -228,6 +239,11 @@ class VideoPlayerControls: UIView {
                                                                  comment: "")
         aspectRatioButton.accessibilityHint = NSLocalizedString("VIDEO_ASPECT_RATIO_HINT",
                                                                 comment: "")
+
+        rotateButton.accessibilityLabel = NSLocalizedString("ROTATE_BUTTON",
+                                                            comment: "Accessibility label for rotate button on the player")
+        rotateButton.accessibilityHint = NSLocalizedString("ROTATE_BUTTON_HINT",
+                                                           comment: "Accessibility hint for rotate button on the player")
 
         moreActionsButton.accessibilityLabel = NSLocalizedString("MORE_OPTIONS_BUTTON",
                                                                  comment: "")
@@ -460,6 +476,10 @@ extension VideoPlayerControls {
         if sender.state == .began {
             delegate?.videoPlayerControlsDelegateDidLongPressAspectRatio(self)
         }
+    }
+
+    @objc func handleRotateButton(_ sender: Any) {
+        delegate?.videoPlayerControlsDelegateDidTapRotate(self)
     }
 
     @objc func handleMoreActionsButton(_ sender: Any) {

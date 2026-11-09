@@ -119,6 +119,10 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         }
     }
 
+    func videoPlayerControlsDelegateDidTapRotate(_ videoPlayerControls: VideoPlayerControls) {
+        mediaNavigationBar.toggleOrientation()
+    }
+
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls) {
         if playbackService.isShuffleMode {
             playbackService.isShuffleMode = false

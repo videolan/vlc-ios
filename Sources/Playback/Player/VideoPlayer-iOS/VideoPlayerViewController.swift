@@ -399,7 +399,6 @@ class VideoPlayerViewController: PlayerViewController {
         }
 
         mediaNavigationBar.updateDeviceButton(with: image, color: color)
-        mediaNavigationBar.rotateButton.isHidden = false
 
         adaptVideoOutputToNotch()
 
