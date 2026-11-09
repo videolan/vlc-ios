@@ -568,17 +568,6 @@ private extension QueueViewController {
         parameters.backgroundColor = QueueViewController.queueDragPreviewBackgroundColor.resolvedColor(with: cell.traitCollection)
         return parameters
     }
-
-    @objc private func dismissView() {
-        guard let delegate = delegate as? VideoPlayerViewController else {
-            return
-        }
-
-        dismiss(animated: true) {
-            [weak self] in
-            delegate.queueViewControllerDidDisappear(self)
-        }
-    }
 }
 
 // MARK: - UICollectionViewFlowLayout
