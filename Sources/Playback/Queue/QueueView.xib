@@ -11,10 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueViewController" customModule="VLC" customModuleProvider="target">
             <connections>
                 <outlet property="artworkBlurView" destination="gpr-5h-rmL" id="uL9-cL-Tk8"/>
-                <outlet property="closeButton" destination="3Fh-cd-IKu" id="iiE-th-PGw"/>
-                <outlet property="grabberView" destination="B60-wi-0eH" id="MBL-j4-Lxg"/>
                 <outlet property="queueCollectionView" destination="vtO-U6-cBN" id="dM4-7a-iVJ"/>
-                <outlet property="topView" destination="dEz-fQ-e4l" id="gag-de-9bU"/>
                 <outlet property="view" destination="iN0-l3-epB" id="ufe-Vz-owG"/>
             </connections>
         </placeholder>
@@ -33,7 +30,7 @@
                     <blurEffect style="dark"/>
                 </visualEffectView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vtO-U6-cBN" userLabel="QueueCollectionView">
-                    <rect key="frame" x="0.0" y="48" width="414" height="848"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P1Y-I1-lyI">
                         <size key="itemSize" width="50" height="50"/>
@@ -42,59 +39,17 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEz-fQ-e4l" userLabel="topView">
-                    <rect key="frame" x="0.0" y="48" width="414" height="48"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CWf-cj-njw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="04s-nY-hCo"/>
-                    </constraints>
-                    <blurEffect style="regular"/>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="fvk-8E-LA6" appends="YES" id="gnt-Lb-BQd"/>
-                    </connections>
-                </visualEffectView>
-                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B60-wi-0eH" userLabel="grabberView">
-                    <rect key="frame" x="187" y="69.5" width="40" height="5"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="6yN-zY-TPZ"/>
-                        <constraint firstAttribute="height" constant="5" id="Z01-QJ-Aa8"/>
-                    </constraints>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fh-cd-IKu" userLabel="closeButton">
-                    <rect key="frame" x="10" y="53" width="48" height="38"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="close"/>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="4zA-fg-WmJ"/>
-                <constraint firstItem="3Fh-cd-IKu" firstAttribute="leading" secondItem="dEz-fQ-e4l" secondAttribute="leading" constant="10" id="5Gm-7T-l6P"/>
-                <constraint firstItem="B60-wi-0eH" firstAttribute="centerY" secondItem="dEz-fQ-e4l" secondAttribute="centerY" id="Ao7-Jj-077"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bsu-Td-VNA"/>
-                <constraint firstItem="dEz-fQ-e4l" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="VPm-6i-9Xy"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="VcE-aW-NrS"/>
-                <constraint firstItem="dEz-fQ-e4l" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Zhp-Jh-41H"/>
-                <constraint firstItem="3Fh-cd-IKu" firstAttribute="centerY" secondItem="dEz-fQ-e4l" secondAttribute="centerY" id="eFr-30-Jym"/>
-                <constraint firstItem="vtO-U6-cBN" firstAttribute="top" secondItem="dEz-fQ-e4l" secondAttribute="top" id="ea5-aa-dfU"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ea5-aa-dfU"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="iPE-8x-drm"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="lYc-Of-c2m"/>
-                <constraint firstItem="dEz-fQ-e4l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="p1m-RR-OpP"/>
-                <constraint firstItem="B60-wi-0eH" firstAttribute="centerX" secondItem="vtO-U6-cBN" secondAttribute="centerX" id="zgk-vl-6yg"/>
             </constraints>
             <point key="canvasLocation" x="140.57971014492756" y="150"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="fvk-8E-LA6">
-            <connections>
-                <action selector="didDrag:" destination="-1" id="7QR-tr-wFc"/>
-            </connections>
-        </panGestureRecognizer>
     </objects>
-    <resources>
-        <image name="close" width="24" height="24"/>
-    </resources>
 </document>

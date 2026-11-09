@@ -201,15 +201,21 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 #endif
 
     /// Call inside an animation block; keep this view and its ancestors at alpha 1.
-    func setControlsVisible(_ visible: Bool) {
+    func setControlsVisible(_ visible: Bool, isQueueShown: Bool = false) {
         isUserInteractionEnabled = visible
         accessibilityElementsHidden = !visible
-        let alpha: CGFloat = visible ? 1 : 0
+        let itemAlpha: CGFloat = isQueueShown ? PlayerControlGroupView.dimmedAlpha : 1
         for view in arrangedSubviews where view !== outputControls {
-            view.alpha = alpha
+            view.alpha = visible ? itemAlpha : 0
         }
         outputControls.setVisible(visible)
         closeButtonBackground.setVisible(visible)
+        favoriteButton.alpha = itemAlpha
+#if os(iOS)
+        deviceButton.alpha = itemAlpha
+        pictureInPictureButton.alpha = itemAlpha
+#endif
+        queueButton.tintColor = isQueueShown ? PresentationTheme.current.colors.orangeUI : .white
     }
 
     func updateDeviceButton(with image: UIImage?, color: UIColor) {

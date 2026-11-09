@@ -7,6 +7,7 @@
  *          Edgar Fouillet <vlc # edgar.fouillet.eu>
  *          Diogo Simao Marques <dogo@videolabs.io>
  *          Pratik Ray <raypratik365@gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -42,10 +43,7 @@ class QueueViewFlowLayout: UICollectionViewFlowLayout {
 @objc(VLCQueueViewController)
 class QueueViewController: UIViewController {
     @IBOutlet weak var queueCollectionView: UICollectionView!
-    @IBOutlet weak var topView: UIVisualEffectView!
-    @IBOutlet weak var grabberView: UIView!
     @IBOutlet weak var artworkBlurView: UIVisualEffectView!
-    @IBOutlet weak var closeButton: UIButton!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
 
@@ -55,6 +53,12 @@ class QueueViewController: UIViewController {
     private let liquidGlassSpacing: CGFloat = 8
     private let liquidGlassCornerRadius: CGFloat = 24
     private let legacyCornerRadius: CGFloat = 4
+    private let cardWidth: CGFloat = 372
+    private let cardSpacing: CGFloat = 8
+    private let cardTransportSpacing: CGFloat = 12
+    private let cardMinimumMargin: CGFloat = 16
+    private let cardCornerRadius: CGFloat = 28
+    private let collapsedCardScale: CGFloat = 0.5
 
     private let darkOverlayAlpha: CGFloat = 0.6
 
@@ -77,16 +81,7 @@ class QueueViewController: UIViewController {
     private lazy var collectionViewLayout = QueueViewFlowLayout()
     private var constraints: [NSLayoutConstraint] = []
     private var topConstraint: NSLayoutConstraint?
-    private var topConstraintConstant: CGFloat {
-        if parent is VideoPlayerViewController {
-            return view.safeAreaInsets.bottom > 0 ? 75 : 50
-        } else {
-            return 0
-        }
-    }
     var bottomConstraint: NSLayoutConstraint?
-
-    var heightConstraint: NSLayoutConstraint?
 
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
@@ -118,6 +113,48 @@ class QueueViewController: UIViewController {
         return 0
     }
 
+    private var cornerRadius: CGFloat {
+        if parent is VideoPlayerViewController {
+            return cardCornerRadius
+        }
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            return liquidGlassCornerRadius
+        }
+        return legacyCornerRadius
+    }
+
+    private var darkOverlayColor: UIColor {
+        if #available(iOS 26.0, *) {
+            return .clear
+        }
+        return parent is VideoPlayerViewController ? .clear : .black
+    }
+
+    private var defaultBackgroundEffect: UIVisualEffect {
+#if !os(visionOS)
+        if #available(iOS 26.0, *) {
+            return UIGlassEffect()
+        }
+#endif
+        return UIBlurEffect(style: .dark)
+    }
+
+    private var collapsedCardTransform: CGAffineTransform {
+        guard !UIAccessibility.isReduceMotionEnabled,
+              let parent = parent as? VideoPlayerViewController,
+              let superview = view.superview else {
+            return .identity
+        }
+
+        let queueButton = parent.mediaNavigationBar.queueButton
+        let origin = superview.convert(CGPoint(x: queueButton.bounds.midX, y: queueButton.bounds.midY),
+                                       from: queueButton)
+        let offset = CGPoint(x: origin.x - view.center.x, y: origin.y - view.center.y)
+        return CGAffineTransform(translationX: offset.x, y: offset.y)
+            .scaledBy(x: collapsedCardScale, y: collapsedCardScale)
+            .translatedBy(x: -offset.x, y: -offset.y)
+    }
+
     private let animationDuration = 0.2
 
     @objc weak var delegate: QueueViewControllerDelegate?
@@ -134,6 +171,10 @@ class QueueViewController: UIViewController {
         defaultCenter.addObserver(self,
                                   selector: #selector(themeDidChange),
                                   name: .VLCThemeDidChangeNotification,
+                                  object: nil)
+        defaultCenter.addObserver(self,
+                                  selector: #selector(configureAppearance),
+                                  name: UIAccessibility.reduceTransparencyStatusDidChangeNotification,
                                   object: nil)
 #if os(iOS)
         defaultCenter.addObserver(self,
@@ -173,7 +214,14 @@ class QueueViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         view.alpha = 0.0
-        topView.isHidden = true
+    }
+
+    override func accessibilityPerformEscape() -> Bool {
+        guard parent is VideoPlayerViewController else {
+            return false
+        }
+        dismissPlayqueue()
+        return true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -182,6 +230,7 @@ class QueueViewController: UIViewController {
 
     override func didMove(toParent parent: UIViewController?) {
         if let parent = parent {
+            darkOverlayView.backgroundColor = darkOverlayColor
             parent.view.addSubview(darkOverlayView)
 
             darkOverlayViewConstraints = [
@@ -191,22 +240,18 @@ class QueueViewController: UIViewController {
                 darkOverlayView.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             ]
 
-            if let heightConstraint = heightConstraint {
-                view.removeConstraint(heightConstraint)
-            }
-
-            grabberView.isHidden = false
-            closeButton.isHidden = false
+            var videoPlayer: VideoPlayerViewController?
             if let parent = parent as? VideoPlayerViewController {
-                topConstraint = nil
-                heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
-                                                                constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.mediaScrubProgressBar.frame.height))
-                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
-                                                                constant: self.view.frame.height)
+                topConstraint = view.topAnchor.constraint(equalTo: parent.mediaNavigationBar.queueButton.bottomAnchor,
+                                                          constant: cardSpacing)
+                if parent.isCompactPortraitLayout {
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.videoPlayerControls.transportControls.topAnchor,
+                                                                    constant: -cardTransportSpacing)
+                } else {
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.videoPlayerControls.bottomAnchor)
+                }
+                videoPlayer = parent
             } else if let parent = parent as? AudioPlayerViewController {
-                heightConstraint = nil
-                grabberView.isHidden = true
-                closeButton.isHidden = true
                 topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
                 darkOverlayView.isHidden = true
@@ -218,16 +263,28 @@ class QueueViewController: UIViewController {
             view.overrideUserInterfaceStyle = .dark
             configureAppearance()
 
-            constraints = [
-                view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: contentInset),
-                view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -contentInset)
-            ]
+            if let videoPlayer, videoPlayer.isCompactPortraitLayout {
+                constraints = [
+                    view.leftAnchor.constraint(equalTo: videoPlayer.mediaNavigationBar.leftAnchor),
+                    view.rightAnchor.constraint(equalTo: videoPlayer.mediaNavigationBar.rightAnchor)
+                ]
+            } else if let videoPlayer {
+                let preferredWidth = view.widthAnchor.constraint(equalToConstant: cardWidth)
+                preferredWidth.priority = .defaultHigh
+                constraints = [
+                    view.rightAnchor.constraint(equalTo: videoPlayer.mediaNavigationBar.rightAnchor),
+                    view.leftAnchor.constraint(greaterThanOrEqualTo: safeArea.leftAnchor, constant: cardMinimumMargin),
+                    preferredWidth
+                ]
+            } else {
+                constraints = [
+                    view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: contentInset),
+                    view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -contentInset)
+                ]
+            }
 
             if let topConstraint = topConstraint {
                 constraints.append(topConstraint)
-            }
-            if let heightConstraint = heightConstraint {
-                constraints.append(heightConstraint)
             }
             if let bottomConstraint = bottomConstraint {
                 constraints.append(bottomConstraint)
@@ -243,7 +300,6 @@ class QueueViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        topConstraint?.constant = topConstraintConstant
         reload()
     }
 
@@ -254,8 +310,10 @@ class QueueViewController: UIViewController {
     }
 
     func show() {
+        view.transform = collapsedCardTransform
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1.0
+            self.view.transform = .identity
             self.darkOverlayView.isHidden = false
         }) { _ in
             self.scrollToCurrentlyPlaying()
@@ -296,45 +354,6 @@ class QueueViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @IBAction func didDrag(_ sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .changed:
-            dragStateDidChange(sender)
-        case .ended:
-            dragDidEnd(sender)
-        default:
-            break
-        }
-    }
-
-    func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: parent?.view)
-        if let bottomConstraint = bottomConstraint {
-            bottomConstraint.constant = max(0.0, bottomConstraint.constant + translation.y)
-        }
-        sender.setTranslation(CGPoint.zero, in: parent?.view)
-        if let parent = parent as? VideoPlayerViewController {
-            darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
-        }
-    }
-
-    func dragDidEnd(_ sender: UIPanGestureRecognizer) {
-        if let parent = parent {
-            if self.view.frame.minY > parent.view.frame.maxY / 2 {
-                dismissPlayqueue()
-            } else {
-                showPlayqueue()
-            }
-        }
-    }
-
-    private func showPlayqueue() {
-        bottomConstraint?.constant = 0
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.parent?.view.layoutIfNeeded()
-        })
-    }
-
     func dismissFromAudioPlayer() {
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 0.0
@@ -345,6 +364,17 @@ class QueueViewController: UIViewController {
     }
 
     @objc func dismissPlayqueue() {
+        if let parent = parent as? VideoPlayerViewController {
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.view.alpha = 0.0
+                self.view.transform = self.collapsedCardTransform
+            }, completion: { _ in
+                self.view.transform = .identity
+                self.dismissPlayqueueCompletion(in: parent)
+            })
+            return
+        }
+
         if let parent = parent {
             bottomConstraint?.constant = view.frame.height - view.safeAreaInsets.bottom
             UIView.animate(withDuration: animationDuration, animations: {
@@ -360,7 +390,6 @@ class QueueViewController: UIViewController {
         view.removeFromSuperview()
         removeFromParent()
         darkOverlayView.isHidden = true
-        darkOverlayView.alpha = darkOverlayAlpha
     }
 
     @objc func deviceOrientationDidChange(_ notification: Notification) {
@@ -385,22 +414,10 @@ private extension QueueViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         initDarkOverlayView()
         initQueueCollectionView()
-        topView.alpha = 0.1
         themeDidChange()
-        grabberView.layer.cornerRadius = 2.5
-
-        closeButton.setTitle("", for: .normal)
-        closeButton.tintColor = .white
-        closeButton.addTarget(self, action: #selector(dismissPlayqueue), for: .touchUpInside)
-        closeButton.layer.cornerRadius = 12
     }
 
     private func initDarkOverlayView() {
-        if #available(iOS 26.0, *) {
-            darkOverlayView.backgroundColor = .clear
-        } else {
-            darkOverlayView.backgroundColor = .black
-        }
         darkOverlayView.alpha = darkOverlayAlpha
         darkOverlayView.isHidden = true
         darkOverlayView.isUserInteractionEnabled = true
@@ -424,14 +441,16 @@ private extension QueueViewController {
         queueCollectionView.backgroundColor = .clear
     }
 
-    private func configureAppearance() {
+    @objc private func configureAppearance() {
+        if parent is VideoPlayerViewController {
+            artworkBlurView.applyOverlayBackgroundStyle()
+        } else {
+            artworkBlurView.backgroundColor = .clear
+            artworkBlurView.effect = defaultBackgroundEffect
+        }
+
         if #available(iOS 26.0, visionOS 26.0, *) {
-            let corners = UICornerConfiguration.uniformCorners(radius: .fixed(liquidGlassCornerRadius))
-#if !os(visionOS)
-            let glassEffect = UIGlassEffect(style: .regular)
-            glassEffect.isInteractive = false
-            artworkBlurView.effect = glassEffect
-#endif
+            let corners = UICornerConfiguration.uniformCorners(radius: .fixed(cornerRadius))
             artworkBlurView.cornerConfiguration = corners
             queueCollectionView.cornerConfiguration = corners
             view.cornerConfiguration = corners
@@ -440,9 +459,8 @@ private extension QueueViewController {
             return
         }
 
-        artworkBlurView.effect = UIBlurEffect(style: .dark)
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = legacyCornerRadius
+        view.layer.cornerRadius = cornerRadius
         queueCollectionView.layer.cornerRadius = 0
     }
 }
@@ -577,9 +595,8 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        let grabberHeight = topView.isHidden ? 0 : topView.frame.height
         let leftInset = 5.0
-        return UIEdgeInsets(top: topPadding + grabberHeight, left: leftInset, bottom: bottomPadding, right: sidePadding)
+        return UIEdgeInsets(top: topPadding, left: leftInset, bottom: bottomPadding, right: sidePadding)
     }
 }
 
@@ -658,14 +675,6 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
 // MARK: - UIScrollViewDelegate
 
 extension QueueViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y <= 5.0 {
-            topView.alpha = max(0.1, scrollView.contentOffset.y / 5)
-        } else {
-            topView.alpha = 1.0
-        }
-    }
-
     private func resetScrollView(_ completion: ((Bool) -> Void)? = nil) {
         if let mediaCell = mediaCollectionViewCellGetScrolledCell() {
             mediaCell.resetScrollView(completion)

@@ -311,7 +311,6 @@ class AudioPlayerViewController: PlayerViewController {
         qvc.view.removeFromSuperview()
         qvc.removeFromParent()
         qvc.show()
-        qvc.topView.isHidden = true
         addChild(qvc)
         qvc.didMove(toParent: self)
         view.layoutIfNeeded()

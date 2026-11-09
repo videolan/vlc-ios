@@ -92,6 +92,10 @@ class VideoPlayerControls: UIView {
 
     private static let playPauseSideTouchOutset: CGFloat = 44
 
+    private static let sideButtonSize: CGFloat = 56
+
+    private static let sideButtonRatio = sideButtonSize / playPauseCircleSize
+
     private(set) lazy var transportControls: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [backwardButton,
                                                        previousMediaButton,
@@ -110,13 +114,6 @@ class VideoPlayerControls: UIView {
         stackView.sendSubviewToBack(playPauseButton)
         return stackView
     }()
-
-    /// Uses smaller controls above the play queue.
-    var isTransportCompact = false {
-        didSet {
-            updateTransportSizeConstraints()
-        }
-    }
 
     private var transportSizeConstraints: [NSLayoutConstraint] = []
 
@@ -164,7 +161,7 @@ class VideoPlayerControls: UIView {
     init() {
         super.init(frame: .zero)
         setupViews()
-        updateTransportSizeConstraints()
+        setupTransportConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -192,9 +189,16 @@ class VideoPlayerControls: UIView {
     }
 
     /// Call inside an animation block; keep this view and its ancestors at alpha 1.
-    func setControlGroupsVisible(_ visible: Bool) {
-        leftControls.setVisible(visible)
-        rightControls.setVisible(visible)
+    func setControlsVisible(_ visible: Bool, isQueueShown: Bool) {
+        leftControls.setVisible(visible, dimmed: isQueueShown)
+        rightControls.setVisible(visible && !isQueueShown)
+        transportControls.isUserInteractionEnabled = visible
+        transportControls.accessibilityElementsHidden = !visible
+        for case let button as UIButton in transportControls.arrangedSubviews {
+            button.imageView?.alpha = visible ? (isQueueShown ? PlayerControlGroupView.dimmedAlpha : 1) : 0
+            let background = button.configuration?.background.customView as? VideoControlBackgroundView
+            background?.setVisible(visible)
+        }
     }
 
     func setupAccessibility() {
@@ -291,13 +295,22 @@ class VideoPlayerControls: UIView {
 
     private func makeTransportButton(systemImageName: String, action: Selector,
                                      hasGlassBackground: Bool = false) -> WideTouchButton {
-        var configuration = Self.transportButtonConfiguration()
+        let touchOutset = Self.playPauseTouchOutset
+        var configuration = UIButton.Configuration.plain()
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .capsule
         configuration.image = UIImage(systemName: systemImageName)
+        configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(
+            pointSize: hasGlassBackground ? 26 : 22, weight: .semibold)
         if hasGlassBackground {
             configuration.background.customView = VideoControlBackgroundView()
+            configuration.background.backgroundInsets = NSDirectionalEdgeInsets(
+                top: touchOutset, leading: touchOutset, bottom: touchOutset, trailing: touchOutset)
         }
         let button = WideTouchButton(configuration: configuration)
-        if !hasGlassBackground {
+        if hasGlassBackground {
+            button.horizontalTouchOutset = Self.playPauseSideTouchOutset - touchOutset
+        } else {
             button.layer.shadowColor = UIColor.black.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 1)
             button.layer.shadowRadius = 3
@@ -312,53 +325,27 @@ class VideoPlayerControls: UIView {
         return button
     }
 
-    private static func transportButtonConfiguration() -> UIButton.Configuration {
-        var configuration = UIButton.Configuration.plain()
-        configuration.baseForegroundColor = .white
-        configuration.cornerStyle = .capsule
-        return configuration
-    }
-
-    /// Call inside an animation block to fade the main buttons.
-    func setTransportControlsVisible(_ visible: Bool) {
-        transportControls.isUserInteractionEnabled = visible
-        transportControls.accessibilityElementsHidden = !visible
-        for case let button as UIButton in transportControls.arrangedSubviews {
-            button.imageView?.alpha = visible ? 1 : 0
-            let background = button.configuration?.background.customView as? VideoControlBackgroundView
-            background?.setVisible(visible)
-        }
+    private func setupTransportConstraints() {
+        let touchOutset = Self.playPauseTouchOutset
+        let preferredPlayPauseWidth = playPauseButton.widthAnchor.constraint(
+            equalToConstant: Self.playPauseCircleSize + 2 * touchOutset)
+        preferredPlayPauseWidth.priority = .defaultHigh
+        let minimumSideButtonSize: CGFloat = 44
+        let minimumPlayPauseWidth = playPauseButton.widthAnchor.constraint(
+            greaterThanOrEqualToConstant: minimumSideButtonSize / Self.sideButtonRatio + 2 * touchOutset)
+        let preferredWidth = transportControls.widthAnchor.constraint(
+            equalToConstant: 2 * Self.sideButtonSize + Self.playPauseCircleSize + 2 * Self.transportGap)
+        // Close gaps before shrinking buttons.
+        preferredWidth.priority = .defaultHigh - 1
+        NSLayoutConstraint.activate([preferredPlayPauseWidth, minimumPlayPauseWidth, preferredWidth])
+        updateTransportSizeConstraints()
     }
 
     private func updateTransportSizeConstraints() {
         NSLayoutConstraint.deactivate(transportSizeConstraints)
 
-        // Match the 44pt bar above the queue.
-        let buttonSize: CGFloat = isTransportCompact ? 44 : 56
-        let playPauseCircleSize = isTransportCompact ? buttonSize : Self.playPauseCircleSize
-        let touchOutset = isTransportCompact ? 0 : Self.playPauseTouchOutset
-        playPauseButton.configuration?.background.backgroundInsets = NSDirectionalEdgeInsets(
-            top: touchOutset, leading: touchOutset, bottom: touchOutset, trailing: touchOutset)
-        playPauseButton.horizontalTouchOutset = isTransportCompact ? 0 : Self.playPauseSideTouchOutset - touchOutset
-        let iconSize: CGFloat = isTransportCompact ? 20 : 22
-        for case let button as UIButton in transportControls.arrangedSubviews {
-            let pointSize = button == playPauseButton && !isTransportCompact ? 26 : iconSize
-            button.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(
-                pointSize: pointSize, weight: .semibold)
-        }
-
-        let preferredPlayPauseWidth = playPauseButton.widthAnchor.constraint(
-            equalToConstant: playPauseCircleSize + 2 * touchOutset)
-        preferredPlayPauseWidth.priority = .defaultHigh
-        let sideButtonRatio = buttonSize / playPauseCircleSize
-        let minimumSideButtonSize: CGFloat = isTransportCompact ? 32 : 44
-        let minimumPlayPauseWidth = playPauseButton.widthAnchor.constraint(
-            greaterThanOrEqualToConstant: minimumSideButtonSize / sideButtonRatio + 2 * touchOutset)
-        let preferredWidth = transportControls.widthAnchor.constraint(
-            equalToConstant: isTransportCompact ? 180 : 2 * buttonSize + playPauseCircleSize + 2 * Self.transportGap)
-        // Close gaps before shrinking buttons.
-        preferredWidth.priority = .defaultHigh - 1
-
+        let touchOutset = Self.playPauseTouchOutset
+        let sideButtonRatio = Self.sideButtonRatio
         // Hidden stack buttons have zero width; constrain only the visible pair.
         let leftButton = previousMediaButton.isHidden ? backwardButton : previousMediaButton
         let rightButton = nextMediaButton.isHidden ? forwardButton : nextMediaButton
@@ -367,25 +354,14 @@ class VideoPlayerControls: UIView {
                                       multiplier: sideButtonRatio,
                                       constant: -2 * touchOutset * sideButtonRatio)
         }
-        transportSizeConstraints += [preferredPlayPauseWidth, minimumPlayPauseWidth, preferredWidth]
-        if isTransportCompact {
-            let clearOfLeftControls = transportControls.leadingAnchor.constraint(
-                greaterThanOrEqualTo: leftControls.trailingAnchor, constant: 8)
-            let clearOfRightControls = transportControls.trailingAnchor.constraint(
-                lessThanOrEqualTo: rightControls.leadingAnchor, constant: -8)
-            clearOfLeftControls.priority = .required - 1
-            clearOfRightControls.priority = .required - 1
-            transportSizeConstraints += [clearOfLeftControls, clearOfRightControls]
-        } else {
-            // Shrink buttons before reducing the minimum gap.
-            let leftGap = playPauseButton.leadingAnchor.constraint(greaterThanOrEqualTo: leftButton.trailingAnchor,
-                                                                   constant: 24)
-            let rightGap = rightButton.leadingAnchor.constraint(greaterThanOrEqualTo: playPauseButton.trailingAnchor,
-                                                                constant: 24)
-            leftGap.priority = .defaultHigh + 1
-            rightGap.priority = .defaultHigh + 1
-            transportSizeConstraints += [leftGap, rightGap]
-        }
+        // Shrink buttons before reducing the minimum gap.
+        let leftGap = playPauseButton.leadingAnchor.constraint(greaterThanOrEqualTo: leftButton.trailingAnchor,
+                                                               constant: 24)
+        let rightGap = rightButton.leadingAnchor.constraint(greaterThanOrEqualTo: playPauseButton.trailingAnchor,
+                                                            constant: 24)
+        leftGap.priority = .defaultHigh + 1
+        rightGap.priority = .defaultHigh + 1
+        transportSizeConstraints += [leftGap, rightGap]
         NSLayoutConstraint.activate(transportSizeConstraints)
     }
 

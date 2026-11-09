@@ -14,6 +14,7 @@ import UIKit
 
 final class PlayerControlGroupView: UIView {
     static let itemSize: CGFloat = 44
+    static let dimmedAlpha: CGFloat = 0.45
     private static let horizontalPadding: CGFloat = 4
 
     private let background = VideoControlBackgroundView()
@@ -72,10 +73,10 @@ final class PlayerControlGroupView: UIView {
     }
 
     /// Call inside an animation block; keep this view and its ancestors at alpha 1.
-    func setVisible(_ visible: Bool) {
+    func setVisible(_ visible: Bool, dimmed: Bool = false) {
         isUserInteractionEnabled = visible
         accessibilityElementsHidden = !visible
-        itemRow.alpha = visible ? 1 : 0
+        itemRow.alpha = visible ? (dimmed ? PlayerControlGroupView.dimmedAlpha : 1) : 0
         background.setVisible(visible)
     }
 }

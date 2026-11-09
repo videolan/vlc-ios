@@ -75,7 +75,15 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var idleTimer: Timer?
 
-    private var isCompactPortraitLayout: Bool {
+    private var isQueueCardShown = false
+
+    private static let queueCardSpacing: CGFloat = 12
+
+    private var queueCardConstraints: [NSLayoutConstraint] = []
+
+    private let queueCardTransportAreaGuide = UILayoutGuide()
+
+    var isCompactPortraitLayout: Bool {
         return traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
     }
 
@@ -273,10 +281,6 @@ class VideoPlayerViewController: PlayerViewController {
         videoPlayerControls.heightAnchor.constraint(equalToConstant: 44)
     }()
 
-    private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
-        videoPlayerControls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-    }()
-
     private let videoAreaLayoutGuide = UILayoutGuide()
 
     private lazy var videoAreaBottomConstraint: NSLayoutConstraint = {
@@ -299,12 +303,12 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var isTabletopLayout = false
 
-    private lazy var transportControlsCenterYConstraint: NSLayoutConstraint = {
-        videoPlayerControls.transportControls.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
+    private lazy var transportControlsCenterXConstraint: NSLayoutConstraint = {
+        videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     }()
 
-    private lazy var transportControlsInBarConstraint: NSLayoutConstraint = {
-        videoPlayerControls.transportControls.centerYAnchor.constraint(equalTo: videoPlayerControls.centerYAnchor)
+    private lazy var transportControlsCenterYConstraint: NSLayoutConstraint = {
+        videoPlayerControls.transportControls.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
     }()
 
     private lazy var transportControlsAboveScrubBarConstraint: NSLayoutConstraint = {
@@ -319,11 +323,15 @@ class VideoPlayerViewController: PlayerViewController {
 
     private static let scrubProgressBarSpacing: CGFloat = 12
 
+    private lazy var scrubProgressBarRightInRowConstraint: NSLayoutConstraint = {
+        mediaScrubProgressBar.rightAnchor.constraint(equalTo: videoPlayerControls.rightControls.leftAnchor,
+                                                     constant: -Self.scrubProgressBarSpacing)
+    }()
+
     private lazy var scrubProgressBarInRowConstraints: [NSLayoutConstraint] = [
         mediaScrubProgressBar.leftAnchor.constraint(equalTo: videoPlayerControls.leftControls.rightAnchor,
                                                     constant: Self.scrubProgressBarSpacing),
-        mediaScrubProgressBar.rightAnchor.constraint(equalTo: videoPlayerControls.rightControls.leftAnchor,
-                                                     constant: -Self.scrubProgressBarSpacing),
+        scrubProgressBarRightInRowConstraint,
         mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.bottomAnchor),
     ]
 
@@ -590,11 +598,13 @@ class VideoPlayerViewController: PlayerViewController {
             )
 
         } else {
+            let queueCardView = isQueueCardShown ? queueViewController?.view : nil
             let scrubProgressBarAboveRow = isScrubProgressBarAboveRow ? mediaScrubProgressBar : nil
             let scrubProgressBarInRow = isScrubProgressBarAboveRow ? nil : mediaScrubProgressBar
 #if os(iOS)
             view.applyAccessibilityControls(
                 mediaNavigationBar,
+                queueCardView,
                 videoPlayerControls.transportControls,
                 scrubProgressBarAboveRow,
                 videoPlayerControls.leftControls,
@@ -606,6 +616,7 @@ class VideoPlayerViewController: PlayerViewController {
 #else
             view.applyAccessibilityControls(
                 mediaNavigationBar,
+                queueCardView,
                 videoPlayerControls.transportControls,
                 scrubProgressBarAboveRow,
                 videoPlayerControls.leftControls,
@@ -859,7 +870,7 @@ class VideoPlayerViewController: PlayerViewController {
             videoPlayerControls.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor),
             videoPlayerControls.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor,
                                                           constant: -minimumMargin),
-            videoPlayerControlsBottomConstraint
+            videoPlayerControls.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
 
@@ -871,7 +882,7 @@ class VideoPlayerViewController: PlayerViewController {
         maximumWidth.priority = .required - 1
 
         NSLayoutConstraint.activate([
-            videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            transportControlsCenterXConstraint,
             transportControlsCenterYConstraint,
             transportControlsAboveScrubBarConstraint,
             maximumWidth
@@ -885,7 +896,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func updateScrubProgressBarPlacement() {
         let aboveRow = isCompactPortraitLayout
-        guard aboveRow != isScrubProgressBarAboveRow, !transportControlsInBarConstraint.isActive else {
+        guard aboveRow != isScrubProgressBarAboveRow, !isQueueCardShown else {
             return
         }
 
@@ -1046,6 +1057,10 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if isQueueCardShown && isCompactPortraitLayout != isScrubProgressBarAboveRow {
+            queueViewController?.dismissPlayqueue()
+        }
+
         updateScrubProgressBarPlacement()
 
         if playbackService.isPlaying && playerController.isControlsHidden && overlayCardView == nil {
@@ -1177,25 +1192,19 @@ class VideoPlayerViewController: PlayerViewController {
             videoPlayerControls.moreActionsButton.contextMenuInteraction?.dismissMenu()
         }
         let uiComponentOpacity: CGFloat = hidden ? 0 : 1
-
-        var qvcHidden = true
-        if let qvc = queueViewController {
-            qvcHidden = qvc.view.alpha == 0.0
-        }
+        let isQueueCardShown = self.isQueueCardShown
+        let scrubProgressBarOpacity: CGFloat = hidden ? 0 : (isQueueCardShown ? PlayerControlGroupView.dimmedAlpha : 1)
 
         let animations = { [weak self, playerController] in
-            self?.mediaNavigationBar.setControlsVisible(!hidden)
-            self?.optionsNavigationBar.alpha = uiComponentOpacity
+            self?.mediaNavigationBar.setControlsVisible(!hidden, isQueueShown: isQueueCardShown)
+            self?.optionsNavigationBar.alpha = isQueueCardShown ? 0 : uiComponentOpacity
 #if os(iOS)
-            self?.volumeControlView.setVisible(!hidden && playerController.isVolumeGestureEnabled)
-            self?.brightnessControlView.setVisible(!hidden && playerController.isBrightnessGestureEnabled)
+            self?.volumeControlView.setVisible(!hidden && !isQueueCardShown && playerController.isVolumeGestureEnabled)
+            self?.brightnessControlView.setVisible(!hidden && !isQueueCardShown && playerController.isBrightnessGestureEnabled)
 #endif
-            if !hidden || qvcHidden {
-                self?.videoPlayerControls.setControlGroupsVisible(!hidden)
-                self?.videoPlayerControls.setTransportControlsVisible(!hidden)
-                self?.mediaScrubProgressBar.alpha = uiComponentOpacity
-            }
-            self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
+            self?.videoPlayerControls.setControlsVisible(!hidden, isQueueShown: isQueueCardShown)
+            self?.mediaScrubProgressBar.alpha = scrubProgressBarOpacity
+            self?.backgroundGradientView.alpha = uiComponentOpacity
 #if os(iOS)
             if hidden {
                 self?.sideBackgroundGradientView.alpha = 0
@@ -1323,6 +1332,10 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func resetIdleTimer() {
+        guard !isQueueCardShown else {
+            return
+        }
+
         let intervalSetting = UserDefaults.standard
             .integer(forKey: kVLCSettingPlayerControlDuration)
 
@@ -1587,38 +1600,58 @@ extension VideoPlayerViewController {
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
-        if let qvc = queueViewController {
-            shouldDisableGestures(true)
-            qvc.removeFromParent()
-            qvc.view.removeFromSuperview()
-            qvc.show()
-            qvc.topView.isHidden = false
-            addChild(qvc)
-            qvc.didMove(toParent: self)
-            view.layoutIfNeeded()
-            videoPlayerControlsBottomConstraint.isActive = false
-            videoPlayerControls.bottomAnchor.constraint(equalTo: qvc.view.topAnchor,
-                                                        constant: -5).isActive = true
-            videoPlayerControls.subtitleButton.isEnabled = false
-            videoPlayerControls.rotationLockButton.isEnabled = false
-            videoPlayerControls.aspectRatioButton.isEnabled = false
-            videoPlayerControls.moreActionsButton.isEnabled = false
-            transportControlsCenterYConstraint.isActive = false
-            transportControlsAboveScrubBarConstraint.isActive = false
-            transportControlsInBarConstraint.isActive = true
-            NSLayoutConstraint.deactivate(scrubProgressBarInRowConstraints)
-            NSLayoutConstraint.activate(scrubProgressBarAboveRowConstraints)
-            videoPlayerControls.isTransportCompact = true
-            view.bringSubviewToFront(mediaScrubProgressBar)
-            view.bringSubviewToFront(videoPlayerControls)
-            view.bringSubviewToFront(videoPlayerControls.transportControls)
-            setControlsHidden(true, animated: true)
-            qvc.bottomConstraint?.constant = 0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-            qvc.delegate = self
+        guard let qvc = queueViewController else {
+            return
         }
+
+        guard !isQueueCardShown else {
+            qvc.dismissPlayqueue()
+            return
+        }
+
+        qvc.removeFromParent()
+        qvc.view.removeFromSuperview()
+        qvc.delegate = self
+        shouldDisableGestures(true)
+        idleTimer?.invalidate()
+        idleTimer = nil
+
+        isQueueCardShown = true
+        addChild(qvc)
+        qvc.didMove(toParent: self)
+        view.layoutIfNeeded()
+
+        if isCompactPortraitLayout {
+            transportControlsCenterYConstraint.isActive = false
+            queueCardConstraints = [
+                videoPlayerControls.transportControls.bottomAnchor.constraint(
+                    equalTo: videoPlayerControls.topAnchor, constant: transportControlsAboveScrubBarConstraint.constant),
+            ]
+        } else {
+            let cardLeftAnchor = qvc.view.leftAnchor
+            let transportClearOfCard = videoPlayerControls.transportControls.rightAnchor.constraint(
+                lessThanOrEqualTo: cardLeftAnchor, constant: -Self.queueCardSpacing)
+            transportClearOfCard.priority = .required - 1
+            view.addLayoutGuide(queueCardTransportAreaGuide)
+            queueCardConstraints = [
+                queueCardTransportAreaGuide.leftAnchor.constraint(equalTo: videoPlayerControls.leftAnchor),
+                queueCardTransportAreaGuide.rightAnchor.constraint(equalTo: cardLeftAnchor),
+                videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: queueCardTransportAreaGuide.centerXAnchor),
+                transportClearOfCard,
+                mediaScrubProgressBar.rightAnchor.constraint(equalTo: cardLeftAnchor, constant: -Self.queueCardSpacing),
+            ]
+            NSLayoutConstraint.deactivate([transportControlsCenterXConstraint, scrubProgressBarRightInRowConstraint])
+        }
+        NSLayoutConstraint.activate(queueCardConstraints)
+        view.bringSubviewToFront(videoPlayerControls.transportControls)
+
+        qvc.show()
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        setControlsHidden(false, animated: true)
+        setupAccessibility()
+        UIAccessibility.post(notification: .screenChanged, argument: qvc.queueCollectionView)
     }
 
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
@@ -1778,23 +1811,26 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController: QueueViewControllerDelegate {
     func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?) {
-        setControlsHidden(false, animated: true)
+        guard isQueueCardShown else {
+            return
+        }
+
+        isQueueCardShown = false
+        NSLayoutConstraint.deactivate(queueCardConstraints)
+        queueCardConstraints = []
+        queueCardTransportAreaGuide.owningView?.removeLayoutGuide(queueCardTransportAreaGuide)
+        NSLayoutConstraint.activate([transportControlsCenterXConstraint, transportControlsCenterYConstraint])
+        scrubProgressBarRightInRowConstraint.isActive = !isScrubProgressBarAboveRow
+        updateScrubProgressBarPlacement()
         queueViewController?.hide()
         shouldDisableGestures(false)
-        videoPlayerControlsBottomConstraint.isActive = true
-        transportControlsInBarConstraint.isActive = false
-        transportControlsCenterYConstraint.isActive = true
-        transportControlsAboveScrubBarConstraint.isActive = true
-        if !isScrubProgressBarAboveRow {
-            NSLayoutConstraint.deactivate(scrubProgressBarAboveRowConstraints)
-            NSLayoutConstraint.activate(scrubProgressBarInRowConstraints)
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
-        updateScrubProgressBarPlacement()
-        videoPlayerControls.isTransportCompact = false
-        videoPlayerControls.subtitleButton.isEnabled = true
-        videoPlayerControls.rotationLockButton.isEnabled = true
-        videoPlayerControls.aspectRatioButton.isEnabled = true
-        videoPlayerControls.moreActionsButton.isEnabled = true
+        setControlsHidden(false, animated: true)
+        resetIdleTimer()
+        setupAccessibility()
+        UIAccessibility.post(notification: .screenChanged, argument: mediaNavigationBar.queueButton)
     }
 }
 
@@ -1802,6 +1838,9 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
 
 extension VideoPlayerViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let queueView = queueViewController?.view, touch.view?.isDescendant(of: queueView) == true {
+            return false
+        }
         guard let control = touch.view as? UIControl else { return true }
 #if os(iOS)
         // Keep player swipes from competing with slider drags.
