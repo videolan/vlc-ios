@@ -155,8 +155,12 @@ class PlayerViewController: UIViewController {
         return mediaNavigationBar
     }()
 
+    var usesInlineScrubProgressBar: Bool {
+        return false
+    }
+
     lazy var mediaScrubProgressBar: MediaScrubProgressBar = {
-        var mediaScrubProgressBar: MediaScrubProgressBar = MediaScrubProgressBar()
+        var mediaScrubProgressBar: MediaScrubProgressBar = MediaScrubProgressBar(isInline: usesInlineScrubProgressBar)
         return mediaScrubProgressBar
     }()
 

@@ -308,7 +308,7 @@ class VideoPlayerViewController: PlayerViewController {
     private lazy var transportControlsAboveScrubBarConstraint: NSLayoutConstraint = {
         // Limit height relative to the fixed bar; the scrub bar expands during scrubbing.
         let constraint = videoPlayerControls.transportControls.bottomAnchor.constraint(
-            lessThanOrEqualTo: videoPlayerControls.topAnchor, constant: -80)
+            lessThanOrEqualTo: videoPlayerControls.topAnchor, constant: -68)
         constraint.priority = .required - 1
         return constraint
     }()
@@ -1196,6 +1196,10 @@ class VideoPlayerViewController: PlayerViewController {
 
     override var areGesturesEnabled: Bool {
         return tapOnVideoRecognizer.isEnabled
+    }
+
+    override var usesInlineScrubProgressBar: Bool {
+        return true
     }
 
     override func dismissOverlayCard() {

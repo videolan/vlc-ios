@@ -1,11 +1,12 @@
 /*****************************************************************************
  * MediaScrubProgressBar.swift
  *
- * Copyright © 2019-2020 VLC authors and VideoLAN
+ * Copyright © 2019-2026 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
  *          Soomin Lee <bubu@mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -22,6 +23,7 @@ class MediaScrubProgressBar: UIStackView {
     private var positionSet: Bool = true
     private(set) var isScrubbing: Bool = false
     var shouldHideScrubLabels: Bool = false
+    private let inlineRow: UIView?
 
     @objc lazy private(set) var progressSlider: VLCOBSlider = {
         var slider = VLCOBSlider()
@@ -120,9 +122,14 @@ class MediaScrubProgressBar: UIStackView {
         fatalError("init(coder: NSCoder) not implemented")
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
+    init(isInline: Bool) {
+        inlineRow = isInline ? UIView() : nil
+        super.init(frame: .zero)
+        if let inlineRow {
+            setupInlineViews(in: inlineRow)
+        } else {
+            setupViews()
+        }
         initAccessibility()
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillResignActive),
@@ -291,8 +298,13 @@ class MediaScrubProgressBar: UIStackView {
         }
 
         liveLabel.isHidden = !isLive
-        horizontalStack.isHidden = isLive
         progressSlider.isHidden = isLive
+        if inlineRow != nil {
+            elapsedTimeLabel.isHidden = isLive
+            remainingTimeButton.isHidden = isLive
+        } else {
+            horizontalStack.isHidden = isLive
+        }
     }
 }
 
@@ -324,6 +336,59 @@ private extension MediaScrubProgressBar {
         scrubInfoStackView.setContentHuggingPriority(.required, for: .vertical)
         horizontalStack.setContentHuggingPriority(.required, for: .vertical)
         progressSlider.setContentHuggingPriority(.required, for: .vertical)
+    }
+
+    private func setupInlineViews(in row: UIView) {
+        addArrangedSubview(scrubInfoStackView)
+        addArrangedSubview(row)
+        spacing = 5
+        axis = .vertical
+        translatesAutoresizingMaskIntoConstraints = false
+
+        setVerticalHuggingAndCompressionResistance(to: .required, for: [
+            scrubbingHelpLabel,
+            scrubbingIndicatorLabel,
+            scrubInfoStackView
+        ])
+
+        let pointSize = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .footnote).pointSize
+        elapsedTimeLabel.font = .monospacedDigitSystemFont(ofSize: pointSize, weight: .semibold)
+        remainingTimeButton.titleLabel?.font = .monospacedDigitSystemFont(ofSize: pointSize, weight: .semibold)
+
+        let rowViews: [UIView] = [elapsedTimeLabel, progressSlider, remainingTimeButton, liveLabel]
+        for view in rowViews {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            row.addSubview(view)
+        }
+        for view in [elapsedTimeLabel, remainingTimeButton] as [UIView] {
+            view.setContentHuggingPriority(.required, for: .horizontal)
+            view.setContentCompressionResistancePriority(.required, for: .horizontal)
+        }
+
+        let itemSpacing: CGFloat = 10
+        let preferredHeight = row.heightAnchor.constraint(equalToConstant: 44)
+        preferredHeight.priority = .defaultLow
+
+        NSLayoutConstraint.activate([
+            row.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            preferredHeight,
+
+            elapsedTimeLabel.leftAnchor.constraint(equalTo: row.leftAnchor),
+            elapsedTimeLabel.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+            elapsedTimeLabel.topAnchor.constraint(greaterThanOrEqualTo: row.topAnchor, constant: 8),
+
+            progressSlider.leftAnchor.constraint(equalTo: elapsedTimeLabel.rightAnchor, constant: itemSpacing),
+            progressSlider.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+
+            remainingTimeButton.leftAnchor.constraint(equalTo: progressSlider.rightAnchor, constant: itemSpacing),
+            remainingTimeButton.rightAnchor.constraint(equalTo: row.rightAnchor),
+            remainingTimeButton.topAnchor.constraint(equalTo: row.topAnchor),
+            remainingTimeButton.bottomAnchor.constraint(equalTo: row.bottomAnchor),
+
+            liveLabel.centerXAnchor.constraint(equalTo: row.centerXAnchor),
+            liveLabel.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+            liveLabel.leftAnchor.constraint(greaterThanOrEqualTo: row.leftAnchor)
+        ])
     }
 
     private func setVerticalHuggingAndCompressionResistance(to priority: UILayoutPriority, for views: [UIView]) {
