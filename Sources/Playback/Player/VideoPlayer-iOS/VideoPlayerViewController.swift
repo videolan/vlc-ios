@@ -75,6 +75,10 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var idleTimer: Timer?
 
+    private var isCompactPortraitLayout: Bool {
+        return traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+    }
+
 #if os(iOS)
     override var prefersStatusBarHidden: Bool {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad && !playerController.isControlsHidden {
@@ -310,6 +314,27 @@ class VideoPlayerViewController: PlayerViewController {
         constraint.priority = .required - 1
         return constraint
     }()
+
+    private static let controlsMinimumMargin: CGFloat = 16
+
+    private static let scrubProgressBarSpacing: CGFloat = 12
+
+    private lazy var scrubProgressBarInRowConstraints: [NSLayoutConstraint] = [
+        mediaScrubProgressBar.leftAnchor.constraint(equalTo: videoPlayerControls.leftControls.rightAnchor,
+                                                    constant: Self.scrubProgressBarSpacing),
+        mediaScrubProgressBar.rightAnchor.constraint(equalTo: videoPlayerControls.rightControls.leftAnchor,
+                                                     constant: -Self.scrubProgressBarSpacing),
+        mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.bottomAnchor),
+    ]
+
+    private lazy var scrubProgressBarAboveRowConstraints: [NSLayoutConstraint] = [
+        mediaScrubProgressBar.leftAnchor.constraint(equalTo: videoPlayerControls.leftAnchor),
+        mediaScrubProgressBar.rightAnchor.constraint(equalTo: videoPlayerControls.rightAnchor),
+        mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor,
+                                                      constant: -Self.scrubProgressBarSpacing),
+    ]
+
+    private var isScrubProgressBarAboveRow = false
 
     // Bottom-bar icons sit 10pt inside their buttons.
     private static let controlsIconInset: CGFloat = 10
@@ -578,21 +603,27 @@ class VideoPlayerViewController: PlayerViewController {
             )
 
         } else {
+            let scrubProgressBarAboveRow = isScrubProgressBarAboveRow ? mediaScrubProgressBar : nil
+            let scrubProgressBarInRow = isScrubProgressBarAboveRow ? nil : mediaScrubProgressBar
 #if os(iOS)
             view.applyAccessibilityControls(
+                mediaNavigationBar,
                 videoPlayerControls.transportControls,
-                videoPlayerControls,
-                mediaScrubProgressBar,
+                scrubProgressBarAboveRow,
+                videoPlayerControls.leftControls,
+                scrubProgressBarInRow,
+                videoPlayerControls.rightControls,
                 volumeControlView,
-                brightnessControlView,
-                mediaNavigationBar
+                brightnessControlView
             )
 #else
             view.applyAccessibilityControls(
+                mediaNavigationBar,
                 videoPlayerControls.transportControls,
-                videoPlayerControls,
-                mediaScrubProgressBar,
-                mediaNavigationBar
+                scrubProgressBarAboveRow,
+                videoPlayerControls.leftControls,
+                scrubProgressBarInRow,
+                videoPlayerControls.rightControls
             )
 #endif
 
@@ -718,7 +749,7 @@ class VideoPlayerViewController: PlayerViewController {
     private func setupCommonSliderConstraints(for slider: UIView) {
         let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
         let topConstraint = slider.topAnchor.constraint(greaterThanOrEqualTo: mediaNavigationBar.bottomAnchor, constant: 10)
-        let bottomConstraint = slider.bottomAnchor.constraint(lessThanOrEqualTo: mediaScrubProgressBar.topAnchor, constant: -16)
+        let bottomConstraint = slider.bottomAnchor.constraint(lessThanOrEqualTo: videoPlayerControls.topAnchor, constant: -16)
         let yConstraint = slider.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
         heightConstraint.priority = .required
         topConstraint.priority = .required
@@ -747,7 +778,7 @@ class VideoPlayerViewController: PlayerViewController {
         let belowOptionsConstraint = brightnessControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         regularSliderConstraints.append(belowOptionsConstraint)
         NSLayoutConstraint.activate([
-            brightnessControlView.leadingAnchor.constraint(equalTo: mediaScrubProgressBar.leadingAnchor),
+            brightnessControlView.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor),
             belowOptionsConstraint
         ])
     }
@@ -757,7 +788,7 @@ class VideoPlayerViewController: PlayerViewController {
         let belowOptionsConstraint = volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         regularSliderConstraints.append(belowOptionsConstraint)
         NSLayoutConstraint.activate([
-            volumeControlView.trailingAnchor.constraint(equalTo: mediaScrubProgressBar.trailingAnchor),
+            volumeControlView.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor),
             belowOptionsConstraint
         ])
     }
@@ -829,7 +860,7 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func setupVideoPlayerControlsConstraints() {
-        let minimumMargin: CGFloat = 16
+        let minimumMargin = Self.controlsMinimumMargin
         let safeArea = view.safeAreaLayoutGuide
         let leadingConstraint = videoPlayerControls.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor)
         let trailingConstraint = videoPlayerControls.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
@@ -852,7 +883,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupTransportControlsConstraints() {
         // Keep transport buttons 8pt clear of the sliders.
-        let sliderSpace: CGFloat = 8 + Self.controlsIconInset + SliderInfoView.width + 8
+        let sliderSpace: CGFloat = Self.controlsMinimumMargin + SliderInfoView.width + 8
         let maximumWidth = videoPlayerControls.transportControls.widthAnchor.constraint(
             lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * sliderSpace)
         maximumWidth.priority = .required - 1
@@ -866,15 +897,25 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func setupScrubProgressBarConstraints() {
-        let margin: CGFloat = 12
+        NSLayoutConstraint.activate(scrubProgressBarInRowConstraints)
+        updateScrubProgressBarPlacement()
+    }
 
-        NSLayoutConstraint.activate([
-            mediaScrubProgressBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor,
-                                                           constant: Self.controlsIconInset),
-            mediaScrubProgressBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor,
-                                                            constant: -Self.controlsIconInset),
-            mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
-        ])
+    private func updateScrubProgressBarPlacement() {
+        let aboveRow = isCompactPortraitLayout
+        guard aboveRow != isScrubProgressBarAboveRow, !transportControlsInBarConstraint.isActive else {
+            return
+        }
+
+        isScrubProgressBarAboveRow = aboveRow
+        if aboveRow {
+            NSLayoutConstraint.deactivate(scrubProgressBarInRowConstraints)
+            NSLayoutConstraint.activate(scrubProgressBarAboveRowConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(scrubProgressBarAboveRowConstraints)
+            NSLayoutConstraint.activate(scrubProgressBarInRowConstraints)
+        }
+        setupAccessibility()
     }
 
     private func setupStatusLabelConstraints() {
@@ -1023,6 +1064,8 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateScrubProgressBarPlacement()
+
         if playbackService.isPlaying && playerController.isControlsHidden && overlayCardView == nil {
             setControlsHidden(false, animated: true)
             resetIdleTimer()
@@ -1579,6 +1622,8 @@ extension VideoPlayerViewController {
             transportControlsCenterYConstraint.isActive = false
             transportControlsAboveScrubBarConstraint.isActive = false
             transportControlsInBarConstraint.isActive = true
+            NSLayoutConstraint.deactivate(scrubProgressBarInRowConstraints)
+            NSLayoutConstraint.activate(scrubProgressBarAboveRowConstraints)
             videoPlayerControls.isTransportCompact = true
             view.bringSubviewToFront(mediaScrubProgressBar)
             view.bringSubviewToFront(videoPlayerControls)
@@ -1743,6 +1788,11 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
         transportControlsInBarConstraint.isActive = false
         transportControlsCenterYConstraint.isActive = true
         transportControlsAboveScrubBarConstraint.isActive = true
+        if !isScrubProgressBarAboveRow {
+            NSLayoutConstraint.deactivate(scrubProgressBarAboveRowConstraints)
+            NSLayoutConstraint.activate(scrubProgressBarInRowConstraints)
+        }
+        updateScrubProgressBarPlacement()
         videoPlayerControls.isTransportCompact = false
         videoPlayerControls.subtitleButton.isEnabled = true
         videoPlayerControls.rotationLockButton.isEnabled = true

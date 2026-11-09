@@ -235,28 +235,14 @@ class VideoPlayerControls: UIView {
                                                                 comment: "")
         moreActionsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.moreOptions
 
-        self.accessibilityLabel = NSLocalizedString("PLAYBACK_CONTROLS_BAR_TITLE",
-                                                    comment: "")
-        self.accessibilityHint = NSLocalizedString("PLAYBACK_CONTROLS_BAR_HINT",
-                                                   comment: "")
-
         // Play/pause is the most important.
         // Then, next track, then previous.
-        // Lastly, iterate over the remaining controls left to right.
         transportControls.applyAccessibilityControls(
             playPauseButton,
             nextMediaButton,
             previousMediaButton,
             backwardButton,
             forwardButton
-        )
-        applyAccessibilityControls(
-            rotationLockButton,
-            subtitleButton,
-            repeatButton,
-            shuffleButton,
-            aspectRatioButton,
-            moreActionsButton
         )
     }
 
