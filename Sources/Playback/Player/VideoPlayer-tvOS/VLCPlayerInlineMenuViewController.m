@@ -1104,9 +1104,7 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 {
     VLCMLMedia *mlMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService fetchMediaWith:media.url];
 
-    NSString *title = media.metaData.title;
-    if (title.length == 0)
-        title = mlMedia.title.length ? mlMedia.title : media.url.lastPathComponent;
+    NSString *title = VLCQueueTitleString(media, mlMedia, mlMedia.title);
     NSString *artist = mlMedia.artist.name;
     NSString *duration = VLCQueueDurationString(media, mlMedia);
     NSString *subtitle = artist.length ? artist : duration;

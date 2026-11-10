@@ -528,14 +528,7 @@ private extension QueueViewController {
     private func configureQueueMetadata(_ cell: MediaCollectionViewCell,
                                         for media: VLCMedia,
                                         libraryMedia: VLCMLMedia?) {
-        let title: String
-        if let mediaTitle = media.metaData.title, !mediaTitle.isEmpty {
-            title = mediaTitle
-        } else if let libraryTitle = libraryMedia?.title(), !libraryTitle.isEmpty {
-            title = libraryTitle
-        } else {
-            title = media.url?.lastPathComponent ?? ""
-        }
+        let title = VLCQueueTitleString(media, libraryMedia, libraryMedia?.title())
 
         var details: [String] = []
         if let libraryMedia = libraryMedia, libraryMedia.subtype() == .albumTrack {

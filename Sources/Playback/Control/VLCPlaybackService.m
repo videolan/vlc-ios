@@ -68,6 +68,18 @@ NSString *VLCQueueDurationString(VLCMedia *media, VLCMLMedia *libraryMedia)
     return duration.longLongValue > 0 ? [VLCTime timeWithNumber:duration].stringValue : @"";
 }
 
+NSString *VLCQueueTitleString(VLCMedia *media, VLCMLMedia *libraryMedia, NSString *libraryDisplayTitle)
+{
+    // Match VLCMetaData's library policy, including externally stored podcast episodes.
+    BOOL isLibraryMedia = libraryMedia && (!libraryMedia.isExternalMedia || libraryMedia.nbSubscriptions > 0);
+    if (isLibraryMedia && libraryDisplayTitle.length > 0)
+        return libraryDisplayTitle;
+
+    // Native titles already include libvlc's filename fallback. External library
+    // placeholders must not override playlist or stream metadata.
+    return media.metaData.title ?: @"";
+}
+
 static const float kVLCPlaybackRateMinimum = 0.25f;
 static const float kVLCPlaybackRateMaximum = 8.0f;
 /* libvlc's equalizer scales the dry signal by 0.25 (-12 dB) */

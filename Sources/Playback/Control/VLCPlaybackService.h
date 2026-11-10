@@ -43,6 +43,8 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 @class VLCAudioEqualizerPreset;
 
 FOUNDATION_EXPORT NSString *VLCQueueDurationString(VLCMedia *media, VLCMLMedia * _Nullable libraryMedia);
+FOUNDATION_EXPORT NSString *VLCQueueTitleString(VLCMedia *media, VLCMLMedia * _Nullable libraryMedia,
+                                               NSString * _Nullable libraryDisplayTitle);
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
