@@ -581,13 +581,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        if usesArtworkHeader {
-            statusBarView.removeFromSuperview()
-            view.addSubview(searchBar)
-        }
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 #if os(iOS)
