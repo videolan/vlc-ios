@@ -20,8 +20,9 @@ final class PlayerControlGroupView: UIView {
     private let background = VideoControlBackgroundView()
     private let itemRow: UIStackView
 
-    init(arrangedSubviews: [UIView]) {
+    init(arrangedSubviews: [UIView], followsLayoutDirection: Bool = false) {
         itemRow = UIStackView(arrangedSubviews: arrangedSubviews)
+        itemRow.semanticContentAttribute = followsLayoutDirection ? .unspecified : .forceLeftToRight
         super.init(frame: .zero)
         setup()
     }
@@ -39,7 +40,6 @@ final class PlayerControlGroupView: UIView {
 
         itemRow.axis = .horizontal
         itemRow.alignment = .center
-        itemRow.semanticContentAttribute = .forceLeftToRight
         itemRow.translatesAutoresizingMaskIntoConstraints = false
         addSubview(itemRow)
 

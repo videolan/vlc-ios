@@ -156,7 +156,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         return airplayVolumeView
     }()
 
-    private let outputControls = PlayerControlGroupView(arrangedSubviews: [])
+    private let outputControls = PlayerControlGroupView(arrangedSubviews: [], followsLayoutDirection: true)
 
     private lazy var closeButtonBackground: VideoControlBackgroundView = {
         let background = VideoControlBackgroundView()
@@ -241,7 +241,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     private func setupViews() {
         distribution = .fill
-        semanticContentAttribute = .forceLeftToRight
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)

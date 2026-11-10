@@ -413,9 +413,13 @@ class VideoPlayerViewController: PlayerViewController {
                                                      constant: -Self.scrubProgressBarSpacing)
     }()
 
-    private lazy var scrubProgressBarInRowConstraints: [NSLayoutConstraint] = [
+    private lazy var scrubProgressBarLeftInRowConstraint: NSLayoutConstraint = {
         mediaScrubProgressBar.leftAnchor.constraint(equalTo: videoPlayerControls.leftControls.rightAnchor,
-                                                    constant: Self.scrubProgressBarSpacing),
+                                                    constant: Self.scrubProgressBarSpacing)
+    }()
+
+    private lazy var scrubProgressBarInRowConstraints: [NSLayoutConstraint] = [
+        scrubProgressBarLeftInRowConstraint,
         scrubProgressBarRightInRowConstraint,
         mediaScrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.bottomAnchor),
     ]
@@ -1860,6 +1864,20 @@ extension VideoPlayerViewController {
                 videoPlayerControls.transportControls.bottomAnchor.constraint(
                     equalTo: videoPlayerControls.topAnchor, constant: transportControlsAboveScrubBarConstraint.constant),
             ]
+        } else if view.effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            let cardRightAnchor = qvc.view.rightAnchor
+            let transportClearOfCard = videoPlayerControls.transportControls.leftAnchor.constraint(
+                greaterThanOrEqualTo: cardRightAnchor, constant: Self.queueCardSpacing)
+            transportClearOfCard.priority = .required - 1
+            view.addLayoutGuide(queueCardTransportAreaGuide)
+            queueCardConstraints = [
+                queueCardTransportAreaGuide.leftAnchor.constraint(equalTo: cardRightAnchor),
+                queueCardTransportAreaGuide.rightAnchor.constraint(equalTo: videoPlayerControls.rightAnchor),
+                videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: queueCardTransportAreaGuide.centerXAnchor),
+                transportClearOfCard,
+                mediaScrubProgressBar.leftAnchor.constraint(equalTo: cardRightAnchor, constant: Self.queueCardSpacing),
+            ]
+            NSLayoutConstraint.deactivate([transportControlsCenterXConstraint, scrubProgressBarLeftInRowConstraint])
         } else {
             let cardLeftAnchor = qvc.view.leftAnchor
             let transportClearOfCard = videoPlayerControls.transportControls.rightAnchor.constraint(
@@ -2053,6 +2071,7 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
         queueCardConstraints = []
         queueCardTransportAreaGuide.owningView?.removeLayoutGuide(queueCardTransportAreaGuide)
         NSLayoutConstraint.activate([transportControlsCenterXConstraint, transportControlsCenterYConstraint])
+        scrubProgressBarLeftInRowConstraint.isActive = !isScrubProgressBarAboveRow
         scrubProgressBarRightInRowConstraint.isActive = !isScrubProgressBarAboveRow
         updateScrubProgressBarPlacement()
         queueViewController?.hide()
