@@ -40,6 +40,7 @@
 #import "VLCFavoriteService.h"
 #import "VLCPlaceholderArtwork.h"
 #import "VLCArtworkImageView.h"
+#import "VLCArrangementViewController.h"
 #import "VLCPhotoLibraryController.h"
 #import "VLCDonationViewController.h"
 #import "VLCDonationNavigationController.h"

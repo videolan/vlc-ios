@@ -355,8 +355,9 @@ extension MediaViewController {
         scrollingEnabled(!editing)
 
         if let controllers = navigationController?.viewControllers,
-           controllers.count > 1, controllers.last is CollectionCategoryViewController {
-            controllers.last?.setEditing(editing, animated: animated)
+           controllers.count > 1,
+           let collectionViewController = navigationController?.topCollectionCategoryViewController {
+            collectionViewController.setEditing(editing, animated: animated)
         } else {
             viewControllers[currentIndex].setEditing(editing, animated: animated)
         }
@@ -399,7 +400,7 @@ extension MediaViewController {
 
     @objc func handleSelectAll() {
         let controller: MediaCategoryViewController
-        if let mediaCategoryViewController = navigationController?.viewControllers.last as? CollectionCategoryViewController {
+        if let mediaCategoryViewController = navigationController?.topCollectionCategoryViewController {
             controller = mediaCategoryViewController
         } else if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             controller = mediaCategoryViewController

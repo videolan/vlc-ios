@@ -171,6 +171,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private weak var artworkHeader: CollectionArtworkHeader?
     private var isArtworkBehindStatusBar: Bool = false
     private lazy var artworkHeaderLayout = CollectionArtworkHeaderLayout()
+    private var isArtworkPaneVisible = false
+    private weak var artworkPaneViewController: UIViewController?
 
     private var usesArtworkHeader: Bool {
         guard let model = model as? CollectionModel else {
@@ -203,6 +205,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }()
 
     private var artworkHeaderTopOffset: CGFloat {
+        if isArtworkPaneVisible {
+            return 0
+        }
+
         return navigationController?.navigationBar.frame.maxY ?? searchBarSize
     }
 
@@ -406,24 +412,28 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         standardAppearance?.backgroundColor = backgroundColor
         scrollEdgeAppearance?.backgroundColor = backgroundColor
 
-        if let artworkHeader = artworkHeader,
-           let navBar = navigationController?.navigationBar {
+        let hideNavigationItemTitle: Bool
+        if isArtworkPaneVisible {
+            hideNavigationItemTitle = false
+        } else if let artworkHeader = artworkHeader,
+                  let navBar = navigationController?.navigationBar {
             let padding = statusBarView.frame.maxY + navBar.frame.maxY
-            let hideNavigationItemTitle: Bool
             if collectionView.contentOffset.y >= artworkHeader.frame.maxY - padding {
                 hideNavigationItemTitle = false
             } else {
                 hideNavigationItemTitle = true
             }
+        } else {
+            return
+        }
 
-            navigationItem.titleView?.isHidden = hideNavigationItemTitle
+        navigationItem.titleView?.isHidden = hideNavigationItemTitle
 
-            if isArtworkBehindStatusBar != hideNavigationItemTitle {
-                isArtworkBehindStatusBar = hideNavigationItemTitle
+        if isArtworkBehindStatusBar != hideNavigationItemTitle {
+            isArtworkBehindStatusBar = hideNavigationItemTitle
 #if os(iOS)
-                setNeedsStatusBarAppearanceUpdate()
+            setNeedsStatusBarAppearanceUpdate()
 #endif
-            }
         }
     }
 
@@ -503,6 +513,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         delegate?.needsToUpdateNavigationbarIfNeeded(self)
         collectionView?.reloadData()
+        if #available(iOS 27.1, visionOS 27.1, *),
+           let artworkViewController = artworkPaneViewController as? CollectionArtworkViewController {
+            artworkViewController.reloadData()
+        }
         updateUIForContent()
 
         if !searchDataSource.isSearching {
@@ -1547,7 +1561,7 @@ extension MediaCategoryViewController {
                                                                           action: #selector(handleEditingInsideCollection))]
         : rightBarButtonItems()
         navigationItem.leftBarButtonItems = leftBarButtonItem()
-        if navigationController?.viewControllers.last is ArtistViewController || navigationController?.viewControllers.last is CollectionCategoryViewController {
+        if navigationController?.viewControllers.last is ArtistViewController || navigationController?.topCollectionCategoryViewController != nil {
             delegate?.updateNavigationBarButtons(for: self, isEditing: isEditing)
         }
         navigationItem.setHidesBackButton(isEditing, animated: true)
@@ -2199,6 +2213,19 @@ extension MediaCategoryViewController {
         collectionViewController.delegate = delegate
         collectionViewController.navigationItem.rightBarButtonItems = collectionViewController.rightBarButtonItems()
 
+        if #available(iOS 27.1, visionOS 27.1, *),
+           collectionViewController.usesArtworkHeader,
+           let model = collectionViewController.model as? CollectionModel {
+            let artworkViewController = CollectionArtworkViewController(model: model)
+            if let arrangementViewController = VLCArrangementViewController(primaryViewController: collectionViewController,
+                                                                            secondaryViewController: artworkViewController) {
+                arrangementViewController.delegate = collectionViewController
+                collectionViewController.artworkPaneViewController = artworkViewController
+                navigationController?.pushViewController(arrangementViewController, animated: true)
+                return
+            }
+        }
+
         navigationController?.pushViewController(collectionViewController, animated: true)
     }
 
@@ -2277,7 +2304,7 @@ extension MediaCategoryViewController {
             return .init(width: collectionView.safeAreaLayoutGuide.layoutFrame.width, height: 40)
         }
 
-        guard showsArtworkHeader else {
+        guard showsArtworkHeader, !isArtworkPaneVisible else {
             return .init(width: 0, height: 0)
         }
 
@@ -2504,6 +2531,20 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - VLCArrangementViewControllerDelegate
+
+@available(iOS 27.1, visionOS 27.1, *)
+extension MediaCategoryViewController: VLCArrangementViewControllerDelegate {
+    func arrangementViewController(_ arrangementViewController: VLCArrangementViewController,
+                                   didChangeSecondaryVisibility secondaryVisible: Bool) {
+        isArtworkPaneVisible = secondaryVisible
+        collectionViewTopConstraint?.constant = -artworkHeaderTopOffset
+        cachedCellSize = .zero
+        collectionView?.collectionViewLayout.invalidateLayout()
+        updateArtworkHeader()
+    }
+}
+
 // MARK: - Layout and sort options
 
 extension MediaCategoryViewController {
@@ -2621,6 +2662,10 @@ extension MediaCategoryViewController: EditControllerDelegate {
     }
 
     func editControllerGetArtworkHeaderSize(with width: CGFloat) -> CGSize {
+        if isArtworkPaneVisible {
+            return .zero
+        }
+
         return artworkHeaderLayout.getHeaderSize(with: width)
     }
 
@@ -2640,19 +2685,19 @@ extension MediaCategoryViewController: EditControllerDelegate {
             } else if let controller = navigationController?.viewControllers.last as? VideoViewController {
                 controller.resetTitleView()
                 return
-            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+            } else if let controller = navigationController?.topCollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLAlbum {
                 newTitle = collection.albumName()
-            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+            } else if let controller = navigationController?.topCollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLGenre {
                 newTitle = collection.title()
-            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+            } else if let controller = navigationController?.topCollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLPlaylist {
                 newTitle = collection.title()
-            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+            } else if let controller = navigationController?.topCollectionCategoryViewController,
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLMediaGroup {
                 newTitle = collection.title()
