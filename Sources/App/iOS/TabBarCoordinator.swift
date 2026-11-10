@@ -107,11 +107,6 @@ class TabBarCoordinator: NSObject {
             tabBarController.mode = .tabSidebar
             let sideBar = tabBarController.sidebar
             sideBar.preferredLayout = .overlap
-
-            if #available(iOS 27.0, *),
-               sideBar.responds(to: NSSelectorFromString("setPreferredPlacement:")) {
-                sideBar.setValue(1, forKey: "preferredPlacement")
-            }
             sideBar.delegate = self
             sideBar.bottomBarView?.isHidden = true
         }
