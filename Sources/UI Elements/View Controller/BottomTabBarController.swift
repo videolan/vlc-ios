@@ -2,7 +2,7 @@
  * BottomTabBarController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2025 VideoLAN. All rights reserved.
+ * Copyright (c) 2025-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
@@ -307,18 +307,6 @@ extension UITabBarController {
         }
 
         return isSidebarAvailable && !sidebar.isHidden
-    }
-
-    var canShowSidebar: Bool {
-        guard #available(iOS 18.0, *) else {
-            return false
-        }
-
-        if #available(iOS 27.0, *) {
-            return true
-        }
-
-        return UIDevice.current.userInterfaceIdiom == .pad
     }
 
     var usesVerticalBar: Bool {

@@ -229,7 +229,7 @@ class TabBarCoordinator: NSObject {
         editToolbar.backgroundColor = colors.tabBarColor
 
 #if os(iOS)
-        if #available(iOS 18.0, *), tabBarController.canShowSidebar {
+        if #available(iOS 18.0, *), UIDevice.current.userInterfaceIdiom == .pad {
             let sideToolBar = EditToolbar()
             self.sideToolBar = sideToolBar
             sideToolBar.isHidden = true
