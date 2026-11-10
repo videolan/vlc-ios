@@ -447,7 +447,7 @@ extension AudioPlayerViewController {
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
         audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
 
-        let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
+        let image: UIImage? = isPlaying ? UIImage(named: "minimize") : MediaNavigationBar.closeImage
         let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")
         let accessibilityHint: String = isPlaying ? NSLocalizedString("MINIMIZE_HINT", comment: "") : NSLocalizedString("CLOSE_HINT", comment: "")
         mediaNavigationBar.updateCloseButton(with: image, accessibility: (accessibilityLabel, accessibilityHint))

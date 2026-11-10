@@ -45,6 +45,9 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     // Extend the close target beyond the bar's bounds.
     private static let closeButtonTouchOutset: CGFloat = 16
 
+    static let closeImage = UIImage(systemName: "xmark",
+                                    withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+
     lazy var closePlaybackButton: UIButton = {
         var closeButton = UIButton(type: .system)
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -52,7 +55,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self,
                                                                                           action: #selector(handleLongPressPlayPause(_:)))
         longPressGesture.shouldRequireFailure(of: tapGesture)
-        closeButton.setImage(UIImage(named: "close"), for: .normal)
+        closeButton.setImage(Self.closeImage, for: .normal)
         closeButton.tintColor = .white
         closeButton.addGestureRecognizer(longPressGesture)
         closeButton.addGestureRecognizer(tapGesture)
@@ -260,7 +263,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     @objc private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let accessibility: (String, String) = (NSLocalizedString("STOP_BUTTON", comment: ""), NSLocalizedString("CLOSE_HINT", comment: ""))
-            updateCloseButton(with: UIImage(named: "close"), accessibility: accessibility)
+            updateCloseButton(with: Self.closeImage, accessibility: accessibility)
             delegate?.mediaNavigationBarDisplayCloseAlert?(self)
         } else if sender.state == .ended {
             delegate?.mediaNavigationBarDidCloseLongPress(self)
