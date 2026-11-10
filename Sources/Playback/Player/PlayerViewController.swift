@@ -553,6 +553,28 @@ class PlayerViewController: UIViewController {
     }
 
 #if os(iOS)
+    func activeReservedRegions(ofKind kindSelectorName: String) -> [(frame: CGRect, margins: UIEdgeInsets)] {
+        guard #available(iOS 27.1, *),
+              let kindClass = NSClassFromString("UIViewReservedRegionKind") as AnyObject?,
+              kindClass.responds(to: NSSelectorFromString(kindSelectorName)),
+              let kind = kindClass.perform(NSSelectorFromString(kindSelectorName))?.takeUnretainedValue(),
+              view.responds(to: NSSelectorFromString("reservedRegionsOfKind:")),
+              let regions = view.perform(NSSelectorFromString("reservedRegionsOfKind:"), with: kind)?
+                .takeUnretainedValue() as? [NSObject] else {
+            return []
+        }
+
+        return regions
+            .filter { $0.value(forKey: "active") as? Bool ?? false }
+            .compactMap { region in
+                guard let frame = (region.value(forKey: "frame") as? NSValue)?.cgRectValue else {
+                    return nil
+                }
+                let margins = (region.value(forKey: "margins") as? NSValue)?.uiEdgeInsetsValue ?? .zero
+                return (frame, margins)
+            }
+    }
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         // Slider writes reach the system asynchronously; reconcile after the interaction settles.
         if keyPath == "outputVolume", volumeControlView.isBeingTouched {

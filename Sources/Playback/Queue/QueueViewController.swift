@@ -248,7 +248,7 @@ class QueueViewController: UIViewController {
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.videoPlayerControls.transportControls.topAnchor,
                                                                     constant: -cardTransportSpacing)
                 } else {
-                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.videoPlayerControls.bottomAnchor)
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.queueCardBottomLayoutGuide.bottomAnchor)
                 }
                 videoPlayer = parent
             } else if let parent = parent as? AudioPlayerViewController {
