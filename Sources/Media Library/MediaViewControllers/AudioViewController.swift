@@ -2,7 +2,7 @@
  * AudioViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -135,5 +135,27 @@ class GenresViewController: MediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [GenreCategoryViewController(mediaLibraryService)]
+    }
+}
+
+class FoldersViewController: MediaViewController {
+    override init(mediaLibraryService: MediaLibraryService) {
+        super.init(mediaLibraryService: mediaLibraryService)
+        setupUI()
+    }
+
+    private func setupUI() {
+        let localizedTitle: String = NSLocalizedString("FOLDERS", comment: "")
+        title = localizedTitle
+
+        let color: UIColor = PresentationTheme.current.colors.tabBarIconColor
+        let image: UIImage? = UIImage(systemName: "folder")?.withTintColor(color, renderingMode: .alwaysOriginal)
+
+        tabBarItem = UITabBarItem(title: localizedTitle, image: image, selectedImage: image)
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.folders
+    }
+
+    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        return [FolderViewController(mediaLibraryService, isAudio: true, folder: mediaLibraryService.baseFolder())]
     }
 }

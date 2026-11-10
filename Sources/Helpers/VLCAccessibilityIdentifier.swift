@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLCAccessibilityIdentifier.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
+ * Copyright © 2018-2026 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
@@ -18,6 +18,7 @@ import Foundation
     static let artists = "artists"
     static let albums = "albums"
     static let genres = "genres"
+    static let folders = "folders"
     static let mediaCell = "mediaCell"
     static let mediaMenu = "mediaMenu"
     static let select = "select"

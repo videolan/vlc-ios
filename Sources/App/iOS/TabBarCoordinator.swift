@@ -56,6 +56,11 @@ class TabBarCoordinator: NSObject {
         return UINavigationController(rootViewController: rootViewController)
     }()
 
+    private lazy var foldersNavigationController: UINavigationController = {
+        let rootViewController = FoldersViewController(mediaLibraryService: mediaLibraryService)
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+
     private lazy var playlistsNavigationController: UINavigationController = {
         let rootViewController = PlaylistViewController(mediaLibraryService: mediaLibraryService)
         return UINavigationController(rootViewController: rootViewController)
@@ -130,6 +135,7 @@ class TabBarCoordinator: NSObject {
             controllers.append(albumsNavigationController)
             controllers.append(tracksNavigationController)
             controllers.append(genresNavigationController)
+            controllers.append(foldersNavigationController)
             controllers.append(playlistsNavigationController)
         } else {
             controllers.append(audioNavigationController)
@@ -182,15 +188,11 @@ class TabBarCoordinator: NSObject {
                 break
             case 1:
                 if let audioViewController = audioNavigationController.topViewController as? AudioViewController {
-                    let currentIndex = audioViewController.currentIndex
-                    if currentIndex < audioViewController.viewControllers.count - 1 {
-                        // Do not update the tabIndex if the folders view is selected.
-                        tabIndex = currentIndex + 1
-                    }
+                    tabIndex = audioViewController.currentIndex + 1
                 }
                 break
             default:
-                tabIndex += 3
+                tabIndex += 4
                 break
             }
         } else {
@@ -198,7 +200,7 @@ class TabBarCoordinator: NSObject {
             case 0:
                 tabIndex = 0
                 break
-            case 1, 2, 3, 4:
+            case 1, 2, 3, 4, 5:
                 if let audioViewController = audioNavigationController.topViewController as? AudioViewController {
                     audioViewController.currentIndex = tabIndex - 1
                     audioViewController.reloadPagerTabStripView()
@@ -206,7 +208,7 @@ class TabBarCoordinator: NSObject {
                 tabIndex = 1
                 break
             default:
-                tabIndex -= 3
+                tabIndex -= 4
                 break
             }
         }
