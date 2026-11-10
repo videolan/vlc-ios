@@ -142,6 +142,10 @@ class PlayerViewController: UIViewController {
         return coneLoadingView
     }()
 
+    var overlayCardLayoutGuide: UILayoutGuide {
+        return view.safeAreaLayoutGuide
+    }
+
     lazy var mediaNavigationBar: MediaNavigationBar = {
 #if os(iOS)
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
@@ -911,7 +915,7 @@ class PlayerViewController: UIViewController {
         isOverlayCardLaidOutForLandscape = isLandscape
 
         NSLayoutConstraint.deactivate(overlayCardConstraints)
-        let guide = view.safeAreaLayoutGuide
+        let guide = overlayCardLayoutGuide
         let margin: CGFloat = 12
         if isLandscape {
             let landscapeWidth: CGFloat

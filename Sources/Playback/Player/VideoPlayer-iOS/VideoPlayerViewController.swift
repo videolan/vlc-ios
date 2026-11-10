@@ -84,7 +84,8 @@ class VideoPlayerViewController: PlayerViewController {
     private let queueCardTransportAreaGuide = UILayoutGuide()
 
     var isCompactPortraitLayout: Bool {
-        return traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+        return isBookLayout
+            || (traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular)
     }
 
 #if os(iOS)
@@ -290,6 +291,16 @@ class VideoPlayerViewController: PlayerViewController {
         videoAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     }()
 
+    private let interfaceAreaLayoutGuide = UILayoutGuide()
+
+    private lazy var interfaceAreaLeadingConstraint: NSLayoutConstraint = {
+        interfaceAreaLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+    }()
+
+    private let safeInterfaceAreaLayoutGuide = UILayoutGuide()
+
+    private var isBookLayout = false
+
     private let controlsAreaLayoutGuide = UILayoutGuide()
 
     private lazy var controlsAreaTopConstraint: NSLayoutConstraint = {
@@ -378,7 +389,7 @@ class VideoPlayerViewController: PlayerViewController {
     private var isBottomRowBesideCamera = false
 
     private lazy var transportControlsCenterXConstraint: NSLayoutConstraint = {
-        videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        videoPlayerControls.transportControls.centerXAnchor.constraint(equalTo: interfaceAreaLayoutGuide.centerXAnchor)
     }()
 
     private lazy var transportControlsCenterYConstraint: NSLayoutConstraint = {
@@ -519,7 +530,8 @@ class VideoPlayerViewController: PlayerViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        topBottomBackgroundGradientLayer.frame = self.view.bounds
+        let interfaceAreaFrame = interfaceAreaLayoutGuide.layoutFrame
+        topBottomBackgroundGradientLayer.frame = interfaceAreaFrame
         let height = view.bounds.height
         if height > 0 {
             let topScrimEnd = min(VideoPlayerViewController.topScrimHeight / height, 0.5)
@@ -527,8 +539,8 @@ class VideoPlayerViewController: PlayerViewController {
             topBottomBackgroundGradientLayer.locations = [0, topScrimEnd as NSNumber, bottomScrimStart as NSNumber, 1]
         }
 #if os(iOS)
-        brightnessBackgroundGradientLayer.frame = self.view.bounds
-        volumeBackgroundGradientLayer.frame = self.view.bounds
+        brightnessBackgroundGradientLayer.frame = interfaceAreaFrame
+        volumeBackgroundGradientLayer.frame = interfaceAreaFrame
 
         // The fold has no change notification, so it is checked on each layout pass.
         updateReservedRegionLayout()
@@ -541,6 +553,13 @@ class VideoPlayerViewController: PlayerViewController {
         return activeReservedRegions(ofKind: "divisionRegionKind")
             .map(\.frame)
             .first { $0.width > $0.height && $0.minY > bounds.minY && $0.maxY < bounds.maxY }
+    }
+
+    private var bookFoldFrame: CGRect? {
+        let bounds = view.bounds
+        return activeReservedRegions(ofKind: "divisionRegionKind")
+            .map(\.frame)
+            .first { $0.height > $0.width && $0.minX > bounds.minX && $0.maxX < bounds.maxX }
     }
 
     // The Dynamic Island sits mid-edge in landscape, so only regions confined to one half count as corner cameras.
@@ -586,17 +605,28 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func updateReservedRegionLayout() {
         let foldFrame = tabletopFoldFrame
-        let topCameraRegion = foldFrame == nil ? topLeftCameraRegion : nil
-        let statusBarRegion = foldFrame == nil ? topRightCameraRegion : nil
-        let bottomCameraRegion = foldFrame == nil ? bottomRightCameraRegion : nil
+        let bookFold = bookFoldFrame
+        let isRightToLeft = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let usesLeftHalf = bookFold == nil || isRightToLeft
+        let usesRightHalf = bookFold == nil || !isRightToLeft
+        let topCameraRegion = foldFrame == nil && usesLeftHalf ? topLeftCameraRegion : nil
+        let statusBarRegion = foldFrame == nil && usesRightHalf ? topRightCameraRegion : nil
+        let bottomCameraRegion = foldFrame == nil && usesRightHalf ? bottomRightCameraRegion : nil
         let videoAreaBottomConstant = foldFrame.map { $0.minY - view.bounds.maxY } ?? 0
         let controlsAreaTopConstant = foldFrame?.maxY ?? 0
         let navigationBarTopConstant = foldFrame.map {
             $0.maxY + VideoPlayerViewController.mediaNavigationBarTopPadding
         } ?? 0
+        let interfaceAreaLeadingConstant = bookFold.map {
+            isRightToLeft ? view.bounds.maxX - $0.minX : $0.maxX
+        } ?? 0
 
         if videoAreaBottomConstraint.constant != videoAreaBottomConstant {
             videoAreaBottomConstraint.constant = videoAreaBottomConstant
+        }
+
+        if interfaceAreaLeadingConstraint.constant != interfaceAreaLeadingConstant {
+            interfaceAreaLeadingConstraint.constant = interfaceAreaLeadingConstant
         }
 
         if controlsAreaTopConstraint.constant != controlsAreaTopConstant {
@@ -655,6 +685,15 @@ class VideoPlayerViewController: PlayerViewController {
                 NSLayoutConstraint.deactivate(bottomRowBesideCameraConstraints)
                 NSLayoutConstraint.activate(bottomRowRegularConstraints)
             }
+        }
+
+        let isBookFold = bookFold != nil
+        if isBookFold != isBookLayout {
+            isBookLayout = isBookFold
+            if isQueueCardShown && isCompactPortraitLayout != isScrubProgressBarAboveRow {
+                queueViewController?.dismissPlayqueue()
+            }
+            updateScrubProgressBarPlacement()
         }
 
         let placement: MediaNavigationBarPlacement
@@ -856,6 +895,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupConstraints() {
         setupVideoAreaLayoutGuide()
+        setupInterfaceAreaLayoutGuides()
         setupControlsAreaLayoutGuide()
         setupVideoOutputConstraints()
         setupArtworkConstraints()
@@ -961,6 +1001,27 @@ class VideoPlayerViewController: PlayerViewController {
         ])
     }
 
+    private func setupInterfaceAreaLayoutGuides() {
+        view.addLayoutGuide(interfaceAreaLayoutGuide)
+        view.addLayoutGuide(safeInterfaceAreaLayoutGuide)
+        let safeArea = view.safeAreaLayoutGuide
+        let safeLeadingConstraint = safeInterfaceAreaLayoutGuide.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor)
+        safeLeadingConstraint.priority = .defaultHigh
+
+        NSLayoutConstraint.activate([
+            interfaceAreaLeadingConstraint,
+            interfaceAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            interfaceAreaLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
+            interfaceAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            safeLeadingConstraint,
+            safeInterfaceAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor),
+            safeInterfaceAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: interfaceAreaLayoutGuide.leadingAnchor),
+            safeInterfaceAreaLayoutGuide.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            safeInterfaceAreaLayoutGuide.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            safeInterfaceAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+        ])
+    }
+
     private func setupControlsAreaLayoutGuide() {
         view.addLayoutGuide(controlsAreaLayoutGuide)
         let minimumMargin = Self.controlsMinimumMargin
@@ -974,7 +1035,7 @@ class VideoPlayerViewController: PlayerViewController {
             leadingConstraint,
             trailingConstraint,
             controlsAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor),
-            controlsAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor,
+            controlsAreaLayoutGuide.leadingAnchor.constraint(greaterThanOrEqualTo: interfaceAreaLayoutGuide.leadingAnchor,
                                                              constant: minimumMargin),
             controlsAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor),
             controlsAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor,
@@ -1046,7 +1107,7 @@ class VideoPlayerViewController: PlayerViewController {
         // Keep transport buttons 8pt clear of the sliders.
         let sliderSpace: CGFloat = Self.controlsMinimumMargin + SliderInfoView.width + 8
         let maximumWidth = videoPlayerControls.transportControls.widthAnchor.constraint(
-            lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * sliderSpace)
+            lessThanOrEqualTo: safeInterfaceAreaLayoutGuide.widthAnchor, constant: -2 * sliderSpace)
         maximumWidth.priority = .required - 1
 
         NSLayoutConstraint.activate([
@@ -1081,7 +1142,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupStatusLabelConstraints() {
         NSLayoutConstraint.activate([
-            statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            statusLabel.centerXAnchor.constraint(equalTo: interfaceAreaLayoutGuide.centerXAnchor),
             statusLabel.bottomAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor,
                                                 constant: -(VideoPlayerControls.playPauseCircleSize / 2 + 16))
         ])
@@ -1089,8 +1150,8 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupConeLoadingViewConstraints() {
         NSLayoutConstraint.activate([
-            coneLoadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            coneLoadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coneLoadingView.leadingAnchor.constraint(equalTo: interfaceAreaLayoutGuide.leadingAnchor),
+            coneLoadingView.trailingAnchor.constraint(equalTo: interfaceAreaLayoutGuide.trailingAnchor),
             coneLoadingView.topAnchor.constraint(equalTo: view.topAnchor),
             coneLoadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
@@ -1098,7 +1159,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupLongPressPlaybackSpeedConstraints() {
         NSLayoutConstraint.activate([
-            longPressPlaybackSpeedView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            longPressPlaybackSpeedView.centerXAnchor.constraint(equalTo: interfaceAreaLayoutGuide.centerXAnchor),
             longPressPlaybackSpeedView.centerYAnchor.constraint(equalTo: mediaNavigationBar.centerYAnchor)
         ])
     }
@@ -1414,6 +1475,10 @@ class VideoPlayerViewController: PlayerViewController {
 
     override var usesInlineScrubProgressBar: Bool {
         return true
+    }
+
+    override var overlayCardLayoutGuide: UILayoutGuide {
+        return safeInterfaceAreaLayoutGuide
     }
 
     override func dismissOverlayCard() {
@@ -1909,9 +1974,9 @@ extension VideoPlayerViewController {
         if let bookmarksView = addBookmarksView {
             view.addSubview(bookmarksView)
             NSLayoutConstraint.activate([
-                bookmarksView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                bookmarksView.centerXAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.centerXAnchor),
+                bookmarksView.leadingAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.leadingAnchor),
+                bookmarksView.trailingAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.trailingAnchor),
                 bookmarksView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
                 bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: mediaScrubProgressBar.topAnchor),
             ])
@@ -1954,7 +2019,7 @@ extension VideoPlayerViewController {
         view.bringSubviewToFront(abRepeatView)
         abRepeatView.isUserInteractionEnabled = true
         NSLayoutConstraint.activate([
-            abRepeatView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            abRepeatView.centerXAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.centerXAnchor),
             abRepeatView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -20.0),
         ])
     }
