@@ -157,6 +157,7 @@ class PodcastEpisodeDetailViewController: UIViewController {
 
         let padding = PodcastEpisodeDetailViewController.horizontalPadding
         let gap = PodcastEpisodeDetailViewController.verticalGap
+        let safeArea = view.safeAreaLayoutGuide
 
         notesTopToAuthorConstraint = notesTextView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor,
                                                                        constant: gap)
@@ -176,24 +177,24 @@ class PodcastEpisodeDetailViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
 
             artworkView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            artworkView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            artworkView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             artworkView.widthAnchor.constraint(equalToConstant: PodcastEpisodeDetailViewController.artworkSize),
             artworkView.heightAnchor.constraint(equalToConstant: PodcastEpisodeDetailViewController.artworkSize),
 
             titleLabel.topAnchor.constraint(equalTo: artworkView.bottomAnchor, constant: gap),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            titleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: padding),
+            titleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -padding),
 
             metaLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: gap),
-            metaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            metaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            metaLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: padding),
+            metaLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -padding),
 
             authorLabel.topAnchor.constraint(equalTo: metaLabel.bottomAnchor, constant: 4),
-            authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            authorLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: padding),
+            authorLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -padding),
 
-            notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            notesTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: padding),
+            notesTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -padding),
             notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         ])
     }
