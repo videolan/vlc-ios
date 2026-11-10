@@ -74,12 +74,7 @@ final class VideoFiltersControlsView: UIView {
 
     // MARK: - Views
 
-    private let backgroundContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let backgroundView = OverlayCardBackgroundView()
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -209,9 +204,7 @@ final class VideoFiltersControlsView: UIView {
     // MARK: - Layout
 
     private func setupLayout() {
-        backgroundContainer.roundCorners(radius: Self.cardCornerRadius)
-        addSubview(backgroundContainer)
-        installBackgroundEffect()
+        addSubview(backgroundView)
 
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -226,10 +219,10 @@ final class VideoFiltersControlsView: UIView {
         collapsedLabelColumn.priority = .defaultLow
 
         var constraints: [NSLayoutConstraint] = [
-            backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             scrollView.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.verticalPadding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -305,19 +298,6 @@ final class VideoFiltersControlsView: UIView {
         NSLayoutConstraint.activate(isStacked ? stackedRowConstraints : horizontalRowConstraints)
     }
 
-    private func installBackgroundEffect() {
-        backgroundContainer.subviews.forEach { $0.removeFromSuperview() }
-        let effectView = UIView.makeOverlayBackgroundView()
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundContainer.addSubview(effectView)
-        NSLayoutConstraint.activate([
-            effectView.topAnchor.constraint(equalTo: backgroundContainer.topAnchor),
-            effectView.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor),
-            effectView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor),
-            effectView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
-        ])
-    }
-
     // MARK: - State
 
     private func updateInterface(updatingSliders: Bool) {
@@ -364,7 +344,6 @@ final class VideoFiltersControlsView: UIView {
     }
 
     @objc private func reduceTransparencyChanged() {
-        installBackgroundEffect()
         updateInterface(updatingSliders: false)
     }
 
@@ -375,7 +354,6 @@ final class VideoFiltersControlsView: UIView {
     // MARK: - Helpers
 
     private static let minimumControlHeight: CGFloat = 44
-    private static let cardCornerRadius: CGFloat = 30
     private static let neutralSliderValue: Float = 0.5
     private static let neutralSnapDistance: Float = 0.02
 

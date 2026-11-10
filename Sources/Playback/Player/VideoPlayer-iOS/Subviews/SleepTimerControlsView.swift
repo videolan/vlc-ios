@@ -37,12 +37,7 @@ final class SleepTimerControlsView: UIView {
 
     // MARK: - Views
 
-    private let backgroundContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let backgroundView = OverlayCardBackgroundView()
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -199,9 +194,7 @@ final class SleepTimerControlsView: UIView {
     // MARK: - Layout
 
     private func setupLayout() {
-        backgroundContainer.roundCorners(radius: Self.cardCornerRadius)
-        addSubview(backgroundContainer)
-        installBackgroundEffect()
+        addSubview(backgroundView)
 
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -216,10 +209,10 @@ final class SleepTimerControlsView: UIView {
         scrollViewHeight.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
-            backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             scrollView.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.verticalPadding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -261,19 +254,6 @@ final class SleepTimerControlsView: UIView {
 
     private func updatePresetAxis() {
         presetStackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
-    }
-
-    private func installBackgroundEffect() {
-        backgroundContainer.subviews.forEach { $0.removeFromSuperview() }
-        let effectView = UIView.makeOverlayBackgroundView()
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundContainer.addSubview(effectView)
-        NSLayoutConstraint.activate([
-            effectView.topAnchor.constraint(equalTo: backgroundContainer.topAnchor),
-            effectView.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor),
-            effectView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor),
-            effectView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
-        ])
     }
 
     // MARK: - State
@@ -392,7 +372,6 @@ final class SleepTimerControlsView: UIView {
     }
 
     @objc private func reduceTransparencyChanged() {
-        installBackgroundEffect()
         updateInterface()
         updatePresetButtons(force: true)
         updateStopAfterButton(force: true)
@@ -408,7 +387,6 @@ final class SleepTimerControlsView: UIView {
 
     private static let presetMinutes: [Int] = [10, 15, 30, 45, 60]
     private static let minimumControlHeight: CGFloat = 44
-    private static let cardCornerRadius: CGFloat = 30
 
     private static let presetFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()

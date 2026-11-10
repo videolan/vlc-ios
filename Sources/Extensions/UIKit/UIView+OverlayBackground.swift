@@ -12,14 +12,6 @@
 
 import UIKit
 
-extension UIView {
-    static func makeOverlayBackgroundView() -> UIView {
-        let view = UIVisualEffectView()
-        view.applyOverlayBackgroundStyle()
-        return view
-    }
-}
-
 extension UIVisualEffectView {
     func applyOverlayBackgroundStyle() {
         if UIAccessibility.isReduceTransparencyEnabled {

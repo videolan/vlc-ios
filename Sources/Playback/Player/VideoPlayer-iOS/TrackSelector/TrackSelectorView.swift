@@ -56,12 +56,7 @@ final class TrackSelectorView: UIView {
 
     // MARK: - Views
 
-    private let backgroundContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let backgroundView = OverlayCardBackgroundView()
 
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [
@@ -137,10 +132,6 @@ final class TrackSelectorView: UIView {
 
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
-                                       selector: #selector(reduceTransparencyChanged),
-                                       name: UIAccessibility.reduceTransparencyStatusDidChangeNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
                                        selector: #selector(playbackMetadataChanged),
                                        name: Notification.Name(VLCPlaybackServicePlaybackMetadataDidChange),
                                        object: nil)
@@ -182,9 +173,7 @@ final class TrackSelectorView: UIView {
     // MARK: - Layout
 
     private func setupLayout() {
-        backgroundContainer.roundCorners(radius: Self.cardCornerRadius)
-        addSubview(backgroundContainer)
-        installBackgroundEffect()
+        addSubview(backgroundView)
 
         addSubview(segmentedControl)
         addSubview(tableView)
@@ -199,10 +188,10 @@ final class TrackSelectorView: UIView {
         tableHeightConstraint = heightConstraint
 
         NSLayoutConstraint.activate([
-            backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             segmentedControl.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.topInset),
             segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
@@ -254,19 +243,6 @@ final class TrackSelectorView: UIView {
             right.heightAnchor.constraint(equalToConstant: Metrics.footerRowHeight),
             left.centerYAnchor.constraint(equalTo: right.centerYAnchor),
         ]
-    }
-
-    private func installBackgroundEffect() {
-        backgroundContainer.subviews.forEach { $0.removeFromSuperview() }
-        let effectView = UIView.makeOverlayBackgroundView()
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundContainer.addSubview(effectView)
-        NSLayoutConstraint.activate([
-            effectView.topAnchor.constraint(equalTo: backgroundContainer.topAnchor),
-            effectView.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor),
-            effectView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor),
-            effectView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
-        ])
     }
 
     // MARK: - Data
@@ -427,14 +403,9 @@ final class TrackSelectorView: UIView {
         applyTab()
     }
 
-    @objc private func reduceTransparencyChanged() {
-        installBackgroundEffect()
-    }
-
     // MARK: - Helpers
 
     private static let segmentedControlHeight: CGFloat = 44
-    private static let cardCornerRadius: CGFloat = 30
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate

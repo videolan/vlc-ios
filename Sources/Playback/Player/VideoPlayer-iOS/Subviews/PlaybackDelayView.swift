@@ -32,12 +32,7 @@ final class PlaybackDelayView: UIView {
 
     // MARK: - Views
 
-    private let backgroundContainer: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let backgroundView = OverlayCardBackgroundView()
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -176,9 +171,7 @@ final class PlaybackDelayView: UIView {
     // MARK: - Layout
 
     private func setupLayout() {
-        backgroundContainer.roundCorners(radius: Self.cornerRadius)
-        addSubview(backgroundContainer)
-        installBackgroundEffect()
+        addSubview(backgroundView)
 
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -192,10 +185,10 @@ final class PlaybackDelayView: UIView {
         scrollViewHeight.priority = .defaultHigh
 
         let constraints: [NSLayoutConstraint] = [
-            backgroundContainer.topAnchor.constraint(equalTo: topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             scrollView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -230,19 +223,6 @@ final class PlaybackDelayView: UIView {
         ]
 
         NSLayoutConstraint.activate(constraints)
-    }
-
-    private func installBackgroundEffect() {
-        backgroundContainer.subviews.forEach { $0.removeFromSuperview() }
-        let effectView = UIView.makeOverlayBackgroundView()
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundContainer.addSubview(effectView)
-        NSLayoutConstraint.activate([
-            effectView.topAnchor.constraint(equalTo: backgroundContainer.topAnchor),
-            effectView.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor),
-            effectView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor),
-            effectView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
-        ])
     }
 
     private func updateMarkAxis() {
@@ -383,7 +363,6 @@ final class PlaybackDelayView: UIView {
     }
 
     @objc private func reduceTransparencyChanged() {
-        installBackgroundEffect()
         refresh()
     }
 
@@ -394,7 +373,6 @@ final class PlaybackDelayView: UIView {
     // MARK: - Helpers
 
     private static let padding: CGFloat = 14
-    private static let cornerRadius: CGFloat = 30
     private static let controlHeight: CGFloat = 44
     private static let delayStep: Float = 50
     private static let maximumDelay: Float = 30000

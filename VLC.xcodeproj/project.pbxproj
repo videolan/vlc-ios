@@ -783,6 +783,9 @@
 		7D69051330A36B5F00D1B543 /* CollectionArtworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051230A36B5F00D1B543 /* CollectionArtworkViewController.swift */; };
 		7D69051430A36B5F00D1B543 /* CollectionArtworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051230A36B5F00D1B543 /* CollectionArtworkViewController.swift */; };
 		7D69051530A36B5F00D1B543 /* CollectionArtworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051230A36B5F00D1B543 /* CollectionArtworkViewController.swift */; };
+		7D69051730A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051630A36ED000D1B543 /* OverlayCardBackgroundView.swift */; };
+		7D69051830A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051630A36ED000D1B543 /* OverlayCardBackgroundView.swift */; };
+		7D69051930A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D69051630A36ED000D1B543 /* OverlayCardBackgroundView.swift */; };
 		7D6972AA304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
 		7D6972AB304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
 		7D6972AC304A9F8F00B8261B /* UIApplication+VLCTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */; };
@@ -2259,6 +2262,7 @@
 		7D69050A30A36AE200D1B543 /* VLCArrangementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCArrangementViewController.m; sourceTree = "<group>"; };
 		7D69050E30A36B2E00D1B543 /* UINavigationController+CollectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+CollectionCategory.swift"; sourceTree = "<group>"; };
 		7D69051230A36B5F00D1B543 /* CollectionArtworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionArtworkViewController.swift; sourceTree = "<group>"; };
+		7D69051630A36ED000D1B543 /* OverlayCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayCardBackgroundView.swift; sourceTree = "<group>"; };
 		7D6972A8304A9F8F00B8261B /* UIApplication+VLCTopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+VLCTopViewController.h"; sourceTree = "<group>"; };
 		7D6972A9304A9F8F00B8261B /* UIApplication+VLCTopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+VLCTopViewController.m"; sourceTree = "<group>"; };
 		7D6972AE304AA15100B8261B /* VLCURLAuthenticationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCURLAuthenticationHandler.h; sourceTree = "<group>"; };
@@ -3634,6 +3638,7 @@
 				D9B421722B14AB1C000F7318 /* ABRepeatView.swift */,
 				0F47AB942C1C42FF004B630F /* LongPressPlaybackSpeedView.swift */,
 				7D3F481930A31F5A00B2D864 /* VideoControlBackgroundView.swift */,
+				7D69051630A36ED000D1B543 /* OverlayCardBackgroundView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -6163,6 +6168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DFEED012F40DEAD00000001 /* VLCDocumentPickerController.m in Sources */,
+				7D69051830A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */,
 				7D7FAC052F30C85C00AFD748 /* FolderCategoryViewController.swift in Sources */,
 				7D50C5DA2BBD20DF00B9F1A0 /* VLCNonInteractiveWindowSceneDelegate.m in Sources */,
 				7D50C5DB2BBD20DF00B9F1A0 /* VLCDonationViewController.m in Sources */,
@@ -6878,6 +6884,7 @@
 				F9DA8D55E7D7079672F394D9 /* PodcastProgressBar.swift in Sources */,
 				7573C7BFE401FA88270DB8C9 /* PodcastDownloadButton.swift in Sources */,
 				841353D5A1FE97FF35143ABE /* PodcastEpisodeCell.swift in Sources */,
+				7D69051730A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */,
 				DBB4E4F764ABBB1162CFA1B5 /* ContinueListeningCarouselCell.swift in Sources */,
 				41275E3D8FE52628809BEC22 /* ContinueListeningSectionCell.swift in Sources */,
 				8C7DABE49F57839FBCFEF67B /* PodcastSectionHeaderView.swift in Sources */,
@@ -7234,6 +7241,7 @@
 				7DF60F8B300501CF003A40B8 /* VLCRadioListViewController.m in Sources */,
 				7DA515402EF82B63000C9995 /* VLCPrice.m in Sources */,
 				7DA515412EF82B63000C9995 /* PasscodeLockController.swift in Sources */,
+				7D69051930A36ED000D1B543 /* OverlayCardBackgroundView.swift in Sources */,
 				7DA515422EF82B63000C9995 /* VLCOneDriveTableViewController.m in Sources */,
 				7DA515452EF82B63000C9995 /* VLCGoogleDriveController.m in Sources */,
 				EB055E2072D22B33DFDF61BC /* GTLRDrive_File+VLCShortcut.m in Sources */,
