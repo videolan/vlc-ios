@@ -208,7 +208,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func offersExternalFolders(on viewController: UIViewController) -> Bool {
-        return (self is VideoViewController || self is AudioViewController) && viewControllers.contains(viewController)
+        return (self is VideoViewController || self is AudioViewController || self is FoldersViewController)
+            && viewControllers.contains(viewController)
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
