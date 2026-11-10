@@ -575,6 +575,35 @@ class PlayerViewController: UIViewController {
             }
     }
 
+    var topRightCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
+        let bounds = view.bounds
+        return activeReservedRegions(ofKind: "occlusionRegionKind")
+            .first {
+                $0.frame.minY <= bounds.minY && $0.frame.inset(by: $0.margins).maxY < bounds.midY
+                    && $0.frame.minX > bounds.midX
+            }
+    }
+
+    lazy var topBarLayoutGuide: UILayoutGuide? = {
+        typealias BarRegionFactory = @convention(c) (AnyObject, Selector, UInt, CGFloat) -> Unmanaged<AnyObject>?
+        let factorySelector = NSSelectorFromString("layoutRegionForBarOnEdge:extent:")
+        guard #available(iOS 27.1, *),
+              let regionClass = NSClassFromString("UIViewLayoutRegion"),
+              let factoryMethod = class_getClassMethod(regionClass, factorySelector),
+              view.responds(to: NSSelectorFromString("layoutGuideForLayoutRegion:")) else {
+            return nil
+        }
+
+        let makeBarRegion = unsafeBitCast(method_getImplementation(factoryMethod), to: BarRegionFactory.self)
+        guard let region = makeBarRegion(regionClass as AnyObject, factorySelector, UIRectEdge.top.rawValue, 44)?
+            .takeUnretainedValue() else {
+            return nil
+        }
+
+        return view.perform(NSSelectorFromString("layoutGuideForLayoutRegion:"), with: region)?
+            .takeUnretainedValue() as? UILayoutGuide
+    }()
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         // Slider writes reach the system asynchronously; reconcile after the interaction settles.
         if keyPath == "outputVolume", volumeControlView.isBeingTouched {
