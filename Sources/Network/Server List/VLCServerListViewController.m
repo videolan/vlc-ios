@@ -471,7 +471,12 @@ static CGFloat const kVLCBrowseSectionSpacing = 16.0;
     CGFloat available = [self availableWidth];
     NSInteger fitting = (NSInteger)floor((available + kVLCBrowseChipGap) / (kVLCBrowseMinChipWidth + kVLCBrowseChipGap));
 
-    return MAX(kVLCBrowseChipColumnsCompact, MIN(columns, fitting));
+    columns = MIN(columns, fitting);
+    while (columns > kVLCBrowseChipColumnsCompact && (NSInteger)_chips.count % columns != 0) {
+        columns--;
+    }
+
+    return MAX(kVLCBrowseChipColumnsCompact, columns);
 }
 
 - (CGFloat)chipWidth
