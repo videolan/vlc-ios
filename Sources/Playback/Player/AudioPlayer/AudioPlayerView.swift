@@ -235,6 +235,16 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private let minimumThumbnailSize: CGFloat = 80.0
 
+    private let navigationBarPadding: CGFloat = 10.0
+
+    private(set) lazy var navigationBarLayout = MediaNavigationBarLayout(
+        navigationBar: navigationBarView,
+        container: self,
+        leftAnchor: safeAreaLayoutGuide.leftAnchor,
+        rightAnchor: safeAreaLayoutGuide.rightAnchor,
+        horizontalInset: navigationBarPadding,
+        topPadding: navigationBarPadding)
+
     private lazy var thumbnailViewCenterYConstraint: NSLayoutConstraint = {
         let constraint = thumbnailView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
         constraint.priority = .defaultHigh
@@ -711,15 +721,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupNavigationBarView() {
-        let padding: CGFloat = 10.0
         navigationBarView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(navigationBarView)
-        NSLayoutConstraint.activate([
-            navigationBarView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
-            navigationBarView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding),
-            navigationBarView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding)
-        ])
+        navigationBarLayout.activate()
     }
 
     private func setupCenteredLayoutGuide() {

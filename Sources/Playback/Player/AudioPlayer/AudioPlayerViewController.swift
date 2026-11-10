@@ -40,6 +40,12 @@ class AudioPlayerViewController: PlayerViewController {
         return .lightContent
     }
 
+#if os(iOS)
+    override var prefersStatusBarHidden: Bool {
+        return audioPlayerView.navigationBarLayout.placement == .besideCamera || super.prefersStatusBarHidden
+    }
+#endif
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -151,6 +157,19 @@ class AudioPlayerViewController: PlayerViewController {
             self?.mediaScrubProgressBar.shouldHideScrubLabels = isLandscape
         })
     }
+
+#if os(iOS)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if audioPlayerView.navigationBarLayout.update(tabletopFold: nil,
+                                                      camera: topLeftCameraRegion,
+                                                      statusBar: topRightCameraRegion,
+                                                      statusBarCenterY: topBarLayoutGuide?.layoutFrame.midY) {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+#endif
 
     // MARK: Public methods
 

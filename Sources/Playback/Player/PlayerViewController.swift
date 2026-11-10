@@ -579,6 +579,16 @@ class PlayerViewController: UIViewController {
             }
     }
 
+    // The Dynamic Island sits mid-edge in landscape, so only regions confined to one half count as corner cameras.
+    var topLeftCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
+        let bounds = view.bounds
+        return activeReservedRegions(ofKind: "occlusionRegionKind")
+            .first {
+                $0.frame.minY <= bounds.minY && $0.frame.inset(by: $0.margins).maxY < bounds.midY
+                    && $0.frame.maxX < bounds.midX
+            }
+    }
+
     var topRightCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
         let bounds = view.bounds
         return activeReservedRegions(ofKind: "occlusionRegionKind")

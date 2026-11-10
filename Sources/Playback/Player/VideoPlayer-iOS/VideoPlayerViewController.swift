@@ -90,7 +90,7 @@ class VideoPlayerViewController: PlayerViewController {
 
 #if os(iOS)
     override var prefersStatusBarHidden: Bool {
-        if mediaNavigationBarPlacement == .besideCamera {
+        if isViewLoaded && mediaNavigationBarLayout.placement == .besideCamera {
             return true
         }
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad && !playerController.isControlsHidden {
@@ -309,53 +309,13 @@ class VideoPlayerViewController: PlayerViewController {
 
     private static let mediaNavigationBarTopPadding: CGFloat = 16
 
-    private lazy var mediaNavigationBarTopConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                                constant: VideoPlayerViewController.mediaNavigationBarTopPadding)
-    }()
-
-    private lazy var mediaNavigationBarTabletopTopConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
-    }()
-
-    private lazy var mediaNavigationBarBesideCameraCenterYConstraint: NSLayoutConstraint = {
-        let constraint = mediaNavigationBar.centerYAnchor.constraint(equalTo: view.topAnchor)
-        constraint.priority = .required - 1
-        return constraint
-    }()
-
-    private lazy var mediaNavigationBarBesideCameraTopConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor)
-    }()
-
-    private lazy var mediaNavigationBarLeftConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.leftAnchor.constraint(equalTo: controlsAreaLayoutGuide.leftAnchor)
-    }()
-
-    private lazy var mediaNavigationBarBesideCameraLeftConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.leftAnchor.constraint(equalTo: view.leftAnchor)
-    }()
-
-    private lazy var mediaNavigationBarRightConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.rightAnchor.constraint(equalTo: controlsAreaLayoutGuide.rightAnchor)
-    }()
-
-    private lazy var mediaNavigationBarBesideStatusBarCenterYConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.centerYAnchor.constraint(equalTo: view.topAnchor)
-    }()
-
-    private lazy var mediaNavigationBarBesideStatusBarRightConstraint: NSLayoutConstraint = {
-        mediaNavigationBar.rightAnchor.constraint(equalTo: view.leftAnchor)
-    }()
-
-    private enum MediaNavigationBarPlacement {
-        case regular
-        case tabletop
-        case besideCamera
-        case besideStatusBar
-    }
-
-    private var mediaNavigationBarPlacement = MediaNavigationBarPlacement.regular
+    private lazy var mediaNavigationBarLayout = MediaNavigationBarLayout(
+        navigationBar: mediaNavigationBar,
+        container: view,
+        leftAnchor: controlsAreaLayoutGuide.leftAnchor,
+        rightAnchor: controlsAreaLayoutGuide.rightAnchor,
+        horizontalInset: 0,
+        topPadding: VideoPlayerViewController.mediaNavigationBarTopPadding)
 
     let queueCardBottomLayoutGuide = UILayoutGuide()
 
@@ -566,16 +526,6 @@ class VideoPlayerViewController: PlayerViewController {
             .first { $0.height > $0.width && $0.minX > bounds.minX && $0.maxX < bounds.maxX }
     }
 
-    // The Dynamic Island sits mid-edge in landscape, so only regions confined to one half count as corner cameras.
-    private var topLeftCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
-        let bounds = view.bounds
-        return activeReservedRegions(ofKind: "occlusionRegionKind")
-            .first {
-                $0.frame.minY <= bounds.minY && $0.frame.inset(by: $0.margins).maxY < bounds.midY
-                    && $0.frame.maxX < bounds.midX
-            }
-    }
-
     private var bottomRightCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
         let bounds = view.bounds
         return activeReservedRegions(ofKind: "occlusionRegionKind")
@@ -585,42 +535,15 @@ class VideoPlayerViewController: PlayerViewController {
             }
     }
 
-    private func mediaNavigationBarConstraints(for placement: MediaNavigationBarPlacement) -> [NSLayoutConstraint] {
-        switch placement {
-        case .regular:
-            return [mediaNavigationBarTopConstraint,
-                    mediaNavigationBarLeftConstraint,
-                    mediaNavigationBarRightConstraint]
-        case .tabletop:
-            return [mediaNavigationBarTabletopTopConstraint,
-                    mediaNavigationBarLeftConstraint,
-                    mediaNavigationBarRightConstraint]
-        case .besideCamera:
-            return [mediaNavigationBarBesideCameraCenterYConstraint,
-                    mediaNavigationBarBesideCameraTopConstraint,
-                    mediaNavigationBarBesideCameraLeftConstraint,
-                    mediaNavigationBarRightConstraint]
-        case .besideStatusBar:
-            return [mediaNavigationBarBesideStatusBarCenterYConstraint,
-                    mediaNavigationBarLeftConstraint,
-                    mediaNavigationBarBesideStatusBarRightConstraint]
-        }
-    }
-
     private func updateReservedRegionLayout() {
         let foldFrame = tabletopFoldFrame
         let bookFold = bookFoldFrame
         let isRightToLeft = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
         let usesLeftHalf = bookFold == nil || isRightToLeft
         let usesRightHalf = bookFold == nil || !isRightToLeft
-        let topCameraRegion = foldFrame == nil && usesLeftHalf ? topLeftCameraRegion : nil
-        let statusBarRegion = foldFrame == nil && usesRightHalf ? topRightCameraRegion : nil
         let bottomCameraRegion = foldFrame == nil && usesRightHalf ? bottomRightCameraRegion : nil
         let videoAreaBottomConstant = foldFrame.map { $0.minY - view.bounds.maxY } ?? 0
         let controlsAreaTopConstant = foldFrame?.maxY ?? 0
-        let navigationBarTopConstant = foldFrame.map {
-            $0.maxY + VideoPlayerViewController.mediaNavigationBarTopPadding
-        } ?? 0
         let interfaceAreaLeadingConstant = bookFold.map {
             isRightToLeft ? view.bounds.maxX - $0.minX : $0.maxX
         } ?? 0
@@ -635,33 +558,6 @@ class VideoPlayerViewController: PlayerViewController {
 
         if controlsAreaTopConstraint.constant != controlsAreaTopConstant {
             controlsAreaTopConstraint.constant = controlsAreaTopConstant
-        }
-
-        if mediaNavigationBarTabletopTopConstraint.constant != navigationBarTopConstant {
-            mediaNavigationBarTabletopTopConstraint.constant = navigationBarTopConstant
-        }
-
-        if let topCameraRegion {
-            let cameraCenterY = topCameraRegion.frame.inset(by: topCameraRegion.margins).midY
-            if mediaNavigationBarBesideCameraCenterYConstraint.constant != cameraCenterY {
-                mediaNavigationBarBesideCameraCenterYConstraint.constant = cameraCenterY
-            }
-
-            if mediaNavigationBarBesideCameraLeftConstraint.constant != topCameraRegion.frame.maxX {
-                mediaNavigationBarBesideCameraLeftConstraint.constant = topCameraRegion.frame.maxX
-            }
-        }
-
-        if let statusBarRegion {
-            let statusBarCenterY = topBarLayoutGuide?.layoutFrame.midY
-                ?? statusBarRegion.frame.inset(by: statusBarRegion.margins).midY
-            if mediaNavigationBarBesideStatusBarCenterYConstraint.constant != statusBarCenterY {
-                mediaNavigationBarBesideStatusBarCenterYConstraint.constant = statusBarCenterY
-            }
-
-            if mediaNavigationBarBesideStatusBarRightConstraint.constant != statusBarRegion.frame.minX {
-                mediaNavigationBarBesideStatusBarRightConstraint.constant = statusBarRegion.frame.minX
-            }
         }
 
         if let bottomCameraRegion {
@@ -700,25 +596,12 @@ class VideoPlayerViewController: PlayerViewController {
             updateScrubProgressBarPlacement()
         }
 
-        let placement: MediaNavigationBarPlacement
-        if foldFrame != nil {
-            placement = .tabletop
-        } else if topCameraRegion != nil {
-            placement = .besideCamera
-        } else if statusBarRegion != nil {
-            placement = .besideStatusBar
-        } else {
-            placement = .regular
+        if mediaNavigationBarLayout.update(tabletopFold: foldFrame,
+                                           camera: usesLeftHalf ? topLeftCameraRegion : nil,
+                                           statusBar: usesRightHalf ? topRightCameraRegion : nil,
+                                           statusBarCenterY: topBarLayoutGuide?.layoutFrame.midY) {
+            setNeedsStatusBarAppearanceUpdate()
         }
-
-        guard placement != mediaNavigationBarPlacement else {
-            return
-        }
-
-        NSLayoutConstraint.deactivate(mediaNavigationBarConstraints(for: mediaNavigationBarPlacement))
-        mediaNavigationBarPlacement = placement
-        NSLayoutConstraint.activate(mediaNavigationBarConstraints(for: placement))
-        setNeedsStatusBarAppearanceUpdate()
     }
 #endif
 
@@ -1090,10 +973,8 @@ class VideoPlayerViewController: PlayerViewController {
 
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = VideoPlayerViewController.mediaNavigationBarTopPadding
+        mediaNavigationBarLayout.activate()
         NSLayoutConstraint.activate([
-            mediaNavigationBarLeftConstraint,
-            mediaNavigationBarRightConstraint,
-            mediaNavigationBarTopConstraint,
             optionsNavigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
         ])
