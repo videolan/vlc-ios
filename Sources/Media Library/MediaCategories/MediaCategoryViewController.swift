@@ -1430,6 +1430,8 @@ private extension MediaCategoryViewController {
         var isVideoModel: Bool = false
         if model is MediaGroupViewModel || model is VideoModel {
             isVideoModel = true
+        } else if let folderModel = model as? FolderModel {
+            isVideoModel = !folderModel.isAudio
         }
 
         let key: String
@@ -2740,14 +2742,7 @@ extension MediaCategoryViewController {
         var isVideoModel = false
 
         if isFolder {
-            // Set UserDefaults for folder grid layout based on isAudio flag
-            if let folderModel = model as? FolderModel {
-                if folderModel.isAudio {
-                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO\(model.name)")
-                } else {
-                    UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO\(model.name)")
-                }
-            } else {
+            if !(model is FolderModel) {
                 if model is MediaGroupViewModel {
                     secondModel = model
                 }
@@ -2773,12 +2768,9 @@ extension MediaCategoryViewController {
         }
 
         prefix = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
-        if model is FolderModel || (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) {
-            if isVideoModel {
-                prefix = "\(kVLCAudioLibraryGridLayout)FOLDER_VIDEO"
-            } else {
-                prefix = "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO"
-            }
+        if let folderModel = model as? FolderModel {
+            prefix = folderModel.isAudio ? "\(kVLCAudioLibraryGridLayout)FOLDER_AUDIO"
+                                         : "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO"
         }
         suffix = collectionModelName + model.name
         userDefaults.set(gridLayout, forKey: "\(prefix)\(suffix)")
