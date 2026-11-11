@@ -1547,6 +1547,35 @@ extension MediaCategoryViewController {
         return UIMenu(options: .displayInline, children: [folderAction])
     }
 
+    private func generateAdditionalOptionsMenu() -> UIMenu? {
+        let additionalMenuItem: UIAction
+
+        if model is ArtistModel {
+            let isIncludeAllArtistActive = userDefaults.bool(forKey: kVLCAudioLibraryHideFeatArtists)
+            additionalMenuItem = UIAction(title: NSLocalizedString("HIDE_FEAT_ARTISTS", comment: ""),
+                                          image: UIImage(systemName: "person.3"),
+                                          state: isIncludeAllArtistActive ? .on : .off,
+                                          handler: { [weak self] _ in
+                self?.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
+            })
+        } else if let model = model as? CollectionModel,
+                  let mediaCollection = model.mediaCollection as? VLCMLAlbum,
+                  !mediaCollection.isUnknownAlbum() {
+            let hideTrackNumbers = userDefaults.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
+            additionalMenuItem = UIAction(title: NSLocalizedString("HIDE_TRACK_NUMBERS", comment: ""),
+                                          state: hideTrackNumbers ? .on : .off,
+                                          handler: { [weak self] _ in
+                self?.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
+            })
+        } else {
+            return nil
+        }
+
+        return UIMenu(title: NSLocalizedString("ADDITIONAL_OPTIONS", comment: ""),
+                      options: .displayInline,
+                      children: [additionalMenuItem])
+    }
+
     private func generateLayoutMenu() -> UIMenu {
         let isFolder = model is FolderModel
             || (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout))
@@ -1613,6 +1642,9 @@ extension MediaCategoryViewController {
             children.append(generateFolderMenu())
         }
         children.append(contentsOf: [generateLayoutMenu(), sortMenu])
+        if let additionalOptionsMenu = generateAdditionalOptionsMenu() {
+            children.append(additionalOptionsMenu)
+        }
 
         return UIMenu(children: children)
     }

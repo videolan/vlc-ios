@@ -443,7 +443,7 @@ extension MediaViewController {
     }
 
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
-        guard let mediaCategoryViewController = viewController else {
+        guard viewController != nil else {
             preconditionFailure("MediaViewControllers: invalid viewController")
         }
 
@@ -455,38 +455,6 @@ extension MediaViewController {
            parentViewController is VideoViewController || parentViewController is AudioViewController {
             let historyMenu = generateHistoryMenu()
             rightMenuItems.append(historyMenu)
-        }
-
-        var additionalMenuItems: [UIAction] = []
-
-        if mediaCategoryViewController.model is ArtistModel {
-            let isIncludeAllArtistActive = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
-            let includeAllArtist = UIAction(title: NSLocalizedString("HIDE_FEAT_ARTISTS", comment: ""),
-                                            image: UIImage(systemName: "person.3"),
-                                            state: isIncludeAllArtistActive ? .on : .off,
-                                            handler: { [weak mediaCategoryViewController] _ in
-                mediaCategoryViewController?.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
-            })
-
-            additionalMenuItems.append(includeAllArtist)
-        } else if let model = mediaCategoryViewController.model as? CollectionModel,
-                  let mediaCollection = model.mediaCollection as? VLCMLAlbum,
-                  !mediaCollection.isUnknownAlbum() {
-            let hideTrackNumbers = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
-            let hideTrackNumbersAction = UIAction(title: NSLocalizedString("HIDE_TRACK_NUMBERS", comment: ""),
-                                                     state: hideTrackNumbers ? .on : .off,
-                                                     handler: { [weak mediaCategoryViewController] _ in
-                mediaCategoryViewController?.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
-            })
-
-            additionalMenuItems.append(hideTrackNumbersAction)
-        }
-
-        if !additionalMenuItems.isEmpty {
-            let additionalMenu: UIMenu = UIMenu(title: NSLocalizedString("ADDITIONAL_OPTIONS", comment: ""),
-                                                options: .displayInline,
-                                                children: additionalMenuItems)
-            rightMenuItems.append(additionalMenu)
         }
 
         return UIMenu(options: .displayInline, children: rightMenuItems)
