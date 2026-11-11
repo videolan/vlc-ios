@@ -987,7 +987,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (void)discardIncompleteUpload
 {
-    BOOL discard = _uploadFailed;
+    BOOL discard = _uploadFailed || _storeFile != nil;
 #if TARGET_OS_TV
     discard = discard || [_filepath isSupportedPlaylistFormat];
 #endif
@@ -999,12 +999,19 @@ static NSMutableDictionary *authentifiedHosts;
     _storeFile = nil;
     [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
     _filepath = nil;
-    if (_uploadActivityStarted) {
-        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-        [activityManager networkActivityStopped];
-        [activityManager activateIdleTimer];
-        _uploadActivityStarted = NO;
+    [self stopUploadActivity];
+}
+
+- (void)stopUploadActivity
+{
+    if (!_uploadActivityStarted) {
+        return;
     }
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+    _uploadActivityStarted = NO;
 }
 
 //-----------------------------------------------------------------
@@ -1195,7 +1202,6 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (BOOL)shouldDie
 {
-    // Failed uploads and incomplete tvOS playlists must not be promoted.
     [self discardIncompleteUpload];
     if (_filepath) {
         if (_filepath.length > 0) {
@@ -1226,6 +1232,7 @@ static NSMutableDictionary *authentifiedHosts;
 - (void)die
 {
     [self discardIncompleteUpload];
+    [self stopUploadActivity];
     if (_storeFile) {
         [_storeFile closeFile];
         _storeFile = nil;
