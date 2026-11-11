@@ -218,7 +218,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return userDefaults.bool(forKey: kVLCHasLaunchedBefore)
     }
 
-    private lazy var clearHistoryButton: UIBarButtonItem = {
+    private(set) lazy var clearHistoryButton: UIBarButtonItem = {
         return setupClearHistoryButton()
     }()
 
@@ -553,10 +553,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navItemTitle.text = collection.albumName()
         } else if let collection = model as? CollectionModel {
             navItemTitle.text = collection.mediaCollection.title()
-        }
-
-        if model is HistoryModel {
-            navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
         }
 
         let colors = PresentationTheme.current.colors
@@ -1492,10 +1488,6 @@ extension MediaCategoryViewController {
             navigationItem.setHidesBackButton(isEditing, animated: true)
         }
 
-        if self is HistoryCategoryViewController {
-            navigationItem.rightBarButtonItem = clearHistoryButton
-        }
-
         if isEmptyCollectionView() {
             navigationItem.rightBarButtonItem = nil
             navigationItem.leftBarButtonItem = nil
@@ -1507,6 +1499,10 @@ extension MediaCategoryViewController {
     }
 
     private var sortBarButtonImage: UIImage? {
+        if model is HistoryModel {
+            return UIImage(systemName: "line.3.horizontal.decrease")
+        }
+
         if let model = model as? CollectionModel, model.mediaCollection is VLCMLPlaylist {
             return UIImage(systemName: "arrow.up.arrow.down")
         }
@@ -1516,8 +1512,30 @@ extension MediaCategoryViewController {
 
     func sortBarButtonItem() -> UIBarButtonItem {
         sortBarButton.image = sortBarButtonImage
-        sortBarButton.menu = generateSortMenu()
+        if let historyModel = model as? HistoryModel {
+            sortBarButton.menu = generateHistoryFilterMenu(for: historyModel)
+        } else {
+            sortBarButton.menu = generateSortMenu()
+        }
         return sortBarButton
+    }
+
+    private func generateHistoryFilterMenu(for historyModel: HistoryModel) -> UIMenu {
+        let selectedFilter = historyModel.filter
+        let filters: [(title: String, filter: HistoryModel.Filter)] = [
+            (NSLocalizedString("AUDIO", comment: ""), .audio),
+            (NSLocalizedString("VIDEO", comment: ""), .video),
+            (NSLocalizedString("MEDIA_TYPE_ANY", comment: ""), .any)
+        ]
+
+        let actions = filters.map { item in
+            UIAction(title: item.title, state: item.filter == selectedFilter ? .on : .off) { [weak historyModel] _ in
+                historyModel?.filter = item.filter
+            }
+        }
+
+        return UIMenu(title: NSLocalizedString("MEDIA_TYPE", comment: ""), options: [.displayInline, .singleSelection],
+                      children: actions)
     }
 
     private func handleFolders() {
@@ -1687,8 +1705,7 @@ extension MediaCategoryViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
 
         let clearAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CLEAR", comment: ""), style: .destructive) { _ in
-            guard let historyModel = self.model as? HistoryModel else { return }
-            self.mediaLibraryService.medialib.clearHistory(by: historyModel.mediaType)
+            (self.model as? HistoryModel)?.clear()
         }
 
         let alertController: UIAlertController = UIAlertController(title: NSLocalizedString("CLEAR_HISTORY_TITLE", comment: ""),

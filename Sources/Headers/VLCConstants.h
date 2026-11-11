@@ -145,6 +145,7 @@
 #define kVLCAudioLibraryGridLayout @"kVLCAudioLibraryGridLayout"
 #define kVLCAudioLibraryHideFeatArtists @"kVLCAudioLibraryHideFeatArtists"
 #define kVLCAudioLibraryHideTrackNumbers @"kVLCAudioLibraryHideTrackNumbers"
+#define kVLCHistoryFilter @"kVLCHistoryFilter"
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
 #define KVLCFolderViewLayout @"KVLCFolderViewLayout"
@@ -224,6 +225,7 @@
 #define kVLCPrefetchDistance 100
 
 #define kVLCAudioTabIndex @"kVLCAudioTabIndex"
+#define kVLCPlaylistTabIndex @"kVLCPlaylistTabIndex"
 
 #define kVLCMediaLibrarySyncID @"kVLCMediaLibrarySyncID"
 #define kVLCiPhoneMediaID @"kVLCiPhoneMediaID"

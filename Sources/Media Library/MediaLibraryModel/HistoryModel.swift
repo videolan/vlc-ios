@@ -1,7 +1,7 @@
 /*****************************************************************************
  * HistoryModel.swift
  *
- * Copyright © 2023 VLC authors and VideoLAN
+ * Copyright © 2023-2026 VLC authors and VideoLAN
  * Copyright © 2023 Videolabs
  *
  * Authors: Avi Wadhwa <aviwad@gmail.com>
@@ -10,6 +10,12 @@
  *****************************************************************************/
 
 class HistoryModel: MLBaseModel {
+    enum Filter: Int {
+        case any
+        case audio
+        case video
+    }
+
     var currentPage: Int = 0
     var hasMorePages: Bool = false
     var isLoading: Bool = false
@@ -22,11 +28,8 @@ class HistoryModel: MLBaseModel {
         // dummy
     }
 
-    // These two are initialized with the class
     var medialibrary: MediaLibraryService
-    var mediaType: VLCMLMediaType
-    
-    // Other variables
+
     typealias MLType = VLCMLMedia
     var sortModel = SortModel([])
     var observable = VLCObservable<MediaLibraryBaseModelObserver>()
@@ -36,16 +39,11 @@ class HistoryModel: MLBaseModel {
     var name: String = "HISTORY"
     var indicatorName: String = NSLocalizedString("HISTORY", comment: "")
 
-    required init(medialibrary: MediaLibraryService, mediaType: VLCMLMediaType) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
-        self.mediaType = mediaType
         medialibrary.observable.addObserver(self)
     }
-    
-    required init(medialibrary: MediaLibraryService) {
-        fatalError("Need to pass media type")
-    }
-    
+
     func delete(_ items: [VLCMLMedia]) {
         for case let media in items {
             media.removeFromHistory()
@@ -55,42 +53,60 @@ class HistoryModel: MLBaseModel {
     func append(_ item: VLCMLMedia) {
         // dummy function
     }
+
+    var filter: Filter {
+        get {
+            return Filter(rawValue: UserDefaults.standard.integer(forKey: kVLCHistoryFilter)) ?? .any
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: kVLCHistoryFilter)
+            loadHistory()
+        }
+    }
+
+    func clear() {
+        switch filter {
+        case .any:
+            medialibrary.medialib.clearHistory(of: .local)
+        case .audio:
+            medialibrary.medialib.clearHistory(by: .audio)
+        case .video:
+            medialibrary.medialib.clearHistory(by: .video)
+        }
+    }
+
+    private func loadHistory() {
+        let history: [VLCMLMedia]?
+        switch filter {
+        case .any:
+            history = medialibrary.medialib.history(of: .local)
+        case .audio:
+            history = medialibrary.medialib.audioHistory()
+        case .video:
+            history = medialibrary.medialib.videoHistory()
+        }
+
+        fileArrayLock.lock()
+        files = history ?? []
+        fileArrayLock.unlock()
+
+        observable.notifyObservers {
+            $0.mediaLibraryBaseModelReloadView()
+        }
+    }
 }
 
 // MARK: - MediaLibraryObserver
 extension HistoryModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, historyChangedOfType type: VLCMLHistoryType) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        if self.mediaType == .audio {
-            files = medialibrary.medialib.audioHistory() ?? []
-        } else {
-            files = medialibrary.medialib.videoHistory() ?? []
-        }
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
+        loadHistory()
     }
 
     func medialibraryDidStartRescan() {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        if self.mediaType == .audio {
-            files = medialibrary.medialib.audioHistory() ?? []
-        } else {
-            files = medialibrary.medialib.videoHistory() ?? []
-        }
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
-        }
+        loadHistory()
     }
-    
+
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        // Since we cannot sort the history, we simply force a media library rescan
-        medialibraryDidStartRescan()
+        loadHistory()
     }
 }

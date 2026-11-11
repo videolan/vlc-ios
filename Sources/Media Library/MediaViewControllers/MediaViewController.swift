@@ -185,6 +185,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             emptyStateRightBarButtons.insert(addExternalFolderButton, at: 0)
         }
 
+        if !isEditing, let historyCategoryViewController = viewController as? HistoryCategoryViewController {
+            emptyStateRightBarButtons.append(historyCategoryViewController.sortBarButtonItem())
+        }
+
         if !isEditing, navigationController?.viewControllers.count == 1 {
             var items: [UIBarButtonItem] = [appMenuButton]
             if showButtons, let leftBarButtons = leftBarButtons {
@@ -204,7 +208,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
-        var rightBarButtonItems: [UIBarButtonItem] = [menuButton]
+        var rightBarButtonItems: [UIBarButtonItem] = viewController is HistoryCategoryViewController ? [] : [menuButton]
 
         if let mediaCategoryViewController = viewController as? MediaCategoryViewController {
             rightBarButtonItems.append(mediaCategoryViewController.sortBarButtonItem())
@@ -212,6 +216,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         if offersExternalFolders(on: viewController) {
             rightBarButtonItems.append(addExternalFolderButton)
+        }
+
+        if let historyCategoryViewController = viewController as? HistoryCategoryViewController {
+            rightBarButtonItems.append(historyCategoryViewController.clearHistoryButton)
         }
 
 #if os(iOS)
@@ -386,12 +394,6 @@ extension MediaViewController {
             mediaCategoryViewController.handleRegroup()
         }
     }
-    
-    @objc func handleHistory() {
-        let mediaType: VLCMLMediaType = viewControllers[currentIndex] is MovieCategoryViewController ? .video : .audio
-        let historyView = HistoryCategoryViewController(mediaLibraryService, mediaType: mediaType)
-        navigationController?.pushViewController(historyView, animated: true)
-    }
 
     @objc func handleAddExternalFolder() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
@@ -430,34 +432,12 @@ extension MediaViewController {
         return selectAction
     }
 
-    func generateHistoryMenu() -> UIMenu {
-        let historyAction = UIAction(title: NSLocalizedString("BUTTON_HISTORY", comment: ""),
-                                     image: UIImage(systemName: "clock.arrow.2.circlepath")) { [weak self] _ in
-            self?.handleHistory()
-        }
-
-        historyAction.accessibilityLabel = NSLocalizedString("BUTTON_HISTORY", comment: "")
-        historyAction.accessibilityHint = NSLocalizedString("BUTTON_HISTORY_HINT", comment: "")
-
-        return UIMenu(options: .displayInline, children: [historyAction])
-    }
-
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard viewController != nil else {
             preconditionFailure("MediaViewControllers: invalid viewController")
         }
 
-        let selectAction = generateSelectAction()
-
-        var rightMenuItems: [UIMenuElement] = [selectAction]
-
-        if let parentViewController = viewController?.parent,
-           parentViewController is VideoViewController || parentViewController is AudioViewController {
-            let historyMenu = generateHistoryMenu()
-            rightMenuItems.append(historyMenu)
-        }
-
-        return UIMenu(options: .displayInline, children: rightMenuItems)
+        return UIMenu(options: .displayInline, children: [generateSelectAction()])
     }
 }
 

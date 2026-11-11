@@ -2,7 +2,7 @@
  * MediaCategory.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Soomin Lee <bubu@mikan.io>
@@ -46,6 +46,11 @@ class PlaylistCategoryViewController: MediaCategoryViewController {
         playlistModel = model
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(0, forKey: kVLCPlaylistTabIndex)
+        super.viewWillAppear(animated)
     }
 
     func getCreatePlaylistButton() -> UIBarButtonItem {
@@ -179,10 +184,15 @@ class ArtistAlbumCategoryViewController: MediaCategoryViewController {
 // MARK: - HistoryCategoryViewController
 
 class HistoryCategoryViewController: MediaCategoryViewController {
-    init(_ mediaLibraryService: MediaLibraryService, mediaType: VLCMLMediaType) {
-        let model = HistoryModel(medialibrary: mediaLibraryService, mediaType: mediaType)
+    init(_ mediaLibraryService: MediaLibraryService) {
+        let model = HistoryModel(medialibrary: mediaLibraryService)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
         model.observable.addObserver(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.set(1, forKey: kVLCPlaylistTabIndex)
+        super.viewWillAppear(animated)
     }
 }
 

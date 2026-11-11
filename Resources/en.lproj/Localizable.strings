@@ -518,9 +518,6 @@
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
-"BUTTON_HISTORY" = "History";
-"BUTTON_HISTORY_HINT" = "View your recently played media";
-
 "BUTTON_CLEAR" = "Clear";
 "CLEAR_HISTORY_TITLE" = "Clear History";
 "CLEAR_HISTORY_MESSAGE" = "Confirm clearing history";
@@ -744,6 +741,8 @@
 
 "DISPLAY_AS" = "Display as";
 "VIEW_OPTIONS" = "View Options";
+"MEDIA_TYPE" = "Media Type";
+"MEDIA_TYPE_ANY" = "Any";
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Playback controls";

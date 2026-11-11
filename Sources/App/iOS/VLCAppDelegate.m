@@ -112,6 +112,7 @@
                                   kVLCSettingPauseWhenShowingControls: @(NO),
                                   kVLCSettingAutomaticallySyncMediaLibrary : @(-1),
                                   kVLCAudioTabIndex: @(0),
+                                  kVLCPlaylistTabIndex: @(0),
     };
     [defaults registerDefaults:appDefaults];
     [VLCPlaybackService migrateToRelativePreampLevel];

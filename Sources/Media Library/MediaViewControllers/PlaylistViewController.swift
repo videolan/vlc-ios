@@ -2,7 +2,7 @@
  * VLCPlaylistViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -16,6 +16,11 @@ class PlaylistViewController: MediaViewController {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        currentIndex = UserDefaults.standard.integer(forKey: kVLCPlaylistTabIndex)
+        super.viewWillAppear(animated)
+    }
+
     private func setupUI() {
         title = NSLocalizedString("PLAYLISTS", comment: "")
         tabBarItem = UITabBarItem(
@@ -27,7 +32,8 @@ class PlaylistViewController: MediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [
-            PlaylistCategoryViewController(mediaLibraryService)
+            PlaylistCategoryViewController(mediaLibraryService),
+            HistoryCategoryViewController(mediaLibraryService)
         ]
     }
 
