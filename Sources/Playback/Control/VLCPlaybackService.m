@@ -548,6 +548,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     _playerIsSetup = YES;
 
     [_playbackSessionManagementLock unlock];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
 }
 
 - (void)_playNewMedia
@@ -619,6 +621,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
             _mediaList = nil;
             _mediaList = [[VLCMediaList alloc] init];
             _listPlayer.mediaList = _mediaList;
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
 
             for (NSURL *url in _openedLocalURLs) {
                 [url stopAccessingSecurityScopedResource];
@@ -1252,15 +1255,13 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSAssert(NSThread.isMainThread, @"Queue changes must run on the main thread");
     if (!_mediaList)
         _mediaList = [[VLCMediaList alloc] init];
-    if (_shuffleMode && _mediaList.count == 0) {
-        @synchronized (_shuffledOrder) {
-            [_shuffledOrder removeAllObjects];
-        }
+    if (_shuffleMode && _mediaList.count == 0)
         _shuffledList = nil;
+    if (_shuffleMode && !_shuffledList) {
+        [self shuffleMediaList];
         _currentIndex = 0;
-    }
-    if (_shuffleMode && !_shuffledList)
         [self rebuildShuffledListIfNeeded];
+    }
 
     [_mediaList lock];
     NSUInteger index = [_mediaList addMedia:media];
@@ -1377,7 +1378,9 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
     NSInteger nextIndex = 0;
     if (!_currentIndex) {
-        _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
+        NSUInteger playingIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
+        if (playingIndex != NSNotFound)
+            _currentIndex = playingIndex;
     }
 
     if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
@@ -1441,7 +1444,9 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
             if (!_currentIndex) {
                 VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
-                _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
+                NSUInteger playingIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
+                if (playingIndex != NSNotFound)
+                    _currentIndex = playingIndex;
             }
 
             if (_currentIndex > 0) {
@@ -2112,7 +2117,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         }
     }
     VLCMediaList *effectiveList = _shuffleMode ? _shuffledList : _mediaList;
-    _currentIndex = selected ? [effectiveList indexOfMedia:selected] : NSNotFound;
+    NSUInteger selectedIndex = selected ? [effectiveList indexOfMedia:selected] : NSNotFound;
+    _currentIndex = selectedIndex != NSNotFound ? selectedIndex : 0;
     _listPlayer.mediaList = effectiveList;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
@@ -2494,16 +2500,39 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
 - (void)removeMediaFromMediaListAtIndex:(NSUInteger)index
 {
-    BOOL deleteCurrentMedia = [_mediaList indexOfMedia:self.currentlyPlayingMedia] == index ? YES : NO;
+    BOOL shuffled = _shuffleMode && _shuffledList;
+    VLCMediaList *list = shuffled ? _shuffledList : _mediaList;
+    VLCMedia *media = [list mediaAtIndex:index];
+    if (!media)
+        return;
 
-    [_mediaList removeMediaAtIndex:index];
+    BOOL deleteCurrentMedia = [media isEqual:self.currentlyPlayingMedia];
+    NSUInteger mediaListIndex = [_mediaList indexOfMedia:media];
+    [_mediaList removeMediaAtIndex:mediaListIndex];
+    if (shuffled) {
+        [_shuffledList removeMediaAtIndex:index];
+        @synchronized (_shuffledOrder) {
+            if (index < _shuffledOrder.count)
+                [_shuffledOrder removeObjectAtIndex:index];
+            NSUInteger orderCount = _shuffledOrder.count;
+            for (NSUInteger i = 0; i < orderCount; i++) {
+                NSUInteger entry = [_shuffledOrder[i] unsignedIntegerValue];
+                if (entry > mediaListIndex)
+                    _shuffledOrder[i] = @(entry - 1);
+            }
+        }
+    }
+    if (!deleteCurrentMedia && (NSInteger)index < _currentIndex)
+        _currentIndex -= 1;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
     [_delegate reloadPlayQueue];
 
     if (deleteCurrentMedia && _mediaList.count == 1) {
         _currentIndex = 0;
         [_listPlayer playItemAtNumber:@(_currentIndex)];
     } else if (deleteCurrentMedia) {
-        _currentIndex -= 1;
+        _currentIndex = (NSInteger)index - 1;
         [self next];
     }
 }

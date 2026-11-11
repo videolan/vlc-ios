@@ -39,10 +39,15 @@
 
 @interface PlaylistListPlayer : VLCMediaListPlayer
 @property (nonatomic) NSUInteger playbackCommands;
+@property (nonatomic, strong) NSNumber *lastPlayedIndex;
 @end
 @implementation PlaylistListPlayer
 - (void)play { self.playbackCommands++; }
-- (void)playItemAtNumber:(NSNumber *)index { self.playbackCommands++; }
+- (void)playItemAtNumber:(NSNumber *)index
+{
+    self.playbackCommands++;
+    self.lastPlayedIndex = index;
+}
 - (BOOL)next
 {
     self.playbackCommands++;
@@ -158,6 +163,18 @@
     [service _expandMediaList:[[VLCMediaList alloc] initWithArray:@[first, second]] forMedia:parent];
     XCTAssertEqualObjects(service.testPlaying, second);
     XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @1);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testExpansionWithoutPlayingMediaSelectsTheFirstEntry
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *parent = [self media:@"channels.m3u"];
+    VLCMedia *other = [self media:@"movie"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[other, parent]];
+    [service _expandMediaList:[[VLCMediaList alloc] initWithArray:@[[self media:@"first"]]] forMedia:parent];
+    XCTAssertEqual(service.mediaList.count, 2);
+    XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @0);
     XCTAssertEqual(service.starts, 0);
 }
 
@@ -316,6 +333,76 @@
     XCTAssertEqual(service.shuffledList.count, 1);
     XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], media);
     XCTAssertEqualObjects([service valueForKey:@"shuffledOrder"], @[@0]);
+}
+
+- (void)testAppendAfterShuffledSessionRebuildsTheOrderForTheNewQueue
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    NSArray<VLCMedia *> *previousSession = @[[self media:@"a"], [self media:@"b"], [self media:@"c"],
+                                             [self media:@"d"], [self media:@"e"]];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:previousSession];
+    service.testPlaying = previousSession[3];
+    service.shuffleMode = NO;
+    service.shuffleMode = YES;
+    VLCMedia *playing = [self media:@"playing"];
+    VLCMedia *appended = [self media:@"appended"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[playing]];
+    service.testPlaying = playing;
+    [service setValue:nil forKey:@"shuffledList"];
+    XCTAssertEqual([service appendMedia:appended], 1);
+    XCTAssertEqual(service.shuffledList.count, 2);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], playing);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:1], appended);
+    XCTAssertEqual(service.testListPlayer.mediaList, service.shuffledList);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testRemovingFromTheShuffledQueueUpdatesBothLists
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *first = [self media:@"first"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[first, [self media:@"second"], [self media:@"third"]]];
+    service.testPlaying = first;
+    service.shuffleMode = YES;
+    VLCMedia *removed = [service.shuffledList mediaAtIndex:2];
+    [service removeMediaFromMediaListAtIndex:2];
+    XCTAssertEqual(service.mediaList.count, 2);
+    XCTAssertEqual(service.shuffledList.count, 2);
+    XCTAssertEqual([service.mediaList indexOfMedia:removed], NSNotFound);
+    XCTAssertEqual([service.shuffledList indexOfMedia:removed], NSNotFound);
+    XCTAssertEqualObjects([service.shuffledList mediaAtIndex:0], first);
+    NSArray<NSNumber *> *order = [service valueForKey:@"shuffledOrder"];
+    XCTAssertEqual(order.count, 2);
+    for (NSUInteger i = 0; i < order.count; i++)
+        XCTAssertEqualObjects([service.mediaList mediaAtIndex:order[i].unsignedIntegerValue], [service.shuffledList mediaAtIndex:i]);
+    XCTAssertEqual(service.starts, 0);
+}
+
+- (void)testRemovingThePlayingItemPlaysTheEntryThatTookItsPlace
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *second = [self media:@"second"];
+    VLCMedia *third = [self media:@"third"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[[self media:@"first"], second, third]];
+    service.testPlaying = second;
+    [service removeMediaFromMediaListAtIndex:1];
+    XCTAssertEqual(service.mediaList.count, 2);
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:1], third);
+    XCTAssertEqualObjects(service.testListPlayer.lastPlayedIndex, @1);
+}
+
+- (void)testRemovingAnEarlierItemKeepsNextOnTheFollowingEntry
+{
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
+    VLCMedia *third = [self media:@"third"];
+    VLCMedia *fourth = [self media:@"fourth"];
+    service.mediaList = [[VLCMediaList alloc] initWithArray:@[[self media:@"first"], [self media:@"second"], third, fourth]];
+    service.testPlaying = third;
+    [service playItemAtIndex:2];
+    [service removeMediaFromMediaListAtIndex:0];
+    [service next];
+    XCTAssertEqualObjects([service.mediaList mediaAtIndex:2], fourth);
+    XCTAssertEqualObjects(service.testListPlayer.lastPlayedIndex, @2);
 }
 
 - (void)testQueueTitlePrefersManagedLibraryOverGeneratedNativeTitle

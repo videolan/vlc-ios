@@ -838,8 +838,8 @@ extension QueueViewController {
         if isLastMedia {
             // cases of doNotReapeat and repeatCurrentItem using the next() method causes wrong updates in the collection view which breaks the UI.
             // playing the index - 1 is the solution for this case
-            self.mediaList.removeMedia(at: UInt(index.row))
             playbackService.playItem(at: UInt(index.row - 1))
+            playbackService.removeMediaFromMediaList(at: UInt(index.row))
         } else {
             // removes the media form the media list and updates the currentIndex, then plays the next
             playbackService.removeMediaFromMediaList(at: UInt(index.row))
