@@ -647,6 +647,7 @@ class VideoPlayerViewController: PlayerViewController {
         view.addSubview(switchControlUtility)
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
+        videoPlayerControls.moreActionsButton.delegate = self
         setupMoreOptionsMenu()
         view.addSubview(mediaScrubProgressBar)
         view.addSubview(videoOutputView)
@@ -1346,6 +1347,10 @@ class VideoPlayerViewController: PlayerViewController {
 
     override var usesInlineScrubProgressBar: Bool {
         return true
+    }
+
+    override var moreOptionsMenuButton: MenuButton? {
+        return videoPlayerControls.moreActionsButton
     }
 
     override var overlayCardLayoutGuide: UILayoutGuide {

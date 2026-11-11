@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VideoPlayerViewController+MoreOptionsMenu.swift
+ * PlayerViewController+MoreOptionsMenu.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
@@ -12,11 +12,9 @@
 
 import UIKit
 
-extension VideoPlayerViewController {
+extension PlayerViewController {
     func setupMoreOptionsMenu() {
-        let button = videoPlayerControls.moreActionsButton
-        button.delegate = self
-        button.menu = UIMenu(children: [UIDeferredMenuElement.uncached { [weak self] completion in
+        moreOptionsMenuButton?.menu = UIMenu(children: [UIDeferredMenuElement.uncached { [weak self] completion in
             completion(self?.makeMoreOptionsMenuElements() ?? [])
         }])
     }
@@ -82,7 +80,7 @@ extension VideoPlayerViewController {
 
     private func refreshVisibleMoreOptionsMenu() {
         if #available(iOS 16.0, *) {
-            videoPlayerControls.moreActionsButton.contextMenuInteraction?.updateVisibleMenu { menu in
+            moreOptionsMenuButton?.contextMenuInteraction?.updateVisibleMenu { menu in
                 menu.replacingChildren(self.makeMoreOptionsMenuElements())
             }
         }

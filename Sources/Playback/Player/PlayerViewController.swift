@@ -142,6 +142,10 @@ class PlayerViewController: UIViewController {
         return coneLoadingView
     }()
 
+    var moreOptionsMenuButton: MenuButton? {
+        return nil
+    }
+
     var overlayCardLayoutGuide: UILayoutGuide {
         return view.safeAreaLayoutGuide
     }
