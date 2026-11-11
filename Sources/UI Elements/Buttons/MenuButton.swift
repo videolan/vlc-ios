@@ -20,10 +20,13 @@ protocol MenuButtonDelegate: AnyObject {
 final class MenuButton: UIButton {
     weak var delegate: MenuButtonDelegate?
 
+    private(set) var isShowingMenu = false
+
     override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
                                          willDisplayMenuFor configuration: UIContextMenuConfiguration,
                                          animator: UIContextMenuInteractionAnimating?) {
         super.contextMenuInteraction(interaction, willDisplayMenuFor: configuration, animator: animator)
+        isShowingMenu = true
         delegate?.menuButtonWillShowMenu(self)
     }
 
@@ -31,6 +34,7 @@ final class MenuButton: UIButton {
                                          willEndFor configuration: UIContextMenuConfiguration,
                                          animator: UIContextMenuInteractionAnimating?) {
         super.contextMenuInteraction(interaction, willEndFor: configuration, animator: animator)
+        isShowingMenu = false
         delegate?.menuButtonDidHideMenu(self)
     }
 }

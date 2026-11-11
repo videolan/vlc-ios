@@ -2337,14 +2337,12 @@ extension VideoPlayerViewController: GameControllerManagerDelegate {
     }
     
     func gameControllerManagerDelegateDidTogglePlayerOptions(_ gameControllerManager: GameControllerManager) {
-        if self.presentedViewController == nil {
-            present(moreOptionsActionSheet, animated: false) {
-                [unowned self] in
-                self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
-                self.moreOptionsActionSheet.hidePlayer()
-            }
-        } else {
-            self.moreOptionsActionSheet.dismiss(animated: true, completion: nil)
+        let menuButton = videoPlayerControls.moreActionsButton
+        if menuButton.isShowingMenu {
+            menuButton.contextMenuInteraction?.dismissMenu()
+        } else if #available(iOS 17.4, visionOS 1.1, *), presentedViewController == nil {
+            setControlsHidden(false, animated: false)
+            menuButton.performPrimaryAction()
         }
     }
 }
