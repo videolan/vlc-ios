@@ -63,6 +63,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return addExternalFolder
     }()
 
+    private lazy var overflowMenuButton: UIBarButtonItem = {
+        let overflowMenuButton = UIBarButtonItem(image: UIImage(named: "EllipseCircle"), menu: nil)
+        overflowMenuButton.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
+        return overflowMenuButton
+    }()
+
     private lazy var doneButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
@@ -92,6 +98,17 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             ($0 as? MediaCategoryViewController)?.delegate = self
         }
         setupNavigationBar()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass
+                || traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass,
+              !viewControllers.isEmpty else {
+            return
+        }
+
+        updateButtonsFor(viewControllers[currentIndex])
     }
 
     private func setupNavigationBar() {
@@ -176,6 +193,9 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
         }
         mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : emptyStateRightBarButtons
+        if #available(iOS 16.0, *) {
+            mediaCategoryViewController.navigationItem.additionalOverflowItems = showButtons && !isEditing ? overflowMenu(for: viewController) : nil
+        }
 
         if #available(iOS 26.0, visionOS 26.0, *), let page = viewController as? MediaCategoryViewController {
             let showSearch = (showButtons || page.isSearchActive) && !isEditing
@@ -191,14 +211,24 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             rightBarButtonItems.append(mediaCategoryViewController.sortBarButtonItem())
         }
 
-        if offersExternalFolders(on: viewController) {
+        let showsOverflowMenu = showsOverflowMenu(for: viewController)
+
+        if offersExternalFolders(on: viewController), !showsOverflowMenu {
             rightBarButtonItems.append(addExternalFolderButton)
         }
 
         if let historyCategoryViewController = viewController as? HistoryCategoryViewController {
             rightBarButtonItems.append(historyCategoryViewController.clearHistoryButton)
-        } else {
+        } else if !showsOverflowMenu {
             rightBarButtonItems.append(selectButton)
+        }
+
+        if #unavailable(iOS 16.0) {
+            let overflowMenuElements = overflowMenuElements(for: viewController)
+            if !overflowMenuElements.isEmpty {
+                overflowMenuButton.menu = UIMenu(children: overflowMenuElements)
+                rightBarButtonItems.insert(overflowMenuButton, at: 0)
+            }
         }
 
 #if os(iOS)
@@ -213,6 +243,48 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     private func offersExternalFolders(on viewController: UIViewController) -> Bool {
         return (self is VideoViewController || self is AudioViewController || self is FoldersViewController)
             && viewControllers.contains(viewController)
+    }
+
+    private func showsOverflowMenu(for viewController: UIViewController) -> Bool {
+        return traitCollection.horizontalSizeClass == .compact
+            && traitCollection.verticalSizeClass == .regular
+            && viewControllers.contains(viewController)
+    }
+
+    @available(iOS 16.0, *)
+    private func overflowMenu(for viewController: UIViewController) -> UIDeferredMenuElement? {
+        let elements = overflowMenuElements(for: viewController)
+        guard !elements.isEmpty else {
+            return nil
+        }
+
+        return UIDeferredMenuElement { completion in
+            completion(elements)
+        }
+    }
+
+    private func overflowMenuElements(for viewController: UIViewController) -> [UIMenuElement] {
+        guard showsOverflowMenu(for: viewController) else {
+            return []
+        }
+
+        var actions: [UIMenuElement] = []
+
+        if !(viewController is HistoryCategoryViewController) {
+            let selectAction = UIAction(title: selectButton.title ?? "", image: selectButton.image) { [weak self] _ in
+                self?.customSetEditing()
+            }
+            selectAction.accessibilityIdentifier = VLCAccessibilityIdentifier.select
+            actions.append(selectAction)
+        }
+
+        if offersExternalFolders(on: viewController) {
+            actions.append(UIAction(title: addExternalFolderButton.title ?? "", image: addExternalFolderButton.image) { [weak self] _ in
+                self?.handleAddExternalFolder()
+            })
+        }
+
+        return actions
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
@@ -320,6 +392,9 @@ extension MediaViewController {
         rightBarButtons = isEditing ? [doneButton] : rightButtons
         navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItems = leftBarButtons
+        if #available(iOS 16.0, *) {
+            navigationItem.additionalOverflowItems = isEditing ? nil : overflowMenu(for: viewControllers[currentIndex])
+        }
 
         if !isEditing, navigationController?.viewControllers.count == 1 {
             var items: [UIBarButtonItem] = [appMenuButton]

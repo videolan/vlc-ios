@@ -49,7 +49,7 @@ class Screenshot: XCTestCase {
         _ = element(VLCAccessibilityIdentifier.mediaCell)
         capture("01_video_list")
 
-        tap(element(VLCAccessibilityIdentifier.select))
+        tapSelect()
         let cells = visibleCells(VLCAccessibilityIdentifier.mediaCell)
         cells.prefix(2).forEach { $0.tap() }
         capture("02_video_list_selection")
@@ -379,6 +379,31 @@ class Screenshot: XCTestCase {
             }
         }
         return false
+    }
+
+    private func tapSelect() {
+        let selectButton = app.navigationBars.buttons.matching(identifier: VLCAccessibilityIdentifier.select).firstMatch
+        if !selectButton.waitForExistence(timeout: 2.0) {
+            tap(overflowMenuButton())
+        }
+        tap(element(VLCAccessibilityIdentifier.select))
+    }
+
+    private func overflowMenuButton() -> XCUIElement {
+        let viewOptions = app.navigationBars.buttons.matching(identifier: VLCAccessibilityIdentifier.viewOptions).firstMatch
+        XCTAssertTrue(viewOptions.waitForExistence(timeout: 10.0), "Missing view options")
+        let anchor = viewOptions.frame
+        let isLeftToRight = appMenuButton().frame.midX < anchor.midX
+
+        let trailingButtons = app.navigationBars.firstMatch.buttons.allElementsBoundByIndex.filter {
+            isLeftToRight ? $0.frame.minX >= anchor.maxX : $0.frame.maxX <= anchor.minX
+        }
+        let overflowMenuButton = isLeftToRight
+            ? trailingButtons.min { $0.frame.minX < $1.frame.minX }
+            : trailingButtons.max { $0.frame.maxX < $1.frame.maxX }
+
+        XCTAssertNotNil(overflowMenuButton, "Missing overflow menu")
+        return overflowMenuButton ?? viewOptions
     }
 
     private func appMenuButton() -> XCUIElement {

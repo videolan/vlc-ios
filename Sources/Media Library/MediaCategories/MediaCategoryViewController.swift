@@ -238,6 +238,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var sortBarButton: UIBarButtonItem = {
         let sortBarButton = UIBarButtonItem(image: nil, menu: nil)
         sortBarButton.title = NSLocalizedString("VIEW_OPTIONS", comment: "")
+        sortBarButton.accessibilityIdentifier = VLCAccessibilityIdentifier.viewOptions
         return sortBarButton
     }()
 

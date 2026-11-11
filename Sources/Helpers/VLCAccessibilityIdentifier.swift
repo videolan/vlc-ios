@@ -21,6 +21,7 @@ import Foundation
     static let folders = "folders"
     static let mediaCell = "mediaCell"
     static let select = "select"
+    static let viewOptions = "viewOptions"
     @objc static let localNetwork = "localNetwork"
     @objc static let onAir = "onAir"
     @objc static let onAirRadio = "onAirRadio"
