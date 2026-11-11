@@ -49,7 +49,6 @@ class Screenshot: XCTestCase {
         _ = element(VLCAccessibilityIdentifier.mediaCell)
         capture("01_video_list")
 
-        tap(element(VLCAccessibilityIdentifier.mediaMenu))
         tap(element(VLCAccessibilityIdentifier.select))
         let cells = visibleCells(VLCAccessibilityIdentifier.mediaCell)
         cells.prefix(2).forEach { $0.tap() }

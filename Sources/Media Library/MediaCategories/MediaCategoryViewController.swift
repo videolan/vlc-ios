@@ -22,7 +22,6 @@ import UIKit
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool)
-    func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu
     func updateSelectAllButton(for viewController: MediaCategoryViewController)
 }
 
@@ -224,6 +223,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private lazy var selectAllBarButton: UIBarButtonItem = {
         return setupSelectAllButton()
+    }()
+
+    private lazy var selectBarButton: UIBarButtonItem = {
+        let selectBarButton = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"),
+                                              style: .plain, target: self,
+                                              action: #selector(handleSelect))
+        selectBarButton.title = NSLocalizedString("BUTTON_SELECT", comment: "")
+        selectBarButton.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
+        selectBarButton.accessibilityIdentifier = VLCAccessibilityIdentifier.select
+        return selectBarButton
     }()
 
     private lazy var sortBarButton: UIBarButtonItem = {
@@ -1457,17 +1466,7 @@ extension MediaCategoryViewController {
     }
 
     private func rightBarButtonItems() -> [UIBarButtonItem] {
-        var rightBarButtonItems = [UIBarButtonItem]()
-
-        let menu = delegate?.generateMenu(for: self)
-        if #available(iOS 26.0, *) {
-            rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
-                                                       menu: menu))
-        } else {
-            rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                                       menu: menu))
-        }
-        rightBarButtonItems.append(sortBarButtonItem())
+        var rightBarButtonItems: [UIBarButtonItem] = [sortBarButtonItem(), selectBarButton]
 #if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtonItems.append(rendererBarButton)
@@ -1715,6 +1714,10 @@ extension MediaCategoryViewController {
         alertController.addAction(clearAction)
 
         present(alertController, animated: true)
+    }
+
+    @objc private func handleSelect() {
+        delegate?.setEditingStateChanged(for: self, editing: true)
     }
 
     @objc func handleSelectAll() {

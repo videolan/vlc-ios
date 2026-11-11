@@ -20,7 +20,6 @@ import Foundation
     static let genres = "genres"
     static let folders = "folders"
     static let mediaCell = "mediaCell"
-    static let mediaMenu = "mediaMenu"
     static let select = "select"
     @objc static let localNetwork = "localNetwork"
     @objc static let onAir = "onAir"

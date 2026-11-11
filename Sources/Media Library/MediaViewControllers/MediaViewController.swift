@@ -45,19 +45,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return selectAll
     }()
 
-    // MARK: UIMenu & UIActions
-
-    private lazy var menuButton: UIBarButtonItem = {
-        var buttonItem = UIBarButtonItem()
-        if #available(iOS 26.0, *) {
-            buttonItem.image = UIImage(systemName: "ellipsis")
-        } else {
-            buttonItem.image = UIImage(named: "EllipseCircle")
-        }
-        buttonItem.accessibilityLabel = NSLocalizedString("BUTTON_MENU", comment: "")
-        buttonItem.accessibilityHint = NSLocalizedString("BUTTON_MENU_HINT", comment: "")
-        buttonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.mediaMenu
-        return buttonItem
+    private lazy var selectButton: UIBarButtonItem = {
+        let select = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"),
+                                     style: .plain, target: self,
+                                     action: #selector(customSetEditing))
+        select.title = NSLocalizedString("BUTTON_SELECT", comment: "")
+        select.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
+        select.accessibilityIdentifier = VLCAccessibilityIdentifier.select
+        return select
     }()
 
     private lazy var addExternalFolderButton: UIBarButtonItem = {
@@ -92,26 +87,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
         super.viewDidLoad()
-        rightBarButtons = [menuButton]
-
-#if os(iOS)
-        if !rendererButton.isHidden {
-            rightBarButtons?.append(UIBarButtonItem(customView: rendererButton))
-        }
-#endif
 
         viewControllers.forEach {
             ($0 as? MediaCategoryViewController)?.delegate = self
         }
         setupNavigationBar()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if menuButton.menu == nil,
-           let viewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-            menuButton.menu = generateMenu(viewController: viewController)
-        }
     }
 
     private func setupNavigationBar() {
@@ -152,9 +132,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
 
-        if let viewController = viewController as? MediaCategoryViewController {
-            menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
-        }
         leftBarButtons = isEditing ? [selectAllButton] : nil
         rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
 
@@ -208,7 +185,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
-        var rightBarButtonItems: [UIBarButtonItem] = viewController is HistoryCategoryViewController ? [] : [menuButton]
+        var rightBarButtonItems: [UIBarButtonItem] = []
 
         if let mediaCategoryViewController = viewController as? MediaCategoryViewController {
             rightBarButtonItems.append(mediaCategoryViewController.sortBarButtonItem())
@@ -220,6 +197,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         if let historyCategoryViewController = viewController as? HistoryCategoryViewController {
             rightBarButtonItems.append(historyCategoryViewController.clearHistoryButton)
+        } else {
+            rightBarButtonItems.append(selectButton)
         }
 
 #if os(iOS)
@@ -269,10 +248,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 // MARK: - MediaCatgoryViewControllerDelegate
 
 extension MediaViewController: MediaCategoryViewControllerDelegate {
-    func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu {
-        return generateMenu(viewController: viewController)
-    }
-
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
         if viewController == viewControllers[currentIndex] {
             updateButtonsFor(viewController)
@@ -291,7 +266,7 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        rightBarButtons = isEditing ? [doneButton] : [menuButton, viewController.sortBarButtonItem()]
+        rightBarButtons = isEditing ? [doneButton] : [viewController.sortBarButtonItem(), selectButton]
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -413,31 +388,6 @@ extension MediaViewController {
 
         controller.handleSelectAll()
         selectAllButton.image = controller.isAllSelected ? UIImage(named: "allSelected") : UIImage(named: "emptySelectAll")
-    }
-}
-
-// MARK: - UIMenu
-
-extension MediaViewController {
-    func generateSelectAction() -> UIAction {
-        let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
-                                    image: UIImage(systemName: "checkmark.circle"),
-                                    handler: {
-            [unowned self] _ in
-            customSetEditing()
-        })
-        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_SELECT", comment: "")
-        selectAction.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
-        selectAction.accessibilityIdentifier = VLCAccessibilityIdentifier.select
-        return selectAction
-    }
-
-    func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
-        guard viewController != nil else {
-            preconditionFailure("MediaViewControllers: invalid viewController")
-        }
-
-        return UIMenu(options: .displayInline, children: [generateSelectAction()])
     }
 }
 
