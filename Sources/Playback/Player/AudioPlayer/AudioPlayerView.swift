@@ -144,11 +144,12 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }()
 
     private lazy var playButton: UIButton = {
-        let playButton = UIButton(type: .system)
-        playButton.setImage(controlImage(symbol: "play.fill", fallback: "iconPlay", pointSize: 26), for: .normal)
-        playButton.contentMode = .scaleAspectFit
-        playButton.imageView?.contentMode = .scaleAspectFit
-        playButton.tintColor = .white
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = controlImage(symbol: "play.fill", fallback: "iconPlay", pointSize: 26)
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .capsule
+        configuration.background.customView = VideoControlBackgroundView()
+        let playButton = UIButton(configuration: configuration)
         playButton.addTarget(self, action: #selector(handlePlayButton(_:)), for: .touchUpInside)
         playButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
         playButton.accessibilityHint = NSLocalizedString("PLAY_PAUSE_HINT", comment: "")
@@ -204,7 +205,21 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var secondaryControlStackViewHeightConstraint: NSLayoutConstraint = secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
 
-    private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
+    private lazy var controlsStackViewMinSpacing: CGFloat = 0.0
+    private let transportPreferredSpacing: CGFloat = 8.0
+
+    private let playButtonSize: CGFloat = 72.0
+    private let compactPlayButtonSize: CGFloat = 56.0
+    private let sideButtonSize: CGFloat = 56.0
+    private let compactSideButtonSize: CGFloat = 44.0
+    private let toggleButtonSize: CGFloat = 44.0
+    private let transportMaximumWidth: CGFloat = 380.0
+
+    private lazy var playButtonWidthConstraint: NSLayoutConstraint = playButton.widthAnchor.constraint(equalToConstant: playButtonSize)
+
+    private lazy var sideButtonWidthConstraints: [NSLayoutConstraint] = [backwardButton, previousButton, nextButton, forwardButton].map {
+        $0.widthAnchor.constraint(equalToConstant: sideButtonSize)
+    }
 
     private var isCompactScreen: Bool {
 #if os(iOS)
@@ -298,7 +313,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private var landscapeProgressionTrailingConstraint: NSLayoutConstraint?
     private var landscapeProgressionBottomConstraint: NSLayoutConstraint?
     private var landscapeThumbnailWidthConstraint: NSLayoutConstraint?
-    private var portraitRegularWidthControlsConstraints: [NSLayoutConstraint] = []
 
     weak var delegate: AudioPlayerViewDelegate?
 
@@ -447,6 +461,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         super.layoutSubviews()
         updateContentInsets()
         updateLabelHeights()
+        updateTransportButtonSizes()
     }
 
     private func updateContentInsets() {
@@ -482,13 +497,37 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         if let constraint = landscapeThumbnailWidthConstraint, constraint.priority != landscapeThumbnailPriority {
             constraint.priority = landscapeThumbnailPriority
         }
-
-        updatePortraitControlsWidthConstraints()
     }
 
-    private func updatePortraitControlsWidthConstraints() {
-        let isActive = !isLandscapeLayout && traitCollection.horizontalSizeClass == .regular
-        portraitRegularWidthControlsConstraints.forEach { $0.isActive = isActive }
+    private func updateTransportButtonSizes() {
+        let availableWidth = progressionView.bounds.width
+        guard availableWidth > 0 else {
+            return
+        }
+
+        let playSize: CGFloat
+        let sideSize: CGFloat
+        if availableWidth >= transportWidth(playSize: playButtonSize, sideSize: sideButtonSize) {
+            playSize = playButtonSize
+            sideSize = sideButtonSize
+        } else if availableWidth >= transportWidth(playSize: compactPlayButtonSize, sideSize: compactSideButtonSize) {
+            playSize = compactPlayButtonSize
+            sideSize = compactSideButtonSize
+        } else {
+            playSize = compactSideButtonSize
+            sideSize = compactSideButtonSize
+        }
+
+        guard playButtonWidthConstraint.constant != playSize else {
+            return
+        }
+
+        playButtonWidthConstraint.constant = playSize
+        sideButtonWidthConstraints.forEach { $0.constant = sideSize }
+    }
+
+    private func transportWidth(playSize: CGFloat, sideSize: CGFloat) -> CGFloat {
+        return playSize + 2 * sideSize + 2 * toggleButtonSize + 4 * transportPreferredSpacing
     }
 
     private func updateLabelHeights() {
@@ -535,7 +574,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let icon = controlImage(symbol: isPlaying ? "pause.fill" : "play.fill",
                                 fallback: isPlaying ? "iconPause" : "iconPlay",
                                 pointSize: 26)
-        playButton.setImage(icon, for: .normal)
+        playButton.configuration?.image = icon
         updateArtworkScale(isPlaying: isPlaying)
     }
 
@@ -600,7 +639,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         previousButton.alpha = enabled ? 1.0 : 0.5
 
         playButton.isEnabled = enabled
-        playButton.alpha = enabled ? 1.0 : 0.5
 
         nextButton.isEnabled = enabled
         nextButton.alpha = enabled ? 1.0 : 0.5
@@ -631,8 +669,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         isLandscapeLayout = isLandscape
         progressionViewHeightConstraint.constant = isLandscape ? 30 : 70
         updateLayoutConstraints()
-
-        updatePortraitControlsWidthConstraints()
 
         setNeedsLayout()
         layoutIfNeeded()
@@ -983,6 +1019,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         }
 
         controlsStackView.spacing = controlsStackViewMinSpacing
+        controlsStackView.alignment = .center
         controlsStackView.semanticContentAttribute = .forceLeftToRight
 
         let controlsStackViewLeading = controlsStackView.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
@@ -991,12 +1028,23 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         controlsStackViewTrailing.priority = .defaultHigh
 
         sharedConstraints.append(contentsOf: [
-            controlsStackView.heightAnchor.constraint(equalToConstant: 50.0),
+            controlsStackView.heightAnchor.constraint(equalTo: playButton.heightAnchor),
+            controlsStackView.widthAnchor.constraint(lessThanOrEqualToConstant: transportMaximumWidth),
+            controlsStackView.centerXAnchor.constraint(equalTo: progressionView.centerXAnchor),
             controlsStackViewLeading,
             controlsStackViewTrailing,
             secondaryControlStackView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: topPadding/4),
             secondaryControlStackViewHeightConstraint
         ])
+
+        let transportButtons = [shuffleButton, backwardButton, previousButton, playButton, nextButton, forwardButton, repeatButton]
+        let toggleButtonWidthConstraints = [shuffleButton, repeatButton].map {
+            $0.widthAnchor.constraint(equalToConstant: toggleButtonSize)
+        }
+        let transportWidthConstraints = toggleButtonWidthConstraints + sideButtonWidthConstraints + [playButtonWidthConstraint]
+        transportWidthConstraints.forEach { $0.priority = .required - 1 }
+        sharedConstraints.append(contentsOf: transportWidthConstraints)
+        sharedConstraints.append(contentsOf: transportButtons.map { $0.heightAnchor.constraint(equalTo: $0.widthAnchor) })
 
         let portraitSecondaryControlBottom = secondaryControlStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
         portraitSecondaryControlBottom.priority = .defaultHigh
@@ -1009,11 +1057,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             secondaryControlStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             portraitSecondaryControlBottom,
         ])
-
-        portraitRegularWidthControlsConstraints = [
-            controlsStackView.centerXAnchor.constraint(equalTo: progressionView.centerXAnchor),
-            controlsStackView.widthAnchor.constraint(equalTo: centeredLayoutGuide.widthAnchor, multiplier: 0.5),
-        ]
 
         landscapeConstraints.append(contentsOf: [
             secondaryControlStackView.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
