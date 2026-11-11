@@ -31,7 +31,6 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     // MARK: - Right Controls
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelegateDidLongPressAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapRotate(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls)
@@ -125,8 +124,17 @@ class VideoPlayerControls: UIView {
         return button
     }()
 
-    private(set) lazy var aspectRatioButton = makeBarButton(image: UIImage(named: "aspectRatio"),
-                                                            action: #selector(handleAspectRatioButton(_:)))
+    private(set) lazy var aspectRatioButton: MenuButton = {
+        let button = MenuButton(type: .custom)
+        button.setImage(UIImage(named: "aspectRatio"), for: .normal)
+        button.tintColor = .white
+        button.overrideUserInterfaceStyle = .dark
+        if #available(iOS 16.0, *) {
+            button.preferredMenuElementOrder = .fixed
+        }
+        button.addTarget(self, action: #selector(handleAspectRatioButton(_:)), for: .touchUpInside)
+        return button
+    }()
 
     private(set) lazy var rotateButton: UIButton = {
         let button = makeBarButton(image: UIImage(named: "rectangle.landscape.rotate"),
@@ -272,11 +280,6 @@ class VideoPlayerControls: UIView {
             backwardButton,
             forwardButton
         )
-    }
-
-    func setupLongPressGestureRecognizer() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleAspectRatioLongPress(_:)))
-        aspectRatioButton.addGestureRecognizer(longPressGesture)
     }
 
     func updatePlayPauseButton(toState isPlaying: Bool) {
@@ -454,12 +457,6 @@ extension VideoPlayerControls {
 extension VideoPlayerControls {
     @objc func handleAspectRatioButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapAspectRatio(self)
-    }
-
-    @objc func handleAspectRatioLongPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            delegate?.videoPlayerControlsDelegateDidLongPressAspectRatio(self)
-        }
     }
 
     @objc func handleRotateButton(_ sender: Any) {

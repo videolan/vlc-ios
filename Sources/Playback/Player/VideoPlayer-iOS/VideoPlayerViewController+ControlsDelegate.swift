@@ -112,13 +112,6 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         playbackService.switchAspectRatio(false)
     }
 
-    func videoPlayerControlsDelegateDidLongPressAspectRatio(_ videoPlayerControls: VideoPlayerControls) {
-        present(aspectRatioActionSheet, animated: false) {
-            let selectedIndexPath = IndexPath(row: self.playbackService.currentAspectRatio, section: 0)
-            self.aspectRatioActionSheet.collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredVertically)
-        }
-    }
-
     func videoPlayerControlsDelegateDidTapRotate(_ videoPlayerControls: VideoPlayerControls) {
         mediaNavigationBar.toggleOrientation()
     }
