@@ -37,25 +37,25 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     var contentHeight: Float {
         return 56
     }
-    
+
     public static let largeScreenWidthFactor: CGFloat = 2/3
+    // UITabAccessory incorrectly sizes the miniplayer if there is no instrinsic
+    // content size or it is set too low for the screen.
     override var intrinsicContentSize: CGSize {
-        #if os(visionOS)
-        let width: Int = 750
-        #else
-        // UITabAccessory incorrectly sizes the miniplayer if there is no instrinsic
-        // content size or it is set too low for the screen.
-        var width: Int = .max
-        if let window {
-            var cgWidth = window.bounds.width
-            if traitCollection.horizontalSizeClass == .regular {
-                cgWidth = cgWidth * Self.largeScreenWidthFactor
-            }
-            width = Int(cgWidth)
-        }
-        #endif
-        return CGSize(width: width, height: Int(contentHeight))
+        return CGSize(width: intrinsicWidth, height: CGFloat(contentHeight))
     }
+
+    private var intrinsicWidth: CGFloat {
+        #if os(visionOS)
+        return 750
+        #else
+        guard let window else { return UIView.noIntrinsicMetric }
+        let width = window.bounds.width
+        return traitCollection.horizontalSizeClass == .regular ? width * Self.largeScreenWidthFactor : width
+        #endif
+    }
+
+    private var appliedIntrinsicWidth: CGFloat = UIView.noIntrinsicMetric
 
     private let audioMiniPlayer = UIView()
     private let infoContainer = UIView()
@@ -83,7 +83,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     var horizontalPosition = MiniPlayerHorizontalPosition.center
     var panDirection: PanDirection = .vertical
     private var topGestureWasPerformed: Bool = false
-    
+
     private var internalTopAnchorConstraint: NSLayoutConstraint!
     private var internalBottomAnchorConstraint: NSLayoutConstraint!
     private var internalLeadingAnchorConstraint: NSLayoutConstraint!
@@ -115,26 +115,18 @@ class AudioMiniPlayer: UIView, MiniPlayer {
         if shuffleButton.isHidden == hasRoomForExtraControls {
             shuffleButton.isHidden = !hasRoomForExtraControls
         }
-        #if os(iOS)
-        guard #available(iOS 26, *) else { return }
-        if miniPlayerIsMinimized {
-            if previousButton.isHidden == hasRoomForControls {
-                previousButton.isHidden = !hasRoomForControls
-            }
-            if nextButton.isHidden == hasRoomForControls {
-                nextButton.isHidden = !hasRoomForControls
-            }
-        } else {
-            previousButton.isHidden = false
-            nextButton.isHidden = false
+        let hasRoomForSkipControls = hasRoomForControls || !miniPlayerIsMinimized
+        if previousButton.isHidden == hasRoomForSkipControls {
+            previousButton.isHidden = !hasRoomForSkipControls
         }
-        #endif
-    }
-    
-    override func willMove(toSuperview newSuperview: UIView?) {
-        guard newSuperview != nil else { return }
-        
-        topGestureWasPerformed = false
+        if nextButton.isHidden == hasRoomForSkipControls {
+            nextButton.isHidden = !hasRoomForSkipControls
+        }
+        let width = intrinsicWidth
+        if width != appliedIntrinsicWidth {
+            appliedIntrinsicWidth = width
+            invalidateIntrinsicContentSize()
+        }
     }
 
     func updatePlayPauseButton() {
@@ -355,24 +347,21 @@ private extension AudioMiniPlayer {
 
     private func setupPreviousNextOverlay() {
         if #available(iOS 26, *) {
-            previousNextOverlay = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
-            previousNextOverlay.translatesAutoresizingMaskIntoConstraints = false
+            let effectView = UIVisualEffectView(effect: nil)
+            effectView.contentView.addSubview(previousNextImage)
+            previousNextOverlay = effectView
             previousNextImage.tintColor = .label
         } else {
-            previousNextOverlay.translatesAutoresizingMaskIntoConstraints = false
             previousNextOverlay.backgroundColor = .black
+            previousNextOverlay.addSubview(previousNextImage)
             previousNextImage.tintColor = .white
         }
+        previousNextOverlay.translatesAutoresizingMaskIntoConstraints = false
         previousNextOverlay.isHidden = true
 
         previousNextImage.translatesAutoresizingMaskIntoConstraints = false
         previousNextImage.clipsToBounds = true
         previousNextImage.contentMode = .scaleAspectFill
-        if #available(iOS 26, *) {
-            (previousNextOverlay as! UIVisualEffectView).contentView.addSubview(previousNextImage)
-        } else {
-            previousNextOverlay.addSubview(previousNextImage)
-        }
         self.addSubview(previousNextOverlay)
         pin(previousNextOverlay, filling: self)
 
@@ -569,34 +558,34 @@ extension AudioMiniPlayer {
 
     private func dragDidBegin(_ sender: UIPanGestureRecognizer) {
         getPanDirection(sender)
+        topGestureWasPerformed = false
     }
 
     private func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self)
-        
-        switch panDirection {
-            case .horizontal:
-                internalLeadingAnchorConstraint.constant += translation.x
-                internalTrailingAnchorConstraint.constant += translation.x
-                handleHorizontalTranslation(in: self)
-                setNeedsLayout()
-                layoutIfNeeded()
-            case .vertical:
-                if translation.y < 0 && !topGestureWasPerformed {
-                    topGestureWasPerformed = true
-                    #if os(iOS)
-                    ImpactFeedbackGenerator().limitOverstepped()
-                    #endif
-                    handleFullScreen(self)
-                }
-        }
 
-        sender.setTranslation(CGPoint.zero, in: nil)
+        switch panDirection {
+        case .horizontal:
+            internalLeadingAnchorConstraint.constant += translation.x
+            internalTrailingAnchorConstraint.constant += translation.x
+            handleHorizontalTranslation(in: self)
+            setNeedsLayout()
+            layoutIfNeeded()
+            sender.setTranslation(CGPoint.zero, in: nil)
+        case .vertical:
+            if translation.y < -bounds.height / 2 && !topGestureWasPerformed {
+                topGestureWasPerformed = true
+                #if os(iOS)
+                ImpactFeedbackGenerator().limitOverstepped()
+                #endif
+                handleFullScreen(self)
+            }
+        }
     }
 
     private func dragDidEnd(_ sender: UIPanGestureRecognizer) {
         guard panDirection == .horizontal else { return }
-        
+
         switch horizontalPosition {
         case .right:
             playbackService.next()
@@ -626,7 +615,7 @@ extension AudioMiniPlayer {
         var hapticFeedbackNeeded = false
         switch horizontalPosition {
         case .center:
-                if audioMiniPlayer.center.x < superview.frame.width / 3 {
+            if audioMiniPlayer.center.x < superview.frame.width / 3 {
                 hapticFeedbackNeeded = true
                 horizontalPosition = .left
             } else if audioMiniPlayer.center.x > 2 * superview.frame.width / 3 {
@@ -639,9 +628,8 @@ extension AudioMiniPlayer {
                 horizontalPosition = .center
                 hidePreviousNextOverlay()
             } else {
-                previousNextImage.image = UIImage(named: "MiniPrev")?.withRenderingMode(.alwaysTemplate)
-                previousNextOverlay.alpha = abs(superview.center.x - audioMiniPlayer.center.x) / (superview.frame.width / 2)
-                previousNextOverlay.isHidden = false
+                showPreviousNextOverlay(imageNamed: "MiniPrev",
+                                        alpha: abs(superview.bounds.midX - audioMiniPlayer.center.x) / (superview.frame.width / 2))
             }
         case .right:
             if audioMiniPlayer.center.x < 2 * superview.frame.width / 3 {
@@ -649,12 +637,11 @@ extension AudioMiniPlayer {
                 horizontalPosition = .center
                 hidePreviousNextOverlay()
             } else {
-                previousNextImage.image = UIImage(named: "MiniNext")?.withRenderingMode(.alwaysTemplate)
-                previousNextOverlay.alpha = abs(superview.center.x - audioMiniPlayer.center.x) / (superview.frame.width / 2)
-                previousNextOverlay.isHidden = false
+                showPreviousNextOverlay(imageNamed: "MiniNext",
+                                        alpha: abs(superview.bounds.midX - audioMiniPlayer.center.x) / (superview.frame.width / 2))
             }
         }
-        
+
         #if os(iOS)
         if hapticFeedbackNeeded {
             ImpactFeedbackGenerator().limitOverstepped()
@@ -662,9 +649,29 @@ extension AudioMiniPlayer {
         #endif
     }
 
+    private func showPreviousNextOverlay(imageNamed imageName: String, alpha: CGFloat) {
+        previousNextImage.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+        previousNextOverlay.isHidden = false
+        guard let effectView = previousNextOverlay as? UIVisualEffectView else {
+            previousNextOverlay.alpha = alpha
+            return
+        }
+        previousNextImage.alpha = alpha
+        if effectView.effect == nil {
+            UIView.animate(withDuration: animationDuration) {
+                effectView.effect = UIBlurEffect(style: .systemThinMaterial)
+            }
+        }
+    }
+
     func hidePreviousNextOverlay() {
         UIView.animate(withDuration: animationDuration, animations: {
-            self.previousNextOverlay.alpha = 0.0
+            if let effectView = self.previousNextOverlay as? UIVisualEffectView {
+                effectView.effect = nil
+                self.previousNextImage.alpha = 0.0
+            } else {
+                self.previousNextOverlay.alpha = 0.0
+            }
             self.previousNextOverlay.isHidden = true
         })
     }
