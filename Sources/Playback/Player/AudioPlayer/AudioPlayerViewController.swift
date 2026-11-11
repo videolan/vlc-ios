@@ -56,11 +56,17 @@ class AudioPlayerViewController: PlayerViewController {
         return audioPlayerView
     }()
 
-    private lazy var moreOptionsButton: UIButton = {
-        let moreOptionsButton = UIButton(type: .custom)
+    private lazy var moreOptionsButton: MenuButton = {
+        let moreOptionsButton = MenuButton(type: .custom)
         moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
         moreOptionsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        moreOptionsButton.addTarget(self, action: #selector(handleMoreOptionsButton), for: .touchUpInside)
+        moreOptionsButton.overrideUserInterfaceStyle = .dark
+        moreOptionsButton.showsMenuAsPrimaryAction = true
+        if #available(iOS 16.0, *) {
+            moreOptionsButton.preferredMenuElementOrder = .fixed
+        }
+        moreOptionsButton.accessibilityLabel = NSLocalizedString("MORE_OPTIONS_BUTTON", comment: "")
+        moreOptionsButton.accessibilityHint = NSLocalizedString("MORE_OPTIONS_HINT", comment: "")
         moreOptionsButton.accessibilityIdentifier = VLCAccessibilityIdentifier.moreOptions
         return moreOptionsButton
     }()
@@ -78,6 +84,7 @@ class AudioPlayerViewController: PlayerViewController {
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
+        setupMoreOptionsMenu()
         audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
         audioPlayerView.updateThumbnailImageView()
         refreshPlaybackSpeed()
@@ -97,6 +104,7 @@ class AudioPlayerViewController: PlayerViewController {
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
+        setupMoreOptionsMenu()
         audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
         audioPlayerView.updateThumbnailImageView()
         refreshPlaybackSpeed()
@@ -183,6 +191,10 @@ class AudioPlayerViewController: PlayerViewController {
     override var resetsPositionOnMinimize: Bool {
         return true
     }
+
+    override var moreOptionsMenuButton: MenuButton? {
+        return moreOptionsButton
+    }
     
     override func updatePlaybackSpeedIcon() {
         super.updatePlaybackSpeedIcon()
@@ -198,13 +210,6 @@ class AudioPlayerViewController: PlayerViewController {
     @objc func setupQueueViewController(with qvc: QueueViewController) {
         queueViewController = qvc
         queueViewController?.delegate = nil
-    }
-
-    @objc func handleMoreOptionsButton() {
-        present(moreOptionsActionSheet, animated: false) {
-            [unowned self] in
-            self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
-        }
     }
 
     override func setupGestures() {

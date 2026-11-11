@@ -39,11 +39,13 @@ extension PlayerViewController {
             self.mediaMoreOptionsActionSheetPresentABRepeatView(with: self.moreOptionsActionSheet.abRepeatView)
         }
 
+        var playbackActions = [makePlaybackSpeedAction(), makeSleepTimerAction(), makeEqualizerAction()]
+        if !(self is AudioPlayerViewController) {
+            playbackActions.append(videoFiltersAction)
+        }
+
         return [makePlaybackModesSection(interfaceLockAction: interfaceLockAction),
-                UIMenu(options: .displayInline, children: [makePlaybackSpeedAction(),
-                                                           makeSleepTimerAction(),
-                                                           makeEqualizerAction(),
-                                                           videoFiltersAction]),
+                UIMenu(options: .displayInline, children: playbackActions),
                 UIMenu(options: .displayInline, children: [abRepeatAction, makeNavigationMenu()])]
     }
 
@@ -104,7 +106,8 @@ extension PlayerViewController {
         if let fireDate = playbackService.sleepTimer?.fireDate {
             summary = SleepTimerControlsView.remainingTimeString(for: max(fireDate.timeIntervalSinceNow, 0))
         } else if playbackService.stopAfterCurrentItem {
-            summary = NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_VIDEO", comment: "")
+            summary = self is AudioPlayerViewController ? NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_TRACK", comment: "")
+                                                        : NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_VIDEO", comment: "")
         }
 
         return UIAction(title: ActionSheetCellIdentifier.sleepTimer.description,
