@@ -93,10 +93,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var shuffleButton: UIButton = {
         let shuffleButton = UIButton(type: .system)
-        shuffleButton.setImage(controlImage(symbol: "shuffle", fallback: "iconShuffleLarge", pointSize: 16), for: .normal)
-        shuffleButton.contentMode = .scaleAspectFit
-        shuffleButton.imageView?.contentMode = .scaleAspectFit
-        shuffleButton.tintColor = .white
+        shuffleButton.applyOverlayToggleStyle(image: controlImage(symbol: "shuffle", fallback: "iconShuffleLarge", pointSize: 16),
+                                              isActive: false, cornerRadius: toggleButtonSize / 2)
         shuffleButton.addTarget(self, action: #selector(handleShuffleButton(_:)), for: .touchUpInside)
         shuffleButton.accessibilityLabel = NSLocalizedString("SHUFFLE", comment: "")
         shuffleButton.accessibilityHint = NSLocalizedString("SHUFFLE_HINT", comment: "")
@@ -183,10 +181,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var repeatButton: UIButton = {
         let repeatButton = UIButton(type: .system)
-        repeatButton.setImage(controlImage(symbol: "repeat", fallback: "iconRepeatLarge", pointSize: 16), for: .normal)
-        repeatButton.contentMode = .scaleAspectFit
-        repeatButton.imageView?.contentMode = .scaleAspectFit
-        repeatButton.tintColor = .white
+        repeatButton.applyOverlayToggleStyle(image: controlImage(symbol: "repeat", fallback: "iconRepeatLarge", pointSize: 16),
+                                             isActive: false, cornerRadius: toggleButtonSize / 2)
         repeatButton.addTarget(self, action: #selector(handleRepeatButton(_:)), for: .touchUpInside)
         repeatButton.accessibilityLabel = NSLocalizedString("REPEAT_MODE", comment: "")
         repeatButton.accessibilityHint = NSLocalizedString("REPEAT_HINT", comment: "")
@@ -220,6 +216,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var sideButtonWidthConstraints: [NSLayoutConstraint] = [backwardButton, previousButton, nextButton, forwardButton].map {
         $0.widthAnchor.constraint(equalToConstant: sideButtonSize)
     }
+
+    private var isShuffleEnabled = false
+    private var currentRepeatMode: VLCRepeatMode = .doNotRepeat
 
     private var isCompactScreen: Bool {
 #if os(iOS)
@@ -324,6 +323,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         setupLabels()
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateToggleButtonStyles),
+                                               name: UIAccessibility.reduceTransparencyStatusDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateToggleButtonStyles),
+                                               name: UIAccessibility.darkerSystemColorsStatusDidChangeNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -590,13 +593,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     func updateShuffleRepeatState(shuffleEnabled: Bool, repeatMode: VLCRepeatMode) {
-        var color = PresentationTheme.current.colors.orangeUI
+        isShuffleEnabled = shuffleEnabled
+        currentRepeatMode = repeatMode
 
         let shuffleIcon = controlImage(symbol: "shuffle",
                                        fallback: shuffleEnabled ? "iconShuffleOnLarge" : "iconShuffleLarge",
                                        pointSize: 16)
-        shuffleButton.setImage(shuffleIcon, for: .normal)
-        shuffleButton.tintColor = shuffleEnabled ? color : .white
+        shuffleButton.applyOverlayToggleStyle(image: shuffleIcon, isActive: shuffleEnabled, cornerRadius: toggleButtonSize / 2)
         shuffleButton.accessibilityLabel = shuffleEnabled ? NSLocalizedString("SHUFFLE", comment: "") : NSLocalizedString("SHUFFLE_DISABLED", comment: "")
         shuffleButton.accessibilityHint = shuffleEnabled ? NSLocalizedString("SHUFFLE_HINT", comment: "") : NSLocalizedString("SHUFFLE_OFF_HINT", comment: "")
 
@@ -606,7 +609,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         switch repeatMode {
         case .doNotRepeat:
             icon = controlImage(symbol: "repeat", fallback: "iconRepeatLarge", pointSize: 16)
-            color = .white
             accessibilityLabel = NSLocalizedString("MENU_REPEAT_DISABLED", comment: "")
             accessibilityHint = NSLocalizedString("DO_NOT_REPEAT_HINT", comment: "")
         case .repeatCurrentItem:
@@ -622,15 +624,13 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             return
         }
 
-        repeatButton.setImage(icon, for: .normal)
-        repeatButton.tintColor = color
+        repeatButton.applyOverlayToggleStyle(image: icon, isActive: repeatMode != .doNotRepeat, cornerRadius: toggleButtonSize / 2)
         repeatButton.accessibilityLabel = accessibilityLabel
         repeatButton.accessibilityHint = accessibilityHint
     }
 
     func setControlsEnabled(_ enabled: Bool) {
         shuffleButton.isEnabled = enabled
-        shuffleButton.alpha = enabled ? 1.0 : 0.5
 
         backwardButton.isEnabled = enabled
         backwardButton.alpha = enabled ? 1.0 : 0.5
@@ -647,7 +647,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         forwardButton.alpha = enabled ? 1.0 : 0.5
 
         repeatButton.isEnabled = enabled
-        repeatButton.alpha = enabled ? 1.0 : 0.5
         
         playbackSpeedButton.isEnabled = enabled
         playbackSpeedButton.alpha = enabled ? 1.0 : 0.5
@@ -795,6 +794,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             let style: UIBlurEffect.Style = PresentationTheme.current.isDark ? .systemUltraThinMaterialDark : .systemUltraThinMaterialLight
             blurView.effect = UIBlurEffect(style: style)
         }
+    }
+
+    @objc private func updateToggleButtonStyles() {
+        updateShuffleRepeatState(shuffleEnabled: isShuffleEnabled, repeatMode: currentRepeatMode)
     }
 
     private func setupOverlayView() {

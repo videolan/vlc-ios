@@ -31,6 +31,21 @@ extension UIButton {
         self.configuration = configuration
     }
 
+    func applyOverlayToggleStyle(image: UIImage?, isActive: Bool, cornerRadius: CGFloat) {
+        guard !isActive else {
+            applyOverlayControlStyle(title: nil, image: image, isActive: true, cornerRadius: cornerRadius)
+            return
+        }
+
+        let colors = PresentationTheme.currentExcludingWhite.colors
+        accessibilityTraits = .button
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = image
+        configuration.baseForegroundColor = UIAccessibility.isDarkerSystemColorsEnabled
+            ? colors.overlayPrimaryTextColor : colors.overlaySecondaryTextColor
+        self.configuration = configuration
+    }
+
     private func makeOverlayControlConfiguration(isActive: Bool, cornerRadius: CGFloat, accentColor: UIColor) -> UIButton.Configuration {
         let colors = PresentationTheme.currentExcludingWhite.colors
 #if !os(visionOS)
