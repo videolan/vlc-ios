@@ -155,7 +155,7 @@
 - (VLCRendererDiscovererManager *)rendererDiscovererManager
 {
     if (!_rendererDiscovererManager) {
-        _rendererDiscovererManager = [[VLCRendererDiscovererManager alloc] initWithPresentingViewController:nil];
+        _rendererDiscovererManager = [[VLCRendererDiscovererManager alloc] init];
     }
 
     return _rendererDiscovererManager;

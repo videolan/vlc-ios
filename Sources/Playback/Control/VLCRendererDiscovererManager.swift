@@ -21,27 +21,9 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc weak var delegate: VLCRendererDiscovererManagerDelegate?
 
-    @objc lazy var actionSheet: ActionSheet = {
-        let actionSheet = ActionSheet()
-        actionSheet.delegate = self
-        actionSheet.dataSource = self
-        actionSheet.modalPresentationStyle = .custom
-        actionSheet.setAction { [weak self] (item) in
-            if let rendererItem = item as? VLCRendererItem {
-                self?.setRendererItem(rendererItem: rendererItem)
-            }
-        }
-        return actionSheet
-    }()
-
-    @objc var presentingViewController: UIViewController?
+    private var selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?
 
     @objc var rendererButtons: [UIButton] = [UIButton]()
-
-    @objc init(presentingViewController: UIViewController?) {
-        self.presentingViewController = presentingViewController
-        super.init()
-    }
 
     // Returns renderers of *all* discoverers
     @objc func getAllRenderers() -> [VLCRendererItem] {
@@ -84,21 +66,50 @@ class VLCRendererDiscovererManager: NSObject {
         discoverers.removeAll()
     }
 
-    // MARK: VLCActionSheet
+    // MARK: Renderer menu
 
-    @objc fileprivate func displayActionSheet() {
-        guard let presentingViewController = presentingViewController else {
-            assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
-            return
+    private func rendererMenu() -> UIMenu {
+        let renderers = UIDeferredMenuElement.uncached { [weak self] completion in
+            completion(self?.rendererActions() ?? [])
         }
-        // If only one renderer, choose it automatically
-        if getAllRenderers().count == 1, let rendererItem = getAllRenderers().first {
-            actionSheet.action?(rendererItem)
-        } else {
-            actionSheet.excludesWhiteTheme = presentingViewController is PlayerViewController
-            actionSheet.updateTheme()
-            presentingViewController.present(actionSheet, animated: false, completion: nil)
+        return UIMenu(title: NSLocalizedString("HEADER_TITLE_RENDERER", comment: ""), children: [renderers])
+    }
+
+    private func rendererActions() -> [UIMenuElement] {
+        let currentRenderer = PlaybackService.sharedInstance().renderer
+        return getAllRenderers().map { rendererItem in
+            let isCurrentRenderer = rendererItem == currentRenderer
+            return UIAction(title: rendererItem.name,
+                            image: UIImage(named: "renderer"),
+                            state: isCurrentRenderer ? .on : .off) { [weak self] _ in
+                if isCurrentRenderer {
+                    self?.delegate?.removedCurrentRendererItem?(rendererItem)
+                }
+                self?.selectRenderer(rendererItem)
+            }
         }
+    }
+
+    private func updateRendererButtons() {
+        let showsMenu = getAllRenderers().count > 1
+        for button in rendererButtons {
+            button.showsMenuAsPrimaryAction = showsMenu
+            button.contextMenuInteraction?.updateVisibleMenu { $0.replacingChildren(rendererActions()) }
+        }
+    }
+
+    @objc fileprivate func selectOnlyRenderer() {
+        let renderers = getAllRenderers()
+        if renderers.count == 1, let rendererItem = renderers.first {
+            selectRenderer(rendererItem)
+        }
+    }
+
+    private func selectRenderer(_ rendererItem: VLCRendererItem) {
+        //if we select the same renderer we want to disconnect
+        let oldRenderer = PlaybackService.sharedInstance().renderer
+        setRendererItem(rendererItem: rendererItem)
+        selectionHandler?(oldRenderer == rendererItem ? nil : rendererItem)
     }
 
     fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
@@ -118,16 +129,7 @@ class VLCRendererDiscovererManager: NSObject {
     }
 
     @objc func addSelectionHandler(_ selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?) {
-        actionSheet.setAction { [weak self] (item) in
-            if let rendererItem = item as? VLCRendererItem {
-                //if we select the same renderer we want to disconnect
-                let oldRenderer = PlaybackService.sharedInstance().renderer
-                self?.setRendererItem(rendererItem: rendererItem)
-                if let handler = selectionHandler {
-                    handler(oldRenderer == rendererItem ? nil : rendererItem)
-                }
-            }
-        }
+        self.selectionHandler = selectionHandler
     }
 
     /// Add the given button to VLCRendererDiscovererManager.
@@ -140,7 +142,9 @@ class VLCRendererDiscovererManager: NSObject {
         button.tintColor = PresentationTheme.current.colors.orangeUI
         button.setImage(UIImage(named: "renderer"), for: .normal)
         button.setImage(UIImage(named: "rendererFull"), for: .selected)
-        button.addTarget(self, action: #selector(displayActionSheet), for: .touchUpInside)
+        button.menu = rendererMenu()
+        button.showsMenuAsPrimaryAction = getAllRenderers().count > 1
+        button.addTarget(self, action: #selector(selectOnlyRenderer), for: .touchUpInside)
         button.accessibilityLabel = NSLocalizedString("BUTTON_RENDERER", comment: "")
         button.accessibilityHint = NSLocalizedString("BUTTON_RENDERER_HINT", comment: "")
         rendererButtons.append(button)
@@ -157,11 +161,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 button.isHidden = false
             }
         }
-
-        if actionSheet.viewIfLoaded?.window != nil {
-            actionSheet.collectionView.reloadData()
-            actionSheet.updateViewConstraints()
-        }
+        updateRendererButtons()
         delegate?.addedRendererItem?()
     }
 
@@ -176,10 +176,6 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 button.isSelected = false
             }
         }
-        if actionSheet.viewIfLoaded?.window != nil {
-            actionSheet.collectionView.reloadData()
-            actionSheet.updateViewConstraints()
-        }
         // No more renderers to show
         if getAllRenderers().isEmpty {
             for button in rendererButtons {
@@ -187,86 +183,8 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                     button.isHidden = true
                 }
             }
-            actionSheet.removeActionSheet()
         }
+        updateRendererButtons()
         delegate?.removedRendererItem?()
-    }
-
-    fileprivate func updateCollectionViewCellApparence(cell: ActionSheetCell, highlighted: Bool) {
-        let colors = actionSheet.themeColors
-        var image = UIImage(named: "renderer")
-        var textColor = colors.cellTextColor
-        var tintColor = colors.cellDetailTextColor
-
-        if highlighted {
-            image = UIImage(named: "rendererFull")
-            textColor = colors.orangeUI
-            tintColor = colors.orangeUI
-        }
-
-        cell.tintColor = tintColor
-        cell.icon.image = image
-        cell.name.textColor = textColor
-    }
-}
-
-// MARK: VLCActionSheetDelegate
-
-extension VLCRendererDiscovererManager: ActionSheetDelegate {
-    func headerViewTitle() -> String? {
-        return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
-    }
-
-    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
-        let renderers = getAllRenderers()
-        if indexPath.row < renderers.count {
-            return renderers[indexPath.row]
-        }
-        assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: IndexPath out of range")
-        return nil
-    }
-
-    func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
-        guard let renderer = item as? VLCRendererItem,
-            let cell = collectionView.cellForItem(at: indexPath) as? ActionSheetCell else {
-            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
-            return
-        }
-        let isCurrentlySelectedRenderer = renderer == PlaybackService.sharedInstance().renderer
-
-        if !isCurrentlySelectedRenderer {
-            collectionView.reloadData()
-        } else {
-            delegate?.removedCurrentRendererItem?(renderer)
-        }
-        updateCollectionViewCellApparence(cell: cell, highlighted: isCurrentlySelectedRenderer)
-    }
-}
-
-// MARK: VLCActionSheetDataSource
-
-extension VLCRendererDiscovererManager: ActionSheetDataSource {
-    func numberOfRows() -> Int {
-        return getAllRenderers().count
-    }
-
-    @discardableResult
-    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ActionSheetCell.identifier, for: indexPath) as? ActionSheetCell else {
-            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-            return UICollectionViewCell()
-        }
-        cell.isMediaPlayerActionSheetCell = actionSheet.excludesWhiteTheme
-
-        let renderers = getAllRenderers()
-        if indexPath.row < renderers.count {
-            cell.name.text = renderers[indexPath.row].name
-            let isSelectedRenderer = renderers[indexPath.row] == PlaybackService.sharedInstance().renderer ? true : false
-            updateCollectionViewCellApparence(cell: cell, highlighted: isSelectedRenderer)
-        } else {
-            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: IndexPath out of range")
-        }
-        return cell
     }
 }

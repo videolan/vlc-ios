@@ -600,7 +600,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 #if os(iOS)
         let manager = VLCAppCoordinator.sharedInstance().rendererDiscovererManager
         manager.delegate = self
-        manager.presentingViewController = self
         if manager.discoverers.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
                 guard self?.viewIfLoaded?.window != nil, manager.discoverers.isEmpty else {

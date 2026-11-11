@@ -1109,7 +1109,6 @@ class PlayerViewController: UIViewController {
 
 #if os(iOS)
     private func setupRendererDiscovererManager() {
-        rendererDiscovererManager.presentingViewController = self
         rendererDiscovererManager.delegate = self
     }
 #endif

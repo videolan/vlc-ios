@@ -426,9 +426,7 @@ class VideoPlayerViewController: PlayerViewController {
         artworkImageView.setImage(nil, placeholderName: nil)
         // FIXME: Test userdefault
 #if os(iOS)
-        let rendererDiscoverer = rendererDiscovererManager
-        rendererDiscoverer.presentingViewController = self
-        rendererDiscoverer.delegate = self
+        rendererDiscovererManager.delegate = self
 #endif
 
         var color: UIColor = .white
