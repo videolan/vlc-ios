@@ -1,8 +1,8 @@
 /*****************************************************************************
  * ActionSheet.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
@@ -77,8 +77,6 @@ class ActionSheet: UIViewController {
 
         collectionView.register(ActionSheetCell.self,
                                 forCellWithReuseIdentifier: ActionSheetCell.identifier)
-        collectionView.register(DoubleActionSheetCell.self,
-                                forCellWithReuseIdentifier: DoubleActionSheetCell.reusableIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -142,13 +140,6 @@ class ActionSheet: UIViewController {
         let minCollectionViewHeight: CGFloat = cellHeight * 1.5 + collectionViewEdgeInsets.top * 2
         let maxCollectionViewHeight = max(view.safeAreaLayoutGuide.layoutFrame.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
         return maxCollectionViewHeight
-    }
-
-    var offScreenFrame: CGRect {
-        let y = headerView.cellHeight
-        let w = collectionView.frame.size.width
-        let h = collectionView.frame.size.height
-        return CGRect(x: w, y: y, width: w, height: h)
     }
 
     var numberOfColums: CGFloat = 1 {
@@ -284,18 +275,6 @@ class ActionSheet: UIViewController {
         headerView.title.backgroundColor = colors.background
         collectionView.layoutIfNeeded()
     }
-    
-    func addChildToStackView(_ child: UIView) {
-        mainStackView.addSubview(child)
-    }
-
-    func updateDragDownGestureDelegate(to delegate: ActionSheet?) {
-        downGesture.delegate = delegate
-    }
-
-    func shouldDisableDragDownGesture(_ disable: Bool) {
-        downGesture.isEnabled = !disable
-    }
 }
 
 // MARK: Private setup methods
@@ -373,14 +352,11 @@ extension ActionSheet {
                         mainStackView.frame.origin.y += mainStackView.frame.size.height
                         backgroundView.alpha = 0
             }, completion: {
-                [mainStackView, presentingViewController, headerView] finished in
+                [mainStackView, presentingViewController] finished in
                 // When everything is complete, reset the frame for the re-use
                 mainStackView.isHidden = true
                 mainStackView.frame = realMainStackView
                 presentingViewController?.dismiss(animated: false)
-                headerView.accessoryViewsDelegate = nil
-                headerView.updateAccessoryViews()
-                headerView.previousButton.isHidden = true
                 self.delegate?.actionSheetDidFinishClosingAnimation?(self)
         })
     }
@@ -455,11 +431,5 @@ extension ActionSheet: UICollectionViewDataSource {
                                           cellForItemAt: indexPath)
         }
         preconditionFailure("VLCActionSheet: No data source")
-    }
-}
-
-extension ActionSheet: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

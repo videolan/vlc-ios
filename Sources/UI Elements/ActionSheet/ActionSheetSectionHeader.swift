@@ -1,8 +1,8 @@
 /*****************************************************************************
  * ActionSheetSectionHeader.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -10,12 +10,6 @@
  *****************************************************************************/
 
 class ActionSheetSectionHeader: UIView {
-    public var accessoryViewsDelegate: ActionSheetAccessoryViewsDelegate? {
-        didSet {
-            updateAccessoryViews()
-        }
-    }
-
     var cellHeight: CGFloat {
         return 50
     }
@@ -47,20 +41,6 @@ class ActionSheetSectionHeader: UIView {
         return separator
     }()
 
-    let previousButton: UIButton = {
-        let previousButton = UIButton()
-        previousButton.setImage(UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        previousButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        previousButton.tintColor = PresentationTheme.current.colors.orangeUI
-        previousButton.setContentHuggingPriority(.required, for: .horizontal)
-        previousButton.setContentHuggingPriority(.required, for: .vertical)
-        previousButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        previousButton.accessibilityLabel = NSLocalizedString("BUTTON_BACK", comment: "")
-        previousButton.translatesAutoresizingMaskIntoConstraints = false
-        previousButton.isHidden = true
-        return previousButton
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackView()
@@ -74,9 +54,7 @@ class ActionSheetSectionHeader: UIView {
     }
 
     fileprivate func setupStackView() {
-        stackView.addArrangedSubview(previousButton)
         stackView.addArrangedSubview(title)
-        addAccessoryViews()
 
         addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -88,25 +66,6 @@ class ActionSheetSectionHeader: UIView {
         ])
     }
 
-    fileprivate func addAccessoryViews() {
-        if let accessoryViews = accessoryViewsDelegate?.actionSheetAccessoryViews(self) {
-            for accessoryView in accessoryViews {
-                stackView.addArrangedSubview(accessoryView)
-            }
-        }
-    }
-
-    func updateAccessoryViews() {
-        while stackView.arrangedSubviews.count > 2 {
-            if let subview = stackView.arrangedSubviews.last {
-                stackView.removeArrangedSubview(subview)
-                subview.removeFromSuperview()
-            }
-        }
-        addAccessoryViews()
-        stackView.layoutSubviews()
-    }
-
     fileprivate func setupSeparator() {
         addSubview(separator)
         NSLayoutConstraint.activate([
@@ -116,8 +75,4 @@ class ActionSheetSectionHeader: UIView {
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: -1)
         ])
     }
-}
-
-protocol ActionSheetAccessoryViewsDelegate {
-    func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView]
 }
