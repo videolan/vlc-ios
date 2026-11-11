@@ -882,7 +882,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private func setupThumbnailSubviews() {
         let padding: CGFloat = 20.0
-        let labelSpacing: CGFloat = 8.0
+        let labelSpacing: CGFloat = 4.0
 
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -923,6 +923,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         let landscapeAlbumLeading = albumLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
         let landscapeAlbumTrailing = albumLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor)
         let landscapeAlbumBottom = albumLabel.bottomAnchor.constraint(equalTo: controlsStackView.topAnchor, constant: -padding)
+        let landscapeContentCenterY = landscapeRightContentLayoutGuide.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor)
+        landscapeContentCenterY.priority = .defaultHigh - 1
 
         sharedConstraints.append(contentsOf: [
             titleLabelHeightConstraint,
@@ -985,7 +987,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
             landscapeRightContentLayoutGuide.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             landscapeRightContentLayoutGuide.bottomAnchor.constraint(equalTo: progressionView.bottomAnchor),
-            landscapeRightContentLayoutGuide.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+            landscapeRightContentLayoutGuide.topAnchor.constraint(greaterThanOrEqualTo: landscapeRightLayoutGuide.topAnchor, constant: 8),
+            landscapeContentCenterY,
             titleLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
             artistLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
             albumLabel.centerXAnchor.constraint(equalTo: landscapeRightLayoutGuide.centerXAnchor),
