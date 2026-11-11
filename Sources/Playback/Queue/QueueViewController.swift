@@ -482,7 +482,7 @@ private extension QueueViewController {
                   let cell = queueCollectionView.cellForItem(at: indexPath) as? MediaCollectionViewCell else {
                 continue
             }
-            configureQueueMetadata(cell, for: media, libraryMedia: cell.media as? VLCMLMedia)
+            configureQueueMetadata(cell, for: media, libraryMedia: medialibraryService.fetchMedia(with: media.url))
         }
     }
 
