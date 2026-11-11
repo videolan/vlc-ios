@@ -1123,7 +1123,6 @@
 		7DA515392EF82B63000C9995 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		7DA5153A2EF82B63000C9995 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
 		7DA5153B2EF82B63000C9995 /* PasscodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F998BB52C230BD500BCBAF8 /* PasscodeField.swift */; };
-		7DA5153C2EF82B63000C9995 /* VLCCloudSortingSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */; };
 		7DA5153D2EF82B63000C9995 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
 		7DA5153E2EF82B63000C9995 /* UIDevice+VLC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA8328C8951C00109F28 /* UIDevice+VLC.swift */; };
 		7DA5153F2EF82B63000C9995 /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18891210B5BAD00A091D2 /* ArtistModel.swift */; };
@@ -1524,7 +1523,6 @@
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		CE5FB1E6E26914921956FCDA /* PodcastsOnAirBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE4A4D0AB4A647A29E01384 /* PodcastsOnAirBridge.swift */; };
 		CE986D43CF974E7A22ED1B1A /* VLCDonationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E548ED7D128C819BE60358 /* VLCDonationNavigationController.m */; };
-		D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */; };
 		D3DB937DC77D3235FF73A1C6 /* VLCDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B785438BB91E3F75B6B42B1E /* VLCDownloadProgressView.m */; };
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */; };
@@ -2653,7 +2651,6 @@
 		CCAF837E17DE46D800E3578F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		CF575E750ED4153B0715E1D5 /* Pods-VLC-iOS.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.distribution.xcconfig"; sourceTree = "<group>"; };
-		D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCCloudSortingSpecifierManager.swift; sourceTree = "<group>"; };
 		D1CAC6F642AF79AB21163137 /* libPods-VLC-iOS-no-watch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS-no-watch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5A972311D19DEB5FC6EC0B8 /* PodcastDownloadButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PodcastDownloadButton.swift; sourceTree = "<group>"; };
 		D5D7E800D8BC1F35B35D6B7F /* VideoPreviewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VideoPreviewController.swift; sourceTree = "<group>"; };
@@ -4592,7 +4589,6 @@
 				7DC869F428CB8A4600EE99F8 /* Dropbox */,
 				7DC869F328CB8A3200EE99F8 /* Google Drive */,
 				7DC869F228CB8A1A00EE99F8 /* Box */,
-				D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */,
 				7D4BE51A301A561D00277F3E /* VLCCloudServiceFactory.h */,
 				7D4BE51B301A561D00277F3E /* VLCCloudServiceFactory.m */,
 				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
@@ -6826,7 +6822,6 @@
 				7D1E8F4F300F8B1F0014A118 /* VLCRadioErrorView.m in Sources */,
 				419A2C661F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */,
 				0F998BB62C230BD500BCBAF8 /* PasscodeField.swift in Sources */,
-				D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */,
 				DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				7DC7BA8628C8951C00109F28 /* UIDevice+VLC.swift in Sources */,
 				8DE18892210B5BAD00A091D2 /* ArtistModel.swift in Sources */,
@@ -7205,7 +7200,6 @@
 				7D69050B30A36AE200D1B543 /* VLCArrangementViewController.m in Sources */,
 				7DA5153A2EF82B63000C9995 /* VLCStringsForLocalization.m in Sources */,
 				7DA5153B2EF82B63000C9995 /* PasscodeField.swift in Sources */,
-				7DA5153C2EF82B63000C9995 /* VLCCloudSortingSpecifierManager.swift in Sources */,
 				7D58720D3052CFB90005F27F /* VLCPodcastDirectoryLanguageViewController.m in Sources */,
 				7D58720E3052CFB90005F27F /* VLCPodcastDirectoryListViewController.m in Sources */,
 				7DC27E943056849C00D33BEE /* UIButton+OverlayControl.swift in Sources */,

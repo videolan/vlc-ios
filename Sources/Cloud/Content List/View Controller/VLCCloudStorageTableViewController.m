@@ -27,8 +27,6 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 @interface VLCCloudStorageTableViewController()
 {
     VLCProgressView *_progressView;
-    VLCActionSheet *sheet;
-    VLCCloudSortingSpecifierManager *manager;
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
@@ -84,7 +82,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _sortButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_sortButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0] forState:UIControlStateNormal];
     [_sortButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
-    [_sortButton addTarget:self action:@selector(sortButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _sortButton.menu = [self sortMenu];
+    _sortButton.showsMenuAsPrimaryAction = YES;
     _sortButton.translatesAutoresizingMaskIntoConstraints = NO;
 
     _sortBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_sortButton];
@@ -105,13 +104,6 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _progressView.tintColor = colors.orangeUI;
     _progressView.translatesAutoresizingMaskIntoConstraints = NO;
-
-    sheet = [[VLCActionSheet alloc] init];
-    manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
-    sheet.dataSource = manager;
-    sheet.delegate = manager;
-    sheet.modalPresentationStyle = UIModalPresentationCustom;
-    [sheet.collectionView registerClass:[VLCActionSheetCell class] forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
     [self updateToolbarWithProgress:nil];
     [self updateForTheme];
@@ -383,11 +375,35 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [self updateViewAfterSessionChange];
 }
 
-- (void)sortButtonClicked:(UIBarButtonItem*)sender
+- (UIMenu *)sortMenu
 {
-    [self presentViewController:self->sheet animated:YES completion:^{
-        [self->sheet.collectionView selectItemAtIndexPath:self->manager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    __weak typeof(self) weakSelf = self;
+    UIDeferredMenuElement *actions = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^completion)(NSArray<UIMenuElement *> *)) {
+        completion([weakSelf sortActions] ?: @[]);
     }];
+    return [UIMenu menuWithTitle:NSLocalizedString(@"SORT_BY", nil) children:@[actions]];
+}
+
+- (NSArray<UIMenuElement *> *)sortActions
+{
+    return @[
+        [self sortActionForCriteria:VLCCloudSortingCriteriaName title:NSLocalizedString(@"NAME", nil)],
+        [self sortActionForCriteria:VLCCloudSortingCriteriaModifiedDate title:NSLocalizedString(@"MODIFIED_DATE", nil)],
+    ];
+}
+
+- (UIAction *)sortActionForCriteria:(VLCCloudSortingCriteria)criteria title:(NSString *)title
+{
+    __weak typeof(self) weakSelf = self;
+    UIAction *action = [UIAction actionWithTitle:title
+                                           image:nil
+                                      identifier:nil
+                                         handler:^(__kindof UIAction * _Nonnull action) {
+        weakSelf.controller.sortBy = criteria;
+        [weakSelf requestInformationForCurrentPath];
+    }];
+    action.state = self.controller.sortBy == criteria ? UIMenuElementStateOn : UIMenuElementStateOff;
+    return action;
 }
 
 - (IBAction)loginAction:(id)sender
