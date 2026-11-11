@@ -976,11 +976,10 @@ static NSMutableDictionary *authentifiedHosts;
     APLog(@"Starting playback of %@", path);
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     BOOL playlist = [path isSupportedPlaylistFormat];
-    BOOL autoplay = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlayUploadsWhileReceiving];
     VLCMedia *mediaToPlay = [VLCMedia mediaWithURL:[NSURL fileURLWithPath:path]];
     NSUInteger indexToPlay = [vpc appendMedia:mediaToPlay];
 
-    if (playlist ? (!vpc.playerIsSetup && autoplay) : !vpc.isPlaying) {
+    if (playlist ? !vpc.playerIsSetup : !vpc.isPlaying) {
         [vpc playMediaList:vpc.mediaList firstIndex:indexToPlay subtitlesFilePath:nil];
     }
 }
@@ -1165,17 +1164,17 @@ static NSMutableDictionary *authentifiedHosts;
     [_storeFile closeFile];
     _storeFile = nil;
 #if TARGET_OS_TV
-    // Only a complete multipart file may be opened as a playlist. Its final
-    // location also supplies the base URL for relative channel paths.
     if (completed && [_filepath isSupportedPlaylistFormat]) {
         NSString *finalPath = [_httpUploaderController moveFileFrom:_filepath];
         _uploadActivityStarted = NO;
-        _filepath = nil; // Connection teardown must not move/enqueue it again.
+        _filepath = nil;
         if (!finalPath) {
             [self failTrackedUploadWithErrorDescription:NSLocalizedString(@"TRANSFER_FAILED", nil)];
             return;
         }
-        [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:finalPath waitUntilDone:NO];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPlayUploadsWhileReceiving]) {
+            [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:finalPath waitUntilDone:NO];
+        }
         if (_uploadTracked) {
             [[[VLCAppCoordinator sharedInstance] transferController] finishUpload:_uploadToken filePath:finalPath];
             _uploadTracked = NO;
