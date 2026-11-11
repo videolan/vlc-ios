@@ -48,8 +48,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     lazy var thumbnailImageView: VLCArtworkImageView = {
         let thumbnailImageView = VLCArtworkImageView()
-        thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.contentMode = .scaleAspectFill
         thumbnailImageView.layer.cornerRadius = 14.0
+        thumbnailImageView.layer.borderWidth = 0.5
+        thumbnailImageView.layer.borderColor = PresentationTheme.currentExcludingWhite.colors.overlayHairlineColor.cgColor
         // The artwork size is driven by layout constraints, never by the
         // bitmap's intrinsic size.
         thumbnailImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
