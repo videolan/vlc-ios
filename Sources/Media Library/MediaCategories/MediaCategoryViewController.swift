@@ -394,6 +394,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc private func handleDisableGrouping() {
+        guard !(model is FolderModel) else {
+            return
+        }
+
         let previousModel = model
         model = secondModel
         secondModel = previousModel
@@ -645,7 +649,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.refreshTabSearchResultsIfNeeded()
         }
 
-        if (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
+        if ((model is MediaGroupViewModel || model is VideoModel) && userDefaults.bool(forKey: KVLCFolderViewLayout)) ||
             model is FolderModel {
             let isGridLayout: Bool = isFolderInGridLayout()
             handleLayoutChange(gridLayout: isGridLayout, isFolder: true)
@@ -1547,7 +1551,9 @@ extension MediaCategoryViewController {
             return
         }
 
-        handleLayoutChange(gridLayout: secondModel.cellType == MovieCollectionViewCell.self, isFolder: false)
+        let restoredLayoutKey = userDefaults.bool(forKey: kVLCSettingsDisableGrouping)
+            ? kVLCVideoLibraryGridLayoutALL_VIDEOS : kVLCVideoLibraryGridLayoutVIDEO_GROUPS
+        handleLayoutChange(gridLayout: userDefaults.bool(forKey: restoredLayoutKey), isFolder: false)
     }
 
     private func generateFolderMenu() -> UIMenu {
@@ -2742,13 +2748,19 @@ extension MediaCategoryViewController {
                     UserDefaults.standard.set(gridLayout, forKey: "\(kVLCVideoLibraryGridLayout)FOLDER_VIDEO\(model.name)")
                 }
             } else {
-                secondModel = model
+                if model is MediaGroupViewModel {
+                    secondModel = model
+                }
                 model = FolderModel(medialibrary: self.mediaLibraryService, isAudio: false,
                                     folder: mediaLibraryService.baseFolder())
             }
         } else if model is FolderModel && secondModel is MediaGroupViewModel {
-            model = secondModel
-            secondModel = VideoModel(medialibrary: mediaLibraryService)
+            if userDefaults.bool(forKey: kVLCSettingsDisableGrouping) {
+                model = VideoModel(medialibrary: mediaLibraryService)
+            } else {
+                model = secondModel
+                secondModel = VideoModel(medialibrary: mediaLibraryService)
+            }
         }
 
         if let model = model as? CollectionModel {
