@@ -544,6 +544,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
     _currentAspectRatio = VLCAspectRatioDefault;
     _mediaPlayer.videoAspectRatio = NULL;
+    _mediaPlayer.videoFitMode = VLCVideoFitSmaller;
 
     _playerIsSetup = YES;
 
