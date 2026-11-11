@@ -12,7 +12,6 @@
 import UIKit
 
 class SettingsCustomValueInputHandler {
-    static let animationDelay: TimeInterval = 0.7
     static let dismissDelay: TimeInterval = 0.3
 
     private let title: String

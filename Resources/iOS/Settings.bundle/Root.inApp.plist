@@ -202,16 +202,6 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>DefaultValue</key>
 			<false/>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_PLAY_ALL</string>
-				<string>SETTINGS_PLAYLIST_PLAY_ALL</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<false/>
-				<true/>
-			</array>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

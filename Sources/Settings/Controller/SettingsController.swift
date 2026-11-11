@@ -29,8 +29,6 @@ class SettingsController: UITableViewController {
     private let sectionFooterReuseIdentifier = "sectionFooterReuseIdentifier"
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
-    private let actionSheet = ActionSheet()
-    private let specifierManager = ActionSheetSpecifier()
     private var mediaLibraryService: MediaLibraryService
     private var settingsBundle = Bundle()
     private var isBackingUp = false
@@ -95,7 +93,6 @@ class SettingsController: UITableViewController {
         tableView.cellLayoutMarginsFollowReadableWidth = false // Fix for iPad
         tableView.verticalScrollIndicatorInsets = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
         view.backgroundColor = PresentationTheme.current.colors.background
-        actionSheet.modalPresentationStyle = .custom
 
         guard let unsafeSettingsBundle = getSettingsBundle() else {
             return
@@ -255,38 +252,70 @@ class SettingsController: UITableViewController {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
-    private func showActionSheet(title: String, preferenceKey: String) {
-        specifierManager.playbackTitle = title
-        specifierManager.preferenceKey = preferenceKey
-        specifierManager.settingsBundle = settingsBundle
-        actionSheet.delegate = specifierManager
-        actionSheet.dataSource = specifierManager
+    private func settingsMenu(title: String, preferenceKey: String) -> UIMenu {
+        let actions = UIDeferredMenuElement.uncached { [weak self] completion in
+            completion(self?.settingsMenuActions(title: title, preferenceKey: preferenceKey) ?? [])
+        }
+        return UIMenu(children: [actions])
+    }
 
-        var numberOfColumns: CGFloat = 1
-
-        switch preferenceKey {
-        case kVLCSettingAppTheme, kVLCAutomaticallyPlayNextItem:
-            specifierManager.delegate = self
-
-        case kVLCSettingPlaybackSpeedDefaultValue, kVLCSettingSubtitlesFontColor:
-            numberOfColumns = 2
-
-        default:
-            break
+    private func settingsMenuActions(title: String, preferenceKey: String) -> [UIMenuElement] {
+        if preferenceKey == kVLCAutomaticallyPlayNextItem {
+            return playNextItemActions()
         }
 
-        actionSheet.numberOfColums = numberOfColumns
+        guard let settingSpecifier = getSettingsSpecifier(for: preferenceKey) else {
+            return []
+        }
 
-        present(actionSheet, animated: false) {
-            if preferenceKey != kVLCAutomaticallyPlayNextItem {
-                self.actionSheet.collectionView.selectItem(at: self.specifierManager.selectedIndex, animated: false, scrollPosition: .centeredVertically)
+        let itemTitles = settingSpecifier.specifier.map {
+            settingsBundle.localizedString(forKey: $0.itemTitle, value: $0.itemTitle, table: "Root")
+        }
+
+        let selectedItem = getSelectedItem(for: preferenceKey)
+        return itemTitles.enumerated().map { index, itemTitle in
+            UIAction(title: itemTitle, state: index == selectedItem ? .on : .off) { [weak self] _ in
+                self?.selectSettingsValue(settingSpecifier.specifier[index].value, title: title, settingSpecifier: settingSpecifier)
             }
         }
     }
 
+    private func playNextItemActions() -> [UIMenuElement] {
+        let current = PlaybackOptions.PlayNextItem.current
+        return PlaybackOptions.PlayNextItem.allCases.map { option in
+            UIAction(title: option.title, state: option == current ? .on : .off) { _ in
+                option.select()
+#if os(iOS)
+                NotificationFeedbackGenerator().success()
+#endif
+            }
+        }
+    }
+
+    private func selectSettingsValue(_ value: Any, title: String, settingSpecifier: SettingSpecifier) {
+        if let customValue = settingSpecifier.customValue,
+           let selectedValue = value as? NSObject,
+           customValue.sentinel.isEqual(selectedValue) {
+            let localizedTitle = settingsBundle.localizedString(forKey: title, value: title, table: "Root")
+            SettingsCustomValueInputHandler(title: localizedTitle, specifier: customValue).presentInput()
+            return
+        }
+
+        userDefaults.set(value, forKey: settingSpecifier.preferenceKey)
+
+        if settingSpecifier.preferenceKey == kVLCSettingAppTheme {
+            PresentationTheme.themeDidUpdate()
+            AppearanceManager.setupUserInterfaceStyle()
+        }
+
+#if os(iOS)
+        NotificationFeedbackGenerator().success()
+#endif
+    }
+
     private func playHaptics(settingsItem: SettingsItem) {
         switch settingsItem.action {
-        case .toggle:
+        case .toggle, .showMenu:
             break
         default:
 #if os(iOS)
@@ -387,6 +416,10 @@ extension SettingsController {
         let settingsItem = section.items[indexPath.row]
         cell.settingsItem = settingsItem
 
+        if case let .showMenu(title, preferenceKey, _) = settingsItem.action {
+            cell.menuButton.menu = settingsMenu(title: title, preferenceKey: preferenceKey)
+        }
+
         return cell
     }
 
@@ -403,6 +436,8 @@ extension SettingsController {
             break
         case .toggle:
             break // we get a notification from the switch and do our work there
+        case .showMenu:
+            break
         case .openPrivacySettings:
             openPrivacySettings()
         case .forceRescanAlert:
@@ -413,8 +448,6 @@ extension SettingsController {
             exportSettings()
         case .displayResetAlert:
             displayResetAlert()
-        case let .showActionSheet(title, preferenceKey, _):
-            showActionSheet(title: title, preferenceKey: preferenceKey)
         case .syncMediaLibraryAlert:
             syncMediaLibraryAlert()
         case .transfers:
@@ -591,18 +624,5 @@ extension SettingsController {
 extension SettingsController {
     func medialibraryDisableGroupingSwitchOn(state _: Bool) {
         notificationCenter.post(name: .VLCDisableGroupingDidChangeNotification, object: self)
-    }
-}
-
-extension SettingsController: ActionSheetSpecifierDelegate {
-    func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool) {
-        switch cell.identifier {
-        case .playNextItem:
-            userDefaults.setValue(state, forKey: kVLCAutomaticallyPlayNextItem)
-        case .playlistPlayNextItem:
-            userDefaults.setValue(state, forKey: kVLCPlaylistPlayNextItem)
-        default:
-            break
-        }
     }
 }

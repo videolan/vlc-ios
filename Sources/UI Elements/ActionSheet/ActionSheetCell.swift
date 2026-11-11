@@ -45,7 +45,6 @@ class ActionSheetCell: UICollectionViewCell {
     /// Rightmost accessory view that the cell should use. Default `checkmark`.
     private(set) var accessoryView = UIView ()
     weak var delegate: ActionSheetCellDelegate?
-    var identifier: ActionSheetCellIdentifier?
     var isMediaPlayerActionSheetCell: Bool = false
 
     @objc static var identifier: String {
@@ -170,7 +169,6 @@ class ActionSheetCell: UICollectionViewCell {
         super.prepareForReuse()
         toggleSwitch.removeFromSuperview()
         accessoryType = .checkmark
-        identifier = nil
         accessibilityIdentifier = nil
         updateColors()
     }

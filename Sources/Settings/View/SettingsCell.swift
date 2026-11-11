@@ -30,6 +30,8 @@ class SettingsCell: UITableViewCell {
         static let marginBottom: CGFloat = 10
         static let marginLeading: CGFloat = 20
         static let marginTrailing: CGFloat = 70
+        static let spacing: CGFloat = 8
+        static let menuButtonMaxWidthRatio: CGFloat = 0.5
         static let disabledAlpha: CGFloat = 0.3
     }
 
@@ -63,6 +65,8 @@ class SettingsCell: UITableViewCell {
         infoButton.addTarget(self, action: #selector(infoTapped), for: .touchDown)
         return infoButton
     }()
+
+    lazy var menuButton: UIButton = Self.makeMenuButton()
 
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -114,11 +118,46 @@ class SettingsCell: UITableViewCell {
         return constraint
     }()
 
+    private lazy var stackViewToMenuButtonConstraint = stackView.trailingAnchor.constraint(
+        equalTo: menuButton.leadingAnchor, constant: -Constants.spacing)
+
+    private lazy var stackViewToInfoButtonConstraint = stackView.trailingAnchor.constraint(
+        equalTo: infoButton.leadingAnchor, constant: -Constants.spacing)
+
+    private static func makeMenuButton() -> UIButton {
+        var configuration = UIButton.Configuration.plain()
+        if #available(iOS 16.0, *) {
+            configuration.indicator = .popup
+        }
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: Constants.marginTop, leading: 0,
+                                                              bottom: Constants.marginBottom, trailing: 0)
+        configuration.titleLineBreakMode = .byTruncatingTail
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
+            var attributes = attributes
+            attributes.font = Constants.mainLabelFont
+            return attributes
+        }
+        let button = UIButton(configuration: configuration)
+        button.showsMenuAsPrimaryAction = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+
     static func height(for settingsItem: SettingsItem, width: CGFloat) -> CGFloat {
-        let w = max(width - (Constants.marginLeading + Constants.marginTrailing), 1)
+        var trailingWidth = Constants.marginTrailing
+        var subtitle = settingsItem.subtitle
+        if case let .showMenu(_, _, hasInfo) = settingsItem.action {
+            measurementMenuButton.configuration?.title = subtitle
+            let menuButtonWidth = min(measurementMenuButton.intrinsicContentSize.width,
+                                      width * Constants.menuButtonMaxWidthRatio)
+            trailingWidth = Constants.marginLeading + menuButtonWidth + Constants.spacing
+                + (hasInfo ? infoButtonWidth + Constants.spacing : 0)
+            subtitle = nil
+        }
+        let w = max(width - (Constants.marginLeading + trailingWidth), 1)
 
         measurementTitleLabel.text = settingsItem.title
-        measurementSubitleLabel.text = settingsItem.subtitle
+        measurementSubitleLabel.text = subtitle
 
         let rect = CGRect(origin: .zero, size: CGSize(width: w, height: .greatestFiniteMagnitude))
 
@@ -148,6 +187,10 @@ class SettingsCell: UITableViewCell {
         return label
     }()
 
+    private static let measurementMenuButton = makeMenuButton()
+
+    private static let infoButtonWidth = UIButton(type: .infoLight).intrinsicContentSize.width
+
     var settingsItem: SettingsItem? {
         willSet {
             toggleObserver = nil
@@ -166,6 +209,7 @@ class SettingsCell: UITableViewCell {
 
             subtitleLabel.text = settingsItem.subtitle
             subtitleLabel.isHidden = settingsItem.subtitle?.isEmpty ?? true
+            menuButton.isHidden = true
             accessibilityIdentifier = nil
 
             switch settingsItem.action {
@@ -191,13 +235,16 @@ class SettingsCell: UITableViewCell {
                 }
                 toggleObserver = (toggle, obs)
 
-            case let .showActionSheet(_, _, hasInfo):
+            case let .showMenu(_, _, hasInfo):
                 switchControl.isHidden = true
                 infoButton.isHidden = !hasInfo
                 activityIndicator.isHidden = true
+                subtitleLabel.isHidden = true
+                menuButton.isHidden = false
+                menuButton.configuration?.title = settingsItem.subtitle
                 accessoryView = .none
-                accessoryType = .disclosureIndicator
-                selectionStyle = .default
+                accessoryType = .none
+                selectionStyle = .none
 
             case .openPrivacySettings:
                 switchControl.isHidden = true
@@ -239,7 +286,9 @@ class SettingsCell: UITableViewCell {
             }
 
             stackViewToSwitchConstraint.isActive = !switchControl.isHidden
-            stackViewTrailingConstraint.isActive = switchControl.isHidden
+            stackViewToMenuButtonConstraint.isActive = !menuButton.isHidden && infoButton.isHidden
+            stackViewToInfoButtonConstraint.isActive = !menuButton.isHidden && !infoButton.isHidden
+            stackViewTrailingConstraint.isActive = switchControl.isHidden && menuButton.isHidden
 
             if !activityIndicator.isHidden {
                 activityIndicator.startAnimating()
@@ -249,9 +298,11 @@ class SettingsCell: UITableViewCell {
 
             if settingsItem.isEnabled {
                 switchControl.isEnabled = true
+                menuButton.isEnabled = true
                 contentView.alpha = 1
             } else {
                 switchControl.isEnabled = false
+                menuButton.isEnabled = false
                 contentView.alpha = Constants.disabledAlpha
             }
 
@@ -310,11 +361,21 @@ class SettingsCell: UITableViewCell {
             activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
         ])
 
+        contentView.addSubview(menuButton)
+        menuButton.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        NSLayoutConstraint.activate([
+            menuButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+            menuButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.marginLeading),
+            menuButton.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor,
+                                              multiplier: Constants.menuButtonMaxWidthRatio),
+        ])
+        menuButton.isHidden = true
+
         contentView.addSubview(infoButton)
         infoButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
-            infoButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            infoButton.trailingAnchor.constraint(equalTo: menuButton.leadingAnchor, constant: -Constants.spacing),
         ])
         infoButton.isHidden = true
     }
@@ -325,6 +386,7 @@ class SettingsCell: UITableViewCell {
         selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
         mainLabel.textColor = colors.cellTextColor
         subtitleLabel.textColor = colors.cellDetailTextColor
+        menuButton.configuration?.baseForegroundColor = colors.cellDetailTextColor
         activityIndicator.color = colors.cellDetailTextColor
     }
 
@@ -346,11 +408,11 @@ class SettingsCell: UITableViewCell {
         guard let settingsItem = settingsItem else { return }
 
         switch settingsItem.action {
-        case let .showActionSheet(_, preferenceKey, _):
+        case let .showMenu(_, preferenceKey, _):
             delegate?.settingsCellInfoButtonPressed(cell: self, preferenceKey: preferenceKey)
 
         default:
-            // should never get here; only action sheets have info buttons
+            // should never get here; only menus have info buttons
             break
         }
     }
