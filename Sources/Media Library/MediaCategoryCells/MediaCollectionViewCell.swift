@@ -102,7 +102,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 if media.subtype() == .albumTrack {
                     update(audiotrack: media)
                 } else {
-                    update(movie: media)
+                    update(media: media)
                 }
             } else if let album = media as? VLCMLAlbum {
                 update(album:album)
@@ -423,14 +423,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         updateSizeDescriptionLabelConstraint()
     }
 
-    func update(movie: VLCMLMedia) {
-        titleLabel.text = movie.title()
-        accessibilityLabel = movie.accessibilityText(editing: false)
+    func update(media: VLCMLMedia) {
+        titleLabel.text = media.title()
+        accessibilityLabel = media.accessibilityText(editing: false)
         thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
-        thumbnailView.setImage(movie.thumbnailImage(), placeholderName: movie.placeholderName())
-        newLabel.isHidden = !movie.isNew
+        thumbnailView.setImage(media.thumbnailImage(), placeholderName: media.placeholderName())
+        newLabel.isHidden = !media.isNew
 
-        if movie.isNew {
+        if media.isNew {
             setMediaNew()
         }
 
@@ -439,9 +439,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
 
         if isEditing {
-            sizeDescriptionLabel.text = String(format: "%@ · %@", movie.mediaDuration(), movie.formatSize())
+            sizeDescriptionLabel.text = String(format: "%@ · %@", media.mediaDuration(), media.formatSize())
         } else {
-            sizeDescriptionLabel.text = movie.mediaDuration()
+            sizeDescriptionLabel.text = media.mediaDuration()
         }
         scrollView.isScrollEnabled = true
 
@@ -514,7 +514,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 return
             }
 
-            update(movie: media)
+            update(media: media)
             return
         }
 
