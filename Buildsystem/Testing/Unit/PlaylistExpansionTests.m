@@ -1,3 +1,14 @@
+/*****************************************************************************
+ * PlaylistExpansionTests.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2026 VideoLAN. All rights reserved.
+ *
+ * Author: Zachary Wilson <ztwilson2002 # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
 #import <XCTest/XCTest.h>
 #import <VLCKit/VLCKit.h>
 #import "VLCPlaybackService.h"
@@ -17,7 +28,6 @@
 - (VLCTime *)length { return self.testLength ?: [VLCTime nullTime]; }
 @end
 
-// The queue formatters only read these library values; no database is needed here.
 @interface PlaylistLibraryMedia : NSObject
 @property (nonatomic) int64_t duration;
 @property (nonatomic, copy) NSString *title;
@@ -40,7 +50,6 @@
 }
 @end
 
-// Exercise queue mutation without starting a network stream or presenting UI.
 @interface PlaylistPlaybackService : VLCPlaybackService
 @property (nonatomic, strong) VLCMedia *testPlaying;
 @property (nonatomic, strong) PlaylistListPlayer *testListPlayer;
@@ -151,6 +160,7 @@
     XCTAssertEqualObjects([service valueForKey:@"currentIndex"], @1);
     XCTAssertEqual(service.starts, 0);
 }
+
 - (void)testActivePlaylistSelectsFirstChildWithoutRestartingPlayback
 {
     PlaylistPlaybackService *service = [PlaylistPlaybackService new];
@@ -177,6 +187,7 @@
     XCTAssertEqual(notifications, 1);
     [NSNotificationCenter.defaultCenter removeObserver:token];
 }
+
 - (void)testPlayerCallbackUsesTheReportedPlaylistWithoutItsMediaDelegate
 {
     PlaylistPlaybackService *service = [PlaylistPlaybackService new];
@@ -309,86 +320,93 @@
 
 - (void)testQueueTitlePrefersManagedLibraryOverGeneratedNativeTitle
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL fileURLWithPath:@"/queue-title-tests/original.mp4"]];
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.title = @"Renamed movie";
     XCTAssertGreaterThan(media.metaData.title.length, 0);
     XCTAssertNotEqualObjects(media.metaData.title, library.title);
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"Renamed movie");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"Renamed movie");
 }
 
 - (void)testQueueTitlePrefersManagedLibraryOverPlaylistAlias
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [self media:@"movie.mp4"];
     media.metaData.title = @"Playlist alias";
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.title = @"Library movie";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"Library movie");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"Library movie");
 }
 
 - (void)testQueueTitlePreservesStreamMetadataOverExternalPlaceholder
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [self media:@"stream"];
     media.metaData.title = @"News channel";
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.isExternalMedia = YES;
     library.title = @"stream";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"News channel");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"News channel");
     media.metaData.title = @"Evening news";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"Evening news");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"Evening news");
 }
 
 - (void)testQueueTitleUsesLibraryMetadataForExternalPodcast
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [self media:@"episode.mp3"];
     media.metaData.title = @"Embedded title";
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.isExternalMedia = YES;
     library.nbSubscriptions = 1;
     library.title = @"Episode from feed";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"Episode from feed");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"Episode from feed");
 }
 
 - (void)testQueueTitleFallsBackToNativeWithoutUsableLibraryTitle
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [self media:@"movie.mp4"];
     NSString *nativeTitle = media.metaData.title;
     XCTAssertGreaterThan(nativeTitle.length, 0);
-    XCTAssertEqualObjects(VLCQueueTitleString(media, nil, nil), nativeTitle);
-    XCTAssertEqualObjects(VLCQueueTitleString(media, nil, @"Unrelated title"), nativeTitle);
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:nil libraryTitle:nil], nativeTitle);
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:nil libraryTitle:@"Unrelated title"], nativeTitle);
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, @""), nativeTitle);
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, nil), nativeTitle);
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:@""], nativeTitle);
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:nil], nativeTitle);
     media.metaData.title = @"Native metadata title";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, nil, nil), @"Native metadata title");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:nil libraryTitle:nil], @"Native metadata title");
 }
 
 - (void)testQueueTitlePreservesCallerLibraryFormatting
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     VLCMedia *media = [self media:@"movie.mp4"];
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.title = @"Movie.mp4";
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, @"Movie"), @"Movie");
-    XCTAssertEqualObjects(VLCQueueTitleString(media, (id)library, library.title), @"Movie.mp4");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:@"Movie"], @"Movie");
+    XCTAssertEqualObjects([service queueTitleForMedia:media libraryMedia:(id)library libraryTitle:library.title], @"Movie.mp4");
 }
 
 - (void)testQueueDurationPrefersMediaThenLibraryAndHidesUnknown
 {
+    PlaylistPlaybackService *service = [PlaylistPlaybackService new];
     PlaylistMedia *media = [self media:@"duration"];
     PlaylistLibraryMedia *library = [PlaylistLibraryMedia new];
     library.duration = 125000;
     media.testLength = [VLCTime nullTime];
-    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"02:05");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:(id)library], @"02:05");
     media.testLength = [VLCTime timeWithNumber:@3000];
-    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"00:03");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:(id)library], @"00:03");
     media.testLength = [VLCTime timeWithNumber:@0];
-    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:(id)library], @"");
     media.testLength = [VLCTime timeWithNumber:@(-1)];
-    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:(id)library], @"");
     media.testLength = [VLCTime nullTime];
-    XCTAssertEqualObjects(VLCQueueDurationString(media, nil), @"");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:nil], @"");
     library.duration = 0;
-    XCTAssertEqualObjects(VLCQueueDurationString(media, (id)library), @"");
+    XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:(id)library], @"");
 }
 
 - (void)testRuntimeDurationRefreshesCapturedItemAndSuppressesUnchangedDisplay
@@ -415,7 +433,7 @@
     [self drainMainQueue];
     XCTAssertEqualObjects(first.length.value, @125000);
     XCTAssertEqualObjects(second.length.value, @7000);
-    XCTAssertEqualObjects(VLCQueueDurationString(first, nil), @"02:05");
+    XCTAssertEqualObjects([service queueDurationForMedia:first libraryMedia:nil], @"02:05");
     service.testPlaying = first;
     [service mediaPlayerLengthChanged:125000];
     [self drainMainQueue];
@@ -424,7 +442,7 @@
     [service mediaPlayerLengthChanged:0];
     [self drainMainQueue];
     XCTAssertEqualObjects(first.length.value, @0);
-    XCTAssertEqualObjects(VLCQueueDurationString(first, nil), @"");
+    XCTAssertEqualObjects([service queueDurationForMedia:first libraryMedia:nil], @"");
     XCTAssertEqual(notifications, 2);
     [service.mediaList removeMediaAtIndex:0];
     [service mediaPlayerLengthChanged:5000];
@@ -445,7 +463,7 @@
                                                               object:service queue:nil
                                                           usingBlock:^(NSNotification *note) {
         XCTAssertEqualObjects(note.userInfo[@"media"], media);
-        XCTAssertEqualObjects(VLCQueueDurationString(media, nil), @"02:06");
+        XCTAssertEqualObjects([service queueDurationForMedia:media libraryMedia:nil], @"02:06");
         notifications++;
     }];
     [service mediaPlayerLengthChanged:125000];

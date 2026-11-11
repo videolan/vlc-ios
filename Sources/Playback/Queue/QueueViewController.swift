@@ -502,7 +502,7 @@ private extension QueueViewController {
     private func configureQueueMetadata(_ cell: MediaCollectionViewCell,
                                         for media: VLCMedia,
                                         libraryMedia: VLCMLMedia?) {
-        let title = VLCQueueTitleString(media, libraryMedia, libraryMedia?.title())
+        let title = playbackService.queueTitle(for: media, libraryMedia: libraryMedia, libraryTitle: libraryMedia?.title())
 
         var details: [String] = []
         if let libraryMedia = libraryMedia, libraryMedia.subtype() == .albumTrack {
@@ -514,7 +514,7 @@ private extension QueueViewController {
                 details.append(album)
             }
         }
-        let duration = VLCQueueDurationString(media, libraryMedia)
+        let duration = playbackService.queueDuration(for: media, libraryMedia: libraryMedia)
         if !duration.isEmpty {
             details.append(duration)
         }

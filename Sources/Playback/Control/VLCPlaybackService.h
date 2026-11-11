@@ -42,10 +42,6 @@ extern NSString *const VLCLastPlaylistPlayedMedia;
 @class VLCMediaPlayerTrack;
 @class VLCAudioEqualizerPreset;
 
-FOUNDATION_EXPORT NSString *VLCQueueDurationString(VLCMedia *media, VLCMLMedia * _Nullable libraryMedia);
-FOUNDATION_EXPORT NSString *VLCQueueTitleString(VLCMedia *media, VLCMLMedia * _Nullable libraryMedia,
-                                               NSString * _Nullable libraryDisplayTitle);
-
 @protocol VLCPlaybackServiceDelegate <NSObject>
 @optional
 - (void)playbackPositionUpdated:(VLCPlaybackService *)playbackService;
@@ -189,6 +185,12 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)playItemAtIndex:(NSUInteger)index;
 
 - (NSUInteger)appendMedia:(VLCMedia *)media;
+- (NSString *)queueTitleForMedia:(VLCMedia *)media
+                    libraryMedia:(nullable VLCMLMedia *)libraryMedia
+                    libraryTitle:(nullable NSString *)libraryTitle
+    NS_SWIFT_NAME(queueTitle(for:libraryMedia:libraryTitle:));
+- (NSString *)queueDurationForMedia:(VLCMedia *)media libraryMedia:(nullable VLCMLMedia *)libraryMedia
+    NS_SWIFT_NAME(queueDuration(for:libraryMedia:));
 
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;

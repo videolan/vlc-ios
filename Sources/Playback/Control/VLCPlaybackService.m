@@ -60,26 +60,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 NSString *const VLCPlaybackServiceSleepTimerDidChange = @"VLCPlaybackServiceSleepTimerDidChange";
 NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
-NSString *VLCQueueDurationString(VLCMedia *media, VLCMLMedia *libraryMedia)
-{
-    NSNumber *duration = media.length.value;
-    if (!duration)
-        duration = @(libraryMedia.duration);
-    return duration.longLongValue > 0 ? [VLCTime timeWithNumber:duration].stringValue : @"";
-}
-
-NSString *VLCQueueTitleString(VLCMedia *media, VLCMLMedia *libraryMedia, NSString *libraryDisplayTitle)
-{
-    // Match VLCMetaData's library policy, including externally stored podcast episodes.
-    BOOL isLibraryMedia = libraryMedia && (!libraryMedia.isExternalMedia || libraryMedia.nbSubscriptions > 0);
-    if (isLibraryMedia && libraryDisplayTitle.length > 0)
-        return libraryDisplayTitle;
-
-    // Native titles already include libvlc's filename fallback. External library
-    // placeholders must not override playlist or stream metadata.
-    return media.metaData.title ?: @"";
-}
-
 static const float kVLCPlaybackRateMinimum = 0.25f;
 static const float kVLCPlaybackRateMaximum = 8.0f;
 /* libvlc's equalizer scales the dry signal by 0.25 (-12 dB) */
@@ -1300,6 +1280,22 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     return index;
 }
 
+- (NSString *)queueTitleForMedia:(VLCMedia *)media libraryMedia:(VLCMLMedia *)libraryMedia libraryTitle:(NSString *)libraryTitle
+{
+    BOOL isLibraryMedia = libraryMedia && (!libraryMedia.isExternalMedia || libraryMedia.nbSubscriptions > 0);
+    if (isLibraryMedia && libraryTitle.length > 0)
+        return libraryTitle;
+    return media.metaData.title ?: @"";
+}
+
+- (NSString *)queueDurationForMedia:(VLCMedia *)media libraryMedia:(VLCMLMedia *)libraryMedia
+{
+    NSNumber *duration = media.length.value;
+    if (!duration)
+        duration = @(libraryMedia.duration);
+    return duration.longLongValue > 0 ? [VLCTime timeWithNumber:duration].stringValue : @"";
+}
+
 - (void)setShuffleMode:(BOOL)shuffleMode
 {
     _shuffleMode = shuffleMode;
@@ -2019,7 +2015,6 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self _expandMediaList:aMedia.subitems forMedia:aMedia];
         [self setNeedsMetadataUpdate];
 #if TARGET_OS_IOS
         [self restoreAudioAndSubtitleTrack];
@@ -2040,15 +2035,13 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     if (!media)
         return;
 
-    // Capture the item before dispatch: playback may advance before this runs.
     dispatch_async(dispatch_get_main_queue(), ^{
         NSUInteger index = self->_mediaList ? [self->_mediaList indexOfMedia:media] : NSNotFound;
         if (index == NSNotFound)
             return;
 
         VLCMedia *queuedMedia = [self->_mediaList mediaAtIndex:index];
-        // VLCKit reads the native duration directly; wrappers share that value.
-        NSString *displayDuration = VLCQueueDurationString(queuedMedia, nil);
+        NSString *displayDuration = [self queueDurationForMedia:queuedMedia libraryMedia:nil];
         if ([self->_lastDurationMedia isEqual:queuedMedia] && [self->_lastQueueDuration isEqualToString:displayDuration])
             return;
         self->_lastDurationMedia = queuedMedia;
@@ -2064,10 +2057,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSAssert(NSThread.isMainThread, @"Queue changes must run on the main thread");
     NSUInteger parentIndex = _mediaList ? [_mediaList indexOfMedia:parentMedia] : NSNotFound;
     if (parentIndex == NSNotFound)
-        return; // Removed parent or a repeated discovery callback.
+        return;
 
-    // Use only VLCKit's playlist subitems, not stream tracks/variants. In
-    // particular, HLS manifests are handled by VLC's adaptive demuxer.
     [subitems lock];
     NSUInteger subitemsCount = subitems.count;
     NSMutableArray<VLCMedia *> *children = [NSMutableArray arrayWithCapacity:subitemsCount];
@@ -2099,7 +2090,6 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     VLCMedia *playing = self.currentlyPlayingMedia;
     VLCMedia *selected = [parentMedia isEqual:playing] ? children.firstObject : playing;
     _mediaList = [[VLCMediaList alloc] initWithArray:entries];
-    // Preserve the effective shuffle order, replacing just the playlist slot.
     if (_shuffleMode) {
         NSMutableArray<VLCMedia *> *effective = [NSMutableArray arrayWithCapacity:entries.count];
         [_shuffledList lock];

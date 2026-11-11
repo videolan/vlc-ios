@@ -209,8 +209,8 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     UIImageView *_nowPlayingView;
     BOOL _current;
 }
-@property (nonatomic, getter=isCurrent) BOOL current;
 - (void)configureWithTitle:(NSString *)title subtitle:(NSString *)subtitle current:(BOOL)current;
+- (void)setCurrent:(BOOL)current;
 @end
 
 @implementation VLCPlayerQueueCell
@@ -257,7 +257,7 @@ static UIVisualEffect *VLCInlineMenuBackgroundEffect(void)
     _titleLabel.text = title;
     _subtitleLabel.text = subtitle;
     _subtitleLabel.hidden = subtitle.length == 0;
-    self.current = current;
+    [self setCurrent:current];
 }
 
 - (void)setCurrent:(BOOL)current
@@ -903,10 +903,6 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
         [self clearMetadataForMedia:media inList:vpc.mediaList];
         if (vpc.isShuffleMode && vpc.shuffledList != vpc.mediaList)
             [self clearMetadataForMedia:media inList:vpc.shuffledList];
-        for (VLCMedia *displayedMedia in _displayedMedia) {
-            if ([displayedMedia isEqual:media])
-                [displayedMedia.metaData clearCache];
-        }
     }
     for (NSIndexPath *path in _collectionView.indexPathsForVisibleItems) {
         if (path.item >= _displayedMedia.count || ![_displayedMedia[path.item] isEqual:media])
@@ -937,9 +933,7 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
         if (path.item >= _displayedMedia.count)
             continue;
         VLCPlayerQueueCell *cell = (VLCPlayerQueueCell *)[_collectionView cellForItemAtIndexPath:path];
-        BOOL current = [_displayedMedia[path.item] isEqual:playingMedia];
-        if (cell.isCurrent != current)
-            cell.current = current;
+        [cell setCurrent:[_displayedMedia[path.item] isEqual:playingMedia]];
     }
 }
 
@@ -1104,9 +1098,10 @@ static NSString *const VLCQueueCellIdentifier = @"VLCPlayerQueueCell";
 {
     VLCMLMedia *mlMedia = [[VLCAppCoordinator sharedInstance].mediaLibraryService fetchMediaWith:media.url];
 
-    NSString *title = VLCQueueTitleString(media, mlMedia, mlMedia.title);
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    NSString *title = [vpc queueTitleForMedia:media libraryMedia:mlMedia libraryTitle:mlMedia.title];
     NSString *artist = mlMedia.artist.name;
-    NSString *duration = VLCQueueDurationString(media, mlMedia);
+    NSString *duration = [vpc queueDurationForMedia:media libraryMedia:mlMedia];
     NSString *subtitle = artist.length ? artist : duration;
     if (artist.length && duration.length)
         subtitle = [NSString stringWithFormat:@"%@ — %@", artist, duration];
