@@ -2761,6 +2761,7 @@ extension MediaCategoryViewController {
                 model = secondModel
                 secondModel = VideoModel(medialibrary: mediaLibraryService)
             }
+            loadSort()
         }
 
         if let model = model as? CollectionModel {
