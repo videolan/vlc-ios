@@ -750,11 +750,6 @@
 "MENU_REPEAT_SINGLE" = "Repeat one";
 "MENU_REPEAT_ALL" = "Repeat all";
 
-// MARK: - ActionSheet
-
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
-
 // MARK: - Donation
 "DONATION_CUSTOM_AMOUNT" = "Enter Custom Amount";
 "DONATION_TITLE" = "Privacy over profit";
