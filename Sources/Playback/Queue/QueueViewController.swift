@@ -181,17 +181,14 @@ class QueueViewController: UIViewController {
     }
 
     override func didMove(toParent parent: UIViewController?) {
-        let playerDisplayController = parent as? VLCPlayerDisplayController
-
         if let parent = parent {
             parent.view.addSubview(darkOverlayView)
 
-            let overlayBottomAnchor = parent.view.bottomAnchor
             darkOverlayViewConstraints = [
                 darkOverlayView.topAnchor.constraint(equalTo: parent.view.topAnchor),
                 darkOverlayView.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
                 darkOverlayView.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor),
-                darkOverlayView.bottomAnchor.constraint(equalTo: overlayBottomAnchor)
+                darkOverlayView.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             ]
 
             if let heightConstraint = heightConstraint {
@@ -213,16 +210,12 @@ class QueueViewController: UIViewController {
                 topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
                 darkOverlayView.isHidden = true
-            } else {
-                topConstraint = view.topAnchor.constraint(equalTo: parent.view.bottomAnchor)
-                heightConstraint = nil
-                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             }
 
             parent.view.addSubview(view)
 
             let safeArea = parent.view.safeAreaLayoutGuide
-            view.overrideUserInterfaceStyle = playerDisplayController != nil ? .unspecified : .dark
+            view.overrideUserInterfaceStyle = .dark
             configureAppearance()
 
             constraints = [
@@ -260,7 +253,7 @@ class QueueViewController: UIViewController {
         view.alpha = 0.0
     }
 
-    @objc func show() {
+    func show() {
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 1.0
             self.darkOverlayView.isHidden = false
@@ -269,7 +262,7 @@ class QueueViewController: UIViewController {
         }
     }
 
-    @objc func hide() {
+    func hide() {
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 0.0
             self.darkOverlayView.isHidden = true

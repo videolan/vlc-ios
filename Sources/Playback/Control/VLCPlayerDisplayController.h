@@ -15,14 +15,10 @@
 
 @class VLCPlaybackService;
 @class VLCServices;
-@class VLCQueueViewController;
-@class UITabBar;
 
 typedef NS_ENUM(UInt8, VLCMLMediaType);
 
 NS_ASSUME_NONNULL_BEGIN
-
-extern const CGFloat kVLCMiniPlayerPlayqueueTopInset;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
@@ -34,13 +30,6 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerQueueStatusMessage) {
     VLCPlayerDisplayControllerQueueStatusMessagePlayingNext,
 };
 
-@protocol VLCMiniPlaybackViewInterface <NSObject>
-
-@required;
-@property (nonatomic) BOOL visible;
-
-@end
-
 @protocol VLCPlayerDisplayControllerDelegate
 
 @end
@@ -49,7 +38,6 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerQueueStatusMessage) {
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
-@property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 @property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
 @property (nonatomic, readonly) BOOL canBecomeFirstResponder;
 @property (readonly, nonnull) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;

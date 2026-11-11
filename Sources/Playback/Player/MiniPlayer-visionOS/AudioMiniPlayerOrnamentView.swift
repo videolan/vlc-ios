@@ -1,5 +1,6 @@
 /*****************************************************************************
  * AudioMiniPlayerOrnamentView.swift
+ * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2026 VideoLAN. All rights reserved.
  * $Id$
@@ -18,6 +19,6 @@ struct AudioMiniPlayerOrnamentView: UIViewRepresentable {
         miniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
         return miniPlayer
     }
-    
+
     func updateUIView(_ uiView: AudioMiniPlayer, context: Context) {}
 }

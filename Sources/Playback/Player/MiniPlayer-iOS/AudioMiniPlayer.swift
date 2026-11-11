@@ -25,15 +25,14 @@ enum MiniPlayerHorizontalPosition {
     case center
 }
 
-@objc enum PanDirection: Int {
+enum PanDirection: Int {
     case vertical
     case horizontal
 }
 
 @objc(VLCAudioMiniPlayer)
-class AudioMiniPlayer: UIView, MiniPlayer {
+class AudioMiniPlayer: UIView {
     private static let extraControlsMinWidth: CGFloat = 500.0
-    var visible: Bool = false
     var contentHeight: Float {
         return 56
     }
@@ -77,8 +76,6 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     private let animationDuration = 0.2
 
     private lazy var playbackService = PlaybackService.sharedInstance()
-
-    private var queueViewController: QueueViewController?
 
     var horizontalPosition = MiniPlayerHorizontalPosition.center
     var panDirection: PanDirection = .vertical
@@ -440,9 +437,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         updatePlayPauseButton()
         updateRepeatButton()
         updateShuffleButton()
-        if let queueCollectionView = queueViewController?.queueCollectionView {
-            queueCollectionView.reloadData()
-        }
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
@@ -451,14 +445,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         progressBarView.progress = playbackService.playbackPosition
-    }
-
-    func reloadPlayQueue() {
-        guard let queueViewController = queueViewController else {
-            return
-        }
-
-        queueViewController.reload()
     }
 
 #if os(iOS)

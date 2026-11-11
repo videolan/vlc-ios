@@ -392,7 +392,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     @objc func miniPlayerIsHidden() {
         handleFABButtonVisibility()
     }
-            
+
     private func updateArtworkHeader() {
         let backgroundColor: UIColor
         if collectionView.contentOffset.y >= 50 {

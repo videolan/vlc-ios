@@ -49,6 +49,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 @implementation VLCPlayerDisplayController
 {
     VLCMiniPlayerZoomTransitioningDelegate *_zoomTransitioningDelegate;
+    VLCQueueViewController *_queueViewController;
     VLCStatusLabel *_statusLabel;
 #if TARGET_OS_IOS
     UINotificationFeedbackGenerator *_queueFeedbackGenerator;
@@ -630,7 +631,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         _queueFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
     }
 #endif
-    
+
     [NSTimer scheduledTimerWithTimeInterval:delay repeats:NO block:^(NSTimer *timer) {
 #if TARGET_OS_IOS
         [self->_queueFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
@@ -638,10 +639,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         NSString *message;
         switch (status) {
             case VLCPlayerDisplayControllerQueueStatusMessageAppended:
-                message = NSLocalizedString(@"APPENDED_TO_QUEUE_STATUS_MESSAGE", "");
+                message = NSLocalizedString(@"APPENDED_TO_QUEUE_STATUS_MESSAGE", nil);
                 break;
             case VLCPlayerDisplayControllerQueueStatusMessagePlayingNext:
-                message = NSLocalizedString(@"PLAYING_NEXT_STATUS_MESSAGE", "");
+                message = NSLocalizedString(@"PLAYING_NEXT_STATUS_MESSAGE", nil);
                 break;
         }
         [self->_statusLabel showStatusMessage:message];
