@@ -17,7 +17,7 @@ class MovieCategoryViewController: MediaCategoryViewController {
     init(_ mediaLibraryService: MediaLibraryService) {
         let model = MediaGroupViewModel(medialibrary: mediaLibraryService)
         super.init(mediaLibraryService: mediaLibraryService, model: model)
-        model.observable.addObserver(self)
+        (self.model as? any MLBaseModel)?.observable.addObserver(self)
     }
 }
 

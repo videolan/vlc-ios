@@ -27,7 +27,12 @@ import UIKit
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
     // MARK: - Properties
-    var model: MediaLibraryBaseModel
+    var model: MediaLibraryBaseModel {
+        didSet {
+            (oldValue as? any MLBaseModel)?.observable.removeObserver(self)
+            (model as? any MLBaseModel)?.observable.addObserver(self)
+        }
+    }
     private var secondModel: MediaLibraryBaseModel
     private var mediaLibraryService: MediaLibraryService
 
