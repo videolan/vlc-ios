@@ -440,6 +440,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         if isEditing {
             sizeDescriptionLabel.text = String(format: "%@ · %@", media.mediaDuration(), media.formatSize())
+        } else if delegate?.mediaCollectionViewCellGetModel() is HistoryModel,
+                  media.nbSubscriptions() > 0,
+                  let show = media.linkedSubscriptions(with: .default, desc: false)?.first {
+            sizeDescriptionLabel.text = show.name
         } else {
             sizeDescriptionLabel.text = media.mediaDuration()
         }
