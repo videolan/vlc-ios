@@ -60,6 +60,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return buttonItem
     }()
 
+    private lazy var addExternalFolderButton: UIBarButtonItem = {
+        let addExternalFolder = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"),
+                                                style: .plain, target: self,
+                                                action: #selector(handleAddExternalFolder))
+        addExternalFolder.title = NSLocalizedString("ADD_EXTERNAL_FOLDER", comment: "")
+        return addExternalFolder
+    }()
+
     private lazy var doneButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
@@ -148,7 +156,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             menuButton.menu = view.window != nil ? generateMenu(viewController: viewController) : nil
         }
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems()
+        rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
 
         var mediaCategoryViewController: UIViewController = self
         if navigationController?.viewControllers.last is ArtistViewController {
@@ -174,7 +182,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
 
         if !isEditing, offersExternalFolders(on: viewController) {
-            emptyStateRightBarButtons.insert(menuButton, at: 0)
+            emptyStateRightBarButtons.insert(addExternalFolderButton, at: 0)
         }
 
         if !isEditing, navigationController?.viewControllers.count == 1 {
@@ -195,8 +203,16 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
     }
 
-    private func rightBarButtonItems() -> [UIBarButtonItem] {
+    private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
         var rightBarButtonItems: [UIBarButtonItem] = [menuButton]
+
+        if let mediaCategoryViewController = viewController as? MediaCategoryViewController {
+            rightBarButtonItems.append(mediaCategoryViewController.sortBarButtonItem())
+        }
+
+        if offersExternalFolders(on: viewController) {
+            rightBarButtonItems.append(addExternalFolderButton)
+        }
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -267,7 +283,7 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        rightBarButtons = isEditing ? [doneButton] : [menuButton]
+        rightBarButtons = isEditing ? [doneButton] : [menuButton, viewController.sortBarButtonItem()]
 
 #if os(iOS)
         if !rendererButton.isHidden {
@@ -297,7 +313,7 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 extension MediaViewController {
     @objc private func customSetEditing() {
         isEditing = !isEditing
-        var rightButtons: [UIBarButtonItem] = [menuButton]
+        var rightButtons: [UIBarButtonItem] = rightBarButtonItems(for: viewControllers[currentIndex])
 
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
@@ -305,12 +321,6 @@ extension MediaViewController {
         } else {
             leftBarButtons = isEditing ? [selectAllButton] : nil
         }
-
-#if os(iOS)
-        if !rendererButton.isHidden {
-            rightButtons.append(UIBarButtonItem(customView: rendererButton))
-        }
-#endif
 
         // Check if the playAllButton should be displayed
         if navigationController?.viewControllers.last is ArtistViewController,
@@ -392,7 +402,7 @@ extension MediaViewController {
         }
     }
 
-    func handleAddExternalFolder() {
+    @objc func handleAddExternalFolder() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         documentPicker.delegate = self
         present(documentPicker, animated: true)
@@ -416,83 +426,6 @@ extension MediaViewController {
 // MARK: - UIMenu
 
 extension MediaViewController {
-    func generateLayoutMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
-        let isGridLayout: Bool = mediaCategoryViewController.model.cellType == MovieCollectionViewCell.self
-        || mediaCategoryViewController.model.cellType == MediaGridCollectionCell.self
-
-        var isFolder: Bool = false
-        if mediaCategoryViewController.model is FolderModel {
-            isFolder = true
-        } else if mediaCategoryViewController.model is MediaGroupViewModel &&
-                    UserDefaults.standard.bool(forKey: KVLCFolderViewLayout) {
-            isFolder = true
-        }
-
-        let gridAction = UIAction(title: NSLocalizedString("GRID_LAYOUT", comment: ""),
-                                  image: UIImage(systemName: "square.grid.2x2"),
-                                  state: isGridLayout ? .on : .off,
-                                  handler: {
-            [unowned self, weak mediaCategoryViewController] _ in
-            guard let mediaCategoryViewController = mediaCategoryViewController else { return }
-            mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: isFolder)
-            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
-        })
-
-        let listAction = UIAction(title: NSLocalizedString("LIST_LAYOUT", comment: ""),
-                                  image: UIImage(systemName: "list.bullet"),
-                                  state: isGridLayout ? .off : .on,
-                                  handler: {
-            [unowned self, weak mediaCategoryViewController] _ in
-            guard let mediaCategoryViewController = mediaCategoryViewController else { return }
-            mediaCategoryViewController.handleLayoutChange(gridLayout: false, isFolder: isFolder)
-            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
-        })
-
-        return UIMenu(title: NSLocalizedString("DISPLAY_AS", comment: ""), options: .displayInline,
-                      children: [gridAction, listAction])
-    }
-
-    func generateSortMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
-        let sortModel = mediaCategoryViewController.model.sortModel
-        var sortActions: [UIMenuElement] = []
-
-        var currentSortIndex: Int = 0
-        for (index, criterion) in
-                sortModel.sortingCriteria.enumerated()
-        where criterion == sortModel.currentSort {
-            currentSortIndex = index
-            break
-        }
-
-        for (index, criterion) in sortModel.sortingCriteria.enumerated() {
-            let currentSort: Bool = index == currentSortIndex
-            let chevronImageName: String = sortModel.desc ? "chevron.down" : "chevron.up"
-            var actionImage: UIImage? = currentSort ? UIImage(systemName: chevronImageName) : nil
-
-            // There is no need to display the desc image since it has no impact
-            if criterion == VLCMLSortingCriteria.default {
-                actionImage = nil
-            }
-
-            let action = UIAction(title: String(describing: criterion),
-                                  image: actionImage,
-                                  state: currentSort ? .on : .off,
-                                  handler: {
-                [unowned self, weak mediaCategoryViewController] _ in
-                guard let mediaCategoryViewController = mediaCategoryViewController else { return }
-                mediaCategoryViewController.executeSortAction(with: criterion,
-                                                             desc: !sortModel.desc)
-                menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
-            })
-            sortActions.append(action)
-        }
-
-        return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
-                      image: UIImage(named: "sort"),
-                      options: .singleSelection,
-                      children: sortActions)
-    }
-
     func generateSelectAction() -> UIAction {
         let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
                                     image: UIImage(systemName: "checkmark.circle"),
@@ -534,15 +467,6 @@ extension MediaViewController {
         return UIMenu(options: .displayInline, children: [folderAction])
     }
 
-    func generateAddExternalFolderMenu() -> UIMenu {
-        let addExternalFolderAction = UIAction(title: NSLocalizedString("ADD_EXTERNAL_FOLDER", comment: ""),
-                                               image: UIImage(systemName: "folder.badge.plus")) { [weak self] _ in
-            self?.handleAddExternalFolder()
-        }
-
-        return UIMenu(options: .displayInline, children: [addExternalFolderAction])
-    }
-
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
@@ -551,14 +475,6 @@ extension MediaViewController {
         let selectAction = generateSelectAction()
 
         var rightMenuItems: [UIMenuElement] = [selectAction]
-
-        if offersExternalFolders(on: mediaCategoryViewController) {
-            let addExternalFolderMenu = generateAddExternalFolderMenu()
-            if mediaCategoryViewController.isEmptyCollectionView() {
-                return addExternalFolderMenu
-            }
-            rightMenuItems.append(addExternalFolderMenu)
-        }
 
         if let parentViewController = viewController?.parent,
            parentViewController is VideoViewController || parentViewController is AudioViewController {
@@ -571,18 +487,6 @@ extension MediaViewController {
             let folderMenu = generateFolderMenu()
             rightMenuItems.append(folderMenu)
         }
-
-        let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
-        let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
-
-        if let model = mediaCategoryViewController.model as? CollectionModel,
-           model.mediaCollection is VLCMLPlaylist {
-            rightMenuItems.append(sortSubMenu)
-            return UIMenu(options: .displayInline, children: rightMenuItems)
-        }
-
-        rightMenuItems.append(layoutSubMenu)
-        rightMenuItems.append(sortSubMenu)
 
         var additionalMenuItems: [UIAction] = []
 

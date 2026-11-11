@@ -743,6 +743,7 @@
 "QUEUE_LABEL" = "Queue";
 
 "DISPLAY_AS" = "Display as";
+"VIEW_OPTIONS" = "View Options";
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Playback controls";

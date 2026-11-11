@@ -226,6 +226,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return setupSelectAllButton()
     }()
 
+    private lazy var sortBarButton: UIBarButtonItem = {
+        let sortBarButton = UIBarButtonItem(image: nil, menu: nil)
+        sortBarButton.title = NSLocalizedString("VIEW_OPTIONS", comment: "")
+        return sortBarButton
+    }()
+
 #if os(iOS)
     private lazy var rendererBarButton: UIBarButtonItem = {
         return UIBarButtonItem(customView: rendererButton)
@@ -1465,6 +1471,7 @@ extension MediaCategoryViewController {
             rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                                        menu: menu))
         }
+        rightBarButtonItems.append(sortBarButtonItem())
 #if os(iOS)
         if !rendererButton.isHidden {
             rightBarButtonItems.append(rendererBarButton)
@@ -1493,6 +1500,88 @@ extension MediaCategoryViewController {
             navigationItem.rightBarButtonItem = nil
             navigationItem.leftBarButtonItem = nil
         }
+    }
+
+    private var isGridLayout: Bool {
+        return model.cellType == MovieCollectionViewCell.self || model.cellType == MediaGridCollectionCell.self
+    }
+
+    private var sortBarButtonImage: UIImage? {
+        if let model = model as? CollectionModel, model.mediaCollection is VLCMLPlaylist {
+            return UIImage(systemName: "arrow.up.arrow.down")
+        }
+
+        return UIImage(systemName: isGridLayout ? "square.grid.2x2" : "list.bullet")
+    }
+
+    func sortBarButtonItem() -> UIBarButtonItem {
+        sortBarButton.image = sortBarButtonImage
+        sortBarButton.menu = generateSortMenu()
+        return sortBarButton
+    }
+
+    private func generateLayoutMenu() -> UIMenu {
+        let isFolder = model is FolderModel
+            || (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout))
+
+        let gridAction = UIAction(title: NSLocalizedString("GRID_LAYOUT", comment: ""),
+                                  image: UIImage(systemName: "square.grid.2x2"),
+                                  state: isGridLayout ? .on : .off,
+                                  handler: { [weak self] _ in
+            self?.handleLayoutChange(gridLayout: true, isFolder: isFolder)
+        })
+
+        let listAction = UIAction(title: NSLocalizedString("LIST_LAYOUT", comment: ""),
+                                  image: UIImage(systemName: "list.bullet"),
+                                  state: isGridLayout ? .off : .on,
+                                  handler: { [weak self] _ in
+            self?.handleLayoutChange(gridLayout: false, isFolder: isFolder)
+        })
+
+        return UIMenu(title: NSLocalizedString("DISPLAY_AS", comment: ""), options: .displayInline,
+                      children: [gridAction, listAction])
+    }
+
+    private func generateSortMenu() -> UIMenu {
+        let sortModel = model.sortModel
+        var sortActions: [UIMenuElement] = []
+
+        var currentSortIndex: Int = 0
+        for (index, criterion) in
+                sortModel.sortingCriteria.enumerated()
+        where criterion == sortModel.currentSort {
+            currentSortIndex = index
+            break
+        }
+
+        for (index, criterion) in sortModel.sortingCriteria.enumerated() {
+            let currentSort: Bool = index == currentSortIndex
+            let chevronImageName: String = sortModel.desc ? "chevron.down" : "chevron.up"
+            var actionImage: UIImage? = currentSort ? UIImage(systemName: chevronImageName) : nil
+
+            // There is no need to display the desc image since it has no impact
+            if criterion == VLCMLSortingCriteria.default {
+                actionImage = nil
+            }
+
+            let action = UIAction(title: String(describing: criterion),
+                                  image: actionImage,
+                                  state: currentSort ? .on : .off,
+                                  handler: { [weak self] _ in
+                self?.executeSortAction(with: criterion, desc: !sortModel.desc)
+            })
+            sortActions.append(action)
+        }
+
+        let sortMenu = UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
+                              options: [.displayInline, .singleSelection],
+                              children: sortActions)
+
+        if let model = model as? CollectionModel, model.mediaCollection is VLCMLPlaylist {
+            return sortMenu
+        }
+
+        return UIMenu(children: [generateLayoutMenu(), sortMenu])
     }
 
     func handleRegroup() {
