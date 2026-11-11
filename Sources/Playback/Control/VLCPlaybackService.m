@@ -1566,44 +1566,11 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     [_mediaPlayer gotoPreviousFrame];
 }
 
-#if !TARGET_OS_VISION && !TARGET_OS_WATCH
-/* TODO: Modernization - The UIScreen.mainScreen fallback assumes the local player renders on a single,
- * fixed display. The screen a window renders on can change when it moves between displays, so this
- * should resolve through the presenting window: -currentScreenForWindow: returning
- * window.windowScene.screen. Callers (-switchToFillToScreen and friends) need a window threaded in. */
-- (UIScreen *)currentScreen
-{
-    UIWindow *externalWindow = [VLCAppCoordinator sharedInstance].externalWindow;
-    if (externalWindow) {
-        return externalWindow.screen;
-    }
-
-    return  [UIScreen mainScreen];
-}
-
 - (void)switchToFillToScreen
 {
-    UIScreen *screen = [self currentScreen];
-    CGSize screenSize = screen.bounds.size;
-
-    CGSize videoSize = _mediaPlayer.videoSize;
-
-    CGFloat ar = videoSize.width / (float)videoSize.height;
-    CGFloat dar = screenSize.width / (float)screenSize.height;
-
-    CGFloat scale;
-
-    if (dar >= ar) {
-        scale = screenSize.width / (float)videoSize.width;
-    } else {
-        scale = screenSize.height / (float)videoSize.height;
-    }
-
-    // Multiplied by screen.scale in consideration of pt to px
-    _mediaPlayer.scaleFactor = scale * screen.scale;
+    _mediaPlayer.videoFitMode = VLCVideoFitLarger;
     _isInFillToScreen = YES;
 }
-#endif
 
 - (void)switchAspectRatio:(BOOL)toggleFullScreen
 {
@@ -1636,17 +1603,15 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 {
     switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
-            _mediaPlayer.scaleFactor = 0;
+            _mediaPlayer.videoFitMode = VLCVideoFitSmaller;
             _mediaPlayer.videoAspectRatio = NULL;
             break;
-#if !TARGET_OS_VISION && !TARGET_OS_WATCH
         case VLCAspectRatioFillToScreen:
             // Reset aspect ratio only with aspectRatio button since we want to keep
             // the user ratio with double tap.
             _mediaPlayer.videoAspectRatio = NULL;
             [self switchToFillToScreen];
             break;
-#endif
         case VLCAspectRatioFourToThree:
         case VLCAspectRatioFiveToFour:
         case VLCAspectRatioSixteenToTen:
@@ -1654,7 +1619,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         case VLCAspectRatioTwentyOneToOne:
         case VLCAspectRatioThirtyFiveToOne:
         case VLCAspectRatioThirtyNineToOne:
-            _mediaPlayer.scaleFactor = 0;
+            _mediaPlayer.videoFitMode = VLCVideoFitSmaller;
             NSString *aspectRatio = [VLCAspectRatioBridge valueFor:_currentAspectRatio];
             _mediaPlayer.videoAspectRatio = aspectRatio;
     }
