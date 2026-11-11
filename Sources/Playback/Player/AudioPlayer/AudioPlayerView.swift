@@ -983,6 +983,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         }
 
         controlsStackView.spacing = controlsStackViewMinSpacing
+        controlsStackView.semanticContentAttribute = .forceLeftToRight
 
         let controlsStackViewLeading = controlsStackView.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor)
         controlsStackViewLeading.priority = .defaultHigh
