@@ -579,6 +579,13 @@ class PlayerViewController: UIViewController {
             }
     }
 
+    var tabletopFoldFrame: CGRect? {
+        let bounds = view.bounds
+        return activeReservedRegions(ofKind: "divisionRegionKind")
+            .map(\.frame)
+            .first { $0.width > $0.height && $0.minY > bounds.minY && $0.maxY < bounds.maxY }
+    }
+
     // The Dynamic Island sits mid-edge in landscape, so only regions confined to one half count as corner cameras.
     var topLeftCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
         let bounds = view.bounds

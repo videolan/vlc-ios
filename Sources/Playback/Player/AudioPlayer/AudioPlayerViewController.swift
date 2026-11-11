@@ -162,7 +162,9 @@ class AudioPlayerViewController: PlayerViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if audioPlayerView.navigationBarLayout.update(tabletopFold: nil,
+        let tabletopFold = tabletopFoldFrame
+        audioPlayerView.updateTabletopFold(tabletopFold)
+        if audioPlayerView.navigationBarLayout.update(tabletopFold: tabletopFold,
                                                       camera: topLeftCameraRegion,
                                                       statusBar: topRightCameraRegion,
                                                       statusBarCenterY: topBarLayoutGuide?.layoutFrame.midY) {

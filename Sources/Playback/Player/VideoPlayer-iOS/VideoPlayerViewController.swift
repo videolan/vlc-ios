@@ -512,13 +512,6 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
 #if os(iOS)
-    private var tabletopFoldFrame: CGRect? {
-        let bounds = view.bounds
-        return activeReservedRegions(ofKind: "divisionRegionKind")
-            .map(\.frame)
-            .first { $0.width > $0.height && $0.minY > bounds.minY && $0.maxY < bounds.maxY }
-    }
-
     private var bookFoldFrame: CGRect? {
         let bounds = view.bounds
         return activeReservedRegions(ofKind: "divisionRegionKind")

@@ -259,9 +259,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private var sharedConstraints: [NSLayoutConstraint] = []
     private var portraitConstraints: [NSLayoutConstraint] = []
+    private var unfoldedPortraitConstraints: [NSLayoutConstraint] = []
+    private var tabletopConstraints: [NSLayoutConstraint] = []
     private var landscapeConstraints: [NSLayoutConstraint] = []
+    private var activeLayoutConstraints: [NSLayoutConstraint] = []
 
     private var isLandscapeLayout: Bool = false
+    private var isTabletopLayout = false
+
+    private lazy var tabletopThumbnailBottomConstraint: NSLayoutConstraint = {
+        thumbnailView.bottomAnchor.constraint(equalTo: topAnchor)
+    }()
 
     private var centeredLayoutGuideLeadingConstraint: NSLayoutConstraint?
     private var centeredLayoutGuideTrailingConstraint: NSLayoutConstraint?
@@ -310,7 +318,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         setupProgressionView()
 
         NSLayoutConstraint.activate(sharedConstraints)
-        NSLayoutConstraint.activate(portraitConstraints)
+        updateLayoutConstraints()
     }
 
     func setupNavigationBar(with view: MediaNavigationBar) {
@@ -609,21 +617,42 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     func updateLayout(isLandscape: Bool) {
         isLandscapeLayout = isLandscape
-
-        if isLandscape {
-            NSLayoutConstraint.deactivate(portraitConstraints)
-            NSLayoutConstraint.activate(landscapeConstraints)
-            progressionViewHeightConstraint.constant = 30
-        } else {
-            NSLayoutConstraint.deactivate(landscapeConstraints)
-            NSLayoutConstraint.activate(portraitConstraints)
-            progressionViewHeightConstraint.constant = 70
-        }
+        progressionViewHeightConstraint.constant = isLandscape ? 30 : 70
+        updateLayoutConstraints()
 
         updatePortraitControlsWidthConstraints()
 
         setNeedsLayout()
         layoutIfNeeded()
+    }
+
+    func updateTabletopFold(_ fold: CGRect?) {
+        if let fold, tabletopThumbnailBottomConstraint.constant != fold.minY {
+            tabletopThumbnailBottomConstraint.constant = fold.minY
+        }
+
+        let isTabletop = fold != nil
+        guard isTabletop != isTabletopLayout else {
+            return
+        }
+
+        isTabletopLayout = isTabletop
+        updateLayoutConstraints()
+    }
+
+    private func updateLayoutConstraints() {
+        let constraints: [NSLayoutConstraint]
+        if isLandscapeLayout {
+            constraints = landscapeConstraints
+        } else if isTabletopLayout {
+            constraints = portraitConstraints + tabletopConstraints
+        } else {
+            constraints = portraitConstraints + unfoldedPortraitConstraints
+        }
+
+        NSLayoutConstraint.deactivate(activeLayoutConstraints)
+        activeLayoutConstraints = constraints
+        NSLayoutConstraint.activate(constraints)
     }
 
     func shouldDisableControls(_ disable: Bool) {
@@ -762,9 +791,14 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         sharedConstraints.append(thumbnailView.leadingAnchor.constraint(equalTo: centeredLayoutGuide.leadingAnchor))
 
-        portraitConstraints.append(contentsOf: [
-            thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 16),
-            thumbnailView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor),
+        portraitConstraints.append(thumbnailView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor))
+
+        unfoldedPortraitConstraints.append(thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor,
+                                                                              constant: 16))
+
+        tabletopConstraints.append(contentsOf: [
+            thumbnailView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            tabletopThumbnailBottomConstraint,
         ])
 
         landscapeConstraints.append(contentsOf: [
@@ -840,15 +874,25 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         portraitThumbnailTopConstraint = portraitThumbnailTop
         portraitAlbumBottomConstraint = portraitAlbumBottom
 
-        portraitConstraints.append(contentsOf: [
+        unfoldedPortraitConstraints.append(contentsOf: [
             portraitThumbnailTop,
+            titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: padding),
+            portraitAlbumBottom,
+        ])
+
+        tabletopConstraints.append(contentsOf: [
+            thumbnailImageView.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor),
+            thumbnailImageView.topAnchor.constraint(greaterThanOrEqualTo: thumbnailView.topAnchor, constant: padding),
+            titleLabel.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: padding),
+        ])
+
+        portraitConstraints.append(contentsOf: [
             thumbnailImageView.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             thumbnailImageViewLeading,
             thumbnailImageViewTrailing,
             thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor),
             portraitWidthConstraint,
 
-            titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: padding),
             titleLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
@@ -860,7 +904,6 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             albumLabel.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
             albumLabel.leadingAnchor.constraint(equalTo: progressionView.leadingAnchor),
             albumLabel.trailingAnchor.constraint(equalTo: progressionView.trailingAnchor),
-            portraitAlbumBottom,
         ])
 
         landscapeConstraints.append(contentsOf: [
@@ -978,6 +1021,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
             portraitProgressionLeading,
             portraitProgressionTrailing,
         ])
+
+        tabletopConstraints.append(progressionView.topAnchor.constraint(greaterThanOrEqualTo: albumLabel.bottomAnchor,
+                                                                        constant: 16))
 
         let landscapeProgressionTop = progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor)
         let landscapeProgressionLeading = progressionView.leadingAnchor.constraint(equalTo: landscapeRightLayoutGuide.leadingAnchor)
