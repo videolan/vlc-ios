@@ -27,13 +27,6 @@ protocol MediaNavigationBarDelegate {
     @objc optional func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar)
 }
 
-// MARK: - RendererActionSheetContent
-
-private enum RendererActionSheetContent: Int, CaseIterable {
-    case airplay
-    case chromecast
-}
-
 // MARK: - MediaNavigationBar
 
 @objc(VLCMediaNavigationBar)
@@ -104,13 +97,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }()
 
     lazy var deviceButton: UIButton = {
-        var chromeButton = UIButton(type: .system)
-        chromeButton.addTarget(self, action: #selector(toggleDeviceActionSheet),
-                               for: .touchDown)
-        chromeButton.setImage(UIImage(named: "renderer"), for: .normal)
-        chromeButton.tintColor = .white
-        chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        return chromeButton
+        let button = rendererDiscovererService.setupRendererButton()
+        button.tintColor = .white
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return button
     }()
 
     lazy var pictureInPictureButton: UIButton = {
@@ -122,20 +112,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return button
     }()
-
-    private var closureQueue: (() -> Void)? = nil
-
-    private lazy var deviceActionSheet: ActionSheet = {
-        let actionSheet = ActionSheet()
-        actionSheet.delegate = self
-        actionSheet.dataSource = self
-        actionSheet.modalPresentationStyle = .custom
-        actionSheet.excludesWhiteTheme = true
-        return actionSheet
-    }()
 #endif
-
-    var presentingViewController: UIViewController?
 
     #if os(iOS)
     private var rendererDiscovererService: VLCRendererDiscovererManager
@@ -215,6 +192,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         closeButtonBackground.setVisible(visible)
         favoriteButton.alpha = itemAlpha
 #if os(iOS)
+        airplayRoutePickerView.alpha = itemAlpha
         deviceButton.alpha = itemAlpha
         pictureInPictureButton.alpha = itemAlpha
 #endif
@@ -246,7 +224,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         addArrangedSubview(mediaTitleTextLabel)
 
 #if os(iOS)
-        let outputButtons: [UIView] = [favoriteButton, queueButton, deviceButton]
+        let outputButtons: [UIView] = [favoriteButton, queueButton, airplayRoutePickerView, deviceButton]
 #else
         let outputButtons: [UIView] = [favoriteButton, queueButton, airplayVolumeView]
 #endif
@@ -270,15 +248,6 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     // MARK: - Button Actions
-
-#if os(iOS)
-    func toggleDeviceActionSheet() {
-        deviceActionSheet.delegate = self
-        deviceActionSheet.dataSource = self
-        presentingViewController?.present(deviceActionSheet,
-                                          animated: true)
-    }
-#endif
 
     func togglePictureInPicture() {
         delegate?.mediaNavigationBarDidTapPictureInPicture?(self)
@@ -355,85 +324,3 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 #endif
 }
-
-// MARK: - ActionSheetDelegate, ActionSheetDataSource
-
-#if os(iOS)
-extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
-    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
-        if indexPath.row == 0 {
-            let selector = NSSelectorFromString("_displayAudioRoutePicker")
-            if airplayVolumeView.responds(to: selector) {
-                airplayVolumeView.perform(selector)
-                addArrangedSubview(airplayVolumeView)
-                for view: UIView in airplayVolumeView.subviews {
-                    if let button = view as? UIButton {
-                        button.sendActions(for: .touchUpInside)
-                        break
-                    }
-                }
-                airplayVolumeView.removeFromSuperview()
-            }
-        } else {
-            // Save closure for chromecast until the end of the actionSheet animation
-            closureQueue = { [weak self] in
-                self?.chromeCastButton.sendActions(for: .touchUpInside)
-            }
-        }
-        return nil
-    }
-
-    func headerViewTitle() -> String? {
-        return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
-    }
-
-    func numberOfRows() -> Int {
-        RendererActionSheetContent.allCases.count
-    }
-
-    private func enableViews(_ enable: Bool, _ view: UIView) {
-        view.subviews.forEach() {
-            $0.alpha = enable ? 1 : 0.5
-        }
-        view.isUserInteractionEnabled = enable
-    }
-
-    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ActionSheetCell.identifier,
-            for: indexPath) as? ActionSheetCell else {
-                assertionFailure("MediaNavigationBar: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-                return UICollectionViewCell()
-            }
-
-        switch indexPath.row {
-        case RendererActionSheetContent.airplay.rawValue:
-            cell.name.text = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
-            cell.name.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
-            cell.icon.image = UIImage(named: "airplay-audio")
-        case RendererActionSheetContent.chromecast.rawValue:
-            cell.name.text = NSLocalizedString("BUTTON_RENDERER", comment: "")
-            cell.icon.image = UIImage(named: "renderer")
-            enableViews(!rendererDiscovererService.getAllRenderers().isEmpty,
-                        cell)
-        default:
-            break
-        }
-
-        cell.isMediaPlayerActionSheetCell = true
-
-        let colors: ColorPalette = PresentationTheme.currentExcludingWhite.colors
-        cell.backgroundColor = colors.background
-        cell.name.textColor = colors.cellTextColor
-        cell.name.backgroundColor = colors.background
-        cell.stackView.backgroundColor = colors.background
-        cell.icon.tintColor = .white
-        return cell
-    }
-
-    func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
-        closureQueue?()
-        closureQueue = nil
-    }
-}
-#endif

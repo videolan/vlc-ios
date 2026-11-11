@@ -164,7 +164,6 @@ class PlayerViewController: UIViewController {
         var mediaNavigationBar = MediaNavigationBar(frame: .zero)
 #endif
         mediaNavigationBar.delegate = self
-        mediaNavigationBar.presentingViewController = self
         return mediaNavigationBar
     }()
 
@@ -2023,11 +2022,6 @@ extension PlayerViewController {
 
         // Close whatever is on top first (options sheet, track selector, ...)
         // instead of falling through and closing the player underneath it.
-        if let actionSheet = presentedViewController as? ActionSheet {
-            actionSheet.removeActionSheet()
-            return
-        }
-
         if let presented = presentedViewController {
             presented.dismiss(animated: true)
             return
