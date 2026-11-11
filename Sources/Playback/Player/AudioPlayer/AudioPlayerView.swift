@@ -62,7 +62,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
-        titleLabel.font = .boldSystemFont(ofSize: 20.0)
+        titleLabel.font = .boldSystemFont(ofSize: 22.0)
         titleLabel.numberOfLines = 2
         titleLabel.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return titleLabel
@@ -71,7 +71,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     private lazy var artistLabel: UILabel = {
         let artistLabel = UILabel()
         artistLabel.textAlignment = .center
-        artistLabel.font = .systemFont(ofSize: 18.0)
+        artistLabel.font = .systemFont(ofSize: 17.0)
         artistLabel.numberOfLines = 2
         artistLabel.accessibilityLabel = NSLocalizedString("ARTIST", comment: "")
         return artistLabel
@@ -398,7 +398,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     func setupLabels() {
         titleLabel.textColor = .white
         artistLabel.textColor = .white
-        albumLabel.textColor = .white
+        albumLabel.textColor = PresentationTheme.currentExcludingWhite.colors.overlaySecondaryTextColor
     }
 
     func setupProgressView(with view: MediaScrubProgressBar) {
