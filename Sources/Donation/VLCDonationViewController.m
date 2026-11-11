@@ -27,7 +27,7 @@
 
 typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 
-@interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource, PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
+@interface VLCDonationViewController () <PKPaymentAuthorizationViewControllerDelegate, VLCStripeControllerDelegate>
 {
     BOOL _embargoedCountry;
 
@@ -36,7 +36,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     VLCCurrency *_selectedCurrency;
     VLCPrice *_selectedPrice;
     VLCSubscription *_currentSubscription;
-    VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
     NSMutableArray *_paymentProviders;
@@ -139,13 +138,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
                            _monthlyThirdOptionButton];
 
     self.monthlyPaymentView.hidden = YES;
-
-    _actionSheet = [[VLCActionSheet alloc] init];
-    _actionSheet.dataSource = self;
-    _actionSheet.delegate = self;
-    _actionSheet.modalPresentationStyle = UIModalPresentationCustom;
-    [_actionSheet.collectionView registerClass:[VLCActionSheetCell class]
-                    forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
@@ -331,7 +323,53 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     [self hidePurchaseInterface:NO];
     [_applePayButton removeFromSuperview];
     [_payPalImageView removeFromSuperview];
-    [self presentViewController:_actionSheet animated:YES completion:nil];
+
+    ColorPalette *colors = PresentationTheme.current.colors;
+    UIViewController *sheetViewController = [[UIViewController alloc] init];
+    sheetViewController.title = NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
+    UIView *sheetView = sheetViewController.view;
+    sheetView.backgroundColor = colors.background;
+
+    UIButtonConfiguration *configuration = [UIButtonConfiguration grayButtonConfiguration];
+    configuration.cornerStyle = UIButtonConfigurationCornerStyleFixed;
+    configuration.background.cornerRadius = 12.;
+    configuration.baseForegroundColor = colors.cellTextColor;
+    configuration.imagePadding = 8.;
+
+    UILayoutGuide *safeArea = sheetView.safeAreaLayoutGuide;
+    NSLayoutYAxisAnchor *previousAnchor = safeArea.topAnchor;
+    for (NSUInteger index = 0; index < _paymentProviders.count; index++) {
+        UIButton *button = [UIButton buttonWithConfiguration:configuration primaryAction:nil];
+        button.tag = index;
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        [button addTarget:self action:@selector(selectPaymentProvider:) forControlEvents:UIControlEventTouchUpInside];
+        [sheetView addSubview:button];
+        [self configureButton:button forPaymentProvider:_paymentProviders[index]];
+        [NSLayoutConstraint activateConstraints:@[
+            [button.topAnchor constraintEqualToAnchor:previousAnchor constant:12.],
+            [button.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor constant:20.],
+            [button.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor constant:-20.],
+            [button.heightAnchor constraintEqualToConstant:50.],
+        ]];
+        previousAnchor = button.bottomAnchor;
+    }
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:sheetViewController];
+    navigationController.navigationBar.prefersLargeTitles = NO;
+#if !TARGET_OS_VISION
+    UISheetPresentationController *sheet = navigationController.sheetPresentationController;
+    sheet.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
+    sheet.prefersGrabberVisible = YES;
+#endif
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)selectPaymentProvider:(UIButton *)sender
+{
+    _selectedPaymentProvider = _paymentProviders[sender.tag];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showSelectedPaymentProvider];
+    }];
 }
 
 - (IBAction)customAmountFieldAction:(id)sender
@@ -537,28 +575,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark - action sheet delegate
-
-- (NSString *)headerViewTitle
-{
-    return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
-}
-
-- (id)itemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return _paymentProviders[indexPath.row];
-}
-
-- (void)actionSheetWithCollectionView:(UICollectionView *)collectionView didSelectItem:(id)item At:(NSIndexPath *)indexPath
-{
-    _selectedPaymentProvider = _paymentProviders[indexPath.row];
-}
-
-- (void)actionSheetDidFinishClosingAnimation:(VLCActionSheet *)actionSheet
-{
-    [self showSelectedPaymentProvider];
-}
-
 - (void)showSelectedCurrency
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -596,8 +612,9 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     if (_selectedCurrency.supportsPayPal) {
         [_paymentProviders addObject:@"PayPal"];
 
-        UIImage *paypalLogo = [UIImage imageNamed:@"paypal-color"];
+        UIImage *paypalLogo = [[UIImage imageNamed:@"paypal-black"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
+        _payPalImageView.tintColor = PresentationTheme.current.colors.cellTextColor;
         _payPalImageView.contentMode = UIViewContentModeScaleAspectFit;
         _payPalImageView.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -605,10 +622,11 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     if ([PKPaymentAuthorizationViewController canMakePayments]) {
         [_paymentProviders addObject:@"Apple Pay"];
 
-        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
+        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleAutomatic];
+        _applePayButton.cornerRadius = 12.;
 
         _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
-        /* This is a fake button, the action is handled by the containing collection view */
+        /* This is a fake button, the action is handled by the containing button */
         _applePayButton.userInteractionEnabled = NO;
     }
     [_paymentProviders addObject:NSLocalizedString(@"DONATE_CC_DC", nil)];
@@ -649,50 +667,31 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     _selectedPaymentProvider = nil;
 }
 
-#pragma mark - action sheet data source
-
-- (UICollectionViewCell *)actionSheetWithCollectionView:(UICollectionView *)collectionView cellForItemAt:(NSIndexPath *)indexPath
+- (void)configureButton:(UIButton *)button forPaymentProvider:(NSString *)paymentProviderName
 {
-    VLCActionSheetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCActionSheetCell.identifier forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[VLCActionSheetCell alloc] init];
-    }
-    [self configureCellForPaymentProvider:cell atIndexPath:indexPath];
-
-    return cell;
-}
-
-- (NSInteger)numberOfRows
-{
-    return _paymentProviders.count;
-}
-
-- (void)configureCellForPaymentProvider:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *paymentProviderName = _paymentProviders[indexPath.row];
-    cell.name.text = @"";
-
     if ([paymentProviderName isEqualToString:@"Apple Pay"]) {
-        [cell addSubview:_applePayButton];
+        [button addSubview:_applePayButton];
 
         NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
-        [constraints addObject:[_applePayButton.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
-        [constraints addObject:[_applePayButton.widthAnchor constraintEqualToAnchor:cell.widthAnchor multiplier:0.8]];
-        [constraints addObject:[_applePayButton.heightAnchor constraintEqualToAnchor:cell.heightAnchor multiplier:0.8]];
-        [constraints addObject:[_applePayButton.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]];
-        [cell addConstraints:constraints];
+        [constraints addObject:[_applePayButton.centerXAnchor constraintEqualToAnchor:button.centerXAnchor]];
+        [constraints addObject:[_applePayButton.widthAnchor constraintEqualToAnchor:button.widthAnchor]];
+        [constraints addObject:[_applePayButton.heightAnchor constraintEqualToAnchor:button.heightAnchor]];
+        [constraints addObject:[_applePayButton.centerYAnchor constraintEqualToAnchor:button.centerYAnchor]];
+        [button addConstraints:constraints];
     } else if ([paymentProviderName isEqualToString:@"PayPal"]) {
-        [cell addSubview:_payPalImageView];
+        [button addSubview:_payPalImageView];
 
         NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
-        [constraints addObject:[_payPalImageView.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
-        [constraints addObject:[_payPalImageView.widthAnchor constraintEqualToAnchor:cell.widthAnchor]];
-        [constraints addObject:[_payPalImageView.heightAnchor constraintEqualToAnchor:cell.heightAnchor multiplier:0.8]];
-        [constraints addObject:[_payPalImageView.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]];
-        [cell addConstraints:constraints];
+        [constraints addObject:[_payPalImageView.centerXAnchor constraintEqualToAnchor:button.centerXAnchor]];
+        [constraints addObject:[_payPalImageView.widthAnchor constraintEqualToAnchor:button.widthAnchor]];
+        [constraints addObject:[_payPalImageView.heightAnchor constraintEqualToAnchor:button.heightAnchor multiplier:0.5]];
+        [constraints addObject:[_payPalImageView.centerYAnchor constraintEqualToAnchor:button.centerYAnchor]];
+        [button addConstraints:constraints];
     } else {
-        cell.name.text = paymentProviderName;
-        cell.name.textAlignment = NSTextAlignmentCenter;
+        UIButtonConfiguration *configuration = button.configuration;
+        configuration.title = paymentProviderName;
+        configuration.image = [UIImage systemImageNamed:[paymentProviderName isEqualToString:NSLocalizedString(@"DONATE_CC_DC", nil)] ? @"creditcard" : @"building.columns"];
+        button.configuration = configuration;
     }
 }
 
