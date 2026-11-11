@@ -102,6 +102,15 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
                              object:nil];
 }
 
+- (void)updateBottomInsets
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    contentInsets.bottom = [self baseBottomInset];
+
+    self.tableView.contentInset = contentInsets;
+    self.tableView.verticalScrollIndicatorInsets = contentInsets;
+}
+
 - (CGFloat)baseBottomInset
 {
     CGFloat inset = 0.;
@@ -121,6 +130,13 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     }
 
     [self.tableView adjustBottomInsetForKeyboardNotification:aNotification baseInset:[self baseBottomInset]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self updateBottomInsets];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
