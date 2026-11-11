@@ -26,40 +26,47 @@ class BottomTabBarController: UITabBarController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
-    
+
     private lazy var audioMiniPlayer: AudioMiniPlayer = {
         let miniPlayer = AudioMiniPlayer()
         if #unavailable(iOS 26) {
             miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         return miniPlayer
     }()
-    
+
     private static let legacyContentInsetConstant: CGFloat = 8
     private var legacyMiniPlayerNeedsUpdatedConstraints: Bool = false
     private var legacyMiniPlayerConstraints: [NSLayoutConstraint] = []
     private var legacyMiniPlayerBottomConstraint: NSLayoutConstraint?
-    
+
     @objc
     public private(set) var isMiniPlayerVisible: Bool = false
-    
+
     @objc
     public var miniPlayerZoomEndpoint: ZoomTransitionEndpoint? {
         audioMiniPlayer
     }
-    
+
     private var transferStatusBottomAnchorNeedsRefresh: Bool = false
     private var transferStatusBannerController: VLCTransferStatusBannerController!
-    private var transferNavigationController: UINavigationController?
+
+    #if os(iOS)
+    override var viewControllers: [UIViewController]? {
+        didSet {
+            updateLegacyMiniPlayerSafeAreaInsets()
+        }
+    }
+    #endif
 
     // MARK: - Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         transferStatusBannerController = VLCTransferStatusBannerController(containerView: view, delegate: self)
-        
+
         #if os(iOS)
         if #available(iOS 26.0, *) {
             tabBarMinimizeBehavior = .onScrollDown
@@ -80,22 +87,22 @@ class BottomTabBarController: UITabBarController {
             }
         }
     }
-    
+
     #if os(iOS)
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
         guard #unavailable(iOS 26) else { return }
-        
+
         if traitCollection.horizontalSizeClass != previousTraitCollection?.horizontalSizeClass {
             transferStatusBottomAnchorNeedsRefresh = true
             legacyMiniPlayerNeedsUpdatedConstraints = isMiniPlayerVisible
         }
     }
     #endif
-    
+
     // MARK: - Mini-player display
-    
+
     @objc
     func displayMiniPlayer(_ display: Bool, animated: Bool) {
         #if os(iOS)
@@ -111,20 +118,21 @@ class BottomTabBarController: UITabBarController {
             setupMiniPlayerLayout()
             audioMiniPlayer.prepare(forMediaPlayback: PlaybackService.sharedInstance())
             guard let legacyMiniPlayerBottomConstraint else { return }
-            if #available(iOS 18, *), traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad {
-                legacyMiniPlayerBottomConstraint.constant = CGFloat(audioMiniPlayer.contentHeight)
-            } else {
-                legacyMiniPlayerBottomConstraint.constant = tabBar.bounds.height + CGFloat(audioMiniPlayer.contentHeight)
-            }
+            legacyMiniPlayerBottomConstraint.constant = legacyMiniPlayerOffscreenConstant
             view.layoutIfNeeded()
             UIView.animate(withDuration: animated ? 0.2 : 0) {
                 self.animateLegacyMiniPlayerShow()
             }
         } else {
+            isMiniPlayerVisible = false
             view.layoutIfNeeded()
-            UIView.animate(withDuration: animated ? 0.2 : 0) {
+            UIView.animate(withDuration: animated ? 0.2 : 0, animations: {
                 self.animateLegacyMiniPlayerHide()
-            }
+            }, completion: { _ in
+                if !self.isMiniPlayerVisible {
+                    self.audioMiniPlayer.removeFromSuperview()
+                }
+            })
         }
         #else
         if display {
@@ -138,56 +146,60 @@ class BottomTabBarController: UITabBarController {
         }
         isMiniPlayerVisible = display
         #endif
-        
+
         NotificationCenter.default.post(name: display ? .VLCMiniPlayerDisplayedNotification : .VLCMiniPlayerHiddenNotification, object: self)
     }
-    
+
+    private var legacyMiniPlayerPinsToSafeArea: Bool {
+        guard #available(iOS 18, *) else { return false }
+        return traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad
+    }
+
+    private var legacyMiniPlayerOffscreenConstant: CGFloat {
+        let height = CGFloat(audioMiniPlayer.contentHeight)
+        return legacyMiniPlayerPinsToSafeArea ? view.safeAreaInsets.bottom + height : tabBar.bounds.height + height
+    }
+
+    private func updateLegacyMiniPlayerSafeAreaInsets() {
+        guard #unavailable(iOS 26) else { return }
+        let bottomInset = isMiniPlayerVisible ? CGFloat(audioMiniPlayer.contentHeight) + Self.legacyContentInsetConstant * 2 : 0
+        viewControllers?.forEach {
+            $0.additionalSafeAreaInsets.bottom = bottomInset
+        }
+    }
+
     private func animateLegacyMiniPlayerShow() {
         guard let legacyMiniPlayerBottomConstraint else { return }
-        var edgeInsets = UIEdgeInsets()
-        edgeInsets.bottom = CGFloat(audioMiniPlayer.contentHeight) + Self.legacyContentInsetConstant * 2
         legacyMiniPlayerBottomConstraint.constant = -Self.legacyContentInsetConstant
-        viewControllers?.forEach {
-            $0.additionalSafeAreaInsets = edgeInsets
-        }
-        self.refreshTransferStatusBottomAnchor()
+        updateLegacyMiniPlayerSafeAreaInsets()
+        refreshTransferStatusBottomAnchor()
         view.layoutIfNeeded()
     }
-    
+
     private func animateLegacyMiniPlayerHide() {
         guard let legacyMiniPlayerBottomConstraint else { return }
-        let miniPlayerOffscreenConstant: CGFloat
-        if #available(iOS 18, *), traitCollection.horizontalSizeClass == .regular && UIDevice.current.userInterfaceIdiom == .pad {
-            miniPlayerOffscreenConstant = CGFloat(audioMiniPlayer.contentHeight)
-        } else {
-            miniPlayerOffscreenConstant = tabBar.bounds.height + CGFloat(audioMiniPlayer.contentHeight)
-        }
-        legacyMiniPlayerBottomConstraint.constant = miniPlayerOffscreenConstant
-        viewControllers?.forEach {
-            $0.additionalSafeAreaInsets = .zero
-        }
-        self.isMiniPlayerVisible = false
-        self.audioMiniPlayer.removeFromSuperview()
-        self.refreshTransferStatusBottomAnchor()
+        legacyMiniPlayerBottomConstraint.constant = legacyMiniPlayerOffscreenConstant
+        updateLegacyMiniPlayerSafeAreaInsets()
+        refreshTransferStatusBottomAnchor()
         view.layoutIfNeeded()
     }
-    
+
     private func setupMiniPlayerLayout() {
         guard isMiniPlayerVisible else { return }
-        
+
         NSLayoutConstraint.deactivate(legacyMiniPlayerConstraints)
-        
+
         legacyMiniPlayerConstraints = [
             audioMiniPlayer.heightAnchor.constraint(equalToConstant: CGFloat(audioMiniPlayer.contentHeight))
         ]
-        
+
         if traitCollection.horizontalSizeClass == .regular {
-            if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
-                legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Self.legacyContentInsetConstant)
+            if legacyMiniPlayerPinsToSafeArea {
+                legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Self.legacyContentInsetConstant)
             } else {
                 legacyMiniPlayerBottomConstraint = audioMiniPlayer.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -Self.legacyContentInsetConstant)
             }
-            
+
             legacyMiniPlayerConstraints.append(contentsOf: [
                 audioMiniPlayer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
                 audioMiniPlayer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: AudioMiniPlayer.largeScreenWidthFactor),
@@ -201,7 +213,7 @@ class BottomTabBarController: UITabBarController {
                 legacyMiniPlayerBottomConstraint!
             ])
         }
-        
+
         NSLayoutConstraint.activate(legacyMiniPlayerConstraints)
         legacyMiniPlayerNeedsUpdatedConstraints = false
     }
@@ -327,7 +339,7 @@ extension BottomTabBarController: VLCTransferStatusBannerControllerDelegate {
         transferStatusBannerController.refreshBottomAnchor()
         transferStatusBottomAnchorNeedsRefresh = false
     }
-    
+
     func bottomAnchor(forTransferStatusBanner controller: VLCTransferStatusBannerController!) -> NSLayoutYAxisAnchor! {
         #if os(visionOS)
         if #available(visionOS 26, *) {
@@ -348,7 +360,7 @@ extension BottomTabBarController: VLCTransferStatusBannerControllerDelegate {
         }
         #endif
     }
-    
+
     func safeAreaLayoutGuide(forTransferStatusBanner controller: VLCTransferStatusBannerController!) -> UILayoutGuide! {
         if #available(iOS 26, visionOS 26, *) {
             return contentLayoutGuide
@@ -356,17 +368,15 @@ extension BottomTabBarController: VLCTransferStatusBannerControllerDelegate {
             return view.safeAreaLayoutGuide
         }
     }
-    
+
     func transferStatusBannerWasTapped(_ controller: VLCTransferStatusBannerController!) {
         let transferVC = VLCTransferViewController()
-        transferNavigationController = UINavigationController(rootViewController: transferVC)
         transferVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissTransfersViewController))
-        self.present(transferNavigationController!, animated: true)
+        present(UINavigationController(rootViewController: transferVC), animated: true)
     }
-    
+
     @objc
     private func dismissTransfersViewController(_ sender: Any) {
-        transferNavigationController?.dismiss(animated: true)
-        transferNavigationController = nil
+        dismiss(animated: true)
     }
 }
