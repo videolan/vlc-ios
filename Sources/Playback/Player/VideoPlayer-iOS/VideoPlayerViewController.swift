@@ -471,7 +471,6 @@ class VideoPlayerViewController: PlayerViewController {
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
 
-        moreOptionsActionSheet.updateThemes()
         gameControllerManager.startMonitoring()
     }
 
@@ -1583,8 +1582,6 @@ extension VideoPlayerViewController {
             queueCollectionView.reloadData()
         }
 
-        moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
-
         if currentState == .opening {
             updateAudioInterface(with: playbackService.metadata)
             if UserDefaults.standard.bool(forKey: kVLCSettingRotationLock) {
@@ -1809,11 +1806,11 @@ extension VideoPlayerViewController: MenuButtonDelegate {
     }
 }
 
-// MARK: - MediaMoreOptionsActionSheetDelegate
+// MARK: - More Options Menu
 
 extension VideoPlayerViewController {
-    override func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
-        super.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
+    override func moreOptionsMenuDidToggleInterfaceLock(state: Bool) {
+        super.moreOptionsMenuDidToggleInterfaceLock(state: state)
 
 #if os(iOS)
         let mask = getInterfaceOrientationMask(orientation: currentInterfaceOrientation)
@@ -1824,45 +1821,16 @@ extension VideoPlayerViewController {
         setPlayerInterfaceEnabled(!state)
     }
 
-    func mediaMoreOptionsActionSheetDidAppeared() {
-        guard overlayCardView == nil else {
-            return
-        }
-        handleTapOnVideo()
-    }
-
-    override func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier) {
-        switch option {
-        case .videoFilters:
-            showIcon(button: optionsNavigationBar.videoFiltersButton)
-            break
-        default:
-            super.mediaMoreOptionsActionSheetShowIcon(for: option)
-        }
-    }
-
-    override func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier) {
-        switch option {
-        case .videoFilters:
-            hideIcon(button: optionsNavigationBar.videoFiltersButton)
-            break
-        default:
-            super.mediaMoreOptionsActionSheetHideIcon(for: option)
-        }
-    }
-
-    override func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
+    override func moreOptionsMenuDidToggleShuffle() {
         videoPlayerControlsDelegateShuffle(videoPlayerControls)
-        mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
 
-    override func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
+    override func moreOptionsMenuDidTapRepeat() {
         videoPlayerControlsDelegateRepeat(videoPlayerControls)
-        mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
 
-    override func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
-        super.mediaMoreOptionsActionSheetPresentABRepeatView(with: abView)
+    override func presentABRepeatView() {
+        super.presentABRepeatView()
 
         guard let abRepeatView = abRepeatView else {
             return

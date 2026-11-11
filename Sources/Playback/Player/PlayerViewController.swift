@@ -174,6 +174,8 @@ class PlayerViewController: UIViewController {
 
     var abRepeatView: ABRepeatView?
 
+    private(set) var currentMediaHasChapters = false
+
     lazy var aMark: ABRepeatMarkView = {
         let aMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
         aMark.translatesAutoresizingMaskIntoConstraints = false
@@ -184,12 +186,6 @@ class PlayerViewController: UIViewController {
         let bMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
         bMark.translatesAutoresizingMaskIntoConstraints = false
         return bMark
-    }()
-
-    lazy var moreOptionsActionSheet: MediaMoreOptionsActionSheet = {
-        var moreOptionsActionSheet = MediaMoreOptionsActionSheet()
-        moreOptionsActionSheet.moreOptionsDelegate = self
-        return moreOptionsActionSheet
     }()
 
     lazy var optionsNavigationBar: OptionsNavigationBar = {
@@ -1552,6 +1548,8 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState, isPlaying: Bool, currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool, for playbackService: PlaybackService) {
+        self.currentMediaHasChapters = currentMediaHasChapters
+
         switch currentState {
         case .stopped:
             coneLoadingView.stopAnimating()
@@ -1758,14 +1756,53 @@ extension PlayerViewController: BookmarksViewDelegate {
     }
 }
 
-// MARK: - MediaMoreOptionsActionSheetDelegate
+// MARK: - More Options Menu
 
-extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
-    func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+extension PlayerViewController {
+    @objc func moreOptionsMenuDidToggleInterfaceLock(state: Bool) {
         minimizeGestureRecognizer.isEnabled = !state
     }
 
-    func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier) {
+    @objc func moreOptionsMenuDidToggleShuffle() {
+        updateShuffleState()
+    }
+
+    @objc func moreOptionsMenuDidTapRepeat() {
+        updateRepeatMode()
+    }
+
+    @objc func presentABRepeatView() {
+        let abView = abRepeatView ?? ABRepeatView(frame: CGRect(x: 0, y: 0, width: 500, height: 100))
+        abView.delegate = self
+        abView.translatesAutoresizingMaskIntoConstraints = false
+        abRepeatView = abView
+
+        abView.aMarkView.isHidden = false
+        abView.bMarkView.isHidden = true
+        mediaScrubProgressBar.shouldHideScrubLabels = true
+    }
+}
+
+// MARK: - ABRepeatViewDelegate
+
+extension PlayerViewController: ABRepeatViewDelegate {
+    func abRepeatViewDidSelectAMark() {
+        mediaScrubProgressBar.setMark(aMark)
+        aMark.isEnabled = true
+    }
+
+    func abRepeatViewDidSelectBMark() {
+        mediaScrubProgressBar.setMark(bMark)
+        bMark.isEnabled = true
+        mediaScrubProgressBar.shouldHideScrubLabels = false
+        abRepeatView?.removeFromSuperview()
+
+        let from = min(aMark.getPosition(), bMark.getPosition())
+        let to = max(aMark.getPosition(), bMark.getPosition())
+        playbackService.setABLoopFromPosition(Double(from), toPosition: Double(to))
+    }
+
+    func abRepeatViewShowIcon(_ option: OptionsNavigationBarIdentifier) {
         switch option {
         case .playbackSpeed:
             showIcon(button: optionsNavigationBar.playbackSpeedButton)
@@ -1784,7 +1821,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         }
     }
 
-    func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier) {
+    func abRepeatViewHideIcon(_ option: OptionsNavigationBarIdentifier) {
         switch option {
         case .playbackSpeed:
             hideIcon(button: optionsNavigationBar.playbackSpeedButton)
@@ -1801,78 +1838,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         default:
             assertionFailure("PlayerViewController: Invalid option.")
         }
-    }
-
-    func mediaMoreOptionsActionSheetPresentPlaybackSpeed() {
-        showPlaybackSpeedCard()
-    }
-
-    func mediaMoreOptionsActionSheetPresentSleepTimer() {
-        showSleepTimerCard()
-    }
-
-    func mediaMoreOptionsActionSheetPresentVideoFilters() {
-        showVideoFiltersCard()
-    }
-
-    func mediaMoreOptionsActionSheetPresentEqualizer() {
-        showEqualizerCard()
-    }
-
-    func mediaMoreOptionsActionSheetHideAlertIfNecessary() {
-        guard let alertController = alertController else {
-            return
-        }
-
-        alertController.dismiss(animated: true)
-        self.alertController = nil
-    }
-
-    func mediaMoreOptionsActionSheetUpdateProgressBar() {
-        if !playbackService.isPlaying {
-            playbackService.playPause()
-        }
-    }
-
-    func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
-        updateShuffleState()
-
-        mediaMoreOptionsActionSheet.collectionView.reloadData()
-    }
-
-    func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
-        updateRepeatMode()
-
-        mediaMoreOptionsActionSheet.collectionView.reloadData()
-    }
-
-    func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
-        abView.translatesAutoresizingMaskIntoConstraints = false
-        abRepeatView = abView
-
-        guard let abRepeatView = abRepeatView else {
-            return
-        }
-
-        abRepeatView.aMarkView.isHidden = false
-        abRepeatView.bMarkView.isHidden = true
-        mediaScrubProgressBar.shouldHideScrubLabels = true
-    }
-
-    func mediaMoreOptionsActionSheetDidSelectAMark() {
-        mediaScrubProgressBar.setMark(aMark)
-        aMark.isEnabled = true
-    }
-
-    func mediaMoreOptionsActionSheetDidSelectBMark() {
-        mediaScrubProgressBar.setMark(bMark)
-        bMark.isEnabled = true
-        mediaScrubProgressBar.shouldHideScrubLabels = false
-        abRepeatView?.removeFromSuperview()
-
-        let from = min(aMark.getPosition(), bMark.getPosition())
-        let to = max(aMark.getPosition(), bMark.getPosition())
-        playbackService.setABLoopFromPosition(Double(from), toPosition: Double(to))
     }
 }
 
@@ -1922,12 +1887,12 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
         bMark.removeFromSuperview()
         bMark.isEnabled = false
 
-        guard let abRepeatView = abRepeatView,
+        guard abRepeatView != nil,
               shouldDisplayView else {
             return
         }
 
-        mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
+        presentABRepeatView()
     }
 }
 

@@ -497,8 +497,6 @@ extension AudioPlayerViewController {
         if currentState == .opening || currentState == .stopped {
             resetABRepeat()
         }
-
-        moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
@@ -592,17 +590,17 @@ extension AudioPlayerViewController {
     }
 }
 
-// MARK: - MediaMoreOptionsActionSheetDelegate
+// MARK: - More Options Menu
 
 extension AudioPlayerViewController {
-    override func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
-        super.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
+    override func moreOptionsMenuDidToggleInterfaceLock(state: Bool) {
+        super.moreOptionsMenuDidToggleInterfaceLock(state: state)
 
         setPlayerInterfaceEnabled(!state)
     }
 
-    override func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
-        super.mediaMoreOptionsActionSheetPresentABRepeatView(with: abView)
+    override func presentABRepeatView() {
+        super.presentABRepeatView()
 
         guard let abRepeatView = abRepeatView else {
             return

@@ -22,21 +22,21 @@ extension PlayerViewController {
     private func makeMoreOptionsMenuElements() -> [UIMenuElement] {
         let isInterfaceLocked = playerController.isInterfaceLocked
         let interfaceLockAction = UIAction(title: NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: ""),
-                                           image: menuIcon(for: .interfaceLock),
+                                           image: menuIcon(named: "interfaceLock"),
                                            state: isInterfaceLocked ? .on : .off) { _ in
-            self.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: !isInterfaceLocked)
+            self.moreOptionsMenuDidToggleInterfaceLock(state: !isInterfaceLocked)
         }
         guard !isInterfaceLocked else {
             return [interfaceLockAction]
         }
 
-        let videoFiltersAction = UIAction(title: ActionSheetCellIdentifier.filter.description,
-                                          image: menuIcon(for: .filter)) { _ in
-            self.mediaMoreOptionsActionSheetPresentVideoFilters()
+        let videoFiltersAction = UIAction(title: NSLocalizedString("VIDEO_FILTER", comment: ""),
+                                          image: menuIcon(named: "filter")) { _ in
+            self.showVideoFiltersCard()
         }
-        let abRepeatAction = UIAction(title: ActionSheetCellIdentifier.abRepeat.description,
-                                      image: menuIcon(for: .abRepeat)) { _ in
-            self.mediaMoreOptionsActionSheetPresentABRepeatView(with: self.moreOptionsActionSheet.abRepeatView)
+        let abRepeatAction = UIAction(title: NSLocalizedString("AB_LOOP", comment: ""),
+                                      image: menuIcon(named: "abRepeat")) { _ in
+            self.presentABRepeatView()
         }
 
         var playbackActions = [makePlaybackSpeedAction(), makeSleepTimerAction(), makeEqualizerAction()]
@@ -55,21 +55,21 @@ extension PlayerViewController {
             keepsMenuPresented = .keepsMenuPresented
         }
 
-        let repeatMode = moreOptionsActionSheet.configureRepeatMode()
+        let repeatMode = configureRepeatMode()
         let repeatAction = UIAction(title: repeatMode.title,
                                     image: repeatMode.image?.withRenderingMode(.alwaysTemplate),
                                     attributes: keepsMenuPresented,
                                     state: repeatMode.isEnabled ? .on : .off) { _ in
-            self.mediaMoreOptionsActionSheetDidTapRepeat(self.moreOptionsActionSheet)
+            self.moreOptionsMenuDidTapRepeat()
             self.refreshVisibleMoreOptionsMenu()
         }
 
-        let shuffleMode = moreOptionsActionSheet.configureShuffleMode()
+        let shuffleMode = configureShuffleMode()
         let shuffleAction = UIAction(title: shuffleMode.title,
                                      image: shuffleMode.image?.withRenderingMode(.alwaysTemplate),
                                      attributes: keepsMenuPresented,
                                      state: shuffleMode.isEnabled ? .on : .off) { _ in
-            self.mediaMoreOptionsActionSheetDidToggleShuffle(self.moreOptionsActionSheet)
+            self.moreOptionsMenuDidToggleShuffle()
             self.refreshVisibleMoreOptionsMenu()
         }
 
@@ -80,6 +80,37 @@ extension PlayerViewController {
         return section
     }
 
+    private func configureRepeatMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
+        var image: UIImage?
+        var localization: String = ""
+        var isEnabled: Bool = false
+        switch playbackService.repeatMode {
+        case .doNotRepeat:
+            isEnabled = false
+            image = UIImage(named: "iconRepeat")
+            localization = NSLocalizedString("MENU_REPEAT_DISABLED", comment: "")
+        case .repeatCurrentItem:
+            isEnabled = true
+            image = UIImage(named: "iconRepeatOne")
+            localization = NSLocalizedString("MENU_REPEAT_SINGLE", comment: "")
+        case .repeatAllItems:
+            isEnabled = true
+            image = UIImage(named: "iconRepeat")
+            localization = NSLocalizedString("MENU_REPEAT_ALL", comment: "")
+        @unknown default: break
+
+        }
+        return (image, localization, isEnabled)
+    }
+
+    private func configureShuffleMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
+        let image: UIImage? = UIImage(named: "iconShuffle")
+        let localization: String = playbackService.isShuffleMode ? NSLocalizedString("SHUFFLE", comment: "") : NSLocalizedString("SHUFFLE_DISABLED", comment: "")
+        let isEnabled: Bool = playbackService.isShuffleMode
+
+        return (image, localization, isEnabled)
+    }
+
     private func refreshVisibleMoreOptionsMenu() {
         if #available(iOS 16.0, *) {
             moreOptionsMenuButton?.contextMenuInteraction?.updateVisibleMenu { menu in
@@ -88,16 +119,16 @@ extension PlayerViewController {
         }
     }
 
-    private func menuIcon(for identifier: ActionSheetCellIdentifier) -> UIImage? {
-        return UIImage(named: identifier.rawValue)?.withRenderingMode(.alwaysTemplate)
+    private func menuIcon(named name: String) -> UIImage? {
+        return UIImage(named: name)?.withRenderingMode(.alwaysTemplate)
     }
 
     private func makePlaybackSpeedAction() -> UIAction {
         let currentSpeed = PlaybackSpeedScale.rounded(playbackService.playbackRate)
-        return UIAction(title: ActionSheetCellIdentifier.playback.description,
+        return UIAction(title: NSLocalizedString("PLAYBACK_SPEED", comment: ""),
                         subtitle: PlaybackSpeedFormatter.string(forSpeed: currentSpeed),
-                        image: menuIcon(for: .playback)) { _ in
-            self.mediaMoreOptionsActionSheetPresentPlaybackSpeed()
+                        image: menuIcon(named: "playback")) { _ in
+            self.showPlaybackSpeedCard()
         }
     }
 
@@ -110,10 +141,10 @@ extension PlayerViewController {
                                                         : NSLocalizedString("SLEEP_TIMER_STOP_AFTER_THIS_VIDEO", comment: "")
         }
 
-        return UIAction(title: ActionSheetCellIdentifier.sleepTimer.description,
+        return UIAction(title: NSLocalizedString("BUTTON_SLEEP_TIMER", comment: ""),
                         subtitle: summary,
-                        image: menuIcon(for: .sleepTimer)) { _ in
-            self.mediaMoreOptionsActionSheetPresentSleepTimer()
+                        image: menuIcon(named: "sleepTimer")) { _ in
+            self.showSleepTimerCard()
         }
     }
 
@@ -122,10 +153,10 @@ extension PlayerViewController {
                                                presets: playbackService.equalizerProfiles(),
                                                customProfileNames: playbackService.customEqualizerProfileNames)
 
-        return UIAction(title: ActionSheetCellIdentifier.equalizer.description,
+        return UIAction(title: NSLocalizedString("EQUALIZER_CELL_TITLE", comment: ""),
                         subtitle: summary,
-                        image: menuIcon(for: .equalizer)) { _ in
-            self.mediaMoreOptionsActionSheetPresentEqualizer()
+                        image: menuIcon(named: "equalizer")) { _ in
+            self.showEqualizerCard()
         }
     }
 
@@ -138,13 +169,13 @@ extension PlayerViewController {
                                  attributes: currentMedia == nil ? .disabled : []) { _ in
             self.addBookmark()
         })
-        children.append(UIAction(title: ActionSheetCellIdentifier.bookmarks.description,
-                                 image: menuIcon(for: .bookmarks),
+        children.append(UIAction(title: NSLocalizedString("BOOKMARKS_TITLE", comment: ""),
+                                 image: menuIcon(named: "bookmarks"),
                                  attributes: currentMedia?.bookmarks?.isEmpty == false ? [] : .disabled) { _ in
             self.showBookmarksCard()
         })
 
-        if moreOptionsActionSheet.currentMediaHasChapters {
+        if currentMediaHasChapters {
             children.append(makeChaptersMenu())
         }
 
@@ -189,15 +220,17 @@ extension PlayerViewController {
                             subtitle: chapter.durationTime.stringValue,
                             state: currentChapterIndex == index ? .on : .off) { _ in
                 self.playbackService.selectChapter(at: index)
-                self.mediaMoreOptionsActionSheetUpdateProgressBar()
+                if !self.playbackService.isPlaying {
+                    self.playbackService.playPause()
+                }
             }
         }
         sections.append(UIMenu(title: NSLocalizedString("CHOOSE_CHAPTER", comment: ""),
                                options: .displayInline,
                                children: chapterActions))
 
-        return UIMenu(title: ActionSheetCellIdentifier.chapters.description,
-                      image: menuIcon(for: .chapters),
+        return UIMenu(title: NSLocalizedString("CHAPTER_SELECTION_TITLE", comment: ""),
+                      image: menuIcon(named: "chapters"),
                       children: sections)
     }
 }

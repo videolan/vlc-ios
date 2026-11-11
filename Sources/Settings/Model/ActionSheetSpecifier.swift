@@ -2,7 +2,7 @@
  * ActionSheetSpecifier.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2020-2026 VideoLAN. All rights reserved.
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *
@@ -10,6 +10,29 @@
  *****************************************************************************/
 
 import UIKit
+
+enum ActionSheetCellIdentifier: CustomStringConvertible {
+    case playNextItem
+    case playlistPlayNextItem
+
+    var description: String {
+        switch self {
+        case .playNextItem:
+            return NSLocalizedString("SETTINGS_PLAY_ALL", comment: "")
+        case .playlistPlayNextItem:
+            return NSLocalizedString("SETTINGS_PLAYLIST_PLAY_ALL", comment: "")
+        }
+    }
+
+    var accessibilityHint: String {
+        switch self {
+        case .playNextItem:
+            return NSLocalizedString("SETTINGS_PLAY_ALL_HINT", comment: "")
+        case .playlistPlayNextItem:
+            return NSLocalizedString("SETTINGS_PLAYLIST_PLAY_ALL_HINT", comment: "")
+        }
+    }
+}
 
 protocol ActionSheetSpecifierDelegate: AnyObject {
     func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool)

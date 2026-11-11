@@ -1,8 +1,8 @@
 /*****************************************************************************
  * ActionSheetCell.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -32,29 +32,6 @@ class ActionSheetCellImageView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-/// Model that determines the layout presentation of the ActionSheetCell.
-@objc(VLCActionSheetCellModel)
-@objcMembers class ActionSheetCellModel: NSObject {
-    var title: String
-    var iconImage: UIImage?
-    var viewToPresent: UIView?
-    var accessoryType: ActionSheetCellAccessoryType
-    var cellIdentifier: ActionSheetCellIdentifier?
-    
-    init(
-        title: String,
-        imageIdentifier: String,
-        accessoryType: ActionSheetCellAccessoryType = .checkmark,
-        viewToPresent: UIView? = nil,
-        cellIdentifier: ActionSheetCellIdentifier? = nil) {
-            self.title = title
-            iconImage = UIImage(named: imageIdentifier)?.withRenderingMode(.alwaysTemplate)
-            self.accessoryType = accessoryType
-            self.viewToPresent = viewToPresent
-            self.cellIdentifier = cellIdentifier
     }
 }
 
@@ -360,12 +337,6 @@ class ActionSheetCell: UICollectionViewCell {
         setupViews()
     }
     
-    convenience init(withCellModel model: ActionSheetCellModel) {
-        self.init()
-        configure(withModel: model)
-        setupViews()
-    }
-
     private func getThemeColors() -> ColorPalette {
         if isMediaPlayerActionSheetCell {
             return PresentationTheme.currentExcludingWhite.colors
@@ -415,32 +386,6 @@ class ActionSheetCell: UICollectionViewCell {
         ])
     }
     
-    func configure(withModel model: ActionSheetCellModel, isFromMediaPlayerActionSheet: Bool = false) {
-        if model.accessoryType == .disclosureChevron {
-            assert(model.viewToPresent != nil, "ActionSheetCell: Cell with disclosure chevron must have accompanying presentable UIView")
-        }
-        name.text = model.title
-        icon.image = model.iconImage
-        viewToPresent = model.viewToPresent
-        identifier = model.cellIdentifier
-        accessibilityIdentifier = model.cellIdentifier?.rawValue
-        // disclosure chevron is set as the default accessoryView if a viewController is present
-        accessoryType = model.viewToPresent != nil && model.accessoryType != .popup && model.accessoryType != .none ? .disclosureChevron : model.accessoryType
-        isMediaPlayerActionSheetCell = isFromMediaPlayerActionSheet
-        let colors = getThemeColors()
-
-        if accessoryType == .disclosureChevron || accessoryType == .popup {
-            accessoryTypeImageView.tintColor = colors.orangeUI
-        }
-
-        if let identifier = model.cellIdentifier {
-            name.accessibilityLabel = identifier.description
-            name.accessibilityHint = identifier.accessibilityHint
-        }
-
-        updateColors()
-    }
-
     func configure(with title: String, colors: ColorPalette, isSelected: Bool) {
         name.text = title
         name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
