@@ -5,6 +5,7 @@
  * Copyright © 2022-2026 Videolabs
  *
  * Authors: Diogo Simao Marques <diogo.simaomarquespro@gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -14,28 +15,26 @@ import UIKit
 protocol BookmarksViewDelegate: AnyObject {
     func bookmarksViewGetCurrentPlayingMedia() -> VLCMLMedia?
     func bookmarksViewDidSelectBookmark(value: Float)
-    func bookmarksViewShouldDisableGestures(_ disable: Bool)
-    func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool)
-    func bookmarksViewOpenAddBookmarksView()
-    func bookmarksViewCloseAddBookmarksView()
-}
-
-@objc enum BookmarkActionIdentifier: Int {
-    case rename = 1
-    case delete
+    func bookmarksViewDisplayRenameAlert(_ bookmarksView: BookmarksView, index: Int)
+    func bookmarksViewDisplayDeleteAlert(_ bookmarksView: BookmarksView, index: Int)
+    func bookmarksViewDidRequestDismissal()
 }
 
 class BookmarksView: UIView {
-    private let addBookmarkButton = UIButton()
-    private let addBookmarkAtTimeButton = UIButton()
-    private var bookmarksTableView: UITableView!
-    private let bookmarksTableViewCellReuseIdentifier = "bookmarksTableViewCellReuseIdentifier"
-    private lazy var addBookmarksView: AddBookmarksView = {
-        let addBookmarksView = AddBookmarksView(frame: .zero, tableView: bookmarksTableView)
-        addBookmarksView.delegate = self
-        return addBookmarksView
+    private let backgroundView = OverlayCardBackgroundView()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.textColor = PresentationTheme.currentExcludingWhite.colors.overlayPrimaryTextColor
+        label.text = NSLocalizedString("BOOKMARKS_TITLE", comment: "")
+        label.accessibilityTraits = .header
+        return label
     }()
-    private var isEditing: Bool = false
+    private let bookmarksTableView = UITableView()
+    private let bookmarksTableViewCellReuseIdentifier = "bookmarksTableViewCellReuseIdentifier"
+    private var tableHeightConstraint: NSLayoutConstraint?
 
     weak var delegate: BookmarksViewDelegate?
 
@@ -50,84 +49,80 @@ class BookmarksView: UIView {
     }
 
     private func commonInit() {
-        setupButton()
-        setupTheme()
+        translatesAutoresizingMaskIntoConstraints = false
+        overrideUserInterfaceStyle = .dark
+        addSubview(backgroundView)
+        addSubview(titleLabel)
+        setupTable()
+
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(requestDismissal))
+        swipeDownRecognizer.direction = .down
+        addGestureRecognizer(swipeDownRecognizer)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(requestDismissal),
+                                               name: Notification.Name(VLCPlaybackServicePlaybackDidMoveOnToNextItem),
+                                               object: nil)
     }
 
-    func update() {
-        if bookmarksTableView == nil {
-            setupTable()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bookmarksTableView.layoutIfNeeded()
+
+        if let tableHeightConstraint = tableHeightConstraint,
+           abs(tableHeightConstraint.constant - bookmarksTableView.contentSize.height) > 0.5 {
+            tableHeightConstraint.constant = bookmarksTableView.contentSize.height
         }
-        bookmarksTableView.reloadData()
-        setNeedsLayout()
-        layoutIfNeeded()
     }
 
-    func setupTheme() {
-        let colors = PresentationTheme.currentExcludingWhite.colors
-        backgroundColor = colors.background
+    override func accessibilityPerformEscape() -> Bool {
+        requestDismissal()
+        return true
+    }
+
+    func focusForAccessibility() {
+        UIAccessibility.post(notification: .screenChanged, argument: titleLabel)
     }
 
     private func setupTable() {
-        bookmarksTableView = UITableView()
         addSubview(bookmarksTableView)
         bookmarksTableView.delegate = self
         bookmarksTableView.dataSource = self
         bookmarksTableView.register(UITableViewCell.self, forCellReuseIdentifier: bookmarksTableViewCellReuseIdentifier)
         bookmarksTableView.backgroundColor = .clear
-        bookmarksTableView.tableFooterView = UIView()
-        setupTableContraints()
+        bookmarksTableView.separatorStyle = .none
+        bookmarksTableView.rowHeight = UITableView.automaticDimension
+        bookmarksTableView.estimatedRowHeight = 44
+        setupConstraints()
     }
 
-    private func setupTableContraints() {
+    private func setupConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         bookmarksTableView.translatesAutoresizingMaskIntoConstraints = false
+        let heightConstraint = bookmarksTableView.heightAnchor.constraint(equalToConstant: 0)
+        heightConstraint.priority = .defaultHigh
+        tableHeightConstraint = heightConstraint
         let constraints = [
-            bookmarksTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            bookmarksTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            bookmarksTableView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            bookmarksTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18),
+
+            bookmarksTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
+            bookmarksTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6),
+            bookmarksTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
+            bookmarksTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            heightConstraint
         ]
         NSLayoutConstraint.activate(constraints)
     }
 
-    private func setupButton() {
-        addBookmarkButton.setImage(UIImage(named: "add-bookmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-
-        addBookmarkButton.imageView?.contentMode = .scaleAspectFit
-        addBookmarkButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
-        addBookmarkButton.setContentHuggingPriority(.required, for: .horizontal)
-        addBookmarkButton.setContentHuggingPriority(.required, for: .vertical)
-        addBookmarkButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-        addBookmarkAtTimeButton.setImage(UIImage(named: "add-bookmark-at")?.withRenderingMode(.alwaysTemplate), for: .normal)
-
-        addBookmarkAtTimeButton.imageView?.contentMode = .scaleAspectFit
-        addBookmarkAtTimeButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-        addBookmarkAtTimeButton.addTarget(self, action: #selector(openAddView), for: .touchUpInside)
-        addBookmarkAtTimeButton.setContentHuggingPriority(.required, for: .horizontal)
-        addBookmarkAtTimeButton.setContentHuggingPriority(.required, for: .vertical)
-        addBookmarkAtTimeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-    }
-
-    @objc func addBookmark() {
-        if let currentMedia = delegate?.bookmarksViewGetCurrentPlayingMedia() {
-            let playbackService = PlaybackService.sharedInstance()
-            let currentTime = playbackService.playedTime()
-            let currentTimeInt64 = Int64(truncating: currentTime.value ?? 0)
-            currentMedia.addBookmark(atTime: currentTimeInt64)
-            if let bookmark = currentMedia.bookmark(atTime: currentTimeInt64) {
-                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + " " + currentTime.stringValue
-            }
-            bookmarksTableView.reloadData()
-        }
-    }
-
-    @objc private func openAddView() {
-        delegate?.bookmarksViewOpenAddBookmarksView()
-        bookmarksTableView.removeFromSuperview()
-        addBookmarksView.updateTableView()
-        isEditing = true
+    @objc private func requestDismissal() {
+        delegate?.bookmarksViewDidRequestDismissal()
     }
 
     func deleteBookmarkAt(row: Int) {
@@ -135,7 +130,12 @@ class BookmarksView: UIView {
             if let bookmarks = currentMedia.bookmarks {
                 if bookmarks.count > row {
                     currentMedia.removeBookmark(atTime: bookmarks[row].time)
+                    guard bookmarks.count > 1 else {
+                        requestDismissal()
+                        return
+                    }
                     bookmarksTableView.reloadData()
+                    setNeedsLayout()
                 }
             }
         }
@@ -154,6 +154,7 @@ class BookmarksView: UIView {
                         bookmarks[row].name = name
                     }
                     bookmarksTableView.reloadData()
+                    setNeedsLayout()
                 }
             }
         }
@@ -167,10 +168,6 @@ class BookmarksView: UIView {
         }
         return ""
     }
-
-    func getAddBookmarksView() -> AddBookmarksView {
-        return addBookmarksView
-    }
 }
 
 extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
@@ -179,14 +176,18 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "", handler: { _, _, _ in
-            self.delegate?.bookmarksViewDisplayAlert(action: .delete, index: indexPath.row, isEditing: self.isEditing)
+        let deleteLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
+        let deleteAction = UIContextualAction(style: .destructive, title: deleteLabel, handler: { _, _, completion in
+            self.delegate?.bookmarksViewDisplayDeleteAlert(self, index: indexPath.row)
+            completion(false)
         })
 
         deleteAction.image = UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate)
 
-        let renameAction = UIContextualAction(style: .normal, title: "", handler: { _, _, _ in
-            self.delegate?.bookmarksViewDisplayAlert(action: .rename, index: indexPath.row, isEditing: self.isEditing)
+        let renameLabel = NSLocalizedString("BUTTON_RENAME", comment: "")
+        let renameAction = UIContextualAction(style: .normal, title: renameLabel, handler: { _, _, completion in
+            self.delegate?.bookmarksViewDisplayRenameAlert(self, index: indexPath.row)
+            completion(true)
         })
 
         renameAction.backgroundColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
@@ -195,33 +196,19 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [deleteAction, renameAction])
     }
 
-
-    #if os(iOS)
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
-        let deleteAction = UITableViewRowAction(style: .destructive, title: deleteLabel, handler: { _, _ in
-            self.delegate?.bookmarksViewDisplayAlert(action: .delete, index: indexPath.row, isEditing: self.isEditing)
-        })
-
-        let renameLabel = NSLocalizedString("BUTTON_RENAME", comment: "")
-        let renameAction = UITableViewRowAction(style: .normal, title: renameLabel, handler: { _, _ in
-            self.delegate?.bookmarksViewDisplayAlert(action: .rename, index: indexPath.row, isEditing: self.isEditing)
-        })
-
-        renameAction.backgroundColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-
-        return [deleteAction, renameAction]
-    }
-    #else
-    #warning("fix table view interaction")
-    #endif
-
-    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        delegate?.bookmarksViewShouldDisableGestures(true)
-    }
-
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        delegate?.bookmarksViewShouldDisableGestures(false)
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let renameAction = UIAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""),
+                                        image: UIImage(named: "rename")?.withRenderingMode(.alwaysTemplate)) { _ in
+                self.delegate?.bookmarksViewDisplayRenameAlert(self, index: indexPath.row)
+            }
+            let deleteAction = UIAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
+                                        image: UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate),
+                                        attributes: .destructive) { _ in
+                self.delegate?.bookmarksViewDisplayDeleteAlert(self, index: indexPath.row)
+            }
+            return UIMenu(children: [renameAction, deleteAction])
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,15 +226,24 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
         let colors = PresentationTheme.currentExcludingWhite.colors
 
         cell.backgroundColor = .clear
-        cell.textLabel?.textColor = colors.cellTextColor
         cell.selectionStyle = .none
+
+        var content = UIListContentConfiguration.valueCell()
+        content.textProperties.color = colors.overlayPrimaryTextColor
+        content.secondaryTextProperties.color = colors.overlaySecondaryTextColor
+        content.secondaryTextProperties.font = UIFontMetrics(forTextStyle: .body)
+            .scaledFont(for: .monospacedDigitSystemFont(ofSize: 17, weight: .regular))
+        content.directionalLayoutMargins.leading = 12
+        content.directionalLayoutMargins.trailing = 12
 
         if let currentMedia = delegate?.bookmarksViewGetCurrentPlayingMedia() {
             if let bookmarks = currentMedia.bookmarks {
-                cell.textLabel?.text = bookmarks[row].name
+                content.text = bookmarks[row].name
+                content.secondaryText = VLCTime(number: NSNumber(value: bookmarks[row].time)).stringValue
             }
         }
 
+        cell.contentConfiguration = content
         return cell
     }
 
@@ -258,35 +254,5 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
                 delegate?.bookmarksViewDidSelectBookmark(value: Float(time))
             }
         }
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if frame.minX == 0 {
-            delegate?.bookmarksViewShouldDisableGestures(true)
-        }
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        delegate?.bookmarksViewShouldDisableGestures(false)
-    }
-}
-
-
-extension BookmarksView: AddBookmarksViewDelegate {
-    func addBookmarksViewDidClose() {
-        addSubview(bookmarksTableView)
-        setupTableContraints()
-        delegate?.bookmarksViewCloseAddBookmarksView()
-        isEditing = false
-    }
-
-    func addBookmarksViewAddBookmark() {
-        addBookmark()
-    }
-}
-
-extension BookmarksView: ActionSheetAccessoryViewsDelegate {
-    func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView] {
-        return [addBookmarkButton, addBookmarkAtTimeButton]
     }
 }

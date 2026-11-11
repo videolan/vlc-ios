@@ -1851,36 +1851,6 @@ extension VideoPlayerViewController {
         }
     }
 
-    override func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
-        super.mediaMoreOptionsActionSheetDisplayAddBookmarksView(bookmarksView)
-
-        if let bookmarksView = addBookmarksView {
-            view.addSubview(bookmarksView)
-            NSLayoutConstraint.activate([
-                bookmarksView.centerXAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: safeInterfaceAreaLayoutGuide.trailingAnchor),
-                bookmarksView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-                bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: mediaScrubProgressBar.topAnchor),
-            ])
-        }
-
-        if let safeIdleTimer = idleTimer {
-            safeIdleTimer.invalidate()
-        }
-
-        videoPlayerControls.shouldDisableControls(true)
-        setControlsHidden(true, animated: true)
-    }
-
-    override func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
-        super.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
-
-        idleTimer = nil
-        resetIdleTimer()
-        videoPlayerControls.shouldDisableControls(false)
-    }
-
     override func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
         videoPlayerControlsDelegateShuffle(videoPlayerControls)
         mediaMoreOptionsActionSheet.collectionView.reloadData()

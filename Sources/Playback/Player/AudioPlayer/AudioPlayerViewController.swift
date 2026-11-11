@@ -601,29 +601,6 @@ extension AudioPlayerViewController {
         setPlayerInterfaceEnabled(!state)
     }
 
-    override func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
-        super.mediaMoreOptionsActionSheetDisplayAddBookmarksView(bookmarksView)
-
-        if let bookmarksView = addBookmarksView {
-            view.addSubview(bookmarksView)
-            NSLayoutConstraint.activate([
-                bookmarksView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.trailingAnchor),
-                bookmarksView.topAnchor.constraint(equalTo: audioPlayerView.safeAreaLayoutGuide.topAnchor, constant: 16),
-                bookmarksView.bottomAnchor.constraint(equalTo: audioPlayerView.controlsStackView.topAnchor),
-            ])
-        }
-
-        audioPlayerView.shouldDisableControls(true)
-    }
-
-    override func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
-        super.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
-
-        audioPlayerView.shouldDisableControls(false)
-    }
-
     override func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
         super.mediaMoreOptionsActionSheetPresentABRepeatView(with: abView)
 

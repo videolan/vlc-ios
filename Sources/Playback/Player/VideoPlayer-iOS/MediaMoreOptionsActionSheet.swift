@@ -23,14 +23,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetPresentVideoFilters()
     func mediaMoreOptionsActionSheetPresentEqualizer()
     func mediaMoreOptionsActionSheetUpdateProgressBar()
-    func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
-    func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float)
-    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String,
-                                                 action: BookmarkActionIdentifier,
-                                                 index: Int,
-                                                 isEditing: Bool)
-    func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView)
-    func mediaMoreOptionsActionSheetRemoveAddBookmarksView()
     func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
     func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
     func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView)
@@ -84,18 +76,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return chapterView
     }()
 
-    private lazy var bookmarksView: BookmarksView = {
-        let bookmarksView = BookmarksView(frame: offScreenFrame)
-        bookmarksView.overrideUserInterfaceStyle = .dark
-        bookmarksView.delegate = self
-        return bookmarksView
-    }()
-
-    private lazy var addBookmarksView: AddBookmarksView = {
-        let addBookmarksView = bookmarksView.getAddBookmarksView()
-        return addBookmarksView
-    }()
-
     private(set) lazy var abRepeatView: ABRepeatView = {
         let abRepeatView = ABRepeatView(frame: CGRect(x: 0, y: 0, width: 500, height: 100))
         abRepeatView.delegate = self
@@ -117,7 +97,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         removeCurrentChild()
         removeActionSheet()
         moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared?()
-        bookmarksView.update()
     }
 
     func hidePlayer() {
@@ -127,7 +106,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
     // MARK: - Instance Methods
     func updateThemes() {
         chapterView.setupTheme()
-        bookmarksView.setupTheme()
     }
 
     func configureRepeatMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
@@ -167,25 +145,9 @@ protocol MediaMoreOptionsActionSheetDelegate {
         switch view {
         case .chapters:
             openOptionView(chapterView)
-        case .bookmarks:
-            openOptionView(bookmarksView)
-        case .addBookmarks:
-            openOptionView(addBookmarksView)
         default:
             openOptionView(mockView)
         }
-    }
-
-    func deleteBookmarkAt(row: Int) {
-        bookmarksView.deleteBookmarkAt(row: row)
-    }
-
-    func renameBookmarkAt(name: String, row: Int) {
-        bookmarksView.renameBookmarkAt(name: name, row: row)
-    }
-
-    func addBookmarkAtCurrentTime() {
-        bookmarksView.addBookmark()
     }
 }
 
@@ -194,47 +156,6 @@ extension MediaMoreOptionsActionSheet: ChapterViewDelegate {
     func chapterViewDelegateDidSelectChapter(_ chapterView: ChapterView) {
         removeActionSheet()
         moreOptionsDelegate?.mediaMoreOptionsActionSheetUpdateProgressBar()
-    }
-}
-
-// MARK: - BookmarksViewDelegate
-extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
-    func bookmarksViewGetCurrentPlayingMedia() -> VLCMLMedia? {
-        return moreOptionsDelegate?.mediaMoreOptionsActionSheetGetCurrentMedia()
-    }
-
-    func bookmarksViewDidSelectBookmark(value: Float) {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectBookmark(value: value)
-        removeActionSheet()
-    }
-
-    func bookmarksViewShouldDisableGestures(_ disable: Bool) {
-        shouldDisablePanGesture(disable)
-        shouldDisableDragDownGesture(disable)
-    }
-
-    func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {
-        var title = String()
-        var message = String()
-
-        if action == .delete {
-            title = NSLocalizedString("BOOKMARK_DELETE_TITLE", comment: "")
-            message = NSLocalizedString("BOOKMARK_DELETE_MESSAGE", comment: "")
-        } else if action == .rename {
-            message = bookmarksView.getBookmarkNameAt(row: index)
-            title = NSLocalizedString("BOOKMARK_RENAME_TITLE", comment: "")
-        }
-
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAlert(title: title, message: message, action: action, index: index, isEditing: isEditing)
-    }
-
-    func bookmarksViewOpenAddBookmarksView() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAddBookmarksView(addBookmarksView)
-        removeActionSheet()
-    }
-
-    func bookmarksViewCloseAddBookmarksView() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
     }
 }
 
@@ -326,8 +247,6 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             return equalizerPlaceholderView
         case .chapters:
             return chapterView
-        case .bookmarks:
-            return bookmarksView
         case .abRepeat:
             return abRepeatView
         default:
@@ -346,7 +265,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             }
 
             // Do not display these options in the action sheet.
-            if [ .addBookmarks, .playNextItem, .playlistPlayNextItem ].contains($0) {
+            if [ .bookmarks, .addBookmarks, .playNextItem, .playlistPlayNextItem ].contains($0) {
                 return
             }
 

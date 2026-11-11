@@ -46,7 +46,7 @@ extension PlayerViewController {
 
         return [makePlaybackModesSection(interfaceLockAction: interfaceLockAction),
                 UIMenu(options: .displayInline, children: playbackActions),
-                UIMenu(options: .displayInline, children: [abRepeatAction, makeNavigationMenu()])]
+                UIMenu(options: .displayInline, children: [abRepeatAction] + makeNavigationActions())]
     }
 
     private func makePlaybackModesSection(interfaceLockAction: UIAction) -> UIMenu {
@@ -129,25 +129,38 @@ extension PlayerViewController {
         }
     }
 
-    private func makeNavigationMenu() -> UIMenu {
+    private func makeNavigationActions() -> [UIMenuElement] {
+        let currentMedia = playbackService.currentlyPlayingLibraryMedia
         var children: [UIMenuElement] = []
+
+        children.append(UIAction(title: NSLocalizedString("ADD_BOOKMARK", comment: ""),
+                                 image: UIImage(systemName: "bookmark"),
+                                 attributes: currentMedia == nil ? .disabled : []) { _ in
+            self.addBookmark()
+        })
+        children.append(UIAction(title: ActionSheetCellIdentifier.bookmarks.description,
+                                 image: menuIcon(for: .bookmarks),
+                                 attributes: currentMedia?.bookmarks?.isEmpty == false ? [] : .disabled) { _ in
+            self.showBookmarksCard()
+        })
+
         if moreOptionsActionSheet.currentMediaHasChapters {
             children.append(makeChaptersMenu())
         }
 
-        children.append(UIAction(title: ActionSheetCellIdentifier.bookmarks.description,
-                                 image: menuIcon(for: .bookmarks)) { _ in
-            self.presentBookmarks()
-        })
-        children.append(UIAction(title: NSLocalizedString("ADD_BOOKMARK", comment: ""),
-                                 image: UIImage(systemName: "bookmark"),
-                                 attributes: playbackService.currentlyPlayingLibraryMedia == nil ? .disabled : []) { _ in
-            self.moreOptionsActionSheet.addBookmarkAtCurrentTime()
-        })
+        return children
+    }
 
-        return UIMenu(title: NSLocalizedString("MORE_OPTIONS_NAVIGATION", comment: ""),
-                      image: menuIcon(for: .chapters),
-                      children: children)
+    private func addBookmark() {
+        if let currentMedia = playbackService.currentlyPlayingLibraryMedia {
+            let currentTime = playbackService.playedTime()
+            let currentTimeInt64 = Int64(truncating: currentTime.value ?? 0)
+            currentMedia.addBookmark(atTime: currentTimeInt64)
+            if let bookmark = currentMedia.bookmark(atTime: currentTimeInt64) {
+                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + " " + currentTime.stringValue
+                showStatusMessage(bookmark.name)
+            }
+        }
     }
 
     private func makeChaptersMenu() -> UIMenu {
@@ -186,13 +199,5 @@ extension PlayerViewController {
         return UIMenu(title: ActionSheetCellIdentifier.chapters.description,
                       image: menuIcon(for: .chapters),
                       children: sections)
-    }
-
-    private func presentBookmarks() {
-        present(moreOptionsActionSheet, animated: false) {
-            self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
-            self.moreOptionsActionSheet.hidePlayer()
-            self.moreOptionsActionSheet.addView(.bookmarks)
-        }
     }
 }

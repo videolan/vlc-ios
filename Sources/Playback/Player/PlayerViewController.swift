@@ -319,8 +319,6 @@ class PlayerViewController: UIViewController {
     let volumeView = MPVolumeView(frame: .zero)
 #endif
 
-    var addBookmarksView: AddBookmarksView? = nil
-
     private(set) var overlayCardView: UIView?
     private var overlayCardBackdropView: UIView?
     private var overlayCardConstraints: [NSLayoutConstraint] = []
@@ -815,12 +813,6 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    private func openOptionView(view: ActionSheetCellIdentifier) {
-        present(moreOptionsActionSheet, animated: true, completion: {
-            self.moreOptionsActionSheet.addView(view)
-        })
-    }
-
     private func resetVideoFilters() {
         playbackService.adjustFilter.reset()
         updateVideoFiltersIcon()
@@ -876,6 +868,17 @@ class PlayerViewController: UIViewController {
         sleepTimerCard.delegate = self
         showOverlayCard(sleepTimerCard)
         sleepTimerCard.focusForAccessibility()
+    }
+
+    func showBookmarksCard() {
+        guard !(overlayCardView is BookmarksView) else {
+            return
+        }
+
+        let bookmarksCard = BookmarksView()
+        bookmarksCard.delegate = self
+        showOverlayCard(bookmarksCard)
+        bookmarksCard.focusForAccessibility()
     }
 
     @objc var areGesturesEnabled: Bool {
@@ -1691,6 +1694,70 @@ extension PlayerViewController: VideoFiltersControlsViewDelegate {
     }
 }
 
+// MARK: - BookmarksViewDelegate
+
+extension PlayerViewController: BookmarksViewDelegate {
+    func bookmarksViewGetCurrentPlayingMedia() -> VLCMLMedia? {
+        return playbackService.currentlyPlayingLibraryMedia
+    }
+
+    func bookmarksViewDidSelectBookmark(value: Float) {
+        dismissOverlayCard()
+        mediaScrubProgressBar.updateSliderWithValue(value: value)
+
+        if !playbackService.isPlaying {
+            playbackService.playPause()
+        }
+    }
+
+    func bookmarksViewDisplayRenameAlert(_ bookmarksView: BookmarksView, index: Int) {
+        let message = bookmarksView.getBookmarkNameAt(row: index)
+        let alertController = UIAlertController(title: NSLocalizedString("BOOKMARK_RENAME_TITLE", comment: ""),
+                                                message: message,
+                                                preferredStyle: .alert)
+
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+
+        alertController.addTextField(configurationHandler: { field in
+            field.text = message
+            field.placeholder = NSLocalizedString("BOOKMARK_PLACEHOLDER", comment: "")
+            field.returnKeyType = .done
+        })
+
+        let mainAction = UIAlertAction(title: NSLocalizedString("BUTTON_RENAME", comment: ""), style: .default, handler: { _ in
+            guard let field = alertController.textFields else {
+                return
+            }
+
+            guard let newName = field[0].text else {
+                return
+            }
+
+            bookmarksView.renameBookmarkAt(name: newName, row: index)
+        })
+
+        alertController.addAction(mainAction)
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func bookmarksViewDisplayDeleteAlert(_ bookmarksView: BookmarksView, index: Int) {
+        let alertController = UIAlertController(title: NSLocalizedString("BOOKMARK_DELETE_TITLE", comment: ""),
+                                                message: NSLocalizedString("BOOKMARK_DELETE_MESSAGE", comment: ""),
+                                                preferredStyle: .alert)
+
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DELETE", comment: ""), style: .destructive) { _ in
+            bookmarksView.deleteBookmarkAt(row: index)
+        })
+
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func bookmarksViewDidRequestDismissal() {
+        dismissOverlayCard()
+    }
+}
+
 // MARK: - MediaMoreOptionsActionSheetDelegate
 
 extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
@@ -1765,102 +1832,6 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         if !playbackService.isPlaying {
             playbackService.playPause()
         }
-    }
-
-    func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia? {
-        return playbackService.currentlyPlayingLibraryMedia
-    }
-
-    func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float) {
-        mediaScrubProgressBar.updateSliderWithValue(value: value)
-
-        if !playbackService.isPlaying {
-            playbackService.playPause()
-        }
-    }
-
-    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {
-        let completion = {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-            var actionTitle = NSLocalizedString("BUTTON_CANCEL", comment: "")
-            let cancelAction = UIAlertAction(title: actionTitle, style: .cancel) { _ in
-                if !isEditing {
-                    self.openOptionView(view: .bookmarks)
-                }
-            }
-
-            alertController.addAction(cancelAction)
-
-            if action == .delete {
-                actionTitle = NSLocalizedString("BUTTON_DELETE", comment: "")
-                let mainAction = UIAlertAction(title: actionTitle, style: .destructive, handler: { _ in
-                    self.moreOptionsActionSheet.deleteBookmarkAt(row: index)
-                    if !isEditing {
-                        self.openOptionView(view: .bookmarks)
-                    }
-                })
-
-                alertController.addAction(mainAction)
-            } else if action == .rename {
-                alertController.addTextField(configurationHandler: { field in
-                    field.text = message
-                    field.placeholder = NSLocalizedString("BOOKMARK_PLACEHOLDER", comment: "")
-                    field.returnKeyType = .done
-                })
-
-                actionTitle = NSLocalizedString("BUTTON_RENAME", comment: "")
-                let mainAction = UIAlertAction(title: actionTitle, style: .default, handler: { _ in
-                    guard let field = alertController.textFields else {
-                        return
-                    }
-
-                    guard let newName = field[0].text else {
-                        return
-                    }
-
-                    self.moreOptionsActionSheet.renameBookmarkAt(name: newName, row: index)
-
-                    if !isEditing {
-                        self.openOptionView(view: .bookmarks)
-                    }
-                })
-
-                alertController.addAction(mainAction)
-            }
-
-            self.setControlsHidden(true, animated: true)
-            self.present(alertController, animated: true, completion: nil)
-            self.alertController = alertController
-        }
-
-        if addBookmarksView == nil {
-            moreOptionsActionSheet.dismiss(animated: true, completion: completion)
-        } else {
-            completion()
-        }
-    }
-
-    func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
-        shouldDisableGestures(true)
-
-        mediaNavigationBar.isHidden = true
-
-        bookmarksView.translatesAutoresizingMaskIntoConstraints = false
-
-        addBookmarksView = bookmarksView
-    }
-
-    func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
-        shouldDisableGestures(false)
-
-        mediaNavigationBar.isHidden = false
-
-        if let bookmarksView = addBookmarksView {
-            bookmarksView.removeFromSuperview()
-        }
-
-        addBookmarksView = nil
     }
 
     func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
@@ -2077,11 +2048,6 @@ extension PlayerViewController {
 
         if let presented = presentedViewController {
             presented.dismiss(animated: true)
-            return
-        }
-
-        guard addBookmarksView == nil else {
-            mediaMoreOptionsActionSheetRemoveAddBookmarksView()
             return
         }
 

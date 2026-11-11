@@ -120,8 +120,6 @@ class MediaPlayerActionSheet: ActionSheet {
     private func getTitle(of childView: UIView) -> String {
         if childView is ChapterView {
             return ActionSheetCellIdentifier.chapters.description
-        } else if childView is BookmarksView {
-            return ActionSheetCellIdentifier.bookmarks.description
         } else {
             return getDefaultHeaderTitle()
         }
@@ -139,10 +137,6 @@ class MediaPlayerActionSheet: ActionSheet {
             if let child = child as? ActionSheetAccessoryViewsDelegate {
                 self.headerView.accessoryViewsDelegate = child
             }
-            if child is BookmarksView {
-                self.leftToRightGesture.delegate = self
-                self.updateDragDownGestureDelegate(to: self)
-            }
         }) {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
@@ -159,10 +153,6 @@ class MediaPlayerActionSheet: ActionSheet {
             self.headerView.updateAccessoryViews()
             self.headerView.previousButton.isHidden = true
             self.headerView.title.text = self.getDefaultHeaderTitle()
-            if child is BookmarksView {
-                self.leftToRightGesture.delegate = nil
-                self.updateDragDownGestureDelegate(to: nil)
-            }
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
@@ -270,9 +260,6 @@ class MediaPlayerActionSheet: ActionSheet {
                 }
                 if let chapterView = item as? ChapterView {
                     chapterView.updateContent()
-                }
-                if let bookmarksView = item as? BookmarksView {
-                    bookmarksView.update()
                 }
             } else {
                 return
