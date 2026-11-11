@@ -775,14 +775,6 @@ class VideoPlayerViewController: PlayerViewController {
 
 #if os(iOS)
     private func setupRendererDiscoverer() {
-        rendererButton = rendererDiscovererManager.setupRendererButton()
-        rendererButton.tintColor = .white
-        if playbackService.renderer != nil {
-            rendererButton.isSelected = true
-        }
-
-        mediaNavigationBar.chromeCastButton = rendererButton
-
         rendererDiscovererManager.addSelectionHandler {
             rendererItem in
             if rendererItem != nil {
@@ -1759,11 +1751,6 @@ extension VideoPlayerViewController {
         setControlsHidden(false, animated: true)
         setupAccessibility()
         UIAccessibility.post(notification: .screenChanged, argument: qvc.queueCollectionView)
-    }
-
-    func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
-        // TODO: Add current renderer functionality to chromeCast Button
-        // NSAssert(0, @"didToggleChromeCast not implemented");
     }
 
     override func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {

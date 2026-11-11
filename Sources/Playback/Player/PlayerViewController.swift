@@ -159,7 +159,6 @@ class PlayerViewController: UIViewController {
 #if os(iOS)
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
                                                     rendererDiscovererService: rendererDiscovererManager)
-        mediaNavigationBar.chromeCastButton.isHidden = self.playbackService.renderer == nil
 #else
         var mediaNavigationBar = MediaNavigationBar(frame: .zero)
 #endif
@@ -291,14 +290,7 @@ class PlayerViewController: UIViewController {
         return vc
     }()
 
-    lazy var rendererButton: UIButton = {
-        let rendererButton = rendererDiscovererManager.setupRendererButton()
-        rendererButton.tintColor = .white
-
-        if playbackService.renderer != nil {
-            rendererButton.isSelected = true
-        }
-
+    private func setupRendererSelectionHandler() {
         rendererDiscovererManager.addSelectionHandler {
             rendererItem in
             if rendererItem != nil {
@@ -312,9 +304,7 @@ class PlayerViewController: UIViewController {
                 self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
             }
         }
-
-        return rendererButton
-    }()
+    }
 
     let volumeView = MPVolumeView(frame: .zero)
 #endif
@@ -420,7 +410,7 @@ class PlayerViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        mediaNavigationBar.chromeCastButton = rendererButton
+        setupRendererSelectionHandler()
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 #else

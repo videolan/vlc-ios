@@ -22,7 +22,6 @@ protocol MediaNavigationBarDelegate {
     @objc optional func mediaNavigationBarDidTapPictureInPicture(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleFavorite(_ mediaNavigationBar: MediaNavigationBar)
-    @objc optional func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar)
 }
@@ -87,15 +86,6 @@ protocol MediaNavigationBarDelegate {
     }()
 
 #if os(iOS)
-    lazy var chromeCastButton: UIButton = {
-        var chromeButton = UIButton(type: .system)
-        chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchDown)
-        chromeButton.setImage(UIImage(named: "renderer"), for: .normal)
-        chromeButton.tintColor = .white
-        chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        return chromeButton
-    }()
-
     lazy var deviceButton: UIButton = {
         let button = rendererDiscovererService.setupRendererButton()
         button.tintColor = .white
@@ -283,11 +273,6 @@ protocol MediaNavigationBarDelegate {
 
     func toggleOrientation() {
         vlc_toggleOrientation()
-    }
-
-    func toggleChromeCast() {
-        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
-        delegate?.mediaNavigationBarDidToggleChromeCast?(self)
     }
 
     private var closeButtonTouchArea: CGRect {
