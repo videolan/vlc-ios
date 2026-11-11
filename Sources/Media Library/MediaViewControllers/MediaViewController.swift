@@ -393,15 +393,6 @@ extension MediaViewController {
         navigationController?.pushViewController(historyView, animated: true)
     }
 
-    @objc func handleFolders() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-            let isFolder = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
-            mediaCategoryViewController.handleLayoutChange(gridLayout: true, isFolder: !isFolder)
-            UserDefaults.standard.set(!isFolder, forKey: KVLCFolderViewLayout)
-            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
-        }
-    }
-
     @objc func handleAddExternalFolder() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         documentPicker.delegate = self
@@ -451,22 +442,6 @@ extension MediaViewController {
         return UIMenu(options: .displayInline, children: [historyAction])
     }
 
-    func generateFolderMenu() -> UIMenu {
-        let isFolderLayout = UserDefaults.standard.bool(forKey: KVLCFolderViewLayout)
-        let folderAction = UIAction(
-            title: NSLocalizedString("FOLDERS", comment: ""),
-            image: UIImage(systemName: "folder"),
-            state: isFolderLayout ? .on : .off
-        ) { _ in
-            self.handleFolders()
-        }
-
-        folderAction.accessibilityLabel = NSLocalizedString("FOLDERS", comment: "")
-        folderAction.accessibilityHint = NSLocalizedString("BUTTON_FOLDER_HINT", comment: "")
-
-        return UIMenu(options: .displayInline, children: [folderAction])
-    }
-
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
@@ -480,12 +455,6 @@ extension MediaViewController {
            parentViewController is VideoViewController || parentViewController is AudioViewController {
             let historyMenu = generateHistoryMenu()
             rightMenuItems.append(historyMenu)
-        }
-
-        if let parentViewController = viewController?.parent,
-           parentViewController is VideoViewController {
-            let folderMenu = generateFolderMenu()
-            rightMenuItems.append(folderMenu)
         }
 
         var additionalMenuItems: [UIAction] = []

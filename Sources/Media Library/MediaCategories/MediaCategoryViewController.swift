@@ -1520,6 +1520,33 @@ extension MediaCategoryViewController {
         return sortBarButton
     }
 
+    private func handleFolders() {
+        let isFolder = !userDefaults.bool(forKey: KVLCFolderViewLayout)
+        userDefaults.set(isFolder, forKey: KVLCFolderViewLayout)
+
+        if isFolder {
+            handleLayoutChange(gridLayout: isFolderInGridLayout(), isFolder: true)
+            return
+        }
+
+        handleLayoutChange(gridLayout: secondModel.cellType == MovieCollectionViewCell.self, isFolder: false)
+    }
+
+    private func generateFolderMenu() -> UIMenu {
+        let isFolderLayout = userDefaults.bool(forKey: KVLCFolderViewLayout)
+        let folderAction = UIAction(title: NSLocalizedString("FOLDERS", comment: ""),
+                                    image: UIImage(systemName: "folder"),
+                                    state: isFolderLayout ? .on : .off,
+                                    handler: { [weak self] _ in
+            self?.handleFolders()
+        })
+
+        folderAction.accessibilityLabel = NSLocalizedString("FOLDERS", comment: "")
+        folderAction.accessibilityHint = NSLocalizedString("BUTTON_FOLDER_HINT", comment: "")
+
+        return UIMenu(options: .displayInline, children: [folderAction])
+    }
+
     private func generateLayoutMenu() -> UIMenu {
         let isFolder = model is FolderModel
             || (model is MediaGroupViewModel && userDefaults.bool(forKey: KVLCFolderViewLayout))
@@ -1581,7 +1608,13 @@ extension MediaCategoryViewController {
             return sortMenu
         }
 
-        return UIMenu(children: [generateLayoutMenu(), sortMenu])
+        var children: [UIMenuElement] = []
+        if self is MovieCategoryViewController {
+            children.append(generateFolderMenu())
+        }
+        children.append(contentsOf: [generateLayoutMenu(), sortMenu])
+
+        return UIMenu(children: children)
     }
 
     func handleRegroup() {
