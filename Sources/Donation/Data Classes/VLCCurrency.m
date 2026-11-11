@@ -2,7 +2,7 @@
  * VLCCurrency.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2024-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,6 +13,9 @@
 #import "VLCCurrency.h"
 
 @implementation VLCCurrency
+{
+    NSArray<NSString *> *_symbolNames;
+}
 
 + (NSArray<VLCCurrency *> *)availableCurrencies
 {
@@ -47,6 +50,17 @@
     return [[NSLocale currentLocale] displayNameForKey:NSLocaleCurrencyCode value:_isoCode];
 }
 
+- (UIImage *)symbolImage
+{
+    for (NSString *symbolName in _symbolNames) {
+        UIImage *image = [UIImage systemImageNamed:symbolName];
+        if (image) {
+            return image;
+        }
+    }
+    return nil;
+}
+
 - (instancetype)initEUR
 {
     self = [super init];
@@ -55,6 +69,7 @@
         _isoCode = @"EUR";
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"€";
+        _symbolNames = @[@"eurosign", @"eurosign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
@@ -73,6 +88,7 @@
         _isoCode = @"USD";
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"$";
+        _symbolNames = @[@"dollarsign", @"dollarsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -91,6 +107,7 @@
         _isoCode = @"AUD";
         _values = @[@(8), @(15), @(30), @(50), @(75), @(150)];
         _localCurrencySymbol = @"$";
+        _symbolNames = @[@"australiandollarsign", @"dollarsign", @"dollarsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -109,6 +126,7 @@
         _isoCode = @"GBP";
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"£";
+        _symbolNames = @[@"sterlingsign", @"sterlingsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -127,6 +145,7 @@
         _isoCode = @"BRL";
         _values = @[@(20), @(50), @(100), @(125), @(250), @(500)];
         _localCurrencySymbol = @"R$";
+        _symbolNames = @[@"brazilianrealsign", @"brazilianrealsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -145,6 +164,7 @@
         _isoCode = @"CAD";
         _values = @[@(7), @(15), @(30), @(40), @(70), @(140)];
         _localCurrencySymbol = @"$";
+        _symbolNames = @[@"dollarsign", @"dollarsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -163,6 +183,7 @@
         _isoCode = @"CNY";
         _values = @[@(30), @(60), @(125), @(200), @(300), @(600)];
         _localCurrencySymbol = @"CN¥";
+        _symbolNames = @[@"chineseyuanrenminbisign", @"yensign", @"yensign.circle"];
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -181,6 +202,7 @@
         _isoCode = @"INR";
         _values = @[@(300), @(750), @(1500), @(2000), @(4000), @(8000)];
         _localCurrencySymbol = @"₹";
+        _symbolNames = @[@"indianrupeesign", @"indianrupeesign.circle"];
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 100;
@@ -199,6 +221,7 @@
         _isoCode = @"JPY";
         _values = @[@(500), @(1000), @(2000), @(3000), @(5000), @(10000)];
         _localCurrencySymbol = @"¥";
+        _symbolNames = @[@"yensign", @"yensign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = NO;
         _stripeMultiplier = 1;
@@ -217,6 +240,7 @@
         _isoCode = @"KRW";
         _values = @[@(5000), @(10000), @(20000), @(30000), @(50000), @(100000)];
         _localCurrencySymbol = @"₩";
+        _symbolNames = @[@"wonsign", @"wonsign.circle"];
         _supportsPayPal = NO;
         _supportsSEPA = NO;
         _stripeMultiplier = 1;
@@ -235,6 +259,7 @@
         _isoCode = @"PLN";
         _values = @[@(20), @(40), @(80), @(125), @(250), @(500)];
         _localCurrencySymbol = @"zł";
+        _symbolNames = @[@"polishzlotysign"];
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
@@ -253,6 +278,7 @@
         _isoCode = @"SEK";
         _values = @[@(50), @(100), @(200), @(300), @(500), @(1000)];
         _localCurrencySymbol = @"kr‎";
+        _symbolNames = @[@"swedishkronasign"];
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;
@@ -271,6 +297,7 @@
         _isoCode = @"CHF";
         _values = @[@(5), @(10), @(20), @(30), @(50), @(100)];
         _localCurrencySymbol = @"CHF";
+        _symbolNames = @[@"francsign", @"francsign.circle"];
         _supportsPayPal = YES;
         _supportsSEPA = YES;
         _stripeMultiplier = 100;

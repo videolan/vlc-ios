@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyUpdateButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *monthlyCancelButton;
 
-- (IBAction)switchCurrency:(id)sender;
 - (IBAction)numberButtonAction:(id)sender;
 - (IBAction)continueButtonAction:(id)sender;
 - (IBAction)customAmountFieldAction:(id)sender;

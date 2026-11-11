@@ -2,7 +2,7 @@
  * VLCCurrency.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2024-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL supportsPayPal;
 @property (readonly) BOOL supportsSEPA;
 @property (readonly) NSString *localCurrencySymbol;
+@property (readonly, nullable) UIImage *symbolImage;
 @property (readonly) int stripeMultiplier;
 
 @property (readonly) float minimalAmount;

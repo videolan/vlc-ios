@@ -2,7 +2,7 @@
  * VLCDonationViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2023-2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2023-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -36,7 +36,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     VLCCurrency *_selectedCurrency;
     VLCPrice *_selectedPrice;
     VLCSubscription *_currentSubscription;
-    BOOL _presentingCurrencySelector;
     VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
@@ -102,6 +101,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
             break;
         }
     }
+    _selectedCurrencyButton.showsMenuAsPrimaryAction = YES;
     [self showSelectedCurrency];
 
     self.continueButton.role = UIButtonRolePrimary;
@@ -278,14 +278,31 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     }
 }
 
-- (IBAction)switchCurrency:(id)sender
+- (UIMenu *)currencyMenu
+{
+    __weak typeof(self) weakSelf = self;
+    NSMutableArray<UIAction *> *actions = [NSMutableArray arrayWithCapacity:_availableCurrencies.count];
+    for (VLCCurrency *currency in _availableCurrencies) {
+        UIAction *action = [UIAction actionWithTitle:currency.userReadableName
+                                               image:currency.symbolImage
+                                          identifier:nil
+                                             handler:^(__kindof UIAction * _Nonnull action) {
+            [weakSelf selectCurrency:currency];
+        }];
+        action.state = currency == _selectedCurrency ? UIMenuElementStateOn : UIMenuElementStateOff;
+        [actions addObject:action];
+    }
+    return [UIMenu menuWithTitle:NSLocalizedString(@"DONATION_CHOOSE_CURRENCY", nil) children:actions];
+}
+
+- (void)selectCurrency:(VLCCurrency *)currency
 {
     [_applePayButton removeFromSuperview];
     _applePayButton = nil;
     [_payPalImageView removeFromSuperview];
     _payPalImageView = nil;
-    _presentingCurrencySelector = YES;
-    [self presentViewController:_actionSheet animated:YES completion:nil];
+    _selectedCurrency = currency;
+    [self showSelectedCurrency];
 }
 
 - (IBAction)numberButtonAction:(UIButton *)sender
@@ -314,7 +331,6 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     [self hidePurchaseInterface:NO];
     [_applePayButton removeFromSuperview];
     [_payPalImageView removeFromSuperview];
-    _presentingCurrencySelector = NO;
     [self presentViewController:_actionSheet animated:YES completion:nil];
 }
 
@@ -525,38 +541,22 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
 
 - (NSString *)headerViewTitle
 {
-    if (_presentingCurrencySelector) {
-        return NSLocalizedString(@"DONATION_CHOOSE_CURRENCY", nil);
-    } else {
-        return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
-    }
+    return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
 }
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_presentingCurrencySelector) {
-        return _availableCurrencies[indexPath.row];
-    } else {
-        return _paymentProviders[indexPath.row];
-    }
+    return _paymentProviders[indexPath.row];
 }
 
 - (void)actionSheetWithCollectionView:(UICollectionView *)collectionView didSelectItem:(id)item At:(NSIndexPath *)indexPath
 {
-    if (_presentingCurrencySelector) {
-        _selectedCurrency = _availableCurrencies[indexPath.row];
-    } else {
-        _selectedPaymentProvider = _paymentProviders[indexPath.row];
-    }
+    _selectedPaymentProvider = _paymentProviders[indexPath.row];
 }
 
 - (void)actionSheetDidFinishClosingAnimation:(VLCActionSheet *)actionSheet
 {
-    if (_presentingCurrencySelector) {
-        [self showSelectedCurrency];
-    } else {
-        [self showSelectedPaymentProvider];
-    }
+    [self showSelectedPaymentProvider];
 }
 
 - (void)showSelectedCurrency
@@ -571,6 +571,7 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     [self uncheckNumberButtons];
 
     [_selectedCurrencyButton setTitle:_selectedCurrency.localCurrencySymbol forState:UIControlStateNormal];
+    _selectedCurrencyButton.menu = [self currencyMenu];
     NSArray *values = _selectedCurrency.values;
 
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -656,34 +657,14 @@ typedef void (^CompletionHandler)(PKPaymentAuthorizationResult *);
     if (!cell) {
         cell = [[VLCActionSheetCell alloc] init];
     }
-    if (_presentingCurrencySelector) {
-        [self configureCellForCurrency:cell atIndexPath:indexPath];
-    } else {
-        [self configureCellForPaymentProvider:cell atIndexPath:indexPath];
-    }
+    [self configureCellForPaymentProvider:cell atIndexPath:indexPath];
 
     return cell;
 }
 
 - (NSInteger)numberOfRows
 {
-    if (_presentingCurrencySelector) {
-        return _availableCurrencies.count;
-    }
-
     return _paymentProviders.count;
-}
-
-- (void)configureCellForCurrency:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    VLCCurrency *currency = _availableCurrencies[indexPath.row];
-    cell.name.text = currency.userReadableName;
-    cell.name.textAlignment = NSTextAlignmentNatural;
-    if (currency == _selectedCurrency) {
-        cell.name.textColor = PresentationTheme.current.colors.orangeUI;
-    } else {
-        cell.name.textColor = PresentationTheme.current.colors.cellTextColor;
-    }
 }
 
 - (void)configureCellForPaymentProvider:(VLCActionSheetCell *)cell atIndexPath:(NSIndexPath *)indexPath
