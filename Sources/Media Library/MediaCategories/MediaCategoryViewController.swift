@@ -31,6 +31,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         didSet {
             (oldValue as? any MLBaseModel)?.observable.removeObserver(self)
             (model as? any MLBaseModel)?.observable.addObserver(self)
+            searchDataSource = LibrarySearchDataSource(model: model)
+            editController = EditController(mediaLibraryService: mediaLibraryService, model: model, presentingView: collectionView, searchDataSource: searchDataSource)
+            editController.delegate = self
         }
     }
     private var secondModel: MediaLibraryBaseModel
@@ -406,9 +409,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let previousModel = model
         model = secondModel
         secondModel = previousModel
-        self.searchDataSource = LibrarySearchDataSource(model: model)
-        editController = EditController(mediaLibraryService: mediaLibraryService, model: model, presentingView: collectionView, searchDataSource: searchDataSource)
-        editController.delegate = self
         model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
         setupCollectionView()
         cachedCellSize = .zero
