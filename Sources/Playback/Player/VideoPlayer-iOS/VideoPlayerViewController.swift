@@ -512,13 +512,6 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
 #if os(iOS)
-    private var bookFoldFrame: CGRect? {
-        let bounds = view.bounds
-        return activeReservedRegions(ofKind: "divisionRegionKind")
-            .map(\.frame)
-            .first { $0.height > $0.width && $0.minX > bounds.minX && $0.maxX < bounds.maxX }
-    }
-
     private var bottomRightCameraRegion: (frame: CGRect, margins: UIEdgeInsets)? {
         let bounds = view.bounds
         return activeReservedRegions(ofKind: "occlusionRegionKind")

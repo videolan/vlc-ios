@@ -253,6 +253,18 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
     private lazy var centeredLayoutGuide: UILayoutGuide = UILayoutGuide()
 
+    private let landscapeColumnSpacing: CGFloat = 8.0
+
+    private lazy var landscapeDividerLayoutGuide: UILayoutGuide = UILayoutGuide()
+
+    private lazy var landscapeDividerCenterXConstraint: NSLayoutConstraint = {
+        landscapeDividerLayoutGuide.centerXAnchor.constraint(equalTo: centerXAnchor)
+    }()
+
+    private lazy var landscapeDividerWidthConstraint: NSLayoutConstraint = {
+        landscapeDividerLayoutGuide.widthAnchor.constraint(equalToConstant: 2 * landscapeColumnSpacing)
+    }()
+
     private lazy var landscapeRightLayoutGuide: UILayoutGuide = UILayoutGuide()
 
     private lazy var landscapeRightContentLayoutGuide: UILayoutGuide = UILayoutGuide()
@@ -640,6 +652,19 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         updateLayoutConstraints()
     }
 
+    func updateBookFold(_ fold: CGRect?) {
+        let centerXOffset = fold.map { $0.midX - bounds.midX } ?? 0
+        let width = (fold?.width ?? 0) + 2 * landscapeColumnSpacing
+
+        if landscapeDividerCenterXConstraint.constant != centerXOffset {
+            landscapeDividerCenterXConstraint.constant = centerXOffset
+        }
+
+        if landscapeDividerWidthConstraint.constant != width {
+            landscapeDividerWidthConstraint.constant = width
+        }
+    }
+
     private func updateLayoutConstraints() {
         let constraints: [NSLayoutConstraint]
         if isLandscapeLayout {
@@ -773,11 +798,14 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupLandscapeLayoutGuide() {
+        addLayoutGuide(landscapeDividerLayoutGuide)
         addLayoutGuide(landscapeRightLayoutGuide)
         addLayoutGuide(landscapeRightContentLayoutGuide)
 
         landscapeConstraints.append(contentsOf: [
-            landscapeRightLayoutGuide.leadingAnchor.constraint(equalTo: centeredLayoutGuide.centerXAnchor, constant: 8),
+            landscapeDividerCenterXConstraint,
+            landscapeDividerWidthConstraint,
+            landscapeRightLayoutGuide.leadingAnchor.constraint(equalTo: landscapeDividerLayoutGuide.trailingAnchor),
             landscapeRightLayoutGuide.trailingAnchor.constraint(equalTo: centeredLayoutGuide.trailingAnchor),
             landscapeRightLayoutGuide.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor),
             landscapeRightLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
@@ -802,7 +830,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         ])
 
         landscapeConstraints.append(contentsOf: [
-            thumbnailView.trailingAnchor.constraint(equalTo: centeredLayoutGuide.centerXAnchor, constant: -8),
+            thumbnailView.trailingAnchor.constraint(equalTo: landscapeDividerLayoutGuide.leadingAnchor),
             thumbnailView.topAnchor.constraint(greaterThanOrEqualTo: navigationBarView.bottomAnchor, constant: 10),
             thumbnailView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             thumbnailViewCenterYConstraint,

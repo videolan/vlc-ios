@@ -164,6 +164,7 @@ class AudioPlayerViewController: PlayerViewController {
 
         let tabletopFold = tabletopFoldFrame
         audioPlayerView.updateTabletopFold(tabletopFold)
+        audioPlayerView.updateBookFold(bookFoldFrame)
         if audioPlayerView.navigationBarLayout.update(tabletopFold: tabletopFold,
                                                       camera: topLeftCameraRegion,
                                                       statusBar: topRightCameraRegion,
