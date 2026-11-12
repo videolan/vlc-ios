@@ -121,6 +121,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     BOOL _openInMiniPlayer;
     NSString *_primaryVideoSubtitleTrackId;
     NSString *_secondaryVideoSubtitleTrackId;
+    BOOL _pendingSubtitleSlaveSelection;
 }
 
 #if !TARGET_OS_WATCH
@@ -238,7 +239,9 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL
 {
-    [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+    if ([_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES] == 0) {
+        _pendingSubtitleSlaveSelection = YES;
+    }
 }
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath
@@ -1140,6 +1143,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
             case VLCMediaPlayerStateOpening: {
                 APLog(@"%s: opening", __func__);
                 self->_openedMedia = self->_mediaPlayer.media;
+                self->_pendingSubtitleSlaveSelection = NO;
 
                 /* attach delegate */
                 self->_mediaPlayer.media.delegate = self;
@@ -1242,6 +1246,23 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_metadata updatePlaybackStateFromMediaPlayer:self->_mediaPlayer];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackRateDidChange object:self];
+    });
+}
+
+- (void)mediaPlayerTrackAdded:(NSString *)trackId withType:(VLCMediaTrackType)trackType
+{
+    if (trackType != VLCMediaTrackTypeText) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self->_pendingSubtitleSlaveSelection) {
+            return;
+        }
+
+        self->_pendingSubtitleSlaveSelection = NO;
+        [self selectPrimaryVideoSubtitleAtIndex:[self _indexOfTextTrackWithId:trackId]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:nil];
     });
 }
 
