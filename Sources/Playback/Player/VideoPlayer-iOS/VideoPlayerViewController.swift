@@ -36,6 +36,10 @@ class VideoPlayerViewController: PlayerViewController {
     /// to be able to restore playback speed to its previous state after long press ended.
     private var previousPlaybackSpeed: Float?
 
+#if os(iOS) && canImport(MediaIntents) // iOS 27 SDK
+    private var externalDisplayRegistration: AnyObject?
+#endif
+
     // MARK: - 360
 
     private var fov: CGFloat = 0
@@ -611,9 +615,23 @@ class VideoPlayerViewController: PlayerViewController {
 #if os(iOS)
         setupRendererDiscoverer()
 #endif
+#if os(iOS) && canImport(MediaIntents) // iOS 27 SDK
+        setupExternalDisplayAccessory()
+#endif
     }
 
     // MARK: - Setup methods
+
+#if os(iOS) && canImport(MediaIntents) // iOS 27 SDK
+    private func setupExternalDisplayAccessory() {
+        guard #available(iOS 27.0, *) else {
+            return
+        }
+        let configuration = UISceneConfiguration(name: "VLCNonInteractiveWindowScene",
+                                                 sessionRole: .windowExternalDisplayNonInteractive)
+        externalDisplayRegistration = registerSceneAccessory(.externalNonInteractive(sceneConfiguration: configuration))
+    }
+#endif
 
     private func setupViews() {
         view.backgroundColor = .black
