@@ -97,6 +97,8 @@
 #define kVLCSettingOpenAppForPlaybackDefaultValue @YES
 #define kVLCSettingShowThumbnails @"ShowThumbnails"
 #define kVLCSettingShowThumbnailsDefaultValue @YES
+#define kVLCSettingPlayVideoPreviews @"PlayVideoPreviews"
+#define kVLCSettingPlayVideoPreviewsDefaultValue @YES
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
 #define kVLCSettingsDisableGrouping @"MLDisableGrouping"

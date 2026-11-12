@@ -86,6 +86,7 @@
                                   kVLCPlaylistPlayNextItem: @(YES),
                                   kVLCSettingEnableMediaCellTextScrolling : @(NO),
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
+                                  kVLCSettingPlayVideoPreviews : kVLCSettingPlayVideoPreviewsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingPodcastAutomaticDownloads : kVLCSettingPodcastAutomaticDownloadsDefaultValue,

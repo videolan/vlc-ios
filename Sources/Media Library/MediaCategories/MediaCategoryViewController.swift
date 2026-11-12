@@ -2237,7 +2237,9 @@ extension MediaCategoryViewController {
         let thumbnail = thumbnailView?.image
         let placeholderName = thumbnailView?.placeholderName
         let videoMedia: VLCMLMedia?
-        if let media = modelContent as? VLCMLMedia, media.type() == .video {
+        if !UserDefaults.standard.bool(forKey: kVLCSettingPlayVideoPreviews) {
+            videoMedia = nil
+        } else if let media = modelContent as? VLCMLMedia, media.type() == .video {
             videoMedia = media
         } else if let group = modelContent as? VLCMLMediaGroup,
                   let first = group.media(of: .video)?.first {

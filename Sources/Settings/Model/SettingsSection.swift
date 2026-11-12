@@ -698,6 +698,11 @@ enum MediaLibraryOptions {
                 preferenceKey: kVLCSettingShowThumbnails)
     }
 
+    static var playVideoPreviews: SettingsItem {
+        .toggle(title: "SETTINGS_PLAY_VIDEO_PREVIEWS",
+                preferenceKey: kVLCSettingPlayVideoPreviews)
+    }
+
     static var showAudioArtworks: SettingsItem {
         .toggle(title: "SETTINGS_SHOW_ARTWORKS",
                 preferenceKey: kVLCSettingShowArtworks)
@@ -719,6 +724,7 @@ enum MediaLibraryOptions {
                        optimiseItemNamesForDisplay,
                        disableGrouping,
                        showVideoThumbnails,
+                       playVideoPreviews,
                        showAudioArtworks]
 
         if isBackingUp {
