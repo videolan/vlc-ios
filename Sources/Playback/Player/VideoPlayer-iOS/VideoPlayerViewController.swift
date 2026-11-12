@@ -960,6 +960,7 @@ class VideoPlayerViewController: PlayerViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if playbackService.isPlaying && playerController.isControlsHidden && overlayCardView == nil {
             setControlsHidden(false, animated: true)
+            resetIdleTimer()
         }
 
         videoPlayerButtons()
