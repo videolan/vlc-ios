@@ -119,8 +119,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSString *_lastQueueDuration;
 
     BOOL _openInMiniPlayer;
-    NSInteger _primaryVideoSubtitleTrackIndex;
-    NSInteger _secondaryVideoSubtitleTrackIndex;
+    NSString *_primaryVideoSubtitleTrackId;
+    NSString *_secondaryVideoSubtitleTrackId;
 }
 
 #if !TARGET_OS_WATCH
@@ -221,9 +221,6 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
         _mediaList = [[VLCMediaList alloc] init];
 
-        _primaryVideoSubtitleTrackIndex = -1;
-        _secondaryVideoSubtitleTrackIndex = -1;
-        
         _openedLocalURLs = [[NSMutableArray alloc] init];
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
@@ -674,8 +671,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         }
 
         if (disableSubtitles) {
-            _primaryVideoSubtitleTrackIndex = -1;
-            _secondaryVideoSubtitleTrackIndex = -1;
+            _primaryVideoSubtitleTrackId = nil;
+            _secondaryVideoSubtitleTrackId = nil;
             [self syncVideoSubtitleState];
             return;
         } else {
@@ -896,11 +893,27 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 }
 
 - (NSInteger)indexOfCurrentPrimaryVideoSubtitleTrack {
-    return _primaryVideoSubtitleTrackIndex;
+    return [self _indexOfTextTrackWithId:_primaryVideoSubtitleTrackId];
 }
 
 - (NSInteger)indexOfCurrentSecondaryVideoSubtitleTrack {
-    return _secondaryVideoSubtitleTrackIndex;
+    return [self _indexOfTextTrackWithId:_secondaryVideoSubtitleTrackId];
+}
+
+- (NSInteger)_indexOfTextTrackWithId:(NSString *)trackId
+{
+    if (!trackId) {
+        return -1;
+    }
+
+    NSArray<VLCMediaPlayerTrack *> *textTracks = [_mediaPlayer textTracks];
+    NSInteger count = textTracks.count;
+    for (NSInteger index = 0; index < count; index++) {
+        if ([textTracks[index].trackId isEqualToString:trackId]) {
+            return index;
+        }
+    }
+    return -1;
 }
 
 - (VLCMediaPlayerChapterDescription *)currentChapterDescription
@@ -1015,11 +1028,12 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSArray *textTracks = [_mediaPlayer textTracks];
     
     if (index >= 0 && index < textTracks.count) {
-        if (_secondaryVideoSubtitleTrackIndex == index) {
-            _secondaryVideoSubtitleTrackIndex = -1;
+        VLCMediaPlayerTrack *track = textTracks[index];
+        if ([_secondaryVideoSubtitleTrackId isEqualToString:track.trackId]) {
+            _secondaryVideoSubtitleTrackId = nil;
         }
-        
-        _primaryVideoSubtitleTrackIndex = index;
+
+        _primaryVideoSubtitleTrackId = track.trackId;
         [self syncVideoSubtitleState];
     }
 }
@@ -1028,39 +1042,49 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSArray *textTracks = [_mediaPlayer textTracks];
     
     if (index >= 0 && index < textTracks.count) {
-        if (_primaryVideoSubtitleTrackIndex == index) {
-            _primaryVideoSubtitleTrackIndex = -1;
+        VLCMediaPlayerTrack *track = textTracks[index];
+        if ([_primaryVideoSubtitleTrackId isEqualToString:track.trackId]) {
+            _primaryVideoSubtitleTrackId = nil;
         }
-        _secondaryVideoSubtitleTrackIndex = index;
+        _secondaryVideoSubtitleTrackId = track.trackId;
         [self syncVideoSubtitleState];
     }
 }
 
 - (void)syncVideoSubtitleState
 {
-    NSArray *textTracks = [_mediaPlayer textTracks];
+    NSArray<VLCMediaPlayerTrack *> *textTracks = [_mediaPlayer textTracks];
+    VLCMediaPlayerTrack *primaryTrack;
+    VLCMediaPlayerTrack *secondaryTrack;
+
+    for (VLCMediaPlayerTrack *track in textTracks) {
+        if ([track.trackId isEqualToString:_primaryVideoSubtitleTrackId]) {
+            primaryTrack = track;
+        } else if ([track.trackId isEqualToString:_secondaryVideoSubtitleTrackId]) {
+            secondaryTrack = track;
+        }
+    }
+
     NSMutableArray<VLCMediaPlayerTrack *> *tracksToSelect = [NSMutableArray array];
-    
-    if (_primaryVideoSubtitleTrackIndex >= 0 && _primaryVideoSubtitleTrackIndex < textTracks.count) {
-        [tracksToSelect addObject:textTracks[_primaryVideoSubtitleTrackIndex]];
+    if (primaryTrack) {
+        [tracksToSelect addObject:primaryTrack];
     }
-    
-    if (_secondaryVideoSubtitleTrackIndex >= 0 && _secondaryVideoSubtitleTrackIndex < textTracks.count) {
-        [tracksToSelect addObject:textTracks[_secondaryVideoSubtitleTrackIndex]];
+    if (secondaryTrack) {
+        [tracksToSelect addObject:secondaryTrack];
     }
-    
+
     [_mediaPlayer selectTextTracks:tracksToSelect];
 }
 
 - (void)disablePrimaryVideoSubtitle
 {
-    _primaryVideoSubtitleTrackIndex = -1;
+    _primaryVideoSubtitleTrackId = nil;
     [self syncVideoSubtitleState];
 }
 
 - (void)disableSecondaryVideoSubtitle
 {
-    _secondaryVideoSubtitleTrackIndex = -1;
+    _secondaryVideoSubtitleTrackId = nil;
     [self syncVideoSubtitleState];
 }
 
@@ -2346,8 +2370,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDisableSubtitles]) {
         [_mediaPlayer deselectAllTextTracks];
-        _primaryVideoSubtitleTrackIndex = -1;
-        _secondaryVideoSubtitleTrackIndex = -1;
+        _primaryVideoSubtitleTrackId = nil;
+        _secondaryVideoSubtitleTrackId = nil;
     }
 }
 
