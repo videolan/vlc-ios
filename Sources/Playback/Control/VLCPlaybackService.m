@@ -683,6 +683,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
             [self selectPrimaryVideoSubtitleAtIndex:media.primarySubtitleTrackIndex];
             [self selectSecondaryVideoSubtitleAtIndex:media.secondarySubtitleTrackIndex];
         }
+    } else {
+        [self disableSubtitlesIfNeeded];
     }
 }
 
@@ -2101,9 +2103,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsMetadataUpdate];
-#if TARGET_OS_IOS
         [self restoreAudioAndSubtitleTrack];
-#endif
     });
 }
 
