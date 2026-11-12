@@ -1245,6 +1245,41 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     });
 }
 
+- (void)mediaPlayerTrackSelected:(VLCMediaTrackType)trackType selectedId:(NSString *)selectedId unselectedId:(NSString *)unselectedId
+{
+    if (trackType != VLCMediaTrackTypeText) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL selectionChanged = NO;
+
+        if ([unselectedId isEqualToString:self->_primaryVideoSubtitleTrackId]) {
+            self->_primaryVideoSubtitleTrackId = nil;
+            selectionChanged = YES;
+        } else if ([unselectedId isEqualToString:self->_secondaryVideoSubtitleTrackId]) {
+            self->_secondaryVideoSubtitleTrackId = nil;
+            selectionChanged = YES;
+        }
+
+        if (selectedId
+            && ![selectedId isEqualToString:self->_primaryVideoSubtitleTrackId]
+            && ![selectedId isEqualToString:self->_secondaryVideoSubtitleTrackId]) {
+            if (!self->_primaryVideoSubtitleTrackId) {
+                self->_primaryVideoSubtitleTrackId = selectedId;
+                selectionChanged = YES;
+            } else if (!self->_secondaryVideoSubtitleTrackId) {
+                self->_secondaryVideoSubtitleTrackId = selectedId;
+                selectionChanged = YES;
+            }
+        }
+
+        if (selectionChanged) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:nil];
+        }
+    });
+}
+
 #pragma mark - playback controls
 - (void)playPause
 {
