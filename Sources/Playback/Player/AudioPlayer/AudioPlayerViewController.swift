@@ -140,9 +140,6 @@ class AudioPlayerViewController: PlayerViewController {
             setPlayerInterfaceEnabled(true)
         }
         queueViewController?.hide()
-        numberOfGestureSeek = 0
-        totalSeekDuration = 0
-        previousSeekState = .default
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

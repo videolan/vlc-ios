@@ -132,6 +132,7 @@ class PlayerViewController: UIViewController {
         statusLabel.isHidden = true
         statusLabel.textColor = .white
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.delegate = self
         return statusLabel
     }()
 
@@ -1462,6 +1463,16 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
         }
 
         queueViewController.reload()
+    }
+}
+
+// MARK: - VLCStatusLabelDelegate
+
+extension PlayerViewController: VLCStatusLabelDelegate {
+    func statusLabelDidHide(_ statusLabel: VLCStatusLabel) {
+        numberOfGestureSeek = 0
+        totalSeekDuration = 0
+        previousSeekState = .default
     }
 }
 

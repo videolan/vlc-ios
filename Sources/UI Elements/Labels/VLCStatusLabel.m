@@ -2,7 +2,7 @@
  * VLCStatusLabel.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -86,6 +86,7 @@
 {
     [self setHidden:YES animated:YES];
     _displayTimer = nil;
+    [self.delegate statusLabelDidHide:self];
 }
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated
