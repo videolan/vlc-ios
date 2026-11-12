@@ -1,7 +1,7 @@
 /*****************************************************************************
  * CollectionModel.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright © 2019-2026 VLC authors and VideoLAN
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
  *
@@ -97,10 +97,10 @@ class CollectionModel: MLBaseModel {
         }
         if let playlist = mediaCollection as? VLCMLPlaylist {
             fileArrayLock.lock()
-            for case let media in items {
-                if let index = files.firstIndex(of: media) {
-                    playlist.removeMedia(fromPosition: UInt32(index))
-                }
+            let tracks = playlist.media ?? []
+            let positions = items.compactMap { tracks.firstIndex(of: $0) }
+            for position in positions.sorted(by: >) {
+                playlist.removeMedia(fromPosition: UInt32(position))
             }
         } else {
             do {
