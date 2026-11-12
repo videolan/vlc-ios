@@ -961,4 +961,4 @@
 
 // MARK: - VLCPlayerDisplayController
 "APPENDED_TO_QUEUE_STATUS_MESSAGE" = "Appended to queue";
-"PLAYING_NEXT_STATUS_MESSAGE" = "Playing next";
+"QUEUED_NEXT_STATUS_MESSAGE" = "Queued to play next";

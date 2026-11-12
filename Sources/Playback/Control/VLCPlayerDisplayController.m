@@ -642,7 +642,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
                 message = NSLocalizedString(@"APPENDED_TO_QUEUE_STATUS_MESSAGE", nil);
                 break;
             case VLCPlayerDisplayControllerQueueStatusMessagePlayingNext:
-                message = NSLocalizedString(@"PLAYING_NEXT_STATUS_MESSAGE", nil);
+                message = NSLocalizedString(@"QUEUED_NEXT_STATUS_MESSAGE", nil);
                 break;
         }
         [self->_statusLabel showStatusMessage:message];
