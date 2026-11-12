@@ -2,7 +2,7 @@
  * VLCPlaybackService+MediaLibrary.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015-2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz     <caro #videolan.org>
@@ -55,7 +55,7 @@
 }
 
 #if TARGET_OS_IOS
-- (void)playMedia:(VLCMLMedia *)media withMode:(EditButtonType)mode
+- (BOOL)playMedia:(VLCMLMedia *)media withMode:(EditButtonType)mode
 {
     VLCMediaList *list = self.isShuffleMode ? self.shuffledList : self.mediaList;
     
@@ -75,21 +75,25 @@
             default:
                 break;
         }
+        return YES;
     } else {
         [self playMedia:media];
+        return NO;
     }
 }
 
 - (void)playMediaNextInQueue:(VLCMLMedia *)media
 {
-    [self playMedia:media withMode:EditButtonTypePlayNextInQueue];
-    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
+    if ([self playMedia:media withMode:EditButtonTypePlayNextInQueue]) {
+        [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
+    }
 }
 
 - (void)appendMediaToQueue:(VLCMLMedia *)media
 {
-    [self playMedia:media withMode:EditButtonTypeAppendToQueue];
-    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
+    if ([self playMedia:media withMode:EditButtonTypeAppendToQueue]) {
+        [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
+    }
 }
 
 - (void)playCollection:(NSArray<VLCMLMedia *> *)collection
@@ -97,7 +101,7 @@
     [self playMediaAtIndex:-1 fromCollection:collection];
 }
 
-- (void)playCollection:(NSArray<VLCMLMedia *> *)collection withMode:(EditButtonType)mode
+- (BOOL)playCollection:(NSArray<VLCMLMedia *> *)collection withMode:(EditButtonType)mode
 {
     if ([self.mediaList count] > 0) {
         switch (mode) {
@@ -114,21 +118,25 @@
             default:
                 break;
         }
+        return YES;
     } else {
         [self playCollection:collection];
+        return NO;
     }
 }
 
 - (void)playCollectionNextInQueue:(NSArray<VLCMLMedia *> *)collection
 {
-    [self playCollection:collection withMode:EditButtonTypePlayNextInQueue];
-    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
+    if ([self playCollection:collection withMode:EditButtonTypePlayNextInQueue]) {
+        [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessagePlayingNext withDelay:0.5];
+    }
 }
 
 - (void)appendCollectionToQueue:(NSArray<VLCMLMedia *> *)collection
 {
-    [self playCollection:collection withMode:EditButtonTypeAppendToQueue];
-    [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
+    if ([self playCollection:collection withMode:EditButtonTypeAppendToQueue]) {
+        [VLCPlaybackService.sharedInstance.playerDisplayController showPlayqueueStatus:VLCPlayerDisplayControllerQueueStatusMessageAppended withDelay:0.5];
+    }
 }
 
 #endif
