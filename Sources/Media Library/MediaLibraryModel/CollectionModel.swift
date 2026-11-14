@@ -150,19 +150,71 @@ class CollectionModel: MLBaseModel {
             $0.mediaLibraryBaseModelReloadView()
         }
     }
+
+    private func updateMediaCollection(_ updatedCollection: MediaCollectionModel) {
+        DispatchQueue.main.async {
+            self.fileArrayLock.lock()
+            defer { self.fileArrayLock.unlock() }
+            self.mediaCollection = updatedCollection
+            self.thumbnail = updatedCollection.thumbnail()
+            self.files = updatedCollection.files(with: self.sortModel.currentSort, desc: self.sortModel.desc) ?? []
+            self.observable.notifyObservers {
+                $0.mediaLibraryBaseModelReloadView()
+            }
+        }
+    }
 }
 
 // MARK: - MediaLibraryObserver
 extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
-        guard mediaCollection is VLCMLPlaylist else { return }
-        fileArrayLock.lock()
-        defer { fileArrayLock.unlock() }
-        files = mediaCollection.files(with: sortModel.currentSort, desc: sortModel.desc) ?? []
-        observable.notifyObservers {
-            $0.mediaLibraryBaseModelReloadView()
+        guard let playlist = mediaCollection as? VLCMLPlaylist,
+              playlistsIds.contains(where: { $0.int64Value == playlist.identifier() }),
+              let updatedPlaylist = medialibrary.medialib.playlist(withIdentifier: playlist.identifier()) else {
+            return
         }
+        updateMediaCollection(updatedPlaylist)
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyAlbumsWithIds albumsIds: [NSNumber]) {
+        guard let album = mediaCollection as? VLCMLAlbum,
+              albumsIds.contains(where: { $0.int64Value == album.identifier() }),
+              let updatedAlbum = medialibrary.medialib.album(withIdentifier: album.identifier()) else {
+            return
+        }
+        updateMediaCollection(updatedAlbum)
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyArtistsWithIds artistsIds: [NSNumber]) {
+        guard let artist = mediaCollection as? VLCMLArtist,
+              artistsIds.contains(where: { $0.int64Value == artist.identifier() }),
+              let updatedArtist = medialibrary.medialib.artist(withIdentifier: artist.identifier()) else {
+            return
+        }
+        updateMediaCollection(updatedArtist)
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyGenresWithIds genresIds: [NSNumber]) {
+        guard let genre = mediaCollection as? VLCMLGenre,
+              genresIds.contains(where: { $0.int64Value == genre.identifier() }),
+              let updatedGenre = medialibrary.medialib.genre(withIdentifier: genre.identifier()) else {
+            return
+        }
+        updateMediaCollection(updatedGenre)
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
+        guard let mediaGroup = mediaCollection as? VLCMLMediaGroup,
+              mediaGroupsIds.contains(where: { $0.int64Value == mediaGroup.identifier() }),
+              let updatedMediaGroup = medialibrary.medialib.mediaGroup(withIdentifier: mediaGroup.identifier()) else {
+            return
+        }
+        updateMediaCollection(updatedMediaGroup)
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
