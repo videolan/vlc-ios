@@ -98,7 +98,14 @@ class CollectionModel: MLBaseModel {
         if let playlist = mediaCollection as? VLCMLPlaylist {
             fileArrayLock.lock()
             let tracks = playlist.media ?? []
-            let positions = items.compactMap { tracks.firstIndex(of: $0) }
+            var positions = [Int]()
+            for (identifier, selected) in Dictionary(grouping: items, by: { $0.identifier() }) {
+                let copies = tracks.indices.filter { tracks[$0].identifier() == identifier }
+                let displayedCopies = files.filter { $0.identifier() == identifier }
+                let ranks = selected.compactMap { media in displayedCopies.firstIndex { $0 === media } }
+                let chosenRanks = ranks.count == selected.count ? ranks : Array(0..<selected.count)
+                positions += chosenRanks.filter { $0 < copies.count }.map { copies[$0] }
+            }
             for position in positions.sorted(by: >) {
                 playlist.removeMedia(fromPosition: UInt32(position))
             }
