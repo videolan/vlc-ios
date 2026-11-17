@@ -147,6 +147,7 @@ final class TrackSelectorView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        tableView.layoutIfNeeded()
 
         if let tableHeightConstraint = tableHeightConstraint,
            abs(tableHeightConstraint.constant - tableView.contentSize.height) > 0.5 {
