@@ -69,7 +69,7 @@ class BottomTabBarController: UITabBarController {
 
         #if os(iOS)
         if #available(iOS 26.0, *) {
-            tabBarMinimizeBehavior = .onScrollDown
+            tabBarMinimizeBehavior = .never
         }
         #endif
     }
