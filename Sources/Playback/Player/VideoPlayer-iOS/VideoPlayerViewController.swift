@@ -69,10 +69,6 @@ class VideoPlayerViewController: PlayerViewController {
 
     // MARK: - UI elements
 
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-
     private var idleTimer: Timer?
 
     private var isQueueCardShown = false

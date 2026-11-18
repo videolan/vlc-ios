@@ -46,10 +46,6 @@ class AudioPlayerViewController: PlayerViewController {
     }
 #endif
 
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-
     lazy var audioPlayerView: AudioPlayerView = {
         let audioPlayerView = AudioPlayerView(frame: .zero)
         audioPlayerView.delegate = self

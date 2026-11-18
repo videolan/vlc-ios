@@ -11,6 +11,7 @@
 
 import UIKit
 import AVFoundation
+import GameController
 import MediaPlayer
 
 fileprivate enum PlayerPanType {
@@ -144,6 +145,10 @@ class PlayerViewController: UIViewController {
 
     var moreOptionsMenuButton: MenuButton? {
         return nil
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return GCKeyboard.coalesced != nil
     }
 
     var overlayCardLayoutGuide: UILayoutGuide {
@@ -1125,6 +1130,19 @@ class PlayerViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(updatePlayerControls), name: .VLCDidRemoveMediaFromQueue, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateSleepTimerIcon), name: Notification.Name(VLCPlaybackServiceSleepTimerDidChange), object: nil)
         notificationCenter.addObserver(self, selector: #selector(hideEqualizerIcon), name: Notification.Name(VLCPlaybackServicePlaybackDidStop), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(hardwareKeyboardDidConnect), name: .GCKeyboardDidConnect, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(hardwareKeyboardDidDisconnect), name: .GCKeyboardDidDisconnect, object: nil)
+    }
+
+    @objc private func hardwareKeyboardDidConnect() {
+        guard viewIfLoaded?.window != nil, presentedViewController == nil else {
+            return
+        }
+        becomeFirstResponder()
+    }
+
+    @objc private func hardwareKeyboardDidDisconnect() {
+        resignFirstResponder()
     }
 
     private func setupSeekDurations() {
