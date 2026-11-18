@@ -310,9 +310,22 @@ class QueueViewController: UIViewController {
     }
 
     func show() {
+        let isVideoPlayerCard = parent is VideoPlayerViewController
+        if isVideoPlayerCard {
+            // Materialize the glass rather than fading its ancestor.
+            artworkBlurView.effect = nil
+            artworkBlurView.backgroundColor = .clear
+            queueCollectionView.alpha = 0.0
+            view.alpha = 1.0
+        }
         view.transform = collapsedCardTransform
         UIView.animate(withDuration: animationDuration, animations: {
-            self.view.alpha = 1.0
+            if isVideoPlayerCard {
+                self.artworkBlurView.applyOverlayBackgroundStyle()
+                self.queueCollectionView.alpha = 1.0
+            } else {
+                self.view.alpha = 1.0
+            }
             self.view.transform = .identity
             self.darkOverlayView.isHidden = false
         }) { _ in
@@ -366,11 +379,14 @@ class QueueViewController: UIViewController {
     @objc func dismissPlayqueue() {
         if let parent = parent as? VideoPlayerViewController {
             UIView.animate(withDuration: animationDuration, animations: {
-                self.view.alpha = 0.0
+                self.artworkBlurView.effect = nil
+                self.artworkBlurView.backgroundColor = .clear
+                self.queueCollectionView.alpha = 0.0
                 self.view.transform = self.collapsedCardTransform
             }, completion: { _ in
                 self.view.transform = .identity
                 self.dismissPlayqueueCompletion(in: parent)
+                self.queueCollectionView.alpha = 1.0
             })
             return
         }
