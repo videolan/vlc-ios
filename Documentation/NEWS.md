@@ -3,33 +3,46 @@
 ## iOS [4.0.0]
 
 Known issues:
-· Picture-in-Picture feature is offered on devices where it is actually unsupported
 · Files stored in Google Drive fail to stream, download them instead
 · Chromecast fails to connect and render
+· Subtitles do not show correctly in Picture-in-Picture mode
 
-New features since beta 4:
-· Podcasts: list and stream a show's recent episodes from the directory, search in place, pick the directory language from a redesigned list
-· On Air: add an add tile to the podcasts rail, open the RSS feed prompt directly from Paste RSS, add section headers to the radio rails
-· Support the layout of the unfolded iPhone Duo in the library, the player and the edit toolbar
+New features since beta 5:
+· Player: rewritten UI for Liquid Glass
+· Player: show the play queue and bookmarks as cards, the more options and aspect ratios as menus, pick AirPlay devices from the system picker
+· Player: seek by tapping the seek bar
+· Mini player: move into the tab bar on iOS 26+
+· Media library: rework the navigation bar for selection, folder addition and view options, add Folders to the iPad sidebar
+· Playlists: move History into its own page with an audio and video filter
+· Settings: add an option to disable live video previews
+· Show the options in Settings, cloud services and donations as menus instead of action sheets
+· iPhone Duo: show album and playlist artwork beside the tracks, support the tabletop, tent and book postures in the players
+· Add hardware decoding of VP9 on supported devices
+· Add support for Dolby Vision profiles 5, 8.1 and 8.4
+· Greatly improve HDR accuracy on supported devices
 
 Bug fixes since beta 4:
-· Fix pagination in the sectioned song list and the player swipe gestures
+· Play queue: expand playlists without restarting playback, fix titles, durations and shuffle
+· Subtitles: follow a file's default track, select downloaded subtitle files, keep the selection when tracks change
+· Fix showing the video on external displays on iOS 27
+· Albums and playlists: update the track count and duration live, fix removing several items at once
+· Wi-Fi Sharing: respect the autoplay setting for playlist uploads, clean up interrupted uploads
+· Fix fill to screen, the seek time summary, the idle timer after rotation and browsing by folder
 
 ---
 
 · VLC now requires iOS 15 or later
 · 32bit iOS devices are no longer supported :(
 · Update to libvlc v4 with all its features (new clock, player, playlist and more)
-· Add HDR playback
+· Add HDR playback including Dolby Vision
 · Add multi-channel and spatial audio
 · Add Picture-in-Picture playback
 · Siri, Shortcuts and Spotlight: play media, radio stations and videos through App Intents (iOS 16.4 and later), adopt the iOS 27 audio intents
 · Add Parental Control ("Kids Mode") to prevent accidental deletions and modifications
-· Add play count metadata to media long press UI
 · Add support for passcodes with four and six digits
 · Add swipe-to-favorite while browsing, including for non-downloadable streams
 · Major accessbility improvements for the playback interface
-· Playlists: more sorting options, M3U export and improved appearance
+· Playlists: more sorting options and M3U export
 · Improve brightness restoration and handling
 · New support for the IMM4, 708, AGM, VP4 codecs
 · New support for HEIF images, DASH WebM, DVBSUB in mkv, chapters in mp3 files, DMX audio
@@ -51,7 +64,6 @@ Bug fixes since beta 4:
 · Add widget displaying the last played audio content
 · Add gamepad support to control the playback
 · Add the side bar navigation on iPadOS
-· Adopt iOS 26 liquid glass appearance for navigation bars and UI components
 · Audio player: major redesign with seek backward/forward buttons
 · Player: redesigned track selector, switch to the audio interface for audio-only network streams
 · Media library: mark as played or unplayed, section index for songs, video preview, enqueue with a swipe
@@ -62,7 +74,7 @@ Bug fixes since beta 4:
 · Open Network Streams: redesigned interface
 · Cloud services: add pCloud, Google Drive shared drives, folder downloads and favorites, Dropbox and Box thumbnails
 · Wi-Fi Sharing: redesigned web interface, download all or a selection of files at once
-· Add an On Air tab with podcasts: subscribe through RSS, browse shows and episodes, download, play and search
+· Add an On Air tab with podcasts: subscribe through RSS or a directory of shows, browse shows and episodes, download, stream, play and search
 · Radio: discover and favorite stations, wake up with a station alarm (iOS 26.1 and later)
 · CarPlay: browse by album and folder, show artist names and add a Library section
 · Improve Spotlight search by indexing more media metadata
@@ -72,13 +84,13 @@ Bug fixes since beta 4:
 
 ## tvOS [4.0.0]
 
-New features since beta 3:
-· Wi-Fi Sharing: show a QR code for the sharing address
-· Player: remember the audio and subtitle delay per media
+New features since beta 5:
+· Player: restore the audio and subtitle tracks of each media
 
-Bug fixes since beta 3:
-· Start the shuffled play queue with the selected item
-· Fix a shuffle problem and the network stream history
+Bug fixes since beta 5:
+· Respect the Disable Subtitles setting, fix subtitle track selection
+· Play queue: expand playlists without restarting playback, fix titles and keep the focus while it updates
+· Wi-Fi Sharing: respect the autoplay setting for playlist uploads, clean up interrupted uploads
 
 ---
 
@@ -101,13 +113,15 @@ Bug fixes since beta 3:
 · Add medialibrary support
 · Add Top Shelf content
 · Resume playback from the last position
-· Player: complete redesign matching the system AVPlayer appearance
+· Player: complete redesign matching the system appearance
 · Player: add play queue and playmode (shuffle/repeat) buttons
 · Player: add secondary subtitle track selection
 · Player: add granular playback speed control
 · Player: add an aspect ratio button
 · Player: inline information and pop-up menu panel
+· Player: remember the audio and subtitle delay per media
 · Wi-Fi sharing: add transfer status banner and option to disable auto-playing uploaded files while receiving
+· Wi-Fi Sharing: show a QR code for the sharing address
 · Wi-Fi Sharing: add download all or a selection of files at once
 · Network browsing: sort by name, date or size
 · Add support for multiple users
