@@ -39,8 +39,6 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
-"SETTINGS_PLAY_ALL" = "Seamless playback for collections";
-"SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 "SETTINGS_RESTORE_LAST_PLAYED_MEDIA" = "Restore last played media on launch";
 "SETTINGS_RESTORE_LAST_PLAYED_MEDIA_SUBTITLE" = "Not applicable to externally stored media";
@@ -120,6 +118,7 @@
 "SETTINGS_DECRAPIFY" = "Optimize item names for display";
 "SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_PLAY_VIDEO_PREVIEWS" = "Play video previews";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
