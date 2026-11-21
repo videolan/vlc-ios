@@ -2887,6 +2887,16 @@ private extension MediaCategoryViewController {
 
 extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async {
+                self.mediaLibraryBaseModelReloadView()
+            }
+            return
+        }
+
+        if searchDataSource.isSearching {
+            searchDataSource.shouldReloadFor(searchString: searchDataSource.searchString)
+        }
         reloadData()
         DispatchQueue.main.async { [weak self] in
             self?.scheduleTabSearchRefresh()
