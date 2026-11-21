@@ -14,6 +14,7 @@
 #import "VLCRemoteControlService.h"
 #import "VLCPlaybackService.h"
 #import "VLCMetadata.h"
+#import "VLCMLMedia+Podcast.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @implementation VLCRemoteControlService
@@ -59,10 +60,11 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(void)
 
     /* Since the control center and lockscreen shows only either skipForward/Backward
      * or next/previousTrack buttons but prefers skip buttons,
-     * we only enable skip buttons if we have no medialist
+     * we only enable skip buttons if we have no medialist or play a podcast
      */
+    VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
     BOOL alwaysEnableSkip = [defaults boolForKey:kVLCSettingPlaybackLockscreenSkip];
-    BOOL enableSkip = alwaysEnableSkip || [VLCPlaybackService sharedInstance].mediaList.count <= 1;
+    BOOL enableSkip = alwaysEnableSkip || vps.mediaList.count <= 1 || vps.currentlyPlayingLibraryMedia.isPodcast;
     commandCenter.skipForwardCommand.enabled = enableSkip;
     commandCenter.skipBackwardCommand.enabled = enableSkip;
 
