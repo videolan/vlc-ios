@@ -2,7 +2,7 @@
  * VLCHTTPConnection.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -360,7 +360,7 @@ static NSMutableDictionary *authentifiedHosts;
     };
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:returnData options:kNilOptions error:nil];
     HTTPDataResponse *response = [[HTTPDataResponse alloc] initWithData:jsonData];
-    response.contentType = @"text/html";
+    response.contentType = @"text/html; charset=utf-8";
     return response;
 }
 #endif
