@@ -762,12 +762,17 @@ class VideoPlayerViewController: PlayerViewController {
         view.addGestureRecognizer(doubleTapGestureRecognizer)
         view.addGestureRecognizer(playPauseRecognizer)
         view.addGestureRecognizer(panRecognizer)
+        view.addGestureRecognizer(leftSwipeRecognizer)
+        view.addGestureRecognizer(rightSwipeRecognizer)
         view.addGestureRecognizer(upSwipeRecognizer)
         view.addGestureRecognizer(downSwipeRecognizer)
         view.addGestureRecognizer(longPressGestureRecognizer)
         view.addGestureRecognizer(snapshotTapRecognizer)
 
-        for recognizer in [tapOnVideoRecognizer, doubleTapGestureRecognizer, longPressGestureRecognizer, panRecognizer] {
+        panRecognizer.require(toFail: leftSwipeRecognizer)
+        panRecognizer.require(toFail: rightSwipeRecognizer)
+
+        for recognizer in [tapOnVideoRecognizer, doubleTapGestureRecognizer, longPressGestureRecognizer, panRecognizer, leftSwipeRecognizer, rightSwipeRecognizer] {
             recognizer.delegate = self
         }
     }
@@ -1904,7 +1909,10 @@ extension VideoPlayerViewController: UIGestureRecognizerDelegate {
         }
 #endif
         // Prevent video taps and long presses on transport buttons.
-        return gestureRecognizer == panRecognizer || !control.isDescendant(of: videoPlayerControls.transportControls)
+        return gestureRecognizer == panRecognizer
+            || gestureRecognizer == leftSwipeRecognizer
+            || gestureRecognizer == rightSwipeRecognizer
+            || !control.isDescendant(of: videoPlayerControls.transportControls)
     }
 }
 
