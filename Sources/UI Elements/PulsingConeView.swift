@@ -83,7 +83,7 @@ class PulsingConeView: UIView {
         opacity.toValue = 1.0
 
         let pulse = CAAnimationGroup()
-        pulse.animations = [scale, opacity]
+        pulse.animations = UIAccessibility.isReduceMotionEnabled ? [opacity] : [scale, opacity]
         pulse.duration = 0.8
         pulse.autoreverses = true
         pulse.repeatCount = .greatestFiniteMagnitude
