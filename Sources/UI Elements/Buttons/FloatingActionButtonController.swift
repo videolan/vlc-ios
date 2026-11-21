@@ -84,7 +84,7 @@ final class FloatingActionButtonController: NSObject {
     private weak var bottomConstraintClient: UIViewController?
     private var anchorsToContainerBottom: Bool?
 
-    init(containerView: UIView) {
+    init(containerView: UIView, transferStatusLayoutGuide: UILayoutGuide) {
         super.init()
 
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -93,7 +93,8 @@ final class FloatingActionButtonController: NSObject {
         NSLayoutConstraint.activate([
             button.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -Self.margin),
             button.widthAnchor.constraint(equalToConstant: Self.size),
-            button.heightAnchor.constraint(equalToConstant: Self.size)
+            button.heightAnchor.constraint(equalToConstant: Self.size),
+            button.bottomAnchor.constraint(lessThanOrEqualTo: transferStatusLayoutGuide.topAnchor, constant: -Self.margin)
         ])
 
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
@@ -234,6 +235,7 @@ final class FloatingActionButtonController: NSObject {
 
     private func replaceBottomConstraint(with constraint: NSLayoutConstraint) {
         bottomConstraint?.isActive = false
+        constraint.priority = .defaultHigh
         constraint.isActive = true
         bottomConstraint = constraint
     }

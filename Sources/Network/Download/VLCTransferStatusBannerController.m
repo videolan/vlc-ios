@@ -23,6 +23,7 @@
 
     VLCDownloadStatusBanner *_banner;
     NSLayoutConstraint *_bottomConstraint;
+    NSLayoutConstraint *_bannerTopConstraint;
     BOOL _hideScheduled;
 }
 @end
@@ -36,6 +37,17 @@
     if (self) {
         _containerView = containerView;
         _delegate = delegate;
+
+        _bannerLayoutGuide = [[UILayoutGuide alloc] init];
+        [containerView addLayoutGuide:_bannerLayoutGuide];
+        NSLayoutConstraint *collapsedConstraint = [_bannerLayoutGuide.topAnchor constraintEqualToAnchor:containerView.bottomAnchor];
+        collapsedConstraint.priority = UILayoutPriorityDefaultLow;
+        [NSLayoutConstraint activateConstraints:@[
+            [_bannerLayoutGuide.leadingAnchor constraintEqualToAnchor:containerView.leadingAnchor],
+            [_bannerLayoutGuide.trailingAnchor constraintEqualToAnchor:containerView.trailingAnchor],
+            [_bannerLayoutGuide.bottomAnchor constraintEqualToAnchor:containerView.bottomAnchor],
+            collapsedConstraint,
+        ]];
 
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self
@@ -123,12 +135,15 @@
         }
         [UIView animateWithDuration:0.25 animations:^{
             banner.alpha = 0.0;
+            self->_bannerTopConstraint.active = NO;
+            [self->_containerView layoutIfNeeded];
         } completion:^(BOOL finished) {
             if (banner.alpha == 0.0) {
                 [banner removeFromSuperview];
                 if (self->_banner == banner) {
                     self->_banner = nil;
                     self->_bottomConstraint = nil;
+                    self->_bannerTopConstraint = nil;
                 }
             }
             self->_hideScheduled = NO;
@@ -184,9 +199,13 @@
     [self refreshBottomAnchor];
     [container layoutIfNeeded];
 
+    _bannerTopConstraint = [_bannerLayoutGuide.topAnchor constraintEqualToAnchor:_banner.topAnchor];
+    _bannerTopConstraint.active = YES;
+
     VLCDownloadStatusBanner *banner = _banner;
     [UIView animateWithDuration:0.2 animations:^{
         banner.alpha = 1.0;
+        [container layoutIfNeeded];
     }];
 }
 

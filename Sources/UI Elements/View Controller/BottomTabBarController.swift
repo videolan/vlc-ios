@@ -68,7 +68,8 @@ class BottomTabBarController: UITabBarController {
         super.viewDidLoad()
 
         transferStatusBannerController = VLCTransferStatusBannerController(containerView: view, delegate: self)
-        floatingActionButtonController = FloatingActionButtonController(containerView: view)
+        floatingActionButtonController = FloatingActionButtonController(containerView: view,
+                                                                        transferStatusLayoutGuide: transferStatusBannerController.bannerLayoutGuide)
 
         #if os(iOS)
         if #available(iOS 26.0, *) {

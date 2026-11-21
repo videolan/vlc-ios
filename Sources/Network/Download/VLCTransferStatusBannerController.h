@@ -23,6 +23,8 @@
 
 @interface VLCTransferStatusBannerController : NSObject
 
+@property (readonly) UILayoutGuide *bannerLayoutGuide;
+
 - (instancetype)initWithContainerView:(UIView *)containerView
                              delegate:(id<VLCTransferStatusBannerControllerDelegate>)delegate;
 
