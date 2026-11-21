@@ -91,6 +91,7 @@ class BottomTabBarController: UITabBarController {
     #if os(iOS)
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
 
         guard #unavailable(iOS 26) else { return }
 
