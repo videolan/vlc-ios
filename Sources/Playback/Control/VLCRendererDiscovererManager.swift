@@ -1,8 +1,8 @@
 /*****************************************************************************
  * VLCRendererDiscovererManager.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -25,9 +25,11 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc var rendererButtons: [UIButton] = [UIButton]()
 
+    private var rendererItems = [VLCRendererItem]()
+
     // Returns renderers of *all* discoverers
     @objc func getAllRenderers() -> [VLCRendererItem] {
-        return discoverers.flatMap { $0.renderers }
+        return rendererItems
     }
 
     fileprivate func isDuplicateDiscoverer(with description: VLCRendererDiscovererDescription) -> Bool {
@@ -49,11 +51,11 @@ class VLCRendererDiscovererManager: NSObject {
                 print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
                 continue
             }
+            rendererDiscoverer.delegate = self
             guard rendererDiscoverer.start() else {
                 print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
                 continue
             }
-            rendererDiscoverer.delegate = self
             discoverers.append(rendererDiscoverer)
         }
     }
@@ -63,6 +65,7 @@ class VLCRendererDiscovererManager: NSObject {
             discoverer.stop()
         }
         discoverers.removeAll()
+        rendererItems.removeAll()
     }
 
     // MARK: Renderer menu
@@ -155,35 +158,41 @@ class VLCRendererDiscovererManager: NSObject {
 
 extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
-        for button in rendererButtons {
-            UIView.animate(withDuration: 0.1) {
-                button.isHidden = false
+        DispatchQueue.main.async {
+            self.rendererItems.append(item)
+            for button in self.rendererButtons {
+                UIView.animate(withDuration: 0.1) {
+                    button.isHidden = false
+                }
             }
+            self.updateRendererButtons()
+            self.delegate?.addedRendererItem?()
         }
-        updateRendererButtons()
-        delegate?.addedRendererItem?()
     }
 
     func rendererDiscovererItemDeleted(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
-        let playbackController = PlaybackService.sharedInstance()
-        // Current renderer has been removed
-        if playbackController.renderer == item {
-            playbackController.renderer = nil
-            delegate?.removedCurrentRendererItem?(item)
-            // Reset buttons state
-            for button in rendererButtons {
-                button.isSelected = false
-            }
-        }
-        // No more renderers to show
-        if getAllRenderers().isEmpty {
-            for button in rendererButtons {
-                UIView.animate(withDuration: 0.1) {
-                    button.isHidden = true
+        DispatchQueue.main.async {
+            self.rendererItems.removeAll { $0 == item }
+            let playbackController = PlaybackService.sharedInstance()
+            // Current renderer has been removed
+            if playbackController.renderer == item {
+                playbackController.renderer = nil
+                self.delegate?.removedCurrentRendererItem?(item)
+                // Reset buttons state
+                for button in self.rendererButtons {
+                    button.isSelected = false
                 }
             }
+            // No more renderers to show
+            if self.getAllRenderers().isEmpty {
+                for button in self.rendererButtons {
+                    UIView.animate(withDuration: 0.1) {
+                        button.isHidden = true
+                    }
+                }
+            }
+            self.updateRendererButtons()
+            self.delegate?.removedRendererItem?()
         }
-        updateRendererButtons()
-        delegate?.removedRendererItem?()
     }
 }
