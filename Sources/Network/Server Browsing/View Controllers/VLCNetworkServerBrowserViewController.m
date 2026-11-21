@@ -483,17 +483,19 @@
     [self.tableView reloadData];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    _isSearching = NO;
-    _searchArray = nil;
-    [self.tableView reloadData];
-}
-
 - (void)searchForText:(NSString *)searchString
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@",searchString];
     _searchArray = [self.serverBrowser.items filteredArrayUsingPredicate:predicate];
+}
+
+#pragma mark - Search Controller Delegate
+
+- (void)didDismissSearchController:(UISearchController *)searchController
+{
+    _isSearching = NO;
+    _searchArray = nil;
+    [self.tableView reloadData];
 }
 
 #pragma mark -
