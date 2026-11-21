@@ -24,7 +24,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc weak var delegate: VLCRendererDiscovererManagerDelegate?
 
-    @objc var rendererButtons: [UIButton] = [UIButton]()
+    private let rendererButtons = NSHashTable<UIButton>.weakObjects()
 
     private var rendererItems = [VLCRendererItem]()
 
@@ -92,7 +92,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     private func updateRendererButtons() {
         let showsMenu = getAllRenderers().count > 1
-        for button in rendererButtons {
+        for button in rendererButtons.allObjects {
             button.showsMenuAsPrimaryAction = showsMenu
             button.contextMenuInteraction?.updateVisibleMenu { $0.replacingChildren(rendererActions()) }
         }
@@ -123,7 +123,7 @@ class VLCRendererDiscovererManager: NSObject {
         }
 
         PlaybackService.sharedInstance().renderer = finalRendererItem
-        for button in rendererButtons {
+        for button in rendererButtons.allObjects {
             button.isSelected = isSelected
         }
     }
@@ -143,7 +143,7 @@ class VLCRendererDiscovererManager: NSObject {
         button.addTarget(self, action: #selector(selectOnlyRenderer), for: .touchUpInside)
         button.accessibilityLabel = NSLocalizedString("BUTTON_RENDERER", comment: "")
         button.accessibilityHint = NSLocalizedString("BUTTON_RENDERER_HINT", comment: "")
-        rendererButtons.append(button)
+        rendererButtons.add(button)
         return button
     }
 }
@@ -154,7 +154,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
         DispatchQueue.main.async {
             self.rendererItems.append(item)
-            for button in self.rendererButtons {
+            for button in self.rendererButtons.allObjects {
                 UIView.animate(withDuration: 0.1) {
                     button.isHidden = false
                 }
@@ -173,13 +173,13 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 playbackController.renderer = nil
                 self.delegate?.removedCurrentRendererItem?(item)
                 // Reset buttons state
-                for button in self.rendererButtons {
+                for button in self.rendererButtons.allObjects {
                     button.isSelected = false
                 }
             }
             // No more renderers to show
             if self.getAllRenderers().isEmpty {
-                for button in self.rendererButtons {
+                for button in self.rendererButtons.allObjects {
                     UIView.animate(withDuration: 0.1) {
                         button.isHidden = true
                     }
