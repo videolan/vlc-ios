@@ -386,6 +386,20 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_LOCK_ROTATION</string>
+			<key>Key</key>
+			<string>kVLCSettingRotationLock</string>
+			<key>DefaultValue</key>
+			<false/>
+			<key>SupportedUserInterfaceIdioms</key>
+			<array>
+				<string>Phone</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_SUBTITLES_TITLE</string>
