@@ -41,9 +41,6 @@ class SettingsCustomValueInputHandler {
         alert.addTextField { textField in
             textField.keyboardType = keyboardType
             textField.text = text
-#if !os(visionOS)
-            textField.inputAccessoryView = UIUtils.createToolbar()
-#endif
         }
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),

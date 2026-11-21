@@ -2,7 +2,7 @@
  * PlaybackSpeedCustomHelpers.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2025 VLC authors and VideoLAN
+ * Copyright © 2025-2026 VLC authors and VideoLAN
  *
  * Authors: Yue(Zelda) Zhang <lichtseeker@gmail.com>
  *
@@ -124,18 +124,4 @@ enum PlaybackSpeedScale {
         let stepped = increasing ? (hundredths / 5 + 1) * 5 : (hundredths - 1) / 5 * 5
         return rounded(Float(stepped) / 100)
     }
-}
-
-enum UIUtils {
-#if !os(tvOS)
-    static func createToolbar() -> UIToolbar {
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
-        toolBar.barStyle = PresentationTheme.current.colors.toolBarStyle
-        toolBar.isTranslucent = true
-        toolBar.sizeToFit()
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.items = [flexSpace]
-        return toolBar
-    }
-#endif
 }
