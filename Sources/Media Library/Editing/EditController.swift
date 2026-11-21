@@ -329,6 +329,15 @@ extension EditController: EditToolbarDelegate {
     func editToolbarEmptySelection(_ editToolbar: EditToolbar) -> Bool {
         return selectedCellIndexPaths.isEmpty
     }
+
+    func editToolbarCanRename(_ editToolbar: EditToolbar) -> Bool {
+        guard model is FolderModel else {
+            return true
+        }
+
+        let dataSet = currentDataSet
+        return !selectedCellIndexPaths.contains { $0.row < dataSet.count && dataSet[$0.row] is VLCMLFolder }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -367,6 +376,8 @@ extension EditController: UICollectionViewDelegate {
 
         if selectedCellIndexPaths.isEmpty {
             delegate?.editControllerDidDeSelectMultipleItem()
+        } else {
+            delegate?.editControllerDidSelectMultipleItem(editContrller: self)
         }
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = true

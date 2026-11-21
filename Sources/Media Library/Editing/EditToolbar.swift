@@ -1,7 +1,7 @@
 /*****************************************************************************
  * EditToolbar.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
+ * Copyright © 2018-2026 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
@@ -18,6 +18,7 @@ protocol EditToolbarDelegate: AnyObject {
     func editToolbarDidRename(_ editToolbar: EditToolbar)
     func editToolbarDidShare(_ editToolbar: EditToolbar)
     func editToolbarEmptySelection(_ editToolbar: EditToolbar) -> Bool
+    func editToolbarCanRename(_ editToolbar: EditToolbar) -> Bool
 }
 
 class EditToolbar: UIView {
@@ -92,7 +93,7 @@ class EditToolbar: UIView {
         addToPlaylistButton.isEnabled = enable
         addToMediaGroupButton.isEnabled = enable
         removeFromMediaGroupButton.isEnabled = enable
-        renameButton.isEnabled = enable
+        renameButton.isEnabled = enable && delegate?.editToolbarCanRename(self) != false
         deleteButton.isEnabled = enable
         shareButton.isEnabled = enable
     }
