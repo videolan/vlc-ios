@@ -302,28 +302,26 @@ class PodcastDirectoryFeedViewController: UIViewController {
         if currentEpisodeURL == episodes[index].enclosureURL {
             PlaybackService.sharedInstance().playPause()
         } else {
-            stream(from: index)
+            stream(at: index)
         }
     }
 
-    private func stream(from index: Int) {
-        let playsNext = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
-        let mediaList = VLCMediaList()
-
-        for episode in playsNext ? episodes[index...] : episodes[index...index] {
-            guard let media = VLCMedia(url: episode.enclosureURL) else {
-                continue
-            }
-
-            media.metaData.title = episode.title
-            media.metaData.artist = feed.title
-            media.metaData.artworkURL = episode.artworkURL ?? feed.artworkURL
-            mediaList.add(media)
+    private func stream(at index: Int) {
+        let episode = episodes[index]
+        guard let media = VLCMedia(url: episode.enclosureURL) else {
+            return
         }
+
+        media.metaData.title = episode.title
+        media.metaData.artist = feed.title
+        media.metaData.artworkURL = episode.artworkURL ?? feed.artworkURL
+
+        let mediaList = VLCMediaList()
+        mediaList.add(media)
 
         let playbackService = PlaybackService.sharedInstance()
         playbackService.expectsAudioOnlyContent = true
-        playbackService.fullscreenSessionRequested = episodes[index].isVideo
+        playbackService.fullscreenSessionRequested = episode.isVideo
         playbackService.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil)
 
         VLCAppCoordinator.sharedInstance().mediaLibraryService.currentlyPlayingCollection = nil
