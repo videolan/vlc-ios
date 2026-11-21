@@ -167,7 +167,11 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:([defaults integerForKey:kVLCNumberOfLaunches] + 1) forKey:kVLCNumberOfLaunches];
-    [defaults setBool:[[VLCKeychainCoordinator passcodeService] hasSecret] forKey:kVLCSettingPasscodeOnKey];
+    VLCKeychainCoordinator *passcodeService = [VLCKeychainCoordinator passcodeService];
+    if (![defaults objectForKey:kVLCSettingPasscodeOnKey]) {
+        [passcodeService removeSecretAndReturnError:nil];
+    }
+    [defaults setBool:passcodeService.hasSecret forKey:kVLCSettingPasscodeOnKey];
 
     UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
     if (shortcutItem) {

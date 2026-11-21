@@ -2,7 +2,7 @@
  * KeychainCoordinator.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2017-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -53,7 +53,7 @@ class KeychainCoordinator: NSObject {
         try keychainItem.save()
     }
 
-    func removeSecret() throws {
+    @objc func removeSecret() throws {
         try XKKeychainGenericPasswordItem.removeItems(forService: serviceIdentifier)
     }
 
