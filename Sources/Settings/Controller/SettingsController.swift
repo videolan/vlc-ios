@@ -235,8 +235,15 @@ class SettingsController: UITableViewController {
         ImpactFeedbackGenerator().selectionChanged()
 #endif
 
-        let transferViewController = UINavigationController(rootViewController: VLCTransferViewController())
-        present(transferViewController, animated: true)
+        let transferViewController = VLCTransferViewController()
+        transferViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                                                                  target: self,
+                                                                                  action: #selector(dismissTransfers))
+        present(UINavigationController(rootViewController: transferViewController), animated: true)
+    }
+
+    @objc private func dismissTransfers() {
+        dismiss(animated: true)
     }
 
     private func forceRescanLibrary() {
