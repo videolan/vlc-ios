@@ -18,6 +18,7 @@ static CGFloat const kVLCOnAirPromptPadding = 16.0;
 static CGFloat const kVLCOnAirPromptSideMargin = 20.0;
 static CGFloat const kVLCOnAirPromptWellSide = 38.0;
 static CGFloat const kVLCOnAirPromptButtonHeight = 38.0;
+static CGFloat const kVLCOnAirPromptButtonSpacing = 10.0;
 static CGFloat const kVLCOnAirPromptUnavailableSaturation = 0.25;
 static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
@@ -31,6 +32,9 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
     UILabel *_titleLabel;
     UIButton *_primaryButton;
     UIButton *_secondaryButton;
+    NSArray<NSLayoutConstraint *> *_inlineButtonConstraints;
+    NSArray<NSLayoutConstraint *> *_stackedButtonConstraints;
+    BOOL _buttonsStacked;
 }
 
 + (NSString *)reuseIdentifier
@@ -82,6 +86,8 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
     _primaryButton = [self buttonWithTag:0];
     _secondaryButton = [self buttonWithTag:1];
+    [_secondaryButton setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh - 1
+                                                      forAxis:UILayoutConstraintAxisHorizontal];
 
     _stampView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ComingSoonStamp"]];
     _stampView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -119,14 +125,58 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
 
         [_primaryButton.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:12.0],
         [_primaryButton.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
+        [_primaryButton.trailingAnchor constraintLessThanOrEqualToAnchor:_titleLabel.trailingAnchor],
         [_primaryButton.heightAnchor constraintEqualToConstant:kVLCOnAirPromptButtonHeight],
-        [_primaryButton.bottomAnchor constraintEqualToAnchor:_contentLayer.bottomAnchor constant:-kVLCOnAirPromptPadding],
 
-        [_secondaryButton.leadingAnchor constraintEqualToAnchor:_primaryButton.trailingAnchor constant:10.0],
-        [_secondaryButton.centerYAnchor constraintEqualToAnchor:_primaryButton.centerYAnchor],
         [_secondaryButton.heightAnchor constraintEqualToConstant:kVLCOnAirPromptButtonHeight],
         [_secondaryButton.trailingAnchor constraintLessThanOrEqualToAnchor:_titleLabel.trailingAnchor]
     ]];
+
+    _inlineButtonConstraints = @[
+        [_primaryButton.bottomAnchor constraintEqualToAnchor:_contentLayer.bottomAnchor constant:-kVLCOnAirPromptPadding],
+        [_secondaryButton.leadingAnchor constraintEqualToAnchor:_primaryButton.trailingAnchor constant:kVLCOnAirPromptButtonSpacing],
+        [_secondaryButton.centerYAnchor constraintEqualToAnchor:_primaryButton.centerYAnchor]
+    ];
+    _stackedButtonConstraints = @[
+        [_secondaryButton.topAnchor constraintEqualToAnchor:_primaryButton.bottomAnchor constant:kVLCOnAirPromptButtonSpacing],
+        [_secondaryButton.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor],
+        [_secondaryButton.bottomAnchor constraintEqualToAnchor:_contentLayer.bottomAnchor constant:-kVLCOnAirPromptPadding]
+    ];
+    [NSLayoutConstraint activateConstraints:_inlineButtonConstraints];
+}
+
+- (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize
+        withHorizontalFittingPriority:(UILayoutPriority)horizontalFittingPriority
+              verticalFittingPriority:(UILayoutPriority)verticalFittingPriority
+{
+    CGRect bounds = self.bounds;
+    bounds.size.width = targetSize.width;
+    self.bounds = bounds;
+    [self layoutIfNeeded];
+    [self updateButtonArrangement];
+
+    return [super systemLayoutSizeFittingSize:targetSize
+                withHorizontalFittingPriority:horizontalFittingPriority
+                      verticalFittingPriority:verticalFittingPriority];
+}
+
+- (void)updateButtonArrangement
+{
+    CGFloat availableWidth = CGRectGetWidth(_titleLabel.bounds);
+    if (availableWidth <= 0.0) {
+        return;
+    }
+
+    CGFloat inlineWidth = _primaryButton.intrinsicContentSize.width + kVLCOnAirPromptButtonSpacing
+                        + _secondaryButton.intrinsicContentSize.width;
+    BOOL stacked = !_secondaryButton.hidden && inlineWidth > availableWidth;
+    if (stacked == _buttonsStacked) {
+        return;
+    }
+
+    _buttonsStacked = stacked;
+    [NSLayoutConstraint deactivateConstraints:stacked ? _inlineButtonConstraints : _stackedButtonConstraints];
+    [NSLayoutConstraint activateConstraints:stacked ? _stackedButtonConstraints : _inlineButtonConstraints];
 }
 
 - (UIButton *)buttonWithTag:(NSInteger)tag
