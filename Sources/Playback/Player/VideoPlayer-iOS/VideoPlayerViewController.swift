@@ -1401,6 +1401,10 @@ class VideoPlayerViewController: PlayerViewController {
         videoOutputView.layoutIfNeeded()
     }
 
+    override func changeOutputView(to output: UIView?) {
+        changeVideoOutput(to: output == externalVideoOutputView.displayView ? output : videoOutputView)
+    }
+
     private func changeVideoOutput(to output: UIView?) {
         // If we don't have a renderer we're mirroring and don't want to show the dialog
         let displayExternally = output == nil ? true : output != videoOutputView
