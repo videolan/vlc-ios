@@ -57,39 +57,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
-    private func getSectionInfo(for title: String) -> (key: String, type: SectionType) {
+    private let cachedTitleSections = MediaTitleSections()
+    private var titleSectionsNeedUpdate = true
 
-        guard let first: Character = title
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .folding(options: .diacriticInsensitive, locale: .current)
-            .uppercased()
-            .first
-        else {
-            return ("#", .special)
+    private var titleSections: MediaTitleSections {
+        if titleSectionsNeedUpdate {
+            cachedTitleSections.update(with: currentDataSet, descending: model.sortModel.desc)
+            titleSectionsNeedUpdate = false
         }
-
-        guard first.isLetter && !first.isEmoji else {
-            return ("#", .special)
-        }
-
-        guard first.isLatin else {
-            return ("\(first)", .nonlatin)
-
-        }
-
-        return ("\(first)", .latin)
-    }
-
-    private var currentDataSetGroupedByTitle: [(key: String, items: [VLCMLMedia])] {
-        let items: [VLCMLMedia] = currentDataSet as? [VLCMLMedia] ?? []
-        let groupedItems: [String: [VLCMLMedia]] = Dictionary(grouping: items) { getSectionInfo(for: $0.title).key }
-        return groupedItems
-            .map { ($0.key, $0.value.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }) }
-            .sorted { lhs, rhs in
-                return model.sortModel.desc
-                    ? lhs.key > rhs.key
-                    : lhs.key < rhs.key
-            }
+        return cachedTitleSections
     }
 
     var isSectionable: Bool = false
@@ -536,6 +512,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
         }
 
+        titleSectionsNeedUpdate = true
         delegate?.needsToUpdateNavigationbarIfNeeded(self)
         collectionView?.reloadData()
         if #available(iOS 27.1, visionOS 27.1, *),
@@ -1336,7 +1313,7 @@ extension MediaCategoryViewController {
 private extension MediaCategoryViewController {
 
     private func getObject(at indexPath: IndexPath) -> VLCMLObject? {
-        return isSectioned ? currentDataSetGroupedByTitle.objectAtIndex(index: indexPath.section)?.items.objectAtIndex(index: indexPath.row) : currentDataSet.objectAtIndex(index: indexPath.row)
+        return isSectioned ? titleSections.media(at: indexPath) : currentDataSet.objectAtIndex(index: indexPath.row)
     }
 
     private func getFlattenedIndexPath(for item: VLCMLObject) -> IndexPath? {
@@ -2491,11 +2468,11 @@ extension MediaCategoryViewController {
 
 extension MediaCategoryViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return isSectioned ? currentDataSetGroupedByTitle.count : 1
+        return isSectioned ? titleSections.sections.count : 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSectioned ? currentDataSetGroupedByTitle[section].items.count : currentDataSet.count
+        return isSectioned ? titleSections.sections[section].items.count : currentDataSet.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -2643,8 +2620,7 @@ extension MediaCategoryViewController {
             return setupArtworkHeaderReusableView(headerView: header, collection: collectionModel.mediaCollection)
         } else if isSectioned,
                   let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrackSectionHeader.headerID, for: indexPath) as? TrackSectionHeader {
-            let media = currentDataSetGroupedByTitle[indexPath.section].items[indexPath.row]
-            headerView.update(sectionTitle: getSectionInfo(for: media.title).key)
+            headerView.update(sectionTitle: titleSections.sections[indexPath.section].key)
             return headerView
         }
 
@@ -3257,7 +3233,7 @@ extension MediaCategoryViewController {
 extension MediaCategoryViewController {
     override func indexTitles(for collectionView: UICollectionView) -> [String]? {
         guard isSectioned else { return nil }
-        return currentDataSetGroupedByTitle.map { $0.key }
+        return titleSections.titles
     }
 
     override func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
