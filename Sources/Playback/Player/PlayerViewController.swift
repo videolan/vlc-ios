@@ -301,22 +301,6 @@ class PlayerViewController: UIViewController {
         return vc
     }()
 
-    private func setupRendererSelectionHandler() {
-        rendererDiscovererManager.addSelectionHandler {
-            rendererItem in
-            if rendererItem != nil {
-                self.changeOutputView(to: self.externalOutputView.displayView)
-                let color: UIColor = PresentationTheme.current.colors.orangeUI
-                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
-            } else if let currentRenderer = self.playbackService.renderer {
-                self.removedCurrentRendererItem(currentRenderer)
-            } else {
-                // There is no renderer item
-                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
-            }
-        }
-    }
-
     let volumeView = MPVolumeView(frame: .zero)
 #endif
 
@@ -421,7 +405,6 @@ class PlayerViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        setupRendererSelectionHandler()
         mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 #else
@@ -1945,9 +1928,19 @@ extension PlayerViewController: PlayerInfoViewDelegate {
 
 #if os(iOS)
 extension PlayerViewController: VLCRendererDiscovererManagerDelegate {
+    func selectedRendererItem(_ item: VLCRendererItem?) {
+        if item != nil {
+            changeOutputView(to: externalOutputInfoView.displayView)
+            mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"),
+                                                  color: PresentationTheme.current.colors.orangeUI)
+        } else {
+            changeOutputView(to: contentOutputView)
+            mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
+        }
+    }
+
     func removedCurrentRendererItem(_ item: VLCRendererItem) {
-        changeOutputView(to: contentOutputView)
-        mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
+        selectedRendererItem(nil)
     }
 }
 #endif

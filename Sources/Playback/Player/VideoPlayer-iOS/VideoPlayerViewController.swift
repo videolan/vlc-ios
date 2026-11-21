@@ -617,9 +617,6 @@ class VideoPlayerViewController: PlayerViewController {
         setupViews()
         setupAccessibility()
         setupConstraints()
-#if os(iOS)
-        setupRendererDiscoverer()
-#endif
 #if os(iOS) && canImport(MediaIntents) // iOS 27 SDK
         setupExternalDisplayAccessory()
 #endif
@@ -795,24 +792,6 @@ class VideoPlayerViewController: PlayerViewController {
         setupConeLoadingViewConstraints()
         setupLongPressPlaybackSpeedConstraints()
     }
-
-#if os(iOS)
-    private func setupRendererDiscoverer() {
-        rendererDiscovererManager.addSelectionHandler {
-            rendererItem in
-            if rendererItem != nil {
-                self.changeVideoOutput(to: self.externalVideoOutputView.displayView)
-                let color: UIColor = PresentationTheme.current.colors.orangeUI
-                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
-            } else if let currentRenderer = self.playbackService.renderer {
-                self.removedCurrentRendererItem(currentRenderer)
-            } else {
-                // There is no renderer item
-                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
-            }
-        }
-    }
-#endif
 
     private func setupVideoControlsState() {
         let isShuffleEnabled = playerController.isShuffleEnabled

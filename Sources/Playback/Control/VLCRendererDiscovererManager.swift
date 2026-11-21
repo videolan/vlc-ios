@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 @objc protocol VLCRendererDiscovererManagerDelegate {
+    @objc optional func selectedRendererItem(_ item: VLCRendererItem?)
     @objc optional func removedCurrentRendererItem(_ item: VLCRendererItem)
     @objc optional func addedRendererItem()
     @objc optional func removedRendererItem()
@@ -20,8 +21,6 @@ class VLCRendererDiscovererManager: NSObject {
     @objc var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
 
     @objc weak var delegate: VLCRendererDiscovererManagerDelegate?
-
-    private var selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?
 
     @objc var rendererButtons: [UIButton] = [UIButton]()
 
@@ -84,9 +83,6 @@ class VLCRendererDiscovererManager: NSObject {
             return UIAction(title: rendererItem.name,
                             image: UIImage(named: "renderer"),
                             state: isCurrentRenderer ? .on : .off) { [weak self] _ in
-                if isCurrentRenderer {
-                    self?.delegate?.removedCurrentRendererItem?(rendererItem)
-                }
                 self?.selectRenderer(rendererItem)
             }
         }
@@ -111,7 +107,7 @@ class VLCRendererDiscovererManager: NSObject {
         //if we select the same renderer we want to disconnect
         let oldRenderer = PlaybackService.sharedInstance().renderer
         setRendererItem(rendererItem: rendererItem)
-        selectionHandler?(oldRenderer == rendererItem ? nil : rendererItem)
+        delegate?.selectedRendererItem?(oldRenderer == rendererItem ? nil : rendererItem)
     }
 
     fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
@@ -128,10 +124,6 @@ class VLCRendererDiscovererManager: NSObject {
         for button in rendererButtons {
             button.isSelected = isSelected
         }
-    }
-
-    @objc func addSelectionHandler(_ selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?) {
-        self.selectionHandler = selectionHandler
     }
 
     /// Add the given button to VLCRendererDiscovererManager.
