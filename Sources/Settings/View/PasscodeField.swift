@@ -3,7 +3,7 @@
 //  VLC-iOS
 //
 //  Created by İbrahim Çetin on 19.06.2024.
-//  Copyright © 2024 VideoLAN. All rights reserved.
+//  Copyright © 2024-2026 VideoLAN. All rights reserved.
 //
 
 import UIKit
@@ -169,6 +169,19 @@ class PinView: UIView {
             self.heightAnchor.constraint(equalToConstant: 20),
             self.widthAnchor.constraint(equalToConstant: 20),
         ])
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification,
+                                               object: nil)
+    }
+
+    @objc private func themeDidChange() {
+        layer.borderColor = color.cgColor
+
+        if !isEmpty {
+            backgroundColor = color
+        }
     }
 
     override func layoutSubviews() {
