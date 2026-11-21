@@ -143,6 +143,16 @@ class PlayerViewController: UIViewController {
         return coneLoadingView
     }()
 
+    private var isLoading = false
+
+    var externalOutputInfoView: PlayerInfoView {
+        return externalOutputView
+    }
+
+    var showsExternalOutputIcon: Bool {
+        return !externalOutputInfoView.isHidden && externalOutputInfoView.showsIcon
+    }
+
     var moreOptionsMenuButton: MenuButton? {
         return nil
     }
@@ -201,6 +211,7 @@ class PlayerViewController: UIViewController {
         let externalOutputView = PlayerInfoView()
         externalOutputView.isHidden = true
         externalOutputView.translatesAutoresizingMaskIntoConstraints = false
+        externalOutputView.delegate = self
         return externalOutputView
     }()
 
@@ -1558,11 +1569,13 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
 
         switch currentState {
         case .stopped:
-            coneLoadingView.stopAnimating()
+            isLoading = false
+            updateLoadingIndicator()
             resetPlaybackSpeed()
 
         case .error:
-            coneLoadingView.stopAnimating()
+            isLoading = false
+            updateLoadingIndicator()
 
         default:
             break
@@ -1570,7 +1583,14 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func mediaPlayerBufferingChanged(_ progress: Float, for playbackService: PlaybackService) {
-        if progress < 1.0 {
+        isLoading = progress < 1.0
+        updateLoadingIndicator()
+    }
+
+    func updateLoadingIndicator() {
+        let pulsesExternalOutputIcon = isLoading && showsExternalOutputIcon
+        externalOutputInfoView.setLoading(pulsesExternalOutputIcon)
+        if isLoading && !pulsesExternalOutputIcon {
             coneLoadingView.startAnimating()
         } else {
             coneLoadingView.stopAnimating()
@@ -1910,6 +1930,14 @@ extension PlayerViewController: DeviceMotionDelegate {
             || panRecognizer.state != .began {
             applyYaw(yaw: CGFloat(yaw), pitch: CGFloat(pitch))
         }
+    }
+}
+
+// MARK: - PlayerInfoViewDelegate
+
+extension PlayerViewController: PlayerInfoViewDelegate {
+    func playerInfoViewDidUpdateIconVisibility(_ playerInfoView: PlayerInfoView) {
+        updateLoadingIndicator()
     }
 }
 

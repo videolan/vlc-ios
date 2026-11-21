@@ -234,6 +234,7 @@ class AudioPlayerViewController: PlayerViewController {
         guard output == externalOutputView.displayView else {
             externalOutputView.isHidden = true
             audioPlayerView.thumbnailView.isHidden = false
+            updateLoadingIndicator()
             return
         }
 
@@ -242,6 +243,7 @@ class AudioPlayerViewController: PlayerViewController {
             externalOutputView.isHidden = false
             audioPlayerView.thumbnailView.isHidden = true
         }
+        updateLoadingIndicator()
     }
 #endif
 

@@ -9,20 +9,28 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+protocol PlayerInfoViewDelegate: AnyObject {
+    func playerInfoViewDidUpdateIconVisibility(_ playerInfoView: PlayerInfoView)
+}
+
 class PlayerInfoView: UIView {
     @objc var displayView: UIView? {
         return externalWindow?.rootViewController?.view
     }
     var externalWindow: UIWindow?
+    weak var delegate: PlayerInfoViewDelegate?
+
+    var showsIcon: Bool {
+        return !contentImageView.isHidden
+    }
 
     private static let contentImageSize: CGFloat = 120
 
     private lazy var contentImageHeightConstraint = contentImageView.heightAnchor.constraint(equalToConstant: Self.contentImageSize)
 
-    private lazy var contentImageView: UIImageView = {
-        let contentImageView = UIImageView(image: UIImage(named: "ExternallyPlaying"))
+    private lazy var contentImageView: PulsingConeView = {
+        let contentImageView = PulsingConeView(image: UIImage(named: "ExternallyPlaying"), size: Self.contentImageSize)
         contentImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentImageView.contentMode = .scaleAspectFit
         contentImageView.tintColor = .white
         return contentImageView
     }()
@@ -72,6 +80,7 @@ class PlayerInfoView: UIView {
         let isCompactHeight = traitCollection.verticalSizeClass == .compact
         contentImageView.isHidden = isCompactHeight
         contentImageHeightConstraint.constant = isCompactHeight ? 0 : Self.contentImageSize
+        delegate?.playerInfoViewDidUpdateIconVisibility(self)
     }
 
     @objc func updateUI(rendererName: String?, title: String?) {
@@ -81,6 +90,14 @@ class PlayerInfoView: UIView {
         } else {
             titleLabel.text = title
             descriptionLabel.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")
+        }
+    }
+
+    func setLoading(_ loading: Bool) {
+        if loading {
+            contentImageView.startAnimating()
+        } else {
+            contentImageView.stopAnimating()
         }
     }
 

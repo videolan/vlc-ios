@@ -230,8 +230,13 @@ class VideoPlayerViewController: PlayerViewController {
         let externalVideoOutputView = PlayerInfoView()
         externalVideoOutputView.isHidden = true
         externalVideoOutputView.translatesAutoresizingMaskIntoConstraints = false
+        externalVideoOutputView.delegate = self
         return externalVideoOutputView
     }()
+
+    override var externalOutputInfoView: PlayerInfoView {
+        return externalVideoOutputView
+    }
 
     // MARK: - Gestures
 
@@ -1402,6 +1407,7 @@ class VideoPlayerViewController: PlayerViewController {
 
         externalVideoOutputView.shouldDisplay(displayExternally,
                                               movieView: videoOutputView)
+        updateLoadingIndicator()
 
         let displayView = externalVideoOutputView.displayView
 
@@ -1636,6 +1642,7 @@ extension VideoPlayerViewController {
 #endif
         } else {
             self.externalVideoOutputView.isHidden = true
+            updateLoadingIndicator()
         }
 
         videoPlayerButtons()

@@ -23,11 +23,13 @@ class PulsingConeView: UIView {
 
     private let coneSize: CGFloat
     private let appearanceDelay: TimeInterval
+    private let hidesWhenStopped: Bool
     private var delayTimer: Timer?
 
     override init(frame: CGRect) {
         coneSize = 80
         appearanceDelay = 1.0
+        hidesWhenStopped = true
         super.init(frame: frame)
         setupView()
     }
@@ -35,20 +37,31 @@ class PulsingConeView: UIView {
     @objc init(coneSize: CGFloat) {
         self.coneSize = coneSize
         appearanceDelay = 0
+        hidesWhenStopped = true
         super.init(frame: CGRect(x: 0, y: 0, width: coneSize, height: coneSize))
+        setupView()
+    }
+
+    init(image: UIImage?, size: CGFloat) {
+        coneSize = size
+        appearanceDelay = 1.0
+        hidesWhenStopped = false
+        super.init(frame: .zero)
+        coneImageView.image = image?.withRenderingMode(.alwaysTemplate)
         setupView()
     }
 
     required init?(coder: NSCoder) {
         coneSize = 80
         appearanceDelay = 1.0
+        hidesWhenStopped = true
         super.init(coder: coder)
         setupView()
     }
 
     private func setupView() {
         isUserInteractionEnabled = false
-        alpha = 0.0
+        alpha = hidesWhenStopped ? 0.0 : 1.0
         addSubview(coneImageView)
         NSLayoutConstraint.activate([
             coneImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -72,7 +85,9 @@ class PulsingConeView: UIView {
     @objc private func beginPulsing() {
         delayTimer = nil
         coneImageView.tintColor = PresentationTheme.current.colors.orangeDarkAccent
-        alpha = 1.0
+        if hidesWhenStopped {
+            alpha = 1.0
+        }
 
         let scale = CABasicAnimation(keyPath: "transform.scale")
         scale.fromValue = 0.8
@@ -98,7 +113,11 @@ class PulsingConeView: UIView {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         coneImageView.layer.removeAnimation(forKey: "pulse")
-        alpha = 0.0
+        if hidesWhenStopped {
+            alpha = 0.0
+        } else {
+            coneImageView.tintColor = nil
+        }
         CATransaction.commit()
     }
 }
