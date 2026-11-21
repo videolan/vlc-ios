@@ -19,6 +19,10 @@ long const PODCAST_ABSOLUTE = 1800000L;
 
 - (BOOL)isPodcast
 {
+    if (self.nbSubscriptions > 0) {
+        return YES;
+    }
+
     NSString *genre = self.genre.name;
     SInt64 duration = self.duration;
     BOOL genreIsPodcastIndicator = NO;
