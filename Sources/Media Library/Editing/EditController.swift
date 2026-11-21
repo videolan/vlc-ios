@@ -1,10 +1,11 @@
 /*****************************************************************************
  * EditController.swift
  *
- * Copyright © 2018 VLC authors and VideoLAN
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2026 VLC authors and VideoLAN
+ * Copyright © 2018-2026 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -15,6 +16,7 @@ protocol EditControllerDelegate: AnyObject {
     func editControllerDidFinishEditing(editController: EditController?)
     func editControllerGetCurrentThumbnail() -> UIImage?
     func editControllerGetArtworkHeaderSize(with width: CGFloat) -> CGSize
+    func editControllerGetTitleSections() -> MediaTitleSections?
     func editControllerSetNavigationItemTitle(with title: String?)
     func editControllerUpdateIsAllSelected(with allSelected: Bool)
 }
@@ -35,6 +37,10 @@ class EditController: UIViewController {
         } else {
             return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
         }
+    }
+
+    private var titleSections: MediaTitleSections? {
+        return delegate?.editControllerGetTitleSections()
     }
 
     weak var delegate: EditControllerDelegate?
@@ -104,6 +110,28 @@ class EditController: UIViewController {
 // MARK: - Helpers
 
 private extension EditController {
+    private func getObject(at indexPath: IndexPath) -> VLCMLObject? {
+        if let titleSections {
+            return titleSections.media(at: indexPath)
+        }
+        return currentDataSet.objectAtIndex(index: indexPath.row)
+    }
+
+    private func flattenedIndexPaths(for indexPaths: Set<IndexPath>) -> Set<IndexPath> {
+        guard titleSections != nil else {
+            return indexPaths
+        }
+
+        let dataSet = currentDataSet
+        return Set(indexPaths.compactMap { indexPath in
+            guard let object = getObject(at: indexPath),
+                  let row = dataSet.firstIndex(where: { $0.identifier() == object.identifier() }) else {
+                return nil
+            }
+            return IndexPath(row: row, section: 0)
+        })
+    }
+
     private var canReorder: Bool {
         guard let collectionModel = model as? CollectionModel else {
             return false
@@ -154,12 +182,12 @@ private extension EditController {
 extension EditController: EditToolbarDelegate {
     private func getSelectedObjects(keepPlaylists: Bool = false) {
         let sortedSelectedCells = selectedCellIndexPaths.sorted()
-        for index in sortedSelectedCells where index.row < currentDataSet.count {
-            if keepPlaylists, let playlist = currentDataSet[index.row] as? VLCMLPlaylist {
+        for object in sortedSelectedCells.compactMap({ getObject(at: $0) }) {
+            if keepPlaylists, let playlist = object as? VLCMLPlaylist {
                 editActions.objects.append(playlist)
-            } else if let folder = currentDataSet[index.row] as? VLCMLFolder {
+            } else if let folder = object as? VLCMLFolder {
                 editActions.objects += folder.allMedia()
-            } else if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
+            } else if let mediaCollection = object as? MediaCollectionModel {
                 guard let files = mediaCollection.files() else {
                     assertionFailure("EditController: Fail to retrieve tracks.")
                     DispatchQueue.main.async {
@@ -171,7 +199,7 @@ extension EditController: EditToolbarDelegate {
                 }
                 editActions.objects += files
             } else {
-                editActions.objects.append(currentDataSet[index.row])
+                editActions.objects.append(object)
             }
         }
     }
@@ -199,8 +227,8 @@ extension EditController: EditToolbarDelegate {
         }
         editActions.objects.removeAll()
 
-        for index in selectedCellIndexPaths where index.row < currentDataSet.count {
-            editActions.objects.append(currentDataSet[index.row])
+        for object in selectedCellIndexPaths.compactMap({ getObject(at: $0) }) {
+            editActions.objects.append(object)
         }
 
         editActions.addToMediaGroup() {
@@ -240,14 +268,16 @@ extension EditController: EditToolbarDelegate {
         
         editActions.objects.removeAll()
         
-        for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
-            editActions.objects.append(currentDataSet[indexPath.row])
+        for object in selectedCellIndexPaths.sorted(by: { $0 > $1 }).compactMap({ getObject(at: $0) }) {
+            editActions.objects.append(object)
         }
+
+        let searchIndexPaths = flattenedIndexPaths(for: selectedCellIndexPaths)
 
         editActions.delete({
             [weak self] state in
             if state == .success || state == .fail {
-                self?.searchDataSource.deleteInSearch(indexes: self?.selectedCellIndexPaths)
+                self?.searchDataSource.deleteInSearch(indexes: searchIndexPaths)
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
@@ -280,9 +310,9 @@ extension EditController: EditToolbarDelegate {
         
         editActions.objects.removeAll()
 
-        for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 })
-        where !(currentDataSet[indexPath.row] is VLCMLFolder) {
-            editActions.objects.append(currentDataSet[indexPath.row])
+        for object in selectedCellIndexPaths.sorted(by: { $0 > $1 }).compactMap({ getObject(at: $0) })
+        where !(object is VLCMLFolder) {
+            editActions.objects.append(object)
         }
 
         editActions.rename({
@@ -359,6 +389,10 @@ extension EditController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if titleSections != nil {
+            return .init(width: collectionView.safeAreaLayoutGuide.layoutFrame.width, height: 40)
+        }
+
         guard let model = model as? CollectionModel else {
             return .init(width: 0, height: 0)
         }
@@ -375,8 +409,23 @@ extension EditController: UICollectionViewDelegate {
 // MARK: - UICollectdiionViewDataSource
 
 extension EditController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return titleSections?.sections.count ?? 1
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let titleSections {
+            return titleSections.sections[section].items.count
+        }
         return currentDataSet.count
+    }
+
+    func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        return titleSections?.titles
+    }
+
+    func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
+        return IndexPath(item: 0, section: index)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -407,7 +456,7 @@ extension EditController: UICollectionViewDataSource {
             if cell.isSelected {
                 cell.selectionViewOverlay?.isHidden = !showOverlay
             }
-            cell.media = currentDataSet[indexPath.row]
+            cell.media = getObject(at: indexPath)
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")
@@ -426,6 +475,12 @@ extension EditController: UICollectionViewDataSource {
             header.updateImage(with: delegate?.editControllerGetCurrentThumbnail(),
                                placeholderName: collectionModel.mediaCollection.placeholderName())
             header.shouldDisablePlayButtons(true)
+            return header
+        }
+
+        if let titleSections,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TrackSectionHeader.headerID, for: indexPath) as? TrackSectionHeader {
+            header.update(sectionTitle: titleSections.sections[indexPath.section].key)
             return header
         }
 

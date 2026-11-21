@@ -2809,6 +2809,10 @@ extension MediaCategoryViewController: EditControllerDelegate {
         return artworkHeaderLayout.getHeaderSize(with: width)
     }
 
+    func editControllerGetTitleSections() -> MediaTitleSections? {
+        return isSectioned ? titleSections : nil
+    }
+
     func editControllerSetNavigationItemTitle(with title: String?) {
         var newTitle = title
 
