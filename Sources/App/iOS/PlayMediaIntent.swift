@@ -138,7 +138,7 @@ struct PlayMediaIntent: AudioStartingIntent {
         description: nil, default: .now)
     var playbackQueueLocation: PlaybackQueueLocation?
 
-    @Parameter(title: LocalizedStringResource("PLAYBACK_SPEED"), description: nil, default: 1.0)
+    @Parameter(title: LocalizedStringResource("PLAYBACK_SPEED"), description: nil)
     var playbackSpeed: Double?
 
     @Parameter(
