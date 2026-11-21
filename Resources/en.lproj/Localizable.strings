@@ -114,7 +114,7 @@
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
 "ALWAYS_STREAM_URL" = "Always play URLs";
-"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SHARED_VLC_IOS_LIBRARY" = "Shared VLC Library";
 "SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
 "http://myserver.com/file.mkv" = "http://myserver.com/file.mkv";
 
@@ -138,7 +138,7 @@
 "ERROR_NUMBER" = "Error %i occured";
 "DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
@@ -344,9 +344,9 @@
 "WEBINTF_URL_SENT" = "URL sent successfully.";
 "WEBINTF_URL_EMPTY" = "URL cannot be empty.";
 "WEBINTF_URL_INVALID" = "Not a valid URL.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC and try again.";
 
 "DURATION" = "Duration";
 "TITLE" = "Title";
