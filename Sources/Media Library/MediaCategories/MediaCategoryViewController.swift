@@ -2,7 +2,7 @@
  * MediaCateogoryViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
@@ -412,10 +412,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewWillAppear(animated)
         let manager = VLCAppCoordinator.sharedInstance().rendererDiscovererManager
         manager.delegate = self
-        if manager.discoverers.isEmpty {
-            // Either didn't start or stopped before
-            manager.start()
-        }
 
         let playbackService = PlaybackService.sharedInstance()
         playbackService.setPlayerHidden(isEditing)

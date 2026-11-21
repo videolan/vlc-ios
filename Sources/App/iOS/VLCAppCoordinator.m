@@ -2,7 +2,7 @@
  * VLCAppCoordinator.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022-2024 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -147,6 +147,10 @@
     }
 
     [_playerDisplayController didMoveToParentViewController:tabBarController];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.rendererDiscovererManager start];
+    });
 }
 
 - (VLCBottomTabBarController*)tabBarController
