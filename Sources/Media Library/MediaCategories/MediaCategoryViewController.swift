@@ -842,11 +842,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         // This ensures that the search bar is always visible like a sticky while searching
         if searchDataSource.isSearching {
-            searchBar.endEditing(true)
-            delegate?.enableCategorySwitching(for: self, enable: true)
-            // End search if scrolled and the textfield is empty
-            if let searchBarText = searchBar.text, searchBarText.isEmpty {
-                searchBarCancelButtonClicked(searchBar)
+            if scrollView.isDragging {
+                searchBar.endEditing(true)
+                delegate?.enableCategorySwitching(for: self, enable: true)
+                // End search if scrolled and the textfield is empty
+                if let searchBarText = searchBar.text, searchBarText.isEmpty {
+                    searchBarCancelButtonClicked(searchBar)
+                }
             }
             return
         }
