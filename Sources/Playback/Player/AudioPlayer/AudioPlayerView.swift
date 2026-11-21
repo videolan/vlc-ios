@@ -421,8 +421,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         NSLayoutConstraint.activate([
             externalOutputView.heightAnchor.constraint(equalToConstant: constant),
             externalOutputView.widthAnchor.constraint(equalToConstant: constant),
-            externalOutputView.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor),
-            externalOutputView.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
+            externalOutputView.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+            externalOutputView.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
         ])
     }
 
