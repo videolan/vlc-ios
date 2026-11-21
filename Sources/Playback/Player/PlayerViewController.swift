@@ -1287,6 +1287,7 @@ class PlayerViewController: UIViewController {
             case .seek:
                 seekStartPosition = playbackService.playbackPosition
                 accumulatedSeekTime = 0
+                recognizer.setTranslation(.zero, in: view)
             case .brightness:
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
@@ -1319,14 +1320,14 @@ class PlayerViewController: UIViewController {
         switch currentPanType {
         case .seek:
             if recognizer.state == .changed {
-                let baseTimeChangeRate: Float = 0.05
-                
+                let baseTimeChangeRate: Float = 3.0
+
                 let durationInSeconds = mediaDurationInSeconds()
                 let durationFactor = min(1.0, durationInSeconds / 3600.0)
                 let adjustedRate = baseTimeChangeRate * (1.0 + durationFactor)
-                
-                let seekDelta = horizontalPanVelocity * adjustedRate * seekSensitivity
-                accumulatedSeekTime += seekDelta
+
+                let horizontalTranslation = Float(recognizer.translation(in: view).x)
+                accumulatedSeekTime = horizontalTranslation * adjustedRate * seekSensitivity
                 
                 let startTimeInSeconds = seekStartPosition * durationInSeconds
                 let newTimeInSeconds = startTimeInSeconds + accumulatedSeekTime
