@@ -43,18 +43,18 @@ class VLCRendererDiscovererManager: NSObject {
     @objc func start() {
         // Gather potential renderer discoverers
         guard let tmpDiscoverersDescription: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
-            print("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
+            APLog("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
             return
         }
 
         for discovererDescription in tmpDiscoverersDescription where !isDuplicateDiscoverer(with: discovererDescription) {
             guard let rendererDiscoverer = VLCRendererDiscoverer(name: discovererDescription.name) else {
-                print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
+                APLog("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
                 continue
             }
             rendererDiscoverer.delegate = self
             guard rendererDiscoverer.start() else {
-                print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
+                APLog("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
                 continue
             }
             discoverers.append(rendererDiscoverer)
