@@ -1,7 +1,7 @@
 /*****************************************************************************
  * CollectionArtworkHeader.swift
  *
- * Copyright © 2022 VLC authors and VideoLAN
+ * Copyright © 2022-2026 VLC authors and VideoLAN
  *
  * Authors: Diogo Simao Marques <diogo.simaomarquespro@gmail.com>
  *
@@ -103,7 +103,7 @@ class CollectionArtworkHeader: UICollectionReusableView {
         }
 #endif
         button.setImage(image, for: .normal)
-        button.tintColor = .white
+        button.tintColor = PresentationTheme.current.colors.background
         button.layer.cornerRadius = 0.5 * size
         button.clipsToBounds = true
         button.backgroundColor = PresentationTheme.current.colors.orangeUI
@@ -181,7 +181,12 @@ class CollectionArtworkHeader: UICollectionReusableView {
     }
 
     func updateTheme() {
-        backgroundColor = PresentationTheme.current.colors.background
+        let colors = PresentationTheme.current.colors
+        backgroundColor = colors.background
+        if #unavailable(iOS 26.0) {
+            playAllButton.tintColor = colors.background
+            playShuffleButton.tintColor = colors.background
+        }
         updateTitleColor()
     }
 
