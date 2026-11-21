@@ -1282,6 +1282,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     override func setControlsHidden(_ hidden: Bool, animated: Bool) {
         guard !UIAccessibility.isVoiceOverRunning || !hidden else { return }
+        guard !playbackService.isPlayingOnExternalScreen() || !hidden else { return }
 
         playerController.isControlsHidden = hidden
         if let alert = alertController, hidden {
@@ -1422,6 +1423,12 @@ class VideoPlayerViewController: PlayerViewController {
             // Adjust constraint for local display
             setupVideoOutputConstraints()
             adaptVideoOutputToNotch()
+        }
+
+        if displayExternally {
+            setControlsHidden(false, animated: true)
+        } else {
+            resetIdleTimer()
         }
     }
 
