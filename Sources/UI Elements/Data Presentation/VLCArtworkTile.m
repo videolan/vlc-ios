@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCArtworkTile.h"
-#import "VLCPlaceholderArtworkView.h"
 #import "VLCNetworkImageView.h"
 
 #import "VLC-Swift.h"
@@ -21,7 +20,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 @implementation VLCArtworkTile
 {
-    VLCPlaceholderArtworkView *_artworkContainer;
+    UIView *_artworkContainer;
     VLCNetworkImageView *_artworkView;
     UIVisualEffectView *_badgeView;
     UIImageView *_badgeGlyph;
@@ -55,7 +54,7 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
 
 - (void)setupViews
 {
-    _artworkContainer = [[VLCPlaceholderArtworkView alloc] init];
+    _artworkContainer = [[UIView alloc] init];
     _artworkContainer.translatesAutoresizingMaskIntoConstraints = NO;
     [_artworkContainer roundCornersWithRadius:_artworkCornerRadius];
     _artworkContainer.clipsToBounds = YES;
@@ -366,14 +365,9 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     _nameLabel.text = name;
     _nameLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 
-    _artworkContainer.name = name;
-
-    if (artworkURL) {
-        _artworkView.hidden = NO;
-        [_artworkView setImageWithURL:artworkURL];
-    } else {
-        _artworkView.hidden = YES;
-    }
+    _artworkContainer.backgroundColor = PresentationTheme.current.colors.thumbnailBackgroundColor;
+    [_artworkView setImage:nil placeholderName:name];
+    [_artworkView setImageWithURL:artworkURL];
 }
 
 - (void)prepareForReuse
@@ -381,7 +375,6 @@ static CGFloat const kVLCArtworkTileBadgeImageSide = 17.0;
     [super prepareForReuse];
     [_artworkView cancelLoading];
     _artworkView.image = nil;
-    _artworkView.hidden = NO;
     _nameLabel.text = nil;
     self.subtitle = nil;
     self.pillText = nil;
