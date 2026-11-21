@@ -119,7 +119,10 @@ extension FavoriteListViewController {
 
             /* fasttrack UPnP as it does not allow authentication */
             if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierUPnP) {
-                serverBrowser = VLCNetworkServerBrowserVLCMedia.uPnPNetworkServerBrowser(with: favorite.url)
+                if let media = VLCMedia(url: favorite.url) {
+                    media.metaData.title = favorite.userVisibleName
+                    serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+                }
             } else {
                 if let login = favorite.loginInformation {
                     if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierFTP) {

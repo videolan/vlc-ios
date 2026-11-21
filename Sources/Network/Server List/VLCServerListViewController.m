@@ -833,7 +833,9 @@ referenceSizeForHeaderInSection:(NSInteger)section
     id<VLCNetworkServerBrowser> browser = nil;
 
     if ([favorite.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
-        browser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithURL:favorite.url options:@{}];
+        VLCMedia *media = [VLCMedia mediaWithURL:favorite.url];
+        media.metaData.title = favorite.userVisibleName;
+        browser = [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:media options:@{}];
     } else if (login) {
         browser = [VLCNetworkServerBrowserFactory browserForLogin:login];
     } else {
