@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [notificationCenter addObserver:self selector:@selector(updateForSizing) name:UIContentSizeCategoryDidChangeNotification object:nil];
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.tintColor = [UIColor whiteColor];
+    _refreshControl.tintColor = colors.orangeUI;
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
 
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
@@ -162,7 +162,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [formattedDate setDateStyle:NSDateFormatterMediumStyle];
     [formattedDate setTimeStyle:NSDateFormatterShortStyle];
     NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:PresentationTheme.current.colors.cellDetailTextColor forKey:NSForegroundColorAttributeName];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
 
     [self requestInformationForCurrentPath];
