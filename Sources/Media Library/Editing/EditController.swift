@@ -117,21 +117,6 @@ private extension EditController {
         return currentDataSet.objectAtIndex(index: indexPath.row)
     }
 
-    private func flattenedIndexPaths(for indexPaths: Set<IndexPath>) -> Set<IndexPath> {
-        guard titleSections != nil else {
-            return indexPaths
-        }
-
-        let dataSet = currentDataSet
-        return Set(indexPaths.compactMap { indexPath in
-            guard let object = getObject(at: indexPath),
-                  let row = dataSet.firstIndex(where: { $0.identifier() == object.identifier() }) else {
-                return nil
-            }
-            return IndexPath(row: row, section: 0)
-        })
-    }
-
     private var canReorder: Bool {
         guard let collectionModel = model as? CollectionModel else {
             return false
@@ -271,13 +256,12 @@ extension EditController: EditToolbarDelegate {
         for object in selectedCellIndexPaths.sorted(by: { $0 > $1 }).compactMap({ getObject(at: $0) }) {
             editActions.objects.append(object)
         }
-
-        let searchIndexPaths = flattenedIndexPaths(for: selectedCellIndexPaths)
+        let deletedObjects = editActions.objects
 
         editActions.delete({
             [weak self] state in
             if state == .success || state == .fail {
-                self?.searchDataSource.deleteInSearch(indexes: searchIndexPaths)
+                self?.searchDataSource.deleteInSearch(deletedObjects)
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()

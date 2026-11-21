@@ -1973,7 +1973,6 @@ private extension MediaCategoryViewController {
     }
 
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
-        let index = indexPath.row
         let modelContent = getObject(at: indexPath)
         collectionSelectedIndex = indexPath
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
@@ -2048,7 +2047,7 @@ private extension MediaCategoryViewController {
                         self?.editController.editActions.delete() {
                             [weak self] state in
                             if state == .success {
-                                self?.searchDataSource.deleteInSearch(index: index)
+                                self?.searchDataSource.deleteInSearch([modelContent])
                             }
                         }
                     }
@@ -3037,10 +3036,10 @@ extension MediaCategoryViewController: MediaCollectionViewCellEnqueueDelegate {
         editController.editActions.objects = [modelContent]
         editController.editActions.delete() { [weak self] state in
             if state == .success {
-                guard let flattenedIndexPath = self?.getFlattenedIndexPath(for: modelContent) else {
+                guard self?.getFlattenedIndexPath(for: modelContent) != nil else {
                     return
                 }
-                self?.searchDataSource.deleteInSearch(index: flattenedIndexPath.row)
+                self?.searchDataSource.deleteInSearch([modelContent])
 
                 // If the media deleted is in the media list, the play queue should also be updated
                 let playbackService = PlaybackService.sharedInstance()

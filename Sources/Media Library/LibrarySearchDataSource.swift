@@ -2,7 +2,7 @@
  * LibrarySearchDataSource.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2019-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -42,22 +42,11 @@ class LibrarySearchDataSource: NSObject {
         }
     }
     
-    func deleteInSearch(index: Int) {
+    func deleteInSearch(_ objects: [VLCMLObject]) {
         if isSearching {
-            searchData.remove(at: index)
-        }
-    }
-    
-    func deleteInSearch(indexes: Set<IndexPath>?) {
-        if isSearching, let indexes = indexes {
-            searchData = searchData
-                .enumerated()
-                .filter { searchItem in
-                    !indexes.contains { index in
-                        index.row == searchItem.offset
-                    }
-                }
-                .map { $0.element }
+            searchData.removeAll { item in
+                objects.contains { $0 === item }
+            }
         }
     }
 }
