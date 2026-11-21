@@ -2,7 +2,7 @@
  * PlayMediaIntent.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Refer to the COPYING file of the official project for license.
@@ -130,8 +130,7 @@ struct PlayMediaIntent: AudioStartingIntent {
     @Parameter(title: LocalizedStringResource("PLAYLIST_PLACEHOLDER"), optionsProvider: MediaOptionsProvider())
     var mediaName: String
 
-    @Parameter(
-        title: LocalizedStringResource("SHUFFLE"), description: nil, default: .off)
+    @Parameter(title: LocalizedStringResource("SHUFFLE"), description: nil)
     var playShuffled: ShuffleMode?
 
     @Parameter(
@@ -205,18 +204,16 @@ struct PlayMediaIntent: AudioStartingIntent {
                 playbackService.playbackRate = Float(playbackRate)
             }
 
-            playbackService.repeatMode = {
-                switch playbackRepeatMode {
-                case .doNotRepeat:
-                    return .doNotRepeat
-                case .repeatAllItems:
-                    return .repeatAllItems
-                case .repeatCurrentItem:
-                    return .repeatCurrentItem
-                case nil:
-                    return .doNotRepeat
-                }
-            }()
+            switch playbackRepeatMode {
+            case .doNotRepeat:
+                playbackService.repeatMode = .doNotRepeat
+            case .repeatAllItems:
+                playbackService.repeatMode = .repeatAllItems
+            case .repeatCurrentItem:
+                playbackService.repeatMode = .repeatCurrentItem
+            case nil:
+                break
+            }
 
             if let sleepTimer = sleepTimer {
                 let sleepTimerSeconds = sleepTimer.converted(to: .seconds).value

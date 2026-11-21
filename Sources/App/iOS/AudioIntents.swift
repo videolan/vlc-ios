@@ -86,8 +86,12 @@ struct PlayAudioIntent {
 
         await MainActor.run {
             playbackService.fullscreenSessionRequested = false
-            playbackService.isShuffleMode = shuffle
-            playbackService.repeatMode = repeatAll ? .repeatAllItems : .doNotRepeat
+            if shuffle {
+                playbackService.isShuffleMode = true
+            }
+            if repeatAll {
+                playbackService.repeatMode = .repeatAllItems
+            }
 
             switch location {
             case .next:

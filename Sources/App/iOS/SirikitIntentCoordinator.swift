@@ -3,7 +3,7 @@
 //  VLC-iOS
 //
 //  Created by Avi Wadhwa on 19/07/23.
-//  Copyright © 2023 VideoLAN. All rights reserved.
+//  Copyright © 2023-2026 VideoLAN. All rights reserved.
 //
 
 import Foundation
@@ -59,18 +59,18 @@ extension SirikitIntentCoordinator: INPlayMediaIntentHandling {
             if let playbackRate = intent.playbackSpeed {
                 PlaybackService.sharedInstance().playbackRate = Float(playbackRate)
             }
-            PlaybackService.sharedInstance().repeatMode = {
-                switch intent.playbackRepeatMode {
-                case .unknown, .none:
-                    return .doNotRepeat
-                case .all:
-                    return .repeatAllItems
-                case .one:
-                    return .repeatCurrentItem
-                @unknown default:
-                    return .doNotRepeat
-                }
-            }()
+            switch intent.playbackRepeatMode {
+            case .none:
+                PlaybackService.sharedInstance().repeatMode = .doNotRepeat
+            case .all:
+                PlaybackService.sharedInstance().repeatMode = .repeatAllItems
+            case .one:
+                PlaybackService.sharedInstance().repeatMode = .repeatCurrentItem
+            case .unknown:
+                break
+            @unknown default:
+                break
+            }
         }
 
         if media.first?.type() == VLCMLMediaType.video {
