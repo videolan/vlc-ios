@@ -945,10 +945,14 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     private func setupExternalVideoOutputConstraints() {
+        let centerYConstraint = externalVideoOutputView.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor)
+        centerYConstraint.priority = .defaultLow
+
         NSLayoutConstraint.activate([
-            externalVideoOutputView.heightAnchor.constraint(equalToConstant: 320),
             externalVideoOutputView.widthAnchor.constraint(equalToConstant: 320),
-            externalVideoOutputView.centerYAnchor.constraint(equalTo: videoAreaLayoutGuide.centerYAnchor),
+            centerYConstraint,
+            externalVideoOutputView.bottomAnchor.constraint(lessThanOrEqualTo: videoPlayerControls.transportControls.topAnchor,
+                                                            constant: -16),
             externalVideoOutputView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }

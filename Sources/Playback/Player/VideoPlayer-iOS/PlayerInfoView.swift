@@ -1,7 +1,7 @@
 /*****************************************************************************
  * PlayerInfoView.swift
  *
- * Copyright © 2021, 2023 VLC authors and VideoLAN
+ * Copyright © 2021-2026 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
@@ -14,6 +14,10 @@ class PlayerInfoView: UIView {
         return externalWindow?.rootViewController?.view
     }
     var externalWindow: UIWindow?
+
+    private static let contentImageSize: CGFloat = 120
+
+    private lazy var contentImageHeightConstraint = contentImageView.heightAnchor.constraint(equalToConstant: Self.contentImageSize)
 
     private lazy var contentImageView: UIImageView = {
         let contentImageView = UIImageView(image: UIImage(named: "ExternallyPlaying"))
@@ -61,6 +65,13 @@ class PlayerInfoView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let isCompactHeight = traitCollection.verticalSizeClass == .compact
+        contentImageView.isHidden = isCompactHeight
+        contentImageHeightConstraint.constant = isCompactHeight ? 0 : Self.contentImageSize
     }
 
     @objc func updateUI(rendererName: String?, title: String?) {
@@ -117,12 +128,13 @@ private extension PlayerInfoView {
 
         NSLayoutConstraint.activate([
             contentImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            contentImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10),
-            contentImageView.heightAnchor.constraint(equalToConstant: 120),
-            contentImageView.widthAnchor.constraint(equalToConstant: 120),
+            contentImageView.topAnchor.constraint(equalTo: topAnchor),
+            contentImageHeightConstraint,
+            contentImageView.widthAnchor.constraint(equalToConstant: Self.contentImageSize),
 
             labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             labelStackView.topAnchor.constraint(equalTo: contentImageView.bottomAnchor),
+            labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }
