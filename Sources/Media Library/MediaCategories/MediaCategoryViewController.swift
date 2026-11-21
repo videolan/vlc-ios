@@ -276,12 +276,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var scrolledCellIndex: IndexPath = IndexPath()
     private(set) var isAllSelected: Bool = false
 
-    private enum FABAction {
-        case shuffleAudio
-        case playAllVideo
-    }
-
-    private var fabAction: FABAction? {
+    private var fabAction: FloatingActionButtonController.Action? {
         if parent is AudioViewController {
             return .shuffleAudio
         } else if parent is VideoViewController {
@@ -289,39 +284,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         return nil
     }
-
-    private static let fabButtonSize: CGFloat = 44
-
-    private lazy var fabButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(fabButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-#if !os(visionOS)
-        if #available(iOS 26.0, *) {
-            var config: UIButton.Configuration = .prominentGlass()
-            config.baseBackgroundColor = PresentationTheme.current.colors.orangeUI
-            config.baseForegroundColor = .white
-            config.cornerStyle = .capsule
-            button.configuration = config
-            return button
-        }
-#endif
-        button.backgroundColor = PresentationTheme.current.colors.orangeUI
-        button.tintColor = PresentationTheme.current.colors.background
-        button.layer.cornerRadius = MediaCategoryViewController.fabButtonSize / 2
-        button.layer.masksToBounds = false
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        button.layer.shadowRadius = 4.0
-        button.layer.shadowOpacity = 0.3
-        button.layer.shadowPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0,
-                                                              width: MediaCategoryViewController.fabButtonSize,
-                                                              height: MediaCategoryViewController.fabButtonSize)).cgPath
-        return button
-    }()
-
-    private var fabBottomConstraint: NSLayoutConstraint?
-    private var fabAnchorsToContainerBottom: Bool?
 
     private var lastPlaylist: LastPlayedPlaylistModel? {
         guard let encodedData = userDefaults.data(forKey: kVLCLastPlayedPlaylist),
@@ -609,6 +571,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupCollectionView() //Fixes crash that is caused due to layout change
         setNavbarAppearance()
         addInitializationCommonObservers()
+        floatingActionButtonController?.register(self)
 
         if let folderModel = model as? FolderModel {
             folderModel.setupData()
@@ -620,7 +583,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             ? self.miniPlayerIsShown() : self.miniPlayerIsHidden()
             self.loadSort()
             self.reloadData()
-            self.configureFABButton()
             self.refreshTabSearchResultsIfNeeded()
         }
 
@@ -632,6 +594,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        floatingActionButtonController?.register(self)
         showGuideOnLaunch()
         updateCollectionViewForArtworkHeader()
 #if os(iOS)
@@ -645,7 +608,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        fabButton.removeFromSuperview()
+        floatingActionButtonController?.unregister(self)
 
         removeInitializationCommonObservers()
 
@@ -766,9 +729,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             marqueeLabel.textColor = colors.navigationbarTextColor
         }
 
-        if #unavailable(iOS 26.0) {
-            fabButton.tintColor = colors.background
-        }
         editToolBar.backgroundColor = colors.tabBarColor
 
         artworkHeader?.updateTheme()
@@ -858,7 +818,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.collectionViewLayout.invalidateLayout()
 
         coordinator.animate(alongsideTransition: { [weak self] _ in
-            self?.updateFABButtonBottomConstraint()
+            self?.floatingActionButtonController?.updateBottomConstraint()
         }, completion: { [weak self] _ in
             guard let self = self, self.isEditing else {
                 return
@@ -3133,102 +3093,21 @@ extension MediaCategoryViewController: MediaCollectionViewCellEnqueueDelegate {
 
 // MARK: - Floating Action Button
 
-extension MediaCategoryViewController {
-    private func configureFABButton() {
-        guard let action = fabAction else { return }
-        addFABButton(for: action)
+extension MediaCategoryViewController: FloatingActionButtonClient {
+    var floatingAction: FloatingActionButtonController.Action? {
+        let isMiniPlayerVisible = VLCAppCoordinator.sharedInstance().tabBarController.isMiniPlayerVisible
+        guard !model.anyfiles.isEmpty, !isMiniPlayerVisible, !isEditing, !searchDataSource.isSearching else {
+            return nil
+        }
+        return fabAction
     }
 
-    private func addFABButton(for action: FABAction) {
-        guard let containerView = tabBarController?.view else { return }
-
-        switch action {
-        case .shuffleAudio:
-            setFABButtonImage(UIImage(named: "shuffle")?.withRenderingMode(.alwaysTemplate))
-            fabButton.accessibilityLabel = NSLocalizedString("SHUFFLE", comment: "")
-        case .playAllVideo:
-            setFABButtonImage(UIImage(named: "iconPlay")?.withRenderingMode(.alwaysTemplate))
-            fabButton.accessibilityLabel = NSLocalizedString("PLAY_ALL_BUTTON", comment: "")
-        }
-
-        containerView.addSubview(fabButton)
-
-        setFABButtonConstraints()
-        handleFABButtonVisibility()
-    }
-
-    private func setFABButtonImage(_ image: UIImage?) {
-#if !os(visionOS)
-        if #available(iOS 26.0, *), fabButton.configuration != nil {
-            var config = fabButton.configuration
-            config?.image = image
-            fabButton.configuration = config
-            return
-        }
-#endif
-        fabButton.setImage(image, for: .normal)
-    }
-
-    @objc private func fabButtonPressed() {
-        let playbackService = PlaybackService.sharedInstance()
-        switch fabAction {
-        case .shuffleAudio:
-            guard let tracks = mediaLibraryService.medialib.audioFiles(), !tracks.isEmpty else { return }
-            playbackService.isShuffleMode = true
-            playbackService.playCollection(tracks)
-        case .playAllVideo:
-            guard let videos = mediaLibraryService.medialib.videoFiles(), !videos.isEmpty else { return }
-            playbackService.isShuffleMode = false
-            playbackService.playCollection(videos)
-        case .none:
-            break
-        }
+    private var floatingActionButtonController: FloatingActionButtonController? {
+        (tabBarController as? BottomTabBarController)?.floatingActionButtonController
     }
 
     private func handleFABButtonVisibility() {
-        let isMiniPlayerVisible = VLCAppCoordinator.sharedInstance().tabBarController.isMiniPlayerVisible
-        fabButton.isHidden = fabAction == nil || model.anyfiles.isEmpty || isMiniPlayerVisible || isEditing || searchDataSource.isSearching
-    }
-
-    private func setFABButtonConstraints() {
-        guard let layoutGuide = tabBarController?.view.safeAreaLayoutGuide else { return }
-
-        fabAnchorsToContainerBottom = nil
-
-        NSLayoutConstraint.activate([
-            fabButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -15),
-            fabButton.widthAnchor.constraint(equalToConstant: MediaCategoryViewController.fabButtonSize),
-            fabButton.heightAnchor.constraint(equalToConstant: MediaCategoryViewController.fabButtonSize)
-        ])
-
-        updateFABButtonBottomConstraint()
-    }
-
-    // iPadOS 18+ keeps the tab bar at the top in regular width, but moves it back to
-    // the bottom in compact width, so the anchor has to follow window resizes.
-    private func updateFABButtonBottomConstraint() {
-        guard fabButton.superview != nil,
-              let tabBar = tabBarController?.tabBar,
-              let containerView = tabBarController?.view else { return }
-
-        let anchorsToContainerBottom: Bool
-#if os(iOS)
-        anchorsToContainerBottom = (tabBarController?.isSidebarAvailable == true
-            && traitCollection.horizontalSizeClass == .regular)
-            || !tabBar.isDescendant(of: containerView)
-#else
-        anchorsToContainerBottom = false
-#endif
-
-        if fabAnchorsToContainerBottom == anchorsToContainerBottom,
-           fabBottomConstraint?.isActive == true { return }
-        fabAnchorsToContainerBottom = anchorsToContainerBottom
-
-        let anchor = anchorsToContainerBottom ? containerView.bottomAnchor : view.safeAreaLayoutGuide.bottomAnchor
-        fabBottomConstraint?.isActive = false
-        let bottomConstraint = fabButton.bottomAnchor.constraint(equalTo: anchor, constant: -15)
-        bottomConstraint.isActive = true
-        fabBottomConstraint = bottomConstraint
+        floatingActionButtonController?.setNeedsRefresh()
     }
 }
 

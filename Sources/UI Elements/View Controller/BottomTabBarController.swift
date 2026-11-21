@@ -52,6 +52,8 @@ class BottomTabBarController: UITabBarController {
     private var transferStatusBottomAnchorNeedsRefresh: Bool = false
     private var transferStatusBannerController: VLCTransferStatusBannerController!
 
+    private(set) var floatingActionButtonController: FloatingActionButtonController!
+
     #if os(iOS)
     override var viewControllers: [UIViewController]? {
         didSet {
@@ -66,6 +68,7 @@ class BottomTabBarController: UITabBarController {
         super.viewDidLoad()
 
         transferStatusBannerController = VLCTransferStatusBannerController(containerView: view, delegate: self)
+        floatingActionButtonController = FloatingActionButtonController(containerView: view)
 
         #if os(iOS)
         if #available(iOS 26.0, *) {
