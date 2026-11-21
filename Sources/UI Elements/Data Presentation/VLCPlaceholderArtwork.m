@@ -43,7 +43,7 @@ static CGFloat const kVLCPlaceholderArtworkFontSizeRatio = 0.28;
     }
 
     if (words.count == 0)
-        return @"?";
+        return [self leadingCharacters:1 ofString:trimmed];
 
     if (words.count == 1)
         return [self leadingCharacters:2 ofString:words.firstObject];
