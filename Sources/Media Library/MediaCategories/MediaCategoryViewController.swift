@@ -1309,6 +1309,9 @@ private extension MediaCategoryViewController {
 
     private func updateUIForContent() {
         if searchDataSource.isSearching {
+            if !isShowingTabSearchResults {
+                updateNoSearchResultsLabel()
+            }
             return
         }
 
@@ -1320,6 +1323,15 @@ private extension MediaCategoryViewController {
         collectionView?.backgroundView = isEmpty ? emptyView : nil
         updateEmptyViewLayoutMargins()
         updateBarButtonItems()
+    }
+
+    private func updateNoSearchResultsLabel() {
+        if !searchDataSource.searchString.isEmpty && searchDataSource.searchData.isEmpty {
+            noSearchResultsLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+            collectionView?.backgroundView = noSearchResultsLabel
+        } else if collectionView?.backgroundView === noSearchResultsLabel {
+            collectionView?.backgroundView = nil
+        }
     }
 
     private func updateEmptyViewLayoutMargins() {
