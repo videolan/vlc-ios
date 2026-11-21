@@ -892,11 +892,15 @@ enum WatchOS {
     }
 
     static func section() -> SettingsSection? {
-        .init(title: "SETTINGS_WATCHOS_TITLE", items: [
+        #if NO_WATCH
+        return nil
+        #else
+        return .init(title: "SETTINGS_WATCHOS_TITLE", items: [
             mediaLibrarySync,
             mediaLibraryAutoSync,
             transfers
         ])
+        #endif
     }
 }
 
