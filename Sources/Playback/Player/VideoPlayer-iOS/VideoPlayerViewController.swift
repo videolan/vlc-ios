@@ -1316,7 +1316,8 @@ class VideoPlayerViewController: PlayerViewController {
     }
 
     @objc override func updatePlayerControls() {
-        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
+        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1
+                                                    || playbackService.currentlyPlayingLibraryMedia?.isPodcast() == true)
     }
 
     override func minimizePlayer() {
@@ -1557,7 +1558,8 @@ extension VideoPlayerViewController {
                                       for: playbackService)
 
         videoPlayerControls.updatePlayPauseButton(toState: isPlaying)
-        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
+        videoPlayerControls.shouldEnableSeekButtons(playbackService.mediaList.count == 1
+                                                    || playbackService.currentlyPlayingLibraryMedia?.isPodcast() == true)
 
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",

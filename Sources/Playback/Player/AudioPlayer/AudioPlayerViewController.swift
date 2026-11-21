@@ -376,7 +376,8 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     @objc override func updatePlayerControls() {
-        audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
+        audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1
+                                                || playbackService.currentlyPlayingLibraryMedia?.isPodcast() == true)
     }
 }
 
@@ -470,7 +471,8 @@ extension AudioPlayerViewController {
                                       for: playbackService)
 
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
-        audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1)
+        audioPlayerView.shouldEnableSeekButtons(playbackService.mediaList.count == 1
+                                                || playbackService.currentlyPlayingLibraryMedia?.isPodcast() == true)
 
         let image: UIImage? = isPlaying ? UIImage(named: "minimize") : MediaNavigationBar.closeImage
         let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")

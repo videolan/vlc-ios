@@ -30,6 +30,7 @@
 #import "VLCStatusLabel.h"
 #import "VLCThumbnailsCache.h"
 #import "VLCMLMedia+App.h"
+#import "VLCMLMedia+Podcast.h"
 #import "VLCNonInteractiveWindowSceneDelegate.h"
 #import "VLCNetworkListCell.h"
 #import "VLCNetworkServerBrowserViewController.h"
