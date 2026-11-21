@@ -1703,7 +1703,9 @@ extension MediaCategoryViewController: UISearchControllerDelegate, UISearchResul
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
 
         if #unavailable(iOS 26.0) {
             if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField,

@@ -381,7 +381,9 @@ extension PodcastDirectoryViewController: UISearchResultsUpdating, UISearchContr
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
     }
 
     func willDismissSearchController(_ searchController: UISearchController) {

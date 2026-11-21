@@ -540,7 +540,9 @@ extension PodcastShowDetailViewController: UISearchResultsUpdating, UISearchCont
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
     }
 
     func willDismissSearchController(_ searchController: UISearchController) {

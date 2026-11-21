@@ -579,7 +579,9 @@ extension PodcastsViewController: UISearchBarDelegate, UISearchControllerDelegat
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
     }
 
     func didDismissSearchController(_ searchController: UISearchController) {
