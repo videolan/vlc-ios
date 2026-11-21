@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -66,7 +66,6 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:_refreshControl];
 
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -323,6 +322,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
     self.navigationItem.rightBarButtonItem = nil;
+    self.tableView.refreshControl = nil;
     [self.tableView addSubview:self.loginToCloudStorageView];
 }
 
@@ -347,6 +347,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
         [self showLoginPanel];
         return;
     }
+
+    self.tableView.refreshControl = _refreshControl;
 
     //  Set right bar buttons after cloud access is authorized
     if (self.controller.canPlayAll) {
