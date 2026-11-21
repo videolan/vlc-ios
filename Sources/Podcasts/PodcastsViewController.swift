@@ -94,6 +94,11 @@ class PodcastsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         definesPresentationContext = true
 
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            navigationItem.preferredSearchBarPlacement = .integrated
+            navigationItem.hidesSearchBarWhenScrolling = true
+            navigationItem.searchController = searchController
+        }
         setupNavigationBarButtons()
 
         view.addSubview(tableView)
@@ -153,15 +158,19 @@ class PodcastsViewController: UIViewController {
     }
 
     private func setupNavigationBarButtons() {
-        let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
-                                            action: #selector(didTapSearch))
-        searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
-
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), menu: addActions().menu())
         addButton.accessibilityLabel = NSLocalizedString("PODCAST_SUBSCRIBE", comment: "")
         addButton.accessibilityIdentifier = VLCAccessibilityIdentifier.podcastAdd
+        var rightBarButtonItems = [addButton]
 
-        navigationItem.rightBarButtonItems = [addButton, searchButton]
+        if #unavailable(iOS 26.0, visionOS 26.0) {
+            let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self,
+                                                action: #selector(didTapSearch))
+            searchButton.accessibilityLabel = NSLocalizedString("SEARCH", comment: "")
+            rightBarButtonItems.append(searchButton)
+        }
+
+        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
 
     private func addActions() -> [PodcastMenuAction] {
@@ -222,7 +231,9 @@ class PodcastsViewController: UIViewController {
         isSearching = false
         filteredEpisodes = []
         searchController.isActive = false
-        navigationItem.searchController = nil
+        if #unavailable(iOS 26.0, visionOS 26.0) {
+            navigationItem.searchController = nil
+        }
         tableView.reloadData()
         updateContentVisibility()
     }
