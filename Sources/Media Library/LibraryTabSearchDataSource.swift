@@ -205,6 +205,10 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
         return sections.objectAtIndex(index: section)?.items.count ?? 0
     }
 
+    func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        return nil
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier,
                                                             for: indexPath) as? MediaCollectionViewCell else {
