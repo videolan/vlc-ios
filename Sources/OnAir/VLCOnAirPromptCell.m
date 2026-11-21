@@ -224,8 +224,8 @@ static CGFloat const kVLCOnAirPromptUnavailableOpacity = 0.38;
     _primaryButton.backgroundColor = accent;
 
     _secondaryButton.hidden = (secondaryTitle == nil);
+    [_secondaryButton setTitle:secondaryTitle forState:UIControlStateNormal];
     if (secondaryTitle) {
-        [_secondaryButton setTitle:secondaryTitle forState:UIControlStateNormal];
         _secondaryButton.enabled = actionsAvailable;
         [_secondaryButton styleAsSecondaryAction];
     }
