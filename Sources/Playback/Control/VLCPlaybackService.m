@@ -452,6 +452,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
         VLCRepeatMode repeatMode = [defaults integerForKey:kVLCPlayerIsRepeatEnabled];
         [_listPlayer setRepeatMode:repeatMode];
+        _shuffleMode = [defaults boolForKey:kVLCPlayerIsShuffleEnabled];
     }
 
     BOOL equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
