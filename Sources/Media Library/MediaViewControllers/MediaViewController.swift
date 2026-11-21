@@ -98,6 +98,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             ($0 as? MediaCategoryViewController)?.delegate = self
         }
         setupNavigationBar()
+#if os(iOS)
+        NotificationCenter.default.addObserver(self, selector: #selector(renderersDidChange),
+                                               name: .VLCRenderersDidChangeNotification, object: nil)
+#endif
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -110,6 +114,15 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         updateButtonsFor(viewControllers[currentIndex])
     }
+
+#if os(iOS)
+    @objc private func renderersDidChange() {
+        guard !viewControllers.isEmpty else {
+            return
+        }
+        updateButtonsFor(viewControllers[currentIndex])
+    }
+#endif
 
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false

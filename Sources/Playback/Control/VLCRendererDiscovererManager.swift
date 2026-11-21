@@ -9,11 +9,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+extension Notification.Name {
+    static let VLCRenderersDidChangeNotification = Notification.Name("VLCRenderersDidChangeNotification")
+}
+
 @objc protocol VLCRendererDiscovererManagerDelegate {
     @objc optional func selectedRendererItem(_ item: VLCRendererItem?)
     @objc optional func removedCurrentRendererItem(_ item: VLCRendererItem)
-    @objc optional func addedRendererItem()
-    @objc optional func removedRendererItem()
 }
 
 class VLCRendererDiscovererManager: NSObject {
@@ -158,7 +160,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 }
             }
             self.updateRendererButtons()
-            self.delegate?.addedRendererItem?()
+            NotificationCenter.default.post(name: .VLCRenderersDidChangeNotification, object: self)
         }
     }
 
@@ -184,7 +186,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 }
             }
             self.updateRendererButtons()
-            self.delegate?.removedRendererItem?()
+            NotificationCenter.default.post(name: .VLCRenderersDidChangeNotification, object: self)
         }
     }
 }
