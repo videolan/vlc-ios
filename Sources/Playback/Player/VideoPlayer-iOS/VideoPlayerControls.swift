@@ -202,11 +202,24 @@ class VideoPlayerControls: UIView {
         rightControls.setVisible(visible && !isQueueShown)
         transportControls.isUserInteractionEnabled = visible
         transportControls.accessibilityElementsHidden = !visible
+        let transportAlpha = visible ? (isQueueShown ? PlayerControlGroupView.dimmedAlpha : 1) : 0
         for case let button as UIButton in transportControls.arrangedSubviews {
-            button.imageView?.alpha = visible ? (isQueueShown ? PlayerControlGroupView.dimmedAlpha : 1) : 0
-            let background = button.configuration?.background.customView as? VideoControlBackgroundView
-            background?.setVisible(visible)
+            guard let background = button.configuration?.background.customView as? VideoControlBackgroundView else {
+                button.alpha = transportAlpha
+                continue
+            }
+            if visible {
+                UIView.performWithoutAnimation {
+                    button.alpha = 1
+                }
+            }
+            button.imageView?.alpha = transportAlpha
+            background.setVisible(visible)
         }
+    }
+
+    func controlsDidHide() {
+        playPauseButton.alpha = 0
     }
 
     func setupAccessibility() {

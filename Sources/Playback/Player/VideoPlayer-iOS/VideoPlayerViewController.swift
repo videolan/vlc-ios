@@ -1307,6 +1307,9 @@ class VideoPlayerViewController: PlayerViewController {
         UIView.animate(withDuration: duration, delay: 0,
                        options: [.beginFromCurrentState, .curveEaseOut], animations: animations,
                        completion: { _ in
+            if self.playerController.isControlsHidden {
+                self.videoPlayerControls.controlsDidHide()
+            }
             self.switchControlUtility.alpha = hidden ? 1 : 0
             self.setupAccessibility()
         })
