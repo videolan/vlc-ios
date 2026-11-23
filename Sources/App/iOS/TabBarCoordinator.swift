@@ -101,7 +101,7 @@ class TabBarCoordinator: NSObject {
             self?.setupEditToolbar()
         }
         updateTheme()
-        tabBarController.title = "VLC  iOS"
+        tabBarController.title = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
 #if os(iOS)
         if #available(iOS 18.0, *) {
             tabBarController.mode = .tabSidebar
