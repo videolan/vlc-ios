@@ -724,7 +724,7 @@ private extension MediaLibraryService {
 
         var mlMedia: VLCMLMedia? = medialib.media(withMrl: mrl)
 
-        if mlMedia == nil {
+        if mlMedia == nil, isPlaybackHistoryEnabled {
             // Add media unknown to the medialibrary.
             mlMedia = addUnknownMedia(with: mrl)
         }
