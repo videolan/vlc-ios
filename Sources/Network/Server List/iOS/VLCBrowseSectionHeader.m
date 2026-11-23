@@ -16,12 +16,10 @@
 
 static CGFloat const kVLCBrowseHeaderSideMargin = 20.0;
 static CGFloat const kVLCBrowseHeaderHeight = 44.0;
-static CGFloat const kVLCBrowseHeaderButtonSide = 44.0;
 
 @implementation VLCBrowseSectionHeader
 {
     UILabel *_titleLabel;
-    UIButton *_addButton;
 }
 
 + (NSString *)reuseIdentifier
@@ -55,47 +53,19 @@ static CGFloat const kVLCBrowseHeaderButtonSide = 44.0;
     _titleLabel.minimumScaleFactor = 0.8;
     [self addSubview:_titleLabel];
 
-    _addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _addButton.translatesAutoresizingMaskIntoConstraints = NO;
-    _addButton.hidden = YES;
-    _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    UIImageSymbolConfiguration *symbolConfiguration = [UIImageSymbolConfiguration configurationWithPointSize:20.0
-                                                                                                     weight:UIImageSymbolWeightSemibold];
-    [_addButton setPreferredSymbolConfiguration:symbolConfiguration forImageInState:UIControlStateNormal];
-    [_addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
-    _addButton.accessibilityLabel = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
-    [_addButton addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_addButton];
-
     [NSLayoutConstraint activateConstraints:@[
         [_titleLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor
                                                   constant:kVLCBrowseHeaderSideMargin],
-        [_titleLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-
-        [_addButton.leadingAnchor constraintGreaterThanOrEqualToAnchor:_titleLabel.trailingAnchor constant:8.0],
-        [_addButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor
-                                                  constant:-kVLCBrowseHeaderSideMargin],
-        [_addButton.centerYAnchor constraintEqualToAnchor:_titleLabel.centerYAnchor],
-        [_addButton.widthAnchor constraintEqualToConstant:kVLCBrowseHeaderButtonSide],
-        [_addButton.heightAnchor constraintEqualToConstant:kVLCBrowseHeaderButtonSide]
+        [_titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor
+                                                             constant:-kVLCBrowseHeaderSideMargin],
+        [_titleLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]
     ]];
 }
 
-- (void)configureWithTitle:(NSString *)title showsAddButton:(BOOL)showsAddButton
+- (void)configureWithTitle:(NSString *)title
 {
-    ColorPalette *themeColors = PresentationTheme.current.colors;
-
     _titleLabel.text = title;
-    _titleLabel.textColor = themeColors.cellTextColor;
-
-    _addButton.hidden = !showsAddButton;
-    _addButton.tintColor = themeColors.orangeUI;
-    [_addButton setTitleColor:themeColors.orangeUI forState:UIControlStateNormal];
-}
-
-- (void)addAction
-{
-    [self.delegate sectionHeaderDidTriggerAction:self];
+    _titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 }
 
 @end

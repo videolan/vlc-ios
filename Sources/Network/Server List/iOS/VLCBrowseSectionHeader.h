@@ -12,21 +12,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCBrowseSectionHeader;
-
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol VLCBrowseSectionHeaderDelegate <NSObject>
-- (void)sectionHeaderDidTriggerAction:(VLCBrowseSectionHeader *)header;
-@end
 
 @interface VLCBrowseSectionHeader : UICollectionReusableView
 
 @property (class, readonly) NSString *reuseIdentifier;
 @property (class, readonly) CGFloat height;
-@property (nonatomic, weak, nullable) id<VLCBrowseSectionHeaderDelegate> delegate;
 
-- (void)configureWithTitle:(nullable NSString *)title showsAddButton:(BOOL)showsAddButton;
+- (void)configureWithTitle:(nullable NSString *)title;
 
 @end
 
