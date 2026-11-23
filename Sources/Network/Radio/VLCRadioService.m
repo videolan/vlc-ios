@@ -17,6 +17,7 @@
 #import "VLCServiceBrowserRadio.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
 #import "VLCMigrationCursor.h"
+#import "VLC-Swift.h"
 
 NSString *const VLCRadioCountriesDidUpdateNotification = @"VLCRadioCountriesDidUpdateNotification";
 NSString *const VLCRadioRecentStreamsDidChangeNotification = @"VLCRadioRecentStreamsDidChangeNotification";
@@ -177,6 +178,9 @@ static NSTimeInterval const kVLCRadioCountriesDiscoveryTimeout = 20.0;
 
 - (NSArray<VLCFavorite *> *)recentStreams
 {
+    if (![[VLCAppCoordinator sharedInstance] mediaLibraryService].isPlaybackHistoryEnabled)
+        return @[];
+
     NSArray<VLCFavorite *> *playedStreams = self.playedStreams;
     NSArray<VLCFavorite *> *favorites = [[[VLCAppCoordinator sharedInstance] favoriteService] favoritesInGroupWithIdentifier:VLCFavoriteGroupRadio];
     NSSet<NSURL *> *favoriteURLs = [NSSet setWithArray:[favorites valueForKey:@"url"]];

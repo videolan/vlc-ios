@@ -16,6 +16,7 @@
 #import "VLCFavoriteService.h"
 #import "VLCRadioService.h"
 #import "VLCAppCoordinator.h"
+#import "VLC-Swift.h"
 
 @implementation CPListTemplate (NetworkStreams)
 
@@ -127,6 +128,9 @@
 
 + (NSArray *)listOfNetworkStreamsWithLimit:(NSUInteger)limit
 {
+    if (![[VLCAppCoordinator sharedInstance] mediaLibraryService].isPlaybackHistoryEnabled)
+        return @[];
+
     NSArray *recentURLs;
     NSDictionary *recentURLTitles;
 

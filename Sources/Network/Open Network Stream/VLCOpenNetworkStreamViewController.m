@@ -16,6 +16,7 @@
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCPlaybackService.h"
 #import "VLCStreamingHistoryCell.h"
+#import "VLCAppCoordinator.h"
 #import "VLC-Swift.h"
 #import "VLCMediaList+M3U.h"
 
@@ -23,6 +24,8 @@
 {
     NSMutableArray *_recentURLs;
     NSMutableDictionary *_recentURLTitles;
+    UIView *_privateToggleContainer;
+    UIView *_urlFieldPaddingView;
 }
 
 @property (strong, nonatomic) UITextField *urlField;
@@ -61,12 +64,20 @@
     return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
 }
 
+- (BOOL)isPlaybackHistoryEnabled
+{
+    return [[VLCAppCoordinator sharedInstance] mediaLibraryService].isPlaybackHistoryEnabled;
+}
+
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(ubiquitousKeyValueStoreDidChange:) withObject:notification waitUntilDone:NO];
         return;
     }
+
+    if (![self isPlaybackHistoryEnabled])
+        return;
 
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
@@ -112,6 +123,8 @@
 
     UIView *leftContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 + 30 + 4, 30)];
     [leftContainer addSubview:privateToggleButton];
+    _privateToggleContainer = leftContainer;
+    _urlFieldPaddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
     urlField.leftView = leftContainer;
     urlField.leftViewMode = UITextFieldViewModeAlways;
 
@@ -312,6 +325,12 @@
 
 - (void)loadRecentStreams
 {
+    if (![self isPlaybackHistoryEnabled]) {
+        _recentURLs = [NSMutableArray array];
+        _recentURLTitles = [NSMutableDictionary dictionary];
+        return;
+    }
+
     if ([self ubiquitousKeyStoreAvailable]) {
         APLog(@"%s: ubiquitous key store is available", __func__);
         /* force store update */
@@ -346,6 +365,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
     [self updatePrivateToggleColor];
+    self.urlField.leftView = [self isPlaybackHistoryEnabled] ? _privateToggleContainer : _urlFieldPaddingView;
 
     [self loadRecentStreams];
     [self.historyTableView reloadData];
@@ -476,7 +496,7 @@
                                            viewController:self];
         return;
     }
-    if (!self.privateToggleButton.selected) {
+    if (!self.privateToggleButton.selected && [self isPlaybackHistoryEnabled]) {
         NSURL *url = [NSURL URLWithString:urlString];
 
         if (url && url.scheme && url.host) {

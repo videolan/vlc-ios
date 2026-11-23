@@ -2,7 +2,7 @@
  * VLCPlayerControlWebSocket.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,6 +13,8 @@
 #import "VLCPlayerControlWebSocket.h"
 #import "VLCMetadata.h"
 #import "VLCPlaybackService.h"
+#import "VLCAppCoordinator.h"
+#import "VLC-Swift.h"
 
 @implementation VLCPlayerControlWebSocket
 
@@ -311,7 +313,8 @@
     if (urlString == nil || urlString.length == 0)
         return;
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCPrivateWebStreaming]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCPrivateWebStreaming]
+        && [[VLCAppCoordinator sharedInstance] mediaLibraryService].isPlaybackHistoryEnabled) {
         [self addURLStringToRecentStreams:urlString];
     }
 
