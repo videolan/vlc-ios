@@ -192,6 +192,23 @@ class MediaScrubProgressBar: UIStackView {
         updateAccessibilityValue()
     }
 
+    override var accessibilityActivationPoint: CGPoint {
+        get {
+            guard !progressSlider.isHidden else {
+                return super.accessibilityActivationPoint
+            }
+            let bounds = progressSlider.bounds
+            let thumbRect = progressSlider.thumbRect(forBounds: bounds,
+                                                     trackRect: progressSlider.trackRect(forBounds: bounds),
+                                                     value: progressSlider.value)
+            let screenRect = UIAccessibility.convertToScreenCoordinates(thumbRect, in: progressSlider)
+            return CGPoint(x: screenRect.midX, y: screenRect.midY)
+        }
+        set {
+            super.accessibilityActivationPoint = newValue
+        }
+    }
+
     @objc func updateInterfacePosition() {
         if !isScrubbing {
             progressSlider.value = playbackService.playbackPosition
