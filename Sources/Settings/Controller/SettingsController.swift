@@ -532,6 +532,15 @@ extension SettingsController: MediaLibraryHidingDelegate {
 // MARK: - SwitchOn Delegates
 
 extension SettingsController: SettingsCellDelegate {
+    func settingsCellShouldChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool) -> Bool {
+        guard preferenceKey == kVLCSettingPlaybackHistory, !isOn else {
+            return true
+        }
+
+        confirmDisablingPlaybackHistory(title: cell.settingsItem?.title)
+        return false
+    }
+
     func settingsCellDidChangeSwitchState(cell _: SettingsCell, preferenceKey: String, isOn: Bool) {
         switch preferenceKey {
         case kVLCSettingAppThemeBlack:
@@ -613,6 +622,19 @@ extension SettingsController {
                 self.reloadSettingsSections()
             }
         }
+    }
+}
+
+extension SettingsController {
+    func confirmDisablingPlaybackHistory(title: String?) {
+        let alert = UIAlertController(title: title,
+                                      message: NSLocalizedString("PLAYBACK_HISTORY_DISABLE_WARNING", comment: ""),
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_DEACTIVATE", comment: ""), style: .default) { _ in
+            UserDefaults.standard.set(false, forKey: kVLCSettingPlaybackHistory)
+        })
+        present(alert, animated: true)
     }
 }
 

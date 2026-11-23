@@ -78,6 +78,7 @@ class VLCWatchAppDelegate: NSObject, WKApplicationDelegate {
             kVLCSettingEnableMediaCellTextScrolling : false,
             kVLCSettingShowThumbnails : true,
             kVLCSettingShowArtworks : true,
+            kVLCSettingPlaybackHistory : true,
             kVLCSettingBackupMediaLibrary : false,
             kVLCSettingCastingAudioPassthrough : false,
             kVLCSettingCastingConversionQuality : 2,

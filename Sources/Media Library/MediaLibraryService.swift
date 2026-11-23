@@ -155,6 +155,8 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      historyChangedOfType type: VLCMLHistoryType)
 
+    @objc optional func medialibraryDidTogglePlaybackHistory(_ medialibrary: MediaLibraryService)
+
     // Entry points
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddEntryPoint entryPoint: String)
@@ -260,6 +262,7 @@ class MediaLibraryService: NSObject {
 
     @objc var isExcludingFromBackup: Bool = false
     @objc var isHidingLibrary: Bool = false
+    @objc private(set) var isPlaybackHistoryEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackHistory)
 
 #if !os(tvOS) && !os(watchOS)
     var currentlyPlayingCollection: CurrentlyPlayingCollectionModel?
@@ -273,6 +276,8 @@ class MediaLibraryService: NSObject {
         if libraryType == .mediaLibrary {
             NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                    name: .VLCNewFileAddedNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleUserDefaultsDidChange),
+                                                   name: UserDefaults.didChangeNotification, object: nil)
 
             #if !os(watchOS)
             NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
@@ -861,6 +866,18 @@ extension MediaLibraryService {
                 // Reload in order to make sure that there is no old artifacts left
                 self.reload()
             }
+        }
+    }
+
+    @objc private func handleUserDefaultsDidChange() {
+        let isEnabled = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackHistory)
+        guard isEnabled != isPlaybackHistoryEnabled else {
+            return
+        }
+
+        isPlaybackHistoryEnabled = isEnabled
+        observable.notifyObservers {
+            $0.medialibraryDidTogglePlaybackHistory?(self)
         }
     }
 }

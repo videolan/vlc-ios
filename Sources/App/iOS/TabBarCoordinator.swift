@@ -380,6 +380,11 @@ class TabBarCoordinator: NSObject {
 // MARK: - Last played quick action
 
 extension TabBarCoordinator: MediaLibraryObserver {
+    func medialibraryDidTogglePlaybackHistory(_ medialibrary: MediaLibraryService) {
+        let rootViewController = PlaylistViewController(mediaLibraryService: mediaLibraryService)
+        playlistsNavigationController.setViewControllers([rootViewController], animated: false)
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, historyChangedOfType type: VLCMLHistoryType) {
         let subtitle = lastPlayedShortcutSubtitle()
         DispatchQueue.main.async {

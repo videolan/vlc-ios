@@ -2,7 +2,7 @@
  * VLCTVConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -74,6 +74,8 @@
 #define kVLCSettingShowThumbnailsDefaultValue @YES
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
+#define kVLCSettingPlaybackHistory @"PlaybackHistory"
+#define kVLCSettingPlaybackHistoryDefaultValue @YES
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingDisableSubtitles @"kVLCSettingDisableSubtitles"

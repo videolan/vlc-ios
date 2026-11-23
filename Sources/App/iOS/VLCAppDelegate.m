@@ -88,6 +88,7 @@
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingPlayVideoPreviews : kVLCSettingPlayVideoPreviewsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
+                                  kVLCSettingPlaybackHistory : kVLCSettingPlaybackHistoryDefaultValue,
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
                                   kVLCSettingPodcastAutomaticDownloads : kVLCSettingPodcastAutomaticDownloadsDefaultValue,
                                   kVLCSettingPodcastEpisodesPerShow : kVLCSettingPodcastEpisodesPerShowDefaultValue,

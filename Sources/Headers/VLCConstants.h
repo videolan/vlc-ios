@@ -101,6 +101,8 @@
 #define kVLCSettingPlayVideoPreviewsDefaultValue @YES
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
+#define kVLCSettingPlaybackHistory @"PlaybackHistory"
+#define kVLCSettingPlaybackHistoryDefaultValue @YES
 #define kVLCSettingsDisableGrouping @"MLDisableGrouping"
 #define kVLCkVLCSettingsDisableGroupingDefaultValue @NO
 #define kVLCSettingCastingAudioPassthrough @"sout-chromecast-audio-passthrough"

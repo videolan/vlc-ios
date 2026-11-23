@@ -2,7 +2,7 @@
  * SettingsCell.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2020-2026 VideoLAN. All rights reserved.
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
  *
@@ -12,6 +12,8 @@
 import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
+    func settingsCellShouldChangeSwitchState(cell: SettingsCell, preferenceKey: String, isOn: Bool) -> Bool
+
     /// Implementations should only perform side effects on
     /// specific preferences; updating the preference itself
     /// is handled by the cell.
@@ -395,6 +397,11 @@ class SettingsCell: UITableViewCell {
 
         switch settingsItem.action {
         case let .toggle(toggle):
+            guard delegate?.settingsCellShouldChangeSwitchState(cell: self, preferenceKey: toggle.preferenceKey,
+                                                                isOn: sender.isOn) ?? true else {
+                sender.setOn(!sender.isOn, animated: true)
+                return
+            }
             toggle.set(isOn: sender.isOn)
             delegate?.settingsCellDidChangeSwitchState(cell: self, preferenceKey: toggle.preferenceKey, isOn: sender.isOn)
 

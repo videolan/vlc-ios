@@ -69,6 +69,7 @@
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
+                                  kVLCSettingPlaybackHistory : kVLCSettingPlaybackHistoryDefaultValue,
                                   kVLCPlayerShouldRememberState: @(YES),
                                   kVLCPlayerUIShouldHide : @(NO),
                                   kVLCForceSMBV1 : @(NO),

@@ -120,6 +120,7 @@
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_PLAY_VIDEO_PREVIEWS" = "Play video previews";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_PLAYBACK_HISTORY" = "Playback history";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_NETWORK" = "Network";

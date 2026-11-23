@@ -11,13 +11,16 @@
  *****************************************************************************/
 
 class PlaylistViewController: MediaViewController {
+    private let showsHistory: Bool
+
     override init(mediaLibraryService: MediaLibraryService) {
+        showsHistory = mediaLibraryService.isPlaybackHistoryEnabled
         super.init(mediaLibraryService: mediaLibraryService)
         setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        currentIndex = UserDefaults.standard.integer(forKey: kVLCPlaylistTabIndex)
+        currentIndex = showsHistory ? UserDefaults.standard.integer(forKey: kVLCPlaylistTabIndex) : 0
         super.viewWillAppear(animated)
     }
 
@@ -31,6 +34,9 @@ class PlaylistViewController: MediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        guard showsHistory else {
+            return [PlaylistCategoryViewController(mediaLibraryService)]
+        }
         return [
             PlaylistCategoryViewController(mediaLibraryService),
             HistoryCategoryViewController(mediaLibraryService)
