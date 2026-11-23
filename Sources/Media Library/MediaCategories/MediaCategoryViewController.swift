@@ -1444,8 +1444,8 @@ extension MediaCategoryViewController {
         }
 
         if isEmptyCollectionView() {
-            navigationItem.rightBarButtonItem = nil
-            navigationItem.leftBarButtonItem = nil
+            navigationItem.rightBarButtonItems = nil
+            navigationItem.leftBarButtonItems = nil
         }
     }
 
