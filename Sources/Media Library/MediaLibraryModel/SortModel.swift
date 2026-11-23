@@ -2,7 +2,7 @@
  * SortModel.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
@@ -32,6 +32,10 @@ extension VLCMLSortingCriteria: @retroactive CustomStringConvertible {
             return
         }
         self = sortingCriteria
+    }
+
+    var revealsPlaybackHistory: Bool {
+        return self == .lastPlaybackDate || self == .playCount
     }
 
     public var description: String {

@@ -55,6 +55,10 @@ extension VLCMLMedia {
                                          countStyle: .file)
     }
 
+    var showsNewBadge: Bool {
+        return isNew && VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled
+    }
+
     @objc func videoDimensions() -> String {
         if let firstTrack = videoTracks?.first {
             return String(format: NSLocalizedString("FORMAT_VIDEO_DIMENSIONS", comment: ""),

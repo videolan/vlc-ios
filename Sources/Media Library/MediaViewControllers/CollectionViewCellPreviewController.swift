@@ -1,7 +1,7 @@
 /*****************************************************************************
 * CollectionViewCellPreviewController.swift
 *
-* Copyright © 2019 VLC authors and VideoLAN
+* Copyright © 2019-2026 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
 *
@@ -141,8 +141,10 @@ extension CollectionViewCellPreviewController {
                                         label: NSLocalizedString("ENCODING", comment: "")))
         infos.append(PreviewInformation(value: video.videoDimensions(),
                                         label: NSLocalizedString("VIDEO_DIMENSIONS", comment: "")))
-        infos.append(PreviewInformation(value: String(video.playCount()),
-                                        label: NSLocalizedString("PLAY_COUNT", comment: "")))
+        if VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled {
+            infos.append(PreviewInformation(value: String(video.playCount()),
+                                            label: NSLocalizedString("PLAY_COUNT", comment: "")))
+        }
         return infos
     }
 
@@ -172,9 +174,11 @@ extension CollectionViewCellPreviewController {
                     infos.append(PreviewInformation(value: codecs))
                 }
                 
-                let playCount = String(media.playCount())
-                infos.append(PreviewInformation(value: playCount,
-                                                label: NSLocalizedString("PLAY_COUNT", comment: "")))
+                if VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled {
+                    let playCount = String(media.playCount())
+                    infos.append(PreviewInformation(value: playCount,
+                                                    label: NSLocalizedString("PLAY_COUNT", comment: "")))
+                }
             } else {
                 infos += infoForVideo(media)
             }

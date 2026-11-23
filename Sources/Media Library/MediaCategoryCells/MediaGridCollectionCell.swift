@@ -259,7 +259,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
             descriptionText += " · " + albumTitle
         }
         descriptionLabel.text = descriptionText
-        newLabel.isHidden = !audioTrack.isNew
+        newLabel.isHidden = !audioTrack.showsNewBadge
         thumbnailView.setImage(audioTrack.thumbnailImage(), placeholderName: audioTrack.placeholderName())
         sizeLabel.text = audioTrack.formatSize()
         sizeLabel.isHidden = true

@@ -185,13 +185,13 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         guard let value = UserDefaults.standard.value(forKey: kVLCSettingContinuePlayback) as? Int else {
             return
         }
-        if value <= 0 {
+        if value <= 0 || !VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled {
             progressView.isHidden = true
         } else {
             progressView.isHidden = progress < 0
             progressView.progress = progress
         }
-        newLabel.isHidden = !movie.isNew
+        newLabel.isHidden = !movie.showsNewBadge
         sizeLabel.text = movie.formatSize()
         if let resolutionClass = movie.resolutionClass() {
             resolutionClassLabel.text = resolutionClass

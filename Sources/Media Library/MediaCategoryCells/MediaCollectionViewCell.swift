@@ -326,8 +326,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             newLabel.isHidden = true
         } else {
             textColor = PresentationTheme.current.colors.cellTextColor
-            newLabel.isHidden = !audiotrack.isNew
-            if audiotrack.isNew {
+            newLabel.isHidden = !audiotrack.showsNewBadge
+            if audiotrack.showsNewBadge {
                 setMediaNew()
             }
         }
@@ -428,9 +428,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = media.accessibilityText(editing: false)
         thumbnailView.layer.cornerRadius = MediaCollectionViewCell.thumbnailCornerRadius
         thumbnailView.setImage(media.thumbnailImage(), placeholderName: media.placeholderName())
-        newLabel.isHidden = !media.isNew
+        newLabel.isHidden = !media.showsNewBadge
 
-        if media.isNew {
+        if media.showsNewBadge {
             setMediaNew()
         }
 

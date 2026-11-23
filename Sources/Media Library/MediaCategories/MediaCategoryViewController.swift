@@ -700,11 +700,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     func loadSort() {
-        let sortingCriteria: VLCMLSortingCriteria
+        var sortingCriteria: VLCMLSortingCriteria
         if let sortingCriteriaDefault = UserDefaults.standard.value(forKey: "\(kVLCSortDefault)\(model.name)") as? UInt {
             sortingCriteria = VLCMLSortingCriteria(rawValue: sortingCriteriaDefault) ?? model.sortModel.currentSort
         } else {
             sortingCriteria = model.sortModel.currentSort
+        }
+        if !mediaLibraryService.isPlaybackHistoryEnabled && sortingCriteria.revealsPlaybackHistory {
+            sortingCriteria = .default
         }
         let desc = UserDefaults.standard.bool(forKey: "\(kVLCSortDescendingDefault)\(model.name)")
         self.model.sort(by: sortingCriteria, desc: desc)
@@ -1577,16 +1580,20 @@ extension MediaCategoryViewController {
     private func generateSortMenu() -> UIMenu {
         let sortModel = model.sortModel
         var sortActions: [UIMenuElement] = []
+        let isPlaybackHistoryEnabled = mediaLibraryService.isPlaybackHistoryEnabled
+        let sortingCriteria = sortModel.sortingCriteria.filter {
+            isPlaybackHistoryEnabled || !$0.revealsPlaybackHistory
+        }
 
         var currentSortIndex: Int = 0
         for (index, criterion) in
-                sortModel.sortingCriteria.enumerated()
+                sortingCriteria.enumerated()
         where criterion == sortModel.currentSort {
             currentSortIndex = index
             break
         }
 
-        for (index, criterion) in sortModel.sortingCriteria.enumerated() {
+        for (index, criterion) in sortingCriteria.enumerated() {
             let currentSort: Bool = index == currentSortIndex
             let chevronImageName: String = sortModel.desc ? "chevron.down" : "chevron.up"
             var actionImage: UIImage? = currentSort ? UIImage(systemName: chevronImageName) : nil
@@ -2001,7 +2008,7 @@ private extension MediaCategoryViewController {
             markableMedia = nil
         }
 
-        if let markableMedia = markableMedia {
+        if mediaLibraryService.isPlaybackHistoryEnabled, let markableMedia = markableMedia {
             actionList.append(markableMedia.isNew ? .markAsSeen : .markAsUnseen)
         }
 
@@ -2545,7 +2552,8 @@ extension MediaCategoryViewController {
 
     // Helper function to check if a playlist is the last played playlist
     func isLastPlayedPlaylist(_ playlist: VLCMLPlaylist?) -> Bool {
-        guard let playlist = playlist, let lastPlaylist = lastPlaylist else {
+        guard mediaLibraryService.isPlaybackHistoryEnabled,
+              let playlist = playlist, let lastPlaylist = lastPlaylist else {
             return false
         }
 
