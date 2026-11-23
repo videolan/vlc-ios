@@ -370,8 +370,7 @@ extension EditController: EditToolbarDelegate {
             return true
         }
 
-        let dataSet = currentDataSet
-        return !selectedCellIndexPaths.contains { $0.row < dataSet.count && dataSet[$0.row] is VLCMLFolder }
+        return !selectedItems.values.contains { $0 is VLCMLFolder }
     }
 }
 
