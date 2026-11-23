@@ -19,6 +19,10 @@ import CoreSpotlight
 import WatchKit
 #endif
 
+#if os(iOS)
+import WidgetKit
+#endif
+
 import VLCMediaLibraryKit
 import UIKit
 
@@ -610,8 +614,9 @@ private extension MediaLibraryService {
     @objc func reindexAllMediaForSpotlight() {
         #if !os(watchOS)
         CSSearchableIndex.default().deleteAllSearchableItems { _ in
-            self.media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
-            self.media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
+            let includesHistory = self.isPlaybackHistoryEnabled
+            self.media(ofType: .video).forEach { $0.updateCoreSpotlightEntry(includingPlaybackHistory: includesHistory) }
+            self.media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry(includingPlaybackHistory: includesHistory) }
         }
         #endif
     }
@@ -674,6 +679,9 @@ private extension MediaLibraryService {
     }
 
     @objc func lastPlayedMedia() -> VLCMLMedia? {
+        guard isPlaybackHistoryEnabled else {
+            return nil
+        }
         return medialib.history(of: .global, 1, 0)?.first
     }
 
@@ -879,6 +887,20 @@ extension MediaLibraryService {
         observable.notifyObservers {
             $0.medialibraryDidTogglePlaybackHistory?(self)
         }
+
+#if !os(tvOS) && !os(watchOS)
+        if !isEnabled {
+            NSUserActivity.deleteAllSavedUserActivities {}
+        }
+        reindexAllMediaForSpotlight()
+#endif
+
+#if os(iOS)
+        if !isEnabled, let groupIdentifier = Bundle.main.object(forInfoDictionaryKey: "MLKitGroupIdentifier") as? String {
+            UserDefaults(suiteName: groupIdentifier)?.removeObject(forKey: "media")
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+#endif
     }
 }
 
@@ -993,7 +1015,7 @@ extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
 extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
 #if !os(tvOS) && !os(watchOS)
-        media.forEach { $0.updateCoreSpotlightEntry() }
+        media.forEach { $0.updateCoreSpotlightEntry(includingPlaybackHistory: isPlaybackHistoryEnabled) }
 #endif
         let videos = media.filter {( $0.type() == .video )}
         let tracks = media.filter {( $0.type() == .audio )}
@@ -1014,7 +1036,7 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
             media.append(safeMedia)
         }
 #if !os(tvOS) && !os(watchOS)
-        media.forEach { $0.updateCoreSpotlightEntry() }
+        media.forEach { $0.updateCoreSpotlightEntry(includingPlaybackHistory: isPlaybackHistoryEnabled) }
 #endif
         let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
         let albumTrack = media.filter {( $0.subtype() == .albumTrack )}

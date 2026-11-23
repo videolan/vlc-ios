@@ -135,19 +135,21 @@ extension VLCMLMedia {
 // MARK: - CoreSpotlight
 extension VLCMLMedia {
 #if !os(tvOS) && !os(watchOS)
-    func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet {
+    func coreSpotlightAttributeSet(includingPlaybackHistory: Bool) -> CSSearchableItemAttributeSet {
         let contentType = type() == .video ? "public.movie" : "public.audio"
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: contentType)
         attributeSet.title = title
         attributeSet.metadataModificationDate = Date()
         attributeSet.addedDate = insertionDate()
         attributeSet.contentCreationDate = releaseDate()
-        attributeSet.lastUsedDate = lastPlayedDate()
         attributeSet.duration = NSNumber(value: duration() / 1000)
         attributeSet.streamable = 0
         attributeSet.deliveryType = 0
         attributeSet.local = 1
-        attributeSet.playCount = NSNumber(value: playCount())
+        if includingPlaybackHistory {
+            attributeSet.lastUsedDate = lastPlayedDate()
+            attributeSet.playCount = NSNumber(value: playCount())
+        }
         if thumbnailStatus() == .available {
             let image = VLCThumbnailsCache.thumbnail(for: thumbnail(), maxPixelSize: 270)
             attributeSet.thumbnailData = image?.jpegData(compressionQuality: 0.9)
@@ -200,10 +202,11 @@ extension VLCMLMedia {
         return attributeSet
     }
 
-    func updateCoreSpotlightEntry() {
+    func updateCoreSpotlightEntry(includingPlaybackHistory: Bool) {
         if !KeychainCoordinator.passcodeService.hasSecret {
             let groupIdentifier = ProcessInfo.processInfo.environment["GROUP_IDENTIFIER"]
-            let item = CSSearchableItem(uniqueIdentifier: "\(identifier())", domainIdentifier: groupIdentifier, attributeSet: coreSpotlightAttributeSet())
+            let attributeSet = coreSpotlightAttributeSet(includingPlaybackHistory: includingPlaybackHistory)
+            let item = CSSearchableItem(uniqueIdentifier: "\(identifier())", domainIdentifier: groupIdentifier, attributeSet: attributeSet)
             CSSearchableIndex.default().indexSearchableItems([item], completionHandler: nil)
         }
     }

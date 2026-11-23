@@ -170,7 +170,7 @@ class MediaResolver {
            !favorites.isEmpty {
             return favorites
         }
-        if let history = medialib.audioHistory(), !history.isEmpty {
+        if mediaLibraryService.isPlaybackHistoryEnabled, let history = medialib.audioHistory(), !history.isEmpty {
             return history
         }
         return medialib.audioFiles()
@@ -181,7 +181,7 @@ class MediaResolver {
            !favorites.isEmpty {
             return favorites
         }
-        if let history = medialib.videoHistory(), !history.isEmpty {
+        if mediaLibraryService.isPlaybackHistoryEnabled, let history = medialib.videoHistory(), !history.isEmpty {
             return history
         }
         return medialib.videoFiles()

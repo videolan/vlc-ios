@@ -1364,11 +1364,12 @@ private extension MediaCategoryViewController {
         if KeychainCoordinator.passcodeService.hasSecret {
             return
         }
+        let isPlaybackHistoryEnabled = mediaLibraryService.isPlaybackHistoryEnabled
         userActivity = NSUserActivity(activityType: kVLCUserActivityPlaying)
         userActivity?.title = media.title
-        userActivity?.contentAttributeSet = media.coreSpotlightAttributeSet()
+        userActivity?.contentAttributeSet = media.coreSpotlightAttributeSet(includingPlaybackHistory: isPlaybackHistoryEnabled)
         userActivity?.userInfo = ["playingmedia" : media.identifier()]
-        userActivity?.isEligibleForSearch = true
+        userActivity?.isEligibleForSearch = isPlaybackHistoryEnabled
         userActivity?.isEligibleForHandoff = true
         userActivity?.becomeCurrent()
     }

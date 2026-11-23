@@ -2804,7 +2804,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 - (void)saveMediaForWidget
 {
     VLCMedia *currentMedia = self.currentlyPlayingMedia;
-    if (!currentMedia) {
+    if (!currentMedia || ![VLCAppCoordinator sharedInstance].mediaLibraryService.isPlaybackHistoryEnabled) {
         return;
     }
 
