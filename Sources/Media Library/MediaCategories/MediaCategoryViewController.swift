@@ -492,6 +492,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         activeEditToolbar().updateEditToolbar(for: model)
+        editController.updateSelections()
     }
 
     func isEmptyCollectionView() -> Bool {
