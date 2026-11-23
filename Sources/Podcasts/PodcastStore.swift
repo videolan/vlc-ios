@@ -183,31 +183,32 @@ final class PodcastStore: NSObject {
     }
 
     private func unfinishedEpisodesFromHistory(limit: Int) -> [PodcastEpisode] {
-        guard !subscriptionModel.subscriptions.isEmpty else {
+        guard mediaLibraryService.isPlaybackHistoryEnabled, !subscriptionModel.subscriptions.isEmpty else {
             return []
         }
 
-        return PodcastStore.episodes(limit: limit,
-                                     include: PodcastStore.isUnfinished,
-                                     showId: PodcastStore.showId(for:)) { offset, count in
+        return episodes(limit: limit,
+                        include: PodcastStore.isUnfinished,
+                        showId: PodcastStore.showId(for:)) { offset, count in
             mediaLibraryService.medialib.history(of: .global, count, offset) ?? []
         }
     }
 
     private func newestEpisodes(forSubscription subscription: VLCMLSubscription) -> [PodcastEpisode] {
         let showId = String(subscription.identifier())
+        let excludesUnfinished = mediaLibraryService.isPlaybackHistoryEnabled
 
-        return PodcastStore.episodes(limit: PodcastStore.latestEpisodesPerShow,
-                                     include: { !PodcastStore.isUnfinished($0) },
-                                     showId: { _ in showId }) { offset, count in
+        return episodes(limit: PodcastStore.latestEpisodesPerShow,
+                        include: { !excludesUnfinished || !PodcastStore.isUnfinished($0) },
+                        showId: { _ in showId }) { offset, count in
             subscription.media(with: .releaseDate, desc: true, count, offset) ?? []
         }
     }
 
-    private static func episodes(limit: Int,
-                                 include: (VLCMLMedia) -> Bool,
-                                 showId: (VLCMLMedia) -> String?,
-                                 page: (_ offset: UInt32, _ count: UInt32) -> [VLCMLMedia]) -> [PodcastEpisode] {
+    private func episodes(limit: Int,
+                          include: (VLCMLMedia) -> Bool,
+                          showId: (VLCMLMedia) -> String?,
+                          page: (_ offset: UInt32, _ count: UInt32) -> [VLCMLMedia]) -> [PodcastEpisode] {
         let pageSize = PodcastStore.mediaPageSize
         var result: [PodcastEpisode] = []
         var offset = 0
@@ -318,14 +319,14 @@ final class PodcastStore: NSObject {
             media = subscription.searchMedia(withPattern: query, sort: sort, desc: descending,
                                              UInt32(count), UInt32(offset))
         }
-        return (media ?? []).map { PodcastStore.podcastEpisode(from: $0, showId: showId) }
+        return (media ?? []).map { podcastEpisode(from: $0, showId: showId) }
     }
 
     func episode(withId episodeId: String, showId: String) -> PodcastEpisode? {
         guard let media = media(forEpisodeId: episodeId) else {
             return nil
         }
-        return PodcastStore.podcastEpisode(from: media, showId: showId)
+        return podcastEpisode(from: media, showId: showId)
     }
 
     private static func sortingCriteria(for criteria: PodcastEpisodeSortCriteria) -> VLCMLSortingCriteria {
@@ -813,7 +814,7 @@ final class PodcastStore: NSObject {
               let index = list.firstIndex(where: { $0.id == episodeId }) else {
             return
         }
-        list[index] = PodcastStore.podcastEpisode(from: media, showId: list[index].showId)
+        list[index] = podcastEpisode(from: media, showId: list[index].showId)
         episodes = list
     }
 
@@ -826,8 +827,8 @@ final class PodcastStore: NSObject {
                             author: subscription.author)
     }
 
-    private static func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
-        let progress = media.progress > 0 ? Double(media.progress) : nil
+    private func podcastEpisode(from media: VLCMLMedia, showId: String) -> PodcastEpisode {
+        let progress = mediaLibraryService.isPlaybackHistoryEnabled && media.progress > 0 ? Double(media.progress) : nil
         // A media the library never played reports the epoch rather than no date at all.
         let lastPlayed = media.lastPlayedDate()
         let subscriptionEpisode = media.subscriptionEpisode
@@ -881,6 +882,11 @@ extension PodcastStore: VLCSubscriptionCacherDelegate {
 // MARK: - MediaLibraryObserver
 
 extension PodcastStore: MediaLibraryObserver {
+    func medialibraryDidTogglePlaybackHistory(_ medialibrary: MediaLibraryService) {
+        invalidateDerivedEpisodeCaches()
+        notifyReload()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didStartCachingMediaWithId mediaId: VLCMLIdentifier,
                       operation: VLCMLCacheOperation) {

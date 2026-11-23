@@ -328,10 +328,11 @@ class PodcastShowDetailViewController: UIViewController {
     }
 
     private var overflowActions: [PodcastMenuAction] {
-        var actions = [
-            PodcastMenuAction(title: NSLocalizedString("PODCAST_MARK_ALL_AS_PLAYED", comment: ""),
-                              imageName: "checkmark.circle") { [weak self] in self?.markAllEpisodesAsPlayed() }
-        ]
+        var actions: [PodcastMenuAction] = []
+        if VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled {
+            actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_MARK_ALL_AS_PLAYED", comment: ""),
+                                             imageName: "checkmark.circle") { [weak self] in self?.markAllEpisodesAsPlayed() })
+        }
 
         if show.websiteURL != nil {
             actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_OPEN_WEBSITE", comment: ""),

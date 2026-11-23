@@ -303,7 +303,7 @@ static CGFloat const kVLCOnAirRailSpacing = 12.0;
     _resumeStream = nil;
     _resumeEpisode = nil;
 
-    if (_resumeSuppressed) {
+    if (_resumeSuppressed || ![[VLCAppCoordinator sharedInstance] mediaLibraryService].isPlaybackHistoryEnabled) {
         return;
     }
 

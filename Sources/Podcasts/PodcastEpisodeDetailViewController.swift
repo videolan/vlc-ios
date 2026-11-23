@@ -260,12 +260,13 @@ class PodcastEpisodeDetailViewController: UIViewController {
     }
 
     private var overflowActions: [PodcastMenuAction] {
-        var actions = [
-            PodcastMenuAction(title: NSLocalizedString("MARK_AS_PLAYED", comment: ""),
-                              imageName: "checkmark.circle") { [weak self] in self?.markAsPlayed() },
-            PodcastMenuAction(title: NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""),
-                              imageName: "text.append") { [weak self] in self?.appendToQueue() }
-        ]
+        var actions: [PodcastMenuAction] = []
+        if VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled {
+            actions.append(PodcastMenuAction(title: NSLocalizedString("MARK_AS_PLAYED", comment: ""),
+                                             imageName: "checkmark.circle") { [weak self] in self?.markAsPlayed() })
+        }
+        actions.append(PodcastMenuAction(title: NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""),
+                                         imageName: "text.append") { [weak self] in self?.appendToQueue() })
 
         if store.isDownloading(episodeId: episodeId) {
             actions.append(PodcastMenuAction(title: NSLocalizedString("PODCAST_EPISODE_CANCEL_DOWNLOAD", comment: ""),

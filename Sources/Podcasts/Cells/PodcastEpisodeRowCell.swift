@@ -244,8 +244,9 @@ class PodcastEpisodeRowCell: UITableViewCell {
                               artworkURL: episode.artworkURL ?? showArtworkURL,
                               cornerRadius: PodcastEpisodeRowCell.artworkRadius)
 
-        isUnplayed = inLibrary && episode.isUnplayed
-        let isPlayed = inLibrary && episode.isPlayed
+        let showsPlaybackState = inLibrary && VLCAppCoordinator.sharedInstance().mediaLibraryService.isPlaybackHistoryEnabled
+        isUnplayed = showsPlaybackState && episode.isUnplayed
+        let isPlayed = showsPlaybackState && episode.isPlayed
         let indicatorImage = isUnplayed ? PodcastEpisodeRowCell.unplayedImage
             : (isPlayed ? PodcastEpisodeRowCell.playedImage : nil)
         statusIndicatorView.image = indicatorImage
