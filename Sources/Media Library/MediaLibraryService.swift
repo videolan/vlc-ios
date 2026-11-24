@@ -290,6 +290,12 @@ class MediaLibraryService: NSObject {
 
             #if os(iOS)
             MediaLibraryCorruptionReportPresenter.shared.presentIfNeeded()
+
+            CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), nil, { _, _, _, _, _ in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    InboxManager.drainSharedInbox()
+                }
+            }, kVLCDarwinNotificationShareExtensionDidImport as CFString, nil, .deliverImmediately)
             #endif
         }
 

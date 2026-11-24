@@ -173,6 +173,7 @@
 #define kSupportedProtocolSchemes @"(rtsp|mms|mmsh|udp|rtp|rtmp|sftp|ftp|smb)$"
 
 #define kVLCDarwinNotificationNowPlayingInfoUpdate @"org.videolan.ios-app.nowPlayingInfoUpdate"
+#define kVLCDarwinNotificationShareExtensionDidImport @"org.videolan.ios-app.shareExtensionDidImport"
 
 #if TARGET_IPHONE_SIMULATOR
 #define WifiInterfaceName @"en1"

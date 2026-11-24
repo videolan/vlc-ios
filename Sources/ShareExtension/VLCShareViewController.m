@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCShareViewController.h"
+#import "VLCConstants.h"
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
@@ -348,6 +349,12 @@ static void *VLCShareProgressContext = &VLCShareProgressContext;
 
 - (void)finishWithSuccess:(BOOL)success
 {
+    if (success) {
+        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),
+                                             (__bridge CFStringRef)kVLCDarwinNotificationShareExtensionDidImport,
+                                             NULL, NULL, YES);
+    }
+
     [_activityIndicator stopAnimating];
     if (!success) {
         _progressView.hidden = YES;
