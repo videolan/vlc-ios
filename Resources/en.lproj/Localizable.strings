@@ -627,10 +627,8 @@
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
-"BRIGHTNESS_HINT" = "Vertical brightness control";
-"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
-"VOLUME_HINT" = "Vertical volume control";
-"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+"BRIGHTNESS" = "Brightness";
+"VOLUME" = "Volume";
 
 "SELECT_A_MARK" = "Select the A mark";
 "SELECT_A_MARK_HINT" = "Select the A mark of the AB loop";
