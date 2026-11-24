@@ -105,12 +105,15 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             let tabSearchDataSource = LibraryTabSearchDataSource(scope: tabSearchScope,
                                                                  mediaLibraryService: mediaLibraryService)
             tabSearchDataSource.delegate = self
+            tabSearchDataSource.cellDelegate = self
+            tabSearchDataSource.contextMenuDelegate = self
             self.tabSearchDataSource = tabSearchDataSource
         }
     }
 
     private var tabSearchDataSource: LibraryTabSearchDataSource?
     private var isShowingTabSearchResults: Bool = false
+    private var tabSearchEditActions: EditActions?
     private var isTabSearchRefreshScheduled: Bool = false
     private let tabSearchRefreshDelay: TimeInterval = 0.5
 
@@ -1279,6 +1282,10 @@ extension MediaCategoryViewController {
 private extension MediaCategoryViewController {
 
     private func getObject(at indexPath: IndexPath) -> VLCMLObject? {
+        if isShowingTabSearchResults {
+            return tabSearchDataSource?.item(at: indexPath)
+        }
+
         return isSectioned ? titleSections.media(at: indexPath) : currentDataSet.objectAtIndex(index: indexPath.row)
     }
 
@@ -1833,6 +1840,8 @@ extension MediaCategoryViewController: LibraryTabSearchDataSourceDelegate {
 
         if shouldShow != isShowingTabSearchResults {
             isShowingTabSearchResults = shouldShow
+            resetScrollView()
+            scrolledCellIndex = IndexPath()
             collectionView?.dataSource = shouldShow ? tabSearchDataSource : self
             collectionView?.delegate = shouldShow ? tabSearchDataSource : self
             cachedCellSize = .zero
@@ -1904,9 +1913,48 @@ extension MediaCategoryViewController: LibraryTabSearchDataSourceDelegate {
     }
 
     func libraryTabSearchDataSourceWillBeginDragging(_ dataSource: LibraryTabSearchDataSource) {
+        resetScrollView()
         searchBar.endEditing(true)
         searchController.searchBar.endEditing(true)
         delegate?.enableCategorySwitching(for: self, enable: true)
+    }
+
+    private func tabSearchModel(for item: VLCMLObject?) -> MediaLibraryBaseModel {
+        switch item {
+        case is VLCMLMediaGroup:
+            return MediaGroupViewModel(medialibrary: mediaLibraryService)
+        case let media as VLCMLMedia:
+            return media.type() == .audio ? TrackModel(medialibrary: mediaLibraryService)
+                                          : VideoModel(medialibrary: mediaLibraryService)
+        case is VLCMLArtist:
+            return ArtistModel(medialibrary: mediaLibraryService)
+        case is VLCMLAlbum:
+            return AlbumModel(medialibrary: mediaLibraryService)
+        case is VLCMLGenre:
+            return GenreModel(medialibrary: mediaLibraryService)
+        default:
+            return model
+        }
+    }
+
+    private func makeTabSearchEditActions(for model: MediaLibraryBaseModel) -> EditActions {
+        let editActions = EditActions(model: model, mediaLibraryService: mediaLibraryService)
+        tabSearchEditActions = editActions
+        return editActions
+    }
+
+    private func reloadContentAfterEdit() {
+        if isShowingTabSearchResults {
+            refreshTabSearchResultsIfNeeded()
+        } else {
+            reloadData()
+        }
+    }
+
+    private func removeFromTabSearchResults(_ deletedItems: [VLCMLObject]) {
+        tabSearchDataSource?.remove(deletedItems)
+        updateTabSearchResultsVisibility()
+        collectionView?.reloadData()
     }
 }
 
@@ -1968,7 +2016,8 @@ private extension MediaCategoryViewController {
 
         // handle catching current played playlist or media by queue options from different platlists
         guard let modelContent = modelContent,
-              type == .appendToQueue || type == .playNextInQueue else {
+              type == .appendToQueue || type == .playNextInQueue,
+              !isShowingTabSearchResults else {
             return
         }
 
@@ -1983,9 +2032,20 @@ private extension MediaCategoryViewController {
 
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let modelContent = getObject(at: indexPath)
-        collectionSelectedIndex = indexPath
+        let isTabSearchItem = isShowingTabSearchResults
+        let actionModel: MediaLibraryBaseModel
+        let editActions: EditActions
+        if isTabSearchItem {
+            actionModel = tabSearchModel(for: modelContent)
+            editActions = makeTabSearchEditActions(for: actionModel)
+        } else {
+            actionModel = model
+            editActions = editController.editActions
+            collectionSelectedIndex = indexPath
+        }
+
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
-        var actionList = EditButtonsFactory.buttonList(for: model).filter({
+        var actionList = EditButtonsFactory.buttonList(for: actionModel).filter({
             return $0 != .addToMediaGroup
         })
 
@@ -2021,29 +2081,29 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
-                        self?.editController.editActions.addToPlaylist()
+                        editActions.objects = self?.objects(from: modelContent) ?? []
+                        editActions.addToPlaylist()
                     }
                 })
             case .addToMediaGroup:
                 return $0.action() { _ in }
             case .removeFromMediaGroup:
                 return $0.action({
-                    [weak self] _ in
+                    _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = [modelContent]
-                        self?.editController.editActions.removeFromMediaGroup()
+                        editActions.objects = [modelContent]
+                        editActions.removeFromMediaGroup()
                     }
                 })
             case .rename:
                 return $0.action({
                     [weak self] _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = [modelContent]
-                        self?.editController.editActions.rename() {
+                        editActions.objects = [modelContent]
+                        editActions.rename() {
                             [weak self] state in
                             if state == .success {
-                                self?.reloadData()
+                                self?.reloadContentAfterEdit()
                             }
                         }
                     }
@@ -2052,11 +2112,18 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = [modelContent]
-                        self?.editController.editActions.delete() {
+                        let deletedItems = isTabSearchItem
+                            ? self?.tabSearchDataSource?.itemsDeleted(with: modelContent)
+                            : nil
+                        editActions.objects = [modelContent]
+                        editActions.delete() {
                             [weak self] state in
                             if state == .success {
-                                self?.searchDataSource.deleteInSearch([modelContent])
+                                if let deletedItems = deletedItems {
+                                    self?.removeFromTabSearchResults(deletedItems)
+                                } else {
+                                    self?.searchDataSource.deleteInSearch([modelContent])
+                                }
                             }
                         }
                     }
@@ -2065,9 +2132,9 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let modelContent = modelContent {
-                        self?.editController.editActions.objects = self?.objects(from: modelContent, keepPlaylists: true) ?? []
+                        editActions.objects = self?.objects(from: modelContent, keepPlaylists: true) ?? []
                         if let cell = self?.collectionView.cellForItem(at: indexPath) {
-                            self?.editController.editActions.share(origin: cell)
+                            editActions.share(origin: cell)
                         }
                     }
                 })
@@ -2095,11 +2162,11 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let markableMedia = markableMedia {
-                        self?.editController.editActions.objects = [markableMedia]
-                        self?.editController.editActions.markAsSeen() {
+                        editActions.objects = [markableMedia]
+                        editActions.markAsSeen() {
                             [weak self] state in
                             if state == .success {
-                                self?.reloadData()
+                                self?.reloadContentAfterEdit()
                             }
                         }
                     }
@@ -2108,11 +2175,11 @@ private extension MediaCategoryViewController {
                 return $0.action({
                     [weak self] _ in
                     if let markableMedia = markableMedia {
-                        self?.editController.editActions.objects = [markableMedia]
-                        self?.editController.editActions.markAsUnseen() {
+                        editActions.objects = [markableMedia]
+                        editActions.markAsUnseen() {
                             [weak self] state in
                             if state == .success {
-                                self?.reloadData()
+                                self?.reloadContentAfterEdit()
                             }
                         }
                     }
@@ -2273,6 +2340,11 @@ extension MediaCategoryViewController {
     }
 
     private func selectedItem(at indexPath: IndexPath) {
+        if isShowingTabSearchResults {
+            tabSearchDataSource?.selectItem(at: indexPath)
+            return
+        }
+
         let modelContent = getObject(at: indexPath)
         var indexPath = indexPath
         if isSectioned,
@@ -3050,6 +3122,18 @@ extension MediaCategoryViewController: MediaCollectionViewCellEnqueueDelegate {
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell),
               let modelContent = getObject(at: indexPath) else {
+            return
+        }
+
+        if isShowingTabSearchResults {
+            let deletedItems = tabSearchDataSource?.itemsDeleted(with: modelContent) ?? [modelContent]
+            let editActions = makeTabSearchEditActions(for: tabSearchModel(for: modelContent))
+            editActions.objects = [modelContent]
+            editActions.delete() { [weak self] state in
+                if state == .success {
+                    self?.removeFromTabSearchResults(deletedItems)
+                }
+            }
             return
         }
 

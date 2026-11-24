@@ -43,6 +43,8 @@ class LibraryTabSearchDataSource: NSObject {
 
     let scope: LibrarySearchScope
     weak var delegate: LibraryTabSearchDataSourceDelegate?
+    weak var cellDelegate: MediaCollectionViewCellDelegate?
+    weak var contextMenuDelegate: UICollectionViewDelegate?
 
     private(set) var sections = [LibrarySearchSection]()
     private(set) var searchString: String = ""
@@ -109,6 +111,41 @@ class LibraryTabSearchDataSource: NSObject {
                 self.sections = sections
                 completion()
             }
+        }
+    }
+
+    func item(at indexPath: IndexPath) -> VLCMLObject? {
+        return sections.objectAtIndex(index: indexPath.section)?.items.objectAtIndex(index: indexPath.row)
+    }
+
+    func selectItem(at indexPath: IndexPath) {
+        guard let section = sections.objectAtIndex(index: indexPath.section),
+              let item = section.items.objectAtIndex(index: indexPath.row) else {
+            return
+        }
+
+        delegate?.libraryTabSearchDataSource(self, didSelect: item, in: section)
+    }
+
+    func itemsDeleted(with item: VLCMLObject) -> [VLCMLObject] {
+        guard let collection = item as? MediaCollectionModel else {
+            return [item]
+        }
+
+        return [item] + (collection.files() ?? [])
+    }
+
+    func remove(_ deletedItems: [VLCMLObject]) {
+        let isDeleted: (VLCMLObject) -> Bool = { item in
+            deletedItems.contains { type(of: $0) == type(of: item) && $0.identifier() == item.identifier() }
+        }
+
+        sections = sections.compactMap { section in
+            let items = section.items.filter { !isDeleted($0) }
+            guard !items.isEmpty else {
+                return nil
+            }
+            return LibrarySearchSection(title: section.title, items: items, mediaGroupNames: section.mediaGroupNames)
         }
     }
 }
@@ -229,6 +266,7 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
             mediaLibraryService.requestThumbnail(for: media)
         }
 
+        cell.delegate = cellDelegate
         cell.isEditing = false
         cell.media = item
         if let media = item as? VLCMLMedia, let mediaGroupName = section.mediaGroupNames[media.groupIdentifier()] {
@@ -236,7 +274,6 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
         }
         cell.isAccessibilityElement = true
         cell.accessibilityIdentifier = VLCAccessibilityIdentifier.mediaCell
-        cell.disableScrollView()
 
         return cell
     }
@@ -261,13 +298,23 @@ extension LibraryTabSearchDataSource: UICollectionViewDataSource {
 extension LibraryTabSearchDataSource: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        selectItem(at: indexPath)
+    }
 
-        guard let section = sections.objectAtIndex(index: indexPath.section),
-              let item = section.items.objectAtIndex(index: indexPath.row) else {
-            return
-        }
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath,
+                        point: CGPoint) -> UIContextMenuConfiguration? {
+        return contextMenuDelegate?.collectionView?(collectionView,
+                                                    contextMenuConfigurationForItemAt: indexPath,
+                                                    point: point)
+    }
 
-        delegate?.libraryTabSearchDataSource(self, didSelect: item, in: section)
+    func collectionView(_ collectionView: UICollectionView,
+                        willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration,
+                        animator: UIContextMenuInteractionCommitAnimating) {
+        contextMenuDelegate?.collectionView?(collectionView,
+                                             willPerformPreviewActionForMenuWith: configuration,
+                                             animator: animator)
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
