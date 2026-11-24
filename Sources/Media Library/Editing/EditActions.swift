@@ -36,6 +36,10 @@ class EditActions {
         self.mediaLibraryService = mediaLibraryService
         updateActionStatusLabelPresentingView()
     }
+
+    deinit {
+        actionStatusLabel.removeFromSuperview()
+    }
 }
 
 // MARK: - Main edit actions
