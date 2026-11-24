@@ -2,7 +2,7 @@
  * VerticalSliderControl.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2025 VideoLAN. All rights reserved.
+ * Copyright (c) 2025-2026 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Craig Reyenga <craig.reyenga # gmail.com>
@@ -23,7 +23,7 @@ class VerticalSliderControl: UIControl {
     private static let defaultThumbSideLength = CGFloat(31) // UISlider has a private default height of 31 pixels
     private static let thumbTolerance = CGFloat(10)
     private static let defaultTrackWidth: CGFloat = 8
-    private static let accessibilityIncrement: Float = 0.1 // consider making this configurable via a setter
+    private static let accessibilityStep: Float = 1 / 16 // consider making this configurable via a setter
 
     private(set) var value: Float = 0 {
         didSet {
@@ -283,24 +283,7 @@ class VerticalSliderControl: UIControl {
         isAccessibilityElement = true
         // the owner can and should customize accessibilityLabel
         accessibilityLabel = NSLocalizedString("VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL", comment: "")
-
-        // We avoid using `adjustable` here. We have our own increment and
-        // decrement actions; we don't need the system to add its own.
-        accessibilityTraits = []
-
-        let increment = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VERTICAL_SLIDER_CONTROL_INCREMENT_ACTION", comment: ""),
-                    image: UIImage(systemName: "arrow.up"),
-                    target: self,
-                    selector: #selector(handleAccessibilityIncrement))
-
-        let decrement = UIAccessibilityCustomAction
-            .create(name: NSLocalizedString("VERTICAL_SLIDER_CONTROL_DECREMENT_ACTION", comment: ""),
-                    image: UIImage(systemName: "arrow.down"),
-                    target: self,
-                    selector: #selector(handleAccessibilityDecrement))
-
-        accessibilityCustomActions = [increment, decrement]
+        accessibilityTraits = .adjustable
     }
 
     private let trackLayer: CALayer = {
@@ -447,18 +430,28 @@ class VerticalSliderControl: UIControl {
         updateValueAndNotify(newValue)
     }
 
-    @objc private func handleAccessibilityIncrement() -> Bool {
-        let newPct = min(1, percentage + Self.accessibilityIncrement)
-        let newVal = lerp(from: range.lowerBound, to: range.upperBound, t: newPct)
-        updateValueAndNotify(newVal, animated: true)
-        return true
+    override var accessibilityValue: String? {
+        get {
+            super.accessibilityValue ?? NumberFormatter.localizedString(from: NSNumber(value: percentage),
+                                                                        number: .percent)
+        }
+        set {
+            super.accessibilityValue = newValue
+        }
     }
 
-    @objc private func handleAccessibilityDecrement() -> Bool {
-        let newPct = max(0, percentage - Self.accessibilityIncrement)
+    override func accessibilityIncrement() {
+        guard isEnabled else { return }
+        let newPct = min(1, percentage + Self.accessibilityStep)
         let newVal = lerp(from: range.lowerBound, to: range.upperBound, t: newPct)
         updateValueAndNotify(newVal, animated: true)
-        return true
+    }
+
+    override func accessibilityDecrement() {
+        guard isEnabled else { return }
+        let newPct = max(0, percentage - Self.accessibilityStep)
+        let newVal = lerp(from: range.lowerBound, to: range.upperBound, t: newPct)
+        updateValueAndNotify(newVal, animated: true)
     }
 }
 
