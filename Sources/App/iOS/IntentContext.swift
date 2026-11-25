@@ -25,6 +25,7 @@ enum IntentStrings {
         NSLocalizedString("APPINTENT_ERROR_NO_MEDIA", comment: ""),
         NSLocalizedString("APPINTENT_ERROR_PLAYLIST_UPDATE", comment: ""),
         NSLocalizedString("APPINTENT_ERROR_PLAYBACK_START", comment: ""),
+        NSLocalizedString("APPINTENT_ERROR_NOTHING_TO_RESUME", comment: ""),
     ]
 }
 
@@ -33,6 +34,7 @@ enum IntentError: Error, CustomLocalizedStringResourceConvertible {
     case noMatchingMedia
     case playlistUpdateFailed
     case playbackDidNotStart
+    case nothingToResume
 
     var localizedStringResource: LocalizedStringResource {
         switch self {
@@ -42,6 +44,8 @@ enum IntentError: Error, CustomLocalizedStringResourceConvertible {
             return "APPINTENT_ERROR_PLAYLIST_UPDATE"
         case .playbackDidNotStart:
             return "APPINTENT_ERROR_PLAYBACK_START"
+        case .nothingToResume:
+            return "APPINTENT_ERROR_NOTHING_TO_RESUME"
         }
     }
 }

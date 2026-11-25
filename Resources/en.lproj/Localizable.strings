@@ -832,6 +832,7 @@
 "APPINTENT_ERROR_NO_MEDIA" = "No matching media was found in your library.";
 "APPINTENT_ERROR_PLAYLIST_UPDATE" = "The playlist could not be updated.";
 "APPINTENT_ERROR_PLAYBACK_START" = "Playback could not be started.";
+"APPINTENT_ERROR_NOTHING_TO_RESUME" = "There is nothing to resume.";
 "APPINTENT_AFFINITY_FAVORITE" = "Favorite";
 "APPINTENT_AFFINITY_NOT_FAVORITE" = "Not a Favorite";
 "APPINTENT_AFFINITY_UNSET" = "Unset";
@@ -847,6 +848,10 @@
 "APPINTENT_PLAY_RADIO_DESCRIPTION" = "Play a radio station in VLC.";
 "APPINTENT_PLAY_RADIO_PLAY_${station}" = "Play ${station}";
 "APPINTENT_PLAY_RADIO_PROMPT" = "Which radio station would you like to play?";
+
+// MARK: - Play/Pause App Intent Strings
+"APPINTENT_PLAY_PAUSE_TITLE" = "Play/Pause";
+"APPINTENT_PLAY_PAUSE_DESCRIPTION" = "Pause or resume playback in VLC.";
 
 // MARK: - AppShortcut Strings
 "APPSHORTCUT_PLAY_MEDIA_SHORT_TITLE" = "Play Media";
@@ -866,6 +871,9 @@
 "APPSHORTCUT_PLAY_RADIO_SHORT_TITLE" = "Play Radio";
 "APPSHORTCUT_PLAY_RADIO_PHRASE_PLAY_${applicationName}" = "Play radio in ${applicationName}";
 "APPSHORTCUT_PLAY_RADIO_PHRASE_LISTEN_${applicationName}" = "Listen to radio in ${applicationName}";
+"APPSHORTCUT_PLAY_PAUSE_SHORT_TITLE" = "Play/Pause";
+"APPSHORTCUT_PLAY_PAUSE_PHRASE_TOGGLE_${applicationName}" = "Play or pause ${applicationName}";
+"APPSHORTCUT_PLAY_PAUSE_PHRASE_RESUME_${applicationName}" = "Resume ${applicationName}";
 
 // MARK: - VerticalSliderControl Strings
 "VERTICAL_SLIDER_CONTROL_ACCESSIBILITY_LABEL" = "Vertical slider";

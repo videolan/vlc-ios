@@ -34,6 +34,15 @@ struct AppShortcuts: AppShortcutsProvider {
             shortTitle: "APPSHORTCUT_PLAY_RADIO_SHORT_TITLE",
             systemImageName: "antenna.radiowaves.left.and.right"
         )
+        AppShortcut(
+            intent: PlayPauseIntent(),
+            phrases: [
+                "APPSHORTCUT_PLAY_PAUSE_PHRASE_TOGGLE_\(.applicationName)",
+                "APPSHORTCUT_PLAY_PAUSE_PHRASE_RESUME_\(.applicationName)"
+            ],
+            shortTitle: "APPSHORTCUT_PLAY_PAUSE_SHORT_TITLE",
+            systemImageName: "playpause"
+        )
         if #available(iOS 18.4, visionOS 2.4, *) {
             AppShortcut(
                 intent: PlayVideoIntent(),
@@ -100,5 +109,8 @@ struct AppShortcuts: AppShortcutsProvider {
         NSLocalizedString("APPSHORTCUT_PLAY_RADIO_SHORT_TITLE", comment: ""),
         NSLocalizedString("APPSHORTCUT_PLAY_RADIO_PHRASE_PLAY_${applicationName}", comment: ""),
         NSLocalizedString("APPSHORTCUT_PLAY_RADIO_PHRASE_LISTEN_${applicationName}", comment: ""),
+        NSLocalizedString("APPSHORTCUT_PLAY_PAUSE_SHORT_TITLE", comment: ""),
+        NSLocalizedString("APPSHORTCUT_PLAY_PAUSE_PHRASE_TOGGLE_${applicationName}", comment: ""),
+        NSLocalizedString("APPSHORTCUT_PLAY_PAUSE_PHRASE_RESUME_${applicationName}", comment: ""),
     ]
 }
