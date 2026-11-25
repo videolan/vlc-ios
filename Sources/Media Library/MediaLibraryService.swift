@@ -1424,11 +1424,15 @@ extension MediaLibraryService: VLCMediaParserDelegate {
         lastPlayedMediaListCompletion = nil
 
         guard status == .done,
-              let mediaList = media.subitems
+              let subitems = media.subitems
         else {
             runLastPlayedMediaListCompletion(completion, restored: false)
             return
         }
+
+        subitems.lock()
+        let mediaList = VLCMediaList(array: (0..<subitems.count).compactMap { subitems.media(at: UInt($0)) })
+        subitems.unlock()
 
         let defaults = UserDefaults.standard
         let mediaCount = mediaList.count
