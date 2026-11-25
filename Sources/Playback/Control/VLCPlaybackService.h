@@ -241,9 +241,5 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)moveCustomEqualizerProfileAtIndex:(NSUInteger)index up:(BOOL)up;
 #endif
 
-#if !TARGET_OS_WATCH
-- (void)saveCurrentlyPlayingMediaIdentifier;
-#endif
-
 NS_ASSUME_NONNULL_END
 @end

@@ -279,8 +279,6 @@
 
     VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
     [fs storeContentSynchronously];
-
-    [vps saveCurrentlyPlayingMediaIdentifier];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler

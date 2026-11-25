@@ -1469,7 +1469,6 @@ extension MediaLibraryService: VLCMediaParserDelegate {
                 playbackService.configurePlaybackWithMedia(at: lastPlayedMediaIndex,
                                                            fromCollection: mediaList,
                                                            openInMiniPlayer: openInMiniPlayer)
-                defaults.set(-1, forKey: kVLCLastPlayedMediaIdentifier)
             }
             completion?(playbackService.playerIsSetup)
         }

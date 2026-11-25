@@ -1183,6 +1183,9 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
                 }
                 [self restoreDelaysForMedia:[VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media]];
                 [self setNeedsMetadataUpdate];
+#if !TARGET_OS_WATCH
+                [self saveCurrentlyPlayingMediaIdentifier];
+#endif
                 [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self userInfo:@{
                     kVLCPlayerOpenInMiniPlayer: @(self->_openInMiniPlayer),
                     kVLCPlayerExpectsAudioOnlyContent: @(self.expectsAudioOnlyContent)
