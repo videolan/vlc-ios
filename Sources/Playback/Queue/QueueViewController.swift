@@ -241,6 +241,7 @@ class QueueViewController: UIViewController {
             ]
 
             var videoPlayer: VideoPlayerViewController?
+            var audioPlayer: AudioPlayerViewController?
             if let parent = parent as? VideoPlayerViewController {
                 topConstraint = view.topAnchor.constraint(equalTo: parent.mediaNavigationBar.queueButton.bottomAnchor,
                                                           constant: cardSpacing)
@@ -255,6 +256,7 @@ class QueueViewController: UIViewController {
                 topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
                 darkOverlayView.isHidden = true
+                audioPlayer = parent
             }
 
             parent.view.addSubview(view)
@@ -276,10 +278,14 @@ class QueueViewController: UIViewController {
                     view.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: cardMinimumMargin),
                     preferredWidth
                 ]
-            } else {
+            } else if let audioPlayer {
+                let column = audioPlayer.audioPlayerView.playqueueView
+                let fillColumn = view.widthAnchor.constraint(equalTo: column.widthAnchor, constant: -2 * contentInset)
+                fillColumn.priority = .defaultHigh
                 constraints = [
-                    view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: contentInset),
-                    view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -contentInset)
+                    view.centerXAnchor.constraint(equalTo: column.centerXAnchor),
+                    view.widthAnchor.constraint(lessThanOrEqualToConstant: LayoutWidth.compact.rawValue),
+                    fillColumn
                 ]
             }
 

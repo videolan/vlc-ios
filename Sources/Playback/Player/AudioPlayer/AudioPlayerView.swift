@@ -1007,12 +1007,20 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         playqueueView.isHidden = true
 
         addSubview(playqueueView)
-        NSLayoutConstraint.activate([
+
+        sharedConstraints.append(contentsOf: [
             playqueueView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
-            playqueueView.topAnchor.constraint(equalTo: thumbnailView.topAnchor),
             playqueueView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor),
+        ])
+
+        portraitConstraints.append(contentsOf: [
+            playqueueView.topAnchor.constraint(equalTo: thumbnailView.topAnchor),
             playqueueView.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor),
-            playqueueView.heightAnchor.constraint(equalTo: thumbnailView.heightAnchor, multiplier: 1)
+        ])
+
+        landscapeConstraints.append(contentsOf: [
+            playqueueView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 10),
+            playqueueView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
 
