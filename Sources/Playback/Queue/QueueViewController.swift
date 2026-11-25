@@ -598,9 +598,10 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding = sidePadding + 5.0
-        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - padding,
-                                                        safeAreaInsets: collectionView.safeAreaInsets)
+        let padding = sidePadding + 5.0 + MediaCollectionViewCell.edgePadding + 2 * MediaCollectionViewCell.interItemPadding
+        let height = MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width,
+                                                              safeAreaInsets: collectionView.safeAreaInsets).height
+        return CGSize(width: max(floor(collectionView.frame.width - padding), 1), height: height)
     }
 
     func collectionView(_ collectionView: UICollectionView,
