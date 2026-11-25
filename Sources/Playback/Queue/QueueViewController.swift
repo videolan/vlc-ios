@@ -818,6 +818,7 @@ extension QueueViewController: UICollectionViewDropDelegate {
             mediaList.insert(media, at: UInt(destinationIndexPath.row))
             collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
         })
+        playbackService.setNeedsMediaListSave()
 
         coordinator.drop(item.dragItem, toItemAt: destinationIndexPath).addCompletion { _ in
             (collectionView.cellForItem(at: destinationIndexPath) as? MediaCollectionViewCell)?.animateCurrentlyPlayingState()

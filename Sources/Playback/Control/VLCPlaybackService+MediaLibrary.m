@@ -75,6 +75,7 @@
             default:
                 break;
         }
+        [self setNeedsMediaListSave];
         return YES;
     } else {
         [self playMedia:media];

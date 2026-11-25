@@ -328,7 +328,6 @@ class TabBarCoordinator: NSObject {
             openAlbum(album)
         }
 
-        // the queue on disk is only written when backgrounding, hence stale while anything plays
         guard !PlaybackService.sharedInstance().playerIsSetup else {
             return
         }

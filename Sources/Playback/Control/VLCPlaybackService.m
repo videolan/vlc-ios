@@ -124,6 +124,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSString *_primaryVideoSubtitleTrackId;
     NSString *_secondaryVideoSubtitleTrackId;
     BOOL _pendingSubtitleSlaveSelection;
+    BOOL _needsMediaListSave;
 }
 
 #if !TARGET_OS_WATCH
@@ -259,7 +260,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     _pathToExternalSubtitlesFile = subsFilePath;
 
     _sessionWillRestart = _playerIsSetup;
-    _playerIsSetup ? [self stopPlayback] : [self startPlayback];
+    _playerIsSetup ? [self _stopPlayback] : [self startPlayback];
 
 #if TARGET_OS_TV
     VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
@@ -328,7 +329,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     if (!self.mediaList) {
         APLog(@"%s: no URL and no media list set, stopping playback", __PRETTY_FUNCTION__);
         [_playbackSessionManagementLock unlock];
-        [self stopPlayback];
+        [self _stopPlayback];
         return;
     }
 
@@ -554,6 +555,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     [_playbackSessionManagementLock unlock];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
+    [self setNeedsMediaListSave];
 }
 
 - (void)_playNewMedia
@@ -572,6 +574,14 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 }
 
 - (void)stopPlayback
+{
+    [self _stopPlayback];
+#if !TARGET_OS_WATCH
+    [[NSFileManager defaultManager] removeItemAtURL:[self savedMediaListURL] error:nil];
+#endif
+}
+
+- (void)_stopPlayback
 {
     self.stopAfterCurrentItem = NO;
 
@@ -1202,7 +1212,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
                     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidFail object:self];
                 });
                 self->_sessionWillRestart = NO;
-                [self stopPlayback];
+                [self _stopPlayback];
             } break;
             case VLCMediaPlayerStateStopping: {
                 APLog(@"%s: stopping", __func__);
@@ -1217,7 +1227,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
                 if ([self->_listPlayer.mediaList indexOfMedia:self->_mediaPlayer.media] == listCount - 1
                     && self.repeatMode == VLCDoNotRepeat) {
                     self->_sessionWillRestart = NO;
-                    [self stopPlayback];
+                    [self _stopPlayback];
                 }
             } break;
             default:
@@ -1364,6 +1374,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         }
     }
 
+    [self setNeedsMediaListSave];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
     if ([self.delegate respondsToSelector:@selector(reloadPlayQueue)])
         [self.delegate reloadPlayQueue];
@@ -1510,7 +1521,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
         } else if (self.repeatMode == VLCDoNotRepeat) {
-            [self stopPlayback];
+            [self _stopPlayback];
         }
         return NO;
     }
@@ -2172,6 +2183,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSUInteger selectedIndex = selected ? [effectiveList indexOfMedia:selected] : NSNotFound;
     _currentIndex = selectedIndex != NSNotFound ? selectedIndex : 0;
     _listPlayer.mediaList = effectiveList;
+    [self setNeedsMediaListSave];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
     if ([self.delegate respondsToSelector:@selector(reloadPlayQueue)])
@@ -2427,7 +2439,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 - (void)sleepTimerFired
 {
     [self cancelSleepTimer];
-    [self stopPlayback];
+    [self _stopPlayback];
 }
 
 - (void)setStopAfterCurrentItem:(BOOL)stopAfterCurrentItem
@@ -2576,6 +2588,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     }
     if (!deleteCurrentMedia && (NSInteger)index < _currentIndex)
         _currentIndex -= 1;
+    [self setNeedsMediaListSave];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServiceMediaListDidChange object:self];
     [_delegate reloadPlayQueue];
@@ -2589,6 +2602,20 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     }
 }
 
+- (void)setNeedsMediaListSave
+{
+#if !TARGET_OS_WATCH
+    if (_needsMediaListSave)
+        return;
+
+    _needsMediaListSave = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->_needsMediaListSave = NO;
+        [self saveCurrentMediaList];
+    });
+#endif
+}
+
 #if !TARGET_OS_WATCH
 
 - (void)saveCurrentlyPlayingMediaIdentifier {
@@ -2596,7 +2623,17 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     [[NSUserDefaults standardUserDefaults] setInteger:identifier forKey:kVLCLastPlayedMediaIdentifier];
 }
 
+- (NSURL *)savedMediaListURL
+{
+    NSString *fileName = [NSLocalizedString(@"LAST_PLAYED_MEDIALIST", nil) stringByAppendingPathExtension:@"m3u"];
+    NSURL *appSupportURL = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
+    return [appSupportURL URLByAppendingPathComponent:fileName];
+}
+
 - (void) saveCurrentMediaList {
+    if (_mediaList.count == 0)
+        return;
+
     NSString *appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
     if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportDir isDirectory:NULL]) {
         NSError *error = nil;
@@ -2605,9 +2642,8 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         }
     }
 
-    NSString *fileName = [NSLocalizedString(@"LAST_PLAYED_MEDIALIST", nil) stringByAppendingPathExtension:@"m3u"];
-    NSURL *appSupportURL = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
-    NSURL *fileURL = [appSupportURL URLByAppendingPathComponent:fileName];
+    NSURL *fileURL = [self savedMediaListURL];
+    NSURL *appSupportURL = fileURL.URLByDeletingLastPathComponent;
     [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
 
     NSError *error = nil;
@@ -2650,7 +2686,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->_stopAfterCurrentItem) {
             self->_sessionWillRestart = NO;
-            [self stopPlayback];
+            [self _stopPlayback];
             return;
         }
 
