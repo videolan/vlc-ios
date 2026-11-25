@@ -125,6 +125,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     NSString *_secondaryVideoSubtitleTrackId;
     BOOL _pendingSubtitleSlaveSelection;
     BOOL _needsMediaListSave;
+    BOOL _needsInitialPlayback;
 }
 
 #if !TARGET_OS_WATCH
@@ -280,6 +281,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
     _currentIndex = (int)index;
     [self _setupPlayer];
     [_listPlayer.mediaPlayer setMedia:[mediaList mediaAtIndex:index]];
+    _needsInitialPlayback = YES;
 }
 
 - (VLCTime *)playedTime
@@ -601,6 +603,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
     _currentlyPlayingLibraryMedia = nil;
     _metadataMediaURL = nil;
+    _needsInitialPlayback = NO;
 
     if (_playerIsSetup) {
         _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
@@ -1160,6 +1163,7 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
         switch (currentState) {
             case VLCMediaPlayerStateOpening: {
                 APLog(@"%s: opening", __func__);
+                self->_needsInitialPlayback = NO;
                 self->_openedMedia = self->_mediaPlayer.media;
                 self->_pendingSubtitleSlaveSelection = NO;
 
@@ -1331,6 +1335,10 @@ static const NSInteger kVLCPreampLevelMinimum = -12;
 
 - (void)play
 {
+    if (_needsInitialPlayback) {
+        [_listPlayer playMedia:_mediaPlayer.media];
+        return;
+    }
     [_listPlayer play];
 }
 
