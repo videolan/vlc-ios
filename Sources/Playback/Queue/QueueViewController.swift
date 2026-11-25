@@ -36,7 +36,16 @@ class QueueViewFlowLayout: UICollectionViewFlowLayout {
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
+        return newBounds.width != collectionView?.bounds.width
+    }
+
+    override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
+        let context = super.invalidationContext(forBoundsChange: newBounds)
+        if let context = context as? UICollectionViewFlowLayoutInvalidationContext,
+           newBounds.width != collectionView?.bounds.width {
+            context.invalidateFlowLayoutDelegateMetrics = true
+        }
+        return context
     }
 }
 
@@ -176,12 +185,6 @@ class QueueViewController: UIViewController {
                                   selector: #selector(configureAppearance),
                                   name: UIAccessibility.reduceTransparencyStatusDidChangeNotification,
                                   object: nil)
-#if os(iOS)
-        defaultCenter.addObserver(self,
-                                  selector: #selector(deviceOrientationDidChange),
-                                  name: UIDevice.orientationDidChangeNotification,
-                                  object: nil)
-#endif
         defaultCenter.addObserver(self,
                                   selector: #selector(reload),
                                   name: Notification.Name(VLCPlaybackServiceShuffleModeUpdated),
@@ -412,10 +415,6 @@ class QueueViewController: UIViewController {
         view.removeFromSuperview()
         removeFromParent()
         darkOverlayView.isHidden = true
-    }
-
-    @objc func deviceOrientationDidChange(_ notification: Notification) {
-        queueCollectionView.collectionViewLayout.invalidateLayout()
     }
 
     @objc func reload() {
