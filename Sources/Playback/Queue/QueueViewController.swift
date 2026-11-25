@@ -277,7 +277,7 @@ class QueueViewController: UIViewController {
                 let preferredWidth = view.widthAnchor.constraint(equalToConstant: cardWidth)
                 preferredWidth.priority = .defaultHigh
                 constraints = [
-                    view.trailingAnchor.constraint(equalTo: videoPlayer.mediaNavigationBar.trailingAnchor),
+                    view.trailingAnchor.constraint(equalTo: videoPlayer.controlsAreaLayoutGuide.trailingAnchor),
                     view.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: cardMinimumMargin),
                     preferredWidth
                 ]

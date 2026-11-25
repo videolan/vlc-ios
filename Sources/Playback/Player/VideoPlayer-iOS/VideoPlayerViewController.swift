@@ -296,7 +296,7 @@ class VideoPlayerViewController: PlayerViewController {
 
     private var isBookLayout = false
 
-    private let controlsAreaLayoutGuide = UILayoutGuide()
+    let controlsAreaLayoutGuide = UILayoutGuide()
 
     private lazy var controlsAreaTopConstraint: NSLayoutConstraint = {
         controlsAreaLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor)
