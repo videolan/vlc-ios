@@ -49,6 +49,13 @@
     BOOL success = YES;
     NSError *writeError = nil;
 
+    NSArray<NSString *> *homeComponents = NSHomeDirectory().pathComponents;
+    NSArray<NSString *> *baseComponents = baseDirectory.path.pathComponents;
+    NSUInteger homeCount = homeComponents.count;
+    NSUInteger baseCount = baseComponents.count;
+    BOOL baseIsInHome = baseCount > homeCount
+        && [[baseComponents subarrayWithRange:NSMakeRange(0, homeCount)] isEqualToArray:homeComponents];
+
     [self lock];
     if ([handle writeData:[@"#EXTM3U\n" dataUsingEncoding:NSUTF8StringEncoding] error:&writeError]) {
         NSInteger count = self.count;
@@ -79,6 +86,25 @@
                         relativePath = [relativePath substringFromIndex:1];
                     }
                     location = relativePath;
+                } else if (baseIsInHome) {
+                    NSArray<NSString *> *fileComponents = filePath.pathComponents;
+                    NSArray<NSString *> *encodedComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO].percentEncodedPath.pathComponents;
+                    NSUInteger fileCount = fileComponents.count;
+                    if (fileCount > homeCount && encodedComponents.count == fileCount
+                        && [[fileComponents subarrayWithRange:NSMakeRange(0, homeCount)] isEqualToArray:homeComponents]) {
+                        NSUInteger commonCount = homeCount;
+                        while (commonCount < baseCount && commonCount < fileCount - 1
+                               && [fileComponents[commonCount] isEqualToString:baseComponents[commonCount]]) {
+                            commonCount++;
+                        }
+
+                        NSMutableArray<NSString *> *relativeComponents = [NSMutableArray array];
+                        for (NSUInteger j = commonCount; j < baseCount; j++) {
+                            [relativeComponents addObject:@".."];
+                        }
+                        [relativeComponents addObjectsFromArray:[encodedComponents subarrayWithRange:NSMakeRange(commonCount, fileCount - commonCount)]];
+                        location = [relativeComponents componentsJoinedByString:@"/"];
+                    }
                 }
             }
 
