@@ -190,7 +190,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
     }
 
-    if ([notification.userInfo[kVLCPlayerOpenInMiniPlayer] isEqual: @YES]) {
+    if ([notification.userInfo[kVLCPlayerOpenInMiniPlayer] isEqual: @YES] && ![self _presentedPlaybackController]) {
         [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeMiniplayer];
     }
 
