@@ -1473,6 +1473,9 @@ extension MediaLibraryService: VLCMediaParserDelegate {
                 playbackService.configurePlaybackWithMedia(at: lastPlayedMediaIndex,
                                                            fromCollection: mediaList,
                                                            openInMiniPlayer: openInMiniPlayer)
+                #if !os(watchOS)
+                playbackService.setPlayerHidden(false)
+                #endif
             }
             completion?(playbackService.playerIsSetup)
         }
