@@ -101,6 +101,8 @@ class PlayerViewController: UIViewController {
     private var seekStartPosition: Float = 0
     private var accumulatedSeekTime: Float = 0
     private let seekSensitivity: Float = 0.1
+    private var frameStepsTaken: Int = 0
+    private let frameStepDistance: CGFloat = 20
     
     // MARK: - Time Unit Conversion Helpers
 
@@ -1254,7 +1256,6 @@ class PlayerViewController: UIViewController {
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         let verticalPanVelocity: Float = Float(recognizer.velocity(in: view).y)
-        let horizontalPanVelocity: Float = Float(recognizer.velocity(in: view).x)
 
         let currentPos = recognizer.location(in: view)
 
@@ -1287,6 +1288,9 @@ class PlayerViewController: UIViewController {
             case .seek:
                 seekStartPosition = playbackService.playbackPosition
                 accumulatedSeekTime = 0
+                recognizer.setTranslation(.zero, in: view)
+            case .frame:
+                frameStepsTaken = 0
                 recognizer.setTranslation(.zero, in: view)
             case .brightness:
                 brightnessBackgroundGradientLayer.isHidden = false
@@ -1373,11 +1377,15 @@ class PlayerViewController: UIViewController {
                 brightnessControlView.updateIcon(level: brightnessControl.value)
             }
         case .frame:
-            if recognizer.state == .changed || recognizer.state == .ended {
-                if horizontalPanVelocity > 0 {
+            if recognizer.state == .changed {
+                let targetSteps = Int(recognizer.translation(in: view).x / frameStepDistance)
+                while frameStepsTaken < targetSteps {
                     playbackService.nextFrame()
-                } else {
+                    frameStepsTaken += 1
+                }
+                while frameStepsTaken > targetSteps {
                     playbackService.previousFrame()
+                    frameStepsTaken -= 1
                 }
             }
 #endif
