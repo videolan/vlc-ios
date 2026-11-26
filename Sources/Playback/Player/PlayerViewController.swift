@@ -2018,12 +2018,10 @@ extension PlayerViewController {
 
     @objc func nextFrame() {
         playbackService.nextFrame()
-        mediaScrubProgressBar.updateProgressValues()
     }
 
     @objc func previousFrame() {
         playbackService.previousFrame()
-        mediaScrubProgressBar.updateProgressValues()
     }
 
     @objc func keyEscape() {
