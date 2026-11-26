@@ -807,6 +807,7 @@
 "KEY_INCREASE_AUDIO_DELAY" = "Increase audio delay";
 "KEY_SEEK_TO_PERCENT" = "Seek to %i%% of duration";
 "KEY_NEXT_FRAME" = "Jump to the next frame";
+"KEY_PREVIOUS_FRAME" = "Jump to the previous frame";
 
 // MARK: - Custom Playback Speed
 

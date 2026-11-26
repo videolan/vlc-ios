@@ -2070,6 +2070,7 @@ extension PlayerViewController {
         eCommand.discoverabilityTitle = NSLocalizedString("KEY_NEXT_FRAME", comment: "")
 
         let zCommand = UIKeyCommand(input: "e", modifierFlags: [.shift], action: #selector(previousFrame))
+        zCommand.discoverabilityTitle = NSLocalizedString("KEY_PREVIOUS_FRAME", comment: "")
 
         let escapeCommand = UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(keyEscape))
         escapeCommand.discoverabilityTitle = NSLocalizedString("BUTTON_CLOSE", comment: "")
