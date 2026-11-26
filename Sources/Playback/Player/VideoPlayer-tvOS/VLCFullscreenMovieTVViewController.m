@@ -452,6 +452,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self showPlaybackControlsIfNeededForUserInteraction];
 
+    if (self.canStepFrames) {
+        [vpc previousFrame];
+        return;
+    }
+
     [self jumpBackward:1];
 }
 
@@ -467,6 +472,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
 
     [self showPlaybackControlsIfNeededForUserInteraction];
+
+    if (self.canStepFrames) {
+        [vpc nextFrame];
+        return;
+    }
 
     [self jumpForward:1];
 }
@@ -637,12 +647,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     BOOL canJump = [self canJump];
     switch (location) {
         case VLCSiriRemoteTouchLocationLeft:
-            if (canJump && self.isSeekable) {
+            if (self.canStepFrames) {
+                [[VLCPlaybackService sharedInstance] previousFrame];
+            } else if (canJump && self.isSeekable) {
                 [self jumpBackward:1];
             }
             break;
         case VLCSiriRemoteTouchLocationRight:
-            if (canJump && self.isSeekable) {
+            if (self.canStepFrames) {
+                [[VLCPlaybackService sharedInstance] nextFrame];
+            } else if (canJump && self.isSeekable) {
                 [self jumpForward:1];
             }
             break;
@@ -826,6 +840,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
     // to match the AVPlayerViewController behavior only allow scrubbing when paused.
     return ![VLCPlaybackService sharedInstance].isPlaying;
+}
+
+- (BOOL)canStepFrames
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+    return !vpc.isPlaying && !vpc.metadata.isAudioOnly && !self.transportBar.scrubbing;
 }
 
 #pragma mark -
