@@ -23,15 +23,26 @@ class LibrarySearchDataSource: NSObject {
         shouldReloadFor(searchString: "")
     }
 
+    private var searchableFiles: [VLCMLObject] {
+        guard let folderModel = model as? FolderModel else {
+            return model.anyfiles
+        }
+
+        folderModel.fileArrayLock.lock()
+        defer { folderModel.fileArrayLock.unlock() }
+        return folderModel.files + folderModel.folderMediaFiles
+    }
+
     func shouldReloadFor(searchString: String) {
         self.searchString = searchString
 
+        let files = searchableFiles
         guard searchString != "" else {
-            searchData = model.anyfiles
+            searchData = files
             return
         }
         searchData.removeAll()
-        model.anyfiles.forEach {
+        files.forEach {
             guard let searchableFile = $0 as? SearchableMLModel else {
                 assertionFailure("LibrarySearchDataSource: Unhandled type")
                 return
