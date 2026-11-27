@@ -1905,6 +1905,11 @@ extension MediaCategoryViewController: LibraryTabSearchDataSourceDelegate {
 #if !os(tvOS)
             createSpotlightItem(media: media)
 #endif
+        } else if let folder = item as? VLCMLFolder {
+            let folderViewController = FolderCategoryViewController(medialib: mediaLibraryService,
+                                                                    folder: folder,
+                                                                    isAudio: dataSource.scope == .audio)
+            navigationController?.pushViewController(folderViewController, animated: true)
         } else if let artist = item as? VLCMLArtist {
             showArtist(artist)
         } else if let mediaCollection = item as? MediaCollectionModel {

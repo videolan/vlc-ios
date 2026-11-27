@@ -212,9 +212,17 @@ private extension LibraryTabSearchDataSource {
                 LibrarySearchSection(title: NSLocalizedString("SONGS", comment: ""),
                                      items: medialib.searchAudio(pattern, sort: .alpha, desc: false) ?? []),
                 LibrarySearchSection(title: NSLocalizedString("GENRES", comment: ""),
-                                     items: medialib.searchGenre(byName: pattern, sort: .alpha, desc: false) ?? [])
+                                     items: medialib.searchGenre(byName: pattern, sort: .alpha, desc: false) ?? []),
+                LibrarySearchSection(title: NSLocalizedString("FOLDERS", comment: ""),
+                                     items: audioFolders(matching: pattern))
             ]
         }
+    }
+
+    func audioFolders(matching pattern: String) -> [VLCMLFolder] {
+        let baseFolderIdentifier = mediaLibraryService.baseFolder()?.identifier()
+        return medialib.searchFolders(withPattern: pattern, type: .audio, sortingCriteria: .alpha, desc: false)?
+            .filter { $0.identifier() != baseFolderIdentifier } ?? []
     }
 
     func mediaGroupNames(of items: [VLCMLObject]) -> [VLCMLIdentifier: String] {
