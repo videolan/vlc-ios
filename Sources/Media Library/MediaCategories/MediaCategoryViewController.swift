@@ -1824,7 +1824,10 @@ extension MediaCategoryViewController: UISearchControllerDelegate, UISearchResul
 
 extension MediaCategoryViewController: LibraryTabSearchDataSourceDelegate {
     private var activeTabSearchDataSource: LibraryTabSearchDataSource? {
-        return model is FolderModel ? nil : tabSearchDataSource
+        if let folderModel = model as? FolderModel, !folderModel.isAudio {
+            return nil
+        }
+        return tabSearchDataSource
     }
 
     private var shouldShowTabSearchResults: Bool {
